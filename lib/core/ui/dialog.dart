@@ -20,9 +20,7 @@ abstract class LunaDialog {
     static TextSpan bolded({ @required String text, double fontSize = LunaDialog.BODY_SIZE, Color color }) => TextSpan(
         text: text,
         style: TextStyle(
-            color: color == null
-                ? LunaColours.accent
-                : color,
+            color: color ?? LunaColours.accent,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             fontSize: fontSize,
         ),
@@ -39,22 +37,24 @@ abstract class LunaDialog {
     );
 
     static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => TextButton(
+        onPressed: onPressed == null ? null : () async {
+            unawaited(HapticFeedback.lightImpact());
+            onPressed();
+        },
         child: Text(
             text,
             style: TextStyle(
-                color: textColor == null
-                    ? LunaColours.accent
-                    : textColor,
+                color: textColor ?? LunaColours.accent,
                 fontSize: LunaDialog.BUTTON_SIZE,
             ),
         ),
-        onPressed: onPressed == null ? null : () async {
-            HapticFeedback.lightImpact();
-            onPressed();
-        },
     );
 
     static Widget cancel(BuildContext context, { Color textColor = Colors.white, String text }) => TextButton(
+        onPressed: () {
+            unawaited(HapticFeedback.lightImpact());
+            Navigator.of(context).pop();
+        },
         child: Text(
             text ?? 'lunasea.Cancel'.tr(),
             style: TextStyle(
@@ -62,17 +62,13 @@ abstract class LunaDialog {
                 fontSize: LunaDialog.BUTTON_SIZE,
             ),
         ),
-        onPressed: () {
-            HapticFeedback.lightImpact();
-            Navigator.of(context).pop();
-        },
     );
 
     static Widget content({ @required List<Widget> children }) => SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
         child: ListBody(
             children: children,
         ),
-        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
     );
 
     static Widget textContent({ @required String text, TextAlign textAlign = TextAlign.center }) => Text(
@@ -187,7 +183,7 @@ abstract class LunaDialog {
             ? null
             : subtitle,
         onTap: onTap == null ? null : () async {
-            HapticFeedback.selectionClick();
+            unawaited(HapticFeedback.selectionClick());
             onTap();
         },
         contentPadding: tileContentPadding(),

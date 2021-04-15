@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 class LunaTextInputBar extends StatefulWidget {
     static const double appBarHeight = 62.0;
     static const double appBarInnerHeight = 62.0-13.0;
-    static const EdgeInsets appBarMargin = const EdgeInsets.fromLTRB(12.0, 1.0, 12.0, 12.0);
+    static const EdgeInsets appBarMargin = EdgeInsets.fromLTRB(12.0, 1.0, 12.0, 12.0);
     
     final TextEditingController controller;
     final ScrollController scrollController;
@@ -68,14 +68,14 @@ class _State extends State<LunaTextInputBar> {
     Widget build(BuildContext context) => LunaCard(
         context: context,
         margin: widget.margin,
+        height: LunaTextInputBar.appBarInnerHeight,
+        color: Theme.of(context).canvasColor,
         child: FocusScope(
             child: Focus(
                 onFocusChange: (value) => setState(() => _isFocused = value),
                 child: widget.isFormField ? _isForm : _isNotForm,
             ),
         ),
-        height: LunaTextInputBar.appBarInnerHeight,
-        color: Theme.of(context).canvasColor,
     );
 
     TextStyle get _sharedTextStyle => TextStyle(
@@ -91,12 +91,9 @@ class _State extends State<LunaTextInputBar> {
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         suffixIcon: AnimatedOpacity(
+            opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
+            duration: Duration(milliseconds: 200),
             child: InkWell(
-                child: Icon(
-                    Icons.close,
-                    color: LunaColours.accent,
-                    size: 24.0,
-                ),
                 onTap: !_isFocused || widget.controller.text == '' ? null : () {
                     widget.scrollController?.lunaAnimateToStart();
                     widget.controller.text = '';
@@ -105,51 +102,54 @@ class _State extends State<LunaTextInputBar> {
                 mouseCursor: !_isFocused || widget.controller.text == '' ? SystemMouseCursors.text : SystemMouseCursors.click,
                 borderRadius: BorderRadius.circular(24.0),
                 hoverColor: Colors.transparent,
+                child: Icon(
+                    Icons.close,
+                    color: LunaColours.accent,
+                    size: 24.0,
+                ),
             ),
-            opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 200),
         ),
         icon: Padding(
+            padding: EdgeInsets.only(left: 16.0),
             child: Icon(
                 widget.labelIcon,
                 color: LunaColours.accent,
             ),
-            padding: EdgeInsets.only(left: 16.0),
         ),
         border: InputBorder.none,
         contentPadding: EdgeInsets.symmetric(vertical: 8.0),
     );
 
     TextFormField get _isForm => TextFormField(
-        autofillHints: widget.autofillHints,
-        autofocus: widget.autofocus,
-        controller: widget.controller,
+        autofillHints: widget?.autofillHints,
+        autofocus: widget?.autofocus,
+        controller: widget?.controller,
         decoration: _sharedInputDecoration,
         style: _sharedTextStyle,
         cursorColor: LunaColours.accent,
-        textInputAction: widget.action,
-        obscureText: widget.obscureText,
+        textInputAction: widget?.action,
+        obscureText: widget?.obscureText,
         autocorrect: false,
-        keyboardType: widget.keyboardType,
+        keyboardType: widget?.keyboardType,
         validator: widget?.validator,
-        onTap: widget.scrollController?.lunaAnimateToStart,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        onTap: widget?.scrollController?.lunaAnimateToStart,
+        onChanged: widget?.onChanged,
         onFieldSubmitted: widget?.onSubmitted,
     );
 
     TextField get _isNotForm => TextField(
-        autofillHints: widget.autofillHints,
-        autofocus: widget.autofocus,
-        controller: widget.controller,
+        autofillHints: widget?.autofillHints,
+        autofocus: widget?.autofocus,
+        controller: widget?.controller,
         decoration: _sharedInputDecoration,
         style: _sharedTextStyle,
         cursorColor: LunaColours.accent,
-        textInputAction: widget.action,
-        obscureText: widget.obscureText,
+        textInputAction: widget?.action,
+        obscureText: widget?.obscureText,
         autocorrect: false,
-        keyboardType: widget.keyboardType,
-        onTap: widget.scrollController?.lunaAnimateToStart,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        keyboardType: widget?.keyboardType,
+        onTap: widget?.scrollController?.lunaAnimateToStart,
+        onChanged: widget?.onChanged,
         onSubmitted: widget?.onSubmitted,
     );
 }

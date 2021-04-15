@@ -5,7 +5,7 @@ extension IntegerBytesExtension on int {
     String _bytesToString({ int decimals = 2, position = 0, bool bytes = true }) {
         if(this == null || this <= 0) return '${0.toStringAsFixed(decimals)} B';
         int chunk = bytes ? 1024 : 1000;
-        double size = this.toDouble();
+        double size = toDouble();
         while(size > chunk) {
             size /= chunk;
             position++;

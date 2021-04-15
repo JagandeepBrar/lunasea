@@ -93,7 +93,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     );
 
     Future<void> _toggle(BuildContext context, bool paused) async {
-        HapticFeedback.lightImpact();
+        unawaited(HapticFeedback.lightImpact());
         NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
         paused
             ? _resume(context, _api)
@@ -101,7 +101,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     }
 
     Future<void> _toggleFor(BuildContext context) async {
-        HapticFeedback.heavyImpact();
+        unawaited(HapticFeedback.heavyImpact());
         List values = await NZBGetDialogs.pauseFor(context);
         if(values[0]) {
             if(values[1] == -1) {

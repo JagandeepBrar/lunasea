@@ -61,7 +61,7 @@ class LunaFirebaseMessaging {
     /// If so, handles the notification webhook.
     Future<void> checkAndHandleInitialMessage() async {
         RemoteMessage message = await FirebaseMessaging.instance.getInitialMessage();
-        _handleWebhook(message);
+        unawaited(_handleWebhook(message));
     }
 
     /// Shared webhook handler.
@@ -88,7 +88,7 @@ class LunaFirebaseMessaging {
         }
         bool result = await LunaProfile().safelyChangeProfiles(profile);
         if(result) {
-            module?.handleWebhook(message.data);
+            unawaited(module?.handleWebhook(message.data));
         } else {
             showLunaErrorSnackBar(title: 'Unknown Profile', message: '"$profile" does not exist in LunaSea');
         }

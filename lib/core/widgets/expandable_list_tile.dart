@@ -109,30 +109,32 @@ class _State extends State<LunaExpandableListTile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                             Padding(
+                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
                                 child: LunaText.title(
                                     text: widget.title,
                                     softWrap: true,
                                     maxLines: 8,
                                 ),
-                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
                             ),
                             if(widget.expandedHighlightedNodes != null) Padding(
+                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
                                 child: Wrap(
                                     direction: Axis.horizontal,
                                     spacing: 6.0,
                                     runSpacing: 6.0,
                                     children: widget.expandedHighlightedNodes,
                                 ),
-                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
                             ),
                             Padding(
+                                padding: EdgeInsets.only(bottom: 6.0),
                                 child: Column(
                                     children: [
                                         ...widget.expandedTableContent.map<Widget>((content) => Padding(
-                                            child: content,
                                             padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                            child: content,
                                         )).toList(),
                                         if(widget.expandedTableButtons != null) Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 6.0),
                                             child: Wrap(
                                                 children: [
                                                     ...List.generate(
@@ -144,18 +146,16 @@ class _State extends State<LunaExpandableListTile> {
                                                                 widget.expandedTableButtons.length.isOdd
                                                             ) widthFactor = 1;
                                                             return FractionallySizedBox(
-                                                                child: widget.expandedTableButtons[index],
                                                                 widthFactor: widthFactor,
+                                                                child: widget.expandedTableButtons[index],
                                                             );
                                                         }
                                                     ),
                                                 ],
                                             ),
-                                            padding: EdgeInsets.symmetric(horizontal: 6.0),
                                         ),
                                     ],
                                 ),
-                                padding: EdgeInsets.only(bottom: 6.0),
                             ),
                         ],
                     ),
@@ -164,13 +164,13 @@ class _State extends State<LunaExpandableListTile> {
         );
         return LunaCard(
             context: context,
+            color: widget.backgroundColor,
             child: InkWell(
-                child: child,
                 borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: controller.toggle,
                 onLongPress: widget.onLongPress,
+                child: child,
             ),
-            color: widget.backgroundColor,
         );
     }
 }

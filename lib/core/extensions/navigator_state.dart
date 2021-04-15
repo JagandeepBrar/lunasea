@@ -5,11 +5,11 @@ extension NavigatorStateExtension on NavigatorState {
     /// 
     /// If the route can not be popped (it is the first/lowest route in the navigator), nothing occurs.
     void lunaSafetyPop() {
-        if(this.canPop()) this.pop();
+        if(canPop()) pop();
     }
 
     /// Pops every route until the route is the first/lowest route in the navigator.
     void lunaPopToFirst() {
-        this.popUntil((route) => route.isFirst);
+        popUntil((route) => route.isFirst);
     }
 }

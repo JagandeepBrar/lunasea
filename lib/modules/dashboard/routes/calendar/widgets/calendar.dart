@@ -75,13 +75,13 @@ class _State extends State<DashboardCalendarWidget> {
                 builder: (context, startingType, _) {
                     if(startingType == CalendarStartingType.CALENDAR) {
                         return Padding(
+                            padding: EdgeInsets.only(top: 8.0),
                             child: Column(
                                 children: [
                                     _calendar(),
                                     _calendarList(),
                                 ],
                             ),
-                            padding: EdgeInsets.only(top: 8.0),
                         );
                     }
                     return _schedule();

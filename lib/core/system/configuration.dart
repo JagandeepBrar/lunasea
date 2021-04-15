@@ -6,27 +6,35 @@ class LunaConfiguration {
     /// Returns a list of all profiles converted to a map. 
     List<Map<String, dynamic>> _getProfiles() {
         List<Map<String, dynamic>> _data = [];
-        for(var key in Database.profilesBox.keys) _data.add(Database.profilesBox.get(key).toMap());
+        for(var key in Database.profilesBox.keys) {
+            _data.add(Database.profilesBox.get(key).toMap());
+        }
         return _data;
     }
 
     /// Given a list of map objects, creates or updates profiles for each object.
     void _setProfiles(List data) {
         Box<dynamic> box = Database.profilesBox;
-        for(Map profile in data) box.put(profile['key'], ProfileHiveObject.fromMap(profile));
+        for(Map profile in data) {
+            box.put(profile['key'], ProfileHiveObject.fromMap(profile));
+        }
     }
 
     /// Returns a list of all indexers converted to a map. 
     List<Map<String, dynamic>> _getIndexers() {
         List<Map<String, dynamic>> _data = [];
-        for(var key in Database.indexersBox.keys) _data.add(Database.indexersBox.get(key).toMap());
+        for(var key in Database.indexersBox.keys) {
+            _data.add(Database.indexersBox.get(key).toMap());
+        }
         return _data;
     }
     
     /// Given a list of map objects, creates or updates indexers for each object.
     void _setIndexers(List data) {
         Box<dynamic> box = Database.indexersBox;
-        for(Map indexer in data) box.add(IndexerHiveObject.fromMap(indexer));
+        for(Map indexer in data) {
+            box.add(IndexerHiveObject.fromMap(indexer));
+        }
     }
 
     /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).
@@ -61,9 +69,9 @@ class LunaConfiguration {
     /// - Calls `export()` on all module databases, which implement [LunaModuleDatabase].
     String export() {
         Map<String, dynamic> config = {
-            "profiles": _getProfiles(),
-            "indexers": _getIndexers(),
-            "lunasea": LunaDatabase().export(),
+            'profiles': _getProfiles(),
+            'indexers': _getIndexers(),
+            'lunasea': LunaDatabase().export(),
         };
         LunaModule.values.forEach((module) {
             if(module.database != null) config[module.key] = module.database.export();

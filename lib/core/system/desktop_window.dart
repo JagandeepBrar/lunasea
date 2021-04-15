@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:window_size/window_size.dart' as WindowSize;
+import 'package:window_size/window_size.dart' as window_size;
 
 class LunaDesktopWindow {
     static const double _MINIMUM_WINDOW_SIZE = 400;
@@ -10,7 +10,7 @@ class LunaDesktopWindow {
     /// - Sets the minimum window size
     void initialize() {
         if(isPlatformCompatible) {
-            WindowSize.setWindowMinSize(Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE));
+            window_size.setWindowMinSize(Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE));
         }
     }
 }

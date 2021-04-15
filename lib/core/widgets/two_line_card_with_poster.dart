@@ -41,7 +41,14 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaCard(
             context: context,
+            decoration: backgroundUrl == null ? null : LunaCardDecoration(
+                uri: backgroundUrl,
+                headers: posterHeaders,
+            ),
             child: InkWell(
+                onTap: onTap,
+                onLongPress: onLongPress,
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 child: Row(
                     children: [
                         _poster(context),
@@ -49,13 +56,6 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
                         if(trailing != null) _trailing(),
                     ],
                 ),
-                onTap: onTap,
-                onLongPress: onLongPress,
-                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            ),
-            decoration: backgroundUrl == null ? null : LunaCardDecoration(
-                uri: backgroundUrl,
-                headers: posterHeaders,
             ),
         );
     }
@@ -73,8 +73,13 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
     Widget _body(BuildContext context) {
         return Expanded(
             child: Padding(
+                padding: EdgeInsets.all(_padding),
                 child: Container(
+                    height: (itemExtent-(_padding*2)),
                     child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                             _title(),
                             if(customSubtitle1 != null) customSubtitle1,
@@ -82,13 +87,8 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
                             if(customSubtitle2 != null) customSubtitle2,
                             if(customSubtitle2 == null && subtitle2 != null) _subtitle(subtitle2),
                         ],
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
                     ),
-                    height: (itemExtent-(_padding*2)),
                 ),
-                padding: EdgeInsets.all(_padding),
             ),
         );
     }
@@ -119,11 +119,11 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
 
     Widget _trailing() {
         return Container(
-            child: Padding(
-                child: trailing,
-                padding: EdgeInsets.only(right: 12.0),
-            ),
             height: itemExtent,
+            child: Padding(
+                padding: EdgeInsets.only(right: 12.0),
+                child: trailing,
+            ),
         );
     }
 }

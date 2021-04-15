@@ -25,7 +25,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     Size get preferredSize {
         double _size = (height ?? kToolbarHeight);
         if(bottom != null) _size += bottom.preferredSize.height;
-        return new Size.fromHeight(_size);
+        return Size.fromHeight(_size);
     }
 
     LunaAppBar._internal({
@@ -86,15 +86,15 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         assert(child != null);
         assert(height != null);
         return LunaAppBar._internal(
-            child: Container(
-                child: child,
-                height: height,
-                padding: padding,
-                alignment: alignment,
-            ),
             height: height,
             useDrawer: false,
             type: _APPBAR_TYPE.EMPTY,
+            child: Container(
+                height: height,
+                padding: padding,
+                alignment: alignment,
+                child: child,
+            ),
         );
     }
 
@@ -117,15 +117,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         assert(title != null);
         assert(profiles != null);
         if(pageController != null) assert(scrollControllers != null, 'if pageController is defined, scrollControllers should as well.');
-        if(profiles == null || profiles.length < 2) return LunaAppBar._internal(
-            title: title,
-            actions: actions,
-            useDrawer: useDrawer,
-            hideLeading: hideLeading,
-            pageController: pageController,
-            scrollControllers: scrollControllers,
-            type: _APPBAR_TYPE.DEFAULT,
-        );
         return LunaAppBar._internal(
             title: title,
             profiles: profiles,
@@ -134,7 +125,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             hideLeading: hideLeading,
             pageController: pageController,
             scrollControllers: scrollControllers,
-            type: _APPBAR_TYPE.DROPDOWN,
+            type: profiles == null || profiles.length < 2 ? _APPBAR_TYPE.DEFAULT : _APPBAR_TYPE.DROPDOWN,
         );
     }
 
@@ -167,7 +158,7 @@ class _State extends State<LunaAppBar> {
         try {
             if(
                 widget.scrollControllers != null &&                 // Ensure that the array isn't null
-                widget.scrollControllers.length != 0 &&             // Ensure that there is at least one scroll controller
+                widget.scrollControllers.isNotEmpty &&             // Ensure that there is at least one scroll controller
                 (widget.scrollControllers.length-1) >= _index &&    // Ensure that the index isn't outside of the array bounds
                 widget.scrollControllers[_index] != null            // Ensure that the scroll controller at the position isn't null
             ) widget.scrollControllers[_index]?.lunaAnimateToStart();
@@ -186,36 +177,38 @@ class _State extends State<LunaAppBar> {
             default: throw Exception('Unknown AppBar type.');
         }
         return GestureDetector(
-            child: child,
             onTap: _onTap,
+            child: child,
         );
     }
 
     Widget _sharedLeading(BuildContext context) {
         if(widget.hideLeading ?? false) return null;
-        if(widget.useDrawer) return IconButton(
-            icon: Icon(Icons.menu_rounded),
-            onPressed: () async {
-                HapticFeedback.lightImpact();
-                if(Scaffold.of(context).hasDrawer) {
-                    Scaffold.of(context).openDrawer();
-                    FocusManager.instance.primaryFocus?.unfocus();
-                }
-            },
-        );
+        if(widget.useDrawer) {
+            return IconButton(
+                icon: Icon(Icons.menu_rounded),
+                onPressed: () async {
+                    unawaited(HapticFeedback.lightImpact());
+                    if(Scaffold.of(context).hasDrawer) {
+                        Scaffold.of(context).openDrawer();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                    }
+                },
+            );
+        }
         return InkWell(
-            child: Center(
-                child: Icon(Icons.arrow_back_ios_rounded),
-            ),
             onTap: () async {
-                HapticFeedback.lightImpact();
+                unawaited(HapticFeedback.lightImpact());
                 Navigator.of(context).lunaSafetyPop();
             },
             onLongPress: () async {
-                HapticFeedback.heavyImpact();
+                unawaited(HapticFeedback.heavyImpact());
                 Navigator.of(context).lunaPopToFirst();
             },
             borderRadius: BorderRadius.circular(28.0),
+            child: Center(
+                child: Icon(Icons.arrow_back_ios_rounded),
+            ),
         );
     }
 
@@ -250,17 +243,6 @@ class _State extends State<LunaAppBar> {
         return AppBar(
             title: LunaPopupMenuButton<String>(
                 tooltip: 'Change Profiles',
-                child: Wrap(
-                    direction: Axis.horizontal,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                        Text(
-                            widget.title,
-                            style: TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
-                        ),
-                        Icon(Icons.arrow_drop_down),
-                    ],
-                ),
                 onSelected: (result) {
                     HapticFeedback.selectionClick();
                     LunaProfile().safelyChangeProfiles(result);
@@ -279,6 +261,17 @@ class _State extends State<LunaAppBar> {
                         ),
                     )];
                 },
+                child: Wrap(
+                    direction: Axis.horizontal,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                        Text(
+                            widget.title,
+                            style: TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
+                        ),
+                        Icon(Icons.arrow_drop_down),
+                    ],
+                ),
             ),
             leading: _sharedLeading(context),
             centerTitle: false,

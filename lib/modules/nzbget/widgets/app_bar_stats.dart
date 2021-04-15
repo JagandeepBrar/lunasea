@@ -54,7 +54,7 @@ class NZBGetAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, String speed) async {
-        HapticFeedback.lightImpact();
+        unawaited(HapticFeedback.lightImpact());
         List values = await NZBGetDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {

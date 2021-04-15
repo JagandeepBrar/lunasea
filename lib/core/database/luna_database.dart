@@ -45,30 +45,33 @@ class LunaDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         for(String key in config.keys) {
             LunaDatabaseValue value = valueFromKey(key);
-            if(value != null) switch(value) {
-                // Non-primitive values
-                case LunaDatabaseValue.SELECTED_BROWSER: value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key])); break;
-                // Primitive values
-                case LunaDatabaseValue.ENABLED_PROFILE: 
-                case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
-                case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
-                case LunaDatabaseValue.THEME_AMOLED:
-                case LunaDatabaseValue.THEME_AMOLED_BORDER:
-                case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
-                case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
-                case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
-                case LunaDatabaseValue.QUICK_ACTIONS_SONARR:
-                case LunaDatabaseValue.QUICK_ACTIONS_NZBGET:
-                case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
-                case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR:
-                case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
-                case LunaDatabaseValue.QUICK_ACTIONS_OMBI:
-                case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
-                case LunaDatabaseValue.USE_24_HOUR_TIME: value.put(config[key]); break;
+            if(value != null) {
+                switch(value) {
+                    // Non-primitive values
+                    case LunaDatabaseValue.SELECTED_BROWSER: value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key])); break;
+                    // Primitive values
+                    case LunaDatabaseValue.ENABLED_PROFILE: 
+                    case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
+                    case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
+                    case LunaDatabaseValue.THEME_AMOLED:
+                    case LunaDatabaseValue.THEME_AMOLED_BORDER:
+                    case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
+                    case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
+                    case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
+                    case LunaDatabaseValue.QUICK_ACTIONS_SONARR:
+                    case LunaDatabaseValue.QUICK_ACTIONS_NZBGET:
+                    case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
+                    case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR:
+                    case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
+                    case LunaDatabaseValue.QUICK_ACTIONS_OMBI:
+                    case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
+                    case LunaDatabaseValue.USE_24_HOUR_TIME: value.put(config[key]); break;
+                }
             }
         }
     }
 
+    @override
     LunaDatabaseValue valueFromKey(String key) {
         switch(key) {
             case 'profile': return LunaDatabaseValue.ENABLED_PROFILE;
@@ -140,23 +143,23 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
     dynamic get data {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case LunaDatabaseValue.ENABLED_PROFILE: return box.get(this.key, defaultValue: 'default');
-            case LunaDatabaseValue.SELECTED_BROWSER: return box.get(this.key, defaultValue: LunaBrowser.APPLE_SAFARI);
-            case LunaDatabaseValue.THEME_AMOLED: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.THEME_AMOLED_BORDER: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(this.key, defaultValue: 10);
-            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: return box.get(this.key, defaultValue: true);
-            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: return box.get(this.key, defaultValue: true);
-            case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_RADARR: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_OMBI: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.USE_24_HOUR_TIME: return box.get(this.key, defaultValue: false);
+            case LunaDatabaseValue.ENABLED_PROFILE: return box.get(key, defaultValue: 'default');
+            case LunaDatabaseValue.SELECTED_BROWSER: return box.get(key, defaultValue: LunaBrowser.APPLE_SAFARI);
+            case LunaDatabaseValue.THEME_AMOLED: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.THEME_AMOLED_BORDER: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(key, defaultValue: 10);
+            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: return box.get(key, defaultValue: true);
+            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: return box.get(key, defaultValue: true);
+            case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_RADARR: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_OMBI: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return box.get(key, defaultValue: false);
+            case LunaDatabaseValue.USE_24_HOUR_TIME: return box.get(key, defaultValue: false);
         }
         throw Exception('data not found'); 
     }
@@ -164,29 +167,29 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
     void put(dynamic value) {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case LunaDatabaseValue.ENABLED_PROFILE: if(value.runtimeType == String) box.put(this.key, value); return;
-            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(this.key, value); return;
-            case LunaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LunaBrowser) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_RADARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_SONARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_OMBI: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaDatabaseValue.ENABLED_PROFILE: if(value.runtimeType == String) box.put(key, value); return;
+            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(key, value); return;
+            case LunaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LunaBrowser) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_RADARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_SONARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_OMBI: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(key, value); return;
+            case LunaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(key, value); return;
         }
         LunaLogger().warning('LunaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
     ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
         builder: builder,
     );
 }

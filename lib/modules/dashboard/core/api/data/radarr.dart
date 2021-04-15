@@ -19,6 +19,7 @@ class CalendarRadarrData extends CalendarData {
         @required this.runtime,
     }): super(id, title);
 
+    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,

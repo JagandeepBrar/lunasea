@@ -61,13 +61,13 @@ class LunaLogHiveObject extends HiveObject {
 
     Map<String, dynamic> toMap() {
         return {
-            "timestamp": DateTime.fromMillisecondsSinceEpoch(timestamp).toIso8601String(),
-            "type": type.name,
-            if(className != null && className.isNotEmpty) "class_name": className,
-            if(methodName != null && methodName.isNotEmpty) "method_name": methodName,
-            "message": message,
-            if(error != null && (error?.isNotEmpty ?? false)) "error": error,
-            if(stackTrace != null && (stackTrace?.isNotEmpty ?? false)) "stack_trace": stackTrace?.trim()?.split('\n') ?? [],
+            'timestamp': DateTime.fromMillisecondsSinceEpoch(timestamp).toIso8601String(),
+            'type': type.name,
+            if(className != null && className.isNotEmpty) 'class_name': className,
+            if(methodName != null && methodName.isNotEmpty) 'method_name': methodName,
+            'message': message,
+            if(error != null && (error?.isNotEmpty ?? false)) 'error': error,
+            if(stackTrace != null && (stackTrace?.isNotEmpty ?? false)) 'stack_trace': stackTrace?.trim()?.split('\n') ?? [],
         };
     }
     

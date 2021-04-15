@@ -31,20 +31,21 @@ class LunaTableContent extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Padding(
+            padding: padding,
             child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                     _title(),
                     Container(width: 16.0, height: 0.0),
                     _subtitle(),
                 ],
-                crossAxisAlignment: CrossAxisAlignment.start,
             ),
-            padding: padding,
         );
     }
 
     Widget _title() {
         return Expanded(
+            flex: titleFlex,
             child: Text(
                 title?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
                 textAlign: titleAlign,
@@ -53,13 +54,19 @@ class LunaTableContent extends StatelessWidget {
                     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
             ),
-            flex: titleFlex,
         );
     }
 
     Widget _subtitle() {
         return Expanded(
+            flex: bodyFlex,
             child: InkWell(
+                borderRadius: BorderRadius.circular(5.0),
+                onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
+                onLongPress: !bodyIsUrl ? null : () async {
+                    await Clipboard.setData(ClipboardData(text: body));
+                    showLunaSuccessSnackBar(title: 'Copied Content', message: 'Copied link to the clipboard');
+                },
                 child: Text(
                     body ?? LunaUI.TEXT_EMDASH,
                     textAlign: bodyAlign,
@@ -68,14 +75,7 @@ class LunaTableContent extends StatelessWidget {
                         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
-                onLongPress: !bodyIsUrl ? null : () async {
-                    await Clipboard.setData(ClipboardData(text: body));
-                    showLunaSuccessSnackBar(title: 'Copied Content', message: 'Copied link to the clipboard');
-                },
-                borderRadius: BorderRadius.circular(5.0),
             ),
-            flex: bodyFlex,
         );
     }
 }

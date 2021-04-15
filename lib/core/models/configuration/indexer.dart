@@ -48,11 +48,11 @@ class IndexerHiveObject extends HiveObject {
     String toString() => toMap().toString();
 
     Map<String, dynamic> toMap() => {
-        "displayName": displayName ?? '',
-        "host": host ?? '',
-        "key": apiKey ?? '',
-        "headers": headers ?? {},
-        "icon": icon?.key ?? '',
+        'displayName': displayName ?? '',
+        'host': host ?? '',
+        'key': apiKey ?? '',
+        'headers': headers ?? {},
+        'icon': icon?.key ?? '',
     };
 
     @HiveField(0)

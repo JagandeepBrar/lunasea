@@ -4,10 +4,12 @@ import 'package:lunasea/core.dart';
 extension ScrollControllerExtension on ScrollController {
     /// Animate a [Scrollable] back to 1.00, with a predefined duration and curve.
     Future<void> lunaAnimateToStart() async {
-        if(this.hasClients) this.animateTo(
-            0.00,
-            duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED*2),
-            curve: Curves.decelerate,
-        );
+        if(hasClients) {
+            unawaited(animateTo(
+                0.00,
+                duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED*2),
+                curve: Curves.decelerate,
+            ));
+        }
     }
 }

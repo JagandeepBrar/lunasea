@@ -26,9 +26,11 @@ class LunaFileSystem {
     /// If the file does not exist, will simply do nothing.
     Future<void> exportFileToShareSheet(String path) async {
         File file = File(path);
-        if(file.existsSync()) await Share.shareFiles([path])
-        .catchError((error, stack) {
-            LunaLogger().error('Failed to share string to sharesheet', error, stack);
-        });
+        if(file.existsSync()) {
+            await Share.shareFiles([path])
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to share string to sharesheet', error, stack);
+            });
+        }
     }
 }

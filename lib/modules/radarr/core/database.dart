@@ -59,32 +59,34 @@ class RadarrDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         for(String key in config.keys) {
             RadarrDatabaseValue value = valueFromKey(key);
-            if(value != null) switch(value) {
-                // Non-primative values
-                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: value.put(RadarrMoviesSorting.ALPHABETICAL.fromKey(config[key])); break;
-                case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: value.put(RadarrMoviesFilter.ALL.fromKey(config[key])); break;
-                case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: value.put(RadarrReleasesSorting.ALPHABETICAL.fromKey(config[key])); break;
-                case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: value.put(RadarrReleasesFilter.ALL.fromKey(config[key])); break;
-                // Primitive values
-                case RadarrDatabaseValue.NAVIGATION_INDEX:
-                case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
-                case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
-                case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
-                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
-                case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
-                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE:
-                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID:
-                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID:
-                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID:
-                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
-                case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
-                case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
-                case RadarrDatabaseValue.QUEUE_REFRESH_RATE:
-                case RadarrDatabaseValue.QUEUE_BLACKLIST:
-                case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT:
-                case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES:
-                case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
-                case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
+            if(value != null) {
+                switch(value) {
+                    // Non-primative values
+                    case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: value.put(RadarrMoviesSorting.ALPHABETICAL.fromKey(config[key])); break;
+                    case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: value.put(RadarrMoviesFilter.ALL.fromKey(config[key])); break;
+                    case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: value.put(RadarrReleasesSorting.ALPHABETICAL.fromKey(config[key])); break;
+                    case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: value.put(RadarrReleasesFilter.ALL.fromKey(config[key])); break;
+                    // Primitive values
+                    case RadarrDatabaseValue.NAVIGATION_INDEX:
+                    case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
+                    case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
+                    case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
+                    case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
+                    case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
+                    case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE:
+                    case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID:
+                    case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID:
+                    case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID:
+                    case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
+                    case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
+                    case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
+                    case RadarrDatabaseValue.QUEUE_REFRESH_RATE:
+                    case RadarrDatabaseValue.QUEUE_BLACKLIST:
+                    case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT:
+                    case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES:
+                    case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
+                    case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
+                }
             }
         }
     }
@@ -179,29 +181,29 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
     dynamic get data {
         final _box = Database.lunaSeaBox;
         switch(this) {
-            case RadarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
-            case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return _box.get(this.key, defaultValue: 0);
-            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return _box.get(this.key, defaultValue: 0);
-            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: return _box.get(this.key, defaultValue: 0);
-            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesSorting.ALPHABETICAL);
-            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return _box.get(this.key, defaultValue: true);
-            case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesFilter.ALL);
-            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: return _box.get(this.key, defaultValue: RadarrReleasesSorting.WEIGHT);
-            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return _box.get(this.key, defaultValue: true);
-            case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: return _box.get(this.key, defaultValue: RadarrReleasesFilter.ALL);
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE: return _box.get(this.key, defaultValue: true);
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID: return _box.get(this.key, defaultValue: null);
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID: return _box.get(this.key, defaultValue: null);
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: return _box.get(this.key, defaultValue: 'announced');
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return _box.get(this.key, defaultValue: []);
-            case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return _box.get(this.key, defaultValue: true);
-            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return _box.get(this.key, defaultValue: RadarrImportMode.COPY.value);
-            case RadarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(this.key, defaultValue: 60);
-            case RadarrDatabaseValue.QUEUE_BLACKLIST: return _box.get(this.key, defaultValue: false);
-            case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: return _box.get(this.key, defaultValue: false);
-            case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: return _box.get(this.key, defaultValue: false);
-            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return _box.get(this.key, defaultValue: false);
-            case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return _box.get(this.key, defaultValue: 25);
+            case RadarrDatabaseValue.NAVIGATION_INDEX: return _box.get(key, defaultValue: 0);
+            case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return _box.get(key, defaultValue: 0);
+            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return _box.get(key, defaultValue: 0);
+            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: return _box.get(key, defaultValue: 0);
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return _box.get(key, defaultValue: RadarrMoviesSorting.ALPHABETICAL);
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return _box.get(key, defaultValue: true);
+            case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: return _box.get(key, defaultValue: RadarrMoviesFilter.ALL);
+            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: return _box.get(key, defaultValue: RadarrReleasesSorting.WEIGHT);
+            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return _box.get(key, defaultValue: true);
+            case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: return _box.get(key, defaultValue: RadarrReleasesFilter.ALL);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE: return _box.get(key, defaultValue: true);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID: return _box.get(key, defaultValue: null);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID: return _box.get(key, defaultValue: null);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: return _box.get(key, defaultValue: 'announced');
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return _box.get(key, defaultValue: []);
+            case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return _box.get(key, defaultValue: true);
+            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return _box.get(key, defaultValue: RadarrImportMode.COPY.value);
+            case RadarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(key, defaultValue: 60);
+            case RadarrDatabaseValue.QUEUE_BLACKLIST: return _box.get(key, defaultValue: false);
+            case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: return _box.get(key, defaultValue: false);
+            case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: return _box.get(key, defaultValue: false);
+            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return _box.get(key, defaultValue: false);
+            case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return _box.get(key, defaultValue: 25);
         }
         throw Exception('data not found'); 
     }
@@ -209,35 +211,35 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
     void put(dynamic value) {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case RadarrDatabaseValue.NAVIGATION_INDEX: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: if(value is RadarrMoviesSorting) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: if(value is RadarrMoviesFilter) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value is RadarrReleasesSorting) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: if(value is RadarrReleasesFilter) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: if(value is String) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: if(value is List) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: if(value is RadarrImportMode) box.put(this.key, value.value); return;
-            case RadarrDatabaseValue.QUEUE_REFRESH_RATE: if(value is int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.QUEUE_BLACKLIST: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: if(value is bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.CONTENT_PAGE_SIZE: if(value is int) box.put(this.key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: if(value is RadarrMoviesSorting) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: if(value is RadarrMoviesFilter) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value is RadarrReleasesSorting) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: if(value is RadarrReleasesFilter) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: if(value is String) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: if(value is List) box.put(key, value); return;
+            case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: if(value is RadarrImportMode) box.put(key, value.value); return;
+            case RadarrDatabaseValue.QUEUE_REFRESH_RATE: if(value is int) box.put(key, value); return;
+            case RadarrDatabaseValue.QUEUE_BLACKLIST: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: if(value is bool) box.put(key, value); return;
+            case RadarrDatabaseValue.CONTENT_PAGE_SIZE: if(value is int) box.put(key, value); return;
         }
         LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
     ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
         builder: builder,
     );
 }

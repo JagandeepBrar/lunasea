@@ -5,7 +5,7 @@ extension DateTimeExtension on DateTime {
     /// Get the floor of a date.
     /// 
     /// The floor is a new [DateTime] object with only the year, month, and day copied from the original source.
-    DateTime get lunaFloor => DateTime(this.year, this.month, this.day);
+    DateTime get lunaFloor => DateTime(year, month, day);
 
     /// Returns a string representation of the "age" of the [DateTime] object.
     /// 
@@ -25,7 +25,7 @@ extension DateTimeExtension on DateTime {
     /// Compares to [DateTime.now()] to calculate the difference.
     String get lunaDaysDifference {
         if(this == null) return null;
-        Duration diff = this.difference(DateTime.now());
+        Duration diff = difference(DateTime.now());
         int absoluteDays = diff.inDays.abs();
         if(absoluteDays == 0) return 'Today';
         // If greater than 2 years, show in years
@@ -43,12 +43,12 @@ extension DateTimeExtension on DateTime {
     /// Returns just the date as a string.
     /// 
     /// Formatted as YYYY-MM-DD
-    String get lunaDate => '${this.year.toString().padLeft(4, '0')}-${this.month.toString().padLeft(2, '0')}-${this.day.toString().padLeft(2, '0')}';
+    String get lunaDate => '${year.toString().padLeft(4, '0')}-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
 
     /// Returns the date as a string.
     /// 
     /// Formatted as "<month name> <day>, <year>".
-    String get lunaDateReadable => DateFormat('MMMM dd, y').format(this.toLocal());
+    String get lunaDateReadable => DateFormat('MMMM dd, y').format(toLocal());
 
     /// Returns the date and time as a string.
     /// 
@@ -59,5 +59,5 @@ extension DateTimeExtension on DateTime {
         timeOnNewLine
             ? LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'MMMM dd, y\nHH:mm:ss' : 'MMMM dd, y\nhh:mm:ss a'
             : LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'MMMM dd, y ${LunaUI.TEXT_BULLET} HH:mm:ss' : 'MMMM dd, y ${LunaUI.TEXT_BULLET} hh:mm:ss a'
-    ).format(this.toLocal());
+    ).format(toLocal());
 }

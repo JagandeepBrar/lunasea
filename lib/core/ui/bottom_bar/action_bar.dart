@@ -17,26 +17,26 @@ class LunaBottomActionBar extends StatelessWidget {
         this.useSafeArea = true,
         Key key,
     }) : super(key: key) {
-        assert(actions != null && actions.length != 0);
+        assert(actions != null && actions.isNotEmpty);
     }
 
     @override
     Widget build(BuildContext context) {
         return Container(
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: SafeArea(
                 top: useSafeArea,
                 bottom: useSafeArea,
                 left: useSafeArea,
                 right: useSafeArea,
                 child: Padding(
-                    child: LunaButtonContainer(
-                        children: actions,
-                        padding: EdgeInsets.zero,
-                    ),
                     padding: padding,
+                    child: LunaButtonContainer(
+                        padding: EdgeInsets.zero,
+                        children: actions,
+                    ),
                 ),
             ),
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         );
     }
 }

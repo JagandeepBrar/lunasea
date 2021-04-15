@@ -16,7 +16,7 @@ class LunaLogger {
         LunaFirebaseCrashlytics().setEnabledState();
         FlutterError.onError = (FlutterErrorDetails details, { bool forceReport = false }) async {
             if (kDebugMode) FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
-            recordCrashlyticsFlutterError(details);
+            unawaited(recordCrashlyticsFlutterError(details));
             Zone.current.handleUncaughtError(details.exception, details.stack);
         };
         _compactDatabase();
@@ -65,7 +65,7 @@ class LunaLogger {
             LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
             LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
             !(error is DioError)
-        ) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
+        ) unawaited(LunaFirebaseCrashlytics.instance.recordError(error, stackTrace));
     }
 
     /// Records a Crashlytics flutter error if it passes the following checks:
@@ -80,7 +80,7 @@ class LunaLogger {
             LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
             LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
             !(error is DioError)
-        ) LunaFirebaseCrashlytics.instance.recordFlutterError(details);
+        ) unawaited(LunaFirebaseCrashlytics.instance.recordFlutterError(details));
     }
 
     /// Log a new debug-level log.

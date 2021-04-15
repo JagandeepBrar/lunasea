@@ -37,19 +37,21 @@ class DashboardDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         for(String key in config.keys) {
             DashboardDatabaseValue value = valueFromKey(key);
-            if(value != null) switch(value) {
-                // Non-primitive values
-                case DashboardDatabaseValue.CALENDAR_STARTING_DAY: value.put(CalendarStartingDay.MONDAY.fromKey(config[key])); break;
-                case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: value.put(CalendarStartingSize.ONE_WEEK.fromKey(config[key])); break;
-                case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: value.put(CalendarStartingType.CALENDAR.fromKey(config[key])); break;
-                // Primitive values
-                case DashboardDatabaseValue.NAVIGATION_INDEX:
-                case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-                case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-                case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-                case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
-                case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-                case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: value.put(config[key]); break;
+            if(value != null) {
+                switch(value) {
+                    // Non-primitive values
+                    case DashboardDatabaseValue.CALENDAR_STARTING_DAY: value.put(CalendarStartingDay.MONDAY.fromKey(config[key])); break;
+                    case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: value.put(CalendarStartingSize.ONE_WEEK.fromKey(config[key])); break;
+                    case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: value.put(CalendarStartingType.CALENDAR.fromKey(config[key])); break;
+                    // Primitive values
+                    case DashboardDatabaseValue.NAVIGATION_INDEX:
+                    case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
+                    case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
+                    case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
+                    case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
+                    case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
+                    case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: value.put(config[key]); break;
+                }
             }
         }
     }
@@ -105,16 +107,16 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
     dynamic get data {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case DashboardDatabaseValue.NAVIGATION_INDEX: return box.get(this.key, defaultValue: 0);
-            case DashboardDatabaseValue.CALENDAR_STARTING_DAY: return box.get(this.key, defaultValue: CalendarStartingDay.MONDAY);
-            case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: return box.get(this.key, defaultValue: CalendarStartingSize.ONE_WEEK);
-            case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: return box.get(this.key, defaultValue: CalendarStartingType.CALENDAR);
-            case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR: return box.get(this.key, defaultValue: true);
-            case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR: return box.get(this.key, defaultValue: true);
-            case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR: return box.get(this.key, defaultValue: true);
-            case DashboardDatabaseValue.MODULES_BRAND_COLOURS: return box.get(this.key, defaultValue: false);
-            case DashboardDatabaseValue.CALENDAR_DAYS_PAST: return box.get(this.key, defaultValue: 14);
-            case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: return box.get(this.key, defaultValue: 14);
+            case DashboardDatabaseValue.NAVIGATION_INDEX: return box.get(key, defaultValue: 0);
+            case DashboardDatabaseValue.CALENDAR_STARTING_DAY: return box.get(key, defaultValue: CalendarStartingDay.MONDAY);
+            case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: return box.get(key, defaultValue: CalendarStartingSize.ONE_WEEK);
+            case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: return box.get(key, defaultValue: CalendarStartingType.CALENDAR);
+            case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR: return box.get(key, defaultValue: true);
+            case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR: return box.get(key, defaultValue: true);
+            case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR: return box.get(key, defaultValue: true);
+            case DashboardDatabaseValue.MODULES_BRAND_COLOURS: return box.get(key, defaultValue: false);
+            case DashboardDatabaseValue.CALENDAR_DAYS_PAST: return box.get(key, defaultValue: 14);
+            case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: return box.get(key, defaultValue: 14);
         }
         throw Exception('data not found'); 
     }
@@ -122,22 +124,22 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
     void put(dynamic value) {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case DashboardDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_STARTING_DAY: if(value.runtimeType == CalendarStartingDay) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: if(value.runtimeType == CalendarStartingSize) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: if(value.runtimeType == CalendarStartingType) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case DashboardDatabaseValue.MODULES_BRAND_COLOURS: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_DAYS_PAST: if(value.runtimeType == int) box.put(this.key, value); return;
-            case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: if(value.runtimeType == int) box.put(this.key, value); return;
+            case DashboardDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_STARTING_DAY: if(value.runtimeType == CalendarStartingDay) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_STARTING_SIZE: if(value.runtimeType == CalendarStartingSize) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_STARTING_TYPE: if(value.runtimeType == CalendarStartingType) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR: if(value.runtimeType == bool) box.put(key, value); return;
+            case DashboardDatabaseValue.MODULES_BRAND_COLOURS: if(value.runtimeType == bool) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_DAYS_PAST: if(value.runtimeType == int) box.put(key, value); return;
+            case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE: if(value.runtimeType == int) box.put(key, value); return;
         }
         LunaLogger().warning('DashboardDatabaseValueExtension', 'put', 'Attempted to enter data for invalid DashboardDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
     ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
         builder: builder,
     );
 }

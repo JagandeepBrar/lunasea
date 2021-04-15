@@ -42,7 +42,7 @@ Future<void> showLunaSnackBar({
     Function buttonOnPressed,
 }) async => showFlash(
     context: LunaState.navigatorKey.currentContext,
-    duration: duration != null ? duration : Duration(seconds: showButton ? 4 : 2),
+    duration: duration ?? Duration(seconds: showButton ? 4 : 2),
     builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
         controller: controller,
@@ -69,14 +69,19 @@ Future<void> showLunaSnackBar({
                 ),
             ),
             icon: Padding(
+                padding: EdgeInsets.only(left: _PADDING),
                 child: LunaIconButton(
                     icon: type.icon,
                     color: type.color,
                 ),
-                padding: EdgeInsets.only(left: _PADDING),
             ),
             primaryAction: showButton
                 ? TextButton(
+                    onPressed: () {
+                        unawaited(HapticFeedback.lightImpact());
+                        controller.dismiss();
+                        buttonOnPressed();
+                    },
                     child: Text(
                         buttonText.toUpperCase(),
                         style: TextStyle(
@@ -84,11 +89,6 @@ Future<void> showLunaSnackBar({
                             color: LunaColours.accent,
                         ),
                     ),
-                    onPressed: () {
-                        HapticFeedback.lightImpact();
-                        controller.dismiss();
-                        buttonOnPressed();
-                    },
                 )
             : null,
         ),

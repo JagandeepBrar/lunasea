@@ -35,9 +35,11 @@ class LunaProfile {
             Tuple2<bool, String> newProfile = await SettingsDialogs().renameProfileSelected(LunaState.navigatorKey.currentContext, profiles);
             if(newProfile.item1) {
                 ProfileHiveObject oldProfileObject = Database.profilesBox.get(selectedProfile.item2);
-                Database.profilesBox.put(newProfile.item2, ProfileHiveObject.fromProfileHiveObject(oldProfileObject));
-                if(LunaDatabaseValue.ENABLED_PROFILE.data == selectedProfile.item2) LunaProfile().safelyChangeProfiles(newProfile.item2, showSnackbar: false);
-                oldProfileObject.delete();
+                await Database.profilesBox.put(newProfile.item2, ProfileHiveObject.fromProfileHiveObject(oldProfileObject));
+                if(LunaDatabaseValue.ENABLED_PROFILE.data == selectedProfile.item2) {
+                    await LunaProfile().safelyChangeProfiles(newProfile.item2, showSnackbar: false);
+                }
+                unawaited(oldProfileObject.delete());
                 if(showSnackbar) showLunaSuccessSnackBar(title: 'Renamed Profile', message: '"${selectedProfile.item2}" has been renamed to "${newProfile.item2}"');
             }
             return true;
@@ -52,11 +54,11 @@ class LunaProfile {
     Future<bool> deleteProfile({ bool showSnackbar = true }) async {
         List<String> profiles = profilesList();
         profiles.remove(LunaDatabaseValue.ENABLED_PROFILE.data);
-        if(profiles.length > 0) {
+        if(profiles?.isNotEmpty ?? false) {
             Tuple2<bool, String> selectedProfile = await SettingsDialogs().deleteProfile(LunaState.navigatorKey.currentContext, profiles);
             if(selectedProfile.item1) {
                 if(selectedProfile.item2 != LunaDatabaseValue.ENABLED_PROFILE.data) {
-                    Database.profilesBox.delete(selectedProfile.item2);
+                    await Database.profilesBox.delete(selectedProfile.item2);
                     if(showSnackbar) showLunaSuccessSnackBar(title: 'Deleted Profile', message: '"${selectedProfile.item2}" has been deleted');
                     return true;
                 }
@@ -72,12 +74,9 @@ class LunaProfile {
         List<String> profiles = profilesList();
         Tuple2<bool, String> result = await SettingsDialogs().addProfile(LunaState.navigatorKey.currentContext, profiles);
         if(result.item1) {
-            Database.profilesBox.put(result.item2, ProfileHiveObject.empty());
-            safelyChangeProfiles(result.item2);
-            if(showSnackbar) showLunaSuccessSnackBar(
-                title: 'Profile Added',
-                message: result.item2,
-            );
+            await Database.profilesBox.put(result.item2, ProfileHiveObject.empty());
+            await safelyChangeProfiles(result.item2);
+            if(showSnackbar) showLunaSuccessSnackBar(title: 'Profile Added', message: result.item2);
         }
         return false;
     }

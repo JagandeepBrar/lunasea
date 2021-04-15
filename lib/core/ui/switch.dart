@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lunasea/core.dart';
 
 class LunaSwitch extends Switch {
     LunaSwitch({
@@ -10,7 +11,7 @@ class LunaSwitch extends Switch {
         key: key,
         value: value,
         onChanged: onChanged == null ? null : (value) {
-            HapticFeedback.lightImpact();
+            unawaited(HapticFeedback.lightImpact());
             onChanged(value);
         },
     );

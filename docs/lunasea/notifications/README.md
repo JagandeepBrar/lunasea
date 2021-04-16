@@ -30,7 +30,7 @@ LunaSea supports two different types of notifications: **User-Based** and **Devi
 
 ### User-Based Notifications
 
-User-based notifications send notifications to all devices that are registed to your LunaSea account. Your device is automatically registered when you register or sign in to your account. This means that any device that is currently signed-in to your account will receive notifications automatically.
+User-based notifications send notifications to all devices that are linked to your LunaSea account. Your device is automatically linked when you register or sign in to your account. This means that any current and future devices that are signed-in to your account will receive notifications automatically.
 
 ### Device-Based Notifications
 

@@ -4,6 +4,10 @@ description: How to setup webhook-based push notifications with LunaSea
 
 # Notifications
 
+{% hint style="warning" %}
+**Notifications are only available in LunaSea v5.0.0+.**
+{% endhint %}
+
 ## Getting Started
 
 Many of the supported modules have support for webhooks, which we can utilize with the hosted notification relay to get rich, instant notifications with deep-linking support sent as push notifications directly to your devices running LunaSea!
@@ -35,6 +39,8 @@ User-based notifications send notifications to all devices that are registed to 
 Device-based notifications send notifications to a single, specific device. Device-based notifications do not require a LunaSea account, but require you to register every device as a new webhook in the module.
 
 ## Getting Your User or Device Token
+
+Simple head to the Settings with LunaSea, then into the "Notifications" page.
 
 
 

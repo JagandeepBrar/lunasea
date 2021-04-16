@@ -1,3 +1,4 @@
+export 'core/banners.dart';
 export 'core/dialogs.dart';
 export 'core/pages.dart';
 export 'core/router.dart';

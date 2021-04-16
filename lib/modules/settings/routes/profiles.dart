@@ -85,7 +85,7 @@ class _State extends State<_SettingsProfilesRoute> with LunaScrollControllerMixi
             subtitle: LunaDatabaseValue.ENABLED_PROFILE.listen(
                 builder: (context, _, __) => LunaText.subtitle(text: LunaDatabaseValue.ENABLED_PROFILE.data),
             ),
-            trailing: LunaIconButton(icon: Icons.person),
+            trailing: LunaIconButton(icon: Icons.switch_account),
             onTap: () async {
                 List<dynamic> values = await SettingsDialogs.enabledProfile(LunaState.navigatorKey.currentContext, LunaProfile().profilesList());
                 if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data) LunaProfile().safelyChangeProfiles(values[1]);

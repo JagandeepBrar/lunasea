@@ -1,0 +1,46 @@
+{
+    "onGrab": true,
+    "onDownload": true,
+    "onUpgrade": true,
+    "onRename": true,
+    "onSeriesDelete": true,
+    "onEpisodeFileDelete": true,
+    "onEpisodeFileDeleteForUpgrade": true,
+    "onHealthIssue": true,
+    "supportsOnGrab": true,
+    "supportsOnDownload": true,
+    "supportsOnUpgrade": true,
+    "supportsOnRename": true,
+    "supportsOnSeriesDelete": true,
+    "supportsOnEpisodeFileDelete": true,
+    "supportsOnEpisodeFileDeleteForUpgrade": true,
+    "supportsOnHealthIssue": true,
+    "includeHealthWarnings": true,
+    "name": "LunaSea",
+    "fields": [
+        {
+            "name": "url",
+            "value": "https://notify.lunasea.app/v1/sonarr/"
+        },
+        {
+            "name": "method",
+            "value": 1
+        },
+        {
+            "name": "username",
+            "value": "default"
+        },
+        {
+            "name": "password",
+            "value": ""
+        }
+    ],
+    "implementationName": "Webhook",
+    "implementation": "Webhook",
+    "configContract": "WebhookSettings",
+    "infoLink": "https://wiki.servarr.com/Sonarr_Supported_Notifications",
+    "tags": [],
+    "OnSeriesDelete": true,
+    "OnEpisodeFileDelete": true,
+    "OnEpisodeFileDeleteForUpgrade": true
+}

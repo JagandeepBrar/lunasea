@@ -8,16 +8,15 @@ description: How to setup webhook-based push notifications with LunaSea
 
 Many of the supported modules have support for webhooks, which we can utilize with the hosted notification relay to get rich, instant notifications with deep-linking support sent as push notifications directly to your devices running LunaSea!
 
-| Module | Supported? |
-| :---: | :---: |
-| [Lidarr](lidarr.md) | **Yes**  ✅ |
-| NZBGet |  No  ❌ |
-| [Overseerr](overseerr.md) | **Yes**  ✅ |
-| [Radarr](radarr.md) | **Yes**  ✅ |
-| SABnzbd |  No  ❌ |
-| [Sonarr](sonarr.md) | **Yes**  ✅ |
-| [Tautulli](tautulli.md) | **Yes**  ✅ |
-| [Overseerr](overseerr.md) | **Yes**  ✅ |
+| Module | Supported? | Deep Linking? |
+| :---: | :---: | :---: |
+| [Lidarr](lidarr.md) | **Yes**  ✅ |  No  ❌ |
+| NZBGet |  No  ❌ |  No  ❌ |
+| [Overseerr](overseerr.md) | **Yes**  ✅ | No  ❌ |
+| [Radarr](radarr.md) | **Yes**  ✅ | **Yes**  ✅ |
+| SABnzbd |  No  ❌ | No  ❌ |
+| [Sonarr](sonarr.md) | **Yes**  ✅ | **Yes**  ✅ |
+| [Tautulli](tautulli.md) | **Yes**  ✅ | **Yes**  ✅ |
 
 {% hint style="info" %}
 Support for additional modules will come over time!

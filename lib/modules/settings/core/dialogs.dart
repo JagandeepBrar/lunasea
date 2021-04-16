@@ -1024,33 +1024,6 @@ class SettingsDialogs {
         await LunaDialog.dialog(
             context: context,
             title: 'LunaSea Account',
-            buttons: [
-                if(LunaFirebaseAuth().isSignedIn) LunaDialog.button(
-                    text: 'User ID',
-                    onPressed: () async {
-                        if(!LunaFirebaseAuth().isSignedIn) return;
-                        String userId = LunaFirebaseAuth().uid;
-                        await Clipboard.setData(ClipboardData(text: userId));
-                        showLunaInfoSnackBar(
-                            title: 'Copied User ID',
-                            message: 'Copied your user ID to the clipboard',
-                        );
-                        Navigator.of(context, rootNavigator: true).pop();
-                    },
-                ),
-                LunaDialog.button(
-                    text: 'Device ID',
-                    onPressed: () async {
-                        String deviceId = await LunaFirebaseMessaging().token;
-                        await Clipboard.setData(ClipboardData(text: deviceId));
-                        showLunaInfoSnackBar(
-                            title: 'Copied Device ID',
-                            message: 'Copied your device ID to the clipboard',
-                        );
-                        Navigator.of(context, rootNavigator: true).pop();
-                    },
-                ),
-            ],
             content: [LunaDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
             contentPadding: LunaDialog.textDialogContentPadding(),
         );

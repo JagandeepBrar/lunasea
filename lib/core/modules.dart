@@ -8,13 +8,13 @@ enum LunaModule {
     DASHBOARD,
     LIDARR,
     NZBGET,
+    OVERSEERR,
     RADARR,
     SABNZBD,
     SEARCH,
     SETTINGS,
     SONARR,
     TAUTULLI,
-    OVERSEERR,
     WAKE_ON_LAN,
 }
 
@@ -186,6 +186,23 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SONARR: return 'https://sonarr.tv';
             case LunaModule.TAUTULLI: return 'https://tautulli.com';
             case LunaModule.OVERSEERR: return 'https://overseerr.dev';
+            case LunaModule.WAKE_ON_LAN: return null;
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    String get notificationDocs {
+        switch(this) {
+            case LunaModule.DASHBOARD: return null;
+            case LunaModule.LIDARR: return 'https://docs.lunasea.app/lunasea/notifications/lidarr';
+            case LunaModule.NZBGET: return null;
+            case LunaModule.RADARR: return 'https://docs.lunasea.app/lunasea/notifications/radarr';
+            case LunaModule.SABNZBD: return null;
+            case LunaModule.SEARCH: return null;
+            case LunaModule.SETTINGS: return null;
+            case LunaModule.SONARR: return 'https://docs.lunasea.app/lunasea/notifications/sonarr';
+            case LunaModule.TAUTULLI: return 'https://docs.lunasea.app/lunasea/notifications/tautulli';
+            case LunaModule.OVERSEERR: return 'https://docs.lunasea.app/lunasea/notifications/overseerr';
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTableCard extends StatelessWidget {
+    final String title;
     final List<LunaTableContent> content;
     final List<LunaButton> buttons;
 
     LunaTableCard({
         Key key,
-        @required this.content,
+        this.content,
         this.buttons,
+        this.title,
     }) : super(key: key);
 
     @override
@@ -27,17 +29,29 @@ class LunaTableCard extends StatelessWidget {
     Widget _body() {
         return Column(
             children: [
+                if(title?.isNotEmpty ?? false) _title(),
                 ..._content(),
                 _buttons(),
             ],
         );
     }
 
+    Widget _title() {
+        return Row(
+            children: [
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: LunaText.title(text: title),
+                ),
+            ],
+        );
+    }
+
     List<Widget> _content() {
-        return content.map<Widget>((content) => Padding(
+        return content?.map<Widget>((content) => Padding(
             child: content,
             padding: EdgeInsets.symmetric(horizontal: 12.0),
-        )).toList();
+        ))?.toList() ?? [];
     }
 
     Widget _buttons() {

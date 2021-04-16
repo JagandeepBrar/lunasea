@@ -191,23 +191,6 @@ extension LunaModuleExtension on LunaModule {
         throw Exception('Invalid LunaModule');
     }
 
-    String get notificationDocs {
-        switch(this) {
-            case LunaModule.DASHBOARD: return null;
-            case LunaModule.LIDARR: return 'https://docs.lunasea.app/lunasea/notifications/lidarr';
-            case LunaModule.NZBGET: return null;
-            case LunaModule.RADARR: return 'https://docs.lunasea.app/lunasea/notifications/radarr';
-            case LunaModule.SABNZBD: return null;
-            case LunaModule.SEARCH: return null;
-            case LunaModule.SETTINGS: return null;
-            case LunaModule.SONARR: return 'https://docs.lunasea.app/lunasea/notifications/sonarr';
-            case LunaModule.TAUTULLI: return 'https://docs.lunasea.app/lunasea/notifications/tautulli';
-            case LunaModule.OVERSEERR: return 'https://docs.lunasea.app/lunasea/notifications/overseerr';
-            case LunaModule.WAKE_ON_LAN: return null;
-        }
-        throw Exception('Invalid LunaModule');
-    }
-
     String get github {
         switch(this) {
             case LunaModule.DASHBOARD: return null;
@@ -272,6 +255,23 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.TAUTULLI: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.OVERSEERR: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.WAKE_ON_LAN: return null;          
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    bool get hasWebhooks {
+        switch(this) {
+            case LunaModule.DASHBOARD: return false;
+            case LunaModule.LIDARR: return true;
+            case LunaModule.NZBGET: return false;
+            case LunaModule.RADARR: return true;
+            case LunaModule.SABNZBD: return false;
+            case LunaModule.SEARCH: return false;
+            case LunaModule.SETTINGS: return false;
+            case LunaModule.SONARR: return true;
+            case LunaModule.OVERSEERR: return true;
+            case LunaModule.TAUTULLI: return true;
+            case LunaModule.WAKE_ON_LAN: return false;
         }
         throw Exception('Invalid LunaModule');
     }

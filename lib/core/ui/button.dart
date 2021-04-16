@@ -202,7 +202,7 @@ class LunaButton extends Card {
     factory LunaButton.loader({
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         Color color = LunaColours.accent,
-        Color backgroundColor = LunaColours.accent,
+        Color backgroundColor,
         double height = DEFAULT_HEIGHT,
         Alignment alignment = Alignment.center,
         Decoration decoration,
@@ -229,7 +229,7 @@ class LunaButton extends Card {
     factory LunaButton.icon({
         @required IconData icon,
         Color color = LunaColours.accent,
-        Color backgroundColor = LunaColours.accent,
+        Color backgroundColor,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         double height = DEFAULT_HEIGHT,
         double iconSize = 22.0,

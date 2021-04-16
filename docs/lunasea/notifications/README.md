@@ -18,7 +18,7 @@ Many of the supported modules have support for webhooks, which we can utilize wi
 | [Sonarr](sonarr.md) | **Yes**  ✅ | **Yes**  ✅ |
 | [Tautulli](tautulli.md) | **Yes**  ✅ | **Yes**  ✅ |
 
-{% hint style="warning" %}
+{% hint style="info" %}
 **Notifications are only available in LunaSea v5.0.0+.**
 
 _Support for additional modules will come over time!_

@@ -11,14 +11,14 @@ description: Setting up Lidarr for webhook-based push notifications
 
 ## Setup the Webhook
 
-Open Lidarr's web GUI, open the Settings and enter the "Connect" page. Hit the "+" button to add a new connection, and select "Webhook".
+Open Lidarr's web GUI, open the Settings and enter the "Connect" page. Hit the "+" button to add a new connection, and select "Webhook". Please follow each tab below to setup the webhook:
 
 {% tabs %}
 {% tab title="Name" %}
 Select any name, for example "LunaSea"
 {% endtab %}
 
-{% tab title="Notification Triggers" %}
+{% tab title="Triggers" %}
 Select which events should trigger a push notification. The following triggers are supported:
 
 | Trigger | Supported? |
@@ -42,7 +42,7 @@ If you want to receive notifications for all artists, leave the tags area empty.
 {% endtab %}
 
 {% tab title="URL" %}
-Paste the full, copied device-based or user-based URL that was copied from LunaSea.
+Paste the full device-based or user-based URL that was copied from LunaSea.
 
 Each webhook can support a single user-based or device-based webhook URL. Attaching multiple device-based or user-based webhooks to a single Lidarr instance requires setting up multiple webhooks.
 {% endtab %}
@@ -52,13 +52,33 @@ Keep the method on "**POST**". Changing the method to "**PUT**" will cause the w
 {% endtab %}
 
 {% tab title="Username" %}
+The username field should be an **exact match** to the profile that this module instance was added to within LunaSea.
 
+If you are using the default profile \("default"\), _you can leave this field empty_. LunaSea will assume the default profile when none is supplied.
+
+Please ensure that the profile is entered as an **exact match** to the profile being used in LunaSea. Capitalization and punctuation _do_ matter.
+
+{% hint style="warning" %}
+Correctly setting up the "**Username**" field is critically important to get proper deep-linking support.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Password" %}
-
+Leave the password field empty. Setting this field will currently have no effect.
 {% endtab %}
 {% endtabs %}
+
+Once setup, close LunaSea and run the connection test. You should receive a new notification letting you know that LunaSea is ready to receive Lidarr notifications!
+
+## Example
+
+An example Lidarr webhook can be seen below:
+
+* No tags are set for this webhook, meaning all artists will trigger a notification
+* This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`
+* The webhook is associated with the profile named `My Profile`
+
+![](../../.gitbook/assets/lidarr_notification_example.png)
 
 
 

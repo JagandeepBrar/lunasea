@@ -4,10 +4,6 @@ description: How to setup webhook-based push notifications with LunaSea
 
 # Notifications
 
-{% hint style="warning" %}
-**Notifications are only available in LunaSea v5.0.0+.**
-{% endhint %}
-
 ## Getting Started
 
 Many of the supported modules have support for webhooks, which we can utilize with the hosted notification relay to get rich, instant notifications with deep-linking support sent as push notifications directly to your devices running LunaSea!
@@ -22,8 +18,10 @@ Many of the supported modules have support for webhooks, which we can utilize wi
 | [Sonarr](sonarr.md) | **Yes**  ✅ | **Yes**  ✅ |
 | [Tautulli](tautulli.md) | **Yes**  ✅ | **Yes**  ✅ |
 
-{% hint style="info" %}
-Support for additional modules will come over time!
+{% hint style="warning" %}
+**Notifications are only available in LunaSea v5.0.0+.**
+
+_Support for additional modules will come over time!_
 {% endhint %}
 
 ## Notification Types

@@ -14,6 +14,10 @@
 * [Logs](lunasea/logs.md)
 * [Notifications](lunasea/notifications/README.md)
   * [Lidarr](lunasea/notifications/lidarr.md)
+  * [Overseerr](lunasea/notifications/overseerr.md)
+  * [Radarr](lunasea/notifications/radarr.md)
+  * [Sonarr](lunasea/notifications/sonarr.md)
+  * [Tautulli](lunasea/notifications/tautulli.md)
 * [Profiles](lunasea/profiles.md)
 
 ## Lidarr

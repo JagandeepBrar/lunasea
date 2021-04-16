@@ -36,9 +36,13 @@ User-based notifications send notifications to all devices that are linked to yo
 
 Device-based notifications send notifications to a single, specific device. Device-based notifications do not require a LunaSea account, but require you to register every device as a new webhook in the module.
 
-## Getting Your User or Device Token
+## Getting Your Webhook URLs
 
-Simple head to the Settings with LunaSea, then into the "Notifications" page.
+To get the correct webhook URL for each module, simply head to the Settings with LunaSea, then into the "Notifications" page! The buttons on each module card will copy the **full, constructed webhook URL** to receive user-based or device-based notifications.
 
+{% hint style="warning" %}
+**Do not publicly share your user-based or device-based URL!**
 
+Anyone with access to your user or device webhook URLs can send notifications to your account or device.
+{% endhint %}
 

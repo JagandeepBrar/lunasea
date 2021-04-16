@@ -45,7 +45,7 @@ extension _EventTypeExtension on _EventType {
     }
 
     Future<void> _downloadEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
-    Future<void> _grabEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
+    Future<void> _grabEvent(Map<dynamic, dynamic> data) async => RadarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
     Future<void> _healthEvent(Map<dynamic, dynamic> data) async => RadarrSystemStatusRouter().navigateTo(LunaState.navigatorKey.currentContext);
     Future<void> _renameEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
     Future<void> _testEvent(Map<dynamic, dynamic> data) async => LunaModule.RADARR.launch();

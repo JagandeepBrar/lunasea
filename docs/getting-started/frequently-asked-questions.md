@@ -123,5 +123,5 @@ While this is outside of the scope of this project, I can try to point you in th
 
 Sorry that LunaSea is not meeting your expectations, feel free to post criticisms or complaints to any of the social platforms or directly [email me](mailto:hello@comet.tools). I hope that I can remedy your complaints, all I ask is that you do not be abusive or disrespectful to myself or others in the community.
 
-I also kindly request that before you submit a 1-star App Store/Play Store review that you consider contacting me directly with your complaints. 1-star reviews can really hurt a smaller applications reviews since we do not typically get lots of reviews.
+I also kindly request that before you submit a 1-star App Store/Play Store review that you consider contacting me directly with your complaints. 1-star reviews can really hurt a smaller application's rating since we do not typically get lots of reviews.
 

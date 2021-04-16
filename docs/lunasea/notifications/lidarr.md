@@ -15,7 +15,7 @@ Open Lidarr's web GUI, open the Settings and enter the "Connect" page. Hit the "
 
 {% tabs %}
 {% tab title="Name" %}
-Select any name, for example "LunaSea"
+Select any name, for example "LunaSea".
 {% endtab %}
 
 {% tab title="Triggers" %}
@@ -52,15 +52,13 @@ Keep the method on "**POST**". Changing the method to "**PUT**" will cause the w
 {% endtab %}
 
 {% tab title="Username" %}
-The username field should be an **exact match** to the profile that this module instance was added to within LunaSea.
-
-If you are using the default profile \(`default`\), _you can leave this field empty_. LunaSea will assume the default profile when none is supplied.
-
-Please ensure that the profile is entered as an **exact match** to the profile being used in LunaSea. Capitalization and punctuation _do_ matter.
-
 {% hint style="warning" %}
-Correctly setting up the username field is critically important to get full deep-linking support.
+This step is only required if you are _**not**_ using the default LunaSea profile \(`default`\). LunaSea will assume the default profile when none is supplied.
+
+Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
+
+The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _do_ matter.
 {% endtab %}
 
 {% tab title="Password" %}
@@ -74,9 +72,9 @@ Once setup, close LunaSea and run the connection test. You should receive a new 
 
 An example Lidarr webhook can be seen below:
 
-* No tags are set for this webhook, meaning all artists will trigger a notification
-* This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`
-* The webhook is associated with the profile named `My Profile`
+* No tags are set for this webhook, meaning all artists will trigger a notification.
+* This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`.
+* The webhook is associated with the profile named `My Profile`.
 
 ![](../../.gitbook/assets/lidarr_notification_example.png)
 

@@ -109,6 +109,7 @@ A few quick tips on common problems:
 * Similarly for the clients, ensure that the host is set to `0.0.0.0`, or the local IP.
 * As noted in the host prompt, you must add either `http://` or `https://` before the IP or domain. LunaSea does not make any assumptions on the protocol to use \(http or https\).
 * Do not use `3xx` redirecting webpages. This is not supported for POST and PUT requests \(sending data back to the module\) and can cause many headaches, so ideally you should be pointing directly to the module on your network.
+* \(**Windows Only**\): For a lot of software to correctly bind to your network, you need to ensure that you run the software as administrator. This is specifically very important for the -arrs, which will only bind to your host machine if you do not run it as administrator. 
 
 ### How Can I Access My Services Remotely?
 

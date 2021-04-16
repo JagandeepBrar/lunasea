@@ -52,7 +52,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _downloadEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
     Future<void> _episodeFileDeleteEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
-    Future<void> _grabEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
+    Future<void> _grabEvent(Map<dynamic, dynamic> data) async => SonarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
     Future<void> _healthEvent(Map<dynamic, dynamic> data) async => LunaModule.SONARR.launch();
     Future<void> _renameEvent(Map<dynamic, dynamic> data) async => _goToSeriesDetails(int.tryParse(data['seriesId']));
     Future<void> _seriesDeleteEvent(Map<dynamic, dynamic> data) async => LunaModule.SONARR.launch();

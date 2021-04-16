@@ -54,12 +54,12 @@ Keep the method on "**POST**". Changing the method to "**PUT**" will cause the w
 {% tab title="Username" %}
 The username field should be an **exact match** to the profile that this module instance was added to within LunaSea.
 
-If you are using the default profile \("default"\), _you can leave this field empty_. LunaSea will assume the default profile when none is supplied.
+If you are using the default profile \(`default`\), _you can leave this field empty_. LunaSea will assume the default profile when none is supplied.
 
 Please ensure that the profile is entered as an **exact match** to the profile being used in LunaSea. Capitalization and punctuation _do_ matter.
 
 {% hint style="warning" %}
-Correctly setting up the "**Username**" field is critically important to get proper deep-linking support.
+Correctly setting up the username field is critically important to get full deep-linking support.
 {% endhint %}
 {% endtab %}
 

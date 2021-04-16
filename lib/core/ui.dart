@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 export 'ui/appbar.dart';
+export 'ui/banner.dart';
 export 'ui/bottom_bar.dart';
 export 'ui/bottom_modal_sheet.dart';
 export 'ui/button.dart';
@@ -58,6 +59,7 @@ class LunaUI {
     static const double         BORDER_RADIUS = 10.0;
     static const double         BUTTON_BACKGROUND_OPACITY = 0.80;
     static const double         ELEVATION = 0.0;
+    static const EdgeInsets     MARGIN_DEFAULT = const EdgeInsets.all(12.0);
     static const EdgeInsets     MARGIN_CARD = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     // Border-Related
     static bool get shouldUseBorder => LunaTheme.isAMOLEDTheme && LunaTheme.useAMOLEDBorders;

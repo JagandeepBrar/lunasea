@@ -737,6 +737,33 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
+    Future<bool> dismissTooltipBanners(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();   
+        }
+
+        await LunaDialog.dialog(
+            context: context,
+            title: 'Dismiss Banners',
+            buttons: [
+                LunaDialog.button(
+                    text: 'Dismiss',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LunaDialog.textContent(text: 'Are you sure you want to dismiss all tooltip banners?\n'),
+                LunaDialog.textContent(text: 'The tooltip banners will give you tips and hints for features available within LunaSea.'),
+            ],
+            contentPadding: LunaDialog.textDialogContentPadding(),
+        );
+        return _flag;
+    }
+
     Future<bool> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 
@@ -997,33 +1024,6 @@ class SettingsDialogs {
         await LunaDialog.dialog(
             context: context,
             title: 'LunaSea Account',
-            buttons: [
-                if(LunaFirebaseAuth().isSignedIn) LunaDialog.button(
-                    text: 'User ID',
-                    onPressed: () async {
-                        if(!LunaFirebaseAuth().isSignedIn) return;
-                        String userId = LunaFirebaseAuth().uid;
-                        await Clipboard.setData(ClipboardData(text: userId));
-                        showLunaInfoSnackBar(
-                            title: 'Copied User ID',
-                            message: 'Copied your user ID to the clipboard',
-                        );
-                        Navigator.of(context, rootNavigator: true).pop();
-                    },
-                ),
-                LunaDialog.button(
-                    text: 'Device ID',
-                    onPressed: () async {
-                        String deviceId = await LunaFirebaseMessaging().token;
-                        await Clipboard.setData(ClipboardData(text: deviceId));
-                        showLunaInfoSnackBar(
-                            title: 'Copied Device ID',
-                            message: 'Copied your device ID to the clipboard',
-                        );
-                        Navigator.of(context, rootNavigator: true).pop();
-                    },
-                ),
-            ],
             content: [LunaDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
             contentPadding: LunaDialog.textDialogContentPadding(),
         );

@@ -34,7 +34,7 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
             scrollControllers: [scrollController],
             actions: [
                 LunaIconButton(
-                    icon: Icons.person,
+                    icon: Icons.switch_account,
                     onPressed: () async {
                         List<dynamic> values = await SettingsDialogs.enabledProfile(
                             context,

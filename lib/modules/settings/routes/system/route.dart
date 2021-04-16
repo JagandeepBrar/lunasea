@@ -49,6 +49,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 if(LunaFirebaseCrashlytics.isPlatformCompatible) _enableCrashlytics(),
                 if(LunaFirebaseCrashlytics.isPlatformCompatible || LunaFirebaseAnalytics.isPlatformCompatible) LunaDivider(),
                 _language(),
+                _hideTooltipBanners(),
                 _clearConfiguration(),
             ],
         );
@@ -132,6 +133,25 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                     }
                 ),
             ),
+        );
+    }
+
+    Widget _hideTooltipBanners() {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Dismiss Tooltip Banners'),
+            subtitle: LunaText.subtitle(text: 'Hide Tooltips, Alerts, & Hints'),
+            trailing: LunaIconButton(icon: Icons.rule_rounded),
+            onTap: () async {
+                bool result = await SettingsDialogs().dismissTooltipBanners(context);
+                if(result) {
+                    LunaModule.values.forEach((module) => module.hideAllBanners());
+                    showLunaSuccessSnackBar(
+                        title: 'Dismissed Banners',
+                        message: 'All banners have been dismissed'
+                    );
+                }
+            },
         );
     }
 

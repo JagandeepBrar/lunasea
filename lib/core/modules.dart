@@ -8,13 +8,13 @@ enum LunaModule {
     DASHBOARD,
     LIDARR,
     NZBGET,
+    OVERSEERR,
     RADARR,
     SABNZBD,
     SEARCH,
     SETTINGS,
     SONARR,
     TAUTULLI,
-    OVERSEERR,
     WAKE_ON_LAN,
 }
 
@@ -255,6 +255,40 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.TAUTULLI: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.OVERSEERR: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.WAKE_ON_LAN: return null;          
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    bool get hasWebhooks {
+        switch(this) {
+            case LunaModule.DASHBOARD: return false;
+            case LunaModule.LIDARR: return true;
+            case LunaModule.NZBGET: return false;
+            case LunaModule.RADARR: return true;
+            case LunaModule.SABNZBD: return false;
+            case LunaModule.SEARCH: return false;
+            case LunaModule.SETTINGS: return false;
+            case LunaModule.SONARR: return true;
+            case LunaModule.OVERSEERR: return true;
+            case LunaModule.TAUTULLI: return true;
+            case LunaModule.WAKE_ON_LAN: return false;
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    void hideAllBanners() {
+        switch(this) { 
+            case LunaModule.DASHBOARD: return;
+            case LunaModule.LIDARR: return;
+            case LunaModule.NZBGET: return;
+            case LunaModule.RADARR: return;
+            case LunaModule.SABNZBD: return;
+            case LunaModule.SEARCH: return;
+            case LunaModule.SETTINGS: return SettingsBanners.values.forEach((banner) => banner.markSeen());
+            case LunaModule.SONARR: return;
+            case LunaModule.TAUTULLI: return;
+            case LunaModule.OVERSEERR: return;
+            case LunaModule.WAKE_ON_LAN: return;
         }
         throw Exception('Invalid LunaModule');
     }

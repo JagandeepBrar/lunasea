@@ -1,5 +1,4 @@
 export 'routes/account.dart';
-export 'routes/donations.dart';
 export 'routes/configuration.dart';
 export 'routes/configuration_appearance.dart';
 export 'routes/configuration_dashboard.dart';
@@ -13,6 +12,9 @@ export 'routes/configuration_search.dart';
 export 'routes/configuration_sonarr.dart';
 export 'routes/configuration_tautulli.dart';
 export 'routes/configuration_wakeonlan.dart';
+export 'routes/debug_menu.dart';
+export 'routes/donations.dart';
+export 'routes/notifications.dart';
 export 'routes/profiles.dart';
 export 'routes/resources.dart';
 export 'routes/settings.dart';

@@ -9,7 +9,7 @@ class LunaChangelog {
     /// 
     /// If they are not the same, stores the current build number and shows the changelog.
     Future<void> checkAndShowChangelog() async {
-        await PackageInfo.fromPlatform()
+        PackageInfo.fromPlatform()
         .then((package) {
             if(package != null && AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
                 AlertsDatabaseValue.CHANGELOG.put(package.buildNumber);
@@ -111,29 +111,23 @@ class _Changelog {
         changelog.changesNew = json['new'] == null ? [] : (json['new'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesTweaks = json['tweaks'] == null ? [] : (json['tweaks'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesFixes = json['fixes'] == null ? [] : (json['fixes'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
+        // macOS
         changelog.changesPlatform = [];
         int _index = -1;
-        // macOS
         _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'macOS');
-        if(Platform.isMacOS &&  json['platform'] != null &&  _index >= 0) {
-            changelog.changesPlatform = [
-                _Change.fromJson(json['platform'][_index]),
-            ];
-        }
+        if(Platform.isMacOS &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
         // Android
         _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'Android');
-        if(Platform.isAndroid &&  json['platform'] != null &&  _index >= 0) {
-            changelog.changesPlatform = [
-                _Change.fromJson(json['platform'][_index]),
-            ];
-        }
+        if(Platform.isAndroid &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
         // iOS
         _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'iOS');
-        if(Platform.isIOS &&  json['platform'] != null &&  _index >= 0) {
-            changelog.changesPlatform = [
-                _Change.fromJson(json['platform'][_index]),
-            ];
-        }
+        if(Platform.isIOS &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
         return changelog;
     }
 }

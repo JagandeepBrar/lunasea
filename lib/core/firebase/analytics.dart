@@ -31,7 +31,7 @@ class LunaFirebaseAnalytics {
     }
 
     /// Log an "app_open" event.
-    void appOpened() {
-        if(isPlatformCompatible) unawaited(instance.logAppOpen());
+    Future<void> appOpened() async {
+        if(isPlatformCompatible) instance.logAppOpen();
     }
 }

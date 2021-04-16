@@ -3,23 +3,23 @@ import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrManualImportExtension on RadarrManualImport {
     String get lunaLanguage {
-        if((languages?.length ?? 0) > 1) return 'Multi-Language';
-        if((languages?.length ?? 0) == 1) return languages[0].name;
+        if((this.languages?.length ?? 0) > 1) return 'Multi-Language';
+        if((this.languages?.length ?? 0) == 1) return this.languages[0].name;
         return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaQualityProfile {
-        return quality?.quality?.name ?? LunaUI.TEXT_EMDASH;
+        return this.quality?.quality?.name ?? LunaUI.TEXT_EMDASH;
     }
 
     String get lunaSize {
-        return size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
+        return this.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
     }
 
     String get lunaMovie {
-        if(movie == null) return LunaUI.TEXT_EMDASH;
-        String title = movie.title ?? LunaUI.TEXT_EMDASH;
-        int year = (movie.year ?? 0) == 0 ? null : movie.year;
+        if(this.movie == null) return LunaUI.TEXT_EMDASH;
+        String title = this.movie.title ?? LunaUI.TEXT_EMDASH;
+        int year = (this.movie.year ?? 0) == 0 ? null : this.movie.year;
         return [
             title,
             if(year != null) '($year)',

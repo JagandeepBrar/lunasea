@@ -102,5 +102,5 @@ extension LunaLanguageExtension on LunaLanguage {
         throw Exception('Invalid LunaLanguage');
     }
 
-    Future<void> use(BuildContext context) => context.setLocale(locale);
+    Future<void> use(BuildContext context) => context.setLocale(this.locale);
 }

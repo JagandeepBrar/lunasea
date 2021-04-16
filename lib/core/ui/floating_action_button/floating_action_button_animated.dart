@@ -22,14 +22,14 @@ class LunaFloatingActionButtonAnimated extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return FloatingActionButton(
-            heroTag: heroTag,
-            onPressed: onPressed,
-            backgroundColor: backgroundColor,
             child: AnimatedIcon(
                 icon: icon,
                 color: color,
                 progress: controller,
             ),
+            heroTag: heroTag,
+            onPressed: onPressed,
+            backgroundColor: backgroundColor,
         );
     }
 }

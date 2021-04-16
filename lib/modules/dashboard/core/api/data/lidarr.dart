@@ -17,7 +17,6 @@ class CalendarLidarrData extends CalendarData {
         @required this.hasAllFiles,
     }) : super(id, title);
 
-    @override
     String get bannerURI {
         return api['enabled']
             ? (api['host'] as String).endsWith('/')
@@ -26,7 +25,6 @@ class CalendarLidarrData extends CalendarData {
             : '';
     }
 
-    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
@@ -56,7 +54,6 @@ class CalendarLidarrData extends CalendarData {
         ],
     );
 
-    @override
     Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
         LidarrDetailsArtist.ROUTE_NAME,
         arguments: LidarrDetailsArtistArguments(
@@ -65,7 +62,6 @@ class CalendarLidarrData extends CalendarData {
         ),
     );
 
-    @override
     Widget trailing(BuildContext context) => LunaIconButton(
         icon: Icons.search,
         onPressed: () async => trailingOnPress(context),

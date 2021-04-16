@@ -54,7 +54,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, int speed) async {
-        unawaited(HapticFeedback.lightImpact());
+        HapticFeedback.lightImpact();
         List values = await SABnzbdDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {

@@ -11,8 +11,6 @@ class LunaNetworkImage extends ClipRRect {
         bool roundCorners = true,
     }) : super(
         child: Container(
-            height: height,
-            width: width,
             child: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -36,6 +34,8 @@ class LunaNetworkImage extends ClipRRect {
                     ),
                 ],
             ),
+            height: height,
+            width: width,
         ),
         borderRadius: roundCorners ? BorderRadius.circular(LunaUI.BORDER_RADIUS) : null,
     ) {

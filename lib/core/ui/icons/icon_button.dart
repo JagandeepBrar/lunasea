@@ -33,7 +33,6 @@ class LunaIconButton extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return InkWell(
-            onLongPress: _onLongPress(),
             child: IconButton(
                 icon: loadingState == LunaLoadingState.ACTIVE ? _loader() : _icon(),
                 iconSize: iconSize,
@@ -41,6 +40,7 @@ class LunaIconButton extends StatelessWidget {
                 padding: padding,
                 onPressed: _onPressed(),
             ),
+            onLongPress: _onLongPress(),
         );
     }
 
@@ -48,7 +48,7 @@ class LunaIconButton extends StatelessWidget {
         if(onPressed == null) return null;
         if(loadingState == LunaLoadingState.ACTIVE) return null;
         return () async {
-            unawaited(HapticFeedback.lightImpact());
+            HapticFeedback.lightImpact();
             onPressed();
         };
     }
@@ -57,7 +57,7 @@ class LunaIconButton extends StatelessWidget {
         if(onLongPress == null) return null;
         if(loadingState == LunaLoadingState.ACTIVE) return null;
         return () async {
-            unawaited(HapticFeedback.heavyImpact());
+            HapticFeedback.heavyImpact();
             onLongPress();
         };
     }

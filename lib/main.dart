@@ -7,7 +7,7 @@ import 'package:lunasea/core.dart';
 /// 
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
-    unawaited(runZonedGuarded(
+    runZonedGuarded(
         () async {
             await _init();
             return runApp(
@@ -21,7 +21,7 @@ Future<void> main() async {
             );
         },
         (error, stack) => LunaLogger().critical(error, stack),
-    ));
+    );
 }
 
 /// Initializes LunaSea before running the BIOS Widget.
@@ -77,24 +77,20 @@ class _State extends State<LunaBIOS> {
 
     /// Runs the first-step boot sequence that is required for widgets
     Future<void> _boot() async {
-        LunaFirebaseAnalytics().appOpened();
         // Initialize notifications
         // - Request notification permission
         // - Add device token to Firebase (if logged in)
         // - Check and handle initial message (if found)
         // - Add notification listeners for onMessage and onMessageOpenedApp
-        await LunaFirebaseMessaging().requestNotificationPermissions()
-        .then((value) {
-            if(value) {
-                unawaited(LunaFirebaseFirestore().addDeviceToken());
-                unawaited(LunaFirebaseMessaging().checkAndHandleInitialMessage());
-                _firebaseOnMessageListener = LunaFirebaseMessaging().onMessageListener();
-                _firebaseOnMessageOpenedAppListener = LunaFirebaseMessaging().onMessageOpenedAppListener();
-            }
-        });
+        await LunaFirebaseMessaging().requestNotificationPermissions();
+        LunaFirebaseFirestore().addDeviceToken();
+        LunaFirebaseMessaging().checkAndHandleInitialMessage();
+        _firebaseOnMessageListener = LunaFirebaseMessaging().onMessageListener();
+        _firebaseOnMessageOpenedAppListener = LunaFirebaseMessaging().onMessageOpenedAppListener();
         // Remaining boot sequence
         LunaQuickActions().initialize();
-        unawaited(LunaChangelog().checkAndShowChangelog());
+        LunaChangelog().checkAndShowChangelog();
+        LunaFirebaseAnalytics().appOpened();
     }
 
     @override

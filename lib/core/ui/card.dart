@@ -14,13 +14,13 @@ class LunaCard extends Card {
     }) : super(
         key: key,
         child: Container(
+            child: child,
             decoration: decoration,
             height: height,
             width: width,
-            child: child,
         ),
         margin: margin,
-        color: color ?? Theme.of(context).primaryColor,
+        color: color == null ? Theme.of(context).primaryColor : color,
         shape: LunaUI.shapeBorder,
         elevation: LunaUI.ELEVATION,
         clipBehavior: Clip.antiAlias,

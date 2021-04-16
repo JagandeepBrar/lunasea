@@ -16,7 +16,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         context: context,
         title: LunaText.title(text: data.title, darken: alreadyAdded),
         subtitle: LunaText.subtitle(
-            text: data.overview.trim()+'\n\n',
+            text: data.overview.trim()+"\n\n",
             darken: alreadyAdded,
             maxLines: 2,
         ),
@@ -30,7 +30,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         
     );
 
-    void _showAlreadyAddedMessage(BuildContext context) => showLunaInfoSnackBar(
+    Future<void> _showAlreadyAddedMessage(BuildContext context) => showLunaInfoSnackBar(
         title: 'Artist Already in Lidarr',
         message: data.title,
     );
@@ -40,11 +40,9 @@ class LidarrAddSearchResultTile extends StatelessWidget {
             LidarrAddDetails.ROUTE_NAME,
             arguments: LidarrAddDetailsArguments(data: data),
         );
-        if(result != null) {
-            switch(result[0]) {
-                case 'artist_added': Navigator.of(context).pop(result); break;
-                default: LunaLogger().warning('LidarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
-            }
+        if(result != null) switch(result[0]) {
+            case 'artist_added': Navigator.of(context).pop(result); break;
+            default: LunaLogger().warning('LidarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 }

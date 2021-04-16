@@ -30,26 +30,9 @@ class LunaActionBarCard extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaCard(
             context: context,
-            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-            color: backgroundColor != null
-                ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
-                : LunaTheme.isAMOLEDTheme
-                    ? Colors.black.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
-                    : LunaColours.primary.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
             child: InkWell(
-                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                onTap: onTap == null ? null : () async {
-                    unawaited(HapticFeedback.lightImpact());
-                    onTap();
-                },
-                onLongPress: onLongPress == null ? null : () async {
-                    unawaited(HapticFeedback.heavyImpact());
-                    onLongPress();
-                },
                 child: Container(
-                    height: LunaButton.DEFAULT_HEIGHT,
                     child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0),
                         child: Row(
                             children: [
                                 Expanded(
@@ -105,10 +88,26 @@ class LunaActionBarCard extends StatelessWidget {
                                 ),
                             ],
                         ),
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
                     ),
-                    
+                    height: LunaButton.DEFAULT_HEIGHT,
                 ),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                onTap: onTap == null ? null : () async {
+                    HapticFeedback.lightImpact();
+                    onTap();
+                },
+                onLongPress: onLongPress == null ? null : () async {
+                    HapticFeedback.heavyImpact();
+                    onLongPress();
+                },
             ),
+            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            color: backgroundColor != null
+                ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+                : LunaTheme.isAMOLEDTheme
+                    ? Colors.black.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+                    : LunaColours.primary.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
         );
     }
 }

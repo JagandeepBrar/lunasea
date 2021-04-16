@@ -10,17 +10,17 @@ class LunaButtonContainer extends StatelessWidget {
         this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
     }) {
         assert(children != null);
-        assert(children.isNotEmpty);
+        assert(children.length > 0);
         assert(padding != null);
     }
 
     @override
     Widget build(BuildContext context) {
         return Padding(
-            padding: padding,
             child: Row(
                 children: children.map<Expanded>((button) => Expanded(child: button)).toList(),
             ),
+            padding: padding,
         );
     }
 }

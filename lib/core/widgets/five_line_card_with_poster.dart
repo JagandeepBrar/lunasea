@@ -57,14 +57,7 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaCard(
             context: context,
-            decoration: backgroundUrl == null ? null : LunaCardDecoration(
-                uri: backgroundUrl,
-                headers: posterHeaders,
-            ),
             child: InkWell(
-                onTap: onTap,
-                onLongPress: onLongPress,
-                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 child: Row(
                     children: [
                         _poster(context),
@@ -72,6 +65,13 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
                         if(trailing != null) _trailing(),
                     ],
                 ),
+                onTap: onTap,
+                onLongPress: onLongPress,
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+            ),
+            decoration: backgroundUrl == null ? null : LunaCardDecoration(
+                uri: backgroundUrl,
+                headers: posterHeaders,
             ),
         );
     }
@@ -89,13 +89,8 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
     Widget _body(BuildContext context) {
         return Expanded(
             child: Padding(
-                padding: EdgeInsets.all(_padding),
                 child: Container(
-                    height: (itemExtent-(_padding*2)),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
                         children: [
                             _title(),
                             if(customSubtitle1 != null) customSubtitle1,
@@ -107,8 +102,13 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
                             if(customSubtitle4 != null) customSubtitle4,
                             if(customSubtitle4 == null && subtitle4 != null) _subtitle(subtitle4, subtitle4MaxLines),
                         ],
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                     ),
+                    height: (itemExtent-(_padding*2)),
                 ),
+                padding: EdgeInsets.all(_padding),
             ),
         );
     }
@@ -139,11 +139,11 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
 
     Widget _trailing() {
         return Container(
-            height: itemExtent,
             child: Padding(
-                padding: EdgeInsets.only(right: 12.0),
                 child: trailing,
+                padding: EdgeInsets.only(right: 12.0),
             ),
+            height: itemExtent,
         );
     }
 }

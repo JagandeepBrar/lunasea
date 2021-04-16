@@ -12,9 +12,21 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
             builder: (context, lunaBox, widget) => ValueListenableBuilder(
                 valueListenable: Database.profilesBox.listenable(),
                 builder: (context, profilesBox, widget) => Padding(
-                    padding: EdgeInsets.only(right: 12.0),
                     child: LunaPopupMenuButton<String>(
                         tooltip: 'Change Profiles',
+                        child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                                LunaText.subtitle(
+                                    text: LunaDatabaseValue.ENABLED_PROFILE.data,
+                                ),
+                                Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white70,
+                                    size: LunaUI.FONT_SIZE_HEADER,
+                                ),
+                            ],
+                        ),
                         onSelected: (result) {
                             HapticFeedback.selectionClick();
                             LunaProfile().safelyChangeProfiles(result);
@@ -33,20 +45,8 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                                 ),
                             )];
                         },
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                                LunaText.subtitle(
-                                    text: LunaDatabaseValue.ENABLED_PROFILE.data,
-                                ),
-                                Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white70,
-                                    size: LunaUI.FONT_SIZE_HEADER,
-                                ),
-                            ],
-                        ),
                     ),
+                    padding: EdgeInsets.only(right: 12.0),
                 ),
             ),
         ),

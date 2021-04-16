@@ -26,21 +26,21 @@ class LunaButton extends Card {
     }) : super(
         key: key,
         child: InkWell(
-            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            onTap: () async {
-                unawaited(HapticFeedback.lightImpact());
-                if(onTap != null && loadingState != LunaLoadingState.ACTIVE) onTap();
-            },
-            onLongPress: () async {
-                unawaited(HapticFeedback.heavyImpact());
-                if( onLongPress != null && loadingState != LunaLoadingState.ACTIVE) onLongPress();
-            },
             child: Container(
+                child: child,
                 decoration: decoration,
                 height: height,
                 alignment: alignment,
-                child: child,
             ),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+            onTap: () async {
+                HapticFeedback.lightImpact();
+                if(onTap != null && loadingState != LunaLoadingState.ACTIVE) onTap();
+            },
+            onLongPress: () async {
+                HapticFeedback.heavyImpact();
+                if( onLongPress != null && loadingState != LunaLoadingState.ACTIVE) onLongPress();
+            },
         ),
         margin: margin,
         color: backgroundColor != null
@@ -140,7 +140,7 @@ class LunaButton extends Card {
                 onLongPress: onLongPress,
             );
         }
-        throw Exception('Attempted to create an invalid LunaButton');
+        throw Exception("Attempted to create an invalid LunaButton");
     }
 
     /// Build a button that contains a centered text string.
@@ -158,26 +158,18 @@ class LunaButton extends Card {
         Function onLongPress,
     }) {
         return LunaButton._(
-            margin: margin,
-            height: height,
-            backgroundColor: backgroundColor,
-            alignment: alignment,
-            decoration: decoration,
-            onTap: onTap,
-            onLongPress: onLongPress,
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                         if(icon != null) Padding(
-                            padding: EdgeInsets.only(right: 8.0),
                             child: Icon(
                                 icon,
                                 color: color,
                                 size: iconSize,
                             ),
+                            padding: EdgeInsets.only(right: 8.0),
                         ),
                         Flexible(
                             child: Text(
@@ -194,7 +186,15 @@ class LunaButton extends Card {
                         ),
                     ],
                 ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
             ),
+            margin: margin,
+            height: height,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            decoration: decoration,
+            onTap: onTap,
+            onLongPress: onLongPress,
         );
     }
 
@@ -210,6 +210,11 @@ class LunaButton extends Card {
         Function onLongPress,
     }) {
         return LunaButton._(
+            child: LunaLoader(
+                useSafeArea: false,
+                color: color,
+                size: 16.0,
+            ),
             margin: margin,
             height: height,
             backgroundColor: backgroundColor,
@@ -217,11 +222,6 @@ class LunaButton extends Card {
             decoration: decoration,
             onTap: onTap,
             onLongPress: onLongPress,
-            child: LunaLoader(
-                useSafeArea: false,
-                color: color,
-                size: 16.0,
-            ),
         );
     }
 
@@ -239,6 +239,11 @@ class LunaButton extends Card {
         Function onLongPress,
     }) {
         return LunaButton._(
+            child: Icon(
+                icon,
+                color: color,
+                size: iconSize,
+            ),
             margin: margin,
             height: height,
             backgroundColor: backgroundColor,
@@ -246,11 +251,6 @@ class LunaButton extends Card {
             decoration: decoration,
             onTap: onTap,
             onLongPress: onLongPress,
-            child: Icon(
-                icon,
-                color: color,
-                size: iconSize,
-            ),
         );
     }
 }

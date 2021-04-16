@@ -26,11 +26,11 @@ class LunaReorderableListView extends StatelessWidget {
             child: FlutterReorderableListView(
                 scrollController: controller,
                 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                children: children,
                 padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),
                 physics: physics,
                 onReorder: onReorder,
                 buildDefaultDragHandles: buildDefaultDragHandles,
-                children: children,
             ),
         );
     }

@@ -13,7 +13,6 @@ class LunaHeader extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Padding(
-            padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 8.0),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -26,11 +25,6 @@ class LunaHeader extends StatelessWidget {
                         ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(
-                            top: 4.0,
-                            left: 1.0,
-                            bottom: subtitle != null ? 6.0 : 0.0,
-                        ),
                         child: Container(
                             height: 2.0,
                             width: 48.0,
@@ -38,6 +32,11 @@ class LunaHeader extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                                 color: LunaColours.accent,
                             ),
+                        ),
+                        padding: EdgeInsets.only(
+                            top: 4.0,
+                            left: 1.0,
+                            bottom: subtitle != null ? 6.0 : 0.0,
                         ),
                     ),
                     if(subtitle != null) Text(
@@ -50,6 +49,7 @@ class LunaHeader extends StatelessWidget {
                     ),
                 ],
             ),
+            padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 8.0),
         );
     }
 }

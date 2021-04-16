@@ -17,12 +17,7 @@ class LunaHighlightedNode extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Container(
-            decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            ),
             child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                 child: Text(
                     text,
                     maxLines: 1,
@@ -32,6 +27,11 @@ class LunaHighlightedNode extends StatelessWidget {
                         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
+                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+            ),
+            decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
         );
     }

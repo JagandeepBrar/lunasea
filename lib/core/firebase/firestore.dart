@@ -14,7 +14,7 @@ class LunaFirebaseFirestore {
         if(!LunaFirebaseAuth().isSignedIn) return false;
         try {
             LunaFirebaseBackupDocument entry = LunaFirebaseBackupDocument(id: id, title: title, description: description, timestamp: timestamp);
-            await instance.doc('users/${LunaFirebaseAuth().uid}/backups/$id').set(entry.toJSON());
+            instance.doc('users/${LunaFirebaseAuth().uid}/backups/$id').set(entry.toJSON());
             return true;
         } catch (error, stack) {
             LunaLogger().error('Failed to add backup entry', error, stack);
@@ -55,7 +55,7 @@ class LunaFirebaseFirestore {
         if(!LunaFirebaseAuth().isSignedIn) return false;
         try {
             String token = await LunaFirebaseMessaging.instance.getToken();
-            await instance.doc('users/${LunaFirebaseAuth().uid}').set({
+            instance.doc('users/${LunaFirebaseAuth().uid}').set({
                 'devices': FieldValue.arrayUnion([token]),
             }, SetOptions(merge: true));
             return true;

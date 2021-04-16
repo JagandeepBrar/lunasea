@@ -15,7 +15,7 @@ class Database {
         await Hive.initFlutter(_DATABASE_PATH);
         _registerAdapters();
         await _openBoxes();
-        if(profilesBox.keys?.isEmpty ?? true) setDefaults(clearEverything: true);
+        if(profilesBox.keys.length == 0) setDefaults(clearEverything: true);
     }
 
     /// Deinitialize the database by closing all open hive boxes.

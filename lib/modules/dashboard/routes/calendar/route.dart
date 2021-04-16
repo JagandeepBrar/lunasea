@@ -13,7 +13,6 @@ class _State extends State<DashboardCalendarRoute> with AutomaticKeepAliveClient
     @override
     bool get wantKeepAlive => true;
 
-    @override
     Future<void> loadCallback() async {
         context.read<DashboardState>().resetUpcoming();
     }
@@ -29,18 +28,16 @@ class _State extends State<DashboardCalendarRoute> with AutomaticKeepAliveClient
                 future: context.watch<DashboardState>().upcoming,
                 builder: (context, snapshot) {
                     if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error(
-                                'Failed to fetch unified calendar data',
-                                snapshot.error,
-                                snapshot.stackTrace,
-                            );
-                        }
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Failed to fetch unified calendar data',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
                         return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                        return DashboardCalendarWidget(events: snapshot.data);
-                    }
+                    if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return DashboardCalendarWidget(
+                        events: snapshot.data,
+                    );
                     return LunaLoader();
                 },
             ),

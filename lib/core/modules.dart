@@ -294,8 +294,6 @@ extension LunaModuleExtension on LunaModule {
     }
 
     Future<void> launch() async {
-        if(route != null) {
-            unawaited(LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false));
-        }
+        if(route != null) LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
     }
 }

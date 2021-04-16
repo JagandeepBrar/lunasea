@@ -16,9 +16,9 @@ class LunaDrawer extends StatelessWidget {
                 valueListenable: Database.indexersBox.listenable(),
                 builder: (context, indexerBox, widget) => Drawer(
                     child: ListView(
+                        children: _getDrawerEntries(context),
                         padding: EdgeInsets.only(bottom: 8.0),
                         physics: ClampingScrollPhysics(),
-                        children: _getDrawerEntries(context),
                     ),
                 ),
             ),
@@ -37,15 +37,15 @@ class LunaDrawer extends StatelessWidget {
             LunaDivider(),
             if(showSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
             if(LunaModule.WAKE_ON_LAN.enabled && Database.currentProfileObject.wakeOnLANEnabled ?? false) _buildWakeOnLAN(context),
-            if(automation?.isNotEmpty ?? false) ...List.generate(
+            if(automation.length != 0) ...List.generate(
                 automation.length,
                 (index) => _buildEntry(context: context, module: automation[index]),
             ),
-            if(clients?.isNotEmpty ?? false) ...List.generate(
+            if(clients.length != 0) ...List.generate(
                 clients.length,
                 (index) => _buildEntry(context: context, module: clients[index]),
             ),
-            if(monitoring?.isNotEmpty ?? false) ...List.generate(
+            if(monitoring.length != 0) ...List.generate(
                 monitoring.length,
                 (index) => _buildEntry(context: context, module: monitoring[index]),
             ),
@@ -73,7 +73,7 @@ class LunaDrawer extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) await module.launch();
+                if(!currentPage) module.launch();
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

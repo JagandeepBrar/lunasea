@@ -29,9 +29,7 @@ class LunaBanner extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaCard(
             context: context,
-            color: backgroundColor,
             child: Container(
-                padding: LunaUI.MARGIN_DEFAULT,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -39,12 +37,12 @@ class LunaBanner extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                                 Padding(
-                                    padding: EdgeInsets.only(right: LunaUI.MARGIN_DEFAULT.right-2.0),
                                     child: Icon(
                                         icon,
                                         size: 20.0,
                                         color: iconColor,
                                     ),
+                                    padding: EdgeInsets.only(right: LunaUI.MARGIN_DEFAULT.right-2.0),
                                 ),
                                 Expanded(
                                     child: LunaText.title(
@@ -55,28 +53,30 @@ class LunaBanner extends StatelessWidget {
                                     ),
                                 ),
                                 if(dismissCallback != null) InkWell(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    onTap: dismissCallback,
                                     child: Icon(
                                         Icons.close_rounded,
                                         size: 20.0,
                                         color: LunaColours.accent,
                                     ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    onTap: dismissCallback,
                                 ),
                             ],
                         ),
                         if(bodyText?.isNotEmpty ?? false) Padding(
-                            padding: EdgeInsets.only(top: LunaUI.MARGIN_CARD.top),
                             child: LunaText.subtitle(
                                 text: bodyText.toString(),
                                 color: bodyColor,
                                 softWrap: true,
                                 maxLines: _MAX_LINES,
                             ),
+                            padding: EdgeInsets.only(top: LunaUI.MARGIN_CARD.top),
                         ),
                     ],
                 ),
+                padding: LunaUI.MARGIN_DEFAULT,
             ),
+            color: backgroundColor,
         );
     }
 }

@@ -37,12 +37,12 @@ class LunaFirebaseAuth {
         try {
             assert(email != null && password != null);
             UserCredential _user = await instance.createUserWithEmailAndPassword(email: email, password: password);
-            unawaited(LunaFirebaseFirestore().addDeviceToken());
+            LunaFirebaseFirestore().addDeviceToken();
             return LunaFirebaseAuthResponse(state: true, user: _user.user, error: null);
         } on FirebaseAuthException catch (error) {
             return LunaFirebaseAuthResponse(state: false, user: null, error: error);
         } catch (error, stack) {
-            LunaLogger().error('Failed to register user: $email', error, stack);
+            LunaLogger().error("Failed to register user: $email", error, stack);
             return LunaFirebaseAuthResponse(state: false, user: null, error: null);
         }
     }
@@ -54,12 +54,12 @@ class LunaFirebaseAuth {
         try {
             assert(email != null && password != null);
             UserCredential _user = await instance.signInWithEmailAndPassword(email: email, password: password);
-            unawaited(LunaFirebaseFirestore().addDeviceToken());
+            LunaFirebaseFirestore().addDeviceToken();
             return LunaFirebaseAuthResponse(state: true, user: _user.user, error: null);
         } on FirebaseAuthException catch (error) {
             return LunaFirebaseAuthResponse(state: false, user: null, error: error);
         } catch (error, stack) {
-            LunaLogger().error('Failed to login user: $email', error, stack);
+            LunaLogger().error("Failed to login user: $email", error, stack);
             return LunaFirebaseAuthResponse(state: false, user: null, error: null);
         }
     }
@@ -67,6 +67,6 @@ class LunaFirebaseAuth {
     /// Reset a user's password by sending them a password reset email.
     Future<void> resetPassword(String email) async {
         assert(email != null);
-        unawaited(instance.sendPasswordResetEmail(email: email));
+        instance.sendPasswordResetEmail(email: email);
     }
 }

@@ -104,7 +104,6 @@ class LunaMessage extends StatelessWidget {
                             children: [
                                 Expanded(
                                     child: Container(
-                                        margin: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
                                         child: Text(
                                             text,
                                             textAlign: TextAlign.center,
@@ -114,6 +113,7 @@ class LunaMessage extends StatelessWidget {
                                                 fontSize: LunaUI.FONT_SIZE_MESSAGES,
                                             ),
                                         ),
+                                        margin: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
                                     ),
                                 ),
                             ],

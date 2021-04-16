@@ -441,8 +441,8 @@ class _ReorderableListViewState extends State<FlutterReorderableListView> {
         final double animValue = Curves.easeInOut.transform(animation.value);
         final double elevation = lerpDouble(0, 6, animValue);
         return Material(
-          elevation: elevation,
           child: child,
+          elevation: elevation,
         );
       },
       child: child,

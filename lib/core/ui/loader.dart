@@ -25,7 +25,7 @@ class LunaLoader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
                 SpinKitThreeBounce(
-                    color: color ?? LunaColours.accent,
+                    color: color != null ? color : LunaColours.accent,
                     size: size,
                 ),
             ],

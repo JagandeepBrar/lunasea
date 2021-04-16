@@ -20,12 +20,7 @@ class LunaListTile extends Card {
     }) : super(
         key: key,
         child: Container(
-            decoration: decoration,
             child: InkWell(
-                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                mouseCursor: SystemMouseCursors.click,
-                onTap: onTap,
-                onLongPress: onLongPress,
                 child: ListTile(
                     title: title,
                     subtitle: subtitle,
@@ -34,7 +29,12 @@ class LunaListTile extends Card {
                     mouseCursor: onTap != null || onLongPress != null ? SystemMouseCursors.click : null,
                     contentPadding: contentPadding ? customContentPadding ?? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0) : null,
                 ),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                mouseCursor: SystemMouseCursors.click,
+                onTap: onTap,
+                onLongPress: onLongPress,
             ),
+            decoration: decoration,
         ),
         margin: margin,
         elevation: LunaUI.ELEVATION,

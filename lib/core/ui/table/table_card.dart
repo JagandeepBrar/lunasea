@@ -16,10 +16,10 @@ class LunaTableCard extends StatelessWidget {
         return LunaCard(
             context: context,
             child: Padding(
+                child: _body(),
                 padding: buttons == null
                     ? EdgeInsets.symmetric(vertical: 8.0)
                     : EdgeInsets.only(top: 8.0, bottom: 6.0),
-                child: _body(),
             ),
         );
     }
@@ -35,18 +35,18 @@ class LunaTableCard extends StatelessWidget {
 
     List<Widget> _content() {
         return content.map<Widget>((content) => Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: content,
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
         )).toList();
     }
 
     Widget _buttons() {
         if(buttons == null) return Container(height: 0.0);
         return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6.0),
             child: Row(
                 children: buttons.map<Widget>((button) => Expanded(child: button)).toList(),
             ),
+            padding: EdgeInsets.symmetric(horizontal: 6.0),
         );
     }
 }

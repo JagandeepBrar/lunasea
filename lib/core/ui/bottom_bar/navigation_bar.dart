@@ -54,8 +54,6 @@ class _State extends State<LunaBottomNavigationBar> {
     @override
     Widget build(BuildContext context) {
         return Container(
-            
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -64,11 +62,7 @@ class _State extends State<LunaBottomNavigationBar> {
                         useSafeArea: false,
                     ),
                     SafeArea(
-                        top: false,
                         child: Padding(
-                            padding: widget.topActions?.isNotEmpty ?? false
-                                ? EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0)
-                                : EdgeInsets.all(12.0),
                             child: GNav(
                                 gap: 8.0,
                                 iconSize: 24.0,
@@ -100,11 +94,16 @@ class _State extends State<LunaBottomNavigationBar> {
                                     _onTabChange(index);
                                     if(widget.onTabChange != null) widget.onTabChange(index);
                                 },
-                            ), 
+                            ),
+                            padding: widget.topActions != null && widget.topActions.length != 0
+                                ? EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0)
+                                : EdgeInsets.all(12.0),
                         ),
+                        top: false,
                     ),
                 ],
             ),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         );
     }
 

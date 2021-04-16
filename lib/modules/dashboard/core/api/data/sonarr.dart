@@ -26,7 +26,6 @@ class CalendarSonarrData extends CalendarData {
         @required this.fileQualityProfile,
     }) : super(id, title);
 
-    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
@@ -64,7 +63,6 @@ class CalendarSonarrData extends CalendarData {
         return false;
     }
 
-    @override
     String get bannerURI {
         return api['enabled']
             ? (api['host'] as String).endsWith('/')
@@ -73,13 +71,11 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    @override
     Future<void> enterContent(BuildContext context) async => SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: seriesID,
     );
 
-    @override
     Widget trailing(BuildContext context) => InkWell(
         child: LunaIconButton(
             text: airTimeString,
@@ -103,24 +99,22 @@ class CalendarSonarrData extends CalendarData {
 
     @override
     Future<void> trailingOnPress(BuildContext context) async {
-        if(context.read<SonarrState>().api != null) {
-            unawaited(context.read<SonarrState>().api.command.episodeSearch(episodeIds: [id])
-            .then((_) => showLunaSuccessSnackBar(
-                title: 'Searching for Episode...',
-                message: episodeTitle,
-            ))
-            .catchError((error, stack) {
-                LunaLogger().error(
-                    'Failed to search for episode: $id',
-                    error,
-                    stack,
-                );
-                showLunaErrorSnackBar(
-                    title: 'Failed to Search',
-                    error: error,
-                );
-            }));
-        }
+        if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(episodeIds: [id])
+        .then((_) => showLunaSuccessSnackBar(
+            title: 'Searching for Episode...',
+            message: episodeTitle,
+        ))
+        .catchError((error, stack) {
+            LunaLogger().error(
+                'Failed to search for episode: $id',
+                error,
+                stack,
+            );
+            showLunaErrorSnackBar(
+                title: 'Failed to Search',
+                error: error,
+            );
+        });
     }
 
     @override

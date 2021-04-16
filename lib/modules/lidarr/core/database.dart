@@ -33,17 +33,15 @@ class LidarrDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         for(String key in config.keys) {
             LidarrDatabaseValue value = valueFromKey(key);
-            if(value != null) {
-                switch(value) {
-                    // Primitive values
-                    case LidarrDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
-                    // Non-imported values
-                    case LidarrDatabaseValue.ADD_MONITORED:
-                    case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
-                    case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
-                    case LidarrDatabaseValue.ADD_METADATA_PROFILE:
-                    case LidarrDatabaseValue.ADD_ROOT_FOLDER: break;
-                }
+            if(value != null) switch(value) {
+                // Primitive values
+                case LidarrDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+                // Non-imported values
+                case LidarrDatabaseValue.ADD_MONITORED:
+                case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
+                case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
+                case LidarrDatabaseValue.ADD_METADATA_PROFILE:
+                case LidarrDatabaseValue.ADD_ROOT_FOLDER: break;
             }
         }
     }
@@ -100,18 +98,18 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
     void put(dynamic value) {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case LidarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(key, value); return;
-            case LidarrDatabaseValue.ADD_MONITORED: if(value.runtimeType == bool) box.put(key, value); return;
-            case LidarrDatabaseValue.ADD_ALBUM_FOLDERS: if(value.runtimeType == bool) box.put(key, value); return;
-            case LidarrDatabaseValue.ADD_QUALITY_PROFILE: if(value.runtimeType == LidarrQualityProfile) box.put(key, value); return;
-            case LidarrDatabaseValue.ADD_METADATA_PROFILE: if(value.runtimeType == LidarrMetadataProfile) box.put(key, value); return;
-            case LidarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == LidarrRootFolder) box.put(key, value); return;
+            case LidarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_ALBUM_FOLDERS: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_QUALITY_PROFILE: if(value.runtimeType == LidarrQualityProfile) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_METADATA_PROFILE: if(value.runtimeType == LidarrMetadataProfile) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == LidarrRootFolder) box.put(this.key, value); return;
         }
         LunaLogger().warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
     ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );
 }

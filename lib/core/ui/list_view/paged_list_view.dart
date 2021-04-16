@@ -58,12 +58,12 @@ class _State<T> extends State<LunaPagedListView<T>> {
                         firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),
                         firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
                         newPageProgressIndicatorBuilder: (context) => Padding(
-                            padding: EdgeInsets.only(bottom: 16.0),
                             child: Container(
                                 alignment: Alignment.center,
                                 height: 40.0,
                                 child: LunaLoader(size: 16.0, useSafeArea: false),
                             ),
+                            padding: EdgeInsets.only(bottom: 16.0),
                         ),
                         newPageErrorIndicatorBuilder: (context) => LunaIconButton(icon: Icons.error, color: LunaColours.red),
                         noItemsFoundIndicatorBuilder: (context) => LunaMessage(
@@ -72,11 +72,11 @@ class _State<T> extends State<LunaPagedListView<T>> {
                             onTap: () => Future.sync(() => widget.pagingController.refresh()),
                         ),
                         noMoreItemsIndicatorBuilder: (context) => Padding(
-                            padding: EdgeInsets.only(bottom: 16.0),
                             child: LunaIconButton(
                                 icon: Icons.check,
                                 color: LunaColours.accent,
                             ),
+                            padding: EdgeInsets.only(bottom: 16.0),
                         ),
                     ),
                     padding: widget.padding ?? MediaQuery.of(context).padding.copyWith(bottom: 8.0).add(EdgeInsets.only(top: 8.0)),

@@ -22,7 +22,7 @@ extension SettingsBannersExtension on SettingsBanners {
 
     String get body {
         switch(this) {
-            case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT: return 'Webhook-based notifications are currently only supported in the modules listed below. Additional module support will come in the future!';
+            case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT: return 'Webhook-based notifications are currently only supported in the modules listed below.\n\nAdditional module support will come in the future!';
         }
         throw Exception('Invalid SettingsBanners');
     }

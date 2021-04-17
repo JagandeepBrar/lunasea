@@ -4,10 +4,6 @@ description: How to backup and restore your LunaSea configuration locally to you
 
 # Local Backup & Restore
 
-{% hint style="warning" %}
-Local backups are currently not supported in the macOS alpha build. Creating and restoring local backups will be supported before the stable release. LunaSea account-based cloud backups are fully supported.
-{% endhint %}
-
 Alongside cloud-based backups, LunaSea offers the ability to create local backups of your configuration which you can manually transfer between devices and restore from. This gives you the freedom to have complete control of your data, and never have your configuration saved in a cloud server. Local backups are fully encrypted on-device, there is currently no option to create a non-encrypted backup.
 
 {% hint style="danger" %}

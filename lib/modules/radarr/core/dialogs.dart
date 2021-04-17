@@ -382,46 +382,52 @@ class RadarrDialogs {
     Future<void> setEditTags(BuildContext context) async {
         await showDialog(
             context: context,
-            builder: (dContext) => ChangeNotifierProvider.value(
+            builder: (_) => ChangeNotifierProvider.value(
                 value: context.read<RadarrMoviesEditState>(),
-                builder: (context, _) => AlertDialog(
-                    actions: <Widget>[
-                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
-                        LunaDialog.button(
-                            text: 'Close',
-                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-                        ),
-                    ],
-                    title: LunaDialog.title(text: 'Tags'),
-                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
-                        selector: (_, state) => state.tags,
-                        builder: (context, future, _) => FutureBuilder(
-                            future: future,
-                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
-                                if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
-                                    children: [
-                                        LunaDialog.textContent(text: 'No Tags Found'),
-                                    ],
-                                );
-                                return LunaDialog.content(
-                                    children: List.generate(
-                                        snapshot.data.length,
-                                        (index) => LunaDialog.checkbox(
-                                            title: snapshot.data[index].label,
-                                            value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                            onChanged: (selected) {
-                                                List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
-                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                                context.read<RadarrMoviesEditState>().tags = _tags;
-                                            },
-                                        ),
+                builder: (context, _) => Selector<RadarrState, Future<List<RadarrTag>>>(
+                    selector: (_, state) => state.tags,
+                    builder: (context, future, _) => FutureBuilder(
+                        future: future,
+                        builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
+                            return AlertDialog(
+                                actions: <Widget>[
+                                    RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                                    LunaDialog.button(
+                                        text: 'Close',
+                                        onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
                                     ),
-                                );
-                            },
-                        ),
+                                ],
+                                title: LunaDialog.title(text: 'Tags'),
+                                content: Builder(
+                                    builder: (context) {
+                                        if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
+                                            children: [
+                                                LunaDialog.textContent(text: 'No Tags Found'),
+                                            ],
+                                        );
+                                        return LunaDialog.content(
+                                            children: List.generate(
+                                                snapshot.data.length,
+                                                (index) => LunaDialog.checkbox(
+                                                    title: snapshot.data[index].label,
+                                                    value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                                    onChanged: (selected) {
+                                                        List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
+                                                        selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                        context.read<RadarrMoviesEditState>().tags = _tags;
+                                                    },
+                                                ),
+                                            ),
+                                        );
+                                    },
+                                ),
+                                contentPadding: (snapshot.data?.length ?? 0) == 0
+                                    ? LunaDialog.textDialogContentPadding()
+                                    : LunaDialog.listDialogContentPadding(),
+                                shape: LunaUI.shapeBorder,
+                            );
+                        },
                     ),
-                    contentPadding: LunaDialog.listDialogContentPadding(),
-                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );
@@ -471,45 +477,50 @@ class RadarrDialogs {
             context: context,
             builder: (_) => ChangeNotifierProvider.value(
                 value: context.read<RadarrAddMovieDetailsState>(),
-                builder: (context, _) => AlertDialog(
-                    actions: <Widget>[
-                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
-                        LunaDialog.button(
-                            text: 'Close',
-                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-                        ),
-                        
-                    ],
-                    title: LunaDialog.title(text: 'Tags'),
-                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
-                        selector: (_, state) => state.tags,
-                        builder: (context, future, _) => FutureBuilder(
-                            future: future,
-                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
-                                if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
-                                    children: [
-                                        LunaDialog.textContent(text: 'No Tags Found'),
-                                    ],
-                                );
-                                return LunaDialog.content(
-                                    children: List.generate(
-                                        snapshot.data.length,
-                                        (index) => LunaDialog.checkbox(
-                                            title: snapshot.data[index].label,
-                                            value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                            onChanged: (selected) {
-                                                List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
-                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                                context.read<RadarrAddMovieDetailsState>().tags = _tags;
-                                            },
-                                        ),
+                builder: (context, _) => Selector<RadarrState, Future<List<RadarrTag>>>(
+                    selector: (_, state) => state.tags,
+                    builder: (context, future, _) => FutureBuilder(
+                        future: future,
+                        builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
+                            return AlertDialog(
+                                actions: <Widget>[
+                                    RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                                    LunaDialog.button(
+                                        text: 'Close',
+                                        onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
                                     ),
-                                );
-                            },
-                        ),
+                                ],
+                                title: LunaDialog.title(text: 'Tags'),
+                                content: Builder(
+                                    builder: (context) {
+                                        if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
+                                            children: [
+                                                LunaDialog.textContent(text: 'No Tags Found'),
+                                            ],
+                                        );
+                                        return LunaDialog.content(
+                                            children: List.generate(
+                                                snapshot.data.length,
+                                                (index) => LunaDialog.checkbox(
+                                                    title: snapshot.data[index].label,
+                                                    value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                                    onChanged: (selected) {
+                                                        List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
+                                                        selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                        context.read<RadarrAddMovieDetailsState>().tags = _tags;
+                                                    },
+                                                ),
+                                            ),
+                                        );
+                                    },
+                                ),
+                                contentPadding: (snapshot.data?.length ?? 0) == 0
+                                    ? LunaDialog.textDialogContentPadding()
+                                    : LunaDialog.listDialogContentPadding(),
+                                shape: LunaUI.shapeBorder,
+                            );
+                        },
                     ),
-                    contentPadding: LunaDialog.listDialogContentPadding(),
-                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );

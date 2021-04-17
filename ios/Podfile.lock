@@ -200,7 +200,7 @@ PODS:
   - SDWebImage (5.11.0):
     - SDWebImage/Core (= 5.11.0)
   - SDWebImage/Core (5.11.0)
-  - share (0.0.1):
+  - share_plus (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
@@ -227,7 +227,7 @@ DEPENDENCIES:
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
-  - share (from `.symlinks/plugins/share/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -289,8 +289,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   quick_actions:
     :path: ".symlinks/plugins/quick_actions/ios"
-  share:
-    :path: ".symlinks/plugins/share/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   url_launcher:
@@ -338,7 +338,7 @@ SPEC CHECKSUMS:
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 7acbb57630ac7db4a495547fb73916ff3e432f6b
-  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
+  share_plus: 1210d16d59b24d9fe73c2cbec481758952348b81
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef

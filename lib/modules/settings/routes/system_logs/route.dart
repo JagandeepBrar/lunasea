@@ -94,17 +94,19 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
     }
 
     Widget _exportLogs() {
-        return LunaButton.text(
-            text: 'Export',
-            icon: Icons.file_download,
-            onTap: () async {
-                showLunaInfoSnackBar(
-                    title: 'Exporting Logs',
-                    message: 'Please wait...',
-                );
-                File logs = await LunaLogger().exportLogs();
-                LunaFileSystem().exportFileToShareSheet(logs.path);
-            },
+        return Builder(
+            builder: (context) => LunaButton.text(
+                text: 'Export',
+                icon: Icons.file_download,
+                onTap: () async {
+                    showLunaInfoSnackBar(
+                        title: 'Exporting Logs',
+                        message: 'Please wait...',
+                    );
+                    File logs = await LunaLogger().exportLogs();
+                    LunaFileSystem().exportFileToShareSheet(context, logs.path);
+                },
+            ),
         );
     }
 }

@@ -27,10 +27,6 @@ This step is only required if you are _**not**_ using the default LunaSea profil
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
 
-{% hint style="info" %}
-LunaSea will soon have support for Overseerr, but at the time of writing setting the profile will have no effect beyond adding the profile to the notification title.
-{% endhint %}
-
 To attach your profile to the webhook, we need to manually create the authorization header. This header will only contain the name of your profile, and no private information.
 
 To create the authorization header:
@@ -63,7 +59,7 @@ Select which events should trigger a push notification. The following triggers a
 {% endtab %}
 {% endtabs %}
 
-Once setup, close LunaSea and run the connection test. You should receive a new notification letting you know that LunaSea is ready to receive Overseerr notifications!
+Once setup, close LunaSea and run the webhook test in Overseerr. You should receive a new notification letting you know that LunaSea is ready to receive Overseerr notifications!
 
 ## Example
 

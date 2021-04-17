@@ -66,7 +66,7 @@ Leave the password field empty. Setting this field will currently have no effect
 {% endtab %}
 {% endtabs %}
 
-Once setup, close LunaSea and run the connection test. You should receive a new notification letting you know that LunaSea is ready to receive Lidarr notifications!
+Once setup, close LunaSea and run the webhook test in Lidarr. You should receive a new notification letting you know that LunaSea is ready to receive Lidarr notifications!
 
 ## Example
 

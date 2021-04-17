@@ -57,7 +57,7 @@ This step is only required if you are _**not**_ using the default LunaSea profil
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
 
-The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _do_ matter.
+The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
 {% endtab %}
 
 {% tab title="Password" %}

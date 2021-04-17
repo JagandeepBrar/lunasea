@@ -32,7 +32,7 @@ To attach your profile to the webhook, we need to manually create the authorizat
 To create the authorization header:
 
 1. Go to DebugBear's [Basic Auth Header Generator](https://www.debugbear.com/basic-auth-header-generator).
-2. The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _do_ matter.
+2. The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
 3. The password field should be kept empty.
 4. Copy the generated authorization header **after** `Authorization:` .
 

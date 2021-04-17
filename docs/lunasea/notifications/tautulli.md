@@ -11,7 +11,7 @@ description: Setting up Tautulli for webhook-based push notifications
 
 ## Setup the Webhook
 
-Open Tautulli's web GUI, open the Settings and enter the "Notification Agents" page. Hit the "Add a new notification agent" button to add a new connection, and select "Webhook". Please follow each tab below to setup the webhook:
+Open Tautulli's web GUI, open the Settings and enter the "Notification Agents" page. Hit the "Add a new notification agent" button to add a new agent, and select "Webhook". Please follow each tab below to setup the webhook:
 
 {% tabs %}
 {% tab title="Configuration" %}
@@ -56,9 +56,9 @@ Select which events should trigger a push notification. The following triggers a
 {% endtab %}
 
 {% tab title="Conditions" %}
-You can _optionally_ add conditions that must be met for the webhook notifications to trigger.
+You can _**optionally**_ add conditions that must be met for the webhook notifications to trigger.
 
-You can set as many conditions as you like, and can combine different conditions for different conditions by adding separate webhooks to Tautulli. 
+You can set as many conditions as you like, and can combine different conditions for different triggers by adding separate webhooks to Tautulli. 
 {% endtab %}
 
 {% tab title="Data" %}
@@ -77,7 +77,7 @@ To attach your profile to the webhook, we need to manually create the JSON heade
 To create the authorization header:
 
 1. Go to DebugBear's [Basic Auth Header Generator](https://www.debugbear.com/basic-auth-header-generator).
-2. The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _do_ matter.
+2. The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
 3. The password field should be kept empty.
 4. Copy the generated authorization header **after** `Authorization:` .
 5. Get the [template JSON headers](https://github.com/CometTools/LunaSea-Notification-Relay/blob/master/data/tautulli/_header.jsonc) and follow the instructions to insert the generated header into the template.
@@ -96,7 +96,7 @@ Each trigger has a specific JSON data payload that must be included in the reque
 ## Advanced: Custom Notification Body
 
 {% hint style="info" %}
-Each notification trigger has a default notification body that matches the built-in Discord notifications. This step is _optional_ and is not required.
+Each notification trigger has a default notification body that matches the built-in Discord notifications. This step is _**optional**_ and is not required.
 {% endhint %}
 
 Each notification trigger has support for having a custom notification body for that trigger. You must still use the template JSON data as explained above, but you can enter in your custom message into the empty `message` key in the JSON payload. You **must not** delete the `event_type` key that is in the template, else the notification will fail.

@@ -44,6 +44,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
                 case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
                 case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
+                case RadarrDatabaseValue.QUEUE_PAGE_SIZE: 
                 case RadarrDatabaseValue.QUEUE_REFRESH_RATE:
                 case RadarrDatabaseValue.QUEUE_BLACKLIST:
                 case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT:
@@ -79,6 +80,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
                 case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
                 case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
+                case RadarrDatabaseValue.QUEUE_PAGE_SIZE: 
                 case RadarrDatabaseValue.QUEUE_REFRESH_RATE:
                 case RadarrDatabaseValue.QUEUE_BLACKLIST:
                 case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT:
@@ -109,6 +111,7 @@ class RadarrDatabase extends LunaModuleDatabase {
             case 'RADARR_ADD_MOVIE_DEFAULT_TAGS': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS;
             case 'RADARR_ADD_DISCOVER_USE_SUGGESTIONS': return RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS;
             case 'RADARR_MANUAL_IMPORT_DEFAULT_MODE': return RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE;
+            case 'RADARR_QUEUE_PAGE_SIZE': return RadarrDatabaseValue.QUEUE_PAGE_SIZE;
             case 'RADARR_QUEUE_REFRESH_RATE': return RadarrDatabaseValue.QUEUE_REFRESH_RATE;
             case 'RADARR_QUEUE_BLACKLIST': return RadarrDatabaseValue.QUEUE_BLACKLIST;
             case 'RADARR_QUEUE_REMOVE_FROM_CLIENT': return RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT;
@@ -138,6 +141,7 @@ enum RadarrDatabaseValue {
     ADD_MOVIE_DEFAULT_TAGS,
     ADD_DISCOVER_USE_SUGGESTIONS,
     MANUAL_IMPORT_DEFAULT_MODE,
+    QUEUE_PAGE_SIZE,
     QUEUE_REFRESH_RATE,
     QUEUE_BLACKLIST,
     QUEUE_REMOVE_FROM_CLIENT,
@@ -166,6 +170,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return 'RADARR_ADD_MOVIE_DEFAULT_TAGS';
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return 'RADARR_ADD_DISCOVER_USE_SUGGESTIONS';
             case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return 'RADARR_MANUAL_IMPORT_DEFAULT_MODE';
+            case RadarrDatabaseValue.QUEUE_PAGE_SIZE: return 'RADARR_QUEUE_PAGE_SIZE';
             case RadarrDatabaseValue.QUEUE_REFRESH_RATE: return 'RADARR_QUEUE_REFRESH_RATE';
             case RadarrDatabaseValue.QUEUE_BLACKLIST: return 'RADARR_RADARR_QUEUE_BLACKLIST';
             case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: return 'RADARR_QUEUE_REMOVE_FROM_CLIENT';
@@ -196,6 +201,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return _box.get(this.key, defaultValue: []);
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return _box.get(this.key, defaultValue: true);
             case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return _box.get(this.key, defaultValue: RadarrImportMode.COPY.value);
+            case RadarrDatabaseValue.QUEUE_PAGE_SIZE: return _box.get(this.key, defaultValue: 50);
             case RadarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(this.key, defaultValue: 60);
             case RadarrDatabaseValue.QUEUE_BLACKLIST: return _box.get(this.key, defaultValue: false);
             case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: return _box.get(this.key, defaultValue: false);
@@ -226,6 +232,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: if(value is List) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: if(value is bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: if(value is RadarrImportMode) box.put(this.key, value.value); return;
+            case RadarrDatabaseValue.QUEUE_PAGE_SIZE: if(value is int) box.put(this.key, value); return;
             case RadarrDatabaseValue.QUEUE_REFRESH_RATE: if(value is int) box.put(this.key, value); return;
             case RadarrDatabaseValue.QUEUE_BLACKLIST: if(value is bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT: if(value is bool) box.put(this.key, value); return;

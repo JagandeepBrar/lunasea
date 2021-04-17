@@ -295,7 +295,7 @@ class RadarrState extends LunaModuleState {
     void fetchQueue() {
         cancelQueueTimer();
         if(_api != null) {
-            _queue = _api.queue.get();
+            _queue = _api.queue.get(pageSize: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data);
             createQueueTimer();
         }
         notifyListeners();

@@ -46,7 +46,7 @@ dependencies:
   radarr: ^2.1.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   # radarr:
   #   path: /Users/jagandeepbrar/Git/Packages/radarr
-  share: ^2.0.1                           # ANDROID IOS
+  share_plus: ^2.0.1                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   sonarr: ^2.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   supercharged: ^2.0.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS

@@ -51,6 +51,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 _defaultPagesPage(),
                 _defaultSortingFilteringPage(),
                 _discoverUseRadarrSuggestionsToggle(),
+                _queuePageSize(),
             ],
         );
     }
@@ -113,6 +114,25 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                     value: RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.data,
                     onChanged: (value) => RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.put(value),
                 ),
+            ),
+        );
+    }
+
+    Widget _queuePageSize() {
+        return RadarrDatabaseValue.QUEUE_PAGE_SIZE.listen(
+            builder: (context, _, __) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Queue Page Size'),
+                subtitle: LunaText.subtitle(
+                    text: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data == 1
+                        ? '1 Item'
+                        : '${RadarrDatabaseValue.QUEUE_PAGE_SIZE.data} Items',
+                ),
+                trailing: LunaIconButton(icon: LunaIcons.queue),
+                onTap: () async {
+                    Tuple2<bool, int> result = await RadarrDialogs().setQueuePageSize(context);
+                    if(result.item1) RadarrDatabaseValue.QUEUE_PAGE_SIZE.put(result.item2);
+                },
             ),
         );
     }

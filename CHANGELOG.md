@@ -1,5 +1,27 @@
 # LunaSea Changelog
 
+## GitHub
+
+#### NEW
+- `[Webhooks]` Release webhook-based notifications to beta users
+- `[Settings/System]` Added option to clear all banner tooltips (coming in the future)
+- `[Settings/Webhooks]` Added information page for webhook notifications
+
+#### TWEAKS
+- `[Settings/Account]` Removed the ability to pull user ID or device ID from help dialog
+- `[Webhooks/Radarr]` Now opens the queue on "Grab" notifications
+- `[Webhooks/Sonarr]` Now opens the queue on "Grab" notifications
+
+#### FIXES
+- `[Firebase]` Add platform check to disable Firebase on incompatible platforms
+- `[Flutter]` Update packages
+- `[Share]` Sharesheet would not appear on iPadOS devices
+- `[Share]` Sharesheet now supports macOS builds
+- `[UI/UX]` Add padding around "No Tags Found" message within tag selection dialogs
+- `[UI/UX]` Improve consistency of module-level settings dialog
+
+---
+
 ## v5.0.0 (50000016)
 
 #### NEW

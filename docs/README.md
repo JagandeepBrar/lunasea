@@ -7,11 +7,11 @@ description: A self-hosted controller for mobile built using the Flutter framewo
 LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
 * Lidarr
-* Radarr
-* Sonarr
-* NZBGet
-* SABnzbd
 * Newznab Search \(including NZBHydra2\)
+* NZBGet
+* Radarr
+* SABnzbd
+* Sonarr
 * Tautulli
 * Wake on LAN
 

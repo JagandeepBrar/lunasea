@@ -56,9 +56,12 @@ class _State extends State<SonarrQueueQueueTile> {
                 overflow: TextOverflow.fade,
                 softWrap: false,
             ),
-            trailing: Padding(
-                child: LunaIconButton(icon: widget.record.lunaStatusIcon, color: widget.record.lunaStatusColor),
-                padding: EdgeInsets.only(bottom: 12.0),
+            trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                    LunaIconButton(icon: widget.record.lunaStatusIcon, color: widget.record.lunaStatusColor),
+                ],
             ),
             contentPadding: true,
             onTap: () => _controller.toggle(),

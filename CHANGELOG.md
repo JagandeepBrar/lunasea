@@ -1,5 +1,31 @@
 # LunaSea Changelog
 
+## GitHub
+
+#### NEW
+- `[Webhooks]` Release webhook-based notifications to all beta users
+- `[Settings/Radarr]` Added option to set queue page size
+- `[Settings/System]` Added option to clear all banner tooltips (coming in the future)
+- `[Settings/Webhooks]` Added setup page for webhook notifications
+- `[Sonarr/Queue]` Refreshing the queue will now also refresh the monitored downloads from the clients
+
+#### TWEAKS
+- `[Radarr/Queue]` Increased default queue page size to 50 items
+- `[Settings/Account]` Removed the ability to pull user ID or device ID from help dialog
+- `[Webhooks/Radarr]` Now opens the queue on "Grab" notifications
+- `[Webhooks/Sonarr]` Now opens the queue on "Grab" notifications
+
+#### FIXES
+- `[Filesystem]` Sharesheet would not appear on iPadOS devices
+- `[Filesystem]` Sharesheet now supports macOS builds
+- `[Firebase]` Add platform check to disable Firebase on incompatible platforms
+- `[Flutter]` Update packages
+- `[Sonarr/Queue]` Ensure the trailing icon on queue entries is centered vertically
+- `[UI/UX]` Add padding around "No Tags Found" message within tag selection dialogs
+- `[UI/UX]` Improve consistency of module-level settings dialog
+
+---
+
 ## v5.0.0 (50000016)
 
 #### NEW

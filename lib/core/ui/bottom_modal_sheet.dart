@@ -14,5 +14,6 @@ class LunaBottomModalSheet {
         backgroundColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
         shape: LunaUI.shapeBorder,
         builder: builder,
+        closeProgressThreshold: 0.90,
     );
 }

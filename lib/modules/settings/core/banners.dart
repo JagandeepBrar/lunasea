@@ -27,29 +27,39 @@ extension SettingsBannersExtension on SettingsBanners {
         throw Exception('Invalid SettingsBanners');
     }
 
+    Color get iconColor {
+        switch(this) { 
+            case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT: return LunaColours.accent;
+        }
+        throw Exception('Invalid SettingsBanners');
+    }
+
+    IconData get icon {
+        switch(this) { 
+            case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT: return Icons.info_outline_rounded;
+        }
+        throw Exception('Invalid SettingsBanners');
+    }
+
     /// Return true if the banner should be shown in the UI
-    bool get shouldShow => Database.alertsBox.get(this.key, defaultValue: true);
+    bool get shouldShow => Database.alertsBox.get(key, defaultValue: true);
     
     /// Mark the banner as seen, so it will not appear in the UI anymore
-    void markSeen() => Database.alertsBox.put(this.key, false);
+    void markSeen() => Database.alertsBox.put(key, false);
 
     /// Create a new [ValueListenableBuilder] 
     ValueListenableBuilder banner({
-        IconData icon = Icons.info_outline_rounded,
-        Color iconColor = LunaColours.accent,
-        Color backgroundColor,
         Color headerColor = Colors.white,
         Color bodyColor = Colors.white70,
     }) => ValueListenableBuilder(
-        valueListenable: Database.alertsBox.listenable(keys: [this.key]),
+        valueListenable: Database.alertsBox.listenable(keys: [key]),
         builder: (context, box, _) {
-            if(this.shouldShow) return LunaBanner(
-                dismissCallback: this.markSeen,
-                headerText: this.header,
-                bodyText: this.body,
+            if(shouldShow) return LunaBanner(
+                dismissCallback: markSeen,
+                headerText: header,
+                bodyText: body,
                 icon: icon,
                 iconColor: iconColor,
-                backgroundColor: backgroundColor,
                 headerColor: headerColor,
                 bodyColor: bodyColor,
             );

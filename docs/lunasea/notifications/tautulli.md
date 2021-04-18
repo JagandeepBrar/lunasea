@@ -96,7 +96,7 @@ Each trigger has a specific JSON data payload that must be included in the reque
 ## Advanced: Custom Notification Body
 
 {% hint style="info" %}
-Each notification trigger has a default notification body that matches the built-in Discord notifications. This step is _**optional**_ and is not required.
+Each notification trigger has a default notification body that matches the built-in Discord notification agent messages. This step is _**optional**_ and is not required.
 {% endhint %}
 
 Each notification trigger has support for having a custom notification body for that trigger. You must still use the template JSON data as explained above, but you can enter in your custom message into the empty `message` key in the JSON payload. You **must not** delete the `event_type` key that is in the template, else the notification will fail.

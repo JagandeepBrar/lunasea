@@ -22,7 +22,7 @@ The three options related to backing up your encrypted backups should be self-ex
 
 Deleting a backup is a permanent action, there is **no way to restore that backup**.
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 Because all encryption and decryption occurs on-device, it is fully end-to-end encrypted. Forgetting the encryption password will result in there being no way to retrieve the configuration.
 {% endhint %}
 

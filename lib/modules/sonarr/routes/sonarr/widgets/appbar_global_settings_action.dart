@@ -22,7 +22,9 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lunaOpenGenericLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<SonarrState>().host.lunaOpenGenericLink(
+        headers: context.read<SonarrState>().headers,
+    );
 
     Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter().navigateTo(context);
 

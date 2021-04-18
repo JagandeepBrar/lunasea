@@ -126,7 +126,10 @@ class _State extends State<Lidarr> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await LidarrDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
-            case 'web_gui': await _api.host?.toString()?.lunaOpenGenericLink(); break;
+            case 'web_gui':
+                ProfileHiveObject profile = Database.currentProfileObject;
+                await profile.lidarrHost?.lunaOpenGenericLink(headers: profile.lidarrHeaders);
+                break;
             case 'update_library': await _api.updateLibrary()
                 .then((_) => showLunaSuccessSnackBar(title: 'Updating Library...', message: 'Updating your library in the background'))
                 .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Update Library', error: error));

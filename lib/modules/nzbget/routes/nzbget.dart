@@ -99,7 +99,10 @@ class _State extends State<NZBGet> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await NZBGetDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
-            case 'web_gui': _api.host.lunaOpenGenericLink(); break;
+            case 'web_gui':
+                ProfileHiveObject profile = Database.currentProfileObject;
+                await profile.nzbgetHost?.lunaOpenGenericLink(headers: profile.nzbgetHeaders);
+                break;
             case 'add_nzb': _addNZB(); break;
             case 'sort': _sort(); break;
             case 'server_details': _serverDetails(); break;

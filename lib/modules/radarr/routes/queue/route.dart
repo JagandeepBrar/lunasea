@@ -33,6 +33,7 @@ class _State extends State<_RadarrQueueRoute> with LunaLoadCallbackMixin, LunaSc
         if(context.read<RadarrState>().enabled) {
             await context.read<RadarrState>().api.command.refreshMonitoredDownloads();
             context.read<RadarrState>().fetchQueue();
+            await context.read<RadarrState>().queue;
         }
     }
 

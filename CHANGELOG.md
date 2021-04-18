@@ -16,6 +16,7 @@
 - `[Webhooks/Sonarr]` Now opens the queue on "Grab" notifications
 
 #### FIXES
+- `[Bottom Sheet]` Reduce swipe down to dismiss threshold to 10% of height
 - `[Filesystem]` Sharesheet would not appear on iPadOS devices
 - `[Filesystem]` Sharesheet now supports macOS builds
 - `[Firebase]` Add platform check to disable Firebase on incompatible platforms
@@ -23,6 +24,9 @@
 - `[Sonarr/Queue]` Ensure the trailing icon on queue entries is centered vertically
 - `[UI/UX]` Add padding around "No Tags Found" message within tag selection dialogs
 - `[UI/UX]` Improve consistency of module-level settings dialog
+
+#### PLATFORM-SPECIFIC
+- `[Android]` (new) Attach module headers to requests when viewing the web GUI
 
 ---
 

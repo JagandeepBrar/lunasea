@@ -48,7 +48,9 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
         throw Exception('Invalid TautulliGlobalSettingsType');
     }
 
-    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lunaOpenGenericLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lunaOpenGenericLink(
+        headers: context.read<TautulliState>().headers,
+    );
     Future<void> _backupConfig(BuildContext context) async => TautulliAPIHelper().backupConfiguration(context: context);
     Future<void> _backupDatabase(BuildContext context) async => TautulliAPIHelper().backupDatabase(context: context);
     Future<void> _deleteCache(BuildContext context) async => TautulliAPIHelper().deleteCache(context: context);

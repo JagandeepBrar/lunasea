@@ -33,7 +33,7 @@ extension StringExtension on String {
 }
 
 extension StringLinksExtension on String {
-    Future<void> _openLink(String url) async {
+    Future<void> _openLink(String url, { Map<String, String> headers }) async {
         try {
             //Attempt to launch the link forced as a universal link
             if(await _launchUniversalLink(url)) return;
@@ -41,7 +41,7 @@ extension StringLinksExtension on String {
             LunaBrowser _browser = LunaDatabaseValue.SELECTED_BROWSER.data;
             if(_browser != LunaBrowser.APPLE_SAFARI && await _launchCustomBrowser(_browser.formatted(url))) return;
             //If all else fails, just launch it in Safari/stock browser
-            await _launch(url);
+            await _launch(url, headers: headers);
         } catch (error, stack) {
             LunaLogger().error('Unable to open link: $url', error, stack);
         }
@@ -49,10 +49,10 @@ extension StringLinksExtension on String {
 
     Future<bool> _launchUniversalLink(String url) async => await launch(url, forceSafariVC: false, universalLinksOnly: true);
     Future<bool> _launchCustomBrowser(String url) async => await launch(url, forceSafariVC: false);
-    Future<bool> _launch(String url) async => await launch(url);
+    Future<bool> _launch(String url, { Map<String, String> headers }) async => await launch(url, headers: headers);
 
     /// Attempt to open this string as a URL in a browser.
-    Future<void> lunaOpenGenericLink() async => await _openLink(this);
+    Future<void> lunaOpenGenericLink({ Map<dynamic, dynamic> headers }) async => await _openLink(this, headers: headers?.cast<String, String>());
 
     /// Attach this string as an ID/title to IMDB and attempt to launch it as a URL.
     Future<void> lunaOpenIMDB() async => await _openLink('https://www.imdb.com/title/$this');

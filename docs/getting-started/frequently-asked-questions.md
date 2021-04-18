@@ -99,7 +99,11 @@ LunaSea took quite a runaround to initially get on the App Store because of its 
 
 ### "X" Won't Connect, Help!
 
-The initial setup can either be incredibly easy or make you want to pull your hair out, I get that and that's what the community is here for! Please feel free to send a message to any of the above listed methods to get support where either I or an awesome user in the community will surely come to help you out.
+The initial setup can either be incredibly easy or make you want to pull your hair out, I get that and that's what the community is here for! Please feel free to send a message to any of the listed methods to get support where either I or an awesome user in the community will surely come to help you out:
+
+* [**Discord**](https://www.lunasea.app/discord)
+* [**Email**](mailto:hello@comet.tools)
+* [**Reddit**](https://www.lunasea.app/reddit)
 
 A few quick tips on common problems:
 

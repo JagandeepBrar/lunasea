@@ -101,5 +101,5 @@ Each notification trigger has a default notification body that matches the built
 
 Each notification trigger has support for having a custom notification body for that trigger. You must still use the template JSON data as explained above, but you can enter in your custom message into the empty `message` key in the JSON payload. You **must not** delete the `event_type` key that is in the template, else the notification will fail.
 
-Use the notification parameters as explained at the top of the "Data" in the dialog within Tautulli to build your customized notification body.
+Use the notification parameters as explained at the top of the "Data" tab in the dialog within Tautulli to build your customized notification body.
 

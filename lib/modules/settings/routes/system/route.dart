@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -48,8 +49,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 if(LunaFirebaseAnalytics.isPlatformCompatible) _enableAnalytics(),
                 if(LunaFirebaseCrashlytics.isPlatformCompatible) _enableCrashlytics(),
                 if(LunaFirebaseCrashlytics.isPlatformCompatible || LunaFirebaseAnalytics.isPlatformCompatible) LunaDivider(),
-                _language(),
-                _hideTooltipBanners(),
+                if(kDebugMode) _hideTooltipBanners(),
                 _clearConfiguration(),
             ],
         );
@@ -70,19 +70,6 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                     onTap: () async => LunaChangelog().showChangelog(snapshot.data?.version, snapshot.data?.buildNumber),
                 );
             }
-        );
-    }
-
-    Widget _language() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Language'),
-            subtitle: LunaText.subtitle(text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ?? LunaUI.TEXT_EMDASH),
-            trailing: LunaIconButton(icon: Icons.language),
-            onTap: () async {
-                Tuple2<bool, LunaLanguage> result = await SettingsDialogs().changeLanguage(context);
-                if(result.item1) result.item2.use(context);
-            },
         );
     }
 

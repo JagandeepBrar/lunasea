@@ -2,6 +2,7 @@ export 'routes/account.dart';
 export 'routes/configuration.dart';
 export 'routes/configuration_appearance.dart';
 export 'routes/configuration_dashboard.dart';
+export 'routes/configuration_localization.dart';
 export 'routes/configuration_lidarr.dart';
 export 'routes/configuration_nzbget.dart';
 export 'routes/configuration_overseerr.dart';

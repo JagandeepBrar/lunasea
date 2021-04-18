@@ -4,8 +4,8 @@
 
 #### NEW
 - `[Webhooks]` Release webhook-based notifications to all beta users
+- `[Settings]` Added localization configuration page
 - `[Settings/Radarr]` Added option to set queue page size
-- `[Settings/System]` Added option to clear all banner tooltips (coming in the future)
 - `[Settings/Webhooks]` Added setup page for webhook notifications
 - `[Sonarr/Queue]` Refreshing the queue will now also refresh the monitored downloads from the clients
 

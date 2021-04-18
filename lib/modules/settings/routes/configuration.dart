@@ -55,8 +55,15 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
                     context: context,
                     title: LunaText.title(text: 'Appearance'),
                     subtitle: LunaText.subtitle(text: 'Customize the Look & Feel'),
-                    trailing: LunaIconButton(icon: Icons.brush),
+                    trailing: LunaIconButton(icon: Icons.brush_rounded),
                     onTap: () async => SettingsConfigurationAppearanceRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Localization'),
+                    subtitle: LunaText.subtitle(text: 'Customize to your Locale'),
+                    trailing: LunaIconButton(icon: Icons.translate_rounded),
+                    onTap: () async => SettingsConfigurationLocalizationRouter().navigateTo(context),
                 ),
                 if(Platform.isIOS) LunaDatabaseValue.SELECTED_BROWSER.listen(
                     builder: (context, box, widget) => LunaListTile(

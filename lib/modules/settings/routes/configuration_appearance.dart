@@ -41,7 +41,6 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> with LunaScrol
                 _amoledTheme(),
                 _amoledThemeBorders(),
                 _imageBackgroundOpacity(),
-                _use24HourTime(),
             ],
         );
     }
@@ -89,20 +88,6 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> with LunaScrol
                     Tuple2<bool, int> result = await SettingsDialogs().changeBackgroundImageOpacity(context);
                     if(result.item1) LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.put(result.item2);
                 },
-            ),
-        );
-    }
-
-    Widget _use24HourTime() {
-        return LunaDatabaseValue.USE_24_HOUR_TIME.listen(
-            builder: (context, _, __) => LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Use 24 Hour Time'),
-                subtitle: LunaText.subtitle(text: 'Show Timestamps in 24 Hour Style'),
-                trailing: LunaSwitch(
-                    value: LunaDatabaseValue.USE_24_HOUR_TIME.data,
-                    onChanged: (value) => LunaDatabaseValue.USE_24_HOUR_TIME.put(value),
-                ),
             ),
         );
     }

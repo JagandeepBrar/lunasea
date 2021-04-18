@@ -16,7 +16,7 @@ Be warned that you will be unable to reset or change your password if you decide
 
 ## Encrypted Cloud Configuration Storage
 
-![Once signed in, you will have the following options related to backing up your configuration to the cloud](../.gitbook/assets/img_1184.jpg)
+![Options related to backing up your configuration to the cloud](../.gitbook/assets/img_1184.jpg)
 
 The three options related to backing up your encrypted backups should be self-explanatory. All configurations are encrypted **on-device** before being sent off the device. When restoring an encrypted backup, the encrypted backup is downloaded to the device and you will be prompted to decrypt the backup **on-device**.
 

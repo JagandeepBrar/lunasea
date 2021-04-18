@@ -73,7 +73,7 @@ Once setup, close LunaSea and run the webhook test in Sonarr. You should receive
 
 An example Sonarr webhook can be seen below:
 
-* No tags are set for this webhook, meaning all artists will trigger a notification.
+* No tags are set for this webhook, meaning all series will trigger a notification.
 * This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`.
 * The webhook is associated with the profile named `My Profile`.
 

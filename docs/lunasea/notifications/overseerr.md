@@ -66,7 +66,7 @@ Once setup, close LunaSea and run the webhook test in Overseerr. You should rece
 An example Overseerr webhook can be seen below:
 
 * This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`.
-* The webhook is associated with the profile named `My Profile` by generate the authorization header `Basic TXkgUHJvZmlsZTo=`.
+* The webhook is associated with the profile named `My Profile` by generating the authorization header `Basic TXkgUHJvZmlsZTo=`.
 
 ![](../../.gitbook/assets/overseerr_notification_example.png)
 

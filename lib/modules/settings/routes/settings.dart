@@ -93,7 +93,6 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
                     trailing: LunaIconButton(icon: Icons.settings_rounded),
                     onTap: () async => SettingsSystemRouter().navigateTo(context),
                 ),
-                if(kDebugMode) LunaDivider(),
                 if(kDebugMode) LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Debug Menu'),

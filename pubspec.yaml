@@ -17,6 +17,8 @@ dependencies:
   encrypt: ^5.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   expandable: ^5.0.1                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   file_picker: ^3.0.1                     # ANDROID IOS             WEB
+  file_selector_macos: ^0.0.4             #                   MACOS
+  file_selector_platform_interface: ^2.0.2 # ANDROID IOS LINUX MACOS WEB WINDOWS
   firebase_analytics: ^8.0.0              # ANDROID IOS             WEB
   firebase_auth: ^1.1.0                   # ANDROID IOS       MACOS WEB
   firebase_core: ^1.0.3                   # ANDROID IOS       MACOS WEB

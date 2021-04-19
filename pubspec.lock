@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1+1"
   crypto:
     dependency: transitive
     description:
@@ -309,6 +316,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  file_selector_macos:
+    dependency: "direct main"
+    description:
+      name: file_selector_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
+  file_selector_platform_interface:
+    dependency: "direct main"
+    description:
+      name: file_selector_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   firebase:
     dependency: transitive
     description:

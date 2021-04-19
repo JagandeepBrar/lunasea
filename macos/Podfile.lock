@@ -7,6 +7,8 @@ PODS:
   - connectivity_plus_macos (0.0.1):
     - FlutterMacOS
     - Reachability
+  - file_selector_macos (0.0.1):
+    - FlutterMacOS
   - Firebase/Auth (7.7.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.7.0)
@@ -137,6 +139,7 @@ PODS:
 DEPENDENCIES:
   - cloud_firestore (from `Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos`)
   - connectivity_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos`)
+  - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - firebase_auth (from `Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - firebase_crashlytics (from `Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos`)
@@ -175,6 +178,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos
   connectivity_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos
+  file_selector_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   firebase_auth:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos
   firebase_core:
@@ -213,6 +218,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   cloud_firestore: 73379f9bfe02a98fb2caf8770c015cfb031b728a
   connectivity_plus_macos: dbac1dc9b113dfb69a5691831313b1d8ac1c8269
+  file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: cd2ab85eec8170dc260186159f21072ecb679ad5
   firebase_auth: bdf6fa1a00e04c07d31149a20c069c6b8970b73f
   firebase_core: d21e840e73b38bfc0e8f1ddc8c18e0e95165e55c

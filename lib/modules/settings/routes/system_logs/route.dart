@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -103,8 +103,9 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                         title: 'Exporting Logs',
                         message: 'Please wait...',
                     );
-                    File logs = await LunaLogger().exportLogs();
-                    LunaFileSystem().exportFileToShareSheet(context, logs.path);
+                    String data = await LunaLogger().exportLogs();
+                    bool result = await LunaFileSystem().export(context, 'logs.json', utf8.encode(data));
+                    if(result) showLunaSuccessSnackBar(title: 'Saved Logs', message: 'Logs have been successfully saved');
                 },
             ),
         );

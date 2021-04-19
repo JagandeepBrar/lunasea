@@ -576,9 +576,9 @@ class NZBGetAPI {
         }
     }
 
-    Future<bool> uploadFile(String data, String name) async {
+    Future<bool> uploadFile(List<int> data, String name) async {
         try {
-            String dataBase64 = utf8.fuse(base64).encode(data);
+            String dataBase64 = base64.encode(data);
             Response response = await _dio.post(
                 '',
                 data: getBody(

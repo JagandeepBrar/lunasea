@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
@@ -76,7 +77,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
         try {
             context.read<SearchState>().api.downloadRelease(data)
             .then((download) async {
-                bool result = await LunaFileSystem().exportString(context, '$cleanTitle.nzb', download);
+                bool result = await LunaFileSystem().export(context, '$cleanTitle.nzb', utf8.encode(download));
                 if(result) showLunaSuccessSnackBar(title: 'Saved NZB', message: 'NZB has been successfully saved');
             });
             

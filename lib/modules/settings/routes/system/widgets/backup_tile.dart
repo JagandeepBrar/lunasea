@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
@@ -23,10 +24,10 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
                 String encrypted = LunaEncryption().encrypt(_values[1], data);
                 String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
                 if(encrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-                    bool result = await LunaFileSystem().exportString(
+                    bool result = await LunaFileSystem().export(
                         context,
                         '$name.lunasea',
-                        encrypted,
+                        utf8.encode(encrypted),
                     );
                     if(result) showLunaSuccessSnackBar(title: 'Saved Backup', message: 'Backup has been successfully saved');
                 }

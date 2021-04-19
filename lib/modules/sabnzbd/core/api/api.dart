@@ -514,7 +514,7 @@ class SABnzbdAPI {
         }
     }
 
-    Future<bool> uploadFile(String data, String name) async {
+    Future<bool> uploadFile(List<int> data, String name) async {
         try {
             Response response = await _dio.post(
                 '',
@@ -522,7 +522,7 @@ class SABnzbdAPI {
                     'mode': 'addfile',
                 },
                 data: FormData.fromMap({
-                    'name': MultipartFile.fromString(data, filename: name),
+                    'name': MultipartFile.fromBytes(data, filename: name),
                 }),
             );
             return response.data['status'] != null && response.data['status']

@@ -1,84 +1,104 @@
 {
-    "motd": "This build introduces the last major feature of Radarr, the queue! You can now view and manage your queue, including triggering a manual import when necessary.\n\nThis build also introduces the first public-alpha release of the native macOS client, you can read more about it and download the release on Reddit or Discord!",
+    "motd": "This build introduces the public/beta release of webhook-based push notifications for LunaSea! Push notifications are supported on all 3 platforms (Android, iOS, and macOS) and are completely free. Want push notifications from your modules sent to LunaSea? Head to the Settings' notification page to get started! \n\nThis build also includes some other minor changes including an option to set the Radarr queue page size, refreshing Sonarr's queue will now also refresh the download client status, and it is now easier to dismiss bottom sheets by swiping down.",
     "new": [
         {
-            "module": "NZBGet/\nQueue",
+            "module": "Notifications",
             "changes": [
-                "Add category to the queue tile"
+                "Release webhook-based notifications to all beta users"
             ]
         },
         {
-            "module": "Radarr/\nQueue",
+            "module": "Settings",
             "changes": [
-                "Ability to view and manage the queue"
+                "Added localization configuration page",
+                "Added setup page for webhook notifications",
+                "(Radarr) Added option to set queue page size"
             ]
         },
         {
-            "module": "Radarr/\nStatus",
+            "module": "Sonarr",
             "changes": [
-                "Show root folders on the disk space page"
-            ]
-        },
-        {
-            "module": "SABnzbd/\nQueue",
-            "changes": [
-                "Add category to the queue tile"
+                "(Queue) Refreshing the queue will now also refresh the monitored downloads from the clients"
             ]
         }
     ],
     "tweaks": [
         {
-            "module": "NZBGet/\nQueue",
+            "module": "Notifications",
             "changes": [
-                "Submenu for queued NZBs are now accessible via a single tap on the tile",
-                "Reordering queue items now occurs by dragging via the handle"
+                "(Radarr) Now opens the queue on \"Grab\" notifications",
+                "(Sonarr) Now opens the queue on \"Grab\" notifications"
             ]
         },
         {
-            "module": "SABnzbd/\nQueue",
+            "module": "Radarr",
             "changes": [
-                "Submenu for queued NZBs are now accessible via a single tap on the tile",
-                "Reordering queue items now occurs by dragging via the handle"
+                "(Queue) Increased default queue page size to 50 items"
             ]
         },
         {
-            "module": "UI/UX",
+            "module": "Settings",
             "changes": [
-                "Highlight active profile in profile switcher popup menus"
+                "(Account) Removed the ability to pull user ID or device ID from help dialog"
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Radarr/\nCatalogue",
+            "module": "Bottom Sheet",
             "changes": [
-                "Update filters to more closely match the web GUI filtering"
+                "Reduce swipe down to dismiss threshold to 10% of height"
+            ]
+        },
+        {
+            "module": "Firebase",
+            "changes": [
+                "Add platform check to disable Firebase on incompatible platforms"
+            ]
+        },
+        {
+            "module": "Flutter",
+            "changes": [
+                "Update packages"
+            ]
+        },
+        {
+            "module": "Radarr",
+            "changes": [
+                "(File Details) Show a dash when no information is available for a table entry"
+            ]
+        },
+        {
+            "module": "Sonarr",
+            "changes": [
+                "(Queue) Ensure the trailing icon on queue entries is centered vertically"
             ]
         },
         {
             "module": "UI/UX",
             "changes": [
-                "Search and filter/sort buttons now have fixed heights to have consistency across platforms",
-                "Show click cursor on all clickable tiles",
-                "Show two buttons per line on expandable tiles",
-                "Clear button would not always appear on input bars"
+                "Add padding around \"No Tags Found\" message within tag selection dialogs",
+                "Improve consistency of module-level settings dialog"
             ]
         }
     ],
     "platform": [
         {
+            "module": "Android",
+            "changes": [
+                "(new) Attach module headers to requests when viewing the web GUI"
+            ]
+        },
+        {
             "module": "macOS",
             "changes": [
-                "Added LunaSea icon",
-                "Added platform compatability checks for all native linking packages",
-                "Added notification support",
-                "Added hardening runtime and set development signing certificate",
-                "Set minimum macOS version to 10.14 (Mojave)",
-                "Set minimum window size to prevent reactive overflow issues",
-                "Set application/window title",
-                "Updated about dialog to have correct information",
-                "Utilize package_info_plus to allow internal version checking",
-                "Hide incompatible settings options"
+                "(fix) Sharesheet would not appear on iPadOS devices"
+            ]
+        },
+        {
+            "module": "macOS",
+            "changes": [
+                "(fix) Sharesheet now supports macOS builds"
             ]
         }
     ]

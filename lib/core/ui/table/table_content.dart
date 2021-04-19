@@ -21,8 +21,8 @@ class LunaTableContent extends StatelessWidget {
         this.bodyIsUrl = false,
         this.titleAlign = TextAlign.end,
         this.bodyAlign = TextAlign.start,
-        this.titleFlex = 2,
-        this.bodyFlex = 5,
+        this.titleFlex = 5,
+        this.bodyFlex = 10,
         this.titleColor = Colors.white70,
         this.bodyColor = Colors.white,
         this.padding = const EdgeInsets.symmetric(vertical: 4.0),
@@ -34,7 +34,7 @@ class LunaTableContent extends StatelessWidget {
             child: Row(
                 children: [
                     _title(),
-                    Container(width: 16.0, height: 0.0),
+                    Container(width: LunaUI.MARGIN_DEFAULT.left, height: 0.0),
                     _subtitle(),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,

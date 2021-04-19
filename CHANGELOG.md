@@ -3,30 +3,31 @@
 ## GitHub
 
 #### NEW
-- `[Webhooks]` Release webhook-based notifications to all beta users
+- `[Notifications]` Release webhook-based notifications to all beta users
 - `[Settings]` Added localization configuration page
-- `[Settings/Radarr]` Added option to set queue page size
-- `[Settings/Webhooks]` Added setup page for webhook notifications
-- `[Sonarr/Queue]` Refreshing the queue will now also refresh the monitored downloads from the clients
+- `[Settings]` Added option to set queue page size
+- `[Settings]` Added setup page for webhook notifications
+- `[Sonarr]` (Queue) Refreshing the queue will now also refresh the monitored downloads from the clients
 
 #### TWEAKS
-- `[Radarr/Queue]` Increased default queue page size to 50 items
-- `[Settings/Account]` Removed the ability to pull user ID or device ID from help dialog
-- `[Webhooks/Radarr]` Now opens the queue on "Grab" notifications
-- `[Webhooks/Sonarr]` Now opens the queue on "Grab" notifications
+- `[Notifications]` (Radarr) Now opens the queue on "Grab" notifications
+- `[Notifications]` (Sonarr) Now opens the queue on "Grab" notifications
+- `[Radarr]` (Queue) Increased default queue page size to 50 items
+- `[Settings]` (Account) Removed the ability to pull user ID or device ID from help dialog
 
 #### FIXES
 - `[Bottom Sheet]` Reduce swipe down to dismiss threshold to 10% of height
-- `[Filesystem]` Sharesheet would not appear on iPadOS devices
-- `[Filesystem]` Sharesheet now supports macOS builds
 - `[Firebase]` Add platform check to disable Firebase on incompatible platforms
 - `[Flutter]` Update packages
-- `[Sonarr/Queue]` Ensure the trailing icon on queue entries is centered vertically
+- `[Radarr]` (File Details) Show a dash when no information is available for a table entry
+- `[Sonarr]` (Queue) Ensure the trailing icon on queue entries is centered vertically
 - `[UI/UX]` Add padding around "No Tags Found" message within tag selection dialogs
 - `[UI/UX]` Improve consistency of module-level settings dialog
 
 #### PLATFORM-SPECIFIC
 - `[Android]` (new) Attach module headers to requests when viewing the web GUI
+- `[iOS]` (fix) Sharesheet would not appear on iPadOS devices
+- `[macOS]` (fix) Sharesheet now supports macOS builds
 
 ---
 

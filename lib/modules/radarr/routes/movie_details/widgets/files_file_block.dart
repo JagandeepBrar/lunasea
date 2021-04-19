@@ -72,35 +72,29 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
                     LunaHeader(text: 'Video'),
                     LunaTableCard(
                         content: [
-                            LunaTableContent(title: 'bit depth', body: widget.movieFile.mediaInfo.videoBitDepth?.toString() ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'bitrate', body: [
-                                widget.movieFile.mediaInfo.videoBitrate?.lunaBytesToString(bytes: false) ?? LunaUI.TEXT_EMDASH,
-                                if(widget.movieFile.mediaInfo.videoBitrate != null) '/s',
-                            ].join()),
-                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.videoCodec ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'fps', body: widget.movieFile.mediaInfo.videoFps?.toString() ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'resolution', body: widget.movieFile.mediaInfo.resolution ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'bit depth', body: widget.movieFile.mediaInfo.lunaVideoBitDepth),
+                            LunaTableContent(title: 'bitrate', body: widget.movieFile.mediaInfo.lunaVideoBitrate),
+                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.lunaVideoCodec),
+                            LunaTableContent(title: 'fps', body: widget.movieFile.mediaInfo.lunaVideoFps),
+                            LunaTableContent(title: 'resolution', body: widget.movieFile.mediaInfo.lunaVideoResolution),
                         ],
                     ),
                     LunaHeader(text: 'Audio'),
                     LunaTableCard(
                         content: [
-                            LunaTableContent(title: 'bitrate', body: [
-                                widget.movieFile.mediaInfo.audioBitrate?.lunaBytesToString(bytes: false) ?? LunaUI.TEXT_EMDASH,
-                                if(widget.movieFile.mediaInfo.audioBitrate != null) '/s',
-                            ].join()),
-                            LunaTableContent(title: 'channels', body: widget.movieFile.mediaInfo.audioChannels?.toString() ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.audioCodec ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'features', body: widget.movieFile.mediaInfo.audioAdditionalFeatures ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'languages', body: widget.movieFile.mediaInfo.audioLanguages ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'streams', body: widget.movieFile.mediaInfo.audioStreamCount?.toString() ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'bitrate', body: widget.movieFile.mediaInfo.lunaAudioBitrate),
+                            LunaTableContent(title: 'channels', body: widget.movieFile.mediaInfo.lunaAudioChannels),
+                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.lunaAudioCodec),
+                            LunaTableContent(title: 'features', body: widget.movieFile.mediaInfo.lunaAudioAdditionalFeatures),
+                            LunaTableContent(title: 'languages', body: widget.movieFile.mediaInfo.lunaAudioLanguages),
+                            LunaTableContent(title: 'streams', body: widget.movieFile.mediaInfo.lunaAudioStreamCount),
                         ],
                     ),
                     LunaHeader(text: 'Other'),
                     LunaTableCard(
                         content: [
-                            LunaTableContent(title: 'runtime', body: widget.movieFile.mediaInfo.runTime ?? LunaUI.TEXT_EMDASH),
-                            LunaTableContent(title: 'subtitles', body: widget.movieFile.mediaInfo.subtitles ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'runtime', body: widget.movieFile.mediaInfo.lunaRunTime),
+                            LunaTableContent(title: 'subtitles', body: widget.movieFile.mediaInfo.lunaSubtitles),
                         ],
                     ),
                 ]

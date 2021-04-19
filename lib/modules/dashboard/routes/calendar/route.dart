@@ -14,6 +14,7 @@ class _State extends State<DashboardCalendarRoute> with AutomaticKeepAliveClient
     bool get wantKeepAlive => true;
 
     Future<void> loadCallback() async {
+        context.read<DashboardState>().resetToday();
         context.read<DashboardState>().resetUpcoming();
     }
 

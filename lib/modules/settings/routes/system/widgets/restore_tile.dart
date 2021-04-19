@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -17,18 +17,9 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
 
     Future<void> _restore(BuildContext context) async {
         try {
-            FilePickerResult _file = await FilePicker.platform.pickFiles(
-                type: FileType.any,
-                allowMultiple: false,
-                allowCompression: false,
-                withData: true,
-            );
-            if(_file == null) return;
-            if(
-                _file.files[0].extension == 'json' ||
-                _file.files[0].extension == 'lunasea'
-            ) {
-                String _data = String.fromCharCodes(_file.files[0].bytes);
+            File file = await LunaFileSystem().import(context, ['lunasea']);
+            if(file != null) {
+                String _data = file.readAsStringSync();
                 List _key = await SettingsDialogs.enterEncryptionKey(context);
                 if(_key[0]) {
                     String _decrypted = LunaEncryption().decrypt(_key[1], _data);
@@ -47,7 +38,7 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
             } else {
                 showLunaErrorSnackBar(
                     title: 'Failed to Restore',
-                    message: 'Please select a valid backup file',
+                    message: 'Please select a valid file type',
                 );
             }
         } catch (error, stack) {

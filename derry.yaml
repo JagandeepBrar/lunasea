@@ -16,3 +16,11 @@ blackbox:
   files: blackbox_list_files
   shred: blackbox_shred_all_files
   update: blackbox_update_all_files
+cocoapods:
+  nuke:
+    - rm -rf ~/Library/Caches/CocoaPods
+    - rm -rf macos/Pods
+    - rm -rf ~/Library/Developer/Xcode/DerivedData/*
+    - cd ./macos && pod deintegrate
+    - cd ./macos && pod setup
+    - cd ./macos && pod install

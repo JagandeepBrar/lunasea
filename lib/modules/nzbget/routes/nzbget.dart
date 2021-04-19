@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
@@ -128,36 +128,22 @@ class _State extends State<NZBGet> {
 
     Future<void> _addByFile() async {
         try {
-            FilePickerResult _file = await FilePicker.platform.pickFiles(
-                type: FileType.any,
-                allowMultiple: false,
-                allowCompression: false,
-                withData: true,
-            );
-            if(_file == null) return;
-            if(
-                _file.files[0].extension == 'nzb' ||
-                _file.files[0].extension == 'zip'
-            ) {
-                String _data = String.fromCharCodes(_file.files[0].bytes);
-                String _name = _file.files[0].name;
-                if(_data != null) await _api.uploadFile(_data, _name)
+            File _file = await LunaFileSystem().import(context, ['nzb']);
+            if(_file != null) {
+                List<int> _data = _file.readAsBytesSync();
+                String _name = _file.path.substring(_file.path.lastIndexOf('/')+1);
+                if(_data?.isNotEmpty ?? false) await _api.uploadFile(_data, _name)
                 .then((value) {
                     _refreshKeys[0]?.currentState?.show();
                     showLunaSuccessSnackBar(
                         title: 'Uploaded NZB (File)',
                         message: _name,
                     );
-                })
-                .catchError((error, stack) => showLunaErrorSnackBar(
-                    title: 'Failed to Upload NZB',
-                    message: LunaLogger.checkLogsMessage,
-                    error: error,
-                ));
+                });
             } else {
                 showLunaErrorSnackBar(
                     title: 'Failed to Upload NZB',
-                    message: 'The selected file is not valid',
+                    message: 'Please select a valid file type',
                 );
             }
         } catch (error, stack) {

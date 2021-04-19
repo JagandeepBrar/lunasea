@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LunaLogger {
     static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
@@ -33,7 +32,7 @@ class LunaLogger {
     }
 
     /// Export all logs, and return the [File] object containing the log file.
-    Future<File> exportLogs() async {
+    Future<String> exportLogs() async {
         // Get maps/JSON of all logs
         List<Map<String, dynamic>> logs = [];
         Database.logsBox.values.forEach((log) {
@@ -42,12 +41,7 @@ class LunaLogger {
         // Create a string
         JsonEncoder encoder = JsonEncoder.withIndent('    ');
         String data = encoder.convert(logs);
-        // Write the JSON to the temporary directory, return the file
-        Directory tempDirectory = await getTemporaryDirectory();
-        String path = '${tempDirectory.path}/logs.json';
-        File file = File(path);
-        await file?.writeAsString(data);
-        return file;
+        return data;
     }
 
     /// Clear all logs currently saved to the database.

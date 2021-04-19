@@ -100,7 +100,7 @@ Unlike other modules, in order to receive images \(posters, etc.\) along with th
 1. Go to Tautulli's web GUI
 2. Open the Settings, enter "3rd Party APIs"
 3. Select any of the available image providers
-   1. _**Note**: If selecting `Self-hosted on public domain`, ensure that the image path \(_`/tautulli/image`\) is publicly accessible from the internet
+   * _**Note**: If selecting `Self-hosted on public domain`, ensure that the image path \(_`/tautulli/image`\) is publicly accessible from the internet
 4. Follow the [3rd Party APIs Guide](https://github.com/Tautulli/Tautulli/wiki/3rd-Party-APIs-Guide) to acquire the required details for the chosen image provider
 5. Enter and save the acquired API/Client ID information
 

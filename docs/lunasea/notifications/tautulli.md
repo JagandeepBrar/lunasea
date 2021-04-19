@@ -64,6 +64,14 @@ You can set as many conditions as you like, and can combine different conditions
 {% tab title="Data" %}
 The following two sections apply to **every** trigger, and needs to be completed for each trigger being used. If the trigger is not being used in this notification agent, you do not need to fill in the data.
 
+### JSON Data
+
+Each trigger has a specific JSON data payload that must be included in the request.
+
+1. Go to the list of JSON data payload templates [here](https://github.com/CometTools/LunaSea-Notification-Relay/tree/master/data/tautulli).
+2. Open the template that matches the trigger being added.
+3. Copy the JSON data and paste it into the JSON data section for the trigger \(You can hit the "Raw" button on GitHub to easily copy the entire JSON payload\).
+
 ### JSON Headers
 
 {% hint style="warning" %}
@@ -82,14 +90,6 @@ To create the authorization header:
 4. Copy the generated authorization header **after** `Authorization:` .
 5. Get the [template JSON headers](https://github.com/CometTools/LunaSea-Notification-Relay/blob/master/data/tautulli/_header.jsonc) and follow the instructions to insert the generated header into the template.
 6. Copy and paste the template \(ensure you copy below the line specified in the file\) into each trigger's JSON headers area that is used within this webhook.
-
-### JSON Data
-
-Each trigger has a specific JSON data payload that must be included in the request.
-
-1. Go to the list of JSON data payload templates [here](https://github.com/CometTools/LunaSea-Notification-Relay/tree/master/data/tautulli).
-2. Open the template that matches the trigger being added.
-3. Copy the JSON data and paste it into the JSON data section for the trigger \(You can hit the "Raw" button on GitHub to easily copy the entire JSON payload\).
 {% endtab %}
 {% endtabs %}
 

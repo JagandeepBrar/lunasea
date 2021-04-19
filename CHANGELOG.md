@@ -1,6 +1,13 @@
 # LunaSea Changelog
 
-## GitHub
+## v5.0.0 (50000018)
+
+#### PLATFORM-SPECIFIC
+- `[macOS]` (fix) Utilize native filesystem dialogs for selecting and saving files
+
+---
+
+## v5.0.0 (50000017)
 
 #### NEW
 - `[Notifications]` Release webhook-based notifications to all beta users

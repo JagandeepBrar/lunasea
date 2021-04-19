@@ -75,7 +75,10 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
         String cleanTitle = data.title.replaceAll(RegExp(r'[^0-9a-zA-Z. -]+'), '');
         try {
             context.read<SearchState>().api.downloadRelease(data)
-            .then((download) => LunaFileSystem().exportStringToShareSheet(context, '$cleanTitle.nzb', download));
+            .then((download) async {
+                bool result = await LunaFileSystem().exportString(context, '$cleanTitle.nzb', download);
+                if(result) showLunaSuccessSnackBar(title: 'Saved NZB', message: 'NZB has been successfully saved');
+            });
             
         } catch (error, stack) {
             LunaLogger().error('Error downloading NZB', error, stack);

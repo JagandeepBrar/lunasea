@@ -38,7 +38,7 @@ Device-based notifications send notifications to a single, specific device. Devi
 
 ## Getting Your Webhook URLs
 
-To get the correct webhook URL for each module, simply head to the Settings with LunaSea, then into the "Notifications" page! The buttons on each module card will copy the **full, constructed webhook URL** to receive user-based or device-based notifications for that specific module. Please ensure to copy and use the correct webhook URL for each module, as mixing them up can lead to unexpected results.
+To get the correct webhook URL for each module, simply head to the Settings within LunaSea, then into the "Notifications" page! The buttons on each module card will copy the **full, constructed webhook URL** to receive user-based or device-based notifications for that specific module. Please ensure to copy and use the correct webhook URL for each module, as mixing them up can lead to unexpected results.
 
 {% hint style="warning" %}
 **Do not publicly share your user-based or device-based URL!**

@@ -23,7 +23,8 @@
 ## Modules
 
 * [Lidarr](modules/lidarr.md)
-* [Newznab Search](modules/newznab-search.md)
+* [Newznab Search](modules/newznab-search/README.md)
+  * [List of Indexer API Hosts](modules/newznab-search/list-of-indexer-api-hosts.md)
 * [NZBGet](modules/nzbget.md)
 * [Overseerr](modules/overseerr.md)
 * [Radarr](modules/radarr.md)
@@ -31,4 +32,19 @@
 * [Sonarr](modules/sonarr.md)
 * [Tautulli](modules/tautulli.md)
 * [Wake on LAN](modules/wake-on-lan.md)
+
+## Download
+
+* [App Store](https://www.lunasea.app/appstore)
+* [Play Store](https://www.lunasea.app/playstore)
+* [GitHub](https://github.com/CometTools/LunaSea)
+
+## Resources
+
+* [Discord](https://www.lunasea.app/discord)
+* [Feedback Board](http://www.lunasea.app/feedback)
+* [Reddit](https://www.lunasea.app/reddit)
+* [System Status](https://www.lunasea.app/status)
+* [Translate](https://www.lunasea.app/translate)
+* [Website](https://www.lunasea.app)
 

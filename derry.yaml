@@ -10,6 +10,10 @@ build:
     archive:
       - flutter clean
       - flutter build ios
+  macos:
+    archive:
+      - flutter clean
+      - flutter build macos
 blackbox:
   admins: blackbox_list_admins
   decrypt: blackbox_postdeploy

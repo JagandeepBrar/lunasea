@@ -2,6 +2,13 @@
 
 ## v5.0.0 (50000018)
 
+#### TWEAKS
+- `[Dashboard]` (Calendar) Set bounds to calendar
+- `[Dashboard]` (Calendar) Made the styling for calendar slightly more consistent
+
+#### FIXES
+- `[Dashboard]` (Calendar) Stored current date would not update on date change
+
 #### PLATFORM-SPECIFIC
 - `[macOS]` (fix) Utilize native filesystem dialogs for selecting and saving files
 

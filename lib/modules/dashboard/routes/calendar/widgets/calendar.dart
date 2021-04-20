@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
     final Map<DateTime, List> events;
@@ -20,6 +21,8 @@ class DashboardCalendarWidget extends StatefulWidget {
 class _State extends State<DashboardCalendarWidget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     DateTime _today;
+    DateTime _selected;
+    CalendarFormat _calendarFormat;
 
     final TextStyle dayTileStyle = TextStyle(
         color: Colors.white,
@@ -43,26 +46,22 @@ class _State extends State<DashboardCalendarWidget> {
     );
     
     List _selectedEvents;
-    CalendarController _calendarController;
 
     @override
     void initState() {
         super.initState();
-        _calendarController = CalendarController();
-        _today = context.read<DashboardState>().today.lunaFloor;
-        _selectedEvents = widget.events[_today] ?? [];
+        DateTime _floored = context.read<DashboardState>().today.lunaFloor;
+        _selected = _floored;
+        _today = _floored;
+        _selectedEvents = widget.events[_floored] ?? [];
+        _calendarFormat = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data;
     }
 
-    @override
-    void dispose() {
-        _calendarController.dispose();
-        super.dispose();
-    }
-
-    void _onDaySelected(DateTime day, List events, List _) {
+    void _onDaySelected(DateTime selected, DateTime focused) {
         HapticFeedback.selectionClick();
-        setState(() {
-            _selectedEvents = events;
+        if(mounted) setState(() {
+            _selected = selected.lunaFloor;
+            _selectedEvents = widget.events[selected.lunaFloor];
         });
     }
 
@@ -97,44 +96,70 @@ class _State extends State<DashboardCalendarWidget> {
                 DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
             ]),
             builder: (context, box, _) {
+                DateTime firstDay = context.watch<DashboardState>().today.subtract(
+                    Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data),
+                );
+                DateTime lastDay = context.watch<DashboardState>().today.add(
+                    Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data),
+                );
                 return SafeArea(
                     child: LunaCard(
                         context: context,
                         child: Padding(
                             child: TableCalendar(
                                 rowHeight: 48.0,
-                                calendarController: _calendarController,
-                                events: widget.events,
-                                headerVisible: false,
-                                startDay: DateTime.now().subtract(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data)),
-                                endDay: DateTime.now().add(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data)),
-                                startingDayOfWeek: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
-                                calendarStyle: CalendarStyle(
-                                    selectedColor: LunaColours.accent.withOpacity(0.25),
-                                    markersMaxAmount: 1,
-                                    markersColor: LunaColours.accent,
-                                    weekendStyle: dayTileStyle,
-                                    weekdayStyle: dayTileStyle,
-                                    unavailableStyle: unavailableTitleStyle,
-                                    outsideStyle: outsideDayTileStyle,
-                                    selectedStyle: dayTileStyle,
-                                    outsideWeekendStyle: outsideDayTileStyle,
-                                    renderDaysOfWeek: true,
-                                    highlightToday: true,
-                                    todayColor: LunaColours.primary,
-                                    todayStyle: dayTileStyle,
-                                    outsideDaysVisible: false,
+                                rangeSelectionMode: RangeSelectionMode.disabled,
+                                simpleSwipeConfig: SimpleSwipeConfig(
+                                    verticalThreshold: 10.0,
                                 ),
+                                focusedDay: _selected,
+                                firstDay: firstDay,
+                                lastDay: lastDay,
+                                //events: widget.events,
+                                headerVisible: false,
+                                startingDayOfWeek: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
+                                selectedDayPredicate: (date) => date?.lunaFloor == _selected?.lunaFloor,
+                                calendarStyle: CalendarStyle(
+                                    markersMaxCount: 1,
+                                    isTodayHighlighted: true,
+                                    outsideDaysVisible: false,
+                                    selectedDecoration: BoxDecoration(
+                                        color: LunaColours.accent.withOpacity(0.20),
+                                        shape: BoxShape.circle,
+                                    ),
+                                    markerDecoration: BoxDecoration(
+                                        color: LunaColours.accent,
+                                        shape: BoxShape.circle,
+                                    ),
+                                    todayDecoration: BoxDecoration(
+                                        color: LunaColours.primary.withOpacity(0.60),
+                                        shape: BoxShape.circle,
+                                    ),
+                                    weekendTextStyle: dayTileStyle,
+                                    defaultTextStyle: dayTileStyle,
+                                    disabledTextStyle: unavailableTitleStyle,
+                                    outsideTextStyle: outsideDayTileStyle,
+                                    selectedTextStyle: TextStyle(
+                                        color: LunaColours.accent,
+                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                    ),
+                                    todayTextStyle: dayTileStyle,                                    
+                                ),
+                                onFormatChanged: (format) => setState(() => _calendarFormat = format),
                                 daysOfWeekStyle: DaysOfWeekStyle(
                                     weekendStyle: weekdayTitleStyle,
                                     weekdayStyle: weekdayTitleStyle,
                                 ),
-                                initialCalendarFormat: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
-                                availableCalendarFormats: const {
-                                    CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
+                                eventLoader: (date) => widget.events[date.lunaFloor],
+                                calendarFormat: _calendarFormat,
+                                availableCalendarFormats: {
+                                    CalendarFormat.month : 'Month',
+                                    CalendarFormat.twoWeeks : '2 Weeks',
+                                    CalendarFormat.week : 'Week',
+                                },
                                 onDaySelected: _onDaySelected,
                             ),
-                            padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
+                            padding: LunaUI.MARGIN_DEFAULT.subtract(EdgeInsets.symmetric(horizontal: 6.0)),
                         ),
                     ),
                 );

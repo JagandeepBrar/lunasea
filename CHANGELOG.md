@@ -1,5 +1,12 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000019)
+
+#### NEW
+- `[Notifications]` Warn user of unauthorized notification permission on notification setup page
+
+---
+
 ## v5.0.0 (50000018)
 
 #### TWEAKS

@@ -22,14 +22,39 @@ class LunaFirebaseMessaging {
     /// Returns true if permissions are allowed at either a full or provisional level.
     /// Returns false if permissions are denied or not determined.
     Future<bool> requestNotificationPermissions() async {
-        NotificationSettings settings = await instance.requestPermission();
-        switch(settings.authorizationStatus) {
-            case AuthorizationStatus.authorized:
-            case AuthorizationStatus.provisional: return true;
-            case AuthorizationStatus.denied:
-            case AuthorizationStatus.notDetermined:
-            default: return false;
+        try {
+            NotificationSettings settings = await instance.requestPermission();
+            switch(settings.authorizationStatus) {
+                case AuthorizationStatus.authorized:
+                case AuthorizationStatus.provisional: return true;
+                case AuthorizationStatus.denied:
+                case AuthorizationStatus.notDetermined:
+                default: return false;
+            }
+        } catch (error, stack) {
+            LunaLogger().error('Failed to request notification permission', error, stack);
+            return false;
         }
+    }
+
+    /// Return the current notification authorization status.
+    Future<AuthorizationStatus> getAuthorizationStatus() async {
+        return instance.getNotificationSettings().then((settings) => settings.authorizationStatus);
+    }
+
+    /// Returns true if permissions are allowed at either a full or provisional level.
+    /// Returns false on any other status (denied, not determined, null, etc.).
+    Future<bool> areNotificationsAllowed() async {
+        return instance?.getNotificationSettings()
+        ?.then((settings) {
+            switch(settings.authorizationStatus) {
+                case AuthorizationStatus.authorized:
+                case AuthorizationStatus.provisional: return true;
+                case AuthorizationStatus.denied:
+                case AuthorizationStatus.notDetermined:
+                default: return false;
+            }
+        });
     }
 
     /// Return a [StreamSubscription] that will show a notification banner on a newly received notification.

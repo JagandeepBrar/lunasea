@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   badges: ^1.2.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
-  cloud_firestore: ^1.0.5                   # ANDROID IOS       MACOS WEB
+  cloud_firestore: ^1.0.6                   # ANDROID IOS       MACOS WEB
   connectivity_plus: ^1.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS 
   convert: ^3.0.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   dio: ^4.0.0                               # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -19,12 +19,12 @@ dependencies:
   file_picker: ^3.0.1                       # ANDROID IOS             WEB
   file_selector_macos: ^0.0.4               #                   MACOS
   file_selector_platform_interface: ^2.0.2  # ANDROID IOS LINUX MACOS WEB WINDOWS
-  firebase_analytics: ^8.0.0                # ANDROID IOS             WEB
-  firebase_auth: ^1.1.0                     # ANDROID IOS       MACOS WEB
-  firebase_core: ^1.0.3                     # ANDROID IOS       MACOS WEB
-  firebase_crashlytics: ^2.0.0              # ANDROID IOS       MACOS
-  firebase_messaging: ^9.1.1                # ANDROID IOS       MACOS WEB
-  firebase_storage: ^8.0.3                  # ANDROID IOS       MACOS WEB
+  firebase_analytics: ^8.0.1                # ANDROID IOS             WEB
+  firebase_auth: ^1.1.1                     # ANDROID IOS       MACOS WEB
+  firebase_core: ^1.0.4                     # ANDROID IOS       MACOS WEB
+  firebase_crashlytics: ^2.0.1              # ANDROID IOS       MACOS
+  firebase_messaging: ^9.1.2                # ANDROID IOS       MACOS WEB
+  firebase_storage: ^8.0.4                  # ANDROID IOS       MACOS WEB
   flash: ^1.5.1                             # ANDROID IOS LINUX MACOS WEB WINDOWS
   fluro: ^2.0.3                             # ANDROID IOS LINUX MACOS WEB WINDOWS
   flutter_spinkit: ^5.0.0                   # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -32,7 +32,7 @@ dependencies:
   # font_awesome_flutter:                   # ANDROID IOS LINUX MACOS WEB WINDOWS
   #   path: vendor/font_awesome_flutter
   google_nav_bar: ^5.0.3                    # ANDROID IOS LINUX MACOS WEB WINDOWS
-  hive: ^2.0.3                              # ANDROID IOS LINUX MACOS WEB WINDOWS
+  hive: ^2.0.4                              # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive_flutter: ^1.0.0                      # ANDROID IOS LINUX MACOS     WINDOWS
   in_app_purchase: ^0.5.2                   # ANDROID IOS
   infinite_scroll_pagination: ^3.0.1        # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -44,7 +44,7 @@ dependencies:
   path_provider: ^2.0.1                     # ANDROID IOS LINUX MACOS     WINDOWS
   percent_indicator: ^3.0.1                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
-  quick_actions: ^0.6.0                     # ANDROID IOS
+  quick_actions: ^0.6.0+1                   # ANDROID IOS
   radarr: ^2.1.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   share_plus: ^2.0.1                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   sonarr: ^2.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -67,7 +67,7 @@ dev_dependencies:
   build_runner: ^1.12.2
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^1.1.7+1
-  hive_generator: ^1.0.1
+  hive_generator: ^1.1.0
 
 flutter:
   uses-material-design: true

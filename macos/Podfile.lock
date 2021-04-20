@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (1.0.5):
+  - cloud_firestore (1.0.6):
     - Firebase/CoreOnly (~> 7.7.0)
     - Firebase/Firestore (~> 7.7.0)
     - firebase_core
@@ -26,25 +26,25 @@ PODS:
   - Firebase/Storage (7.7.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.7.0)
-  - firebase_auth (1.1.0):
+  - firebase_auth (1.1.1):
     - Firebase/Auth (~> 7.7.0)
     - Firebase/CoreOnly (~> 7.7.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (1.0.3):
+  - firebase_core (1.0.4):
     - Firebase/CoreOnly (~> 7.7.0)
     - FlutterMacOS
-  - firebase_crashlytics (2.0.0):
+  - firebase_crashlytics (2.0.1):
     - Firebase/CoreOnly (~> 7.7.0)
     - Firebase/Crashlytics (~> 7.7.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_messaging (9.1.1):
+  - firebase_messaging (9.1.2):
     - Firebase/CoreOnly (~> 7.7.0)
     - Firebase/Messaging (~> 7.7.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_storage (8.0.3):
+  - firebase_storage (8.0.4):
     - Firebase/CoreOnly (~> 7.7.0)
     - Firebase/Storage (~> 7.7.0)
     - firebase_core
@@ -216,15 +216,15 @@ CHECKOUT OPTIONS:
     :tag: 7.7.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 73379f9bfe02a98fb2caf8770c015cfb031b728a
+  cloud_firestore: 20a85b0036c9687cc307890f52f0a5749dc72d8e
   connectivity_plus_macos: dbac1dc9b113dfb69a5691831313b1d8ac1c8269
   file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: cd2ab85eec8170dc260186159f21072ecb679ad5
-  firebase_auth: bdf6fa1a00e04c07d31149a20c069c6b8970b73f
-  firebase_core: d21e840e73b38bfc0e8f1ddc8c18e0e95165e55c
-  firebase_crashlytics: c37f0c0b2e734b5d91777369d59a35efef890fa4
-  firebase_messaging: badafdf6345bd028a0ae899f9a5ad96fcb41dd6a
-  firebase_storage: ff898930f9679305f753044774124863f56d9624
+  firebase_auth: 98a74e46f00a25f20ba0136532cd70ad4b265520
+  firebase_core: add17b651773edad70197a11be0b440e5b10c37e
+  firebase_crashlytics: 7ed174f70c1e72e6bb0fc59a3d901beb370101c9
+  firebase_messaging: 320f71a786413e67d3030860806ab4294ec8fe42
+  firebase_storage: a853e4b6634e192c028918c893d85414165e46cb
   FirebaseAuth: 76aa97ecd51e20ecd21321d08474d25f5d2b7b9f
   FirebaseCore: ac35d680a0bf32319a59966a1478e0741536b97b
   FirebaseCoreDiagnostics: 3d36e05da74cb8b7ce30e6594a8f201b982c725c

@@ -8,6 +8,7 @@
 
 #### FIXES
 - `[Dashboard]` (Calendar) Stored current date would not update on date change
+- `[Drawer]` Drawer could show a grey screen in some instances
 
 #### PLATFORM-SPECIFIC
 - `[macOS]` (fix) Utilize native filesystem dialogs for selecting and saving files

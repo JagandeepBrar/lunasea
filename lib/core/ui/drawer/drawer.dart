@@ -26,26 +26,28 @@ class LunaDrawer extends StatelessWidget {
     }
 
     List<Widget> _getDrawerEntries(BuildContext context) {
-        List<LunaModule> automation = Database.currentProfileObject.enabledAutomationModules;
-        List<LunaModule> clients = Database.currentProfileObject.enabledClientModules;
-        List<LunaModule> monitoring = Database.currentProfileObject.enabledMonitoringModules;
-        bool showSearch = Database.indexersBox.length > 0;
+        List<LunaModule> automation = Database?.currentProfileObject?.enabledAutomationModules ?? [];
+        List<LunaModule> clients = Database?.currentProfileObject?.enabledClientModules ?? [];
+        List<LunaModule> monitoring = Database?.currentProfileObject?.enabledMonitoringModules ?? [];
         return <Widget>[
             LunaDrawerHeader(),
             _buildEntry(context: context, module: LunaModule.DASHBOARD),
             _buildEntry(context: context, module: LunaModule.SETTINGS),
             LunaDivider(),
-            if(showSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
-            if(LunaModule.WAKE_ON_LAN.enabled && Database.currentProfileObject.wakeOnLANEnabled ?? false) _buildWakeOnLAN(context),
-            if(automation.length != 0) ...List.generate(
+            if(Database.indexersBox?.isNotEmpty ?? false) _buildEntry(context: context, module: LunaModule.SEARCH),
+            if(
+                (LunaModule.WAKE_ON_LAN?.enabled ?? false) &&
+                (Database?.currentProfileObject?.wakeOnLANEnabled ?? false)
+            ) _buildWakeOnLAN(context),
+            if(automation?.isNotEmpty ?? false) ...List.generate(
                 automation.length,
                 (index) => _buildEntry(context: context, module: automation[index]),
             ),
-            if(clients.length != 0) ...List.generate(
+            if(clients?.isNotEmpty ?? false) ...List.generate(
                 clients.length,
                 (index) => _buildEntry(context: context, module: clients[index]),
             ),
-            if(monitoring.length != 0) ...List.generate(
+            if(monitoring?.isNotEmpty ?? false) ...List.generate(
                 monitoring.length,
                 (index) => _buildEntry(context: context, module: monitoring[index]),
             ),

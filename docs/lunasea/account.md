@@ -4,8 +4,6 @@ description: Accounts to extend LunaSea's functionality
 
 # Account
 
-## Getting Started
-
 LunaSea currently offers a **free** cloud account that can be used for extending the functionality of LunaSea. The only details required to register for an account are an email address and password. At no point will LunaSea or the developers send you any emails, unless you explicitly request a password reset email.
 
 {% hint style="info" %}

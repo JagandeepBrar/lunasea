@@ -4,8 +4,6 @@ description: 'On-Device Logging, Firebase Crashlytics, & Firebase Analytics'
 
 # Logs
 
-## On-Device Logging
-
 LunaSea includes an on-device logging system that helps debug crashes, issues, and support requests. LunaSea stores 3 different levels of logs:
 
 1. **Warning**: Warning logs are non-crashing and non-critical errors that have occurred on the device. Warning logs would occur when failing to load an image, passing an incorrect encryption key when trying to restore a backup, etc.

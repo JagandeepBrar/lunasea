@@ -4,12 +4,19 @@ import 'package:lunasea/core.dart';
 
 class LunaTheme {
     /// Initialize the theme by setting the system navigation and system colours.
-    void intialize() {
+    void initialize() {
         //Set system UI overlay style (navbar, statusbar)
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            systemNavigationBarColor: Colors.black,
-            systemNavigationBarDividerColor: Colors.black,
+            systemNavigationBarColor: LunaDatabaseValue.THEME_AMOLED.data
+                ? Colors.black
+                : LunaColours.secondary,
+            systemNavigationBarDividerColor: LunaDatabaseValue.THEME_AMOLED.data
+                ? Colors.black
+                : LunaColours.secondary,
             statusBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness:  Brightness.dark,
         ));
     }
 

@@ -174,6 +174,7 @@ class _State extends State<DashboardCalendarWidget> {
                 children: [
                     LunaMessage.inList(text: 'No New Content'),
                 ],
+                padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
             ),
         );
         return Expanded(

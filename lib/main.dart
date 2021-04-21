@@ -41,11 +41,11 @@ Future<void> _init() async {
     await Database().initialize();
     await LunaFirebase().initialize();
     LunaLogger().initialize();
-    LunaTheme().intialize();
+    LunaTheme().initialize();
     LunaDesktopWindow().initialize();
     LunaNetworking().initialize();
     LunaImageCache().initialize();
-    LunaRouter().intialize();
+    LunaRouter().initialize();
     await LunaInAppPurchases().initialize();
     await LunaLocalization().initialize();
 }

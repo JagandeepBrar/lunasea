@@ -28,7 +28,7 @@ class LunaScaffold extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        if(scaffoldKey?.currentState?.hasDrawer ?? false) return LunaWillPopScope(
+        if(drawer != null) return LunaWillPopScope(
             scaffoldKey: scaffoldKey,
             child: scaffold,
         );

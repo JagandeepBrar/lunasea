@@ -4,8 +4,6 @@ description: How to setup webhook-based push notifications with LunaSea
 
 # Notifications
 
-## Getting Started
-
 Many of the supported modules have support for webhooks, which we can utilize with the hosted notification relay to get rich, instant notifications with deep-linking support sent as push notifications directly to your devices running LunaSea!
 
 | Module | Supported? | Deep Linking? |

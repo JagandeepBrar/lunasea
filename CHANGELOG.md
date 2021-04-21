@@ -3,370 +3,123 @@
 ## v5.0.0 (50000019)
 
 #### NEW
-- `[Notifications]` Warn user of unauthorized notification permission on notification setup page
-
----
-
-## v5.0.0 (50000018)
-
-#### TWEAKS
-- `[Dashboard]` (Calendar) Set bounds to calendar
-- `[Dashboard]` (Calendar) Made the styling for calendar slightly more consistent
-
-#### FIXES
-- `[Dashboard]` (Calendar) Stored current date would not update on date change
-- `[Drawer]` Drawer could show a grey screen in some instances
-
-#### PLATFORM-SPECIFIC
-- `[macOS]` (fix) Utilize native filesystem dialogs for selecting and saving files
-
----
-
-## v5.0.0 (50000017)
-
-#### NEW
-- `[Notifications]` Release webhook-based notifications to all beta users
-- `[Settings]` Added localization configuration page
-- `[Settings]` Added option to set queue page size
-- `[Settings]` Added setup page for webhook notifications
-- `[Sonarr]` (Queue) Refreshing the queue will now also refresh the monitored downloads from the clients
-
-#### TWEAKS
-- `[Notifications]` (Radarr) Now opens the queue on "Grab" notifications
-- `[Notifications]` (Sonarr) Now opens the queue on "Grab" notifications
-- `[Radarr]` (Queue) Increased default queue page size to 50 items
-- `[Settings]` (Account) Removed the ability to pull user ID or device ID from help dialog
-
-#### FIXES
-- `[Bottom Sheet]` Reduce swipe down to dismiss threshold to 10% of height
-- `[Firebase]` Add platform check to disable Firebase on incompatible platforms
-- `[Flutter]` Update packages
-- `[Radarr]` (File Details) Show a dash when no information is available for a table entry
-- `[Sonarr]` (Queue) Ensure the trailing icon on queue entries is centered vertically
-- `[UI/UX]` Add padding around "No Tags Found" message within tag selection dialogs
-- `[UI/UX]` Improve consistency of module-level settings dialog
-
-#### PLATFORM-SPECIFIC
-- `[Android]` (new) Attach module headers to requests when viewing the web GUI
-- `[iOS]` (fix) Sharesheet would not appear on iPadOS devices
-- `[macOS]` (fix) Sharesheet now supports macOS builds
-
----
-
-## v5.0.0 (50000016)
-
-#### NEW
-- `[NZBGet/Queue]` Add category to the queue tile
-- `[Radarr/Queue]` Ability to view and manage the queue
-- `[Radarr/Status]` Show root folders on the disk space page
-- `[SABnzbd/Queue]` Add category to the queue tile
-
-#### TWEAKS
-- `[NZBGet/Queue]` Submenu for queued NZBs are now accessible via a single tap on the tile
-- `[NZBGet/Queue]` Reordering queue items now occurs by dragging via the handle
-- `[SABnzbd/Queue]` Submenu for queued NZBs are now accessible via a single tap on the tile
-- `[SABnzbd/Queue]` Reordering queue items now occurs by dragging via the handle
-- `[UI/UX]` Highlight active profile in profile switcher popup menus
-
-#### FIXES
-- `[Radarr/Catalogue]` Update filters to more closely match the web GUI filtering
-- `[UI/UX]` Search and filter/sort buttons now have fixed heights to have consistency across platforms
-- `[UI/UX]` Show click cursor on all clickable tiles
-- `[UI/UX]` Show two buttons per line on expandable tiles
-- `[UI/UX]` Clear button would not always appear on input bars
-
-#### PLATFORM SPECIFIC
-- `[macOS]` (new) Added LunaSea icon
-- `[macOS]` (fix) Added platform compatability checks for all native linking packages
-- `[macOS]` (new) Added notification support
-- `[macOS]` (new) Added hardening runtime and set development signing certificate
-- `[macOS]` (tweak) Set minimum macOS version to 10.14 (Mojave)
-- `[macOS]` (fix) Set minimum window size to prevent reactive overflow issues
-- `[macOS]` (fix) Updated about dialog to have correct information
-- `[macOS]` (fix) Set application/window title
-- `[macOS]` (fix) Utilize package_info_plus to allow internal version checking
-- `[macOS]` (fix) Hide incompatible settings options
-
----
-
-## v5.0.0 (50000014)
-
-#### NEW
-- `[Radarr/Catalogue]` Ability to sort by in cinema, physical release, and digital release dates
-- `[Radarr/Details]` Show the monitor state of the movie in the overview table
-- `[Radarr/Import]` Ability to manually import content from the filesystem
-- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile in the search list
-- `[Sonarr/Catalogue]` If no series is found in the search query, given an option to search to add the series
-- `[System/Resources]` Added link to system status page for LunaSea hosted services
-- `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
-- `[UI/UX]` All lists now have scroll-back support by tapping the AppBar
-
-#### TWEAKS
-- `[Dashboard]` Removed month header from calendar
-- `[Dashboard]` Disable calendar days outside of the past and future date range
-- `[Lidarr/Artist]` Overview is now displayed as a table, to match Radarr and Sonarr
-- `[NZBGet/Status]` Status and statistics are now shown in a table
-- `[SABnzbd/Status]` Status and statistics are now shown in a table
-- `[UI/UX]` Minor tweaks to the colour palette
-- `[UI/UX]` Unify the design and size of all action buttons
-- `[UI/UX]` Sticky primary action buttons to the bottom navigation bar area
-- `[UI/UX]` Unified the design of all expandable cards in their expanded state
-- `[UI/UX]` Bottom modal sheets lists will now shrink wrap to match content height
-- `[UI/UX]` All ListViews will now dismiss the keyboard on scroll gestures
-- `[UI/UX]` Navigation bar buttons now only highlight the icon
-- `[UI/UX]` Opening the drawer will now ensure that the keyboard gets dismissed
-- `[UI/UX]` Removed all deprecated UI elements and usages
-
-#### FIXES
-- `[Backup & Restore]` Indexers would not get restored with backups
-- `[Dashboard]` Radarr releases were not considering the digital release date
-- `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
-- `[Networking]` Headers would not get attached in some networking configurations
-- `[NZBGet/Queue]` Queue would not refresh in some cases when switching profiles
-- `[Radarr/Catalogue]` "Search For..." would be shown when there were no results and the query was empty
-- `[Radarr/Details]` The overview table would not update after editing a movie
-- `[SABnzbd/Queue]` Queue would not refresh in some cases when switching profiles
-- `[Snackbar/Errors]` All error snackbars will now have a button to view the error
-- `[Sonarr/Add]` Series type would not be set correctly when adding a new series
-- `[Tautulli/Activity]` Activity header included some incorrectly localized strings
-- `[UI/UX]` Remove all uses of the deprecated snackbar
-- `[UI/UX]` Some elements were using the system colours instead of the LunaSea colours
-- `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
-
-#### PLATFORM SPECIFIC
-- `[MacOS]` Basic support for building a native MacOS instance
-
----
-
-## v5.0.0 (50000013)
-
-#### NEW
-- `[-Arr/Releases]` Match torrent seeder colours to the web GUI
-- `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
+- `[-arr]` (Content Details) Added a button to the AppBar to jump directly into the edit page
+- `[-arr]` (Releases) Match torrent seeder colours to the web GUI
+- `[Dashboard]` "Home" has been renamed to "Dashboard"
 - `[Logger]` Utilize a new, custom built on-device logging system
 - `[Logger]` Compact/delete old log entries once the log count passes 100
 - `[Logger]` Exported logs are now in JSON format
-- `[Routing]` Protect all module routes by showing a "Not Enabled" screen when the module is not enabled
-- `[Settings/System]` Added toggle to disable Firebase Analytics
-- `[Tautulli/Activity]` Show custom season titles from Plex's new TV agent
-
-#### TWEAKS
-- `[Radarr/Files]` Add languages to file block
-- `[Radarr/Files]` Small changes to table titles
-- `[System/Logs]` Reimplemented logger view
-- `[System/Logs]` Removed viewing the stack trace within the application (still viewable within the exported logs)
-- `[System/Logs]` Added the exception to the expanded table instead of a separate dialog popup
-- `[Tautulli/Activity]` Minor UI tweaks including showing the full season title and italicizing the episode title
-- `[UI/Navbar]` Jump instead of animate to page when tapping a navbar item
-
-#### FIXES
-- `[Firebase/Crashes]` Do not log DioError/networking exceptions
-- `[Flutter]` Updated packages
-- `[Flutter]` Upgrade all Comet.Tools packages to null-safety/NNBD
-- `[Radarr/Releases]` Negative format scores were not being shown
-- `[Share]` The sharesheet could break after the first time it was opened
-- `[Strings]` Safe-guard many substring operations
-- `[Tautulli/Activity]` Play/paused/buffering icon was not properly left aligned to the text
-- `[Tautulli/Users]` User images would not be fetched on newer versions of Tautulli
-- `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
-- `[UI/UX]` Do not log errors when network images fail to load
-- `[UI/UX]` Prevent attempting to load background images that are passed an empty URL
-- `[URLs]` Safe-guard launching specific invalid URLs
-
----
-
-## v5.0.0 (50000012)
-
-#### NEW
-- `[Radarr/Files]` Add video and audio codec to the media file card
-- `[Search]` Now supports infinite scrolling for loading additional pages of results
-- `[Search]` Much faster parsing of XML responses
-- `[Search]` Fully adapted for localization
-
-#### TWEAKS
-- `[Search]` Now returns 50 results per infinite scrolling page
-- `[Search]` Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data
-- `[Search]` Removed support for filtering releases by a search query
-- `[Search]` Minor tweaks to the icons on the indexer, category, and subcategory tiles
-
-#### FIXES
-- `[Search]` Search would only return 10 results
-- `[Search]` Age of the release could show as "Unknown Age" in some cases
-
----
-
-## v5.0.0 (50000011)
-
-#### NEW
-- `[Radarr/Add]` Tags set when adding a movie are now stored in the database
-- `[Radarr/Overview]` Add a link to the movie's Trakt page
-- `[Settings]` Added a link to the Weblate localization page
-- `[Settings]` Added language switcher (currently only English, but preparing for WIP localization support)
-- `[Sonarr/Add]` Tags set when adding a series are now stored in the database
-- `[Sonarr/Overview]` Add a link to the series' Trakt page
-
-#### TWEAKS
-- `[Branding/TMDB]` Updated the logo to The Movie Database's new logo
-- `[Logging/Tracking]` Switched from Sentry to Firebase Crashlytics
-- `[Radarr/Overview]` Move the links underneath the description to more closely match the layout of the web GUI
-- `[Search]` Switched to a new package to parse XML responses
-- `[Settings/Tracking]` Adjusted the dialog and warn users that a reboot of the application is required to set tracking state
-- `[Sonarr/Overview]` Move the links underneath the description to more closely match the layout of the web GUI
-- `[DateTime]` Show "Just Now" when time differences are less than 10 seconds
-
-#### FIXES
-- `[Branding]` Normalize size of all branded logos to have the same widths for consistency
-- `[Flutter]` Fully move to Flutter v2
-- `[Flutter]` Upgrade many packages to NNBD
-- `[Radarr/Add]` Grey screen could potentially be shown if no initial search query is passed to the route
-- `[Radarr/Add]` The navigation bar could jitter on first load in some cases
-- `[Radarr/Catalogue]` The search query would not stay active between profile switches
-- `[Radarr/Sorting]` Changing the releases sorting/filtering method could throw an error
-
----
-
-## v5.0.0 (50000010)
-
-#### NEW
-- `[Webhooks]` Show series, movie, or artist cover photos in incoming system notifications
-- `[Webhooks/Radarr]` Jump directly into the content by tapping the notification
-- `[Webhooks/Sonarr]` Jump directly into the content by tapping the notification
-- `[-arr/Details]` Added a button to the AppBar to jump directly into the edit page
-
-#### TWEAKS
-- `[Radarr/Files]` Moved the video block above the audio block
-
-#### FIXES
-- `[AppBar/Dropdown]` Vertical padding around title when the profile dropdown is visible was incorrect
-- `[Radarr/Details]` If the movie was not found, it would show an infinite loader, now shows a "No Movies Found" message
-- `[Radarr/Releases]` Changing the sorting or filter method would not scroll the list back to the top
-
----
-
-## v5.0.0 (50000007)
-
-#### NEW
-- `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
-- `[Search]` Show comment and download links in the expanded table
-- `[Settings/Search]` Ability to toggle off showing comment and download links
-- `[UI/UX]` If a URL is in a table, tap it to open the URL or long press to copy the URL
-
-#### TWEAKS
-- `[-arr/Releases]` Improve the layout of the rejection reasons dialog
-- `[Radarr/Health]` Merged health check into system status
-- `[UI/UX]` Added more descriptive tooltips to all popup menu buttons
-- `[UI/UX]` Adjusted the style of splash/highlight inking
-
-#### FIXES
-- `[Images]` Images could fail to load with specific headers
-- `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
-- `[Radarr/Releases]` Clear button for the search bar would not show up
-
----
-
-## v5.0.0 (50000006)
-
-### FIXES
-- `[Radarr/History]` Tapping on AppBar to scroll back would not work
-- `[Radarr/Add]` Content padding when the summary was only 1 line was incorrect
-- `[Search]` No results would show up
-
----
-
-## v5.0.0 (50000005)
-
-#### NEW
-- `[Radarr/Health]` View health check messages
-
-#### FIXES
-- `[Radarr/Movie]` Ensure that the movie list has started refreshing before exiting the movie details after deleting
-- `[Radarr/History]` Specific custom formats could cause history and file information to fail to load
-
----
-
-## v5.0.0 (50000004)
-
-#### FIXES
-- `[Drawer]` Grey screen could appear instead of your drawer
-
----
-
-## v5.0.0 (50000002/50000003)
-
-#### NEW
-- `[Dashboard]` "Home" has been renamed to "Dashboard"
-- `[Radarr/Catalogue]` If no movie is found in the search query, given an option to search to add the movie
-- `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
-- `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
-- `[Settings/Radarr]` Ability to toggle on or off Radarr suggestions in the discover page
-
-#### TWEAKS
-- `[Drawer]` Removed the option to use categories/folders in the drawer
-- `[Settings/Config]` Sort configuration options within modules for cleaner isolation and easier expansion for future configuration options
-- `[Settings/Profiles]` Renaming a profile now checks for an existing profile with the same name within the prompt
-- `[Settings/Profiles]` Adding a profile now checks for an existing profile with the same name within the prompt
-- `[Settings/Profiles]` The delete profile prompt now hides the currently enabled profile, and shows a snackbar if only one profile exists
-- `[Settings/Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
-
-#### FIXES
-- `[Radarr]` Support for Radarr v3.1.0+ (nightly builds)
-- `[Radarr/Add]` Instantly show a movie as addable again if removed right after adding it
-- `[Radarr/Cast]` If a job or character name is empty, show a dash instead of an empty space
-- `[Radarr/Catalogue]` Instantly remove the movie tile when removing a movie
-- `[Radarr/Edit]` Padding around the "Update Movie" button was incorrect
-- `[Toasts]` In some cases, the error was not being passed through to the error viewer
-- `[UI/UX]` Upstream framework support for basic mouse/trackpad highlight and scrolling support
-- `[UI/UX]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
-- `[UI/UX]` Use the recommended safe area padding at the bottom of lists for fullscreen devices
-
----
-
-## v5.0.0 (50000001)
-
-#### NEW
-- `[Radarr]` Completely rewritten from the ground-up
-- `[Radarr]` View system status, disk usage, and manage tags
-- `[Radarr]` Catalogue, upcoming, missing, tags, and quality profiles are now held in-state between module switches
-- `[Radarr/Add]` Long-pressing a search result tile will open the movie's TMDB entry
-- `[Radarr/History]` Now an infinite scrolling list
-- `[Radarr/Movie]` Cast information, movie-specific history, more detailed file information, more detailed overview page
-- `[Radarr/Filtering]` Improved sorting and filtering speed, performance, and consistency
-- `[Radarr/Filtering]` Ability to set sorting and filtering defaults in settings
-- `[Radarr/Filtering]` Many additional filtering options
-- `[Haptics]` Added haptic feedback to all buttons, toggles, and dropdowns
+- `[Logger]` Switch to Firebase Crashlytics from Sentry for crash and log monitoring
+- `[Logger]` Added Firebase Analytics for breadcrumb tracking in crashes
+- `[Notifications]` Support for webhook-based rich push notifications
+- `[NZBGet]` (Queue) Add category to the queue tile
 - `[Quick Actions]` Default "Settings" quick action added to end of the list (if there is room)
-- `[UI/UX]` (Radarr Only For Now) Ability to tap the AppBar to scroll to top
-- `[UI/UX]` (Radarr Only For Now) If the list is in a tabbed PageView, tapping the active tab will scroll the list to the top
-- `[UI/UX]` (Radarr Only For Now) If the keyboard is open, scrolling the list, swiping between pages, or opening the drawer will dismiss the keyboard
-- `[Webhooks]` Notification webhooks will now show as an in-app heads up if LunaSea is open at the time of receiving the notification
+- `[Radarr]` Completely rewritten from the ground-up
+- `[Radarr]` (Catalogue) If no movie is found in the search query, given an option to search to add the movie
+- `[Radarr]` (Discover) Ability to discover movies from your import lists & Radarr recommendations
+- `[Radarr]` (Filtering/Sorting) Many additional filtering and sorting options
+- `[Radarr]` (History) Now an infinite scrolling list
+- `[Radarr]` (Manual Import) Ability to manually import content from the filesystem
+- `[Radarr]` (Movie) Cast information, movie-specific history, more detailed file information, & more detailed overview page
+- `[Radarr]` (Queue) View, update, and manage items in the queue
+- `[Radarr]` (System Status) Page to view status, health, and disk spaces
+- `[Radarr]` (Tags) Manage, set, and delete tags
+- `[SABnzbd]` (Queue) Add category to the queue tile
+- `[Search]` (Results) Show clickable comment and download links in the expanded table
+- `[Search]` (Results) Now supports infinite scrolling for loading additional pages of results
+- `[Settings]` (Notifications) Added page to setup webhook-based push notifications
+- `[Settings]` (Radarr) Ability to toggle on or off Radarr suggestions in the discover page
+- `[Settings]` (Radarr) Ability to set sorting direction, category, and filtering method
+- `[Settings]` (Resources) Added link to Weblate localization page
+- `[Settings]` (Resources) Added link to hosted services status page
+- `[Settings]` (Search) Ability to toggle off showing comment and download links
+- `[Settings]` (System) Ability to disable Firebase Analytics and Firebase Crashlytics
+- `[Sonarr]` (Catalogue) If no series is found in the search query, given an option to search to add the series
+- `[Sonarr]` (Queue) Refreshing the queue will now also refresh the monitored downloads from the clients
+- `[Tautulli]` (Activity) Show custom season titles from Plex's new TV agent
+- `[Tautulli]` (Activity) Show session type and bandwidth type breakdown on activity page
+- `[Tautulli]` (Activity) Show subtitle stream decision
+- `[UI/UX]` (Experience) Ability to tap the AppBar to scroll to top
+- `[UI/UX]` (Experience) If the list is in a tabbed PageView, tapping the active tab will scroll the list to the top
+- `[UI/UX]` (Experience) If the keyboard is open, scrolling the list, swiping between pages, or opening the drawer will dismiss the keyboard
+- `[UI/UX]` (Experience) Added haptic feedback to all buttons, toggles, and dropdowns
 
 #### TWEAKS
+- `[-arr]` (Releases) Improve the layout of the rejection reasons dialog
+- `[Dashboard]` (Calendar) Set bounds to calendar
+- `[Dashboard]` (Calendar) Removed month header from calendar
+- `[Dashboard]` (Calendar) Disable calendar days outside of the past and future date range
+- `[Dashboard]` (Calendar) Made the styling for calendar slightly more consistent
+- `[Logger]` Removed viewing the stack trace within the application (still viewable within the exported logs)
+- `[NZBGet]` (Queue) Submenu for queued NZBs are now accessible via a single tap on the tile
+- `[NZBGet]` (Queue) Reordering queue items now occurs by dragging via the handle
 - `[Radarr]` Now only supports v3.0.0 and higher of Radarr
 - `[Radarr]` Many visual changes, too many to list
 - `[Radarr]` The tab "History" has been replaced with "More"
-- `[Radarr/Edit]` Monitor toggle has been moved to the edit prompt
-- `[Sonarr/Filtering]` Updated button to use standard filtering icon
-- `[Tautulli/Activity]` Show session type and bandwidth type breakdown on activity page
-- `[Tautulli/Activity]` Cleanup player information to more closely resemble web GUI
-- `[Tautulli/Activity]` Show subtitle stream decision
-- `[UI/UX]` Reduced the weight of bold text across the application
-- `[UI/UX]` Added padding to bottom of lists for devices that require a safe area
-- `[UI/UX]` Active tab in navigation bar now has a border with the AMOLED theme
+- `[Radarr]` (Edit) Monitor toggle has been moved to the edit prompt
+- `[SABnzbd]` (Queue) Submenu for queued NZBs are now accessible via a single tap on the tile
+- `[SABnzbd]` (Queue) Reordering queue items now occurs by dragging via the handle
+- `[Search]` (Results) Now returns 50 results per infinite scrolling page
+- `[Search]` (Results) Removed support for sorting and filtering results
+- `[Settings]` (Account) Removed the ability to pull user ID or device ID from help dialog
+- `[Settings]` (Configuration) Sort configuration options within modules for cleaner isolation and easier expansion for future configuration options
+- `[Settings]` (Profiles) Renaming a profile now checks for an existing profile with the same name within the prompt
+- `[Settings]` (Profiles) Adding a profile now checks for an existing profile with the same name within the prompt
+- `[Settings]` (Profiles) The delete profile prompt now hides the currently enabled profile, and shows a snackbar if only one profile exists
+- `[Settings]` (Wake on LAN) Allow clearing the broadcast and MAC addresses to empty values
+- `[Tautulli]` (Activity) Cleanup player information to more closely resemble web GUI
+- `[Tautulli]` (Activity) Show the full season title
+- `[UI/UX]` (Accessibility) Added more descriptive tooltips to all popup menu buttons
+- `[UI/UX]` (Bottom Sheet) Bottom modal sheets lists will now shrink wrap to match content height
+- `[UI/UX]` (Brands) Updated the logo to The Movie Database's new logo
+- `[UI/UX]` (Design) Active tab in navigation bar now has a border with the AMOLED theme
+- `[UI/UX]` (Design) Adjusted the style of splash/highlight inking
+- `[UI/UX]` (Design) Reduced the weight of bold text across the application
+- `[UI/UX]` (Design) Added padding to bottom of lists for devices that require a safe area
+- `[UI/UX]` (Design) Minor tweaks to the colour palette
+- `[UI/UX]` (Design) Unify the design and size of all action buttons
+- `[UI/UX]` (Design) Sticky primary action buttons to the bottom navigation bar area
+- `[UI/UX]` (Design) Removed all deprecated UI elements and usages
+- `[UI/UX]` (Design) Many additional, minor tweaks to the design
+- `[UI/UX]` (Drawer) Removed the option to use categories/folders in the drawer
+- `[UI/UX]` (Navigation) Jump instead of animate to page when tapping a navbar item
+- `[UI/UX]` (Profiles) Highlight active profile in profile switcher popup menus
 
 #### FIXES
-- `[Changelog]` Properly align/pad "Full Changelog" button at the end of the changelog
+- `[Dashboard]` (Calendar) Stored current date would not update on date change
+- `[Flutter]` Fully upgrade to Flutter v2
 - `[Flutter]` Update packages
-- `[Flutter]` Now using the beta channel
-- `[Quick Actions]` Improve internal implementation of quick actions to be more stable and reliable
-- `[Settings/Modules]` Newly set headers would sometimes not be passed to the connection test
-- `[Sonarr/Edit]` Series path prompt would show an incorrect title
-- `[Sonarr/Description]` Show "No summary is available" when there is no summary instead of an empty string
-- `[Sonarr/Releases]` Default sorting direction was using catalogue default value
-- `[Tautulli/Graphs]` Description of some graphs were not correct (Thanks @ZuluWhiskey!)
-- `[Tautulli/IPs]` Fix location showing as null for local addresses
-- `[UI/UX]` Border radius for the splash highlight wouldn't clip correctly on slim buttons
-- `[UI/UX]` Margin/size of sort/filter buttons were off by a few pixels
-- `[UI/UX]` InkWell splash now clips correctly to the rounded borders of popup menu buttons
+- `[Networking]` Headers would not get attached in some networking configurations
+- `[NZBGet]` (Queue) Would not refresh in some cases when switching profiles
+- `[Quick Actions]` Improve package internal native channel
+- `[SABnzbd]` (Queue) Would not refresh in some cases when switching profiles
+- `[Settings]` (Configuration) Newly set headers would sometimes not be passed to the connection test
+- `[Sonarr]` (Add) Series type would not be set correctly when adding a new series
+- `[Sonarr]` (Edit) Series path prompt would show an incorrect title
+- `[Sonarr]` (Queue) Ensure the trailing icon on queue entries is centered vertically
+- `[Sonarr]` (Releases) Default sorting direction was using catalogue default value
+- `[Strings]` Safe-guard many substring operations
+- `[Tautulli]` (Activity) Play/paused/buffering icon was not properly left aligned to the text
+- `[Tautulli]` (Graphs) Description of some graphs were not correct (Thanks @ZuluWhiskey!)
+- `[Tautulli]` (IPs) Fix location showing as null for local addresses
+- `[Tautulli]` (Users) User images would not be fetched on newer versions of Tautulli
+- `[UI/UX]` (Bottom Sheet) Reduce swipe down to dismiss threshold to 10% of height
+- `[UI/UX]` (Design) Margin/size of sort/filter buttons were off by a few pixels
+- `[UI/UX]` (Design) InkWell splash now clips correctly to the rounded borders of popup menu buttons
+- `[UI/UX]` (Design) Vertical padding around title when the profile dropdown is visible was incorrect
+- `[UI/UX]` (Design) Some elements were using the system colours instead of the LunaSea colours
+- `[UI/UX]` (Images) Normalize size of all branded logos to have the same widths for consistency
+- `[UI/UX]` (Images) Prevent attempting to load background images that are passed an empty URL
+- `[UI/UX]` (Snackbar) Remove all uses of the deprecated snackbar
+- `[UI/UX]` (Snackbar) All error snackbars will now have a button to view the error
+- `[URLs]` Safe-guard launching specific invalid URLs
+
+
+#### PLATFORM-SPECIFIC
+- `[Android]` (new) Attach module headers to requests when viewing the web GUI
+- `[Android]` (new) Set status and navigation bar colours to match LunaSea
+- `[Android]` (fix) Remove legacy external storage permission
+- `[iOS]` (fix) Sharesheet would not appear on iPadOS devices
 
 ---
 

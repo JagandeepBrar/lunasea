@@ -8,7 +8,7 @@ class LunaRouter {
     static TransitionType get transitionType => TransitionType.native;
 
     /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
-    void intialize() {
+    void initialize() {
         router.notFoundHandler = Handler(handlerFunc: (context, params) => LunaInvalidRoute());
         DashboardRouter().defineAllRoutes(router);
         SettingsRouter().defineAllRoutes(router);

@@ -53,7 +53,10 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> with LunaScrol
                 subtitle: LunaText.subtitle(text: 'Pure Black Dark Theme'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.THEME_AMOLED.data,
-                    onChanged: (value) => LunaDatabaseValue.THEME_AMOLED.put(value),
+                    onChanged: (value) {
+                        LunaDatabaseValue.THEME_AMOLED.put(value);
+                        LunaTheme().initialize();
+                    }
                 ),
             ),
         );

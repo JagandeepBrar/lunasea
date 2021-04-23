@@ -1,1 +1,9 @@
-include: package:pedantic/analysis_options.yaml
+include: package:effective_dart/analysis_options.yaml
+linter:
+  rules:
+    constant_identifier_names: false
+    lines_longer_than_80_chars: false
+    omit_local_variable_types: false
+    # Will be disabled and required once other linting rules have been fixed
+    prefer_relative_imports: false
+    public_member_api_docs: false

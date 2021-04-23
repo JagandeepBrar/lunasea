@@ -104,7 +104,7 @@ class DashboardDialogs {
       ],
       content: [
         LunaDialog.textContent(
-            text: 'dashboard.FutureDaysDescription'.tr(),
+          text: 'dashboard.FutureDaysDescription'.tr(),
         ),
         Form(
           key: _formKey,

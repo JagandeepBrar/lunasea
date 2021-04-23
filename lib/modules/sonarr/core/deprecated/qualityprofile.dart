@@ -5,18 +5,19 @@ part 'qualityprofile.g.dart';
 
 @HiveType(typeId: 2, adapterName: 'DeprecatedSonarrQualityProfileAdapter')
 class DeprecatedSonarrQualityProfile extends HiveObject {
-    @HiveField(0)
-    int id;
-    @HiveField(1)
-    String name;
+  @HiveField(0)
+  int id;
+  @HiveField(1)
+  String name;
 
-    factory DeprecatedSonarrQualityProfile.empty() => DeprecatedSonarrQualityProfile(
+  factory DeprecatedSonarrQualityProfile.empty() =>
+      DeprecatedSonarrQualityProfile(
         id: -1,
         name: '',
-    );
+      );
 
-    DeprecatedSonarrQualityProfile({
-        @required this.id,
-        @required this.name,
-    });
+  DeprecatedSonarrQualityProfile({
+    @required this.id,
+    @required this.name,
+  });
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NZBGetCategoryData {
-    String name;
+  String name;
 
-    NZBGetCategoryData({
-        @required this.name,
-    });
+  NZBGetCategoryData({
+    @required this.name,
+  });
 }

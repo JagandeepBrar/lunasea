@@ -2,95 +2,96 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrState extends LunaModuleState {
-    LidarrState() {
-        reset();
-    }
+  LidarrState() {
+    reset();
+  }
 
-    @override
-    void reset() {}
+  @override
+  void reset() {}
 
-    ///Catalogue Sticky Header Content
-    String _searchCatalogueFilter = '';
-    String get searchCatalogueFilter => _searchCatalogueFilter;
-    set searchCatalogueFilter(String searchCatalogueFilter) {
-        assert(searchCatalogueFilter != null);
-        _searchCatalogueFilter = searchCatalogueFilter;
-        notifyListeners();
-    }
+  ///Catalogue Sticky Header Content
+  String _searchCatalogueFilter = '';
+  String get searchCatalogueFilter => _searchCatalogueFilter;
+  set searchCatalogueFilter(String searchCatalogueFilter) {
+    assert(searchCatalogueFilter != null);
+    _searchCatalogueFilter = searchCatalogueFilter;
+    notifyListeners();
+  }
 
-    LidarrCatalogueSorting _sortCatalogueType = LidarrCatalogueSorting.alphabetical;
-    LidarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
-    set sortCatalogueType(LidarrCatalogueSorting sortCatalogueType) {
-        assert(sortCatalogueType != null);
-        _sortCatalogueType = sortCatalogueType;
-        notifyListeners();
-    }
+  LidarrCatalogueSorting _sortCatalogueType =
+      LidarrCatalogueSorting.alphabetical;
+  LidarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
+  set sortCatalogueType(LidarrCatalogueSorting sortCatalogueType) {
+    assert(sortCatalogueType != null);
+    _sortCatalogueType = sortCatalogueType;
+    notifyListeners();
+  }
 
-    bool _sortCatalogueAscending = true;
-    bool get sortCatalogueAscending => _sortCatalogueAscending;
-    set sortCatalogueAscending(bool sortCatalogueAscending) {
-        assert(sortCatalogueAscending != null);
-        _sortCatalogueAscending = sortCatalogueAscending;
-        notifyListeners();
-    }
+  bool _sortCatalogueAscending = true;
+  bool get sortCatalogueAscending => _sortCatalogueAscending;
+  set sortCatalogueAscending(bool sortCatalogueAscending) {
+    assert(sortCatalogueAscending != null);
+    _sortCatalogueAscending = sortCatalogueAscending;
+    notifyListeners();
+  }
 
-    bool _hideUnmonitoredArtists = false;
-    bool get hideUnmonitoredArtists => _hideUnmonitoredArtists;
-    set hideUnmonitoredArtists(bool hideUnmonitoredArtists) {
-        assert(hideUnmonitoredArtists != null);
-        _hideUnmonitoredArtists = hideUnmonitoredArtists;
-        notifyListeners();
-    }
+  bool _hideUnmonitoredArtists = false;
+  bool get hideUnmonitoredArtists => _hideUnmonitoredArtists;
+  set hideUnmonitoredArtists(bool hideUnmonitoredArtists) {
+    assert(hideUnmonitoredArtists != null);
+    _hideUnmonitoredArtists = hideUnmonitoredArtists;
+    notifyListeners();
+  }
 
-    bool _hideUnmonitoredAlbums = false;
-    bool get hideUnmonitoredAlbums => _hideUnmonitoredAlbums;
-    set hideUnmonitoredAlbums(bool hideUnmonitoredAlbums) {
-        assert(hideUnmonitoredAlbums != null);
-        _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
-        notifyListeners();
-    }
+  bool _hideUnmonitoredAlbums = false;
+  bool get hideUnmonitoredAlbums => _hideUnmonitoredAlbums;
+  set hideUnmonitoredAlbums(bool hideUnmonitoredAlbums) {
+    assert(hideUnmonitoredAlbums != null);
+    _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
+    notifyListeners();
+  }
 
-    ///Releases Sticky Header Content
+  ///Releases Sticky Header Content
 
-    String _searchReleasesFilter = '';
-    String get searchReleasesFilter => _searchReleasesFilter;
-    set searchReleasesFilter(String searchReleasesFilter) {
-        assert(searchReleasesFilter != null);
-        _searchReleasesFilter = searchReleasesFilter;
-        notifyListeners();
-    }
+  String _searchReleasesFilter = '';
+  String get searchReleasesFilter => _searchReleasesFilter;
+  set searchReleasesFilter(String searchReleasesFilter) {
+    assert(searchReleasesFilter != null);
+    _searchReleasesFilter = searchReleasesFilter;
+    notifyListeners();
+  }
 
-    LidarrReleasesSorting _sortReleasesType = LidarrReleasesSorting.weight;
-    LidarrReleasesSorting get sortReleasesType => _sortReleasesType;
-    set sortReleasesType(LidarrReleasesSorting sortReleasesType) {
-        assert(sortReleasesType != null);
-        _sortReleasesType = sortReleasesType;
-        notifyListeners();
-    }
+  LidarrReleasesSorting _sortReleasesType = LidarrReleasesSorting.weight;
+  LidarrReleasesSorting get sortReleasesType => _sortReleasesType;
+  set sortReleasesType(LidarrReleasesSorting sortReleasesType) {
+    assert(sortReleasesType != null);
+    _sortReleasesType = sortReleasesType;
+    notifyListeners();
+  }
 
-    bool _sortReleasesAscending = true;
-    bool get sortReleasesAscending => _sortReleasesAscending;
-    set sortReleasesAscending(bool sortReleasesAscending) {
-        assert(sortReleasesAscending != null);
-        _sortReleasesAscending = sortReleasesAscending;
-        notifyListeners();
-    }
+  bool _sortReleasesAscending = true;
+  bool get sortReleasesAscending => _sortReleasesAscending;
+  set sortReleasesAscending(bool sortReleasesAscending) {
+    assert(sortReleasesAscending != null);
+    _sortReleasesAscending = sortReleasesAscending;
+    notifyListeners();
+  }
 
-    bool _hideRejectedReleases = false;
-    bool get hideRejectedReleases => _hideRejectedReleases;
-    set hideRejectedReleases(bool hideRejectedReleases) {
-        assert(hideRejectedReleases != null);
-        _hideRejectedReleases = hideRejectedReleases;
-        notifyListeners();
-    }
+  bool _hideRejectedReleases = false;
+  bool get hideRejectedReleases => _hideRejectedReleases;
+  set hideRejectedReleases(bool hideRejectedReleases) {
+    assert(hideRejectedReleases != null);
+    _hideRejectedReleases = hideRejectedReleases;
+    notifyListeners();
+  }
 
-    /// Add New Series Content
+  /// Add New Series Content
 
-    String _addSearchQuery = '';
-    String get addSearchQuery => _addSearchQuery;
-    set addSearchQuery(String addSearchQuery) {
-        assert(addSearchQuery != null);
-        _addSearchQuery = addSearchQuery;
-        notifyListeners();
-    }
+  String _addSearchQuery = '';
+  String get addSearchQuery => _addSearchQuery;
+  set addSearchQuery(String addSearchQuery) {
+    assert(addSearchQuery != null);
+    _addSearchQuery = addSearchQuery;
+    notifyListeners();
+  }
 }

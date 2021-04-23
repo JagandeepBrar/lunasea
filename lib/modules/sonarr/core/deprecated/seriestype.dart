@@ -5,14 +5,14 @@ part 'seriestype.g.dart';
 
 @HiveType(typeId: 4, adapterName: 'DeprecatedSonarrSeriesTypeAdapter')
 class DeprecatedSonarrSeriesType extends HiveObject {
-    @HiveField(0)
-    String type;
+  @HiveField(0)
+  String type;
 
-    factory DeprecatedSonarrSeriesType.empty() => DeprecatedSonarrSeriesType(
+  factory DeprecatedSonarrSeriesType.empty() => DeprecatedSonarrSeriesType(
         type: '',
-    );
+      );
 
-    DeprecatedSonarrSeriesType({
-        @required this.type,
-    });
+  DeprecatedSonarrSeriesType({
+    @required this.type,
+  });
 }

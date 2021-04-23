@@ -2,31 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class TautulliMediaDetailsNavigationBar extends StatelessWidget {
-    final PageController pageController;
-    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+  final PageController pageController;
+  static List<ScrollController> scrollControllers =
+      List.generate(icons.length, (_) => ScrollController());
 
-    static const List<IconData> icons = [
-        Icons.info_outline,
-        LunaIcons.history,
-    ];
+  static const List<IconData> icons = [
+    Icons.info_outline,
+    LunaIcons.history,
+  ];
 
-    static const List<String> titles = [
-        'Metadata',
-        'History',
-    ];
+  static const List<String> titles = [
+    'Metadata',
+    'History',
+  ];
 
-    TautulliMediaDetailsNavigationBar({
-        Key key,
-        @required this.pageController,
-    }): super(key: key);
+  TautulliMediaDetailsNavigationBar({
+    Key key,
+    @required this.pageController,
+  }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return LunaBottomNavigationBar(
-            pageController: pageController,
-            scrollControllers: scrollControllers,
-            icons: icons,
-            titles: titles,
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaBottomNavigationBar(
+      pageController: pageController,
+      scrollControllers: scrollControllers,
+      icons: icons,
+      titles: titles,
+    );
+  }
 }

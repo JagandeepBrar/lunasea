@@ -26,7 +26,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
             children: [
                 LunaIconButton(
                     icon: LunaIcons.plex,
-                    color: LunaColours.list(0),
+                    color: LunaColours().byListIndex(0),
                 ),
             ],
             crossAxisAlignment: CrossAxisAlignment.center,

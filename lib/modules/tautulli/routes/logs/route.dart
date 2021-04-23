@@ -44,7 +44,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Tautulli Login Logs'),
                     trailing: LunaIconButton(
                         icon: Icons.vpn_key_rounded,
-                        color: LunaColours.list(0),
+                        color: LunaColours().byListIndex(0),
                     ),
                     onTap: () async => TautulliLogsLoginsRouter().navigateTo(context),
                 ),
@@ -54,7 +54,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Tautulli Newsletter Logs'),
                     trailing: LunaIconButton(
                         icon: Icons.email_rounded,
-                        color: LunaColours.list(1),
+                        color: LunaColours().byListIndex(1),
                     ),
                     onTap: () async => TautulliLogsNewslettersRouter().navigateTo(context),
                 ),
@@ -64,7 +64,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Tautulli Notification Logs'),
                     trailing: LunaIconButton(
                         icon: Icons.notifications_rounded,
-                        color: LunaColours.list(2),
+                        color: LunaColours().byListIndex(2),
                     ),
                     onTap: () async => TautulliLogsNotificationsRouter().navigateTo(context),
                 ),
@@ -74,7 +74,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Plex Media Scanner Logs'),
                     trailing: LunaIconButton(
                         icon: Icons.scanner_rounded,
-                        color: LunaColours.list(3),
+                        color: LunaColours().byListIndex(3),
                     ),
                     onTap: () async => TautulliLogsPlexMediaScannerRouter().navigateTo(context),
                 ),
@@ -84,7 +84,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Plex Media Server Logs'),
                     trailing: LunaIconButton(
                         icon: LunaIcons.plex,
-                        color: LunaColours.list(4),
+                        color: LunaColours().byListIndex(4),
                     ),
                     onTap: () async => TautulliLogsPlexMediaServerRouter().navigateTo(context),
                 ),
@@ -94,7 +94,7 @@ class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'Tautulli Logs'),
                     trailing: LunaIconButton(
                         icon: LunaIcons.tautulli,
-                        color: LunaColours.list(5),
+                        color: LunaColours().byListIndex(5),
                     ),
                     onTap: () async => TautulliLogsTautulliRouter().navigateTo(context),
                 ),

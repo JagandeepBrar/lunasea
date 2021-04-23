@@ -19,7 +19,7 @@ class SearchCategoryTile extends StatelessWidget {
             subtitle: LunaText.subtitle(
                 text: category.subcategoriesTitleList,
             ),
-            trailing: LunaIconButton(icon: category.icon, color: LunaColours.list(index)),
+            trailing: LunaIconButton(icon: category.icon, color: LunaColours().byListIndex(index)),
             onTap: () async {
                 context.read<SearchState>().activeCategory = category;
                 SearchSubcategoriesRouter().navigateTo(context);

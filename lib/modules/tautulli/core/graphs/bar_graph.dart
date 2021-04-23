@@ -26,7 +26,7 @@ class TautulliBarGraphHelper {
                         (sIndex) => BarChartRodStackItem(
                             _fromY(cIndex, sIndex, data.series),
                             _toY(cIndex, sIndex, data.series),
-                            LunaColours.graph(sIndex),
+                            LunaColours().byGraphLayer(sIndex),
                         ),
                     ),
                 ),

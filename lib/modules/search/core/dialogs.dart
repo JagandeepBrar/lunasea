@@ -75,19 +75,19 @@ class SearchDialogs {
                         ),
                         if(Database.currentProfileObject.sabnzbdEnabled) LunaDialog.tile(
                             icon: SearchDownloadType.SABNZBD.icon,
-                            iconColor: LunaColours.list(0),
+                            iconColor: LunaColours().byListIndex(0),
                             text: SearchDownloadType.SABNZBD.name,
                             onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
                         ),
                         if(Database.currentProfileObject.nzbgetEnabled) LunaDialog.tile(
                             icon: SearchDownloadType.NZBGET.icon,
-                            iconColor: LunaColours.list(1),
+                            iconColor: LunaColours().byListIndex(1),
                             text: SearchDownloadType.NZBGET.name,
                             onTap: () => _setValues(true, SearchDownloadType.NZBGET),
                         ),
                         LunaDialog.tile(
                             icon: SearchDownloadType.FILESYSTEM.icon,
-                            iconColor: LunaColours.list(2),
+                            iconColor: LunaColours().byListIndex(2),
                             text: SearchDownloadType.FILESYSTEM.name,
                             onTap: () => _setValues(true, SearchDownloadType.FILESYSTEM),
                         ),

@@ -53,7 +53,7 @@ class SettingsDialogs {
                     backups.length,
                     (index) => LunaDialog.tile(
                         icon: Icons.file_copy,
-                        iconColor: LunaColours.list(index),
+                        iconColor: LunaColours().byListIndex(index),
                         text: backups[index].title.toString(),
                         onTap: () => _setValues(true, backups[index]),
                     ),
@@ -199,7 +199,7 @@ class SettingsDialogs {
                     (index) => LunaDialog.tile(
                         text: HeaderType.values[index].name,
                         icon: HeaderType.values[index].icon,
-                        iconColor: LunaColours.list(index),
+                        iconColor: LunaColours().byListIndex(index),
                         onTap: () => _setValues(true, HeaderType.values[index]),
                     ),
                 ),
@@ -401,7 +401,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LunaDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -466,7 +466,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LunaDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -493,7 +493,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LunaDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -520,7 +520,7 @@ class SettingsDialogs {
                 LunaBrowser.values.length,
                 (index) => LunaDialog.tile(
                     icon: LunaBrowser.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: LunaBrowser.values[index].name,
                     onTap: () => _setValues(true, LunaBrowser.values[index]),
                 ),
@@ -548,7 +548,7 @@ class SettingsDialogs {
                 languages.length,
                 (index) => LunaDialog.tile(
                     icon: Icons.language_rounded,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: languages[index].name,
                     onTap: () => _setValues(true, languages[index]),
                 ),
@@ -575,7 +575,7 @@ class SettingsDialogs {
                 CalendarStartingDay.values.length,
                 (index) => LunaDialog.tile(
                     icon: LunaIcons.calendar,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: CalendarStartingDay.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingDay.values[index]),
                 ),
@@ -602,7 +602,7 @@ class SettingsDialogs {
                 CalendarStartingSize.values.length,
                 (index) => LunaDialog.tile(
                     icon: CalendarStartingSize.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: CalendarStartingSize.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingSize.values[index]),
                 ),
@@ -629,7 +629,7 @@ class SettingsDialogs {
                 CalendarStartingType.values.length,
                 (index) => LunaDialog.tile(
                     icon: CalendarStartingType.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: CalendarStartingType.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingType.values[index]),
                 ),

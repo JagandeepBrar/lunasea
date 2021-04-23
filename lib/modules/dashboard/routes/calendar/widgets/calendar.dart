@@ -172,7 +172,7 @@ class _State extends State<DashboardCalendarWidget> {
             child: LunaListView(
                 controller: DashboardNavigationBar.scrollControllers[1],
                 children: [
-                    LunaMessage.inList(text: 'No New Content'),
+                    LunaMessage.inList(text: 'dashboard.NoNewContent'.tr()),
                 ],
                 padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
             ),
@@ -190,7 +190,7 @@ class _State extends State<DashboardCalendarWidget> {
         if((widget.events?.length ?? 0) == 0) return LunaListView(
             controller: DashboardNavigationBar.scrollControllers[1],
             children: [
-                LunaMessage.inList(text: 'No New Content'),
+                LunaMessage.inList(text: 'dashboard.NoNewContent'.tr()),
             ],
         );
         return LunaListView(

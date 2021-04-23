@@ -69,7 +69,7 @@ class _State extends State<DashboardModulesRoute> with AutomaticKeepAliveClientM
             subtitle: LunaText.subtitle(text: module.description),
             trailing: LunaIconButton(
                 icon: module.icon,
-                color: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data ? module.color : LunaColours.list(listIndex),
+                color: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data ? module.color : LunaColours().byListIndex(listIndex),
             ),
             onTap: module.launch,
         );

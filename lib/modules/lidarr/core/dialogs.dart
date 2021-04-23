@@ -22,7 +22,7 @@ class LidarrDialogs {
                     qualities.length,
                     (index) => LunaDialog.tile(
                         icon: Icons.portrait,
-                        iconColor: LunaColours.list(index),
+                        iconColor: LunaColours().byListIndex(index),
                         text: qualities[index].name,
                         onTap: () => _setValues(true, qualities[index]),
                     ),
@@ -49,7 +49,7 @@ class LidarrDialogs {
                     metadatas.length,
                     (index) => LunaDialog.tile(
                         icon: Icons.portrait,
-                        iconColor: LunaColours.list(index),
+                        iconColor: LunaColours().byListIndex(index),
                         text: metadatas[index].name,
                         onTap: () => _setValues(true, metadatas[index]),
                     ),
@@ -164,7 +164,7 @@ class LidarrDialogs {
                 _options.length,
                 (index) => LunaDialog.tile(
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     text: _options[index][0],
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
@@ -197,7 +197,7 @@ class LidarrDialogs {
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -231,7 +231,7 @@ class LidarrDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -258,7 +258,7 @@ class LidarrDialogs {
                 (index) => LunaDialog.tile(
                     text: LidarrNavigationBar.titles[index],
                     icon: LidarrNavigationBar.icons[index],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

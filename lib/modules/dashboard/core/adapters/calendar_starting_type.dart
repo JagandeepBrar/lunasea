@@ -14,8 +14,8 @@ enum CalendarStartingType {
 extension CalendarStartingTypeExtension on CalendarStartingType {
     String get name {
         switch(this) {
-            case CalendarStartingType.SCHEDULE: return 'Schedule';
-            case CalendarStartingType.CALENDAR: return 'Calendar';
+            case CalendarStartingType.SCHEDULE: return 'dashboard.Schedule'.tr();
+            case CalendarStartingType.CALENDAR: return 'dashboard.Calendar'.tr();
         }
         throw Exception('Unknown CalendarStartingType');
     }

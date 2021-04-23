@@ -27,7 +27,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
             children: [
                 LunaIconButton(
                     icon: LunaIcons.tautulli,
-                    color: LunaColours.list(1),
+                    color: LunaColours().byListIndex(1),
                 ),
             ],
             crossAxisAlignment: CrossAxisAlignment.center,

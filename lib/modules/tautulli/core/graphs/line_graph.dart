@@ -31,14 +31,14 @@ class TautulliLineGraphHelper {
             isCurved: true,
             isStrokeCapRound: true,
             barWidth: 3.0,
-            colors: [LunaColours.graph(sIndex)],
+            colors: [LunaColours().byGraphLayer(sIndex)],
             spots: List<FlSpot>.generate(
                 data.series[sIndex].data.length,
                 (dIndex) => FlSpot(dIndex.toDouble(), data.series[sIndex].data[dIndex].toDouble()),
             ),
             belowBarData: BarAreaData(
                 show: true,
-                colors: [LunaColours.graph(sIndex).withOpacity(0.20)],
+                colors: [LunaColours().byGraphLayer(sIndex).withOpacity(0.20)],
             ),
             dotData: FlDotData(
                 show: true,

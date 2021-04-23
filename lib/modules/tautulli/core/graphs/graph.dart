@@ -55,7 +55,7 @@ class TautulliGraphHelper {
                                         height: LunaUI.FONT_SIZE_GRAPH_LEGEND,
                                         width: LunaUI.FONT_SIZE_GRAPH_LEGEND,
                                         decoration: BoxDecoration(
-                                            color: LunaColours.graph(index),
+                                            color: LunaColours().byGraphLayer(index),
                                             borderRadius: BorderRadius.circular(8.0),
                                         ),
                                     ),
@@ -65,7 +65,7 @@ class TautulliGraphHelper {
                                     data[index].name,
                                     style: TextStyle(
                                         fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
-                                        color: LunaColours.graph(index),
+                                        color: LunaColours().byGraphLayer(index),
                                     ),
                                 ),
                             ],

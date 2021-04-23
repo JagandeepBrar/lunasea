@@ -21,7 +21,7 @@ class TautulliDialogs {
                 (index) => LunaDialog.tile(
                     text: TautulliGlobalSettingsType.values[index].name,
                     icon: TautulliGlobalSettingsType.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, TautulliGlobalSettingsType.values[index]),
                 ),
             ),
@@ -51,7 +51,7 @@ class TautulliDialogs {
                 (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: icons[index],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

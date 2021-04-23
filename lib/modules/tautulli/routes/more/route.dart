@@ -36,7 +36,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Tautulli & Plex Updates'),
                     trailing: LunaIconButton(
                         icon: Icons.system_update_rounded,
-                        color: LunaColours.list(0),
+                        color: LunaColours().byListIndex(0),
                     ),
                     onTap: () async => TautulliCheckForUpdatesRouter().navigateTo(context),
                 ),
@@ -46,7 +46,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Play Count & Duration Graphs'),
                     trailing: LunaIconButton(
                         icon: Icons.insert_chart_rounded,
-                        color: LunaColours.list(1),
+                        color: LunaColours().byListIndex(1),
                     ),
                     onTap: () async => TautulliGraphsRouter().navigateTo(context),
                 ),
@@ -56,7 +56,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Plex Library Information'),
                     trailing: LunaIconButton(
                         icon: Icons.video_library_rounded,
-                        color: LunaColours.list(2),
+                        color: LunaColours().byListIndex(2),
                     ),
                     onTap: () async => TautulliLibrariesRouter().navigateTo(context),
                 ),
@@ -66,7 +66,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Tautulli & Plex Logs'),
                     trailing: LunaIconButton(
                         icon: Icons.developer_mode_rounded,
-                        color: LunaColours.list(3),
+                        color: LunaColours().byListIndex(3),
                     ),
                     onTap: () async => TautulliLogsRouter().navigateTo(context),
                 ),
@@ -76,7 +76,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Recently Added Content to Plex'),
                     trailing: LunaIconButton(
                         icon: Icons.recent_actors_rounded,
-                        color: LunaColours.list(4),
+                        color: LunaColours().byListIndex(4),
                     ),
                     onTap: () async => TautulliRecentlyAddedRouter().navigateTo(context),
                 ),
@@ -86,7 +86,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Search Your Libraries'),
                     trailing: LunaIconButton(
                         icon: Icons.search_rounded,
-                        color: LunaColours.list(5),
+                        color: LunaColours().byListIndex(5),
                     ),
                     onTap: () async => TautulliSearchRouter().navigateTo(context),
                 ),
@@ -96,7 +96,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'User & Library Statistics'),
                     trailing: LunaIconButton(
                         icon: Icons.format_list_numbered_rounded,
-                        color: LunaColours.list(6),
+                        color: LunaColours().byListIndex(6),
                     ),
                     onTap: () async => TautulliStatisticsRouter().navigateTo(context),
                 ),
@@ -106,7 +106,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
                     subtitle: LunaText.subtitle(text: 'Synced Content on Devices'),
                     trailing: LunaIconButton(
                         icon: Icons.sync_rounded,
-                        color: LunaColours.list(7),
+                        color: LunaColours().byListIndex(7),
                     ),
                     onTap: () async => TautulliSyncedItemsRouter().navigateTo(context),
                 ),

@@ -37,13 +37,13 @@ extension CalendarStartingDayExtension on CalendarStartingDay {
 
     String get name {
         switch(this) {
-            case CalendarStartingDay.MONDAY: return 'Monday';
-            case CalendarStartingDay.TUESDAY: return 'Tuesday';
-            case CalendarStartingDay.WEDNESDAY: return 'Wednesday';
-            case CalendarStartingDay.THURSDAY: return 'Thursday';
-            case CalendarStartingDay.FRIDAY: return 'Friday';
-            case CalendarStartingDay.SATURDAY: return 'Saturday';
-            case CalendarStartingDay.SUNDAY: return 'Sunday';
+            case CalendarStartingDay.MONDAY: return 'dashboard.Monday'.tr();
+            case CalendarStartingDay.TUESDAY: return 'dashboard.Tuesday'.tr();
+            case CalendarStartingDay.WEDNESDAY: return 'dashboard.Wednesday'.tr();
+            case CalendarStartingDay.THURSDAY: return 'dashboard.Thursday'.tr();
+            case CalendarStartingDay.FRIDAY: return 'dashboard.Friday'.tr();
+            case CalendarStartingDay.SATURDAY: return 'dashboard.Saturday'.tr();
+            case CalendarStartingDay.SUNDAY: return 'dashboard.Sunday'.tr();
             default: return null;
         }
     }

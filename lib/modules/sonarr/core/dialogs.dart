@@ -21,7 +21,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrGlobalSettingsType.values[index].name,
                     icon: SonarrGlobalSettingsType.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrGlobalSettingsType.values[index]),
                 ),
             ),
@@ -48,7 +48,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrSeriesSettingsType.values[index].name(series),
                     icon: SonarrSeriesSettingsType.values[index].icon(series),
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrSeriesSettingsType.values[index]),
                 ),
             ),
@@ -77,7 +77,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrEpisodeSettingsType.values[index].name(episode),
                     icon: SonarrEpisodeSettingsType.values[index].icon(episode),
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrEpisodeSettingsType.values[index]),
                 ),
             ),
@@ -106,7 +106,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrSeasonSettingsType.values[index].name,
                     icon: SonarrSeasonSettingsType.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrSeasonSettingsType.values[index]),
                 ),
             ),
@@ -136,7 +136,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: icons[index],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
@@ -316,7 +316,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: Icons.sort,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
@@ -395,7 +395,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: profiles[index].name,
                     icon: Icons.portrait,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
@@ -422,7 +422,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: profiles[index].name,
                     icon: Icons.portrait,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
@@ -454,7 +454,7 @@ class SonarrDialogs {
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -481,7 +481,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrMonitorStatus.values[index].name,
                     icon: Icons.view_list,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
                 ),
             ),
@@ -508,7 +508,7 @@ class SonarrDialogs {
                 (index) => LunaDialog.tile(
                     text: SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
                     icon: Icons.folder_open,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, SonarrSeriesType.values[index]),
                 ),
             ),

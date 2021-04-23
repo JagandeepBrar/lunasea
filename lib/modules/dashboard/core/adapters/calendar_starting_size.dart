@@ -26,9 +26,9 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
 
     String get name {
         switch(this) {
-            case CalendarStartingSize.ONE_WEEK: return 'One Week';
-            case CalendarStartingSize.TWO_WEEKS: return 'Two Weeks';
-            case CalendarStartingSize.ONE_MONTH: return 'One Month';
+            case CalendarStartingSize.ONE_WEEK: return 'dashboard.OneWeek'.tr();
+            case CalendarStartingSize.TWO_WEEKS: return 'dashboard.TwoWeeks'.tr();
+            case CalendarStartingSize.ONE_MONTH: return 'dashboard.OneMonth'.tr();
             default: return null;
         }
     }

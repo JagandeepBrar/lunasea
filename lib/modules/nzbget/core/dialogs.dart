@@ -29,7 +29,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -66,7 +66,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -158,7 +158,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: NZBGetPriority.values[index].name,
                     icon: Icons.low_priority,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, NZBGetPriority.values[index]),
                 ),
             ),
@@ -185,7 +185,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: categories[index].name.isEmpty ? 'No Category' : categories[index].name,
                     icon: Icons.category,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, categories[index]),
                 ),
             ),
@@ -284,7 +284,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: NZBGetSort.values[index].name,
                     icon: NZBGetSort.values[index].icon,
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, NZBGetSort.values[index]),
                 ),
             ),
@@ -315,7 +315,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -392,7 +392,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -469,7 +469,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -505,7 +505,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -584,7 +584,7 @@ class NZBGetDialogs {
                 (index) => LunaDialog.tile(
                     text: NZBGetNavigationBar.titles[index],
                     icon: NZBGetNavigationBar.icons[index],
-                    iconColor: LunaColours.list(index),
+                    iconColor: LunaColours().byListIndex(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

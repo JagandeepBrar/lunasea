@@ -9,7 +9,7 @@ class SearchSubcategoryAllTile extends StatelessWidget {
             context: context,
             title: LunaText.title(text: 'search.AllSubcategories'.tr()),
             subtitle: LunaText.subtitle(text: context.read<SearchState>().activeCategory?.name ?? 'lunasea.Unknown'.tr()),
-            trailing: LunaIconButton(icon: context.read<SearchState>().activeCategory?.icon, color: LunaColours.list(0)),
+            trailing: LunaIconButton(icon: context.read<SearchState>().activeCategory?.icon, color: LunaColours().byListIndex(0)),
             onTap: () async {
                 context.read<SearchState>().activeSubcategory = null;
                 SearchResultsRouter().navigateTo(context);

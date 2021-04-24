@@ -10,17 +10,14 @@ extension LunaRadarrMovieExtension on RadarrMovie {
   }
 
   String get lunaAlternateTitles {
-    if (this.alternateTitles != null && this.alternateTitles.length != 0)
-      return this
-          .alternateTitles
-          .map<String>((title) => title.title)
-          .join('\n');
+    if (this?.alternateTitles?.isNotEmpty ?? false) {
+      return this.alternateTitles.map((title) => title.title).join('\n');
+    }
     return LunaUI.TEXT_EMDASH;
   }
 
   String get lunaGenres {
-    if (this.genres != null && this.genres.length != 0)
-      return this.genres.join('\n');
+    if (this?.genres?.isNotEmpty ?? false) return this.genres.join('\n');
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -75,8 +72,9 @@ extension LunaRadarrMovieExtension on RadarrMovie {
   }
 
   String lunaTags(List<RadarrTag> tags) {
-    if (tags != null && tags.length != 0)
+    if (tags?.isNotEmpty ?? false) {
       return tags.map<String>((tag) => tag.label).join('\n');
+    }
     return LunaUI.TEXT_EMDASH;
   }
 

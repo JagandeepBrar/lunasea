@@ -50,7 +50,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
               title: 'language', body: language?.name ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
           title: 'tags',
-          body: tags != null && tags.length > 0
+          body: (tags?.isNotEmpty ?? false)
               ? tags
                   .fold<String>('', (string, tag) => string += ', ${tag.label}')
                   .substring(2)

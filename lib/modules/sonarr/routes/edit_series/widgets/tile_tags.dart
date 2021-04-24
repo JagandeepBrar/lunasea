@@ -9,13 +9,14 @@ class SonarrSeriesEditTagsTile extends StatelessWidget {
       context: context,
       title: LunaText.title(text: 'Tags'),
       subtitle: LunaText.subtitle(
-          text: context.watch<SonarrSeriesEditState>().tags.length == 0
-              ? 'Not Set'
-              : context
-                  .watch<SonarrSeriesEditState>()
-                  .tags
-                  .map((e) => e.label)
-                  .join(', ')),
+        text: context.watch<SonarrSeriesEditState>().tags.isEmpty
+            ? 'Not Set'
+            : context
+                .watch<SonarrSeriesEditState>()
+                .tags
+                .map((e) => e.label)
+                .join(', '),
+      ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async => await SonarrDialogs().setEditTags(context),
     );

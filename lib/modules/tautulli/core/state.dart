@@ -46,6 +46,7 @@ class TautulliState extends LunaModuleState {
     _metadata = {};
     _libraryWatchTimeStats = {};
     _libraryUserStats = {};
+    _individualHistory = {};
 
     // Reset global data
     resetProfile();

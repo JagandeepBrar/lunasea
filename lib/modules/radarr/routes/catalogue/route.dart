@@ -128,7 +128,7 @@ class _State extends State<RadarrCatalogueRoute>
   }
 
   List<RadarrMovie> _filterAndSort(List<RadarrMovie> movies, String query) {
-    if (movies == null || movies.length == 0) return movies;
+    if (movies?.isEmpty ?? true) return movies;
     // Pull values from state
     RadarrMoviesSorting sorting = context.read<RadarrState>().moviesSortType;
     RadarrMoviesFilter filter = context.read<RadarrState>().moviesFilterType;

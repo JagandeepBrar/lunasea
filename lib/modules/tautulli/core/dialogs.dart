@@ -89,7 +89,7 @@ class TautulliDialogs {
       ],
       content: [
         LunaDialog.textContent(
-            text: 'tautulli.TerminationConfirmMessage'.tr() + '\n'),
+            text: '${"tautulli.TerminationConfirmMessage".tr()}\n'),
         LunaDialog.textContent(text: 'tautulli.TerminationAttachMessage'.tr()),
         Form(
           key: _formKey,

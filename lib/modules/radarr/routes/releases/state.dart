@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrReleasesState extends ChangeNotifier {
   Future<List<RadarrRelease>> _releases;
-  int _movieId;
+  final int _movieId;
 
   RadarrReleasesState(BuildContext context, this._movieId) {
     if (context.read<RadarrState>().enabled)

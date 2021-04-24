@@ -88,11 +88,9 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
             TextSpan(text: '\n'),
             data['last_play'] != null
                 ? TextSpan(
-                    text: 'Last Used ' +
-                            DateTime.fromMillisecondsSinceEpoch(
-                                    data['last_play'] * 1000)
-                                ?.lunaAge ??
-                        'Unknown')
+                    text:
+                        'Last Used ${DateTime.fromMillisecondsSinceEpoch(data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
+                  )
                 : TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),

@@ -54,7 +54,7 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
               case ConnectionState.done:
                 {
                   if (snapshot.hasError || snapshot.data == null)
-                    return LunaMessage.error(onTap: () => _refresh());
+                    return LunaMessage.error(onTap: _refresh);
                   _data = snapshot.data;
                   return _list;
                 }

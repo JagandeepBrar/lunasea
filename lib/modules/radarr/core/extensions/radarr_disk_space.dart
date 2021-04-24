@@ -25,13 +25,10 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
       int _val = ((_percentNumerator / _percentDenominator) * 100).round();
       return (_val - 100).abs();
     }
-    return null;
+    return 0;
   }
 
-  String get lunaPercentageString {
-    if (lunaPercentage != null) return '$lunaPercentage%';
-    return LunaUI.TEXT_EMDASH;
-  }
+  String get lunaPercentageString => '$lunaPercentage%';
 
   Color get lunaColor {
     int percentage = this.lunaPercentage ?? 0;

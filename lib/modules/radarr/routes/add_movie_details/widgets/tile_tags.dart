@@ -9,7 +9,7 @@ class RadarrAddMovieDetailsTagsTile extends StatelessWidget {
       context: context,
       title: LunaText.title(text: 'radarr.Tags'.tr()),
       subtitle: LunaText.subtitle(
-          text: context.watch<RadarrAddMovieDetailsState>().tags.length == 0
+          text: context.watch<RadarrAddMovieDetailsState>().tags.isEmpty
               ? LunaUI.TEXT_EMDASH
               : context
                   .watch<RadarrAddMovieDetailsState>()

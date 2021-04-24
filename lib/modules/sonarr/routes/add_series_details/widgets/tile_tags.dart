@@ -9,7 +9,7 @@ class SonarrSeriesAddDetailsTagsTile extends StatelessWidget {
       context: context,
       title: LunaText.title(text: 'Tags'),
       subtitle: LunaText.subtitle(
-          text: context.watch<SonarrSeriesAddDetailsState>().tags.length == 0
+          text: context.watch<SonarrSeriesAddDetailsState>().tags.isEmpty
               ? LunaUI.TEXT_EMDASH
               : context
                   .watch<SonarrSeriesAddDetailsState>()

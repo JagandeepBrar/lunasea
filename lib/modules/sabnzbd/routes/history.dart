@@ -82,35 +82,42 @@ class _State extends State<SABnzbdHistory>
     );
   }
 
-  Widget get _list => _results.length == 0
-      ? LunaMessage(
-          text: 'No History Found',
-          buttonText: 'Refresh',
-          onTap: () => loadCallback(),
-        )
-      : Selector<SABnzbdState, Tuple2<String, bool>>(
-          selector: (_, model) =>
-              Tuple2(model.historySearchFilter, model.historyHideFailed),
-          builder: (context, data, _) {
-            List<SABnzbdHistoryData> _filtered = _filter(data.item1);
-            _filtered = data.item2 ? _hide(_filtered) : _filtered;
-            return _listBody(_filtered);
-          },
-        );
+  Widget get _list {
+    if (_results?.isEmpty ?? true) {
+      return LunaMessage(
+        text: 'No History Found',
+        buttonText: 'Refresh',
+        onTap: loadCallback,
+      );
+    }
+    return Selector<SABnzbdState, Tuple2<String, bool>>(
+      selector: (_, model) => Tuple2(
+        model.historySearchFilter,
+        model.historyHideFailed,
+      ),
+      builder: (context, data, _) {
+        List<SABnzbdHistoryData> _filtered = _filter(data.item1);
+        _filtered = data.item2 ? _hide(_filtered) : _filtered;
+        return _listBody(_filtered);
+      },
+    );
+  }
 
   Widget _listBody(List filtered) {
-    List<Widget> _children = filtered.length == 0
-        ? [LunaMessage.inList(text: 'No History Found')]
-        : List.generate(
-            filtered.length,
-            (index) => SABnzbdHistoryTile(
-              data: filtered[index],
-              refresh: () => loadCallback(),
-            ),
-          );
-    return LunaListView(
+    if (filtered.isEmpty)
+      return LunaListView(
+        controller: SABnzbdNavigationBar.scrollControllers[1],
+        children: [
+          LunaMessage.inList(text: 'No History Found'),
+        ],
+      );
+    return LunaListViewBuilder(
       controller: SABnzbdNavigationBar.scrollControllers[1],
-      children: _children,
+      itemCount: filtered.length,
+      itemBuilder: (context, index) => SABnzbdHistoryTile(
+        data: filtered[index],
+        refresh: loadCallback,
+      ),
     );
   }
 
@@ -120,8 +127,8 @@ class _State extends State<SABnzbdHistory>
           : entry.name.toLowerCase().contains(filter.toLowerCase()))
       .toList();
 
-  List<SABnzbdHistoryData> _hide(List<SABnzbdHistoryData> data) =>
-      data == null || data.length == 0
-          ? data
-          : data.where((entry) => entry.failed).toList();
+  List<SABnzbdHistoryData> _hide(List<SABnzbdHistoryData> data) {
+    if (data?.isEmpty ?? true) return data;
+    return data.where((entry) => entry.failed).toList();
+  }
 }

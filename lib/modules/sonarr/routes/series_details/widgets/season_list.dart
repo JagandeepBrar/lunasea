@@ -12,8 +12,7 @@ class SonarrSeriesDetailsSeasonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (series.seasons.length == 0)
-      return LunaMessage(text: 'No Seasons Found');
+    if (series.seasons.isEmpty) return LunaMessage(text: 'No Seasons Found');
     List<SonarrSeriesSeason> _seasons = series.seasons;
     _seasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
     return LunaListView(

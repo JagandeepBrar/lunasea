@@ -33,7 +33,7 @@ class NewznabCategoryData {
   }
 
   String get subcategoriesTitleList {
-    if (subcategories.length == 0) return 'search.NoSubcategoriesFound'.tr();
+    if (subcategories.isEmpty) return 'search.NoSubcategoriesFound'.tr();
     return subcategories.map<String>((subcat) => subcat.name).join(', ');
   }
 }

@@ -84,7 +84,7 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
   }
 
   void process(List<SonarrSeriesSeason> season) {
-    if (season == null || season.length == 0) return;
+    if (season?.isEmpty ?? true) return;
     switch (this) {
       case SonarrMonitorStatus.ALL:
         _all(season);

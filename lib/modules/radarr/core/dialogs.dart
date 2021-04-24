@@ -436,12 +436,10 @@ class RadarrDialogs {
                         (index) => LunaDialog.checkbox(
                           title: snapshot.data[index].label,
                           value: context
-                                  .watch<RadarrMoviesEditState>()
-                                  .tags
-                                  .where((tag) =>
-                                      tag.id == snapshot.data[index].id)
-                                  .length !=
-                              0,
+                              .watch<RadarrMoviesEditState>()
+                              .tags
+                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrMoviesEditState>().tags;
@@ -543,12 +541,10 @@ class RadarrDialogs {
                         (index) => LunaDialog.checkbox(
                           title: snapshot.data[index].label,
                           value: context
-                                  .watch<RadarrAddMovieDetailsState>()
-                                  .tags
-                                  .where((tag) =>
-                                      tag.id == snapshot.data[index].id)
-                                  .length !=
-                              0,
+                              .watch<RadarrAddMovieDetailsState>()
+                              .tags
+                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrAddMovieDetailsState>().tags;

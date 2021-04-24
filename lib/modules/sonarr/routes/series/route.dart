@@ -102,7 +102,7 @@ class _State extends State<SonarrSeriesRoute>
 
   List<SonarrSeries> _filterAndSort(List<SonarrSeries> series,
       List<SonarrQualityProfile> profiles, String query) {
-    if (series == null || series.length == 0) return series;
+    if (series?.isEmpty ?? true) return series;
     SonarrState _state = Provider.of<SonarrState>(context, listen: false);
     // Filter
     List<SonarrSeries> _filtered = series.where((show) {

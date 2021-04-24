@@ -48,7 +48,7 @@ class SettingsDialogs {
     await LunaDialog.dialog(
       context: context,
       title: 'Backup List',
-      content: backups.length > 0
+      content: backups.isNotEmpty
           ? List.generate(
               backups.length,
               (index) => LunaDialog.tile(
@@ -59,7 +59,7 @@ class SettingsDialogs {
               ),
             )
           : [LunaDialog.textContent(text: 'No Backups Found')],
-      contentPadding: backups.length > 0
+      contentPadding: backups.isNotEmpty
           ? LunaDialog.listDialogContentPadding()
           : LunaDialog.textDialogContentPadding(),
     );
@@ -246,14 +246,14 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _key,
-                validator: (key) => key.length > 0 ? null : 'Key Required',
+                validator: (key) => key.isNotEmpty ? null : 'Key Required',
                 onSubmitted: (_) => _setValues(true),
                 title: 'Header Key',
               ),
               LunaDialog.textFormInput(
                 controller: _value,
                 validator: (value) =>
-                    value.length > 0 ? null : 'Value Required',
+                    value.isNotEmpty ? null : 'Value Required',
                 onSubmitted: (_) => _setValues(true),
                 title: 'Header Value',
               ),
@@ -308,14 +308,14 @@ class SettingsDialogs {
               LunaDialog.textFormInput(
                 controller: _username,
                 validator: (username) =>
-                    username.length > 0 ? null : 'Username Required',
+                    username.isNotEmpty ? null : 'Username Required',
                 onSubmitted: (_) => _setValues(true),
                 title: 'Username',
               ),
               LunaDialog.textFormInput(
                 controller: _password,
                 validator: (password) =>
-                    password.length > 0 ? null : 'Password Required',
+                    password.isNotEmpty ? null : 'Password Required',
                 onSubmitted: (_) => _setValues(true),
                 obscureText: true,
                 title: 'Password',
@@ -387,7 +387,7 @@ class SettingsDialogs {
             controller: _controller,
             validator: (value) {
               if (profiles.contains(value)) return 'Profile Already Exists';
-              if (value.length == 0) return 'Profile Name Required';
+              if (value.isEmpty) return 'Profile Name Required';
               return null;
             },
             onSubmitted: (_) => _setValues(true),
@@ -457,7 +457,7 @@ class SettingsDialogs {
             controller: _controller,
             validator: (value) {
               if (profiles.contains(value)) return 'Profile Already Exists';
-              if (value.length == 0) return 'Profile Name Required';
+              if (value.isEmpty) return 'Profile Name Required';
               return null;
             },
             onSubmitted: (_) => _setValues(true),
@@ -1071,7 +1071,7 @@ class SettingsDialogs {
     await LunaDialog.dialog(
       context: context,
       title: module.name ?? LunaUI.TEXT_EMDASH,
-      buttons: _buttons.length == 0 ? null : _buttons,
+      buttons: _buttons.isEmpty ? null : _buttons,
       content: [
         LunaDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)
       ],

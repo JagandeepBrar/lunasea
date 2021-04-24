@@ -185,12 +185,10 @@ class SonarrDialogs {
                         (index) => LunaDialog.checkbox(
                           title: snapshot.data[index].label,
                           value: context
-                                  .watch<SonarrSeriesAddDetailsState>()
-                                  .tags
-                                  .where((tag) =>
-                                      tag.id == snapshot.data[index].id)
-                                  .length !=
-                              0,
+                              .watch<SonarrSeriesAddDetailsState>()
+                              .tags
+                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags = context
                                 .read<SonarrSeriesAddDetailsState>()
@@ -253,12 +251,10 @@ class SonarrDialogs {
                         (index) => LunaDialog.checkbox(
                           title: snapshot.data[index].label,
                           value: context
-                                  .watch<SonarrSeriesEditState>()
-                                  .tags
-                                  .where((tag) =>
-                                      tag.id == snapshot.data[index].id)
-                                  .length !=
-                              0,
+                              .watch<SonarrSeriesEditState>()
+                              .tags
+                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags =
                                 context.read<SonarrSeriesEditState>().tags;

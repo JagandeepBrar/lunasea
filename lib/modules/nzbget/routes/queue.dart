@@ -122,15 +122,19 @@ class _State extends State<NZBGetQueue>
         ),
       );
 
-  Widget get _list => _queue == null
-      ? LunaMessage.error(onTap: _refresh)
-      : _queue.length == 0
-          ? LunaMessage(
-              text: 'Empty Queue',
-              buttonText: 'Refresh',
-              onTap: _fetchWithoutMessage,
-            )
-          : _reorderableList();
+  Widget get _list {
+    if (_queue == null) {
+      return LunaMessage.error(onTap: _refresh);
+    }
+    if (_queue.isEmpty) {
+      return LunaMessage(
+        text: 'Empty Queue',
+        buttonText: 'Refresh',
+        onTap: _fetchWithoutMessage,
+      );
+    }
+    return _reorderableList();
+  }
 
   Widget _reorderableList() {
     return LunaReorderableListViewBuilder(

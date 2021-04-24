@@ -65,7 +65,9 @@ class Database {
   void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
   void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
 
-  void clearAllBoxes({bool clearEverything = false}) {
+  void clearAllBoxes({
+    bool clearEverything = false,
+  }) {
     clearLunaSeaBox();
     clearProfilesBox();
     clearIndexersBox();

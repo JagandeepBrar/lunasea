@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-extension lunaRadarrEventType on RadarrEventType {
+extension LunaRadarrEventType on RadarrEventType {
   // Get LunaSea associated colour of the event type.
   Color get lunaColour {
     switch (this) {

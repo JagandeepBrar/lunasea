@@ -69,7 +69,7 @@ class _State extends State<SonarrQueueQueueTile> {
         ],
       ),
       contentPadding: true,
-      onTap: () => _controller.toggle(),
+      onTap: _controller.toggle,
     );
   }
 
@@ -208,7 +208,7 @@ class _State extends State<SonarrQueueQueueTile> {
           ],
         ),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-        onTap: () => _controller.toggle(),
+        onTap: _controller.toggle,
       ),
     );
   }

@@ -42,7 +42,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
       context: context,
       title: LunaText.title(text: widget.tag.label),
       subtitle: LunaText.subtitle(text: subtitle()),
-      trailing: seriesList == null || seriesList.length != 0
+      trailing: (seriesList?.isNotEmpty ?? true)
           ? null
           : LunaIconButton(
               icon: Icons.delete,
@@ -55,7 +55,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
 
   String subtitle() {
     if (seriesList == null) return 'Loading...';
-    if (seriesList.length == 0) return 'No Series';
+    if (seriesList.isEmpty) return 'No Series';
     return '${seriesList.length} Series';
   }
 
@@ -63,14 +63,12 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
     return LunaDialogs().textPreview(
       context,
       'Series List',
-      seriesList == null || seriesList.length == 0
-          ? 'No Series'
-          : seriesList.join('\n'),
+      (seriesList?.isEmpty ?? true) ? 'No Series' : seriesList.join('\n'),
     );
   }
 
   Future<void> _handleDelete() async {
-    if (seriesList == null || seriesList.length != 0) {
+    if (seriesList?.isNotEmpty ?? true) {
       showLunaErrorSnackBar(
           title: 'Cannot Delete Tag',
           message: 'The tag must not be attached to any series');
@@ -84,12 +82,20 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
             .deleteTag(id: widget.tag.id)
             .then((_) {
           showLunaSuccessSnackBar(
-              title: 'Deleted Tag', message: widget.tag.label);
+            title: 'Deleted Tag',
+            message: widget.tag.label,
+          );
           context.read<SonarrState>().resetTags();
         }).catchError((error, stack) {
-          LunaLogger()
-              .error('Failed to delete tag: ${widget.tag.id}', error, stack);
-          showLunaErrorSnackBar(title: 'Failed to Delete Tag', error: error);
+          LunaLogger().error(
+            'Failed to delete tag: ${widget.tag.id}',
+            error,
+            stack,
+          );
+          showLunaErrorSnackBar(
+            title: 'Failed to Delete Tag',
+            error: error,
+          );
         });
     }
   }

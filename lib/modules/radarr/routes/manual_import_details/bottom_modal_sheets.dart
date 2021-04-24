@@ -215,7 +215,7 @@ class RadarrBottomModalSheets {
                       context: context,
                       title: LunaText.title(text: title),
                       subtitle: LunaText(
-                        text: overview + '\n',
+                        text: '$overview\n',
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.fade,

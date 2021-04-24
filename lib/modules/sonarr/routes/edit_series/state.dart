@@ -82,7 +82,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
   void initializeQualityProfile(List<SonarrQualityProfile> qualityProfiles) {
     _qualityProfile = qualityProfiles.firstWhere(
       (profile) => profile.id == series.profileId,
-      orElse: () => qualityProfiles.length == 0 ? null : qualityProfiles[0],
+      orElse: () => qualityProfiles.isEmpty ? null : qualityProfiles[0],
     );
   }
 
@@ -97,7 +97,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
   void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
     _languageProfile = (languageProfiles ?? []).firstWhere(
       (profile) => profile.id == series.languageProfileId,
-      orElse: () => languageProfiles.length == 0 ? null : languageProfiles[0],
+      orElse: () => languageProfiles.isEmpty ? null : languageProfiles[0],
     );
   }
 

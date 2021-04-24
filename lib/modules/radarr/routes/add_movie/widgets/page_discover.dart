@@ -67,7 +67,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
   Widget _list(List<RadarrMovie> movies, List<RadarrMovie> discovery,
       List<RadarrExclusion> exclusions) {
     List<RadarrMovie> _filtered = _filterAndSort(movies, discovery, exclusions);
-    if (_filtered.length == 0)
+    if (_filtered.isEmpty)
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
@@ -81,12 +81,15 @@ class _State extends State<RadarrAddMovieDiscoverPage>
     );
   }
 
-  List<RadarrMovie> _filterAndSort(List<RadarrMovie> movies,
-      List<RadarrMovie> discovery, List<RadarrExclusion> exclusions) {
-    if (discovery == null || discovery.length == 0) return [];
+  List<RadarrMovie> _filterAndSort(
+    List<RadarrMovie> movies,
+    List<RadarrMovie> discovery,
+    List<RadarrExclusion> exclusions,
+  ) {
+    if (discovery?.isEmpty ?? true) return [];
     List<RadarrMovie> _filtered = discovery;
     // Filter out the excluded movies
-    if (exclusions != null && exclusions.length != 0)
+    if (exclusions?.isNotEmpty ?? false)
       _filtered = _filtered
           .where((discover) =>
               exclusions.firstWhere(
@@ -96,7 +99,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
               null)
           .toList();
     // Filter out the already added movies
-    if (movies != null && movies.length != 0)
+    if (movies?.isNotEmpty ?? false)
       _filtered = _filtered
           .where((discover) =>
               movies.firstWhere(

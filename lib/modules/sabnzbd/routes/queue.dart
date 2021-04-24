@@ -52,7 +52,7 @@ class _State extends State<SABnzbdQueue>
   }
 
   void _createTimer() =>
-      _timer = Timer(Duration(seconds: 2), () => _fetchWithoutMessage());
+      _timer = Timer(Duration(seconds: 2), _fetchWithoutMessage);
 
   Future<void> _refresh() async => setState(() {
         _future = _fetch();
@@ -102,28 +102,30 @@ class _State extends State<SABnzbdQueue>
   Widget get _body => LunaRefreshIndicator(
         context: context,
         key: widget.refreshIndicatorKey,
-        onRefresh: () => _fetchWithoutMessage(),
+        onRefresh: _fetchWithoutMessage,
         child: FutureBuilder(
           future: _future,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 context.read<SABnzbdState>().error)
-              return LunaMessage.error(onTap: () => _refresh());
+              return LunaMessage.error(onTap: _refresh);
             if (snapshot.hasData) return _list;
             return LunaLoader();
           },
         ),
       );
 
-  Widget get _list => _queue == null
-      ? LunaMessage.error(onTap: () => _refresh())
-      : _queue.length == 0
-          ? LunaMessage(
-              text: 'Empty Queue',
-              buttonText: 'Refresh',
-              onTap: () => _fetchWithoutMessage(),
-            )
-          : _reorderableList();
+  Widget get _list {
+    if (_queue == null) return LunaMessage.error(onTap: _refresh);
+    if (_queue.isEmpty) {
+      return LunaMessage(
+        text: 'Empty Queue',
+        buttonText: 'Refresh',
+        onTap: _fetchWithoutMessage,
+      );
+    }
+    return _reorderableList();
+  }
 
   Widget _reorderableList() {
     return LunaReorderableListViewBuilder(
@@ -139,10 +141,18 @@ class _State extends State<SABnzbdQueue>
           });
         await SABnzbdAPI.from(Database.currentProfileObject)
             .moveQueue(data.nzoId, nIndex)
-            .then((_) => showLunaSuccessSnackBar(
-                title: 'Moved Job in Queue', message: data.name))
-            .catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Move Job', error: error));
+            .then(
+              (_) => showLunaSuccessSnackBar(
+                title: 'Moved Job in Queue',
+                message: data.name,
+              ),
+            )
+            .catchError(
+              (error) => showLunaErrorSnackBar(
+                title: 'Failed to Move Job',
+                error: error,
+              ),
+            );
       },
       itemCount: _queue.length,
       itemBuilder: (context, index) => SABnzbdQueueTile(
@@ -150,7 +160,7 @@ class _State extends State<SABnzbdQueue>
         data: _queue[index],
         index: index,
         queueContext: context,
-        refresh: () => _fetchWithoutMessage(),
+        refresh: _fetchWithoutMessage,
       ),
     );
   }

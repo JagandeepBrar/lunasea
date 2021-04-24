@@ -18,9 +18,10 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
       posterHeaders: context.read<RadarrState>().headers,
       title: movie.title,
       subtitle1: TextSpan(
-          text: movie.overview == null || movie.overview.isEmpty
-              ? 'No summary is available.\n\n\n'
-              : movie.overview + '\n\n\n'),
+        text: movie.overview == null || movie.overview.isEmpty
+            ? 'No summary is available.\n\n\n'
+            : '${movie.overview}\n\n\n',
+      ),
       subtitle1MaxLines: 3,
       onTap: () async =>
           LunaDialogs().textPreview(context, movie.title, movie.overview),

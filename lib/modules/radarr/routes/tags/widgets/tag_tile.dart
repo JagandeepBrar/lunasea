@@ -43,13 +43,14 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
 
   String _subtitle() {
     if (movieList == null) return 'Loading...';
-    if (movieList.length == 0) return 'No Movies';
+    if (movieList.isEmpty) return 'No Movies';
     if (movieList.length == 1) return '1 Movie';
     return '${movieList.length} Movies';
   }
 
   Widget _trailing() {
-    if (movieList == null || movieList.length != 0) return null;
+    // Default to true, to not try to delete a tag that actually does have movies attached
+    if (movieList?.isNotEmpty ?? true) return null;
     return LunaIconButton(
       icon: Icons.delete,
       color: LunaColours.red,
@@ -58,14 +59,13 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
   }
 
   Future<void> _movieDialog() async {
-    String data = movieList == null || movieList.length == 0
-        ? 'No Movies'
-        : movieList.join('\n');
+    String data =
+        (movieList?.isEmpty ?? true) ? 'No Movies' : movieList.join('\n');
     LunaDialogs().textPreview(context, 'Movie List', data);
   }
 
   Future<void> _delete() async {
-    if (movieList == null || movieList.length != 0) {
+    if (movieList == null || movieList.isNotEmpty) {
       showLunaErrorSnackBar(
         title: 'Cannot Delete Tag',
         message: 'The tag must not be attached to any movies',

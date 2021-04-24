@@ -53,6 +53,7 @@ class _State extends State<TautulliMediaDetailsHistory>
       case TautulliMediaType.TRACK:
         return widget.ratingKey;
       default:
+        // ignore: avoid_returning_null
         return null;
     }
   }
@@ -63,6 +64,7 @@ class _State extends State<TautulliMediaDetailsHistory>
       case TautulliMediaType.ALBUM:
         return widget.ratingKey;
       default:
+        // ignore: avoid_returning_null
         return null;
     }
   }
@@ -73,6 +75,7 @@ class _State extends State<TautulliMediaDetailsHistory>
       case TautulliMediaType.ARTIST:
         return widget.ratingKey;
       default:
+        // ignore: avoid_returning_null
         return null;
     }
   }

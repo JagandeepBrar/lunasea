@@ -3,47 +3,50 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class SettingsNotificationsModuleTile extends StatelessWidget {
-    final LunaModule module;
+  final LunaModule module;
 
-    SettingsNotificationsModuleTile({
-        Key key,
-        @required this.module,
-    }) : super(key: key);
+  SettingsNotificationsModuleTile({
+    Key key,
+    @required this.module,
+  }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return LunaBanner(
-            headerText: module.name,
-            icon: module.icon,
-            iconColor: module.color,
-            bodyText: module.information,
-            buttons: [
-                if(LunaFirebaseAuth().isSignedIn) LunaButton.text(
-                    text: 'User',
-                    icon: Icons.person_rounded,
-                    onTap: () async {
-                        if(!LunaFirebaseAuth().isSignedIn) return;
-                        String userId = LunaFirebaseAuth().uid;
-                        await Clipboard.setData(ClipboardData(text: LunaWebhooks.buildUserTokenURL(userId, module)));
-                        showLunaInfoSnackBar(
-                            title: 'Copied URL for ${module.name}',
-                            message: 'Copied your user-based URL to the clipboard',
-                        );
-                    },
-                ),
-                        LunaButton.text(
-                    text: 'Device',
-                    icon: Icons.devices_rounded,
-                    onTap: () async {
-                        String deviceId = await LunaFirebaseMessaging().token;
-                        await Clipboard.setData(ClipboardData(text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
-                        showLunaInfoSnackBar(
-                            title: 'Copied URL for ${module.name}',
-                            message: 'Copied your device-based URL to the clipboard',
-                        );
-                    },
-                ),
-            ],
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaBanner(
+      headerText: module.name,
+      icon: module.icon,
+      iconColor: module.color,
+      bodyText: module.information,
+      buttons: [
+        if (LunaFirebaseAuth().isSignedIn)
+          LunaButton.text(
+            text: 'User',
+            icon: Icons.person_rounded,
+            onTap: () async {
+              if (!LunaFirebaseAuth().isSignedIn) return;
+              String userId = LunaFirebaseAuth().uid;
+              await Clipboard.setData(ClipboardData(
+                  text: LunaWebhooks.buildUserTokenURL(userId, module)));
+              showLunaInfoSnackBar(
+                title: 'Copied URL for ${module.name}',
+                message: 'Copied your user-based URL to the clipboard',
+              );
+            },
+          ),
+        LunaButton.text(
+          text: 'Device',
+          icon: Icons.devices_rounded,
+          onTap: () async {
+            String deviceId = await LunaFirebaseMessaging().token;
+            await Clipboard.setData(ClipboardData(
+                text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
+            showLunaInfoSnackBar(
+              title: 'Copied URL for ${module.name}',
+              message: 'Copied your device-based URL to the clipboard',
+            );
+          },
+        ),
+      ],
+    );
+  }
 }

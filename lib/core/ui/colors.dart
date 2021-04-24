@@ -1,38 +1,62 @@
 import 'package:flutter/material.dart';
 
 class LunaColours {
-    LunaColours._();
+  /// List of LunaSea colours in order that the should appear in a list.
+  ///
+  /// Use [byListIndex] to fetch the colour at the any index
+  static const _LIST_COLOR_ICONS = [
+    blue,
+    accent,
+    red,
+    orange,
+    purple,
+    blueGrey,
+  ];
 
-    static const LIST_COLOR_ICONS = [
-        blue,
-        accent,
-        red,
-        orange,
-        purple,
-        blueGrey,
-    ];
+  /// Core accent colour
+  static const Color accent = Color(0xFF4ECCA3);
 
-    static const Color accent = const Color(0xFF4ECCA3);
-    static const Color splash = const Color(0xFF2EA07B);
-    static const Color primary = const Color(0xFF32323E);
-    static const Color secondary = const Color(0xFF282834);
+  /// Core splash colour
+  static const Color splash = Color(0xFF2EA07B);
 
-    static const Color blue = const Color(0xFF00A8E8);
-    static const Color orange = const Color(0xFFFF9000);
-    static const Color red = const Color(0xFFF71735);
-    static const Color purple = const Color(0xFF9649CB);
-    static const Color blueGrey = const Color(0xFF848FA5);
+  /// Core primary colour (background)
+  static const Color primary = Color(0xFF32323E);
 
-    static Color list(int i) {
-        return LIST_COLOR_ICONS[i%LIST_COLOR_ICONS.length];
+  /// Core secondary colour (appbar, bottom bar, etc.),
+  static const Color secondary = Color(0xFF282834);
+
+  /// Blue
+  static const Color blue = Color(0xFF00A8E8);
+
+  /// Orange
+  static const Color orange = Color(0xFFFF9000);
+
+  /// Red
+  static const Color red = Color(0xFFF71735);
+
+  /// Purple
+  static const Color purple = Color(0xFF9649CB);
+
+  /// Blue Grey
+  static const Color blueGrey = Color(0xFF848FA5);
+
+  /// Returns the correct colour for a graph by what layer it is on the graph canvas.
+  Color byGraphLayer(int i) {
+    switch (i) {
+      case 0:
+        return LunaColours.accent;
+      case 1:
+        return LunaColours.purple;
+      case 2:
+        return LunaColours.blue;
+      default:
+        return byListIndex(i);
     }
+  }
 
-    static Color graph(int i) {
-        switch(i) {
-            case 0: return LunaColours.accent;
-            case 1: return LunaColours.purple;
-            case 2: return LunaColours.blue;
-            default: return LunaColours.list(i);
-        }
-    }
+  /// Return the correct colour for a list.
+  /// If the index is greater than the list of colour's length, uses modulus to loop list.
+  Color byListIndex(int i) {
+    return _LIST_COLOR_ICONS[i % _LIST_COLOR_ICONS.length];
+  }
 }

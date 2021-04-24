@@ -4,58 +4,77 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSystemStatusRouter extends RadarrPageRouter {
-    RadarrSystemStatusRouter() : super('/radarr/system/status');
+  RadarrSystemStatusRouter() : super('/radarr/system/status');
 
-    @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrSystemStatusRoute());
+  @override
+  Widget widget() => _Widget();
+
+  @override
+  void defineRoute(FluroRouter router) {
+    super.noParameterRouteDefinition(router);
+  }
 }
 
-class _RadarrSystemStatusRoute extends StatefulWidget {
-    @override
-    State<_RadarrSystemStatusRoute> createState() => _State();
+class _Widget extends StatefulWidget {
+  @override
+  State<_Widget> createState() => _State();
 }
 
-class _State extends State<_RadarrSystemStatusRoute> {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    LunaPageController _pageController;
+class _State extends State<_Widget> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  LunaPageController _pageController;
 
-    @override
-    void initState() {
-        super.initState();
-        _pageController = LunaPageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data);
-    }
+  @override
+  void initState() {
+    super.initState();
+    _pageController = LunaPageController(
+      initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data,
+    );
+  }
 
-    @override
-    Widget build(BuildContext context) {
-        return  LunaScaffold(
-            scaffoldKey: _scaffoldKey,
-            appBar: _appBar(),
-            bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
-            body: _body(),
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaScaffold(
+      scaffoldKey: _scaffoldKey,
+      appBar: _appBar(),
+      bottomNavigationBar:
+          context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
+      body: _body(),
+    );
+  }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'System Status',
-            pageController: _pageController,
-            scrollControllers: RadarrSystemStatusNavigationBar.scrollControllers,
-        );
-    }
+  Widget _appBar() {
+    return LunaAppBar(
+      title: 'System Status',
+      pageController: _pageController,
+      scrollControllers: RadarrSystemStatusNavigationBar.scrollControllers,
+    );
+  }
 
-    Widget _bottomNavigationBar() => RadarrSystemStatusNavigationBar(pageController: _pageController);
+  Widget _bottomNavigationBar() {
+    return RadarrSystemStatusNavigationBar(pageController: _pageController);
+  }
 
-    Widget _body() {
-        return ChangeNotifierProvider(
-            create: (context) => RadarrSystemStatusState(context),
-            builder: (context, _) => PageView(
-                controller: _pageController,
-                children: [
-                    RadarrSystemStatusAboutPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[0]),
-                    RadarrSystemStatusHealthCheckPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
-                    RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[2]),
-                ],
-            ),
-        );
-    }
+  Widget _body() {
+    return ChangeNotifierProvider(
+      create: (context) => RadarrSystemStatusState(context),
+      builder: (context, _) => PageView(
+        controller: _pageController,
+        children: [
+          RadarrSystemStatusAboutPage(
+            scrollController:
+                RadarrSystemStatusNavigationBar.scrollControllers[0],
+          ),
+          RadarrSystemStatusHealthCheckPage(
+            scrollController:
+                RadarrSystemStatusNavigationBar.scrollControllers[1],
+          ),
+          RadarrSystemStatusDiskSpacePage(
+            scrollController:
+                RadarrSystemStatusNavigationBar.scrollControllers[2],
+          ),
+        ],
+      ),
+    );
+  }
 }

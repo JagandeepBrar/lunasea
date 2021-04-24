@@ -1,3 +1,1 @@
-class OverseerrDialogs {
-    
-}
+class OverseerrDialogs {}

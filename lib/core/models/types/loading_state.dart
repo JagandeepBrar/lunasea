@@ -1,5 +1,5 @@
 enum LunaLoadingState {
-    ACTIVE,
-    INACTIVE,
-    ERROR,
+  ACTIVE,
+  INACTIVE,
+  ERROR,
 }

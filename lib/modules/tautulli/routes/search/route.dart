@@ -4,24 +4,28 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliSearchRouter extends TautulliPageRouter {
-    TautulliSearchRouter() : super('/tautulli/search');
+  TautulliSearchRouter() : super('/tautulli/search');
 
-    @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliSearchRoute());
+  @override
+  _Widget widget() => _Widget();
+
+  @override
+  void defineRoute(FluroRouter router) =>
+      super.noParameterRouteDefinition(router);
 }
 
-class _TautulliSearchRoute extends StatefulWidget {
-    @override
-    State<_TautulliSearchRoute> createState() => _State();
+class _Widget extends StatefulWidget {
+  @override
+  State<_Widget> createState() => _State();
 }
 
-class _State extends State<_TautulliSearchRoute> with LunaScrollControllerMixin {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _State extends State<_Widget> with LunaScrollControllerMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-    @override
-    Widget build(BuildContext context) =>  LunaScaffold(
+  @override
+  Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         appBar: TautulliSearchAppBar(scrollController: scrollController),
         body: TautulliSearchSearchResults(scrollController: scrollController),
-    );
+      );
 }

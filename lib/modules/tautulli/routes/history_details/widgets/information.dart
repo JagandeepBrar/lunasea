@@ -4,61 +4,68 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryDetailsInformation extends StatelessWidget {
-    final TautulliHistoryRecord history;
-    final ScrollController scrollController;
+  final TautulliHistoryRecord history;
+  final ScrollController scrollController;
 
-    TautulliHistoryDetailsInformation({
-        Key key,
-        @required this.history,
-        @required this.scrollController,
-    }): super(key: key);
+  TautulliHistoryDetailsInformation({
+    Key key,
+    @required this.history,
+    @required this.scrollController,
+  }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return LunaListView(
-            controller: scrollController,
-            children: [
-                LunaHeader(text: 'Metadata'),
-                _metadataBlock(),
-                LunaHeader(text: 'Session'),
-                _sessionBlock(),
-                LunaHeader(text: 'Player'),
-                _playerBlock(),
-            ],
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaListView(
+      controller: scrollController,
+      children: [
+        LunaHeader(text: 'Metadata'),
+        _metadataBlock(),
+        LunaHeader(text: 'Session'),
+        _sessionBlock(),
+        LunaHeader(text: 'Player'),
+        _playerBlock(),
+      ],
+    );
+  }
 
-    Widget _metadataBlock() {
-        return LunaTableCard(
-            content: [
-                LunaTableContent(title: 'status', body: history.lsStatus),
-                LunaTableContent(title: 'title', body: history.lsFullTitle),
-                if(history.year != null) LunaTableContent(title: 'year', body: history.year.toString()),
-                LunaTableContent(title: 'user', body: history.friendlyName),
-            ],
-        );
-    }
+  Widget _metadataBlock() {
+    return LunaTableCard(
+      content: [
+        LunaTableContent(title: 'status', body: history.lsStatus),
+        LunaTableContent(title: 'title', body: history.lsFullTitle),
+        if (history.year != null)
+          LunaTableContent(title: 'year', body: history.year.toString()),
+        LunaTableContent(title: 'user', body: history.friendlyName),
+      ],
+    );
+  }
 
-    Widget _sessionBlock() {
-        return LunaTableCard(
-            content: [
-                LunaTableContent(title: 'state', body: history.lsState),
-                LunaTableContent(title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date)),
-                LunaTableContent(title: 'started', body: history.date.lunaTime),
-                LunaTableContent(title: 'stopped', body: history.state == null ? history.stopped.lunaTime : LunaUI.TEXT_EMDASH),
-                LunaTableContent(title: 'paused', body: history.pausedCounter.lunaTimestampWords),
-            ],
-        );
-    }
+  Widget _sessionBlock() {
+    return LunaTableCard(
+      content: [
+        LunaTableContent(title: 'state', body: history.lsState),
+        LunaTableContent(
+            title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date)),
+        LunaTableContent(title: 'started', body: history.date.lunaTime),
+        LunaTableContent(
+            title: 'stopped',
+            body: history.state == null
+                ? history.stopped.lunaTime
+                : LunaUI.TEXT_EMDASH),
+        LunaTableContent(
+            title: 'paused', body: history.pausedCounter.lunaTimestampWords),
+      ],
+    );
+  }
 
-    Widget _playerBlock() {
-        return LunaTableCard(
-            content: [
-                LunaTableContent(title: 'location', body: history.ipAddress),
-                LunaTableContent(title: 'platform', body: history.platform),
-                LunaTableContent(title: 'product', body: history.product),
-                LunaTableContent(title: 'player', body: history.player),
-            ],
-        );
-    }
+  Widget _playerBlock() {
+    return LunaTableCard(
+      content: [
+        LunaTableContent(title: 'location', body: history.ipAddress),
+        LunaTableContent(title: 'platform', body: history.platform),
+        LunaTableContent(title: 'product', body: history.product),
+        LunaTableContent(title: 'player', body: history.player),
+      ],
+    );
+  }
 }

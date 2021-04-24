@@ -3,65 +3,69 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
-    final TautulliPMSUpdate update;
+  final TautulliPMSUpdate update;
 
-    TautulliCheckForUpdatesPMSTile({
-        Key key,
-        @required this.update,
-    }) : super(key: key);
+  TautulliCheckForUpdatesPMSTile({
+    Key key,
+    @required this.update,
+  }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Plex Media Server'),
-            subtitle: _subtitle(),
-            trailing: _trailing(),
-            contentPadding: true,
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaListTile(
+      context: context,
+      title: LunaText.title(text: 'Plex Media Server'),
+      subtitle: _subtitle(),
+      trailing: _trailing(),
+      contentPadding: true,
+    );
+  }
 
-    Widget _trailing() {
-        return Column(
-            children: [
-                LunaIconButton(
-                    icon: LunaIcons.plex,
-                    color: LunaColours.list(0),
-                ),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-        );
-    }
+  Widget _trailing() {
+    return Column(
+      children: [
+        LunaIconButton(
+          icon: LunaIcons.plex,
+          color: LunaColours().byListIndex(0),
+        ),
+      ],
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
 
-    Widget _subtitle() {
-        return RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                ),
-                children: <TextSpan>[
-                    if(!update.updateAvailable) TextSpan(
-                        text: 'No Updates Available\n',
-                        style: TextStyle(
-                            color: LunaColours.accent,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                    if(!update.updateAvailable) TextSpan(text: 'Current Version: ${update.version}'),
-                    if(update.updateAvailable) TextSpan(
-                        text: 'Update Available\n',
-                        style: TextStyle(
-                            color: LunaColours.orange,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                    if(update.updateAvailable) TextSpan(text: 'Latest Version: ${update.version}'),
-                ],
+  Widget _subtitle() {
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          color: Colors.white70,
+          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        ),
+        children: <TextSpan>[
+          if (!update.updateAvailable)
+            TextSpan(
+              text: 'No Updates Available\n',
+              style: TextStyle(
+                color: LunaColours.accent,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+              ),
             ),
-            overflow: TextOverflow.fade,
-            maxLines: 3,
-        );
-    }
+          if (!update.updateAvailable)
+            TextSpan(text: 'Current Version: ${update.version}'),
+          if (update.updateAvailable)
+            TextSpan(
+              text: 'Update Available\n',
+              style: TextStyle(
+                color: LunaColours.orange,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+              ),
+            ),
+          if (update.updateAvailable)
+            TextSpan(text: 'Latest Version: ${update.version}'),
+        ],
+      ),
+      overflow: TextOverflow.fade,
+      maxLines: 3,
+    );
+  }
 }

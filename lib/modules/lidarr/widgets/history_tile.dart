@@ -3,65 +3,67 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrHistoryTile extends StatefulWidget {
-    final LidarrHistoryData entry;
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final Function refresh;
+  final LidarrHistoryData entry;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final Function refresh;
 
-    LidarrHistoryTile({
-        @required this.entry,
-        @required this.scaffoldKey,
-        @required this.refresh,
-    });
+  LidarrHistoryTile({
+    @required this.entry,
+    @required this.scaffoldKey,
+    @required this.refresh,
+  });
 
-    @override
-    State<LidarrHistoryTile> createState() => _State();
+  @override
+  State<LidarrHistoryTile> createState() => _State();
 }
 
 class _State extends State<LidarrHistoryTile> {
-    @override
-    Widget build(BuildContext context) => LunaListTile(
+  @override
+  Widget build(BuildContext context) => LunaListTile(
         context: context,
         title: LunaText.title(text: widget.entry.title),
         subtitle: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                ),
-                children: widget.entry.subtitle,
+          text: TextSpan(
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
+            children: widget.entry.subtitle,
+          ),
         ),
         trailing: LunaIconButton(
-            icon: Icons.arrow_forward_ios_rounded,
+          icon: Icons.arrow_forward_ios_rounded,
         ),
         contentPadding: true,
         onTap: () async => _enterArtist(),
-    );
+      );
 
-    Future<void> _enterArtist() async {
-        if(widget.entry.artistID == null || widget.entry.artistID == -1) {
-            showLunaInfoSnackBar(
-                title: 'No Artist Available',
-                message: 'There is no artist associated with this history entry',
-            );
-        } else {
-            final dynamic result = await Navigator.of(context).pushNamed(
-                LidarrDetailsArtist.ROUTE_NAME,
-                arguments: LidarrDetailsArtistArguments(
-                    data: null,
-                    artistID: widget.entry.artistID,
-                ),
-            );
-            if(result != null) switch(result[0]) {
-                case 'remove_artist': {
-                    showLunaSuccessSnackBar(
-                        title: result[1] ? 'Removed (With Data)' : 'Removed',
-                        message: 'Removed artist with ID ${widget.entry.artistID}',
-                    );
-                    widget.refresh();
-                    break;
-                }
+  Future<void> _enterArtist() async {
+    if (widget.entry.artistID == null || widget.entry.artistID == -1) {
+      showLunaInfoSnackBar(
+        title: 'No Artist Available',
+        message: 'There is no artist associated with this history entry',
+      );
+    } else {
+      final dynamic result = await Navigator.of(context).pushNamed(
+        LidarrDetailsArtist.ROUTE_NAME,
+        arguments: LidarrDetailsArtistArguments(
+          data: null,
+          artistID: widget.entry.artistID,
+        ),
+      );
+      if (result != null)
+        switch (result[0]) {
+          case 'remove_artist':
+            {
+              showLunaSuccessSnackBar(
+                title: result[1] ? 'Removed (With Data)' : 'Removed',
+                message: 'Removed artist with ID ${widget.entry.artistID}',
+              );
+              widget.refresh();
+              break;
             }
         }
     }
+  }
 }

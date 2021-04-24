@@ -3,17 +3,19 @@ import 'package:lunasea/core.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LunaBottomModalSheet {
-    /// Show a bottom modal sheet modal using the supplied builder to show the content.
-    Future<dynamic> showModal({
-        @required BuildContext context,
-        @required Widget Function(BuildContext) builder,
-        bool expand = false,
-    }) async => showBarModalBottomSheet(
+  /// Show a bottom modal sheet modal using the supplied builder to show the content.
+  Future<dynamic> showModal({
+    @required BuildContext context,
+    @required Widget Function(BuildContext) builder,
+    bool expand = false,
+  }) async =>
+      showBarModalBottomSheet(
         context: context,
         expand: expand,
-        backgroundColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
+        backgroundColor:
+            LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
         shape: LunaUI.shapeBorder,
         builder: builder,
         closeProgressThreshold: 0.90,
-    );
+      );
 }

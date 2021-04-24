@@ -34,34 +34,41 @@ export 'ui/text.dart';
 export 'ui/theme.dart';
 export 'ui/will_pop_scope.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class LunaUI {
-    // Text Constants
-    static const String         TEXT_ARROW_LEFT = '←';
-    static const String         TEXT_ARROW_RIGHT = '→';
-    static const String         TEXT_BULLET = '•';
-    static const String         TEXT_ELLIPSIS = '…';
-    static const String         TEXT_EMDASH = '—';
-    // Font-Related
-    static const double         FONT_SIZE_APP_BAR = 18.0;
-    static const double         FONT_SIZE_BUTTON = 14.0;
-    static const double         FONT_SIZE_GRAPH_LEGEND = 10.0;
-    static const double         FONT_SIZE_HEADER = 18.0;
-    static const double         FONT_SIZE_HIGHLIGHTED_NODE = 12.0;
-    static const double         FONT_SIZE_MESSAGES = 16.0;
-    static const double         FONT_SIZE_NAVIGATION_BAR = 13.0;
-    static const double         FONT_SIZE_SUBHEADER = 12.0;
-    static const double         FONT_SIZE_SUBTITLE = 13.0;
-    static const double         FONT_SIZE_TITLE = 16.0;
-    static const FontWeight     FONT_WEIGHT_BOLD = FontWeight.w600;
-    // UI-Related
-    static const int            ANIMATION_SPEED = 250;
-    static const int            ANIMATION_IMAGE_FADE_IN_SPEED = 125;
-    static const double         BORDER_RADIUS = 10.0;
-    static const double         BUTTON_BACKGROUND_OPACITY = 0.80;
-    static const double         ELEVATION = 0.0;
-    static const EdgeInsets     MARGIN_DEFAULT = const EdgeInsets.all(12.0);
-    static const EdgeInsets     MARGIN_CARD = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
-    // Border-Related
-    static bool get shouldUseBorder => LunaTheme.isAMOLEDTheme && LunaTheme.useAMOLEDBorders;
-    static ShapeBorder get shapeBorder => shouldUseBorder ? LunaShapeBorder.roundedWithBorder() : LunaShapeBorder.rounded();
+  // Text Constants
+  static const String TEXT_ARROW_LEFT = '←';
+  static const String TEXT_ARROW_RIGHT = '→';
+  static const String TEXT_BULLET = '•';
+  static const String TEXT_ELLIPSIS = '…';
+  static const String TEXT_EMDASH = '—';
+  // Font-Related
+  static const double FONT_SIZE_APP_BAR = 18.0;
+  static const double FONT_SIZE_BUTTON = 14.0;
+  static const double FONT_SIZE_GRAPH_LEGEND = 10.0;
+  static const double FONT_SIZE_HEADER = 18.0;
+  static const double FONT_SIZE_HIGHLIGHTED_NODE = 12.0;
+  static const double FONT_SIZE_MESSAGES = 16.0;
+  static const double FONT_SIZE_NAVIGATION_BAR = 13.0;
+  static const double FONT_SIZE_SUBHEADER = 12.0;
+  static const double FONT_SIZE_SUBTITLE = 13.0;
+  static const double FONT_SIZE_TITLE = 16.0;
+  static const FontWeight FONT_WEIGHT_BOLD = FontWeight.w600;
+  // UI-Related
+  static const int ANIMATION_SPEED = 250;
+  static const int ANIMATION_IMAGE_FADE_IN_SPEED = 125;
+  static const double BORDER_RADIUS = 10.0;
+  static const double BUTTON_BACKGROUND_OPACITY = 0.80;
+  static const double ELEVATION = 0.0;
+  static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(12.0);
+  static const EdgeInsets MARGIN_CARD = EdgeInsets.symmetric(
+    horizontal: 12.0,
+    vertical: 6.0,
+  );
+  // Border-Related
+  static bool get shouldUseBorder =>
+      LunaTheme.isAMOLEDTheme && LunaTheme.useAMOLEDBorders;
+  static ShapeBorder get shapeBorder => shouldUseBorder
+      ? LunaShapeBorder.roundedWithBorder()
+      : LunaShapeBorder.rounded();
 }

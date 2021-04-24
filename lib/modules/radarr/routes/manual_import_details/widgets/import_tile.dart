@@ -3,182 +3,235 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrManualImportDetailsTile extends StatelessWidget {
-    final RadarrManualImport manualImport;
+  final RadarrManualImport manualImport;
 
-    RadarrManualImportDetailsTile({
-        Key key,
-        @required this.manualImport,
-    }) : super(key: key);
+  RadarrManualImportDetailsTile({
+    Key key,
+    @required this.manualImport,
+  }) : super(key: key);
 
-    Widget build(BuildContext context) {
-        return ChangeNotifierProvider(
-            create: (_) => RadarrManualImportDetailsTileState(context, manualImport),
-            builder: (context, _) => LunaExpandableListTile(
-                key: ObjectKey(manualImport),
-                title: context.watch<RadarrManualImportDetailsTileState>().manualImport.relativePath,
-                collapsedTrailing: _trailing(context),
-                collapsedSubtitle1: _subtitle1(context),
-                collapsedSubtitle2: _subtitle2(context),
-                expandedTableButtons: _buttons(context),
-                expandedTableContent: _table(context),
-                backgroundColor: context.watch<RadarrManualImportDetailsState>().selectedFiles.contains(manualImport.id)
-                    ? LunaColours.accent.withOpacity(0.15)
-                    : null,
-            ),
-        );
-    }
-    
-    TextSpan _subtitle1(BuildContext context) {
-        return TextSpan(
-            children: [
-                TextSpan(text: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaQualityProfile),
-                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-                TextSpan(text: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaLanguage),
-                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-                TextSpan(text: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaSize),
-            ],
-        );
-    }
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => RadarrManualImportDetailsTileState(context, manualImport),
+      builder: (context, _) => LunaExpandableListTile(
+        key: ObjectKey(manualImport),
+        title: context
+            .watch<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .relativePath,
+        collapsedTrailing: _trailing(context),
+        collapsedSubtitle1: _subtitle1(context),
+        collapsedSubtitle2: _subtitle2(context),
+        expandedTableButtons: _buttons(context),
+        expandedTableContent: _table(context),
+        backgroundColor: context
+                .watch<RadarrManualImportDetailsState>()
+                .selectedFiles
+                .contains(manualImport.id)
+            ? LunaColours.accent.withOpacity(0.15)
+            : null,
+      ),
+    );
+  }
 
-    TextSpan _subtitle2(BuildContext context) {
-        return TextSpan(
-            text: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaMovie,
-            style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-            ),
-        );
-    }
+  TextSpan _subtitle1(BuildContext context) {
+    return TextSpan(
+      children: [
+        TextSpan(
+            text: context
+                .watch<RadarrManualImportDetailsTileState>()
+                .manualImport
+                .lunaQualityProfile),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(
+            text: context
+                .watch<RadarrManualImportDetailsTileState>()
+                .manualImport
+                .lunaLanguage),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(
+            text: context
+                .watch<RadarrManualImportDetailsTileState>()
+                .manualImport
+                .lunaSize),
+      ],
+    );
+  }
 
-    Widget _trailing(BuildContext context) {
-        return Consumer<RadarrManualImportDetailsState>(
-            builder: (context, state, _) => Checkbox(
-                value: state.selectedFiles.contains(manualImport.id),
-                onChanged: (value) => state.setSelectedFile(manualImport.id, value),
-            ),
-        );
-    }
+  TextSpan _subtitle2(BuildContext context) {
+    return TextSpan(
+      text: context
+          .watch<RadarrManualImportDetailsTileState>()
+          .manualImport
+          .lunaMovie,
+      style: TextStyle(
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        color: LunaColours.accent,
+      ),
+    );
+  }
 
-    List<LunaTableContent> _table(BuildContext context) {
-        return [
-            LunaTableContent(
-                title: 'radarr.Movie'.tr(),
-                body: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaMovie,
-            ),
-            LunaTableContent(
-                title: 'radarr.Quality'.tr(),
-                body: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaQualityProfile,
-            ),
-            LunaTableContent(
-                title: 'radarr.Languages'.tr(),
-                body: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaLanguage,
-            ),
-            LunaTableContent(
-                title: 'radarr.Size'.tr(),
-                body: context.watch<RadarrManualImportDetailsTileState>().manualImport.lunaSize,
-            ),
-        ];
-    }
+  Widget _trailing(BuildContext context) {
+    return Consumer<RadarrManualImportDetailsState>(
+      builder: (context, state, _) => Checkbox(
+        value: state.selectedFiles.contains(manualImport.id),
+        onChanged: (value) => state.setSelectedFile(manualImport.id, value),
+      ),
+    );
+  }
 
-    List<LunaButton> _buttons(BuildContext context) {
-        return [
-            _configureButton(context),
-            if((context.read<RadarrManualImportDetailsTileState>().manualImport.rejections?.length ?? 0) > 0) _rejectionsButton(context),
-        ];
-    }
+  List<LunaTableContent> _table(BuildContext context) {
+    return [
+      LunaTableContent(
+        title: 'radarr.Movie'.tr(),
+        body: context
+            .watch<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .lunaMovie,
+      ),
+      LunaTableContent(
+        title: 'radarr.Quality'.tr(),
+        body: context
+            .watch<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .lunaQualityProfile,
+      ),
+      LunaTableContent(
+        title: 'radarr.Languages'.tr(),
+        body: context
+            .watch<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .lunaLanguage,
+      ),
+      LunaTableContent(
+        title: 'radarr.Size'.tr(),
+        body: context
+            .watch<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .lunaSize,
+      ),
+    ];
+  }
 
-    LunaButton _configureButton(BuildContext context) {
-        return LunaButton.text(
-            text: 'radarr.Configure'.tr(),
-            icon: Icons.edit_rounded,
-            onTap: () async {
-                await RadarrBottomModalSheets().configureManualImport(context);
-                Future.microtask(() => context.read<RadarrManualImportDetailsTileState>().checkIfShouldSelect(context));
-            }
-        );
-    }
+  List<LunaButton> _buttons(BuildContext context) {
+    return [
+      _configureButton(context),
+      if ((context
+                  .read<RadarrManualImportDetailsTileState>()
+                  .manualImport
+                  .rejections
+                  ?.length ??
+              0) >
+          0)
+        _rejectionsButton(context),
+    ];
+  }
 
-    LunaButton _rejectionsButton(BuildContext context) {
-        return LunaButton.text(
-            text: 'radarr.Rejected'.tr(),
-            icon: Icons.report_outlined,
-            color: LunaColours.red,
-            onTap: () async => LunaDialogs().showRejections(
-                context,
-                context.read<RadarrManualImportDetailsTileState>().manualImport.rejections?.map<String>((rejection) => rejection.reason)?.toList(),
-            ),
-        );
-    }
+  LunaButton _configureButton(BuildContext context) {
+    return LunaButton.text(
+        text: 'radarr.Configure'.tr(),
+        icon: Icons.edit_rounded,
+        onTap: () async {
+          await RadarrBottomModalSheets().configureManualImport(context);
+          Future.microtask(() => context
+              .read<RadarrManualImportDetailsTileState>()
+              .checkIfShouldSelect(context));
+        });
+  }
+
+  LunaButton _rejectionsButton(BuildContext context) {
+    return LunaButton.text(
+      text: 'radarr.Rejected'.tr(),
+      icon: Icons.report_outlined,
+      color: LunaColours.red,
+      onTap: () async => LunaDialogs().showRejections(
+        context,
+        context
+            .read<RadarrManualImportDetailsTileState>()
+            .manualImport
+            .rejections
+            ?.map<String>((rejection) => rejection.reason)
+            ?.toList(),
+      ),
+    );
+  }
 }
 
-class RadarrManualImportDetailsTileState extends ChangeNotifier {    
-    RadarrManualImportDetailsTileState(BuildContext context, this._manualImport) {
-        checkIfShouldSelect(context);
-    }
+class RadarrManualImportDetailsTileState extends ChangeNotifier {
+  RadarrManualImportDetailsTileState(BuildContext context, this._manualImport) {
+    checkIfShouldSelect(context);
+  }
 
-    String _configureMoviesSearchQuery = '';
-    String get configureMoviesSearchQuery => _configureMoviesSearchQuery;
-    set configureMoviesSearchQuery(String configureMoviesSearchQuery) {
-        _configureMoviesSearchQuery = configureMoviesSearchQuery ?? '';
-        notifyListeners();
-    }
+  String _configureMoviesSearchQuery = '';
+  String get configureMoviesSearchQuery => _configureMoviesSearchQuery;
+  set configureMoviesSearchQuery(String configureMoviesSearchQuery) {
+    _configureMoviesSearchQuery = configureMoviesSearchQuery ?? '';
+    notifyListeners();
+  }
 
-    RadarrManualImport _manualImport;
-    RadarrManualImport get manualImport => _manualImport;
-    set manualImport(RadarrManualImport manualImport) {
-        assert(manualImport != null);
-        _manualImport = manualImport;
-        notifyListeners();
-    }
-    
-    void addLanguage(RadarrLanguage language) {
-        assert(language != null);
-        if((_manualImport.languages ?? []).indexWhere((lang) => lang.id == language.id) >= 0) return;
-        _manualImport.languages.add(language);
-        notifyListeners();
-    }
+  RadarrManualImport _manualImport;
+  RadarrManualImport get manualImport => _manualImport;
+  set manualImport(RadarrManualImport manualImport) {
+    assert(manualImport != null);
+    _manualImport = manualImport;
+    notifyListeners();
+  }
 
-    void removeLanguage(RadarrLanguage language) {
-        assert(language != null);
-        int index = (_manualImport.languages ?? []).indexWhere((lang) => lang.id == language.id);
-        if(index == -1) return;
-        _manualImport.languages.removeAt(index);
-        notifyListeners();
-    }
+  void addLanguage(RadarrLanguage language) {
+    assert(language != null);
+    if ((_manualImport.languages ?? [])
+            .indexWhere((lang) => lang.id == language.id) >=
+        0) return;
+    _manualImport.languages.add(language);
+    notifyListeners();
+  }
 
-    void checkIfShouldSelect(BuildContext context) {
-        if(
-            _manualImport.movie != null &&
-            _manualImport.quality != null &&
-            (_manualImport.languages?.length ?? 0) > 0 &&
-            _manualImport.languages[0].id >= 0
-        ) Future.microtask(() => context.read<RadarrManualImportDetailsState>().addSelectedFile(_manualImport.id));
-    }
+  void removeLanguage(RadarrLanguage language) {
+    assert(language != null);
+    int index = (_manualImport.languages ?? [])
+        .indexWhere((lang) => lang.id == language.id);
+    if (index == -1) return;
+    _manualImport.languages.removeAt(index);
+    notifyListeners();
+  }
 
-    Future<void> fetchUpdates(BuildContext context, int movieId) async {
-        if(context.read<RadarrState>().enabled) {
-            RadarrManualImportUpdateData data = RadarrManualImportUpdateData(
-                id: manualImport.id,
-                path: manualImport.path,
-                movieId: movieId,
-            );
-            context.read<RadarrState>().api.manualImport.update(data: [data])
-            .then((value) {
-                if((value?.length ?? 0) > 0) {
-                    RadarrManualImport _import = _manualImport;
-                    _import.movie = value[0].movie;
-                    _import.id = value[0].id;
-                    _import.path = value[0].path;
-                    _import.rejections = value[0].rejections;
-                    manualImport = _import;
-                }
-            });
+  void checkIfShouldSelect(BuildContext context) {
+    if (_manualImport.movie != null &&
+        _manualImport.quality != null &&
+        (_manualImport.languages?.length ?? 0) > 0 &&
+        _manualImport.languages[0].id >= 0)
+      Future.microtask(() => context
+          .read<RadarrManualImportDetailsState>()
+          .addSelectedFile(_manualImport.id));
+  }
+
+  Future<void> fetchUpdates(BuildContext context, int movieId) async {
+    if (context.read<RadarrState>().enabled) {
+      RadarrManualImportUpdateData data = RadarrManualImportUpdateData(
+        id: manualImport.id,
+        path: manualImport.path,
+        movieId: movieId,
+      );
+      context
+          .read<RadarrState>()
+          .api
+          .manualImport
+          .update(data: [data]).then((value) {
+        if ((value?.length ?? 0) > 0) {
+          RadarrManualImport _import = _manualImport;
+          _import.movie = value[0].movie;
+          _import.id = value[0].id;
+          _import.path = value[0].path;
+          _import.rejections = value[0].rejections;
+          manualImport = _import;
         }
+      });
     }
+  }
 
-    void updateQuality(RadarrQuality quality) {
-        assert(quality != null);
-        _manualImport.quality.quality = quality;
-        notifyListeners();
-    }
+  void updateQuality(RadarrQuality quality) {
+    assert(quality != null);
+    _manualImport.quality.quality = quality;
+    notifyListeners();
+  }
 }

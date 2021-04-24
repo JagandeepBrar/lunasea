@@ -1,3 +1,1 @@
-class CloudBackupUtility {
-    
-}
+class CloudBackupUtility {}

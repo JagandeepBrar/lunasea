@@ -1,3 +1,1 @@
-class LocalBackupUtility {
-
-}
+class LocalBackupUtility {}

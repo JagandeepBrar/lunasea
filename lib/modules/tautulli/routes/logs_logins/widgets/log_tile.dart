@@ -4,62 +4,64 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsLoginsLogTile extends StatelessWidget {
-    final TautulliUserLoginRecord login;
+  final TautulliUserLoginRecord login;
 
-    TautulliLogsLoginsLogTile({
-        Key key,
-        @required this.login,
-    }) : super(key: key);
+  TautulliLogsLoginsLogTile({
+    Key key,
+    @required this.login,
+  }) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: login.friendlyName),
-            subtitle: _subtitle(),
-            trailing: _trailing(),
-            contentPadding: true,
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return LunaListTile(
+      context: context,
+      title: LunaText.title(text: login.friendlyName),
+      subtitle: _subtitle(),
+      trailing: _trailing(),
+      contentPadding: true,
+    );
+  }
 
-    Widget _subtitle() {
-        return RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                ),
-                children: [
-                    TextSpan(text: '${login.ipAddress}\n'),
-                    TextSpan(text: '${login.os}\n'),
-                    TextSpan(text: '${login.host}\n'),
-                    TextSpan(
-                        text: LunaDatabaseValue.USE_24_HOUR_TIME.data
-                            ? DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} HH:mm').format(login.timestamp)
-                            : DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} hh:mm a').format(login.timestamp),
-                        style: TextStyle(
-                            color: LunaColours.accent,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                ],
+  Widget _subtitle() {
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          color: Colors.white70,
+          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        ),
+        children: [
+          TextSpan(text: '${login.ipAddress}\n'),
+          TextSpan(text: '${login.os}\n'),
+          TextSpan(text: '${login.host}\n'),
+          TextSpan(
+            text: LunaDatabaseValue.USE_24_HOUR_TIME.data
+                ? DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} HH:mm')
+                    .format(login.timestamp)
+                : DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} hh:mm a')
+                    .format(login.timestamp),
+            style: TextStyle(
+              color: LunaColours.accent,
+              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
-            softWrap: false,
-            overflow: TextOverflow.fade,
-            maxLines: 5,
-        );
-    }
+          ),
+        ],
+      ),
+      softWrap: false,
+      overflow: TextOverflow.fade,
+      maxLines: 5,
+    );
+  }
 
-    Widget _trailing() {
-        return Column(
-            children: [
-                LunaIconButton(
-                    icon: login.success ? Icons.check_circle : Icons.cancel,
-                    color: login.success ? Colors.white : LunaColours.red,
-                ),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-        );
-    }
+  Widget _trailing() {
+    return Column(
+      children: [
+        LunaIconButton(
+          icon: login.success ? Icons.check_circle : Icons.cancel,
+          color: login.success ? Colors.white : LunaColours.red,
+        ),
+      ],
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
 }

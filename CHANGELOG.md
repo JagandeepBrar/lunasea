@@ -1,8 +1,17 @@
 # LunaSea Changelog
 
+## v5.0.1 (50001001)
+
+#### PLATFORM-SPECIFIC
+
+- `[iOS]` (fix) LunaSea would hard crash on startup on iOS 12 or lower devices
+
+---
+
 ## v5.0.0 (50000019)
 
 #### NEW
+
 - `[-arr]` (Content Details) Added a button to the AppBar to jump directly into the edit page
 - `[-arr]` (Releases) Match torrent seeder colours to the web GUI
 - `[Dashboard]` "Home" has been renamed to "Dashboard"
@@ -45,6 +54,7 @@
 - `[UI/UX]` (Experience) Added haptic feedback to all buttons, toggles, and dropdowns
 
 #### TWEAKS
+
 - `[-arr]` (Releases) Improve the layout of the rejection reasons dialog
 - `[Dashboard]` (Calendar) Set bounds to calendar
 - `[Dashboard]` (Calendar) Removed month header from calendar
@@ -86,6 +96,7 @@
 - `[UI/UX]` (Profiles) Highlight active profile in profile switcher popup menus
 
 #### FIXES
+
 - `[Dashboard]` (Calendar) Stored current date would not update on date change
 - `[Flutter]` Fully upgrade to Flutter v2
 - `[Flutter]` Update packages
@@ -114,8 +125,8 @@
 - `[UI/UX]` (Snackbar) All error snackbars will now have a button to view the error
 - `[URLs]` Safe-guard launching specific invalid URLs
 
-
 #### PLATFORM-SPECIFIC
+
 - `[Android]` (new) Attach module headers to requests when viewing the web GUI
 - `[Android]` (new) Set status and navigation bar colours to match LunaSea
 - `[Android]` (fix) Remove legacy external storage permission
@@ -125,20 +136,24 @@
 
 ## v4.2.1 (40201001)
 
-#### NEW 
+#### NEW
+
 - `[Accounts]` Ability to send a password reset email
 - `[Accounts]` Associate the LunaSea website domain for better autofill support
 
 #### TWEAKS
+
 - `[Sonarr/Upcoming]` Change "Not Downloaded" to "Missing"
 
 #### FIXES
+
 - `[Alerts/Changelog]` Changelog would be shown again when restoring a backup from a previous version
 - `[Sonarr/Add]` Fixed error log showing series ID as null
 
 ## v4.2.0 (40200008)
 
 #### NEW
+
 - `[Accounts]` Added LunaSea accounts
 - `[Accounts]` Ability to backup, restore, and delete cloud configurations
 - `[Accounts]` Register device token to database for future notification support
@@ -149,6 +164,7 @@
 - `[Sonarr/Releases]` Added loading state to download buttons to prevent triggering multiple downloads of the same release
 
 #### TWEAKS
+
 - `[Radarr]` Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
 - `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
 - `[Settings]` Merged "Customization" and "Modules" sections into "Configuration"
@@ -156,6 +172,7 @@
 - `[Settings/Tautulli]` Removed the need to enable Tautulli to test the connection
 
 #### FIXES
+
 - `[Flutter]` Updated packages
 - `[In App Purchases]` Ensure all in app purchases are marked as consumed
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
@@ -172,12 +189,15 @@
 ## v4.1.1 (40101001)
 
 #### NEW
+
 - None
 
 #### TWEAKS
+
 - None
 
 #### FIXES
+
 - `[Sonarr/v2]` Fix inability to interactively search for releases
 - `[Routing]` Fix black screen when popping back from nested calendar routes
 
@@ -186,6 +206,7 @@
 ## v4.1.0 (40100007)
 
 #### NEW
+
 - `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
 - `[Filesystem]` Any saves to the filesystem now uses the system share sheet
 - `[Images]` Ability to set (or entirely disable) the opacity of the background image for cards
@@ -211,6 +232,7 @@
 - `[Tautulli/Activity]` Show if hardware transcoding is being used on the stream
 
 #### TWEAKS
+
 - `[Radarr]` Use Radarr v3 icon across the UI
 - `[Settings/Dialogs]` Small tweaks and additional notes for entering hosts and passwords
 - `[Settings/Host Dialog]` Add validator on host to ensure user adds http:// or https://
@@ -219,6 +241,7 @@
 - `[Sonarr/Series]` Toggling monitored state of series has now been moved to the edit prompt and edit screen
 
 #### FIXES
+
 - `[Backup & Restore]` Fix grey screen when restoring a backup without a "default"-named profile (new backups are not required)
 - `[Build]` (Android) Update gradle
 - `[Build]` (iOS) Reintegrate cocoapods podfile
@@ -237,6 +260,7 @@
 ## v4.0.0 (400102)
 
 #### NEW
+
 - `[Module]` Tautulli support
 - `[Calendar]` Ability to set how many days in the past and future to fetch calendar entries for
 - `[Drawer]` Categorical folders are now optional
@@ -248,6 +272,7 @@
 - `[Settings/Resources]` (iOS) Added link to join TestFlight
 
 #### TWEAKS
+
 - `[Home/Calendar]` Separate calendar view type into its own preference
 - `[Home/Calendar]` Show no modules enabled message when there are no automation modules enabled, not just no modules overall
 - `[Home/Calendar]` Default past and future days is now 14 days for each
@@ -259,6 +284,7 @@
 - `[UI]` Added new loading animation design
 
 #### FIXES
+
 - `[Flutter]` Updated packages & Flutter
 - `[General]` Many small bug fixes
 - `[LunaSea]` Many behind the scenes changes to reduce memory pressure
@@ -271,6 +297,7 @@
 ## v3.3.0 (330002)
 
 #### NEW
+
 - `[Home/Calendar]` New "schedule" view
 - `[Home/Modules]` Option to use module "brand colour" or the LunaSea list colours
 - `[Search]` Option to hide adult categories
@@ -278,9 +305,11 @@
 - `[-arr/Search]` Show the indexer/tracker on the collapsed tile
 
 #### TWEAKS
+
 - None
 
 #### FIXES
+
 - `[Sonarr]` Fixed multiple errors related to parsing fetched episode data
 - `[Everything]` Multiple smaller crash/error fixes
 
@@ -289,16 +318,19 @@
 ## v3.2.0 (320003)
 
 #### NEW
+
 - `[Drawer]` Add the LunaSea logo to the header
 - `[Logging]` Integrated Sentry, an open-source exception/crash log aggregation tool
 - `[Settings/System]` Added toggle (under system -> advanced) to disable Sentry logging
 
 #### TWEAKS
+
 - `[System]` Implemented new image caching backend
 - `[APIs]` Improved exception logging
 - `[Logging]` Improved on-device logger to have more useful stack traces
 
 #### FIXES
+
 - `[-arr/Details]` Fixed crash related to state management
 - `[radarr/Add]` Fixed crash when a searched movie does not have a minimum availability value available
 
@@ -455,6 +487,7 @@
 - `[HTTP]` With the above, support for self-signed SSL certificates
 
 #### TWEAKS
+
 - `[Descriptions]` Adjusted alignment and consistency when no summary is available
 - `[Search]` Removed redundant “Sending” toast since it very quickly gets covered by the follow-up toast
 - `[Automation]` Edit content prompt now shows full title of the content
@@ -524,7 +557,7 @@
 - `[Radarr/Search]` Now correctly retains search state to prevent needless researching & API hits
 - `[Configuration]` Deleting or renaming "default" profile could cause a new "default" profile to be created on next launch
 
---- 
+---
 
 ## v1.1.0 (44)
 

@@ -176,48 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
-  connectivity_plus:
-    dependency: "direct main"
-    description:
-      name: connectivity_plus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  connectivity_plus_linux:
-    dependency: transitive
-    description:
-      name: connectivity_plus_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  connectivity_plus_macos:
-    dependency: transitive
-    description:
-      name: connectivity_plus_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  connectivity_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: connectivity_plus_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  connectivity_plus_web:
-    dependency: transitive
-    description:
-      name: connectivity_plus_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  connectivity_plus_windows:
-    dependency: transitive
-    description:
-      name: connectivity_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   convert:
     dependency: "direct main"
     description:
@@ -246,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  dbus:
-    dependency: transitive
-    description:
-      name: dbus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.5"
   dio:
     dependency: "direct main"
     description:
@@ -688,48 +639,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  network_info_plus:
-    dependency: "direct main"
-    description:
-      name: network_info_plus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  network_info_plus_linux:
-    dependency: transitive
-    description:
-      name: network_info_plus_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  network_info_plus_macos:
-    dependency: transitive
-    description:
-      name: network_info_plus_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  network_info_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: network_info_plus_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  network_info_plus_web:
-    dependency: transitive
-    description:
-      name: network_info_plus_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  network_info_plus_windows:
-    dependency: transitive
-    description:
-      name: network_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   overseerr:
     dependency: "direct main"
     description:
@@ -939,7 +848,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.0"
   share_plus_linux:
     dependency: transitive
     description:

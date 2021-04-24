@@ -10,7 +10,6 @@ dependencies:
     sdk: flutter
   badges: ^1.2.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   cloud_firestore: ^1.0.6                   # ANDROID IOS       MACOS WEB
-  connectivity_plus: ^1.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS 
   convert: ^3.0.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   dio: ^4.0.0                               # ANDROID IOS LINUX MACOS WEB WINDOWS
   easy_localization: ^3.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -38,7 +37,6 @@ dependencies:
   infinite_scroll_pagination: ^3.0.1        # ANDROID IOS LINUX MACOS WEB WINDOWS
   intl: ^0.17.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
   modal_bottom_sheet: ^2.0.0                # ANDROID IOS LINUX MACOS WEB WINDOWS
-  network_info_plus: ^1.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   overseerr: ^0.0.1-pre.5                   # ANDROID IOS LINUX MACOS WEB WINDOWS
   package_info_plus: ^1.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   path_provider: ^2.0.1                     # ANDROID IOS LINUX MACOS     WINDOWS
@@ -47,7 +45,7 @@ dependencies:
   provider: ^5.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0+1                   # ANDROID IOS
   radarr: ^2.1.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
-  share_plus: ^2.0.1                        # ANDROID IOS LINUX MACOS WEB WINDOWS
+  share_plus: 2.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   sonarr: ^2.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   supercharged: ^2.0.0                      # ANDROID IOS LINUX MACOS WEB WINDOWS

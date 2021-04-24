@@ -53,7 +53,7 @@ class _State extends State<NZBGetQueue>
   }
 
   void _createTimer() =>
-      _timer = Timer(Duration(seconds: 2), () => _fetchWithoutMessage());
+      _timer = Timer(Duration(seconds: 2), _fetchWithoutMessage);
 
   Future<void> _refresh() async => setState(() {
         _future = _fetch();
@@ -109,13 +109,13 @@ class _State extends State<NZBGetQueue>
   Widget get _body => LunaRefreshIndicator(
         context: context,
         key: widget.refreshIndicatorKey,
-        onRefresh: () => _fetchWithoutMessage(),
+        onRefresh: _fetchWithoutMessage,
         child: FutureBuilder(
           future: _future,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 context.read<NZBGetState>().error)
-              return LunaMessage.error(onTap: () => _refresh());
+              return LunaMessage.error(onTap: _refresh);
             if (snapshot.hasData) return _list;
             return LunaLoader();
           },
@@ -123,12 +123,12 @@ class _State extends State<NZBGetQueue>
       );
 
   Widget get _list => _queue == null
-      ? LunaMessage.error(onTap: () => _refresh())
+      ? LunaMessage.error(onTap: _refresh)
       : _queue.length == 0
           ? LunaMessage(
               text: 'Empty Queue',
               buttonText: 'Refresh',
-              onTap: () => _fetchWithoutMessage(),
+              onTap: _fetchWithoutMessage,
             )
           : _reorderableList();
 
@@ -157,7 +157,7 @@ class _State extends State<NZBGetQueue>
         index: index,
         data: _queue[index],
         queueContext: context,
-        refresh: () => _fetchWithoutMessage(),
+        refresh: _fetchWithoutMessage,
       ),
     );
   }

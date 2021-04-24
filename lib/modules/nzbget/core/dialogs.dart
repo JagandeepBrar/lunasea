@@ -133,7 +133,7 @@ class NZBGetDialogs {
             title: 'Job Name',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.length < 1 ? 'Please enter a valid name' : null,
+                value.isEmpty ? 'Please enter a valid name' : null,
           ),
         ),
       ],
@@ -228,7 +228,7 @@ class NZBGetDialogs {
             title: 'Job Password',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.length < 1 ? 'Please enter a valid password' : null,
+                value.isEmpty ? 'Please enter a valid password' : null,
             obscureText: true,
           ),
         ),

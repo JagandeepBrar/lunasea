@@ -80,7 +80,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
                 case ConnectionState.done:
                   {
                     if (snapshot.hasError || snapshot.data == null)
-                      return LunaMessage.error(onTap: () => _refresh());
+                      return LunaMessage.error(onTap: _refresh);
                     _results = snapshot.data;
                     return _list;
                   }
@@ -94,22 +94,25 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
           ),
         );
 
-  Widget get _list => _results.length == 0
-      ? LunaMessage(
-          text: 'No Tracks Found',
-          buttonText: 'Refresh',
-          onTap: () => _refresh(),
-        )
-      : LunaListViewBuilder(
-          controller: scrollController,
-          itemCount: _results.length,
-          itemBuilder: (context, index) {
-            return LidarrDetailsTrackTile(
-              data: _results[index],
-              monitored: _arguments?.monitored ?? false,
-            );
-          },
+  Widget get _list {
+    if (_results?.isEmpty ?? true) {
+      return LunaMessage(
+        text: 'No Tracks Found',
+        buttonText: 'Refresh',
+        onTap: _refresh,
+      );
+    }
+    return LunaListViewBuilder(
+      controller: scrollController,
+      itemCount: _results.length,
+      itemBuilder: (context, index) {
+        return LidarrDetailsTrackTile(
+          data: _results[index],
+          monitored: _arguments?.monitored ?? false,
         );
+      },
+    );
+  }
 
   Future<void> _automaticSearch() async {
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);

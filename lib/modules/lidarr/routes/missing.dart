@@ -62,7 +62,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
               case ConnectionState.done:
                 {
                   if (snapshot.hasError || snapshot.data == null)
-                    return LunaMessage.error(onTap: () => _refresh());
+                    return LunaMessage.error(onTap: _refresh);
                   _results = snapshot.data;
                   return _list;
                 }
@@ -76,19 +76,22 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
         ),
       );
 
-  Widget get _list => _results.length == 0
-      ? LunaMessage(
-          text: 'No Missing Albums',
-          buttonText: 'Refresh',
-          onTap: () => widget.refreshIndicatorKey?.currentState?.show(),
-        )
-      : LunaListViewBuilder(
-          controller: LidarrNavigationBar.scrollControllers[1],
-          itemCount: _results.length,
-          itemBuilder: (context, index) => LidarrMissingTile(
-            scaffoldKey: _scaffoldKey,
-            entry: _results[index],
-            refresh: () => _refreshAllPages(),
-          ),
-        );
+  Widget get _list {
+    if (_results?.isEmpty ?? true) {
+      return LunaMessage(
+        text: 'No Missing Albums',
+        buttonText: 'Refresh',
+        onTap: () => widget.refreshIndicatorKey?.currentState?.show(),
+      );
+    }
+    return LunaListViewBuilder(
+      controller: LidarrNavigationBar.scrollControllers[1],
+      itemCount: _results.length,
+      itemBuilder: (context, index) => LidarrMissingTile(
+        scaffoldKey: _scaffoldKey,
+        entry: _results[index],
+        refresh: _refreshAllPages,
+      ),
+    );
+  }
 }

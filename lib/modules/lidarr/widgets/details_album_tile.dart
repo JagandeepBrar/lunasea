@@ -80,7 +80,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                       ? Icons.turned_in
                       : Icons.turned_in_not,
                   color: widget.data.monitored ? Colors.white : Colors.white30,
-                  onPressed: () => _toggleMonitoredStatus(),
+                  onPressed: _toggleMonitoredStatus,
                 ),
                 padding: EdgeInsets.fromLTRB(8.0, 0.0, 12.0, 0.0),
               ),

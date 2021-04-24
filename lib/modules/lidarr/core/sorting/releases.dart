@@ -74,8 +74,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _alphabetical(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.title.compareTo(b.title))
         : _data.sort((a, b) => b.title.compareTo(a.title));
@@ -83,8 +82,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _weight(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.releaseWeight.compareTo(b.releaseWeight))
         : _data.sort((a, b) => b.releaseWeight.compareTo(a.releaseWeight));
@@ -92,8 +90,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _type(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     List<LidarrReleaseData> _usenet =
         _data.where((value) => !value.isTorrent).toList();
     List<LidarrReleaseData> _torrent =
@@ -102,8 +99,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _age(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.ageHours.compareTo(b.ageHours))
         : _data.sort((a, b) => b.ageHours.compareTo(a.ageHours));
@@ -111,8 +107,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _seeders(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     List<LidarrReleaseData> _usenet =
         _data.where((value) => !value.isTorrent).toList();
     List<LidarrReleaseData> _torrent =
@@ -124,8 +119,7 @@ class _Sorter {
   }
 
   List<LidarrReleaseData> _size(List data, bool ascending) {
-    List<LidarrReleaseData> _data =
-        new List<LidarrReleaseData>.from(data, growable: false);
+    List<LidarrReleaseData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.size.compareTo(b.size))
         : _data.sort((a, b) => b.size.compareTo(a.size));

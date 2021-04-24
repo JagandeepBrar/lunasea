@@ -59,7 +59,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     return LunaRefreshIndicator(
       context: context,
       key: _refreshKey,
-      onRefresh: () => _refresh(),
+      onRefresh: _refresh,
       child: FutureBuilder(
         future: _future,
         builder: (context, snapshot) {

@@ -56,8 +56,9 @@ class _State extends State<LidarrDetailsAlbumList>
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
-                  if (snapshot.hasError || snapshot.data == null)
-                    return LunaMessage.error(onTap: () => _refresh());
+                  if (snapshot.hasError || snapshot.data == null) {
+                    return LunaMessage.error(onTap: _refresh);
+                  }
                   _results = snapshot.data;
                   return _list;
                 }
@@ -77,8 +78,8 @@ class _State extends State<LidarrDetailsAlbumList>
               model.hideUnmonitoredAlbums ? _hide(_results) : _results;
           return LunaListViewBuilder(
             controller: LidarrArtistNavigationBar.scrollControllers[1],
-            itemCount: _filtered.length == 0 ? 1 : _filtered.length,
-            itemBuilder: _filtered.length == 0
+            itemCount: _filtered.isEmpty ? 1 : _filtered.length,
+            itemBuilder: _filtered.isEmpty
                 ? (context, _) => LunaMessage(text: 'No Albums Found')
                 : (context, index) => LidarrDetailsAlbumTile(
                       data: _filtered[index],
@@ -88,12 +89,8 @@ class _State extends State<LidarrDetailsAlbumList>
         },
       );
 
-  List<LidarrAlbumData> _hide(List<LidarrAlbumData> data) =>
-      data == null || data.length == 0
-          ? data
-          : data
-              .where(
-                (entry) => entry.monitored,
-              )
-              .toList();
+  List<LidarrAlbumData> _hide(List<LidarrAlbumData> data) {
+    if (data?.isEmpty ?? true) return data;
+    return data.where((entry) => entry.monitored).toList();
+  }
 }

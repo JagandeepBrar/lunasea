@@ -140,18 +140,18 @@ class _Changelog {
     changelog.version = json['version'] ?? '';
     changelog.changesNew = json['new'] == null
         ? []
-        : (json['new'] as List)
-            .map<_Change>((change) => _Change.fromJson(change))
+        : (json['new'] as List<Map<String, dynamic>>)
+            .map<_Change>(_Change.fromJson)
             .toList();
     changelog.changesTweaks = json['tweaks'] == null
         ? []
-        : (json['tweaks'] as List)
-            .map<_Change>((change) => _Change.fromJson(change))
+        : (json['tweaks'] as List<Map<String, dynamic>>)
+            .map<_Change>(_Change.fromJson)
             .toList();
     changelog.changesFixes = json['fixes'] == null
         ? []
-        : (json['fixes'] as List)
-            .map<_Change>((change) => _Change.fromJson(change))
+        : (json['fixes'] as List<Map<String, dynamic>>)
+            .map<_Change>(_Change.fromJson)
             .toList();
     // macOS
     changelog.changesPlatform = [];

@@ -22,7 +22,7 @@ class LidarrDetailsArtist extends StatefulWidget {
 
 class _State extends State<LidarrDetailsArtist> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController = LunaPageController(initialPage: 1);
+  final LunaPageController _pageController = LunaPageController(initialPage: 1);
   LidarrDetailsArtistArguments _arguments;
   bool _error = false;
 
@@ -62,7 +62,7 @@ class _State extends State<LidarrDetailsArtist> {
             ? _arguments.data != null
                 ? _body
                 : _error
-                    ? LunaMessage.error(onTap: () => _fetch())
+                    ? LunaMessage.error(onTap: _fetch)
                     : LunaLoader()
             : null,
       );
@@ -80,7 +80,7 @@ class _State extends State<LidarrDetailsArtist> {
                 LidarrDetailsEditButton(data: _arguments.data),
                 LidarrDetailsSettingsButton(
                   data: _arguments.data,
-                  remove: (bool withData) => _removeCallback(withData),
+                  remove: _removeCallback,
                 ),
               ],
       );

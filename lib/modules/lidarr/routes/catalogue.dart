@@ -109,8 +109,8 @@ class _State extends State<LidarrCatalogue>
           itemBuilder: (context, index) => LidarrCatalogueTile(
             data: filtered[index],
             scaffoldKey: _scaffoldKey,
-            refresh: () => _refreshAllPages(),
-            refreshState: () => _refreshState(),
+            refresh: _refreshAllPages,
+            refreshState: _refreshState,
           ),
         );
       },

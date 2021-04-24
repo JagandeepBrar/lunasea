@@ -64,7 +64,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   Future<void> _fetchProfiles(LidarrAPI api) async {
     return await api.getQualityProfiles().then((profiles) {
       _qualityProfiles = profiles?.values?.toList();
-      if (_qualityProfiles != null && _qualityProfiles.length != 0) {
+      if (_qualityProfiles?.isNotEmpty ?? false) {
         for (var profile in _qualityProfiles) {
           if (profile.id == _arguments.entry.qualityProfile) {
             _qualityProfile = profile;
@@ -77,7 +77,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   Future<void> _fetchMetadata(LidarrAPI api) async {
     return await api.getMetadataProfiles().then((metadatas) {
       _metadataProfiles = metadatas?.values?.toList();
-      if (_metadataProfiles != null && _metadataProfiles.length != 0) {
+      if (_metadataProfiles?.isNotEmpty ?? false) {
         for (var profile in _metadataProfiles) {
           if (profile.id == _arguments.entry.metadataProfile) {
             _metadataProfile = profile;
@@ -111,7 +111,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null)
-                  return LunaMessage.error(onTap: () => _refresh());
+                  return LunaMessage.error(onTap: _refresh);
                 return _list;
               }
             case ConnectionState.none:
@@ -150,21 +150,21 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
             title: LunaText.title(text: 'Artist Path'),
             subtitle: LunaText.subtitle(text: _path),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-            onTap: () => _changePath(),
+            onTap: _changePath,
           ),
           LunaListTile(
             context: context,
             title: LunaText.title(text: 'Quality Profile'),
             subtitle: LunaText.subtitle(text: _qualityProfile.name),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-            onTap: () => _changeProfile(),
+            onTap: _changeProfile,
           ),
           LunaListTile(
             context: context,
             title: LunaText.title(text: 'Metadata Profile'),
             subtitle: LunaText.subtitle(text: _metadataProfile.name),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-            onTap: () => _changeMetadata(),
+            onTap: _changeMetadata,
           ),
         ],
       );

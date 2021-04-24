@@ -46,10 +46,8 @@ class LidarrCatalogueData {
   });
 
   String get genre {
-    if (genres == null || genres.length == 0) {
-      return 'Unknown';
-    }
-    return genres.join('\n');
+    if (genres?.isNotEmpty ?? false) return genres.join('\n');
+    return 'Unknown';
   }
 
   DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();

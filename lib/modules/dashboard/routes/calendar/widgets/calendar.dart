@@ -189,7 +189,7 @@ class _State extends State<DashboardCalendarWidget> {
     return Expanded(
       child: LunaListView(
         controller: DashboardNavigationBar.scrollControllers[1],
-        children: _selectedEvents.map((event) => _entry(event)).toList(),
+        children: _selectedEvents.map(_entry).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
     );
@@ -215,7 +215,7 @@ class _State extends State<DashboardCalendarWidget> {
     keys.sort();
     for (var key in keys) {
       if (key.isAfter(_today.subtract(Duration(days: 1))) &&
-          widget.events[key].length > 0) days.add(_day(key));
+          widget.events[key].isNotEmpty) days.add(_day(key));
     }
     return days;
   }

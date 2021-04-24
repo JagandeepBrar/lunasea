@@ -140,7 +140,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               case ConnectionState.done:
                 {
                   if (snapshot.hasError)
-                    return LunaMessage.error(onTap: () => _refresh());
+                    return LunaMessage.error(onTap: _refresh);
                   return _list;
                 }
               case ConnectionState.none:

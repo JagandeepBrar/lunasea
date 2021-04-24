@@ -16,7 +16,7 @@ class LunaBottomActionBar extends StatelessWidget {
     this.useSafeArea = true,
     Key key,
   }) : super(key: key) {
-    assert(actions != null && actions.length != 0);
+    assert(actions?.isNotEmpty ?? false);
   }
 
   @override

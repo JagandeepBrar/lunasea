@@ -81,8 +81,7 @@ class _Sorter {
   }
 
   List<LidarrCatalogueData> _alphabetical(List data, bool ascending) {
-    List<LidarrCatalogueData> _data =
-        new List<LidarrCatalogueData>.from(data, growable: false);
+    List<LidarrCatalogueData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.sortTitle.compareTo(b.sortTitle))
         : _data.sort((a, b) => b.sortTitle.compareTo(a.sortTitle));
@@ -128,8 +127,7 @@ class _Sorter {
   }
 
   List<LidarrCatalogueData> _tracks(List data, bool ascending) {
-    List<LidarrCatalogueData> _data =
-        new List<LidarrCatalogueData>.from(data, growable: false);
+    List<LidarrCatalogueData> _data = List.from(data, growable: false);
     ascending
         ? _data.sort((a, b) => a.statistics['percentOfTracks']
             .compareTo(b.statistics['percentOfTracks']))

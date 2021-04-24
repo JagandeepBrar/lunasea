@@ -15,10 +15,12 @@ void main() {
     if (FileSystemEntity.isDirectorySync(folder.path)) {
       Directory module = Directory(folder.path);
       print(
-          'Processing Module: ${module.path.substring(module.path.lastIndexOf('/') + 1)}');
+        'Processing Module: ${module.path.substring(module.path.lastIndexOf('/') + 1)}',
+      );
       module.listSync().forEach((language) {
         print(
-            '--> Adding language: ${language.path.substring(language.path.lastIndexOf('/') + 1)}...');
+          '--> Adding language: ${language.path.substring(language.path.lastIndexOf('/') + 1)}...',
+        );
         // Ensures that the filesystem entity is a JSON file
         if (FileSystemEntity.isFileSync(language.path) &&
             language.path.endsWith('.json')) {
@@ -43,11 +45,13 @@ void _writeFile(String path, Map<dynamic, dynamic> data) {
   if (file.existsSync()) {
     print('    Appending localization strings...');
     // Add all the localization strings to the file, and write back the string version of the map.
-
     fileData.addAll(data);
     JsonEncoder encoder = JsonEncoder.withIndent('    ');
-    file.writeAsStringSync(encoder.convert(fileData),
-        mode: FileMode.write, flush: true);
+    file.writeAsStringSync(
+      encoder.convert(fileData),
+      mode: FileMode.write,
+      flush: true,
+    );
   } else {
     print('    Failed to find file. Skipping...');
     return;
@@ -62,5 +66,8 @@ void _createFile(String path) {
   }
   print('    Created empty file...');
   file.createSync(recursive: true);
-  file.writeAsStringSync('{}', flush: true);
+  file.writeAsStringSync(
+    '{}',
+    flush: true,
+  );
 }

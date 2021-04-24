@@ -112,10 +112,9 @@ class _State extends State<LunaBottomNavigationBar> {
                   if (widget.onTabChange != null) widget.onTabChange(index);
                 },
               ),
-              padding:
-                  widget.topActions != null && widget.topActions.length != 0
-                      ? EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0)
-                      : EdgeInsets.all(12.0),
+              padding: (widget.topActions?.isNotEmpty ?? false)
+                  ? EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0)
+                  : EdgeInsets.all(12.0),
             ),
             top: false,
           ),

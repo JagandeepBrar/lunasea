@@ -10,7 +10,7 @@ class LunaButtonContainer extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
   }) {
     assert(children != null);
-    assert(children.length > 0);
+    assert(children?.isNotEmpty ?? false);
     assert(padding != null);
   }
 

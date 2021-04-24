@@ -308,7 +308,7 @@ class LidarrAPI {
   Future<Map<int, LidarrQualityProfile>> getQualityProfiles() async {
     try {
       Response response = await _dio.get('qualityprofile');
-      var _entries = new Map<int, LidarrQualityProfile>();
+      var _entries = <int, LidarrQualityProfile>{};
       for (var entry in response.data) {
         _entries[entry['id']] = LidarrQualityProfile(
           id: entry['id'] ?? -1,
@@ -328,7 +328,7 @@ class LidarrAPI {
   Future<Map<int, LidarrMetadataProfile>> getMetadataProfiles() async {
     try {
       Response response = await _dio.get('metadataprofile');
-      var _entries = new Map<int, LidarrMetadataProfile>();
+      var _entries = <int, LidarrMetadataProfile>{};
       for (var entry in response.data) {
         _entries[entry['id']] = LidarrMetadataProfile(
           id: entry['id'] ?? -1,

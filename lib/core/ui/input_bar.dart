@@ -5,8 +5,12 @@ import 'package:lunasea/core.dart';
 class LunaTextInputBar extends StatefulWidget {
   static const double appBarHeight = 62.0;
   static const double appBarInnerHeight = 62.0 - 13.0;
-  static const EdgeInsets appBarMargin =
-      const EdgeInsets.fromLTRB(12.0, 1.0, 12.0, 12.0);
+  static const EdgeInsets appBarMargin = EdgeInsets.fromLTRB(
+    12.0,
+    1.0,
+    12.0,
+    12.0,
+  );
 
   final TextEditingController controller;
   final ScrollController scrollController;

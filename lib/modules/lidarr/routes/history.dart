@@ -63,7 +63,7 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null) {
-                  return LunaMessage.error(onTap: () => _refresh());
+                  return LunaMessage.error(onTap: _refresh);
                 }
                 _results = snapshot.data;
                 return _list;
@@ -79,19 +79,22 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Widget get _list => _results.length == 0
-      ? LunaMessage(
-          text: 'No History Found',
-          buttonText: 'Refresh',
-          onTap: () => _refresh(),
-        )
-      : LunaListViewBuilder(
-          controller: LidarrNavigationBar.scrollControllers[2],
-          itemCount: _results.length,
-          itemBuilder: (context, index) => LidarrHistoryTile(
-            entry: _results[index],
-            scaffoldKey: _scaffoldKey,
-            refresh: () => _refreshAllPages(),
-          ),
-        );
+  Widget get _list {
+    if (_results?.isEmpty ?? true) {
+      return LunaMessage(
+        text: 'No History Found',
+        buttonText: 'Refresh',
+        onTap: _refresh,
+      );
+    }
+    return LunaListViewBuilder(
+      controller: LidarrNavigationBar.scrollControllers[2],
+      itemCount: _results.length,
+      itemBuilder: (context, index) => LidarrHistoryTile(
+        entry: _results[index],
+        scaffoldKey: _scaffoldKey,
+        refresh: _refreshAllPages,
+      ),
+    );
+  }
 }

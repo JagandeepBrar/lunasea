@@ -36,6 +36,7 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
       case CalendarStartingSize.ONE_MONTH:
         return 'dashboard.OneMonth'.tr();
     }
+    throw Exception('Invalid CalendarStartingSize');
   }
 
   String get key {

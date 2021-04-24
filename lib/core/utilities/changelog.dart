@@ -138,21 +138,24 @@ class _Changelog {
     _Changelog changelog = _Changelog();
     changelog.motd = json['motd'] ?? '';
     changelog.version = json['version'] ?? '';
-    changelog.changesNew = json['new'] == null
-        ? []
-        : (json['new'] as List<Map<String, dynamic>>)
-            .map<_Change>(_Change.fromJson)
-            .toList();
-    changelog.changesTweaks = json['tweaks'] == null
-        ? []
-        : (json['tweaks'] as List<Map<String, dynamic>>)
-            .map<_Change>(_Change.fromJson)
-            .toList();
-    changelog.changesFixes = json['fixes'] == null
-        ? []
-        : (json['fixes'] as List<Map<String, dynamic>>)
-            .map<_Change>(_Change.fromJson)
-            .toList();
+    changelog.changesNew = [];
+    if (json['new'] != null) {
+      (json['new'] as List).forEach(
+        (change) => changelog.changesNew.add(_Change.fromJson(change)),
+      );
+    }
+    changelog.changesTweaks = [];
+    if (json['tweaks'] != null) {
+      (json['tweaks'] as List).forEach(
+        (change) => changelog.changesTweaks.add(_Change.fromJson(change)),
+      );
+    }
+    changelog.changesFixes = [];
+    if (json['fixes'] != null) {
+      (json['fixes'] as List).forEach(
+        (change) => changelog.changesFixes.add(_Change.fromJson(change)),
+      );
+    }
     // macOS
     changelog.changesPlatform = [];
     int _index = -1;

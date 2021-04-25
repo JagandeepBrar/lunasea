@@ -1,1 +1,20 @@
-{}
+{
+    "dashboard.Wednesday": "Mercredi",
+    "dashboard.TwoWeeks": "Deux semaines",
+    "dashboard.Tuesday": "Mardi",
+    "dashboard.Thursday": "Jeudi",
+    "dashboard.Sunday": "Dimanche",
+    "dashboard.Schedule": "Programme",
+    "dashboard.Saturday": "Samedi",
+    "dashboard.PastDaysDescription": "Définissez le nombre de jours passés pour lesquels vous souhaitez récupérer les données du calendrier.",
+    "dashboard.PastDays": "Les jours précédents",
+    "dashboard.OneWeek": "Une semaine",
+    "dashboard.OneMonth": "Un mois",
+    "dashboard.NoNewContent": "Aucun nouveau contenu",
+    "dashboard.Monday": "Lundi",
+    "dashboard.MinimumOfOneDay": "Minimum 1 jour",
+    "dashboard.FutureDaysDescription": "Définissez le nombre de jours pour lesquels vous souhaitez récupérer les données du calendrier.",
+    "dashboard.FutureDays": "Jours à venir",
+    "dashboard.Friday": "Vendredi",
+    "dashboard.Calendar": "Calendrier"
+}

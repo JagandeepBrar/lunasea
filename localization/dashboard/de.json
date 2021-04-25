@@ -16,5 +16,6 @@
     "dashboard.FutureDaysDescription": "Wähle die Anzahl an Tagen in der Zukunft für die Kalendereinträge abgerufen werden sollen.",
     "dashboard.FutureDays": "Zukünftige Tage",
     "dashboard.Friday": "Freitag",
-    "dashboard.Calendar": "Kalender"
+    "dashboard.Calendar": "Kalender",
+    "dashboard.Modules": "Module"
 }

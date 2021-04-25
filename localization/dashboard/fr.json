@@ -16,5 +16,6 @@
     "dashboard.FutureDaysDescription": "Définissez le nombre de jours pour lesquels vous souhaitez récupérer les données du calendrier.",
     "dashboard.FutureDays": "Jours à venir",
     "dashboard.Friday": "Vendredi",
-    "dashboard.Calendar": "Calendrier"
+    "dashboard.Calendar": "Calendrier",
+    "dashboard.Modules": "Modules"
 }

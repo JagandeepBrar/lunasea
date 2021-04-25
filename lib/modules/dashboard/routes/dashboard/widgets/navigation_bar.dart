@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class DashboardNavigationBar extends StatelessWidget {
-  static List<ScrollController> scrollControllers =
-      List.generate(icons.length, (_) => ScrollController());
+  static List<ScrollController> scrollControllers = List.generate(
+    icons.length,
+    (_) => ScrollController(),
+  );
   final PageController pageController;
 
-  static const List<String> titles = [
-    'Modules',
-    'Calendar',
-  ];
+  static List<String> get titles => [
+        'dashboard.Modules'.tr(),
+        'dashboard.Calendar'.tr(),
+      ];
 
   static const List<IconData> icons = [
     LunaIcons.modules,

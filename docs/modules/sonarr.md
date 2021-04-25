@@ -10,7 +10,7 @@ Adding your Sonarr instance to LunaSea only requires a few steps to get going!
 This documentation only covers adding Sonarr to LunaSea via local network \(LAN\) connections, and does not cover exposing Sonarr externally and connecting remotely.
 {% endhint %}
 
-## Preparing Radarr
+## Preparing Sonarr
 
 ### Find Your Local Network IP Address
 

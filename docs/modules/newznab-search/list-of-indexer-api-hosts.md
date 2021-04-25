@@ -16,7 +16,7 @@ Popular indexers are listed below to help you easily find their API host to be e
 | **NZBGeek** | [https://api.nzbgeek.info](https://api.nzbgeek.info) |
 
 {% hint style="info" %}
-_Want to add additional indexers?_
+_**Want to add additional indexers?**_
 
 Contact me through GitHub, Discord, or Reddit!
 {% endhint %}

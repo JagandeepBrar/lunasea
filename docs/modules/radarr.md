@@ -7,7 +7,7 @@ description: How to configure and add Radarr to LunaSea
 Adding your Radarr instance to LunaSea only requires a few steps to get going!
 
 {% hint style="warning" %}
-This documentation only covers adding Radarr to LunaSea via local network \(LAN\) connections, and does not cover exposing Lidarr externally and connecting remotely.
+This documentation only covers adding Radarr to LunaSea via local network \(LAN\) connections, and does not cover exposing Radarr externally and connecting remotely.
 {% endhint %}
 
 ## Preparing Radarr

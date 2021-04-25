@@ -34,7 +34,7 @@ If you are unable to find your API key, consider contacting the administrators o
 
 ### Custom Headers
 
-Custom headers allows users to attach custom request headers to each API call that is made. This is typically an advanced feature, and is not necessary for most \(if not all\) public indexers.
+Custom headers allows users to attach custom request headers to each API call that is made. This is typically an advanced feature, and is not necessary for most public indexers.
 
 ## Indexer API Hosts
 

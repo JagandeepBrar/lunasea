@@ -23,8 +23,7 @@
 ## Modules
 
 * [Lidarr](modules/lidarr.md)
-* [Newznab Search](modules/newznab-search/README.md)
-  * [List of Indexer API Hosts](modules/newznab-search/list-of-indexer-api-hosts.md)
+* [Newznab Search](modules/newznab-search.md)
 * [NZBGet](modules/nzbget.md)
 * [Overseerr](modules/overseerr.md)
 * [Radarr](modules/radarr.md)

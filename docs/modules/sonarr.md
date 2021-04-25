@@ -4,7 +4,65 @@ description: How to configure and add Sonarr to LunaSea
 
 # Sonarr
 
-{% hint style="info" %}
-Coming Soon!
+Adding your Sonarr instance to LunaSea only requires a few steps to get going!
+
+{% hint style="warning" %}
+This documentation only covers adding Sonarr to LunaSea via local network \(LAN\) connections, and does not cover exposing Sonarr externally and connecting remotely.
 {% endhint %}
+
+## Preparing Radarr
+
+### Find Your Local Network IP Address
+
+Finding your local network IP address of the machine running Sonarr is the first step to get setup. To find your local IP address, please look at the following guides:
+
+* \*\*\*\*[**macOS**](https://osxdaily.com/2010/11/21/find-ip-address-mac/)\*\*\*\*
+* \*\*\*\*[**Ubuntu**](https://ubuntuhandbook.org/index.php/2020/07/find-ip-address-ubuntu-20-04/)\*\*\*\*
+* \*\*\*\*[**Windows**](https://support.microsoft.com/en-us/windows/find-your-ip-address-f21a9bbc-c582-55cd-35e0-73431160a1b9)
+
+If you are running a different operating system, you can use any search engine to look up "Find local IP address on &lt;your operating system&gt;" to typically find tons of guides for any platform.
+
+{% hint style="info" %}
+It is recommended to set your host machine's IP address to be statically assigned instead of dynamic/DHCP. This ensures that the IP address will not change through machine or network reboots.
+{% endhint %}
+
+### Check What Port is Being Used
+
+If using the default installation, Sonarr runs on port **8989**. In most cases, this port is not changed and does not need to be changed.
+
+The simplest way to check is to go to Sonarr's web GUI, go to Settings -&gt; General and note the value entered into "Port Number".
+
+### Ensure Sonarr is Accessible Across Your Network
+
+To ensure that Sonarr is accessible across your local network, check the following:
+
+* In Sonarr's web GUI, go to Settings -&gt; General and enable advanced settings. Ensure that the "Bind Address" is set to `*`, as this makes Sonarr bind to all network interfaces on the host machine.
+* Check any enabled firewalls to confirm that the port running Sonarr is not being blocked.
+* **\(Windows\)**: Ensure that Sonarr has been run as administrator at least once.
+
+### Check If You Are Using a URL Base
+
+In Sonarr's web GUI, go to Settings -&gt; General and check the value of "URL Base". If you have nothing set, you can move on. If you do have a value set, please remember the set value as it will be necessary when setting the host within LunaSea.
+
+## Connecting in LunaSea
+
+### Host
+
+The host is a combination of multiple values found above:
+
+* The local IP address
+* The port
+* If being used, the URL base
+
+Combine all the values into the following format: `<IP address>:<port>/<URL base>`
+
+For example, if Sonarr is running on port 8989 on a machine that has the IP address 192.168.100.100, the host is: `http://192.168.100.100:8989`.
+
+### API Key
+
+The API key is copied from Sonarr's web GUI, by going to Settings -&gt; General and finding the API key value.
+
+### Custom Headers
+
+Custom headers allows users to attach custom request headers to each API call that is made. This is typically an advanced feature, and is not necessary in most network configurations.
 

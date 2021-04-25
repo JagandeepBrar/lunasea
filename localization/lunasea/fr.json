@@ -9,9 +9,11 @@
     "lunasea.GoToSettings": "Ouvrir les paramètres",
     "lunasea.ModuleIsNotEnabled": "{} n'est pas activé",
     "lunasea.NoModulesEnabled": "Aucun module activé",
+    "lunasea.Page": "Page",
     "lunasea.Refresh": "Rafraichir",
     "lunasea.ReturnToDashboard": "Retour au tableau de bord",
     "lunasea.SearchTextBar": "Rechercher…",
+    "lunasea.Set": "Définir",
     "lunasea.Settings": "Réglages",
     "lunasea.TryAgain": "Réessayer",
     "lunasea.Unknown": "Inconnu"

@@ -70,6 +70,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "AliMickey",
+      "name": "Micky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60691199?v=4",
+      "profile": "https://github.com/AliMickey",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

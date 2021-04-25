@@ -10,11 +10,13 @@ class DashboardAppBarSwitchViewAction extends StatelessWidget {
       builder: (context, view, _) => LunaIconButton(
         icon: view.icon,
         onPressed: () {
-          view == CalendarStartingType.CALENDAR
-              ? context.read<DashboardState>().calendarStartingType =
-                  CalendarStartingType.SCHEDULE
-              : context.read<DashboardState>().calendarStartingType =
-                  CalendarStartingType.CALENDAR;
+          if (view == CalendarStartingType.CALENDAR) {
+            context.read<DashboardState>().calendarStartingType =
+                CalendarStartingType.SCHEDULE;
+          } else {
+            context.read<DashboardState>().calendarStartingType =
+                CalendarStartingType.CALENDAR;
+          }
         },
       ),
     );

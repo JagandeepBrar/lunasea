@@ -63,7 +63,7 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -80,6 +80,9 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/cpt-kuesel"><img src="https://avatars.githubusercontent.com/u/79487102?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cpt-kuesel</b></sub></a><br /><a href="#translation-cpt-kuesel" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/KovalevArtem"><img src="https://avatars.githubusercontent.com/u/36500228?v=4?s=100" width="100px;" alt=""/><br /><sub><b>KovalevArtem</b></sub></a><br /><a href="#translation-KovalevArtem" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/iFelix18"><img src="https://avatars.githubusercontent.com/u/19800006?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Davide</b></sub></a><br /><a href="#translation-iFelix18" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/AliMickey"><img src="https://avatars.githubusercontent.com/u/60691199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micky</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=AliMickey" title="Documentation">📖</a></td>
   </tr>
 </table>
 

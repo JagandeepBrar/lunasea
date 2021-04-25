@@ -51,12 +51,12 @@ In Lidarr's web GUI, go to Settings -&gt; General and check the value of "URL Ba
 The host is a combination of multiple values found above:
 
 * The local IP address
-* The por
+* The port
 * If being used, the URL base
 
 Combine all the values into the following format: `<IP address>:<port>/<URL base>`
 
-For example, if Lidarr is running on port 7878 on a machine that has the IP address 192.168.100.100, the host is: `http://192.168.100.100:7878`.
+For example, if Lidarr is running on port 8686 on a machine that has the IP address 192.168.100.100, the host is: `http://192.168.100.100:8686`.
 
 ### API Key
 

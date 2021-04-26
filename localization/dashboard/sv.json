@@ -1,1 +1,21 @@
-{}
+{
+    "dashboard.Wednesday": "Onsdag",
+    "dashboard.TwoWeeks": "Två Veckor",
+    "dashboard.Tuesday": "Tisdag",
+    "dashboard.Thursday": "Torsdag",
+    "dashboard.Sunday": "Söndag",
+    "dashboard.Schedule": "Schema",
+    "dashboard.Saturday": "Lördag",
+    "dashboard.PastDaysDescription": "Sätt antal dagar i det förflutna som kalendern skall hämta poster för.",
+    "dashboard.PastDays": "Förflutna Dagar",
+    "dashboard.OneWeek": "En Vecka",
+    "dashboard.OneMonth": "En Månad",
+    "dashboard.NoNewContent": "Inget Nytt Innehåll",
+    "dashboard.Monday": "Måndag",
+    "dashboard.Modules": "Moduler",
+    "dashboard.MinimumOfOneDay": "Minimum av 1 Dag",
+    "dashboard.FutureDaysDescription": "Sätt antal dagar i framtiden som kalendern skall hämta poster för.",
+    "dashboard.FutureDays": "Framtida Dagar",
+    "dashboard.Friday": "Fredag",
+    "dashboard.Calendar": "Kalender"
+}

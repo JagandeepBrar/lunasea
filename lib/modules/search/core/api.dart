@@ -18,7 +18,7 @@ class NewznabAPI {
         baseUrl: '${indexer.host}/api',
         headers: {
           'User-Agent': _USER_AGENT,
-          ...indexer.headers,
+          if (indexer.headers?.isNotEmpty ?? false) ...indexer.headers,
         },
         queryParameters: {
           if (indexer.apiKey != '') 'apikey': indexer.apiKey,

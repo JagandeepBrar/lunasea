@@ -18,22 +18,22 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
     try {
       List<LunaFirebaseBackupDocument> documents =
           await LunaFirebaseFirestore().getBackupEntries();
-      List<dynamic> values =
-          await SettingsDialogs.getBackupFromCloud(context, documents);
-      if (values[0]) {
-        LunaFirebaseBackupDocument document = values[1];
+      Tuple2<bool, LunaFirebaseBackupDocument> result =
+          await SettingsDialogs().getBackupFromCloud(context, documents);
+      if (result.item1) {
         String encrypted =
-            await LunaFirebaseStorage().downloadBackup(document.id);
-        List key = await SettingsDialogs.enterEncryptionKey(context);
-        if (key[0]) {
-          String decrypted = LunaEncryption().decrypt(key[1], encrypted);
+            await LunaFirebaseStorage().downloadBackup(result.item2.id);
+        Tuple2<bool, String> key =
+            await SettingsDialogs().decryptBackup(context);
+        if (key.item1) {
+          String decrypted = LunaEncryption().decrypt(key.item2, encrypted);
           if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-            LunaConfiguration()
-                .import(context, decrypted)
-                .then((_) => showLunaSuccessSnackBar(
-                      title: 'Restored',
-                      message: 'Your configuration has been restored',
-                    ));
+            LunaConfiguration().import(context, decrypted).then(
+                  (_) => showLunaSuccessSnackBar(
+                    title: 'Restored',
+                    message: 'Your configuration has been restored',
+                  ),
+                );
           } else {
             showLunaErrorSnackBar(
               title: 'Failed to Restore',

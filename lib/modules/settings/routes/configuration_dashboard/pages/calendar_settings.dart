@@ -108,8 +108,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.listen(
       builder: (context, box, widget) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Lidarr'),
-        subtitle: LunaText.subtitle(text: 'Show Lidarr Calendar Entries'),
+        title: LunaText.title(text: LunaModule.LIDARR.name),
+        subtitle: LunaText.subtitle(
+          text:
+              'settings.ShowCalendarEntries'.tr(args: [LunaModule.LIDARR.name]),
+        ),
         trailing: LunaSwitch(
           value: DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data,
           onChanged: (value) {
@@ -124,8 +127,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.listen(
       builder: (context, box, widget) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Radarr'),
-        subtitle: LunaText.subtitle(text: 'Show Radarr Calendar Entries'),
+        title: LunaText.title(text: LunaModule.RADARR.name),
+        subtitle: LunaText.subtitle(
+          text:
+              'settings.ShowCalendarEntries'.tr(args: [LunaModule.RADARR.name]),
+        ),
         trailing: LunaSwitch(
           value: DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data,
           onChanged: (value) {
@@ -140,8 +146,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.listen(
       builder: (context, box, widget) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Sonarr'),
-        subtitle: LunaText.subtitle(text: 'Show Sonarr Calendar Entries'),
+        title: LunaText.title(text: LunaModule.SONARR.name),
+        subtitle: LunaText.subtitle(
+          text:
+              'settings.ShowCalendarEntries'.tr(args: [LunaModule.SONARR.name]),
+        ),
         trailing: LunaSwitch(
           value: DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data,
           onChanged: (value) {
@@ -163,10 +172,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 .name),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async {
-          List _values =
-              await SettingsDialogs.editCalendarStartingType(context);
-          if (_values[0]) {
-            DashboardDatabaseValue.CALENDAR_STARTING_TYPE.put(_values[1]);
+          Tuple2<bool, CalendarStartingType> _values =
+              await SettingsDialogs().editCalendarStartingType(context);
+          if (_values.item1) {
+            DashboardDatabaseValue.CALENDAR_STARTING_TYPE.put(_values.item2);
           }
         },
       ),
@@ -177,16 +186,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return DashboardDatabaseValue.CALENDAR_STARTING_DAY.listen(
       builder: (context, box, widget) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Starting Day'),
+        title: LunaText.title(text: 'settings.StartingDay'.tr()),
         subtitle: LunaText.subtitle(
             text: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
                     as CalendarStartingDay)
                 .name),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async {
-          List _values = await SettingsDialogs.editCalendarStartingDay(context);
-          if (_values[0]) {
-            DashboardDatabaseValue.CALENDAR_STARTING_DAY.put(_values[1]);
+          Tuple2<bool, CalendarStartingDay> results =
+              await SettingsDialogs().editCalendarStartingDay(context);
+          if (results.item1) {
+            DashboardDatabaseValue.CALENDAR_STARTING_DAY.put(results.item2);
           }
         },
       ),
@@ -204,10 +214,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 .name),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async {
-          List _values =
-              await SettingsDialogs.editCalendarStartingSize(context);
-          if (_values[0]) {
-            DashboardDatabaseValue.CALENDAR_STARTING_SIZE.put(_values[1]);
+          Tuple2<bool, CalendarStartingSize> _values =
+              await SettingsDialogs().editCalendarStartingSize(context);
+          if (_values.item1) {
+            DashboardDatabaseValue.CALENDAR_STARTING_SIZE.put(_values.item2);
           }
         },
       ),

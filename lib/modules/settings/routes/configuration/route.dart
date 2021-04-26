@@ -41,14 +41,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaIconButton(
           icon: Icons.switch_account,
           onPressed: () async {
-            List<dynamic> values = await SettingsDialogs.enabledProfile(
-              context,
-              Database.profilesBox.keys.map((x) => x as String).toList()
-                ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase())),
+            Tuple2<bool, String> results =
+                await SettingsDialogs().enabledProfile(
+              LunaState.navigatorKey.currentContext,
+              LunaProfile().profilesList(),
             );
-            if (values[0] &&
-                values[1] != LunaDatabaseValue.ENABLED_PROFILE.data)
-              LunaProfile().safelyChangeProfiles(values[1]);
+            if (results.item1 &&
+                results.item2 != LunaDatabaseValue.ENABLED_PROFILE.data)
+              LunaProfile().safelyChangeProfiles(results.item2);
           },
         ),
       ],

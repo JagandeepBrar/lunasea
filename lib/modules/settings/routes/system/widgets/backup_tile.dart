@@ -18,11 +18,11 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
 
   Future<void> _backup(BuildContext context) async {
     try {
-      List<dynamic> _values =
-          await SettingsDialogs.backupConfiguration(context);
-      if (_values[0]) {
+      Tuple2<bool, String> _values =
+          await SettingsDialogs().backupConfiguration(context);
+      if (_values.item1) {
         String data = LunaConfiguration().export();
-        String encrypted = LunaEncryption().encrypt(_values[1], data);
+        String encrypted = LunaEncryption().encrypt(_values.item2, data);
         String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
         if (encrypted != LunaEncryption.ENCRYPTION_FAILURE) {
           bool result = await LunaFileSystem().export(

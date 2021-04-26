@@ -19,6 +19,19 @@ enum LunaModule {
 }
 
 extension LunaModuleExtension on LunaModule {
+  /// Returns a list of only active/enabled _external_ modules.
+  ///
+  /// External modules are modules that are not entirely internal (dashboard, settings, etc.)
+  List<LunaModule> enabledExternalModules() {
+    List<LunaModule> _enabled = [];
+    LunaModule.values.forEach((module) {
+      if (module == LunaModule.DASHBOARD) return;
+      if (module == LunaModule.SETTINGS) return;
+      if (module.enabled) _enabled.add(module);
+    });
+    return _enabled;
+  }
+
   LunaModule fromKey(String key) {
     switch (key) {
       case 'dashboard':

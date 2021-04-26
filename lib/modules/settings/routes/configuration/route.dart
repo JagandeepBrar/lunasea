@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -67,6 +68,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               SettingsConfigurationAppearanceRouter().navigateTo(context),
         ),
+        if (kDebugMode)
+          LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Drawer'),
+            subtitle: LunaText.subtitle(text: 'Customize the Drawer'),
+            trailing: LunaIconButton(icon: Icons.menu_rounded),
+            onTap: () async =>
+                SettingsConfigurationDrawerRouter().navigateTo(context),
+          ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'Localization'),

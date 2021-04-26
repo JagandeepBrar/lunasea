@@ -1,1 +1,8 @@
-{}
+{
+    "settings.BackupConfigurationHint1": "Alla backups krypteras innan de exporteras",
+    "settings.BackupConfiguration": "Backup Konfiguration",
+    "settings.AddProfile": "Lägg Till Profil",
+    "settings.AddHeader": "Lägg Till Header",
+    "settings.AccountHelpHint1": "LunaSea erbjuder ett gratiskonto för backup av konfigurationen till molnet, med ytterligare funktioner som kommer i framtiden!",
+    "settings.AccountHelp": "LunaSea Konto"
+}

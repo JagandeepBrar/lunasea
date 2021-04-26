@@ -13,7 +13,7 @@ class LunaState {
   /// Calls `.reset()` on all states which extend [LunaModuleState].
   static void reset(BuildContext context) {
     LunaModule.values.forEach((module) {
-      if (module.enabled) module.state(context)?.reset();
+      if (module.isGloballyEnabled) module.state(context)?.reset();
     });
   }
 
@@ -24,21 +24,21 @@ class LunaState {
         providers: [
           ChangeNotifierProvider(create: (_) => DashboardState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),
-          if (LunaModule.SEARCH.enabled)
+          if (LunaModule.SEARCH.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => SearchState()),
-          if (LunaModule.LIDARR.enabled)
+          if (LunaModule.LIDARR.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => LidarrState()),
-          if (LunaModule.RADARR.enabled)
+          if (LunaModule.RADARR.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => RadarrState()),
-          if (LunaModule.SONARR.enabled)
+          if (LunaModule.SONARR.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => SonarrState()),
-          if (LunaModule.NZBGET.enabled)
+          if (LunaModule.NZBGET.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => NZBGetState()),
-          if (LunaModule.SABNZBD.enabled)
+          if (LunaModule.SABNZBD.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => SABnzbdState()),
-          if (LunaModule.OVERSEERR.enabled)
+          if (LunaModule.OVERSEERR.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => OverseerrState()),
-          if (LunaModule.TAUTULLI.enabled)
+          if (LunaModule.TAUTULLI.isGloballyEnabled)
             ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,

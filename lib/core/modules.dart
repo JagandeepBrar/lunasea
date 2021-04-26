@@ -4,17 +4,31 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
 import 'package:quick_actions/quick_actions.dart';
 
+part 'modules.g.dart';
+
+@HiveType(typeId: 25, adapterName: 'LunaModuleAdapter')
 enum LunaModule {
+  @HiveField(0)
   DASHBOARD,
+  @HiveField(1)
   LIDARR,
+  @HiveField(2)
   NZBGET,
+  @HiveField(3)
   OVERSEERR,
+  @HiveField(4)
   RADARR,
+  @HiveField(5)
   SABNZBD,
+  @HiveField(6)
   SEARCH,
+  @HiveField(7)
   SETTINGS,
+  @HiveField(8)
   SONARR,
+  @HiveField(9)
   TAUTULLI,
+  @HiveField(10)
   WAKE_ON_LAN,
 }
 
@@ -27,7 +41,7 @@ extension LunaModuleExtension on LunaModule {
     LunaModule.values.forEach((module) {
       if (module == LunaModule.DASHBOARD) return;
       if (module == LunaModule.SETTINGS) return;
-      if (module.enabled) _enabled.add(module);
+      if (module.isGloballyEnabled) _enabled.add(module);
     });
     return _enabled;
   }
@@ -88,7 +102,8 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
-  bool get enabled {
+  /// Returns true if the module is globally/build-time enabled.
+  bool get isGloballyEnabled {
     switch (this) {
       // Always enabled
       case LunaModule.DASHBOARD:
@@ -114,6 +129,35 @@ extension LunaModuleExtension on LunaModule {
         return kDebugMode;
       case LunaModule.TAUTULLI:
         return true;
+    }
+    throw Exception('Invalid LunaModule');
+  }
+
+  /// Returns true if the module is enabled in the current profile.
+  bool get isEnabled {
+    switch (this) {
+      case LunaModule.DASHBOARD:
+        return true;
+      case LunaModule.SETTINGS:
+        return true;
+      case LunaModule.LIDARR:
+        return Database.currentProfileObject?.lidarrEnabled ?? false;
+      case LunaModule.NZBGET:
+        return Database.currentProfileObject?.nzbgetEnabled ?? false;
+      case LunaModule.OVERSEERR:
+        return Database.currentProfileObject?.overseerrEnabled ?? false;
+      case LunaModule.RADARR:
+        return Database.currentProfileObject?.radarrEnabled ?? false;
+      case LunaModule.SABNZBD:
+        return Database.currentProfileObject?.sabnzbdEnabled ?? false;
+      case LunaModule.SEARCH:
+        return (Database.indexersBox?.isNotEmpty ?? false);
+      case LunaModule.SONARR:
+        return Database.currentProfileObject?.sonarrEnabled ?? false;
+      case LunaModule.TAUTULLI:
+        return Database.currentProfileObject?.tautulliEnabled ?? false;
+      case LunaModule.WAKE_ON_LAN:
+        return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
     }
     throw Exception('Invalid LunaModule');
   }

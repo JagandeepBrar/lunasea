@@ -434,25 +434,26 @@ class ProfileHiveObject extends HiveObject {
       ];
 
   List<LunaModule> get enabledAutomationModules => [
-        if (LunaModule.LIDARR.enabled && (lidarrEnabled ?? false))
+        if (LunaModule.LIDARR.isGloballyEnabled && (lidarrEnabled ?? false))
           LunaModule.LIDARR,
-        if (LunaModule.RADARR.enabled && (radarrEnabled ?? false))
+        if (LunaModule.RADARR.isGloballyEnabled && (radarrEnabled ?? false))
           LunaModule.RADARR,
-        if (LunaModule.SONARR.enabled && (sonarrEnabled ?? false))
+        if (LunaModule.SONARR.isGloballyEnabled && (sonarrEnabled ?? false))
           LunaModule.SONARR,
       ];
 
   List<LunaModule> get enabledClientModules => [
-        if (LunaModule.NZBGET.enabled && (nzbgetEnabled ?? false))
+        if (LunaModule.NZBGET.isGloballyEnabled && (nzbgetEnabled ?? false))
           LunaModule.NZBGET,
-        if (LunaModule.SABNZBD.enabled && (sabnzbdEnabled ?? false))
+        if (LunaModule.SABNZBD.isGloballyEnabled && (sabnzbdEnabled ?? false))
           LunaModule.SABNZBD,
       ];
 
   List<LunaModule> get enabledMonitoringModules => [
-        if (LunaModule.OVERSEERR.enabled && (overseerrEnabled ?? false))
+        if (LunaModule.OVERSEERR.isGloballyEnabled &&
+            (overseerrEnabled ?? false))
           LunaModule.OVERSEERR,
-        if (LunaModule.TAUTULLI.enabled && (tautulliEnabled ?? false))
+        if (LunaModule.TAUTULLI.isGloballyEnabled && (tautulliEnabled ?? false))
           LunaModule.TAUTULLI,
       ];
 

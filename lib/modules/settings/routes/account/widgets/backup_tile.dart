@@ -17,11 +17,11 @@ class SettingsAccountBackupConfigurationTile extends StatelessWidget {
 
   Future<void> _backup(BuildContext context) async {
     try {
-      List<dynamic> _values =
-          await SettingsDialogs.backupConfiguration(context);
-      if (_values[0]) {
+      Tuple2<bool, String> _values =
+          await SettingsDialogs().backupConfiguration(context);
+      if (_values.item1) {
         String decrypted = LunaConfiguration().export();
-        String encrypted = LunaEncryption().encrypt(_values[1], decrypted);
+        String encrypted = LunaEncryption().encrypt(_values.item2, decrypted);
         int timestamp = DateTime.now().millisecondsSinceEpoch;
         String title =
             DateFormat('MMMM dd, yyyy\nhh:mm:ss a').format(DateTime.now());

@@ -75,13 +75,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
-        List<dynamic> _values = await SettingsDialogs.editHost(
+        Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          'Radarr Host',
           prefill: Database.currentProfileObject.radarrHost ?? '',
         );
-        if (_values[0]) {
-          Database.currentProfileObject.radarrHost = _values[1];
+        if (_values.item1) {
+          Database.currentProfileObject.radarrHost = _values.item2;
           Database.currentProfileObject.save();
           context.read<RadarrState>().reset();
         }

@@ -22,8 +22,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     if (widget.module == null)
       return LunaInvalidRoute(
-        title: 'Custom Headers',
-        message: 'Unknown Module',
+        title: 'settings.CustomHeaders'.tr(),
+        message: 'lunasea.UnknownModule'.tr(),
       );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
@@ -37,7 +37,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     return LunaBottomActionBar(
       actions: [
         LunaButton.text(
-            text: 'Add Header',
+            text: 'settings.AddHeader'.tr(),
             icon: Icons.add,
             onTap: () async {
               await HeaderUtility().addHeader(context, headers: _headers());
@@ -49,7 +49,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Custom Headers',
+      title: 'settings.CustomHeaders'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -67,7 +67,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _noHeadersFound() => LunaMessage.inList(text: 'No Headers Added');
+  Widget _noHeadersFound() =>
+      LunaMessage.inList(text: 'settings.NoHeadersAdded'.tr());
 
   List<LunaListTile> _headerList() {
     Map<String, dynamic> headers = (_headers() ?? {}).cast<String, dynamic>();

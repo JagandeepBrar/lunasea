@@ -8,7 +8,10 @@ abstract class LunaDialog {
   static const SUBBODY_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
   static const BUTTON_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
 
-  static Widget title({@required String text}) => Text(
+  static Widget title({
+    @required String text,
+  }) =>
+      Text(
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -17,10 +20,11 @@ abstract class LunaDialog {
         ),
       );
 
-  static TextSpan bolded(
-          {@required String text,
-          double fontSize = LunaDialog.BODY_SIZE,
-          Color color}) =>
+  static TextSpan bolded({
+    @required String text,
+    double fontSize = LunaDialog.BODY_SIZE,
+    Color color,
+  }) =>
       TextSpan(
         text: text,
         style: TextStyle(
@@ -30,9 +34,10 @@ abstract class LunaDialog {
         ),
       );
 
-  static Widget richText(
-          {@required List<TextSpan> children,
-          TextAlign alignment = TextAlign.start}) =>
+  static Widget richText({
+    @required List<TextSpan> children,
+    TextAlign alignment = TextAlign.start,
+  }) =>
       RichText(
         text: TextSpan(
           style: TextStyle(
@@ -43,10 +48,11 @@ abstract class LunaDialog {
         textAlign: alignment,
       );
 
-  static Widget button(
-          {@required String text,
-          @required void Function() onPressed,
-          Color textColor}) =>
+  static Widget button({
+    @required String text,
+    @required void Function() onPressed,
+    Color textColor,
+  }) =>
       TextButton(
         child: Text(
           text,
@@ -63,8 +69,11 @@ abstract class LunaDialog {
               },
       );
 
-  static Widget cancel(BuildContext context,
-          {Color textColor = Colors.white, String text}) =>
+  static Widget cancel(
+    BuildContext context, {
+    Color textColor = Colors.white,
+    String text,
+  }) =>
       TextButton(
         child: Text(
           text ?? 'lunasea.Cancel'.tr(),
@@ -79,7 +88,9 @@ abstract class LunaDialog {
         },
       );
 
-  static Widget content({@required List<Widget> children}) =>
+  static Widget content({
+    @required List<Widget> children,
+  }) =>
       SingleChildScrollView(
         child: ListBody(
           children: children,
@@ -87,8 +98,10 @@ abstract class LunaDialog {
         padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
       );
 
-  static Widget textContent(
-          {@required String text, TextAlign textAlign = TextAlign.center}) =>
+  static Widget textContent({
+    @required String text,
+    TextAlign textAlign = TextAlign.center,
+  }) =>
       Text(
         text,
         style: TextStyle(
@@ -98,7 +111,10 @@ abstract class LunaDialog {
         textAlign: textAlign,
       );
 
-  static TextSpan textSpanContent({@required String text}) => TextSpan(
+  static TextSpan textSpanContent({
+    @required String text,
+  }) =>
+      TextSpan(
         text: text,
         style: TextStyle(
           color: Colors.white,

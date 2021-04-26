@@ -73,11 +73,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           LunaText.subtitle(text: (host ?? '').isEmpty ? 'Not Set' : host),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
-        List<dynamic> _values = await SettingsDialogs.editHost(
-            context, 'Tautulli Host',
-            prefill: Database.currentProfileObject.tautulliHost ?? '');
-        if (_values[0]) {
-          Database.currentProfileObject.tautulliHost = _values[1];
+        Tuple2<bool, String> _values = await SettingsDialogs().editHost(
+          context,
+          prefill: Database.currentProfileObject.tautulliHost ?? '',
+        );
+        if (_values.item1) {
+          Database.currentProfileObject.tautulliHost = _values.item2;
           Database.currentProfileObject.save();
           context.read<TautulliState>().reset();
         }

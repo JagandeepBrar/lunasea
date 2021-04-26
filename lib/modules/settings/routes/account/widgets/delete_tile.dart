@@ -18,16 +18,15 @@ class SettingsAccountDeleteConfigurationTile extends StatelessWidget {
     try {
       List<LunaFirebaseBackupDocument> documents =
           await LunaFirebaseFirestore().getBackupEntries();
-      List<dynamic> values =
-          await SettingsDialogs.getBackupFromCloud(context, documents);
-      if (values[0]) {
-        LunaFirebaseBackupDocument selected = values[1];
+      Tuple2<bool, LunaFirebaseBackupDocument> result =
+          await SettingsDialogs().getBackupFromCloud(context, documents);
+      if (result.item1) {
         LunaFirebaseFirestore()
-            .deleteBackupEntry(selected.id)
-            .then((_) => LunaFirebaseStorage().deleteBackup(selected.id))
+            .deleteBackupEntry(result.item2.id)
+            .then((_) => LunaFirebaseStorage().deleteBackup(result.item2.id))
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Deleted Backup',
-                  message: selected.title
+                  message: result.item2.title
                       .replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
                 ))
             .catchError((error, stack) {

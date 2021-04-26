@@ -14,15 +14,15 @@ class HeaderUtility {
     @required String key,
     IndexerHiveObject indexer,
   }) async {
-    List result = await SettingsDialogs.deleteHeader(context);
-    if (result[0]) {
+    bool result = await SettingsDialogs().deleteHeader(context);
+    if (result) {
       Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
       _headers.remove(key);
       headers = _headers;
       Database.currentProfileObject.save();
       indexer?.save();
       showLunaSuccessSnackBar(
-        title: 'Header Deleted',
+        title: 'settings.HeaderDeleted'.tr(),
         message: key,
       );
     }
@@ -49,40 +49,53 @@ class HeaderUtility {
           break;
         default:
           LunaLogger().warning(
-              'HeaderUtility', 'addHeader', 'Unknown case: ${result.item2}');
+            'HeaderUtility',
+            'addHeader',
+            'Unknown case: ${result.item2}',
+          );
       }
   }
 
   /// Add a generic header.
-  Future<void> _genericHeader(BuildContext context,
-      Map<dynamic, dynamic> headers, IndexerHiveObject indexer) async {
-    List results = await SettingsDialogs.addCustomHeader(context);
-    if (results[0]) {
+  Future<void> _genericHeader(
+    BuildContext context,
+    Map<dynamic, dynamic> headers,
+    IndexerHiveObject indexer,
+  ) async {
+    Tuple3<bool, String, String> results =
+        await SettingsDialogs().addCustomHeader(context);
+    if (results.item1) {
       Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
-      _headers[results[1]] = results[2];
+      _headers[results.item2] = results.item3;
       headers = _headers;
       Database.currentProfileObject.save();
       indexer?.save();
       showLunaSuccessSnackBar(
-        title: 'Header Added',
-        message: results[1],
+        title: 'settings.HeaderAdded'.tr(),
+        message: results.item2,
       );
     }
   }
 
   /// Add an 'Authorization' header.
-  Future<void> _basicAuthenticationHeader(BuildContext context,
-      Map<dynamic, dynamic> headers, IndexerHiveObject indexer) async {
-    List results = await SettingsDialogs.addBasicAuthenticationHeader(context);
-    if (results[0]) {
+  Future<void> _basicAuthenticationHeader(
+    BuildContext context,
+    Map<dynamic, dynamic> headers,
+    IndexerHiveObject indexer,
+  ) async {
+    Tuple3<bool, String, String> results =
+        await SettingsDialogs().addBasicAuthenticationHeader(context);
+    if (results.item1) {
       Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
-      String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
+      String _auth = base64.encode(
+        utf8.encode('${results.item2}:${results.item3}'),
+      );
       _headers['Authorization'] = 'Basic $_auth';
       headers = _headers;
       Database.currentProfileObject.save();
       indexer?.save();
       showLunaSuccessSnackBar(
-        title: 'Header Added',
+        title: 'settings.HeaderAdded'.tr(),
         message: 'Authorization',
       );
     }
@@ -98,9 +111,9 @@ extension HeaderTypeExtension on HeaderType {
   String get name {
     switch (this) {
       case HeaderType.GENERIC:
-        return 'Custom...';
+        return 'settings.Custom'.tr();
       case HeaderType.AUTHORIZATION:
-        return 'Basic Authentication';
+        return 'settings.BasicAuthentication'.tr();
     }
     throw Exception('Invalid HeaderType');
   }

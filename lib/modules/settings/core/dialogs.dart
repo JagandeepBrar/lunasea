@@ -12,42 +12,43 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Sign Out',
+      title: 'settings.SignOut'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Sign Out',
+          text: 'settings.SignOut'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to sign out of your LunaSea account?'),
+        LunaDialog.textContent(text: 'settings.SignOutHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
     return _flag;
   }
 
-  static Future<List<dynamic>> getBackupFromCloud(
-      BuildContext context, List<LunaFirebaseBackupDocument> backups) async {
+  Future<Tuple2<bool, LunaFirebaseBackupDocument>> getBackupFromCloud(
+    BuildContext context,
+    List<LunaFirebaseBackupDocument> backups,
+  ) async {
     bool _flag = false;
     LunaFirebaseBackupDocument _document;
 
     void _setValues(bool flag, LunaFirebaseBackupDocument document) {
       _flag = flag;
       _document = document;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Backup List',
+      title: 'settings.BackupList'.tr(),
       content: backups.isNotEmpty
           ? List.generate(
               backups.length,
@@ -58,16 +59,18 @@ class SettingsDialogs {
                 onTap: () => _setValues(true, backups[index]),
               ),
             )
-          : [LunaDialog.textContent(text: 'No Backups Found')],
+          : [LunaDialog.textContent(text: 'settings.NoBackupsFound'.tr())],
       contentPadding: backups.isNotEmpty
           ? LunaDialog.listDialogContentPadding()
           : LunaDialog.textDialogContentPadding(),
     );
-    return [_flag, _document];
+    return Tuple2(_flag, _document);
   }
 
-  static Future<List<dynamic>> editHost(BuildContext context, String title,
-      {String prefill = ''}) async {
+  Future<Tuple2<bool, String>> editHost(
+    BuildContext context, {
+    String prefill = '',
+  }) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController()..text = prefill;
@@ -75,49 +78,45 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: title,
+      title: 'settings.Host'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Save',
+          text: 'lunasea.Set'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.richText(
-          children: [
-            LunaDialog.textSpanContent(
-                text:
-                    '${LunaUI.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
-            LunaDialog.textSpanContent(
-                text: '${LunaUI.TEXT_BULLET}\tYou must include either '),
-            LunaDialog.bolded(text: 'http://'),
-            LunaDialog.textSpanContent(text: ' or '),
-            LunaDialog.bolded(text: 'https://\n'),
-            LunaDialog.textSpanContent(
-                text: '${LunaUI.TEXT_BULLET}\tDo not use '),
-            LunaDialog.bolded(text: 'localhost'),
-            LunaDialog.textSpanContent(text: ' or '),
-            LunaDialog.bolded(text: '127.0.0.1\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '${LunaUI.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
-            LunaDialog.bolded(text: 'url:port\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '${LunaUI.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
-          ],
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint1'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint2'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint3'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint4'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint5'.tr()}',
+          textAlign: TextAlign.left,
         ),
         Form(
           key: _formKey,
           child: LunaDialog.textFormInput(
             controller: _textController,
-            title: title,
+            title: 'settings.Host'.tr(),
             keyboardType: TextInputType.url,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
@@ -126,68 +125,66 @@ class SettingsDialogs {
               // Test for https:// or http://
               RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
               if (exp.hasMatch(value)) return null;
-              return 'Host must include http:// or https://';
+              return 'settings.HostValidation'.tr();
             },
           ),
         ),
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _textController.text];
+    return Tuple2(_flag, _textController.text);
   }
 
-  static Future<List<dynamic>> deleteIndexer(BuildContext context) async {
+  Future<bool> deleteIndexer(BuildContext context) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Delete Indexer',
+      title: 'settings.DeleteIndexer'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Delete',
+          text: 'lunasea.Delete'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to delete this indexer?'),
+        LunaDialog.textContent(text: 'settings.DeleteIndexerHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 
-  static Future<List<dynamic>> deleteHeader(BuildContext context) async {
+  Future<bool> deleteHeader(BuildContext context) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Delete Header',
+      title: 'settings.DeleteHeader'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Delete',
+          text: 'lunasea.Delete'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to delete this header?'),
+        LunaDialog.textContent(text: 'settings.DeleteHeaderHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 
   Future<Tuple2<bool, HeaderType>> addHeader(BuildContext context) async {
@@ -197,12 +194,12 @@ class SettingsDialogs {
     void _setValues(bool flag, HeaderType type) {
       _flag = flag;
       _type = type;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Add Header',
+      title: 'settings.AddHeader'.tr(),
       content: List.generate(
         HeaderType.values.length,
         (index) => LunaDialog.tile(
@@ -217,7 +214,9 @@ class SettingsDialogs {
     return Tuple2(_flag, _type);
   }
 
-  static Future<List<dynamic>> addCustomHeader(BuildContext context) async {
+  Future<Tuple3<bool, String, String>> addCustomHeader(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     final formKey = GlobalKey<FormState>();
     TextEditingController _key = TextEditingController();
@@ -226,16 +225,16 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Custom Header',
+      title: 'settings.CustomHeader'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Add',
+          text: 'lunasea.Add'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
@@ -246,16 +245,21 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _key,
-                validator: (key) => key.isNotEmpty ? null : 'Key Required',
+                validator: (key) {
+                  if (key.isNotEmpty) return null;
+                  return 'settings.HeaderKeyValidation'.tr();
+                },
                 onSubmitted: (_) => _setValues(true),
-                title: 'Header Key',
+                title: 'settings.HeaderKey'.tr(),
               ),
               LunaDialog.textFormInput(
                 controller: _value,
-                validator: (value) =>
-                    value.isNotEmpty ? null : 'Value Required',
+                validator: (value) {
+                  if (value.isNotEmpty) return null;
+                  return 'settings.HeaderValueValidation'.tr();
+                },
                 onSubmitted: (_) => _setValues(true),
-                title: 'Header Value',
+                title: 'settings.HeaderValue'.tr(),
               ),
             ],
           ),
@@ -263,11 +267,12 @@ class SettingsDialogs {
       ],
       contentPadding: LunaDialog.inputDialogContentPadding(),
     );
-    return [_flag, _key.text, _value.text];
+    return Tuple3(_flag, _key.text, _value.text);
   }
 
-  static Future<List<dynamic>> addBasicAuthenticationHeader(
-      BuildContext context) async {
+  Future<Tuple3<bool, String, String>> addBasicAuthenticationHeader(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _username = TextEditingController();
@@ -276,49 +281,55 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Basic Authentication',
+      title: 'settings.BasicAuthentication'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Add',
+          text: 'lunasea.Add'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.richText(children: [
-          LunaDialog.textSpanContent(text: '•\tThe username '),
-          LunaDialog.bolded(text: 'cannot'),
-          LunaDialog.textSpanContent(text: ' contain a colon\n'),
-          LunaDialog.textSpanContent(text: '•\tThe password '),
-          LunaDialog.bolded(text: 'can'),
-          LunaDialog.textSpanContent(text: ' contain a colon\n'),
-          LunaDialog.textSpanContent(
-              text:
-                  '•\tThe username and password are automatically converted to base64 encoding\n'),
-        ]),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint1'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint2'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint3'.tr()}',
+          textAlign: TextAlign.left,
+        ),
         Form(
           key: _formKey,
           child: Column(
             children: [
               LunaDialog.textFormInput(
                 controller: _username,
-                validator: (username) =>
-                    username.isNotEmpty ? null : 'Username Required',
+                validator: (username) => username.isNotEmpty
+                    ? null
+                    : 'settings.UsernameValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
-                title: 'Username',
+                title: 'settings.Username'.tr(),
               ),
               LunaDialog.textFormInput(
                 controller: _password,
-                validator: (password) =>
-                    password.isNotEmpty ? null : 'Password Required',
+                validator: (password) => password.isNotEmpty
+                    ? null
+                    : 'settings.PasswordValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
                 obscureText: true,
-                title: 'Password',
+                title: 'settings.Password'.tr(),
               ),
             ],
           ),
@@ -326,7 +337,7 @@ class SettingsDialogs {
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _username.text, _password.text];
+    return Tuple3(_flag, _username.text, _password.text);
   }
 
   Future<bool> clearLogs(BuildContext context) async {
@@ -334,24 +345,21 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Clear Logs',
+      title: 'settings.ClearLogs'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Clear',
+          text: 'lunasea.Clear'.tr(),
           onPressed: () => _setValues(true),
           textColor: LunaColours.red,
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to clear all recorded logs?\n'),
-        LunaDialog.textContent(
-            text: 'Logs can be useful for bug reports and debugging.'),
+        LunaDialog.textContent(text: 'settings.ClearLogsHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
@@ -359,7 +367,9 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, String>> addProfile(
-      BuildContext context, List<String> profiles) async {
+    BuildContext context,
+    List<String> profiles,
+  ) async {
     final _formKey = GlobalKey<FormState>();
     final _controller = TextEditingController();
     bool _flag = false;
@@ -367,16 +377,16 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Add Profile',
+      title: 'settings.AddProfile'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Add',
+          text: 'lunasea.Add'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
@@ -386,12 +396,16 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (value) {
-              if (profiles.contains(value)) return 'Profile Already Exists';
-              if (value.isEmpty) return 'Profile Name Required';
+              if (profiles.contains(value)) {
+                return 'settings.ProfileAlreadyExists'.tr();
+              }
+              if (value.isEmpty) {
+                return 'settings.ProfileNameRequired'.tr();
+              }
               return null;
             },
             onSubmitted: (_) => _setValues(true),
-            title: 'Profile Name',
+            title: 'settings.ProfileName'.tr(),
           ),
         ),
       ],
@@ -401,19 +415,21 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, String>> renameProfile(
-      BuildContext context, List<String> profiles) async {
+    BuildContext context,
+    List<String> profiles,
+  ) async {
     bool _flag = false;
     String _profile = '';
 
     void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Rename Profile',
+      title: 'settings.RenameProfile'.tr(),
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
@@ -429,7 +445,9 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, String>> renameProfileSelected(
-      BuildContext context, List<String> profiles) async {
+    BuildContext context,
+    List<String> profiles,
+  ) async {
     final _formKey = GlobalKey<FormState>();
     final _controller = TextEditingController();
     bool _flag = false;
@@ -437,16 +455,16 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Rename Profile',
+      title: 'settings.RenameProfile'.tr(),
       buttons: [
         LunaDialog.button(
-            text: 'Rename',
+            text: 'lunasea.Rename'.tr(),
             onPressed: () => _setValues(true),
             textColor: LunaColours.accent),
       ],
@@ -456,12 +474,16 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (value) {
-              if (profiles.contains(value)) return 'Profile Already Exists';
-              if (value.isEmpty) return 'Profile Name Required';
+              if (profiles.contains(value)) {
+                return 'settings.ProfileAlreadyExists'.tr();
+              }
+              if (value.isEmpty) {
+                return 'settings.ProfileNameRequired'.tr();
+              }
               return null;
             },
             onSubmitted: (_) => _setValues(true),
-            title: 'New Profile Name',
+            title: 'settings.ProfileName'.tr(),
           ),
         ),
       ],
@@ -471,19 +493,21 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, String>> deleteProfile(
-      BuildContext context, List<String> profiles) async {
+    BuildContext context,
+    List<String> profiles,
+  ) async {
     bool _flag = false;
     String _profile = '';
 
     void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Delete Profile',
+      title: 'settings.DeleteProfile'.tr(),
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
@@ -498,20 +522,22 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  static Future<List<dynamic>> enabledProfile(
-      BuildContext context, List<String> profiles) async {
+  Future<Tuple2<bool, String>> enabledProfile(
+    BuildContext context,
+    List<String> profiles,
+  ) async {
     bool _flag = false;
     String _profile = '';
 
     void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Enabled Profile',
+      title: 'settings.EnabledProfile'.tr(),
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
@@ -523,7 +549,7 @@ class SettingsDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _profile];
+    return Tuple2(_flag, _profile);
   }
 
   Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
@@ -533,12 +559,12 @@ class SettingsDialogs {
     void _setValues(bool flag, LunaBrowser browser) {
       _flag = flag;
       _browser = browser;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Open Links In...',
+      title: 'settings.OpenLinksIn'.tr(),
       content: List.generate(
         LunaBrowser.values.length,
         (index) => LunaDialog.tile(
@@ -554,7 +580,8 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, LunaLanguage>> changeLanguage(
-      BuildContext context) async {
+    BuildContext context,
+  ) async {
     List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
     bool _flag = false;
     LunaLanguage _language;
@@ -562,12 +589,12 @@ class SettingsDialogs {
     void _setValues(bool flag, LunaLanguage language) {
       _flag = flag;
       _language = language;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Language',
+      title: 'settings.Language'.tr(),
       content: List.generate(
         languages.length,
         (index) => LunaDialog.tile(
@@ -582,20 +609,21 @@ class SettingsDialogs {
     return Tuple2(_flag, _language);
   }
 
-  static Future<List<dynamic>> editCalendarStartingDay(
-      BuildContext context) async {
+  Future<Tuple2<bool, CalendarStartingDay>> editCalendarStartingDay(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     CalendarStartingDay _startingDate;
 
     void _setValues(bool flag, CalendarStartingDay startingDate) {
       _flag = flag;
       _startingDate = startingDate;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Starting Day',
+      title: 'settings.StartingDay'.tr(),
       content: List.generate(
         CalendarStartingDay.values.length,
         (index) => LunaDialog.tile(
@@ -607,23 +635,24 @@ class SettingsDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _startingDate];
+    return Tuple2(_flag, _startingDate);
   }
 
-  static Future<List<dynamic>> editCalendarStartingSize(
-      BuildContext context) async {
+  Future<Tuple2<bool, CalendarStartingSize>> editCalendarStartingSize(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     CalendarStartingSize _startingSize;
 
     void _setValues(bool flag, CalendarStartingSize startingSize) {
       _flag = flag;
       _startingSize = startingSize;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Starting Size',
+      title: 'settings.StartingSize'.tr(),
       content: List.generate(
         CalendarStartingSize.values.length,
         (index) => LunaDialog.tile(
@@ -635,23 +664,24 @@ class SettingsDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _startingSize];
+    return Tuple2(_flag, _startingSize);
   }
 
-  static Future<List<dynamic>> editCalendarStartingType(
-      BuildContext context) async {
+  Future<Tuple2<bool, CalendarStartingType>> editCalendarStartingType(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     CalendarStartingType _startingType;
 
     void _setValues(bool flag, CalendarStartingType startingType) {
       _flag = flag;
       _startingType = startingType;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Starting Type',
+      title: 'settings.StartingType'.tr(),
       content: List.generate(
         CalendarStartingType.values.length,
         (index) => LunaDialog.tile(
@@ -663,11 +693,13 @@ class SettingsDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _startingType];
+    return Tuple2(_flag, _startingType);
   }
 
-  static Future<List<dynamic>> editBroadcastAddress(
-      BuildContext context, String prefill) async {
+  Future<Tuple2<bool, String>> editBroadcastAddress(
+    BuildContext context,
+    String prefill,
+  ) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _controller = TextEditingController()..text = prefill;
@@ -675,33 +707,34 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Broadcast Address',
+      title: 'settings.BroadcastAddress'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Save',
+          text: 'lunasea.Set'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.richText(
-          children: [
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tThis is the broadcast address of your local network\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
-            LunaDialog.bolded(text: '192.168.1.255'),
-          ],
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint1'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint2'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint3'.tr()}',
+          textAlign: TextAlign.left,
         ),
         Form(
           key: _formKey,
@@ -711,20 +744,22 @@ class SettingsDialogs {
               if (address.isEmpty) return null;
               return IPv4Address.validate(address)
                   ? null
-                  : 'Invalid Broadcast Address';
+                  : 'settings.BroadcastAddressValidation'.tr();
             },
             onSubmitted: (_) => _setValues(true),
-            title: 'Broadcast Address',
+            title: 'settings.BroadcastAddress'.tr(),
           ),
         ),
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _controller.text];
+    return Tuple2(_flag, _controller.text);
   }
 
-  static Future<List<dynamic>> editMACAddress(
-      BuildContext context, String prefill) async {
+  Future<Tuple2<bool, String>> editMACAddress(
+    BuildContext context,
+    String prefill,
+  ) async {
     bool _flag = false;
     final formKey = GlobalKey<FormState>();
     final _controller = TextEditingController()..text = prefill;
@@ -732,36 +767,35 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'MAC Address',
+      title: 'settings.MACAddress'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Save',
+          text: 'lunasea.Set'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.richText(
-          children: [
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tThis is the MAC address of the machine that you want to wake up\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
-            LunaDialog.textSpanContent(
-                text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
-            LunaDialog.textSpanContent(
-                text:
-                    '•\tEach hexidecimal octet should be separated by a colon\n'),
-            LunaDialog.textSpanContent(text: '•\tExample: '),
-            LunaDialog.bolded(text: 'A4:83:E7:0D:7F:4F'),
-          ],
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint1'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint2'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint3'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint4'.tr()}',
+          textAlign: TextAlign.left,
         ),
         Form(
           key: formKey,
@@ -771,16 +805,16 @@ class SettingsDialogs {
               if (address.isEmpty) return null;
               return MACAddress.validate(address)
                   ? null
-                  : 'Invalid MAC Address';
+                  : 'settings.MACAddressValidation'.tr();
             },
             onSubmitted: (_) => _setValues(true),
-            title: 'MAC Address',
+            title: 'settings.MACAddress'.tr(),
           ),
         ),
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _controller.text];
+    return Tuple2(_flag, _controller.text);
   }
 
   Future<bool> dismissTooltipBanners(BuildContext context) async {
@@ -788,25 +822,23 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Dismiss Banners',
+      title: 'settings.DismissBanners'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Dismiss',
+          text: 'lunasea.Dismiss'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to dismiss all tooltip banners?\n'),
-        LunaDialog.textContent(
-            text:
-                'The tooltip banners will give you tips and hints for features available within LunaSea.'),
+        LunaDialog.textContent(text: 'settings.DismissBannersHint1'.tr()),
+        LunaDialog.textContent(text: ''),
+        LunaDialog.textContent(text: 'settings.DismissBannersHint2'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
@@ -818,35 +850,32 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Reset Configuration',
+      title: 'settings.ClearConfiguration'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Reset',
+          text: 'lunasea.Clear'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to clear your configuration?\n'),
-        LunaDialog.textContent(
-            text:
-                'You will be starting from a clean slate, please ensure you backup your current configuration first!\n'),
-        LunaDialog.textContent(
-            text:
-                'If you are signed into a LunaSea account, you will be signed out.'),
+        LunaDialog.textContent(text: 'settings.ClearConfigurationHint1'.tr()),
+        LunaDialog.textContent(text: ''),
+        LunaDialog.textContent(text: 'settings.ClearConfigurationHint2'.tr()),
+        LunaDialog.textContent(text: ''),
+        LunaDialog.textContent(text: 'settings.ClearConfigurationHint3'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
     return _flag;
   }
 
-  static Future<List<dynamic>> enterEncryptionKey(BuildContext context) async {
+  Future<Tuple2<bool, String>> decryptBackup(BuildContext context) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController();
@@ -854,40 +883,40 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Decrypt Backup',
+      title: 'settings.DecryptBackup'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Restore',
+          text: 'lunasea.Restore'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Please enter the encryption key for this backup.'),
+        LunaDialog.textContent(text: 'settings.DecryptBackupHint1'.tr()),
         Form(
           key: _formKey,
           child: LunaDialog.textFormInput(
             controller: _textController,
-            title: 'Encryption Key',
+            title: 'settings.EncryptionKey'.tr(),
             obscureText: true,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.length < 8 ? 'Minimum of 8 characters' : null,
+            validator: (value) => value.length < 8
+                ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
+                : null,
           ),
         ),
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _textController.text];
+    return Tuple2(_flag, _textController.text);
   }
 
-  static Future<List<dynamic>> backupConfiguration(BuildContext context) async {
+  Future<Tuple2<bool, String>> backupConfiguration(BuildContext context) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController();
@@ -895,28 +924,28 @@ class SettingsDialogs {
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
         _flag = flag;
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Backup Configuration',
+      title: 'settings.BackupConfiguration'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Backup',
+          text: 'lunasea.BackUp'.tr(),
           textColor: LunaColours.accent,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.richText(
-          children: [
-            LunaDialog.textSpanContent(
-                text: '•\tAll backups are encrypted before being exported\n'),
-            LunaDialog.textSpanContent(
-                text: '•\tThe encryption key must be at least 8 characters'),
-          ],
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint1'.tr()}',
+        ),
+        LunaDialog.textContent(
+          text:
+              '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint2'.tr()}',
         ),
         Form(
           key: _formKey,
@@ -924,19 +953,16 @@ class SettingsDialogs {
             obscureText: true,
             controller: _textController,
             title: 'Encryption Key',
-            validator: (value) {
-              if (value.length < 8) {
-                return 'Minimum of 8 characters';
-              }
-              return null;
-            },
+            validator: (value) => value.length < 8
+                ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
+                : null,
             onSubmitted: (_) => _setValues(true),
           ),
         ),
       ],
       contentPadding: LunaDialog.inputTextDialogContentPadding(),
     );
-    return [_flag, _textController.text];
+    return Tuple2(_flag, _textController.text);
   }
 
   Future<bool> disableCrashlyticsWarning(BuildContext context) async {
@@ -944,20 +970,20 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Firebase Crashlytics',
+      title: 'settings.FirebaseCrashlytics'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Website',
+          text: 'lunasea.Website'.tr(),
           onPressed: LunaLinks.CRASHLYTICS.launch,
           textColor: LunaColours.accent,
         ),
         LunaDialog.button(
-          text: 'Disable',
+          text: 'lunasea.Disable'.tr(),
           onPressed: () => _setValues(true),
           textColor: LunaColours.red,
         ),
@@ -966,23 +992,21 @@ class SettingsDialogs {
         LunaDialog.richText(
           children: [
             LunaDialog.bolded(
-              text:
-                  'Errors and stacktraces contain absolutely no identifying information on any users.\n\n',
+              text: '${'settings.FirebaseCrashlyticsHint1'.tr()}\n\n',
               color: LunaColours.red,
               fontSize: LunaDialog.SUBBODY_SIZE,
             ),
             LunaDialog.textSpanContent(
-                text:
-                    'Firebase Crashlytics is a tool used for capturing crashes and errors.\n\n'),
+              text: '${'settings.FirebaseCrashlyticsHint2'.tr()}\n\n',
+            ),
             LunaDialog.textSpanContent(
-                text:
-                    'To reserve your right to privacy, you have the option to disable error and crash tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+              text: '${'settings.FirebaseCrashlyticsHint3'.tr()}\n\n',
+            ),
             LunaDialog.textSpanContent(
-                text:
-                    'A link to the Firebase website is available below for more information to help make an informed decision.\n\n'),
+              text: '${'settings.FirebaseCrashlyticsHint4'.tr()}\n\n',
+            ),
             LunaDialog.bolded(
-              text:
-                  'A restart of LunaSea is required for the changes to take effect.',
+              text: '${'settings.FirebaseCrashlyticsHint5'.tr()}',
               color: LunaColours.accent,
               fontSize: LunaDialog.SUBBODY_SIZE,
             ),
@@ -996,7 +1020,8 @@ class SettingsDialogs {
   }
 
   Future<Tuple2<bool, int>> changeBackgroundImageOpacity(
-      BuildContext context) async {
+    BuildContext context,
+  ) async {
     bool _flag = false;
     int _opacity = 0;
     final _formKey = GlobalKey<FormState>();
@@ -1005,44 +1030,43 @@ class SettingsDialogs {
 
     void _setValues(bool flag) {
       if (_formKey.currentState.validate()) {
-        _opacity = int.tryParse(_textController.text);
-        if (_opacity != null) {
-          _flag = flag;
-          Navigator.of(context, rootNavigator: true).pop();
-        } else {
-          LunaLogger().warning(
-            'SettingsDialogs',
-            'changeBackgroundImageOpacity',
-            'Opacity passed validation but failed int.tryParse: ${_textController.text}',
-          );
-        }
+        _opacity = int.parse(_textController.text);
+        _flag = flag;
+        Navigator.of(context).pop();
       }
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Image Background Opacity',
+      title: 'settings.ImageBackgroundOpacity'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Save',
+          text: 'lunasea.Set'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
         LunaDialog.textContent(
-            text:
-                'Set the opacity of background images.\n\nTo completely disable fetching background images, set the value to 0.'),
+          text: 'settings.ImageBackgroundOpacityHint1'.tr(),
+        ),
+        LunaDialog.textContent(text: ''),
+        LunaDialog.textContent(
+          text: 'settings.ImageBackgroundOpacityHint2'.tr(),
+        ),
         Form(
           key: _formKey,
           child: LunaDialog.textFormInput(
             controller: _textController,
-            title: 'Background Image Opacity',
+            title: 'settings.ImageBackgroundOpacity'.tr(),
             keyboardType: TextInputType.number,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
               int _opacity = int.tryParse(value);
               if (_opacity == null || _opacity < 0 || _opacity > 100)
-                return 'Must be a value between 0 and 100';
+                return 'settings.MustBeValueBetween'.tr(args: [
+                  0.toString(),
+                  100.toString(),
+                ]);
               return null;
             },
           ),
@@ -1054,7 +1078,9 @@ class SettingsDialogs {
   }
 
   Future<void> moduleInformation(
-      BuildContext context, LunaModule module) async {
+    BuildContext context,
+    LunaModule module,
+  ) async {
     List<Widget> _buttons = [
       if (module.github?.isNotEmpty ?? false)
         LunaDialog.button(
@@ -1063,7 +1089,7 @@ class SettingsDialogs {
         ),
       if (module.website?.isNotEmpty ?? false)
         LunaDialog.button(
-          text: 'Website',
+          text: 'lunasea.Website'.tr(),
           textColor: LunaColours.orange,
           onPressed: () async => module.website.lunaOpenGenericLink(),
         ),
@@ -1079,41 +1105,11 @@ class SettingsDialogs {
     );
   }
 
-  static Future<void> helpMessage(BuildContext context,
-      {@required String title,
-      @required String message,
-      String website,
-      String github}) async {
-    await LunaDialog.dialog(
-      context: context,
-      title: title ?? LunaUI.TEXT_EMDASH,
-      buttons: ((github?.isNotEmpty ?? false) || (website?.isNotEmpty ?? false))
-          ? [
-              if (github?.isNotEmpty ?? false)
-                LunaDialog.button(
-                    text: 'GitHub',
-                    onPressed: () async => github.lunaOpenGenericLink()),
-              if (website?.isNotEmpty ?? false)
-                LunaDialog.button(
-                    text: 'Website',
-                    textColor: LunaColours.orange,
-                    onPressed: () async => website.lunaOpenGenericLink()),
-            ]
-          : null,
-      content: [LunaDialog.textContent(text: message)],
-      contentPadding: LunaDialog.textDialogContentPadding(),
-    );
-  }
-
   Future<void> accountHelpMessage(BuildContext context) async {
     await LunaDialog.dialog(
       context: context,
-      title: 'LunaSea Account',
-      content: [
-        LunaDialog.textContent(
-            text:
-                'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')
-      ],
+      title: 'settings.AccountHelp'.tr(),
+      content: [LunaDialog.textContent(text: 'settings.AccountHelpHint1'.tr())],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
   }

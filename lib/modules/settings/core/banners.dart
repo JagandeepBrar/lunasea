@@ -17,7 +17,7 @@ extension SettingsBannersExtension on SettingsBanners {
   String get header {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
-        return 'Supported Modules';
+        return 'settings.BannersNotificationModuleSupportHeader'.tr();
     }
     throw Exception('Invalid SettingsBanners');
   }
@@ -25,7 +25,7 @@ extension SettingsBannersExtension on SettingsBanners {
   String get body {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
-        return 'Webhook-based notifications are currently only supported in the modules listed below.\n\nAdditional module support will come in the future!';
+        return 'settings.BannersNotificationModuleSupportBody'.tr();
     }
     throw Exception('Invalid SettingsBanners');
   }
@@ -58,18 +58,19 @@ extension SettingsBannersExtension on SettingsBanners {
     Color bodyColor = Colors.white70,
   }) =>
       ValueListenableBuilder(
-          valueListenable: Database.alertsBox.listenable(keys: [key]),
-          builder: (context, box, _) {
-            if (shouldShow)
-              return LunaBanner(
-                dismissCallback: markSeen,
-                headerText: header,
-                bodyText: body,
-                icon: icon,
-                iconColor: iconColor,
-                headerColor: headerColor,
-                bodyColor: bodyColor,
-              );
-            return SizedBox(height: 0.0, width: double.infinity);
-          });
+        valueListenable: Database.alertsBox.listenable(keys: [key]),
+        builder: (context, box, _) {
+          if (shouldShow)
+            return LunaBanner(
+              dismissCallback: markSeen,
+              headerText: header,
+              bodyText: body,
+              icon: icon,
+              iconColor: iconColor,
+              headerColor: headerColor,
+              bodyColor: bodyColor,
+            );
+          return SizedBox(height: 0.0, width: double.infinity);
+        },
+      );
 }

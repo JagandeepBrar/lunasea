@@ -87,8 +87,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           icon: Icons.delete_rounded,
           color: LunaColours.red,
           onTap: () async {
-            List _values = await SettingsDialogs.deleteIndexer(context);
-            if (_values[0]) {
+            bool result = await SettingsDialogs().deleteIndexer(context);
+            if (result) {
               showLunaSuccessSnackBar(
                   title: 'Indexer Deleted', message: _indexer.displayName);
               _indexer.delete();

@@ -83,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Database.currentProfileObject.wakeOnLANBroadcastAddress;
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Broadcast Address'),
+      title: LunaText.title(text: 'settings.BroadcastAddress'.tr()),
       subtitle: LunaText.subtitle(
         text: broadcastAddress == null || broadcastAddress == ''
             ? 'Not Set'
@@ -91,12 +91,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
-        List<dynamic> _values = await SettingsDialogs.editBroadcastAddress(
+        Tuple2<bool, String> _values =
+            await SettingsDialogs().editBroadcastAddress(
           context,
           broadcastAddress ?? '',
         );
-        if (_values[0]) {
-          Database.currentProfileObject.wakeOnLANBroadcastAddress = _values[1];
+        if (_values.item1) {
+          Database.currentProfileObject.wakeOnLANBroadcastAddress =
+              _values.item2;
           Database.currentProfileObject.save();
         }
       },
@@ -107,18 +109,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     String macAddress = Database.currentProfileObject.wakeOnLANMACAddress;
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Device MAC Address'),
+      title: LunaText.title(text: 'settings.MACAddress'.tr()),
       subtitle: LunaText.subtitle(
         text: macAddress == null || macAddress == '' ? 'Not Set' : macAddress,
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
-        List<dynamic> _values = await SettingsDialogs.editMACAddress(
+        Tuple2<bool, String> _values = await SettingsDialogs().editMACAddress(
           context,
           macAddress ?? '',
         );
-        if (_values[0]) {
-          Database.currentProfileObject.wakeOnLANMACAddress = _values[1];
+        if (_values.item1) {
+          Database.currentProfileObject.wakeOnLANMACAddress = _values.item2;
           Database.currentProfileObject.save();
         }
       },

@@ -1,5 +1,13 @@
 # LunaSea Changelog
 
+## GitHub
+
+#### FIXES
+
+- `[Search]` Indexers would not load in some cases when the headers map was null/empty
+
+---
+
 ## v5.0.1 (50001002)
 
 #### PLATFORM-SPECIFIC

@@ -134,7 +134,7 @@ extension LunaModuleExtension on LunaModule {
   }
 
   /// Returns true if the module is enabled in the current profile.
-  bool get isEnabled {
+  bool get isProfileEnabled {
     switch (this) {
       case LunaModule.DASHBOARD:
         return true;
@@ -151,7 +151,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SABNZBD:
         return Database.currentProfileObject?.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
-        return (Database.indexersBox?.isNotEmpty ?? false);
+        return Database.indexersBox?.isNotEmpty ?? false;
       case LunaModule.SONARR:
         return Database.currentProfileObject?.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:

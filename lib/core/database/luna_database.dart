@@ -353,9 +353,11 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
   }
 
   ValueListenableBuilder listen({
+    Key key,
     @required Widget Function(BuildContext, dynamic, Widget) builder,
   }) =>
       ValueListenableBuilder(
+        key: key,
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
       );

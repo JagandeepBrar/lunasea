@@ -15,48 +15,63 @@ class LunaDrawer extends StatelessWidget {
       builder: (context, lunaBox, widget) => ValueListenableBuilder(
         valueListenable: Database.indexersBox.listenable(),
         builder: (context, indexerBox, widget) => Drawer(
-          child: ListView(
-            children: _getDrawerEntries(context),
-            padding: EdgeInsets.only(bottom: 8.0),
-            physics: ClampingScrollPhysics(),
+          child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
+            builder: (context, _, __) => ListView(
+              children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+                  ? _getAlphabeticalOrder(context)
+                  : _getManualOrder(context),
+              padding: EdgeInsets.only(bottom: 8.0),
+              physics: ClampingScrollPhysics(),
+            ),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> _getDrawerEntries(BuildContext context) {
-    List<LunaModule> automation =
-        Database?.currentProfileObject?.enabledAutomationModules ?? [];
-    List<LunaModule> clients =
-        Database?.currentProfileObject?.enabledClientModules ?? [];
-    List<LunaModule> monitoring =
-        Database?.currentProfileObject?.enabledMonitoringModules ?? [];
-    return <Widget>[
+  List<Widget> _sharedHeader(BuildContext context) {
+    return [
       LunaDrawerHeader(),
       _buildEntry(context: context, module: LunaModule.DASHBOARD),
       _buildEntry(context: context, module: LunaModule.SETTINGS),
       LunaDivider(),
-      if (Database.indexersBox?.isNotEmpty ?? false)
-        _buildEntry(context: context, module: LunaModule.SEARCH),
-      if ((LunaModule.WAKE_ON_LAN?.enabled ?? false) &&
-          (Database?.currentProfileObject?.wakeOnLANEnabled ?? false))
-        _buildWakeOnLAN(context),
-      if (automation?.isNotEmpty ?? false)
-        ...List.generate(
-          automation.length,
-          (index) => _buildEntry(context: context, module: automation[index]),
-        ),
-      if (clients?.isNotEmpty ?? false)
-        ...List.generate(
-          clients.length,
-          (index) => _buildEntry(context: context, module: clients[index]),
-        ),
-      if (monitoring?.isNotEmpty ?? false)
-        ...List.generate(
-          monitoring.length,
-          (index) => _buildEntry(context: context, module: monitoring[index]),
-        ),
+    ];
+  }
+
+  List<Widget> _getAlphabeticalOrder(BuildContext context) {
+    List<LunaModule> _modules = LunaModule.DASHBOARD.allExternalModules()
+      ..sort((a, b) => a.name.toLowerCase().compareTo(
+            b.name.toLowerCase(),
+          ));
+    return <Widget>[
+      ..._sharedHeader(context),
+      ..._modules.map((module) {
+        if (module.isEnabled) {
+          if (module == LunaModule.WAKE_ON_LAN) return _buildWakeOnLAN(context);
+          return _buildEntry(
+            context: context,
+            module: module,
+          );
+        }
+        return SizedBox(height: 0.0);
+      }),
+    ];
+  }
+
+  List<Widget> _getManualOrder(BuildContext context) {
+    List<LunaModule> _modules = moduleOrderedList();
+    return <Widget>[
+      ..._sharedHeader(context),
+      ..._modules.map((module) {
+        if (module.isEnabled) {
+          if (module == LunaModule.WAKE_ON_LAN) return _buildWakeOnLAN(context);
+          return _buildEntry(
+            context: context,
+            module: module,
+          );
+        }
+        return SizedBox(height: 0.0);
+      }),
     ];
   }
 
@@ -113,5 +128,19 @@ class LunaDrawer extends StatelessWidget {
       },
       contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
+  }
+
+  static List<LunaModule> moduleOrderedList() {
+    LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
+    List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
+    _modules ??= LunaModule.DASHBOARD.allExternalModules();
+    // Add any modules that were added after the user set their drawer order preference
+    _modules.addAll(
+      LunaModule.DASHBOARD.allExternalModules()
+        ..retainWhere(
+          (module) => !_modules.contains(module),
+        ),
+    );
+    return _modules;
   }
 }

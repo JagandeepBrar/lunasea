@@ -1,14 +1,7 @@
 {
-    "motd": "A quick update to fix hard crashes on startup on devices running iOS 12 or lower.",
+    "motd": "",
     "new": [],
     "tweaks": [],
     "fixes": [],
-    "platform": [
-        {
-            "module": "iOS",
-            "changes": [
-                "(fix) LunaSea would hard crash on startup on iOS 12 or lower devices"
-            ]
-        }
-    ]
+    "platform": []
 }

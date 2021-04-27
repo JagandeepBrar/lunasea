@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -56,16 +57,39 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
-        LunaDivider(),
-        _actionTile('Lidarr', LunaDatabaseValue.QUICK_ACTIONS_LIDARR),
-        _actionTile('Radarr', LunaDatabaseValue.QUICK_ACTIONS_RADARR),
-        _actionTile('Sonarr', LunaDatabaseValue.QUICK_ACTIONS_SONARR),
-        LunaDivider(),
-        _actionTile('NZBGet', LunaDatabaseValue.QUICK_ACTIONS_NZBGET),
-        _actionTile('SABnzbd', LunaDatabaseValue.QUICK_ACTIONS_SABNZBD),
-        LunaDivider(),
-        _actionTile('Tautulli', LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
+        _actionTile(
+          LunaModule.LIDARR.name,
+          LunaDatabaseValue.QUICK_ACTIONS_LIDARR,
+        ),
+        _actionTile(
+          LunaModule.NZBGET.name,
+          LunaDatabaseValue.QUICK_ACTIONS_NZBGET,
+        ),
+        if (kDebugMode)
+          _actionTile(
+            LunaModule.OVERSEERR.name,
+            LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR,
+          ),
+        _actionTile(
+          LunaModule.RADARR.name,
+          LunaDatabaseValue.QUICK_ACTIONS_RADARR,
+        ),
+        _actionTile(
+          LunaModule.SABNZBD.name,
+          LunaDatabaseValue.QUICK_ACTIONS_SABNZBD,
+        ),
+        _actionTile(
+          LunaModule.SEARCH.name,
+          LunaDatabaseValue.QUICK_ACTIONS_SEARCH,
+        ),
+        _actionTile(
+          LunaModule.SONARR.name,
+          LunaDatabaseValue.QUICK_ACTIONS_SONARR,
+        ),
+        _actionTile(
+          LunaModule.TAUTULLI.name,
+          LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI,
+        ),
       ],
     );
   }

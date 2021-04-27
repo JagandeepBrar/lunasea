@@ -12,9 +12,7 @@ class LunaState {
 
   /// Calls `.reset()` on all states which extend [LunaModuleState].
   static void reset(BuildContext context) {
-    LunaModule.values.forEach((module) {
-      if (module.enabled) module.state(context)?.reset();
-    });
+    LunaModule.values.forEach((module) => module.state(context)?.reset());
   }
 
   /// Returns a [MultiProvider] with the provided child.
@@ -24,22 +22,14 @@ class LunaState {
         providers: [
           ChangeNotifierProvider(create: (_) => DashboardState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),
-          if (LunaModule.SEARCH.enabled)
-            ChangeNotifierProvider(create: (_) => SearchState()),
-          if (LunaModule.LIDARR.enabled)
-            ChangeNotifierProvider(create: (_) => LidarrState()),
-          if (LunaModule.RADARR.enabled)
-            ChangeNotifierProvider(create: (_) => RadarrState()),
-          if (LunaModule.SONARR.enabled)
-            ChangeNotifierProvider(create: (_) => SonarrState()),
-          if (LunaModule.NZBGET.enabled)
-            ChangeNotifierProvider(create: (_) => NZBGetState()),
-          if (LunaModule.SABNZBD.enabled)
-            ChangeNotifierProvider(create: (_) => SABnzbdState()),
-          if (LunaModule.OVERSEERR.enabled)
-            ChangeNotifierProvider(create: (_) => OverseerrState()),
-          if (LunaModule.TAUTULLI.enabled)
-            ChangeNotifierProvider(create: (_) => TautulliState()),
+          ChangeNotifierProvider(create: (_) => SearchState()),
+          ChangeNotifierProvider(create: (_) => LidarrState()),
+          ChangeNotifierProvider(create: (_) => RadarrState()),
+          ChangeNotifierProvider(create: (_) => SonarrState()),
+          ChangeNotifierProvider(create: (_) => NZBGetState()),
+          ChangeNotifierProvider(create: (_) => SABnzbdState()),
+          ChangeNotifierProvider(create: (_) => OverseerrState()),
+          ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,
       );

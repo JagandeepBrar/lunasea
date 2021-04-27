@@ -13,20 +13,20 @@ class LunaRouter {
         Handler(handlerFunc: (context, params) => LunaInvalidRoute());
     DashboardRouter().defineAllRoutes(router);
     SettingsRouter().defineAllRoutes(router);
-    if (LunaModule.SEARCH.enabled) SearchRouter().defineAllRoutes(router);
-    if (LunaModule.RADARR.enabled) RadarrRouter().defineAllRoutes(router);
-    if (LunaModule.SONARR.enabled) SonarrRouter().defineAllRoutes(router);
-    if (LunaModule.OVERSEERR.enabled) OverseerrRouter().defineAllRoutes(router);
-    if (LunaModule.TAUTULLI.enabled) TautulliRouter().defineAllRoutes(router);
+    SearchRouter().defineAllRoutes(router);
+    RadarrRouter().defineAllRoutes(router);
+    SonarrRouter().defineAllRoutes(router);
+    OverseerrRouter().defineAllRoutes(router);
+    TautulliRouter().defineAllRoutes(router);
   }
 
   /// **Will be removed when all module routers are integrated.**
   ///
   /// Returns a map of all module routes.
   Map<String, WidgetBuilder> get routes => <String, WidgetBuilder>{
-        if (LunaModule.LIDARR.enabled) ..._lidarr,
-        if (LunaModule.SABNZBD.enabled) ..._sabnzbd,
-        if (LunaModule.NZBGET.enabled) ..._nzbget,
+        ..._lidarr,
+        ..._sabnzbd,
+        ..._nzbget,
       };
 
   Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder>{

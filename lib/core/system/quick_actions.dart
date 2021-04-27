@@ -19,29 +19,21 @@ class LunaQuickActions {
   void setShortcutItems() {
     if (isPlatformCompatible)
       _quickActions.setShortcutItems(<ShortcutItem>[
-        if (LunaModule.SEARCH.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data)
           LunaModule.SEARCH.shortcutItem,
-        if (LunaModule.LIDARR.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data)
           LunaModule.LIDARR.shortcutItem,
-        if (LunaModule.RADARR.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_RADARR.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_RADARR.data)
           LunaModule.RADARR.shortcutItem,
-        if (LunaModule.SONARR.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_SONARR.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_SONARR.data)
           LunaModule.SONARR.shortcutItem,
-        if (LunaModule.NZBGET.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data)
           LunaModule.NZBGET.shortcutItem,
-        if (LunaModule.SABNZBD.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data)
           LunaModule.SABNZBD.shortcutItem,
-        if (LunaModule.OVERSEERR.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR.data)
           LunaModule.OVERSEERR.shortcutItem,
-        if (LunaModule.TAUTULLI.isGloballyEnabled &&
-            LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data)
+        if (LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data)
           LunaModule.TAUTULLI.shortcutItem,
         LunaModule.SETTINGS.shortcutItem,
       ]);

@@ -41,8 +41,8 @@ class LunaColours {
   static const Color blueGrey = Color(0xFF848FA5);
 
   /// Returns the correct colour for a graph by what layer it is on the graph canvas.
-  Color byGraphLayer(int i) {
-    switch (i) {
+  Color byGraphLayer(int index) {
+    switch (index) {
       case 0:
         return LunaColours.accent;
       case 1:
@@ -50,13 +50,13 @@ class LunaColours {
       case 2:
         return LunaColours.blue;
       default:
-        return byListIndex(i);
+        return byListIndex(index);
     }
   }
 
   /// Return the correct colour for a list.
   /// If the index is greater than the list of colour's length, uses modulus to loop list.
-  Color byListIndex(int i) {
-    return _LIST_COLOR_ICONS[i % _LIST_COLOR_ICONS.length];
+  Color byListIndex(int index) {
+    return _LIST_COLOR_ICONS[index % _LIST_COLOR_ICONS.length];
   }
 }

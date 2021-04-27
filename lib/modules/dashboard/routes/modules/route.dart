@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
+import 'package:lunasea/modules/wake_on_lan.dart';
 
 class DashboardModulesRoute extends StatefulWidget {
   @override
@@ -24,8 +25,7 @@ class _State extends State<DashboardModulesRoute>
   }
 
   Widget _list() {
-    if (!(Database.indexersBox.length > 0) &&
-        !(Database.currentProfileObject.anythingEnabled)) {
+    if (!(Database.currentProfileObject.anythingEnabled)) {
       return LunaMessage(
         text: 'lunasea.NoModulesEnabled'.tr(),
         buttonText: 'lunasea.GoToSettings'.tr(),
@@ -38,22 +38,15 @@ class _State extends State<DashboardModulesRoute>
   Widget _buildList() {
     List<Widget> modules = [];
     int index = 0;
-    // Build list of all modules
-    if (Database.indexersBox.length > 0) {
-      modules.add(_buildFromLunaModule(LunaModule.SEARCH, index));
-      index++;
-    }
-    Database.currentProfileObject.enabledAutomationModules.forEach((module) {
-      modules.add(_buildFromLunaModule(module, index));
-      index++;
-    });
-    Database.currentProfileObject.enabledClientModules.forEach((module) {
-      modules.add(_buildFromLunaModule(module, index));
-      index++;
-    });
-    Database.currentProfileObject.enabledMonitoringModules.forEach((module) {
-      modules.add(_buildFromLunaModule(module, index));
-      index++;
+    LunaDrawer.moduleOrderedList().forEach((module) {
+      if (module.isEnabled) {
+        if (module == LunaModule.WAKE_ON_LAN) {
+          modules.add(_buildWakeOnLAN(context, index));
+        } else {
+          modules.add(_buildFromLunaModule(module, index));
+        }
+        index++;
+      }
     });
     modules.add(_buildFromLunaModule(LunaModule.SETTINGS, index));
     // Build that listview
@@ -75,6 +68,36 @@ class _State extends State<DashboardModulesRoute>
             : LunaColours().byListIndex(listIndex),
       ),
       onTap: module.launch,
+    );
+  }
+
+  Widget _buildWakeOnLAN(BuildContext context, int listIndex) {
+    return LunaListTile(
+      context: context,
+      title: LunaText.title(text: LunaModule.WAKE_ON_LAN.name),
+      subtitle: LunaText.subtitle(text: LunaModule.WAKE_ON_LAN.description),
+      trailing: LunaIconButton(
+        icon: LunaModule.WAKE_ON_LAN.icon,
+        color: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data
+            ? LunaModule.WAKE_ON_LAN.color
+            : LunaColours().byListIndex(listIndex),
+      ),
+      onTap: () async {
+        WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
+        await api
+            .wake()
+            .then((_) => showLunaSuccessSnackBar(
+                  title: 'Machine is Waking Up...',
+                  message: 'Magic packet successfully sent',
+                ))
+            .catchError((error, stack) {
+          LunaLogger().error('Failed to wake machine', error, stack);
+          return showLunaErrorSnackBar(
+            title: 'Failed to Wake Machine',
+            error: error,
+          );
+        });
+      },
     );
   }
 }

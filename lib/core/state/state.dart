@@ -12,9 +12,7 @@ class LunaState {
 
   /// Calls `.reset()` on all states which extend [LunaModuleState].
   static void reset(BuildContext context) {
-    LunaModule.values.forEach((module) {
-      if (module.isGloballyEnabled) module.state(context)?.reset();
-    });
+    LunaModule.values.forEach((module) => module.state(context)?.reset());
   }
 
   /// Returns a [MultiProvider] with the provided child.
@@ -24,22 +22,14 @@ class LunaState {
         providers: [
           ChangeNotifierProvider(create: (_) => DashboardState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),
-          if (LunaModule.SEARCH.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => SearchState()),
-          if (LunaModule.LIDARR.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => LidarrState()),
-          if (LunaModule.RADARR.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => RadarrState()),
-          if (LunaModule.SONARR.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => SonarrState()),
-          if (LunaModule.NZBGET.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => NZBGetState()),
-          if (LunaModule.SABNZBD.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => SABnzbdState()),
-          if (LunaModule.OVERSEERR.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => OverseerrState()),
-          if (LunaModule.TAUTULLI.isGloballyEnabled)
-            ChangeNotifierProvider(create: (_) => TautulliState()),
+          ChangeNotifierProvider(create: (_) => SearchState()),
+          ChangeNotifierProvider(create: (_) => LidarrState()),
+          ChangeNotifierProvider(create: (_) => RadarrState()),
+          ChangeNotifierProvider(create: (_) => SonarrState()),
+          ChangeNotifierProvider(create: (_) => NZBGetState()),
+          ChangeNotifierProvider(create: (_) => SABnzbdState()),
+          ChangeNotifierProvider(create: (_) => OverseerrState()),
+          ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,
       );

@@ -113,64 +113,52 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 SettingsConfigurationQuickActionsRouter().navigateTo(context),
           ),
         LunaDivider(),
-        if (LunaModule.DASHBOARD.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.DASHBOARD,
-            () async =>
-                SettingsConfigurationDashboardRouter().navigateTo(context),
-          ),
-        if (LunaModule.SEARCH.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.SEARCH,
-            () async => SettingsConfigurationSearchRouter().navigateTo(context),
-          ),
-        if (LunaModule.WAKE_ON_LAN.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.WAKE_ON_LAN,
-            () async =>
-                SettingsConfigurationWakeOnLANRouter().navigateTo(context),
-          ),
+        _tileFromModuleMap(
+          LunaModule.DASHBOARD,
+          () async =>
+              SettingsConfigurationDashboardRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.SEARCH,
+          () async => SettingsConfigurationSearchRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.WAKE_ON_LAN,
+          () async =>
+              SettingsConfigurationWakeOnLANRouter().navigateTo(context),
+        ),
         LunaDivider(),
-        if (LunaModule.LIDARR.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.LIDARR,
-            () async => SettingsConfigurationLidarrRouter().navigateTo(context),
-          ),
-        if (LunaModule.RADARR.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.RADARR,
-            () async => SettingsConfigurationRadarrRouter().navigateTo(context),
-          ),
-        if (LunaModule.SONARR.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.SONARR,
-            () async => SettingsConfigurationSonarrRouter().navigateTo(context),
-          ),
+        _tileFromModuleMap(
+          LunaModule.LIDARR,
+          () async => SettingsConfigurationLidarrRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.RADARR,
+          () async => SettingsConfigurationRadarrRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.SONARR,
+          () async => SettingsConfigurationSonarrRouter().navigateTo(context),
+        ),
         LunaDivider(),
-        if (LunaModule.NZBGET.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.NZBGET,
-            () async => SettingsConfigurationNZBGetRouter().navigateTo(context),
-          ),
-        if (LunaModule.SABNZBD.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.SABNZBD,
-            () async =>
-                SettingsConfigurationSABnzbdRouter().navigateTo(context),
-          ),
+        _tileFromModuleMap(
+          LunaModule.NZBGET,
+          () async => SettingsConfigurationNZBGetRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.SABNZBD,
+          () async => SettingsConfigurationSABnzbdRouter().navigateTo(context),
+        ),
         LunaDivider(),
-        if (LunaModule.OVERSEERR.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.OVERSEERR,
-            () async =>
-                SettingsConfigurationOverseerrRouter().navigateTo(context),
-          ),
-        if (LunaModule.TAUTULLI.isGloballyEnabled)
-          _tileFromModuleMap(
-            LunaModule.TAUTULLI,
-            () async =>
-                SettingsConfigurationTautulliRouter().navigateTo(context),
-          ),
+        _tileFromModuleMap(
+          LunaModule.OVERSEERR,
+          () async =>
+              SettingsConfigurationOverseerrRouter().navigateTo(context),
+        ),
+        _tileFromModuleMap(
+          LunaModule.TAUTULLI,
+          () async => SettingsConfigurationTautulliRouter().navigateTo(context),
+        ),
       ],
     );
   }

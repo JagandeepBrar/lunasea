@@ -78,7 +78,8 @@ class Database {
   }
 
   //Profile values
-  static String get currentProfile => lunaSeaBox.get('profile');
+  static String get currentProfile =>
+      lunaSeaBox.get(LunaDatabaseValue.ENABLED_PROFILE.key);
   static ProfileHiveObject get currentProfileObject =>
       profilesBox.get(currentProfile);
 }

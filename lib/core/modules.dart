@@ -4,44 +4,82 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
 import 'package:quick_actions/quick_actions.dart';
 
+part 'modules.g.dart';
+
+const _DASHBOARD_KEY = 'dashboard';
+const _LIDARR_KEY = 'lidarr';
+const _NZBGET_KEY = 'nzbget';
+const _OVERSEERR_KEY = 'overseerr';
+const _RADARR_KEY = 'radarr';
+const _SABNZBD_KEY = 'sabnzbd';
+const _SEARCH_KEY = 'search';
+const _SETTINGS_KEY = 'settings';
+const _SONARR_KEY = 'sonarr';
+const _TAUTULLI_KEY = 'tautulli';
+const _WAKE_ON_LAN_KEY = 'wake_on_lan';
+
+@HiveType(typeId: 25, adapterName: 'LunaModuleAdapter')
 enum LunaModule {
+  @HiveField(0)
   DASHBOARD,
+  @HiveField(1)
   LIDARR,
+  @HiveField(2)
   NZBGET,
+  @HiveField(3)
   OVERSEERR,
+  @HiveField(4)
   RADARR,
+  @HiveField(5)
   SABNZBD,
+  @HiveField(6)
   SEARCH,
+  @HiveField(7)
   SETTINGS,
+  @HiveField(8)
   SONARR,
+  @HiveField(9)
   TAUTULLI,
+  @HiveField(10)
   WAKE_ON_LAN,
 }
 
 extension LunaModuleExtension on LunaModule {
+  /// Returns a list of only active/enabled _external_ modules.
+  ///
+  /// External modules are modules that are not entirely internal (dashboard, settings, etc.)
+  List<LunaModule> allExternalModules() {
+    List<LunaModule> modules = LunaModule.values.toList()
+      ..remove(LunaModule.DASHBOARD)
+      ..remove(LunaModule.SETTINGS);
+    // Remove additional hidden modules
+    if (kReleaseMode) modules.remove(LunaModule.OVERSEERR);
+    return modules;
+  }
+
   LunaModule fromKey(String key) {
     switch (key) {
-      case 'dashboard':
+      case _DASHBOARD_KEY:
         return LunaModule.DASHBOARD;
-      case 'lidarr':
+      case _LIDARR_KEY:
         return LunaModule.LIDARR;
-      case 'nzbget':
+      case _NZBGET_KEY:
         return LunaModule.NZBGET;
-      case 'radarr':
+      case _RADARR_KEY:
         return LunaModule.RADARR;
-      case 'sabnzbd':
+      case _SABNZBD_KEY:
         return LunaModule.SABNZBD;
-      case 'search':
+      case _SEARCH_KEY:
         return LunaModule.SEARCH;
-      case 'settings':
+      case _SETTINGS_KEY:
         return LunaModule.SETTINGS;
-      case 'sonarr':
+      case _SONARR_KEY:
         return LunaModule.SONARR;
-      case 'overseerr':
+      case _OVERSEERR_KEY:
         return LunaModule.OVERSEERR;
-      case 'tautulli':
+      case _TAUTULLI_KEY:
         return LunaModule.TAUTULLI;
-      case 'wake_on_lan':
+      case _WAKE_ON_LAN_KEY:
         return LunaModule.WAKE_ON_LAN;
     }
     return null;
@@ -50,57 +88,89 @@ extension LunaModuleExtension on LunaModule {
   String get key {
     switch (this) {
       case LunaModule.DASHBOARD:
-        return 'dashboard';
+        return _DASHBOARD_KEY;
       case LunaModule.LIDARR:
-        return 'lidarr';
+        return _LIDARR_KEY;
       case LunaModule.NZBGET:
-        return 'nzbget';
+        return _NZBGET_KEY;
       case LunaModule.RADARR:
-        return 'radarr';
+        return _RADARR_KEY;
       case LunaModule.SABNZBD:
-        return 'sabnzbd';
+        return _SABNZBD_KEY;
       case LunaModule.SEARCH:
-        return 'search';
+        return _SEARCH_KEY;
       case LunaModule.SETTINGS:
-        return 'settings';
+        return _SETTINGS_KEY;
       case LunaModule.SONARR:
-        return 'sonarr';
+        return _SONARR_KEY;
       case LunaModule.OVERSEERR:
-        return 'overseerr';
+        return _OVERSEERR_KEY;
       case LunaModule.TAUTULLI:
-        return 'tautulli';
+        return _TAUTULLI_KEY;
       case LunaModule.WAKE_ON_LAN:
-        return 'wake_on_lan';
+        return _WAKE_ON_LAN_KEY;
     }
     throw Exception('Invalid LunaModule');
   }
 
-  bool get enabled {
+  /// Returns true if the module is enabled in the current profile.
+  bool get isEnabled {
     switch (this) {
-      // Always enabled
       case LunaModule.DASHBOARD:
         return true;
       case LunaModule.SETTINGS:
         return true;
-      // Modules
-      case LunaModule.SEARCH:
-        return true;
-      case LunaModule.WAKE_ON_LAN:
-        return true;
       case LunaModule.LIDARR:
-        return true;
-      case LunaModule.RADARR:
-        return true;
-      case LunaModule.SONARR:
-        return true;
+        return Database.currentProfileObject?.lidarrEnabled ?? false;
       case LunaModule.NZBGET:
-        return true;
-      case LunaModule.SABNZBD:
-        return true;
+        return Database.currentProfileObject?.nzbgetEnabled ?? false;
       case LunaModule.OVERSEERR:
-        return kDebugMode;
+        return Database.currentProfileObject?.overseerrEnabled ?? false;
+      case LunaModule.RADARR:
+        return Database.currentProfileObject?.radarrEnabled ?? false;
+      case LunaModule.SABNZBD:
+        return Database.currentProfileObject?.sabnzbdEnabled ?? false;
+      case LunaModule.SEARCH:
+        return Database.indexersBox?.isNotEmpty ?? false;
+      case LunaModule.SONARR:
+        return Database.currentProfileObject?.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:
-        return true;
+        return Database.currentProfileObject?.tautulliEnabled ?? false;
+      case LunaModule.WAKE_ON_LAN:
+        return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
+    }
+    throw Exception('Invalid LunaModule');
+  }
+
+  /// Fetch the currently loaded configuration for a module.
+  ///
+  ///
+  Map<String, dynamic> get loadedConfiguration {
+    switch (this) {
+      case LunaModule.DASHBOARD:
+        return {};
+      case LunaModule.LIDARR:
+        return Database.currentProfileObject.getLidarr();
+      case LunaModule.NZBGET:
+        return Database.currentProfileObject.getNZBGet();
+      case LunaModule.OVERSEERR:
+        return Database.currentProfileObject.getOverseerr();
+      case LunaModule.RADARR:
+        return Database.currentProfileObject.getRadarr();
+      case LunaModule.SABNZBD:
+        return Database.currentProfileObject.getSABnzbd();
+      case LunaModule.SEARCH:
+        return Database.indexersBox
+            .toMap()
+            .map((key, value) => MapEntry(key.toString(), value.toMap()));
+      case LunaModule.SETTINGS:
+        return {};
+      case LunaModule.SONARR:
+        return Database.currentProfileObject.getSonarr();
+      case LunaModule.TAUTULLI:
+        return Database.currentProfileObject.getTautulli();
+      case LunaModule.WAKE_ON_LAN:
+        return Database.currentProfileObject.getWakeOnLAN();
     }
     throw Exception('Invalid LunaModule');
   }
@@ -184,7 +254,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return LunaIcons.overseerr;
       case LunaModule.WAKE_ON_LAN:
-        return Icons.settings_remote;
+        return Icons.settings_remote_rounded;
     }
     throw Exception('Invalid LunaModule');
   }

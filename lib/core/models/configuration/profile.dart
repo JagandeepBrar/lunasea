@@ -427,38 +427,10 @@ class ProfileHiveObject extends HiveObject {
         'headers': overseerrHeaders ?? {},
       };
 
-  List<LunaModule> get enabledModules => [
-        ...enabledAutomationModules,
-        ...enabledClientModules,
-        ...enabledMonitoringModules,
-      ];
-
-  List<LunaModule> get enabledAutomationModules => [
-        if (LunaModule.LIDARR.enabled && (lidarrEnabled ?? false))
-          LunaModule.LIDARR,
-        if (LunaModule.RADARR.enabled && (radarrEnabled ?? false))
-          LunaModule.RADARR,
-        if (LunaModule.SONARR.enabled && (sonarrEnabled ?? false))
-          LunaModule.SONARR,
-      ];
-
-  List<LunaModule> get enabledClientModules => [
-        if (LunaModule.NZBGET.enabled && (nzbgetEnabled ?? false))
-          LunaModule.NZBGET,
-        if (LunaModule.SABNZBD.enabled && (sabnzbdEnabled ?? false))
-          LunaModule.SABNZBD,
-      ];
-
-  List<LunaModule> get enabledMonitoringModules => [
-        if (LunaModule.OVERSEERR.enabled && (overseerrEnabled ?? false))
-          LunaModule.OVERSEERR,
-        if (LunaModule.TAUTULLI.enabled && (tautulliEnabled ?? false))
-          LunaModule.TAUTULLI,
-      ];
-
-  bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;
-  bool get anyClientsEnabled => enabledClientModules.isNotEmpty;
-  bool get anyMonitoringEnabled => enabledMonitoringModules.isNotEmpty;
-  bool get anythingEnabled =>
-      anyAutomationEnabled || anyClientsEnabled || anyMonitoringEnabled;
+  bool get anythingEnabled {
+    for (LunaModule module in LunaModule.DASHBOARD.allExternalModules()) {
+      if (module.isEnabled) return true;
+    }
+    return false;
+  }
 }

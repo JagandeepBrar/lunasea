@@ -24,10 +24,10 @@ class LunaDatabase extends LunaModuleDatabase {
               (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key;
           break;
         case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
-          data[value.key] =
-              (LunaDatabaseValue.DRAWER_MANUAL_ORDER as List<LunaModule>)
-                  .map<String>((module) => module.key)
-                  .toList();
+          data[value.key] = (LunaDatabaseValue.DRAWER_MANUAL_ORDER.data as List)
+              .cast<LunaModule>()
+              .map<String>((module) => module.key)
+              .toList();
           break;
         // Primitive values
         case LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE:
@@ -64,9 +64,15 @@ class LunaDatabase extends LunaModuleDatabase {
           case LunaDatabaseValue.SELECTED_BROWSER:
             value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key]));
             break;
+          case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
+            value.put(
+              (config[key] as List)
+                  .map<LunaModule>((item) => LunaModule.DASHBOARD.fromKey(item))
+                  .toList(),
+            );
+            break;
           // Primitive values
           case LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE:
-          case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
           case LunaDatabaseValue.ENABLED_PROFILE:
           case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
           case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:

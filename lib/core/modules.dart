@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -47,9 +48,14 @@ extension LunaModuleExtension on LunaModule {
   /// Returns a list of only active/enabled _external_ modules.
   ///
   /// External modules are modules that are not entirely internal (dashboard, settings, etc.)
-  List<LunaModule> allExternalModules() => LunaModule.values.toList()
-    ..remove(LunaModule.DASHBOARD)
-    ..remove(LunaModule.SETTINGS);
+  List<LunaModule> allExternalModules() {
+    List<LunaModule> modules = LunaModule.values.toList()
+      ..remove(LunaModule.DASHBOARD)
+      ..remove(LunaModule.SETTINGS);
+    // Remove additional hidden modules
+    if (kReleaseMode) modules.remove(LunaModule.OVERSEERR);
+    return modules;
+  }
 
   LunaModule fromKey(String key) {
     switch (key) {

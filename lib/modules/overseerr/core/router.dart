@@ -22,7 +22,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context.read<OverseerrState>().enabled) {
-            return LunaNotEnabledRoute(module: 'Overseerr');
+            return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.name);
           }
           return widget();
         },
@@ -42,7 +42,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context.read<OverseerrState>().enabled) {
-            return LunaNotEnabledRoute(module: 'Overseerr');
+            return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.name);
           }
           return handlerFunc(context, params);
         },

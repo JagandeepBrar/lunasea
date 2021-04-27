@@ -9,7 +9,7 @@ class SonarrSeriesEditTagsTile extends StatelessWidget {
       context: context,
       title: LunaText.title(text: 'Tags'),
       subtitle: LunaText.subtitle(
-        text: context.watch<SonarrSeriesEditState>().tags.isEmpty
+        text: (context.watch<SonarrSeriesEditState>().tags?.isEmpty ?? true)
             ? 'Not Set'
             : context
                 .watch<SonarrSeriesEditState>()

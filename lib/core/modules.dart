@@ -57,6 +57,9 @@ extension LunaModuleExtension on LunaModule {
     return modules;
   }
 
+  /// Used to convert a string key back to a [LunaModule] value.
+  ///
+  /// If the key is not found, returns null.
   LunaModule fromKey(String key) {
     switch (key) {
       case _DASHBOARD_KEY:
@@ -85,6 +88,7 @@ extension LunaModuleExtension on LunaModule {
     return null;
   }
 
+  /// Given a [LunaModule], return the module's key.
   String get key {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -144,7 +148,7 @@ extension LunaModuleExtension on LunaModule {
 
   /// Fetch the currently loaded configuration for a module.
   ///
-  ///
+  /// Pulled from the currently loaded profile.
   Map<String, dynamic> get loadedConfiguration {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -175,6 +179,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The name of the module.
   String get name {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -203,6 +208,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The full base/home route for the module.
   String get route {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -231,6 +237,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The module's icon.
   IconData get icon {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -259,6 +266,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The [LunaModuleDatabase] for the module.
   LunaModuleDatabase get database {
     switch (this) {
       case LunaModule.SETTINGS:
@@ -287,6 +295,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The global provider/state for the module.
   LunaModuleState state(BuildContext context) {
     switch (this) {
       case LunaModule.WAKE_ON_LAN:
@@ -315,6 +324,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// The module's brand colour.
   Color get color {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -343,6 +353,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// If available, the module's website.
   String get website {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -371,6 +382,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// If available, link to the module's GitHub repository.
   String get github {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -399,6 +411,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Description of the module, to be used in the module list.
   String get description {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -427,6 +440,9 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Return the description/information for the module.
+  ///
+  /// This is the full information, copied from each module's website/GitHub.
   String get information {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -455,6 +471,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Return the [ShortcutItem] for the module.
   ShortcutItem get shortcutItem {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -483,6 +500,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Returns true if the module has a webhook handler available.
   bool get hasWebhooks {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -511,6 +529,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Clears/hides all banners for the module.
   void hideAllBanners() {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -539,6 +558,7 @@ extension LunaModuleExtension on LunaModule {
     throw Exception('Invalid LunaModule');
   }
 
+  /// Execute and handle the webhook for the module.
   Future<void> handleWebhook(Map<String, dynamic> data) async {
     switch (this) {
       case LunaModule.DASHBOARD:
@@ -563,6 +583,35 @@ extension LunaModuleExtension on LunaModule {
         return TautulliWebhooks().handle(data);
       case LunaModule.WAKE_ON_LAN:
         return;
+    }
+    throw Exception('Invalid LunaModule');
+  }
+
+  /// Return the [SettingsPageRouter] for the module.
+  SettingsPageRouter get settingsPage {
+    switch (this) {
+      case LunaModule.DASHBOARD:
+        return SettingsConfigurationDashboardRouter();
+      case LunaModule.LIDARR:
+        return SettingsConfigurationLidarrRouter();
+      case LunaModule.NZBGET:
+        return SettingsConfigurationNZBGetRouter();
+      case LunaModule.OVERSEERR:
+        return SettingsConfigurationOverseerrRouter();
+      case LunaModule.RADARR:
+        return SettingsConfigurationRadarrRouter();
+      case LunaModule.SABNZBD:
+        return SettingsConfigurationSABnzbdRouter();
+      case LunaModule.SEARCH:
+        return SettingsConfigurationSearchRouter();
+      case LunaModule.SETTINGS:
+        return null;
+      case LunaModule.SONARR:
+        return SettingsConfigurationSonarrRouter();
+      case LunaModule.TAUTULLI:
+        return SettingsConfigurationTautulliRouter();
+      case LunaModule.WAKE_ON_LAN:
+        return SettingsConfigurationWakeOnLANRouter();
     }
     throw Exception('Invalid LunaModule');
   }

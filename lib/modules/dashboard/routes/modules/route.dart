@@ -32,10 +32,36 @@ class _State extends State<DashboardModulesRoute>
         onTap: LunaModule.SETTINGS.launch,
       );
     }
-    return _buildList();
+    return LunaListView(
+      controller: DashboardNavigationBar.scrollControllers[0],
+      children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+          ? _buildAlphabeticalList()
+          : _buildManuallyOrderedList(),
+    );
   }
 
-  Widget _buildList() {
+  List<Widget> _buildAlphabeticalList() {
+    List<Widget> modules = [];
+    int index = 0;
+    LunaModule.DASHBOARD.allExternalModules()
+      ..sort((a, b) => a.name.toLowerCase().compareTo(
+            b.name.toLowerCase(),
+          ))
+      ..forEach((module) {
+        if (module.isEnabled) {
+          if (module == LunaModule.WAKE_ON_LAN) {
+            modules.add(_buildWakeOnLAN(context, index));
+          } else {
+            modules.add(_buildFromLunaModule(module, index));
+          }
+          index++;
+        }
+      });
+    modules.add(_buildFromLunaModule(LunaModule.SETTINGS, index));
+    return modules;
+  }
+
+  List<Widget> _buildManuallyOrderedList() {
     List<Widget> modules = [];
     int index = 0;
     LunaDrawer.moduleOrderedList().forEach((module) {
@@ -49,11 +75,7 @@ class _State extends State<DashboardModulesRoute>
       }
     });
     modules.add(_buildFromLunaModule(LunaModule.SETTINGS, index));
-    // Build that listview
-    return LunaListView(
-      controller: DashboardNavigationBar.scrollControllers[0],
-      children: modules,
-    );
+    return modules;
   }
 
   Widget _buildFromLunaModule(LunaModule module, int listIndex) {

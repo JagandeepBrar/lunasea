@@ -147,7 +147,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Sonarr(
                 host: _profile.sonarrHost,
                 apiKey: _profile.sonarrKey,
-                headers: Map<String, dynamic>.from(_profile.sonarrHeaders))
+                headers:
+                    Map<String, dynamic>.from(_profile.sonarrHeaders ?? {}))
             .system
             .getStatus()
             .then((_) => showLunaSuccessSnackBar(

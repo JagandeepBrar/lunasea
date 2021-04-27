@@ -135,7 +135,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Radarr(
           host: _profile.radarrHost,
           apiKey: _profile.radarrKey,
-          headers: Map<String, dynamic>.from(_profile.radarrHeaders),
+          headers: Map<String, dynamic>.from(_profile.radarrHeaders ?? {}),
         )
             .system
             .status()

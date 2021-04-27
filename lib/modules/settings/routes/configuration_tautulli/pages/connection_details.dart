@@ -113,14 +113,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
         ProfileHiveObject _profile = Database.currentProfileObject;
-        if (_profile.tautulliHost == null || _profile.tautulliHost.isEmpty) {
+        if (_profile?.tautulliHost?.isEmpty ?? true) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Tautulli',
           );
           return;
         }
-        if (_profile.tautulliKey == null || _profile.tautulliKey.isEmpty) {
+        if (_profile?.tautulliKey?.isEmpty ?? true) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Tautulli',
@@ -130,7 +130,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Tautulli(
                 host: _profile.tautulliHost,
                 apiKey: _profile.tautulliKey,
-                headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
+                headers:
+                    Map<String, dynamic>.from(_profile?.tautulliHeaders ?? {}))
             .miscellaneous
             .arnold()
             .then((_) => showLunaSuccessSnackBar(

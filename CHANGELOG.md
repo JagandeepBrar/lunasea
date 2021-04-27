@@ -2,9 +2,20 @@
 
 ## v5.1.0 (50100001)
 
+#### NEW
+
+- `[Dashboard]` (Modules) Show Wake on LAN tile
+- `[Drawer]` Ability to customize the order of modules
+
+#### TWEAKS
+
+- `[Dashboard]` (Modules) Synchronize module ordering with drawer ordering
+- `[Drawer]` Default to sorting modules manually
+
 #### FIXES
 
 - `[Search]` Indexers would not load in some cases when the headers map was null/empty
+- `[UI/UX]` Popup menus were not aligned correctly
 
 ---
 

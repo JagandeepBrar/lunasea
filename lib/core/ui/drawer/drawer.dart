@@ -131,10 +131,9 @@ class LunaDrawer extends StatelessWidget {
   }
 
   static List<LunaModule> moduleOrderedList() {
-    List<LunaModule> _modules =
-        (LunaDatabaseValue.DRAWER_MANUAL_ORDER.data as List<dynamic>)
-                .cast<LunaModule>() ??
-            LunaModule.DASHBOARD.allExternalModules();
+    LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
+    List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
+    _modules ??= LunaModule.DASHBOARD.allExternalModules();
     // Add any modules that were added after the user set their drawer order preference
     _modules.addAll(
       LunaModule.DASHBOARD.allExternalModules()

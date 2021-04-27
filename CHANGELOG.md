@@ -11,6 +11,7 @@
 
 - `[Dashboard]` (Modules) Synchronize module ordering with drawer ordering
 - `[Drawer]` Default to sorting modules manually
+- `[Settings]` (Configuration) Alphabetically sort the modules
 
 #### FIXES
 

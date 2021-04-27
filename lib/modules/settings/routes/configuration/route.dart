@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:fluro/fluro.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -114,64 +113,26 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 SettingsConfigurationQuickActionsRouter().navigateTo(context),
           ),
         LunaDivider(),
-        _tileFromModuleMap(
-          LunaModule.DASHBOARD,
-          () async =>
-              SettingsConfigurationDashboardRouter().navigateTo(context),
-        ),
-        _tileFromModuleMap(
-          LunaModule.SEARCH,
-          () async => SettingsConfigurationSearchRouter().navigateTo(context),
-        ),
-        _tileFromModuleMap(
-          LunaModule.WAKE_ON_LAN,
-          () async =>
-              SettingsConfigurationWakeOnLANRouter().navigateTo(context),
-        ),
-        LunaDivider(),
-        _tileFromModuleMap(
-          LunaModule.LIDARR,
-          () async => SettingsConfigurationLidarrRouter().navigateTo(context),
-        ),
-        _tileFromModuleMap(
-          LunaModule.RADARR,
-          () async => SettingsConfigurationRadarrRouter().navigateTo(context),
-        ),
-        _tileFromModuleMap(
-          LunaModule.SONARR,
-          () async => SettingsConfigurationSonarrRouter().navigateTo(context),
-        ),
-        LunaDivider(),
-        _tileFromModuleMap(
-          LunaModule.NZBGET,
-          () async => SettingsConfigurationNZBGetRouter().navigateTo(context),
-        ),
-        _tileFromModuleMap(
-          LunaModule.SABNZBD,
-          () async => SettingsConfigurationSABnzbdRouter().navigateTo(context),
-        ),
-        LunaDivider(),
-        if (kDebugMode)
-          _tileFromModuleMap(
-            LunaModule.OVERSEERR,
-            () async =>
-                SettingsConfigurationOverseerrRouter().navigateTo(context),
-          ),
-        _tileFromModuleMap(
-          LunaModule.TAUTULLI,
-          () async => SettingsConfigurationTautulliRouter().navigateTo(context),
-        ),
+        ..._moduleList(),
       ],
     );
   }
 
-  Widget _tileFromModuleMap(LunaModule module, Function onTap) {
+  List<Widget> _moduleList() {
+    return (LunaModule.values.toList()
+          ..remove(LunaModule.SETTINGS)
+          ..remove(LunaModule.OVERSEERR))
+        .map(_tileFromModuleMap)
+        .toList();
+  }
+
+  Widget _tileFromModuleMap(LunaModule module) {
     return LunaListTile(
       context: context,
       title: LunaText.title(text: module.name),
       subtitle: LunaText.subtitle(text: 'Configure ${module.name}'),
       trailing: LunaIconButton(icon: module.icon),
-      onTap: onTap,
+      onTap: () async => module.settingsPage.navigateTo(context),
     );
   }
 }

@@ -15,6 +15,8 @@
 
 #### FIXES
 
+- `[Flutter]` Updated packages
+- `[Flutter]` Upgrade to Firebase SDK v7.11.0
 - `[Locale]` Ensure that the date formatter uses the currently set locale
 - `[Search]` Indexers would not load in some cases when the headers map was null/empty
 - `[Settings]` (Connection Test) Connection tests could fail unexpectedly

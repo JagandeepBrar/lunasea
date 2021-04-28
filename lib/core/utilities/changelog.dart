@@ -128,7 +128,6 @@ class LunaChangelog {
 
 class _Changelog {
   String motd;
-  String version;
   List<_Change> changesNew;
   List<_Change> changesTweaks;
   List<_Change> changesFixes;
@@ -137,7 +136,6 @@ class _Changelog {
   static _Changelog fromJson(Map<String, dynamic> json) {
     _Changelog changelog = _Changelog();
     changelog.motd = json['motd'] ?? '';
-    changelog.version = json['version'] ?? '';
     changelog.changesNew = [];
     if (json['new'] != null) {
       (json['new'] as List).forEach(

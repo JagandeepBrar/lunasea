@@ -942,10 +942,12 @@ class SettingsDialogs {
         LunaDialog.textContent(
           text:
               '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint1'.tr()}',
+          textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
               '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint2'.tr()}',
+          textAlign: TextAlign.left,
         ),
         Form(
           key: _formKey,

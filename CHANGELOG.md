@@ -10,14 +10,14 @@
 #### TWEAKS
 
 - `[Dashboard]` (Modules) Synchronize module ordering with drawer ordering
-- `[Drawer]` Default to sorting modules manually
+- `[Drawer]` Default to sorting modules alphabetically
 - `[Settings]` (Configuration) Alphabetically sort the modules
 
 #### FIXES
 
 - `[Locale]` Ensure that the date formatter uses the currently set locale
 - `[Search]` Indexers would not load in some cases when the headers map was null/empty
-- `[Settings]` (Connection Test) Connection test could fail unexpectedly
+- `[Settings]` (Connection Test) Connection tests could fail unexpectedly
 - `[Sonarr]` (Edit) Grey screen could be shown when a user has no tags
 - `[Sonarr]` (Edit) Grey screen could be shown when a user has no language profiles
 - `[UI/UX]` Popup menus were not aligned correctly

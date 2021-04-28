@@ -36,6 +36,13 @@
     ],
     "fixes": [
         {
+            "module": "Flutter",
+            "changes": [
+                "Updated packages",
+                "Upgrade to Firebase SDK v7.11.0"
+            ]
+        },
+        {
             "module": "Locale",
             "changes": [
                 "Ensure that the date formatter uses the currently set locale"

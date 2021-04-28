@@ -62,7 +62,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         Tuple2<bool, LunaLanguage> result =
             await SettingsDialogs().changeLanguage(context);
-        if (result.item1) result.item2.use(context);
+        if (result.item1) {
+          result.item2.use(context);
+          Intl.defaultLocale = result.item2?.languageTag;
+        }
       },
     );
   }

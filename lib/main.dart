@@ -10,11 +10,13 @@ Future<void> main() async {
   runZonedGuarded(
     () async {
       await _init();
+      LunaLocalization localization = LunaLocalization();
       return runApp(
         EasyLocalization(
-          supportedLocales: LunaLocalization().supportedLocales,
-          path: LunaLocalization().fileDirectory,
-          fallbackLocale: LunaLocalization().fallbackLocale,
+          supportedLocales: localization.supportedLocales,
+          path: localization.fileDirectory,
+          fallbackLocale: localization.fallbackLocale,
+          startLocale: localization.fallbackLocale,
           useFallbackTranslations: true,
           child: LunaBIOS(),
         ),
@@ -91,6 +93,8 @@ class _State extends State<LunaBIOS> {
     _firebaseOnMessageOpenedAppListener =
         LunaFirebaseMessaging().onMessageOpenedAppListener();
     // Remaining boot sequence
+    Intl.defaultLocale =
+        LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag ?? 'en';
     LunaQuickActions().initialize();
     LunaChangelog().checkAndShowChangelog();
     LunaFirebaseAnalytics().appOpened();

@@ -15,6 +15,7 @@
 
 #### FIXES
 
+- `[Locale]` Ensure that the date formatter uses the currently set locale
 - `[Search]` Indexers would not load in some cases when the headers map was null/empty
 - `[Settings]` (Connection Test) Connection test could fail unexpectedly
 - `[Sonarr]` (Edit) Grey screen could be shown when a user has no tags

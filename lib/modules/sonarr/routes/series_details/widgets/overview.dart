@@ -82,7 +82,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
               headers: Provider.of<SonarrState>(context, listen: false)
                   .headers
                   .cast<String, String>(),
-              placeholderAsset: 'assets/images/blanks/video.png',
+              placeholderAsset: LunaAssets.video,
               height: _height,
               width: _width,
             ),
@@ -137,7 +137,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset('assets/images/services/imdb.png'),
+                child: Image.asset(LunaAssets.imdb),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -151,7 +151,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset('assets/images/services/trakt.png'),
+                child: Image.asset(LunaAssets.trakt),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -166,7 +166,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset('assets/images/services/thetvdb.png'),
+                child: Image.asset(LunaAssets.thetvdb),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -181,7 +181,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset('assets/images/services/tvmaze.png'),
+                child: Image.asset(LunaAssets.tvmaze),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),

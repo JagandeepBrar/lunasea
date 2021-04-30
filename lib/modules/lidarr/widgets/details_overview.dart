@@ -31,7 +31,7 @@ class _State extends State<LidarrDetailsOverview>
               ? 'No summary is available.'
               : widget?.data?.overview,
           uri: widget?.data?.posterURI() ?? '',
-          fallbackImage: 'assets/images/blanks/user.png',
+          fallbackImage: LunaAssets.user,
           squareImage: true,
           headers: Database.currentProfileObject.getLidarr()['headers'],
         ),
@@ -43,8 +43,7 @@ class _State extends State<LidarrDetailsOverview>
                 context: context,
                 child: InkWell(
                   child: Padding(
-                    child:
-                        Image.asset('assets/images/services/bandsintown.png'),
+                    child: Image.asset(LunaAssets.bandsintown),
                     padding: EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -60,7 +59,7 @@ class _State extends State<LidarrDetailsOverview>
                 context: context,
                 child: InkWell(
                   child: Padding(
-                    child: Image.asset('assets/images/services/discogs.png'),
+                    child: Image.asset(LunaAssets.discogs),
                     padding: EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -76,7 +75,7 @@ class _State extends State<LidarrDetailsOverview>
                 context: context,
                 child: InkWell(
                   child: Padding(
-                    child: Image.asset('assets/images/services/lastfm.png'),
+                    child: Image.asset(LunaAssets.lastfm),
                     padding: EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),

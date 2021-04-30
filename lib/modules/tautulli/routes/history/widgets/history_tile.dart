@@ -44,7 +44,7 @@ class TautulliHistoryTile extends StatelessWidget {
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension / 1.5,
-        placeholderAsset: 'assets/images/blanks/video.png',
+        placeholderAsset: LunaAssets.video,
       );
 
   Widget get _details => Expanded(

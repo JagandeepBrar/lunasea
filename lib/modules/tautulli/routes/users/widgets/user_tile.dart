@@ -43,7 +43,7 @@ class TautulliUserTile extends StatelessWidget {
 
   Widget _userThumb(BuildContext context) => LunaNetworkImage(
         url: user.userThumb,
-        placeholderAsset: 'assets/images/blanks/user.png',
+        placeholderAsset: LunaAssets.user,
         height: _imageDimension,
         width: _imageDimension,
       );

@@ -161,7 +161,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
                 ? 'No summary is available.'
                 : _arguments.data.overview,
             uri: _arguments.data.posterURI ?? '',
-            fallbackImage: 'assets/images/blanks/user.png',
+            fallbackImage: LunaAssets.user,
             squareImage: true,
             headers: Database.currentProfileObject.getLidarr()['headers'],
           ),

@@ -23,7 +23,7 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
       backgroundUrl: widget.movie.remotePoster,
       posterUrl: widget.movie.remotePoster,
       posterHeaders: context.watch<RadarrState>().headers,
-      posterPlaceholder: 'assets/images/blanks/video.png',
+      posterPlaceholder: LunaAssets.video,
       title: widget.movie.title,
       subtitle1: _subtitle1(),
       subtitle2: _subtitle2(),

@@ -10,6 +10,7 @@ export 'package:provider/provider.dart';
 export 'package:supercharged/supercharged.dart';
 export 'package:tuple/tuple.dart';
 // Local
+export 'core/assets.dart';
 export 'core/database.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';

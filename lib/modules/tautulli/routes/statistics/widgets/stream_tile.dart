@@ -29,7 +29,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
           image: DecorationImage(
-            image: AssetImage('assets/images/blanks/stream.png'),
+            image: AssetImage(LunaAssets.stream),
             fit: BoxFit.cover,
           ),
         ),

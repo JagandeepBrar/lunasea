@@ -30,7 +30,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                       widget.data.albumCoverURI() != ''
                   ? LunaNetworkImage(
                       url: widget.data.albumCoverURI(),
-                      placeholderAsset: 'assets/images/blanks/audio.png',
+                      placeholderAsset: LunaAssets.audio,
                       headers: ((Database.currentProfileObject
                                   .getLidarr()['headers'] ??
                               {}) as Map)

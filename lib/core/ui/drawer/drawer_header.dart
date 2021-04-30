@@ -60,7 +60,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
           decoration: BoxDecoration(
             color: LunaColours.accent,
             image: DecorationImage(
-              image: AssetImage('assets/images/branding/icon_drawer.png'),
+              image: AssetImage(LunaAssets.iconDrawer),
               colorFilter: ColorFilter.mode(
                   LunaColours.primary.withOpacity(0.15), BlendMode.dstATop),
               fit: BoxFit.cover,

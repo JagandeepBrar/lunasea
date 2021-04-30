@@ -9,6 +9,20 @@ class LunaDrawer extends StatelessWidget {
     @required this.page,
   });
 
+  static List<LunaModule> moduleOrderedList() {
+    LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
+    List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
+    _modules ??= LunaModule.DASHBOARD.allExternalModules();
+    // Add any modules that were added after the user set their drawer order preference
+    _modules.addAll(
+      LunaModule.DASHBOARD.allExternalModules()
+        ..retainWhere(
+          (module) => !_modules.contains(module),
+        ),
+    );
+    return _modules;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
@@ -128,19 +142,5 @@ class LunaDrawer extends StatelessWidget {
       },
       contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
-  }
-
-  static List<LunaModule> moduleOrderedList() {
-    LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
-    List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
-    _modules ??= LunaModule.DASHBOARD.allExternalModules();
-    // Add any modules that were added after the user set their drawer order preference
-    _modules.addAll(
-      LunaModule.DASHBOARD.allExternalModules()
-        ..retainWhere(
-          (module) => !_modules.contains(module),
-        ),
-    );
-    return _modules;
   }
 }

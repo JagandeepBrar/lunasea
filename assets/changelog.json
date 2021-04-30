@@ -1,76 +1,39 @@
 {
-    "motd": "Welcome to the first build of v5.1.0 of LunaSea!\n\nThis build introduces a new feature to customize the order of modules in your drawer! Head to the settings to customize your ordering, or stick to the automatically managed ordering, which simply sorts modules alphabetically. The dashboard and settings options are static and can not be removed or reordered.\n\nThis build also introduces some fixes, including indexer search not opening for some users and setting the date formatter to match LunaSea's set language. Please note that this is a temporary regression for users with non-English languages set on their device while LunaSea only supports English, but will be reintroduced once LunaSea has full support for localizations!",
-    "new": [
-        {
-            "module": "Dashboard",
-            "changes": [
-                "(Modules) Show Wake on LAN tile"
-            ]
-        },
-        {
-            "module": "Drawer",
-            "changes": [
-                "Ability to customize the order of modules"
-            ]
-        }
-    ],
+    "motd": "This build fixes some bugs and makes some minor polishes to the user interface.",
+    "new": [],
     "tweaks": [
         {
             "module": "Dashboard",
             "changes": [
-                "(Modules) Synchronize module ordering with drawer ordering"
-            ]
-        },
-        {
-            "module": "Drawer",
-            "changes": [
-                "Default to sorting modules alphabetically"
-            ]
-        },
-        {
-            "module": "Dashboard",
-            "changes": [
-                "(Configuration) Alphabetically sort the modules"
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "Flutter",
-            "changes": [
-                "Updated packages",
-                "Upgrade to Firebase SDK v7.11.0"
-            ]
-        },
-        {
-            "module": "Locale",
-            "changes": [
-                "Ensure that the date formatter uses the currently set locale"
-            ]
-        },
-        {
-            "module": "Search",
-            "changes": [
-                "Indexers would not load in some cases when the headers map was null/empty"
+                "(Calendar) Add divider between calendar and calendar entries"
             ]
         },
         {
             "module": "Settings",
             "changes": [
-                "(Connection Test) Connection tests could fail unexpectedly"
+                "(Configuration) Add divider between automatic toggle and manual order list"
+            ]
+        }
+    ],
+    "fixes": [
+        {
+            "module": "Backup & Restore",
+            "changes": [
+                "Backup would fail when the drawer order is not configured"
             ]
         },
         {
-            "module": "Sonarr",
+            "module": "Settings",
             "changes": [
-                "(Edit) Grey screen could be shown when a user has no tags",
-                "(Edit) Grey screen could be shown when a user has no language profiles"
+                "(Configuration) Drawer customization page would not pad for safe areas",
+                "(Dialogs) Ensure all bulleted lists in dialogs are left aligned"
             ]
         },
         {
             "module": "UI/UX",
             "changes": [
-                "Popup menus were not aligned correctly"
+                "(Buttons) Border would incorrectly be applied to buttons with a background colour set",
+                "(Refresh Indicator) Indicator colour was incorrect"
             ]
         }
     ],

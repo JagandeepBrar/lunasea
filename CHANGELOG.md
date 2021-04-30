@@ -1,5 +1,22 @@
 # LunaSea Changelog
 
+## v5.1.0 (50100002)
+
+#### TWEAKS
+
+- `[Dashboard]` (Calendar) Add divider between calendar and calendar entries
+- `[Settings]` (Configuration) Add divider between automatic toggle and manual order list
+
+#### FIXES
+
+- `[Backup & Restore]` Backup would fail when the drawer order is not configured
+- `[Settings]` (Configuration) Drawer customization page would not pad for safe areas
+- `[Settings]` (Dialogs) Ensure all bulleted lists in dialogs are left aligned
+- `[UI/UX]` (Buttons) Border would incorrectly be applied to buttons with a background colour set
+- `[UI/UX]` (Refresh Indicator) Indicator colour was incorrect
+
+---
+
 ## v5.1.0 (50100001)
 
 #### NEW

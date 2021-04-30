@@ -86,5 +86,21 @@
     "settings.HeaderDeleted": "Kopfdaten gelöscht",
     "settings.HeaderAdded": "Kopfdaten hinzugefügt",
     "settings.FirebaseCrashlyticsHint5": "LunaSea muss neugestartet werden damit die Änderungen übernommen werden können.",
-    "settings.FirebaseCrashlyticsHint4": "Unten ist ein Link zur Firebase Internetseite für weiterführende Informationen um eine informierte Entscheidung treffen zu können."
+    "settings.FirebaseCrashlyticsHint4": "Unten ist ein Link zur Firebase Internetseite für weiterführende Informationen um eine informierte Entscheidung treffen zu können.",
+    "settings.SystemDescription": "System-Werkzeuge und Informationen",
+    "settings.System": "System",
+    "settings.ResourcesDescription": "Nützliche Ressourcen & Links",
+    "settings.Resources": "Ressourcen",
+    "settings.ProfilesDescription": "Verwalte deine Profile",
+    "settings.Profiles": "Profile",
+    "settings.NotificationsDescription": "Richte Webhooks für Push-Benachrichtigungen ein",
+    "settings.Notifications": "Benachrichtigungen",
+    "settings.DonationsDescription": "Spende an den Entwickler",
+    "settings.Donations": "Spenden",
+    "settings.DebugMenuDescription": "Fehlersuche- und Entwicklungswerkzeuge",
+    "settings.DebugMenu": "Fehlersuche Menü",
+    "settings.ConfigurationDescription": "Konfiguriere & richte LunaSea ein",
+    "settings.Configuration": "Konfiguration",
+    "settings.AccountDescription": "Dein LunaSea Konto",
+    "settings.Account": "Konto"
 }

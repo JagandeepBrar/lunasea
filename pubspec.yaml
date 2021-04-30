@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 5.1.0+50100001
+version: 5.1.0+50100002
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -31,7 +31,7 @@ dependencies:
   fl_chart: ^0.35.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   # font_awesome_flutter:                   # ANDROID IOS LINUX MACOS WEB WINDOWS
   #   path: vendor/font_awesome_flutter
-  google_nav_bar: ^5.0.4                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  google_nav_bar: ^5.0.5                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive: ^2.0.4                              # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive_flutter: ^1.0.0                      # ANDROID IOS LINUX MACOS     WINDOWS
   in_app_purchase: ^0.5.2                   # ANDROID IOS
@@ -39,13 +39,13 @@ dependencies:
   intl: ^0.17.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
   modal_bottom_sheet: ^2.0.0                # ANDROID IOS LINUX MACOS WEB WINDOWS
   overseerr: ^0.0.1-pre.5                   # ANDROID IOS LINUX MACOS WEB WINDOWS
-  package_info_plus: ^1.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
+  package_info_plus: ^1.0.1                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   path_provider: ^2.0.1                     # ANDROID IOS LINUX MACOS     WINDOWS
   percent_indicator: ^3.0.1                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0+1                   # ANDROID IOS
   radarr: ^2.1.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
-  share_plus: ^2.0.2                        # ANDROID IOS LINUX MACOS WEB WINDOWS
+  share_plus: ^2.0.3                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   sonarr: ^2.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   supercharged: ^2.0.0                      # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -65,7 +65,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^1.12.2
   flutter_launcher_icons: ^0.9.0
-  flutter_native_splash: ^1.1.7+1
+  flutter_native_splash: ^1.1.8+4
   hive_generator: ^1.1.0
 
 flutter:

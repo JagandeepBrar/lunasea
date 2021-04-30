@@ -80,6 +80,7 @@ class _State extends State<DashboardCalendarWidget> {
                 child: Column(
                   children: [
                     _calendar(),
+                    LunaDivider(),
                     _calendarList(),
                   ],
                 ),

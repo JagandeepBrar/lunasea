@@ -34,7 +34,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Account',
+      title: 'settings.Account'.tr(),
       scrollControllers: [scrollController],
       actions: [
         LunaIconButton(

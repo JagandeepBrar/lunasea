@@ -8,8 +8,9 @@ class SettingsAccountBackupConfigurationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Backup to Cloud'),
-      subtitle: LunaText.subtitle(text: 'Backup Configuration Data'),
+      title: LunaText.title(text: 'settings.BackupToCloud'.tr()),
+      subtitle:
+          LunaText.subtitle(text: 'settings.BackupToCloudDescription'.tr()),
       trailing: LunaIconButton(icon: Icons.cloud_upload_rounded),
       onTap: () async => _backup(context),
     );
@@ -31,18 +32,25 @@ class SettingsAccountBackupConfigurationTile extends StatelessWidget {
               .addBackupEntry(id, timestamp, title: title)
               .then((_) => LunaFirebaseStorage().uploadBackup(encrypted, id))
               .then((_) => showLunaSuccessSnackBar(
-                  title: 'Successfully Backed Up',
-                  message: title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} ')))
+                    title: 'settings.BackupToCloudSuccess'.tr(),
+                    message: title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
+                  ))
               .catchError((error, stack) {
             LunaLogger().error(
-                'Failed to backup configuration to the cloud', error, stack);
-            showLunaErrorSnackBar(title: 'Failed to Backup', error: error);
+              'Failed to backup configuration to the cloud',
+              error,
+              stack,
+            );
+            showLunaErrorSnackBar(
+              title: 'settings.BackupToCloudFailure'.tr(),
+              error: error,
+            );
           });
       }
     } catch (error, stack) {
       LunaLogger().error('Backup Failed', error, stack);
       showLunaErrorSnackBar(
-        title: 'Failed to Backup',
+        title: 'settings.BackupToCloudFailure'.tr(),
         error: error,
       );
     }

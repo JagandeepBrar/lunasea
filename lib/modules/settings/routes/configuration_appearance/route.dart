@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Appearance',
+      title: 'settings.Appearance'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -55,8 +55,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaDatabaseValue.THEME_AMOLED.listen(
       builder: (context, _, __) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'AMOLED Theme'),
-        subtitle: LunaText.subtitle(text: 'Pure Black Dark Theme'),
+        title: LunaText.title(text: 'settings.AmoledTheme'.tr()),
+        subtitle: LunaText.subtitle(
+          text: 'settings.AmoledThemeDescription'.tr(),
+        ),
         trailing: LunaSwitch(
           value: LunaDatabaseValue.THEME_AMOLED.data,
           onChanged: (value) {
@@ -78,8 +80,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       builder: (context, _, __) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'AMOLED Theme Borders'),
-        subtitle: LunaText.subtitle(text: 'Add Subtle Borders Across the UI'),
+        title: LunaText.title(text: 'settings.AmoledThemeBorders'.tr()),
+        subtitle: LunaText.subtitle(
+          text: 'settings.AmoledThemeBordersDescription'.tr(),
+        ),
         trailing: LunaSwitch(
           value: LunaDatabaseValue.THEME_AMOLED_BORDER.data,
           onChanged: LunaDatabaseValue.THEME_AMOLED.data
@@ -94,10 +98,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.listen(
       builder: (context, _, __) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Background Image Opacity'),
+        title: LunaText.title(text: 'settings.BackgroundImageOpacity'.tr()),
         subtitle: LunaText.subtitle(
           text: LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data == 0
-              ? 'Disabled'
+              ? 'lunasea.Disabled'.tr()
               : '${LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data}%',
         ),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),

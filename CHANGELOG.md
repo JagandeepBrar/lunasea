@@ -1,5 +1,13 @@
 # LunaSea Changelog
 
+## v5.1.0 (50100003)
+
+#### FIXES
+
+- `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
+
+---
+
 ## v5.1.0 (50100002)
 
 #### TWEAKS
@@ -13,7 +21,6 @@
 - `[Settings]` (Configuration) Drawer customization page would not pad for safe areas
 - `[Settings]` (Dialogs) Ensure all bulleted lists in dialogs are left aligned
 - `[UI/UX]` (Buttons) Border would incorrectly be applied to buttons with a background colour set
-- `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
 - `[UI/UX]` (Refresh Indicator) Indicator colour was incorrect
 
 ---

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import './flutter_reorderable_list_view.dart';
 
 class LunaReorderableListViewBuilder extends StatelessWidget {
@@ -32,9 +33,9 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
         scrollController: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: padding ??
-            MediaQuery.of(context)
-                .padding
-                .add(EdgeInsets.symmetric(vertical: 8.0)),
+            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                  vertical: LunaUI.MARGIN_CARD.bottom,
+                )),
         physics: physics,
         itemCount: itemCount,
         itemBuilder: itemBuilder,

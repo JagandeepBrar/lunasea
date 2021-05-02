@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LunaListViewBuilder extends StatelessWidget {
   final int itemCount;
@@ -29,9 +30,9 @@ class LunaListViewBuilder extends StatelessWidget {
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: padding ??
-            MediaQuery.of(context)
-                .padding
-                .add(EdgeInsets.symmetric(vertical: 8.0)),
+            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                  vertical: LunaUI.MARGIN_CARD.bottom,
+                )),
         physics: physics,
         itemCount: itemCount,
         itemBuilder: itemBuilder,

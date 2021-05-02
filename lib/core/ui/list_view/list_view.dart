@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LunaListView extends StatelessWidget {
   final List<Widget> children;
@@ -26,9 +27,9 @@ class LunaListView extends StatelessWidget {
         children: children,
         itemExtent: itemExtent,
         padding: padding ??
-            MediaQuery.of(context)
-                .padding
-                .add(EdgeInsets.symmetric(vertical: 8.0)),
+            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                  vertical: LunaUI.MARGIN_CARD.bottom,
+                )),
         physics: physics,
       ),
     );

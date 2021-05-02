@@ -11,6 +11,8 @@
     "settings.AmoledThemeDescription": "Pure Black Dark Theme",
     "settings.Appearance": "Appearance",
     "settings.AppearanceDescription": "Customize the Look & Feel",
+    "settings.AutomaticallyManageOrder": "Automatically Manage Order",
+    "settings.AutomaticallyManageOrderDescription": "List Modules Alphabetically",
     "settings.BackgroundImageOpacity": "Background Image Opacity",
     "settings.BackupConfiguration": "Backup Configuration",
     "settings.BackupConfigurationHint1": "All backups are encrypted before being exported",

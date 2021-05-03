@@ -7,8 +7,9 @@ class SettingsAccountDeleteConfigurationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Delete Cloud Backup'),
-      subtitle: LunaText.subtitle(text: 'Delete a Configuration File'),
+      title: LunaText.title(text: 'settings.DeleteCloudBackup'.tr()),
+      subtitle:
+          LunaText.subtitle(text: 'settings.DeleteCloudBackupDescription'.tr()),
       trailing: LunaIconButton(icon: Icons.cloud_off_rounded),
       onTap: () async => _delete(context),
     );
@@ -25,18 +26,24 @@ class SettingsAccountDeleteConfigurationTile extends StatelessWidget {
             .deleteBackupEntry(result.item2.id)
             .then((_) => LunaFirebaseStorage().deleteBackup(result.item2.id))
             .then((_) => showLunaSuccessSnackBar(
-                  title: 'Deleted Backup',
+                  title: 'settings.DeleteCloudBackupSuccess'.tr(),
                   message: result.item2.title
                       .replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
                 ))
             .catchError((error, stack) {
-          LunaLogger().error('Failed to delete backup entry', error, stack);
-          showLunaErrorSnackBar(title: 'Failed to Delete Backup', error: error);
+          LunaLogger().error('Firebase Backup Deletion Failed', error, stack);
+          showLunaErrorSnackBar(
+            title: 'settings.DeleteCloudBackupFailure'.tr(),
+            error: error,
+          );
         });
       }
     } catch (error, stack) {
-      LunaLogger().error('Deletion Failed', error, stack);
-      showLunaErrorSnackBar(title: 'Failed to Delete', error: error);
+      LunaLogger().error('Firebase Backup Deletion Failed', error, stack);
+      showLunaErrorSnackBar(
+        title: 'settings.DeleteCloudBackupFailure'.tr(),
+        error: error,
+      );
     }
   }
 }

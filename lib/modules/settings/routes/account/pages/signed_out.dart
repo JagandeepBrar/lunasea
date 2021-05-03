@@ -34,14 +34,14 @@ class _State extends State<SettingsAccountSignedOutPage> {
       actions: [
         LunaButton(
           type: LunaButtonType.TEXT,
-          text: 'Register',
+          text: 'settings.Register'.tr(),
           icon: Icons.app_registration,
           onTap: _register,
           loadingState: _state,
         ),
         LunaButton(
           type: LunaButtonType.TEXT,
-          text: 'Sign In',
+          text: 'settings.SignIn'.tr(),
           icon: Icons.login_rounded,
           onTap: _signIn,
           loadingState: _state,
@@ -73,7 +73,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                   isFormField: true,
                   margin: EdgeInsets.all(12.0),
                   labelIcon: Icons.person,
-                  labelText: 'Email',
+                  labelText: 'settings.Email'.tr(),
                   action: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: [AutofillHints.username, AutofillHints.email],
@@ -84,7 +84,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                   margin:
                       EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
                   labelIcon: Icons.vpn_key,
-                  labelText: 'Password',
+                  labelText: 'settings.Password'.tr(),
                   obscureText: true,
                   keyboardType: TextInputType.text,
                   autofillHints: [
@@ -101,7 +101,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
           child: Center(
             child: InkWell(
               child: Text(
-                "Forgot Your Password?",
+                'settings.ForgotYourPassword'.tr(),
                 style: TextStyle(
                   color: LunaColours.accent,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -120,12 +120,11 @@ class _State extends State<SettingsAccountSignedOutPage> {
   }
 
   bool _validateEmailAddress({bool showSnackBarOnFailure = true}) {
-    const _regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";
-    if (!RegExp(_regex).hasMatch(_emailController.text)) {
+    if (!LunaValidator().email(_emailController.text)) {
       if (showSnackBarOnFailure)
         showLunaErrorSnackBar(
-          title: 'Invalid Email',
-          message: 'The email address is invalid',
+          title: 'settings.InvalidEmail'.tr(),
+          message: 'settings.InvalidEmailMessage'.tr(),
         );
       return false;
     }
@@ -136,8 +135,8 @@ class _State extends State<SettingsAccountSignedOutPage> {
     if (_passwordController.text.isEmpty) {
       if (showSnackBarOnFailure)
         showLunaErrorSnackBar(
-          title: 'Invalid Password',
-          message: 'The password is invalid',
+          title: 'settings.InvalidPassword'.tr(),
+          message: 'settings.InvalidPasswordMessage'.tr(),
         );
       return false;
     }
@@ -151,15 +150,23 @@ class _State extends State<SettingsAccountSignedOutPage> {
         .registerUser(_emailController.text, _passwordController.text)
         .then((response) {
       if (mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-      response.state
-          ? showLunaSuccessSnackBar(
-              title: 'Successfully Registered', message: response.user.email)
-          : showLunaErrorSnackBar(
-              title: 'Failed to Register',
-              message: response.error?.message ?? 'Unknown Error');
+      if (response.state) {
+        showLunaSuccessSnackBar(
+          title: 'settings.RegisteredSuccess'.tr(),
+          message: response.user.email,
+        );
+      } else {
+        showLunaErrorSnackBar(
+          title: 'settings.RegisteredFailure'.tr(),
+          message: response.error?.message ?? 'lunasea.UnknownError'.tr(),
+        );
+      }
     }).catchError((error, stack) {
       if (mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-      showLunaErrorSnackBar(title: 'Failed to Register', error: error);
+      showLunaErrorSnackBar(
+        title: 'settings.RegisteredFailure'.tr(),
+        error: error,
+      );
     });
   }
 
@@ -170,15 +177,23 @@ class _State extends State<SettingsAccountSignedOutPage> {
         .signInUser(_emailController.text, _passwordController.text)
         .then((response) {
       if (mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-      response.state
-          ? showLunaSuccessSnackBar(
-              title: 'Successfully Signed In', message: response.user.email)
-          : showLunaErrorSnackBar(
-              title: 'Failed to Sign In',
-              message: response.error?.message ?? 'Unknown Error');
+      if (response.state) {
+        showLunaSuccessSnackBar(
+          title: 'settings.SignedInSuccess'.tr(),
+          message: response.user.email,
+        );
+      } else {
+        showLunaErrorSnackBar(
+          title: 'settings.SignedInFailure'.tr(),
+          message: response.error?.message ?? 'lunasea.UnknownError'.tr(),
+        );
+      }
     }).catchError((error, stack) {
       if (mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-      showLunaErrorSnackBar(title: 'Failed to Sign In', error: error);
+      showLunaErrorSnackBar(
+        title: 'settings.SignedInFailure'.tr(),
+        error: error,
+      );
     });
   }
 }

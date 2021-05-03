@@ -38,7 +38,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -69,9 +69,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     String host = Database.currentProfileObject.lidarrHost;
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Host'),
+      title: LunaText.title(text: 'settings.Host'.tr()),
       subtitle: LunaText.subtitle(
-        text: (host ?? '').isEmpty ? 'Not Set' : host,
+        text: (host ?? '').isEmpty ? 'lunasea.NotSet'.tr() : host,
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
@@ -92,15 +92,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     String apiKey = Database.currentProfileObject.lidarrKey;
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'API Key'),
+      title: LunaText.title(text: 'settings.ApiKey'.tr()),
       subtitle: LunaText.subtitle(
-        text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••',
+        text: (apiKey ?? '').isEmpty
+            ? 'lunasea.NotSet'.tr()
+            : LunaUI.TEXT_OBFUSCATED_PASSWORD,
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
-          'Lidarr API Key',
+          'settings.ApiKey'.tr(),
           prefill: Database.currentProfileObject.lidarrKey ?? '',
         );
         if (_values.item1) {
@@ -114,21 +116,25 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _testConnection() {
     return LunaButton.text(
-      text: 'Test Connection',
+      text: 'settings.TestConnection'.tr(),
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
         ProfileHiveObject _profile = Database.currentProfileObject;
         if (_profile.lidarrHost == null || _profile.lidarrHost.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to Lidarr',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'.tr(
+              args: [LunaModule.LIDARR.name],
+            ),
           );
           return;
         }
         if (_profile.lidarrKey == null || _profile.lidarrKey.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to Lidarr',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'.tr(
+              args: [LunaModule.LIDARR.name],
+            ),
           );
           return;
         }
@@ -136,8 +142,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             .testConnection()
             .then(
               (_) => showLunaSuccessSnackBar(
-                title: 'Connected Successfully',
-                message: 'Lidarr is ready to use with LunaSea',
+                title: 'settings.ConnectedSuccessfully'.tr(),
+                message: 'settings.ConnectedSuccessfullyMessage'.tr(
+                  args: [LunaModule.LIDARR.name],
+                ),
               ),
             )
             .catchError((error, trace) {
@@ -147,7 +155,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             trace,
           );
           showLunaErrorSnackBar(
-            title: 'Connection Test Failed',
+            title: 'settings.ConnectionTestFailed'.tr(),
             error: error,
           );
         });
@@ -158,8 +166,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _customHeaders() {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
+      title: LunaText.title(text: 'settings.CustomHeaders'.tr()),
+      subtitle: LunaText.subtitle(
+        text: 'settings.CustomHeadersDescription'.tr(),
+      ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
         SettingsConfigurationLidarrHeadersRouter().navigateTo(context);

@@ -40,6 +40,7 @@ class LunaUI {
   static const String TEXT_ARROW_LEFT = '←';
   static const String TEXT_ARROW_RIGHT = '→';
   static const String TEXT_BULLET = '•';
+  static const String TEXT_OBFUSCATED_PASSWORD = '••••••••••';
   static const String TEXT_ELLIPSIS = '…';
   static const String TEXT_EMDASH = '—';
   // Font-Related
@@ -60,10 +61,11 @@ class LunaUI {
   static const double BORDER_RADIUS = 10.0;
   static const double BUTTON_BACKGROUND_OPACITY = 0.80;
   static const double ELEVATION = 0.0;
-  static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(12.0);
+  static const double DEFAULT_MARGIN_SIZE = 12.0;
+  static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(DEFAULT_MARGIN_SIZE);
   static const EdgeInsets MARGIN_CARD = EdgeInsets.symmetric(
-    horizontal: 12.0,
-    vertical: 6.0,
+    horizontal: DEFAULT_MARGIN_SIZE,
+    vertical: DEFAULT_MARGIN_SIZE / 2,
   );
   // Border-Related
   static bool get shouldUseBorder =>

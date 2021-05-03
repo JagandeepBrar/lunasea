@@ -1,5 +1,13 @@
 # LunaSea Changelog
 
+## v5.1.0 (50100003)
+
+#### FIXES
+
+- `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
+
+---
+
 ## v5.1.0 (50100002)
 
 #### TWEAKS

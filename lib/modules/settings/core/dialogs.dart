@@ -954,7 +954,7 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             obscureText: true,
             controller: _textController,
-            title: 'Encryption Key',
+            title: 'settings.EncryptionKey'.tr(),
             validator: (value) => value.length < 8
                 ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
                 : null,

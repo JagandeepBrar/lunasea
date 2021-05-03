@@ -84,7 +84,7 @@ class _State extends State<DashboardCalendarWidget> {
                     _calendarList(),
                   ],
                 ),
-                padding: EdgeInsets.only(top: 8.0),
+                padding: EdgeInsets.only(top: LunaUI.MARGIN_CARD.top),
               );
             }
             return _schedule();

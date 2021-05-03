@@ -7,8 +7,9 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Restore from Cloud'),
-      subtitle: LunaText.subtitle(text: 'Restore Configuration Data'),
+      title: LunaText.title(text: 'settings.RestoreFromCloud'.tr()),
+      subtitle:
+          LunaText.subtitle(text: 'settings.RestoreFromCloudDescription'.tr()),
       trailing: LunaIconButton(icon: Icons.cloud_download_rounded),
       onTap: () async => _restore(context),
     );
@@ -28,16 +29,16 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
         if (key.item1) {
           String decrypted = LunaEncryption().decrypt(key.item2, encrypted);
           if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-            LunaConfiguration().import(context, decrypted).then(
-                  (_) => showLunaSuccessSnackBar(
-                    title: 'Restored',
-                    message: 'Your configuration has been restored',
-                  ),
-                );
+            LunaConfiguration()
+                .import(context, decrypted)
+                .then((_) => showLunaSuccessSnackBar(
+                      title: 'settings.RestoreFromCloudSuccess'.tr(),
+                      message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
+                    ));
           } else {
             showLunaErrorSnackBar(
-              title: 'Failed to Restore',
-              message: 'An incorrect encryption key was supplied',
+              title: 'settings.RestoreFromCloudFailure'.tr(),
+              message: 'lunasea.IncorrectEncryptionKey'.tr(),
             );
           }
         }
@@ -45,7 +46,7 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
     } catch (error, stack) {
       LunaLogger().error('Restore Failed', error, stack);
       showLunaErrorSnackBar(
-        title: 'Failed to Restore',
+        title: 'settings.RestoreFromCloudFailure'.tr(),
         error: error,
       );
     }

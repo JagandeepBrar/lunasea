@@ -10,10 +10,13 @@
     "lunasea.Dashboard": "Dashboard",
     "lunasea.Delete": "Delete",
     "lunasea.Disable": "Disable",
+    "lunasea.Disabled": "Disabled",
     "lunasea.Dismiss": "Dismiss",
     "lunasea.GoBack": "Go Back",
     "lunasea.GoToSettings": "Go to Settings",
+    "lunasea.IncorrectEncryptionKey": "Incorrect encryption key",
     "lunasea.ModuleIsNotEnabled": "{} Is Not Enabled",
+    "lunasea.NotSet": "Not Set",
     "lunasea.NoModulesEnabled": "No Modules Enabled",
     "lunasea.Page": "Page",
     "lunasea.Refresh": "Refresh",
@@ -25,6 +28,7 @@
     "lunasea.Settings": "Settings",
     "lunasea.TryAgain": "Try Again",
     "lunasea.Unknown": "Unknown",
+    "lunasea.UnknownError": "Unknown Error",
     "lunasea.UnknownModule": "Unknown Module",
     "lunasea.Website": "Website"
 }

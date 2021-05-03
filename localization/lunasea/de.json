@@ -10,11 +10,14 @@
     "lunasea.Dashboard": "Instrumentenanlage",
     "lunasea.Delete": "Löschen",
     "lunasea.Disable": "Ausschalten",
+    "lunasea.Disabled": "Deaktiviert",
     "lunasea.Dismiss": "Ausblenden",
     "lunasea.GoBack": "Zurück",
     "lunasea.GoToSettings": "Einstellungen öffnen",
+    "lunasea.IncorrectEncryptionKey": "Ungültige Sicherungsphrase",
     "lunasea.ModuleIsNotEnabled": "{} ist nicht aktiviert",
     "lunasea.NoModulesEnabled": "Keine Module aktiviert",
+    "lunasea.NotSet": "Nicht gesetzt",
     "lunasea.Page": "Seite",
     "lunasea.Refresh": "Aktualisieren",
     "lunasea.Rename": "Umbenennen",
@@ -25,6 +28,7 @@
     "lunasea.Settings": "Einstellungen",
     "lunasea.TryAgain": "Erneut versuchen",
     "lunasea.Unknown": "Unbekannt",
+    "lunasea.UnknownError": "Unbekannter Fehler",
     "lunasea.UnknownModule": "Unbekanntes Modul",
     "lunasea.Website": "Internetseite"
 }

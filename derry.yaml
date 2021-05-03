@@ -1,6 +1,9 @@
-generate:
-  runner: flutter packages pub run build_runner build --delete-conflicting-outputs
-  localization: dart ./scripts/generate/localization.dart
+blackbox:
+  admins: blackbox_list_admins
+  decrypt: blackbox_postdeploy
+  files: blackbox_list_files
+  shred: blackbox_shred_all_files
+  update: blackbox_update_all_files
 build:
   android:
     apk: ./scripts/build/apk.sh
@@ -14,12 +17,6 @@ build:
     archive:
       - flutter clean
       - flutter build macos
-blackbox:
-  admins: blackbox_list_admins
-  decrypt: blackbox_postdeploy
-  files: blackbox_list_files
-  shred: blackbox_shred_all_files
-  update: blackbox_update_all_files
 cocoapods:
   clearcache:
     - rm -rf ~/Library/Caches/CocoaPods
@@ -35,3 +32,8 @@ cocoapods:
       - cd ./macos && pod deintegrate
       - cd ./macos && pod setup
       - cd ./macos && pod install
+coverage:
+  upload: bash <(curl -s https://codecov.io/bash)
+generate:
+  runner: flutter packages pub run build_runner build --delete-conflicting-outputs
+  localization: dart ./scripts/generate/localization.dart

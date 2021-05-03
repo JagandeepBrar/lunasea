@@ -64,7 +64,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
   Widget _poster(BuildContext context) {
     return LunaNetworkImage(
       url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
-      placeholderAsset: LunaAssets.video,
+      placeholderAsset: LunaAssets.blankVideo,
       height: _height,
       width: _width,
       headers: context.watch<TautulliState>().headers.cast<String, String>(),

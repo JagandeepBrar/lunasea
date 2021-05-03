@@ -52,14 +52,14 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     if (widget.series.remotePoster != null)
       return LunaNetworkImage(
         url: widget.series.remotePoster,
-        placeholderAsset: LunaAssets.video,
+        placeholderAsset: LunaAssets.blankVideo,
         height: _height,
         width: _width,
         headers: context.read<SonarrState>().headers.cast<String, String>(),
       );
     return ClipRRect(
       child: Image.asset(
-        LunaAssets.video,
+        LunaAssets.blankVideo,
         width: _width,
         height: _height,
       ),

@@ -17,7 +17,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
           context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
       posterHeaders:
           context.watch<TautulliState>().headers.cast<String, String>(),
-      posterPlaceholder: LunaAssets.user,
+      posterPlaceholder: LunaAssets.blankUser,
       title: user.friendlyName,
       customSubtitle1: _subtitle1(),
       customSubtitle2: _subtitle2(),

@@ -12,7 +12,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return LunaFourLineCardWithPoster(
-      posterPlaceholder: LunaAssets.video,
+      posterPlaceholder: LunaAssets.blankVideo,
       backgroundUrl: context.read<RadarrState>().getFanartURL(movie.id),
       posterUrl: context.read<RadarrState>().getPosterURL(movie.id),
       posterHeaders: context.read<RadarrState>().headers,

@@ -52,7 +52,7 @@ class _State extends State<SonarrSeriesTile> {
   Widget get _poster => LunaNetworkImage(
         url: Provider.of<SonarrState>(context, listen: false)
             .getPosterURL(widget.series.id),
-        placeholderAsset: LunaAssets.video,
+        placeholderAsset: LunaAssets.blankVideo,
         height: _height,
         width: _width,
         headers: Provider.of<SonarrState>(context, listen: false)

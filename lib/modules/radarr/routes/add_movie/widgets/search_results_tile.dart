@@ -27,7 +27,7 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
       backgroundUrl: widget.movie.remotePoster,
       posterUrl: widget.movie.remotePoster,
       posterHeaders: context.watch<RadarrState>().headers,
-      posterPlaceholder: LunaAssets.video,
+      posterPlaceholder: LunaAssets.blankVideo,
       title: widget.movie.title,
       darken: widget.exists,
       titleColor: widget.isExcluded ? LunaColours.red : Colors.white,

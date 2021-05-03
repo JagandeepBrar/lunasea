@@ -25,7 +25,7 @@ class _State extends State<SonarrUpcomingTile> {
         posterUrl:
             context.read<SonarrState>().getPosterURL(widget.record.seriesId),
         posterHeaders: context.read<SonarrState>().headers,
-        posterPlaceholder: LunaAssets.video,
+        posterPlaceholder: LunaAssets.blankVideo,
         title: widget.record.series.title,
         subtitle1: _subtitle1(),
         subtitle2: _subtitle2(),

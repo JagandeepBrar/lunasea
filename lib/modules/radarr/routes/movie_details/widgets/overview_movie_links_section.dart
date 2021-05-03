@@ -48,7 +48,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset('assets/images/services/trakt.png'),
+                child: Image.asset(LunaAssets.serviceTrakt),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),

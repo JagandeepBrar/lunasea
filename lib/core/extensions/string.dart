@@ -6,7 +6,7 @@ extension StringExtension on String {
   ///
   /// Default word splitting pattern is by a space.
   String lunaCapitalizeFirstLetters({Pattern pattern = ' '}) {
-    if (this == null) return LunaUI.TEXT_EMDASH;
+    if (this == null) return null;
     List<String> split = this.split(pattern);
     for (var i = 0; i < split.length; i++) {
       if ((split[i]?.length ?? 0) == 0) break;
@@ -23,17 +23,21 @@ extension StringExtension on String {
   /// Convert a string into a slug format.
   ///
   /// Example "LunaSea Flutter" => 'lunasea-flutter';
-  String lunaConvertToSlug() => this
-      .toLowerCase()
-      .replaceAll(RegExp(r'[\ \.]'), '-')
-      .replaceAll(RegExp(r'[^a-zA-Z0-9\-]'), '')
-      .trim();
+  String lunaConvertToSlug() {
+    if (this == null) return null;
+    return this
+        .toLowerCase()
+        .replaceAll(RegExp(r'[\ \.]'), '-')
+        .replaceAll(RegExp(r'[^a-zA-Z0-9\-]'), '')
+        .trim();
+  }
 
   /// Pad a string on both sides with the spacer value [count] amount of times.
   /// Count is the amount of times to add the [padding] on each time, and not the maximum total width of the string unlike [padLeft] and [padRight].
   ///
   /// Example "LunaSea" with count 2 and padding "1" would return "11LunaSea11".
   String lunaPad([int count = 1, String padding = ' ']) {
+    if (this == null) return null;
     String _value = this
         .padLeft((this.length + count), padding)
         .padRight((this.length + (count * 2)), padding);

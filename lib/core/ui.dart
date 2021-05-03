@@ -40,6 +40,7 @@ class LunaUI {
   static const String TEXT_ARROW_LEFT = '←';
   static const String TEXT_ARROW_RIGHT = '→';
   static const String TEXT_BULLET = '•';
+  static const String TEXT_OBFUSCATED_PASSWORD = '••••••••••';
   static const String TEXT_ELLIPSIS = '…';
   static const String TEXT_EMDASH = '—';
   // Font-Related

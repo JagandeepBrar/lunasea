@@ -82,8 +82,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _connectionDetailsPage() {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(text: 'Connection Details for Lidarr'),
+      title: LunaText.title(text: 'settings.ConnectionDetails'.tr()),
+      subtitle: LunaText.subtitle(
+        text: 'settings.ConnectionDetailsDescription'.tr(
+          args: [LunaModule.LIDARR.name],
+        ),
+      ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
         SettingsConfigurationLidarrConnectionDetailsRouter()
@@ -96,7 +100,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LidarrDatabaseValue.NAVIGATION_INDEX.listen(
       builder: (context, box, _) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Default Page'),
+        title: LunaText.title(text: 'settings.DefaultPage'.tr()),
         subtitle: LunaText.subtitle(
           text: LidarrNavigationBar
               .titles[LidarrDatabaseValue.NAVIGATION_INDEX.data],

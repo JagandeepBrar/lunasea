@@ -16,10 +16,7 @@ use_part_of: false
 package: core
 
 groups:
-  - paths:
-      - assets/images/blanks
-      - assets/images/branding
-      - assets/images/services
+  - path: assets/images
     class_name: LunaAssets
     file_name: assets
     types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]

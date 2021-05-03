@@ -29,7 +29,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
           image: DecorationImage(
-            image: AssetImage(LunaAssets.platform),
+            image: AssetImage(LunaAssets.blankDevice),
             fit: BoxFit.cover,
           ),
         ),

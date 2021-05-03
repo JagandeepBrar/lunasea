@@ -27,7 +27,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
     }
     return LunaTwoLineCardWithPoster(
       title: credits.personName,
-      posterPlaceholder: LunaAssets.user,
+      posterPlaceholder: LunaAssets.blankUser,
       posterUrl: credits.images.isEmpty ? null : credits.images[0].url,
       posterHeaders: {},
       subtitle1: TextSpan(text: position),

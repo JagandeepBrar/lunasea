@@ -26,7 +26,7 @@ class _State extends State<RadarrCatalogueTile> {
             context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.video,
+        posterPlaceholder: LunaAssets.blankVideo,
         darken: !widget.movie.monitored,
         title: widget.movie.title,
         subtitle1: _subtitle1(),

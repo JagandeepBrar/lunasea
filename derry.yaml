@@ -33,7 +33,9 @@ cocoapods:
       - cd ./macos && pod setup
       - cd ./macos && pod install
 coverage:
+  create: flutter test --coverage
   upload: bash <(curl -s https://codecov.io/bash)
 generate:
+  assets: spider build
   runner: flutter packages pub run build_runner build --delete-conflicting-outputs
   localization: dart ./scripts/generate/localization.dart

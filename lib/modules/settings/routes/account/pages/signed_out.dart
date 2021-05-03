@@ -57,7 +57,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
         Padding(
           child: Center(
             child: Image.asset(
-              LunaAssets.splash,
+              LunaAssets.brandingFull,
               width: 200.0,
             ),
           ),

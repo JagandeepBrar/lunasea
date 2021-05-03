@@ -19,7 +19,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset(LunaAssets.imdb),
+                child: Image.asset(LunaAssets.serviceImdb),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -33,7 +33,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset(LunaAssets.themoviedb),
+                child: Image.asset(LunaAssets.serviceThemoviedb),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -48,7 +48,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset(LunaAssets.trakt),
+                child: Image.asset('assets/images/services/trakt.png'),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -63,7 +63,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
             context: context,
             child: InkWell(
               child: Padding(
-                child: Image.asset(LunaAssets.youtube),
+                child: Image.asset(LunaAssets.serviceYoutube),
                 padding: EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),

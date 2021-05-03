@@ -62,7 +62,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
     return LunaNetworkImage(
       url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
       headers: context.watch<TautulliState>().headers.cast<String, String>(),
-      placeholderAsset: LunaAssets.video,
+      placeholderAsset: LunaAssets.blankVideo,
       height: _imageDimension,
       width: _imageDimension / 1.5,
     );

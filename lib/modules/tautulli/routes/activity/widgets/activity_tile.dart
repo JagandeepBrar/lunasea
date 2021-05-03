@@ -19,7 +19,7 @@ class TautulliActivityTile extends StatelessWidget {
       title: session.lunaTitle,
       posterUrl: session.lunaArtworkPath(context),
       posterHeaders: context.read<TautulliState>().headers,
-      posterPlaceholder: LunaAssets.video,
+      posterPlaceholder: LunaAssets.blankVideo,
       backgroundUrl: context.watch<TautulliState>().getImageURLFromPath(
             session.art,
             width: MediaQuery.of(context).size.width.truncate(),

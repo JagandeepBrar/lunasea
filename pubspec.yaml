@@ -76,11 +76,8 @@ flutter:
   assets:
     # System Assets
     - assets/changelog.json
+    - assets/images/
     - assets/localization/
-    # Images
-    - assets/images/blanks/
-    - assets/images/branding/
-    - assets/images/services/
   fonts:
     - family: LunaIcons
       fonts:

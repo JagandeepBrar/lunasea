@@ -43,6 +43,7 @@ output/
 *.aab
 *.apk
 ios/build/
+coverage/
 
 # Blackbox
 /.blackbox/pubring.gpg~

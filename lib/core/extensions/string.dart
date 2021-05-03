@@ -6,8 +6,10 @@ extension StringExtension on String {
   ///
   /// Default word splitting pattern is by a space.
   String lunaCapitalizeFirstLetters({Pattern pattern = ' '}) {
+    if (this == null) return LunaUI.TEXT_EMDASH;
     List<String> split = this.split(pattern);
     for (var i = 0; i < split.length; i++) {
+      if ((split[i]?.length ?? 0) == 0) break;
       if (split[i].length == 1) {
         split[i] = split[i].toUpperCase();
       } else {

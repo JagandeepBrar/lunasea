@@ -1,4 +1,4 @@
-# <img width="40px" src="./assets/images/branding/icon_drawer.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
+# <img width="40px" src="./assets/images/branding_logo.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
 
 [![Codemagic build status](https://api.codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/status_badge.svg)](https://codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/latest_build)
 [![App Store](https://img.shields.io/badge/%20Download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
@@ -24,12 +24,12 @@ LunaSea even comes with support for multiple instances of applications using pro
 ## Getting Started
 
 - [Releases](https://github.com/CometTools/LunaSea/releases)
-    - [(Android) Play Store](https://www.lunasea.app/playstore)
-    - [(iOS) App Store](https://www.lunasea.app/appstore)
-    - [(macOS) GitHub](https://github.com/CometTools/LunaSea/releases)
+  - [(Android) Play Store](https://www.lunasea.app/playstore)
+  - [(iOS) App Store](https://www.lunasea.app/appstore)
+  - [(macOS) GitHub](https://github.com/CometTools/LunaSea/releases)
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
-    - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
-    - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
+  - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
+  - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
 - [Documentation](https://www.lunasea.app/docs)
 - [Feedback & Feature Requests Board](https://www.lunasea.app/feedback)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)
@@ -59,11 +59,12 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 - [Instatus](https://instatus.com): Instatus is used to host LunaSea's status page
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea
 
-
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!

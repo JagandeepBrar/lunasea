@@ -51,7 +51,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     }
     return LunaListView(
       controller: scrollController,
-      children: [],
+      children: _list,
     );
+  }
+
+  List get _list {
+    List<ExternalModulesModuleTile> list = List.generate(
+      Database.externalModulesBox.length,
+      (index) => ExternalModulesModuleTile(
+        module: Database.externalModulesBox.getAt(index),
+      ),
+    );
+    list.sort(
+      (a, b) => a.module.displayName
+          .toLowerCase()
+          .compareTo(b.module.displayName.toLowerCase()),
+    );
+    return list;
   }
 }

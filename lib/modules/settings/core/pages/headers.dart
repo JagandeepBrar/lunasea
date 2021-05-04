@@ -98,6 +98,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     switch (widget.module) {
       case LunaModule.DASHBOARD:
         throw Exception('Dashboard does not have a headers page');
+      case LunaModule.EXTERNAL_MODULES:
+        throw Exception('External modules do not have a headers page');
       case LunaModule.LIDARR:
         return Database.currentProfileObject.lidarrHeaders;
       case LunaModule.RADARR:
@@ -126,6 +128,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     switch (widget.module) {
       case LunaModule.DASHBOARD:
         throw Exception('Dashboard does not have a headers page');
+      case LunaModule.EXTERNAL_MODULES:
+        throw Exception('External modules do not have a headers page');
       case LunaModule.LIDARR:
         return;
       case LunaModule.RADARR:

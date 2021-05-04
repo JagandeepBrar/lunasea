@@ -7,6 +7,7 @@ import 'package:quick_actions/quick_actions.dart';
 part 'modules.g.dart';
 
 const _DASHBOARD_KEY = 'dashboard';
+const _EXTERNAL_MODULES_KEY = 'externalmodules';
 const _LIDARR_KEY = 'lidarr';
 const _NZBGET_KEY = 'nzbget';
 const _OVERSEERR_KEY = 'overseerr';
@@ -22,6 +23,8 @@ const _WAKE_ON_LAN_KEY = 'wake_on_lan';
 enum LunaModule {
   @HiveField(0)
   DASHBOARD,
+  @HiveField(11)
+  EXTERNAL_MODULES,
   @HiveField(1)
   LIDARR,
   @HiveField(2)
@@ -45,10 +48,10 @@ enum LunaModule {
 }
 
 extension LunaModuleExtension on LunaModule {
-  /// Returns a list of only active/enabled _external_ modules.
+  /// Returns a list of only _integrated_ modules.
   ///
-  /// External modules are modules that are not entirely internal (dashboard, settings, etc.)
-  List<LunaModule> allExternalModules() {
+  /// Integrated modules are modules that are not entirely internal (dashboard, settings, etc.).
+  List<LunaModule> allIntegratedModules() {
     List<LunaModule> modules = LunaModule.values.toList()
       ..remove(LunaModule.DASHBOARD)
       ..remove(LunaModule.SETTINGS);
@@ -84,6 +87,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaModule.TAUTULLI;
       case _WAKE_ON_LAN_KEY:
         return LunaModule.WAKE_ON_LAN;
+      case _EXTERNAL_MODULES_KEY:
+        return LunaModule.EXTERNAL_MODULES;
     }
     return null;
   }
@@ -113,6 +118,8 @@ extension LunaModuleExtension on LunaModule {
         return _TAUTULLI_KEY;
       case LunaModule.WAKE_ON_LAN:
         return _WAKE_ON_LAN_KEY;
+      case LunaModule.EXTERNAL_MODULES:
+        return _EXTERNAL_MODULES_KEY;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -142,6 +149,8 @@ extension LunaModuleExtension on LunaModule {
         return Database.currentProfileObject?.tautulliEnabled ?? false;
       case LunaModule.WAKE_ON_LAN:
         return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
+      case LunaModule.EXTERNAL_MODULES:
+        return false;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -175,6 +184,8 @@ extension LunaModuleExtension on LunaModule {
         return Database.currentProfileObject.getTautulli();
       case LunaModule.WAKE_ON_LAN:
         return Database.currentProfileObject.getWakeOnLAN();
+      case LunaModule.EXTERNAL_MODULES:
+        return {};
     }
     throw Exception('Invalid LunaModule');
   }
@@ -204,6 +215,8 @@ extension LunaModuleExtension on LunaModule {
         return 'Overseerr';
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN';
+      case LunaModule.EXTERNAL_MODULES:
+        return 'External Modules';
     }
     throw Exception('Invalid LunaModule');
   }
@@ -232,6 +245,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return OverseerrHomeRouter().route();
       case LunaModule.WAKE_ON_LAN:
+        return null;
+      case LunaModule.EXTERNAL_MODULES:
         return null;
     }
     throw Exception('Invalid LunaModule');
@@ -262,6 +277,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaIcons.overseerr;
       case LunaModule.WAKE_ON_LAN:
         return Icons.settings_remote_rounded;
+      case LunaModule.EXTERNAL_MODULES:
+        return Icons.settings_ethernet_rounded;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -291,6 +308,8 @@ extension LunaModuleExtension on LunaModule {
         return OverseerrDatabase();
       case LunaModule.TAUTULLI:
         return TautulliDatabase();
+      case LunaModule.EXTERNAL_MODULES:
+        return null;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -320,6 +339,8 @@ extension LunaModuleExtension on LunaModule {
         return context.read<OverseerrState>();
       case LunaModule.TAUTULLI:
         return context.read<TautulliState>();
+      case LunaModule.EXTERNAL_MODULES:
+        return null;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -348,6 +369,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return Color(0xFF6366F1);
       case LunaModule.WAKE_ON_LAN:
+        return LunaColours.accent;
+      case LunaModule.EXTERNAL_MODULES:
         return LunaColours.accent;
     }
     throw Exception('Invalid LunaModule');
@@ -378,6 +401,8 @@ extension LunaModuleExtension on LunaModule {
         return 'https://overseerr.dev';
       case LunaModule.WAKE_ON_LAN:
         return null;
+      case LunaModule.EXTERNAL_MODULES:
+        return null;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -406,6 +431,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return 'https://github.com/sct/overseerr';
       case LunaModule.WAKE_ON_LAN:
+        return null;
+      case LunaModule.EXTERNAL_MODULES:
         return null;
     }
     throw Exception('Invalid LunaModule');
@@ -436,6 +463,8 @@ extension LunaModuleExtension on LunaModule {
         return 'Manage Requests for New Content';
       case LunaModule.WAKE_ON_LAN:
         return 'Wake Your Machine';
+      case LunaModule.EXTERNAL_MODULES:
+        return 'Access External Modules';
     }
     throw Exception('Invalid LunaModule');
   }
@@ -467,6 +496,8 @@ extension LunaModuleExtension on LunaModule {
         return 'Overseerr is a free and open source software application for managing requests for your media library. It integrates with your existing services, such as Sonarr, Radarr, and Plex!';
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
+      case LunaModule.EXTERNAL_MODULES:
+        return 'LunaSea allows you to add external modules that are not currently supported, allowing you to open the module\'s web GUI without leaving LunaSea!';
     }
     throw Exception('Invalid LunaModule');
   }
@@ -496,6 +527,8 @@ extension LunaModuleExtension on LunaModule {
         return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.WAKE_ON_LAN:
         return null;
+      case LunaModule.EXTERNAL_MODULES:
+        return ShortcutItem(type: key, localizedTitle: name);
     }
     throw Exception('Invalid LunaModule');
   }
@@ -524,6 +557,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.TAUTULLI:
         return true;
       case LunaModule.WAKE_ON_LAN:
+        return false;
+      case LunaModule.EXTERNAL_MODULES:
         return false;
     }
     throw Exception('Invalid LunaModule');
@@ -554,6 +589,8 @@ extension LunaModuleExtension on LunaModule {
         return;
       case LunaModule.WAKE_ON_LAN:
         return;
+      case LunaModule.EXTERNAL_MODULES:
+        return;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -582,6 +619,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.TAUTULLI:
         return TautulliWebhooks().handle(data);
       case LunaModule.WAKE_ON_LAN:
+        return;
+      case LunaModule.EXTERNAL_MODULES:
         return;
     }
     throw Exception('Invalid LunaModule');
@@ -612,6 +651,8 @@ extension LunaModuleExtension on LunaModule {
         return SettingsConfigurationTautulliRouter();
       case LunaModule.WAKE_ON_LAN:
         return SettingsConfigurationWakeOnLANRouter();
+      case LunaModule.EXTERNAL_MODULES:
+        return SettingsConfigurationExternalModulesRouter();
     }
     throw Exception('Invalid LunaModule');
   }

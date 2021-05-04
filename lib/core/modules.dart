@@ -218,7 +218,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN';
       case LunaModule.EXTERNAL_MODULES:
-        return 'External Modules';
+        return 'lunasea.ExternalModules'.tr();
     }
     throw Exception('Invalid LunaModule');
   }

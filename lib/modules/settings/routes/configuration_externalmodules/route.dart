@@ -29,6 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),
       body: _body(),
+      bottomNavigationBar: _bottomNavigationBar(),
     );
   }
 
@@ -48,10 +49,58 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
+  Widget _bottomNavigationBar() {
+    return LunaBottomActionBar(
+      actions: [
+        LunaButton.text(
+          text: 'settings.AddModule'.tr(),
+          icon: Icons.add_rounded,
+          onTap: () async => SettingsConfigurationExternalModulesAddRouter()
+              .navigateTo(context),
+        ),
+      ],
+    );
+  }
+
   Widget _body() {
-    return LunaListView(
-      controller: scrollController,
-      children: [],
+    return ValueListenableBuilder(
+      valueListenable: Database.externalModulesBox.listenable(),
+      builder: (context, box, _) => LunaListView(
+        controller: scrollController,
+        children: [
+          ..._moduleSection(),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _moduleSection() => [
+        if (Database.externalModulesBox.isEmpty)
+          LunaMessage(text: 'settings.NoExternalModulesFound'.tr()),
+        ..._modules,
+      ];
+
+  List<Widget> get _modules {
+    List<ExternalModuleHiveObject> modules =
+        Database.externalModulesBox.values.toList();
+    modules.sort((a, b) =>
+        a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
+    List<LunaListTile> list = List.generate(
+      modules.length,
+      (index) => _moduleTile(modules[index], modules[index].key),
+    );
+    return list;
+  }
+
+  Widget _moduleTile(ExternalModuleHiveObject module, int index) {
+    return LunaListTile(
+      context: context,
+      title: LunaText.title(text: module.displayName),
+      subtitle: LunaText.subtitle(text: module.host),
+      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      onTap: () async {
+        // TODO
+      },
     );
   }
 }

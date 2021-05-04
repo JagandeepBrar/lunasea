@@ -150,7 +150,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
       case LunaModule.EXTERNAL_MODULES:
-        return false;
+        return Database.externalModulesBox?.isNotEmpty ?? false;
     }
     throw Exception('Invalid LunaModule');
   }
@@ -185,7 +185,9 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return Database.currentProfileObject.getWakeOnLAN();
       case LunaModule.EXTERNAL_MODULES:
-        return {};
+        return Database.externalModulesBox
+            .toMap()
+            .map((key, value) => MapEntry(key.toString(), value.toMap()));
     }
     throw Exception('Invalid LunaModule');
   }
@@ -247,7 +249,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.EXTERNAL_MODULES:
-        return null;
+        return ExternalModulesHomeRouter().route();
     }
     throw Exception('Invalid LunaModule');
   }
@@ -659,7 +661,9 @@ extension LunaModuleExtension on LunaModule {
 
   Future<void> launch() async {
     if (route != null)
-      LunaState.navigatorKey.currentState
-          .pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+      LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(
+        route,
+        (Route<dynamic> route) => false,
+      );
   }
 }

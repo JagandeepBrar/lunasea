@@ -9,14 +9,16 @@ class LunaRouter {
 
   /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
   void initialize() {
-    router.notFoundHandler =
-        Handler(handlerFunc: (context, params) => LunaInvalidRoute());
+    router.notFoundHandler = Handler(
+      handlerFunc: (context, params) => LunaInvalidRoute(),
+    );
     DashboardRouter().defineAllRoutes(router);
-    SettingsRouter().defineAllRoutes(router);
-    SearchRouter().defineAllRoutes(router);
-    RadarrRouter().defineAllRoutes(router);
-    SonarrRouter().defineAllRoutes(router);
+    ExternalModulesRouter().defineAllRoutes(router);
     OverseerrRouter().defineAllRoutes(router);
+    RadarrRouter().defineAllRoutes(router);
+    SearchRouter().defineAllRoutes(router);
+    SettingsRouter().defineAllRoutes(router);
+    SonarrRouter().defineAllRoutes(router);
     TautulliRouter().defineAllRoutes(router);
   }
 

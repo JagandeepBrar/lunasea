@@ -33,6 +33,7 @@ class Database {
   /// Open all Hive boxes for reading.
   Future<void> _openBoxes() async {
     await Hive.openBox('alerts');
+    await Hive.openBox<ExternalModuleHiveObject>('external_modules');
     await Hive.openBox<IndexerHiveObject>('indexers');
     await Hive.openBox<LunaLogHiveObject>('logs');
     await Hive.openBox('lunasea');
@@ -50,6 +51,8 @@ class Database {
 
   //Get boxes
   static Box get alertsBox => Hive.box('alerts');
+  static Box<ExternalModuleHiveObject> get externalModulesBox =>
+      Hive.box<ExternalModuleHiveObject>('external_modules');
   static Box<IndexerHiveObject> get indexersBox =>
       Hive.box<IndexerHiveObject>('indexers');
   static Box<LunaLogHiveObject> get logsBox =>
@@ -60,6 +63,8 @@ class Database {
 
   //Clear boxes
   void clearAlertsBox() => alertsBox.deleteAll(alertsBox.keys);
+  void clearExternalModulesBox() =>
+      externalModulesBox.deleteAll(externalModulesBox.keys);
   void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
   void clearLogsBox() => logsBox.deleteAll(logsBox.keys);
   void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
@@ -68,6 +73,7 @@ class Database {
   void clearAllBoxes({
     bool clearEverything = false,
   }) {
+    clearExternalModulesBox();
     clearLunaSeaBox();
     clearProfilesBox();
     clearIndexersBox();

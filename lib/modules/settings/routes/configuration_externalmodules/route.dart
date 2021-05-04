@@ -35,12 +35,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: 'External Modules',
+      title: LunaModule.EXTERNAL_MODULES.name,
       actions: [
         LunaIconButton(
           icon: Icons.help_outline,
           onPressed: () async {
-            SettingsDialogs().moduleInformation(context, LunaModule.LIDARR);
+            SettingsDialogs()
+                .moduleInformation(context, LunaModule.EXTERNAL_MODULES);
           },
         ),
       ],

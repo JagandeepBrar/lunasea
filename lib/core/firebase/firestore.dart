@@ -10,12 +10,20 @@ class LunaFirebaseFirestore {
   /// Add a backup entry to Firestore. Returns true if successful, and false on any error.
   ///
   /// If the user is not signed in, returns false.
-  Future<bool> addBackupEntry(String id, int timestamp,
-      {String title = '', String description = ''}) async {
+  Future<bool> addBackupEntry(
+    String id,
+    int timestamp, {
+    String title = '',
+    String description = '',
+  }) async {
     if (!LunaFirebaseAuth().isSignedIn) return false;
     try {
       LunaFirebaseBackupDocument entry = LunaFirebaseBackupDocument(
-          id: id, title: title, description: description, timestamp: timestamp);
+        id: id,
+        title: title,
+        description: description,
+        timestamp: timestamp,
+      );
       instance
           .doc('users/${LunaFirebaseAuth().uid}/backups/$id')
           .set(entry.toJSON());

@@ -43,7 +43,7 @@ class _State extends State<DashboardModulesRoute>
   List<Widget> _buildAlphabeticalList() {
     List<Widget> modules = [];
     int index = 0;
-    LunaModule.DASHBOARD.allExternalModules()
+    LunaModule.DASHBOARD.allIntegratedModules()
       ..sort((a, b) => a.name.toLowerCase().compareTo(
             b.name.toLowerCase(),
           ))

@@ -66,14 +66,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, _) => LunaListView(
         controller: scrollController,
         children: [
-          ..._indexerSection,
+          ..._indexerSection(),
           ..._customization(),
         ],
       ),
     );
   }
 
-  List<Widget> get _indexerSection => [
+  List<Widget> _indexerSection() => [
         if (Database.indexersBox.isEmpty)
           LunaMessage(text: 'No Indexers Found'),
         ..._indexers,
@@ -83,9 +83,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<IndexerHiveObject> indexers = Database.indexersBox.values.toList();
     indexers.sort((a, b) =>
         a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
-    List<LunaListTile> list = List.generate(indexers.length, (index) {
-      return _indexerTile(indexers[index], indexers[index].key);
-    });
+    List<LunaListTile> list = List.generate(
+      indexers.length,
+      (index) => _indexerTile(indexers[index], indexers[index].key),
+    );
     return list;
   }
 

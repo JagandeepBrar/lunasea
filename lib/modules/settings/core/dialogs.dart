@@ -135,6 +135,70 @@ class SettingsDialogs {
     return Tuple2(_flag, _textController.text);
   }
 
+  Future<Tuple2<bool, String>> editExternalModuleHost(
+    BuildContext context, {
+    String prefill = '',
+  }) async {
+    bool _flag = false;
+    final _formKey = GlobalKey<FormState>();
+    final _textController = TextEditingController()..text = prefill;
+
+    void _setValues(bool flag) {
+      if (_formKey.currentState.validate()) {
+        _flag = flag;
+        Navigator.of(context).pop();
+      }
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.Host'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Set'.tr(),
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint1'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint2'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint3'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        LunaDialog.textContent(
+          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint4'.tr()}',
+          textAlign: TextAlign.left,
+        ),
+        Form(
+          key: _formKey,
+          child: LunaDialog.textFormInput(
+            controller: _textController,
+            title: 'settings.Host'.tr(),
+            keyboardType: TextInputType.url,
+            onSubmitted: (_) => _setValues(true),
+            validator: (value) {
+              // Allow empty value
+              if (value == '') return null;
+              // Test for https:// or http://
+              RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
+              if (exp.hasMatch(value)) return null;
+              return 'settings.HostValidation'.tr();
+            },
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.inputTextDialogContentPadding(),
+    );
+    return Tuple2(_flag, _textController.text);
+  }
+
   Future<bool> deleteIndexer(BuildContext context) async {
     bool _flag = false;
 
@@ -155,6 +219,32 @@ class SettingsDialogs {
       ],
       content: [
         LunaDialog.textContent(text: 'settings.DeleteIndexerHint1'.tr()),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return _flag;
+  }
+
+  Future<bool> deleteExternalModule(BuildContext context) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.DeleteModule'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Delete'.tr(),
+          textColor: LunaColours.red,
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(text: 'settings.DeleteModuleHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );

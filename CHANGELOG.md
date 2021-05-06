@@ -2,6 +2,10 @@
 
 ## v5.1.0 (50100003)
 
+#### NEW
+
+- `[External Modules]` Ability to add and view external modules
+
 #### FIXES
 
 - `[UI/UX]` (ListView) Vertical padding did not match horizontal padding

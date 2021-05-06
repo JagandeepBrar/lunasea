@@ -15,6 +15,8 @@ class LunaModuleAdapter extends TypeAdapter<LunaModule> {
     switch (reader.readByte()) {
       case 0:
         return LunaModule.DASHBOARD;
+      case 11:
+        return LunaModule.EXTERNAL_MODULES;
       case 1:
         return LunaModule.LIDARR;
       case 2:
@@ -45,6 +47,9 @@ class LunaModuleAdapter extends TypeAdapter<LunaModule> {
     switch (obj) {
       case LunaModule.DASHBOARD:
         writer.writeByte(0);
+        break;
+      case LunaModule.EXTERNAL_MODULES:
+        writer.writeByte(11);
         break;
       case LunaModule.LIDARR:
         writer.writeByte(1);

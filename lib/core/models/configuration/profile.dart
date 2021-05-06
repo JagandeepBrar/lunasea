@@ -428,7 +428,7 @@ class ProfileHiveObject extends HiveObject {
       };
 
   bool get anythingEnabled {
-    for (LunaModule module in LunaModule.DASHBOARD.allExternalModules()) {
+    for (LunaModule module in LunaModule.DASHBOARD.allIntegratedModules()) {
       if (module.isEnabled) return true;
     }
     return false;

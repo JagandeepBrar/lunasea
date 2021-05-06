@@ -3,6 +3,7 @@ export 'routes/configuration.dart';
 export 'routes/configuration_appearance.dart';
 export 'routes/configuration_dashboard.dart';
 export 'routes/configuration_drawer.dart';
+export 'routes/configuration_externalmodules.dart';
 export 'routes/configuration_lidarr.dart';
 export 'routes/configuration_localization.dart';
 export 'routes/configuration_nzbget.dart';

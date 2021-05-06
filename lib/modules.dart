@@ -1,4 +1,5 @@
 export 'modules/dashboard.dart';
+export 'modules/external_modules.dart';
 export 'modules/lidarr.dart';
 export 'modules/nzbget.dart';
 export 'modules/overseerr.dart';

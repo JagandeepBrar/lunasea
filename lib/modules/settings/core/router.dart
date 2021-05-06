@@ -22,6 +22,7 @@ class SettingsRouter extends LunaModuleRouter {
     // Configuration/External Modules
     SettingsConfigurationExternalModulesRouter().defineRoute(router);
     SettingsConfigurationExternalModulesAddRouter().defineRoute(router);
+    SettingsConfigurationExternalModulesEditRouter().defineRoute(router);
     // Configuration/Lidarr
     SettingsConfigurationLidarrRouter().defineRoute(router);
     SettingsConfigurationLidarrConnectionDetailsRouter().defineRoute(router);

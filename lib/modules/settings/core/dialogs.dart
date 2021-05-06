@@ -161,6 +161,32 @@ class SettingsDialogs {
     return _flag;
   }
 
+  Future<bool> deleteExternalModule(BuildContext context) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.DeleteModule'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Delete'.tr(),
+          textColor: LunaColours.red,
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(text: 'settings.DeleteModuleHint1'.tr()),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return _flag;
+  }
+
   Future<bool> deleteHeader(BuildContext context) async {
     bool _flag = false;
 

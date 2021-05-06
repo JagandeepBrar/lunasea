@@ -50,13 +50,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async {
             if (_module.displayName.isEmpty || _module.host.isEmpty) {
               showLunaErrorSnackBar(
-                title: 'settings.ExternalModuleAddFailed'.tr(),
+                title: 'settings.AddModuleFailed'.tr(),
                 message: 'settings.AllFieldsAreRequired'.tr(),
               );
             } else {
               Database.externalModulesBox.add(_module);
               showLunaSuccessSnackBar(
-                title: 'settings.ExternalModuleAddSuccess'.tr(),
+                title: 'settings.AddModuleSuccess'.tr(),
                 message: _module.displayName,
               );
               Navigator.of(context).pop();

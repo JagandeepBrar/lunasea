@@ -163,5 +163,16 @@
     "settings.AmoledThemeBorders": "Bordures du thème AMOLED",
     "settings.AmoledTheme": "Thème AMOLED",
     "settings.AccountDescription": "Votre compte LunaSea",
-    "settings.Account": "Compte"
+    "settings.Account": "Compte",
+    "settings.NoExternalModulesFound": "Aucun module externe trouvé",
+    "settings.ModuleNotFound": "Module introuvable",
+    "settings.EditModule": "Editer le module",
+    "settings.DisplayName": "Nom affiché",
+    "settings.DeleteModuleSuccess": "Module supprimé",
+    "settings.DeleteModuleHint1": "Êtes-vous sûr de vouloir supprimer ce module externe ?",
+    "settings.DeleteModule": "Supprimer le module",
+    "settings.AllFieldsAreRequired": "Tous les champs sont requis",
+    "settings.AddModuleSuccess": "Module ajouté",
+    "settings.AddModuleFailed": "Échec lors de l'ajout du module",
+    "settings.AddModule": "Ajouter un module"
 }

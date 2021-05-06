@@ -163,5 +163,16 @@
     "settings.AmoledThemeDescription": "Pures schwarzes dunkles Design",
     "settings.AmoledThemeBordersDescription": "Fügt subtile Ränder zur UI hinzu",
     "settings.AmoledThemeBorders": "AMOLED Design Ränder",
-    "settings.AmoledTheme": "AMOLED Design"
+    "settings.AmoledTheme": "AMOLED Design",
+    "settings.NoExternalModulesFound": "Keine externen Module gefunden",
+    "settings.ModuleNotFound": "Modul nicht gefunden",
+    "settings.EditModule": "Modul editieren",
+    "settings.DisplayName": "Anzeigename",
+    "settings.DeleteModuleSuccess": "Modul gelöscht",
+    "settings.DeleteModuleHint1": "Bist du sicher dass du dieses externe Modul löschen möchtest?",
+    "settings.DeleteModule": "Modul löschen",
+    "settings.AllFieldsAreRequired": "Alle Felder sind erforderlich",
+    "settings.AddModuleSuccess": "Modul hinzugefügt",
+    "settings.AddModuleFailed": "Module hinzufügen fehlgeschlagen",
+    "settings.AddModule": "Modul hinzufügen"
 }

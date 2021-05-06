@@ -155,9 +155,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async {
-        Tuple2<bool, String> values = await LunaDialogs().editText(
+        Tuple2<bool, String> values =
+            await SettingsDialogs().editExternalModuleHost(
           context,
-          'settings.Host'.tr(),
           prefill: _module.host,
         );
         if (values.item1) _module.host = values.item2;

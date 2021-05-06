@@ -5,9 +5,11 @@
 #### NEW
 
 - `[External Modules]` Ability to add and view external modules
+- `[Flutter]` Build LunaSea with precompiled SkSL shaders
 
 #### FIXES
 
+- `[Flutter]` Update packages
 - `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
 
 ---

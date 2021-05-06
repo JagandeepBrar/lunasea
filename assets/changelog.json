@@ -1,39 +1,31 @@
 {
-    "motd": "This build fixes some bugs and makes some minor polishes to the user interface.",
+    "motd": "This build introduces a new pseudo-module, the ability to add external modules! You can now add references to the web GUI for modules that are not supported by LunaSea to quickly and easily access their web GUIs from within LunaSea.\n\nThis build also introduces the first build for LunaSea to use precompiled SkSL shaders! LunaSea will no longer need to compile graphical shaders on-the-fly, and should have a noticeable performance boost especially on a cold start of LunaSea.",
     "new": [],
     "tweaks": [
         {
-            "module": "Dashboard",
+            "module": "External Modules",
             "changes": [
-                "(Calendar) Add divider between calendar and calendar entries"
+                "Ability to add and view external modules"
             ]
         },
         {
-            "module": "Settings",
+            "module": "Performance",
             "changes": [
-                "(Configuration) Add divider between automatic toggle and manual order list"
+                "Build LunaSea with precompiled SkSL shaders"
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Backup & Restore",
+            "module": "Flutter",
             "changes": [
-                "Backup would fail when the drawer order is not configured"
-            ]
-        },
-        {
-            "module": "Settings",
-            "changes": [
-                "(Configuration) Drawer customization page would not pad for safe areas",
-                "(Dialogs) Ensure all bulleted lists in dialogs are left aligned"
+                "Update packages"
             ]
         },
         {
             "module": "UI/UX",
             "changes": [
-                "(Buttons) Border would incorrectly be applied to buttons with a background colour set",
-                "(Refresh Indicator) Indicator colour was incorrect"
+                "(ListView) Vertical padding did not match horizontal padding"
             ]
         }
     ],

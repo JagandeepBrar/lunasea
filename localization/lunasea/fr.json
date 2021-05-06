@@ -10,11 +10,14 @@
     "lunasea.Dashboard": "Tableau de bord",
     "lunasea.Delete": "Supprimer",
     "lunasea.Disable": "Désactiver",
+    "lunasea.Disabled": "Désactivé",
     "lunasea.Dismiss": "Rejeter",
     "lunasea.GoBack": "Retour en arrière",
     "lunasea.GoToSettings": "Ouvrir les paramètres",
+    "lunasea.IncorrectEncryptionKey": "Clé de chiffrement incorrecte",
     "lunasea.ModuleIsNotEnabled": "{} n'est pas activé",
     "lunasea.NoModulesEnabled": "Aucun module activé",
+    "lunasea.NotSet": "Pas encore défini",
     "lunasea.Page": "Page",
     "lunasea.Refresh": "Rafraichir",
     "lunasea.Rename": "Renommer",
@@ -25,6 +28,7 @@
     "lunasea.Settings": "Réglages",
     "lunasea.TryAgain": "Réessayer",
     "lunasea.Unknown": "Inconnu",
+    "lunasea.UnknownError": "Erreur inconnue",
     "lunasea.UnknownModule": "Module inconnu",
     "lunasea.Website": "Site web"
 }

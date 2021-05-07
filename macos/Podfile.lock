@@ -23,7 +23,7 @@ PODS:
   - Firebase/Storage (7.11.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.11.0)
-  - firebase_auth (1.1.2):
+  - firebase_auth (1.1.3):
     - Firebase/Auth (~> 7.11.0)
     - Firebase/CoreOnly (~> 7.11.0)
     - firebase_core
@@ -206,7 +206,7 @@ SPEC CHECKSUMS:
   cloud_firestore: 2abdd550ec912c367e55a9d6f92cb10dc90fe87e
   file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
-  firebase_auth: ac53becca34ce93204184300656a457a39021c65
+  firebase_auth: eebb0d22688c03fc969b9775a4180cb18d5a81e9
   firebase_core: 9e45a9c5ba9dbcb8973b3a68e6ff43ecf2dcf206
   firebase_crashlytics: 4ab08e6b22a4f6ec909cc1f0a046eac2d1b2925c
   firebase_messaging: 2824d2d30f984f5006c782e1b33f688818bdd919

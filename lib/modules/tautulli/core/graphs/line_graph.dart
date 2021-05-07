@@ -60,54 +60,62 @@ class TautulliLineGraphHelper {
       );
 
   static LineTouchData lineTouchData(
-          BuildContext context, TautulliGraphData data) =>
-      LineTouchData(
-        enabled: true,
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor:
-              LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
-          tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
-          tooltipPadding: EdgeInsets.all(8.0),
-          maxContentWidth: MediaQuery.of(context).size.width / 1.25,
-          fitInsideVertically: true,
-          fitInsideHorizontally: true,
-          getTooltipItems: (List<LineBarSpot> spots) =>
-              List<LineTooltipItem>.generate(
+    BuildContext context,
+    TautulliGraphData data,
+  ) {
+    return LineTouchData(
+      enabled: true,
+      touchTooltipData: LineTouchTooltipData(
+        tooltipBgColor:
+            LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
+        tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
+        tooltipPadding: EdgeInsets.all(8.0),
+        maxContentWidth: MediaQuery.of(context).size.width / 1.25,
+        fitInsideVertically: true,
+        fitInsideHorizontally: true,
+        getTooltipItems: (List<LineBarSpot> spots) {
+          return List<LineTooltipItem>.generate(
             spots.length,
-            (index) => LineTooltipItem(
-              [
-                '${data.series[spots[index].barIndex].name}: ',
-                context.read<TautulliState>().graphYAxis ==
-                        TautulliGraphYAxis.PLAYS
-                    ? '${spots[index]?.y?.truncate() ?? 0}'
-                    : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lunaTimestampWords}',
-              ].join().trim(),
-              TextStyle(
-                color: Colors.white70,
-                fontSize: LunaUI.FONT_SIZE_SUBHEADER,
-              ),
+            (index) {
+              String name = data.series[index].name;
+              int value = data.series[index].data[spots[index].spotIndex];
+              return LineTooltipItem(
+                [
+                  '$name: ',
+                  context.read<TautulliState>().graphYAxis ==
+                          TautulliGraphYAxis.PLAYS
+                      ? '${value ?? 0}'
+                      : '${Duration(seconds: value ?? 0).lunaTimestampWords}',
+                ].join().trim(),
+                TextStyle(
+                  color: Colors.white70,
+                  fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+                ),
+              );
+            },
+          );
+        },
+      ),
+      getTouchedSpotIndicator: (bar, data) =>
+          List<TouchedSpotIndicatorData>.generate(
+        data.length,
+        (index) => TouchedSpotIndicatorData(
+          FlLine(
+            strokeWidth: 3.0,
+            color: bar.colors[0].withOpacity(0.50),
+          ),
+          FlDotData(
+            show: true,
+            getDotPainter: (FlSpot spot, double xPercentage,
+                    LineChartBarData bar, int index) =>
+                FlDotCirclePainter(
+              radius: 5.0,
+              strokeColor: bar.colors[0],
+              color: bar.colors[0],
             ),
           ),
         ),
-        getTouchedSpotIndicator: (bar, data) =>
-            List<TouchedSpotIndicatorData>.generate(
-          data.length,
-          (index) => TouchedSpotIndicatorData(
-            FlLine(
-              strokeWidth: 3.0,
-              color: bar.colors[0].withOpacity(0.50),
-            ),
-            FlDotData(
-              show: true,
-              getDotPainter: (FlSpot spot, double xPercentage,
-                      LineChartBarData bar, int index) =>
-                  FlDotCirclePainter(
-                radius: 5.0,
-                strokeColor: bar.colors[0],
-                color: bar.colors[0],
-              ),
-            ),
-          ),
-        ),
-      );
+      ),
+    );
+  }
 }

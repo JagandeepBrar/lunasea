@@ -1,5 +1,13 @@
 # LunaSea Changelog
 
+## v5.1.0 (50100004)
+
+#### FIXES
+
+- `[Tautulli]` (Graphs) Line chart tooltips had incorrect data
+
+---
+
 ## v5.1.0 (50100003)
 
 #### NEW

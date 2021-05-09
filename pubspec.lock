@@ -876,7 +876,7 @@ packages:
       name: radarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   share_plus:
     dependency: "direct main"
     description:

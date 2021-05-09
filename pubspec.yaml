@@ -44,7 +44,7 @@ dependencies:
   percent_indicator: ^3.0.1                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0+1                   # ANDROID IOS
-  radarr: ^2.1.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
+  radarr: ^2.1.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   share_plus: ^2.0.3                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   sonarr: ^2.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                      # ANDROID IOS LINUX MACOS WEB WINDOWS

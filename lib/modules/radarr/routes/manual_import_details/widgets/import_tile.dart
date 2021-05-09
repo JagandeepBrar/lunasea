@@ -211,6 +211,8 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
         id: manualImport.id,
         path: manualImport.path,
         movieId: movieId,
+        quality: manualImport.quality,
+        languages: manualImport.languages,
       );
       context
           .read<RadarrState>()

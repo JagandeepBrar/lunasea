@@ -4,6 +4,7 @@
 
 #### FIXES
 
+- `[Radarr]` (Manual Import) Could not select movie when using Radarr v3.1.0+
 - `[Tautulli]` (Graphs) Line chart tooltips had incorrect data
 
 ---

@@ -1,7 +1,18 @@
 {
-    "motd": "This build introduces a new pseudo-module, the ability to add external modules! You can now add references to the web GUI for modules that are not supported by LunaSea to quickly and easily access their web GUIs from within LunaSea.\n\nThis build also introduces the first build for LunaSea to use precompiled SkSL shaders! LunaSea will no longer need to compile graphical shaders on-the-fly, and should have a noticeable performance boost especially on a cold start of LunaSea.",
-    "new": [],
-    "tweaks": [
+    "motd": "Welcome to LunaSea v5.1.0!\n\nThis update introduces a new pseudo-module, the ability to add external modules to LunaSea! Adding external modules to LunaSea allows you to quickly and easily jump to the web GUI for modules that are currently not supported by LunaSea, keeping all of your management needs in one place.\n\nThis update also introduces a new customization feature, the ability to reorder your drawer! The drawer and dashboard modules list now default to being sorted alphabetically, but jump into the settings to pick the order you like.\n\nFinally, alongside other minor fixes and tweaks, this update now includes pre-compiled SkSL graphical shaders! This means you should now experience less \"jank\" within LunaSea, especially on a cold-start.",
+    "new": [
+        {
+            "module": "Dashboard",
+            "changes": [
+                "(Modules) Show Wake on LAN tile"
+            ]
+        },
+        {
+            "module": "Drawer",
+            "changes": [
+                "Ability to customize the order of modules"
+            ]
+        },
         {
             "module": "External Modules",
             "changes": [
@@ -15,16 +26,78 @@
             ]
         }
     ],
+    "tweaks": [
+        {
+            "module": "Dashboard",
+            "changes": [
+                "(Calendar) Add divider between calendar and calendar entries",
+                "(Modules) Synchronize module ordering with drawer ordering"
+            ]
+        },
+        {
+            "module": "Drawer",
+            "changes": [
+                "Default to sorting modules alphabetically"
+            ]
+        },
+        {
+            "module": "Settings",
+            "changes": [
+                "(Configuration) Alphabetically sort the modules"
+            ]
+        }
+    ],
     "fixes": [
         {
             "module": "Flutter",
             "changes": [
-                "Update packages"
+                "Update packages",
+                "Upgrade to Firebase SDK v7.11.0"
+            ]
+        },
+        {
+            "module": "Locale",
+            "changes": [
+                "Ensure that the date formatter uses the currently set locale"
+            ]
+        },
+        {
+            "module": "Radarr",
+            "changes": [
+                "(Manual Import) Could not select movie when using Radarr v3.1.0+"
+            ]
+        },
+        {
+            "module": "Search",
+            "changes": [
+                "Indexers would not load in some cases when the headers map was null/empty"
+            ]
+        },
+        {
+            "module": "Settings",
+            "changes": [
+                "(Connection Test) Connection tests could fail unexpectedly",
+                "(Dialogs) Ensure all bulleted lists in dialogs are left aligned"
+            ]
+        },
+        {
+            "module": "Sonarr",
+            "changes": [
+                "(Edit) Grey screen could be shown when a user has no tags",
+                "(Edit) Grey screen could be shown when a user has no language profiles"
+            ]
+        },
+        {
+            "module": "Tautulli",
+            "changes": [
+                "(Graphs) Line chart tooltips had incorrect data"
             ]
         },
         {
             "module": "UI/UX",
             "changes": [
+                "Popup menus were not aligned correctly",
+                "(Buttons) Border would incorrectly be applied to buttons with a background colour set",
                 "(ListView) Vertical padding did not match horizontal padding"
             ]
         }

@@ -2,67 +2,35 @@
 
 ## v5.1.0 (50100004)
 
-#### FIXES
-
-- `[Radarr]` (Manual Import) Could not select movie when using Radarr v3.1.0+
-- `[Tautulli]` (Graphs) Line chart tooltips had incorrect data
-
----
-
-## v5.1.0 (50100003)
-
-#### NEW
-
-- `[External Modules]` Ability to add and view external modules
-- `[Flutter]` Build LunaSea with precompiled SkSL shaders
-
-#### FIXES
-
-- `[Flutter]` Update packages
-- `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
-
----
-
-## v5.1.0 (50100002)
-
-#### TWEAKS
-
-- `[Dashboard]` (Calendar) Add divider between calendar and calendar entries
-- `[Settings]` (Configuration) Add divider between automatic toggle and manual order list
-
-#### FIXES
-
-- `[Backup & Restore]` Backup would fail when the drawer order is not configured
-- `[Settings]` (Configuration) Drawer customization page would not pad for safe areas
-- `[Settings]` (Dialogs) Ensure all bulleted lists in dialogs are left aligned
-- `[UI/UX]` (Buttons) Border would incorrectly be applied to buttons with a background colour set
-- `[UI/UX]` (Refresh Indicator) Indicator colour was incorrect
-
----
-
-## v5.1.0 (50100001)
-
 #### NEW
 
 - `[Dashboard]` (Modules) Show Wake on LAN tile
 - `[Drawer]` Ability to customize the order of modules
+- `[External Modules]` Ability to add and view external modules
+- `[Performance]` Build LunaSea with precompiled SkSL shaders
 
 #### TWEAKS
 
+- `[Dashboard]` (Calendar) Add divider between calendar and calendar entries
 - `[Dashboard]` (Modules) Synchronize module ordering with drawer ordering
 - `[Drawer]` Default to sorting modules alphabetically
 - `[Settings]` (Configuration) Alphabetically sort the modules
 
 #### FIXES
 
-- `[Flutter]` Updated packages
+- `[Flutter]` Update packages
 - `[Flutter]` Upgrade to Firebase SDK v7.11.0
 - `[Locale]` Ensure that the date formatter uses the currently set locale
+- `[Radarr]` (Manual Import) Could not select movie when using Radarr v3.1.0+
 - `[Search]` Indexers would not load in some cases when the headers map was null/empty
 - `[Settings]` (Connection Test) Connection tests could fail unexpectedly
+- `[Settings]` (Dialogs) Ensure all bulleted lists in dialogs are left aligned
 - `[Sonarr]` (Edit) Grey screen could be shown when a user has no tags
 - `[Sonarr]` (Edit) Grey screen could be shown when a user has no language profiles
+- `[Tautulli]` (Graphs) Line chart tooltips had incorrect data
 - `[UI/UX]` Popup menus were not aligned correctly
+- `[UI/UX]` (Buttons) Border would incorrectly be applied to buttons with a background colour set
+- `[UI/UX]` (ListView) Vertical padding did not match horizontal padding
 
 ---
 

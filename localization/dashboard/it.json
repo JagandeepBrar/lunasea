@@ -1,1 +1,21 @@
-{}
+{
+    "dashboard.Modules": "Moduli",
+    "dashboard.MinimumOfOneDay": "Minimo 1 giorno",
+    "dashboard.FutureDaysDescription": "Imposta il numero di giorni nel futuro per cui recuperare le voci del calendario.",
+    "dashboard.Wednesday": "Mercoledì",
+    "dashboard.TwoWeeks": "Due settimane",
+    "dashboard.Tuesday": "Martedì",
+    "dashboard.Thursday": "Giovedì",
+    "dashboard.Sunday": "Domenica",
+    "dashboard.Schedule": "Programma",
+    "dashboard.Saturday": "Sabato",
+    "dashboard.PastDaysDescription": "Imposta il numero di giorni passati per i quali recuperare le voci del calendario.",
+    "dashboard.PastDays": "Giorni passati",
+    "dashboard.OneWeek": "Una settimana",
+    "dashboard.OneMonth": "Un mese",
+    "dashboard.NoNewContent": "Nessun nuovo contenuto",
+    "dashboard.Monday": "Lunedì",
+    "dashboard.Friday": "Venerdì",
+    "dashboard.FutureDays": "Giorni futuri",
+    "dashboard.Calendar": "Calendario"
+}

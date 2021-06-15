@@ -50,5 +50,11 @@
     "tautulli.BackingUpConfiguration": "A fazer backup da configuração…",
     "tautulli.Audio": "Áudio",
     "tautulli.ActivityDetails": "Detalhes de Atividade",
-    "tautulli.Activity": "Atividade"
+    "tautulli.Activity": "Atividade",
+    "tautulli.Title": "Titulo",
+    "tautulli.User": "Utilizador",
+    "tautulli.Users": "Utilizadores",
+    "tautulli.Video": "Vídeo",
+    "tautulli.ViewWebGUI": "Ver WEB GUI",
+    "tautulli.Year": "Ano"
 }

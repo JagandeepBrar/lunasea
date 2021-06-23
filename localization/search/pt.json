@@ -1,1 +1,23 @@
-{}
+{
+    "search.Subcategories": "Subcategorias",
+    "search.Size": "Tamanho",
+    "search.SentTo": "Enviar para {}",
+    "search.SentNZBData": "Enviar dados NZB",
+    "search.Search": "Pesquisar",
+    "search.Results": "Resultados",
+    "search.NoSubcategoriesFound": "Nenhuma Subcategoria Encontrada",
+    "search.NoResultsFound": "Nenhum Resultado Encontrado",
+    "search.NoCategoriesFound": "Nenhuma Categoria Encontrada",
+    "search.FailedToSend": "Falha ao Enviar",
+    "search.FailedToDownloadNZB": "Falha ao Baixar NZB",
+    "search.DownloadToDevice": "Baixar para o Dispositivo",
+    "search.DownloadingNZBToDevice": "Baixar NZB para o seu dispositivo",
+    "search.Downloading": "Baixando…",
+    "search.Download": "Baixar",
+    "search.Comments": "Comentários",
+    "search.Categories": "Categorias",
+    "search.Category": "Categoria",
+    "search.Alphabetical": "Alfabético",
+    "search.AllSubcategories": "Todas Subcategorias",
+    "search.Age": "Idade"
+}

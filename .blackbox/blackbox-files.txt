@@ -4,4 +4,3 @@ android/key.properties
 ios/ExportOptions.plist
 ios/GoogleService-Info.plist
 macos/GoogleService-Info.plist
-vendor/font_awesome_flutter/lib/fonts/fa-solid-900.ttf

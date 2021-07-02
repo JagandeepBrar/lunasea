@@ -1,1 +1,21 @@
-{}
+{
+    "dashboard.PastDaysDescription": "Defina o número de dias passados para buscar registros do calendário.",
+    "dashboard.MinimumOfOneDay": "Mínimo de 1 dia",
+    "dashboard.FutureDaysDescription": "Defina o número de dias a frente para buscar registros do calendário.",
+    "dashboard.FutureDays": "Próximos Dias",
+    "dashboard.Wednesday": "Quarta-feira",
+    "dashboard.TwoWeeks": "Duas Semanas",
+    "dashboard.Tuesday": "Terça-feira",
+    "dashboard.Thursday": "Quinta-feira",
+    "dashboard.Sunday": "Domingo",
+    "dashboard.Schedule": "Cronograma",
+    "dashboard.Saturday": "Sábado",
+    "dashboard.PastDays": "Dias Anteriores",
+    "dashboard.OneWeek": "Uma Semana",
+    "dashboard.OneMonth": "Um Mês",
+    "dashboard.NoNewContent": "Sem Conteúdo Novo",
+    "dashboard.Monday": "Segunda-feira",
+    "dashboard.Modules": "Módulos",
+    "dashboard.Friday": "Sexta-feira",
+    "dashboard.Calendar": "Calendário"
+}

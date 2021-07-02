@@ -1,1 +1,19 @@
-{}
+{
+    "dashboard.Calendar": "Календарь",
+    "dashboard.PastDays": "Прошедшие дни",
+    "dashboard.NoNewContent": "Нет нового контента",
+    "dashboard.FutureDays": "Будущие дни",
+    "dashboard.Wednesday": "Среда",
+    "dashboard.TwoWeeks": "Две недели",
+    "dashboard.Tuesday": "Вторник",
+    "dashboard.Thursday": "Четверг",
+    "dashboard.Sunday": "Воскресенье",
+    "dashboard.Schedule": "Расписание",
+    "dashboard.Saturday": "Суббота",
+    "dashboard.OneWeek": "Одна неделя",
+    "dashboard.OneMonth": "Один месяц",
+    "dashboard.Monday": "Понедельник",
+    "dashboard.Modules": "Модули",
+    "dashboard.MinimumOfOneDay": "Минимум 1 день",
+    "dashboard.Friday": "Пятница"
+}

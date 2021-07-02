@@ -1,1 +1,21 @@
-{}
+{
+    "dashboard.Wednesday": "Szerda",
+    "dashboard.TwoWeeks": "Két hét",
+    "dashboard.Tuesday": "Kedd",
+    "dashboard.Thursday": "Csütörtök",
+    "dashboard.Sunday": "Vasárnap",
+    "dashboard.Schedule": "Ütemezve",
+    "dashboard.Saturday": "Szombat",
+    "dashboard.PastDaysDescription": "Állítsa be a \"Nemrégiben\" rész napok számát a, amelyekre be szeretné tölteni a naptárbejegyzéseket.",
+    "dashboard.PastDays": "Nemrégiben",
+    "dashboard.OneWeek": "Egy hét",
+    "dashboard.OneMonth": "Egy hónap",
+    "dashboard.NoNewContent": "Nincs új tartalom",
+    "dashboard.Monday": "Hétfő",
+    "dashboard.Modules": "Modul",
+    "dashboard.MinimumOfOneDay": "Minimum 1 nap",
+    "dashboard.FutureDaysDescription": "Állítsa be a \"hamarosan\" rész napjainak számát, amelyekre be szeretné tölteni a naptárbejegyzéseket.",
+    "dashboard.FutureDays": "Hamarosan",
+    "dashboard.Friday": "Péntek",
+    "dashboard.Calendar": "Naptár"
+}

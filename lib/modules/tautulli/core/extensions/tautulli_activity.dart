@@ -1,5 +1,5 @@
-import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliActivityExtension on TautulliActivity {
   String get lunaSessionsHeader {

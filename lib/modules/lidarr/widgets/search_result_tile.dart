@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/dashboard.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;

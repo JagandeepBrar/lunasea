@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrAlbumData {
   final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();

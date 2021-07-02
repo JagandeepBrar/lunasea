@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsConfigurationSonarrConnectionDetailsRouter
     extends SettingsPageRouter {

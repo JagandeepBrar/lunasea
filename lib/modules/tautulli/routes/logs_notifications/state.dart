@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsNotificationsState extends ChangeNotifier {
   TautulliLogsNotificationsState(BuildContext context) {

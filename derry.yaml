@@ -1,41 +1,108 @@
 blackbox:
-  admins: blackbox_list_admins
-  decrypt: blackbox_postdeploy
-  files: blackbox_list_files
-  shred: blackbox_shred_all_files
-  update: blackbox_update_all_files
+  admins:
+    (description): Blackbox - List Admins
+    (execution): once
+    (scripts):
+      - blackbox_list_admins
+  decrypt:
+    (description): Blackbox - Decrypt Encrypted Files
+    (execution): once
+    (scripts):
+      - blackbox_postdeploy
+  files:
+    (description): Blackbox - List Encrypted Files
+    (execution): once
+    (scripts):
+      - blackbox_list_files
+  shred:
+    (description): Blackbox - Safely Delete Decrypted Files
+    (execution): once
+    (scripts):
+      - blackbox_shred_all_files
+  update:
+    (description): Blackbox - Decrypt & Re-Encrypt Tracked Files
+    (execution): once
+    (scripts):
+      - blackbox_update_all_files
 build:
   android:
-    apk: ./scripts/build/apk.sh
-    aab: ./scripts/build/aab.sh
+    apk:
+      (description): Build (Android) - Build Split APKs
+      (execution): once
+      (scripts):
+        - ./scripts/build/apk.sh
+    aab:
+      (description): Build (Android) - Build Appbundle
+      (execution): once
+      (scripts):
+        - ./scripts/build/aab.sh
   ios:
-    ipa: ./scripts/build/ipa.sh
+    ipa:
+      (description): Build (iOS) - Build IPA
+      (execution): once
+      (scripts):
+        - ./scripts/build/ipa.sh
     archive:
-      - flutter clean
-      - flutter build ios
+      (description): Build (iOS) - Build Xcode Archive
+      (execution): once
+      (scripts):
+        - flutter clean
+        - flutter build ios
   macos:
     archive:
-      - flutter clean
-      - flutter build macos
+      (description): Build (iOS) - Build Xcode Archive
+      (execution): once
+      (scripts):
+        - flutter clean
+        - flutter build macos
 cocoapods:
   clearcache:
-    - rm -rf ~/Library/Caches/CocoaPods
-    - rm -rf ~/Library/Developer/Xcode/DerivedData/*
+    (description): Cocoapods - Delete Cache & Derived Data
+    (execution): multiple
+    (scripts):
+      - rm -rf ~/Library/Caches/CocoaPods
+      - rm -rf ~/Library/Developer/Xcode/DerivedData/*
   nuke:
     ios:
-      - cd ./ios && rm -rf Pods/
-      - cd ./ios && pod deintegrate
-      - cd ./ios && pod setup
-      - cd ./ios && pod install
+      (description): Cocoapods - Reintegrate & Reinstall iOS Pods
+      (execution): once
+      (scripts):
+        - cd ./ios && rm -rf Pods/
+        - cd ./ios && pod deintegrate
+        - cd ./ios && pod setup
+        - cd ./ios && pod install
     macos:
-      - cd ./macos && rm -rf Pods/
-      - cd ./macos && pod deintegrate
-      - cd ./macos && pod setup
-      - cd ./macos && pod install
+      (description): Cocoapods - Reintegrate & Reinstall macOS Pods
+      (execution): once
+      (scripts):
+        - cd ./macos && rm -rf Pods/
+        - cd ./macos && pod deintegrate
+        - cd ./macos && pod setup
+        - cd ./macos && pod install
 coverage:
-  create: flutter test --coverage
-  upload: bash <(curl -s https://codecov.io/bash)
+  create:
+    (description): Coverage - Create Coverage Report
+    (execution): once
+    (scripts):
+      - flutter test --coverage
+  upload:
+    (description): Coverage - Upload to Codecov
+    (execution): once
+    (scripts):
+      - bash <(curl -s https://codecov.io/bash)
 generate:
-  assets: spider build
-  runner: flutter packages pub run build_runner build --delete-conflicting-outputs
-  localization: dart ./scripts/generate/localization.dart
+  assets:
+    (description): Generator - Asset Tree
+    (execution): once
+    (scripts):
+      - spider build
+  runner:
+    (description): Generator - Build Runner
+    (execution): once
+    (scripts):
+      - flutter packages pub run build_runner build --delete-conflicting-outputs
+  localization:
+    (description): Generator - Localizations
+    (execution): once
+    (scripts):
+      - dart ./scripts/generate/localization.dart

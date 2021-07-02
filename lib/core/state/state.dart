@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
+import 'package:provider/provider.dart';
 
 class LunaState {
   LunaState._();

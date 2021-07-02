@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NZBGetQueueTile extends StatefulWidget {
   final int index;

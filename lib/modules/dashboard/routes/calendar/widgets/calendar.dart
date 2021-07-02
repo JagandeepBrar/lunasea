@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
   final Map<DateTime, List> events;

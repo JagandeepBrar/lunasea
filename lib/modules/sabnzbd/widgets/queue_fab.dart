@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:tuple/tuple.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
+import 'package:tuple/tuple.dart';
 
 class SABnzbdQueueFAB extends StatefulWidget {
   final ScrollController scrollController;

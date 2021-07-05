@@ -36,7 +36,8 @@ dependencies:
   infinite_scroll_pagination: ^3.0.1+1
   intl: ^0.17.0
   modal_bottom_sheet: ^2.0.0
-  overseerr: ^0.0.1-pre.5
+  overseerr:
+    path: ../Dart-Packages/overseerr
   package_info_plus: ^1.0.3
   path_provider: ^2.0.1
   percent_indicator: ^3.0.1

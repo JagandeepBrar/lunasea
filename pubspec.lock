@@ -677,9 +677,9 @@ packages:
   overseerr:
     dependency: "direct main"
     description:
-      name: overseerr
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../Dart-Packages/overseerr"
+      relative: true
+    source: path
     version: "0.0.1-pre.5"
   package_config:
     dependency: transitive

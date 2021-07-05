@@ -25,7 +25,9 @@ void main() {
         if (FileSystemEntity.isFileSync(language.path) &&
             language.path.endsWith('.json')) {
           // Create the file (if it does not exist), append language data to it
-          String name = language.path.split('/').last;
+          String name = Platform.isWindows
+              ? language.path.split('\\').last
+              : language.path.split('/').last;
           String path = '${_assets.path}/$name';
           _createFile(path);
           File file = File(language.path);

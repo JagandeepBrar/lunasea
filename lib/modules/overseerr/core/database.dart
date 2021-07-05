@@ -73,12 +73,16 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
         if (value is int) box.put(this.key, value);
         return;
     }
-    LunaLogger().warning('OverseerrDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid OverseerrDatabaseValue: ${this?.toString() ?? 'null'}');
+    LunaLogger().warning(
+      'OverseerrDatabaseValueExtension',
+      'put',
+      'Attempted to enter data for invalid OverseerrDatabaseValue: ${this?.toString() ?? 'null'}',
+    );
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
+  ValueListenableBuilder listen({
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) =>
       ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,

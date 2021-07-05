@@ -63,24 +63,23 @@ class _State<T> extends State<LunaPagedListView<T>> {
             newPageProgressIndicatorBuilder: (context) => Padding(
               child: Container(
                 alignment: Alignment.center,
-                height: 40.0,
+                height: 48.0,
                 child: LunaLoader(size: 16.0, useSafeArea: false),
               ),
-              padding: EdgeInsets.only(bottom: 16.0),
+              padding: EdgeInsets.only(bottom: 0.0),
             ),
-            newPageErrorIndicatorBuilder: (context) =>
-                LunaIconButton(icon: Icons.error, color: LunaColours.red),
+            newPageErrorIndicatorBuilder: (context) => LunaIconButton(
+              icon: Icons.error,
+              color: LunaColours.red,
+            ),
+            noMoreItemsIndicatorBuilder: (context) => LunaIconButton(
+              icon: Icons.check,
+              color: LunaColours.accent,
+            ),
             noItemsFoundIndicatorBuilder: (context) => LunaMessage(
               text: widget.noItemsFoundMessage,
               buttonText: 'lunasea.Refresh'.tr(),
               onTap: () => Future.sync(() => widget.pagingController.refresh()),
-            ),
-            noMoreItemsIndicatorBuilder: (context) => Padding(
-              child: LunaIconButton(
-                icon: Icons.check,
-                color: LunaColours.accent,
-              ),
-              padding: EdgeInsets.only(bottom: 16.0),
             ),
           ),
           padding: widget.padding ??

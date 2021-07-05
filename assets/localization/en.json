@@ -53,6 +53,8 @@
     "lunasea.UnknownModule": "Unknown Module",
     "lunasea.Website": "Website",
     "overseerr.Requests": "Requests",
+    "overseerr.NoUsersFound": "No Users Found",
+    "overseerr.UnknownUser": "Unknown User",
     "overseerr.Users": "Users",
     "radarr.Age": "Age",
     "radarr.All": "All",

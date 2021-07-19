@@ -89,11 +89,7 @@ class _State extends State<_Widget> {
         return PageView(
           controller: _pageController,
           children: [
-            LunaMessage(
-              text: 'Coming Soon',
-              buttonText: 'Go to Dashboard',
-              onTap: LunaModule.DASHBOARD.launch,
-            ),
+            OverseerrRequestsRoute(),
             OverseerrUserRoute(),
           ],
         );

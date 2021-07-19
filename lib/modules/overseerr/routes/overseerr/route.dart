@@ -94,6 +94,7 @@ class _State extends State<_Widget> {
               buttonText: 'Go to Dashboard',
               onTap: LunaModule.DASHBOARD.launch,
             ),
+            OverseerrUserRoute(),
           ],
         );
       },

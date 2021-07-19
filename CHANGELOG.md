@@ -1,5 +1,16 @@
 # LunaSea Changelog
 
+## Unversioned
+
+#### NEW
+
+#### TWEAKS
+
+#### FIXES
+
+- `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
+- `[UI/UX]` (Theme) Remove deprecated theme values
+
 ## v5.1.0 (50100004)
 
 #### NEW

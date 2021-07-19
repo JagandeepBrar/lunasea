@@ -48,16 +48,50 @@ enum LunaModule {
 }
 
 extension LunaModuleExtension on LunaModule {
-  /// Returns a list of only _integrated_ modules.
+  /// Returns true if the module is enabled at a system level.
+  bool get _enabled {
+    switch (this) {
+      case LunaModule.DASHBOARD:
+        return true;
+      case LunaModule.EXTERNAL_MODULES:
+        return true;
+      case LunaModule.LIDARR:
+        return true;
+      case LunaModule.NZBGET:
+        return true;
+      case LunaModule.OVERSEERR:
+        return kDebugMode;
+      case LunaModule.RADARR:
+        return true;
+      case LunaModule.SABNZBD:
+        return true;
+      case LunaModule.SEARCH:
+        return true;
+      case LunaModule.SETTINGS:
+        return true;
+      case LunaModule.SONARR:
+        return true;
+      case LunaModule.TAUTULLI:
+        return true;
+      case LunaModule.WAKE_ON_LAN:
+        return true;
+    }
+    throw Exception('Invalid LunaModule');
+  }
+
+  /// Returns a list of all system-enabled modules.
   ///
-  /// Integrated modules are modules that are not entirely internal (dashboard, settings, etc.).
-  List<LunaModule> allIntegratedModules() {
-    List<LunaModule> modules = LunaModule.values.toList()
-      ..remove(LunaModule.DASHBOARD)
-      ..remove(LunaModule.SETTINGS);
-    // Remove additional hidden modules
-    if (kReleaseMode) modules.remove(LunaModule.OVERSEERR);
-    return modules;
+  /// Internal modules (dashboard, settings, etc.) are removed by default.
+  List<LunaModule> allModules({
+    bool removeInternalModules = true,
+  }) {
+    List<LunaModule> _modules =
+        LunaModule.values.filter((module) => module._enabled).toList();
+    if (removeInternalModules) {
+      _modules.remove(LunaModule.DASHBOARD);
+      _modules.remove(LunaModule.SETTINGS);
+    }
+    return _modules;
   }
 
   /// Used to convert a string key back to a [LunaModule] value.

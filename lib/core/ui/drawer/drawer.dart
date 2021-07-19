@@ -12,14 +12,14 @@ class LunaDrawer extends StatelessWidget {
   static List<LunaModule> moduleOrderedList() {
     LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
     List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
-    _modules ??= LunaModule.DASHBOARD.allIntegratedModules();
     // Add any modules that were added after the user set their drawer order preference
-    _modules.addAll(
-      LunaModule.DASHBOARD.allIntegratedModules()
+    _modules?.addAll(
+      LunaModule.DASHBOARD.allModules()
         ..retainWhere(
           (module) => !_modules.contains(module),
         ),
     );
+    _modules ??= LunaModule.DASHBOARD.allModules();
     return _modules;
   }
 
@@ -53,7 +53,7 @@ class LunaDrawer extends StatelessWidget {
   }
 
   List<Widget> _getAlphabeticalOrder(BuildContext context) {
-    List<LunaModule> _modules = LunaModule.DASHBOARD.allIntegratedModules()
+    List<LunaModule> _modules = LunaModule.DASHBOARD.allModules()
       ..sort((a, b) => a.name.toLowerCase().compareTo(
             b.name.toLowerCase(),
           ));

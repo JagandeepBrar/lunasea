@@ -116,7 +116,49 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaButton.text(
       text: 'Test Connection',
       icon: Icons.wifi_tethering_rounded,
-      onTap: () async {},
+      onTap: () async {
+        ProfileHiveObject _profile = Database.currentProfileObject;
+        if (_profile.overseerrHost == null || _profile.overseerrHost.isEmpty) {
+          showLunaErrorSnackBar(
+            title: 'Host Required',
+            message: 'Host is required to connect to Overseerr',
+          );
+          return;
+        }
+        if (_profile.overseerrKey == null || _profile.overseerrKey.isEmpty) {
+          showLunaErrorSnackBar(
+            title: 'API Key Required',
+            message: 'API key is required to connect to Overseerr',
+          );
+          return;
+        }
+        Overseerr(
+          host: _profile.overseerrHost,
+          apiKey: _profile.overseerrKey,
+          headers: Map<String, dynamic>.from(_profile.overseerrHeaders ?? {}),
+        )
+            .status
+            .getStatus()
+            .then(
+              (_) => showLunaSuccessSnackBar(
+                title: 'Connected Successfully',
+                message: 'Overseerr is ready to use with LunaSea',
+              ),
+            )
+            .catchError(
+          (error, trace) {
+            LunaLogger().error(
+              'Connection Test Failed',
+              error,
+              trace,
+            );
+            showLunaErrorSnackBar(
+              title: 'Connection Test Failed',
+              error: error,
+            );
+          },
+        );
+      },
     );
   }
 

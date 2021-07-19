@@ -3,11 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrRequestsListView extends StatefulWidget {
-  final ScrollController scrollController;
-
   OverseerrRequestsListView({
     Key key,
-    @required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -56,7 +53,7 @@ class _State extends State<OverseerrRequestsListView> {
     return LunaPagedListView<OverseerrRequest>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
-      scrollController: widget.scrollController,
+      scrollController: OverseerrNavigationBar.scrollControllers[0],
       listener: _fetchPage,
       noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
       itemBuilder: (context, request, index) => OverseerrRequestTile(

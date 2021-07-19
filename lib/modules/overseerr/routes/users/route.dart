@@ -8,7 +8,7 @@ class OverseerrUserRoute extends StatefulWidget {
 }
 
 class _State extends State<OverseerrUserRoute>
-    with AutomaticKeepAliveClientMixin, LunaScrollControllerMixin {
+    with AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -19,13 +19,7 @@ class _State extends State<OverseerrUserRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: _body(),
-    );
-  }
-
-  Widget _body() {
-    return OverseerrUserListView(
-      scrollController: this.scrollController,
+      body: OverseerrUserListView(),
     );
   }
 }

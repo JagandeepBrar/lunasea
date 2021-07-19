@@ -4,12 +4,10 @@ import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrUserListView extends StatefulWidget {
   final ScrollController scrollController;
-  final int pageSize;
 
   OverseerrUserListView({
     Key key,
     @required this.scrollController,
-    this.pageSize = 25,
   }) : super(key: key);
 
   @override
@@ -29,22 +27,23 @@ class _State extends State<OverseerrUserListView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
+    final int pageSize = OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data;
     await context
         .read<OverseerrState>()
         .api
         .users
         .getUsers(
-          take: widget.pageSize,
-          skip: pageKey * widget.pageSize,
+          take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
+          skip: pageKey * pageSize,
         )
         .then((data) {
-      if (data.results.length < widget.pageSize) {
+      if (data.results.length < pageSize) {
         return _pagingController.appendLastPage(data.results);
       }
       return _pagingController.appendPage(data.results, pageKey + 1);
     }).catchError((error, stack) {
       LunaLogger().error(
-        'Unable to fetch Overseerr user page / take: ${widget.pageSize} / skip: ${pageKey * widget.pageSize}',
+        'Unable to fetch Overseerr user page / take: $pageSize / skip: ${pageKey * pageSize}',
         error,
         stack,
       );

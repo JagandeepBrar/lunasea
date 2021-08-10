@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 export 'package:in_app_purchase/in_app_purchase.dart';
 
 class LunaInAppPurchases {
@@ -16,15 +17,14 @@ class LunaInAppPurchases {
     DONATION_10
   ];
 
-  static InAppPurchaseConnection get connection =>
-      InAppPurchaseConnection.instance;
+  static InAppPurchase get connection => InAppPurchase.instance;
   static StreamSubscription<List<PurchaseDetails>> _purchaseStream;
   static List<ProductDetails> donationIAPs = [];
   static bool isAvailable = false;
 
   static bool get isPlatformCompatible => Platform.isAndroid || Platform.isIOS;
 
-  /// Callback function for [purchaseUpdatedStream].
+  /// Callback function for [purchaseStream].
   static Future<void> _purchasedCallback(
       List<PurchaseDetails> purchases) async {
     for (var purchase in purchases) {
@@ -43,11 +43,13 @@ class LunaInAppPurchases {
   /// - Fetch and store donation IAPs
   Future<void> initialize() async {
     if (isPlatformCompatible) {
-      InAppPurchaseConnection.enablePendingPurchases();
+      if (Platform.isAndroid) {
+        InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+      }
       isAvailable = await connection.isAvailable();
       if (isAvailable) {
         // Open listener
-        _purchaseStream = connection.purchaseUpdatedStream.listen(
+        _purchaseStream = connection.purchaseStream.listen(
           LunaInAppPurchases._purchasedCallback,
         );
         // Load donation IAPs

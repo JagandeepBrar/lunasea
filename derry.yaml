@@ -67,18 +67,22 @@ cocoapods:
       (description): Cocoapods - Reintegrate & Reinstall iOS Pods
       (execution): once
       (scripts):
-        - cd ./ios && rm -rf Pods/
-        - cd ./ios && pod deintegrate
-        - cd ./ios && pod setup
-        - cd ./ios && pod install
+        - cd ./ios
+        - rm -rf Pods/
+        - rm -rf Podfile.lock
+        - pod deintegrate
+        - pod setup
+        - pod install
     macos:
       (description): Cocoapods - Reintegrate & Reinstall macOS Pods
       (execution): once
       (scripts):
-        - cd ./macos && rm -rf Pods/
-        - cd ./macos && pod deintegrate
-        - cd ./macos && pod setup
-        - cd ./macos && pod install
+        - cd ./macos
+        - rm -rf Pods/
+        - rm -rf Podfile.lock
+        - pod deintegrate
+        - pod setup
+        - pod install
 coverage:
   create:
     (description): Coverage - Create Coverage Report

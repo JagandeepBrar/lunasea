@@ -15,18 +15,22 @@ class LunaFirebaseBackupDocument {
   });
 
   factory LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(
-          QueryDocumentSnapshot document) =>
-      LunaFirebaseBackupDocument(
-        id: document.data()['id'],
-        timestamp: document.data()['timestamp'],
-        title: document.data()['title'],
-        description: document.data()['description'],
-      );
+    QueryDocumentSnapshot<Map<String, dynamic>> document,
+  ) {
+    return LunaFirebaseBackupDocument(
+      id: document.data()['id'],
+      timestamp: document.data()['timestamp'],
+      title: document.data()['title'],
+      description: document.data()['description'],
+    );
+  }
 
-  Map<String, dynamic> toJSON() => {
-        'id': id,
-        'title': title,
-        'timestamp': timestamp,
-        'description': description,
-      };
+  Map<String, dynamic> toJSON() {
+    return <String, dynamic>{
+      'id': id,
+      'title': title,
+      'timestamp': timestamp,
+      'description': description,
+    };
+  }
 }

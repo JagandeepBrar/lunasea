@@ -1,1 +1,5 @@
-{}
+{
+    "settings.Account": "Hesap",
+    "dashboard.Calendar": "Takvim",
+    "tautulli.Activity": "aktivite"
+}

@@ -414,5 +414,9 @@
     "tautulli.BackingUpConfiguration": "Sauvegarde de la configuration…",
     "tautulli.Audio": "Audio",
     "tautulli.ActivityDetails": "Détails de l'activité",
-    "tautulli.Activity": "Activité"
+    "tautulli.Activity": "Activité",
+    "overseerr.Users": "Utilisateurs",
+    "overseerr.UnknownUser": "Utilisateur inconnu",
+    "overseerr.NoUsersFound": "Aucun utilisateur trouvé",
+    "overseerr.Requests": "Requêtes"
 }

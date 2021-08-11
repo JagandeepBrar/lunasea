@@ -15,6 +15,7 @@
       "changes": [
         "(ListView) Make padding around the end of infinite list loaders and icons more consistent",
         "(Popup Menu) Positioning could get unaligned or broken if opened in specific views",
+        "(Router) OSlide transitions between pages could not occur on some devices",
         "(Snackbar) Snackbars would not be shown in some cases",
         "(Theme) Remove deprecated theme values"
       ]

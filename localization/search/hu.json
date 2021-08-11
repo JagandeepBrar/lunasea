@@ -1,1 +1,23 @@
-{}
+{
+    "search.Subcategories": "Alkategóriák",
+    "search.Size": "Méret",
+    "search.SentTo": "Elküldve {}",
+    "search.SentNZBData": "Elküldött NZB adatok",
+    "search.Search": "Keresés",
+    "search.Results": "Eredmények",
+    "search.NoSubcategoriesFound": "Nem található alkategória",
+    "search.NoResultsFound": "Nincs találat",
+    "search.NoCategoriesFound": "Nincsenek kategóriák",
+    "search.FailedToSend": "Nem sikerült elküldeni",
+    "search.FailedToDownloadNZB": "Nem sikerült letölteni az NZB-t",
+    "search.DownloadToDevice": "Letöltés az eszközre",
+    "search.DownloadingNZBToDevice": "NZB letöltése az eszközre",
+    "search.Downloading": "Letöltés…",
+    "search.Download": "Letöltés",
+    "search.Comments": "Hozzászólások",
+    "search.Categories": "Kategóriák",
+    "search.Category": "Kategória",
+    "search.Alphabetical": "ABC sorrend",
+    "search.AllSubcategories": "Minden alkategória",
+    "search.Age": "Kor"
+}

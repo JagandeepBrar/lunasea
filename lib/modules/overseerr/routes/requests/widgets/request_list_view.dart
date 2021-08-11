@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 
-class OverseerrUserListView extends StatefulWidget {
+class OverseerrRequestsListView extends StatefulWidget {
+  OverseerrRequestsListView({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<OverseerrUserListView> {
+class _State extends State<OverseerrRequestsListView> {
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
-  final PagingController<int, OverseerrUser> _pagingController =
+  final PagingController<int, OverseerrRequest> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -24,8 +28,8 @@ class _State extends State<OverseerrUserListView> {
     await context
         .read<OverseerrState>()
         .api
-        .users
-        .getUsers(
+        .requests
+        .getRequests(
           take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
           skip: pageKey * pageSize,
         )
@@ -36,7 +40,7 @@ class _State extends State<OverseerrUserListView> {
       return _pagingController.appendPage(data.results, pageKey + 1);
     }).catchError((error, stack) {
       LunaLogger().error(
-        'Unable to fetch Overseerr user page / take: $pageSize / skip: ${pageKey * pageSize}',
+        'Unable to fetch Overseerr requests page / take: $pageSize / skip: ${pageKey * pageSize}',
         error,
         stack,
       );
@@ -46,13 +50,15 @@ class _State extends State<OverseerrUserListView> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaPagedListView<OverseerrUser>(
+    return LunaPagedListView<OverseerrRequest>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
-      scrollController: OverseerrNavigationBar.scrollControllers[1],
+      scrollController: OverseerrNavigationBar.scrollControllers[0],
       listener: _fetchPage,
-      noItemsFoundMessage: 'overseerr.NoUsersFound'.tr(),
-      itemBuilder: (context, user, index) => OverseerrUserTile(user: user),
+      noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
+      itemBuilder: (context, request, index) => OverseerrRequestTile(
+        request: request,
+      ),
     );
   }
 }

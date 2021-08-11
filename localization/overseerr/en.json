@@ -1,5 +1,6 @@
 {
   "overseerr.Requests": "Requests",
+  "overseerr.NoRequestsFound": "No Requests Found",
   "overseerr.NoUsersFound": "No Users Found",
   "overseerr.UnknownUser": "Unknown User",
   "overseerr.Users": "Users"

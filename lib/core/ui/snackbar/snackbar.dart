@@ -55,7 +55,6 @@ Future<void> showLunaSnackBar({
       builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
         controller: controller,
-        style: FlashStyle.floating,
         boxShadows: [
           BoxShadow(
               blurRadius: 6.0,
@@ -64,6 +63,7 @@ Future<void> showLunaSnackBar({
         ],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
         margin: EdgeInsets.all(_PADDING),
+        behavior: FlashBehavior.floating,
         position: position,
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         borderColor:
@@ -76,13 +76,14 @@ Future<void> showLunaSnackBar({
               fontSize: LunaUI.FONT_SIZE_TITLE,
             ),
           ),
-          message: Text(
+          content: Text(
             message,
             style: TextStyle(
               color: Colors.white70,
               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
           ),
+          shouldIconPulse: false,
           icon: Padding(
             child: LunaIconButton(
               icon: type.icon,

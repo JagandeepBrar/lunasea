@@ -1,14 +1,15 @@
 # LunaSea Changelog
 
-## Unversioned
-
-#### NEW
-
-#### TWEAKS
+## v5.1.1 (50101001)
 
 #### FIXES
 
+- `[Flutter]` Update packages
+- `[Flutter]` Upgrade to Firebase SDK v8.3.0
 - `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
+- `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views
+- `[UI/UX]` (Router) OSlide transitions between pages could not occur on some devices
+- `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
 - `[UI/UX]` (Theme) Remove deprecated theme values
 
 ## v5.1.0 (50100004)

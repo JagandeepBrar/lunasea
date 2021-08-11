@@ -12,6 +12,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
       switch (value) {
         // Primitive values
         case OverseerrDatabaseValue.NAVIGATION_INDEX:
+        case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
           data[value.key] = value.data;
           break;
       }
@@ -27,6 +28,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
         switch (value) {
           // Primitive values
           case OverseerrDatabaseValue.NAVIGATION_INDEX:
+          case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
             value.put(config[key]);
             break;
         }
@@ -38,6 +40,8 @@ class OverseerrDatabase extends LunaModuleDatabase {
     switch (key) {
       case 'OVERSEERR_NAVIGATION_INDEX':
         return OverseerrDatabaseValue.NAVIGATION_INDEX;
+      case 'OVERSEERR_CONTENT_PAGE_SIZE':
+        return OverseerrDatabaseValue.CONTENT_PAGE_SIZE;
       default:
         return null;
     }
@@ -46,6 +50,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
 
 enum OverseerrDatabaseValue {
   NAVIGATION_INDEX,
+  CONTENT_PAGE_SIZE,
 }
 
 extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
@@ -53,6 +58,8 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
     switch (this) {
       case OverseerrDatabaseValue.NAVIGATION_INDEX:
         return 'OVERSEERR_NAVIGATION_INDEX';
+      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+        return 'OVERSEERR_CONTENT_PAGE_SIZE';
     }
     throw Exception('Invalid OverseerrDatabaseValue instance');
   }
@@ -62,6 +69,8 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
     switch (this) {
       case OverseerrDatabaseValue.NAVIGATION_INDEX:
         return _box.get(this.key, defaultValue: 0);
+      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+        return _box.get(this.key, defaultValue: 25);
     }
     throw Exception('Invalid OverseerrDatabaseValue instance');
   }
@@ -70,6 +79,9 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
     final box = Database.lunaSeaBox;
     switch (this) {
       case OverseerrDatabaseValue.NAVIGATION_INDEX:
+        if (value is int) box.put(this.key, value);
+        return;
+      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
         if (value is int) box.put(this.key, value);
         return;
     }
@@ -82,9 +94,10 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
 
   ValueListenableBuilder listen({
     @required Widget Function(BuildContext, dynamic, Widget) builder,
-  }) =>
-      ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
-        builder: builder,
-      );
+  }) {
+    return ValueListenableBuilder(
+      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      builder: builder,
+    );
+  }
 }

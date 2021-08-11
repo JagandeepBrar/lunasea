@@ -27,9 +27,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    if (LunaInAppPurchases.isAvailable)
-      purchaseStream = LunaInAppPurchases.connection.purchaseUpdatedStream
+    if (LunaInAppPurchases.isAvailable) {
+      purchaseStream = LunaInAppPurchases.connection.purchaseStream
           .listen(_purchasedCallback);
+    }
   }
 
   @override
@@ -101,10 +102,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       subtitle: LunaText.subtitle(text: product.price),
       trailing: LunaIconButton(icon: product.lunaIcon),
       onTap: () async {
-        final PurchaseParam _parameters =
-            PurchaseParam(productDetails: product, sandboxTesting: false);
-        await LunaInAppPurchases.connection
-            .buyConsumable(purchaseParam: _parameters, autoConsume: true);
+        final PurchaseParam _parameters = PurchaseParam(
+          productDetails: product,
+        );
+        await LunaInAppPurchases.connection.buyConsumable(
+          purchaseParam: _parameters,
+          autoConsume: true,
+        );
       },
     );
   }

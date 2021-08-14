@@ -47,7 +47,7 @@ build:
       (execution): once
       (scripts):
         - flutter clean
-        - flutter build ios
+        - flutter build ios --bundle-sksl-path shaders/ios_sksl.json
   macos:
     archive:
       (description): Build (iOS) - Build Xcode Archive

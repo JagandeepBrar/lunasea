@@ -21,14 +21,22 @@ class LunaBottomNavigationBar extends StatefulWidget {
     this.leadingOnTab,
     this.scrollControllers,
   }) : super(key: key) {
-    assert(icons.length == titles.length,
-        'An unequal amount of titles and icons were passed to LunaNavigationBar.');
-    if (leadingOnTab != null)
-      assert(icons.length == leadingOnTab.length,
-          'An unequal amount of icons and leadingOnTab were passed to LunaNavigationBar.');
-    if (scrollControllers != null)
-      assert(icons.length == scrollControllers.length,
-          'An unequal amount of icons and scrollControllers were passed to LunaNavigationBar.');
+    assert(
+      icons.length == titles.length,
+      'An unequal amount of titles and icons were passed to LunaNavigationBar.',
+    );
+    if (leadingOnTab != null) {
+      assert(
+        icons.length == leadingOnTab.length,
+        'An unequal amount of icons and leadingOnTab were passed to LunaNavigationBar.',
+      );
+    }
+    if (scrollControllers != null) {
+      assert(
+        icons.length == scrollControllers.length,
+        'An unequal amount of icons and scrollControllers were passed to LunaNavigationBar.',
+      );
+    }
   }
 
   @override

@@ -26,7 +26,8 @@ class _State extends State<_DashboardHomeRoute> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-        initialPage: DashboardDatabaseValue.NAVIGATION_INDEX.data);
+      initialPage: DashboardDatabaseValue.NAVIGATION_INDEX.data,
+    );
   }
 
   @override
@@ -51,7 +52,9 @@ class _State extends State<_DashboardHomeRoute> {
       useDrawer: true,
       scrollControllers: DashboardNavigationBar.scrollControllers,
       pageController: _pageController,
-      actions: [DashboardAppBarSwitchViewAction()],
+      actions: [
+        DashboardAppBarSwitchViewAction(pageController: _pageController)
+      ],
     );
   }
 

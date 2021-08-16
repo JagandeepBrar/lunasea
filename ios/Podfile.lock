@@ -322,7 +322,7 @@ SPEC CHECKSUMS:
   FirebaseCore: a6dba751680d7033b9d3831e1cfc95ead0605118
   FirebaseCoreDiagnostics: 7e873baabcfaa9512f538554ae4fa0817aaafbdb
   FirebaseCrashlytics: 3d83f2e8a47f476f47c82ff4536b169df6781271
-  FirebaseFirestore: 5e42d8857fb511c4e3f2dbd79f349c5236a6bc7c
+  FirebaseFirestore: 190fe35f122c058493884e066acc233283519150
   FirebaseInstallations: b69db7680870dbac17bba7a51fc0b5c4b365baa7
   FirebaseMessaging: 42252b79b860482021483748669ec32e22196462
   FirebaseStorage: ff380720c204593d98c3e5482e62ccfbb522f0c5
@@ -345,4 +345,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8cba34aa0f373b90dc873caf41db73c5f300f0fb
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2

@@ -1,1 +1,5 @@
-{}
+{
+    "overseerr.Users": "Användare",
+    "overseerr.UnknownUser": "Okänd användare",
+    "overseerr.NoUsersFound": "Inga användare hittades"
+}

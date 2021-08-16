@@ -4,6 +4,12 @@
   "tweaks": [],
   "fixes": [
     {
+      "module": "Dashboard",
+      "changes": [
+        "Only show calendar type switcher icon when on the calendar page"
+      ]
+    },
+    {
       "module": "Flutter",
       "changes": [
         "Update packages",

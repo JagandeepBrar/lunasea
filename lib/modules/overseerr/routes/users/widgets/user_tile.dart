@@ -13,9 +13,15 @@ class OverseerrUserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaTwoLineCardWithPoster(
-      title: user.displayName ?? 'overseerr.UnknownUser'.tr(),
-      subtitle1: TextSpan(text: 'Placeholder 1'),
-      subtitle2: TextSpan(text: 'Placeholder 2'),
+      title: user.lunaDisplayName(),
+      subtitle1: TextSpan(text: user.lunaEmail()),
+      subtitle2: TextSpan(
+        text: user.lunaAmountOfRequests(),
+        style: TextStyle(
+          color: LunaColours.accent,
+          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        ),
+      ),
       posterPlaceholder: LunaAssets.blankUser,
       posterHeaders: context.read<OverseerrState>().headers,
       posterUrl: user.avatar,

@@ -1,1 +1,7 @@
-{}
+{
+    "overseerr.Users": "Kullanıcılar",
+    "overseerr.UnknownUser": "Bilinmeyen Kullanıcı",
+    "overseerr.NoUsersFound": "Kullanıcı Bulunamadı",
+    "overseerr.NoRequestsFound": "İstek Bulunamadı",
+    "overseerr.Requests": "İstekler"
+}

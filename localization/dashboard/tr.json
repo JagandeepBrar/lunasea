@@ -1,3 +1,21 @@
 {
-    "dashboard.Calendar": "Takvim"
+    "dashboard.Calendar": "Takvim",
+    "dashboard.Wednesday": "Çarşamba",
+    "dashboard.TwoWeeks": "İki Hafta",
+    "dashboard.Tuesday": "Salı",
+    "dashboard.Thursday": "Perşembe",
+    "dashboard.Sunday": "Pazar",
+    "dashboard.Schedule": "Plan",
+    "dashboard.Saturday": "Cumartesi",
+    "dashboard.PastDaysDescription": "Takvim girdilerinin getirileceği geçmişteki gün sayısını ayarlayın.",
+    "dashboard.PastDays": "Geçmiş Günler",
+    "dashboard.OneWeek": "Bir Hafta",
+    "dashboard.OneMonth": "Bir Ay",
+    "dashboard.NoNewContent": "Yeni İçerik Yok",
+    "dashboard.Monday": "Pazartesi",
+    "dashboard.Modules": "Modüller",
+    "dashboard.MinimumOfOneDay": "En Az 1 Gün",
+    "dashboard.FutureDaysDescription": "Takvim girdilerinin getirileceği gelecekteki gün sayısını ayarlayın.",
+    "dashboard.FutureDays": "Gelecek Günler",
+    "dashboard.Friday": "Cuma"
 }

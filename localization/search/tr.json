@@ -1,1 +1,23 @@
-{}
+{
+    "search.Subcategories": "Alt Kategoriler",
+    "search.Size": "Boyut",
+    "search.SentTo": "{}'e gönderildi",
+    "search.SentNZBData": "NZB Verileri Gönderildi",
+    "search.Search": "Ara",
+    "search.Results": "Sonuçlar",
+    "search.NoSubcategoriesFound": "Alt Kategori Bulunamadı",
+    "search.NoResultsFound": "Sonuç Bulunamadı",
+    "search.NoCategoriesFound": "Kategori Bulunamadı",
+    "search.FailedToSend": "Gönderilemedi",
+    "search.FailedToDownloadNZB": "NZB İndirilemedi",
+    "search.DownloadToDevice": "Aygıta İndir",
+    "search.DownloadingNZBToDevice": "NZB aygıtınıza indiriliyor",
+    "search.Downloading": "İndiriliyor…",
+    "search.Download": "İndir",
+    "search.Comments": "Yorumlar",
+    "search.Categories": "Kategoriler",
+    "search.Category": "Kategori",
+    "search.Alphabetical": "Alfabetik",
+    "search.AllSubcategories": "Tüm Alt Kategoriler",
+    "search.Age": "Yaş"
+}

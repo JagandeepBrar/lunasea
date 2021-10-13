@@ -22,7 +22,7 @@ class TautulliLineGraphHelper {
                           DateTime.parse((data.categories[value.truncate()])))
                       ?.toString()
                   : '??',
-          getTextStyles: (_) => TextStyle(
+          getTextStyles: (_, __) => TextStyle(
             color: Colors.white30,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),

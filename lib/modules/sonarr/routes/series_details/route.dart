@@ -97,9 +97,9 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   }
 
   SonarrLanguageProfile _findLanguageProfile(
-      int languageProfileId, List<SonarrLanguageProfile> profiles) {
-    if (!Provider.of<SonarrState>(context, listen: false).enableVersion3)
-      return null;
+    int languageProfileId,
+    List<SonarrLanguageProfile> profiles,
+  ) {
     return profiles.firstWhere(
       (profile) => profile.id == languageProfileId,
       orElse: () => null,
@@ -135,25 +135,23 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
 
   Widget get _body => Selector<
           SonarrState,
-          Tuple5<
+          Tuple4<
               Future<List<SonarrSeries>>,
               Future<List<SonarrTag>>,
               Future<List<SonarrQualityProfile>>,
-              Future<List<SonarrLanguageProfile>>,
-              bool>>(
-        selector: (_, state) => Tuple5(
+              Future<List<SonarrLanguageProfile>>>>(
+        selector: (_, state) => Tuple4(
           state.series,
           state.tags,
           state.qualityProfiles,
           state.languageProfiles,
-          state.enableVersion3,
         ),
         builder: (context, tuple, _) => FutureBuilder(
           future: Future.wait([
             tuple.item1,
             tuple.item2,
             tuple.item3,
-            if (tuple.item5) tuple.item4,
+            tuple.item4,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (_loaded && series == null)
@@ -170,14 +168,14 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             }
             if (snapshot.hasData) {
               if (series == null) return LunaLoader();
-              SonarrQualityProfile quality =
-                  _findQualityProfile(series.profileId, snapshot.data[2]);
-              SonarrLanguageProfile language =
-                  Provider.of<SonarrState>(context, listen: false)
-                          .enableVersion3
-                      ? _findLanguageProfile(
-                          series.languageProfileId, snapshot.data[3])
-                      : null;
+              SonarrQualityProfile quality = _findQualityProfile(
+                series.profileId,
+                snapshot.data[2],
+              );
+              SonarrLanguageProfile language = _findLanguageProfile(
+                series.languageProfileId,
+                snapshot.data[3],
+              );
               List<SonarrTag> tags = _findTags(series.tags, snapshot.data[1]);
               if (series == null) return _unknown();
               return PageView(

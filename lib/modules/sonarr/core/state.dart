@@ -57,8 +57,6 @@ class SonarrState extends LunaModuleState {
   bool _enabled;
   bool get enabled => _enabled;
 
-  bool get enableVersion3 => true;
-
   /// Sonarr host
   String _host;
   String get host => _host;

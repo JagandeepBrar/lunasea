@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
+// ignore: avoid_classes_with_only_static_members
 abstract class LunaDialog {
   static const HEADER_SIZE = LunaUI.FONT_SIZE_HEADER;
   static const BODY_SIZE = LunaUI.FONT_SIZE_SUBTITLE;

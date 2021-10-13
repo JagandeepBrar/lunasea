@@ -13,17 +13,10 @@ class NZBGetAPI {
     String _baseURL = Uri.encodeFull(profile.getNZBGet()['host']);
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(profile.getNZBGet()['headers']);
-    if (profile.getNZBGet()['basic_auth']) {
-      String _auth = base64.encode(utf8.encode(
-          '${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}'));
-      _headers['Authorization'] = 'Basic $_auth';
-      _baseURL += '/jsonrpc';
-    } else {
-      _baseURL += profile.getNZBGet()['user'] != '' &&
-              profile.getNZBGet()['pass'] != ''
-          ? '/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
-          : '/jsonrpc';
-    }
+    _baseURL += profile.getNZBGet()['user'] != '' &&
+            profile.getNZBGet()['pass'] != ''
+        ? '/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
+        : '/jsonrpc';
     Dio _client = Dio(
       BaseOptions(
         baseUrl: _baseURL,

@@ -2,6 +2,9 @@
 
 ## WIP
 
+#### NEW
+- `[Settings]` (Sonarr) Removed toggle to enable v3 features
+
 #### FIXES
 - `[Flutter]` Update packages
 - `[Flutter]` Upgrade to Firebase SDK v8.7.0

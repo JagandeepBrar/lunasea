@@ -1,5 +1,11 @@
 # LunaSea Changelog
 
+## WIP
+
+#### FIXES
+- `[Flutter]` Update packages
+- `[Flutter]` Upgrade to Firebase SDK v8.7.0
+
 ## v5.1.1 (50101002)
 
 #### FIXES

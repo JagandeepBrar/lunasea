@@ -79,6 +79,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "ersen0",
+      "name": "Oğuz Ersen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88676873?v=4",
+      "profile": "https://ersen.srht.site/",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

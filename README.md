@@ -62,7 +62,7 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -83,6 +83,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
   <tr>
     <td align="center"><a href="https://github.com/AliMickey"><img src="https://avatars.githubusercontent.com/u/60691199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micky</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=AliMickey" title="Documentation">📖</a></td>
     <td align="center"><a href="https://ersen.srht.site/"><img src="https://avatars.githubusercontent.com/u/88676873?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oğuz Ersen</b></sub></a><br /><a href="#translation-ersen0" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/bittin"><img src="https://avatars.githubusercontent.com/u/43197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bittin</b></sub></a><br /><a href="#translation-bittin" title="Translation">🌍</a></td>
   </tr>
 </table>
 

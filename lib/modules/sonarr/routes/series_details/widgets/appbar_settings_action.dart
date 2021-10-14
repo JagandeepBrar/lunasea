@@ -75,7 +75,6 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
       _series.monitored = !_series.monitored;
       _state.api.series.updateSeries(series: _series).then((_) {
         series.monitored = !series.monitored;
-        _state.notify();
         showLunaSuccessSnackBar(
           title: series.monitored ? 'Monitoring' : 'No Longer Monitoring',
           message: series.title,

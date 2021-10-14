@@ -85,7 +85,7 @@ class _State extends State<_Widget> {
           return PageView(
             controller: _pageController,
             children: [
-              SonarrSeriesRoute(),
+              SonarrCatalogueRoute(),
               SonarrUpcomingRoute(),
               SonarrMissingRoute(),
               SonarrHistoryRoute(),

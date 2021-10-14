@@ -31,19 +31,19 @@ class SonarrState extends LunaModuleState {
     _releasesSearchQuery = '';
     // Reinitialize
     resetProfile();
-    resetQueue();
-    resetSeries();
-    resetUpcoming();
-    resetMissing();
-    resetHistory();
-    resetQualityProfiles();
-    resetLanguageProfiles();
-    resetRootFolders();
-    resetTags();
+    if (_enabled) {
+      resetQueue();
+      fetchSeries();
+      resetUpcoming();
+      resetMissing();
+      resetHistory();
+      resetQualityProfiles();
+      resetLanguageProfiles();
+      resetRootFolders();
+      resetTags();
+    }
     notifyListeners();
   }
-
-  void notify() => notifyListeners();
 
   ///////////////
   /// PROFILE ///
@@ -249,25 +249,29 @@ class SonarrState extends LunaModuleState {
 
   Future<List<SonarrSeries>> _series;
   Future<List<SonarrSeries>> get series => _series;
-  set series(Future<List<SonarrSeries>> series) {
-    assert(series != null);
-    _series = series;
-    notifyListeners();
-  }
-
-  void resetSeries() {
-    if (_api != null) _series = _api.series.getAllSeries();
+  void fetchSeries() {
+    if (_api != null) {
+      _series = _api.series.getAll();
+    }
     notifyListeners();
   }
 
   Future<void> resetSingleSeries(int seriesId) async {
     assert(seriesId != null);
     if (_api != null) {
-      SonarrSeries movie = await _api.series.getSeries(seriesId: seriesId);
+      SonarrSeries series = await _api.series.get(seriesId: seriesId);
       List<SonarrSeries> allSeries = await _series;
       int index = allSeries?.indexWhere((s) => s.id == seriesId) ?? -1;
-      if (index >= 0) allSeries[index] = movie;
+      index >= 0 ? allSeries[index] = series : allSeries.add(series);
     }
+    notifyListeners();
+  }
+
+  Future<void> setSingleSeries(SonarrSeries series) async {
+    assert(series != null);
+    List<SonarrSeries> allSeries = await _series;
+    int index = allSeries?.indexWhere((s) => s.id == series.id) ?? -1;
+    index >= 0 ? allSeries[index] = series : allSeries.add(series);
     notifyListeners();
   }
 

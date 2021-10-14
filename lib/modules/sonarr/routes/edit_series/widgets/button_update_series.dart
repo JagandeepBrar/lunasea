@@ -31,7 +31,7 @@ class SonarrEditSeriesBottomActionBar extends StatelessWidget {
       SonarrState _globalState = context.read<SonarrState>();
       _globalState.api.series.updateSeries(series: _series).then((_) async {
         // Update internal series list, show snackbar, pop route
-        _globalState.resetSeries();
+        _globalState.fetchSeries();
         await _globalState.series.then((_) {
           showLunaSuccessSnackBar(
             title: 'Updated Series',

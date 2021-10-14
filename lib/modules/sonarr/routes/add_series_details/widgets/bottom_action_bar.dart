@@ -70,7 +70,7 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
             searchForMissingEpisodes: searchOnAdd,
           )
           .then((addedSeries) async {
-        context.read<SonarrState>().resetSeries();
+        context.read<SonarrState>().fetchSeries();
         await context.read<SonarrState>().series;
         context.read<SonarrSeriesAddDetailsState>().series.id = addedSeries.id;
         showLunaSuccessSnackBar(

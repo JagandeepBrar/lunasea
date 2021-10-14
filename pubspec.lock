@@ -701,7 +701,7 @@ packages:
       path: "packages/overseerr"
       relative: true
     source: path
-    version: "0.0.1-pre.6"
+    version: "0.0.1-pre.7"
   package_config:
     dependency: transitive
     description:
@@ -897,7 +897,7 @@ packages:
       path: "packages/radarr"
       relative: true
     source: path
-    version: "2.1.1"
+    version: "2.1.1+1"
   share_plus:
     dependency: "direct main"
     description:
@@ -1126,7 +1126,7 @@ packages:
       path: "packages/tautulli"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "2.0.0+1"
   term_glyph:
     dependency: transitive
     description:
@@ -1252,7 +1252,7 @@ packages:
       path: "packages/wake_on_lan"
       relative: true
     source: path
-    version: "2.0.1+2"
+    version: "2.0.1+3"
   watcher:
     dependency: transitive
     description:

@@ -24,7 +24,11 @@ class _State extends State<RadarrCatalogueRoute>
     _state.fetchMovies();
     _state.fetchQualityProfiles();
     _state.fetchTags();
-    await Future.wait([_state.movies, _state.qualityProfiles, _state.tags]);
+    await Future.wait([
+      _state.movies,
+      _state.qualityProfiles,
+      _state.tags,
+    ]);
   }
 
   @override
@@ -41,8 +45,9 @@ class _State extends State<RadarrCatalogueRoute>
   Widget _appBar() {
     return LunaAppBar.empty(
       child: RadarrCatalogueSearchBar(
-          scrollController: RadarrNavigationBar.scrollControllers[0]),
-      height: 62.0,
+        scrollController: RadarrNavigationBar.scrollControllers[0],
+      ),
+      height: LunaTextInputBar.appBarHeight,
     );
   }
 
@@ -68,10 +73,14 @@ class _State extends State<RadarrCatalogueRoute>
                       snapshot.stackTrace,
                     );
                   return LunaMessage.error(
-                      onTap: _refreshKey.currentState.show);
+                    onTap: _refreshKey.currentState.show,
+                  );
                 }
                 if (snapshot.hasData)
-                  return _movies(snapshot.data[0], snapshot.data[1]);
+                  return _movies(
+                    snapshot.data[0],
+                    snapshot.data[1],
+                  );
                 return LunaLoader();
               },
             );

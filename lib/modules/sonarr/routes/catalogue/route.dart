@@ -1,17 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:tuple/tuple.dart';
 
-class SonarrSeriesRoute extends StatefulWidget {
+class SonarrCatalogueRoute extends StatefulWidget {
   @override
-  State<SonarrSeriesRoute> createState() => _State();
+  State<SonarrCatalogueRoute> createState() => _State();
 }
 
-class _State extends State<SonarrSeriesRoute>
+class _State extends State<SonarrCatalogueRoute>
     with AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
@@ -20,15 +19,9 @@ class _State extends State<SonarrSeriesRoute>
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-  }
-
   Future<void> _refresh() async {
-    SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-    _state.resetSeries();
+    SonarrState _state = context.read<SonarrState>();
+    _state.fetchSeries();
     _state.resetQualityProfiles();
     _state.resetLanguageProfiles();
     _state.resetTags();
@@ -53,7 +46,8 @@ class _State extends State<SonarrSeriesRoute>
   Widget _appBar() {
     return LunaAppBar.empty(
       child: SonarrSeriesSearchBar(
-          scrollController: SonarrNavigationBar.scrollControllers[0]),
+        scrollController: SonarrNavigationBar.scrollControllers[0],
+      ),
       height: LunaTextInputBar.appBarHeight,
     );
   }
@@ -81,16 +75,22 @@ class _State extends State<SonarrSeriesRoute>
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
-                LunaLogger().error('Unable to fetch Sonarr series',
-                    snapshot.error, snapshot.stackTrace);
+                LunaLogger().error(
+                  'Unable to fetch Sonarr series',
+                  snapshot.error,
+                  snapshot.stackTrace,
+                );
               }
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(
+                onTap: _refreshKey.currentState.show,
+              );
             }
             if (snapshot.hasData) {
-              return snapshot.data.length > 2
-                  ? _series(
-                      snapshot.data[0], snapshot.data[1], snapshot.data[2])
-                  : _series(snapshot.data[0], snapshot.data[1], null);
+              return _series(
+                snapshot.data[0],
+                snapshot.data[1],
+                snapshot.data[2],
+              );
             }
             return LunaLoader();
           },
@@ -124,8 +124,8 @@ class _State extends State<SonarrSeriesRoute>
     if ((series?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Series Found',
-        buttonText: 'Refresh',
-        onTap: _refreshKey.currentState?.show,
+        buttonText: 'lunasea.Refresh'.tr(),
+        onTap: _refreshKey.currentState.show,
       );
     return Selector<SonarrState, String>(
       selector: (_, state) => state.seriesSearchQuery,

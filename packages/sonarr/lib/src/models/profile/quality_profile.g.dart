@@ -11,10 +11,7 @@ SonarrQualityProfile _$SonarrQualityProfileFromJson(
     SonarrQualityProfile(
       name: json['name'] as String?,
       upgradeAllowed: json['upgradeAllowed'] as bool?,
-      cutoff: json['cutoff'] == null
-          ? null
-          : SonarrQualityProfileCutoff.fromJson(
-              json['cutoff'] as Map<String, dynamic>),
+      cutoff: json['cutoff'] as int?,
       items: (json['items'] as List<dynamic>?)
           ?.map((e) =>
               SonarrQualityProfileItem.fromJson(e as Map<String, dynamic>))
@@ -27,7 +24,7 @@ Map<String, dynamic> _$SonarrQualityProfileToJson(
     <String, dynamic>{
       'name': instance.name,
       'upgradeAllowed': instance.upgradeAllowed,
-      'cutoff': instance.cutoff?.toJson(),
+      'cutoff': instance.cutoff,
       'items': instance.items?.map((e) => e.toJson()).toList(),
       'id': instance.id,
     };

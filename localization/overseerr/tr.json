@@ -3,5 +3,8 @@
     "overseerr.UnknownUser": "Bilinmeyen Kullanıcı",
     "overseerr.NoUsersFound": "Kullanıcı Bulunamadı",
     "overseerr.NoRequestsFound": "İstek Bulunamadı",
-    "overseerr.Requests": "İstekler"
+    "overseerr.Requests": "İstekler",
+    "overseerr.OneRequest": "1 İstek",
+    "overseerr.SomeRequests": "{} İstek",
+    "overseerr.NoRequests": "İstek Yok"
 }

@@ -1,4 +1,7 @@
 {
+  "overseerr.NoRequests": "No Requests",
+  "overseerr.OneRequest": "1 Request",
+  "overseerr.SomeRequests": "{} Requests",
   "overseerr.Requests": "Requests",
   "overseerr.NoRequestsFound": "No Requests Found",
   "overseerr.NoUsersFound": "No Users Found",

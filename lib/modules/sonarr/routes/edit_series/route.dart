@@ -101,8 +101,7 @@ class _State extends State<_Widget>
         context.watch<SonarrState>().series, // 0
         context.watch<SonarrState>().qualityProfiles, // 1
         context.watch<SonarrState>().tags, // 2
-        if (context.watch<SonarrState>().enableVersion3) // 3.?
-          context.watch<SonarrState>().languageProfiles,
+        context.watch<SonarrState>().languageProfiles,
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) return LunaMessage.error(onTap: loadCallback);
@@ -152,9 +151,7 @@ class _State extends State<_Widget>
         SonarrSeriesEditSeasonFoldersTile(),
         SonarrSeriesEditSeriesPathTile(),
         SonarrSeriesEditQualityProfileTile(profiles: qualityProfiles),
-        context.watch<SonarrState>().enableVersion3
-            ? SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles)
-            : Container(),
+        SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles),
         SonarrSeriesEditSeriesTypeTile(),
         SonarrSeriesEditTagsTile(),
       ],

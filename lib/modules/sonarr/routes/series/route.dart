@@ -36,7 +36,7 @@ class _State extends State<SonarrSeriesRoute>
       _state.series,
       _state.qualityProfiles,
       _state.tags,
-      if (_state.enableVersion3) _state.languageProfiles,
+      _state.languageProfiles,
     ]);
   }
 
@@ -65,19 +65,18 @@ class _State extends State<SonarrSeriesRoute>
       onRefresh: _refresh,
       child: Selector<
           SonarrState,
-          Tuple4<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>,
-              Future<List<SonarrLanguageProfile>>, bool>>(
-        selector: (_, state) => Tuple4(
+          Tuple3<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>,
+              Future<List<SonarrLanguageProfile>>>>(
+        selector: (_, state) => Tuple3(
           state.series,
           state.qualityProfiles,
           state.languageProfiles,
-          state.enableVersion3,
         ),
         builder: (context, tuple, _) => FutureBuilder(
           future: Future.wait([
             tuple.item1,
             tuple.item2,
-            if (tuple.item4) tuple.item3,
+            tuple.item3,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
@@ -159,7 +158,7 @@ class _State extends State<SonarrSeriesRoute>
           itemBuilder: (context, index) => SonarrSeriesTile(
             series: _filtered[index],
             profile: qualities.firstWhere(
-                (element) => element.id == _filtered[index].profileId,
+                (element) => element.id == _filtered[index].qualityProfileId,
                 orElse: null),
           ),
         );

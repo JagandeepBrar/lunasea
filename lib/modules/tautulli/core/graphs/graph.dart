@@ -43,7 +43,7 @@ class TautulliGraphHelper {
                       if (titleOverFlowShowEllipsis) LunaUI.TEXT_ELLIPSIS,
                     ].join()
                   : data.categories[value.truncate()].toUpperCase(),
-          getTextStyles: (_) => TextStyle(
+          getTextStyles: (_, __) => TextStyle(
             color: Colors.white30,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),

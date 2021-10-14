@@ -23,7 +23,6 @@ class ProfileHiveObject extends HiveObject {
         sonarrEnabled: false,
         sonarrHost: '',
         sonarrKey: '',
-        sonarrVersion3: false,
         sonarrHeaders: {},
         //SABnzbd
         sabnzbdEnabled: false,
@@ -35,7 +34,6 @@ class ProfileHiveObject extends HiveObject {
         nzbgetHost: '',
         nzbgetUser: '',
         nzbgetPass: '',
-        nzbgetBasicAuth: false,
         nzbgetHeaders: {},
         //Wake on LAN
         wakeOnLANEnabled: false,
@@ -75,7 +73,6 @@ class ProfileHiveObject extends HiveObject {
         sonarrEnabled: profile.sonarrEnabled,
         sonarrHost: profile.sonarrHost,
         sonarrKey: profile.sonarrKey,
-        sonarrVersion3: profile.sonarrVersion3,
         sonarrHeaders: profile.sonarrHeaders,
         //SABnzbd
         sabnzbdEnabled: profile.sabnzbdEnabled,
@@ -87,7 +84,6 @@ class ProfileHiveObject extends HiveObject {
         nzbgetHost: profile.nzbgetHost,
         nzbgetUser: profile.nzbgetUser,
         nzbgetPass: profile.nzbgetPass,
-        nzbgetBasicAuth: profile.nzbgetBasicAuth,
         nzbgetHeaders: profile.nzbgetHeaders,
         //Wake On LAN
         wakeOnLANEnabled: profile.wakeOnLANEnabled,
@@ -119,7 +115,6 @@ class ProfileHiveObject extends HiveObject {
         sonarrEnabled: profile['sonarrEnabled'] ?? false,
         sonarrHost: profile['sonarrHost'] ?? '',
         sonarrKey: profile['sonarrKey'] ?? '',
-        sonarrVersion3: profile['sonarrVersion3'] ?? false,
         sonarrHeaders: profile['sonarrHeaders'] ?? {},
         //Radarr
         radarrEnabled: profile['radarrEnabled'] ?? false,
@@ -141,7 +136,6 @@ class ProfileHiveObject extends HiveObject {
         nzbgetHost: profile['nzbgetHost'] ?? '',
         nzbgetUser: profile['nzbgetUser'] ?? '',
         nzbgetPass: profile['nzbgetPass'] ?? '',
-        nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
         nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
         //Wake on LAN
         wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
@@ -179,7 +173,6 @@ class ProfileHiveObject extends HiveObject {
     @required this.sonarrEnabled,
     @required this.sonarrHost,
     @required this.sonarrKey,
-    @required this.sonarrVersion3,
     @required this.sonarrHeaders,
     //SABnzbd
     @required this.sabnzbdEnabled,
@@ -191,7 +184,6 @@ class ProfileHiveObject extends HiveObject {
     @required this.nzbgetHost,
     @required this.nzbgetUser,
     @required this.nzbgetPass,
-    @required this.nzbgetBasicAuth,
     @required this.nzbgetHeaders,
     //Wake On LAN
     @required this.wakeOnLANEnabled,
@@ -223,7 +215,6 @@ class ProfileHiveObject extends HiveObject {
         "sonarrEnabled": sonarrEnabled,
         "sonarrHost": sonarrHost,
         "sonarrKey": sonarrKey,
-        "sonarrVersion3": sonarrVersion3,
         "sonarrHeaders": sonarrHeaders,
         //Radarr
         "radarrEnabled": radarrEnabled,
@@ -245,7 +236,6 @@ class ProfileHiveObject extends HiveObject {
         "nzbgetHost": nzbgetHost,
         "nzbgetUser": nzbgetUser,
         "nzbgetPass": nzbgetPass,
-        "nzbgetBasicAuth": nzbgetBasicAuth,
         "nzbgetHeaders": nzbgetHeaders,
         //Wake On LAN
         "wakeOnLANEnabled": wakeOnLANEnabled,
@@ -310,7 +300,7 @@ class ProfileHiveObject extends HiveObject {
   @HiveField(8)
   String sonarrKey;
   @HiveField(21)
-  bool sonarrVersion3;
+  bool sonarrVersion3; // Deprecated
   @HiveField(28)
   Map sonarrHeaders;
 
@@ -318,7 +308,6 @@ class ProfileHiveObject extends HiveObject {
         'enabled': sonarrEnabled ?? false,
         'host': sonarrHost ?? '',
         'key': sonarrKey ?? '',
-        'v3': sonarrVersion3 ?? false,
         'headers': sonarrHeaders ?? {},
       };
 
@@ -349,7 +338,7 @@ class ProfileHiveObject extends HiveObject {
   @HiveField(15)
   String nzbgetPass;
   @HiveField(22)
-  bool nzbgetBasicAuth;
+  bool nzbgetBasicAuth; // Deprecated
   @HiveField(30)
   Map nzbgetHeaders;
 
@@ -358,7 +347,6 @@ class ProfileHiveObject extends HiveObject {
         'host': nzbgetHost ?? '',
         'user': nzbgetUser ?? '',
         'pass': nzbgetPass ?? '',
-        'basic_auth': nzbgetBasicAuth ?? false,
         'headers': nzbgetHeaders ?? {},
       };
 

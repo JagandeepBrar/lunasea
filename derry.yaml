@@ -72,7 +72,7 @@ cocoapods:
         - rm -rf Podfile.lock
         - pod deintegrate
         - pod setup
-        - pod install
+        - pod install --repo-update
     macos:
       (description): Cocoapods - Reintegrate & Reinstall macOS Pods
       (execution): once
@@ -82,7 +82,7 @@ cocoapods:
         - rm -rf Podfile.lock
         - pod deintegrate
         - pod setup
-        - pod install
+        - pod install --repo-update
 coverage:
   create:
     (description): Coverage - Create Coverage Report

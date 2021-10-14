@@ -215,8 +215,10 @@ class _Sorter {
   List<SonarrSeries> _size(List<SonarrSeries> series, bool ascending) {
     series.sort((a, b) {
       int _comparison = ascending
-          ? (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0)
-          : (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0);
+          ? (a.statistics?.sizeOnDisk ?? 0)
+              .compareTo(b.statistics?.sizeOnDisk ?? 0)
+          : (b.statistics?.sizeOnDisk ?? 0)
+              .compareTo(a.statistics?.sizeOnDisk ?? 0);
       return _comparison == 0
           ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
           : _comparison;

@@ -104,9 +104,7 @@ class SonarrDialogs {
       context: context,
       title: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
       content: List.generate(
-        context.read<SonarrState>().enableVersion3
-            ? SonarrSeasonSettingsType.values.length
-            : SonarrSeasonSettingsType.values.length - 1,
+        SonarrSeasonSettingsType.values.length,
         (index) => LunaDialog.tile(
           text: SonarrSeasonSettingsType.values[index].name,
           icon: SonarrSeasonSettingsType.values[index].icon,

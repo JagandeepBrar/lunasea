@@ -28,7 +28,6 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       sonarrEnabled: fields[6] as bool,
       sonarrHost: fields[7] as String,
       sonarrKey: fields[8] as String,
-      sonarrVersion3: fields[21] as bool,
       sonarrHeaders: (fields[28] as Map)?.cast<dynamic, dynamic>(),
       sabnzbdEnabled: fields[9] as bool,
       sabnzbdHost: fields[10] as String,
@@ -38,7 +37,6 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       nzbgetHost: fields[13] as String,
       nzbgetUser: fields[14] as String,
       nzbgetPass: fields[15] as String,
-      nzbgetBasicAuth: fields[22] as bool,
       nzbgetHeaders: (fields[30] as Map)?.cast<dynamic, dynamic>(),
       wakeOnLANEnabled: fields[23] as bool,
       wakeOnLANBroadcastAddress: fields[24] as String,
@@ -55,7 +53,9 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       overseerrHost: fields[41] as String,
       overseerrKey: fields[42] as String,
       overseerrHeaders: (fields[43] as Map)?.cast<dynamic, dynamic>(),
-    );
+    )
+      ..sonarrVersion3 = fields[21] as bool
+      ..nzbgetBasicAuth = fields[22] as bool;
   }
 
   @override

@@ -56,27 +56,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, _) => LunaListView(
         controller: scrollController,
         children: [
-          _enableVersion3(),
           _host(),
           _apiKey(),
           _customHeaders(),
         ],
-      ),
-    );
-  }
-
-  Widget _enableVersion3() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Sonarr v3'),
-      subtitle: LunaText.subtitle(text: 'Enable Support for Sonarr v3'),
-      trailing: LunaSwitch(
-        value: Database.currentProfileObject.sonarrVersion3 ?? false,
-        onChanged: (value) {
-          Database.currentProfileObject.sonarrVersion3 = value;
-          Database.currentProfileObject.save();
-          context.read<SonarrState>().reset();
-        },
       ),
     );
   }

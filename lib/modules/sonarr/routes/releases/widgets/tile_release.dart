@@ -145,7 +145,6 @@ class _State extends State<SonarrReleasesReleaseTile> {
           .addRelease(
             guid: widget.release.guid,
             indexerId: widget.release.indexerId,
-            useVersion3: widget.isSeasonRelease,
           )
           .then((_) => showLunaSuccessSnackBar(
                 title: 'Downloading Release...',

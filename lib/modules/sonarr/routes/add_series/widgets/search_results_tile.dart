@@ -131,13 +131,10 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
       LunaDialogs().textPreview(context, widget.series.title,
           widget.series.overview ?? 'No summary is available.');
     } else if (widget.exists) {
-      context.read<SonarrState>().enableVersion3
-          ? SonarrSeriesDetailsRouter()
-              .navigateTo(context, seriesId: widget.series.id ?? -1)
-          : showLunaInfoSnackBar(
-              title: 'Series Already Exists',
-              message: 'This series already exists in Sonarr',
-            );
+      SonarrSeriesDetailsRouter().navigateTo(
+        context,
+        seriesId: widget.series.id ?? -1,
+      );
     } else {
       SonarrAddSeriesDetailsRouter().navigateTo(
         context,

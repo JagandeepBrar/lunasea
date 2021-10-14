@@ -57,9 +57,6 @@ class SonarrState extends LunaModuleState {
   bool _enabled;
   bool get enabled => _enabled;
 
-  bool _enableVersion3;
-  bool get enableVersion3 => _enableVersion3;
-
   /// Sonarr host
   String _host;
   String get host => _host;
@@ -77,7 +74,6 @@ class SonarrState extends LunaModuleState {
     ProfileHiveObject _profile = Database.currentProfileObject;
     // Copy profile into state
     _enabled = _profile.sonarrEnabled ?? false;
-    _enableVersion3 = _profile.sonarrVersion3 ?? false;
     _host = _profile.sonarrHost ?? '';
     _apiKey = _profile.sonarrKey ?? '';
     _headers = _profile.sonarrHeaders ?? {};
@@ -370,8 +366,7 @@ class SonarrState extends LunaModuleState {
   }
 
   void resetLanguageProfiles() {
-    if (_api != null && _enableVersion3)
-      _languageProfiles = _api.profile.getLanguageProfiles();
+    if (_api != null) _languageProfiles = _api.profile.getLanguageProfiles();
     notifyListeners();
   }
 

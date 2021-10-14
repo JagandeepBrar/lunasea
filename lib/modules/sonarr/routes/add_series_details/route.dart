@@ -90,8 +90,7 @@ class _State extends State<_Widget>
           context.watch<SonarrState>().rootFolders,
           context.watch<SonarrState>().tags,
           context.watch<SonarrState>().qualityProfiles,
-          if (context.watch<SonarrState>().enableVersion3)
-            context.watch<SonarrState>().languageProfiles,
+          context.watch<SonarrState>().languageProfiles,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -107,9 +106,7 @@ class _State extends State<_Widget>
               rootFolders: snapshot.data[0],
               tags: snapshot.data[1],
               qualityProfiles: snapshot.data[2],
-              languageProfiles: context.read<SonarrState>().enableVersion3
-                  ? snapshot.data[3]
-                  : null,
+              languageProfiles: snapshot.data[3],
             );
           }
           return LunaLoader();
@@ -153,8 +150,7 @@ class _State extends State<_Widget>
         SonarrSeriesAddDetailsMonitorStatusTile(),
         SonarrSeriesAddDetailsRootFolderTile(),
         SonarrSeriesAddDetailsQualityProfileTile(),
-        if (context.watch<SonarrState>().enableVersion3)
-          SonarrSeriesAddDetailsLanguageProfileTile(),
+        SonarrSeriesAddDetailsLanguageProfileTile(),
         SonarrSeriesAddDetailsTagsTile(),
       ],
     );

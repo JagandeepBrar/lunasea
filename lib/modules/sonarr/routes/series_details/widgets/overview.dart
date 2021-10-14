@@ -35,19 +35,28 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
   Widget _information(BuildContext context) {
     return LunaTableCard(
       content: [
-        LunaTableContent(title: 'path', body: series.path ?? 'Unknown'),
         LunaTableContent(
-            title: 'size',
-            body:
-                series.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? 'Unknown'),
+          title: 'path',
+          body: series.path ?? 'Unknown',
+        ),
         LunaTableContent(
-            title: 'type',
-            body: series.seriesType?.value?.lunaCapitalizeFirstLetters() ??
-                'Unknown'),
-        LunaTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
-        if (Provider.of<SonarrState>(context, listen: false).enableVersion3)
-          LunaTableContent(
-              title: 'language', body: language?.name ?? LunaUI.TEXT_EMDASH),
+          title: 'size',
+          body: series.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ??
+              'Unknown',
+        ),
+        LunaTableContent(
+          title: 'type',
+          body: series.seriesType?.value?.lunaCapitalizeFirstLetters() ??
+              'Unknown',
+        ),
+        LunaTableContent(
+          title: 'quality',
+          body: quality?.name ?? 'Unknown',
+        ),
+        LunaTableContent(
+          title: 'language',
+          body: language?.name ?? LunaUI.TEXT_EMDASH,
+        ),
         LunaTableContent(
           title: 'tags',
           body: (tags?.isNotEmpty ?? false)
@@ -58,14 +67,27 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
         ),
         LunaTableContent(title: '', body: ''),
         LunaTableContent(
-            title: 'status',
-            body: series.status?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
-        LunaTableContent(title: 'runtime', body: series.lunaRuntime),
-        LunaTableContent(title: 'network', body: series.network ?? 'Unknown'),
+          title: 'status',
+          body: series.status?.lunaCapitalizeFirstLetters() ?? 'Unknown',
+        ),
+        LunaTableContent(
+          title: 'runtime',
+          body: series.lunaRuntime,
+        ),
+        LunaTableContent(
+          title: 'network',
+          body: series.network ?? 'Unknown',
+        ),
         if (series.nextAiring != null)
-          LunaTableContent(title: 'next airing', body: series.lunaNextAiring),
+          LunaTableContent(
+            title: 'next airing',
+            body: series.lunaNextAiring,
+          ),
         if (series.nextAiring != null)
-          LunaTableContent(title: 'air time', body: series.lunaAirTime),
+          LunaTableContent(
+            title: 'air time',
+            body: series.lunaAirTime,
+          ),
       ],
     );
   }

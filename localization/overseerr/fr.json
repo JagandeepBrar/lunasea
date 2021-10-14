@@ -2,5 +2,6 @@
     "overseerr.Users": "Utilisateurs",
     "overseerr.UnknownUser": "Utilisateur inconnu",
     "overseerr.NoUsersFound": "Aucun utilisateur trouvé",
-    "overseerr.Requests": "Requêtes"
+    "overseerr.Requests": "Requêtes",
+    "overseerr.NoRequestsFound": "Aucune demande trouvée"
 }

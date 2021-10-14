@@ -1,1 +1,7 @@
-{}
+{
+    "overseerr.Users": "Benutzer",
+    "overseerr.UnknownUser": "Unbekannter Benutzer",
+    "overseerr.NoUsersFound": "Keine Benutzer gefunden",
+    "overseerr.NoRequestsFound": "Keine Anfragen gefunden",
+    "overseerr.Requests": "Anfragen"
+}

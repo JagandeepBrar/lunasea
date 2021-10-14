@@ -1,7 +1,7 @@
 {
     "settings.FirebaseCrashlyticsHint3": "Um dein Recht auf Privatsphäre zu bewahren hast du die Option das Aufnehmen von Abstürzen und Fehlern zu deaktivieren. Bitte beachte jedoch dass diese Aufnahmen sehr wertvoll für das Auffinden und Lösen von Fehlern sind!",
     "settings.FirebaseCrashlyticsHint2": "Firebase Crashlytics ist ein Werkzeug um Abstürze und Fehler aufzunehmen.",
-    "settings.FirebaseCrashlytics": "Firebase Crashlytics",
+    "settings.FirebaseCrashlytics": "Firebase Crashlytics (Erlaubt Erfassung anonymer Daten bei Crashs)",
     "settings.FirebaseCrashlyticsHint1": "Fehlermeldungen und Fehlertraces beinhalten absolut keine identifizierbaren Informationen zu irgendwelchen Nutzern.",
     "settings.EncryptionKey": "Sicherungsphrase",
     "settings.EnabledProfile": "Aktives Profil",

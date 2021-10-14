@@ -23,7 +23,8 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
           ),
           children: [
             TextSpan(
-                text: series?.sizeOnDisk?.lunaBytesToString(decimals: 1) ??
+                text: series?.statistics?.sizeOnDisk
+                        ?.lunaBytesToString(decimals: 1) ??
                     '0.0 B'),
             TextSpan(text: '\n'),
             TextSpan(
@@ -40,7 +41,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
               text: [
                 '${series.lunaPercentageComplete}%',
                 LunaUI.TEXT_EMDASH.lunaPad(),
-                '${series.episodeFileCount ?? 0}/${series.episodeCount ?? 0}',
+                '${series.statistics?.episodeFileCount ?? 0}/${series.statistics?.episodeCount ?? 0}',
                 'Episodes Available',
               ].join(' '),
             ),

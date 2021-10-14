@@ -81,7 +81,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
 
   void initializeQualityProfile(List<SonarrQualityProfile> qualityProfiles) {
     _qualityProfile = qualityProfiles.firstWhere(
-      (profile) => profile.id == series.profileId,
+      (profile) => profile.id == series.qualityProfileId,
       orElse: () => qualityProfiles.isEmpty ? null : qualityProfiles[0],
     );
   }

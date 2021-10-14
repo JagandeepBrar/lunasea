@@ -698,9 +698,9 @@ packages:
   overseerr:
     dependency: "direct main"
     description:
-      name: overseerr
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/overseerr"
+      relative: true
+    source: path
     version: "0.0.1-pre.6"
   package_config:
     dependency: transitive
@@ -894,9 +894,9 @@ packages:
   radarr:
     dependency: "direct main"
     description:
-      name: radarr
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/radarr"
+      relative: true
+    source: path
     version: "2.1.1"
   share_plus:
     dependency: "direct main"
@@ -1032,10 +1032,10 @@ packages:
   sonarr:
     dependency: "direct main"
     description:
-      name: sonarr
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
+      path: "packages/sonarr"
+      relative: true
+    source: path
+    version: "3.0.0-pre.1"
   source_gen:
     dependency: transitive
     description:
@@ -1123,9 +1123,9 @@ packages:
   tautulli:
     dependency: "direct main"
     description:
-      name: tautulli
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/tautulli"
+      relative: true
+    source: path
     version: "2.0.0"
   term_glyph:
     dependency: transitive
@@ -1249,10 +1249,10 @@ packages:
   wake_on_lan:
     dependency: "direct main"
     description:
-      name: wake_on_lan
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1+1"
+      path: "packages/wake_on_lan"
+      relative: true
+    source: path
+    version: "2.0.1+2"
   watcher:
     dependency: transitive
     description:

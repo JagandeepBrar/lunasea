@@ -41,7 +41,8 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
         ),
         LunaTableContent(
           title: 'size',
-          body: series.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? 'Unknown',
+          body: series.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ??
+              'Unknown',
         ),
         LunaTableContent(
           title: 'type',

@@ -169,7 +169,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             if (snapshot.hasData) {
               if (series == null) return LunaLoader();
               SonarrQualityProfile quality = _findQualityProfile(
-                series.profileId,
+                series.qualityProfileId,
                 snapshot.data[2],
               );
               SonarrLanguageProfile language = _findLanguageProfile(

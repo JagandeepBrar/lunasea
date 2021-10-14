@@ -158,7 +158,7 @@ class _State extends State<SonarrSeriesRoute>
           itemBuilder: (context, index) => SonarrSeriesTile(
             series: _filtered[index],
             profile: qualities.firstWhere(
-                (element) => element.id == _filtered[index].profileId,
+                (element) => element.id == _filtered[index].qualityProfileId,
                 orElse: null),
           ),
         );

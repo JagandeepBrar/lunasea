@@ -20,11 +20,19 @@ SonarrQualityProfile _$SonarrQualityProfileFromJson(
     );
 
 Map<String, dynamic> _$SonarrQualityProfileToJson(
-        SonarrQualityProfile instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'upgradeAllowed': instance.upgradeAllowed,
-      'cutoff': instance.cutoff,
-      'items': instance.items?.map((e) => e.toJson()).toList(),
-      'id': instance.id,
-    };
+    SonarrQualityProfile instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('upgradeAllowed', instance.upgradeAllowed);
+  writeNotNull('cutoff', instance.cutoff);
+  writeNotNull('items', instance.items?.map((e) => e.toJson()).toList());
+  writeNotNull('id', instance.id);
+  return val;
+}

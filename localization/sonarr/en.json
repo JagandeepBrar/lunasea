@@ -1,4 +1,5 @@
 {
+  "sonarr.BackupDatabase": "Backup Database",
   "sonarr.History": "History",
   "sonarr.HistoryDescription": "View Recent Activity",
   "sonarr.ManualImport": "Manual Import",
@@ -7,10 +8,14 @@
   "sonarr.More": "More",
   "sonarr.Queue": "Queue",
   "sonarr.QueueDescription": "View Active & Queued Content",
+  "sonarr.RunRSSSync": "Run RSS Sync",
+  "sonarr.SearchAllMissing": "Search All Missing",
   "sonarr.Series": "Series",
   "sonarr.SystemStatus": "System Status",
   "sonarr.SystemStatusDescription": "System Status & Disk Space",
   "sonarr.Tags": "Tags",
   "sonarr.TagsDescription": "Manage Your Tags",
-  "sonarr.Upcoming": "Upcoming"
+  "sonarr.Upcoming": "Upcoming",
+  "sonarr.UpdateLibrary": "Update Library",
+  "sonarr.ViewWebGUI": "View Web GUI"
 }

@@ -26,7 +26,7 @@ class _State extends State<SonarrUpcomingTile> {
             context.read<SonarrState>().getPosterURL(widget.record.seriesId),
         posterHeaders: context.read<SonarrState>().headers,
         posterPlaceholder: LunaAssets.blankVideo,
-        title: widget.record.series.title,
+        title: 'Placeholder', // TODO: Fix the title
         subtitle1: _subtitle1(),
         subtitle2: _subtitle2(),
         subtitle3: _subtitle3(),
@@ -80,10 +80,12 @@ class _State extends State<SonarrUpcomingTile> {
       children: [
         if (!widget.record.hasFile)
           TextSpan(text: widget.record.lunaHasAired ? 'Missing' : 'Unaired'),
-        if (widget.record.hasFile)
-          TextSpan(
-              text:
-                  'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})'),
+        // TODO: Fix the episode quality
+        if (widget.record.hasFile) TextSpan(text: 'Temp'),
+        // if (widget.record.hasFile)
+        //   TextSpan(
+        //       text:
+        //           'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})'),
       ],
     );
   }

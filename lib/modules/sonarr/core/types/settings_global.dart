@@ -50,4 +50,9 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
     }
     throw Exception('Invalid SonarrGlobalSettingsType');
   }
+
+  Future<void> execute(BuildContext context) async {
+    // TODO: Execute actions
+    return;
+  }
 }

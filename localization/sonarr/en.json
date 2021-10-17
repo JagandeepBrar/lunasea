@@ -1,1 +1,16 @@
-{}
+{
+  "sonarr.History": "History",
+  "sonarr.HistoryDescription": "View Recent Activity",
+  "sonarr.ManualImport": "Manual Import",
+  "sonarr.ManualImportDescription": "Import Content from the Filesystem",
+  "sonarr.Missing": "Missing",
+  "sonarr.More": "More",
+  "sonarr.Queue": "Queue",
+  "sonarr.QueueDescription": "View Active & Queued Content",
+  "sonarr.Series": "Series",
+  "sonarr.SystemStatus": "System Status",
+  "sonarr.SystemStatusDescription": "System Status & Disk Space",
+  "sonarr.Tags": "Tags",
+  "sonarr.TagsDescription": "Manage Your Tags",
+  "sonarr.Upcoming": "Upcoming"
+}

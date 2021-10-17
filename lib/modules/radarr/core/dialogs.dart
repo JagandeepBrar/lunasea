@@ -4,7 +4,8 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
   Future<Tuple2<bool, RadarrGlobalSettingsType>> globalSettings(
-      BuildContext context) async {
+    BuildContext context,
+  ) async {
     bool _flag = false;
     RadarrGlobalSettingsType _value;
 

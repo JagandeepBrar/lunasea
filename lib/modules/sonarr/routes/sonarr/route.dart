@@ -10,8 +10,10 @@ class SonarrHomeRouter extends SonarrPageRouter {
   _Widget widget() => _Widget();
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router, homeRoute: true);
+  void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(
+        router,
+        homeRoute: true,
+      );
 }
 
 class _Widget extends StatefulWidget {
@@ -27,7 +29,8 @@ class _State extends State<_Widget> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-        initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
+      initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data,
+    );
   }
 
   @override
@@ -41,27 +44,34 @@ class _State extends State<_Widget> {
     );
   }
 
-  Widget _drawer() => LunaDrawer(page: LunaModule.SONARR.key);
+  Widget _drawer() {
+    return LunaDrawer(page: LunaModule.SONARR.key);
+  }
 
   Widget _bottomNavigationBar() {
-    if (context.read<SonarrState>().enabled)
+    if (context.read<SonarrState>().enabled) {
       return SonarrNavigationBar(pageController: _pageController);
+    }
     return null;
   }
 
   Widget _appBar() {
-    List<String> profiles =
-        Database.profilesBox.keys.fold([], (value, element) {
-      if (Database.profilesBox.get(element)?.sonarrEnabled ?? false)
-        value.add(element);
-      return value;
-    });
+    List<String> profiles = Database.profilesBox.keys.fold(
+      [],
+      (value, element) {
+        if (Database.profilesBox.get(element)?.sonarrEnabled ?? false) {
+          value.add(element);
+        }
+        return value;
+      },
+    );
     List<Widget> actions;
-    if (context.watch<SonarrState>().enabled)
+    if (context.watch<SonarrState>().enabled) {
       actions = [
         SonarrAppBarAddSeriesAction(),
         SonarrAppBarGlobalSettingsAction(),
       ];
+    }
     return LunaAppBar.dropdown(
       title: LunaModule.SONARR.name,
       useDrawer: true,
@@ -74,23 +84,24 @@ class _State extends State<_Widget> {
 
   Widget _body() {
     return Selector<SonarrState, bool>(
-        selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) {
-          if (!enabled) {
-            return LunaMessage.moduleNotEnabled(
-              context: context,
-              module: 'Sonarr',
-            );
-          }
-          return PageView(
-            controller: _pageController,
-            children: [
-              SonarrCatalogueRoute(),
-              SonarrUpcomingRoute(),
-              SonarrMissingRoute(),
-              SonarrHistoryRoute(),
-            ],
+      selector: (_, state) => state.enabled,
+      builder: (context, enabled, _) {
+        if (!enabled) {
+          return LunaMessage.moduleNotEnabled(
+            context: context,
+            module: 'Sonarr',
           );
-        });
+        }
+        return PageView(
+          controller: _pageController,
+          children: [
+            SonarrCatalogueRoute(),
+            SonarrUpcomingRoute(),
+            SonarrMissingRoute(),
+            SonarrMoreRoute(),
+          ],
+        );
+      },
+    );
   }
 }

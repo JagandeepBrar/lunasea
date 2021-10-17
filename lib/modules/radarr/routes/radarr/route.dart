@@ -10,12 +10,10 @@ class RadarrHomeRouter extends RadarrPageRouter {
   Widget widget() => _Widget();
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(
-      router,
-      homeRoute: true,
-    );
-  }
+  void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(
+        router,
+        homeRoute: true,
+      );
 }
 
 class _Widget extends StatefulWidget {

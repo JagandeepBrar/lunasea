@@ -3,7 +3,9 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
-  static Future<List<dynamic>> globalSettings(BuildContext context) async {
+  Future<Tuple2<bool, SonarrGlobalSettingsType>> globalSettings(
+    BuildContext context,
+  ) async {
     bool _flag = false;
     SonarrGlobalSettingsType _value;
 
@@ -15,7 +17,7 @@ class SonarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Settings',
+      title: 'lunasea.Settings'.tr(),
       content: List.generate(
         SonarrGlobalSettingsType.values.length,
         (index) => LunaDialog.tile(
@@ -27,7 +29,7 @@ class SonarrDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _value];
+    return Tuple2(_flag, _value);
   }
 
   Future<Tuple2<bool, SonarrSeriesSettingsType>> seriesSettings(

@@ -16,7 +16,7 @@ SonarrSeriesLookup _$SonarrSeriesLookupFromJson(Map<String, dynamic> json) =>
       network: json['network'] as String?,
       airTime: json['airTime'] as String?,
       images: (json['images'] as List<dynamic>?)
-          ?.map((e) => SonarrSeriesImage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SonarrImage.fromJson(e as Map<String, dynamic>))
           .toList(),
       remotePoster: json['remotePoster'] as String?,
       seasons: (json['seasons'] as List<dynamic>?)

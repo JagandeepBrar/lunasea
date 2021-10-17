@@ -30,8 +30,8 @@ part 'src/commands/episode_file/get_series_episode_files.dart';
 
 // Episode
 part 'src/commands/episode.dart';
-part 'src/commands/episode/get_all_episodes.dart';
 part 'src/commands/episode/get_episode.dart';
+part 'src/commands/episode/get_episodes.dart';
 part 'src/commands/episode/update_episode.dart';
 
 // History

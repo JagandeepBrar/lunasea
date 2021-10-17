@@ -135,7 +135,7 @@ class SonarrState extends LunaModuleState {
   void fetchEpisodes(int seriesId) {
     assert(seriesId != null);
     if (_api != null)
-      _episodes[seriesId] = _api.episode.getSeriesEpisodes(seriesId: seriesId);
+      _episodes[seriesId] = _api.episode.getMulti(seriesId: seriesId);
     notifyListeners();
   }
 

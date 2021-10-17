@@ -47,7 +47,7 @@ class SonarrSeries {
   String? airTime;
 
   @JsonKey(name: 'images')
-  List<SonarrSeriesImage>? images;
+  List<SonarrImage>? images;
 
   @JsonKey(name: 'seasons')
   List<SonarrSeriesSeason>? seasons;

@@ -19,7 +19,7 @@ SonarrEpisodeFileMediaInfo _$SonarrEpisodeFileMediaInfoFromJson(
       videoCodec: json['videoCodec'] as String?,
       videoFps: (json['videoFps'] as num?)?.toDouble(),
       resolution: json['resolution'] as String?,
-      runtime: json['runtime'] as String?,
+      runTime: json['runTime'] as String?,
       scanType: json['scanType'] as String?,
       subtitles: json['subtitles'] as String?,
     );
@@ -44,7 +44,7 @@ Map<String, dynamic> _$SonarrEpisodeFileMediaInfoToJson(
   writeNotNull('videoCodec', instance.videoCodec);
   writeNotNull('videoFps', instance.videoFps);
   writeNotNull('resolution', instance.resolution);
-  writeNotNull('runtime', instance.runtime);
+  writeNotNull('runTime', instance.runTime);
   writeNotNull('scanType', instance.scanType);
   writeNotNull('subtitles', instance.subtitles);
   return val;

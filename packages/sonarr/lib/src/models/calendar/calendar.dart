@@ -63,7 +63,7 @@ class SonarrCalendar {
   SonarrSeries? series;
 
   @JsonKey(name: 'images')
-  List<SonarrSeriesImage>? images;
+  List<SonarrImage>? images;
 
   @JsonKey(name: 'id')
   int? id;

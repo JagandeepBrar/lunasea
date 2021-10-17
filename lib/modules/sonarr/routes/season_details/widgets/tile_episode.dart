@@ -198,23 +198,27 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
               TextSpan(text: '${queue.lunaPercentageComplete}%'),
             ],
           ),
+        // TODO: Fix usage of episode file
         if (queue == null && widget.episode.hasFile)
           TextSpan(
             style: TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              color: widget.episode.episodeFile.qualityCutoffNotMet
-                  ? widget.episode.monitored
-                      ? LunaColours.orange
-                      : LunaColours.orange.withOpacity(0.30)
-                  : widget.episode.monitored
-                      ? LunaColours.accent
-                      : LunaColours.accent.withOpacity(0.30),
+              color: LunaColours.accent,
+              // color: widget.episode.episodeFile.qualityCutoffNotMet
+              //     ? widget.episode.monitored
+              //         ? LunaColours.orange
+              //         : LunaColours.orange.withOpacity(0.30)
+              //     : widget.episode.monitored
+              //         ? LunaColours.accent
+              //         : LunaColours.accent.withOpacity(0.30),
             ),
             children: [
-              TextSpan(text: widget.episode.episodeFile.quality.quality.name),
+              TextSpan(text: 'Temp'),
+              // TextSpan(text: widget.episode.episodeFile.quality.quality.name),
               TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
-              TextSpan(
-                  text: widget.episode.episodeFile.size.lunaBytesToString()),
+              TextSpan(text: '0.0B'),
+              // TextSpan(
+              //     text: widget.episode.episodeFile.size.lunaBytesToString()),
             ],
           ),
         if (queue == null &&
@@ -260,19 +264,24 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
               '${queue?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH} ${LunaUI.TEXT_EMDASH} ${queue.lunaPercentageComplete}%',
           backgroundColor: LunaColours.purple,
         ),
+      // TODO: Fix usage of episode file
       if (queue == null && widget.episode.hasFile)
         LunaHighlightedNode(
-          backgroundColor: widget.episode.episodeFile.qualityCutoffNotMet
-              ? LunaColours.orange
-              : LunaColours.accent,
-          text: widget.episode.episodeFile.quality?.quality?.name ??
-              LunaUI.TEXT_EMDASH,
+          backgroundColor: LunaColours.accent,
+          text: 'Temp',
+          // backgroundColor: widget.episode.episodeFile.qualityCutoffNotMet
+          //     ? LunaColours.orange
+          //     : LunaColours.accent,
+          // text: widget.episode.episodeFile.quality?.quality?.name ??
+          //     LunaUI.TEXT_EMDASH,
         ),
+      // TODO: Fix usage of episode file
       if (queue == null && widget.episode.hasFile)
         LunaHighlightedNode(
           backgroundColor: LunaColours.blueGrey,
-          text: widget.episode.episodeFile.size?.lunaBytesToString() ??
-              LunaUI.TEXT_EMDASH,
+          text: '0.0B',
+          // text: widget.episode.episodeFile.size?.lunaBytesToString() ??
+          //     LunaUI.TEXT_EMDASH,
         ),
       if (queue == null &&
           !widget.episode.hasFile &&

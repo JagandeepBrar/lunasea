@@ -37,7 +37,7 @@ class SonarrCommandHandler_Series {
     required int profileId,
     required String title,
     required String titleSlug,
-    required List<SonarrSeriesImage> images,
+    required List<SonarrImage> images,
     required List<SonarrSeriesSeason> seasons,
     required SonarrSeriesType seriesType,
     int? languageProfileId,

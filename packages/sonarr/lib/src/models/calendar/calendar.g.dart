@@ -32,7 +32,7 @@ SonarrCalendar _$SonarrCalendarFromJson(Map<String, dynamic> json) =>
           ? null
           : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
       images: (json['images'] as List<dynamic>?)
-          ?.map((e) => SonarrSeriesImage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SonarrImage.fromJson(e as Map<String, dynamic>))
           .toList(),
       id: json['id'] as int?,
     );

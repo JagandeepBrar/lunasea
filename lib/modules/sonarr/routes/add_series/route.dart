@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+class _SonarrAddSeriesArguments {
+  final String query;
+
+  _SonarrAddSeriesArguments(this.query);
+}
+
 class SonarrAddSeriesRouter extends SonarrPageRouter {
   SonarrAddSeriesRouter() : super('/sonarr/addseries');
 
@@ -17,18 +23,14 @@ class SonarrAddSeriesRouter extends SonarrPageRouter {
       LunaRouter.router.navigateTo(
         context,
         route(),
-        routeSettings: RouteSettings(arguments: _Arguments(query)),
+        routeSettings: RouteSettings(
+          arguments: _SonarrAddSeriesArguments(query),
+        ),
       );
 
   @override
   void defineRoute(FluroRouter router) =>
       super.noParameterRouteDefinition(router);
-}
-
-class _Arguments {
-  final String query;
-
-  _Arguments(this.query);
 }
 
 class _Widget extends StatefulWidget {
@@ -38,21 +40,15 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _Arguments _arguments;
+  _SonarrAddSeriesArguments _arguments;
 
   @override
   Widget build(BuildContext context) {
     _arguments = ModalRoute.of(context).settings.arguments;
-    return ChangeNotifierProvider(
-      create: (context) => SonarrAddSeriesState(
-        context,
-        _arguments?.query ?? '',
-      ),
-      builder: (context, _) => LunaScaffold(
-        scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
-        body: SonarrSeriesAddSearchResults(scrollController: scrollController),
-      ),
+    return LunaScaffold(
+      scaffoldKey: _scaffoldKey,
+      appBar: _appBar(),
+      body: SonarrSeriesAddSearchResults(scrollController: scrollController),
     );
   }
 

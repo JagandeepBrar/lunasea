@@ -35,8 +35,8 @@ class SonarrEpisodeFileMediaInfo {
   @JsonKey(name: 'resolution')
   String? resolution;
 
-  @JsonKey(name: 'runtime')
-  String? runtime;
+  @JsonKey(name: 'runTime')
+  String? runTime;
 
   @JsonKey(name: 'scanType')
   String? scanType;
@@ -55,7 +55,7 @@ class SonarrEpisodeFileMediaInfo {
     this.videoCodec,
     this.videoFps,
     this.resolution,
-    this.runtime,
+    this.runTime,
     this.scanType,
     this.subtitles,
   });

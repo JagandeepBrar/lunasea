@@ -15,20 +15,21 @@ SonarrEpisodeFile _$SonarrEpisodeFileFromJson(Map<String, dynamic> json) =>
       size: json['size'] as int?,
       dateAdded: SonarrUtilities.dateTimeFromJson(json['dateAdded'] as String?),
       sceneName: json['sceneName'] as String?,
-      quality: json['quality'] == null
-          ? null
-          : SonarrEpisodeFileQuality.fromJson(
-              json['quality'] as Map<String, dynamic>),
+      releaseGroup: json['releaseGroup'] as String?,
       language: json['language'] == null
           ? null
           : SonarrEpisodeFileLanguage.fromJson(
               json['language'] as Map<String, dynamic>),
+      quality: json['quality'] == null
+          ? null
+          : SonarrEpisodeFileQuality.fromJson(
+              json['quality'] as Map<String, dynamic>),
       mediaInfo: json['mediaInfo'] == null
           ? null
           : SonarrEpisodeFileMediaInfo.fromJson(
               json['mediaInfo'] as Map<String, dynamic>),
-      originalFilePath: json['originalFilePath'] as String?,
       qualityCutoffNotMet: json['qualityCutoffNotMet'] as bool?,
+      languageCutoffNotMet: json['languageCutoffNotMet'] as bool?,
       id: json['id'] as int?,
     );
 
@@ -41,10 +42,11 @@ Map<String, dynamic> _$SonarrEpisodeFileToJson(SonarrEpisodeFile instance) =>
       'size': instance.size,
       'dateAdded': SonarrUtilities.dateTimeToJson(instance.dateAdded),
       'sceneName': instance.sceneName,
-      'quality': instance.quality?.toJson(),
+      'releaseGroup': instance.releaseGroup,
       'language': instance.language?.toJson(),
+      'quality': instance.quality?.toJson(),
       'mediaInfo': instance.mediaInfo?.toJson(),
-      'originalFilePath': instance.originalFilePath,
       'qualityCutoffNotMet': instance.qualityCutoffNotMet,
+      'languageCutoffNotMet': instance.languageCutoffNotMet,
       'id': instance.id,
     };

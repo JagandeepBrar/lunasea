@@ -17,6 +17,10 @@ SonarrCalendar _$SonarrCalendarFromJson(Map<String, dynamic> json) =>
       airDateUtc:
           SonarrUtilities.dateTimeFromJson(json['airDateUtc'] as String?),
       overview: json['overview'] as String?,
+      episodeFile: json['episodeFile'] == null
+          ? null
+          : SonarrEpisodeFile.fromJson(
+              json['episodeFile'] as Map<String, dynamic>),
       hasFile: json['hasFile'] as bool?,
       monitored: json['monitored'] as bool?,
       absoluteEpisodeNumber: json['absoluteEpisodeNumber'] as int?,
@@ -24,6 +28,12 @@ SonarrCalendar _$SonarrCalendarFromJson(Map<String, dynamic> json) =>
       sceneEpisodeNumber: json['sceneEpisodeNumber'] as int?,
       sceneSeasonNumber: json['sceneSeasonNumber'] as int?,
       unverifiedSceneNumbering: json['unverifiedSceneNumbering'] as bool?,
+      series: json['series'] == null
+          ? null
+          : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => SonarrSeriesImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
       id: json['id'] as int?,
     );
 
@@ -45,6 +55,7 @@ Map<String, dynamic> _$SonarrCalendarToJson(SonarrCalendar instance) {
   writeNotNull(
       'airDateUtc', SonarrUtilities.dateTimeToJson(instance.airDateUtc));
   writeNotNull('overview', instance.overview);
+  writeNotNull('episodeFile', instance.episodeFile?.toJson());
   writeNotNull('hasFile', instance.hasFile);
   writeNotNull('monitored', instance.monitored);
   writeNotNull('absoluteEpisodeNumber', instance.absoluteEpisodeNumber);
@@ -53,6 +64,8 @@ Map<String, dynamic> _$SonarrCalendarToJson(SonarrCalendar instance) {
   writeNotNull('sceneEpisodeNumber', instance.sceneEpisodeNumber);
   writeNotNull('sceneSeasonNumber', instance.sceneSeasonNumber);
   writeNotNull('unverifiedSceneNumbering', instance.unverifiedSceneNumbering);
+  writeNotNull('series', instance.series?.toJson());
+  writeNotNull('images', instance.images?.map((e) => e.toJson()).toList());
   writeNotNull('id', instance.id);
   return val;
 }

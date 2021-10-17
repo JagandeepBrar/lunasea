@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sonarr/utilities.dart';
+import 'package:sonarr/models.dart';
 
 part 'calendar.g.dart';
 
@@ -34,6 +35,9 @@ class SonarrCalendar {
   @JsonKey(name: 'overview')
   String? overview;
 
+  @JsonKey(name: 'episodeFile')
+  SonarrEpisodeFile? episodeFile;
+
   @JsonKey(name: 'hasFile')
   bool? hasFile;
 
@@ -55,6 +59,12 @@ class SonarrCalendar {
   @JsonKey(name: 'unverifiedSceneNumbering')
   bool? unverifiedSceneNumbering;
 
+  @JsonKey(name: 'series')
+  SonarrSeries? series;
+
+  @JsonKey(name: 'images')
+  List<SonarrSeriesImage>? images;
+
   @JsonKey(name: 'id')
   int? id;
 
@@ -67,6 +77,7 @@ class SonarrCalendar {
     this.airDate,
     this.airDateUtc,
     this.overview,
+    this.episodeFile,
     this.hasFile,
     this.monitored,
     this.absoluteEpisodeNumber,
@@ -74,6 +85,8 @@ class SonarrCalendar {
     this.sceneEpisodeNumber,
     this.sceneSeasonNumber,
     this.unverifiedSceneNumbering,
+    this.series,
+    this.images,
     this.id,
   });
 

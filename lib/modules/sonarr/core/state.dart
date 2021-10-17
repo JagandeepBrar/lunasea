@@ -337,9 +337,11 @@ class SonarrState extends LunaModuleState {
     DateTime end = start
         .add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
     if (_api != null)
-      _upcoming = _api.calendar.getCalendar(
+      _upcoming = _api.calendar.get(
         start: start,
         end: end,
+        includeEpisodeFile: true,
+        includeSeries: true,
       );
     notifyListeners();
   }

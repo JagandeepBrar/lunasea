@@ -1,5 +1,5 @@
 ---
-description: 'On-Device Logging, Firebase Crashlytics, & Firebase Analytics'
+description: On-Device Logging, Firebase Crashlytics, & Firebase Analytics
 ---
 
 # Logs
@@ -8,7 +8,7 @@ LunaSea includes an on-device logging system that helps debug crashes, issues, a
 
 1. **Warning**: Warning logs are non-crashing and non-critical errors that have occurred on the device. Warning logs would occur when failing to load an image, passing an incorrect encryption key when trying to restore a backup, etc.
 2. **Error**: Error logs are non-crashing but critical errors that have occurred on the device. Error logs would occur on network errors, connection issues, errors returned from the module, etc.
-3. **Fatal**: Fatal logs are crashing errors or unhandled errors that have occurred on the device. Fatal logs would occur when LunaSea fails to complete  the boot process, fails to render the UI, etc.
+3. **Fatal**: Fatal logs are crashing errors or unhandled errors that have occurred on the device. Fatal logs would occur when LunaSea fails to complete the boot process, fails to render the UI, etc.
 
 ### Viewing Log History
 
@@ -29,7 +29,7 @@ To export your logs, simply go to the Settings, enter the "System" page and tap 
 {% hint style="warning" %}
 Because the exported logs contain code-execution stack traces, **the logs may unintentionally contain private information**.
 
-Please ensure you do not publicly share your exported logs \(or before sharing, manually scrub the exported logs\). Only share the logs to trusted parties through private channels such as email or direct messages.
+Please ensure you do not publicly share your exported logs (or before sharing, manually scrub the exported logs). Only share the logs to trusted parties through private channels such as email or direct messages.
 {% endhint %}
 
 ### Clearing Logs
@@ -40,12 +40,12 @@ To clear your logs, simply go to the Settings, enter the "System" page and tap "
 
 ## Firebase Crashlytics
 
-LunaSea integrates [Firebase Crashlytics](https://firebase.google.com/products/crashlytics) to help catch errors that may not be obvious to users or occur internally and out of sight. Firebase Crashlytics is enabled by default, but can be optionally completely disabled \(explained below\).
+LunaSea integrates [Firebase Crashlytics](https://firebase.google.com/products/crashlytics) to help catch errors that may not be obvious to users or occur internally and out of sight. Firebase Crashlytics is enabled by default, but can be optionally completely disabled (explained below).
 
 The following errors are not sent to Firebase Crashlytics to protect user's privacy and private information:
 
-* **Networking Errors**: Any and all networking errors are not sent \(but are stored on the on-device logger\).
-* **Encryption Errors**: Any and all errors related to encrypting or decrypting configurations for backups are not sent \(but are stored on the on-device logger\).
+* **Networking Errors**: Any and all networking errors are not sent (but are stored on the on-device logger).
+* **Encryption Errors**: Any and all errors related to encrypting or decrypting configurations for backups are not sent (but are stored on the on-device logger).
 
 {% hint style="info" %}
 Firebase Crashlytics includes no personally identifying information in the logs that are sent. Information that is included in each log includes:
@@ -53,12 +53,12 @@ Firebase Crashlytics includes no personally identifying information in the logs 
 * Error
 * Stack Trace
 * Breadcrumbs
-* Device Information \(Model, OS Version, etc.\)
+* Device Information (Model, OS Version, etc.)
 {% endhint %}
 
 ### Example Crash Log
 
-![](../.gitbook/assets/firebase_crashlytics_example.png)
+![](<../.gitbook/assets/firebase\_crashlytics\_example (1).png>)
 
 ### Disabling Firebase Crashlytics
 
@@ -66,7 +66,7 @@ Disabling Firebase Crashlytics is as simple as heading to the Settings, entering
 
 ## Firebase Analytics
 
-LunaSea integrates [Firebase Analytics](https://firebase.google.com/products/analytics) to help Firebase Crashlytics acquire breadcrumb information in any logs sent. Firebase Analytics is enabled by default, but can be optionally completely disabled \(explained below\).
+LunaSea integrates [Firebase Analytics](https://firebase.google.com/products/analytics) to help Firebase Crashlytics acquire breadcrumb information in any logs sent. Firebase Analytics is enabled by default, but can be optionally completely disabled (explained below).
 
 ### What are Breadcrumbs?
 
@@ -88,5 +88,4 @@ Disabling Firebase Analytics will disable gathering and sending these additional
 
 Disabling Firebase Analytics is as simple as heading to the Settings, entering the "System" page, and toggling off Firebase Analytics.
 
-### 
-
+###

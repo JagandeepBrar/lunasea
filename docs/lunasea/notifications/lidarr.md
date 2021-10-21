@@ -21,16 +21,16 @@ Select any name, for example "LunaSea".
 {% tab title="Triggers" %}
 Select which events should trigger a push notification. The following triggers are supported:
 
-| Trigger | Supported? |
-| :--- | :---: |
-| On Grab | **Yes**  ✅ |
-| On Release Import | **Yes**  ✅ |
-| On Upgrade | **Yes**  ✅ |
-| On Download Failure |  No  ❌ |
-| On Import Failure |  No  ❌ |
-| On Rename | **Yes**  ✅ |
-| On Track Retag | **Yes**  ✅ |
-| On Health Issue |  No  ❌ |
+| Trigger             | Supported? |
+| ------------------- | :--------: |
+| On Grab             |  **Yes** ✅ |
+| On Release Import   |  **Yes** ✅ |
+| On Upgrade          |  **Yes** ✅ |
+| On Download Failure |    No ❌    |
+| On Import Failure   |    No ❌    |
+| On Rename           |  **Yes** ✅ |
+| On Track Retag      |  **Yes** ✅ |
+| On Health Issue     |    No ❌    |
 {% endtab %}
 
 {% tab title="Tags" %}
@@ -53,7 +53,7 @@ Keep the method on "**POST**". Changing the method to "**PUT**" will cause the w
 
 {% tab title="Username" %}
 {% hint style="warning" %}
-This step is only required if you are _**not**_ using the default LunaSea profile \(`default`\). LunaSea will assume the default profile when none is supplied.
+This step is only required if you are _**not**_ using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
 
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
@@ -76,7 +76,4 @@ An example Lidarr webhook can be seen below:
 * This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`.
 * The webhook is associated with the profile named `My Profile`.
 
-![](../../.gitbook/assets/lidarr_notification_example.png)
-
-
-
+![](<../../.gitbook/assets/lidarr\_notification\_example (1).png>)

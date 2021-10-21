@@ -11,106 +11,72 @@ description: Setting up Tautulli for webhook-based push notifications
 
 ## Setup the Webhook
 
-Open Tautulli's web GUI, open the Settings and enter the "Notification Agents" page. Hit the "Add a new notification agent" button to add a new agent, and select "Webhook". Please follow each tab below to setup the webhook:
+Open Tautulli's web GUI, open the Settings and enter the "Notification Agents" page. Hit the "Add a new notification agent" button to add a new agent, and select "LunaSea". Please follow each tab below to setup the webhook:
 
 {% tabs %}
 {% tab title="Configuration" %}
-### **Webhook URL**
+#### **LunaSea Webhook URL**
 
 Paste the full device-based or user-based URL that was copied from LunaSea.
 
-Each webhook can support a single user-based or device-based webhook URL. Attaching multiple device-based or user-based webhooks to a single Sonarr instance requires setting up multiple webhooks.
+#### LunaSea Profile
 
-### Webhook Method
+{% hint style="warning" %}
+This step is only required if you are _**not**_ using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
 
-Keep the method on "**POST**". Changing the method to "**PUT**" will cause the webhooks to fail.
+Correctly setting up this field is critically important to get full deep-linking support.
+{% endhint %}
 
-### Description
-
-An _optional_ description for the webhook to help identify the webhook in the list of notification agents.
+Enter in the name of profile and should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
 {% endtab %}
 
 {% tab title="Triggers" %}
 Select which events should trigger a push notification. The following triggers are supported:
 
-| Trigger | Supported? |
-| :--- | :---: |
-| Playback Start | **Yes**  ✅ |
-| Playback Stop | **Yes**  ✅ |
-| Playback Pause | **Yes**  ✅ |
-| Playback Resume | **Yes**  ✅ |
-| Playback Error | **Yes**  ✅ |
-| Transcode Decision Change | **Yes**  ✅ |
-| Watched | **Yes**  ✅ |
-| Buffer Warning | **Yes**  ✅ |
-| User Concurrent Streams | **Yes**  ✅ |
-| User New Device | **Yes**  ✅ |
-| Recently Added | **Yes**  ✅ |
-| Plex Server Down | **Yes**  ✅ |
-| Plex Server Back Up | **Yes**  ✅ |
-| Plex Remote Access Down | **Yes**  ✅ |
-| Plex Remote Access Back Up | **Yes**  ✅ |
-| Plex Update Available | **Yes**  ✅ |
-| Tautulli Update Available | **Yes**  ✅ |
-| Tautulli Database Corruption | **Yes**  ✅ |
+| Trigger                      | Supported? |
+| ---------------------------- | :--------: |
+| Playback Start               |  **Yes** ✅ |
+| Playback Stop                |  **Yes** ✅ |
+| Playback Pause               |  **Yes** ✅ |
+| Playback Resume              |  **Yes** ✅ |
+| Playback Error               |  **Yes** ✅ |
+| Transcode Decision Change    |  **Yes** ✅ |
+| Watched                      |  **Yes** ✅ |
+| Buffer Warning               |  **Yes** ✅ |
+| User Concurrent Streams      |  **Yes** ✅ |
+| User New Device              |  **Yes** ✅ |
+| Recently Added               |  **Yes** ✅ |
+| Plex Server Down             |  **Yes** ✅ |
+| Plex Server Back Up          |  **Yes** ✅ |
+| Plex Remote Access Down      |  **Yes** ✅ |
+| Plex Remote Access Back Up   |  **Yes** ✅ |
+| Plex Update Available        |  **Yes** ✅ |
+| Tautulli Update Available    |  **Yes** ✅ |
+| Tautulli Database Corruption |  **Yes** ✅ |
 {% endtab %}
 
 {% tab title="Conditions" %}
 You can _**optionally**_ add conditions that must be met for the webhook notifications to trigger.
 
-You can set as many conditions as you like, and can combine different conditions for different triggers by adding separate webhooks to Tautulli. 
+You can set as many conditions as you like, and can combine different conditions for different triggers by adding separate webhooks to Tautulli.
 {% endtab %}
 
-{% tab title="Data" %}
-The following two sections apply to **every** trigger, and needs to be completed for each trigger being used. If the trigger is not being used in this notification agent, you do not need to fill in the data.
+{% tab title="Text" %}
+A default message is set for all trigger types, but on this page you can alter the exact text that would appear in the message.
 
-### JSON Data
-
-Each trigger has a specific JSON data payload that must be included in the request.
-
-1. Go to the list of JSON data payload templates [here](https://github.com/CometTools/LunaSea-Notification-Relay/tree/master/data/tautulli).
-2. Open the template that matches the trigger being added.
-3. Copy the JSON data and paste it into the JSON data section for the trigger \(You can hit the "Raw" button on GitHub to easily copy the entire JSON payload\).
-
-### JSON Headers
-
-{% hint style="warning" %}
-This step is only required if you are _**not**_ using the default LunaSea profile \(`default`\). LunaSea will assume the default profile when none is supplied.
-
-Correctly setting up this field is critically important to get full deep-linking support.
-{% endhint %}
-
-To attach your profile to the webhook, we need to manually create the JSON headers that will include the authorization header. This header will only contain the name of your profile, and no private information.
-
-To create the authorization header:
-
-1. Go to DebugBear's [Basic Auth Header Generator](https://www.debugbear.com/basic-auth-header-generator).
-2. The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
-3. The password field should be kept empty.
-4. Copy the generated authorization header **after** `Authorization:` .
-5. Get the [template JSON headers](https://github.com/CometTools/LunaSea-Notification-Relay/blob/master/data/tautulli/_header.jsonc) and follow the instructions to insert the generated header into the template.
-6. Copy and paste the template \(ensure you copy below the line specified in the file\) into each trigger's JSON headers area that is used within this webhook.
+Please read the top of this tab in Tautulli about how to utilize the different modifiers.
 {% endtab %}
 {% endtabs %}
 
+Once setup, close LunaSea and run the webhook test in Tautulli. You should receive a new notification letting you know that LunaSea is ready to receive Tautulli notifications!
+
 ## Attach Images to Notifications
 
-Unlike other modules, in order to receive images \(posters, etc.\) along with the notification, you will need to setup an image host within Tautulli. This step is _**optional**_ and not required, but recommended.
+Unlike other modules, in order to receive the actual images (posters, etc.) instead of a generic poster along with the notification, you will need to setup an image host within Tautulli. This step is _**optional**_ and not required, but recommended.
 
 1. Go to Tautulli's web GUI
 2. Open the Settings, enter "3rd Party APIs"
 3. Select any of the available image providers
-   * _**Note**: If selecting `Self-hosted on public domain`, ensure that the image path \(_`/tautulli/image`\) is publicly accessible from the internet
+   * _**Note**: If selecting `Self-hosted on public domain`, ensure that the image path (_`/tautulli/image`) is publicly accessible from the internet
 4. Follow the [3rd Party APIs Guide](https://github.com/Tautulli/Tautulli/wiki/3rd-Party-APIs-Guide) to acquire the required details for the chosen image provider
 5. Enter and save the acquired API/Client ID information
-
-## Advanced: Custom Notification Body
-
-{% hint style="info" %}
-Each notification trigger has a default notification body that matches the built-in Discord notification agent messages. This step is _**optional**_ and is not required.
-{% endhint %}
-
-Each notification trigger has support for having a custom notification body for that trigger. You must still use the template JSON data as explained above, but you can enter in your custom message into the empty `message` key in the JSON payload. You **must not** delete the `event_type` key that is in the template, else the notification will fail.
-
-Use the notification parameters as explained at the top of the "Data" tab in the dialog within Tautulli to build your customized notification body.
-

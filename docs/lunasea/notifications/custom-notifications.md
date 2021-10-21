@@ -15,168 +15,118 @@ Custom notifications are considered an advanced feature, and requires basic know
 
 You will need to slightly modify the webhook URL you have copied from any of the modules. Simply replace the name of the module within the webhook URL to `custom` and you're good to go!
 
-Alternatively, you can copy the content of the URL after the last slash \(after `device/` or `user/`\) to obtain your Firebase device or user identifier.
+Alternatively, you can copy the content of the URL after the last slash (after `device/` or `user/`) to obtain your Firebase device or user identifier.
 
 ## Endpoints
 
 Custom notifications are supported by both device-based and user-based notifications, with full endpoint details below:
 
-{% api-method method="post" host="https://notify.lunasea.app" path="/v1/custom/device/:device\_id" %}
-{% api-method-summary %}
-Device-Based
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="https://notify.lunasea.app" path="/v1/custom/device/:device:id" method="post" summary="Device-Based" %}
+{% swagger-description %}
 Send a custom notification using a device token to a single device running LunaSea.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="device\_id" type="string" required=true %}
+{% swagger-parameter name="device:id" type="string" in="path" %}
 The Firebase device identifier
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endswagger-parameter %}
 
-{% api-method-body-parameters %}
-{% api-method-parameter name="title" type="string" required=true %}
+{% swagger-parameter name="title" type="string" in="body" %}
 The notification's title.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="body" type="string" required=true %}
+{% swagger-parameter name="body" type="string" in="body" %}
 The notification's body content.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="image" type="string" required=false %}
-A **publicly accessible** URL to an image that will be attached to the notification.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% swagger-parameter name="image" type="string" in="body" %}
+A 
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Acknowledgement that the webhook has been received.  
-  
-_**This does not necessarily mean that the notification was successful**_, just that the relay has received the request and passed initial validation.
-{% endapi-method-response-example-description %}
+**publicly accessible**
 
+ URL to an image that will be attached to the notification.
+{% endswagger-parameter %}
+
+{% swagger-response status="200" description="" %}
 ```javascript
 {
     "status": "OK"
 }
 ```
-{% endapi-method-response-example %}
+{% endswagger-response %}
 
-{% api-method-response-example httpCode=500 %}
-{% api-method-response-example-description %}
-Will be returned when any other error occurs when trying to send the notification to your device.
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="500" description="" %}
 ```javascript
 {
     "status": "Internal Server Error"
 }
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-
-
-{% api-method method="post" host="https://notify.lunasea.app" path="/v1/custom/user/:user\_id" %}
-{% api-method-summary %}
-User-Based
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="https://notify.lunasea.app" path="/v1/custom/user/:user:id" method="post" summary="User-Based" %}
+{% swagger-description %}
 Send a custom notification using a user token to all devices signed into that LunaSea account.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="user\_id" type="string" required=true %}
+{% swagger-parameter name="user:id" type="string" in="path" %}
 The Firebase user identifier
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endswagger-parameter %}
 
-{% api-method-body-parameters %}
-{% api-method-parameter name="title" type="string" required=true %}
+{% swagger-parameter name="title" type="string" in="body" %}
 The notification's title.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="body" type="string" required=true %}
+{% swagger-parameter name="body" type="string" in="body" %}
 The notification's body content.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="image" type="string" required=false %}
-A **publicly accessible** URL to an image that will be attached to the notification.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% swagger-parameter name="image" type="string" in="body" %}
+A 
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Acknowledgement that the webhook has been received.  
-  
-_**This does not necessarily mean that the notification was successful**_, just that the relay has received the request and passed initial validation.
-{% endapi-method-response-example-description %}
+**publicly accessible**
 
+ URL to an image that will be attached to the notification.
+{% endswagger-parameter %}
+
+{% swagger-response status="200" description="" %}
 ```javascript
 {
     "status": "OK"
 }
 ```
-{% endapi-method-response-example %}
+{% endswagger-response %}
 
-{% api-method-response-example httpCode=400 %}
-{% api-method-response-example-description %}
-Will be returned when no devices are found for a given user. Opening LunaSea on your device\(s\) should register the device automatically.
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="400" description="" %}
 ```javascript
 {
     "status": "No devices found"
 }
 ```
-{% endapi-method-response-example %}
+{% endswagger-response %}
 
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-Will be returned when a user with the given identifier can not be found in LunaSea's authentication table.
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="404" description="" %}
 ```javascript
 {
     "status": "Invalid User ID"
 }
 ```
-{% endapi-method-response-example %}
+{% endswagger-response %}
 
-{% api-method-response-example httpCode=500 %}
-{% api-method-response-example-description %}
-Will be returned when any other error occurs when trying to send the notification to the devices.
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="500" description="" %}
 ```javascript
 {
     "status": "Internal Server Error"
 }
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
 ## Basic Troubleshooting
 
 * Ensure that the required `title` parameter is a string type.
   * If the type is not a string, the notification will fail.
   * Sending no value or a null value will result in the title "Unknown Title" being used.
-* Ensure that the required `body` parameter is a string type. 
+* Ensure that the required `body` parameter is a string type.
   * If the type is not a string, the notification will fail.
   * Sending no value or a null value will result in the body "Unknown Content" being used.
 * If sending an image, ensure that the content is a valid URL.
@@ -186,4 +136,3 @@ Will be returned when any other error occurs when trying to send the notificatio
   * The URL must be publicly accessible, not requiring any authentication to access.
 * If sending an image, the image must be a supported image type.
   * Supported types include JPGs, PNGs, and animated GIFs.
-

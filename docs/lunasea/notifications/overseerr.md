@@ -24,7 +24,7 @@ Overseerr currently only supports 1 LunaSea notification agent, which means you 
 
 {% tab title="Profile Name" %}
 {% hint style="warning" %}
-This step is only required if you are _**not**_ using the default LunaSea profile \(`default`\). LunaSea will assume the default profile when none is supplied.
+This step is only required if you are _**not**_ using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
 
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
@@ -35,14 +35,14 @@ The profile name field should be an **exact match** to the profile that this mod
 {% tab title="Notification Types" %}
 Select which events should trigger a push notification. The following triggers are supported:
 
-| Trigger | Supported? |
-| :--- | :---: |
-| Media Requested | **Yes**  ✅ |
-| Media Automatically Approved | **Yes**  ✅ |
-| Media Approved | **Yes**  ✅ |
-| Media Declined |  **Yes**  ✅ |
-| Media Available |  **Yes**  ✅ |
-| Media Failed | **Yes**  ✅ |
+| Trigger                      | Supported? |
+| ---------------------------- | :--------: |
+| Media Requested              |  **Yes** ✅ |
+| Media Automatically Approved |  **Yes** ✅ |
+| Media Approved               |  **Yes** ✅ |
+| Media Declined               |  **Yes** ✅ |
+| Media Available              |  **Yes** ✅ |
+| Media Failed                 |  **Yes** ✅ |
 {% endtab %}
 {% endtabs %}
 
@@ -55,5 +55,4 @@ An example Overseerr webhook can be seen below:
 * This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`.
 * The webhook is associated with the profile named `My Profile`.
 
-![](../../.gitbook/assets/overseerr_notification_sample_v2.png)
-
+![](<../../.gitbook/assets/overseerr\_notification\_sample\_v2 (1).png>)

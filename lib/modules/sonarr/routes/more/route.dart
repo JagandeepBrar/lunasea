@@ -34,6 +34,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.history_rounded,
             color: LunaColours().byListIndex(0),
           ),
+          onTap: () async => SonarrHistoryRouter().navigateTo(context),
         ),
         LunaListTile(
           context: context,

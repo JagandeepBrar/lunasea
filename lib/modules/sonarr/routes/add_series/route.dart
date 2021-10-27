@@ -48,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),
-      body: SonarrSeriesAddSearchResults(scrollController: scrollController),
+      body: _body(),
     );
   }
 
@@ -57,6 +57,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollController: scrollController,
       query: _arguments?.query,
       autofocus: (_arguments?.query ?? '').isEmpty,
+    );
+  }
+
+  Widget _body() {
+    return ChangeNotifierProvider(
+      create: (context) => SonarrAddSeriesState(
+        context,
+        _arguments?.query ?? '',
+      ),
+      builder: (context, _) => SonarrSeriesAddSearchResults(
+        scrollController: scrollController,
+      ),
     );
   }
 }

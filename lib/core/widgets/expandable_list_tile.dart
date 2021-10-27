@@ -6,6 +6,7 @@ class LunaExpandableListTile extends StatefulWidget {
   final String title;
   final TextSpan collapsedSubtitle1;
   final TextSpan collapsedSubtitle2;
+  final TextSpan collapsedSubtitle3;
   final Widget collapsedTrailing;
   final Widget collapsedLeading;
   final Color backgroundColor;
@@ -25,6 +26,7 @@ class LunaExpandableListTile extends StatefulWidget {
     @required this.title,
     @required this.collapsedSubtitle1,
     this.collapsedSubtitle2,
+    this.collapsedSubtitle3,
     this.collapsedTrailing,
     this.collapsedLeading,
     this.onLongPress,
@@ -86,11 +88,13 @@ class _State extends State<LunaExpandableListTile> {
             widget.collapsedSubtitle1,
             if (widget.collapsedSubtitle2 != null) TextSpan(text: '\n'),
             if (widget.collapsedSubtitle2 != null) widget.collapsedSubtitle2,
+            if (widget.collapsedSubtitle3 != null) TextSpan(text: '\n'),
+            if (widget.collapsedSubtitle3 != null) widget.collapsedSubtitle3,
           ],
         ),
         overflow: TextOverflow.fade,
         softWrap: false,
-        maxLines: 2,
+        maxLines: 3,
       ),
       onTap: controller.toggle,
       onLongPress: widget.onLongPress,

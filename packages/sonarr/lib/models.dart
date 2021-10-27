@@ -22,7 +22,6 @@ export 'src/models/episode_file/episode_file_quality_revision.dart';
 /// History
 export 'src/models/history/history.dart';
 export 'src/models/history/history_record.dart';
-export 'src/models/history/history_record_data.dart';
 
 /// Profile
 export 'src/models/profile/language_profile_cutoff.dart';

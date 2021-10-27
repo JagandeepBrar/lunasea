@@ -51,7 +51,7 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
         case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
-        case SonarrDatabaseValue.CONTENT_LOAD_LENGTH:
+        case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
           data[value.key] = value.data;
           break;
       }
@@ -89,7 +89,7 @@ class SonarrDatabase extends LunaModuleDatabase {
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS:
           case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
           case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
-          case SonarrDatabaseValue.CONTENT_LOAD_LENGTH:
+          case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
             value.put(config[key]);
             break;
         }
@@ -107,8 +107,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.UPCOMING_FUTURE_DAYS;
       case 'SONARR_QUEUE_REFRESH_RATE':
         return SonarrDatabaseValue.QUEUE_REFRESH_RATE;
-      case 'SONARR_CONTENT_LOAD_LENGTH':
-        return SonarrDatabaseValue.CONTENT_LOAD_LENGTH;
+      case 'SONARR_CONTENT_PAGE_SIZE':
+        return SonarrDatabaseValue.CONTENT_PAGE_SIZE;
       case 'SONARR_ADD_SERIES_DEFAULT_MONITORED':
         return SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED;
       case 'SONARR_ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS':
@@ -156,7 +156,7 @@ enum SonarrDatabaseValue {
   DEFAULT_SORTING_RELEASES_ASCENDING,
   UPCOMING_FUTURE_DAYS,
   QUEUE_REFRESH_RATE,
-  CONTENT_LOAD_LENGTH,
+  CONTENT_PAGE_SIZE,
 }
 
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
@@ -170,8 +170,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_UPCOMING_FUTURE_DAYS';
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         return 'SONARR_QUEUE_REFRESH_RATE';
-      case SonarrDatabaseValue.CONTENT_LOAD_LENGTH:
-        return 'SONARR_CONTENT_LOAD_LENGTH';
+      case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
+        return 'SONARR_CONTENT_PAGE_SIZE';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
         return 'SONARR_ADD_SERIES_DEFAULT_MONITORED';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:
@@ -211,8 +211,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return _box.get(this.key, defaultValue: 7);
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         return _box.get(this.key, defaultValue: 60);
-      case SonarrDatabaseValue.CONTENT_LOAD_LENGTH:
-        return _box.get(this.key, defaultValue: 125);
+      case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
+        return _box.get(this.key, defaultValue: 25);
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
         return _box.get(this.key, defaultValue: true);
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:
@@ -293,7 +293,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         if (value is int) box.put(this.key, value);
         return;
-      case SonarrDatabaseValue.CONTENT_LOAD_LENGTH:
+      case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         if (value is int) box.put(this.key, value);
         return;
     }

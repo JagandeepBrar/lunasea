@@ -13,11 +13,11 @@ class SonarrUtilities {
     return date?.toIso8601String();
   }
 
-  static SonarrHistoryEventType? historyEventTypeFromJson(String? type) {
-    return SonarrHistoryEventType.GRABBED.from(type);
+  static SonarrEventType? eventTypeFromJson(String? type) {
+    return SonarrEventType.GRABBED.from(type);
   }
 
-  static String? historyEventTypeToJson(SonarrHistoryEventType? type) {
+  static String? eventTypeToJson(SonarrEventType? type) {
     return type?.value;
   }
 

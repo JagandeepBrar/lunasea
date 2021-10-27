@@ -2,112 +2,66 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrHistoryTile extends StatefulWidget {
-  final SonarrHistoryRecord record;
+class SonarrHistoryTile extends StatelessWidget {
+  final SonarrHistoryRecord history;
 
   SonarrHistoryTile({
     Key key,
-    @required this.record,
+    @required this.history,
   }) : super(key: key);
 
   @override
-  State<SonarrHistoryTile> createState() => _State();
-}
-
-class _State extends State<SonarrHistoryTile> {
-  final double _height = 90.0;
-  final double _padding = 8.0;
-
-  @override
   Widget build(BuildContext context) {
-    return LunaCard(
-      context: context,
-      child: InkWell(
-        child: Row(
-          children: [
-            Expanded(child: _information),
-          ],
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return LunaExpandableListTile(
+      title: history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
+      collapsedSubtitle1: TextSpan(children: [
+        TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
+        TextSpan(text: ': '),
+        TextSpan(
+          text: history?.episode?.title ?? LunaUI.TEXT_EMDASH,
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+          ),
         ),
-        onTap: _onTap,
-        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+      ]),
+      collapsedSubtitle2: TextSpan(
+        text: [
+          history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
+          history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+        ].join(LunaUI.TEXT_BULLET.lunaPad()),
+      ),
+      collapsedSubtitle3: TextSpan(
+        text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
+        style: TextStyle(
+          color: history?.eventType?.lunaColour() ?? LunaColours.blueGrey,
+          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        ),
+      ),
+      expandedHighlightedNodes: [
+        LunaHighlightedNode(
+          text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
+          backgroundColor: history.eventType?.lunaColour(),
+        ),
+        if (history?.episode?.seasonNumber != null)
+          LunaHighlightedNode(
+            text: 'sonarr.SeasonNumber'.tr(
+              args: [history.episode.seasonNumber.toString()],
+            ),
+            backgroundColor: LunaColours.blueGrey,
+          ),
+        if (history?.episode?.episodeNumber != null)
+          LunaHighlightedNode(
+            text: 'sonarr.EpisodeNumber'.tr(
+              args: [history.episode.episodeNumber.toString()],
+            ),
+            backgroundColor: LunaColours.blueGrey,
+          ),
+      ],
+      expandedTableContent: history.eventType?.lunaTableContent(history) ?? [],
+      onLongPress: () async => SonarrSeriesDetailsRouter().navigateTo(
+        context,
+        seriesId: history?.series?.id ?? -1,
       ),
     );
   }
-
-  Widget get _information => Padding(
-        child: Container(
-          child: Column(
-            children: [
-              LunaText.title(text: widget.record.series.title, maxLines: 1),
-              _subtitleOne,
-              _subtitleTwo,
-              _subtitleThree,
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (_height - (_padding * 2)),
-        ),
-        padding: EdgeInsets.symmetric(
-            vertical: _padding, horizontal: _padding + 4.0),
-      );
-
-  Widget get _subtitleOne => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: Colors.white70,
-          ),
-          children: [
-            TextSpan(text: 'Season ${widget.record.episode.seasonNumber}'),
-            TextSpan(text: ' ${LunaUI.TEXT_EMDASH} '),
-            TextSpan(text: 'Episode ${widget.record.episode.episodeNumber}'),
-          ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  Widget get _subtitleTwo => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: Colors.white70,
-          ),
-          children: [
-            TextSpan(text: widget.record.date?.lunaAge ?? 'Unknown'),
-          ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  Widget get _subtitleThree => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.record.eventType.lunaColour,
-            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          ),
-          text: widget.record.eventType.lunaMessage(widget.record),
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  TextSpan get seasonEpisode => TextSpan(
-        text:
-            'Season ${widget.record.episode.seasonNumber} Episode ${widget.record.episode.episodeNumber}',
-      );
-
-  Future<void> _onTap() async => SonarrSeriesDetailsRouter().navigateTo(
-        context,
-        seriesId: widget.record.seriesId,
-      );
 }

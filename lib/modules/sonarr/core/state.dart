@@ -20,7 +20,6 @@ class SonarrState extends LunaModuleState {
     _series = null;
     _missing = null;
     _upcoming = null;
-    _history = null;
     _qualityProfiles = null;
     _languageProfiles = null;
     _rootFolders = null;
@@ -36,7 +35,6 @@ class SonarrState extends LunaModuleState {
       fetchSeries();
       resetUpcoming();
       resetMissing();
-      resetHistory();
       resetQualityProfiles();
       resetLanguageProfiles();
       resetRootFolders();
@@ -290,32 +288,9 @@ class SonarrState extends LunaModuleState {
   void resetMissing() {
     if (_api != null)
       _missing = _api.wanted.getMissing(
-        pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
         sortDir: SonarrSortDirection.DESCENDING,
         sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
-      );
-    notifyListeners();
-  }
-
-  ///////////////
-  /// HISTORY ///
-  ///////////////
-
-  Future<SonarrHistory> _history;
-  Future<SonarrHistory> get history => _history;
-  set history(Future<SonarrHistory> history) {
-    assert(history != null);
-    _history = history;
-    notifyListeners();
-  }
-
-  void resetHistory() {
-    if (_api != null)
-      _history = _api.history.getHistory(
-        page: 1,
-        pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        sortKey: SonarrHistorySortKey.DATE,
-        sortDirection: SonarrSortDirection.DESCENDING,
       );
     notifyListeners();
   }

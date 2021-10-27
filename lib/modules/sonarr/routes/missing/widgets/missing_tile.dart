@@ -63,7 +63,7 @@ class _State extends State<SonarrMissingTile> {
           child: Column(
             children: [
               LunaText.title(
-                  text: widget.record.series.title,
+                  text: widget.record.series?.title ?? LunaUI.TEXT_EMDASH,
                   darken: !widget.record.monitored,
                   maxLines: 1),
               _subtitleOne,

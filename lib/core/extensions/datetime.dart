@@ -11,7 +11,7 @@ extension DateTimeExtension on DateTime {
   ///
   /// Compares to [DateTime.now().toLocal()] to calculate the age.
   String get lunaAge {
-    if (this == null) return 'Unknown';
+    if (this == null) return 'lunasea.Unknown'.tr();
     Duration diff = DateTime.now().toLocal().difference(this);
     if (diff.inSeconds < 10) return 'Just Now';
     if (diff.inDays >= 1)

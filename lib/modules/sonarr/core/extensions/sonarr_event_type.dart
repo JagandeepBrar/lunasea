@@ -90,66 +90,185 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return null;
   }
 
-  List<LunaTableContent> lunaTableContent(SonarrHistoryRecord history) {
+  List<LunaTableContent> lunaTableContent(
+    SonarrHistoryRecord history,
+  ) {
     switch (this) {
-      case SonarrEventType.EPISODE_FILE_RENAMED:
-        return [];
-      case SonarrEventType.EPISODE_FILE_DELETED:
-        return [];
-      case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
-        return [];
       case SonarrEventType.DOWNLOAD_FAILED:
-        return [];
+        return _downloadFailedTableContent(history);
+      case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
+        return _downloadFolderImportedTableContent(history);
       case SonarrEventType.DOWNLOAD_IGNORED:
-        return [];
+        return _downloadIgnoredTableContent(history);
+      case SonarrEventType.EPISODE_FILE_DELETED:
+        return _episodeFileDeletedTableContent(history);
+      case SonarrEventType.EPISODE_FILE_RENAMED:
+        return _episodeFileRenamedTableContent(history);
       case SonarrEventType.GRABBED:
         return _grabbedTableContent(history);
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
-        return [];
       default:
-        return [];
+        return _defaultTableContent(history);
     }
   }
 
-  List<LunaTableContent> _grabbedTableContent(SonarrHistoryRecord history) {
+  List<LunaTableContent> _downloadFailedTableContent(
+    SonarrHistoryRecord history,
+  ) {
     return [
       LunaTableContent(
         title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle ?? LunaUI.TEXT_EMDASH,
+        body: history.sourceTitle,
       ),
       LunaTableContent(
-        title: 'sonarr.Indexer'.tr(),
-        body: history.data['indexer'] ?? LunaUI.TEXT_EMDASH,
+        title: 'sonarr.Message'.tr(),
+        body: history.data['message'],
+      ),
+    ];
+  }
+
+  List<LunaTableContent> _downloadFolderImportedTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    return [
+      LunaTableContent(
+        title: 'sonarr.Name'.tr(),
+        body: history.sourceTitle,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Source'.tr(),
+        body: history.data['droppedPath'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.ImportedTo'.tr(),
+        body: history.data['importedPath'],
       ),
       if ((history.data['preferredWordScore'] ?? '0') != '0')
         LunaTableContent(
           title: 'sonarr.WordScore'.tr(),
           body: '+${history.data['preferredWordScore']}',
         ),
-      if (history.data['releaseGroup'] != null)
+    ];
+  }
+
+  List<LunaTableContent> _downloadIgnoredTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    return [
+      LunaTableContent(
+        title: 'sonarr.Name'.tr(),
+        body: history.sourceTitle,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Message'.tr(),
+        body: history.data['message'],
+      ),
+    ];
+  }
+
+  List<LunaTableContent> _episodeFileDeletedTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    String _reasonMapping(String reason) {
+      switch (reason) {
+        case 'Upgrade':
+          return 'sonarr.DeleteReasonUpgrade'.tr();
+        case 'MissingFromDisk':
+          return 'sonarr.DeleteReasonMissingFromDisk'.tr();
+        case 'Manual':
+          return 'sonarr.DeleteReasonManual'.tr();
+        default:
+          return 'lunasea.Unknown'.tr();
+      }
+    }
+
+    return [
+      LunaTableContent(
+        title: 'sonarr.Name'.tr(),
+        body: history.sourceTitle,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Reason'.tr(),
+        body: _reasonMapping(history.data['reason']),
+      ),
+    ];
+  }
+
+  List<LunaTableContent> _episodeFileRenamedTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    return [
+      LunaTableContent(
+        title: 'sonarr.Source'.tr(),
+        body: history.data['sourcePath'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.SourceRelative'.tr(),
+        body: history.data['sourceRelativePath'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.Destination'.tr(),
+        body: history.data['path'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.DestinationRelative'.tr(),
+        body: history.data['relativePath'],
+      ),
+    ];
+  }
+
+  List<LunaTableContent> _grabbedTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    return [
+      LunaTableContent(
+        title: 'sonarr.Name'.tr(),
+        body: history.sourceTitle,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Indexer'.tr(),
+        body: history.data['indexer'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.ReleaseGroup'.tr(),
+        body: history.data['releaseGroup'],
+      ),
+      if ((history.data['preferredWordScore'] ?? '0') != '0')
         LunaTableContent(
-          title: 'sonarr.ReleaseGroup'.tr(),
-          body: history.data['releaseGroup'] ?? LunaUI.TEXT_EMDASH,
+          title: 'sonarr.WordScore'.tr(),
+          body: '+${history.data['preferredWordScore']}',
         ),
       LunaTableContent(
         title: 'sonarr.InfoURL'.tr(),
-        body: history.data['nzbInfoUrl'] ?? LunaUI.TEXT_EMDASH,
+        body: history.data['nzbInfoUrl'],
         bodyIsUrl: history.data['nzbInfoUrl'] != null,
       ),
       LunaTableContent(
         title: 'sonarr.Client'.tr(),
-        body: history.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
+        body: history.data['downloadClientName'],
+      ),
+      LunaTableContent(
+        title: 'sonarr.DownloadID'.tr(),
+        body: history.data['downloadId'],
       ),
       LunaTableContent(
         title: 'sonarr.Age'.tr(),
-        body: double.tryParse(history.data['ageHours'])?.lunaHoursToAge() ??
-            LunaUI.TEXT_EMDASH,
+        body: double.tryParse(history.data['ageHours'])?.lunaHoursToAge(),
       ),
       LunaTableContent(
-        title: 'sonarr.Published'.tr(),
-        body: DateTime.tryParse(history.data['publishedDate'])
-                ?.lunaDateTimeReadable(timeOnNewLine: true) ??
-            LunaUI.TEXT_EMDASH,
+          title: 'sonarr.Published'.tr(),
+          body: DateTime.tryParse(history.data['publishedDate'])
+              ?.lunaDateTimeReadable(timeOnNewLine: true)),
+    ];
+  }
+
+  List<LunaTableContent> _defaultTableContent(
+    SonarrHistoryRecord history,
+  ) {
+    return [
+      LunaTableContent(
+        title: 'sonarr.Name'.tr(),
+        body: history.sourceTitle,
       ),
     ];
   }

@@ -46,7 +46,7 @@ class RadarrReleasesRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -110,7 +110,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             );
           }
           if (snapshot.hasData) return _list(context, snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

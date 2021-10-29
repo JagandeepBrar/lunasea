@@ -10,7 +10,7 @@ class NZBGetQueueTile extends StatefulWidget {
   final Function refresh;
   final BuildContext queueContext;
 
-  NZBGetQueueTile({
+  const NZBGetQueueTile({
     @required this.data,
     @required this.index,
     @required this.queueContext,
@@ -38,7 +38,7 @@ class _State extends State<NZBGetQueueTile> {
           Padding(
             child: LinearPercentIndicator(
               percent: min(1.0, max(0, widget.data.percentageDone / 100)),
-              padding: EdgeInsets.symmetric(horizontal: 2.0),
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
               progressColor: widget.data.paused
                   ? LunaColours.accent.withOpacity(0.30)
                   : LunaColours.accent,
@@ -47,7 +47,7 @@ class _State extends State<NZBGetQueueTile> {
                   : LunaColours.accent.withOpacity(0.15),
               lineHeight: 4.0,
             ),
-            padding: EdgeInsets.symmetric(vertical: 6.0),
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
           ),
           LunaText.subtitle(
             text: widget.data.subtitle,

@@ -7,7 +7,7 @@ class LidarrHistoryTile extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function refresh;
 
-  LidarrHistoryTile({
+  const LidarrHistoryTile({
     @required this.entry,
     @required this.scaffoldKey,
     @required this.refresh,
@@ -24,7 +24,7 @@ class _State extends State<LidarrHistoryTile> {
         title: LunaText.title(text: widget.entry.title),
         subtitle: RichText(
           text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),

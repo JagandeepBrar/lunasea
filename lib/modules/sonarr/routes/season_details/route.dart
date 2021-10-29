@@ -50,7 +50,7 @@ class _Widget extends StatefulWidget {
   final int seriesId;
   final int seasonNumber;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.seriesId,
     @required this.seasonNumber,
@@ -147,7 +147,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             }
             return _unknown();
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaNetworkImage extends ClipRRect {
   LunaNetworkImage({
+    Key key,
     double height,
     double width,
     String url,
@@ -10,7 +11,8 @@ class LunaNetworkImage extends ClipRRect {
     Map headers,
     bool roundCorners = true,
   }) : super(
-          child: Container(
+          key: key,
+          child: SizedBox(
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -23,14 +25,14 @@ class LunaNetworkImage extends ClipRRect {
                   FadeInImage(
                     height: height,
                     width: width,
-                    fadeInDuration: Duration(
+                    fadeInDuration: const Duration(
                         milliseconds: LunaUI.ANIMATION_IMAGE_FADE_IN_SPEED),
-                    fadeOutDuration: Duration(milliseconds: 1),
+                    fadeOutDuration: const Duration(milliseconds: 1),
                     placeholder: AssetImage(placeholderAsset),
                     fit: BoxFit.cover,
                     image: NetworkImage(url,
                         headers: headers?.cast<String, String>()),
-                    imageErrorBuilder: (context, error, stack) => Container(
+                    imageErrorBuilder: (context, error, stack) => SizedBox(
                       height: height,
                       width: width,
                     ),

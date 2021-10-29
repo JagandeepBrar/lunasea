@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrTagsTagTile extends StatefulWidget {
   final SonarrTag tag;
 
-  SonarrTagsTagTile({
+  const SonarrTagsTagTile({
     Key key,
     @required this.tag,
   }) : super(key: key);
@@ -17,6 +17,7 @@ class SonarrTagsTagTile extends StatefulWidget {
 class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
   List<String> seriesList;
 
+  @override
   Future<void> loadCallback() async {
     await context.read<SonarrState>().series.then((series) {
       List<String> _series = [];

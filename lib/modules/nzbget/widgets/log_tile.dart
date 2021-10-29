@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 class NZBGetLogTile extends StatelessWidget {
   final NZBGetLogData data;
 
-  NZBGetLogTile({
+  const NZBGetLogTile({
     @required this.data,
   });
 

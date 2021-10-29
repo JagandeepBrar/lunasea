@@ -18,7 +18,7 @@ Future<void> main() async {
           fallbackLocale: localization.fallbackLocale,
           startLocale: localization.fallbackLocale,
           useFallbackTranslations: true,
-          child: LunaBIOS(),
+          child: const LunaBIOS(),
         ),
       );
     },
@@ -53,6 +53,10 @@ Future<void> _init() async {
 }
 
 class LunaBIOS extends StatefulWidget {
+  const LunaBIOS({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }

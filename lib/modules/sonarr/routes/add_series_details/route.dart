@@ -47,6 +47,7 @@ class _State extends State<_Widget>
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
+  @override
   Future<void> loadCallback() async {
     context.read<SonarrState>().resetRootFolders();
     context.read<SonarrState>().resetTags();
@@ -109,7 +110,7 @@ class _State extends State<_Widget>
               languageProfiles: snapshot.data[3],
             );
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

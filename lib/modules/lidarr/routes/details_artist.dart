@@ -63,7 +63,7 @@ class _State extends State<LidarrDetailsArtist> {
                 ? _body
                 : _error
                     ? LunaMessage.error(onTap: _fetch)
-                    : LunaLoader()
+                    : const LunaLoader()
             : null,
       );
 

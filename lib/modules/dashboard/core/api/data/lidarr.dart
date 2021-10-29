@@ -17,6 +17,7 @@ class CalendarLidarrData extends CalendarData {
     @required this.hasAllFiles,
   }) : super(id, title);
 
+  @override
   String get bannerURI {
     return api['enabled']
         ? (api['host'] as String).endsWith('/')
@@ -25,20 +26,21 @@ class CalendarLidarrData extends CalendarData {
         : '';
   }
 
+  @override
   TextSpan get subtitle => TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white70,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
           TextSpan(
             text: albumTitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontStyle: FontStyle.italic,
             ),
           ),
           if (!hasAllFiles)
-            TextSpan(
+            const TextSpan(
               text: '\nNot Downloaded',
               style: TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -46,7 +48,7 @@ class CalendarLidarrData extends CalendarData {
               ),
             ),
           if (hasAllFiles)
-            TextSpan(
+            const TextSpan(
               text: '\nDownloaded',
               style: TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -56,6 +58,7 @@ class CalendarLidarrData extends CalendarData {
         ],
       );
 
+  @override
   Future<void> enterContent(BuildContext context) async =>
       Navigator.of(context).pushNamed(
         LidarrDetailsArtist.ROUTE_NAME,
@@ -65,6 +68,7 @@ class CalendarLidarrData extends CalendarData {
         ),
       );
 
+  @override
   Widget trailing(BuildContext context) => LunaIconButton(
         icon: Icons.search,
         onPressed: () async => trailingOnPress(context),

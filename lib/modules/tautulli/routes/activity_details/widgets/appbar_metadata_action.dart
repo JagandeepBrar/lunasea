@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliActivityDetailsMetadataAction extends StatelessWidget {
   final String sessionId;
 
-  TautulliActivityDetailsMetadataAction({
+  const TautulliActivityDetailsMetadataAction({
     Key key,
     @required this.sessionId,
   }) : super(key: key);

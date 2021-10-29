@@ -12,7 +12,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
   final double _width = 70.0;
   final double _padding = 8.0;
 
-  SonarrSeriesDetailsOverview({
+  const SonarrSeriesDetailsOverview({
     Key key,
     @required this.series,
     @required this.quality,
@@ -65,7 +65,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
                   .substring(2)
               : LunaUI.TEXT_EMDASH,
         ),
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
         LunaTableContent(
           title: 'status',
           body: series.status?.lunaCapitalizeFirstLetters() ?? 'Unknown',
@@ -110,7 +110,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                child: Container(
+                child: SizedBox(
                   child: Column(
                     children: [
                       LunaText.title(text: series.title, maxLines: 1),
@@ -120,7 +120,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
                             : series.overview,
                         maxLines: 4,
                         overflow: TextOverflow.fade,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                         ),
@@ -160,13 +160,13 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             child: InkWell(
               child: Padding(
                 child: Image.asset(LunaAssets.serviceImdb),
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async => await series?.imdbId?.lunaOpenIMDB(),
             ),
             height: 50.0,
-            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
         if (series.tvdbId != 0)
           LunaCard(
@@ -174,14 +174,14 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             child: InkWell(
               child: Padding(
                 child: Image.asset(LunaAssets.serviceTrakt),
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
                   await series?.tvdbId?.toString()?.lunaOpenTraktSeries(),
             ),
             height: 50.0,
-            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
         if (series.tvdbId != 0)
           LunaCard(
@@ -189,14 +189,14 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             child: InkWell(
               child: Padding(
                 child: Image.asset(LunaAssets.serviceThetvdb),
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
                   await series?.tvdbId?.toString()?.lunaOpenTheTVDB(),
             ),
             height: 50.0,
-            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
         if (series.tvMazeId != 0)
           LunaCard(
@@ -204,14 +204,14 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             child: InkWell(
               child: Padding(
                 child: Image.asset(LunaAssets.serviceTvmaze),
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
                   await series?.tvMazeId?.toString()?.lunaOpenTVMaze(),
             ),
             height: 50.0,
-            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
       ],
     );

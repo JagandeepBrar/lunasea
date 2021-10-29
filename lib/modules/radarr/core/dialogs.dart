@@ -415,7 +415,7 @@ class RadarrDialogs {
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const RadarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>
@@ -520,7 +520,7 @@ class RadarrDialogs {
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const RadarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>

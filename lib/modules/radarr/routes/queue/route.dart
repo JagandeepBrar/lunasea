@@ -78,7 +78,7 @@ class _State extends State<_Widget>
               snapshot.data[1],
             );
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

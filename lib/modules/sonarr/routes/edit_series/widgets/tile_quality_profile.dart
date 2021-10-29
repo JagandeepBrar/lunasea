@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesEditQualityProfileTile extends StatelessWidget {
   final List<SonarrQualityProfile> profiles;
 
-  SonarrSeriesEditQualityProfileTile({
+  const SonarrSeriesEditQualityProfileTile({
     Key key,
     @required this.profiles,
   }) : super(key: key);

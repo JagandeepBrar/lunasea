@@ -10,7 +10,7 @@ class LunaReorderableListView extends StatelessWidget {
   final void Function(int, int) onReorder;
   final bool buildDefaultDragHandles;
 
-  LunaReorderableListView({
+  const LunaReorderableListView({
     Key key,
     @required this.children,
     @required this.controller,

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 class LunaQuickActions {
-  static final QuickActions _quickActions = QuickActions();
+  static const QuickActions _quickActions = QuickActions();
 
   static bool get isPlatformCompatible => Platform.isAndroid || Platform.isIOS;
 

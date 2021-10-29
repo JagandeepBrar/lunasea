@@ -9,6 +9,7 @@ class SettingsDonationsThankYouRouter extends SettingsPageRouter {
   @override
   _Widget widget() => _Widget();
 
+  @override
   void defineRoute(FluroRouter router) =>
       super.noParameterRouteDefinition(router);
 }

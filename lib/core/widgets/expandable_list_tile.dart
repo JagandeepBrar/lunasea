@@ -80,15 +80,15 @@ class _State extends State<LunaExpandableListTile> {
       title: LunaText.title(text: widget.title),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             color: Colors.white70,
           ),
           children: [
             widget.collapsedSubtitle1,
-            if (widget.collapsedSubtitle2 != null) TextSpan(text: '\n'),
+            if (widget.collapsedSubtitle2 != null) const TextSpan(text: '\n'),
             if (widget.collapsedSubtitle2 != null) widget.collapsedSubtitle2,
-            if (widget.collapsedSubtitle3 != null) TextSpan(text: '\n'),
+            if (widget.collapsedSubtitle3 != null) const TextSpan(text: '\n'),
             if (widget.collapsedSubtitle3 != null) widget.collapsedSubtitle3,
           ],
         ),
@@ -119,7 +119,7 @@ class _State extends State<LunaExpandableListTile> {
                       softWrap: true,
                       maxLines: 8,
                     ),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
                   ),
                   if (widget.expandedHighlightedNodes != null)
@@ -130,7 +130,7 @@ class _State extends State<LunaExpandableListTile> {
                         runSpacing: 6.0,
                         children: widget.expandedHighlightedNodes,
                       ),
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
                     ),
                   Padding(
@@ -140,7 +140,7 @@ class _State extends State<LunaExpandableListTile> {
                             .map<Widget>((content) => Padding(
                                   child: content,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 12.0),
+                                      const EdgeInsets.symmetric(horizontal: 12.0),
                                 ))
                             .toList(),
                         if (widget.expandedTableButtons != null)
@@ -163,11 +163,11 @@ class _State extends State<LunaExpandableListTile> {
                                 }),
                               ],
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 6.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
                           ),
                       ],
                     ),
-                    padding: EdgeInsets.only(bottom: 6.0),
+                    padding: const EdgeInsets.only(bottom: 6.0),
                   ),
                 ],
               ),

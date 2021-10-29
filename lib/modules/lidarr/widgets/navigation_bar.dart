@@ -18,7 +18,7 @@ class LidarrNavigationBar extends StatelessWidget {
         'History',
       ];
 
-  LidarrNavigationBar({
+  const LidarrNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

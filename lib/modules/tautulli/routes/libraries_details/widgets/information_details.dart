@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
   final TautulliTableLibrary library;
 
-  TautulliLibrariesDetailsInformationDetails({
+  const TautulliLibrariesDetailsInformationDetails({
     Key key,
     @required this.library,
   }) : super(key: key);

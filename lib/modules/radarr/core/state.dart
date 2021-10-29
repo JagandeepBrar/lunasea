@@ -214,9 +214,7 @@ class RadarrState extends LunaModuleState {
               a.lunaEarlierReleaseDate != null) return -1;
           if (a.lunaEarlierReleaseDate == null &&
               b.lunaEarlierReleaseDate == null) _comparison = 0;
-          if (_comparison == null)
-            _comparison =
-                b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
+          _comparison ??= b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
           if (_comparison == 0)
             return a.sortTitle
                 .toLowerCase()

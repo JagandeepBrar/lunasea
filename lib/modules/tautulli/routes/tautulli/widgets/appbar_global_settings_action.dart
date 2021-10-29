@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliAppBarGlobalSettingsAction extends StatelessWidget {
+  const TautulliAppBarGlobalSettingsAction({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaIconButton(

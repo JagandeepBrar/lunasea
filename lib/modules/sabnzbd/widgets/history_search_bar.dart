@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 class SABnzbdHistorySearchBar extends StatefulWidget {
   final ScrollController scrollController;
 
-  SABnzbdHistorySearchBar({
+  const SABnzbdHistorySearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);

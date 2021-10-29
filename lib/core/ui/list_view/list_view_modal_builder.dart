@@ -34,7 +34,7 @@ class LunaListViewModalBuilder extends StatelessWidget {
         padding: MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
               vertical: LunaUI.MARGIN_CARD.bottom,
             )),
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         itemCount: itemCount,
         itemBuilder: itemBuilder,
         itemExtent: itemExtent,

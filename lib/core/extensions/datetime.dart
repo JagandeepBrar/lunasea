@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
 extension DateTimeExtension on DateTime {

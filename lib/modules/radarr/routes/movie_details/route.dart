@@ -48,7 +48,7 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -166,7 +166,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[1]);
             return _pages(qualityProfile, tags);
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

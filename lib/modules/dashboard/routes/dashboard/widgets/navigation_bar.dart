@@ -18,7 +18,7 @@ class DashboardNavigationBar extends StatelessWidget {
     LunaIcons.calendar,
   ];
 
-  DashboardNavigationBar({
+  const DashboardNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

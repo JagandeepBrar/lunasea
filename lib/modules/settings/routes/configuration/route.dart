@@ -115,14 +115,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             onTap: () async =>
                 SettingsConfigurationQuickActionsRouter().navigateTo(context),
           ),
-        LunaDivider(),
+        const LunaDivider(),
         ..._moduleList(),
       ],
     );
   }
 
   List<Widget> _moduleList() {
-    return ([LunaModule.DASHBOARD]..addAll(LunaModule.DASHBOARD.allModules()))
+    return ([LunaModule.DASHBOARD, ...LunaModule.DASHBOARD.allModules()])
         .map(_tileFromModuleMap)
         .toList();
   }

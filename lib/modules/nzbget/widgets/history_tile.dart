@@ -6,7 +6,7 @@ class NZBGetHistoryTile extends StatefulWidget {
   final NZBGetHistoryData data;
   final Function() refresh;
 
-  NZBGetHistoryTile({
+  const NZBGetHistoryTile({
     @required this.data,
     @required this.refresh,
   });

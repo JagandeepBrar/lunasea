@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrManualImportDetailsConfigureMoviesSearchBar extends StatefulWidget
     implements PreferredSizeWidget {
   @override
-  Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -17,7 +17,7 @@ class _State extends State<RadarrManualImportDetailsConfigureMoviesSearchBar> {
   @override
   Widget build(BuildContext context) =>
       Consumer<RadarrManualImportDetailsTileState>(
-        builder: (context, state, _) => Container(
+        builder: (context, state, _) => SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

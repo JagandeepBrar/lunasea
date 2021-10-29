@@ -8,7 +8,7 @@ import 'package:tuple/tuple.dart';
 class NZBGetQueueFAB extends StatefulWidget {
   final ScrollController scrollController;
 
-  NZBGetQueueFAB({
+  const NZBGetQueueFAB({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -40,14 +40,14 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
   void _setupIconController() {
     _iconController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+      duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
     );
   }
 
   void _setupHideController() {
     _hideController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+      duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
     );
     _hideController?.forward();
     widget.scrollController?.addListener(scrollControllerListener);

@@ -20,7 +20,7 @@ class TautulliBarGraphHelper {
               y: data.series
                   .fold<double>(0, (value, data) => value + data.data[cIndex]),
               width: BAR_WIDTH,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(LunaUI.BORDER_RADIUS / 3),
                 topRight: Radius.circular(LunaUI.BORDER_RADIUS / 3),
               ),
@@ -45,7 +45,7 @@ class TautulliBarGraphHelper {
           tooltipBgColor:
               LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
           tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
-          tooltipPadding: EdgeInsets.all(8.0),
+          tooltipPadding: const EdgeInsets.all(8.0),
           maxContentWidth: MediaQuery.of(context).size.width / 1.25,
           fitInsideVertically: true,
           fitInsideHorizontally: true,
@@ -65,7 +65,7 @@ class TautulliBarGraphHelper {
             }
             return BarTooltipItem(
               (_header + _body).trim(),
-              TextStyle(
+              const TextStyle(
                 color: Colors.white70,
                 fontSize: LunaUI.FONT_SIZE_SUBHEADER,
               ),

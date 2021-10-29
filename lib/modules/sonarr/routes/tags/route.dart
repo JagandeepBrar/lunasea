@@ -49,7 +49,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Tags',
       scrollControllers: [scrollController],
-      actions: [
+      actions: const [
         SonarrTagsAppBarActionAddTag(),
       ],
     );
@@ -71,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _tags(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

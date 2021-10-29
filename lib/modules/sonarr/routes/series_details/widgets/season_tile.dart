@@ -6,7 +6,7 @@ class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
   final SonarrSeriesSeason season;
   final int seriesId;
 
-  SonarrSeriesDetailsSeasonTile({
+  const SonarrSeriesDetailsSeasonTile({
     Key key,
     @required this.season,
     @required this.seriesId,
@@ -19,7 +19,7 @@ class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
 class _State extends State<SonarrSeriesDetailsSeasonTile> {
   @override
   Widget build(BuildContext context) {
-    if (widget.season == null) return SizedBox(height: 0.0);
+    if (widget.season == null) return const SizedBox(height: 0.0);
     return LunaListTile(
       context: context,
       title: LunaText.title(
@@ -39,7 +39,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                 text: widget.season?.statistics?.sizeOnDisk
                         ?.lunaBytesToString(decimals: 1) ??
                     '0.0 B'),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             TextSpan(
               style: TextStyle(
                 color: widget.season.lunaPercentageComplete == 100

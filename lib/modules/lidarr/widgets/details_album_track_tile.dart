@@ -6,7 +6,7 @@ class LidarrDetailsTrackTile extends StatefulWidget {
   final LidarrTrackData data;
   final bool monitored;
 
-  LidarrDetailsTrackTile({
+  const LidarrDetailsTrackTile({
     Key key,
     @required this.data,
     @required this.monitored,
@@ -38,7 +38,7 @@ class _State extends State<LidarrDetailsTrackTile> {
         ),
         leading: IconButton(
           icon: Text(
-            '${widget?.data?.trackNumber}',
+            widget?.data?.trackNumber,
             style: TextStyle(
               color: widget.monitored ? Colors.white : Colors.white30,
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,

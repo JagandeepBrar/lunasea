@@ -8,7 +8,7 @@ class LunaButtonContainer extends StatelessWidget {
     Key key,
     @required this.children,
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
-  }) {
+  }) : super(key: key) {
     assert(children != null);
     assert(children?.isNotEmpty ?? false);
     assert(padding != null);

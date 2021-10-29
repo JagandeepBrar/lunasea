@@ -16,7 +16,7 @@ class LunaNotEnabledRoute extends StatelessWidget {
       scaffoldKey: _scaffoldKey,
       appBar: LunaAppBar(
         title: module,
-        scrollControllers: [],
+        scrollControllers: const [],
       ),
       body: LunaMessage.moduleNotEnabled(
         context: context,

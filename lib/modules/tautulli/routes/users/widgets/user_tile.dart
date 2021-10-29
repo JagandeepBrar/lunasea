@@ -7,7 +7,7 @@ class TautulliUserTile extends StatelessWidget {
   final double _imageDimension = 70.0;
   final double _padding = 8.0;
 
-  TautulliUserTile({
+  const TautulliUserTile({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -50,7 +50,7 @@ class TautulliUserTile extends StatelessWidget {
 
   Widget get _details => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -71,7 +71,7 @@ class TautulliUserTile extends StatelessWidget {
 
   Widget get _lastPlayedTime => Row(
         children: [
-          Padding(
+          const Padding(
             child: Icon(
               Icons.visibility,
               size: LunaUI.FONT_SIZE_SUBTITLE,
@@ -89,7 +89,7 @@ class TautulliUserTile extends StatelessWidget {
 
   Widget get _lastPlayedContent => Row(
         children: [
-          Padding(
+          const Padding(
             child: Icon(
               Icons.play_arrow,
               size: LunaUI.FONT_SIZE_SUBTITLE,

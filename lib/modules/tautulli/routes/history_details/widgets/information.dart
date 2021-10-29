@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -7,7 +6,7 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
   final TautulliHistoryRecord history;
   final ScrollController scrollController;
 
-  TautulliHistoryDetailsInformation({
+  const TautulliHistoryDetailsInformation({
     Key key,
     @required this.history,
     @required this.scrollController,
@@ -18,11 +17,11 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaHeader(text: 'Metadata'),
+        const LunaHeader(text: 'Metadata'),
         _metadataBlock(),
-        LunaHeader(text: 'Session'),
+        const LunaHeader(text: 'Session'),
         _sessionBlock(),
-        LunaHeader(text: 'Player'),
+        const LunaHeader(text: 'Player'),
         _playerBlock(),
       ],
     );

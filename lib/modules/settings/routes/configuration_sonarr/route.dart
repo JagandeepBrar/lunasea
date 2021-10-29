@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _enabledToggle(),
         _connectionDetailsPage(),
-        LunaDivider(),
+        const LunaDivider(),
         _defaultPagesPage(),
         _defaultSortingFilteringPage(),
       ],

@@ -49,7 +49,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _sortingMovies(),
         _sortingMoviesDirection(),
         _filteringMovies(),
-        LunaDivider(),
+        const LunaDivider(),
         _sortingReleases(),
         _sortingReleasesDirection(),
         _filteringReleases(),

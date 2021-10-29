@@ -19,8 +19,9 @@ class CalendarRadarrData extends CalendarData {
     @required this.runtime,
   }) : super(id, title);
 
+  @override
   TextSpan get subtitle => TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white70,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
@@ -32,9 +33,9 @@ class CalendarRadarrData extends CalendarData {
               TextSpan(text: runtime.lunaRuntime()),
             ],
           ),
-          TextSpan(text: '\n'),
+          const TextSpan(text: '\n'),
           if (!hasFile)
-            TextSpan(
+            const TextSpan(
               text: 'Not Downloaded',
               style: TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -44,7 +45,7 @@ class CalendarRadarrData extends CalendarData {
           if (hasFile)
             TextSpan(
               text: 'Downloaded ($fileQualityProfile)',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 color: LunaColours.accent,
               ),

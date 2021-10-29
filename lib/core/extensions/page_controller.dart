@@ -7,7 +7,7 @@ extension PageControllerExtension on PageController {
     if (this.hasClients)
       this.animateToPage(
         index,
-        duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+        duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         curve: Curves.decelerate,
       );
   }

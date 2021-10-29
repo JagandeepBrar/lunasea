@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
   String get lsFullTitle => [
-        if (this.title != null && this.title.isNotEmpty) '${this.title}',
+        if (this.title != null && this.title.isNotEmpty) this.title,
         if (this.parentTitle != null && this.parentTitle.isNotEmpty)
           '\n${this.parentTitle}',
         if (this.grandparentTitle != null && this.grandparentTitle.isNotEmpty)

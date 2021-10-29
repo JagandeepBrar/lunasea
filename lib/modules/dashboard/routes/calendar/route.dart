@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardCalendarRoute extends StatefulWidget {
+  const DashboardCalendarRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<DashboardCalendarRoute> createState() => _State();
 }
@@ -15,6 +19,7 @@ class _State extends State<DashboardCalendarRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<DashboardState>().resetToday();
     context.read<DashboardState>().resetUpcoming();
@@ -46,7 +51,7 @@ class _State extends State<DashboardCalendarRoute>
               events: snapshot.data,
             );
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

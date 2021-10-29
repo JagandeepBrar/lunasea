@@ -43,7 +43,7 @@ class TautulliGraphHelper {
                       if (titleOverFlowShowEllipsis) LunaUI.TEXT_ELLIPSIS,
                     ].join()
                   : data.categories[value.truncate()].toUpperCase(),
-          getTextStyles: (_, __) => TextStyle(
+          getTextStyles: (_, __) => const TextStyle(
             color: Colors.white30,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),
@@ -51,7 +51,7 @@ class TautulliGraphHelper {
       );
 
   Widget createLegend(List<TautulliSeriesData> data) {
-    return Container(
+    return SizedBox(
       child: Row(
         children: List.generate(
           data.length,
@@ -67,7 +67,7 @@ class TautulliGraphHelper {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  padding: EdgeInsets.only(right: 6.0),
+                  padding: const EdgeInsets.only(right: 6.0),
                 ),
                 Text(
                   data[index].name,
@@ -80,7 +80,7 @@ class TautulliGraphHelper {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
             ),
-            padding: EdgeInsets.symmetric(horizontal: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
           ),
         ),
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +93,7 @@ class TautulliGraphHelper {
   Widget loadingContainer(BuildContext context) {
     return LunaCard(
       context: context,
-      child: Container(
+      child: const SizedBox(
         height: GRAPH_HEIGHT + LEGEND_HEIGHT,
         child: LunaLoader(),
       ),

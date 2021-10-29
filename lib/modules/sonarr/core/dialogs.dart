@@ -163,7 +163,7 @@ class SonarrDialogs {
             builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  SonarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const SonarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>
@@ -229,7 +229,7 @@ class SonarrDialogs {
             builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  SonarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const SonarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>

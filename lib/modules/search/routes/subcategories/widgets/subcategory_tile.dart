@@ -5,7 +5,7 @@ import 'package:lunasea/modules/search.dart';
 class SearchSubcategoryTile extends StatelessWidget {
   final int index;
 
-  SearchSubcategoryTile({
+  const SearchSubcategoryTile({
     Key key,
     @required this.index,
   }) : super(key: key);

@@ -8,7 +8,7 @@ class NZBGetQueue extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget/queue';
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  NZBGetQueue({
+  const NZBGetQueue({
     Key key,
     @required this.refreshIndicatorKey,
   }) : super(key: key);
@@ -53,7 +53,7 @@ class _State extends State<NZBGetQueue>
   }
 
   void _createTimer() =>
-      _timer = Timer(Duration(seconds: 2), _fetchWithoutMessage);
+      _timer = Timer(const Duration(seconds: 2), _fetchWithoutMessage);
 
   Future<void> _refresh() async => setState(() {
         _future = _fetch();
@@ -117,7 +117,7 @@ class _State extends State<NZBGetQueue>
                 context.read<NZBGetState>().error)
               return LunaMessage.error(onTap: _refresh);
             if (snapshot.hasData) return _list;
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );

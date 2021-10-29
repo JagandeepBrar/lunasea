@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsHistoryPage extends StatefulWidget {
   final RadarrMovie movie;
 
-  RadarrMovieDetailsHistoryPage({
+  const RadarrMovieDetailsHistoryPage({
     Key key,
     @required this.movie,
   }) : super(key: key);
@@ -49,7 +49,7 @@ class _State extends State<RadarrMovieDetailsHistoryPage>
             return LunaMessage.error(onTap: _refreshKey.currentState.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrAddMovieSearchPage extends StatefulWidget {
   final bool autofocusSearchBar;
 
-  RadarrAddMovieSearchPage({
+  const RadarrAddMovieSearchPage({
     Key key,
     @required this.autofocusSearchBar,
   }) : super(key: key);
@@ -89,7 +89,7 @@ class _State extends State<RadarrAddMovieSearchPage>
           }
           if (snapshot.hasData)
             return _list(snapshot.data[0], snapshot.data[1], snapshot.data[2]);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

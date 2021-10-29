@@ -7,7 +7,7 @@ class NZBGetHistory extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget/history';
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  NZBGetHistory({
+  const NZBGetHistory({
     Key key,
     @required this.refreshIndicatorKey,
   }) : super(key: key);
@@ -25,6 +25,7 @@ class _State extends State<NZBGetHistory>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
     final _api = NZBGetAPI.from(Database.currentProfileObject);
@@ -75,7 +76,7 @@ class _State extends State<NZBGetHistory>
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       ),

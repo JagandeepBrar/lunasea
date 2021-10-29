@@ -51,6 +51,8 @@ abstract class LidarrHistoryData {
 }
 
 class LidarrHistoryDataGeneric extends LidarrHistoryData {
+  @override
+  // ignore: overridden_fields
   String eventType;
 
   LidarrHistoryDataGeneric({
@@ -61,14 +63,15 @@ class LidarrHistoryDataGeneric extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, eventType, artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
         text: '$timestampString\n',
       ),
       TextSpan(
-        text: '$eventType',
-        style: TextStyle(
+        text: eventType,
+        style: const TextStyle(
           color: LunaColours.purple,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -88,6 +91,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'grabbed', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -95,7 +99,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.orange,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -115,6 +119,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'trackFileImported', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -122,7 +127,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -142,6 +147,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'downloadImported', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -149,7 +155,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -166,6 +172,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'albumImportIncomplete', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -173,7 +180,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.orange,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -193,6 +200,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'trackFileDeleted', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -201,7 +209,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
       TextSpan(
         text:
             '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${super.historyReasonMessages[reason] ?? reason})',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.red,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -218,6 +226,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'trackFileRenamed', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -225,7 +234,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.blue,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -242,6 +251,7 @@ class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
     @required int albumID,
   }) : super(title, timestamp, 'trackFileRetagged', artistID, albumID);
 
+  @override
   List<TextSpan> get subtitle {
     return [
       TextSpan(
@@ -249,7 +259,7 @@ class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
       ),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.blue,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),

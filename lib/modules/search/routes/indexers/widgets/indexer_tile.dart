@@ -5,7 +5,7 @@ import 'package:lunasea/modules/search.dart';
 class SearchIndexerTile extends StatelessWidget {
   final IndexerHiveObject indexer;
 
-  SearchIndexerTile({
+  const SearchIndexerTile({
     Key key,
     @required this.indexer,
   }) : super(key: key);

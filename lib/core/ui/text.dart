@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaText extends Text {
   /// Create a new [Text] widget.
-  LunaText({
+  const LunaText({
     @required String text,
     Key key,
     int maxLines,

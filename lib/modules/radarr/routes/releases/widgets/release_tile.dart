@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrReleasesTile extends StatefulWidget {
   final RadarrRelease release;
 
-  RadarrReleasesTile({
+  const RadarrReleasesTile({
     @required this.release,
     Key key,
   }) : super(key: key);

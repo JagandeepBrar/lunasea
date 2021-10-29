@@ -8,7 +8,7 @@ class SonarrSeasonDetailsSeason extends StatelessWidget {
   final List<SonarrEpisode> episodes;
   final ScrollController scrollController;
 
-  SonarrSeasonDetailsSeason({
+  const SonarrSeasonDetailsSeason({
     Key key,
     @required this.seasonNumber,
     @required this.seriesId,

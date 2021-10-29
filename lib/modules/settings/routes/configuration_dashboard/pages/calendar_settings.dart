@@ -48,11 +48,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _pastDays(),
         _futureDays(),
-        LunaDivider(),
+        const LunaDivider(),
         _startingDay(),
         _startingSize(),
         _startingType(),
-        LunaDivider(),
+        const LunaDivider(),
         _modulesLidarr(),
         _modulesRadarr(),
         _modulesSonarr(),

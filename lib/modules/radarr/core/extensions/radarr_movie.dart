@@ -104,13 +104,13 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
-    return Text('');
+    return const Text('');
   }
 
   Text lunaNextReleaseTextObject(bool isMonitored) {
     DateTime now = DateTime.now();
     // If we already have a file or it is released
-    if (this.hasFile || lunaIsReleased) return Text('');
+    if (this.hasFile || lunaIsReleased) return const Text('');
     // In Cinemas
     if (this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
       String _date = this.inCinemas.lunaDaysDifference?.toUpperCase() ??
@@ -143,7 +143,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
       );
     }
     // Unknown case
-    return Text('');
+    return const Text('');
   }
 
   /// Compare two movies by their release dates. Returns an integer value compatible with `.sort()` in arrays.

@@ -523,11 +523,11 @@ class RadarrAPIHelper {
     @required RadarrManualImport import,
   }) {
     if (import?.movie == null || import.movie.id == null)
-      return Tuple2(null, 'All selections must have a movie set');
+      return const Tuple2(null, 'All selections must have a movie set');
     if (import?.quality == null || (import.quality?.quality?.id ?? -1) < 0)
-      return Tuple2(null, 'All selections must have a quality set');
+      return const Tuple2(null, 'All selections must have a quality set');
     if ((import?.languages?.length ?? 0) == 0)
-      return Tuple2(null, 'All selections must have a language set');
+      return const Tuple2(null, 'All selections must have a language set');
     return Tuple2(
       RadarrManualImportFile(
         path: import.path,

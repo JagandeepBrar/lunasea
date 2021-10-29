@@ -6,7 +6,7 @@ class LunaTableCard extends StatelessWidget {
   final List<LunaTableContent> content;
   final List<LunaButton> buttons;
 
-  LunaTableCard({
+  const LunaTableCard({
     Key key,
     this.content,
     this.buttons,
@@ -20,8 +20,8 @@ class LunaTableCard extends StatelessWidget {
       child: Padding(
         child: _body(),
         padding: buttons == null
-            ? EdgeInsets.symmetric(vertical: 8.0)
-            : EdgeInsets.only(top: 8.0, bottom: 6.0),
+            ? const EdgeInsets.symmetric(vertical: 8.0)
+            : const EdgeInsets.only(top: 8.0, bottom: 6.0),
       ),
     );
   }
@@ -40,7 +40,7 @@ class LunaTableCard extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: LunaText.title(text: title),
         ),
       ],
@@ -51,7 +51,7 @@ class LunaTableCard extends StatelessWidget {
     return content
             ?.map<Widget>((content) => Padding(
                   child: content,
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 ))
             ?.toList() ??
         [];
@@ -64,7 +64,7 @@ class LunaTableCard extends StatelessWidget {
         children:
             buttons.map<Widget>((button) => Expanded(child: button)).toList(),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
     );
   }
 }

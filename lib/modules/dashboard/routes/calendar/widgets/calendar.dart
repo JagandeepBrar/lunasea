@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -9,7 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 class DashboardCalendarWidget extends StatefulWidget {
   final Map<DateTime, List> events;
 
-  DashboardCalendarWidget({
+  const DashboardCalendarWidget({
     Key key,
     @required this.events,
   }) : super(key: key);
@@ -24,22 +23,22 @@ class _State extends State<DashboardCalendarWidget> {
   DateTime _selected;
   CalendarFormat _calendarFormat;
 
-  final TextStyle dayTileStyle = TextStyle(
+  final TextStyle dayTileStyle = const TextStyle(
     color: Colors.white,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
   );
-  final TextStyle outsideDayTileStyle = TextStyle(
+  final TextStyle outsideDayTileStyle = const TextStyle(
     color: Colors.white54,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
   );
-  final TextStyle unavailableTitleStyle = TextStyle(
+  final TextStyle unavailableTitleStyle = const TextStyle(
     color: Colors.white12,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
   );
-  final TextStyle weekdayTitleStyle = TextStyle(
+  final TextStyle weekdayTitleStyle = const TextStyle(
     color: LunaColours.accent,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
@@ -80,7 +79,7 @@ class _State extends State<DashboardCalendarWidget> {
                 child: Column(
                   children: [
                     _calendar(),
-                    LunaDivider(),
+                    const LunaDivider(),
                     _calendarList(),
                   ],
                 ),
@@ -112,7 +111,7 @@ class _State extends State<DashboardCalendarWidget> {
               child: TableCalendar(
                 rowHeight: 48.0,
                 rangeSelectionMode: RangeSelectionMode.disabled,
-                simpleSwipeConfig: SimpleSwipeConfig(
+                simpleSwipeConfig: const SimpleSwipeConfig(
                   verticalThreshold: 10.0,
                 ),
                 focusedDay: _selected,
@@ -133,7 +132,7 @@ class _State extends State<DashboardCalendarWidget> {
                     color: LunaColours.accent.withOpacity(0.20),
                     shape: BoxShape.circle,
                   ),
-                  markerDecoration: BoxDecoration(
+                  markerDecoration: const BoxDecoration(
                     color: LunaColours.accent,
                     shape: BoxShape.circle,
                   ),
@@ -145,7 +144,7 @@ class _State extends State<DashboardCalendarWidget> {
                   defaultTextStyle: dayTileStyle,
                   disabledTextStyle: unavailableTitleStyle,
                   outsideTextStyle: outsideDayTileStyle,
-                  selectedTextStyle: TextStyle(
+                  selectedTextStyle: const TextStyle(
                     color: LunaColours.accent,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   ),
@@ -159,7 +158,7 @@ class _State extends State<DashboardCalendarWidget> {
                 ),
                 eventLoader: (date) => widget.events[date.lunaFloor],
                 calendarFormat: _calendarFormat,
-                availableCalendarFormats: {
+                availableCalendarFormats: const {
                   CalendarFormat.month: 'Month',
                   CalendarFormat.twoWeeks: '2 Weeks',
                   CalendarFormat.week: 'Week',
@@ -167,7 +166,7 @@ class _State extends State<DashboardCalendarWidget> {
                 onDaySelected: _onDaySelected,
               ),
               padding: LunaUI.MARGIN_DEFAULT
-                  .subtract(EdgeInsets.symmetric(horizontal: 6.0)),
+                  .subtract(const EdgeInsets.symmetric(horizontal: 6.0)),
             ),
           ),
         );
@@ -215,7 +214,7 @@ class _State extends State<DashboardCalendarWidget> {
     List<DateTime> keys = widget.events.keys.toList();
     keys.sort();
     for (var key in keys) {
-      if (key.isAfter(_today.subtract(Duration(days: 1))) &&
+      if (key.isAfter(_today.subtract(const Duration(days: 1))) &&
           widget.events[key].isNotEmpty) days.add(_day(key));
     }
     return days;

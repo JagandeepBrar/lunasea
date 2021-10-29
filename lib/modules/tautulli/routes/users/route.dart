@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliUsersRoute extends StatefulWidget {
-  TautulliUsersRoute({
+  const TautulliUsersRoute({
     Key key,
   }) : super(key: key);
 
@@ -20,6 +20,7 @@ class _State extends State<TautulliUsersRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetUsers();
     await context.read<TautulliState>().users;
@@ -55,7 +56,7 @@ class _State extends State<TautulliUsersRoute>
               return LunaMessage.error(onTap: _refreshKey.currentState.show);
             }
             if (snapshot.hasData) return _users(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),

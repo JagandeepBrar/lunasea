@@ -90,7 +90,7 @@ class _Widget extends StatefulWidget {
   final int seriesId;
   final int seasonNumber;
 
-  _Widget({
+  const _Widget({
     Key key,
     this.episodeId,
     this.seriesId,
@@ -108,6 +108,7 @@ class _State extends State<_Widget>
       GlobalKey<RefreshIndicatorState>();
   Future<List<SonarrRelease>> _future;
 
+  @override
   Future<void> loadCallback() async {
     if (context.read<SonarrState>().api != null && mounted)
       setState(() {
@@ -166,7 +167,7 @@ class _State extends State<_Widget>
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _releases(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

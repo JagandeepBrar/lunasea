@@ -8,7 +8,7 @@ class SettingsConfigurationTautulliHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/tautulli/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.TAUTULLI);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.TAUTULLI);
 
   @override
   void defineRoute(FluroRouter router) =>

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
   final List<TautulliLibraryWatchTimeStats> watchtime;
 
-  TautulliLibrariesDetailsInformationGlobalStats({
+  const TautulliLibrariesDetailsInformationGlobalStats({
     Key key,
     @required this.watchtime,
   }) : super(key: key);

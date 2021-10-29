@@ -8,7 +8,7 @@ class LidarrCatalogueTile extends StatefulWidget {
   final Function refresh;
   final Function refreshState;
 
-  LidarrCatalogueTile({
+  const LidarrCatalogueTile({
     @required this.data,
     @required this.scaffoldKey,
     @required this.refresh,

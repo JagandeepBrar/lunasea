@@ -4,6 +4,10 @@ import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
 
 class DashboardModulesRoute extends StatefulWidget {
+  const DashboardModulesRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }

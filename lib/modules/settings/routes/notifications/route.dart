@@ -46,14 +46,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           future: LunaFirebaseMessaging().areNotificationsAllowed(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData && !snapshot.data)
-              return LunaBanner(
+              return const LunaBanner(
                 headerText: 'Not Authorized',
                 bodyText:
                     'LunaSea is not authorized to show notifications. Please go to your device\'s settings to enable notifications.',
                 icon: Icons.error_outline_rounded,
                 iconColor: LunaColours.red,
               );
-            return SizedBox(height: 0.0, width: double.infinity);
+            return const SizedBox(height: 0.0, width: double.infinity);
           },
         ),
         SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT.banner(),
@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap:
               LunaLinks.NOTIFICATIONS_GETTING_STARTED.url.lunaOpenGenericLink,
         ),
-        LunaDivider(),
+        const LunaDivider(),
         ..._modules(),
       ],
     );

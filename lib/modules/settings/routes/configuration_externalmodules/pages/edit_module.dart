@@ -43,7 +43,7 @@ class SettingsConfigurationExternalModulesEditRouter
 class _Widget extends StatefulWidget {
   final int moduleId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.moduleId,
   }) : super(key: key);

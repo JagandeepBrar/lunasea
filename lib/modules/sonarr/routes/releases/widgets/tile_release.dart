@@ -6,7 +6,7 @@ class SonarrReleasesReleaseTile extends StatefulWidget {
   final SonarrRelease release;
   final bool isSeasonRelease;
 
-  SonarrReleasesReleaseTile({
+  const SonarrReleasesReleaseTile({
     Key key,
     @required this.release,
     @required this.isSeasonRelease,

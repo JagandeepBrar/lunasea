@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMoreRoute extends StatefulWidget {
-  TautulliMoreRoute({
+  const TautulliMoreRoute({
     Key key,
   }) : super(key: key);
 

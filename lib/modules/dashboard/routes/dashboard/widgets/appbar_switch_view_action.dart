@@ -4,7 +4,7 @@ import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardAppBarSwitchViewAction extends StatefulWidget {
   final PageController pageController;
-  DashboardAppBarSwitchViewAction({
+  const DashboardAppBarSwitchViewAction({
     Key key,
     @required this.pageController,
   }) : super(key: key);

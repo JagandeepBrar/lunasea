@@ -41,7 +41,7 @@ class LunaTheme {
       splashColor: LunaColours.accent.withOpacity(0.30),
       dialogBackgroundColor: LunaColours.secondary,
       toggleableActiveColor: LunaColours.accent,
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.white,
       ),
       unselectedWidgetColor: Colors.white,
@@ -63,7 +63,7 @@ class LunaTheme {
       splashColor: LunaColours.accent.withOpacity(0.30),
       dialogBackgroundColor: Colors.black,
       toggleableActiveColor: LunaColours.accent,
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.white,
       ),
       unselectedWidgetColor: Colors.white,
@@ -75,7 +75,7 @@ class LunaTheme {
 
   TextTheme get _sharedTextTheme {
     const textStyle = TextStyle(color: Colors.white);
-    return TextTheme(
+    return const TextTheme(
       bodyText1: textStyle,
       bodyText2: textStyle,
       headline1: textStyle,

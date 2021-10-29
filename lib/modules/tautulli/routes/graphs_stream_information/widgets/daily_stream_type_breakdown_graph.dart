@@ -31,7 +31,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
       context: context,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: TautulliGraphHelper.GRAPH_HEIGHT,
             width: MediaQuery.of(context).size.width,
             child: Padding(
@@ -45,7 +45,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
                       TautulliLineGraphHelper.lineTouchData(context, data),
                 ),
               ),
-              padding: EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(14.0),
             ),
           ),
           TautulliGraphHelper().createLegend(data.series),

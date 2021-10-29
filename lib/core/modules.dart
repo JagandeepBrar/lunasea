@@ -387,23 +387,23 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.DASHBOARD:
         return LunaColours.accent;
       case LunaModule.LIDARR:
-        return Color(0xFF159552);
+        return const Color(0xFF159552);
       case LunaModule.NZBGET:
-        return Color(0xFF42D535);
+        return const Color(0xFF42D535);
       case LunaModule.RADARR:
-        return Color(0xFFFEC333);
+        return const Color(0xFFFEC333);
       case LunaModule.SABNZBD:
-        return Color(0xFFFECC2B);
+        return const Color(0xFFFECC2B);
       case LunaModule.SEARCH:
         return LunaColours.accent;
       case LunaModule.SETTINGS:
         return LunaColours.accent;
       case LunaModule.SONARR:
-        return Color(0xFF3FC6F4);
+        return const Color(0xFF3FC6F4);
       case LunaModule.TAUTULLI:
-        return Color(0xFFDBA23A);
+        return const Color(0xFFDBA23A);
       case LunaModule.OVERSEERR:
-        return Color(0xFF6366F1);
+        return const Color(0xFF6366F1);
       case LunaModule.WAKE_ON_LAN:
         return LunaColours.accent;
       case LunaModule.EXTERNAL_MODULES:

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/search.dart';
 class SearchResultTile extends StatelessWidget {
   final NewznabResultData data;
 
-  SearchResultTile({
+  const SearchResultTile({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -46,7 +46,7 @@ class SearchResultTile extends StatelessWidget {
       if (SearchDatabaseValue.SHOW_LINKS.data &&
           data.linkComments != null &&
           data.linkDownload != null)
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
       if (SearchDatabaseValue.SHOW_LINKS.data && data.linkComments != null)
         LunaTableContent(
             title: 'search.Comments'.tr(),

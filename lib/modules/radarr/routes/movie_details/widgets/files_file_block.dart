@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsFilesFileBlock extends StatefulWidget {
   final RadarrMovieFile movieFile;
 
-  RadarrMovieDetailsFilesFileBlock({
+  const RadarrMovieDetailsFilesFileBlock({
     Key key,
     @required this.movieFile,
   }) : super(key: key);
@@ -77,7 +77,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
     LunaBottomModalSheet().showModal(
       context: context,
       builder: (context) => LunaListViewModal(children: [
-        LunaHeader(text: 'Video'),
+        const LunaHeader(text: 'Video'),
         LunaTableCard(
           content: [
             LunaTableContent(
@@ -96,7 +96,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
                 body: widget.movieFile.mediaInfo.lunaVideoResolution),
           ],
         ),
-        LunaHeader(text: 'Audio'),
+        const LunaHeader(text: 'Audio'),
         LunaTableCard(
           content: [
             LunaTableContent(
@@ -119,7 +119,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
                 body: widget.movieFile.mediaInfo.lunaAudioStreamCount),
           ],
         ),
-        LunaHeader(text: 'Other'),
+        const LunaHeader(text: 'Other'),
         LunaTableCard(
           content: [
             LunaTableContent(

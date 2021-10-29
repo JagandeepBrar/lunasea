@@ -92,7 +92,7 @@ class _State extends State<SonarrCatalogueRoute>
                 snapshot.data[2],
               );
             }
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),
@@ -159,7 +159,7 @@ class _State extends State<SonarrCatalogueRoute>
             series: _filtered[index],
             profile: qualities.firstWhere(
                 (element) => element.id == _filtered[index].qualityProfileId,
-                orElse: null),
+                orElse: () => null),
           ),
         );
       },

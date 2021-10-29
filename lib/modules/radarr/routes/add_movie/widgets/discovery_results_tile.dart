@@ -6,7 +6,7 @@ class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
   final RadarrMovie movie;
   final bool onTapShowOverview;
 
-  RadarrAddMovieDiscoveryResultTile({
+  const RadarrAddMovieDiscoveryResultTile({
     Key key,
     @required this.movie,
     this.onTapShowOverview = false,
@@ -53,7 +53,7 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
       summary = '${widget.movie.overview}\n';
     }
     return TextSpan(
-      style: TextStyle(fontStyle: FontStyle.italic),
+      style: const TextStyle(fontStyle: FontStyle.italic),
       text: summary,
     );
   }

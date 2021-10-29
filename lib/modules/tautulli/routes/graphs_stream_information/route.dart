@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsStreamInformationRoute extends StatefulWidget {
-  TautulliGraphsStreamInformationRoute({
+  const TautulliGraphsStreamInformationRoute({
     Key key,
   }) : super(key: key);
 
@@ -20,6 +20,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetAllStreamInformationGraphs();
     await Future.wait([
@@ -74,7 +75,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
               'The combined total of television and movies by their streamed resolution (post-transcoding).',
             ].join(),
           ),
-          TautulliGraphsPlayCountByStreamResolutionGraph(),
+          const TautulliGraphsPlayCountByStreamResolutionGraph(),
           LunaHeader(
             text: 'By Platform Stream Type',
             subtitle: [
@@ -92,7 +93,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
               'The combined total of television, movies, and music by user and stream type.',
             ].join(),
           ),
-          TautulliGraphsPlayCountByUserStreamTypeGraph(),
+          const TautulliGraphsPlayCountByUserStreamTypeGraph(),
         ],
       ),
     );

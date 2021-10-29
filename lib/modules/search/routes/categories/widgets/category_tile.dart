@@ -6,7 +6,7 @@ class SearchCategoryTile extends StatelessWidget {
   final NewznabCategoryData category;
   final int index;
 
-  SearchCategoryTile({
+  const SearchCategoryTile({
     @required this.category,
     this.index = 0,
   });

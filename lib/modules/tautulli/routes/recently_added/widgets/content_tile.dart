@@ -7,7 +7,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliRecentlyAddedContentTile({
+  const TautulliRecentlyAddedContentTile({
     Key key,
     @required this.recentlyAdded,
   }) : super(key: key);
@@ -70,7 +70,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -105,7 +105,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
   Widget get _subtitle => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -126,7 +126,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
               TextSpan(text: recentlyAdded.year.toString()),
             // Music
             if (recentlyAdded.mediaType == TautulliMediaType.ARTIST)
-              TextSpan(text: LunaUI.TEXT_EMDASH),
+              const TextSpan(text: LunaUI.TEXT_EMDASH),
             if (recentlyAdded.mediaType == TautulliMediaType.ALBUM)
               TextSpan(text: recentlyAdded.title),
             if (recentlyAdded.mediaType == TautulliMediaType.TRACK)
@@ -137,9 +137,9 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
                       '\t${LunaUI.TEXT_EMDASH}\t${recentlyAdded.parentTitle}'),
             // Other
             if (recentlyAdded.mediaType == TautulliMediaType.LIVE)
-              TextSpan(text: LunaUI.TEXT_EMDASH),
+              const TextSpan(text: LunaUI.TEXT_EMDASH),
             if (recentlyAdded.mediaType == TautulliMediaType.COLLECTION)
-              TextSpan(text: LunaUI.TEXT_EMDASH),
+              const TextSpan(text: LunaUI.TEXT_EMDASH),
           ],
         ),
         softWrap: false,

@@ -13,7 +13,7 @@ class LunaActionBarCard extends StatelessWidget {
   final bool checkboxState;
   final void Function(bool) checkboxOnChanged;
 
-  LunaActionBarCard({
+  const LunaActionBarCard({
     Key key,
     @required this.title,
     this.subtitle,
@@ -31,7 +31,7 @@ class LunaActionBarCard extends StatelessWidget {
     return LunaCard(
       context: context,
       child: InkWell(
-        child: Container(
+        child: SizedBox(
           child: Padding(
             child: Row(
               children: [
@@ -57,7 +57,7 @@ class LunaActionBarCard extends StatelessWidget {
                           maxLines: 1,
                           softWrap: false,
                           overflow: TextOverflow.fade,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                             color: Colors.white70,
                           ),
@@ -91,7 +91,7 @@ class LunaActionBarCard extends StatelessWidget {
                   ),
               ],
             ),
-            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
           ),
           height: LunaButton.DEFAULT_HEIGHT,
         ),
@@ -109,7 +109,7 @@ class LunaActionBarCard extends StatelessWidget {
                 onLongPress();
               },
       ),
-      margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+      margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       color: backgroundColor != null
           ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
           : LunaTheme.isAMOLEDTheme

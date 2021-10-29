@@ -16,7 +16,7 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
         'radarr.Discover'.tr(),
       ];
 
-  RadarrAddMovieNavigationBar({
+  const RadarrAddMovieNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

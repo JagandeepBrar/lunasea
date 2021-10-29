@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaDrawerHeader extends UserAccountsDrawerHeader {
-  LunaDrawerHeader()
-      : super(
+  LunaDrawerHeader({
+    Key key,
+  }) : super(
+          key: key,
           accountName: StreamBuilder(
             stream: LunaFirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) =>
@@ -22,7 +24,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                       LunaText.subtitle(
                         text: LunaDatabaseValue.ENABLED_PROFILE.data,
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_drop_down,
                         color: Colors.white70,
                         size: LunaUI.FONT_SIZE_HEADER,
@@ -53,14 +55,14 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                     ];
                   },
                 ),
-                padding: EdgeInsets.only(right: 12.0),
+                padding: const EdgeInsets.only(right: 12.0),
               ),
             ),
           ),
           decoration: BoxDecoration(
             color: LunaColours.accent,
             image: DecorationImage(
-              image: AssetImage(LunaAssets.brandingLogo),
+              image: const AssetImage(LunaAssets.brandingLogo),
               colorFilter: ColorFilter.mode(
                   LunaColours.primary.withOpacity(0.15), BlendMode.dstATop),
               fit: BoxFit.cover,

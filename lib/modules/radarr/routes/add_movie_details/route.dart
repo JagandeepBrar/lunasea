@@ -124,7 +124,7 @@ class _State extends State<_Widget>
             tags: snapshot.data[2],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

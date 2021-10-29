@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
   final TautulliMetadata metadata;
 
-  TautulliMediaDetailsMetadataMetadata({
+  const TautulliMediaDetailsMetadataMetadata({
     Key key,
     @required this.metadata,
   }) : super(key: key);

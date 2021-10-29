@@ -7,7 +7,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeasonDetailsEpisodeTile extends StatefulWidget {
   final SonarrEpisode episode;
 
-  SonarrSeasonDetailsEpisodeTile({
+  const SonarrSeasonDetailsEpisodeTile({
     Key key,
     @required this.episode,
   }) : super(key: key);
@@ -49,13 +49,13 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
       title: LunaText.title(text: widget.episode.title),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             color: Colors.white70,
           ),
           children: [
             _subtitle1(),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             _subtitle2(queue),
           ],
         ),
@@ -93,7 +93,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                       softWrap: true,
                       maxLines: 12,
                     ),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
                   ),
                   Padding(
@@ -103,7 +103,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                       runSpacing: 6.0,
                       children: _highlightedNodes(queue),
                     ),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
                   ),
                   Padding(
@@ -114,15 +114,15 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                             text: widget.episode.seasonNumber == 0
                                 ? 'Specials ${LunaUI.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}'
                                 : 'Season ${widget.episode.seasonNumber} ${LunaUI.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: LunaColours.accent,
                               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                               fontSize: LunaUI.FONT_SIZE_BUTTON,
                             ),
                           ),
-                          TextSpan(text: '\n'),
+                          const TextSpan(text: '\n'),
                           TextSpan(
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                             ),
@@ -134,12 +134,12 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                         ],
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
                   ),
                   Padding(
                     child: RichText(
                       text: TextSpan(
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                           fontStyle: FontStyle.italic,
@@ -150,10 +150,10 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                             : 'No summary is available.',
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
                   ),
                   LunaButtonContainer(
-                    padding: EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
+                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
                     children: _buttons(),
                   ),
                 ],
@@ -187,7 +187,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
       children: [
         if (queue != null)
           TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               color: LunaColours.purple,
             ),
@@ -201,7 +201,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
         // TODO: Fix usage of episode file
         if (queue == null && widget.episode.hasFile)
           TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               color: LunaColours.accent,
               // color: widget.episode.episodeFile.qualityCutoffNotMet
@@ -213,10 +213,10 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
               //         : LunaColours.accent.withOpacity(0.30),
             ),
             children: [
-              TextSpan(text: 'Temp'),
+              const TextSpan(text: 'Temp'),
               // TextSpan(text: widget.episode.episodeFile.quality.quality.name),
               TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
-              TextSpan(text: '0.0B'),
+              const TextSpan(text: '0.0B'),
               // TextSpan(
               //     text: widget.episode.episodeFile.size.lunaBytesToString()),
             ],
@@ -323,7 +323,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
               .watch<SonarrState>()
               .selectedEpisodes
               .contains(widget.episode.id)
-          ? Icon(Icons.check)
+          ? const Icon(Icons.check)
           : Text(
               widget.episode.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH,
               textAlign: TextAlign.center,

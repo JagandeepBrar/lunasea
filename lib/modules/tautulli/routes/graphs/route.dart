@@ -44,7 +44,7 @@ class _State extends State<_Widget> {
       pageController: _pageController,
       scrollControllers: TautulliGraphsNavigationBar.scrollControllers,
       title: 'Graphs',
-      actions: [
+      actions: const [
         TautulliGraphsTypeButton(),
       ],
     );
@@ -57,7 +57,7 @@ class _State extends State<_Widget> {
   Widget _body() {
     return PageView(
       controller: _pageController,
-      children: [
+      children: const [
         TautulliGraphsPlayByPeriodRoute(),
         TautulliGraphsStreamInformationRoute(),
       ],

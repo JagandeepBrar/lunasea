@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -22,7 +21,7 @@ class TautulliLineGraphHelper {
                           DateTime.parse((data.categories[value.truncate()])))
                       ?.toString()
                   : '??',
-          getTextStyles: (_, __) => TextStyle(
+          getTextStyles: (_, __) => const TextStyle(
             color: Colors.white30,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),
@@ -69,7 +68,7 @@ class TautulliLineGraphHelper {
         tooltipBgColor:
             LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
         tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
-        tooltipPadding: EdgeInsets.all(8.0),
+        tooltipPadding: const EdgeInsets.all(8.0),
         maxContentWidth: MediaQuery.of(context).size.width / 1.25,
         fitInsideVertically: true,
         fitInsideHorizontally: true,
@@ -85,9 +84,9 @@ class TautulliLineGraphHelper {
                   context.read<TautulliState>().graphYAxis ==
                           TautulliGraphYAxis.PLAYS
                       ? '${value ?? 0}'
-                      : '${Duration(seconds: value ?? 0).lunaTimestampWords}',
+                      : Duration(seconds: value ?? 0).lunaTimestampWords,
                 ].join().trim(),
-                TextStyle(
+                const TextStyle(
                   color: Colors.white70,
                   fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                 ),

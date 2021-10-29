@@ -16,7 +16,7 @@ class SonarrSeriesDetailsNavigationBar extends StatelessWidget {
     'Seasons',
   ];
 
-  SonarrSeriesDetailsNavigationBar({
+  const SonarrSeriesDetailsNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

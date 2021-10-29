@@ -7,7 +7,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrQueueQueueTile extends StatefulWidget {
   final SonarrQueueRecord record;
 
-  SonarrQueueQueueTile({
+  const SonarrQueueQueueTile({
     Key key,
     @required this.record,
   }) : super(key: key);
@@ -36,7 +36,7 @@ class _State extends State<SonarrQueueQueueTile> {
       title: LunaText.title(text: widget.record.title),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             color: Colors.white70,
           ),
@@ -48,7 +48,7 @@ class _State extends State<SonarrQueueQueueTile> {
             TextSpan(
               text:
                   '${widget.record?.quality?.quality?.name ?? 'Unknown'} ${LunaUI.TEXT_EMDASH} ${widget.record?.lunaPercentageComplete ?? LunaUI.TEXT_EMDASH}%',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 color: LunaColours.accent,
               ),
@@ -89,7 +89,7 @@ class _State extends State<SonarrQueueQueueTile> {
                       softWrap: true,
                       maxLines: 12,
                     ),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
                   ),
                   Padding(
@@ -120,7 +120,7 @@ class _State extends State<SonarrQueueQueueTile> {
                         ),
                       ],
                     ),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
                   ),
                   Padding(
@@ -129,7 +129,7 @@ class _State extends State<SonarrQueueQueueTile> {
                         children: [
                           TextSpan(
                             text: '${widget.record.series.title}\n',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                               fontSize: LunaUI.FONT_SIZE_BUTTON,
                               color: Colors.white,
@@ -139,14 +139,14 @@ class _State extends State<SonarrQueueQueueTile> {
                             text: widget.record.episode.seasonNumber == 0
                                 ? 'Specials ${LunaUI.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'
                                 : 'Season ${widget.record.episode.seasonNumber} ${LunaUI.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: LunaColours.accent,
                               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                               fontSize: LunaUI.FONT_SIZE_BUTTON,
                             ),
                           ),
                           TextSpan(
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                             ),
@@ -158,12 +158,12 @@ class _State extends State<SonarrQueueQueueTile> {
                         ],
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
                   ),
                   Padding(
                     child: RichText(
                       text: TextSpan(
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                           fontStyle: FontStyle.italic,
@@ -174,10 +174,10 @@ class _State extends State<SonarrQueueQueueTile> {
                             : 'No summary is available.',
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
                   ),
                   LunaButtonContainer(
-                    padding: EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
+                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
                     children: [
                       if (widget.record.statusMessages != null &&
                           widget.record.statusMessages.isNotEmpty)

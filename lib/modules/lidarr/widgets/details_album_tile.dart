@@ -6,7 +6,7 @@ class LidarrDetailsAlbumTile extends StatefulWidget {
   final LidarrAlbumData data;
   final Function refreshState;
 
-  LidarrDetailsAlbumTile({
+  const LidarrDetailsAlbumTile({
     Key key,
     @required this.data,
     @required this.refreshState,
@@ -48,7 +48,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                           darken: !widget.data.monitored),
                       RichText(
                         text: TextSpan(
-                          text: "${widget.data.tracks}",
+                          text: widget.data.tracks,
                           style: TextStyle(
                             color: widget.data.monitored
                                 ? Colors.white70
@@ -71,7 +71,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 ),
               ),
               Padding(
@@ -82,7 +82,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                   color: widget.data.monitored ? Colors.white : Colors.white30,
                   onPressed: _toggleMonitoredStatus,
                 ),
-                padding: EdgeInsets.fromLTRB(8.0, 0.0, 12.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 12.0, 0.0),
               ),
             ],
           ),

@@ -8,7 +8,7 @@ class SettingsConfigurationSABnzbdHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/sabnzbd/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.SABNZBD);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.SABNZBD);
 
   @override
   void defineRoute(FluroRouter router) {

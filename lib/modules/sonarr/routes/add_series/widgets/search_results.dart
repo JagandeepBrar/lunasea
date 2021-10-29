@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesAddSearchResults extends StatefulWidget {
   final ScrollController scrollController;
 
-  SonarrSeriesAddSearchResults({
+  const SonarrSeriesAddSearchResults({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -19,6 +19,7 @@ class _State extends State<SonarrSeriesAddSearchResults>
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
+  @override
   Future<void> loadCallback() async {
     if (context.read<SonarrAddSeriesState>().searchQuery.isNotEmpty) {
       context.read<SonarrAddSeriesState>().fetchLookup(context);
@@ -68,7 +69,7 @@ class _State extends State<SonarrSeriesAddSearchResults>
           }
           if (snapshot.hasData)
             return _results(snapshot.data[0], snapshot.data[1]);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

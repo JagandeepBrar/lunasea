@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrTagsAppBarActionAddTag extends StatelessWidget {
   final bool asDialogButton;
 
-  RadarrTagsAppBarActionAddTag({
+  const RadarrTagsAppBarActionAddTag({
     Key key,
     this.asDialogButton = false,
   }) : super(key: key);

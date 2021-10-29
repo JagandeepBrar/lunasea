@@ -5,7 +5,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrCatalogueSearchBar extends StatefulWidget {
   final ScrollController scrollController;
 
-  LidarrCatalogueSearchBar({
+  const LidarrCatalogueSearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);

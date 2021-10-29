@@ -56,7 +56,7 @@ class _State extends State<RadarrMissingRoute>
             }
             if (snapshot.hasData)
               return _list(snapshot.data[0], snapshot.data[1]);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );
@@ -76,7 +76,7 @@ class _State extends State<RadarrMissingRoute>
         movie: movies[index],
         profile: qualityProfiles.firstWhere(
             (element) => element.id == movies[index].qualityProfileId,
-            orElse: null),
+            orElse: () => null),
       ),
     );
   }

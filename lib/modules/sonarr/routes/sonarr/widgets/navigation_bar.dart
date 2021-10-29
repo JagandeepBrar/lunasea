@@ -22,7 +22,7 @@ class SonarrNavigationBar extends StatelessWidget {
         'sonarr.More'.tr(),
       ];
 
-  SonarrNavigationBar({
+  const SonarrNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

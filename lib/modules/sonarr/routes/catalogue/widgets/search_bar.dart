@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesSearchBar extends StatefulWidget {
   final ScrollController scrollController;
 
-  SonarrSeriesSearchBar({
+  const SonarrSeriesSearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);

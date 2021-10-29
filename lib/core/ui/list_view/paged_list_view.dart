@@ -59,14 +59,14 @@ class _State<T> extends State<LunaPagedListView<T>> {
             firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(
                 onTap: () =>
                     Future.sync(() => widget.pagingController.refresh())),
-            firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
+            firstPageProgressIndicatorBuilder: (context) => const LunaLoader(),
             newPageProgressIndicatorBuilder: (context) => Padding(
               child: Container(
                 alignment: Alignment.center,
                 height: 48.0,
-                child: LunaLoader(size: 16.0, useSafeArea: false),
+                child: const LunaLoader(size: 16.0, useSafeArea: false),
               ),
-              padding: EdgeInsets.only(bottom: 0.0),
+              padding: const EdgeInsets.only(bottom: 0.0),
             ),
             newPageErrorIndicatorBuilder: (context) => LunaIconButton(
               icon: Icons.error,
@@ -87,7 +87,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
                   .padding
                   .copyWith(bottom: LunaUI.MARGIN_CARD.bottom)
                   .add(EdgeInsets.only(top: LunaUI.MARGIN_CARD.top)),
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
         ),
       ),
     );

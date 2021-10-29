@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
   final int seriesId;
 
-  SonarrAppBarSeriesSettingsAction({
+  const SonarrAppBarSeriesSettingsAction({
     Key key,
     @required this.seriesId,
   }) : super(key: key);

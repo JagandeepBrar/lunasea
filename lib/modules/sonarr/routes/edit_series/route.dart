@@ -36,7 +36,7 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
 class _Widget extends StatefulWidget {
   final int seriesId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.seriesId,
   }) : super(key: key);
@@ -111,7 +111,7 @@ class _State extends State<_Widget>
             (series) => series?.id == widget.seriesId,
             orElse: () => null,
           );
-          if (series == null) return LunaLoader();
+          if (series == null) return const LunaLoader();
           return _list(
             context,
             series: series,
@@ -121,7 +121,7 @@ class _State extends State<_Widget>
                 snapshot.data.length == 3 ? null : snapshot.data[3],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliUserDetailsProfile extends StatefulWidget {
   final TautulliTableUser user;
 
-  TautulliUserDetailsProfile({
+  const TautulliUserDetailsProfile({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -26,6 +26,7 @@ class _State extends State<TautulliUserDetailsProfile>
   // Tracks the initial load to ensure the futures have been initialized
   bool _initialLoad = false;
 
+  @override
   Future<void> loadCallback() async {
     // Initial load or refresh of the user profile data
     context.read<TautulliState>().setUserProfile(
@@ -65,7 +66,7 @@ class _State extends State<TautulliUserDetailsProfile>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: _initialLoad ? _body() : LunaLoader(),
+      body: _initialLoad ? _body() : const LunaLoader(),
     );
   }
 
@@ -96,7 +97,7 @@ class _State extends State<TautulliUserDetailsProfile>
               watchtime: snapshot.data[1],
               player: snapshot.data[2],
             );
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -110,11 +111,11 @@ class _State extends State<TautulliUserDetailsProfile>
     return LunaListView(
       controller: TautulliUserDetailsNavigationBar.scrollControllers[0],
       children: [
-        LunaHeader(text: 'Profile'),
+        const LunaHeader(text: 'Profile'),
         _profile(user),
-        LunaHeader(text: 'Global Stats'),
+        const LunaHeader(text: 'Global Stats'),
         _globalStats(watchtime),
-        if (player.isNotEmpty) LunaHeader(text: 'Player Stats'),
+        if (player.isNotEmpty) const LunaHeader(text: 'Player Stats'),
         if (player.isNotEmpty) ..._playerStats(player),
       ],
     );
@@ -130,7 +131,7 @@ class _State extends State<TautulliUserDetailsProfile>
               ? widget.user.lastSeen?.lunaAge ?? 'Unknown'
               : 'Never',
         ),
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
         LunaTableContent(
             title: 'title', body: widget.user.lastPlayed ?? 'None'),
         LunaTableContent(

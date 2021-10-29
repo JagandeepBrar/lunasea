@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrHealthCheckTile extends StatelessWidget {
   final RadarrHealthCheck healthCheck;
 
-  RadarrHealthCheckTile({
+  const RadarrHealthCheckTile({
     Key key,
     @required this.healthCheck,
   }) : super(key: key);

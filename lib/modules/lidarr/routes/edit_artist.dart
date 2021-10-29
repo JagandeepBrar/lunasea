@@ -118,7 +118,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       );

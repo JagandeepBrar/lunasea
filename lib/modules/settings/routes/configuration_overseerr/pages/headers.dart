@@ -8,7 +8,7 @@ class SettingsConfigurationOverseerrHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/overseerr/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.OVERSEERR);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.OVERSEERR);
 
   @override
   void defineRoute(FluroRouter router) {

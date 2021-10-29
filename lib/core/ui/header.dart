@@ -5,10 +5,11 @@ class LunaHeader extends StatelessWidget {
   final String text;
   final String subtitle;
 
-  LunaHeader({
+  const LunaHeader({
+    Key key,
     @required this.text,
     this.subtitle,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class LunaHeader extends StatelessWidget {
         children: [
           Text(
             text.toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               fontSize: LunaUI.FONT_SIZE_HEADER,
               color: Colors.white,
@@ -42,7 +43,7 @@ class LunaHeader extends StatelessWidget {
           if (subtitle != null)
             Text(
               subtitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                 color: Colors.white70,
                 fontWeight: FontWeight.w300,
@@ -50,7 +51,7 @@ class LunaHeader extends StatelessWidget {
             ),
         ],
       ),
-      padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 8.0),
+      padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 8.0),
     );
   }
 }

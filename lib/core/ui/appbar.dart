@@ -28,7 +28,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     return Size.fromHeight(_size);
   }
 
-  LunaAppBar._internal({
+  const LunaAppBar._internal({
     @required this.type,
     @required this.useDrawer,
     this.title,
@@ -209,7 +209,7 @@ class _State extends State<LunaAppBar> {
     if (widget.hideLeading ?? false) return null;
     if (widget.useDrawer)
       return IconButton(
-        icon: Icon(Icons.menu_rounded),
+        icon: const Icon(Icons.menu_rounded),
         onPressed: () async {
           HapticFeedback.lightImpact();
           if (Scaffold.of(context).hasDrawer) {
@@ -219,7 +219,7 @@ class _State extends State<LunaAppBar> {
         },
       );
     return InkWell(
-      child: Center(
+      child: const Center(
         child: Icon(Icons.arrow_back_ios_rounded),
       ),
       onTap: () async {
@@ -239,7 +239,7 @@ class _State extends State<LunaAppBar> {
       title: Text(
         widget.title ?? '',
         overflow: TextOverflow.fade,
-        style: TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
+        style: const TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
       ),
       leading: _sharedLeading(context),
       automaticallyImplyLeading: !(widget.hideLeading ?? false),
@@ -271,9 +271,9 @@ class _State extends State<LunaAppBar> {
           children: [
             Text(
               widget.title,
-              style: TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
+              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
             ),
-            Icon(Icons.arrow_drop_down),
+            const Icon(Icons.arrow_drop_down),
           ],
         ),
         onSelected: (result) {

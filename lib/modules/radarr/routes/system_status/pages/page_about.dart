@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrSystemStatusAboutPage extends StatefulWidget {
   final ScrollController scrollController;
 
-  RadarrSystemStatusAboutPage({
+  const RadarrSystemStatusAboutPage({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -47,7 +47,7 @@ class _State extends State<RadarrSystemStatusAboutPage>
             return LunaMessage.error(onTap: _refreshKey.currentState.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

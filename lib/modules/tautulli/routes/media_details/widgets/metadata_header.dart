@@ -8,7 +8,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
   final double _width = 70.0;
   final double _padding = 8.0;
 
-  TautulliMediaDetailsMetadataHeaderTile({
+  const TautulliMediaDetailsMetadataHeaderTile({
     Key key,
     @required this.metadata,
   }) : super(key: key);
@@ -72,11 +72,11 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
   }
 
   Widget get _mediaInfo => Padding(
-        child: Container(
+        child: SizedBox(
           child: Column(
             children: [
               LunaText.title(text: _title, maxLines: 1),
-              SizedBox(height: 4.0),
+              const SizedBox(height: 4.0),
               ..._subtitles,
             ],
             mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +170,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     return Text(
       _text,
       maxLines: 3,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white70,
         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
       ),

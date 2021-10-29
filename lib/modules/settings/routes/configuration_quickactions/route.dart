@@ -11,6 +11,7 @@ class SettingsConfigurationQuickActionsRouter extends SettingsPageRouter {
   @override
   Widget widget() => _Widget();
 
+  @override
   void defineRoute(FluroRouter router) {
     super.noParameterRouteDefinition(router);
   }

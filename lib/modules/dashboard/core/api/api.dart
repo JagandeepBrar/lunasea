@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
@@ -106,10 +105,9 @@ class CalendarAPI {
         if (physicalRelease != null || digitalRelease != null) {
           if (physicalRelease == null) release = digitalRelease;
           if (digitalRelease == null) release = physicalRelease;
-          if (release == null)
-            release = digitalRelease.isBefore(physicalRelease)
-                ? digitalRelease
-                : physicalRelease;
+          release ??= digitalRelease.isBefore(physicalRelease)
+              ? digitalRelease
+              : physicalRelease;
           if (release != null) {
             List day = map[release] ?? [];
             day.add(CalendarRadarrData(

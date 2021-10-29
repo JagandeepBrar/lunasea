@@ -46,7 +46,7 @@ class RadarrMoviesEditRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -130,7 +130,7 @@ class _State extends State<_Widget>
             (movie) => movie?.id == widget.movieId,
             orElse: () => null,
           );
-          if (movie == null) return LunaLoader();
+          if (movie == null) return const LunaLoader();
           return _list(
             context,
             movie: movie,
@@ -138,7 +138,7 @@ class _State extends State<_Widget>
             tags: snapshot.data[2],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

@@ -8,7 +8,7 @@ class SettingsConfigurationNZBGetHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/nzbget/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.NZBGET);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.NZBGET);
 
   @override
   void defineRoute(FluroRouter router) {

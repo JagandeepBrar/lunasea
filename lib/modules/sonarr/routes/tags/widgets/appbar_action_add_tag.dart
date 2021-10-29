@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrTagsAppBarActionAddTag extends StatelessWidget {
   final bool asDialogButton;
 
-  SonarrTagsAppBarActionAddTag({
+  const SonarrTagsAppBarActionAddTag({
     Key key,
     this.asDialogButton = false,
   }) : super(key: key);

@@ -6,7 +6,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsHeaderRoute extends StatefulWidget {
   final LunaModule module;
 
-  SettingsHeaderRoute({
+  const SettingsHeaderRoute({
     Key key,
     @required this.module,
   }) : super(key: key);

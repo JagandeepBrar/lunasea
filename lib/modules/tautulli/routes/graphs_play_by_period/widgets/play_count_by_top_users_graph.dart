@@ -31,7 +31,7 @@ class TautulliGraphsPlayCountByTopUsersGraph extends StatelessWidget {
       context: context,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: TautulliGraphHelper.GRAPH_HEIGHT,
             width: MediaQuery.of(context).size.width,
             child: Padding(
@@ -46,7 +46,7 @@ class TautulliGraphsPlayCountByTopUsersGraph extends StatelessWidget {
                       TautulliBarGraphHelper.barTouchData(context, data),
                 ),
               ),
-              padding: EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(14.0),
             ),
           ),
           TautulliGraphHelper().createLegend(data.series),

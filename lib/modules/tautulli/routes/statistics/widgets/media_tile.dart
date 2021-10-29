@@ -8,7 +8,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliStatisticsMediaTile({
+  const TautulliStatisticsMediaTile({
     Key key,
     @required this.data,
     @required this.mediaType,
@@ -51,7 +51,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -74,7 +74,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
 
   Widget _subtitle(BuildContext context) => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -93,7 +93,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                     : null,
               ),
             ),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             data['total_duration'] != null
                 ? TextSpan(
                     text: Duration(seconds: data['total_duration'])
@@ -110,14 +110,14 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                               : null,
                     ),
                   )
-                : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
-            TextSpan(text: '\n'),
+                : const TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: '\n'),
             data['last_play'] != null
                 ? TextSpan(
                     text:
                         'Last Played ${DateTime.fromMillisecondsSinceEpoch(data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
                   )
-                : TextSpan(text: LunaUI.TEXT_EMDASH)
+                : const TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),
         softWrap: false,

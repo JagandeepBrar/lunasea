@@ -8,7 +8,7 @@ class TautulliSearchResultTile extends StatelessWidget {
   final double _imageDimension = 84.0;
   final double _padding = 8.0;
 
-  TautulliSearchResultTile({
+  const TautulliSearchResultTile({
     Key key,
     @required this.result,
     @required this.mediaType,
@@ -48,7 +48,7 @@ class TautulliSearchResultTile extends StatelessWidget {
 
   Widget get _details => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -103,7 +103,7 @@ class TautulliSearchResultTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.fade,
         softWrap: false,
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),

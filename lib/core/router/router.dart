@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -39,7 +38,7 @@ class LunaRouter {
   Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder>{
         Lidarr.ROUTE_NAME: (context) => Lidarr(),
         LidarrAddSearch.ROUTE_NAME: (context) => LidarrAddSearch(),
-        LidarrAddDetails.ROUTE_NAME: (context) => LidarrAddDetails(),
+        LidarrAddDetails.ROUTE_NAME: (context) => const LidarrAddDetails(),
         LidarrEditArtist.ROUTE_NAME: (context) => LidarrEditArtist(),
         LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
         LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),

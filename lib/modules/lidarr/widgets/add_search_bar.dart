@@ -6,14 +6,14 @@ class LidarrAddSearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
   final Function callback;
 
-  LidarrAddSearchBar({
+  const LidarrAddSearchBar({
     Key key,
     @required this.scrollController,
     @required this.callback,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<LidarrAddSearchBar> createState() => _State();
@@ -31,7 +31,7 @@ class _State extends State<LidarrAddSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -6,7 +6,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
   final bool alreadyAdded;
   final LidarrSearchData data;
 
-  LidarrAddSearchResultTile({
+  const LidarrAddSearchResultTile({
     @required this.alreadyAdded,
     @required this.data,
   });

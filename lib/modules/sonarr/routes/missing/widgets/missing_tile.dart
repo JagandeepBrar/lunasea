@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrMissingTile extends StatefulWidget {
   final SonarrMissingRecord record;
 
-  SonarrMissingTile({
+  const SonarrMissingTile({
     Key key,
     @required this.record,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class _State extends State<SonarrMissingTile> {
       );
 
   Widget get _information => Padding(
-        child: Container(
+        child: SizedBox(
           child: Column(
             children: [
               LunaText.title(
@@ -79,14 +79,14 @@ class _State extends State<SonarrMissingTile> {
         padding: EdgeInsets.all(_padding),
       );
 
-  Widget get _trailing => Container(
+  Widget get _trailing => SizedBox(
         child: Padding(
           child: LunaIconButton(
             icon: Icons.search,
             onPressed: _trailingOnPressed,
             onLongPress: _trailingOnLongPress,
           ),
-          padding: EdgeInsets.only(right: 12.0),
+          padding: const EdgeInsets.only(right: 12.0),
         ),
         height: _height,
       );
@@ -102,7 +102,7 @@ class _State extends State<SonarrMissingTile> {
                 text: widget.record.seasonNumber == 0
                     ? 'Specials '
                     : 'Season ${widget.record.seasonNumber} '),
-            TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: LunaUI.TEXT_EMDASH),
             TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
           ],
         ),
@@ -119,7 +119,7 @@ class _State extends State<SonarrMissingTile> {
           ),
           children: [
             TextSpan(
-              style: TextStyle(
+              style: const TextStyle(
                 fontStyle: FontStyle.italic,
               ),
               text: widget.record.title ?? 'Unknown Title',
@@ -133,7 +133,7 @@ class _State extends State<SonarrMissingTile> {
 
   Widget get _subtitleThree => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             color: LunaColours.red,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,

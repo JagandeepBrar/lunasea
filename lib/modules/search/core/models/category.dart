@@ -12,6 +12,7 @@ class NewznabCategoryData {
     @required this.name,
   });
 
+  @override
   String toString() => {
         'id': id,
         'name': name,

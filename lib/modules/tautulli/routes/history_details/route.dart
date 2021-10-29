@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -79,7 +78,7 @@ class _Widget extends StatefulWidget {
   final int sessionKey;
   final int referenceId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.ratingKey,
     this.sessionKey,
@@ -96,6 +95,7 @@ class _State extends State<_Widget>
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setIndividualHistory(
           widget.ratingKey,
@@ -165,7 +165,7 @@ class _State extends State<_Widget>
               );
             return _unknown();
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

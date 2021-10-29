@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMoviesEditQualityProfileTile extends StatelessWidget {
   final List<RadarrQualityProfile> profiles;
 
-  RadarrMoviesEditQualityProfileTile({
+  const RadarrMoviesEditQualityProfileTile({
     Key key,
     @required this.profiles,
   }) : super(key: key);

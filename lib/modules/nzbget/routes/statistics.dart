@@ -75,7 +75,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
               case ConnectionState.waiting:
               case ConnectionState.active:
               default:
-                return LunaLoader();
+                return const LunaLoader();
             }
           },
         ),
@@ -84,9 +84,9 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
   Widget get _list => LunaListView(
         controller: scrollController,
         children: <Widget>[
-          LunaHeader(text: 'Status'),
+          const LunaHeader(text: 'Status'),
           _statusBlock(),
-          LunaHeader(text: 'Logs'),
+          const LunaHeader(text: 'Logs'),
           for (var entry in _logs)
             NZBGetLogTile(
               data: entry,
@@ -104,7 +104,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
             title: 'Post', body: _statistics.postPaused ? 'Paused' : 'Active'),
         LunaTableContent(
             title: 'Scan', body: _statistics.scanPaused ? 'Paused' : 'Active'),
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'Uptime', body: _statistics.uptimeString),
         LunaTableContent(
             title: 'Speed Limit', body: _statistics.speedLimitString),

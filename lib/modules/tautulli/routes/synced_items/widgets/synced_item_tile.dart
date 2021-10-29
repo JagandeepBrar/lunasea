@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliSyncedItemTile extends StatelessWidget {
   final TautulliSyncedItem syncedItem;
 
-  TautulliSyncedItemTile({
+  const TautulliSyncedItemTile({
     Key key,
     @required this.syncedItem,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
       title: LunaText.title(text: syncedItem.syncTitle),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -25,30 +25,30 @@ class TautulliSyncedItemTile extends StatelessWidget {
             TextSpan(
               text:
                   (syncedItem.state ?? 'Unknown').lunaCapitalizeFirstLetters(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: LunaColours.accent,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               ),
             ),
-            TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
+            const TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
             TextSpan(
                 text: (syncedItem.metadataType ?? 'Unknown')
                     .lunaCapitalizeFirstLetters()),
-            TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
+            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
             TextSpan(
               text: (syncedItem.itemCompleteCount ?? 0) == 1
                   ? '1 Item'
                   : '${(syncedItem.itemCompleteCount ?? 0)} Items',
             ),
-            TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
+            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
             TextSpan(
                 text:
                     (syncedItem.totalSize ?? 0).lunaBytesToString(decimals: 1)),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             TextSpan(text: syncedItem.user ?? 'Unknown User'),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             TextSpan(text: syncedItem.platform ?? 'Unknown Platform'),
-            TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
+            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
             TextSpan(text: syncedItem.deviceName ?? 'Unknown Device'),
           ],
         ),

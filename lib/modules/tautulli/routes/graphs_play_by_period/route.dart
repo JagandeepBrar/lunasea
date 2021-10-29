@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsPlayByPeriodRoute extends StatefulWidget {
-  TautulliGraphsPlayByPeriodRoute({
+  const TautulliGraphsPlayByPeriodRoute({
     Key key,
   }) : super(key: key);
 
@@ -20,6 +20,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetAllPlayPeriodGraphs();
     await Future.wait([

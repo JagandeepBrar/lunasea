@@ -9,6 +9,7 @@ class SettingsConfigurationDrawerRouter extends SettingsPageRouter {
   @override
   Widget widget() => _Widget();
 
+  @override
   void defineRoute(FluroRouter router) {
     super.noParameterRouteDefinition(router);
   }
@@ -68,7 +69,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             ),
           ),
         ),
-        LunaDivider(),
+        const LunaDivider(),
         Expanded(
           child: LunaReorderableListViewBuilder(
             padding: MediaQuery.of(context)

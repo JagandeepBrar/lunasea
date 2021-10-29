@@ -29,6 +29,7 @@ class _State extends State<LidarrSearchResults>
   Future<List<LidarrReleaseData>> _future;
   List<LidarrReleaseData> _results = [];
 
+  @override
   Future<void> loadCallback() async {
     _arguments = ModalRoute.of(context).settings.arguments;
     if (mounted) setState(() => _results = []);
@@ -79,7 +80,7 @@ class _State extends State<LidarrSearchResults>
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       ),

@@ -81,7 +81,7 @@ class _State extends State<RadarrCatalogueRoute>
                     snapshot.data[0],
                     snapshot.data[1],
                   );
-                return LunaLoader();
+                return const LunaLoader();
               },
             );
           }),
@@ -130,7 +130,7 @@ class _State extends State<RadarrCatalogueRoute>
               movie: _filtered[index],
               profile: qualityProfiles.firstWhere(
                   (element) => element.id == _filtered[index].qualityProfileId,
-                  orElse: null),
+                  orElse: () => null),
             ),
           );
         });

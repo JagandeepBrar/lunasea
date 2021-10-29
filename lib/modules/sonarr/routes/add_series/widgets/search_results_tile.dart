@@ -7,7 +7,7 @@ class SonarrSeriesAddSearchResultTile extends StatefulWidget {
   final bool onTapShowOverview;
   final bool exists;
 
-  SonarrSeriesAddSearchResultTile({
+  const SonarrSeriesAddSearchResultTile({
     Key key,
     @required this.series,
     @required this.exists,
@@ -68,7 +68,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
   }
 
   Widget get _information => Padding(
-        child: Container(
+        child: SizedBox(
           child: Column(
             children: [
               LunaText.title(
@@ -98,12 +98,12 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                 text: widget.series.seasonCount == 1
                     ? '1 Season'
                     : '${widget.series.seasonCount} Seasons'),
-            TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
+            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
             TextSpan(
                 text: (widget.series.year ?? 0) == 0
                     ? 'Unknown Year'
                     : widget.series.year.toString()),
-            TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
+            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
             TextSpan(text: widget.series.network ?? 'Unknown Network'),
           ],
         ),

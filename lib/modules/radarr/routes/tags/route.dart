@@ -50,7 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Tags',
       scrollControllers: [scrollController],
-      actions: [RadarrTagsAppBarActionAddTag()],
+      actions: const [RadarrTagsAppBarActionAddTag()],
     );
   }
 
@@ -73,7 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             return LunaMessage.error(onTap: _refreshKey.currentState.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

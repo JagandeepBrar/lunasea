@@ -56,7 +56,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
               if (snapshot.hasData)
                 return _list(
                     snapshot.data[0], snapshot.data[1], snapshot.data[2]);
-              return LunaLoader();
+              return const LunaLoader();
             },
           ),
         ),

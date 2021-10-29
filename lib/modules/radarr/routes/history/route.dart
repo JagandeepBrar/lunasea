@@ -91,7 +91,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
         }
         if (snapshot.hasData) return _paginatedList(snapshot.data);
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

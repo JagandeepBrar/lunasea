@@ -16,13 +16,13 @@ Widget SonarrReleasesAppBar({
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
 
-  _SearchBar({
+  const _SearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<_SearchBar> createState() => _State(scrollController: scrollController);
@@ -45,7 +45,7 @@ class _State extends State<_SearchBar> {
 
   @override
   Widget build(BuildContext context) => Consumer<SonarrState>(
-        builder: (context, state, widget) => Container(
+        builder: (context, state, widget) => SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

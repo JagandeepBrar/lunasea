@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  console:
+    dependency: transitive
+    description:
+      name: console
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0"
   convert:
     dependency: "direct main"
     description:
@@ -218,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  derry:
+    dependency: "direct dev"
+    description:
+      name: derry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.3"
   dio:
     dependency: "direct main"
     description:
@@ -1106,6 +1120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  string_similarity:
+    dependency: transitive
+    description:
+      name: string_similarity
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   supercharged:
     dependency: "direct main"
     description:

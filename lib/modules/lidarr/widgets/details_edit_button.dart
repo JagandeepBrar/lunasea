@@ -5,7 +5,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrDetailsEditButton extends StatefulWidget {
   final LidarrCatalogueData data;
 
-  LidarrDetailsEditButton({
+  const LidarrDetailsEditButton({
     @required this.data,
   });
 

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesDetailsSeasonList extends StatelessWidget {
   final SonarrSeries series;
 
-  SonarrSeriesDetailsSeasonList({
+  const SonarrSeriesDetailsSeasonList({
     Key key,
     @required this.series,
   }) : super(key: key);

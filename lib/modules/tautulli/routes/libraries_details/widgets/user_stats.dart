@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsUserStats extends StatefulWidget {
   final int sectionId;
 
-  TautulliLibrariesDetailsUserStats({
+  const TautulliLibrariesDetailsUserStats({
     Key key,
     @required this.sectionId,
   }) : super(key: key);
@@ -23,6 +23,7 @@ class _State extends State<TautulliLibrariesDetailsUserStats>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().fetchLibraryUserStats(widget.sectionId);
     await context.read<TautulliState>().libraryUserStats[widget.sectionId];
@@ -57,7 +58,7 @@ class _State extends State<TautulliLibrariesDetailsUserStats>
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

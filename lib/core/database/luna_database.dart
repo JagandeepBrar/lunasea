@@ -95,8 +95,9 @@ class LunaDatabase extends LunaModuleDatabase {
     }
   }
 
-  LunaDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  @override
+  LunaDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'profile':
         return LunaDatabaseValue.ENABLED_PROFILE;
       case 'LUNASEA_DRAWER_AUTOMATIC_MANAGE':

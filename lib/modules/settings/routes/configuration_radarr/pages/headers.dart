@@ -8,7 +8,7 @@ class SettingsConfigurationRadarrHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/radarr/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.RADARR);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.RADARR);
 
   @override
   void defineRoute(FluroRouter router) {

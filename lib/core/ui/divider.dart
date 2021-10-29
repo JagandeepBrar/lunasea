@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaDivider extends Divider {
-  LunaDivider()
-      : super(
+  const LunaDivider({
+    Key key,
+  }) : super(
+          key: key,
           thickness: 1.0,
           color: LunaColours.splash,
           indent: 60.0,

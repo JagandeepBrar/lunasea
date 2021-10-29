@@ -7,7 +7,7 @@ class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
   final int seriesId;
   final List<SonarrEpisode> episodes;
 
-  SonarrSeasonDetailsSeasonHeader({
+  const SonarrSeasonDetailsSeasonHeader({
     Key key,
     @required this.seriesId,
     @required this.seasonNumber,

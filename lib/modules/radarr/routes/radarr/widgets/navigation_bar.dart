@@ -22,7 +22,7 @@ class RadarrNavigationBar extends StatelessWidget {
         'radarr.More'.tr(),
       ];
 
-  RadarrNavigationBar({
+  const RadarrNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

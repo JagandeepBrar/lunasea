@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliIPAddressDetailsGeolocationTile extends StatelessWidget {
   final TautulliGeolocationInfo geolocation;
 
-  TautulliIPAddressDetailsGeolocationTile({
+  const TautulliIPAddressDetailsGeolocationTile({
     Key key,
     @required this.geolocation,
   }) : super(key: key);

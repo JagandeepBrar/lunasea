@@ -219,7 +219,7 @@ class RadarrBottomModalSheets {
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.fade,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                           color: Colors.white70,
                           fontStyle: FontStyle.italic,
@@ -236,7 +236,7 @@ class RadarrBottomModalSheets {
                   shrinkWrap: false,
                 );
               }
-              return LunaLoader();
+              return const LunaLoader();
             },
           ),
         ),

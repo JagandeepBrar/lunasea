@@ -7,7 +7,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliStatisticsUserTile({
+  const TautulliStatisticsUserTile({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -39,7 +39,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -62,7 +62,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
 
   Widget _subtitle(BuildContext context) => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -81,7 +81,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                     : null,
               ),
             ),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             data['total_duration'] != null
                 ? TextSpan(
                     text: Duration(seconds: data['total_duration'])
@@ -98,14 +98,14 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                               : null,
                     ),
                   )
-                : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
-            TextSpan(text: '\n'),
+                : const TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: '\n'),
             data['last_play'] != null
                 ? TextSpan(
                     text:
                         'Last Streamed ${DateTime.fromMillisecondsSinceEpoch(data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
                   )
-                : TextSpan(text: LunaUI.TEXT_EMDASH)
+                : const TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),
         softWrap: false,
@@ -117,7 +117,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
     TautulliTableUser _user = await context.watch<TautulliState>().users.then(
           (users) => users.users.firstWhere(
             (user) => user.userId == data['user_id'] ?? -1,
-            orElse: null,
+            orElse: () => null,
           ),
         );
     if (_user == null) {

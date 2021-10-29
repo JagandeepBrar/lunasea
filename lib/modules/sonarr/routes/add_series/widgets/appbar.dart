@@ -23,7 +23,7 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final String query;
   final bool autofocus;
 
-  _SearchBar({
+  const _SearchBar({
     Key key,
     @required this.scrollController,
     @required this.query,
@@ -31,7 +31,7 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<_SearchBar> createState() => _State();
@@ -48,7 +48,7 @@ class _State extends State<_SearchBar> {
 
   @override
   Widget build(BuildContext context) => Consumer<SonarrState>(
-        builder: (context, state, _) => Container(
+        builder: (context, state, _) => SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

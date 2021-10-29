@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import './abstract.dart';
@@ -26,8 +25,9 @@ class CalendarSonarrData extends CalendarData {
     @required this.fileQualityProfile,
   }) : super(id, title);
 
+  @override
   TextSpan get subtitle => TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white70,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
@@ -37,7 +37,7 @@ class CalendarSonarrData extends CalendarData {
           ),
           TextSpan(
             text: episodeTitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -52,7 +52,7 @@ class CalendarSonarrData extends CalendarData {
           if (hasFile)
             TextSpan(
               text: '\nDownloaded ($fileQualityProfile)',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 color: LunaColours.accent,
               ),
@@ -65,6 +65,7 @@ class CalendarSonarrData extends CalendarData {
     return false;
   }
 
+  @override
   String get bannerURI {
     return api['enabled']
         ? (api['host'] as String).endsWith('/')
@@ -73,12 +74,14 @@ class CalendarSonarrData extends CalendarData {
         : '';
   }
 
+  @override
   Future<void> enterContent(BuildContext context) async =>
       SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: seriesID,
       );
 
+  @override
   Widget trailing(BuildContext context) => InkWell(
         child: LunaIconButton(
           text: airTimeString,

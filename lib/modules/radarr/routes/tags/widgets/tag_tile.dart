@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrTagsTagTile extends StatefulWidget {
   final RadarrTag tag;
 
-  RadarrTagsTagTile({
+  const RadarrTagsTagTile({
     Key key,
     @required this.tag,
   }) : super(key: key);
@@ -17,6 +17,7 @@ class RadarrTagsTagTile extends StatefulWidget {
 class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
   List<String> movieList;
 
+  @override
   Future<void> loadCallback() async {
     await context.read<RadarrState>().movies.then((movies) {
       List<String> _movies = [];

@@ -91,7 +91,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: LunaIconButton(icon: Icons.switch_account),
           onTap: () async => SettingsProfilesRouter().navigateTo(context),
         ),
-        LunaDivider(),
+        const LunaDivider(),
         if (LunaInAppPurchases.isPlatformCompatible)
           LunaListTile(
             context: context,

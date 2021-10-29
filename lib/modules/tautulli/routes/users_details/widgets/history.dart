@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliUserDetailsHistory extends StatefulWidget {
   final TautulliTableUser user;
 
-  TautulliUserDetailsHistory({
+  const TautulliUserDetailsHistory({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -23,6 +23,7 @@ class _State extends State<TautulliUserDetailsHistory>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setUserHistory(
           widget.user.userId,
@@ -61,7 +62,7 @@ class _State extends State<TautulliUserDetailsHistory>
               return LunaMessage.error(onTap: _refreshKey.currentState?.show);
             }
             if (snapshot.hasData) return _history(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );

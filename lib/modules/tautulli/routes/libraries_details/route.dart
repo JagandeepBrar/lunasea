@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -40,7 +39,7 @@ class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
 class _Widget extends StatefulWidget {
   final int sectionId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.sectionId,
   }) : super(key: key);

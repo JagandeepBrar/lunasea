@@ -39,7 +39,7 @@ class LunaChangelog {
               if (version == null || buildNumber == null)
                 LunaHeader(text: 'LunaSea', subtitle: changelog.motd),
               if ((changelog.changesNew?.length ?? 0) != 0)
-                LunaHeader(text: 'New'),
+                const LunaHeader(text: 'New'),
               if ((changelog.changesNew?.length ?? 0) != 0)
                 LunaTableCard(
                   content: List<LunaTableContent>.generate(
@@ -56,7 +56,7 @@ class LunaChangelog {
                   ),
                 ),
               if ((changelog.changesTweaks?.length ?? 0) != 0)
-                LunaHeader(text: 'Tweaks'),
+                const LunaHeader(text: 'Tweaks'),
               if ((changelog.changesTweaks?.length ?? 0) != 0)
                 LunaTableCard(
                   content: List<LunaTableContent>.generate(
@@ -73,7 +73,7 @@ class LunaChangelog {
                   ),
                 ),
               if ((changelog.changesFixes?.length ?? 0) != 0)
-                LunaHeader(text: 'Fixes'),
+                const LunaHeader(text: 'Fixes'),
               if ((changelog.changesFixes?.length ?? 0) != 0)
                 LunaTableCard(
                   content: List<LunaTableContent>.generate(
@@ -90,7 +90,7 @@ class LunaChangelog {
                   ),
                 ),
               if ((changelog.changesPlatform?.length ?? 0) != 0)
-                LunaHeader(text: 'Platform-Specific'),
+                const LunaHeader(text: 'Platform-Specific'),
               if ((changelog.changesPlatform?.length ?? 0) != 0)
                 LunaTableCard(
                   content: List<LunaTableContent>.generate(

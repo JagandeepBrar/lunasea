@@ -41,7 +41,7 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
 class _Widget extends StatefulWidget {
   final int seriesId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.seriesId,
   }) : super(key: key);
@@ -167,7 +167,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
               return LunaMessage.error(onTap: loadCallback);
             }
             if (snapshot.hasData) {
-              if (series == null) return LunaLoader();
+              if (series == null) return const LunaLoader();
               SonarrQualityProfile quality = _findQualityProfile(
                 series.qualityProfileId,
                 snapshot.data[2],
@@ -188,7 +188,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
                 ),
               );
             }
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );

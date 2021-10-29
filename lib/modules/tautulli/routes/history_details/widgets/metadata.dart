@@ -7,7 +7,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
   final int sessionKey;
   final int referenceId;
 
-  TautulliHistoryDetailsMetadata({
+  const TautulliHistoryDetailsMetadata({
     Key key,
     @required this.ratingKey,
     this.sessionKey,

@@ -21,7 +21,7 @@ class TautulliNavigationBar extends StatefulWidget {
         'tautulli.More'.tr(),
       ];
 
-  TautulliNavigationBar({
+  const TautulliNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

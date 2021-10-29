@@ -1098,7 +1098,7 @@ class SettingsDialogs {
               text: '${'settings.FirebaseCrashlyticsHint4'.tr()}\n\n',
             ),
             LunaDialog.bolded(
-              text: '${'settings.FirebaseCrashlyticsHint5'.tr()}',
+              text: 'settings.FirebaseCrashlyticsHint5'.tr(),
               color: LunaColours.accent,
               fontSize: LunaDialog.SUBBODY_SIZE,
             ),

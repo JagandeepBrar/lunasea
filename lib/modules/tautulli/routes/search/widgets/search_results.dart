@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliSearchSearchResults extends StatefulWidget {
   final ScrollController scrollController;
 
-  TautulliSearchSearchResults({
+  const TautulliSearchSearchResults({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -50,7 +50,7 @@ class _State extends State<TautulliSearchSearchResults> {
           if (snapshot.hasData &&
               snapshot.connectionState == ConnectionState.done)
             return _results(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -79,7 +79,7 @@ class _State extends State<TautulliSearchSearchResults> {
   }
 
   List<Widget> _movies(List<TautulliSearchResult> movies) => [
-        LunaHeader(text: 'movies'),
+        const LunaHeader(text: 'movies'),
         if (movies.isEmpty) LunaMessage(text: 'No Results Found'),
         ...movies.map((movie) => TautulliSearchResultTile(
               result: movie,
@@ -88,7 +88,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _series(List<TautulliSearchResult> series) => [
-        LunaHeader(text: 'series'),
+        const LunaHeader(text: 'series'),
         if (series.isEmpty) LunaMessage(text: 'No Results Found'),
         ...series.map((show) => TautulliSearchResultTile(
               result: show,
@@ -97,7 +97,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _seasons(List<TautulliSearchResult> seasons) => [
-        LunaHeader(text: 'seasons'),
+        const LunaHeader(text: 'seasons'),
         if (seasons.isEmpty) LunaMessage(text: 'No Results Found'),
         ...seasons.map((show) => TautulliSearchResultTile(
               result: show,
@@ -106,7 +106,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _episodes(List<TautulliSearchResult> episodes) => [
-        LunaHeader(text: 'episodes'),
+        const LunaHeader(text: 'episodes'),
         if (episodes.isEmpty) LunaMessage(text: 'No Results Found'),
         ...episodes.map((show) => TautulliSearchResultTile(
               result: show,
@@ -115,7 +115,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _artists(List<TautulliSearchResult> artists) => [
-        LunaHeader(text: 'artists'),
+        const LunaHeader(text: 'artists'),
         if (artists.isEmpty) LunaMessage(text: 'No Results Found'),
         ...artists.map((show) => TautulliSearchResultTile(
               result: show,
@@ -124,7 +124,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _albums(List<TautulliSearchResult> albums) => [
-        LunaHeader(text: 'albums'),
+        const LunaHeader(text: 'albums'),
         if (albums.isEmpty) LunaMessage(text: 'No Results Found'),
         ...albums.map((show) => TautulliSearchResultTile(
               result: show,
@@ -133,7 +133,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _tracks(List<TautulliSearchResult> tracks) => [
-        LunaHeader(text: 'tracks'),
+        const LunaHeader(text: 'tracks'),
         if (tracks.isEmpty) LunaMessage(text: 'No Results Found'),
         ...tracks.map((show) => TautulliSearchResultTile(
               result: show,
@@ -142,7 +142,7 @@ class _State extends State<TautulliSearchSearchResults> {
       ];
 
   List<Widget> _collections(List<TautulliSearchResult> collections) => [
-        LunaHeader(text: 'collections'),
+        const LunaHeader(text: 'collections'),
         if (collections.isEmpty) LunaMessage(text: 'No Results Found'),
         ...collections.map((show) => TautulliSearchResultTile(
               result: show,

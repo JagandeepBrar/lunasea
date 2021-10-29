@@ -7,7 +7,7 @@ class TautulliActivityTile extends StatelessWidget {
   final TautulliSession session;
   final bool disableOnTap;
 
-  TautulliActivityTile({
+  const TautulliActivityTile({
     Key key,
     @required this.session,
     this.disableOnTap = false,
@@ -42,9 +42,9 @@ class TautulliActivityTile extends StatelessWidget {
               text: 'tautulli.Episode'.tr(args: [
             session.mediaIndex?.toString() ?? LunaUI.TEXT_EMDASH
           ])),
-          TextSpan(text: ': '),
+          const TextSpan(text: ': '),
           TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontStyle: FontStyle.italic,
             ),
             text: session.title ?? LunaUI.TEXT_EMDASH,
@@ -61,7 +61,7 @@ class TautulliActivityTile extends StatelessWidget {
           TextSpan(text: session.parentTitle),
           TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
           TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontStyle: FontStyle.italic,
             ),
             text: session.title,
@@ -72,7 +72,7 @@ class TautulliActivityTile extends StatelessWidget {
     if (session.mediaType == TautulliMediaType.LIVE) {
       return TextSpan(text: session.title);
     }
-    return TextSpan(text: LunaUI.TEXT_EMDASH);
+    return const TextSpan(text: LunaUI.TEXT_EMDASH);
   }
 
   TextSpan _subtitle2() {
@@ -104,21 +104,21 @@ class TautulliActivityTile extends StatelessWidget {
         children: [
           LinearPercentIndicator(
             percent: session.lunaTranscodeProgress,
-            padding: EdgeInsets.symmetric(horizontal: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
             progressColor: LunaColours.splash.withOpacity(0.30),
             backgroundColor: Colors.transparent,
             lineHeight: 4.0,
           ),
           LinearPercentIndicator(
             percent: session.lunaProgressPercent,
-            padding: EdgeInsets.symmetric(horizontal: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
             progressColor: LunaColours.accent,
             backgroundColor: LunaColours.accent.withOpacity(0.15),
             lineHeight: 4.0,
           ),
         ],
       ),
-      padding: EdgeInsets.only(top: 4.0),
+      padding: const EdgeInsets.only(top: 4.0),
     );
   }
 

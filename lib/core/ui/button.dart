@@ -182,12 +182,12 @@ class LunaButton extends Card {
                   color: color,
                   size: iconSize,
                 ),
-                padding: EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsets.only(right: 8.0),
               ),
             Flexible(
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   fontSize: LunaUI.FONT_SIZE_BUTTON,
@@ -199,7 +199,7 @@ class LunaButton extends Card {
             ),
           ],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
       ),
       margin: margin,
       height: height,

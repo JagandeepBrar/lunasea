@@ -40,7 +40,7 @@ class SettingsConfigurationSearchEditHeadersRouter extends SettingsPageRouter {
 class _Widget extends StatefulWidget {
   final int indexerId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.indexerId,
   }) : super(key: key);

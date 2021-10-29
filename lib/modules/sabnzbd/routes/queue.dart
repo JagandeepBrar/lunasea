@@ -7,7 +7,7 @@ class SABnzbdQueue extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/queue';
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  SABnzbdQueue({
+  const SABnzbdQueue({
     Key key,
     @required this.refreshIndicatorKey,
   }) : super(key: key);
@@ -52,7 +52,7 @@ class _State extends State<SABnzbdQueue>
   }
 
   void _createTimer() =>
-      _timer = Timer(Duration(seconds: 2), _fetchWithoutMessage);
+      _timer = Timer(const Duration(seconds: 2), _fetchWithoutMessage);
 
   Future<void> _refresh() async => setState(() {
         _future = _fetch();
@@ -110,7 +110,7 @@ class _State extends State<SABnzbdQueue>
                 context.read<SABnzbdState>().error)
               return LunaMessage.error(onTap: _refresh);
             if (snapshot.hasData) return _list;
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );

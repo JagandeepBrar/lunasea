@@ -6,7 +6,7 @@ class SABnzbdHistoryTile extends StatefulWidget {
   final SABnzbdHistoryData data;
   final Function() refresh;
 
-  SABnzbdHistoryTile({
+  const SABnzbdHistoryTile({
     @required this.data,
     @required this.refresh,
   });

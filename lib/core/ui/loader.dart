@@ -7,7 +7,7 @@ class LunaLoader extends StatelessWidget {
   final Color color;
   final bool useSafeArea;
 
-  LunaLoader({
+  const LunaLoader({
     Key key,
     this.size = 25.0,
     this.color,
@@ -25,7 +25,7 @@ class LunaLoader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SpinKitThreeBounce(
-              color: color != null ? color : LunaColours.accent,
+              color: color ?? LunaColours.accent,
               size: size,
             ),
           ],

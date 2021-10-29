@@ -6,7 +6,7 @@ class SonarrSeriesTile extends StatefulWidget {
   final SonarrSeries series;
   final SonarrQualityProfile profile;
 
-  SonarrSeriesTile({
+  const SonarrSeriesTile({
     Key key,
     @required this.series,
     @required this.profile,
@@ -61,7 +61,7 @@ class _State extends State<SonarrSeriesTile> {
       );
 
   Widget get _information => Padding(
-        child: Container(
+        child: SizedBox(
           child: Column(
             children: [
               LunaText.title(
@@ -103,9 +103,9 @@ class _State extends State<SonarrSeriesTile> {
                     : null,
               ),
             ),
-            TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
+            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
             TextSpan(text: widget.series.lunaSeasonCount),
-            TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
+            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
             TextSpan(
               text: widget.series.lunaSizeOnDisk,
               style: TextStyle(
@@ -150,7 +150,7 @@ class _State extends State<SonarrSeriesTile> {
                     : null,
               ),
             ),
-            TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
+            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
             TextSpan(
               text: widget.profile?.name ?? 'Unknown',
               style: TextStyle(

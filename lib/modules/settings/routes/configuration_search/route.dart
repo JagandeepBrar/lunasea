@@ -105,7 +105,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List<Widget> _customization() {
     return [
-      LunaDivider(),
+      const LunaDivider(),
       _hideAdultCategories(),
       _showLinks(),
     ];

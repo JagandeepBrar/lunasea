@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
   final RadarrExtraFile extraFile;
 
-  RadarrMovieDetailsFilesExtraFileBlock({
+  const RadarrMovieDetailsFilesExtraFileBlock({
     Key key,
     @required this.extraFile,
   }) : super(key: key);

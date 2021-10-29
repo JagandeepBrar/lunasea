@@ -17,6 +17,7 @@ class _State extends State<SonarrUpcomingRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<SonarrState>().resetUpcoming();
     await context.read<SonarrState>().upcoming;
@@ -49,7 +50,7 @@ class _State extends State<SonarrUpcomingRoute>
               return LunaMessage.error(onTap: _refreshKey.currentState?.show);
             }
             if (snapshot.hasData) return _episodes(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),

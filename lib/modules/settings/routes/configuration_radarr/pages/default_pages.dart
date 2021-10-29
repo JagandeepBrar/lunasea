@@ -147,7 +147,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           if (values.item1)
             RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS
-              ..put(values.item2);
+              .put(values.item2);
         },
       ),
     );

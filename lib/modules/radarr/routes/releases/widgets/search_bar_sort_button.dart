@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrReleasesAppBarSortButton extends StatefulWidget {
   final ScrollController controller;
 
-  RadarrReleasesAppBarSortButton({
+  const RadarrReleasesAppBarSortButton({
     Key key,
     @required this.controller,
   }) : super(key: key);
@@ -67,7 +67,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
       ),
       height: LunaTextInputBar.appBarInnerHeight,
       width: LunaTextInputBar.appBarInnerHeight,
-      margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
+      margin: const EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
       color: Theme.of(context).canvasColor,
     );
   }

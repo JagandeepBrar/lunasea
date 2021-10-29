@@ -12,7 +12,7 @@ class LunaListViewModal extends StatelessWidget {
   final double itemExtent;
   final bool shrinkWrap;
 
-  LunaListViewModal({
+  const LunaListViewModal({
     Key key,
     @required this.children,
     this.itemExtent,
@@ -32,7 +32,7 @@ class LunaListViewModal extends StatelessWidget {
         padding: MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
               vertical: LunaUI.MARGIN_CARD.bottom,
             )),
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
       ),
     );
   }

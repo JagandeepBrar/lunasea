@@ -124,7 +124,7 @@ class _State extends State<_Widget>
             manualImport: snapshot.data[0],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

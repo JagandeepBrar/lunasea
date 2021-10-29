@@ -511,7 +511,7 @@ class NZBGetAPI {
         '',
         data: getBody('editqueue', params: [
           'GroupSort',
-          '${sort.value}',
+          (sort.value),
           [],
         ]),
       );

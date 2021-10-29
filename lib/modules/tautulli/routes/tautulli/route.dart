@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -59,7 +58,7 @@ class _State extends State<_Widget> {
     List<Widget> actions;
     if (context.watch<TautulliState>().enabled)
       actions = [
-        TautulliAppBarGlobalSettingsAction(),
+        const TautulliAppBarGlobalSettingsAction(),
       ];
     return LunaAppBar.dropdown(
       title: LunaModule.TAUTULLI.name,
@@ -80,7 +79,7 @@ class _State extends State<_Widget> {
               context: context, module: 'Tautulli');
         return PageView(
           controller: _pageController,
-          children: [
+          children: const [
             TautulliActivityRoute(),
             TautulliUsersRoute(),
             TautulliHistoryRoute(),

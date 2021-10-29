@@ -67,6 +67,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.1.4
   coverage: ^1.0.3
+  derry: ^1.4.3
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.4
   flutter_native_splash: ^1.2.4

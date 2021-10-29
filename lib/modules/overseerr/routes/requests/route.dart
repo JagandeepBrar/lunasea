@@ -19,7 +19,7 @@ class _State extends State<OverseerrRequestsRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: OverseerrRequestsListView(),
+      body: const OverseerrRequestsListView(),
     );
   }
 }

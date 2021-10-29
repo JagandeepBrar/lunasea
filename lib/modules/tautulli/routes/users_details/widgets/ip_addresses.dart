@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliUserDetailsIPAddresses extends StatefulWidget {
   final TautulliTableUser user;
 
-  TautulliUserDetailsIPAddresses({
+  const TautulliUserDetailsIPAddresses({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -23,6 +23,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setUserIPs(
           widget.user.userId,
@@ -62,7 +63,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -88,19 +89,19 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       title: LunaText.title(text: record.ipAddress),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
           children: [
             TextSpan(text: record.lastSeen?.lunaAge ?? 'Unknown'),
-            TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
+            const TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
             TextSpan(
               text: record.playCount == 1
                   ? '1 Play'
                   : '${record.playCount} Plays',
             ),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             TextSpan(text: record.lastPlayed),
           ],
         ),

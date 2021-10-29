@@ -6,7 +6,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;
 
-  LidarrReleasesTile({
+  const LidarrReleasesTile({
     Key key,
     @required this.release,
   }) : super(key: key);

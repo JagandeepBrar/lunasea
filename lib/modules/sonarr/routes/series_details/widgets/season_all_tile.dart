@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
   final SonarrSeries series;
 
-  SonarrSeriesDetailsSeasonAllTile({
+  const SonarrSeriesDetailsSeasonAllTile({
     Key key,
     @required this.series,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
                 text: series?.statistics?.sizeOnDisk
                         ?.lunaBytesToString(decimals: 1) ??
                     '0.0 B'),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             TextSpan(
               style: TextStyle(
                 color: series.lunaPercentageComplete == 100

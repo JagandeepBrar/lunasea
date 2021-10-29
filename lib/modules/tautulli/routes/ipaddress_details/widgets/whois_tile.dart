@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliIPAddressDetailsWHOISTile extends StatelessWidget {
   final TautulliWHOISInfo whois;
 
-  TautulliIPAddressDetailsWHOISTile({
+  const TautulliIPAddressDetailsWHOISTile({
     Key key,
     @required this.whois,
   }) : super(key: key);

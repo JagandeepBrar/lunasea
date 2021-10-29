@@ -78,7 +78,7 @@ class LunaFirebaseMessaging {
         message: message.notification?.body ?? LunaUI.TEXT_EMDASH,
         type: LunaSnackbarType.INFO,
         position: FlashPosition.top,
-        duration: Duration(seconds: 6, milliseconds: 750),
+        duration: const Duration(seconds: 6, milliseconds: 750),
         showButton: module != null,
         buttonOnPressed: () async => _handleWebhook(message),
       );

@@ -47,7 +47,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _sortingSeries(),
         _sortingSeriesDirection(),
-        LunaDivider(),
+        const LunaDivider(),
         _sortingReleases(),
         _sortingReleasesDirection(),
       ],

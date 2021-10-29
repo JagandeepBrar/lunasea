@@ -16,6 +16,7 @@ class _State extends State<SonarrMissingRoute>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     SonarrState _state = Provider.of<SonarrState>(context, listen: false);
     _state.resetMissing();
@@ -49,7 +50,7 @@ class _State extends State<SonarrMissingRoute>
               return LunaMessage.error(onTap: _refreshKey.currentState?.show);
             }
             if (snapshot.hasData) return _episodes(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),

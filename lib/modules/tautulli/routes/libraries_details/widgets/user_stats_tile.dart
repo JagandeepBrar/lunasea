@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   final TautulliLibraryUserStats user;
 
-  TautulliLibrariesDetailsUserStatsTile({
+  const TautulliLibrariesDetailsUserStatsTile({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -28,7 +28,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   Widget _subtitle1() {
     return Row(
       children: [
-        Padding(
+        const Padding(
           child: Icon(
             Icons.play_arrow_rounded,
             size: LunaUI.FONT_SIZE_SUBTITLE,
@@ -48,7 +48,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   Widget _subtitle2() {
     return Row(
       children: [
-        Padding(
+        const Padding(
           child: Icon(
             Icons.person_rounded,
             size: LunaUI.FONT_SIZE_SUBTITLE,

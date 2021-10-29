@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrReleasesAppBarSortButton extends StatefulWidget {
   final ScrollController controller;
 
-  SonarrReleasesAppBarSortButton({
+  const SonarrReleasesAppBarSortButton({
     Key key,
     @required this.controller,
   }) : super(key: key);
@@ -68,7 +68,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
         height: LunaTextInputBar.appBarInnerHeight,
         width: LunaTextInputBar.appBarInnerHeight,
         margin:
-            LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
+            LunaTextInputBar.appBarMargin.subtract(const EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
       );
 }

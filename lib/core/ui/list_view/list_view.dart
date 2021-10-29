@@ -8,7 +8,7 @@ class LunaListView extends StatelessWidget {
   final ScrollPhysics physics;
   final ScrollController controller;
 
-  LunaListView({
+  const LunaListView({
     Key key,
     @required this.children,
     @required this.controller,

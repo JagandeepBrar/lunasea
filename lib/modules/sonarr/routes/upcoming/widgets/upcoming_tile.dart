@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrUpcomingTile extends StatefulWidget {
   final SonarrCalendar record;
 
-  SonarrUpcomingTile({
+  const SonarrUpcomingTile({
     Key key,
     @required this.record,
   }) : super(key: key);
@@ -51,7 +51,7 @@ class _State extends State<SonarrUpcomingTile> {
             text: widget.record.seasonNumber == 0
                 ? 'Specials '
                 : 'Season ${widget.record.seasonNumber} '),
-        TextSpan(text: LunaUI.TEXT_EMDASH),
+        const TextSpan(text: LunaUI.TEXT_EMDASH),
         TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
       ],
     );
@@ -59,7 +59,7 @@ class _State extends State<SonarrUpcomingTile> {
 
   TextSpan _subtitle2() {
     return TextSpan(
-      style: TextStyle(fontStyle: FontStyle.italic),
+      style: const TextStyle(fontStyle: FontStyle.italic),
       children: [
         TextSpan(text: widget.record.title ?? 'Unknown Title'),
       ],

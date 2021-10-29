@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsAccountSignedInPage extends StatefulWidget {
   final ScrollController scrollController;
 
-  SettingsAccountSignedInPage({
+  const SettingsAccountSignedInPage({
     Key key,
     @required this.scrollController,
   }) : super(key: key);

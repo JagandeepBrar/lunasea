@@ -45,7 +45,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
 class _Widget extends StatefulWidget {
   final LunaLogType type;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.type,
   }) : super(key: key);

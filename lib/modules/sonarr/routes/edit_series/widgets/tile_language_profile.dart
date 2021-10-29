@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
   final List<SonarrLanguageProfile> profiles;
 
-  SonarrSeriesEditLanguageProfileTile({
+  const SonarrSeriesEditLanguageProfileTile({
     Key key,
     @required this.profiles,
   }) : super(key: key);

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrAppBarMovieSettingsAction extends StatelessWidget {
   final int movieId;
 
-  RadarrAppBarMovieSettingsAction({
+  const RadarrAppBarMovieSettingsAction({
     Key key,
     @required this.movieId,
   }) : super(key: key);

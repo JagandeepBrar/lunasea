@@ -12,7 +12,7 @@ class LunaDesktopWindow {
   void initialize() {
     if (isPlatformCompatible) {
       window_size.setWindowMinSize(
-        Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE),
+        const Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE),
       );
     }
   }

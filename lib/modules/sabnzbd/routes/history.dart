@@ -7,7 +7,7 @@ class SABnzbdHistory extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/history';
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-  SABnzbdHistory({
+  const SABnzbdHistory({
     Key key,
     @required this.refreshIndicatorKey,
   }) : super(key: key);
@@ -25,6 +25,7 @@ class _State extends State<SABnzbdHistory>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
     final _api = SABnzbdAPI.from(Database.currentProfileObject);
@@ -75,7 +76,7 @@ class _State extends State<SABnzbdHistory>
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       ),

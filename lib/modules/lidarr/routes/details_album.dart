@@ -88,7 +88,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
                 case ConnectionState.waiting:
                 case ConnectionState.active:
                 default:
-                  return LunaLoader();
+                  return const LunaLoader();
               }
             },
           ),

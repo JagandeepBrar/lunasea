@@ -7,7 +7,7 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
   final RadarrQualityProfile qualityProfile;
   final List<RadarrTag> tags;
 
-  RadarrMovieDetailsOverviewInformationBlock({
+  const RadarrMovieDetailsOverviewInformationBlock({
     Key key,
     @required this.movie,
     @required this.qualityProfile,
@@ -26,13 +26,13 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
             title: 'availability', body: movie?.lunaMinimumAvailability),
         LunaTableContent(title: 'status', body: movie?.status?.readable),
         LunaTableContent(title: 'tags', body: movie?.lunaTags(tags)),
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
         LunaTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
         LunaTableContent(
             title: 'physical', body: movie?.lunaPhysicalReleaseDate),
         LunaTableContent(title: 'added on', body: movie?.lunaDateAdded),
-        LunaTableContent(title: '', body: ''),
+        const LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'year', body: movie?.lunaYear),
         LunaTableContent(title: 'studio', body: movie?.lunaStudio),
         LunaTableContent(title: 'runtime', body: movie?.lunaRuntime),

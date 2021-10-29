@@ -8,7 +8,7 @@ class SettingsConfigurationSonarrHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/sonarr/headers');
 
   @override
-  Widget widget() => SettingsHeaderRoute(module: LunaModule.SONARR);
+  Widget widget() => const SettingsHeaderRoute(module: LunaModule.SONARR);
 
   @override
   void defineRoute(FluroRouter router) =>

@@ -20,7 +20,7 @@ class TautulliUserDetailsNavigationBar extends StatelessWidget {
     'IPs',
   ];
 
-  TautulliUserDetailsNavigationBar({
+  const TautulliUserDetailsNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

@@ -769,13 +769,24 @@ class SettingsDialogs {
       Navigator.of(context).pop();
     }
 
+    IconData _getIcon(CalendarStartingType type) {
+      switch (type) {
+        case CalendarStartingType.CALENDAR:
+          return CalendarStartingType.SCHEDULE.icon;
+        case CalendarStartingType.SCHEDULE:
+          return CalendarStartingType.CALENDAR.icon;
+        default:
+          return Icons.help;
+      }
+    }
+
     await LunaDialog.dialog(
       context: context,
       title: 'settings.StartingType'.tr(),
       content: List.generate(
         CalendarStartingType.values.length,
         (index) => LunaDialog.tile(
-          icon: CalendarStartingType.values[index].icon,
+          icon: _getIcon(CalendarStartingType.values[index]),
           iconColor: LunaColours().byListIndex(index),
           text: CalendarStartingType.values[index].name,
           onTap: () => _setValues(true, CalendarStartingType.values[index]),

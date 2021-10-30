@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -47,8 +46,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _versionInformation(),
         _logs(),
         const LunaDivider(),
-        SettingsSystemBackupRestoreBackupTile(),
-        SettingsSystemBackupRestoreRestoreTile(),
+        const SettingsSystemBackupRestoreBackupTile(),
+        const SettingsSystemBackupRestoreRestoreTile(),
         const LunaDivider(),
         if (LunaFirebaseAnalytics.isPlatformCompatible) _enableAnalytics(),
         if (LunaFirebaseCrashlytics.isPlatformCompatible) _enableCrashlytics(),

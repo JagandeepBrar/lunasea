@@ -80,7 +80,7 @@ class _State extends State<LidarrDetailsArtist> {
         actions: _arguments == null || _arguments.data == null
             ? null
             : <Widget>[
-                LidarrDetailsHideButton(),
+                const LidarrDetailsHideButton(),
                 LidarrDetailsEditButton(data: _arguments.data),
                 LidarrDetailsSettingsButton(
                   data: _arguments.data,

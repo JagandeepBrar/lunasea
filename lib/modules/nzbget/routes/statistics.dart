@@ -5,6 +5,10 @@ import 'package:lunasea/modules/nzbget.dart';
 class NZBGetStatistics extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget/statistics';
 
+  const NZBGetStatistics({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<NZBGetStatistics> createState() => _State();
 }

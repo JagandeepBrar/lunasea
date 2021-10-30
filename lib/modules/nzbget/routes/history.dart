@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
-import 'package:tuple/tuple.dart';
 
 class NZBGetHistory extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget/history';

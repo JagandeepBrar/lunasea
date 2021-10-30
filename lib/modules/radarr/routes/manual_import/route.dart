@@ -30,7 +30,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(context),
-        bottomNavigationBar: RadarrManualImportBottomActionBar(),
+        bottomNavigationBar: const RadarrManualImportBottomActionBar(),
       ),
     );
   }

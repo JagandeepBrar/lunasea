@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
+  const RadarrAddMovieDetailsMinimumAvailabilityTile({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(

@@ -34,8 +34,8 @@ class SABnzbdDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SABnzbdDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  SABnzbdDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'SABNZBD_NAVIGATION_INDEX':
         return SABnzbdDatabaseValue.NAVIGATION_INDEX;
       default:

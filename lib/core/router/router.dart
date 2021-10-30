@@ -43,17 +43,19 @@ class LunaRouter {
         LidarrDetailsAlbum.ROUTE_NAME: (context) => const LidarrDetailsAlbum(),
         LidarrDetailsArtist.ROUTE_NAME: (context) =>
             const LidarrDetailsArtist(),
-        LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
+        LidarrSearchResults.ROUTE_NAME: (context) =>
+            const LidarrSearchResults(),
       };
 
   Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder>{
-        NZBGet.ROUTE_NAME: (context) => NZBGet(),
-        NZBGetStatistics.ROUTE_NAME: (context) => NZBGetStatistics(),
+        NZBGet.ROUTE_NAME: (context) => const NZBGet(),
+        NZBGetStatistics.ROUTE_NAME: (context) => const NZBGetStatistics(),
       };
 
   Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder>{
-        SABnzbd.ROUTE_NAME: (context) => SABnzbd(),
-        SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
-        SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
+        SABnzbd.ROUTE_NAME: (context) => const SABnzbd(),
+        SABnzbdStatistics.ROUTE_NAME: (context) => const SABnzbdStatistics(),
+        SABnzbdHistoryStages.ROUTE_NAME: (context) =>
+            const SABnzbdHistoryStages(),
       };
 }

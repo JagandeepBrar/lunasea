@@ -10,13 +10,14 @@ class LidarrDescriptionBlock extends StatefulWidget {
   final Map headers;
 
   const LidarrDescriptionBlock({
+    Key key,
     @required this.description,
     @required this.title,
     @required this.uri,
     @required this.fallbackImage,
     @required this.headers,
     this.squareImage = false,
-  });
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State();

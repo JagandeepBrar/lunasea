@@ -74,7 +74,7 @@ class _State extends State<_Widget>
           scaffoldKey: _scaffoldKey,
           appBar: _appBar(),
           body: _body(context),
-          bottomNavigationBar: RadarrManualImportDetailsBottomActionBar(),
+          bottomNavigationBar: const RadarrManualImportDetailsBottomActionBar(),
         );
       },
     );

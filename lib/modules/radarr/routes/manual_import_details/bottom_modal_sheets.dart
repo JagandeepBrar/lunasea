@@ -172,7 +172,7 @@ class RadarrBottomModalSheets {
           scaffoldKey: null,
           appBar: LunaAppBar(
             title: 'radarr.SelectMovie'.tr(),
-            bottom: RadarrManualImportDetailsConfigureMoviesSearchBar(),
+            bottom: const RadarrManualImportDetailsConfigureMoviesSearchBar(),
             hideLeading: true,
           ),
           body: FutureBuilder(

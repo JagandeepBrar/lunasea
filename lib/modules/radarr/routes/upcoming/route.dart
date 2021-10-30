@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:tuple/tuple.dart';
 
 class RadarrUpcomingRoute extends StatefulWidget {
+  const RadarrUpcomingRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }

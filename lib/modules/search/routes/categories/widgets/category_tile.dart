@@ -7,9 +7,10 @@ class SearchCategoryTile extends StatelessWidget {
   final int index;
 
   const SearchCategoryTile({
+    Key key,
     @required this.category,
     this.index = 0,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

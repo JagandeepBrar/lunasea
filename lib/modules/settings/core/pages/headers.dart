@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/modules/settings.dart';
 
 class SettingsHeaderRoute extends StatefulWidget {
   final LunaModule module;

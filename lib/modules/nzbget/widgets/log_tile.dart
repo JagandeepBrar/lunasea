@@ -6,8 +6,9 @@ class NZBGetLogTile extends StatelessWidget {
   final NZBGetLogData data;
 
   const NZBGetLogTile({
+    Key key,
     @required this.data,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => LunaListTile(

@@ -8,10 +8,11 @@ class LidarrMissingTile extends StatefulWidget {
   final Function refresh;
 
   const LidarrMissingTile({
+    Key key,
     @required this.entry,
     @required this.scaffoldKey,
     @required this.refresh,
-  });
+  }) : super(key: key);
 
   @override
   State<LidarrMissingTile> createState() => _State();

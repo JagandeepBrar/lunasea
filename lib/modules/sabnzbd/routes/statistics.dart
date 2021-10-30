@@ -5,6 +5,10 @@ import 'package:lunasea/modules/sabnzbd.dart';
 class SABnzbdStatistics extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/statistics';
 
+  const SABnzbdStatistics({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SABnzbdStatistics> createState() => _State();
 }

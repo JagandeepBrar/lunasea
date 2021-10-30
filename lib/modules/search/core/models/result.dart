@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
 class NewznabResultData {
@@ -29,6 +28,7 @@ class NewznabResultData {
       return _date.toLocal().isAfter(DateTime.now())
           ? DateTime.now()
           : _date.toLocal();
+      // ignore: empty_catches
     } catch (e) {}
     return null;
   }

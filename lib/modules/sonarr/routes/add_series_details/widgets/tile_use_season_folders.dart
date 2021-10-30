@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsUseSeasonFoldersTile extends StatelessWidget {
+  const SonarrSeriesAddDetailsUseSeasonFoldersTile({Key key,}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => LunaListTile(
         context: context,

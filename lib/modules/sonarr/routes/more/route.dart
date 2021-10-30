@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMoreRoute extends StatefulWidget {
+  const SonarrMoreRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SonarrMoreRoute> createState() => _State();
 }

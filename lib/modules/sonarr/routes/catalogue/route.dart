@@ -3,9 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
-import 'package:tuple/tuple.dart';
 
 class SonarrCatalogueRoute extends StatefulWidget {
+  const SonarrCatalogueRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SonarrCatalogueRoute> createState() => _State();
 }

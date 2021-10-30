@@ -22,9 +22,11 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
+  // ignore: no_logic_in_create_state
   State<_SearchBar> createState() => _State(scrollController: scrollController);
 }
 

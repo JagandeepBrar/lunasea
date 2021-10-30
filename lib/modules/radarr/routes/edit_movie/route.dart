@@ -158,10 +158,10 @@ class _State extends State<_Widget>
       controller: scrollController,
       children: [
         const RadarrMoviesEditMonitoredTile(),
-        RadarrMoviesEditMinimumAvailabilityTile(),
+        const RadarrMoviesEditMinimumAvailabilityTile(),
         RadarrMoviesEditQualityProfileTile(profiles: qualityProfiles),
-        RadarrMoviesEditPathTile(),
-        RadarrMoviesEditTagsTile(),
+        const RadarrMoviesEditPathTile(),
+        const RadarrMoviesEditTagsTile(),
       ],
     );
   }

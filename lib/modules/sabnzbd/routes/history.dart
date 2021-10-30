@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:tuple/tuple.dart';
 
 class SABnzbdHistory extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/history';

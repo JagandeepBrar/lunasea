@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
+  const SonarrAddSeriesDetailsActionBar({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaBottomActionBar(

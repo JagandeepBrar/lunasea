@@ -169,12 +169,12 @@ class _State extends State<_Widget>
       controller: scrollController,
       children: [
         const SonarrSeriesEditMonitoredTile(),
-        SonarrSeriesEditSeasonFoldersTile(),
-        SonarrSeriesEditSeriesPathTile(),
+        const SonarrSeriesEditSeasonFoldersTile(),
+        const SonarrSeriesEditSeriesPathTile(),
         SonarrSeriesEditQualityProfileTile(profiles: qualityProfiles),
         SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles),
-        SonarrSeriesEditSeriesTypeTile(),
-        SonarrSeriesEditTagsTile(),
+        const SonarrSeriesEditSeriesTypeTile(),
+        const SonarrSeriesEditTagsTile(),
       ],
     );
   }

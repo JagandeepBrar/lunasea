@@ -36,8 +36,8 @@ class OverseerrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  OverseerrDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  OverseerrDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'OVERSEERR_NAVIGATION_INDEX':
         return OverseerrDatabaseValue.NAVIGATION_INDEX;
       case 'OVERSEERR_CONTENT_PAGE_SIZE':

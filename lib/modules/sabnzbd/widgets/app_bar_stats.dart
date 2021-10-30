@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:tuple/tuple.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
+  const SABnzbdAppBarStats({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Selector<SABnzbdState, Tuple5<bool, String, String, String, int>>(

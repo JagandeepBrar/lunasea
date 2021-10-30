@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
-import 'package:tuple/tuple.dart';
 
 class NZBGetQueueFAB extends StatefulWidget {
   final ScrollController scrollController;

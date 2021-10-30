@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         return LunaListView(
           controller: scrollController,
           children: [
-            SearchSubcategoryAllTile(),
+            const SearchSubcategoryAllTile(),
             ...List.generate(
               subcategories.length,
               (index) => SearchSubcategoryTile(index: index),

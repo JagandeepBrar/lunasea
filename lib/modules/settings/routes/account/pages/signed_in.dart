@@ -59,7 +59,7 @@ class _State extends State<SettingsAccountSignedInPage> {
   Widget _body() {
     return LunaListView(
       controller: widget.scrollController,
-      children: [
+      children: const [
         SettingsAccountBackupConfigurationTile(),
         SettingsAccountRestoreConfigurationTile(),
         SettingsAccountDeleteConfigurationTile(),

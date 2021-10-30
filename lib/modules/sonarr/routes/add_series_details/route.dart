@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -69,7 +68,7 @@ class _State extends State<_Widget>
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(context),
-        bottomNavigationBar: SonarrAddSeriesDetailsActionBar(),
+        bottomNavigationBar: const SonarrAddSeriesDetailsActionBar(),
       ),
     );
   }
@@ -145,14 +144,14 @@ class _State extends State<_Widget>
           onTapShowOverview: true,
           exists: false,
         ),
-        SonarrSeriesAddDetailsMonitoredTile(),
-        SonarrSeriesAddDetailsUseSeasonFoldersTile(),
-        SonarrSeriesAddDetailsSeriesTypeTile(),
-        SonarrSeriesAddDetailsMonitorStatusTile(),
-        SonarrSeriesAddDetailsRootFolderTile(),
-        SonarrSeriesAddDetailsQualityProfileTile(),
-        SonarrSeriesAddDetailsLanguageProfileTile(),
-        SonarrSeriesAddDetailsTagsTile(),
+        const SonarrSeriesAddDetailsMonitoredTile(),
+        const SonarrSeriesAddDetailsUseSeasonFoldersTile(),
+        const SonarrSeriesAddDetailsSeriesTypeTile(),
+        const SonarrSeriesAddDetailsMonitorStatusTile(),
+        const SonarrSeriesAddDetailsRootFolderTile(),
+        const SonarrSeriesAddDetailsQualityProfileTile(),
+        const SonarrSeriesAddDetailsLanguageProfileTile(),
+        const SonarrSeriesAddDetailsTagsTile(),
       ],
     );
   }

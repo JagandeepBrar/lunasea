@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
-import 'package:tuple/tuple.dart';
 
 class NZBGetAppBarStats extends StatelessWidget {
+  const NZBGetAppBarStats({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Selector<NZBGetState, Tuple5<bool, String, String, String, String>>(

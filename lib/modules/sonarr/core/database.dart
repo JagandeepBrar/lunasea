@@ -97,8 +97,8 @@ class SonarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SonarrDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  SonarrDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'SONARR_NAVIGATION_INDEX':
         return SonarrDatabaseValue.NAVIGATION_INDEX;
       case 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS':

@@ -7,9 +7,10 @@ class SABnzbdHistoryTile extends StatefulWidget {
   final Function() refresh;
 
   const SABnzbdHistoryTile({
+    Key key,
     @required this.data,
     @required this.refresh,
-  });
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State();

@@ -5,7 +5,7 @@
 #### NEW
 
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
-- `[UI/UX]` (Drawer) Use module's brand colour as the highlighted colour
+- `[UI/UX]` (Modules) Use module's brand colour more across the UI
 
 #### FIXES
 

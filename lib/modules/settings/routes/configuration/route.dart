@@ -134,7 +134,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       subtitle: LunaText.subtitle(
         text: 'settings.ConfigureModule'.tr(args: [module.name]),
       ),
-      trailing: LunaIconButton(icon: module.icon),
+      trailing: LunaIconButton(
+        icon: module.icon,
+        color: module.color,
+      ),
       onTap: () async => module.settingsPage.navigateTo(context),
     );
   }

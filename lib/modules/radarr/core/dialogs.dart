@@ -622,7 +622,7 @@ class RadarrDialogs {
       title: 'Remove Movie',
       buttons: [
         LunaDialog.button(
-          text: 'Remove',
+          text: 'lunasea.Remove'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),

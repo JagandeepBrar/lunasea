@@ -558,7 +558,7 @@ class SonarrDialogs {
     return Tuple2(_flag, _type);
   }
 
-  static Future<List<dynamic>> confirmDeleteSeries(BuildContext context) async {
+  Future<bool> removeSeries(BuildContext context) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
@@ -568,29 +568,35 @@ class SonarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Remove Series',
+      title: 'sonarr.RemoveSeries'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Remove',
+          text: 'lunasea.Remove'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        Selector<SonarrState, bool>(
-          selector: (_, state) => state.removeSeriesDeleteFiles,
+        SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.listen(
           builder: (context, value, _) => LunaDialog.checkbox(
-            title: 'Delete Files',
-            value: value,
-            onChanged: (selected) =>
-                Provider.of<SonarrState>(context, listen: false)
-                    .removeSeriesDeleteFiles = selected,
+            title: 'sonarr.AddToExclusionList'.tr(),
+            value: SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.put(value),
+          ),
+        ),
+        SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.DeleteFiles'.tr(),
+            value: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.put(value),
           ),
         ),
       ],
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 
   static Future<List<dynamic>> confirmDeleteEpisodeFile(

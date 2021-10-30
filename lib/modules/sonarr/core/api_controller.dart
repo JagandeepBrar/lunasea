@@ -250,4 +250,88 @@ class SonarrAPIController {
     }
     return false;
   }
+
+  Future<bool> refreshSeries({
+    @required BuildContext context,
+    @required SonarrSeries series,
+    bool showSnackbar = true,
+  }) async {
+    assert(series != null);
+    if (context.read<SonarrState>().enabled) {
+      return await context
+          .read<SonarrState>()
+          .api
+          .command
+          .refreshSeries(seriesId: series.id)
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'lunasea.Refreshing'.tr(),
+            message: series.title,
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Sonarr: Unable to refresh movie: ${series.id}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToRefresh'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
+  }
+
+  Future<bool> removeSeries({
+    @required BuildContext context,
+    @required SonarrSeries series,
+    bool showSnackbar = true,
+  }) async {
+    assert(series != null);
+    if (context.read<SonarrState>().enabled) {
+      return await context
+          .read<SonarrState>()
+          .api
+          .series
+          .delete(
+            seriesId: series.id,
+            deleteFiles: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data,
+            addImportListExclusion:
+                SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.data,
+          )
+          .then((_) async {
+        series.id = null;
+        return await context
+            .read<SonarrState>()
+            .setSingleSeries(series)
+            .then((_) {
+          if (showSnackbar)
+            showLunaSuccessSnackBar(
+              title: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data
+                  ? 'sonarr.RemovedSeriesWithFiles'.tr()
+                  : 'sonarr.RemovedSeries'.tr(),
+              message: series.title,
+            );
+          return true;
+        });
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to remove series: ${series.id}',
+          error,
+          stack,
+        );
+        showLunaErrorSnackBar(
+          title: 'sonarr.FailedToRemoveSeries'.tr(),
+          error: error,
+        );
+        return false;
+      });
+    }
+    return false;
+  }
 }

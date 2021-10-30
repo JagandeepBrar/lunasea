@@ -327,18 +327,6 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  /////////////////////
-  /// DELETE SERIES ///
-  /////////////////////
-
-  bool _removeSeriesDeleteFiles = false;
-  bool get removeSeriesDeleteFiles => _removeSeriesDeleteFiles;
-  set removeSeriesDeleteFiles(bool removeSeriesDeleteFiles) {
-    assert(removeSeriesDeleteFiles != null);
-    _removeSeriesDeleteFiles = removeSeriesDeleteFiles;
-    notifyListeners();
-  }
-
   //////////////
   /// IMAGES ///
   //////////////

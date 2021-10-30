@@ -43,17 +43,26 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   Future<void> execute(BuildContext context, SonarrSeries series) async {
     switch (this) {
       case SonarrSeriesSettingsType.EDIT:
-        return _edit(context, series);
+        return SonarrEditSeriesRouter()
+            .navigateTo(context, seriesId: series.id);
       case SonarrSeriesSettingsType.REFRESH:
+        return SonarrAPIController()
+            .refreshSeries(context: context, series: series);
       case SonarrSeriesSettingsType.DELETE:
+        bool result = await SonarrDialogs().removeSeries(context);
+        if (result) {
+          SonarrAPIController()
+              .removeSeries(context: context, series: series)
+              .then((_) {
+            context.read<SonarrState>().fetchSeries();
+            Navigator.of(context).lunaSafetyPop();
+          });
+        }
+        return;
       case SonarrSeriesSettingsType.MONITORED:
-        return _monitored(context, series);
+        return SonarrAPIController()
+            .toggleMonitored(context: context, series: series);
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }
-
-  Future<void> _edit(BuildContext context, SonarrSeries series) async =>
-      SonarrEditSeriesRouter().navigateTo(context, seriesId: series.id);
-  Future<void> _monitored(BuildContext context, SonarrSeries series) =>
-      SonarrAPIController().toggleMonitored(context: context, series: series);
 }

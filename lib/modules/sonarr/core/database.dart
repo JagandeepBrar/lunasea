@@ -58,6 +58,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
+        case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
+        case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
           data[value.key] = value.data;
           break;
       }
@@ -99,6 +101,8 @@ class SonarrDatabase extends LunaModuleDatabase {
           case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
           case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
           case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
+          case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
+          case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
             value.put(config[key]);
             break;
         }
@@ -144,6 +148,10 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
       case 'SONARR_DEFAULT_FILTERING_SERIES':
         return SonarrDatabaseValue.DEFAULT_FILTERING_SERIES;
+      case 'SONARR_REMOVE_SERIES_DELETE_FILES':
+        return SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES;
+      case 'SONARR_REMOVE_SERIES_EXCLUSION_LIST':
+        return SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST;
       default:
         return null;
     }
@@ -166,6 +174,8 @@ enum SonarrDatabaseValue {
   DEFAULT_SORTING_RELEASES,
   DEFAULT_SORTING_SERIES_ASCENDING,
   DEFAULT_SORTING_RELEASES_ASCENDING,
+  REMOVE_SERIES_DELETE_FILES,
+  REMOVE_SERIES_EXCLUSION_LIST,
   UPCOMING_FUTURE_DAYS,
   QUEUE_REFRESH_RATE,
   CONTENT_PAGE_SIZE,
@@ -210,6 +220,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_DEFAULT_SORTING_RELEASES_ASCENDING';
       case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
         return 'SONARR_DEFAULT_FILTERING_SERIES';
+      case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
+        return 'SONARR_REMOVE_SERIES_DELETE_FILES';
+      case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        return 'SONARR_REMOVE_SERIES_EXCLUSION_LIST';
     }
     throw Exception('key not found');
   }
@@ -254,6 +268,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return _box.get(this.key, defaultValue: true);
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
         return _box.get(this.key, defaultValue: true);
+      case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
+        return _box.get(this.key, defaultValue: false);
+      case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        return _box.get(this.key, defaultValue: false);
     }
     throw Exception('data not found');
   }
@@ -314,6 +332,12 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return;
       case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         if (value is int) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
+        if (value is bool) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        if (value is bool) box.put(this.key, value);
         return;
     }
     LunaLogger().warning(

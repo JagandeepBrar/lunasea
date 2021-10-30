@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -83,14 +82,17 @@ extension SonarrSeriesExtension on SonarrSeries {
   SonarrSeries clone() => SonarrSeries.fromJson(this.toJson());
 
   /// Copies changes from a [SonarrSeriesEditState] state object back to the [SonarrSeries] object.
-  void updateEdits(SonarrSeriesEditState edits) {
-    this.monitored = edits?.monitored ?? this.monitored;
-    this.seasonFolder = edits?.useSeasonFolders ?? this.seasonFolder;
-    this.path = edits?.seriesPath ?? this.path;
-    this.qualityProfileId = edits?.qualityProfile?.id ?? this.qualityProfileId;
-    this.languageProfileId =
+  SonarrSeries updateEdits(SonarrSeriesEditState edits) {
+    SonarrSeries series = this.clone();
+    series.monitored = edits?.monitored ?? this.monitored;
+    series.seasonFolder = edits?.useSeasonFolders ?? this.seasonFolder;
+    series.path = edits?.seriesPath ?? this.path;
+    series.qualityProfileId =
+        edits?.qualityProfile?.id ?? this.qualityProfileId;
+    series.languageProfileId =
         edits?.languageProfile?.id ?? this.languageProfileId;
-    this.seriesType = edits?.seriesType ?? this.seriesType;
-    this.tags = edits?.tags?.map((tag) => tag.id)?.toList() ?? [];
+    series.seriesType = edits?.seriesType ?? this.seriesType;
+    series.tags = edits?.tags?.map((tag) => tag.id)?.toList() ?? [];
+    return series;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -9,28 +8,41 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
   @override
   _Widget widget({
     @required int seriesId,
-  }) =>
-      _Widget(seriesId: seriesId);
+  }) {
+    return _Widget(
+      seriesId: seriesId,
+    );
+  }
 
   @override
-  Future<void> navigateTo(BuildContext context,
-          {@required int seriesId}) async =>
-      LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
+  Future<void> navigateTo(
+    BuildContext context, {
+    @required int seriesId,
+  }) async {
+    LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
+  }
 
   @override
-  String route({@required int seriesId}) =>
-      fullRoute.replaceFirst(':seriesid', seriesId.toString());
+  String route({
+    @required int seriesId,
+  }) {
+    return fullRoute.replaceFirst(':seriesid', seriesId.toString());
+  }
 
   @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-              ? (int.tryParse(params['seriesid'][0]) ?? -1)
-              : -1;
-          return _Widget(seriesId: seriesId);
-        },
-      );
+  void defineRoute(
+    FluroRouter router,
+  ) {
+    super.withParameterRouteDefinition(
+      router,
+      (context, params) {
+        int seriesId = (params['seriesid']?.isNotEmpty ?? false)
+            ? (int.tryParse(params['seriesid'][0]) ?? -1)
+            : -1;
+        return _Widget(seriesId: seriesId);
+      },
+    );
+  }
 }
 
 class _Widget extends StatefulWidget {
@@ -60,8 +72,8 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     if (widget.seriesId <= 0)
       return LunaInvalidRoute(
-        title: 'Edit Series',
-        message: 'Series Not Found',
+        title: 'sonarr.EditSeries'.tr(),
+        message: 'sonarr.SeriesNotFound'.tr(),
       );
     return ChangeNotifierProvider(
         create: (_) => SonarrSeriesEditState(),
@@ -76,7 +88,7 @@ class _State extends State<_Widget>
                 state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
             bottomNavigationBar: state == LunaLoadingState.ERROR
                 ? null
-                : SonarrEditSeriesBottomActionBar(),
+                : const SonarrEditSeriesActionBar(),
           );
         });
   }
@@ -84,7 +96,7 @@ class _State extends State<_Widget>
   Widget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: 'Edit Series',
+      title: 'sonarr.EditSeries'.tr(),
     );
   }
 
@@ -98,13 +110,23 @@ class _State extends State<_Widget>
   Widget _body(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        context.watch<SonarrState>().series, // 0
-        context.watch<SonarrState>().qualityProfiles, // 1
-        context.watch<SonarrState>().tags, // 2
-        context.watch<SonarrState>().languageProfiles,
+        context.select<SonarrState, Future<List<SonarrSeries>>>(
+          (state) => state.series,
+        ),
+        context.select<SonarrState, Future<List<SonarrQualityProfile>>>(
+          (state) => state.qualityProfiles,
+        ),
+        context.select<SonarrState, Future<List<SonarrTag>>>(
+          (state) => state.tags,
+        ),
+        context.select<SonarrState, Future<List<SonarrLanguageProfile>>>(
+          (state) => state.languageProfiles,
+        ),
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-        if (snapshot.hasError) return LunaMessage.error(onTap: loadCallback);
+        if (snapshot.hasError) {
+          return LunaMessage.error(onTap: loadCallback);
+        }
         if (snapshot.hasData) {
           SonarrSeries series =
               (snapshot.data[0] as List<SonarrSeries>).firstWhere(
@@ -117,8 +139,7 @@ class _State extends State<_Widget>
             series: series,
             qualityProfiles: snapshot.data[1],
             tags: snapshot.data[2],
-            languageProfiles:
-                snapshot.data.length == 3 ? null : snapshot.data[3],
+            languageProfiles: snapshot.data[3],
           );
         }
         return const LunaLoader();
@@ -147,7 +168,7 @@ class _State extends State<_Widget>
     return LunaListView(
       controller: scrollController,
       children: [
-        SonarrSeriesEditMonitoredTile(),
+        const SonarrSeriesEditMonitoredTile(),
         SonarrSeriesEditSeasonFoldersTile(),
         SonarrSeriesEditSeriesPathTile(),
         SonarrSeriesEditQualityProfileTile(profiles: qualityProfiles),

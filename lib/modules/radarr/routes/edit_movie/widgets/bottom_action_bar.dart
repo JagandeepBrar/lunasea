@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrEditMovieActionBar extends StatelessWidget {
+  const RadarrEditMovieActionBar({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaBottomActionBar(
@@ -26,8 +30,10 @@ class RadarrEditMovieActionBar extends StatelessWidget {
             .read<RadarrMoviesEditState>()
             .movie
             .updateEdits(context.read<RadarrMoviesEditState>());
-        bool result =
-            await RadarrAPIHelper().updateMovie(context: context, movie: movie);
+        bool result = await RadarrAPIHelper().updateMovie(
+          context: context,
+          movie: movie,
+        );
         if (result) Navigator.of(context).lunaSafetyPop();
       }
     }

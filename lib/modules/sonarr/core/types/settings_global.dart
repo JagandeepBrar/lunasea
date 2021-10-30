@@ -48,13 +48,13 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
       case SonarrGlobalSettingsType.WEB_GUI:
         return _webGUI(context);
       case SonarrGlobalSettingsType.RUN_RSS_SYNC:
-        return; // TODO: Implement handler
+        return _runRssSync(context);
       case SonarrGlobalSettingsType.SEARCH_ALL_MISSING:
-        return; // TODO: Implement handler
+        return _searchAllMissing(context);
       case SonarrGlobalSettingsType.UPDATE_LIBRARY:
-        return; // TODO: Implement handler
+        return _updateLibrary(context);
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
-        return; // TODO: Implement handler
+        return _backupDatabase(context);
     }
     throw Exception('Invalid RadarrGlobalSettingsType');
   }
@@ -63,4 +63,15 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
       context.read<SonarrState>().host.lunaOpenGenericLink(
             headers: context.read<SonarrState>().headers,
           );
+  Future<void> _backupDatabase(BuildContext context) async =>
+      SonarrAPIController().backupDatabase(context: context);
+  Future<void> _searchAllMissing(BuildContext context) async {
+    bool result = await SonarrDialogs().searchAllMissingEpisodes(context);
+    if (result) SonarrAPIController().missingEpisodesSearch(context: context);
+  }
+
+  Future<void> _runRssSync(BuildContext context) async =>
+      SonarrAPIController().runRSSSync(context: context);
+  Future<void> _updateLibrary(BuildContext context) async =>
+      SonarrAPIController().updateLibrary(context: context);
 }

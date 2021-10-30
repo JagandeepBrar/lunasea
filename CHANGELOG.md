@@ -5,12 +5,18 @@
 #### NEW
 
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
+- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
+- `[Sonarr]` (History) Now an infinite scrolling list
+- `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
 - `[UI/UX]` (Modules) Use module's brand colour more across the UI
 
 #### FIXES
 
 - `[Flutter]` Update packages
 - `[Flutter]` Upgrade to Firebase SDK v8.7.0
+- `[Settings]` (Calendar) Starting type would have incorrect icons
+- `[Sonarr]` Now only utilizes v3 API routes
+- `[Sonarr]` (Edit) Vastly speed up response time on editing a series
 
 ## v5.1.1 (50101002)
 
@@ -21,7 +27,7 @@
 - `[Flutter]` Upgrade to Firebase SDK v8.3.0
 - `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
 - `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views
-- `[UI/UX]` (Router) OSlide transitions between pages could not occur on some devices
+- `[UI/UX]` (Router) Slide transitions between pages could not occur on some devices
 - `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
 - `[UI/UX]` (Theme) Remove deprecated theme values
 

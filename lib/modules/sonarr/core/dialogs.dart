@@ -353,8 +353,9 @@ class SonarrDialogs {
     return [_flag, _index];
   }
 
-  static Future<List<dynamic>> searchAllMissingEpisodes(
-      BuildContext context) async {
+  Future<bool> searchAllMissingEpisodes(
+    BuildContext context,
+  ) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
@@ -364,20 +365,21 @@ class SonarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Missing Episodes',
+      title: 'sonarr.MissingEpisodes'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Search',
+          text: 'sonarr.Search'.tr(),
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
         LunaDialog.textContent(
-            text: 'Are you sure you want to search for all missing episodes?'),
+          text: 'sonarr.MissingEpisodesHint1'.tr(),
+        ),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 
   Future<bool> deleteTag(BuildContext context) async {

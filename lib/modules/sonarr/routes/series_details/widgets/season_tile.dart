@@ -84,39 +84,36 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
   Future<void> _trailingOnPressed() async {
     SonarrState _state = Provider.of<SonarrState>(context, listen: false);
     bool _fallbackState = widget.season.monitored;
-    await _state.series
-        .then((seriesList) {
-          SonarrSeries _series = seriesList.firstWhere(
-            (series) => series.id == widget.seriesId,
-            orElse: () => null,
-          );
-          if (_series == null) throw Exception('Series not found');
-          return _series;
-        })
-        .then((series) {
-          series.seasons.forEach((season) {
-            if (season.seasonNumber == widget.season.seasonNumber)
-              season.monitored = !widget.season.monitored;
-          });
-          return series;
-        })
-        .then((series) => _state.api.series.updateSeries(series: series))
-        .then((_) {
-          setState(() {});
-          showLunaSuccessSnackBar(
-            title:
-                widget.season.monitored ? 'Monitoring' : 'No Longer Monitoring',
-            message: widget.season.seasonNumber == 0
-                ? 'Specials'
-                : 'Season ${widget.season.seasonNumber}',
-          );
-        })
-        .catchError((error, stack) {
-          setState(() => widget.season.monitored = _fallbackState);
-          LunaLogger().error(
-              'Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}',
-              error,
-              stack);
-        });
+    await _state.series.then((seriesList) {
+      SonarrSeries _series = seriesList.firstWhere(
+        (series) => series.id == widget.seriesId,
+        orElse: () => null,
+      );
+      if (_series == null) throw Exception('Series not found');
+      return _series;
+    }).then((series) {
+      series.seasons.forEach((season) {
+        if (season.seasonNumber == widget.season.seasonNumber)
+          season.monitored = !widget.season.monitored;
+      });
+      return series;
+    }).then((series) {
+      // TODO: Fix
+      //_state.api.series.updateSeries(series: series))
+    }).then((_) {
+      setState(() {});
+      showLunaSuccessSnackBar(
+        title: widget.season.monitored ? 'Monitoring' : 'No Longer Monitoring',
+        message: widget.season.seasonNumber == 0
+            ? 'Specials'
+            : 'Season ${widget.season.seasonNumber}',
+      );
+    }).catchError((error, stack) {
+      setState(() => widget.season.monitored = _fallbackState);
+      LunaLogger().error(
+          'Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}',
+          error,
+          stack);
+    });
   }
 }

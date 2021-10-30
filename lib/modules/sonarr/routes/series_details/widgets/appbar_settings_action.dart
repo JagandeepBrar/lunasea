@@ -69,29 +69,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
     BuildContext context,
     SonarrSeries series,
   ) async {
-    SonarrState _state = context.read<SonarrState>();
-    if (_state.api != null) {
-      SonarrSeries _series = series.clone();
-      _series.monitored = !_series.monitored;
-      _state.api.series.updateSeries(series: _series).then((_) {
-        series.monitored = !series.monitored;
-        showLunaSuccessSnackBar(
-          title: series.monitored ? 'Monitoring' : 'No Longer Monitoring',
-          message: series.title,
-        );
-      }).catchError((error, stack) {
-        LunaLogger().error(
-            'Failed to toggle monitored state for series: ${series.id} / ${series.monitored}',
-            error,
-            stack);
-        showLunaErrorSnackBar(
-          title: series.monitored
-              ? 'Failed to Unmonitor Series'
-              : 'Failed to Monitor Series',
-          error: error,
-        );
-      });
-    }
+    // TODO: Fix
   }
 
   static Future<void> _refresh(

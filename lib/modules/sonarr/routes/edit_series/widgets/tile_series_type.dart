@@ -3,11 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditSeriesTypeTile extends StatelessWidget {
+  const SonarrSeriesEditSeriesTypeTile({Key key,}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Series Type'),
+      title: LunaText.title(text: 'sonarr.SeriesType'.tr()),
       subtitle: LunaText.subtitle(
           text: context
                   .watch<SonarrSeriesEditState>()

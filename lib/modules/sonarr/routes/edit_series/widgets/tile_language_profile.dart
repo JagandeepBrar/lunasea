@@ -14,7 +14,7 @@ class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Language Profile'),
+      title: LunaText.title(text: 'sonarr.LanguageProfile'.tr()),
       subtitle: LunaText.subtitle(
           text: context.watch<SonarrSeriesEditState>().languageProfile.name),
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),

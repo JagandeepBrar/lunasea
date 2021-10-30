@@ -282,7 +282,9 @@ class RadarrAPIHelper {
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
-                title: 'Updated Movie', message: movie.title);
+              title: 'Updated Movie',
+              message: movie.title,
+            );
           return true;
         });
       }).catchError((error, stack) {

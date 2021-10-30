@@ -113,7 +113,7 @@ class SonarrCommandHandler_Series {
   ///
   /// Required Parameters:
   /// - `series`: [SonarrSeries] object containing the updated series information.
-  Future<SonarrSeries> updateSeries({
+  Future<SonarrSeries> update({
     required SonarrSeries series,
   }) async =>
       _commandUpdateSeries(

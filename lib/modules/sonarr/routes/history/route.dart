@@ -83,7 +83,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollController: scrollController,
       listener: _fetchPage,
       noItemsFoundMessage: 'sonarr.NoHistoryFound'.tr(),
-      itemBuilder: (context, history, _) => SonarrHistoryTile(history: history),
+      itemBuilder: (context, history, _) => SonarrHistoryTile(
+        history: history,
+      ),
     );
   }
 }

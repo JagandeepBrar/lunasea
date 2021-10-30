@@ -37,10 +37,8 @@ class _State extends State<SonarrSeriesTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
             borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            onTap: () async => _tileOnTap(),
-            // TODO
-            // onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(
-            //     context, widget.series),
+            onTap: _onTap,
+            onLongPress: _onLongPress,
           ),
           decoration: LunaCardDecoration(
             uri: Provider.of<SonarrState>(context, listen: false)
@@ -247,6 +245,17 @@ class _State extends State<SonarrSeriesTile> {
         maxLines: 1,
       );
 
-  Future<void> _tileOnTap() async => SonarrSeriesDetailsRouter()
-      .navigateTo(context, seriesId: widget.series.id);
+  Future<void> _onTap() async => SonarrSeriesDetailsRouter().navigateTo(
+        context,
+        seriesId: widget.series.id,
+      );
+
+  Future<void> _onLongPress() async {
+    Tuple2<bool, SonarrSeriesSettingsType> values =
+        await SonarrDialogs().seriesSettings(
+      context,
+      widget.series,
+    );
+    if (values.item1) values.item2.execute(context, widget.series);
+  }
 }

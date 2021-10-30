@@ -66,7 +66,7 @@ class _State extends State<SonarrSeriesDetailsHistoryPage>
       itemCount: history.length,
       itemBuilder: (context, index) => SonarrHistoryTile(
         history: history[index],
-        series: context.read<SonarrSeriesDetailsState>().series,
+        seriesHistory: true,
       ),
     );
   }

@@ -90,8 +90,10 @@ extension LunaRadarrEventType on RadarrEventType {
     return null;
   }
 
-  List<LunaTableContent> lunaTableContent(RadarrHistoryRecord record,
-      {bool movieHistory = false}) {
+  List<LunaTableContent> lunaTableContent(
+    RadarrHistoryRecord record, {
+    bool movieHistory = false,
+  }) {
     switch (this) {
       case RadarrEventType.GRABBED:
         return _grabbedTableContent(record, !movieHistory);
@@ -113,7 +115,9 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _grabbedTableContent(
-      RadarrHistoryRecord record, bool showSourceTitle) {
+    RadarrHistoryRecord record,
+    bool showSourceTitle,
+  ) {
     return [
       if (showSourceTitle)
         LunaTableContent(
@@ -161,7 +165,9 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _downloadFailedTableContent(
-      RadarrHistoryRecord record, bool showSourceTitle) {
+    RadarrHistoryRecord record,
+    bool showSourceTitle,
+  ) {
     return [
       if (showSourceTitle)
         LunaTableContent(
@@ -176,7 +182,8 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _downloadFolderImportedTableContent(
-      RadarrHistoryRecord record) {
+    RadarrHistoryRecord record,
+  ) {
     return [
       LunaTableContent(
           title: 'quality',
@@ -202,7 +209,9 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _downloadIgnoredTableContent(
-      RadarrHistoryRecord record, bool showSourceTitle) {
+    RadarrHistoryRecord record,
+    bool showSourceTitle,
+  ) {
     return [
       if (showSourceTitle)
         LunaTableContent(
@@ -214,7 +223,9 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _movieFileDeletedTableContent(
-      RadarrHistoryRecord record, bool showSourceTitle) {
+    RadarrHistoryRecord record,
+    bool showSourceTitle,
+  ) {
     return [
       if (showSourceTitle)
         LunaTableContent(
@@ -227,7 +238,8 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _movieFileRenamedTableContent(
-      RadarrHistoryRecord record) {
+    RadarrHistoryRecord record,
+  ) {
     return [
       LunaTableContent(
           title: 'source',
@@ -239,7 +251,8 @@ extension LunaRadarrEventType on RadarrEventType {
   }
 
   List<LunaTableContent> _movieFolderImportedTableContent(
-      RadarrHistoryRecord record) {
+    RadarrHistoryRecord record,
+  ) {
     return [
       LunaTableContent(
           title: 'quality',

@@ -43,8 +43,10 @@ class RadarrHistoryTile extends StatelessWidget {
                   backgroundColor: LunaColours.blueGrey,
                 )),
       ],
-      expandedTableContent: history.eventType
-              ?.lunaTableContent(history, movieHistory: movieHistory) ??
+      expandedTableContent: history.eventType?.lunaTableContent(
+            history,
+            movieHistory: movieHistory,
+          ) ??
           [],
       onLongPress: movieHistory
           ? null

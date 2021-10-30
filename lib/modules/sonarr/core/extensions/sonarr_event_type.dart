@@ -91,35 +91,38 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
   }
 
   List<LunaTableContent> lunaTableContent(
-    SonarrHistoryRecord history,
-  ) {
+    SonarrHistoryRecord history, {
+    bool seriesHistory = false,
+  }) {
     switch (this) {
       case SonarrEventType.DOWNLOAD_FAILED:
-        return _downloadFailedTableContent(history);
+        return _downloadFailedTableContent(history, !seriesHistory);
       case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
-        return _downloadFolderImportedTableContent(history);
+        return _downloadFolderImportedTableContent(history, !seriesHistory);
       case SonarrEventType.DOWNLOAD_IGNORED:
-        return _downloadIgnoredTableContent(history);
+        return _downloadIgnoredTableContent(history, !seriesHistory);
       case SonarrEventType.EPISODE_FILE_DELETED:
-        return _episodeFileDeletedTableContent(history);
+        return _episodeFileDeletedTableContent(history, !seriesHistory);
       case SonarrEventType.EPISODE_FILE_RENAMED:
         return _episodeFileRenamedTableContent(history);
       case SonarrEventType.GRABBED:
-        return _grabbedTableContent(history);
+        return _grabbedTableContent(history, !seriesHistory);
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
       default:
-        return _defaultTableContent(history);
+        return _defaultTableContent(history, !seriesHistory);
     }
   }
 
   List<LunaTableContent> _downloadFailedTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
       LunaTableContent(
         title: 'sonarr.Message'.tr(),
         body: history.data['message'],
@@ -129,12 +132,14 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
 
   List<LunaTableContent> _downloadFolderImportedTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
       LunaTableContent(
         title: 'sonarr.Source'.tr(),
         body: history.data['droppedPath'],
@@ -153,12 +158,14 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
 
   List<LunaTableContent> _downloadIgnoredTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
       LunaTableContent(
         title: 'sonarr.Message'.tr(),
         body: history.data['message'],
@@ -168,6 +175,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
 
   List<LunaTableContent> _episodeFileDeletedTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     String _reasonMapping(String reason) {
       switch (reason) {
@@ -183,10 +191,11 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     }
 
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
       LunaTableContent(
         title: 'sonarr.Reason'.tr(),
         body: _reasonMapping(history.data['reason']),
@@ -219,12 +228,14 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
 
   List<LunaTableContent> _grabbedTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
       LunaTableContent(
         title: 'sonarr.Indexer'.tr(),
         body: history.data['indexer'],
@@ -264,12 +275,14 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
 
   List<LunaTableContent> _defaultTableContent(
     SonarrHistoryRecord history,
+    bool showSourceTitle,
   ) {
     return [
-      LunaTableContent(
-        title: 'sonarr.Name'.tr(),
-        body: history.sourceTitle,
-      ),
+      if (showSourceTitle)
+        LunaTableContent(
+          title: 'sonarr.Name'.tr(),
+          body: history.sourceTitle,
+        ),
     ];
   }
 }

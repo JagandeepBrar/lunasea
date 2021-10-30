@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
@@ -26,13 +27,15 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   String name(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored ? 'Unmonitor Series' : 'Monitor Series';
+        return series.monitored
+            ? 'sonarr.UnmonitorSeries'.tr()
+            : 'sonarr.MonitorSeries'.tr();
       case SonarrSeriesSettingsType.EDIT:
-        return 'Edit Series';
+        return 'sonarr.EditSeries'.tr();
       case SonarrSeriesSettingsType.REFRESH:
-        return 'Refresh Series';
+        return 'sonarr.RefreshSeries'.tr();
       case SonarrSeriesSettingsType.DELETE:
-        return 'Remove Series';
+        return 'sonarr.RemoveSeries'.tr();
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }
@@ -40,6 +43,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   Future<void> execute(BuildContext context, SonarrSeries series) async {
     switch (this) {
       case SonarrSeriesSettingsType.EDIT:
+        return _edit(context, series);
       case SonarrSeriesSettingsType.REFRESH:
       case SonarrSeriesSettingsType.DELETE:
       case SonarrSeriesSettingsType.MONITORED:
@@ -48,4 +52,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }
+
+  Future<void> _edit(BuildContext context, SonarrSeries series) async =>
+      SonarrEditSeriesRouter().navigateTo(context, seriesId: series.id);
 }

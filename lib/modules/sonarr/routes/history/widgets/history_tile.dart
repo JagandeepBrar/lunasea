@@ -4,18 +4,20 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
-  final SonarrSeries series;
+  final bool seriesHistory;
 
   const SonarrHistoryTile({
     Key key,
     @required this.history,
-    this.series,
+    this.seriesHistory = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: series?.title ?? history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
+      title: seriesHistory
+          ? history.sourceTitle
+          : history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
       collapsedSubtitle1: TextSpan(children: [
         TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
         const TextSpan(text: ': '),
@@ -59,7 +61,11 @@ class SonarrHistoryTile extends StatelessWidget {
             backgroundColor: LunaColours.blueGrey,
           ),
       ],
-      expandedTableContent: history.eventType?.lunaTableContent(history) ?? [],
+      expandedTableContent: history.eventType?.lunaTableContent(
+            history,
+            seriesHistory: seriesHistory,
+          ) ??
+          [],
       onLongPress: () async => SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: history?.series?.id ?? -1,

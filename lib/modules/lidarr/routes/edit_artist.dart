@@ -14,6 +14,10 @@ class LidarrEditArtistArguments {
 class LidarrEditArtist extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/edit/artist';
 
+  const LidarrEditArtist({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrEditArtist> createState() => _State();
 }

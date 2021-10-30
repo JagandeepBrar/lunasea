@@ -7,9 +7,10 @@ class LidarrAddSearchResultTile extends StatelessWidget {
   final LidarrSearchData data;
 
   const LidarrAddSearchResultTile({
+    Key key,
     @required this.alreadyAdded,
     @required this.data,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => LunaListTile(

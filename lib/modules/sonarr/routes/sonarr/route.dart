@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -68,8 +67,8 @@ class _State extends State<_Widget> {
     List<Widget> actions;
     if (context.watch<SonarrState>().enabled) {
       actions = [
-        SonarrAppBarAddSeriesAction(),
-        SonarrAppBarGlobalSettingsAction(),
+        const SonarrAppBarAddSeriesAction(),
+        const SonarrAppBarGlobalSettingsAction(),
       ];
     }
     return LunaAppBar.dropdown(
@@ -96,7 +95,7 @@ class _State extends State<_Widget> {
           controller: _pageController,
           children: [
             SonarrCatalogueRoute(),
-            SonarrUpcomingRoute(),
+            const SonarrUpcomingRoute(),
             SonarrMissingRoute(),
             SonarrMoreRoute(),
           ],

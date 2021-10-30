@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
+  const SonarrAppBarGlobalSettingsAction({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaIconButton(

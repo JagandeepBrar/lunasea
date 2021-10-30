@@ -57,7 +57,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
               'The total play count or duration of television, movies, and music played per day.'
             ].join(),
           ),
-          TautulliGraphsDailyPlayCountGraph(),
+          const TautulliGraphsDailyPlayCountGraph(),
           LunaHeader(
             text: 'Monthly',
             subtitle: [
@@ -66,7 +66,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
               'The combined total of television, movies, and music by month.',
             ].join(),
           ),
-          TautulliGraphsPlaysByMonthGraph(),
+          const TautulliGraphsPlaysByMonthGraph(),
           LunaHeader(
             text: 'By Day Of Week',
             subtitle: [
@@ -75,7 +75,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
               'The combined total of television, movies, and music played per day of the week.',
             ].join(),
           ),
-          TautulliGraphsPlayCountByDayOfWeekGraph(),
+          const TautulliGraphsPlayCountByDayOfWeekGraph(),
           LunaHeader(
             text: 'By Top Platforms',
             subtitle: [
@@ -84,7 +84,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
               'The combined total of television, movies, and music played by the top most active platforms.',
             ].join(),
           ),
-          TautulliGraphsPlayCountByTopPlatformsGraph(),
+          const TautulliGraphsPlayCountByTopPlatformsGraph(),
           LunaHeader(
             text: 'By Top Users',
             subtitle: [
@@ -93,7 +93,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
               'The combined total of television, movies, and music played by the top most active users.',
             ].join(),
           ),
-          TautulliGraphsPlayCountByTopUsersGraph(),
+          const TautulliGraphsPlayCountByTopUsersGraph(),
         ],
       ),
     );

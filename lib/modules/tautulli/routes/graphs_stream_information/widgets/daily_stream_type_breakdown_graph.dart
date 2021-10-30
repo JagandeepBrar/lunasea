@@ -4,6 +4,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
+  const TautulliGraphsDailyStreamTypeBreakdownGraph({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(

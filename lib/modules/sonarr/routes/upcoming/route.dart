@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingRoute extends StatefulWidget {
+  const SonarrUpcomingRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SonarrUpcomingRoute> createState() => _State();
 }

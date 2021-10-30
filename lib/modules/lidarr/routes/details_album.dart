@@ -18,6 +18,10 @@ class LidarrDetailsAlbumArguments {
 class LidarrDetailsAlbum extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/details/album';
 
+  const LidarrDetailsAlbum({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrDetailsAlbum> createState() => _State();
 }

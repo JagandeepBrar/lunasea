@@ -16,6 +16,10 @@ class LidarrSearchResultsArguments {
 class LidarrSearchResults extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/search/results';
 
+  const LidarrSearchResults({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrSearchResults> createState() => _State();
 }

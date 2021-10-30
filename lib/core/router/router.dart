@@ -36,12 +36,13 @@ class LunaRouter {
       };
 
   Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder>{
-        Lidarr.ROUTE_NAME: (context) => Lidarr(),
-        LidarrAddSearch.ROUTE_NAME: (context) => LidarrAddSearch(),
+        Lidarr.ROUTE_NAME: (context) => const Lidarr(),
+        LidarrAddSearch.ROUTE_NAME: (context) => const LidarrAddSearch(),
         LidarrAddDetails.ROUTE_NAME: (context) => const LidarrAddDetails(),
-        LidarrEditArtist.ROUTE_NAME: (context) => LidarrEditArtist(),
-        LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
-        LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
+        LidarrEditArtist.ROUTE_NAME: (context) => const LidarrEditArtist(),
+        LidarrDetailsAlbum.ROUTE_NAME: (context) => const LidarrDetailsAlbum(),
+        LidarrDetailsArtist.ROUTE_NAME: (context) =>
+            const LidarrDetailsArtist(),
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
       };
 

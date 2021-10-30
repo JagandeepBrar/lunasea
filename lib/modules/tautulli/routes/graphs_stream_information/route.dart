@@ -57,7 +57,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
               'The total play count or duration of television, movies, and music by the transcode decision.',
             ].join(),
           ),
-          TautulliGraphsDailyStreamTypeBreakdownGraph(),
+          const TautulliGraphsDailyStreamTypeBreakdownGraph(),
           LunaHeader(
             text: 'By Source Resolution',
             subtitle: [
@@ -66,7 +66,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
               'The combined total of television and movies by their original resolution (pre-transcoding).',
             ].join(),
           ),
-          TautulliGraphsPlayCountBySourceResolutionGraph(),
+          const TautulliGraphsPlayCountBySourceResolutionGraph(),
           LunaHeader(
             text: 'By Stream Resolution',
             subtitle: [
@@ -84,7 +84,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
               'The combined total of television, movies, and music by platform and stream type.',
             ].join(),
           ),
-          TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
+          const TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
           LunaHeader(
             text: 'By User Stream Type',
             subtitle: [

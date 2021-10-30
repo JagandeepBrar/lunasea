@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000001)
 
 #### NEW
 

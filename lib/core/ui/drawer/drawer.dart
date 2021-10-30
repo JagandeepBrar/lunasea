@@ -98,12 +98,12 @@ class LunaDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(
         module.icon,
-        color: currentPage ? LunaColours.accent : Colors.white,
+        color: currentPage ? module.color : Colors.white,
       ),
       title: Text(
         module.name,
         style: TextStyle(
-          color: currentPage ? LunaColours.accent : Colors.white,
+          color: currentPage ? module.color : Colors.white,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
       ),

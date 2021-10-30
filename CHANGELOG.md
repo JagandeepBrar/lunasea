@@ -3,9 +3,12 @@
 ## WIP
 
 #### NEW
+
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
+- `[UI/UX]` (Drawer) Use module's brand colour as the highlighted colour
 
 #### FIXES
+
 - `[Flutter]` Update packages
 - `[Flutter]` Upgrade to Firebase SDK v8.7.0
 

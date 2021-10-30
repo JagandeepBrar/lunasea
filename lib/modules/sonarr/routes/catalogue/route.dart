@@ -102,21 +102,25 @@ class _State extends State<SonarrCatalogueRoute>
     );
   }
 
-  List<SonarrSeries> _filterAndSort(List<SonarrSeries> series,
-      List<SonarrQualityProfile> profiles, String query) {
+  List<SonarrSeries> _filterAndSort(
+    List<SonarrSeries> series,
+    List<SonarrQualityProfile> profiles,
+    String query,
+  ) {
     if (series?.isEmpty ?? true) return series;
-    SonarrState _state = Provider.of<SonarrState>(context, listen: false);
+    SonarrSeriesSorting sorting = context.watch<SonarrState>().seriesSortType;
+    SonarrSeriesFilter filter = context.watch<SonarrState>().seriesFilterType;
+    bool ascending = context.watch<SonarrState>().seriesSortAscending;
     // Filter
-    List<SonarrSeries> _filtered = series.where((show) {
-      if (query != null && query.isNotEmpty)
+    List<SonarrSeries> filtered = series.where((show) {
+      if (query != null && query.isNotEmpty && show.id != null)
         return show.title.toLowerCase().contains(query.toLowerCase());
-      return show != null;
+      return (show != null && show.id != null);
     }).toList();
-    _filtered = _state.seriesHidingType.filter(_filtered);
+    filtered = filter.filter(filtered);
     // Sort
-    _filtered =
-        _state.seriesSortType.sort(_filtered, _state.seriesSortAscending);
-    return _filtered;
+    filtered = sorting.sort(filtered, ascending);
+    return filtered;
   }
 
   Widget _series(
@@ -126,7 +130,7 @@ class _State extends State<SonarrCatalogueRoute>
   ) {
     if ((series?.length ?? 0) == 0)
       return LunaMessage(
-        text: 'No Series Found',
+        text: 'sonarr.NoSeriesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState.show,
       );
@@ -138,18 +142,22 @@ class _State extends State<SonarrCatalogueRoute>
           return LunaListView(
             controller: SonarrNavigationBar.scrollControllers[0],
             children: [
-              LunaMessage.inList(text: 'No Series Found'),
+              LunaMessage.inList(text: 'sonarr.NoSeriesFound'.tr()),
               if ((query ?? '').isNotEmpty)
                 LunaButtonContainer(
                   children: [
                     LunaButton.text(
                       icon: null,
                       text: query.length > 20
-                          ? 'Search for "${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'
-                          : 'Search for "$query"',
+                          ? 'sonarr.SearchFor'.tr(args: [
+                              '"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'
+                            ])
+                          : 'sonarr.SearchFor'.tr(args: ['"$query"']),
                       backgroundColor: LunaColours.accent,
-                      onTap: () async => SonarrAddSeriesRouter()
-                          .navigateTo(context, query: query ?? ''),
+                      onTap: () async => SonarrAddSeriesRouter().navigateTo(
+                        context,
+                        query: query ?? '',
+                      ),
                     ),
                   ],
                 ),
@@ -161,8 +169,9 @@ class _State extends State<SonarrCatalogueRoute>
           itemBuilder: (context, index) => SonarrSeriesTile(
             series: _filtered[index],
             profile: qualities.firstWhere(
-                (element) => element.id == _filtered[index].qualityProfileId,
-                orElse: () => null),
+              (element) => element.id == _filtered[index].qualityProfileId,
+              orElse: () => null,
+            ),
           ),
         );
       },

@@ -70,7 +70,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       context.read<SonarrState>().fetchQualityProfiles();
       context.read<SonarrState>().fetchLanguageProfiles();
       context.read<SonarrState>().fetchTags();
-      await context.read<SonarrState>().fetchSingleSeries(widget.seriesId);
+      await context.read<SonarrState>().resetSingleSeries(widget.seriesId);
     }
   }
 
@@ -222,13 +222,13 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       builder: (context, _) => PageView(
         controller: _pageController,
         children: [
-          SonarrSeriesDetailsOverview(
+          SonarrSeriesDetailsOverviewPage(
             series: series,
-            quality: qualityProfile,
-            language: languageProfile,
+            qualityProfile: qualityProfile,
+            languageProfile: languageProfile,
             tags: tags,
           ),
-          SonarrSeriesDetailsSeasonList(series: series),
+          SonarrSeriesDetailsSeasonsPage(series: series),
           const SonarrSeriesDetailsHistoryPage(),
         ],
       ),

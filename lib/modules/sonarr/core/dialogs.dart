@@ -324,7 +324,7 @@ class SonarrDialogs {
     return Tuple2(_flag, _textController.text);
   }
 
-  static Future<List<dynamic>> setDefaultSortingOrFiltering(
+  Future<Tuple2<bool, int>> setDefaultSortingOrFiltering(
     BuildContext context, {
     @required List<String> titles,
   }) async {
@@ -352,7 +352,7 @@ class SonarrDialogs {
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
 
-    return [_flag, _index];
+    return Tuple2(_flag, _index);
   }
 
   Future<bool> searchAllMissingEpisodes(
@@ -591,41 +591,6 @@ class SonarrDialogs {
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
     return [_flag];
-  }
-
-  Future<bool> confirmDeleteQueue(BuildContext context) async {
-    bool _flag = false;
-
-    void _setValues(bool flag) {
-      _flag = flag;
-      Navigator.of(context, rootNavigator: true).pop();
-    }
-
-    await LunaDialog.dialog(
-      context: context,
-      title: 'Remove From Queue',
-      buttons: [
-        LunaDialog.button(
-          text: 'Remove',
-          textColor: LunaColours.red,
-          onPressed: () => _setValues(true),
-        ),
-      ],
-      content: [
-        Selector<SonarrState, bool>(
-          selector: (_, state) => state.removeQueueBlacklist,
-          builder: (context, value, _) => LunaDialog.checkbox(
-            title: 'Blacklist Release',
-            value: value,
-            onChanged: (selected) =>
-                Provider.of<SonarrState>(context, listen: false)
-                    .removeQueueBlacklist = selected,
-          ),
-        ),
-      ],
-      contentPadding: LunaDialog.listDialogContentPadding(),
-    );
-    return _flag;
   }
 
   static Future<List<dynamic>> confirmDeleteEpisodeFile(

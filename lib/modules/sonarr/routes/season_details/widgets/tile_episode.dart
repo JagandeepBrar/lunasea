@@ -20,25 +20,12 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: context.select<SonarrState, Future<List<SonarrQueueRecord>>>(
-          (state) => state.queue),
-      builder: (context, snapshot) {
-        SonarrQueueRecord queue;
-        if (snapshot.hasData)
-          queue = snapshot.data.firstWhere(
-            (record) =>
-                (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
-            orElse: () => null,
-          );
-        return ExpandableNotifier(
-          controller: _controller,
-          child: Expandable(
-            collapsed: _collapsed(queue),
-            expanded: _expanded(queue),
-          ),
-        );
-      },
+    return ExpandableNotifier(
+      controller: _controller,
+      child: Expandable(
+        collapsed: _collapsed(null),
+        expanded: _expanded(null),
+      ),
     );
   }
 

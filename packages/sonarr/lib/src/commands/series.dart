@@ -81,12 +81,18 @@ class SonarrCommandHandler_Series {
   ///
   /// Optional Parameters:
   /// - `deleteFiles`: If true, will delete all files as well
-  Future<SonarrSeries> deleteSeries({
+  /// - `addImportListExclusion`: If true, add to import exclusion list
+  Future<SonarrSeries> delete({
     required int seriesId,
     bool deleteFiles = false,
+    bool addImportListExclusion = false,
   }) async =>
-      _commandDeleteSeries(_client,
-          seriesId: seriesId, deleteFiles: deleteFiles);
+      _commandDeleteSeries(
+        _client,
+        seriesId: seriesId,
+        deleteFiles: deleteFiles,
+        addImportListExclusion: addImportListExclusion,
+      );
 
   /// Handler for [series/{id}](https://github.com/Sonarr/Sonarr/wiki/Series#getid).
   ///

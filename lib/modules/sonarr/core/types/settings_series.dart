@@ -47,12 +47,13 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
       case SonarrSeriesSettingsType.REFRESH:
       case SonarrSeriesSettingsType.DELETE:
       case SonarrSeriesSettingsType.MONITORED:
-        // TODO
-        return;
+        return _monitored(context, series);
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }
 
   Future<void> _edit(BuildContext context, SonarrSeries series) async =>
       SonarrEditSeriesRouter().navigateTo(context, seriesId: series.id);
+  Future<void> _monitored(BuildContext context, SonarrSeries series) =>
+      SonarrAPIController().toggleMonitored(context: context, series: series);
 }

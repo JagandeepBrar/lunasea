@@ -144,7 +144,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<RadarrRelease> _filterAndSortReleases(
-      List<RadarrRelease> releases, RadarrReleasesState state) {
+    List<RadarrRelease> releases,
+    RadarrReleasesState state,
+  ) {
     if (releases == null || releases.isEmpty) return releases;
     List<RadarrRelease> filtered = releases.where(
       (release) {

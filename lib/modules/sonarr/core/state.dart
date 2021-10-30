@@ -9,7 +9,6 @@ class SonarrState extends LunaModuleState {
 
   @override
   void dispose() {
-    _getQueueTimer?.cancel();
     super.dispose();
   }
 
@@ -23,7 +22,6 @@ class SonarrState extends LunaModuleState {
     _qualityProfiles = null;
     _languageProfiles = null;
     _tags = null;
-    _queue = null;
     _episodes = {};
     _selectedEpisodes = [];
     // Reset search query fields
@@ -31,7 +29,6 @@ class SonarrState extends LunaModuleState {
     // Reinitialize
     resetProfile();
     if (_enabled) {
-      fetchQueue();
       fetchSeries();
       fetchUpcoming();
       fetchMissing();
@@ -83,45 +80,6 @@ class SonarrState extends LunaModuleState {
             headers: Map<String, dynamic>.from(_headers),
           )
         : null;
-  }
-
-  /////////////
-  /// QUEUE ///
-  /////////////
-
-  /// Timer to handle refreshing queue data
-  Timer _getQueueTimer;
-
-  /// Cancel the periodic timer
-  void createQueueTimer() => _getQueueTimer = Timer.periodic(
-        Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
-        (_) => queue = _api.queue.getQueue(),
-      );
-
-  /// Cancel the queue timer
-  void cancelQueueTimer() => _getQueueTimer?.cancel();
-
-  /// Storing queue data
-  Future<List<SonarrQueueRecord>> _queue;
-  Future<List<SonarrQueueRecord>> get queue => _queue;
-  set queue(Future<List<SonarrQueueRecord>> queue) {
-    assert(queue != null);
-    _queue = queue;
-    notifyListeners();
-  }
-
-  /// Reset the queue:
-  /// - Cancel timer & clear state of future
-  /// - Recreate timer (if enabled)
-  /// - Set initial state of the future
-  void fetchQueue() {
-    cancelQueueTimer();
-    _queue = null;
-    if (_api != null) {
-      _queue = _api.queue.getQueue();
-      createQueueTimer();
-    }
-    notifyListeners();
   }
 
   ////////////////
@@ -228,11 +186,12 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  SonarrSeriesFilter _seriesHidingType = SonarrSeriesFilter.ALL;
-  SonarrSeriesFilter get seriesHidingType => _seriesHidingType;
-  set seriesHidingType(SonarrSeriesFilter seriesHidingType) {
-    assert(seriesHidingType != null);
-    _seriesHidingType = seriesHidingType;
+  SonarrSeriesFilter _seriesFilterType =
+      SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
+  SonarrSeriesFilter get seriesFilterType => _seriesFilterType;
+  set seriesFilterType(SonarrSeriesFilter seriesFilterType) {
+    assert(seriesFilterType != null);
+    _seriesFilterType = seriesFilterType;
     notifyListeners();
   }
 
@@ -254,7 +213,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<void> fetchSingleSeries(int seriesId) async {
+  Future<void> resetSingleSeries(int seriesId) async {
     assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series = await _api.series.get(seriesId: seriesId);
@@ -377,18 +336,6 @@ class SonarrState extends LunaModuleState {
   set removeSeriesDeleteFiles(bool removeSeriesDeleteFiles) {
     assert(removeSeriesDeleteFiles != null);
     _removeSeriesDeleteFiles = removeSeriesDeleteFiles;
-    notifyListeners();
-  }
-
-  ////////////////////
-  /// DELETE QUEUE ///
-  ////////////////////
-
-  bool _removeQueueBlacklist = false;
-  bool get removeQueueBlacklist => _removeQueueBlacklist;
-  set removeQueueBlacklist(bool removeQueueBlacklist) {
-    assert(removeQueueBlacklist != null);
-    _removeQueueBlacklist = removeQueueBlacklist;
     notifyListeners();
   }
 

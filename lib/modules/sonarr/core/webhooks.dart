@@ -52,8 +52,10 @@ extension _EventTypeExtension on _EventType {
         return _downloadEvent(data);
       case _EventType.EPISODE_FILE_DELETE:
         return _episodeFileDeleteEvent(data);
+      // TODO
       case _EventType.GRAB:
-        return _grabEvent(data);
+        return;
+      //   return _grabEvent(data);
       case _EventType.HEALTH:
         return _healthEvent(data);
       case _EventType.RENAME:
@@ -71,8 +73,8 @@ extension _EventTypeExtension on _EventType {
   Future<void> _episodeFileDeleteEvent(Map<dynamic, dynamic> data) async =>
       _goToSeasonDetails(
           int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
-  Future<void> _grabEvent(Map<dynamic, dynamic> data) async =>
-      SonarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
+  // Future<void> _grabEvent(Map<dynamic, dynamic> data) async =>
+  //     SonarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
   Future<void> _healthEvent(Map<dynamic, dynamic> data) async =>
       LunaModule.SONARR.launch();
   Future<void> _renameEvent(Map<dynamic, dynamic> data) async =>

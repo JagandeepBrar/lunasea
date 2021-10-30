@@ -230,7 +230,7 @@ class _State extends State<SonarrSeriesTile> {
             if (Provider.of<SonarrState>(context).seriesSortType ==
                 SonarrSeriesSorting.NEXT_AIRING)
               TextSpan(
-                text: widget.series.lunaNextAiring,
+                text: widget.series.lunaNextAiringDate,
                 style: TextStyle(
                   color: widget.series.monitored
                       ? LunaColours.accent

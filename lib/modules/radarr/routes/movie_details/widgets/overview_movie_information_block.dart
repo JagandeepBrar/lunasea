@@ -19,14 +19,15 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'monitor', body: (movie?.monitored ?? false) ? 'Yes' : 'No'),
+            title: 'monitoring',
+            body: (movie?.monitored ?? false) ? 'Yes' : 'No'),
         LunaTableContent(title: 'path', body: movie?.path),
         LunaTableContent(title: 'quality', body: qualityProfile?.name),
         LunaTableContent(
             title: 'availability', body: movie?.lunaMinimumAvailability),
-        LunaTableContent(title: 'status', body: movie?.status?.readable),
         LunaTableContent(title: 'tags', body: movie?.lunaTags(tags)),
         const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: 'status', body: movie?.status?.readable),
         LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
         LunaTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
         LunaTableContent(

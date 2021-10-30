@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesDetailsSeasonList extends StatelessWidget {
+class SonarrSeriesDetailsSeasonsPage extends StatelessWidget {
   final SonarrSeries series;
 
-  const SonarrSeriesDetailsSeasonList({
+  const SonarrSeriesDetailsSeasonsPage({
     Key key,
     @required this.series,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (series.seasons.isEmpty) return LunaMessage(text: 'No Seasons Found');
+    if (series?.seasons?.isEmpty ?? true) {
+      return LunaMessage(text: 'sonarr.NoSeasonsFound'.tr());
+    }
     List<SonarrSeriesSeason> _seasons = series.seasons;
     _seasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
     return LunaListView(

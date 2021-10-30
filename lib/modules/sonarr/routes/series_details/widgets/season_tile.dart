@@ -24,8 +24,10 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       context: context,
       title: LunaText.title(
         text: widget.season.seasonNumber == 0
-            ? 'Specials'
-            : 'Season ${widget.season.seasonNumber}',
+            ? 'sonarr.Specials'.tr()
+            : 'sonarr.SeasonNumber'.tr(args: [
+                widget.season.seasonNumber?.toString() ?? 'lunasea.Unknown'.tr()
+              ]),
         darken: !widget.season.monitored,
       ),
       subtitle: RichText(

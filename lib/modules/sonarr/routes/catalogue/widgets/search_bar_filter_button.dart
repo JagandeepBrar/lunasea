@@ -24,7 +24,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
             tooltip: 'Filter Catalogue',
             icon: Icons.filter_alt_outlined,
             onSelected: (result) {
-              state.seriesHidingType = result;
+              state.seriesFilterType = result;
               widget.controller.lunaAnimateToStart();
             },
             itemBuilder: (context) =>
@@ -36,7 +36,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
                   SonarrSeriesFilter.values[index].readable,
                   style: TextStyle(
                     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                    color: state.seriesHidingType ==
+                    color: state.seriesFilterType ==
                             SonarrSeriesFilter.values[index]
                         ? LunaColours.accent
                         : Colors.white,

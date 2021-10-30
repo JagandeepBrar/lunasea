@@ -1,8 +1,57 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
+  Future<bool> toggleMonitored({
+    @required BuildContext context,
+    @required SonarrSeries series,
+    bool showSnackbar = true,
+  }) async {
+    assert(SerialTapGestureRecognizer != null);
+    if (context.read<SonarrState>().enabled) {
+      SonarrSeries seriesCopy = series.clone();
+      seriesCopy.monitored = !series.monitored;
+      return await context
+          .read<SonarrState>()
+          .api
+          .series
+          .update(series: seriesCopy)
+          .then((data) async {
+        return await context
+            .read<SonarrState>()
+            .setSingleSeries(seriesCopy)
+            .then((_) {
+          if (showSnackbar) {
+            showLunaSuccessSnackBar(
+              title: seriesCopy.monitored
+                  ? 'sonarr.Monitoring'.tr()
+                  : 'sonarr.NoLongerMonitoring'.tr(),
+              message: seriesCopy.title,
+            );
+          }
+          return true;
+        });
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Unable to toggle monitored state: ${series.monitored.toString()} to ${seriesCopy.monitored.toString()}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: series.monitored
+                ? 'sonarr.FailedToUnmonitorSeries'.tr()
+                : 'sonarr.FailedToMonitorSeries'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> addTag({
     @required BuildContext context,
     @required String label,

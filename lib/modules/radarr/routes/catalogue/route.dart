@@ -41,7 +41,6 @@ class _State extends State<RadarrCatalogueRoute>
       scaffoldKey: _scaffoldKey,
       body: _body(),
       appBar: _appBar(),
-      extendBody: true,
     );
   }
 
@@ -63,18 +62,25 @@ class _State extends State<RadarrCatalogueRoute>
               RadarrState,
               Tuple2<Future<List<RadarrMovie>>,
                   Future<List<RadarrQualityProfile>>>>(
-          selector: (_, state) => Tuple2(state.movies, state.qualityProfiles),
+          selector: (_, state) => Tuple2(
+                state.movies,
+                state.qualityProfiles,
+              ),
           builder: (context, tuple, _) {
             return FutureBuilder(
-              future: Future.wait([tuple.item1, tuple.item2]),
+              future: Future.wait([
+                tuple.item1,
+                tuple.item2,
+              ]),
               builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if (snapshot.hasError) {
-                  if (snapshot.connectionState != ConnectionState.waiting)
+                  if (snapshot.connectionState != ConnectionState.waiting) {
                     LunaLogger().error(
                       'Unable to fetch Radarr movies',
                       snapshot.error,
                       snapshot.stackTrace,
                     );
+                  }
                   return LunaMessage.error(
                     onTap: _refreshKey.currentState.show,
                   );
@@ -91,8 +97,30 @@ class _State extends State<RadarrCatalogueRoute>
     );
   }
 
+  List<RadarrMovie> _filterAndSort(
+    List<RadarrMovie> movies,
+    String query,
+  ) {
+    if (movies?.isEmpty ?? true) return movies;
+    RadarrMoviesSorting sorting = context.watch<RadarrState>().moviesSortType;
+    RadarrMoviesFilter filter = context.watch<RadarrState>().moviesFilterType;
+    bool ascending = context.watch<RadarrState>().moviesSortAscending;
+    // Filter
+    List<RadarrMovie> filtered = movies.where((movie) {
+      if (query != null && query.isNotEmpty && movie.id != null)
+        return movie.title.toLowerCase().contains(query.toLowerCase());
+      return (movie != null && movie.id != null);
+    }).toList();
+    filtered = filter.filter(filtered);
+    // Sort
+    filtered = sorting.sort(filtered, ascending);
+    return filtered;
+  }
+
   Widget _movies(
-      List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
+    List<RadarrMovie> movies,
+    List<RadarrQualityProfile> qualityProfiles,
+  ) {
     if ((movies?.length ?? 0) == 0)
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
@@ -119,8 +147,10 @@ class _State extends State<RadarrCatalogueRoute>
                               ])
                             : 'radarr.SearchFor'.tr(args: ['"$query"']),
                         backgroundColor: LunaColours.accent,
-                        onTap: () async => RadarrAddMovieRouter()
-                            .navigateTo(context, query: query ?? ''),
+                        onTap: () async => RadarrAddMovieRouter().navigateTo(
+                          context,
+                          query: query ?? '',
+                        ),
                       ),
                     ],
                   ),
@@ -132,28 +162,11 @@ class _State extends State<RadarrCatalogueRoute>
             itemBuilder: (context, index) => RadarrCatalogueTile(
               movie: _filtered[index],
               profile: qualityProfiles.firstWhere(
-                  (element) => element.id == _filtered[index].qualityProfileId,
-                  orElse: () => null),
+                (element) => element.id == _filtered[index].qualityProfileId,
+                orElse: () => null,
+              ),
             ),
           );
         });
-  }
-
-  List<RadarrMovie> _filterAndSort(List<RadarrMovie> movies, String query) {
-    if (movies?.isEmpty ?? true) return movies;
-    // Pull values from state
-    RadarrMoviesSorting sorting = context.read<RadarrState>().moviesSortType;
-    RadarrMoviesFilter filter = context.read<RadarrState>().moviesFilterType;
-    bool ascending = context.read<RadarrState>().moviesSortAscending;
-    // Filter
-    List<RadarrMovie> filtered = movies.where((movie) {
-      if (query != null && query.isNotEmpty && movie.id != null)
-        return movie.title.toLowerCase().contains(query.toLowerCase());
-      return (movie != null && movie.id != null);
-    }).toList();
-    filtered = filter.filter(filtered);
-    // Sort
-    filtered = sorting.sort(filtered, ascending);
-    return filtered;
   }
 }

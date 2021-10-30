@@ -2,24 +2,50 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrSeriesExtension on SonarrSeries {
+  String get lunaRuntime {
+    if (this.runtime != null && this.runtime != 0)
+      return this.runtime.lunaRuntime();
+    return LunaUI.TEXT_EMDASH;
+  }
+
+  String get lunaAlternateTitles {
+    if (this?.alternateTitles?.isNotEmpty ?? false) {
+      return this.alternateTitles.map((title) => title.title).join('\n');
+    }
+    return LunaUI.TEXT_EMDASH;
+  }
+
+  String get lunaGenres {
+    if (this?.genres?.isNotEmpty ?? false) return this.genres.join('\n');
+    return LunaUI.TEXT_EMDASH;
+  }
+
+  String get lunaNetwork {
+    if (this.network != null && this.network.isNotEmpty) return this.network;
+    return LunaUI.TEXT_EMDASH;
+  }
+
+  String lunaTags(List<SonarrTag> tags) {
+    if (tags?.isNotEmpty ?? false) {
+      return tags.map<String>((tag) => tag.label).join('\n');
+    }
+    return LunaUI.TEXT_EMDASH;
+  }
+
   int get lunaPercentageComplete {
     int _total = this.statistics?.episodeCount ?? 0;
     int _available = this.statistics?.episodeFileCount ?? 0;
     return _total == 0 ? 0 : ((_available / _total) * 100).round();
   }
 
-  String get lunaRuntime {
-    if (this.runtime == null) {
-      return 'Unknown';
-    }
-    return this.runtime == 1 ? '1 Minute' : '${this.runtime} Minutes';
+  String get lunaNextAiringDate {
+    if (this.nextAiring == null) return LunaUI.TEXT_EMDASH;
+    return DateFormat('MMMM dd, y').format(this.nextAiring.toLocal());
   }
 
   String get lunaNextAiring {
-    if (this.nextAiring == null) {
-      return LunaUI.TEXT_EMDASH;
-    }
-    return DateFormat('MMMM dd, y').format(this.nextAiring.toLocal());
+    if (this.nextAiring == null) return LunaUI.TEXT_EMDASH;
+    return this.nextAiring.lunaDateTimeReadable(timeOnNewLine: true);
   }
 
   String get lunaDateAdded {
@@ -27,6 +53,11 @@ extension SonarrSeriesExtension on SonarrSeries {
       return 'Unknown';
     }
     return DateFormat('MMMM dd, y').format(this.added.toLocal());
+  }
+
+  String get lunaYear {
+    if (this.year != null && this.year != 0) return this.year.toString();
+    return LunaUI.TEXT_EMDASH;
   }
 
   String get lunaAirTime {

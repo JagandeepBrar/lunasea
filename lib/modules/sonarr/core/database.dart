@@ -13,6 +13,7 @@ class SonarrDatabase extends LunaModuleDatabase {
     Hive.registerAdapter(SonarrMonitorStatusAdapter());
     Hive.registerAdapter(SonarrSeriesSortingAdapter());
     Hive.registerAdapter(SonarrReleasesSortingAdapter());
+    Hive.registerAdapter(SonarrSeriesFilterAdapter());
   }
 
   @override
@@ -35,6 +36,11 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data
                   as SonarrReleasesSorting)
+              .key;
+          break;
+        case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
+          data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data
+                  as SonarrSeriesFilter)
               .key;
           break;
         // Primitive values
@@ -74,6 +80,9 @@ class SonarrDatabase extends LunaModuleDatabase {
             break;
           case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
             value.put(SonarrReleasesSorting.ALPHABETICAL.fromKey(config[key]));
+            break;
+          case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
+            value.put(SonarrSeriesFilter.ALL.fromKey(config[key]));
             break;
           // Primitive values
           case SonarrDatabaseValue.NAVIGATION_INDEX:
@@ -133,6 +142,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING;
       case 'SONARR_DEFAULT_SORTING_RELEASES_ASCENDING':
         return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
+      case 'SONARR_DEFAULT_FILTERING_SERIES':
+        return SonarrDatabaseValue.DEFAULT_FILTERING_SERIES;
       default:
         return null;
     }
@@ -150,6 +161,7 @@ enum SonarrDatabaseValue {
   ADD_SERIES_DEFAULT_QUALITY_PROFILE,
   ADD_SERIES_DEFAULT_ROOT_FOLDER,
   ADD_SERIES_DEFAULT_TAGS,
+  DEFAULT_FILTERING_SERIES,
   DEFAULT_SORTING_SERIES,
   DEFAULT_SORTING_RELEASES,
   DEFAULT_SORTING_SERIES_ASCENDING,
@@ -196,6 +208,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_DEFAULT_SORTING_SERIES_ASCENDING';
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
         return 'SONARR_DEFAULT_SORTING_RELEASES_ASCENDING';
+      case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
+        return 'SONARR_DEFAULT_FILTERING_SERIES';
     }
     throw Exception('key not found');
   }
@@ -232,6 +246,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
         return _box.get(this.key,
             defaultValue: SonarrSeriesSorting.ALPHABETICAL);
+      case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
+        return _box.get(this.key, defaultValue: SonarrSeriesFilter.ALL);
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
         return _box.get(this.key, defaultValue: SonarrReleasesSorting.WEIGHT);
       case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING:
@@ -278,6 +294,9 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
         if (value is SonarrSeriesSorting) box.put(this.key, value);
         return;
+      case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
+        if (value is SonarrSeriesFilter) box.put(this.key, value);
+        return;
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
         if (value is SonarrReleasesSorting) box.put(this.key, value);
         return;
@@ -297,12 +316,16 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         if (value is int) box.put(this.key, value);
         return;
     }
-    LunaLogger().warning('SonarrDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid SonarrDatabaseValue: ${this?.toString() ?? 'null'}');
-  } //=> Database.lunaSeaBox.put(this.key, value);
+    LunaLogger().warning(
+      'SonarrDatabaseValueExtension',
+      'put',
+      'Attempted to enter data for invalid SonarrDatabaseValue: ${this?.toString() ?? 'null'}',
+    );
+  }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
+  ValueListenableBuilder listen({
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) =>
       ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,

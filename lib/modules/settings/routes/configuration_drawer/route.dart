@@ -93,8 +93,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                   leading: LunaIconButton(
                     icon: _modules[index].icon,
                     color: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
-                        ? _modules[index].color.withOpacity(0.3)
-                        : _modules[index].color,
+                        ? Colors.white30
+                        : Colors.white,
                   ),
                   trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
                       ? null

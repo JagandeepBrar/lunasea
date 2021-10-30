@@ -390,12 +390,16 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         if (value is int) box.put(this.key, value);
         return;
     }
-    LunaLogger().warning('RadarrDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
+    LunaLogger().warning(
+      'RadarrDatabaseValueExtension',
+      'put',
+      'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}',
+    );
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
+  ValueListenableBuilder listen({
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) =>
       ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,

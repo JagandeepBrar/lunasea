@@ -5,10 +5,14 @@
 #### NEW
 
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
-- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
+- `[Sonarr]` (Catalogue) Many additional sorting and filtering options
 - `[Sonarr]` (History) Now an infinite scrolling list
 - `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
-- `[UI/UX]` (Modules) Use module's brand colour more across the UI
+- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
+
+#### TWEAKS
+
+- `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
 
 #### FIXES
 
@@ -17,6 +21,7 @@
 - `[Settings]` (Calendar) Starting type would have incorrect icons
 - `[Sonarr]` Now only utilizes v3 API routes
 - `[Sonarr]` (Edit) Vastly speed up response time on editing a series
+- `[TLS]` TLS v1.3 is now fully supported
 
 ## v5.1.1 (50101002)
 

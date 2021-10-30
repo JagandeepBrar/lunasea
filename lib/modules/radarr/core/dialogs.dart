@@ -33,7 +33,9 @@ class RadarrDialogs {
   }
 
   Future<Tuple2<bool, RadarrMovieSettingsType>> movieSettings(
-      BuildContext context, RadarrMovie movie) async {
+    BuildContext context,
+    RadarrMovie movie,
+  ) async {
     bool _flag = false;
     RadarrMovieSettingsType _value;
 

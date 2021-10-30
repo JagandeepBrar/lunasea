@@ -4,16 +4,18 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
+  final SonarrSeries series;
 
   const SonarrHistoryTile({
     Key key,
     @required this.history,
+    this.series,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
+      title: series?.title ?? history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
       collapsedSubtitle1: TextSpan(children: [
         TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
         const TextSpan(text: ': '),

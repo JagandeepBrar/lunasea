@@ -1,4 +1,4 @@
-export 'widgets/appbar_edit_action.dart';
+export 'widgets/appbar_settings_action.dart';
 export 'widgets/cast_crew_tile.dart';
 export 'widgets/files_extra_file_block.dart';
 export 'widgets/files_file_block.dart';

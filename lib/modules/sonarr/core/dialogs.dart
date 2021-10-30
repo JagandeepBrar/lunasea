@@ -33,7 +33,9 @@ class SonarrDialogs {
   }
 
   Future<Tuple2<bool, SonarrSeriesSettingsType>> seriesSettings(
-      BuildContext context, SonarrSeries series) async {
+    BuildContext context,
+    SonarrSeries series,
+  ) async {
     bool _flag = false;
     SonarrSeriesSettingsType _value;
 

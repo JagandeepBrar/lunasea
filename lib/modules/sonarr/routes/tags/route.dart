@@ -32,7 +32,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Future<void> _refresh() async {
-    context.read<SonarrState>().resetTags();
+    context.read<SonarrState>().fetchTags();
     await context.read<SonarrState>().tags;
   }
 

@@ -224,7 +224,7 @@ class _State extends State<SonarrQueueQueueTile> {
             blacklist: context.read<SonarrState>().removeQueueBlacklist,
           )
           .then((value) {
-        context.read<SonarrState>().resetQueue();
+        context.read<SonarrState>().fetchQueue();
         showLunaSuccessSnackBar(
             title: 'Removed From Queue', message: widget.record.title);
       }).catchError((error, stack) {

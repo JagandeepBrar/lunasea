@@ -37,6 +37,7 @@ part 'src/commands/episode/update_episode.dart';
 // History
 part 'src/commands/history.dart';
 part 'src/commands/history/get_history.dart';
+part 'src/commands/history/get_history_by_series.dart';
 
 // Profile
 part 'src/commands/profile.dart';

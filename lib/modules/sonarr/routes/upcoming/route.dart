@@ -22,7 +22,7 @@ class _State extends State<SonarrUpcomingRoute>
 
   @override
   Future<void> loadCallback() async {
-    context.read<SonarrState>().resetUpcoming();
+    context.read<SonarrState>().fetchUpcoming();
     await context.read<SonarrState>().upcoming;
   }
 

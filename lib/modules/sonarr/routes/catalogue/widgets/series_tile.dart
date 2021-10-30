@@ -38,8 +38,9 @@ class _State extends State<SonarrSeriesTile> {
             ),
             borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             onTap: () async => _tileOnTap(),
-            onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(
-                context, widget.series),
+            // TODO
+            // onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(
+            //     context, widget.series),
           ),
           decoration: LunaCardDecoration(
             uri: Provider.of<SonarrState>(context, listen: false)

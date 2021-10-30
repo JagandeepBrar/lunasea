@@ -41,4 +41,14 @@ class SonarrCommandHandler_History {
         includeEpisode: includeEpisode,
         includeSeries: includeSeries,
       );
+
+  Future<List<SonarrHistoryRecord>> getBySeries({
+    required int seriesId,
+    int? seasonNumber,
+  }) async =>
+      _commandGetHistoryBySeries(
+        _client,
+        seriesId: seriesId,
+        seasonNumber: seasonNumber,
+      );
 }

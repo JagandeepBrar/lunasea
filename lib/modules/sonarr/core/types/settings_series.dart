@@ -36,4 +36,16 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }
+
+  Future<void> execute(BuildContext context, SonarrSeries series) async {
+    switch (this) {
+      case SonarrSeriesSettingsType.EDIT:
+      case SonarrSeriesSettingsType.REFRESH:
+      case SonarrSeriesSettingsType.DELETE:
+      case SonarrSeriesSettingsType.MONITORED:
+        // TODO
+        return;
+    }
+    throw Exception('Invalid SonarrSeriesSettingsType');
+  }
 }

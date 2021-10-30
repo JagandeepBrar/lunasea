@@ -25,9 +25,9 @@ class _State extends State<SonarrCatalogueRoute>
   Future<void> _refresh() async {
     SonarrState _state = context.read<SonarrState>();
     _state.fetchSeries();
-    _state.resetQualityProfiles();
-    _state.resetLanguageProfiles();
-    _state.resetTags();
+    _state.fetchQualityProfiles();
+    _state.fetchLanguageProfiles();
+    _state.fetchTags();
     await Future.wait([
       _state.series,
       _state.qualityProfiles,

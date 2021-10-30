@@ -48,10 +48,10 @@ class _State extends State<_Widget>
 
   @override
   Future<void> loadCallback() async {
-    context.read<SonarrState>().resetRootFolders();
-    context.read<SonarrState>().resetTags();
-    context.read<SonarrState>().resetQualityProfiles();
-    context.read<SonarrState>().resetLanguageProfiles();
+    context.read<SonarrState>().fetchRootFolders();
+    context.read<SonarrState>().fetchTags();
+    context.read<SonarrState>().fetchQualityProfiles();
+    context.read<SonarrState>().fetchLanguageProfiles();
   }
 
   @override

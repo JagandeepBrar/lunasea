@@ -28,7 +28,7 @@ class _State extends State<_Widget>
   Future<void> loadCallback() async {
     if (context.read<SonarrState>().enabled) {
       await context.read<SonarrState>().api.command.refreshMonitoredDownloads();
-      context.read<SonarrState>().resetQueue();
+      context.read<SonarrState>().fetchQueue();
       await context.read<SonarrState>().queue;
     }
   }

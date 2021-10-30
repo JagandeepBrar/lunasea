@@ -16,14 +16,14 @@ class SonarrState extends LunaModuleState {
   @override
   void reset() {
     // Reset stored data
-    _queue = null;
     _series = null;
-    _missing = null;
     _upcoming = null;
+    _missing = null;
+    _rootFolders = null;
     _qualityProfiles = null;
     _languageProfiles = null;
-    _rootFolders = null;
     _tags = null;
+    _queue = null;
     _episodes = {};
     _selectedEpisodes = [];
     // Reset search query fields
@@ -31,14 +31,14 @@ class SonarrState extends LunaModuleState {
     // Reinitialize
     resetProfile();
     if (_enabled) {
-      resetQueue();
+      fetchQueue();
       fetchSeries();
-      resetUpcoming();
-      resetMissing();
-      resetQualityProfiles();
-      resetLanguageProfiles();
-      resetRootFolders();
-      resetTags();
+      fetchUpcoming();
+      fetchMissing();
+      fetchQualityProfiles();
+      fetchLanguageProfiles();
+      fetchRootFolders();
+      fetchTags();
     }
     notifyListeners();
   }
@@ -114,7 +114,7 @@ class SonarrState extends LunaModuleState {
   /// - Cancel timer & clear state of future
   /// - Recreate timer (if enabled)
   /// - Set initial state of the future
-  void resetQueue() {
+  void fetchQueue() {
     cancelQueueTimer();
     _queue = null;
     if (_api != null) {
@@ -164,7 +164,7 @@ class SonarrState extends LunaModuleState {
 
   Future<List<SonarrRootFolder>> _rootFolders;
   Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
-  void resetRootFolders() {
+  void fetchRootFolders() {
     if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
     notifyListeners();
   }
@@ -254,7 +254,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<void> resetSingleSeries(int seriesId) async {
+  Future<void> fetchSingleSeries(int seriesId) async {
     assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series = await _api.series.get(seriesId: seriesId);
@@ -285,7 +285,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetMissing() {
+  void fetchMissing() {
     if (_api != null)
       _missing = _api.wanted.getMissing(
         pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
@@ -307,7 +307,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetUpcoming() {
+  void fetchUpcoming() {
     DateTime start = DateTime.now();
     DateTime end = start
         .add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
@@ -333,7 +333,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetQualityProfiles() {
+  void fetchQualityProfiles() {
     if (_api != null) _qualityProfiles = _api.profile.getQualityProfiles();
     notifyListeners();
   }
@@ -346,7 +346,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetLanguageProfiles() {
+  void fetchLanguageProfiles() {
     if (_api != null) _languageProfiles = _api.profile.getLanguageProfiles();
     notifyListeners();
   }
@@ -363,7 +363,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetTags() {
+  void fetchTags() {
     if (_api != null) _tags = _api.tag.getAllTags();
     notifyListeners();
   }

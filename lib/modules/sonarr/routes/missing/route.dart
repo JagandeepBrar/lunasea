@@ -23,7 +23,7 @@ class _State extends State<SonarrMissingRoute>
   @override
   Future<void> loadCallback() async {
     SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-    _state.resetMissing();
+    _state.fetchMissing();
     await _state.missing;
   }
 

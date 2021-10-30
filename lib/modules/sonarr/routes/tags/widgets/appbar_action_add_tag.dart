@@ -30,7 +30,7 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
       SonarrAPIController()
           .addTag(context: context, label: result.item2)
           .then((value) {
-        if (value) context.read<SonarrState>().resetTags();
+        if (value) context.read<SonarrState>().fetchTags();
       });
   }
 }

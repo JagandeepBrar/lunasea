@@ -86,7 +86,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
             title: 'Deleted Tag',
             message: widget.tag.label,
           );
-          context.read<SonarrState>().resetTags();
+          context.read<SonarrState>().fetchTags();
         }).catchError((error, stack) {
           LunaLogger().error(
             'Failed to delete tag: ${widget.tag.id}',

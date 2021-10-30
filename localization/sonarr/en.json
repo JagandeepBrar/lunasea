@@ -1,4 +1,5 @@
 {
+  "sonarr.AddedTag": "Added Tag",
   "sonarr.Age": "Age",
   "sonarr.BackupDatabase": "Backup Database",
   "sonarr.Client": "Client",
@@ -15,6 +16,7 @@
   "sonarr.EpisodeFileRenamed": "Episode File Renamed",
   "sonarr.EpisodeImported": "Episode Imported ({})",
   "sonarr.EpisodeNumber": "Episode {}",
+  "sonarr.FailedToAddTag": "Failed to Add Tag",
   "sonarr.GrabbedFrom": "Grabbed from {}",
   "sonarr.History": "History",
   "sonarr.HistoryDescription": "View Recent Activity",
@@ -28,6 +30,7 @@
   "sonarr.More": "More",
   "sonarr.Name": "Name",
   "sonarr.NoHistoryFound": "No History Found",
+  "sonarr.NoTagsFound": "No Tags Found",
   "sonarr.Published": "Published",
   "sonarr.Queue": "Queue",
   "sonarr.QueueDescription": "View Active & Queued Content",

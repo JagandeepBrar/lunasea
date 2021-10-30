@@ -14,7 +14,7 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
   Widget build(BuildContext context) {
     if (asDialogButton)
       return LunaDialog.button(
-        text: 'Add',
+        text: 'lunasea.Add'.tr(),
         textColor: Colors.white,
         onPressed: () async => _onPressed(context),
       );
@@ -27,17 +27,10 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
   Future<void> _onPressed(BuildContext context) async {
     Tuple2<bool, String> result = await SonarrDialogs().addNewTag(context);
     if (result.item1)
-      context
-          .read<SonarrState>()
-          .api
-          .tag
-          .addTag(label: result.item2)
-          .then((tag) {
-        showLunaSuccessSnackBar(title: 'Added Tag', message: tag.label);
-        context.read<SonarrState>().resetTags();
-      }).catchError((error, stack) {
-        LunaLogger().error('Failed to add tag: ${result.item2}', error, stack);
-        showLunaErrorSnackBar(title: 'Failed to Add Tag', error: error);
+      SonarrAPIController()
+          .addTag(context: context, label: result.item2)
+          .then((value) {
+        if (value) context.read<SonarrState>().resetTags();
       });
   }
 }

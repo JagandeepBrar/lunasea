@@ -446,12 +446,18 @@ class RadarrAPIHelper {
           .tag
           .create(label: label)
           .then((tag) {
-        showLunaSuccessSnackBar(title: 'Added Tag', message: tag.label);
+        showLunaSuccessSnackBar(
+          title: 'radarr.AddedTag'.tr(),
+          message: tag.label,
+        );
         return true;
       }).catchError((error, stack) {
         LunaLogger().error('Failed to add tag: $label', error, stack);
         if (showSnackbar)
-          showLunaErrorSnackBar(title: 'Failed to Add Tag', error: error);
+          showLunaErrorSnackBar(
+            title: 'radarr.FailedToAddTag'.tr(),
+            error: error,
+          );
         return false;
       });
     }

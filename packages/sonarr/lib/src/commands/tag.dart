@@ -15,7 +15,7 @@ class SonarrCommandHandler_Tag {
     /// 
     /// Required Parameters:
     /// - `label`: Tag label
-    Future<SonarrTag> addTag({
+    Future<SonarrTag> create({
         required String label,
     }) async => _commandAddTag(_client, label: label);
 

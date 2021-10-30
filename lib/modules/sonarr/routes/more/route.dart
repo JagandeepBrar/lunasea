@@ -36,7 +36,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
           ),
           onTap: () async => SonarrHistoryRouter().navigateTo(context),
         ),
-        LunaListTile(
+        /** LunaListTile(
           context: context,
           title: LunaText.title(text: 'sonarr.ManualImport'.tr()),
           subtitle:
@@ -56,6 +56,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
           ),
           onTap: () async => SonarrQueueRouter().navigateTo(context),
         ),
+         **/
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'sonarr.SystemStatus'.tr()),
@@ -63,7 +64,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
               LunaText.subtitle(text: 'sonarr.SystemStatusDescription'.tr()),
           trailing: LunaIconButton(
             icon: LunaIcons.monitoring,
-            color: LunaColours().byListIndex(3),
+            color: LunaColours().byListIndex(1),
           ),
         ),
         LunaListTile(
@@ -72,7 +73,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
           subtitle: LunaText.subtitle(text: 'sonarr.TagsDescription'.tr()),
           trailing: LunaIconButton(
             icon: Icons.style_rounded,
-            color: LunaColours().byListIndex(4),
+            color: LunaColours().byListIndex(2),
           ),
           onTap: () async => SonarrTagsRouter().navigateTo(context),
         ),

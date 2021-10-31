@@ -4,6 +4,7 @@
 
 #### NEW
 
+- `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
 - `[Sonarr]` (Catalogue) Many additional sorting and filtering options
 - `[Sonarr]` (History) Now an infinite scrolling list

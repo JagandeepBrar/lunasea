@@ -44,6 +44,7 @@ class _State extends State<DashboardCalendarWidget> {
     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
   );
 
+  final double _calendarBulletSize = 8.0;
   List _selectedEvents;
 
   @override
@@ -91,6 +92,46 @@ class _State extends State<DashboardCalendarWidget> {
         ));
   }
 
+  Widget _markerBuilder(
+    BuildContext context,
+    DateTime date,
+    List<dynamic> events,
+  ) {
+    Color color;
+    int missingCount = _countMissingContent(date, events);
+    switch (missingCount) {
+      case -2:
+        color = Colors.transparent;
+        break;
+      case -1:
+        color = LunaColours.blueGrey;
+        break;
+      case 0:
+        color = LunaColours.accent;
+        break;
+      case 1:
+        color = LunaColours.orange;
+        break;
+      case 2:
+        color = LunaColours.orange;
+        break;
+      default:
+        color = LunaColours.red;
+        break;
+    }
+    return PositionedDirectional(
+      bottom: 3.0,
+      child: Container(
+        width: _calendarBulletSize,
+        height: _calendarBulletSize,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+
   Widget _calendar() {
     return ValueListenableBuilder(
       valueListenable: Database.lunaSeaBox.listenable(keys: [
@@ -109,6 +150,9 @@ class _State extends State<DashboardCalendarWidget> {
             context: context,
             child: Padding(
               child: TableCalendar(
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: _markerBuilder,
+                ),
                 rowHeight: 48.0,
                 rangeSelectionMode: RangeSelectionMode.disabled,
                 simpleSwipeConfig: const SimpleSwipeConfig(
@@ -132,10 +176,6 @@ class _State extends State<DashboardCalendarWidget> {
                     color: LunaColours.accent.withOpacity(0.20),
                     shape: BoxShape.circle,
                   ),
-                  markerDecoration: const BoxDecoration(
-                    color: LunaColours.accent,
-                    shape: BoxShape.circle,
-                  ),
                   todayDecoration: BoxDecoration(
                     color: LunaColours.primary.withOpacity(0.60),
                     shape: BoxShape.circle,
@@ -148,6 +188,7 @@ class _State extends State<DashboardCalendarWidget> {
                     color: LunaColours.accent,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   ),
+                  markersAlignment: Alignment.bottomCenter,
                   todayTextStyle: dayTileStyle,
                 ),
                 onFormatChanged: (format) =>
@@ -172,6 +213,30 @@ class _State extends State<DashboardCalendarWidget> {
         );
       },
     );
+  }
+
+  /// -1: Date is today or after today
+  /// -2: Event list was empty or null
+  int _countMissingContent(DateTime date, List<dynamic> events) {
+    DateTime _date = date.lunaFloor;
+    DateTime _now = DateTime.now().lunaFloor;
+    if (_date.isAfter(_now) || _date.isAtSameMomentAs(_now)) return -1;
+    if (events == null || events.isEmpty) return -2;
+    int counter = 0;
+    for (dynamic event in events) {
+      switch (event.runtimeType) {
+        case CalendarLidarrData:
+          if (!(event as CalendarLidarrData).hasAllFiles) counter++;
+          break;
+        case CalendarRadarrData:
+          if (!(event as CalendarRadarrData).hasFile) counter++;
+          break;
+        case CalendarSonarrData:
+          if (!(event as CalendarSonarrData).hasFile) counter++;
+          break;
+      }
+    }
+    return counter;
   }
 
   Widget _calendarList() {

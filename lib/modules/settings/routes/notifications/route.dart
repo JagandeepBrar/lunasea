@@ -72,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List<Widget> _modules() {
     List<SettingsNotificationsModuleTile> modules = [];
-    for (LunaModule module in LunaModule.DASHBOARD.allModules()) {
+    for (LunaModule module in LunaModule.values) {
       if (module.hasWebhooks) {
         modules.add(SettingsNotificationsModuleTile(module: module));
       }

@@ -7,19 +7,22 @@
 - `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
 - `[Sonarr]` (Catalogue) Many additional sorting and filtering options
+- `[Sonarr]` (Catalogue) Ability to set default filtering method
 - `[Sonarr]` (History) Now an infinite scrolling list
 - `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
-- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
+- `[Sonarr]` (Releases) Ability to set default filtering method
 
 #### TWEAKS
 
 - `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
+- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
 
 #### FIXES
 
 - `[Flutter]` Update packages
 - `[Flutter]` Upgrade to Firebase SDK v8.7.0
 - `[Settings]` (Calendar) Starting type would have incorrect icons
+- `[Settings]` (Notifications) Overseerr would not be displayed
 - `[Sonarr]` Now only utilizes v3 API routes
 - `[Sonarr]` (Edit) Vastly speed up response time on editing a series
 - `[TLS]` TLS v1.3 is now fully supported

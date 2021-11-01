@@ -213,7 +213,7 @@ class _State extends State<_Widget>
             .contains(_state.releasesSearchQuery.toLowerCase());
       return release != null;
     }).toList();
-    _filtered = _state.releasesHidingType.filter(_filtered);
+    _filtered = _state.releasesFilterType.filter(_filtered);
     // Sort
     _filtered =
         _state.releasesSortType.sort(_filtered, _state.releasesSortAscending);

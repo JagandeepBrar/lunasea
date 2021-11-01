@@ -50,6 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const LunaDivider(),
         _sortingReleases(),
         _sortingReleasesDirection(),
+        _filteringReleases(),
       ],
     );
   }
@@ -101,8 +102,35 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           if (values.item1) {
             SonarrDatabaseValue.DEFAULT_FILTERING_SERIES
                 .put(SonarrSeriesFilter.values[values.item2]);
-            context.read<SonarrState>().seriesFilterType =
+            context.read<SonarrState>().releasesFilterType =
                 SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _filteringReleases() {
+    return SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.listen(
+      builder: (context, box, _) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: 'Releases Filter Category'),
+        subtitle: LunaText.subtitle(
+            text: (SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
+                    as SonarrReleasesFilter)
+                .readable),
+        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        onTap: () async {
+          List<String> titles = SonarrReleasesFilter.values
+              .map<String>((e) => e.readable)
+              .toList();
+          Tuple2<bool, int> values = await SonarrDialogs()
+              .setDefaultSortingOrFiltering(context, titles: titles);
+          if (values.item1) {
+            SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES
+                .put(SonarrReleasesFilter.values[values.item2]);
+            context.read<SonarrState>().seriesFilterType =
+                SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
           }
         },
       ),

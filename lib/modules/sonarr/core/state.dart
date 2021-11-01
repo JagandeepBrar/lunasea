@@ -139,11 +139,12 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  SonarrReleasesFilter _releasesHidingType = SonarrReleasesFilter.ALL;
-  SonarrReleasesFilter get releasesHidingType => _releasesHidingType;
-  set releasesHidingType(SonarrReleasesFilter releasesHidingType) {
-    assert(releasesHidingType != null);
-    _releasesHidingType = releasesHidingType;
+  SonarrReleasesFilter _releasesFilterType =
+      SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
+  SonarrReleasesFilter get releasesFilterType => _releasesFilterType;
+  set releasesFilterType(SonarrReleasesFilter releasesFilterType) {
+    assert(releasesFilterType != null);
+    _releasesFilterType = releasesFilterType;
     notifyListeners();
   }
 

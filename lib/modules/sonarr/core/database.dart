@@ -12,8 +12,9 @@ class SonarrDatabase extends LunaModuleDatabase {
     // Active adapters
     Hive.registerAdapter(SonarrMonitorStatusAdapter());
     Hive.registerAdapter(SonarrSeriesSortingAdapter());
-    Hive.registerAdapter(SonarrReleasesSortingAdapter());
     Hive.registerAdapter(SonarrSeriesFilterAdapter());
+    Hive.registerAdapter(SonarrReleasesSortingAdapter());
+    Hive.registerAdapter(SonarrReleasesFilterAdapter());
   }
 
   @override
@@ -35,6 +36,11 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data
                   as SonarrSeriesFilter)
+              .key;
+          break;
+        case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
+          data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
+                  as SonarrReleasesFilter)
               .key;
           break;
         // Primitive values
@@ -79,6 +85,9 @@ class SonarrDatabase extends LunaModuleDatabase {
             break;
           case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
             value.put(SonarrSeriesFilter.ALL.fromKey(config[key]));
+            break;
+          case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
+            value.put(SonarrReleasesFilter.ALL.fromKey(config[key]));
             break;
           // Primitive values
           case SonarrDatabaseValue.NAVIGATION_INDEX:
@@ -145,6 +154,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
       case 'SONARR_DEFAULT_FILTERING_SERIES':
         return SonarrDatabaseValue.DEFAULT_FILTERING_SERIES;
+      case 'SONARR_DEFAULT_FILTERING_RELEASES':
+        return SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES;
       case 'SONARR_REMOVE_SERIES_DELETE_FILES':
         return SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES;
       case 'SONARR_REMOVE_SERIES_EXCLUSION_LIST':
@@ -173,6 +184,7 @@ enum SonarrDatabaseValue {
   ADD_SERIES_DEFAULT_ROOT_FOLDER,
   ADD_SERIES_DEFAULT_TAGS,
   DEFAULT_FILTERING_SERIES,
+  DEFAULT_FILTERING_RELEASES,
   DEFAULT_SORTING_SERIES,
   DEFAULT_SORTING_RELEASES,
   DEFAULT_SORTING_SERIES_ASCENDING,
@@ -231,6 +243,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET';
       case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
         return 'SONARR_ADD_SERIES_SEARCH_FOR_MISSING';
+      case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
+        return 'SONARR_DEFAULT_FILTERING_RELEASES';
     }
     throw Exception('key not found');
   }
@@ -274,6 +288,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         );
       case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
         return _box.get(this.key, defaultValue: SonarrSeriesFilter.ALL);
+      case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
+        return _box.get(this.key, defaultValue: SonarrReleasesFilter.ALL);
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
         return _box.get(this.key, defaultValue: SonarrReleasesSorting.WEIGHT);
       case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING:
@@ -330,6 +346,9 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return;
       case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
         if (value is SonarrSeriesFilter) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
+        if (value is SonarrReleasesFilter) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
         if (value is SonarrReleasesSorting) box.put(this.key, value);

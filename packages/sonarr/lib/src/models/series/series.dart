@@ -49,6 +49,9 @@ class SonarrSeries {
   @JsonKey(name: 'images')
   List<SonarrImage>? images;
 
+  @JsonKey(name: 'remotePoster')
+  String? remotePoster;
+
   @JsonKey(name: 'seasons')
   List<SonarrSeriesSeason>? seasons;
 
@@ -108,6 +111,9 @@ class SonarrSeries {
   @JsonKey(name: 'titleSlug')
   String? titleSlug;
 
+  @JsonKey(name: 'folder')
+  String? folder;
+
   @JsonKey(name: 'rootFolderPath')
   String? rootFolderPath;
 
@@ -148,6 +154,7 @@ class SonarrSeries {
     this.network,
     this.airTime,
     this.images,
+    this.remotePoster,
     this.seasons,
     this.year,
     this.path,
@@ -165,6 +172,7 @@ class SonarrSeries {
     this.cleanTitle,
     this.imdbId,
     this.titleSlug,
+    this.folder,
     this.rootFolderPath,
     this.certification,
     this.genres,

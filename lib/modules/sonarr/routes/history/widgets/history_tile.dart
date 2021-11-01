@@ -66,10 +66,12 @@ class SonarrHistoryTile extends StatelessWidget {
             seriesHistory: seriesHistory,
           ) ??
           [],
-      onLongPress: () async => SonarrSeriesDetailsRouter().navigateTo(
-        context,
-        seriesId: history?.series?.id ?? -1,
-      ),
+      onLongPress: seriesHistory
+          ? null
+          : () async => SonarrSeriesDetailsRouter().navigateTo(
+                context,
+                seriesId: history?.series?.id ?? -1,
+              ),
     );
   }
 }

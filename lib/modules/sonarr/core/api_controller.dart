@@ -334,4 +334,60 @@ class SonarrAPIController {
     }
     return false;
   }
+
+  Future<SonarrSeries> addSeries({
+    @required BuildContext context,
+    @required SonarrSeries series,
+    @required SonarrSeriesType seriesType,
+    @required bool seasonFolder,
+    @required SonarrQualityProfile qualityProfile,
+    @required SonarrLanguageProfile languageProfile,
+    @required SonarrRootFolder rootFolder,
+    @required SonarrSeriesMonitorType monitorType,
+    @required List<SonarrTag> tags,
+    bool showSnackbar = true,
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return await context
+          .read<SonarrState>()
+          .api
+          .series
+          .create(
+            series: series,
+            seriesType: seriesType,
+            seasonFolder: seasonFolder,
+            qualityProfile: qualityProfile,
+            languageProfile: languageProfile,
+            rootFolder: rootFolder,
+            monitorType: monitorType,
+            tags: tags,
+            searchForMissingEpisodes:
+                SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING.data,
+            searchForCutoffUnmetEpisodes:
+                SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.data,
+          )
+          .then((series) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.AddedSeries'.tr(),
+            message: series.title,
+          );
+        }
+        return series;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to add movie (tmdbId: ${series.tvdbId})',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToAddSeries'.tr(),
+            error: error,
+          );
+        return null;
+      });
+    }
+    return null;
+  }
 }

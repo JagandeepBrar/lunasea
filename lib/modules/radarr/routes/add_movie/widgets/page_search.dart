@@ -95,8 +95,11 @@ class _State extends State<RadarrAddMovieSearchPage>
     );
   }
 
-  Widget _list(List<RadarrMovie> movies, List<RadarrMovie> results,
-      List<RadarrExclusion> exclusions) {
+  Widget _list(
+    List<RadarrMovie> movies,
+    List<RadarrMovie> results,
+    List<RadarrExclusion> exclusions,
+  ) {
     if ((results?.length ?? 0) == 0)
       return LunaListView(
         controller: RadarrAddMovieNavigationBar.scrollControllers[0],

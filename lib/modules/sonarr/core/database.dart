@@ -22,12 +22,6 @@ class SonarrDatabase extends LunaModuleDatabase {
     for (SonarrDatabaseValue value in SonarrDatabaseValue.values) {
       switch (value) {
         // Non-primitive values
-        case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS:
-          data[value.key] = (SonarrDatabaseValue
-                  .ADD_SERIES_DEFAULT_MONITOR_STATUS
-                  .data as SonarrMonitorStatus)
-              .key;
-          break;
         case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data
                   as SonarrSeriesSorting)
@@ -60,6 +54,9 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
         case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
+        case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
+        case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
           data[value.key] = value.data;
           break;
       }
@@ -74,9 +71,6 @@ class SonarrDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Non-primitive values
-          case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS:
-            value.put(SonarrMonitorStatus.ALL.fromKey(config[key]));
-            break;
           case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
             value.put(SonarrSeriesSorting.ALPHABETICAL.fromKey(config[key]));
             break;
@@ -103,6 +97,9 @@ class SonarrDatabase extends LunaModuleDatabase {
           case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
           case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
           case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+          case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
+          case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
+          case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
             value.put(config[key]);
             break;
         }
@@ -128,8 +125,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS;
       case 'SONARR_ADD_SERIES_DEFAULT_SERIES_TYPE':
         return SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE;
-      case 'SONARR_ADD_SERIES_DEFAULT_MONITOR_STATUS':
-        return SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS;
+      case 'SONARR_ADD_SERIES_DEFAULT_MONITOR_TYPE':
+        return SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE;
       case 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE':
         return SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE;
       case 'SONARR_ADD_SERIES_DEFAULT_QUALITY_PROFILE':
@@ -152,6 +149,10 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES;
       case 'SONARR_REMOVE_SERIES_EXCLUSION_LIST':
         return SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST;
+      case 'SONARR_ADD_SERIES_SEARCH_FOR_MISSING':
+        return SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING;
+      case 'SONARR_ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET':
+        return SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET;
       default:
         return null;
     }
@@ -161,10 +162,12 @@ class SonarrDatabase extends LunaModuleDatabase {
 enum SonarrDatabaseValue {
   NAVIGATION_INDEX,
   NAVIGATION_INDEX_SERIES_DETAILS,
+  ADD_SERIES_SEARCH_FOR_MISSING,
+  ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET,
   ADD_SERIES_DEFAULT_MONITORED,
   ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS,
   ADD_SERIES_DEFAULT_SERIES_TYPE,
-  ADD_SERIES_DEFAULT_MONITOR_STATUS,
+  ADD_SERIES_DEFAULT_MONITOR_TYPE,
   ADD_SERIES_DEFAULT_LANGUAGE_PROFILE,
   ADD_SERIES_DEFAULT_QUALITY_PROFILE,
   ADD_SERIES_DEFAULT_ROOT_FOLDER,
@@ -200,8 +203,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
         return 'SONARR_ADD_SERIES_DEFAULT_SERIES_TYPE';
-      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS:
-        return 'SONARR_ADD_SERIES_DEFAULT_MONITOR_STATUS';
+      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
+        return 'SONARR_ADD_SERIES_DEFAULT_MONITOR_TYPE';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE:
         return 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE:
@@ -224,6 +227,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_REMOVE_SERIES_DELETE_FILES';
       case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
         return 'SONARR_REMOVE_SERIES_EXCLUSION_LIST';
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
+        return 'SONARR_ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET';
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
+        return 'SONARR_ADD_SERIES_SEARCH_FOR_MISSING';
     }
     throw Exception('key not found');
   }
@@ -247,8 +254,11 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return _box.get(this.key, defaultValue: true);
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
         return _box.get(this.key, defaultValue: 'standard');
-      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS:
-        return _box.get(this.key, defaultValue: SonarrMonitorStatus.ALL);
+      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
+        return _box.get(
+          this.key,
+          defaultValue: SonarrSeriesMonitorType.ALL.value,
+        );
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE:
         return _box.get(this.key, defaultValue: null);
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE:
@@ -258,8 +268,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS:
         return _box.get(this.key, defaultValue: []);
       case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
-        return _box.get(this.key,
-            defaultValue: SonarrSeriesSorting.ALPHABETICAL);
+        return _box.get(
+          this.key,
+          defaultValue: SonarrSeriesSorting.ALPHABETICAL,
+        );
       case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
         return _box.get(this.key, defaultValue: SonarrSeriesFilter.ALL);
       case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
@@ -271,6 +283,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
         return _box.get(this.key, defaultValue: false);
       case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        return _box.get(this.key, defaultValue: false);
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
+        return _box.get(this.key, defaultValue: false);
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
         return _box.get(this.key, defaultValue: false);
     }
     throw Exception('data not found');
@@ -294,8 +310,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
         if (value is String) box.put(this.key, value);
         return;
-      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS:
-        if (value is SonarrMonitorStatus) box.put(this.key, value);
+      case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
+        if (value is String) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE:
         if (value is int) box.put(this.key, value);
@@ -337,6 +353,12 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         if (value is bool) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST:
+        if (value is bool) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
+        if (value is bool) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
         if (value is bool) box.put(this.key, value);
         return;
     }

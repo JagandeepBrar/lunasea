@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -109,9 +108,9 @@ class _Sorter {
       series.where((s) => !s.monitored).toList();
 
   List<SonarrSeries> _continuing(List<SonarrSeries> series) =>
-      series.where((s) => s.status == 'continuing').toList();
+      series.where((s) => !s.ended).toList();
   List<SonarrSeries> _ended(List<SonarrSeries> series) =>
-      series.where((s) => s.status == 'ended').toList();
+      series.where((s) => s.ended).toList();
   List<SonarrSeries> _missing(List<SonarrSeries> series) => series
       .where((s) => s.statistics.episodeCount != s.statistics.episodeFileCount)
       .toList();

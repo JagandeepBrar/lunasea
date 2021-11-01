@@ -52,9 +52,9 @@ extension _EventTypeExtension on _EventType {
         return _downloadEvent(data);
       case _EventType.EPISODE_FILE_DELETE:
         return _episodeFileDeleteEvent(data);
-      // TODO
       case _EventType.GRAB:
         return;
+      // TODO
       //   return _grabEvent(data);
       case _EventType.HEALTH:
         return _healthEvent(data);

@@ -17,7 +17,6 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
             subtitle: RadarrImportMode.COPY
                 .from((RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.data))
                 .lunaReadable,
-            icon: Icons.arrow_forward_ios_rounded,
             //checkboxState: true,
             onTap: () async => _importModeOnTap(context),
           ),

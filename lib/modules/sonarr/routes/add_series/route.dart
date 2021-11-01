@@ -18,18 +18,20 @@ class SonarrAddSeriesRouter extends SonarrPageRouter {
   Future<void> navigateTo(
     BuildContext context, {
     @required String query,
-  }) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(),
-        routeSettings: RouteSettings(
-          arguments: _SonarrAddSeriesArguments(query),
-        ),
-      );
+  }) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(),
+      routeSettings: RouteSettings(
+        arguments: _SonarrAddSeriesArguments(query),
+      ),
+    );
+  }
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  void defineRoute(FluroRouter router) {
+    super.noParameterRouteDefinition(router);
+  }
 }
 
 class _Widget extends StatefulWidget {
@@ -44,10 +46,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     _arguments = ModalRoute.of(context).settings.arguments;
-    return LunaScaffold(
-      scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
-      body: _body(),
+    return ChangeNotifierProvider(
+      create: (context) => SonarrAddSeriesState(
+        context,
+        _arguments?.query ?? '',
+      ),
+      builder: (context, _) => LunaScaffold(
+        scaffoldKey: _scaffoldKey,
+        appBar: _appBar(),
+        body: _body(),
+      ),
     );
   }
 
@@ -60,14 +68,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ChangeNotifierProvider(
-      create: (context) => SonarrAddSeriesState(
-        context,
-        _arguments?.query ?? '',
-      ),
-      builder: (context, _) => SonarrSeriesAddSearchResults(
-        scrollController: scrollController,
-      ),
-    );
+    return SonarrAddSeriesSearchPage(scrollController: scrollController);
   }
 }

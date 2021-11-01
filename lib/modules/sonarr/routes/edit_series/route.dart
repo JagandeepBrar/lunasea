@@ -170,10 +170,10 @@ class _State extends State<_Widget>
       children: [
         const SonarrSeriesEditMonitoredTile(),
         const SonarrSeriesEditSeasonFoldersTile(),
-        const SonarrSeriesEditSeriesPathTile(),
         SonarrSeriesEditQualityProfileTile(profiles: qualityProfiles),
         SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles),
         const SonarrSeriesEditSeriesTypeTile(),
+        const SonarrSeriesEditSeriesPathTile(),
         const SonarrSeriesEditTagsTile(),
       ],
     );

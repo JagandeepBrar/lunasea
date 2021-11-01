@@ -21,7 +21,7 @@ class LunaActionBarCard extends StatelessWidget {
     this.onLongPress,
     this.backgroundColor,
     this.color = LunaColours.accent,
-    this.icon,
+    this.icon = Icons.arrow_forward_ios_rounded,
     this.checkboxState,
     this.checkboxOnChanged,
   }) : super(key: key);

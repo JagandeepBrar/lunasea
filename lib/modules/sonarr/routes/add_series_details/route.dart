@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+class _SonarrAddSeriesDetailsArguments {
+  final SonarrSeries series;
+
+  _SonarrAddSeriesDetailsArguments({
+    @required this.series,
+  }) {
+    assert(series != null);
+  }
+}
+
 class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
   SonarrAddSeriesDetailsRouter() : super('/sonarr/addseries/details');
 
@@ -11,27 +21,22 @@ class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required SonarrSeriesLookup series,
+    @required SonarrSeries series,
   }) {
     return LunaRouter.router.navigateTo(
       context,
       route(),
-      routeSettings: RouteSettings(arguments: _Arguments(series: series)),
+      routeSettings: RouteSettings(
+        arguments: _SonarrAddSeriesDetailsArguments(
+          series: series,
+        ),
+      ),
     );
   }
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
-}
-
-class _Arguments {
-  SonarrSeriesLookup series;
-
-  _Arguments({
-    @required this.series,
-  }) {
-    assert(series != null);
+  void defineRoute(FluroRouter router) {
+    super.noParameterRouteDefinition(router);
   }
 }
 
@@ -56,14 +61,17 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _Arguments arguments = ModalRoute.of(context).settings.arguments;
+    _SonarrAddSeriesDetailsArguments arguments =
+        ModalRoute.of(context).settings.arguments;
     if (arguments == null || arguments.series == null)
       return LunaInvalidRoute(
-        title: 'Add Series',
-        message: 'Series Not Found',
+        title: 'sonarr.AddSeries'.tr(),
+        message: 'sonarr.NoSeriesFound'.tr(),
       );
     return ChangeNotifierProvider(
-      create: (_) => SonarrSeriesAddDetailsState(series: arguments.series),
+      create: (_) => SonarrSeriesAddDetailsState(
+        series: arguments.series,
+      ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
@@ -75,47 +83,49 @@ class _State extends State<_Widget>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Add Series',
+      title: 'sonarr.AddSeries'.tr(),
       scrollControllers: [scrollController],
     );
   }
 
   Widget _body(BuildContext context) {
-    return LunaRefreshIndicator(
-      context: context,
-      key: _refreshKey,
-      onRefresh: loadCallback,
-      child: FutureBuilder(
-        future: Future.wait([
+    return FutureBuilder(
+      future: Future.wait(
+        [
           context.watch<SonarrState>().rootFolders,
           context.watch<SonarrState>().tags,
           context.watch<SonarrState>().qualityProfiles,
           context.watch<SonarrState>().languageProfiles,
-        ]),
-        builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-          if (snapshot.hasError) {
-            if (snapshot.connectionState != ConnectionState.waiting) {
-              LunaLogger().error('Unable to fetch Sonarr add series data',
-                  snapshot.error, snapshot.stackTrace);
-            }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
-          }
-          if (snapshot.hasData) {
-            return _list(
-              context,
-              rootFolders: snapshot.data[0],
-              tags: snapshot.data[1],
-              qualityProfiles: snapshot.data[2],
-              languageProfiles: snapshot.data[3],
+        ],
+      ),
+      builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+        if (snapshot.hasError) {
+          if (snapshot.connectionState != ConnectionState.waiting) {
+            LunaLogger().error(
+              'Unable to fetch Sonarr add series data',
+              snapshot.error,
+              snapshot.stackTrace,
             );
           }
-          return const LunaLoader();
-        },
-      ),
+          return LunaMessage.error(
+            onTap: _refreshKey.currentState?.show,
+          );
+        }
+        if (snapshot.hasData) {
+          return _content(
+            context,
+            rootFolders: snapshot.data[0],
+            tags: snapshot.data[1],
+            qualityProfiles: snapshot.data[2],
+            languageProfiles: snapshot.data[3],
+          );
+        }
+        return const LunaLoader();
+      },
     );
   }
 
-  Widget _list(
+  Widget _content(
     BuildContext context, {
     @required List<SonarrRootFolder> rootFolders,
     @required List<SonarrQualityProfile> qualityProfiles,
@@ -125,6 +135,7 @@ class _State extends State<_Widget>
     context.read<SonarrSeriesAddDetailsState>().initializeMonitored();
     context.read<SonarrSeriesAddDetailsState>().initializeUseSeasonFolders();
     context.read<SonarrSeriesAddDetailsState>().initializeSeriesType();
+    context.read<SonarrSeriesAddDetailsState>().initializeMonitorType();
     context
         .read<SonarrSeriesAddDetailsState>()
         .initializeRootFolder(rootFolders);
@@ -143,14 +154,14 @@ class _State extends State<_Widget>
           series: context.read<SonarrSeriesAddDetailsState>().series,
           onTapShowOverview: true,
           exists: false,
+          isExcluded: false,
         ),
-        const SonarrSeriesAddDetailsMonitoredTile(),
-        const SonarrSeriesAddDetailsUseSeasonFoldersTile(),
-        const SonarrSeriesAddDetailsSeriesTypeTile(),
-        const SonarrSeriesAddDetailsMonitorStatusTile(),
         const SonarrSeriesAddDetailsRootFolderTile(),
+        const SonarrSeriesAddDetailsMonitorTile(),
         const SonarrSeriesAddDetailsQualityProfileTile(),
         const SonarrSeriesAddDetailsLanguageProfileTile(),
+        const SonarrSeriesAddDetailsSeriesTypeTile(),
+        const SonarrSeriesAddDetailsUseSeasonFoldersTile(),
         const SonarrSeriesAddDetailsTagsTile(),
       ],
     );

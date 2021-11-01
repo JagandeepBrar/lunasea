@@ -25,6 +25,7 @@ SonarrSeries _$SonarrSeriesFromJson(Map<String, dynamic> json) => SonarrSeries(
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => SonarrImage.fromJson(e as Map<String, dynamic>))
           .toList(),
+      remotePoster: json['remotePoster'] as String?,
       seasons: (json['seasons'] as List<dynamic>?)
           ?.map((e) => SonarrSeriesSeason.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -46,6 +47,7 @@ SonarrSeries _$SonarrSeriesFromJson(Map<String, dynamic> json) => SonarrSeries(
       cleanTitle: json['cleanTitle'] as String?,
       imdbId: json['imdbId'] as String?,
       titleSlug: json['titleSlug'] as String?,
+      folder: json['folder'] as String?,
       rootFolderPath: json['rootFolderPath'] as String?,
       certification: json['certification'] as String?,
       genres:
@@ -86,6 +88,7 @@ Map<String, dynamic> _$SonarrSeriesToJson(SonarrSeries instance) {
   writeNotNull('network', instance.network);
   writeNotNull('airTime', instance.airTime);
   writeNotNull('images', instance.images?.map((e) => e.toJson()).toList());
+  writeNotNull('remotePoster', instance.remotePoster);
   writeNotNull('seasons', instance.seasons?.map((e) => e.toJson()).toList());
   writeNotNull('year', instance.year);
   writeNotNull('path', instance.path);
@@ -105,6 +108,7 @@ Map<String, dynamic> _$SonarrSeriesToJson(SonarrSeries instance) {
   writeNotNull('cleanTitle', instance.cleanTitle);
   writeNotNull('imdbId', instance.imdbId);
   writeNotNull('titleSlug', instance.titleSlug);
+  writeNotNull('folder', instance.folder);
   writeNotNull('rootFolderPath', instance.rootFolderPath);
   writeNotNull('certification', instance.certification);
   writeNotNull('genres', instance.genres);

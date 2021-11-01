@@ -2,50 +2,32 @@ part of sonarr_commands;
 
 Future<SonarrSeries> _commandAddSeries(
   Dio client, {
-  required int tvdbId,
-  required int profileId,
-  required String title,
-  required String titleSlug,
-  required List<SonarrImage> images,
-  required List<SonarrSeriesSeason> seasons,
+  required SonarrSeries series,
   required SonarrSeriesType seriesType,
-  String? path,
-  String? rootFolderPath,
-  int? tvRageId,
-  int? languageProfileId,
-  List<int>? tags,
-  bool seasonFolder = true,
-  bool monitored = true,
-  bool ignoreEpisodesWithFiles = false,
-  bool ignoreEpisodesWithoutFiles = false,
+  required bool seasonFolder,
+  required SonarrQualityProfile qualityProfile,
+  required SonarrLanguageProfile languageProfile,
+  required SonarrRootFolder rootFolder,
+  required SonarrSeriesMonitorType monitorType,
+  List<SonarrTag> tags = const [],
   bool searchForMissingEpisodes = false,
+  bool searchForCutoffUnmetEpisodes = false,
 }) async {
-  if (path == null)
-    assert(
-        rootFolderPath != null, 'path and rootFolderPath cannot both be null');
-  if (path != null)
-    assert(rootFolderPath == null,
-        'path and rootFolderPath cannot both be defined');
-  Response response = await client.post('series', data: {
-    'tvdbId': tvdbId,
-    'profileId': profileId,
-    if (languageProfileId != null) 'languageProfileId': languageProfileId,
-    'title': title,
-    'titleSlug': titleSlug,
-    'images': images,
-    'seasons': seasons,
-    if (path != null) 'path': path,
-    if (rootFolderPath != null) 'rootFolderPath': rootFolderPath,
-    if (tvRageId != null) 'tvRageId': tvRageId,
+  Map<String, dynamic> _payload = series.toJson();
+  _payload.addAll({
+    'monitored': true,
+    'qualityProfileId': qualityProfile.id,
+    'languageProfileId': languageProfile.id,
     'seasonFolder': seasonFolder,
-    'monitored': monitored,
     'seriesType': seriesType.value,
-    if (tags != null) 'tags': tags,
+    'tags': tags.map((tag) => tag.id).toList(),
+    'rootFolderPath': rootFolder.path,
     'addOptions': {
-      'ignoreEpisodesWithFiles': ignoreEpisodesWithFiles,
-      'ignoreEpisodesWithoutFiles': ignoreEpisodesWithoutFiles,
+      'monitor': monitorType.value,
       'searchForMissingEpisodes': searchForMissingEpisodes,
+      'searchForCutoffUnmetEpisodes': searchForCutoffUnmetEpisodes,
     },
   });
+  Response response = await client.post('series', data: _payload);
   return SonarrSeries.fromJson(response.data);
 }

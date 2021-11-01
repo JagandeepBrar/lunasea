@@ -39,6 +39,10 @@ part 'src/commands/history.dart';
 part 'src/commands/history/get_history.dart';
 part 'src/commands/history/get_history_by_series.dart';
 
+// Import List
+part 'src/commands/import_list.dart';
+part 'src/commands/import_list/get_exclusion_list.dart';
+
 // Profile
 part 'src/commands/profile.dart';
 part 'src/commands/profile/get_language_profiles.dart';

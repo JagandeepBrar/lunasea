@@ -50,7 +50,7 @@ extension SonarrSeriesExtension on SonarrSeries {
 
   String get lunaDateAdded {
     if (this.added == null) {
-      return 'Unknown';
+      return 'lunasea.Unknown'.tr();
     }
     return DateFormat('MMMM dd, y').format(this.added.toLocal());
   }
@@ -67,25 +67,27 @@ extension SonarrSeriesExtension on SonarrSeries {
           : DateFormat('hh:mm a').format(this.previousAiring.toLocal());
     }
     if (this.airTime == null) {
-      return 'Unknown';
+      return 'lunasea.Unknown'.tr();
     }
     return this.airTime;
   }
 
   String get lunaSeriesType {
     if (this.seriesType == null) {
-      return 'Unknown';
+      return 'lunasea.Unknown'.tr();
     }
     return this.seriesType.value.lunaCapitalizeFirstLetters();
   }
 
   String get lunaSeasonCount {
     if (this.statistics?.seasonCount == null) {
-      return 'Unknown';
+      return 'lunasea.Unknown'.tr();
     }
     return this.statistics.seasonCount == 1
-        ? '1 Season'
-        : '${this.statistics.seasonCount} Seasons';
+        ? 'sonarr.OneSeason'.tr()
+        : 'sonarr.ManySeasons'.tr(
+            args: [this.statistics.seasonCount.toString()],
+          );
   }
 
   String get lunaSizeOnDisk {
@@ -93,6 +95,13 @@ extension SonarrSeriesExtension on SonarrSeries {
       return '0.0 B';
     }
     return this.statistics.sizeOnDisk.lunaBytesToString(decimals: 1);
+  }
+
+  String get lunaOverview {
+    if (this.overview == null || this.overview.isEmpty) {
+      return 'sonarr.NoSummaryAvailable'.tr();
+    }
+    return this.overview;
   }
 
   String get lunaAirsOn {

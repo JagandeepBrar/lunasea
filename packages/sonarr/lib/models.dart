@@ -23,6 +23,9 @@ export 'src/models/episode_file/episode_file_quality_revision.dart';
 export 'src/models/history/history.dart';
 export 'src/models/history/history_record.dart';
 
+/// Import List
+export 'src/models/import_list/exclusion.dart';
+
 /// Profile
 export 'src/models/profile/language_profile_cutoff.dart';
 export 'src/models/profile/language_profile_item.dart';
@@ -53,9 +56,6 @@ export 'src/models/series/season_statistics.dart';
 export 'src/models/series/season.dart';
 export 'src/models/series/series.dart';
 export 'src/models/series/series_statistics.dart';
-
-/// Series/Lookup
-export 'src/models/series_lookup/series_lookup.dart';
 
 /// System
 export 'src/models/system/status.dart';

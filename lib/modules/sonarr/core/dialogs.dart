@@ -501,32 +501,32 @@ class SonarrDialogs {
     return Tuple2(_flag, _folder);
   }
 
-  Future<Tuple2<bool, SonarrMonitorStatus>> editMonitorStatus(
+  Future<Tuple2<bool, SonarrSeriesMonitorType>> editMonitorType(
       BuildContext context) async {
     bool _flag = false;
-    SonarrMonitorStatus _status;
+    SonarrSeriesMonitorType _type;
 
-    void _setValues(bool flag, SonarrMonitorStatus status) {
+    void _setValues(bool flag, SonarrSeriesMonitorType type) {
       _flag = flag;
-      _status = status;
+      _type = type;
       Navigator.of(context, rootNavigator: true).pop();
     }
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Monitor Status',
+      title: 'Monitoring Options',
       content: List.generate(
-        SonarrMonitorStatus.values.length,
+        SonarrSeriesMonitorType.values.length,
         (index) => LunaDialog.tile(
-          text: SonarrMonitorStatus.values[index].name,
+          text: SonarrSeriesMonitorType.values[index].lunaName,
           icon: Icons.view_list,
           iconColor: LunaColours().byListIndex(index),
-          onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
+          onTap: () => _setValues(true, SonarrSeriesMonitorType.values[index]),
         ),
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return Tuple2(_flag, _status);
+    return Tuple2(_flag, _type);
   }
 
   Future<Tuple2<bool, SonarrSeriesType>> editSeriesType(
@@ -597,6 +597,40 @@ class SonarrDialogs {
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
     return _flag;
+  }
+
+  Future<void> addSeriesOptions(BuildContext context) async {
+    await LunaDialog.dialog(
+      context: context,
+      title: 'lunasea.Options'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Close'.tr(),
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+        ),
+      ],
+      showCancelButton: false,
+      content: [
+        SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.StartSearchForMissingEpisodes'.tr(),
+            value: SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING.put(value),
+          ),
+        ),
+        SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.StartSearchForCutoffUnmetEpisodes'.tr(),
+            value: SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.data,
+            onChanged: (value) => SonarrDatabaseValue
+                .ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET
+                .put(value),
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
   }
 
   static Future<List<dynamic>> confirmDeleteEpisodeFile(

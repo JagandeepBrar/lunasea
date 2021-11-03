@@ -14,6 +14,7 @@ class SonarrRouter extends LunaModuleRouter {
     SonarrSeasonDetailsRouter().defineRoute(router);
     // Other
     SonarrHistoryRouter().defineRoute(router);
+    SonarrQueueRouter().defineRoute(router);
     SonarrReleasesRouter().defineRoute(router);
     SonarrTagsRouter().defineRoute(router);
   }

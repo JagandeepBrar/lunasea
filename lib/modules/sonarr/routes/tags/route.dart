@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -20,18 +19,14 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<_Widget>
+    with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
   @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-  }
-
-  Future<void> _refresh() async {
+  Future<void> loadCallback() async {
     context.read<SonarrState>().fetchTags();
     await context.read<SonarrState>().tags;
   }
@@ -59,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaRefreshIndicator(
       context: context,
       key: _refreshKey,
-      onRefresh: _refresh,
+      onRefresh: loadCallback,
       child: FutureBuilder(
         future: context.watch<SonarrState>().tags,
         builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {

@@ -100,7 +100,7 @@ class _State extends State<DashboardCalendarWidget> {
     Color color;
     int missingCount = _countMissingContent(date, events);
     switch (missingCount) {
-      case -2:
+      case -100:
         color = Colors.transparent;
         break;
       case -1:
@@ -215,13 +215,16 @@ class _State extends State<DashboardCalendarWidget> {
     );
   }
 
-  /// -1: Date is today or after today
-  /// -2: Event list was empty or null
+  /// -1: Date is today or after today (with content)
+  /// -100: Event list was empty or null
   int _countMissingContent(DateTime date, List<dynamic> events) {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
-    if (_date.isAfter(_now) || _date.isAtSameMomentAs(_now)) return -1;
-    if (events == null || events.isEmpty) return -2;
+    if (_date.isAfter(_now) || _date.isAtSameMomentAs(_now)) {
+      if ((events?.length ?? 0) == 0) return -100;
+      return -1;
+    }
+    if (events == null || events.isEmpty) return -100;
     int counter = 0;
     for (dynamic event in events) {
       switch (event.runtimeType) {

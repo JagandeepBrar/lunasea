@@ -14,6 +14,7 @@
 
 #### TWEAKS
 
+- `[Dashboard]` (Modules) Now always set to use brand colours
 - `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
 - `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
 

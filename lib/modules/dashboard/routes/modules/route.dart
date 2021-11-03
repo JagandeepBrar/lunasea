@@ -87,12 +87,7 @@ class _State extends State<DashboardModulesRoute>
       context: context,
       title: LunaText.title(text: module.name),
       subtitle: LunaText.subtitle(text: module.description),
-      trailing: LunaIconButton(
-        icon: module.icon,
-        color: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data
-            ? module.color
-            : LunaColours().byListIndex(listIndex),
-      ),
+      trailing: LunaIconButton(icon: module.icon, color: module.color),
       onTap: module.launch,
     );
   }

@@ -21,7 +21,7 @@
 #### FIXES
 
 - `[Flutter]` Update packages
-- `[Flutter]` Upgrade to Firebase SDK v8.7.0
+- `[Flutter]` Upgrade to Firebase SDK v8.8.0
 - `[Settings]` (Calendar) Starting type would have incorrect icons
 - `[Settings]` (Notifications) Overseerr would not be displayed
 - `[Sonarr]` Now only utilizes v3 API routes

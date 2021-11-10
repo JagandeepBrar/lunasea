@@ -5,6 +5,7 @@
 #### NEW
 
 - `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
+- `[Notifications]` Support time-sensitive notifications
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
 - `[Sonarr]` (Catalogue) Many additional sorting and filtering options
 - `[Sonarr]` (Catalogue) Ability to set default filtering method

@@ -8,15 +8,16 @@
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
 - `[Sonarr]` (Catalogue) Many additional sorting and filtering options
 - `[Sonarr]` (Catalogue) Ability to set default filtering method
+- `[Sonarr]` (Series Details) Ability to view history for a single series
 - `[Sonarr]` (History) Now an infinite scrolling list
 - `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
 - `[Sonarr]` (Releases) Ability to set default filtering method
 
 #### TWEAKS
 
-- `[Dashboard]` (Modules) Use module's brand colour always for module list
+- `[Dashboard]` (Modules) Always use module's brand colour for module list
+- `[Sonarr]` (Home) "History" tab has been replaced with a "More" tab
 - `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
-- `[Sonarr]` (Navigation) "History" tab has been replaced with a "More" tab
 
 #### FIXES
 
@@ -26,6 +27,7 @@
 - `[Settings]` (Notifications) Overseerr would not be displayed
 - `[Sonarr]` Now only utilizes v3 API routes
 - `[Sonarr]` (Edit) Vastly speed up response time on editing a series
+- `[Sonarr]` (Seasons) Now correctly calculates available episode count in season list
 - `[TLS]` TLS v1.3 is now fully supported
 
 ## v5.1.1 (50101002)

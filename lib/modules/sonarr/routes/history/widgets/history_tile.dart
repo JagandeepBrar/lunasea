@@ -18,29 +18,9 @@ class SonarrHistoryTile extends StatelessWidget {
       title: seriesHistory
           ? history.sourceTitle
           : history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
-      collapsedSubtitle1: TextSpan(children: [
-        TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
-        const TextSpan(text: ': '),
-        TextSpan(
-          text: history?.episode?.title ?? LunaUI.TEXT_EMDASH,
-          style: const TextStyle(
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-      ]),
-      collapsedSubtitle2: TextSpan(
-        text: [
-          history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
-          history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-        ].join(LunaUI.TEXT_BULLET.lunaPad()),
-      ),
-      collapsedSubtitle3: TextSpan(
-        text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
-        style: TextStyle(
-          color: history?.eventType?.lunaColour() ?? LunaColours.blueGrey,
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        ),
-      ),
+      collapsedSubtitle1: seriesHistory ? _subtitle2() : _subtitle1(),
+      collapsedSubtitle2: seriesHistory ? _subtitle3() : _subtitle2(),
+      collapsedSubtitle3: seriesHistory ? null : _subtitle3(),
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
@@ -72,6 +52,38 @@ class SonarrHistoryTile extends StatelessWidget {
                 context,
                 seriesId: history?.series?.id ?? -1,
               ),
+    );
+  }
+
+  TextSpan _subtitle1() {
+    return TextSpan(children: [
+      TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
+      const TextSpan(text: ': '),
+      TextSpan(
+        text: history?.episode?.title ?? LunaUI.TEXT_EMDASH,
+        style: const TextStyle(
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+    ]);
+  }
+
+  TextSpan _subtitle2() {
+    return TextSpan(
+      text: [
+        history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
+        history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+      ].join(LunaUI.TEXT_BULLET.lunaPad()),
+    );
+  }
+
+  TextSpan _subtitle3() {
+    return TextSpan(
+      text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
+      style: TextStyle(
+        color: history?.eventType?.lunaColour() ?? LunaColours.blueGrey,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
     );
   }
 }

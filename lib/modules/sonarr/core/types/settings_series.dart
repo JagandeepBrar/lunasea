@@ -60,8 +60,10 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         }
         return;
       case SonarrSeriesSettingsType.MONITORED:
-        return SonarrAPIController()
-            .toggleMonitored(context: context, series: series);
+        return SonarrAPIController().toggleSeriesMonitored(
+          context: context,
+          series: series,
+        );
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }

@@ -120,7 +120,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return [
       if (showSourceTitle)
         LunaTableContent(
-          title: 'sonarr.Name'.tr(),
+          title: 'sonarr.SourceTitle'.tr(),
           body: history.sourceTitle,
         ),
       LunaTableContent(
@@ -137,9 +137,21 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return [
       if (showSourceTitle)
         LunaTableContent(
-          title: 'sonarr.Name'.tr(),
+          title: 'sonarr.SourceTitle'.tr(),
           body: history.sourceTitle,
         ),
+      LunaTableContent(
+        title: 'sonarr.Quality'.tr(),
+        body: history.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Languages'.tr(),
+        body: history.language?.name ?? LunaUI.TEXT_EMDASH,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Client'.tr(),
+        body: history.data['downloadClient'] ?? LunaUI.TEXT_EMDASH,
+      ),
       LunaTableContent(
         title: 'sonarr.Source'.tr(),
         body: history.data['droppedPath'],
@@ -193,7 +205,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return [
       if (showSourceTitle)
         LunaTableContent(
-          title: 'sonarr.Name'.tr(),
+          title: 'sonarr.SourceTitle'.tr(),
           body: history.sourceTitle,
         ),
       LunaTableContent(
@@ -233,9 +245,17 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return [
       if (showSourceTitle)
         LunaTableContent(
-          title: 'sonarr.Name'.tr(),
+          title: 'sonarr.SourceTitle'.tr(),
           body: history.sourceTitle,
         ),
+      LunaTableContent(
+        title: 'sonarr.Quality'.tr(),
+        body: history.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Languages'.tr(),
+        body: history.language?.name ?? LunaUI.TEXT_EMDASH,
+      ),
       LunaTableContent(
         title: 'sonarr.Indexer'.tr(),
         body: history.data['indexer'],

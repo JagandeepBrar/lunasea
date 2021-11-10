@@ -14,7 +14,10 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'All Seasons', darken: !series.monitored),
+      title: LunaText.title(
+        text: 'sonarr.AllSeasons'.tr(),
+        darken: !series.monitored,
+      ),
       subtitle: RichText(
         text: TextSpan(
           style: TextStyle(
@@ -22,29 +25,9 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
           children: [
-            TextSpan(
-                text: series?.statistics?.sizeOnDisk
-                        ?.lunaBytesToString(decimals: 1) ??
-                    '0.0 B'),
+            _subtitle1(),
             const TextSpan(text: '\n'),
-            TextSpan(
-              style: TextStyle(
-                color: series.lunaPercentageComplete == 100
-                    ? series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : series.monitored
-                        ? LunaColours.red
-                        : LunaColours.red.withOpacity(0.30),
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-              text: [
-                '${series.lunaPercentageComplete}%',
-                LunaUI.TEXT_EMDASH.lunaPad(),
-                '${series.statistics?.episodeFileCount ?? 0}/${series.statistics?.episodeCount ?? 0}',
-                'Episodes Available',
-              ].join(' '),
-            ),
+            _subtitle2(),
           ],
         ),
       ),
@@ -55,6 +38,34 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
         seriesId: series.id,
         seasonNumber: -1,
       ),
+    );
+  }
+
+  TextSpan _subtitle1() {
+    return TextSpan(
+      text: series?.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ??
+          '0.0B',
+    );
+  }
+
+  TextSpan _subtitle2() {
+    return TextSpan(
+      style: TextStyle(
+        color: series.lunaPercentageComplete == 100
+            ? series.monitored
+                ? LunaColours.accent
+                : LunaColours.accent.withOpacity(0.30)
+            : series.monitored
+                ? LunaColours.red
+                : LunaColours.red.withOpacity(0.30),
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+      text: [
+        '${series.lunaPercentageComplete}%',
+        LunaUI.TEXT_EMDASH.lunaPad(),
+        '${series.statistics?.episodeFileCount ?? 0}/${series.statistics?.episodeCount ?? 0}',
+        'Episodes Available',
+      ].join(' '),
     );
   }
 }

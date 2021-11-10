@@ -1,15 +1,64 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
-  Future<bool> toggleMonitored({
+  Future<bool> toggleSeasonMonitored({
+    @required BuildContext context,
+    @required SonarrSeriesSeason season,
+    @required int seriesId,
+    bool showSnackbar = true,
+  }) async {
+    assert(season != null);
+    if (context.read<SonarrState>().enabled) {
+      return context.read<SonarrState>().series.then((series) {
+        return series.firstWhere((s) => s.id == seriesId).clone();
+      }).then((series) {
+        series.seasons.forEach((seriesSeason) {
+          if (seriesSeason.seasonNumber == season.seasonNumber) {
+            seriesSeason.monitored = !seriesSeason.monitored;
+          }
+        });
+        return context.read<SonarrState>().api.series.update(series: series);
+      }).then((series) {
+        return context.read<SonarrState>().setSingleSeries(series);
+      }).then((series) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: season.monitored
+                ? 'sonarr.NoLongerMonitoring'.tr()
+                : 'sonarr.Monitoring'.tr(),
+            message: season.seasonNumber == 0
+                ? 'Specials'
+                : 'Season ${season.seasonNumber}',
+          );
+        }
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Unable to toggle season monitored state: ${season.monitored.toString()} to ${(!season.monitored).toString()}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: season.monitored
+                ? 'sonarr.FailedToUnmonitorSeason'.tr()
+                : 'sonarr.FailedToMonitorSeason'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
+  }
+
+  Future<bool> toggleSeriesMonitored({
     @required BuildContext context,
     @required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
-    assert(SerialTapGestureRecognizer != null);
+    assert(series != null);
     if (context.read<SonarrState>().enabled) {
       SonarrSeries seriesCopy = series.clone();
       seriesCopy.monitored = !series.monitored;

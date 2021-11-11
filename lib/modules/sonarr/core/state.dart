@@ -251,6 +251,7 @@ class SonarrState extends LunaModuleState {
         pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
         sortDir: SonarrSortDirection.DESCENDING,
         sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
+        includeSeries: true,
       );
     notifyListeners();
   }

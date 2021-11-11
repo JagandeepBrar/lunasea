@@ -22,6 +22,7 @@ class SonarrCommandHandler_Episode {
   /// - `includeImages`: Include image paths
   Future<List<SonarrEpisode>> getMulti({
     int? seriesId,
+    int? seasonNumber,
     List<int>? episodeIds,
     int? episodeFileId,
     bool? includeImages,
@@ -29,6 +30,7 @@ class SonarrCommandHandler_Episode {
       _commandGetEpisodes(
         _client,
         seriesId: seriesId,
+        seasonNumber: seasonNumber,
         episodeIds: episodeIds,
         episodeFileId: episodeFileId,
         includeImages: includeImages,

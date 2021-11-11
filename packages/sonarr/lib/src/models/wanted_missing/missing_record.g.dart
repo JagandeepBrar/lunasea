@@ -20,6 +20,11 @@ SonarrMissingRecord _$SonarrMissingRecordFromJson(Map<String, dynamic> json) =>
       hasFile: json['hasFile'] as bool?,
       monitored: json['monitored'] as bool?,
       unverifiedSceneNumbering: json['unverifiedSceneNumbering'] as bool?,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : SonarrImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
       series: json['series'] == null
           ? null
           : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
@@ -40,6 +45,7 @@ Map<String, dynamic> _$SonarrMissingRecordToJson(
       'hasFile': instance.hasFile,
       'monitored': instance.monitored,
       'unverifiedSceneNumbering': instance.unverifiedSceneNumbering,
+      'images': instance.images?.map((e) => e?.toJson()).toList(),
       'series': instance.series?.toJson(),
       'id': instance.id,
     };

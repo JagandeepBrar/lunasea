@@ -13,16 +13,10 @@ class SonarrCommandHandler_Calendar {
   ///
   /// Gets upcoming episodes.
   /// If start/end are not supplied episodes airing today and tomorrow will be returned.
-  ///
-  /// Optional Parameters:
-  /// - `start`: [DateTime] object for the start date
-  /// - `end`: [DateTime] object for the end date
-  /// - `includeSeries`: [bool] Include the series details?
-  /// - `includeEpisodeFile`: [bool] Include the episode file details?
-  /// - `includeEpisodeImages`: [bool] Include the episode images?
   Future<List<SonarrCalendar>> get({
     DateTime? start,
     DateTime? end,
+    bool? unmonitored,
     bool? includeSeries,
     bool? includeEpisodeFile,
     bool? includeEpisodeImages,
@@ -31,6 +25,7 @@ class SonarrCommandHandler_Calendar {
         _client,
         start: start,
         end: end,
+        unmonitored: unmonitored,
         includeSeries: includeSeries,
         includeEpisodeFile: includeEpisodeFile,
         includeEpisodeImages: includeEpisodeImages,

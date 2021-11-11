@@ -9,21 +9,21 @@ dependencies:
   flutter:
     sdk: flutter
   badges: ^2.0.1
-  cloud_firestore: ^2.5.4
+  cloud_firestore: ^3.1.0
   convert: ^3.0.1
   dio: ^4.0.1
   easy_localization: ^3.0.0
   encrypt: ^5.0.1
   expandable: ^5.0.1
-  file_picker: ^4.2.0
+  file_picker: ^4.2.2+1
   file_selector_macos: ^0.0.4
   file_selector_platform_interface: ^2.0.2
   firebase_analytics: ^8.3.4
-  firebase_auth: ^3.1.4
-  firebase_core: ^1.8.0
-  firebase_crashlytics: ^2.2.4
-  firebase_messaging: ^10.0.9
-  firebase_storage: ^10.0.6
+  firebase_auth: ^3.2.0
+  firebase_core: ^1.10.0
+  firebase_crashlytics: ^2.3.0
+  firebase_messaging: ^11.1.0
+  firebase_storage: ^10.1.0
   fl_chart: ^0.40.2
   flash: ^2.0.3
   fluro: ^2.0.3
@@ -65,7 +65,7 @@ dependencies:
   xml: ^5.3.1
 
 dev_dependencies:
-  build_runner: ^2.1.4
+  build_runner: ^2.1.5
   coverage: ^1.0.3
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.4

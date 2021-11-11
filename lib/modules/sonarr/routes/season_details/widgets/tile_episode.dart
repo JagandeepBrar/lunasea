@@ -32,12 +32,15 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
   Widget _collapsed(SonarrQueueRecord queue) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: widget.episode.title),
+      title: LunaText.title(
+        text: widget.episode.title,
+        darken: !widget.episode.monitored,
+      ),
       subtitle: RichText(
         text: TextSpan(
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: Colors.white70,
+            color: widget.episode.monitored ? Colors.white70 : Colors.white30,
           ),
           children: [
             _subtitle1(),

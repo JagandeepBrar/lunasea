@@ -1,1 +1,15 @@
-{}
+{
+    "radarr.AddMovie": "Adicionar Filme",
+    "radarr.Age": "Idade",
+    "radarr.All": "Todos",
+    "radarr.Alphabetical": "Alfabética",
+    "radarr.Approved": "Aprovado",
+    "radarr.Automatic": "Automático",
+    "radarr.AvailabilityUnknown": "Disponibilidade Desconhecida",
+    "radarr.AvailableIn": "Disponível em {}",
+    "radarr.AvailableToday": "Disponível Hoje",
+    "radarr.CinemaDateUnknown": "Data nos Cinemas Desconhecida",
+    "radarr.Configure": "Configurar",
+    "radarr.Copy": "Copiar",
+    "radarr.CopyFull": "Cópia Física/Copiar Arquivos"
+}

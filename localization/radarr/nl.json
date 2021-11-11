@@ -1,1 +1,8 @@
-{}
+{
+    "radarr.AddMovie": "Film Toevoegen",
+    "radarr.AddMovieAndSearch": "Voeg Toe + Zoek",
+    "radarr.Age": "Leeftijd",
+    "radarr.All": "Alle",
+    "radarr.Alphabetical": "Alfabetisch",
+    "radarr.Approved": "Goedgekeurd"
+}

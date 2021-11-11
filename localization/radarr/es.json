@@ -1,1 +1,26 @@
-{}
+{
+    "radarr.Age": "Edad",
+    "radarr.All": "Todo",
+    "radarr.Alphabetical": "Alfabético",
+    "radarr.Approved": "Aprobado",
+    "radarr.Automatic": "Automático",
+    "radarr.AvailabilityUnknown": "Disponibilidad desconocida",
+    "radarr.AvailableIn": "Disponible en {}",
+    "radarr.AvailableToday": "Disponible hoy",
+    "radarr.BackupDatabase": "Respaldar base de datos",
+    "radarr.CinemaDateUnknown": "Fecha de cine desconocida",
+    "radarr.Configure": "Configurar",
+    "radarr.Copy": "Copiar",
+    "radarr.CutoffUnmet": "Límite no alcanzado",
+    "radarr.DateAdded": "Fecha añadida",
+    "radarr.DigitalRelease": "Publicación digital",
+    "radarr.DirectoryNotFound": "Directorio no encontrado",
+    "radarr.Discover": "Descubra",
+    "radarr.DownloadFailed": "Descarga fracasó",
+    "radarr.DownloadIgnored": "Descarga ignorada",
+    "radarr.EditMovie": "Editar película",
+    "radarr.FileBrowser": "Explorador de archivos…",
+    "radarr.FilterCatalogue": "Catálogo de filtros",
+    "radarr.GrabbedFrom": "Tomada de {}",
+    "radarr.History": "Historia"
+}

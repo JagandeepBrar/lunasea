@@ -1,1 +1,10 @@
-{}
+{
+    "overseerr.NoRequests": "Sin solicitudes",
+    "overseerr.OneRequest": "1 solicitud",
+    "overseerr.SomeRequests": "{} solicitudes",
+    "overseerr.Requests": "Solicitudes",
+    "overseerr.NoRequestsFound": "No se encontraron solicitudes",
+    "overseerr.UnknownUser": "Usuario desconocido",
+    "overseerr.NoUsersFound": "No se encontraron usuarios",
+    "overseerr.Users": "Usuarios"
+}

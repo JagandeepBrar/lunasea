@@ -1,5 +1,6 @@
 {
     "tautulli.Activity": "Activiteit",
     "tautulli.ActivityDetails": "Activiteit Details",
-    "tautulli.Audio": "Geluid"
+    "tautulli.Audio": "Geluid",
+    "tautulli.BackingUpDatabase": "Back-up maken van Database…"
 }

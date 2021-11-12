@@ -149,7 +149,7 @@
     "settings.BasicAuthenticationHint1": "El nombre de usuario no debe contener dos puntos",
     "settings.Account": "Cuenta",
     "settings.BroadcastAddressHint3": "Por ejemplo, dada una dirección IP de máquina de 192.168.1.111, la dirección IP de transmisión resulta ser 192.168.1.255",
-    "settings.BackupConfiguration": "Configuración de respaldo",
+    "settings.BackupConfiguration": "Backup la configuración",
     "settings.RestoreFromCloud": "Restaurar desde la nube",
     "settings.ResourcesDescription": "Recursos y enlaces útiles",
     "settings.Email": "Email",

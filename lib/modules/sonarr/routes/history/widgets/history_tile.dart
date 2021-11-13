@@ -52,7 +52,7 @@ class SonarrHistoryTile extends StatelessWidget {
           ? null
           : () async => SonarrSeriesDetailsRouter().navigateTo(
                 context,
-                seriesId: history?.series?.id ?? -1,
+                seriesId: history?.series?.id ?? series?.id ?? -1,
               ),
     );
   }

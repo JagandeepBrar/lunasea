@@ -18,12 +18,12 @@ class SonarrState extends LunaModuleState {
     _series = null;
     _upcoming = null;
     _missing = null;
+
     _rootFolders = null;
     _qualityProfiles = null;
     _languageProfiles = null;
     _tags = null;
-    _episodes = {};
-    _selectedEpisodes = [];
+
     // Reset search query fields
     _releasesSearchQuery = '';
     // Reinitialize
@@ -80,51 +80,6 @@ class SonarrState extends LunaModuleState {
             headers: Map<String, dynamic>.from(_headers),
           )
         : null;
-  }
-
-  ////////////////
-  /// EPISODES ///
-  ////////////////
-
-  Map<int, Future<List<SonarrEpisode>>> _episodes = {};
-  Map<int, Future<List<SonarrEpisode>>> get episodes => _episodes;
-  void fetchEpisodes(int seriesId) {
-    assert(seriesId != null);
-    if (_api != null)
-      _episodes[seriesId] = _api.episode.getMulti(seriesId: seriesId);
-    notifyListeners();
-  }
-
-  List<int> _selectedEpisodes = [];
-  List<int> get selectedEpisodes => _selectedEpisodes;
-  set selectedEpisodes(List<int> selectedEpisodes) {
-    assert(selectedEpisodes != null);
-    _selectedEpisodes = selectedEpisodes;
-    notifyListeners();
-  }
-
-  void addSelectedEpisode(int id) {
-    if (!_selectedEpisodes.contains(id)) _selectedEpisodes.add(id);
-    notifyListeners();
-  }
-
-  void removeSelectedEpisode(int id) {
-    if (_selectedEpisodes.contains(id)) _selectedEpisodes.remove(id);
-    notifyListeners();
-  }
-
-  void toggleSelectedEpisode(int id) {
-    _selectedEpisodes.contains(id)
-        ? _selectedEpisodes.remove(id)
-        : _selectedEpisodes.add(id);
-    notifyListeners();
-  }
-
-  Future<List<SonarrRootFolder>> _rootFolders;
-  Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
-  void fetchRootFolders() {
-    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
-    notifyListeners();
   }
 
   ////////////////
@@ -281,7 +236,7 @@ class SonarrState extends LunaModuleState {
   }
 
   ////////////////
-  /// PROFILES ///
+  /// METADATA ///
   ////////////////
 
   Future<List<SonarrQualityProfile>> _qualityProfiles;
@@ -310,9 +265,12 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  ////////////
-  /// TAGS ///
-  ////////////
+  Future<List<SonarrRootFolder>> _rootFolders;
+  Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
+  void fetchRootFolders() {
+    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
+    notifyListeners();
+  }
 
   Future<List<SonarrTag>> _tags;
   Future<List<SonarrTag>> get tags => _tags;

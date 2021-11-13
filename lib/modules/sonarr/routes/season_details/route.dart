@@ -61,125 +61,19 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
-
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) {
-      context.read<SonarrState>().selectedEpisodes = [];
-      _refresh();
-    });
-  }
-
-  Future<void> _refresh() async {
-    if (widget.seriesId > 0) {
-      if (context.read<SonarrState>().api != null)
-        context.read<SonarrState>().fetchEpisodes(widget.seriesId);
-      if (context.read<SonarrState>().episodes[widget.seriesId] != null)
-        await context.read<SonarrState>().episodes[widget.seriesId];
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.seriesId <= 0)
-      return LunaInvalidRoute(
-          title: 'Season Details', message: 'Series Not Found');
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),
-      body: _body(),
-      floatingActionButton: _floatingActionButton(),
     );
   }
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Season Details',
+      title: 'sonarr.SeasonDetails'.tr(),
       scrollControllers: [scrollController],
     );
-  }
-
-  Widget _floatingActionButton() {
-    int _episodes = context.watch<SonarrState>().selectedEpisodes?.length ?? 0;
-    if (_episodes == 0) return null;
-    return LunaFloatingActionButtonExtended(
-      label: _episodes == 1 ? '1 Episode' : '$_episodes Episodes',
-      icon: Icons.search,
-      onPressed: _searchSelected,
-    );
-  }
-
-  Widget _body() {
-    return LunaRefreshIndicator(
-      context: context,
-      key: _refreshKey,
-      onRefresh: _refresh,
-      child: FutureBuilder(
-        future: context.watch<SonarrState>().episodes[widget.seriesId],
-        builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
-          if (snapshot.hasError)
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
-          if (snapshot.hasData) {
-            if (widget.seasonNumber == -1)
-              return SonarrSeasonDetailsAllSeasons(
-                episodes: snapshot.data,
-                seriesId: widget.seriesId,
-                scrollController: scrollController,
-              );
-            List<SonarrEpisode> _episodes = snapshot.data
-                .where(
-                  (episode) => episode.seasonNumber == widget.seasonNumber,
-                )
-                .toList();
-            if (_episodes?.isNotEmpty ?? false) {
-              _episodes.sort((a, b) =>
-                  (b.episodeNumber ?? 0).compareTo(a.episodeNumber ?? 0));
-              return SonarrSeasonDetailsSeason(
-                episodes: _episodes,
-                seriesId: widget.seriesId,
-                seasonNumber: widget.seasonNumber,
-                scrollController: scrollController,
-              );
-            }
-            return _unknown();
-          }
-          return const LunaLoader();
-        },
-      ),
-    );
-  }
-
-  Widget _unknown() {
-    return LunaMessage(text: 'No Episodes Found');
-  }
-
-  Future<void> _searchSelected() async {
-    if (context.read<SonarrState>().api != null)
-      context
-          .read<SonarrState>()
-          .api
-          .command
-          .episodeSearch(
-            episodeIds: context.read<SonarrState>().selectedEpisodes,
-          )
-          .then((_) {
-        showLunaSuccessSnackBar(
-          title: 'Searching for Episodes...',
-          message: context.read<SonarrState>().selectedEpisodes.length == 1
-              ? '1 Episode'
-              : '${context.read<SonarrState>().selectedEpisodes.length} Episodes',
-        );
-        context.read<SonarrState>().selectedEpisodes = [];
-      }).catchError((error, stack) {
-        LunaLogger().error(
-            'Failed to search for episodes: ${context.read<SonarrState>().selectedEpisodes.join(', ')}',
-            error,
-            stack);
-        showLunaErrorSnackBar(
-            title: 'Failed to Search For Episodes', error: error);
-      });
   }
 }

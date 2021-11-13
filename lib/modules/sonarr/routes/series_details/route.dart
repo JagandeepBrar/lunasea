@@ -111,11 +111,12 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.seriesId <= 0)
+    if (widget.seriesId <= 0) {
       return LunaInvalidRoute(
         title: 'sonarr.SeriesDetails'.tr(),
         message: 'sonarr.SeriesNotFound'.tr(),
       );
+    }
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),

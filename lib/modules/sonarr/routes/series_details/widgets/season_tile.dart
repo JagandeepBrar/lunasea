@@ -49,8 +49,9 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         seriesId: widget.seriesId,
         seasonNumber: widget.season.seasonNumber,
       ),
-      onLongPress: () async => SonarrSeasonDetailsSeasonHeader.handler(
-          context, widget.seriesId, widget.season.seasonNumber),
+      // TODO
+      // onLongPress: () async => SonarrSeasonDetailsSeasonHeader.handler(
+      //     context, widget.seriesId, widget.season.seasonNumber),
       contentPadding: true,
     );
   }

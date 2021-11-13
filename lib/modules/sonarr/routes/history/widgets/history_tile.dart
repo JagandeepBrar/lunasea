@@ -4,11 +4,13 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
+  final SonarrSeries series;
   final bool seriesHistory;
 
   const SonarrHistoryTile({
     Key key,
     @required this.history,
+    this.series,
     this.seriesHistory = false,
   }) : super(key: key);
 
@@ -17,7 +19,7 @@ class SonarrHistoryTile extends StatelessWidget {
     return LunaExpandableListTile(
       title: seriesHistory
           ? history.sourceTitle
-          : history?.lunaSeriesTitle() ?? LunaUI.TEXT_EMDASH,
+          : series?.title ?? LunaUI.TEXT_EMDASH,
       collapsedSubtitle1: seriesHistory ? _subtitle2() : _subtitle1(),
       collapsedSubtitle2: seriesHistory ? _subtitle3() : _subtitle2(),
       collapsedSubtitle3: seriesHistory ? null : _subtitle3(),

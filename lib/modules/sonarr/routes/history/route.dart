@@ -19,12 +19,18 @@ class _Widget extends StatefulWidget {
   State<_Widget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<_Widget>
+    with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
   final PagingController<int, SonarrHistoryRecord> _pagingController =
       PagingController(firstPageKey: 1);
+
+  @override
+  Future<void> loadCallback() async {
+    context.read<SonarrState>().fetchSeries();
+  }
 
   @override
   void dispose() {
@@ -42,7 +48,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
           sortKey: SonarrHistorySortKey.DATE,
           sortDirection: SonarrSortDirection.DESCENDING,
-          includeSeries: true,
           includeEpisode: true,
         )
         .then((data) {
@@ -77,6 +82,26 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
+    return FutureBuilder(
+      future: context.read<SonarrState>().series,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          if (snapshot.connectionState != ConnectionState.waiting) {
+            LunaLogger().error(
+              'Unable to fetch Sonarr series',
+              snapshot.error,
+              snapshot.stackTrace,
+            );
+          }
+          return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+        }
+        if (snapshot.hasData) return _list(snapshot.data);
+        return const LunaLoader();
+      },
+    );
+  }
+
+  Widget _list(Map<int, SonarrSeries> series) {
     return LunaPagedListView<SonarrHistoryRecord>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
@@ -85,6 +110,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       noItemsFoundMessage: 'sonarr.NoHistoryFound'.tr(),
       itemBuilder: (context, history, _) => SonarrHistoryTile(
         history: history,
+        series: series[history.seriesId],
       ),
     );
   }

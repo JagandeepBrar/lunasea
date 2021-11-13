@@ -4,10 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMissingTile extends StatefulWidget {
   final SonarrMissingRecord record;
+  final SonarrSeries series;
 
   const SonarrMissingTile({
     Key key,
     @required this.record,
+    this.series,
   }) : super(key: key);
 
   @override
@@ -15,154 +17,98 @@ class SonarrMissingTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrMissingTile> {
-  final double _height = 90.0;
-  final double _width = 60.0;
-  final double _padding = 8.0;
-
   @override
-  Widget build(BuildContext context) =>
-      Selector<SonarrState, Future<SonarrMissing>>(
-        selector: (_, state) => state.missing,
-        builder: (context, series, _) => LunaCard(
-          context: context,
-          child: InkWell(
-            child: Row(
-              children: [
-                _poster,
-                Expanded(child: _information),
-                _trailing,
-              ],
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-            ),
-            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            onTap: _tileOnTap,
-            onLongPress: _tileOnLongPress,
-          ),
-          decoration: LunaCardDecoration(
-            uri: Provider.of<SonarrState>(context, listen: false)
-                .getBannerURL(widget.record.seriesId),
-            headers: Provider.of<SonarrState>(context, listen: false).headers,
-          ),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return LunaFourLineCardWithPoster(
+      backgroundUrl:
+          context.read<SonarrState>().getBannerURL(widget.record.seriesId),
+      posterUrl:
+          context.read<SonarrState>().getPosterURL(widget.record.seriesId),
+      posterHeaders: context.read<SonarrState>().headers,
+      posterPlaceholder: LunaAssets.blankVideo,
+      title: widget.record?.series?.title ??
+          widget.series?.title ??
+          LunaUI.TEXT_EMDASH,
+      subtitle1: _subtitle1(),
+      subtitle2: _subtitle2(),
+      subtitle3: _subtitle3(),
+      darken: !widget.record.monitored,
+      onTap: _onTap,
+      onLongPress: _onLongPress,
+      trailing: _trailing(),
+    );
+  }
 
-  Widget get _poster => LunaNetworkImage(
-        url: Provider.of<SonarrState>(context, listen: false)
-            .getPosterURL(widget.record.seriesId),
-        placeholderAsset: LunaAssets.blankVideo,
-        height: _height,
-        width: _width,
-        headers: Provider.of<SonarrState>(context, listen: false)
-            .headers
-            .cast<String, String>(),
-      );
+  Widget _trailing() {
+    return LunaIconButton(
+      icon: Icons.search,
+      onPressed: _trailingOnTap,
+      onLongPress: _trailingOnLongPress,
+    );
+  }
 
-  Widget get _information => Padding(
-        child: SizedBox(
-          child: Column(
-            children: [
-              LunaText.title(
-                  text: widget.record.series?.title ?? LunaUI.TEXT_EMDASH,
-                  darken: !widget.record.monitored,
-                  maxLines: 1),
-              _subtitleOne,
-              _subtitleTwo,
-              _subtitleThree,
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (_height - (_padding * 2)),
-        ),
-        padding: EdgeInsets.all(_padding),
-      );
+  TextSpan _subtitle1() {
+    return TextSpan(
+      style: TextStyle(
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        color: widget.record.monitored ? Colors.white70 : Colors.white30,
+      ),
+      children: [
+        TextSpan(
+            text: widget.record.seasonNumber == 0
+                ? 'Specials '
+                : 'Season ${widget.record.seasonNumber} '),
+        const TextSpan(text: LunaUI.TEXT_EMDASH),
+        TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
+      ],
+    );
+  }
 
-  Widget get _trailing => SizedBox(
-        child: Padding(
-          child: LunaIconButton(
-            icon: Icons.search,
-            onPressed: _trailingOnPressed,
-            onLongPress: _trailingOnLongPress,
-          ),
-          padding: const EdgeInsets.only(right: 12.0),
-        ),
-        height: _height,
-      );
-
-  Widget get _subtitleOne => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.record.monitored ? Colors.white70 : Colors.white30,
-          ),
-          children: [
-            TextSpan(
-                text: widget.record.seasonNumber == 0
-                    ? 'Specials '
-                    : 'Season ${widget.record.seasonNumber} '),
-            const TextSpan(text: LunaUI.TEXT_EMDASH),
-            TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
-          ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  Widget get _subtitleTwo => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.record.monitored ? Colors.white70 : Colors.white30,
-          ),
-          children: [
-            TextSpan(
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-              text: widget.record.title ?? 'Unknown Title',
-            ),
-          ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  Widget get _subtitleThree => RichText(
-        text: TextSpan(
+  TextSpan _subtitle2() {
+    return TextSpan(
+      style: TextStyle(
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        color: widget.record.monitored ? Colors.white70 : Colors.white30,
+      ),
+      children: [
+        TextSpan(
           style: const TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: LunaColours.red,
-            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            fontStyle: FontStyle.italic,
           ),
-          children: [
-            TextSpan(
-                text: widget.record.airDateUtc == null
-                    ? 'Aired'
-                    : 'Aired ${widget.record.airDateUtc?.toLocal()?.lunaAge}'),
-          ],
+          text: widget.record.title ?? 'Unknown Title',
         ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
+      ],
+    );
+  }
 
-  Future<void> _tileOnTap() async => SonarrSeasonDetailsRouter().navigateTo(
+  TextSpan _subtitle3() {
+    return TextSpan(
+      style: const TextStyle(
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        color: LunaColours.red,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+      children: [
+        TextSpan(
+            text: widget.record.airDateUtc == null
+                ? 'Aired'
+                : 'Aired ${widget.record.airDateUtc?.toLocal()?.lunaAge}'),
+      ],
+    );
+  }
+
+  Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
         seasonNumber: widget.record.seasonNumber,
       );
 
-  Future<void> _tileOnLongPress() async =>
-      SonarrSeriesDetailsRouter().navigateTo(
+  Future<void> _onLongPress() async => SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
       );
 
-  Future<void> _trailingOnPressed() async {
+  Future<void> _trailingOnTap() async {
     Provider.of<SonarrState>(context, listen: false)
         .api
         .command

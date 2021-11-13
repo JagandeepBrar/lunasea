@@ -41,19 +41,27 @@ class _State extends State<SonarrMissingRoute>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<SonarrState, Future<SonarrMissing>>(
-        selector: (_, state) => state.missing,
-        builder: (context, future, _) => FutureBuilder(
-          future: future,
-          builder: (context, AsyncSnapshot<SonarrMissing> snapshot) {
+      child: Selector<SonarrState,
+          Tuple2<Future<Map<int, SonarrSeries>>, Future<SonarrMissing>>>(
+        selector: (_, state) => Tuple2(state.series, state.missing),
+        builder: (context, tuple, _) => FutureBuilder(
+          future: Future.wait([tuple.item1, tuple.item2]),
+          builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
-                LunaLogger().error('Unable to fetch Sonarr missing episodes',
-                    snapshot.error, snapshot.stackTrace);
+                LunaLogger().error(
+                  'Unable to fetch Sonarr missing episodes',
+                  snapshot.error,
+                  snapshot.stackTrace,
+                );
               }
               return LunaMessage.error(onTap: _refreshKey.currentState?.show);
             }
-            if (snapshot.hasData) return _episodes(snapshot.data);
+            if (snapshot.hasData)
+              return _episodes(
+                snapshot.data[0],
+                snapshot.data[1],
+              );
             return const LunaLoader();
           },
         ),
@@ -61,18 +69,21 @@ class _State extends State<SonarrMissingRoute>
     );
   }
 
-  Widget _episodes(SonarrMissing missing) {
+  Widget _episodes(Map<int, SonarrSeries> series, SonarrMissing missing) {
     if ((missing?.records?.length ?? 0) == 0)
       return LunaMessage(
-        text: 'No Episodes Found',
-        buttonText: 'Refresh',
+        text: 'sonarr.NoEpisodesFound'.tr(),
+        buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState?.show,
       );
     return LunaListView(
       controller: SonarrNavigationBar.scrollControllers[2],
       children: List.generate(
         missing.records.length,
-        (index) => SonarrMissingTile(record: missing.records[index]),
+        (index) => SonarrMissingTile(
+          record: missing.records[index],
+          series: series[missing.records[index].seriesId],
+        ),
       ),
     );
   }

@@ -40,19 +40,27 @@ class _State extends State<SonarrUpcomingRoute>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<SonarrState, Future<List<SonarrCalendar>>>(
-        selector: (_, state) => state.upcoming,
-        builder: (context, future, _) => FutureBuilder(
-          future: future,
-          builder: (context, AsyncSnapshot<List<SonarrCalendar>> snapshot) {
+      child: Selector<SonarrState,
+          Tuple2<Future<Map<int, SonarrSeries>>, Future<List<SonarrCalendar>>>>(
+        selector: (_, state) => Tuple2(state.series, state.upcoming),
+        builder: (context, tuple, _) => FutureBuilder(
+          future: Future.wait([tuple.item1, tuple.item2]),
+          builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
-                LunaLogger().error('Unable to fetch Sonarr upcoming episodes',
-                    snapshot.error, snapshot.stackTrace);
+                LunaLogger().error(
+                  'Unable to fetch Sonarr upcoming episodes',
+                  snapshot.error,
+                  snapshot.stackTrace,
+                );
               }
               return LunaMessage.error(onTap: _refreshKey.currentState?.show);
             }
-            if (snapshot.hasData) return _episodes(snapshot.data);
+            if (snapshot.hasData)
+              return _episodes(
+                snapshot.data[0],
+                snapshot.data[1],
+              );
             return const LunaLoader();
           },
         ),
@@ -60,13 +68,17 @@ class _State extends State<SonarrUpcomingRoute>
     );
   }
 
-  Widget _episodes(List<SonarrCalendar> upcoming) {
-    if ((upcoming?.length ?? 0) == 0)
+  Widget _episodes(
+    Map<int, SonarrSeries> series,
+    List<SonarrCalendar> upcoming,
+  ) {
+    if (upcoming?.isEmpty ?? true) {
       return LunaMessage(
-        text: 'No Episodes Found',
-        buttonText: 'Refresh',
+        text: 'sonarr.NoEpisodesFound'.tr(),
+        buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState?.show,
       );
+    }
     // Split episodes into days into a map
     Map<String, Map<String, dynamic>> _episodeMap =
         upcoming.fold({}, (map, entry) {
@@ -89,6 +101,7 @@ class _State extends State<SonarrUpcomingRoute>
             _episodeWidgets.add(_buildDay(
               (_episodeMap[key]['date'] as String),
               (_episodeMap[key]['entries'] as List).cast<SonarrCalendar>(),
+              series,
             )),
           });
     // Return the list
@@ -98,11 +111,19 @@ class _State extends State<SonarrUpcomingRoute>
     );
   }
 
-  List<Widget> _buildDay(String date, List<SonarrCalendar> upcoming) => [
+  List<Widget> _buildDay(
+    String date,
+    List<SonarrCalendar> upcoming,
+    Map<int, SonarrSeries> series,
+  ) =>
+      [
         LunaHeader(text: date),
         ...List.generate(
           upcoming.length,
-          (index) => SonarrUpcomingTile(record: upcoming[index]),
+          (index) => SonarrUpcomingTile(
+            record: upcoming[index],
+            series: series[upcoming[index].seriesId],
+          ),
         ),
       ];
 }

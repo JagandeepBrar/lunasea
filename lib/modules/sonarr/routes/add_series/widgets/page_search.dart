@@ -29,9 +29,8 @@ class _State extends State<SonarrAddSeriesSearchPage>
 
   @override
   Widget build(BuildContext context) {
-    return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
-      selector: (_, state) => state.series,
-      builder: (context, series, _) => Selector<SonarrAddSeriesState,
+    return Consumer<SonarrState>(
+      builder: (context, state, _) => Selector<SonarrAddSeriesState,
           Tuple2<Future<List<SonarrSeries>>, Future<List<SonarrExclusion>>>>(
         selector: (_, state) => Tuple2(state.lookup, state.exclusions),
         builder: (context, tuple, _) {
@@ -39,7 +38,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
           return _builder(
             lookup: tuple.item1,
             exclusions: tuple.item2,
-            series: series,
+            series: state.series,
           );
         },
       ),

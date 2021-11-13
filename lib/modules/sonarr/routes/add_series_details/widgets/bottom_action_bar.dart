@@ -46,7 +46,7 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
         monitorType: _state.monitorType,
       )
           .then((series) async {
-        context.read<SonarrState>().fetchSeries();
+        context.read<SonarrState>().fetchAllSeries();
         context.read<SonarrSeriesAddDetailsState>().series.id = series.id;
         Navigator.of(context).popAndPushNamed(
             SonarrSeriesDetailsRouter().route(seriesId: series.id));

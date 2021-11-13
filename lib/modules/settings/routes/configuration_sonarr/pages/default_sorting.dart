@@ -102,8 +102,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           if (values.item1) {
             SonarrDatabaseValue.DEFAULT_FILTERING_SERIES
                 .put(SonarrSeriesFilter.values[values.item2]);
-            context.read<SonarrState>().releasesFilterType =
-                SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
+            // TODO
+            // context.read<SonarrState>().releasesFilterType =
+            // SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
           }
         },
       ),
@@ -182,10 +183,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           if (values.item1) {
             SonarrDatabaseValue.DEFAULT_SORTING_RELEASES
                 .put(SonarrReleasesSorting.values[values.item2]);
-            context.read<SonarrState>().releasesSortType =
-                SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-            context.read<SonarrState>().releasesSortAscending =
-                SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
+            // TODO
+            // context.read<SonarrState>().releasesSortType =
+            //     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
+            // context.read<SonarrState>().releasesSortAscending =
+            //     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
           }
         },
       ),
@@ -205,10 +207,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           value: SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data,
           onChanged: (value) {
             SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.put(value);
-            context.read<SonarrState>().releasesSortType =
-                SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-            context.read<SonarrState>().releasesSortAscending =
-                SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
+            // TODO
+            // context.read<SonarrState>().releasesSortType =
+            //     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
+            // context.read<SonarrState>().releasesSortAscending =
+            //     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
           },
         ),
       ),

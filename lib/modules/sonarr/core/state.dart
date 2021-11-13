@@ -24,12 +24,10 @@ class SonarrState extends LunaModuleState {
     _languageProfiles = null;
     _tags = null;
 
-    // Reset search query fields
-    _releasesSearchQuery = '';
     // Reinitialize
     resetProfile();
     if (_enabled) {
-      fetchSeries();
+      fetchAllSeries();
       fetchUpcoming();
       fetchMissing();
       fetchQualityProfiles();
@@ -82,45 +80,6 @@ class SonarrState extends LunaModuleState {
         : null;
   }
 
-  ////////////////
-  /// RELEASES ///
-  ////////////////
-
-  String _releasesSearchQuery = '';
-  String get releasesSearchQuery => _releasesSearchQuery;
-  set releasesSearchQuery(String releasesSearchQuery) {
-    assert(releasesSearchQuery != null);
-    _releasesSearchQuery = releasesSearchQuery;
-    notifyListeners();
-  }
-
-  SonarrReleasesFilter _releasesFilterType =
-      SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
-  SonarrReleasesFilter get releasesFilterType => _releasesFilterType;
-  set releasesFilterType(SonarrReleasesFilter releasesFilterType) {
-    assert(releasesFilterType != null);
-    _releasesFilterType = releasesFilterType;
-    notifyListeners();
-  }
-
-  SonarrReleasesSorting _releasesSortType =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-  SonarrReleasesSorting get releasesSortType => _releasesSortType;
-  set releasesSortType(SonarrReleasesSorting releasesSortType) {
-    assert(releasesSortType != null);
-    _releasesSortType = releasesSortType;
-    notifyListeners();
-  }
-
-  bool _releasesSortAscending =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
-  bool get releasesSortAscending => _releasesSortAscending;
-  set releasesSortAscending(bool releasesSortAscending) {
-    assert(releasesSortAscending != null);
-    _releasesSortAscending = releasesSortAscending;
-    notifyListeners();
-  }
-
   //////////////
   /// SERIES ///
   //////////////
@@ -162,7 +121,7 @@ class SonarrState extends LunaModuleState {
 
   Future<Map<int, SonarrSeries>> _series;
   Future<Map<int, SonarrSeries>> get series => _series;
-  void fetchSeries() {
+  void fetchAllSeries() {
     if (_api != null) {
       _series = _api.series.getAll().then((series) {
         return {
@@ -173,7 +132,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<void> resetSingleSeries(int seriesId) async {
+  Future<void> fetchSeries(int seriesId) async {
     assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series = await _api.series.get(seriesId: seriesId);
@@ -185,6 +144,12 @@ class SonarrState extends LunaModuleState {
   Future<void> setSingleSeries(SonarrSeries series) async {
     assert(series != null);
     (await _series)[series.id] = series;
+    notifyListeners();
+  }
+
+  Future<void> removeSingleSeries(int seriesId) async {
+    assert(seriesId != null);
+    (await _series).remove(seriesId);
     notifyListeners();
   }
 

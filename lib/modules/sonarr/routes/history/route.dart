@@ -29,7 +29,7 @@ class _State extends State<_Widget>
 
   @override
   Future<void> loadCallback() async {
-    context.read<SonarrState>().fetchSeries();
+    context.read<SonarrState>().fetchAllSeries();
   }
 
   @override

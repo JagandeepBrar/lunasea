@@ -70,7 +70,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       context.read<SonarrState>().fetchQualityProfiles();
       context.read<SonarrState>().fetchLanguageProfiles();
       context.read<SonarrState>().fetchTags();
-      await context.read<SonarrState>().resetSingleSeries(widget.seriesId);
+      await context.read<SonarrState>().fetchSeries(widget.seriesId);
     }
   }
 

@@ -128,11 +128,7 @@ class _State extends State<_Widget>
           return LunaMessage.error(onTap: loadCallback);
         }
         if (snapshot.hasData) {
-          SonarrSeries series =
-              (snapshot.data[0] as List<SonarrSeries>).firstWhere(
-            (series) => series?.id == widget.seriesId,
-            orElse: () => null,
-          );
+          SonarrSeries series = (snapshot.data[0] as Map)[widget.seriesId];
           if (series == null) return const LunaLoader();
           return _list(
             context,

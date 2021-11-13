@@ -357,10 +357,9 @@ class SonarrAPIController {
                 SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.data,
           )
           .then((_) async {
-        series.id = null;
         return await context
             .read<SonarrState>()
-            .setSingleSeries(series)
+            .removeSingleSeries(series.id)
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
@@ -400,6 +399,7 @@ class SonarrAPIController {
     bool showSnackbar = true,
   }) async {
     if (context.read<SonarrState>().enabled) {
+      series.id = 0;
       return await context
           .read<SonarrState>()
           .api

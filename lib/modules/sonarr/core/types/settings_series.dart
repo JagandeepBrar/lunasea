@@ -53,10 +53,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         if (result) {
           SonarrAPIController()
               .removeSeries(context: context, series: series)
-              .then((_) {
-            context.read<SonarrState>().fetchSeries();
-            Navigator.of(context).lunaSafetyPop();
-          });
+              .then((_) => Navigator.of(context).lunaSafetyPop());
         }
         return;
       case SonarrSeriesSettingsType.MONITORED:

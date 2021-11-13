@@ -23,7 +23,7 @@ class _State extends State<SonarrSeriesTile> {
 
   @override
   Widget build(BuildContext context) =>
-      Selector<SonarrState, Future<List<SonarrSeries>>>(
+      Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
         selector: (_, state) => state.series,
         builder: (context, series, _) => LunaCard(
           context: context,

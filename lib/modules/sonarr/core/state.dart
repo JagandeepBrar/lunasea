@@ -205,11 +205,15 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<List<SonarrSeries>> _series;
-  Future<List<SonarrSeries>> get series => _series;
+  Future<Map<int, SonarrSeries>> _series;
+  Future<Map<int, SonarrSeries>> get series => _series;
   void fetchSeries() {
     if (_api != null) {
-      _series = _api.series.getAll();
+      _series = _api.series.getAll().then((series) {
+        return {
+          for (SonarrSeries s in series) s.id: s,
+        };
+      });
     }
     notifyListeners();
   }
@@ -218,18 +222,14 @@ class SonarrState extends LunaModuleState {
     assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series = await _api.series.get(seriesId: seriesId);
-      List<SonarrSeries> allSeries = await _series;
-      int index = allSeries?.indexWhere((s) => s.id == seriesId) ?? -1;
-      index >= 0 ? allSeries[index] = series : allSeries.add(series);
+      (await _series)[seriesId] = series;
     }
     notifyListeners();
   }
 
   Future<void> setSingleSeries(SonarrSeries series) async {
     assert(series != null);
-    List<SonarrSeries> allSeries = await _series;
-    int index = allSeries?.indexWhere((s) => s.id == series.id) ?? -1;
-    index >= 0 ? allSeries[index] = series : allSeries.add(series);
+    (await _series)[series.id] = series;
     notifyListeners();
   }
 

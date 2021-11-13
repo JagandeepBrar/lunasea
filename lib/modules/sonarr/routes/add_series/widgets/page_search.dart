@@ -29,7 +29,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
 
   @override
   Widget build(BuildContext context) {
-    return Selector<SonarrState, Future<List<SonarrSeries>>>(
+    return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
       selector: (_, state) => state.series,
       builder: (context, series, _) => Selector<SonarrAddSeriesState,
           Tuple2<Future<List<SonarrSeries>>, Future<List<SonarrExclusion>>>>(
@@ -49,7 +49,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
   Widget _builder({
     @required Future<List<SonarrSeries>> lookup,
     @required Future<List<SonarrExclusion>> exclusions,
-    @required Future<List<SonarrSeries>> series,
+    @required Future<Map<int, SonarrSeries>> series,
   }) {
     return LunaRefreshIndicator(
       context: context,
@@ -81,7 +81,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
 
   Widget _list(
     List<SonarrSeries> results,
-    List<SonarrSeries> series,
+    Map<int, SonarrSeries> series,
     List<SonarrExclusion> exclusions,
   ) {
     if ((results?.length ?? 0) == 0)
@@ -92,22 +92,19 @@ class _State extends State<SonarrAddSeriesSearchPage>
         ],
       );
     return LunaListViewBuilder(
-        controller: widget.scrollController,
-        itemCount: results.length,
-        itemBuilder: (context, index) {
-          SonarrExclusion exclusion = exclusions?.firstWhere(
-            (exclusion) => exclusion.tvdbId == results[index].tvdbId,
-            orElse: () => null,
-          );
-          SonarrSeries show = series?.firstWhere(
-            (s) => (s?.id ?? -1) == results[index].id,
-            orElse: () => null,
-          );
-          return SonarrSeriesAddSearchResultTile(
-            series: results[index],
-            exists: show != null,
-            isExcluded: exclusion != null,
-          );
-        });
+      controller: widget.scrollController,
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        SonarrExclusion exclusion = exclusions?.firstWhere(
+          (exclusion) => exclusion.tvdbId == results[index].tvdbId,
+          orElse: () => null,
+        );
+        return SonarrSeriesAddSearchResultTile(
+          series: results[index],
+          exists: series[results[index].id] != null,
+          isExcluded: exclusion != null,
+        );
+      },
+    );
   }
 }

@@ -21,7 +21,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
   Future<void> loadCallback() async {
     await context.read<SonarrState>().series.then((series) {
       List<String> _series = [];
-      series.forEach((element) {
+      series.values.forEach((element) {
         if (element.tags.contains(widget.tag.id)) _series.add(element.title);
       });
       _series.sort();

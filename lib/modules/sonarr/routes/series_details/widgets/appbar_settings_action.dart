@@ -15,13 +15,10 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
     return Consumer<SonarrState>(
       builder: (context, state, _) => FutureBuilder(
         future: state.series,
-        builder: (context, AsyncSnapshot<List<SonarrSeries>> snapshot) {
+        builder: (context, AsyncSnapshot<Map<int, SonarrSeries>> snapshot) {
           if (snapshot.hasError) return Container();
           if (snapshot.hasData) {
-            SonarrSeries series = snapshot.data.firstWhere(
-              (element) => element.id == seriesId,
-              orElse: () => null,
-            );
+            SonarrSeries series = snapshot.data[seriesId];
             if (series != null)
               return LunaIconButton(
                 icon: Icons.more_vert,

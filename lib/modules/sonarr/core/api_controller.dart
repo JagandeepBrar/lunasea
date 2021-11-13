@@ -12,7 +12,10 @@ class SonarrAPIController {
     assert(season != null);
     if (context.read<SonarrState>().enabled) {
       return context.read<SonarrState>().series.then((series) {
-        return series.firstWhere((s) => s.id == seriesId).clone();
+        if (series[seriesId] == null) {
+          throw Exception('Series does not exist in catalogue');
+        }
+        return series[seriesId].clone();
       }).then((series) {
         series.seasons.forEach((seriesSeason) {
           if (seriesSeason.seasonNumber == season.seasonNumber) {

@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   Future<void> loadCallback() async {
     if (widget.seriesId > 0) {
       SonarrSeries result =
-          _findSeries(await context.read<SonarrState>().series);
+          (await context.read<SonarrState>().series)[widget.seriesId];
       setState(() => series = result);
       context.read<SonarrState>().fetchQualityProfiles();
       context.read<SonarrState>().fetchLanguageProfiles();
@@ -79,13 +79,6 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     super.initState();
     _pageController = PageController(
       initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.data,
-    );
-  }
-
-  SonarrSeries _findSeries(List<SonarrSeries> series) {
-    return series.firstWhere(
-      (s) => s.id == widget.seriesId,
-      orElse: () => null,
     );
   }
 
@@ -181,7 +174,8 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             return LunaMessage.error(onTap: loadCallback);
           }
           if (snapshot.hasData) {
-            series = _findSeries(snapshot.data[3]);
+            series =
+                (snapshot.data[3] as Map<int, SonarrSeries>)[widget.seriesId];
             if (series == null) {
               return LunaMessage.goBack(
                 text: 'sonarr.SeriesNotFound'.tr(),

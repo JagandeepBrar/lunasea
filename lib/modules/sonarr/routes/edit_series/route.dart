@@ -110,7 +110,7 @@ class _State extends State<_Widget>
   Widget _body(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        context.select<SonarrState, Future<List<SonarrSeries>>>(
+        context.select<SonarrState, Future<Map<int, SonarrSeries>>>(
           (state) => state.series,
         ),
         context.select<SonarrState, Future<List<SonarrQualityProfile>>>(

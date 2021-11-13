@@ -62,7 +62,9 @@ class _State extends State<SonarrCatalogueRoute>
       onRefresh: _refresh,
       child: Selector<
           SonarrState,
-          Tuple3<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>,
+          Tuple3<
+              Future<Map<int, SonarrSeries>>,
+              Future<List<SonarrQualityProfile>>,
               Future<List<SonarrLanguageProfile>>>>(
         selector: (_, state) => Tuple3(
           state.series,
@@ -103,16 +105,16 @@ class _State extends State<SonarrCatalogueRoute>
   }
 
   List<SonarrSeries> _filterAndSort(
-    List<SonarrSeries> series,
+    Map<int, SonarrSeries> series,
     List<SonarrQualityProfile> profiles,
     String query,
   ) {
-    if (series?.isEmpty ?? true) return series;
+    if (series?.isEmpty ?? true) return [];
     SonarrSeriesSorting sorting = context.watch<SonarrState>().seriesSortType;
     SonarrSeriesFilter filter = context.watch<SonarrState>().seriesFilterType;
     bool ascending = context.watch<SonarrState>().seriesSortAscending;
     // Filter
-    List<SonarrSeries> filtered = series.where((show) {
+    List<SonarrSeries> filtered = series.values.where((show) {
       if (query != null && query.isNotEmpty && show.id != null)
         return show.title.toLowerCase().contains(query.toLowerCase());
       return (show != null && show.id != null);
@@ -124,7 +126,7 @@ class _State extends State<SonarrCatalogueRoute>
   }
 
   Widget _series(
-    List<SonarrSeries> series,
+    Map<int, SonarrSeries> series,
     List<SonarrQualityProfile> qualities,
     List<SonarrLanguageProfile> languages,
   ) {

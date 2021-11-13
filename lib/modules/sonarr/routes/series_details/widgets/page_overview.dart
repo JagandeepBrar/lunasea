@@ -32,7 +32,7 @@ class _State extends State<SonarrSeriesDetailsOverviewPage>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: Selector<SonarrState, Future<List<SonarrSeries>>>(
+      body: Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
         selector: (_, state) => state.series,
         builder: (context, movies, _) => LunaListView(
           controller: SonarrSeriesDetailsNavigationBar.scrollControllers[0],

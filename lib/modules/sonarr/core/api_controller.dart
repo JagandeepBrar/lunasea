@@ -206,6 +206,44 @@ class SonarrAPIController {
     return false;
   }
 
+  Future<bool> automaticSeasonSearch({
+    @required BuildContext context,
+    @required int seriesId,
+    @required int seasonNumber,
+    bool showSnackbar = true,
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return await context
+          .read<SonarrState>()
+          .api
+          .command
+          .seasonSearch(seriesId: seriesId, seasonNumber: seasonNumber)
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'sonarr.SearchingForSeason'.tr(args: [LunaUI.TEXT_ELLIPSIS]),
+            message: seasonNumber == 0
+                ? 'sonarr.Specials'.tr()
+                : 'sonarr.SeasonNumber'.tr(args: [seasonNumber.toString()]),
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to season search ($seriesId, $seasonNumber)',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToSeasonSearch'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> runRSSSync({
     @required BuildContext context,
     bool showSnackbar = true,

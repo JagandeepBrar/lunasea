@@ -93,8 +93,10 @@ class SonarrDialogs {
     return [_flag, _value];
   }
 
-  static Future<List<dynamic>> seasonSettings(
-      BuildContext context, int seasonNumber) async {
+  Future<Tuple2<bool, SonarrSeasonSettingsType>> seasonSettings(
+    BuildContext context,
+    int seasonNumber,
+  ) async {
     bool _flag = false;
     SonarrSeasonSettingsType _value;
 
@@ -106,7 +108,9 @@ class SonarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
+      title: seasonNumber == 0
+          ? 'sonarr.Specials'.tr()
+          : 'sonarr.SeasonNumber'.tr(args: [seasonNumber.toString()]),
       content: List.generate(
         SonarrSeasonSettingsType.values.length,
         (index) => LunaDialog.tile(
@@ -118,7 +122,7 @@ class SonarrDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _value];
+    return Tuple2(_flag, _value);
   }
 
   static Future<List<dynamic>> setDefaultPage(
@@ -661,8 +665,10 @@ class SonarrDialogs {
     return [_flag];
   }
 
-  static Future<List<dynamic>> confirmSeasonSearch(
-      BuildContext context, int seasonNumber) async {
+  Future<bool> confirmSeasonSearch(
+    BuildContext context,
+    int seasonNumber,
+  ) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
@@ -688,6 +694,6 @@ class SonarrDialogs {
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 }

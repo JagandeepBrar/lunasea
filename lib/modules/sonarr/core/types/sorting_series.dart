@@ -181,6 +181,11 @@ class _Sorter {
 
   List<SonarrSeries> _nextAiring(List<SonarrSeries> series, bool ascending) {
     series.sort((a, b) {
+      if (a.nextAiring == null && b.nextAiring == null) {
+        if (a.status == 'ended' && b.status != 'ended') return 1;
+        if (b.status == 'ended' && a.status != 'ended') return -1;
+        return a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase());
+      }
       if (ascending) {
         if (a.nextAiring == null) return 1;
         if (b.nextAiring == null) return -1;

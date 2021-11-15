@@ -38,14 +38,22 @@ extension SonarrSeriesExtension on SonarrSeries {
     return _total == 0 ? 0 : ((_available / _total) * 100).round();
   }
 
-  String get lunaNextAiringDate {
-    if (this.nextAiring == null) return LunaUI.TEXT_EMDASH;
-    return DateFormat('MMMM dd, y').format(this.nextAiring.toLocal());
+  String get lunaNextAiringLine {
+    if (this.status == 'ended') return 'sonarr.SeriesEnded'.tr();
+    if (this.nextAiring == null) return 'lunasea.Unknown'.tr();
+    return this.nextAiring.lunaDateTimeReadable(
+          timeOnNewLine: false,
+          showSeconds: false,
+          sameLineDelimiter: '@',
+        );
   }
 
   String get lunaNextAiring {
     if (this.nextAiring == null) return LunaUI.TEXT_EMDASH;
-    return this.nextAiring.lunaDateTimeReadable(timeOnNewLine: true);
+    return this.nextAiring.lunaDateTimeReadable(
+          timeOnNewLine: true,
+          showSeconds: false,
+        );
   }
 
   String get lunaDateAdded {

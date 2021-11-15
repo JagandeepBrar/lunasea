@@ -11,7 +11,7 @@ class SonarrSeriesAddDetailsQualityProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Quality Profile'),
+      title: LunaText.title(text: 'sonarr.QualityProfile'.tr()),
       subtitle: LunaText.subtitle(
           text: context
                   .watch<SonarrSeriesAddDetailsState>()

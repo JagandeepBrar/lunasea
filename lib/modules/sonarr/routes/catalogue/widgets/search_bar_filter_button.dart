@@ -21,7 +21,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
         child: Consumer<SonarrState>(
           builder: (context, state, _) =>
               LunaPopupMenuButton<SonarrSeriesFilter>(
-            tooltip: 'Filter Catalogue',
+            tooltip: 'sonarr.FilterCatalogue'.tr(),
             icon: Icons.filter_alt_outlined,
             onSelected: (result) {
               state.seriesFilterType = result;

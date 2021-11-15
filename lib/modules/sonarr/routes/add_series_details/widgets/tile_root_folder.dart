@@ -11,7 +11,7 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Root Folder'),
+      title: LunaText.title(text: 'sonarr.RootFolder'.tr()),
       subtitle: LunaText.subtitle(
           text: context.watch<SonarrSeriesAddDetailsState>().rootFolder?.path ??
               LunaUI.TEXT_EMDASH),

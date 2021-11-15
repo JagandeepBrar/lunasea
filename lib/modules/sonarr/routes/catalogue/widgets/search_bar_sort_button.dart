@@ -21,7 +21,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
         child: Consumer<SonarrState>(
           builder: (context, state, _) =>
               LunaPopupMenuButton<SonarrSeriesSorting>(
-            tooltip: 'Sort Catalogue',
+            tooltip: 'sonarr.SortCatalogue'.tr(),
             icon: Icons.sort,
             onSelected: (result) {
               if (state.seriesSortType == result) {

@@ -11,7 +11,7 @@ class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Monitor'),
+      title: LunaText.title(text: 'sonarr.Monitor'.tr()),
       subtitle: LunaText.subtitle(
         text: context
                 .watch<SonarrSeriesAddDetailsState>()

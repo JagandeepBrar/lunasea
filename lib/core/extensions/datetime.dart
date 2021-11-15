@@ -61,13 +61,16 @@ extension DateTimeExtension on DateTime {
   /// Formatted as `<month name> <day>, <year> • <hour>:<minute>:<second>`.
   ///
   /// Set `timeOnNewLine` to true to have the time returned on a new line instead of separated by a bullet.
-  String lunaDateTimeReadable({bool timeOnNewLine = false}) =>
-      DateFormat(timeOnNewLine
-              ? LunaDatabaseValue.USE_24_HOUR_TIME.data
-                  ? 'MMMM dd, y\nHH:mm:ss'
-                  : 'MMMM dd, y\nhh:mm:ss a'
-              : LunaDatabaseValue.USE_24_HOUR_TIME.data
-                  ? 'MMMM dd, y ${LunaUI.TEXT_BULLET} HH:mm:ss'
-                  : 'MMMM dd, y ${LunaUI.TEXT_BULLET} hh:mm:ss a')
-          .format(this.toLocal());
+  String lunaDateTimeReadable({
+    bool timeOnNewLine = false,
+    bool showSeconds = true,
+    String sameLineDelimiter = LunaUI.TEXT_BULLET,
+  }) {
+    String _format = 'MMMM dd, y';
+    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad();
+    _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'HH:mm' : 'hh:mm';
+    _format += showSeconds ? ':ss' : '';
+    _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? '' : ' a';
+    return DateFormat(_format).format(this.toLocal());
+  }
 }

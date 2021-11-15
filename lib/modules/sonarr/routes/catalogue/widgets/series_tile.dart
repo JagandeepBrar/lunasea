@@ -17,233 +17,99 @@ class SonarrSeriesTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrSeriesTile> {
-  final double _height = 90.0;
-  final double _width = 60.0;
-  final double _padding = 8.0;
-
   @override
-  Widget build(BuildContext context) =>
-      Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
-        selector: (_, state) => state.series,
-        builder: (context, series, _) => LunaCard(
-          context: context,
-          child: InkWell(
-            child: Row(
-              children: [
-                _poster,
-                Expanded(child: _information),
-              ],
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-            ),
-            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-            onTap: _onTap,
-            onLongPress: _onLongPress,
-          ),
-          decoration: LunaCardDecoration(
-            uri: Provider.of<SonarrState>(context, listen: false)
-                .getBannerURL(widget.series.id),
-            headers: Provider.of<SonarrState>(context, listen: false).headers,
-          ),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
+      selector: (_, state) => state.series,
+      builder: (context, series, _) => LunaFourLineCardWithPoster(
+        backgroundUrl:
+            context.read<SonarrState>().getPosterURL(widget.series.id),
+        posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
+        posterHeaders: context.read<SonarrState>().headers,
+        posterPlaceholder: LunaAssets.blankVideo,
+        darken: !widget.series.monitored,
+        title: widget.series.title,
+        subtitle1: _subtitle1(),
+        subtitle2: _subtitle2(),
+        subtitle3: _subtitle3(),
+        onTap: _onTap,
+        onLongPress: _onLongPress,
+      ),
+    );
+  }
 
-  Widget get _poster => LunaNetworkImage(
-        url: Provider.of<SonarrState>(context, listen: false)
-            .getPosterURL(widget.series.id),
-        placeholderAsset: LunaAssets.blankVideo,
-        height: _height,
-        width: _width,
-        headers: Provider.of<SonarrState>(context, listen: false)
-            .headers
-            .cast<String, String>(),
+  TextSpan _buildChildTextSpan(String text, SonarrSeriesSorting sorting) {
+    TextStyle style;
+    if (context.read<SonarrState>().seriesSortType == sorting)
+      style = TextStyle(
+        color: widget.series.monitored
+            ? LunaColours.accent
+            : LunaColours.accent.withOpacity(0.30),
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       );
+    return TextSpan(
+      text: text,
+      style: style,
+    );
+  }
 
-  Widget get _information => Padding(
-        child: SizedBox(
-          child: Column(
-            children: [
-              LunaText.title(
-                  text: widget.series.title,
-                  darken: !widget.series.monitored,
-                  maxLines: 1),
-              _subtitleOne,
-              _subtitleTwo,
-              _subtitleThree,
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (_height - (_padding * 2)),
+  TextSpan _subtitle1() {
+    return TextSpan(
+      children: [
+        _buildChildTextSpan(
+          widget.series.lunaEpisodeCount,
+          SonarrSeriesSorting.EPISODES,
         ),
-        padding: EdgeInsets.all(_padding),
-      );
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: widget.series.lunaSeasonCount),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        _buildChildTextSpan(
+          widget.series.lunaSizeOnDisk,
+          SonarrSeriesSorting.SIZE,
+        ),
+      ],
+    );
+  }
 
-  Widget get _subtitleOne => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.series.monitored ? Colors.white70 : Colors.white30,
-          ),
-          children: [
-            TextSpan(
-              text: widget.series.lunaEpisodeCount,
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.EPISODES
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-                fontWeight: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.EPISODES
-                    ? LunaUI.FONT_WEIGHT_BOLD
-                    : null,
-              ),
-            ),
-            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
-            TextSpan(text: widget.series.lunaSeasonCount),
-            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
-            TextSpan(
-              text: widget.series.lunaSizeOnDisk,
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.SIZE
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-                fontWeight: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.SIZE
-                    ? LunaUI.FONT_WEIGHT_BOLD
-                    : null,
-              ),
-            ),
-          ],
+  TextSpan _subtitle2() {
+    return TextSpan(
+      children: [
+        _buildChildTextSpan(
+          widget.series.lunaSeriesType,
+          SonarrSeriesSorting.TYPE,
         ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        _buildChildTextSpan(
+          widget.profile?.name ?? LunaUI.TEXT_EMDASH,
+          SonarrSeriesSorting.QUALITY,
+        ),
+      ],
+    );
+  }
 
-  Widget get _subtitleTwo => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.series.monitored ? Colors.white70 : Colors.white30,
-          ),
-          children: [
-            TextSpan(
-              text: widget.series.lunaSeriesType,
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.TYPE
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-                fontWeight: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.TYPE
-                    ? LunaUI.FONT_WEIGHT_BOLD
-                    : null,
-              ),
-            ),
-            const TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
-            TextSpan(
-              text: widget.profile?.name ?? 'Unknown',
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.QUALITY
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-                fontWeight: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.QUALITY
-                    ? LunaUI.FONT_WEIGHT_BOLD
-                    : null,
-              ),
-            ),
-          ],
+  TextSpan _subtitle3() {
+    return TextSpan(
+      children: [
+        _buildChildTextSpan(
+          widget.series.lunaNetwork,
+          SonarrSeriesSorting.NETWORK,
         ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
-
-  Widget get _subtitleThree => RichText(
-        text: TextSpan(
-          style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            color: widget.series.monitored ? Colors.white70 : Colors.white30,
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        if (context.read<SonarrState>().seriesSortType ==
+            SonarrSeriesSorting.DATE_ADDED)
+          _buildChildTextSpan(
+            widget.series.lunaDateAdded,
+            SonarrSeriesSorting.DATE_ADDED,
           ),
-          children: [
-            TextSpan(
-              text: widget.series.lunaAirsOn,
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                            SonarrSeriesSorting.NETWORK ||
-                        Provider.of<SonarrState>(context).seriesSortType ==
-                            SonarrSeriesSorting.NEXT_AIRING
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-                fontWeight: Provider.of<SonarrState>(context).seriesSortType ==
-                            SonarrSeriesSorting.NETWORK ||
-                        Provider.of<SonarrState>(context).seriesSortType ==
-                            SonarrSeriesSorting.NEXT_AIRING
-                    ? LunaUI.FONT_WEIGHT_BOLD
-                    : null,
-              ),
-            ),
-            TextSpan(
-              text: ' ${LunaUI.TEXT_BULLET} ',
-              style: TextStyle(
-                color: Provider.of<SonarrState>(context).seriesSortType ==
-                        SonarrSeriesSorting.NEXT_AIRING
-                    ? widget.series.monitored
-                        ? LunaColours.accent
-                        : LunaColours.accent.withOpacity(0.30)
-                    : null,
-              ),
-            ),
-            if (Provider.of<SonarrState>(context).seriesSortType !=
-                SonarrSeriesSorting.NEXT_AIRING)
-              TextSpan(
-                text: widget.series.lunaDateAdded,
-                style: TextStyle(
-                  color: Provider.of<SonarrState>(context).seriesSortType ==
-                          SonarrSeriesSorting.DATE_ADDED
-                      ? widget.series.monitored
-                          ? LunaColours.accent
-                          : LunaColours.accent.withOpacity(0.30)
-                      : null,
-                  fontWeight:
-                      Provider.of<SonarrState>(context).seriesSortType ==
-                              SonarrSeriesSorting.DATE_ADDED
-                          ? LunaUI.FONT_WEIGHT_BOLD
-                          : null,
-                ),
-              ),
-            if (Provider.of<SonarrState>(context).seriesSortType ==
-                SonarrSeriesSorting.NEXT_AIRING)
-              TextSpan(
-                text: widget.series.lunaNextAiringDate,
-                style: TextStyle(
-                  color: widget.series.monitored
-                      ? LunaColours.accent
-                      : LunaColours.accent.withOpacity(0.30),
-                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                ),
-              ),
-          ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-      );
+        if (context.read<SonarrState>().seriesSortType !=
+            SonarrSeriesSorting.DATE_ADDED)
+          _buildChildTextSpan(
+            widget.series.lunaNextAiringLine,
+            SonarrSeriesSorting.NEXT_AIRING,
+          ),
+      ],
+    );
+  }
 
   Future<void> _onTap() async => SonarrSeriesDetailsRouter().navigateTo(
         context,

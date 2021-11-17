@@ -33,21 +33,29 @@ SonarrQueueRecord _$SonarrQueueRecordFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
     )..protocol = json['protocol'] as String?;
 
-Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) =>
-    <String, dynamic>{
-      'series': instance.series?.toJson(),
-      'episode': instance.episode?.toJson(),
-      'quality': instance.quality?.toJson(),
-      'size': instance.size,
-      'title': instance.title,
-      'sizeleft': instance.sizeLeft,
-      'timeleft': instance.timeLeft,
-      'estimatedCompletionTime':
-          SonarrUtilities.dateTimeToJson(instance.estimatedCompletionTime),
-      'status': instance.status,
-      'trackedDownloadStatus': instance.trackedDownloadStatus,
-      'statusMessages':
-          instance.statusMessages?.map((e) => e.toJson()).toList(),
-      'protocol': instance.protocol,
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('series', instance.series?.toJson());
+  writeNotNull('episode', instance.episode?.toJson());
+  writeNotNull('quality', instance.quality?.toJson());
+  writeNotNull('size', instance.size);
+  writeNotNull('title', instance.title);
+  writeNotNull('sizeleft', instance.sizeLeft);
+  writeNotNull('timeleft', instance.timeLeft);
+  writeNotNull('estimatedCompletionTime',
+      SonarrUtilities.dateTimeToJson(instance.estimatedCompletionTime));
+  writeNotNull('status', instance.status);
+  writeNotNull('trackedDownloadStatus', instance.trackedDownloadStatus);
+  writeNotNull('statusMessages',
+      instance.statusMessages?.map((e) => e.toJson()).toList());
+  writeNotNull('protocol', instance.protocol);
+  writeNotNull('id', instance.id);
+  return val;
+}

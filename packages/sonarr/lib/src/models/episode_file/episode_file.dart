@@ -5,7 +5,7 @@ import 'package:sonarr/utilities.dart';
 
 part 'episode_file.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrEpisodeFile {
   @JsonKey(name: 'seriesId')
   int? seriesId;

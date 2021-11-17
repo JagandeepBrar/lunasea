@@ -5,7 +5,7 @@ import 'package:sonarr/utilities.dart';
 
 part 'missing_record.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrMissingRecord {
   @JsonKey(name: 'seriesId')
   int? seriesId;

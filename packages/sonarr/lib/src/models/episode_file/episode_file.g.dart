@@ -33,20 +33,28 @@ SonarrEpisodeFile _$SonarrEpisodeFileFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
     );
 
-Map<String, dynamic> _$SonarrEpisodeFileToJson(SonarrEpisodeFile instance) =>
-    <String, dynamic>{
-      'seriesId': instance.seriesId,
-      'seasonNumber': instance.seasonNumber,
-      'relativePath': instance.relativePath,
-      'path': instance.path,
-      'size': instance.size,
-      'dateAdded': SonarrUtilities.dateTimeToJson(instance.dateAdded),
-      'sceneName': instance.sceneName,
-      'releaseGroup': instance.releaseGroup,
-      'language': instance.language?.toJson(),
-      'quality': instance.quality?.toJson(),
-      'mediaInfo': instance.mediaInfo?.toJson(),
-      'qualityCutoffNotMet': instance.qualityCutoffNotMet,
-      'languageCutoffNotMet': instance.languageCutoffNotMet,
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrEpisodeFileToJson(SonarrEpisodeFile instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  writeNotNull('relativePath', instance.relativePath);
+  writeNotNull('path', instance.path);
+  writeNotNull('size', instance.size);
+  writeNotNull('dateAdded', SonarrUtilities.dateTimeToJson(instance.dateAdded));
+  writeNotNull('sceneName', instance.sceneName);
+  writeNotNull('releaseGroup', instance.releaseGroup);
+  writeNotNull('language', instance.language?.toJson());
+  writeNotNull('quality', instance.quality?.toJson());
+  writeNotNull('mediaInfo', instance.mediaInfo?.toJson());
+  writeNotNull('qualityCutoffNotMet', instance.qualityCutoffNotMet);
+  writeNotNull('languageCutoffNotMet', instance.languageCutoffNotMet);
+  writeNotNull('id', instance.id);
+  return val;
+}

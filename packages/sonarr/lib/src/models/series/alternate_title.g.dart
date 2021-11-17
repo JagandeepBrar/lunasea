@@ -15,9 +15,17 @@ SonarrSeriesAlternateTitle _$SonarrSeriesAlternateTitleFromJson(
     );
 
 Map<String, dynamic> _$SonarrSeriesAlternateTitleToJson(
-        SonarrSeriesAlternateTitle instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'sceneSeasonNumber': instance.sceneSeasonNumber,
-      'seasonNumber': instance.seasonNumber,
-    };
+    SonarrSeriesAlternateTitle instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('sceneSeasonNumber', instance.sceneSeasonNumber);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  return val;
+}

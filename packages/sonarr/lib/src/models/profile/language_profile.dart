@@ -6,42 +6,44 @@ import 'language_profile_item.dart';
 part 'language_profile.g.dart';
 
 /// Model for a language profile from Sonarr.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrLanguageProfile {
-    /// Name of the profile
-    @JsonKey(name: 'name')
-    String? name;
+  /// Name of the profile
+  @JsonKey(name: 'name')
+  String? name;
 
-    /// Are upgrades allowed?
-    @JsonKey(name: 'upgradeAllowed')
-    bool? upgradeAllowed;
+  /// Are upgrades allowed?
+  @JsonKey(name: 'upgradeAllowed')
+  bool? upgradeAllowed;
 
-    /// Cutoff profile information
-    @JsonKey(name: 'cutoff')
-    SonarrLanguageProfileCutoff? cutoff;
+  /// Cutoff profile information
+  @JsonKey(name: 'cutoff')
+  SonarrLanguageProfileCutoff? cutoff;
 
-    /// Nested profile languages
-    @JsonKey(name: 'languages')
-    List<SonarrLanguageProfileItem>? languages;
+  /// Nested profile languages
+  @JsonKey(name: 'languages')
+  List<SonarrLanguageProfileItem>? languages;
 
-    /// Identifier of the language profile
-    @JsonKey(name: 'id')
-    int? id;
+  /// Identifier of the language profile
+  @JsonKey(name: 'id')
+  int? id;
 
-    SonarrLanguageProfile({
-        this.name,
-        this.upgradeAllowed,
-        this.cutoff,
-        this.languages,
-        this.id,
-    });
+  SonarrLanguageProfile({
+    this.name,
+    this.upgradeAllowed,
+    this.cutoff,
+    this.languages,
+    this.id,
+  });
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
 
-    /// Deserialize a JSON map to a [SonarrLanguageProfile] object.
-    factory SonarrLanguageProfile.fromJson(Map<String, dynamic> json) => _$SonarrLanguageProfileFromJson(json);
-    /// Serialize a [SonarrLanguageProfile] object to a JSON map.
-    Map<String, dynamic> toJson() => _$SonarrLanguageProfileToJson(this);
+  /// Deserialize a JSON map to a [SonarrLanguageProfile] object.
+  factory SonarrLanguageProfile.fromJson(Map<String, dynamic> json) =>
+      _$SonarrLanguageProfileFromJson(json);
+
+  /// Serialize a [SonarrLanguageProfile] object to a JSON map.
+  Map<String, dynamic> toJson() => _$SonarrLanguageProfileToJson(this);
 }

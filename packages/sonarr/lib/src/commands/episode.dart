@@ -12,14 +12,6 @@ class SonarrCommandHandler_Episode {
   /// Handler for [episode](https://github.com/Sonarr/Sonarr/wiki/Episode#get).
   ///
   /// Returns all episodes for the given series or with the given episode IDs.
-  ///
-  /// Required One of Parameters:
-  /// - `seriesId`: Series ID for which to fetch episodes for
-  /// - `episodeIds`: Episode IDs to fetch
-  /// - `episodeFileId`: Episode file ID to fetch
-  ///
-  /// Optional Parameters:
-  /// - `includeImages`: Include image paths
   Future<List<SonarrEpisode>> getMulti({
     int? seriesId,
     int? seasonNumber,
@@ -39,9 +31,6 @@ class SonarrCommandHandler_Episode {
   /// Handler for [episode/{id}](https://github.com/Sonarr/Sonarr/wiki/Episode#getid).
   ///
   /// Returns the episode with the matching ID.
-  ///
-  /// Required Parameters:
-  /// - `episodeId`: Episode ID for the episode to fetch
   Future<SonarrEpisode> get({
     required int episodeId,
   }) async =>
@@ -53,9 +42,6 @@ class SonarrCommandHandler_Episode {
   /// Handler for [episode](https://github.com/Sonarr/Sonarr/wiki/Episode#put).
   ///
   /// Update the given episode, currently only monitored is changed, all other modifications are ignored.
-  ///
-  /// Required Parameters:
-  /// - `episode`: [SonarrEpisode] object containing the updated episode
   Future<SonarrEpisode> updateEpisode({
     required SonarrEpisode episode,
   }) async =>

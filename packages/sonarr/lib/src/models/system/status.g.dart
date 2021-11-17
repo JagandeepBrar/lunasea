@@ -30,27 +30,35 @@ SonarrStatus _$SonarrStatusFromJson(Map<String, dynamic> json) => SonarrStatus(
       runtimeName: json['runtimeName'] as String?,
     );
 
-Map<String, dynamic> _$SonarrStatusToJson(SonarrStatus instance) =>
-    <String, dynamic>{
-      'version': instance.version,
-      'buildTime': SonarrUtilities.dateTimeToJson(instance.buildTime),
-      'isDebug': instance.isDebug,
-      'isProduction': instance.isProduction,
-      'isAdmin': instance.isAdmin,
-      'isUserInteractive': instance.isUserInteractive,
-      'startupPath': instance.startupPath,
-      'appData': instance.appData,
-      'osName': instance.osName,
-      'osVersion': instance.osVersion,
-      'isMonoRuntime': instance.isMonoRuntime,
-      'isMono': instance.isMono,
-      'isLinux': instance.isLinux,
-      'isOsx': instance.isOsx,
-      'isWindows': instance.isWindows,
-      'branch': instance.branch,
-      'authentication': instance.authentication,
-      'sqliteVersion': instance.sqliteVersion,
-      'urlBase': instance.urlBase,
-      'runtimeVersion': instance.runtimeVersion,
-      'runtimeName': instance.runtimeName,
-    };
+Map<String, dynamic> _$SonarrStatusToJson(SonarrStatus instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('version', instance.version);
+  writeNotNull('buildTime', SonarrUtilities.dateTimeToJson(instance.buildTime));
+  writeNotNull('isDebug', instance.isDebug);
+  writeNotNull('isProduction', instance.isProduction);
+  writeNotNull('isAdmin', instance.isAdmin);
+  writeNotNull('isUserInteractive', instance.isUserInteractive);
+  writeNotNull('startupPath', instance.startupPath);
+  writeNotNull('appData', instance.appData);
+  writeNotNull('osName', instance.osName);
+  writeNotNull('osVersion', instance.osVersion);
+  writeNotNull('isMonoRuntime', instance.isMonoRuntime);
+  writeNotNull('isMono', instance.isMono);
+  writeNotNull('isLinux', instance.isLinux);
+  writeNotNull('isOsx', instance.isOsx);
+  writeNotNull('isWindows', instance.isWindows);
+  writeNotNull('branch', instance.branch);
+  writeNotNull('authentication', instance.authentication);
+  writeNotNull('sqliteVersion', instance.sqliteVersion);
+  writeNotNull('urlBase', instance.urlBase);
+  writeNotNull('runtimeVersion', instance.runtimeVersion);
+  writeNotNull('runtimeName', instance.runtimeName);
+  return val;
+}

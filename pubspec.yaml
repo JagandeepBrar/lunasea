@@ -48,6 +48,7 @@ dependencies:
   sonarr:
     path: packages/sonarr
   stack_trace: ^1.10.0
+  stash_memory: ^3.2.1
   supercharged: ^2.1.1
   table_calendar: ^3.0.3
   tautulli:

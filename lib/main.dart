@@ -27,16 +27,6 @@ Future<void> main() async {
 }
 
 /// Initializes LunaSea before running the BIOS Widget.
-///
-/// Sets up (in order):
-/// - System UI Overlay Styling
-/// - Logger
-/// - Network
-/// - Image Cache
-/// - Router
-/// - Firebase
-/// - IAPs
-/// - Database
 Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
   //LunaSea initialization

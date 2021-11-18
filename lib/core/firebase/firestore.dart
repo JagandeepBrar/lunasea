@@ -54,7 +54,7 @@ class LunaFirebaseFirestore {
   ///
   /// If the user is not signed in, returns an empty list.
   Future<List<LunaFirebaseBackupDocument>> getBackupEntries() async {
-    if (LunaFirebaseAuth().user == null) return [];
+    if (!LunaFirebaseAuth().isSignedIn) return [];
     try {
       QuerySnapshot snapshot = await instance
           .collection('users/${LunaFirebaseAuth().uid}/backups')

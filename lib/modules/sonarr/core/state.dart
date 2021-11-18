@@ -24,9 +24,13 @@ class SonarrState extends LunaModuleState {
     _languageProfiles = null;
     _tags = null;
 
+    _episodeFileCache = null;
+
     // Reinitialize
     resetProfile();
     if (_enabled) {
+      resetEpisodeFileCache();
+
       fetchAllSeries();
       fetchUpcoming();
       fetchMissing();
@@ -66,18 +70,19 @@ class SonarrState extends LunaModuleState {
   void resetProfile() {
     ProfileHiveObject _profile = Database.currentProfileObject;
     // Copy profile into state
+    _api = null;
     _enabled = _profile.sonarrEnabled ?? false;
     _host = _profile.sonarrHost ?? '';
     _apiKey = _profile.sonarrKey ?? '';
     _headers = _profile.sonarrHeaders ?? {};
     // Create the API instance if Sonarr is enabled
-    _api = _enabled
-        ? Sonarr(
-            host: _host,
-            apiKey: _apiKey,
-            headers: Map<String, dynamic>.from(_headers),
-          )
-        : null;
+    if (_enabled) {
+      _api = Sonarr(
+        host: _host,
+        apiKey: _apiKey,
+        headers: Map<String, dynamic>.from(_headers),
+      );
+    }
   }
 
   //////////////
@@ -200,6 +205,45 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
+  /////////////////////
+  /// EPISODE FILES ///
+  /////////////////////
+
+  LunaLRUCache _episodeFileCache;
+  LunaLRUCache get episodeFileCache => _episodeFileCache;
+  set episodeFileCache(LunaLRUCache episodeFileCache) {
+    assert(episodeFileCache != null);
+    _episodeFileCache = episodeFileCache;
+    notifyListeners();
+  }
+
+  void resetEpisodeFileCache() {
+    _episodeFileCache = LunaLRUCache(
+      module: LunaModule.SONARR,
+      id: 'episode_file_cache',
+    );
+    notifyListeners();
+  }
+
+  Future<void> fetchEpisodeFiles(int seriesId) async {
+    if (_api != null) {
+      episodeFileCache.put(
+        seriesId.toString(),
+        _api.episodeFile.getSeries(seriesId: seriesId),
+      );
+    }
+    notifyListeners();
+  }
+
+  Future<Map<int, SonarrEpisodeFile>> getEpisodeFiles(int seriesId) async {
+    return episodeFileCache.get(seriesId.toString()).then((files) {
+      if (files == null) return null;
+      return {
+        for (SonarrEpisodeFile f in files) f.id: f,
+      };
+    });
+  }
+
   ////////////////
   /// METADATA ///
   ////////////////
@@ -254,38 +298,35 @@ class SonarrState extends LunaModuleState {
   /// IMAGES ///
   //////////////
 
+  String _baseImageURL() {
+    return _host.endsWith('/')
+        ? '${_host}api/MediaCover'
+        : '$_host/api/MediaCover';
+  }
+
   String getBannerURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/banner.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/banner-70.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/banner.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/banner-70.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String getPosterURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/poster.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/poster-500.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/poster.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String getFanartURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/fanart.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/fanart-360.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/fanart.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
     }
     return null;
   }

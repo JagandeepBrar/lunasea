@@ -3,6 +3,42 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
+  Future<bool> episodeSearch({
+    @required BuildContext context,
+    @required SonarrEpisode episode,
+    bool showSnackbar = true,
+  }) async {
+    assert(episode != null);
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api
+          .command
+          .episodeSearch(episodeIds: [episode.id]).then((response) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.SearchingForEpisode'.tr(),
+            message: episode.title,
+          );
+        }
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to search for episode: ${episode.id}',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToSearch'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> toggleSeasonMonitored({
     @required BuildContext context,
     @required SonarrSeriesSeason season,

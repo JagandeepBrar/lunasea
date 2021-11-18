@@ -10,17 +10,24 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
   _Widget widget({
     @required int seriesId,
     @required int seasonNumber,
-  }) =>
-      _Widget(seriesId: seriesId, seasonNumber: seasonNumber);
+  }) {
+    return _Widget(
+      seriesId: seriesId,
+      seasonNumber: seasonNumber,
+    );
+  }
 
   @override
   Future<void> navigateTo(
     BuildContext context, {
     @required int seriesId,
     @required int seasonNumber,
-  }) async =>
-      LunaRouter.router.navigateTo(
-          context, route(seriesId: seriesId, seasonNumber: seasonNumber));
+  }) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(seriesId: seriesId, seasonNumber: seasonNumber),
+    );
+  }
 
   @override
   String route({
@@ -58,21 +65,79 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<_Widget>
+    with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data,
+    );
+  }
+
+  @override
+  Future<void> loadCallback() async {
+    context.read<SonarrState>().fetchEpisodeFiles(widget.seriesId);
+  }
 
   @override
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),
+      bottomNavigationBar:
+          context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,
+      body: _body(),
     );
   }
 
   Widget _appBar() {
+    String _season;
+    switch (widget.seasonNumber) {
+      case -1:
+        _season = 'sonarr.AllSeasons'.tr();
+        break;
+      case 0:
+        _season = 'sonarr.Specials'.tr();
+        break;
+      default:
+        _season = 'sonarr.SeasonNumber'.tr(
+            args: [widget.seasonNumber?.toString() ?? 'lunasea.Unknown'.tr()]);
+        break;
+    }
     return LunaAppBar(
-      title: 'sonarr.SeasonDetails'.tr(),
-      scrollControllers: [scrollController],
+      title: _season,
+      scrollControllers: SonarrSeasonDetailsNavigationBar.scrollControllers,
+      pageController: _pageController,
+    );
+  }
+
+  Widget _bottomNavigationBar() {
+    return SonarrSeasonDetailsNavigationBar(
+      pageController: _pageController,
+      seasonNumber: widget.seasonNumber,
+    );
+  }
+
+  Widget _body() {
+    return ChangeNotifierProvider(
+      create: (context) => SonarrSeasonDetailsState(
+        context: context,
+        seriesId: widget.seriesId,
+        seasonNumber: widget.seasonNumber != -1 ? widget.seasonNumber : null,
+      ),
+      builder: (context, _) {
+        return PageView(
+          controller: _pageController,
+          children: const [
+            SonarrSeasonDetailsEpisodesPage(),
+            SonarrSeasonDetailsHistoryPage(),
+          ],
+        );
+      },
     );
   }
 }

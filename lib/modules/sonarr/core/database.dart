@@ -46,6 +46,7 @@ class SonarrDatabase extends LunaModuleDatabase {
         // Primitive values
         case SonarrDatabaseValue.NAVIGATION_INDEX:
         case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
+        case SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS:
         case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
         case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:
         case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
@@ -92,6 +93,7 @@ class SonarrDatabase extends LunaModuleDatabase {
           // Primitive values
           case SonarrDatabaseValue.NAVIGATION_INDEX:
           case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
+          case SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS:
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
@@ -122,6 +124,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.NAVIGATION_INDEX;
       case 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS':
         return SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS;
+      case 'SONARR_NAVIGATION_INDEX_SEASON_DETAILS':
+        return SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS;
       case 'SONARR_UPCOMING_FUTURE_DAYS':
         return SonarrDatabaseValue.UPCOMING_FUTURE_DAYS;
       case 'SONARR_QUEUE_REFRESH_RATE':
@@ -173,6 +177,7 @@ class SonarrDatabase extends LunaModuleDatabase {
 enum SonarrDatabaseValue {
   NAVIGATION_INDEX,
   NAVIGATION_INDEX_SERIES_DETAILS,
+  NAVIGATION_INDEX_SEASON_DETAILS,
   ADD_SERIES_SEARCH_FOR_MISSING,
   ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET,
   ADD_SERIES_DEFAULT_MONITORED,
@@ -203,6 +208,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_NAVIGATION_INDEX';
       case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
         return 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS';
+      case SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS:
+        return 'SONARR_NAVIGATION_INDEX_SEASON_DETAILS';
       case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         return 'SONARR_UPCOMING_FUTURE_DAYS';
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
@@ -255,6 +262,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.NAVIGATION_INDEX:
         return _box.get(this.key, defaultValue: 0);
       case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
+        return _box.get(this.key, defaultValue: 0);
+      case SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS:
         return _box.get(this.key, defaultValue: 0);
       case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         return _box.get(this.key, defaultValue: 7);
@@ -315,6 +324,9 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         if (value is int) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
+        if (value is int) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS:
         if (value is int) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:

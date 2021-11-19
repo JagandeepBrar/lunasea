@@ -10,36 +10,68 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class LunaListViewModalBuilder extends StatelessWidget {
   final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
+  final LunaBottomActionBar actionBar;
+  final LunaAppBar appBar;
+  final double appBarHeight;
   final double itemExtent;
-  final bool shrinkWrap;
 
   LunaListViewModalBuilder({
     Key key,
     @required this.itemCount,
     @required this.itemBuilder,
+    this.appBar,
+    this.appBarHeight,
+    this.actionBar,
     this.itemExtent,
-    this.shrinkWrap = true,
   }) : super(key: key) {
     assert(itemCount != null);
     assert(itemBuilder != null);
+    if (appBar != null) assert(appBarHeight != null);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: ModalScrollController.of(context),
-      child: ListView.builder(
-        controller: ModalScrollController.of(context),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-              vertical: LunaUI.MARGIN_CARD.bottom,
-            )),
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: itemCount,
-        itemBuilder: itemBuilder,
-        itemExtent: itemExtent,
-        shrinkWrap: shrinkWrap,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (appBar != null)
+          SizedBox(
+            child: appBar,
+            height: appBarHeight,
+          ),
+        Flexible(
+          child: Scrollbar(
+            controller: ModalScrollController.of(context),
+            child: ListView.builder(
+              controller: ModalScrollController.of(context),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: _padding(context),
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: itemCount,
+              itemBuilder: itemBuilder,
+              itemExtent: itemExtent,
+              shrinkWrap: true,
+            ),
+          ),
+        ),
+        if (actionBar != null) actionBar,
+      ],
+    );
+  }
+
+  EdgeInsets _padding(BuildContext context) {
+    EdgeInsets _padding = MediaQuery.of(context).padding;
+    EdgeInsets _viewInsets = MediaQuery.of(context).viewInsets;
+
+    return EdgeInsets.fromLTRB(
+      _padding.left + _viewInsets.left,
+      appBar != null
+          ? LunaUI.MARGIN_CARD.top
+          : _padding.top + _viewInsets.top + LunaUI.MARGIN_CARD.top,
+      _padding.right + _viewInsets.right,
+      actionBar != null
+          ? 0
+          : _padding.bottom + _viewInsets.bottom + LunaUI.MARGIN_CARD.bottom,
     );
   }
 }

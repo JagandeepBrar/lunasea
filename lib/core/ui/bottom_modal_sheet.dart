@@ -7,11 +7,10 @@ class LunaBottomModalSheet {
   Future<dynamic> showModal({
     @required BuildContext context,
     @required Widget Function(BuildContext) builder,
-    bool expand = false,
   }) async =>
       showBarModalBottomSheet(
         context: context,
-        expand: expand,
+        expand: false,
         backgroundColor:
             LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
         shape: LunaUI.shapeBorder,

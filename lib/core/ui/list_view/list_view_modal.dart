@@ -23,13 +23,13 @@ class LunaListViewModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: ModalScrollController.of(context),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (appBar != null) appBar,
-          Flexible(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (appBar != null) appBar,
+        Flexible(
+          child: Scrollbar(
+            controller: ModalScrollController.of(context),
             child: ListView(
               controller: ModalScrollController.of(context),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -37,22 +37,28 @@ class LunaListViewModal extends StatelessWidget {
               itemExtent: itemExtent,
               shrinkWrap: true,
               padding: _padding(context),
-              physics: const ClampingScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
             ),
           ),
-          if (actionBar != null) actionBar,
-        ],
-      ),
+        ),
+        if (actionBar != null) actionBar,
+      ],
     );
   }
 
   EdgeInsets _padding(BuildContext context) {
-    EdgeInsets _mediaQuery = MediaQuery.of(context).padding;
+    EdgeInsets _padding = MediaQuery.of(context).padding;
+    EdgeInsets _viewInsets = MediaQuery.of(context).viewInsets;
+
     return EdgeInsets.fromLTRB(
-      _mediaQuery.left,
-      _mediaQuery.top + LunaUI.MARGIN_CARD.top,
-      _mediaQuery.right,
-      actionBar != null ? 0 : _mediaQuery.bottom + LunaUI.MARGIN_CARD.bottom,
+      _padding.left + _viewInsets.left,
+      appBar != null
+          ? LunaUI.MARGIN_CARD.top
+          : _padding.top + _viewInsets.top + LunaUI.MARGIN_CARD.top,
+      _padding.right + _viewInsets.right,
+      actionBar != null
+          ? 0
+          : _padding.bottom + _viewInsets.bottom + LunaUI.MARGIN_CARD.bottom,
     );
   }
 }

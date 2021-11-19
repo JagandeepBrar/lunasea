@@ -7,11 +7,13 @@ import 'package:lunasea/core.dart';
 class LunaBottomActionBar extends StatelessWidget {
   final EdgeInsets padding;
   final List<Widget> actions;
+  final int actionsPerRow;
   final bool useSafeArea;
 
   LunaBottomActionBar({
     @required this.actions,
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
+    this.actionsPerRow = 2,
     this.useSafeArea = true,
     Key key,
   }) : super(key: key) {
@@ -30,6 +32,7 @@ class LunaBottomActionBar extends StatelessWidget {
           child: LunaButtonContainer(
             children: actions,
             padding: EdgeInsets.zero,
+            buttonsPerRow: actionsPerRow,
           ),
           padding: padding,
         ),

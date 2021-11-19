@@ -9,6 +9,8 @@ enum _APPBAR_TYPE {
 }
 
 class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
+  static const APPBAR_HEIGHT = kToolbarHeight;
+
   final _APPBAR_TYPE type;
   final String title;
   final List<Widget> actions;
@@ -23,7 +25,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize {
-    double _size = (height ?? kToolbarHeight);
+    double _size = (height ?? APPBAR_HEIGHT);
     if (bottom != null) _size += bottom.preferredSize.height;
     return Size.fromHeight(_size);
   }

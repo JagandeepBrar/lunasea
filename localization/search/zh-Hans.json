@@ -1,1 +1,23 @@
-{}
+{
+    "search.AllSubcategories": "所有子类别",
+    "search.Alphabetical": "字母顺序",
+    "search.Categories": "类别",
+    "search.Category": "种类",
+    "search.Comments": "评论",
+    "search.Downloading": "正在下载…",
+    "search.DownloadingNZBToDevice": "将NZB下载到您的设备",
+    "search.DownloadToDevice": "下载到设备",
+    "search.FailedToDownloadNZB": "NZB下载失败",
+    "search.FailedToSend": "发送失败",
+    "search.NoCategoriesFound": "未找到类别",
+    "search.NoResultsFound": "未找到任何结果",
+    "search.NoSubcategoriesFound": "未找到子类别",
+    "search.Results": "结果",
+    "search.Search": "搜索",
+    "search.SentNZBData": "发送 NZB 数据",
+    "search.SentTo": "发送到 {}",
+    "search.Size": "大小",
+    "search.Subcategories": "子类别",
+    "search.Age": "年龄",
+    "search.Download": "下载"
+}

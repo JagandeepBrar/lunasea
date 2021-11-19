@@ -30,6 +30,7 @@
 - `[Sonarr]` (Edit) Vastly speed up response time on editing a series
 - `[Sonarr]` (Seasons) Now correctly calculates available episode count in season list
 - `[TLS]` TLS v1.3 is now fully supported
+- `[UI/UX]` (Bottom Sheet) Tightly size all bottom sheets to the content
 
 ## v5.1.1 (50101002)
 

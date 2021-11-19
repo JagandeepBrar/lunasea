@@ -14,7 +14,7 @@ class LunaText extends Text {
   }) : super(
           text,
           key: key,
-          maxLines: maxLines,
+          maxLines: maxLines == 0 ? null : maxLines,
           overflow: overflow,
           softWrap: softWrap,
           style: style,

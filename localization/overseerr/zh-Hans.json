@@ -1,1 +1,10 @@
-{}
+{
+    "overseerr.NoRequests": "没有请求",
+    "overseerr.OneRequest": "1个请求",
+    "overseerr.SomeRequests": "{} 请求",
+    "overseerr.Requests": "请求",
+    "overseerr.NoRequestsFound": "未找到请求",
+    "overseerr.NoUsersFound": "未找到相应的用户",
+    "overseerr.UnknownUser": "未知用户",
+    "overseerr.Users": "用户"
+}

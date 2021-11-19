@@ -35,4 +35,18 @@ extension SonarrEpisodeExtension on SonarrEpisode {
     if (file.qualityCutoffNotMet) return LunaColours.orange;
     return LunaColours.accent;
   }
+
+  String lunaSeasonEpisode() {
+    String season = this.seasonNumber != null
+        ? 'sonarr.SeasonNumber'.tr(
+            args: [this.seasonNumber.toString()],
+          )
+        : 'lunasea.Unknown'.tr();
+    String episode = this.episodeNumber != null
+        ? 'sonarr.EpisodeNumber'.tr(
+            args: [this.episodeNumber.toString()],
+          )
+        : 'lunasea.Unknown'.tr();
+    return '$season ${LunaUI.TEXT_BULLET} $episode';
+  }
 }

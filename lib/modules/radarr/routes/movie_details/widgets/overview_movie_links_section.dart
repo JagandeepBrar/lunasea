@@ -13,6 +13,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaButtonContainer(
+      buttonsPerRow: 4,
       children: [
         if (movie.imdbId != null && movie.imdbId.isNotEmpty)
           LunaCard(

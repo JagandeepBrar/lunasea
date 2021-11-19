@@ -13,6 +13,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaButtonContainer(
+      buttonsPerRow: 4,
       children: [
         if (series.imdbId != null && series.imdbId.isNotEmpty)
           LunaCard(

@@ -21,9 +21,20 @@ class SonarrEpisodeTile extends StatelessWidget {
         darken: !episode.monitored,
       ),
       subtitle: _collapsedSubtitle(),
-      contentPadding: true,
-      leading: _leading(),
+      leading: _leading(context),
       trailing: _trailing(context),
+      contentPadding: true,
+      color: context
+              .watch<SonarrSeasonDetailsState>()
+              .selectedEpisodes
+              .contains(episode.id)
+          ? LunaColours.accent.withOpacity(0.15)
+          : null,
+      onTap: () async => SonarrEpisodeDetailsSheet(
+        context: context,
+        episode: episode,
+        episodeFile: episodeFile,
+      ).showModal(context: context),
     );
   }
 
@@ -53,19 +64,31 @@ class SonarrEpisodeTile extends StatelessWidget {
     );
   }
 
-  Widget _leading() {
+  Widget _leading(BuildContext context) {
     return LunaIconButton(
-      text: episode.episodeNumber.toString(),
+      text: context
+              .watch<SonarrSeasonDetailsState>()
+              .selectedEpisodes
+              .contains(episode.id)
+          ? null
+          : episode.episodeNumber.toString(),
+      icon: context
+              .watch<SonarrSeasonDetailsState>()
+              .selectedEpisodes
+              .contains(episode.id)
+          ? Icons.check_rounded
+          : null,
       textSize: LunaUI.FONT_SIZE_BUTTON,
-      color: episode.monitored ? Colors.white70 : Colors.white30,
-      onPressed: () {},
+      color: episode.monitored ? Colors.white : Colors.white30,
+      onPressed: () =>
+          context.read<SonarrSeasonDetailsState>().toggleSelected(episode.id),
     );
   }
 
   Widget _trailing(BuildContext context) {
     return LunaIconButton(
       icon: Icons.search_rounded,
-      color: episode.monitored ? Colors.white70 : Colors.white30,
+      color: episode.monitored ? Colors.white : Colors.white30,
       onPressed: () async => SonarrAPIController().episodeSearch(
         context: context,
         episode: episode,

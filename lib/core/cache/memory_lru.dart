@@ -15,7 +15,13 @@ class LunaLRUCache {
     EventListenerMode eventListenerMode = EventListenerMode.disabled,
   }) {
     _key = '${module.key}:$id';
-    _cache = _getCache();
+    _cache = _getCache(
+      evictionPolicy: evictionPolicy,
+      expiryPolicy: expiryPolicy,
+      maxEntries: maxEntries,
+      sampler: sampler,
+      eventListenerMode: eventListenerMode,
+    );
   }
 
   /// Returns the the cache with the given ID from the module.

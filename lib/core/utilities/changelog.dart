@@ -26,6 +26,7 @@ class LunaChangelog {
         .loadString('assets/changelog.json')
         .then((data) {
       _Changelog changelog = _Changelog.fromJson(json.decode(data));
+      // TODO: Abstract this
       LunaBottomModalSheet().showModal(
         context: LunaState.navigatorKey.currentContext,
         builder: (context) => LunaListViewModal(

@@ -382,12 +382,13 @@ class RadarrDialogs {
                 (index) => LunaDialog.checkbox(
                     title: filteredLanguages[index].name,
                     value: context
-                            .read<RadarrManualImportDetailsTileState>()
-                            .manualImport
-                            .languages
-                            .indexWhere((lang) =>
-                                lang.id == filteredLanguages[index].id) !=
-                        -1,
+                                .read<RadarrManualImportDetailsTileState>()
+                                .manualImport
+                                .languages
+                                ?.indexWhere((lang) =>
+                                    lang.id == filteredLanguages[index].id) !=
+                            -1 ??
+                        false,
                     onChanged: (value) => value
                         ? context
                             .read<RadarrManualImportDetailsTileState>()

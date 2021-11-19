@@ -74,62 +74,66 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
   }
 
   Future<void> _viewMediaInfo() async {
+    // TODO: Abstract this
     LunaBottomModalSheet().showModal(
       context: context,
-      builder: (context) => LunaListViewModal(children: [
-        const LunaHeader(text: 'Video'),
-        LunaTableCard(
-          content: [
-            LunaTableContent(
-                title: 'bit depth',
-                body: widget.movieFile.mediaInfo.lunaVideoBitDepth),
-            LunaTableContent(
-                title: 'bitrate',
-                body: widget.movieFile.mediaInfo.lunaVideoBitrate),
-            LunaTableContent(
-                title: 'codec',
-                body: widget.movieFile.mediaInfo.lunaVideoCodec),
-            LunaTableContent(
-                title: 'fps', body: widget.movieFile.mediaInfo.lunaVideoFps),
-            LunaTableContent(
-                title: 'resolution',
-                body: widget.movieFile.mediaInfo.lunaVideoResolution),
-          ],
-        ),
-        const LunaHeader(text: 'Audio'),
-        LunaTableCard(
-          content: [
-            LunaTableContent(
-                title: 'bitrate',
-                body: widget.movieFile.mediaInfo.lunaAudioBitrate),
-            LunaTableContent(
-                title: 'channels',
-                body: widget.movieFile.mediaInfo.lunaAudioChannels),
-            LunaTableContent(
-                title: 'codec',
-                body: widget.movieFile.mediaInfo.lunaAudioCodec),
-            LunaTableContent(
-                title: 'features',
-                body: widget.movieFile.mediaInfo.lunaAudioAdditionalFeatures),
-            LunaTableContent(
-                title: 'languages',
-                body: widget.movieFile.mediaInfo.lunaAudioLanguages),
-            LunaTableContent(
-                title: 'streams',
-                body: widget.movieFile.mediaInfo.lunaAudioStreamCount),
-          ],
-        ),
-        const LunaHeader(text: 'Other'),
-        LunaTableCard(
-          content: [
-            LunaTableContent(
-                title: 'runtime', body: widget.movieFile.mediaInfo.lunaRunTime),
-            LunaTableContent(
-                title: 'subtitles',
-                body: widget.movieFile.mediaInfo.lunaSubtitles),
-          ],
-        ),
-      ]),
+      builder: (context) => LunaListViewModal(
+        children: [
+          const LunaHeader(text: 'Video'),
+          LunaTableCard(
+            content: [
+              LunaTableContent(
+                  title: 'bit depth',
+                  body: widget.movieFile.mediaInfo.lunaVideoBitDepth),
+              LunaTableContent(
+                  title: 'bitrate',
+                  body: widget.movieFile.mediaInfo.lunaVideoBitrate),
+              LunaTableContent(
+                  title: 'codec',
+                  body: widget.movieFile.mediaInfo.lunaVideoCodec),
+              LunaTableContent(
+                  title: 'fps', body: widget.movieFile.mediaInfo.lunaVideoFps),
+              LunaTableContent(
+                  title: 'resolution',
+                  body: widget.movieFile.mediaInfo.lunaVideoResolution),
+            ],
+          ),
+          const LunaHeader(text: 'Audio'),
+          LunaTableCard(
+            content: [
+              LunaTableContent(
+                  title: 'bitrate',
+                  body: widget.movieFile.mediaInfo.lunaAudioBitrate),
+              LunaTableContent(
+                  title: 'channels',
+                  body: widget.movieFile.mediaInfo.lunaAudioChannels),
+              LunaTableContent(
+                  title: 'codec',
+                  body: widget.movieFile.mediaInfo.lunaAudioCodec),
+              LunaTableContent(
+                  title: 'features',
+                  body: widget.movieFile.mediaInfo.lunaAudioAdditionalFeatures),
+              LunaTableContent(
+                  title: 'languages',
+                  body: widget.movieFile.mediaInfo.lunaAudioLanguages),
+              LunaTableContent(
+                  title: 'streams',
+                  body: widget.movieFile.mediaInfo.lunaAudioStreamCount),
+            ],
+          ),
+          const LunaHeader(text: 'Other'),
+          LunaTableCard(
+            content: [
+              LunaTableContent(
+                  title: 'runtime',
+                  body: widget.movieFile.mediaInfo.lunaRunTime),
+              LunaTableContent(
+                  title: 'subtitles',
+                  body: widget.movieFile.mediaInfo.lunaSubtitles),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

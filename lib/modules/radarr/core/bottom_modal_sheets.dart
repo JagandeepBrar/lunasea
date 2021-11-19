@@ -4,9 +4,9 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrBottomModalSheets {
   Future<void> configureManualImport(BuildContext context) async {
+    // TODO: Abstract this
     await LunaBottomModalSheet().showModal(
       context: context,
-      expand: false,
       builder: (_) => ChangeNotifierProvider.value(
         value: context.read<RadarrManualImportDetailsTileState>(),
         builder: (context, _) => LunaListViewModal(
@@ -69,6 +69,7 @@ class RadarrBottomModalSheets {
   }
 
   Future<void> selectQuality(BuildContext context) async {
+    // TODO: Abstract this
     await LunaBottomModalSheet().showModal(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(
@@ -164,81 +165,79 @@ class RadarrBottomModalSheets {
       return _filtered;
     }
 
+    // TODO: Abstract this
     await LunaBottomModalSheet().showModal(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(
         value: context.read<RadarrManualImportDetailsTileState>(),
-        builder: (context, _) => LunaScaffold(
-          scaffoldKey: null,
-          appBar: LunaAppBar(
-            title: 'radarr.SelectMovie'.tr(),
-            bottom: const RadarrManualImportDetailsConfigureMoviesSearchBar(),
-            hideLeading: true,
-          ),
-          body: FutureBuilder(
-            future: context.watch<RadarrState>().movies,
-            builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
-              if (snapshot.hasError) {
-                if (snapshot.connectionState != ConnectionState.waiting)
-                  LunaLogger().error(
-                    'Unable to fetch Radarr movies',
-                    snapshot.error,
-                    snapshot.stackTrace,
-                  );
-                return LunaMessage(text: 'lunasea.AnErrorHasOccurred'.tr());
-              }
-              if (snapshot.hasData) {
-                if ((snapshot.data?.length ?? 0) == 0)
-                  return LunaMessage(text: 'radarr.NoMoviesFound'.tr());
-                String _query = context
-                    .watch<RadarrManualImportDetailsTileState>()
-                    .configureMoviesSearchQuery;
-                List<RadarrMovie> movies =
-                    _sortAndFilter(snapshot.data, _query);
-                if ((movies?.length ?? 0) == 0)
-                  return LunaListViewModal(
-                    children: [
-                      LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
-                    ],
-                  );
-                // Return the final movie list
-                return LunaListViewModalBuilder(
-                  itemCount: movies.length,
-                  itemBuilder: (context, index) {
-                    String title = movies[index].title;
-                    if (movies[index].year != null && movies[index].year != 0)
-                      title += ' (${movies[index].year})';
-                    String overview = movies[index].overview;
-                    if (overview?.isEmpty ?? true)
-                      overview = 'radarr.NoSummaryIsAvailable'.tr();
-                    return LunaListTile(
-                      context: context,
-                      title: LunaText.title(text: title),
-                      subtitle: LunaText(
-                        text: '$overview\n',
-                        softWrap: true,
-                        maxLines: 2,
-                        overflow: TextOverflow.fade,
-                        style: const TextStyle(
-                          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                          color: Colors.white70,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                      contentPadding: true,
-                      onTap: () {
-                        result = true;
-                        movie = movies[index];
-                        Navigator.of(context).pop();
-                      },
-                    );
-                  },
-                  shrinkWrap: false,
+        builder: (context, _) => FutureBuilder(
+          future: context.watch<RadarrState>().movies,
+          builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
+            if (snapshot.hasError) {
+              if (snapshot.connectionState != ConnectionState.waiting)
+                LunaLogger().error(
+                  'Unable to fetch Radarr movies',
+                  snapshot.error,
+                  snapshot.stackTrace,
                 );
-              }
-              return const LunaLoader();
-            },
-          ),
+              return LunaMessage(text: 'lunasea.AnErrorHasOccurred'.tr());
+            }
+            if (snapshot.hasData) {
+              if ((snapshot.data?.length ?? 0) == 0)
+                return LunaMessage(text: 'radarr.NoMoviesFound'.tr());
+              String _query = context
+                  .watch<RadarrManualImportDetailsTileState>()
+                  .configureMoviesSearchQuery;
+              List<RadarrMovie> movies = _sortAndFilter(snapshot.data, _query);
+              // Return the final movie list
+              return LunaListViewModalBuilder(
+                itemCount: movies.isEmpty ? 1 : movies.length,
+                itemBuilder: (context, index) {
+                  if (movies.isEmpty) {
+                    return LunaMessage.inList(
+                      text: 'radarr.NoMoviesFound'.tr(),
+                    );
+                  }
+                  String title = movies[index].title;
+                  if (movies[index].year != null && movies[index].year != 0)
+                    title += ' (${movies[index].year})';
+                  String overview = movies[index].overview;
+                  if (overview?.isEmpty ?? true)
+                    overview = 'radarr.NoSummaryIsAvailable'.tr();
+                  return LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: title),
+                    subtitle: LunaText(
+                      text: '$overview\n',
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.fade,
+                      style: const TextStyle(
+                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        color: Colors.white70,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    contentPadding: true,
+                    onTap: () {
+                      result = true;
+                      movie = movies[index];
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
+                appBar: LunaAppBar(
+                  title: 'radarr.SelectMovie'.tr(),
+                  bottom:
+                      const RadarrManualImportDetailsConfigureMoviesSearchBar(),
+                  hideLeading: true,
+                ),
+                appBarHeight:
+                    LunaAppBar.APPBAR_HEIGHT + LunaTextInputBar.appBarHeight,
+              );
+            }
+            return const LunaLoader();
+          },
         ),
       ),
     );

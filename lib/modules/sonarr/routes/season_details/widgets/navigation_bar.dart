@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeasonDetailsNavigationBar extends StatefulWidget {
   static const List<IconData> icons = [
@@ -15,11 +16,13 @@ class SonarrSeasonDetailsNavigationBar extends StatefulWidget {
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
   final PageController pageController;
+  final int seriesId;
   final int seasonNumber;
 
   const SonarrSeasonDetailsNavigationBar({
     Key key,
     @required this.pageController,
+    @required this.seriesId,
     @required this.seasonNumber,
   }) : super(key: key);
 
@@ -38,28 +41,42 @@ class _State extends State<SonarrSeasonDetailsNavigationBar> {
       icons: SonarrSeasonDetailsNavigationBar.icons,
       titles: SonarrSeasonDetailsNavigationBar.titles,
       topActions: [
-        if (widget.seasonNumber >= 0)
-          LunaButton(
-            type: LunaButtonType.TEXT,
-            text: 'sonarr.Automatic'.tr(),
-            icon: Icons.search_rounded,
-            onTap: _automatic,
-            loadingState: _automaticLoadingState,
-          ),
-        if (widget.seasonNumber >= 0)
-          LunaButton.text(
-            text: 'sonarr.Interactive'.tr(),
-            icon: Icons.person_rounded,
-            onTap: _manual,
-          ),
+        LunaButton(
+          type: LunaButtonType.TEXT,
+          text: 'sonarr.Automatic'.tr(),
+          icon: Icons.search_rounded,
+          onTap: _automatic,
+          loadingState: _automaticLoadingState,
+        ),
+        LunaButton.text(
+          text: 'sonarr.Interactive'.tr(),
+          icon: Icons.person_rounded,
+          onTap: _manual,
+        ),
       ],
     );
   }
 
   Future<void> _automatic() async {
-    setState(() => _automaticLoadingState = LunaLoadingState.ACTIVE);
-    // TODO
+    Future<void> setLoadingState(LunaLoadingState state) async {
+      if (this.mounted) setState(() => _automaticLoadingState = state);
+    }
+
+    setLoadingState(LunaLoadingState.ACTIVE);
+    SonarrAPIController()
+        .automaticSeasonSearch(
+          context: context,
+          seriesId: widget.seriesId,
+          seasonNumber: widget.seasonNumber,
+        )
+        .whenComplete(() => setLoadingState(LunaLoadingState.INACTIVE));
   }
 
-  Future<void> _manual() async {}
+  Future<void> _manual() async {
+    return SonarrReleasesRouter().navigateTo(
+      context,
+      seriesId: widget.seriesId,
+      seasonNumber: widget.seasonNumber,
+    );
+  }
 }

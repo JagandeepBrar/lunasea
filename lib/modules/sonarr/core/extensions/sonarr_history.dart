@@ -7,6 +7,7 @@ extension SonarrHistoryRecordLunaExtension on SonarrHistoryRecord {
   }
 
   String lunaSeasonEpisode() {
+    if (this.episode == null) return null;
     String season = this.episode?.seasonNumber != null
         ? 'sonarr.SeasonNumber'.tr(
             args: [this.episode.seasonNumber.toString()],
@@ -17,6 +18,6 @@ extension SonarrHistoryRecordLunaExtension on SonarrHistoryRecord {
             args: [this.episode.episodeNumber.toString()],
           )
         : 'lunasea.Unknown'.tr();
-    return '$season ${LunaUI.TEXT_EMDASH} $episode';
+    return '$season ${LunaUI.TEXT_BULLET} $episode';
   }
 }

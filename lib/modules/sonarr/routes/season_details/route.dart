@@ -116,8 +116,10 @@ class _State extends State<_Widget>
   }
 
   Widget _bottomNavigationBar() {
+    if (widget.seasonNumber < 0) return null;
     return SonarrSeasonDetailsNavigationBar(
       pageController: _pageController,
+      seriesId: widget.seriesId,
       seasonNumber: widget.seasonNumber,
     );
   }
@@ -132,9 +134,10 @@ class _State extends State<_Widget>
       builder: (context, _) {
         return PageView(
           controller: _pageController,
-          children: const [
-            SonarrSeasonDetailsEpisodesPage(),
-            SonarrSeasonDetailsHistoryPage(),
+          children: [
+            const SonarrSeasonDetailsEpisodesPage(),
+            if (widget.seasonNumber >= 0)
+              const SonarrSeasonDetailsHistoryPage(),
           ],
         );
       },

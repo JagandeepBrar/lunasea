@@ -5,14 +5,21 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
   final SonarrSeries series;
+  final SonarrEpisode episode;
   final bool seriesHistory;
 
   const SonarrHistoryTile({
     Key key,
     @required this.history,
     this.series,
+    this.episode,
     this.seriesHistory = false,
   }) : super(key: key);
+
+  bool _hasEpisodeInfo() {
+    if (history.episode != null || episode != null) return true;
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +27,9 @@ class SonarrHistoryTile extends StatelessWidget {
       title: seriesHistory
           ? history.sourceTitle
           : series?.title ?? LunaUI.TEXT_EMDASH,
-      collapsedSubtitle1: seriesHistory ? _subtitle2() : _subtitle1(),
-      collapsedSubtitle2: seriesHistory ? _subtitle3() : _subtitle2(),
-      collapsedSubtitle3: seriesHistory ? null : _subtitle3(),
+      collapsedSubtitle1: _hasEpisodeInfo() ? _subtitle1() : _subtitle2(),
+      collapsedSubtitle2: _hasEpisodeInfo() ? _subtitle2() : _subtitle3(),
+      collapsedSubtitle3: _hasEpisodeInfo() ? _subtitle3() : null,
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
@@ -35,10 +42,24 @@ class SonarrHistoryTile extends StatelessWidget {
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
+        if (episode?.seasonNumber != null)
+          LunaHighlightedNode(
+            text: 'sonarr.SeasonNumber'.tr(
+              args: [episode?.seasonNumber.toString()],
+            ),
+            backgroundColor: LunaColours.blueGrey,
+          ),
         if (history?.episode?.episodeNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.EpisodeNumber'.tr(
               args: [history.episode.episodeNumber.toString()],
+            ),
+            backgroundColor: LunaColours.blueGrey,
+          ),
+        if (episode?.episodeNumber != null)
+          LunaHighlightedNode(
+            text: 'sonarr.EpisodeNumber'.tr(
+              args: [episode?.episodeNumber.toString()],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
@@ -59,10 +80,14 @@ class SonarrHistoryTile extends StatelessWidget {
 
   TextSpan _subtitle1() {
     return TextSpan(children: [
-      TextSpan(text: history?.lunaSeasonEpisode() ?? LunaUI.TEXT_EMDASH),
+      TextSpan(
+        text: history?.lunaSeasonEpisode() ??
+            episode?.lunaSeasonEpisode() ??
+            LunaUI.TEXT_EMDASH,
+      ),
       const TextSpan(text: ': '),
       TextSpan(
-        text: history?.episode?.title ?? LunaUI.TEXT_EMDASH,
+        text: history?.episode?.title ?? episode?.title ?? LunaUI.TEXT_EMDASH,
         style: const TextStyle(
           fontStyle: FontStyle.italic,
         ),

@@ -7,6 +7,7 @@ class SonarrHistoryTile extends StatelessWidget {
   final SonarrSeries series;
   final SonarrEpisode episode;
   final bool seriesHistory;
+  final bool episodeHistory;
 
   const SonarrHistoryTile({
     Key key,
@@ -14,6 +15,7 @@ class SonarrHistoryTile extends StatelessWidget {
     this.series,
     this.episode,
     this.seriesHistory = false,
+    this.episodeHistory = false,
   }) : super(key: key);
 
   bool _hasEpisodeInfo() {
@@ -24,12 +26,15 @@ class SonarrHistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: seriesHistory
+      title: seriesHistory || episodeHistory
           ? history.sourceTitle
           : series?.title ?? LunaUI.TEXT_EMDASH,
-      collapsedSubtitle1: _hasEpisodeInfo() ? _subtitle1() : _subtitle2(),
-      collapsedSubtitle2: _hasEpisodeInfo() ? _subtitle2() : _subtitle3(),
-      collapsedSubtitle3: _hasEpisodeInfo() ? _subtitle3() : null,
+      collapsedSubtitle1:
+          _hasEpisodeInfo() && !episodeHistory ? _subtitle1() : _subtitle2(),
+      collapsedSubtitle2:
+          _hasEpisodeInfo() && !episodeHistory ? _subtitle2() : _subtitle3(),
+      collapsedSubtitle3:
+          _hasEpisodeInfo() && !episodeHistory ? _subtitle3() : null,
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
@@ -66,10 +71,10 @@ class SonarrHistoryTile extends StatelessWidget {
       ],
       expandedTableContent: history.eventType?.lunaTableContent(
             history,
-            seriesHistory: seriesHistory,
+            seriesHistory: seriesHistory || episodeHistory,
           ) ??
           [],
-      onLongPress: seriesHistory
+      onLongPress: seriesHistory || episodeHistory
           ? null
           : () async => SonarrSeriesDetailsRouter().navigateTo(
                 context,

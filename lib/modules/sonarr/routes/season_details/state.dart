@@ -56,7 +56,9 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   }
 
   Future<SonarrHistory> getEpisodeHistory(int episodeId) async {
-    return episodeHistoryCache.get(episodeId.toString());
+    return episodeHistoryCache
+        .get(episodeId.toString())
+        .then((data) => data as SonarrHistory);
   }
 
   final List<int> _selectedEpisodes = [];

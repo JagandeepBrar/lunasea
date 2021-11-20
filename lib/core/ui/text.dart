@@ -54,6 +54,7 @@ class LunaText extends Text {
     TextAlign textAlign = TextAlign.start,
     Color color = Colors.white70,
     bool darken = false,
+    FontStyle fontStyle = FontStyle.normal,
   }) =>
       LunaText(
         key: key,
@@ -65,6 +66,7 @@ class LunaText extends Text {
         style: TextStyle(
           color: darken ? color.withOpacity(0.30) : color,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontStyle: fontStyle,
         ),
       );
 }

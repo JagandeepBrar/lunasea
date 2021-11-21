@@ -115,7 +115,6 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           text: episode.overview ?? 'sonarr.NoSummaryAvailable'.tr(),
           maxLines: 0,
           softWrap: true,
-          fontStyle: FontStyle.italic,
         ),
       ),
     ];

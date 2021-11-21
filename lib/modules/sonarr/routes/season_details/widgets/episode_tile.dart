@@ -24,12 +24,6 @@ class SonarrEpisodeTile extends StatelessWidget {
       leading: _leading(context),
       trailing: _trailing(context),
       contentPadding: true,
-      color: context
-              .watch<SonarrSeasonDetailsState>()
-              .selectedEpisodes
-              .contains(episode.id)
-          ? LunaColours.accent.withOpacity(0.15)
-          : null,
       onTap: () async => SonarrEpisodeDetailsSheet(
         context: context,
         episode: episode,
@@ -66,22 +60,9 @@ class SonarrEpisodeTile extends StatelessWidget {
 
   Widget _leading(BuildContext context) {
     return LunaIconButton(
-      text: context
-              .watch<SonarrSeasonDetailsState>()
-              .selectedEpisodes
-              .contains(episode.id)
-          ? null
-          : episode.episodeNumber.toString(),
-      icon: context
-              .watch<SonarrSeasonDetailsState>()
-              .selectedEpisodes
-              .contains(episode.id)
-          ? Icons.check_rounded
-          : null,
+      text: episode.episodeNumber.toString(),
       textSize: LunaUI.FONT_SIZE_BUTTON,
       color: episode.monitored ? Colors.white : Colors.white30,
-      onPressed: () =>
-          context.read<SonarrSeasonDetailsState>().toggleSelected(episode.id),
     );
   }
 
@@ -92,6 +73,10 @@ class SonarrEpisodeTile extends StatelessWidget {
       onPressed: () async => SonarrAPIController().episodeSearch(
         context: context,
         episode: episode,
+      ),
+      onLongPress: () async => SonarrReleasesRouter().navigateTo(
+        context,
+        episodeId: episode.id,
       ),
     );
   }

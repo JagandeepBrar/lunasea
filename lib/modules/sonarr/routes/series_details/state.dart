@@ -19,6 +19,7 @@ class SonarrSeriesDetailsState extends ChangeNotifier {
     if (state.enabled) {
       _history = state.api.history.getBySeries(
         seriesId: series.id,
+        includeEpisode: true,
       );
     }
     notifyListeners();

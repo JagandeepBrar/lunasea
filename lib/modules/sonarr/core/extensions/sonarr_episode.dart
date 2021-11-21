@@ -20,7 +20,7 @@ extension SonarrEpisodeExtension on SonarrEpisode {
       if (_hasAired()) return 'sonarr.Unaired'.tr();
       return 'sonarr.Missing'.tr();
     }
-    if (file == null) return 'sonarr.Unknown'.tr();
+    if (file == null) return 'lunasea.Unknown'.tr();
     String quality = file?.quality?.quality?.name ?? 'lunasea.Unknown'.tr();
     String size = file?.size?.lunaBytesToString();
     return '$quality ${LunaUI.TEXT_EMDASH} $size';

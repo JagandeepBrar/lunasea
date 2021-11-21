@@ -1,4 +1,5 @@
 export 'extensions/sonarr_calendar.dart';
+export 'extensions/sonarr_episode_file_media_info.dart';
 export 'extensions/sonarr_episode.dart';
 export 'extensions/sonarr_event_type.dart';
 export 'extensions/sonarr_history.dart';

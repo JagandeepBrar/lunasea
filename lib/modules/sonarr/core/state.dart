@@ -24,13 +24,9 @@ class SonarrState extends LunaModuleState {
     _languageProfiles = null;
     _tags = null;
 
-    _episodeFileCache = null;
-
     // Reinitialize
     resetProfile();
     if (_enabled) {
-      resetEpisodeFileCache();
-
       fetchAllSeries();
       fetchUpcoming();
       fetchMissing();
@@ -203,45 +199,6 @@ class SonarrState extends LunaModuleState {
         includeEpisodeFile: true,
       );
     notifyListeners();
-  }
-
-  /////////////////////
-  /// EPISODE FILES ///
-  /////////////////////
-
-  LunaLRUCache _episodeFileCache;
-  LunaLRUCache get episodeFileCache => _episodeFileCache;
-  set episodeFileCache(LunaLRUCache episodeFileCache) {
-    assert(episodeFileCache != null);
-    _episodeFileCache = episodeFileCache;
-    notifyListeners();
-  }
-
-  void resetEpisodeFileCache() {
-    _episodeFileCache = LunaLRUCache(
-      module: LunaModule.SONARR,
-      id: 'episode_file_cache',
-    );
-    notifyListeners();
-  }
-
-  Future<void> fetchEpisodeFiles(int seriesId) async {
-    if (_api != null) {
-      episodeFileCache.put(
-        seriesId.toString(),
-        _api.episodeFile.getSeries(seriesId: seriesId),
-      );
-    }
-    notifyListeners();
-  }
-
-  Future<Map<int, SonarrEpisodeFile>> getEpisodeFiles(int seriesId) async {
-    return episodeFileCache.get(seriesId.toString()).then((files) {
-      if (files == null) return null;
-      return {
-        for (SonarrEpisodeFile f in files) f.id: f,
-      };
-    });
   }
 
   ////////////////

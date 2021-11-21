@@ -14,9 +14,15 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
     this.episodeFile,
     this.queueRecord,
   }) {
+    _intializeSheet();
+  }
+
+  Future<void> _intializeSheet() async {
     context
         .read<SonarrSeasonDetailsState>()
         .fetchEpisodeHistory(context, episode.id);
+    context.read<SonarrSeasonDetailsState>().episodeSearchState =
+        LunaLoadingState.INACTIVE;
   }
 
   Widget _highlightedNodes(BuildContext context) {
@@ -26,21 +32,21 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           text: 'sonarr.Unmonitored'.tr(),
           backgroundColor: LunaColours.red,
         ),
-      if (episodeFile != null)
+      if (episode.hasFile && episodeFile != null)
         LunaHighlightedNode(
           backgroundColor: episodeFile.qualityCutoffNotMet
               ? LunaColours.orange
               : LunaColours.accent,
           text: episodeFile.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
         ),
-      if (episodeFile != null)
+      if (episode.hasFile && episodeFile != null)
         LunaHighlightedNode(
           backgroundColor: episodeFile.languageCutoffNotMet
               ? LunaColours.orange
               : LunaColours.accent,
           text: episodeFile.language?.name ?? LunaUI.TEXT_EMDASH,
         ),
-      if (episodeFile != null)
+      if (episode.hasFile && episodeFile != null)
         LunaHighlightedNode(
           backgroundColor: LunaColours.blueGrey,
           text: episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
@@ -121,25 +127,43 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       LunaTableCard(
         content: [
           LunaTableContent(
-            title: 'sonarr.Path'.tr(),
-            body: episodeFile.path,
+            title: 'sonarr.RelativePath'.tr(),
+            body: episodeFile.relativePath ?? LunaUI.TEXT_EMDASH,
           ),
           LunaTableContent(
             title: 'sonarr.Size'.tr(),
-            body: episodeFile.size.lunaBytesToString(),
+            body: episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
           ),
         ],
         buttons: [
-          LunaButton.text(
-            text: 'sonarr.MediaInfo'.tr(),
-            icon: Icons.info_outline_rounded,
-            onTap: () async => {},
-          ),
+          if (episodeFile?.mediaInfo != null)
+            LunaButton.text(
+              text: 'sonarr.MediaInfo'.tr(),
+              icon: Icons.info_outline_rounded,
+              onTap: () async =>
+                  SonarrMediaInfoSheet(mediaInfo: episodeFile.mediaInfo)
+                      .showModal(context: context),
+            ),
           LunaButton(
             type: LunaButtonType.TEXT,
             text: 'lunasea.Delete'.tr(),
             icon: Icons.delete,
-            onTap: () async => {},
+            onTap: () async {
+              bool result = await SonarrDialogs().deleteEpisode(context);
+              if (result) {
+                SonarrAPIController()
+                    .deleteEpisode(context: context, episodeFile: episodeFile)
+                    .then((_) {
+                  episode.hasFile = false;
+                  context
+                      .read<SonarrSeasonDetailsState>()
+                      .initializeState(context);
+                  context
+                      .read<SonarrSeasonDetailsState>()
+                      .fetchEpisodeHistory(context, episode.id);
+                });
+              }
+            },
             color: LunaColours.red,
           ),
         ],
@@ -179,7 +203,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
                   (index) => SonarrHistoryTile(
                     history: snapshot.data.records[index],
                     episode: episode,
-                    episodeHistory: true,
+                    type: SonarrHistoryTileType.EPISODE,
                   ),
                 ),
               ),
@@ -190,7 +214,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           return const Padding(
             child: LunaLoader(
               useSafeArea: false,
-              size: LunaUI.FONT_SIZE_HEADER,
+              size: 16.0,
             ),
             padding: EdgeInsets.only(
               bottom: LunaUI.DEFAULT_MARGIN_SIZE * 1.5,

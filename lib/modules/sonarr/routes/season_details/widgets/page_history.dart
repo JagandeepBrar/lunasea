@@ -81,7 +81,7 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
           (e) => e.id == history[index].episodeId,
           orElse: () => null,
         ),
-        seriesHistory: true,
+        type: SonarrHistoryTileType.SEASON,
       ),
     );
   }

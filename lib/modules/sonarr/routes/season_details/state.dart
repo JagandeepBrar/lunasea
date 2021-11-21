@@ -11,9 +11,12 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     @required this.seriesId,
     @required this.seasonNumber,
   }) {
-    assert(seriesId != null);
-    resetEpisodeHistoryCache();
+    initializeState(context);
+  }
+
+  void initializeState(BuildContext context) {
     fetchEpisodes(context);
+    fetchFiles(context);
     if (seasonNumber != null) fetchHistory(context);
   }
 
@@ -25,20 +28,20 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  LunaLRUCache _episodeHistoryCache;
+  ///////////////////////
+  /// EPISODE HISTORY ///
+  ///////////////////////
+
+  final LunaLRUCache _episodeHistoryCache = LunaLRUCache(
+    maxEntries: 10,
+    module: LunaModule.SONARR,
+    id: 'episode_history_cache',
+  );
+
   LunaLRUCache get episodeHistoryCache => _episodeHistoryCache;
   set episodeHistoryCache(LunaLRUCache episodeHistoryCache) {
     assert(episodeHistoryCache != null);
     episodeHistoryCache = episodeHistoryCache;
-    notifyListeners();
-  }
-
-  void resetEpisodeHistoryCache() {
-    _episodeHistoryCache = LunaLRUCache(
-      maxEntries: 5,
-      module: LunaModule.SONARR,
-      id: 'episode_history_cache',
-    );
     notifyListeners();
   }
 
@@ -47,7 +50,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
       episodeHistoryCache.put(
         episodeId.toString(),
         context.read<SonarrState>().api.history.get(
-              pageSize: 250,
+              pageSize: 1000,
               episodeId: episodeId,
             ),
       );
@@ -59,27 +62,6 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     return episodeHistoryCache
         .get(episodeId.toString())
         .then((data) => data as SonarrHistory);
-  }
-
-  final List<int> _selectedEpisodes = [];
-  List<int> get selectedEpisodes => _selectedEpisodes;
-  void addSelected(int id) {
-    if (!_selectedEpisodes.contains(id)) _selectedEpisodes.add(id);
-    notifyListeners();
-  }
-
-  void removeSelected(int id) {
-    if (_selectedEpisodes.contains(id)) _selectedEpisodes.remove(id);
-    notifyListeners();
-  }
-
-  void toggleSelected(int id) {
-    if (_selectedEpisodes.contains(id)) {
-      removeSelected(id);
-    } else {
-      addSelected(id);
-    }
-    notifyListeners();
   }
 
   Future<List<SonarrEpisode>> _episodes;
@@ -106,14 +88,30 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   Future<List<SonarrHistoryRecord>> _history;
   Future<List<SonarrHistoryRecord>> get history => _history;
   Future<void> fetchHistory(BuildContext context) async {
-    SonarrState state = context.read<SonarrState>();
-    if (state.enabled) {
-      _history = state.api.history.getBySeries(
-        seriesId: seriesId,
-        seasonNumber: seasonNumber,
-      );
+    if (context.read<SonarrState>().enabled ?? false) {
+      _history = context.read<SonarrState>().api.history.getBySeries(
+            seriesId: seriesId,
+            seasonNumber: seasonNumber,
+          );
     }
     notifyListeners();
-    await _history;
+  }
+
+  Future<Map<int, SonarrEpisodeFile>> _files;
+  Future<Map<int, SonarrEpisodeFile>> get files => _files;
+  Future<void> fetchFiles(BuildContext context) async {
+    if (context.read<SonarrState>().enabled ?? false) {
+      _files = context
+          .read<SonarrState>()
+          .api
+          .episodeFile
+          .getSeries(seriesId: seriesId)
+          .then((files) {
+        return {
+          for (SonarrEpisodeFile f in files) f.id: f,
+        };
+      });
+    }
+    notifyListeners();
   }
 }

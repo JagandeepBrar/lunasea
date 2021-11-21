@@ -111,6 +111,7 @@ class _State extends State<_Widget>
       itemBuilder: (context, history, _) => SonarrHistoryTile(
         history: history,
         series: series[history.seriesId],
+        type: SonarrHistoryTileType.ALL,
       ),
     );
   }

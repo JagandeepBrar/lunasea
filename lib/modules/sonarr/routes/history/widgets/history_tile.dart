@@ -2,20 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+enum SonarrHistoryTileType {
+  ALL,
+  SERIES,
+  SEASON,
+  EPISODE,
+}
+
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
+  final SonarrHistoryTileType type;
   final SonarrSeries series;
   final SonarrEpisode episode;
-  final bool seriesHistory;
-  final bool episodeHistory;
 
   const SonarrHistoryTile({
     Key key,
     @required this.history,
+    @required this.type,
     this.series,
     this.episode,
-    this.seriesHistory = false,
-    this.episodeHistory = false,
   }) : super(key: key);
 
   bool _hasEpisodeInfo() {
@@ -23,18 +28,30 @@ class SonarrHistoryTile extends StatelessWidget {
     return false;
   }
 
+  bool _hasLongPressAction() {
+    switch (type) {
+      case SonarrHistoryTileType.ALL:
+        return true;
+      case SonarrHistoryTileType.SERIES:
+        return _hasEpisodeInfo();
+      case SonarrHistoryTileType.SEASON:
+      case SonarrHistoryTileType.EPISODE:
+      default:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool _isThreeLine =
+        _hasEpisodeInfo() && type != SonarrHistoryTileType.EPISODE;
     return LunaExpandableListTile(
-      title: seriesHistory || episodeHistory
+      title: type != SonarrHistoryTileType.ALL
           ? history.sourceTitle
           : series?.title ?? LunaUI.TEXT_EMDASH,
-      collapsedSubtitle1:
-          _hasEpisodeInfo() && !episodeHistory ? _subtitle1() : _subtitle2(),
-      collapsedSubtitle2:
-          _hasEpisodeInfo() && !episodeHistory ? _subtitle2() : _subtitle3(),
-      collapsedSubtitle3:
-          _hasEpisodeInfo() && !episodeHistory ? _subtitle3() : null,
+      collapsedSubtitle1: _isThreeLine ? _subtitle1() : _subtitle2(),
+      collapsedSubtitle2: _isThreeLine ? _subtitle2() : _subtitle3(),
+      collapsedSubtitle3: _isThreeLine ? _subtitle3() : null,
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
@@ -70,17 +87,43 @@ class SonarrHistoryTile extends StatelessWidget {
           ),
       ],
       expandedTableContent: history.eventType?.lunaTableContent(
-            history,
-            seriesHistory: seriesHistory || episodeHistory,
+            history: history,
+            showSourceTitle: type != SonarrHistoryTileType.ALL,
           ) ??
           [],
-      onLongPress: seriesHistory || episodeHistory
-          ? null
-          : () async => SonarrSeriesDetailsRouter().navigateTo(
-                context,
-                seriesId: history?.series?.id ?? series?.id ?? -1,
-              ),
+      onLongPress:
+          _hasLongPressAction() ? () async => _onLongPress(context) : null,
     );
+  }
+
+  Future<void> _onLongPress(BuildContext context) async {
+    switch (type) {
+      case SonarrHistoryTileType.ALL:
+        return SonarrSeriesDetailsRouter().navigateTo(
+          context,
+          seriesId: history?.series?.id ?? series?.id ?? -1,
+        );
+      case SonarrHistoryTileType.SERIES:
+        if (_hasEpisodeInfo()) {
+          return SonarrSeasonDetailsRouter().navigateTo(
+            context,
+            seriesId: history?.seriesId ?? history?.series?.id ?? series.id,
+            seasonNumber:
+                history?.episode?.seasonNumber ?? episode?.seasonNumber,
+          );
+        }
+        break;
+      default:
+        break;
+    }
+    // if (type == ) {
+    //   return SonarrSeasonDetailsRouter().navigateTo(
+    //     context,
+    //     seriesId: history?.seriesId ?? history?.series?.id ?? series.id,
+    //     seasonNumber: history?.episode?.seasonNumber ?? episode?.seasonNumber,
+    //   );
+    // }
+    //} else if (!episodeHistory) {}
   }
 
   TextSpan _subtitle1() {

@@ -65,8 +65,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
-    with LunaScrollControllerMixin, LunaLoadCallbackMixin {
+class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PageController _pageController;
 
@@ -76,11 +75,6 @@ class _State extends State<_Widget>
     _pageController = PageController(
       initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data,
     );
-  }
-
-  @override
-  Future<void> loadCallback() async {
-    context.read<SonarrState>().fetchEpisodeFiles(widget.seriesId);
   }
 
   @override

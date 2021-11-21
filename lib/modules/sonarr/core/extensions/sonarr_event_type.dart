@@ -90,26 +90,26 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return null;
   }
 
-  List<LunaTableContent> lunaTableContent(
-    SonarrHistoryRecord history, {
-    bool seriesHistory = false,
+  List<LunaTableContent> lunaTableContent({
+    @required SonarrHistoryRecord history,
+    @required bool showSourceTitle,
   }) {
     switch (this) {
       case SonarrEventType.DOWNLOAD_FAILED:
-        return _downloadFailedTableContent(history, !seriesHistory);
+        return _downloadFailedTableContent(history, showSourceTitle);
       case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
-        return _downloadFolderImportedTableContent(history, !seriesHistory);
+        return _downloadFolderImportedTableContent(history, showSourceTitle);
       case SonarrEventType.DOWNLOAD_IGNORED:
-        return _downloadIgnoredTableContent(history, !seriesHistory);
+        return _downloadIgnoredTableContent(history, showSourceTitle);
       case SonarrEventType.EPISODE_FILE_DELETED:
-        return _episodeFileDeletedTableContent(history, !seriesHistory);
+        return _episodeFileDeletedTableContent(history, showSourceTitle);
       case SonarrEventType.EPISODE_FILE_RENAMED:
         return _episodeFileRenamedTableContent(history);
       case SonarrEventType.GRABBED:
-        return _grabbedTableContent(history, !seriesHistory);
+        return _grabbedTableContent(history, showSourceTitle);
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
       default:
-        return _defaultTableContent(history, !seriesHistory);
+        return _defaultTableContent(history, showSourceTitle);
     }
   }
 

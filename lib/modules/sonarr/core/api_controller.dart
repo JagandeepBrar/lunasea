@@ -3,6 +3,43 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
+  Future<bool> deleteEpisode({
+    @required BuildContext context,
+    @required SonarrEpisodeFile episodeFile,
+    bool showSnackbar = true,
+  }) async {
+    assert(episodeFile != null);
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api
+          .episodeFile
+          .delete(episodeFileId: episodeFile.id)
+          .then((response) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.EpisodeFileDeleted'.tr(),
+            message: episodeFile.relativePath,
+          );
+        }
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to delete episode (${episodeFile.id})',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToDeleteEpisodeFile'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> episodeSearch({
     @required BuildContext context,
     @required SonarrEpisode episode,

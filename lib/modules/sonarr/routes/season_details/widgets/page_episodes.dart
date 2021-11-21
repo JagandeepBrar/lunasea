@@ -30,12 +30,11 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   }
 
   Future<void> _refresh() async {
-    int seriesId = context.read<SonarrSeasonDetailsState>().seriesId;
     context.read<SonarrSeasonDetailsState>().fetchEpisodes(context);
-    context.read<SonarrState>().fetchEpisodeFiles(seriesId);
+    context.read<SonarrSeasonDetailsState>().fetchFiles(context);
     await Future.wait([
       context.read<SonarrSeasonDetailsState>().episodes,
-      context.read<SonarrState>().getEpisodeFiles(seriesId),
+      context.read<SonarrSeasonDetailsState>().files,
     ]);
   }
 
@@ -48,8 +47,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
         builder: (context, state, _) => FutureBuilder(
           future: Future.wait([
             state.episodes,
-            context.select<SonarrState, Future<Map<int, SonarrEpisodeFile>>>(
-                (s) => s.getEpisodeFiles(state.seriesId)),
+            state.files,
           ]),
           builder: (
             context,
@@ -90,17 +88,47 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
         onTap: _refreshKey.currentState.show,
       );
     }
+
+    List<Widget> _widgets = _buildSeasonWidgets(
+      episodes: episodes,
+      episodeFiles: episodeFiles,
+    );
+
     return LunaListViewBuilder(
       controller: SonarrSeasonDetailsNavigationBar.scrollControllers[0],
-      itemCount: episodes.length,
-      itemBuilder: (context, index) {
-        return SonarrEpisodeTile(
-          episode: episodes[index],
-          episodeFile: episodes[index].hasFile && episodeFiles != null
-              ? episodeFiles[episodes[index].episodeFileId]
-              : null,
-        );
-      },
+      itemCount: _widgets.length,
+      itemBuilder: (context, index) => _widgets[index],
     );
+  }
+
+  List<Widget> _buildSeasonWidgets({
+    @required List<SonarrEpisode> episodes,
+    @required Map<int, SonarrEpisodeFile> episodeFiles,
+  }) {
+    Map<int, List<SonarrEpisode>> _seasons =
+        episodes.groupBy<int, SonarrEpisode>((e) => e.seasonNumber);
+    if (_seasons.length == 1) {
+      return episodes
+          .map((episode) => SonarrEpisodeTile(
+                episode: episode,
+                episodeFile: episode.hasFile && episodeFiles != null
+                    ? episodeFiles[episode.episodeFileId]
+                    : null,
+              ))
+          .toList();
+    }
+    List<Widget> _widgets = [];
+    _seasons.keys.forEach((key) {
+      _widgets.add(SonarrSeasonHeader(seasonNumber: key));
+      _seasons[key].forEach((episode) {
+        _widgets.add(SonarrEpisodeTile(
+          episode: episode,
+          episodeFile: episode.hasFile && episodeFiles != null
+              ? episodeFiles[episode.episodeFileId]
+              : null,
+        ));
+      });
+    });
+    return _widgets;
   }
 }

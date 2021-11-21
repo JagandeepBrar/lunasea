@@ -637,8 +637,7 @@ class SonarrDialogs {
     );
   }
 
-  static Future<List<dynamic>> confirmDeleteEpisodeFile(
-      BuildContext context) async {
+  Future<bool> deleteEpisode(BuildContext context) async {
     bool _flag = false;
 
     void _setValues(bool flag) {
@@ -648,21 +647,20 @@ class SonarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Delete Episode File',
+      title: 'sonarr.DeleteEpisodeFile'.tr(),
       buttons: [
         LunaDialog.button(
-          text: 'Delete',
+          text: 'lunasea.Delete'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),
       ],
       content: [
-        LunaDialog.textContent(
-            text: 'Are you sure you want to delete this episode file?'),
+        LunaDialog.textContent(text: 'sonarr.DeleteEpisodeFileHint1'.tr()),
       ],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
-    return [_flag];
+    return _flag;
   }
 
   Future<bool> confirmSeasonSearch(

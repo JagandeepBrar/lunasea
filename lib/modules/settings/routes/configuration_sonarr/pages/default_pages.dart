@@ -45,6 +45,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _homePage(),
         _seriesDetailsPage(),
+        _seasonDetailsPage(),
       ],
     );
   }
@@ -87,6 +88,28 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               icons: SonarrSeriesDetailsNavigationBar.icons);
           if (values[0])
             SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.put(values[1]);
+        },
+      ),
+    );
+  }
+
+  Widget _seasonDetailsPage() {
+    return SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.listen(
+      builder: (context, box, _) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: 'Season Details'),
+        subtitle: LunaText.subtitle(
+            text: SonarrSeasonDetailsNavigationBar.titles[
+                SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data]),
+        trailing: LunaIconButton(
+            icon: SonarrSeasonDetailsNavigationBar.icons[
+                SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data]),
+        onTap: () async {
+          List values = await SonarrDialogs.setDefaultPage(context,
+              titles: SonarrSeasonDetailsNavigationBar.titles,
+              icons: SonarrSeasonDetailsNavigationBar.icons);
+          if (values[0])
+            SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.put(values[1]);
         },
       ),
     );

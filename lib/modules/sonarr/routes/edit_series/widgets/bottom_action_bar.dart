@@ -13,7 +13,7 @@ class SonarrEditSeriesActionBar extends StatelessWidget {
       actions: [
         LunaButton(
           type: LunaButtonType.TEXT,
-          text: 'sonarr.Update'.tr(),
+          text: 'lunasea.Update'.tr(),
           icon: Icons.edit_rounded,
           loadingState: context.watch<SonarrSeriesEditState>().state,
           onTap: () async => _updateOnTap(context),

@@ -47,19 +47,13 @@ class _State extends State<SonarrEpisodeTile> {
   Future<void> _onLongPress() async {
     Tuple2<bool, SonarrEpisodeSettingsType> results = await SonarrDialogs()
         .episodeSettings(context: context, episode: widget.episode);
-    if (results.item1)
-      results.item2
-          .execute(
+    if (results.item1) {
+      results.item2.execute(
         context: context,
         episode: widget.episode,
         episodeFile: widget.episodeFile,
-      )
-          .then((_) {
-        context.read<SonarrSeasonDetailsState>().initializeState(context);
-        context
-            .read<SonarrSeasonDetailsState>()
-            .fetchEpisodeHistory(context, widget.episode.id);
-      });
+      );
+    }
   }
 
   Widget _collapsedSubtitle() {

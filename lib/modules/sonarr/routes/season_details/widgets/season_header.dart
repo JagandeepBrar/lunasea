@@ -22,7 +22,7 @@ class SonarrSeasonHeader extends StatelessWidget {
                 args: [seasonNumber.toString()],
               ),
       ),
-      onTap: () async {
+      onLongPress: () async {
         Tuple2<bool, SonarrSeasonSettingsType> result =
             await SonarrDialogs().seasonSettings(context, seasonNumber);
         if (result.item1)

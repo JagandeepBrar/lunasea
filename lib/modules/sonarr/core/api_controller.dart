@@ -14,7 +14,7 @@ class SonarrAPIController {
     if (context.read<SonarrState>().enabled) {
       return context.read<SonarrState>().api.episode.setMonitored(
         episodeIds: [_episode.id],
-        monitored: !_episode.monitored,
+        monitored: _episode.monitored,
       ).then((_) {
         context.read<SonarrSeasonDetailsState>().setSingleEpisode(_episode);
         if (showSnackbar) {
@@ -47,10 +47,14 @@ class SonarrAPIController {
 
   Future<bool> deleteEpisode({
     @required BuildContext context,
+    @required SonarrEpisode episode,
     @required SonarrEpisodeFile episodeFile,
     bool showSnackbar = true,
   }) async {
     assert(episodeFile != null);
+    assert(episode != null);
+    SonarrEpisode _episode = episode.clone();
+    _episode.hasFile = false;
     if (context.read<SonarrState>().enabled) {
       return context
           .read<SonarrState>()
@@ -58,6 +62,7 @@ class SonarrAPIController {
           .episodeFile
           .delete(episodeFileId: episodeFile.id)
           .then((response) {
+        context.read<SonarrSeasonDetailsState>().setSingleEpisode(_episode);
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.EpisodeFileDeleted'.tr(),

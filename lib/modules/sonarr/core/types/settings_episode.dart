@@ -62,10 +62,21 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
           episodeId: episode.id,
         );
       case SonarrEpisodeSettingsType.DELETE_FILE:
-        return SonarrAPIController().deleteEpisode(
-          context: context,
-          episodeFile: episodeFile,
-        );
+        bool result = await SonarrDialogs().deleteEpisode(context);
+        if (result) {
+          return SonarrAPIController()
+              .deleteEpisode(
+            context: context,
+            episode: episode,
+            episodeFile: episodeFile,
+          )
+              .then((_) {
+            context.read<SonarrSeasonDetailsState>().fetchHistory(context);
+            context
+                .read<SonarrSeasonDetailsState>()
+                .fetchEpisodeHistory(context, episode.id);
+          });
+        }
     }
     throw Exception('Invalid SonarrEpisodeSettingsType');
   }

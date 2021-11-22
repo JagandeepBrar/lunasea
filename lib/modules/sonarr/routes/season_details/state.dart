@@ -11,13 +11,9 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     @required this.seriesId,
     @required this.seasonNumber,
   }) {
-    initializeState(context);
-  }
-
-  void initializeState(BuildContext context) {
     fetchEpisodes(context);
     fetchFiles(context);
-    if (seasonNumber != null) fetchHistory(context);
+    fetchHistory(context);
   }
 
   LunaLoadingState _episodeSearchState = LunaLoadingState.INACTIVE;
@@ -27,10 +23,6 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     _episodeSearchState = state;
     notifyListeners();
   }
-
-  ///////////////////////
-  /// EPISODE HISTORY ///
-  ///////////////////////
 
   final LunaLRUCache _episodeHistoryCache = LunaLRUCache(
     maxEntries: 10,
@@ -91,6 +83,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   Future<List<SonarrHistoryRecord>> _history;
   Future<List<SonarrHistoryRecord>> get history => _history;
   Future<void> fetchHistory(BuildContext context) async {
+    if (this.seasonNumber == null) return;
     if (context.read<SonarrState>().enabled ?? false) {
       _history = context.read<SonarrState>().api.history.getBySeries(
             seriesId: seriesId,

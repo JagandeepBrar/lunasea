@@ -100,7 +100,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
     return LunaBottomActionBar(
       actions: [
         LunaButton.text(
-          text: 'Update Artist',
+          text: 'lunasea.Update'.tr(),
           icon: Icons.edit_rounded,
           onTap: _save,
         ),

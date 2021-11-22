@@ -13,7 +13,7 @@ class RadarrEditMovieActionBar extends StatelessWidget {
       actions: [
         LunaButton(
           type: LunaButtonType.TEXT,
-          text: 'radarr.UpdateMovie'.tr(),
+          text: 'lunasea.Update'.tr(),
           icon: Icons.edit_rounded,
           loadingState: context.watch<RadarrMoviesEditState>().state,
           onTap: () async => _updateOnTap(context),

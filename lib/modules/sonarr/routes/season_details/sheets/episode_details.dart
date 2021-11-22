@@ -151,12 +151,15 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               bool result = await SonarrDialogs().deleteEpisode(context);
               if (result) {
                 SonarrAPIController()
-                    .deleteEpisode(context: context, episodeFile: episodeFile)
+                    .deleteEpisode(
+                        context: context,
+                        episode: episode,
+                        episodeFile: episodeFile)
                     .then((_) {
                   episode.hasFile = false;
                   context
                       .read<SonarrSeasonDetailsState>()
-                      .initializeState(context);
+                      .fetchHistory(context);
                   context
                       .read<SonarrSeasonDetailsState>()
                       .fetchEpisodeHistory(context, episode.id);

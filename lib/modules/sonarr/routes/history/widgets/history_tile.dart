@@ -57,6 +57,11 @@ class SonarrHistoryTile extends StatelessWidget {
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
           backgroundColor: history.eventType?.lunaColour(),
         ),
+        if (history?.lunaHasPreferredWordScore() ?? false)
+          LunaHighlightedNode(
+            text: history?.lunaPreferredWordScore(),
+            backgroundColor: LunaColours.purple,
+          ),
         if (history?.episode?.seasonNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.SeasonNumber'.tr(
@@ -116,14 +121,6 @@ class SonarrHistoryTile extends StatelessWidget {
       default:
         break;
     }
-    // if (type == ) {
-    //   return SonarrSeasonDetailsRouter().navigateTo(
-    //     context,
-    //     seriesId: history?.seriesId ?? history?.series?.id ?? series.id,
-    //     seasonNumber: history?.episode?.seasonNumber ?? episode?.seasonNumber,
-    //   );
-    // }
-    //} else if (!episodeHistory) {}
   }
 
   TextSpan _subtitle1() {

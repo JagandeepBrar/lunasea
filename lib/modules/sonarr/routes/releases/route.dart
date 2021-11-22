@@ -103,12 +103,108 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<RefreshIndicatorState> _refreshKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
-    return LunaScaffold(
-      scaffoldKey: _scaffoldKey,
-      appBar: LunaAppBar(title: 'Releases'),
+    return ChangeNotifierProvider(
+      create: (context) => SonarrReleasesState(
+        context: context,
+        episodeId: widget.episodeId,
+        seriesId: widget.seriesId,
+        seasonNumber: widget.seasonNumber,
+      ),
+      builder: (context, _) => LunaScaffold(
+        scaffoldKey: _scaffoldKey,
+        appBar: _appBar(context),
+        body: _body(context),
+      ),
     );
+  }
+
+  Widget _appBar(BuildContext context) {
+    return LunaAppBar(
+      title: 'sonarr.Releases'.tr(),
+      scrollControllers: [scrollController],
+      bottom: SonarrReleasesSearchBar(scrollController: scrollController),
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return LunaRefreshIndicator(
+      context: context,
+      key: _refreshKey,
+      onRefresh: () async {
+        context.read<SonarrReleasesState>().refreshReleases(context);
+        await context.read<SonarrReleasesState>().releases;
+      },
+      child: FutureBuilder(
+        future: context.read<SonarrReleasesState>().releases,
+        builder: (context, AsyncSnapshot<List<SonarrRelease>> snapshot) {
+          if (snapshot.hasError) {
+            if (snapshot.connectionState != ConnectionState.waiting) {
+              LunaLogger().error(
+                'Unable to fetch Sonarr releases',
+                snapshot.error,
+                snapshot.stackTrace,
+              );
+            }
+            return LunaMessage.error(
+              onTap: () => _refreshKey.currentState.show,
+            );
+          }
+          if (snapshot.hasData) return _list(context, snapshot.data);
+          return const LunaLoader();
+        },
+      ),
+    );
+  }
+
+  Widget _list(BuildContext context, List<SonarrRelease> releases) {
+    return Consumer<SonarrReleasesState>(
+      builder: (context, state, _) {
+        if (releases?.isEmpty ?? true) {
+          return LunaMessage(
+            text: 'sonarr.NoReleasesFound'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
+            onTap: _refreshKey.currentState.show,
+          );
+        }
+        List<SonarrRelease> _processed = _filterAndSortReleases(
+          releases ?? [],
+          state,
+        );
+        return LunaListViewBuilder(
+          controller: scrollController,
+          itemCount: _processed.isEmpty ? 1 : _processed.length,
+          itemBuilder: (context, index) {
+            if ((_processed?.length ?? 0) == 0) {
+              return LunaMessage.inList(text: 'sonarr.NoReleasesFound'.tr());
+            }
+            return SonarrReleasesTile(release: _processed[index]);
+          },
+        );
+      },
+    );
+  }
+
+  List<SonarrRelease> _filterAndSortReleases(
+    List<SonarrRelease> releases,
+    SonarrReleasesState state,
+  ) {
+    if (releases == null || releases.isEmpty) return releases;
+    List<SonarrRelease> filtered = releases.where(
+      (release) {
+        String _query = state.searchQuery;
+        if (_query != null && _query.isNotEmpty) {
+          return release.title.toLowerCase().contains(_query.toLowerCase());
+        }
+        return release != null;
+      },
+    ).toList();
+    filtered = state.filterType.filter(filtered);
+    filtered = state.sortType.sort(filtered, state.sortAscending);
+    return filtered;
   }
 }

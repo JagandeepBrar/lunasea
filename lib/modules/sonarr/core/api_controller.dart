@@ -3,6 +3,46 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
+  Future<bool> downloadRelease({
+    @required BuildContext context,
+    @required SonarrRelease release,
+    bool showSnackbar = true,
+  }) async {
+    assert(release != null);
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api
+          .release
+          .add(
+            indexerId: release.indexerId,
+            guid: release.guid,
+          )
+          .then((_) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.DownloadingRelease'.tr(),
+            message: release.title,
+          );
+        }
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to set download release (${release.guid})',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToDownloadRelease'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> toggleEpisodeMonitored({
     @required BuildContext context,
     @required SonarrEpisode episode,

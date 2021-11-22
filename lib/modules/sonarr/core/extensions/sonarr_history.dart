@@ -20,4 +20,14 @@ extension SonarrHistoryRecordLunaExtension on SonarrHistoryRecord {
         : 'lunasea.Unknown'.tr();
     return '$season ${LunaUI.TEXT_BULLET} $episode';
   }
+
+  bool lunaHasPreferredWordScore() {
+    return (this.data['preferredWordScore'] ?? '0') != '0';
+  }
+
+  String lunaPreferredWordScore() {
+    if (lunaHasPreferredWordScore())
+      return '+${this.data['preferredWordScore']}';
+    return LunaUI.TEXT_EMDASH;
+  }
 }

@@ -44,4 +44,9 @@ class SonarrUtilities {
   static String? wantedMissingSortKeyToJson(SonarrWantedMissingSortKey? key) {
     return key?.value;
   }
+
+  static SonarrProtocol? protocolFromJson(String? protocol) =>
+      SonarrProtocol.USENET.from(protocol);
+
+  static String? protocolToJson(SonarrProtocol? protocol) => protocol?.value;
 }

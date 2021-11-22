@@ -26,6 +26,13 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
     );
   }
 
+  Future<void> _showComingSoonMessage() async {
+    showLunaInfoSnackBar(
+      title: 'lunasea.ComingSoon'.tr(),
+      message: 'This feature is still being developed!',
+    );
+  }
+
   Widget _body() {
     return LunaListView(
       controller: SonarrNavigationBar.scrollControllers[3],
@@ -40,43 +47,46 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
           ),
           onTap: () async => SonarrHistoryRouter().navigateTo(context),
         ),
-        // LunaListTile(
-        //   context: context,
-        //   title: LunaText.title(text: 'sonarr.ManualImport'.tr()),
-        //   subtitle:
-        //       LunaText.subtitle(text: 'sonarr.ManualImportDescription'.tr()),
-        //   trailing: LunaIconButton(
-        //     icon: Icons.download_done_rounded,
-        //     color: LunaColours().byListIndex(1),
-        //   ),
-        // ),
+        LunaListTile(
+          context: context,
+          title: LunaText.title(text: 'sonarr.ManualImport'.tr()),
+          subtitle:
+              LunaText.subtitle(text: 'sonarr.ManualImportDescription'.tr()),
+          trailing: LunaIconButton(
+            icon: Icons.download_done_rounded,
+            color: LunaColours().byListIndex(1),
+          ),
+          onTap: () async => _showComingSoonMessage(),
+        ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'sonarr.Queue'.tr()),
           subtitle: LunaText.subtitle(text: 'sonarr.QueueDescription'.tr()),
           trailing: LunaIconButton(
             icon: Icons.queue_rounded,
-            color: LunaColours().byListIndex(1),
+            color: LunaColours().byListIndex(2),
           ),
-          onTap: () async => SonarrQueueRouter().navigateTo(context),
+          onTap: () async => _showComingSoonMessage(),
+          // onTap: () async => SonarrQueueRouter().navigateTo(context),
         ),
-        // LunaListTile(
-        //   context: context,
-        //   title: LunaText.title(text: 'sonarr.SystemStatus'.tr()),
-        //   subtitle:
-        //       LunaText.subtitle(text: 'sonarr.SystemStatusDescription'.tr()),
-        //   trailing: LunaIconButton(
-        //     icon: LunaIcons.monitoring,
-        //     color: LunaColours().byListIndex(1),
-        //   ),
-        // ),
+        LunaListTile(
+          context: context,
+          title: LunaText.title(text: 'sonarr.SystemStatus'.tr()),
+          subtitle:
+              LunaText.subtitle(text: 'sonarr.SystemStatusDescription'.tr()),
+          trailing: LunaIconButton(
+            icon: LunaIcons.monitoring,
+            color: LunaColours().byListIndex(3),
+          ),
+          onTap: () async => _showComingSoonMessage(),
+        ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'sonarr.Tags'.tr()),
           subtitle: LunaText.subtitle(text: 'sonarr.TagsDescription'.tr()),
           trailing: LunaIconButton(
             icon: Icons.style_rounded,
-            color: LunaColours().byListIndex(2),
+            color: LunaColours().byListIndex(4),
           ),
           onTap: () async => SonarrTagsRouter().navigateTo(context),
         ),

@@ -160,11 +160,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         title: 'sonarr.ImportedTo'.tr(),
         body: history.data['importedPath'],
       ),
-      if ((history.data['preferredWordScore'] ?? '0') != '0')
-        LunaTableContent(
-          title: 'sonarr.WordScore'.tr(),
-          body: '+${history.data['preferredWordScore']}',
-        ),
     ];
   }
 
@@ -264,11 +259,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         title: 'sonarr.ReleaseGroup'.tr(),
         body: history.data['releaseGroup'],
       ),
-      if ((history.data['preferredWordScore'] ?? '0') != '0')
-        LunaTableContent(
-          title: 'sonarr.WordScore'.tr(),
-          body: '+${history.data['preferredWordScore']}',
-        ),
       LunaTableContent(
         title: 'sonarr.InfoURL'.tr(),
         body: history.data['nzbInfoUrl'],

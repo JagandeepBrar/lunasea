@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
-class RadarrReleasesTile extends StatefulWidget {
-  final RadarrRelease release;
+class SonarrReleasesTile extends StatefulWidget {
+  final SonarrRelease release;
 
-  const RadarrReleasesTile({
+  const SonarrReleasesTile({
     @required this.release,
     Key key,
   }) : super(key: key);
@@ -14,7 +14,7 @@ class RadarrReleasesTile extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<RadarrReleasesTile> {
+class _State extends State<SonarrReleasesTile> {
   LunaLoadingState _downloadState = LunaLoadingState.INACTIVE;
 
   @override
@@ -60,9 +60,23 @@ class _State extends State<RadarrReleasesTile> {
   }
 
   TextSpan _subtitle2() {
+    String _preferredWordScore =
+        widget.release.lunaPreferredWordScore(nullOnEmpty: true);
     return TextSpan(
       children: [
+        if (_preferredWordScore != null)
+          TextSpan(
+            text: _preferredWordScore,
+            style: const TextStyle(
+              color: LunaColours.purple,
+              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            ),
+          ),
+        if (_preferredWordScore != null)
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: widget.release.lunaQuality),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: widget.release.lunaLanguage),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: widget.release.lunaSize),
       ],
@@ -75,33 +89,46 @@ class _State extends State<RadarrReleasesTile> {
         text: widget.release.protocol.readable,
         backgroundColor: widget.release.lunaProtocolColor,
       ),
-      if ((widget.release.customFormatScore ?? 0) != 0)
+      if (widget.release.lunaPreferredWordScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(
-            text: '+${widget.release.customFormatScore}',
-            backgroundColor: LunaColours.orange),
-      ...widget.release.customFormats.map<LunaHighlightedNode>((custom) =>
-          LunaHighlightedNode(
-              text: custom.name, backgroundColor: LunaColours.blueGrey)),
+          text: widget.release.lunaPreferredWordScore(),
+          backgroundColor: LunaColours.orange,
+        ),
     ];
   }
 
   List<LunaTableContent> _tableContent() {
     return [
-      LunaTableContent(title: 'age', body: widget.release.lunaAge),
-      LunaTableContent(title: 'indexer', body: widget.release.lunaIndexer),
-      LunaTableContent(title: 'size', body: widget.release.lunaSize),
       LunaTableContent(
-          title: 'language',
-          body: widget.release.languages
-                  ?.map<String>(
-                      (language) => language?.name ?? LunaUI.TEXT_EMDASH)
-                  ?.join('\n') ??
-              LunaUI.TEXT_EMDASH),
-      LunaTableContent(title: 'quality', body: widget.release.lunaQuality),
+        title: 'sonarr.Age'.tr(),
+        body: widget.release.lunaAge,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Indexer'.tr(),
+        body: widget.release.lunaIndexer,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Size'.tr(),
+        body: widget.release.lunaSize,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Language'.tr(),
+        body: widget.release.lunaLanguage,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Quality'.tr(),
+        body: widget.release.lunaQuality,
+      ),
       if (widget.release.seeders != null)
-        LunaTableContent(title: 'seeders', body: '${widget.release.seeders}'),
+        LunaTableContent(
+          title: 'sonarr.Seeders'.tr(),
+          body: '${widget.release.seeders}',
+        ),
       if (widget.release.leechers != null)
-        LunaTableContent(title: 'leechers', body: '${widget.release.leechers}'),
+        LunaTableContent(
+          title: 'sonarr.Leechers'.tr(),
+          body: '${widget.release.leechers}',
+        ),
     ];
   }
 
@@ -109,14 +136,14 @@ class _State extends State<RadarrReleasesTile> {
     return [
       LunaButton(
         type: LunaButtonType.TEXT,
-        text: 'Download',
+        text: 'sonarr.Download'.tr(),
         icon: Icons.download_rounded,
         onTap: _startDownload,
         loadingState: _downloadState,
       ),
       if (widget.release.rejected)
         LunaButton.text(
-          text: 'Rejected',
+          text: 'sonarr.Rejected'.tr(),
           icon: Icons.report_outlined,
           color: LunaColours.red,
           onTap: _showWarnings,
@@ -125,14 +152,17 @@ class _State extends State<RadarrReleasesTile> {
   }
 
   Future<void> _startDownload() async {
-    setState(() => _downloadState = LunaLoadingState.ACTIVE);
-    RadarrAPIHelper()
-        .pushRelease(context: context, release: widget.release)
-        .then((value) {
-      if (mounted)
-        setState(() => _downloadState =
-            value ? LunaLoadingState.INACTIVE : LunaLoadingState.ERROR);
-    });
+    Future<void> setDownloadState(LunaLoadingState state) async {
+      if (this.mounted) setState(() => _downloadState = state);
+    }
+
+    setDownloadState(LunaLoadingState.ACTIVE);
+    SonarrAPIController()
+        .downloadRelease(
+          context: context,
+          release: widget.release,
+        )
+        .whenComplete(() async => setDownloadState(LunaLoadingState.INACTIVE));
   }
 
   Future<void> _showWarnings() async =>

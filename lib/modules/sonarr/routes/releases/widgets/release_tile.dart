@@ -92,7 +92,7 @@ class _State extends State<SonarrReleasesTile> {
       if (widget.release.lunaPreferredWordScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(
           text: widget.release.lunaPreferredWordScore(),
-          backgroundColor: LunaColours.orange,
+          backgroundColor: LunaColours.purple,
         ),
     ];
   }

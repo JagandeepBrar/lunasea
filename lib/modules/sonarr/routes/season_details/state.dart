@@ -64,8 +64,8 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
         .then((data) => data as SonarrHistory);
   }
 
-  Future<List<SonarrEpisode>> _episodes;
-  Future<List<SonarrEpisode>> get episodes => _episodes;
+  Future<Map<int, SonarrEpisode>> _episodes;
+  Future<Map<int, SonarrEpisode>> get episodes => _episodes;
   Future<void> fetchEpisodes(BuildContext context) async {
     if (context.read<SonarrState>().enabled ?? false) {
       _episodes = context
@@ -74,14 +74,17 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
           .episode
           .getMulti(seriesId: seriesId, seasonNumber: seasonNumber)
           .then((episodes) {
-        episodes.sort((a, b) {
-          int _season = b.seasonNumber.compareTo(a.seasonNumber);
-          if (_season != 0) return _season;
-          return b.episodeNumber.compareTo(a.episodeNumber);
-        });
-        return episodes;
+        return {
+          for (SonarrEpisode e in episodes) e.id: e,
+        };
       });
     }
+    notifyListeners();
+  }
+
+  Future<void> setSingleEpisode(SonarrEpisode episode) async {
+    assert(episode != null);
+    (await _episodes)[episode.id] = episode;
     notifyListeners();
   }
 

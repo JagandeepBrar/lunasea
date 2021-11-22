@@ -78,7 +78,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   }
 
   Widget _list({
-    @required List<SonarrEpisode> episodes,
+    @required Map<int, SonarrEpisode> episodes,
     @required Map<int, SonarrEpisodeFile> episodeFiles,
   }) {
     if (episodes?.isEmpty ?? true) {
@@ -102,13 +102,20 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   }
 
   List<Widget> _buildSeasonWidgets({
-    @required List<SonarrEpisode> episodes,
+    @required Map<int, SonarrEpisode> episodes,
     @required Map<int, SonarrEpisodeFile> episodeFiles,
   }) {
+    List<SonarrEpisode> _episodes = episodes.values.toList()
+      ..sort((a, b) {
+        int _season = b.seasonNumber.compareTo(a.seasonNumber);
+        if (_season != 0) return _season;
+        return b.episodeNumber.compareTo(a.episodeNumber);
+      });
+
     Map<int, List<SonarrEpisode>> _seasons =
-        episodes.groupBy<int, SonarrEpisode>((e) => e.seasonNumber);
+        _episodes.groupBy<int, SonarrEpisode>((e) => e.seasonNumber);
     if (_seasons.length == 1) {
-      return episodes
+      return _episodes
           .map((episode) => SonarrEpisodeTile(
                 episode: episode,
                 episodeFile: episode.hasFile && episodeFiles != null
@@ -119,7 +126,10 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
     }
     List<Widget> _widgets = [];
     _seasons.keys.forEach((key) {
-      _widgets.add(SonarrSeasonHeader(seasonNumber: key));
+      _widgets.add(SonarrSeasonHeader(
+        seriesId: context.read<SonarrSeasonDetailsState>().seriesId,
+        seasonNumber: key,
+      ));
       _seasons[key].forEach((episode) {
         _widgets.add(SonarrEpisodeTile(
           episode: episode,

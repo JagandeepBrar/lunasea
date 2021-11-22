@@ -39,8 +39,8 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
         future: Future.wait([
           context.select<SonarrSeasonDetailsState,
               Future<List<SonarrHistoryRecord>>>((s) => s.history),
-          context.select<SonarrSeasonDetailsState, Future<List<SonarrEpisode>>>(
-              (s) => s.episodes),
+          context.select<SonarrSeasonDetailsState,
+              Future<Map<int, SonarrEpisode>>>((s) => s.episodes),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -64,7 +64,7 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
 
   Widget _list({
     @required List<SonarrHistoryRecord> history,
-    @required List<SonarrEpisode> episodes,
+    @required Map<int, SonarrEpisode> episodes,
   }) {
     if ((history?.length ?? 0) == 0)
       return LunaMessage(
@@ -77,10 +77,7 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
       itemCount: history.length,
       itemBuilder: (context, index) => SonarrHistoryTile(
         history: history[index],
-        episode: episodes.firstWhere(
-          (e) => e.id == history[index].episodeId,
-          orElse: () => null,
-        ),
+        episode: episodes[history[index].episodeId],
         type: SonarrHistoryTileType.SEASON,
       ),
     );

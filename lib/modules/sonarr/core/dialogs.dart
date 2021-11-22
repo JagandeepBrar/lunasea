@@ -62,8 +62,10 @@ class SonarrDialogs {
     return Tuple2(_flag, _value);
   }
 
-  static Future<List<dynamic>> episodeSettings(
-      BuildContext context, SonarrEpisode episode) async {
+  Future<Tuple2<bool, SonarrEpisodeSettingsType>> episodeSettings({
+    @required BuildContext context,
+    @required SonarrEpisode episode,
+  }) async {
     bool _flag = false;
     SonarrEpisodeSettingsType _value;
 
@@ -90,7 +92,7 @@ class SonarrDialogs {
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
-    return [_flag, _value];
+    return Tuple2(_flag, _value);
   }
 
   Future<Tuple2<bool, SonarrSeasonSettingsType>> seasonSettings(

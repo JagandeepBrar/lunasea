@@ -3,6 +3,48 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
+  Future<bool> toggleEpisodeMonitored({
+    @required BuildContext context,
+    @required SonarrEpisode episode,
+    bool showSnackbar = true,
+  }) async {
+    assert(episode != null);
+    SonarrEpisode _episode = episode.clone();
+    _episode.monitored = !_episode.monitored;
+    if (context.read<SonarrState>().enabled) {
+      return context.read<SonarrState>().api.episode.setMonitored(
+        episodeIds: [_episode.id],
+        monitored: !_episode.monitored,
+      ).then((_) {
+        context.read<SonarrSeasonDetailsState>().setSingleEpisode(_episode);
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: _episode.monitored
+                ? 'sonarr.Monitoring'.tr()
+                : 'sonarr.NoLongerMonitoring'.tr(),
+            message: _episode.title,
+          );
+        }
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to set episode monitored state (${_episode.id})',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: _episode.monitored
+                ? 'sonarr.FailedToMonitorEpisode'.tr()
+                : 'sonarr.FailedToUnmonitorEpisode'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> deleteEpisode({
     @required BuildContext context,
     @required SonarrEpisodeFile episodeFile,

@@ -215,16 +215,15 @@ class _State extends State<DashboardCalendarWidget> {
     );
   }
 
-  /// -1: Date is today or after today (with content)
+  /// -1: Date is after today (with content)
   /// -100: Event list was empty or null
   int _countMissingContent(DateTime date, List<dynamic> events) {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
-    if (_date.isAfter(_now) || _date.isAtSameMomentAs(_now)) {
-      if ((events?.length ?? 0) == 0) return -100;
-      return -1;
-    }
+
     if (events == null || events.isEmpty) return -100;
+    if (_date.isAfter(_now)) return -1;
+
     int counter = 0;
     for (dynamic event in events) {
       switch (event.runtimeType) {

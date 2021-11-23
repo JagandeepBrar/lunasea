@@ -130,8 +130,25 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
             body: episodeFile.relativePath ?? LunaUI.TEXT_EMDASH,
           ),
           LunaTableContent(
+            title: 'sonarr.Video'.tr(),
+            body: episodeFile?.mediaInfo?.videoCodec,
+          ),
+          LunaTableContent(
+            title: 'sonarr.Audio'.tr(),
+            body: [
+              episodeFile?.mediaInfo?.audioCodec ?? LunaUI.TEXT_EMDASH,
+              if (episodeFile?.mediaInfo?.audioChannels != null)
+                episodeFile?.mediaInfo?.audioChannels?.toString(),
+            ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+          ),
+          LunaTableContent(
             title: 'sonarr.Size'.tr(),
             body: episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+          ),
+          LunaTableContent(
+            title: 'sonarr.AddedOn'.tr(),
+            body: episodeFile?.dateAdded
+                ?.lunaDateTimeReadable(timeOnNewLine: true),
           ),
         ],
         buttons: [

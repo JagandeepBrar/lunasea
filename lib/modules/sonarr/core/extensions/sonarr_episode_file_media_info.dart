@@ -29,7 +29,7 @@ extension SonarrEpisodeFileMediaInfoExtension on SonarrEpisodeFileMediaInfo {
   }
 
   String get lunaVideoScanType {
-    if (scanType != null) return scanType;
+    if (scanType != null && scanType.isNotEmpty) return scanType;
     return LunaUI.TEXT_EMDASH;
   }
 

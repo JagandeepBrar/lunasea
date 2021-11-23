@@ -234,7 +234,10 @@ class _State extends State<DashboardCalendarWidget> {
           if (!(event as CalendarRadarrData).hasFile) counter++;
           break;
         case CalendarSonarrData:
-          if (!(event as CalendarSonarrData).hasFile) counter++;
+          CalendarSonarrData _event = event;
+          DateTime _airTime = _event.airTimeObject?.toLocal();
+          bool _isAired = _airTime?.isBefore(DateTime.now()) ?? false;
+          if (!_event.hasFile && _isAired) counter++;
           break;
       }
     }

@@ -97,6 +97,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Sytom",
+      "name": "Sytom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30535521?v=4",
+      "profile": "https://github.com/Sytom",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

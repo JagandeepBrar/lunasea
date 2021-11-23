@@ -1,0 +1,21 @@
+{
+    "dashboard.PastDays": "Días pasados",
+    "dashboard.PastDaysDescription": "Ajustar el número de días en el pasado para buscar entradas en el calendario.",
+    "dashboard.OneWeek": "Una semana",
+    "dashboard.Calendar": "Calendario",
+    "dashboard.Friday": "Viernes",
+    "dashboard.FutureDays": "Días futuros",
+    "dashboard.MinimumOfOneDay": "Mínimo de un día",
+    "dashboard.Saturday": "Sábado",
+    "dashboard.Schedule": "Horario",
+    "dashboard.Sunday": "Domingo",
+    "dashboard.Thursday": "Jueves",
+    "dashboard.Tuesday": "Martes",
+    "dashboard.TwoWeeks": "Dos semanas",
+    "dashboard.Wednesday": "Miércoles",
+    "dashboard.FutureDaysDescription": "Ajustar el número de días en el futuro para buscar entradas en el calendario.",
+    "dashboard.Modules": "Modulos",
+    "dashboard.Monday": "Lunes",
+    "dashboard.NoNewContent": "No contenido nuevo",
+    "dashboard.OneMonth": "Un mes"
+}

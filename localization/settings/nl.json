@@ -1,0 +1,14 @@
+{
+    "settings.AddModuleFailed": "Module Toevoegen Gefaald",
+    "settings.AccountDescription": "Uw LunaSea Account",
+    "settings.AccountHelp": "LunaSea Account",
+    "settings.AddModule": "Module Toevoegen",
+    "settings.AddModuleSuccess": "Module Toegevoegd",
+    "settings.AddProfile": "Profiel Toevoegen",
+    "settings.Account": "Account",
+    "settings.AccountHelpHint1": "LunaSea biedt een gratis account aan om van uw instellingen een back-up te maken in de Cloud, met extra functies komend in de toekomst!",
+    "settings.AddHeader": "Header Toevoegen",
+    "settings.AllFieldsAreRequired": "Alle velden zijn vereist",
+    "settings.AmoledTheme": "AMOLED Thema",
+    "settings.AmoledThemeBorders": "AMOLED Thema Randen"
+}

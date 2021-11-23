@@ -1,0 +1,21 @@
+{
+    "dashboard.Calendar": "日历",
+    "dashboard.Friday": "星期五",
+    "dashboard.FutureDays": "未来的日子",
+    "dashboard.FutureDaysDescription": "设置未来要获取日历条目的天数。",
+    "dashboard.MinimumOfOneDay": "最少 1 天",
+    "dashboard.Modules": "模块",
+    "dashboard.Monday": "星期一",
+    "dashboard.NoNewContent": "没有新内容",
+    "dashboard.OneMonth": "一个月",
+    "dashboard.OneWeek": "一周",
+    "dashboard.PastDays": "过去的日子",
+    "dashboard.Saturday": "星期六",
+    "dashboard.Schedule": "星期六",
+    "dashboard.Sunday": "星期天",
+    "dashboard.Thursday": "星期四",
+    "dashboard.TwoWeeks": "两周",
+    "dashboard.Wednesday": "星期三",
+    "dashboard.PastDaysDescription": "设置过去的天数以获取日历条目。",
+    "dashboard.Tuesday": "星期二"
+}

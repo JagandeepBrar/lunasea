@@ -1,0 +1,23 @@
+{
+    "search.Age": "Leeftijd",
+    "search.AllSubcategories": "Alle Subcategorieën",
+    "search.Alphabetical": "Alfabetisch",
+    "search.Category": "Categorie",
+    "search.Categories": "Categorieën",
+    "search.Comments": "Opmerkingen",
+    "search.Download": "Download",
+    "search.Downloading": "Downloaden…",
+    "search.DownloadToDevice": "Download naar Apparaat",
+    "search.FailedToDownloadNZB": "NZB Downloaden Gefaald",
+    "search.DownloadingNZBToDevice": "NZB naar uw apparaat downloaden",
+    "search.FailedToSend": "Verzenden Gefaald",
+    "search.NoCategoriesFound": "Geen Categorieën Gevonden",
+    "search.NoResultsFound": "Geen Resultaten Gevonden",
+    "search.NoSubcategoriesFound": "Geen Subcategorieën Gevonden",
+    "search.Results": "Resultaten",
+    "search.Search": "Zoek",
+    "search.SentNZBData": "Verstuur NZB Gegevens",
+    "search.SentTo": "Verzonden naar {}",
+    "search.Size": "Grootte",
+    "search.Subcategories": "Subcategorieën"
+}

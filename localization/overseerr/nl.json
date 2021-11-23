@@ -1,0 +1,10 @@
+{
+    "overseerr.NoRequests": "Geen Verzoeken",
+    "overseerr.OneRequest": "1 Verzoek",
+    "overseerr.Requests": "Verzoeken",
+    "overseerr.NoRequestsFound": "Geen Verzoeken Gevonden",
+    "overseerr.NoUsersFound": "Geen Gebruikers Gevonden",
+    "overseerr.UnknownUser": "Onbekende Gebruiker",
+    "overseerr.Users": "Gebruikers",
+    "overseerr.SomeRequests": "{} Verzoeken"
+}

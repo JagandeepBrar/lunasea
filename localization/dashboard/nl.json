@@ -1,0 +1,21 @@
+{
+    "dashboard.FutureDays": "Toekomstige Dagen",
+    "dashboard.FutureDaysDescription": "Stel het aantal dagen in de toekomst in om kalendergegevens voor op te halen.",
+    "dashboard.MinimumOfOneDay": "Minimum van 1 Dag",
+    "dashboard.Modules": "Modulen",
+    "dashboard.Monday": "Maandag",
+    "dashboard.NoNewContent": "Geen Nieuwe Inhoud",
+    "dashboard.PastDays": "Afgelopen Dagen",
+    "dashboard.PastDaysDescription": "Stel het aantal dagen in het verleden in om kalendergegevens voor op te halen.",
+    "dashboard.Saturday": "Zaterdag",
+    "dashboard.Schedule": "Planning",
+    "dashboard.Sunday": "Zondag",
+    "dashboard.Thursday": "Donderdag",
+    "dashboard.Tuesday": "Dinsdag",
+    "dashboard.TwoWeeks": "Twee Weken",
+    "dashboard.Wednesday": "Woensdag",
+    "dashboard.Calendar": "Kalender",
+    "dashboard.Friday": "Vrijdag",
+    "dashboard.OneMonth": "Een Maand",
+    "dashboard.OneWeek": "Een Week"
+}

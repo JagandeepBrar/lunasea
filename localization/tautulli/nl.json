@@ -1,0 +1,14 @@
+{
+    "tautulli.Activity": "Activiteit",
+    "tautulli.ActivityDetails": "Activiteit Details",
+    "tautulli.Audio": "Geluid",
+    "tautulli.BackingUpDatabase": "Back-up maken van Database…",
+    "tautulli.BackingUpDatabaseDescription": "Back-up maken van database op de achtergrond",
+    "tautulli.BackingUpDatabaseFailed": "Back-up Database Gefaald",
+    "tautulli.BackupConfiguration": "Back-up Configuratie",
+    "tautulli.BackingUpConfiguration": "Back-up maken van Configuratie…",
+    "tautulli.BackingUpConfigurationDescription": "Back-up maken van configuratie op de achtergrond",
+    "tautulli.BackingUpConfigurationFailed": "Back-up Configuratie Gefaald",
+    "tautulli.BackupDatabase": "Back-up Database",
+    "tautulli.Bandwidth": "Bandbreedte"
+}

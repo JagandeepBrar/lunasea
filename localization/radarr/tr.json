@@ -1,6 +1,7 @@
 {
     "radarr.AddMovie": "Film Ekle",
     "radarr.AddMovieAndSearch": "Ekle + Ara",
+    "radarr.AddedTag": "Etiket Eklendi",
     "radarr.Age": "Yaş",
     "radarr.All": "Tümü",
     "radarr.Alphabetical": "Alfabetik",
@@ -22,6 +23,7 @@
     "radarr.DownloadFailed": "İndirme Başarısız Oldu",
     "radarr.DownloadIgnored": "İndirme Yok Sayıldı",
     "radarr.EditMovie": "Filmi Düzenle",
+    "radarr.FailedToAddTag": "Etiket Eklenemedi",
     "radarr.FileBrowser": "Dosya Tarayıcısı…",
     "radarr.FilterCatalogue": "Kataloğu Filtrele",
     "radarr.GrabbedFrom": "{}'den Alındı",
@@ -58,6 +60,7 @@
     "radarr.NoResultsFound": "Sonuç Bulunamadı",
     "radarr.NoSubdirectoriesFound": "Alt Dizin Bulunamadı",
     "radarr.NoSummaryIsAvailable": "Özet yok.",
+    "radarr.NoTagsFound": "Etiket Bulunamadı",
     "radarr.ParentDirectory": "Üst Dizin",
     "radarr.PhysicalRelease": "Fiziksel Yayın",
     "radarr.Quality": "Kalite",

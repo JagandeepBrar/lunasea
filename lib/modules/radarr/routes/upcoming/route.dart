@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:tuple/tuple.dart';
 
 class RadarrUpcomingRoute extends StatefulWidget {
+  const RadarrUpcomingRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
@@ -59,7 +62,7 @@ class _State extends State<RadarrUpcomingRoute>
               }
               if (snapshot.hasData)
                 return _list(snapshot.data[0], snapshot.data[1]);
-              return LunaLoader();
+              return const LunaLoader();
             },
           ),
         ),
@@ -82,7 +85,7 @@ class _State extends State<RadarrUpcomingRoute>
         movie: movies[index],
         profile: qualityProfiles.firstWhere(
             (element) => element.id == movies[index].qualityProfileId,
-            orElse: null),
+            orElse: () => null),
       ),
     );
   }

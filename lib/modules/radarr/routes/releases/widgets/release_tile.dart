@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrReleasesTile extends StatefulWidget {
   final RadarrRelease release;
 
-  RadarrReleasesTile({
+  const RadarrReleasesTile({
     @required this.release,
     Key key,
   }) : super(key: key);
@@ -87,7 +87,6 @@ class _State extends State<RadarrReleasesTile> {
 
   List<LunaTableContent> _tableContent() {
     return [
-      LunaTableContent(title: 'source', body: widget.release.protocol.readable),
       LunaTableContent(title: 'age', body: widget.release.lunaAge),
       LunaTableContent(title: 'indexer', body: widget.release.lunaIndexer),
       LunaTableContent(title: 'size', body: widget.release.lunaSize),

@@ -17,12 +17,20 @@ SonarrRootFolder _$SonarrRootFolderFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
     );
 
-Map<String, dynamic> _$SonarrRootFolderToJson(SonarrRootFolder instance) =>
-    <String, dynamic>{
-      'path': instance.path,
-      'freeSpace': instance.freeSpace,
-      'totalSpace': instance.totalSpace,
-      'unmappedFolders':
-          instance.unmappedFolders?.map((e) => e.toJson()).toList(),
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrRootFolderToJson(SonarrRootFolder instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('path', instance.path);
+  writeNotNull('freeSpace', instance.freeSpace);
+  writeNotNull('totalSpace', instance.totalSpace);
+  writeNotNull('unmappedFolders',
+      instance.unmappedFolders?.map((e) => e.toJson()).toList());
+  writeNotNull('id', instance.id);
+  return val;
+}

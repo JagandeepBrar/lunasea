@@ -4,6 +4,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
+  const TautulliGraphsDailyPlayCountGraph({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
@@ -31,7 +35,7 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
       context: context,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: TautulliGraphHelper.GRAPH_HEIGHT,
             width: MediaQuery.of(context).size.width,
             child: Padding(
@@ -45,7 +49,7 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
                       TautulliLineGraphHelper.lineTouchData(context, data),
                 ),
               ),
-              padding: EdgeInsets.all(14.0),
+              padding: const EdgeInsets.all(14.0),
             ),
           ),
           TautulliGraphHelper().createLegend(data.series),

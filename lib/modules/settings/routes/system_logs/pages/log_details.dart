@@ -1,5 +1,3 @@
-import 'package:fluro/fluro.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -45,7 +43,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
 class _Widget extends StatefulWidget {
   final LunaLogType type;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.type,
   }) : super(key: key);

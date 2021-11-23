@@ -3,12 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:tuple/tuple.dart';
 
 class SABnzbdQueueFAB extends StatefulWidget {
   final ScrollController scrollController;
 
-  SABnzbdQueueFAB({
+  const SABnzbdQueueFAB({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -40,14 +39,14 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
   void _setupIconController() {
     _iconController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+      duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
     );
   }
 
   void _setupHideController() {
     _hideController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+      duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
     );
     _hideController.forward();
     widget.scrollController.addListener(scrollControllerListener);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTextInputBar extends StatefulWidget {
@@ -28,6 +27,7 @@ class LunaTextInputBar extends StatefulWidget {
   final EdgeInsets margin;
 
   LunaTextInputBar({
+    Key key,
     @required this.controller,
     this.scrollController,
     this.onChanged,
@@ -42,7 +42,7 @@ class LunaTextInputBar extends StatefulWidget {
     this.autofocus = false,
     this.obscureText = false,
     this.isFormField = false,
-  }) {
+  }) : super(key: key) {
     assert(controller != null);
   }
 
@@ -83,21 +83,21 @@ class _State extends State<LunaTextInputBar> {
         color: Theme.of(context).canvasColor,
       );
 
-  TextStyle get _sharedTextStyle => TextStyle(
+  TextStyle get _sharedTextStyle => const TextStyle(
         color: Colors.white,
         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
       );
 
   InputDecoration get _sharedInputDecoration => InputDecoration(
         labelText: widget.labelText ?? 'lunasea.SearchTextBar'.tr(),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.white54,
           decoration: TextDecoration.none,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         suffixIcon: AnimatedOpacity(
           child: InkWell(
-            child: Icon(
+            child: const Icon(
               Icons.close,
               color: LunaColours.accent,
               size: 24.0,
@@ -116,17 +116,17 @@ class _State extends State<LunaTextInputBar> {
             hoverColor: Colors.transparent,
           ),
           opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
         ),
         icon: Padding(
           child: Icon(
             widget.labelIcon,
             color: LunaColours.accent,
           ),
-          padding: EdgeInsets.only(left: 16.0),
+          padding: const EdgeInsets.only(left: 16.0),
         ),
         border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
       );
 
   TextFormField get _isForm => TextFormField(
@@ -142,7 +142,7 @@ class _State extends State<LunaTextInputBar> {
         keyboardType: widget.keyboardType,
         validator: widget?.validator,
         onTap: widget.scrollController?.lunaAnimateToStart,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        onChanged: widget.onChanged,
         onFieldSubmitted: widget?.onSubmitted,
       );
 
@@ -158,7 +158,7 @@ class _State extends State<LunaTextInputBar> {
         autocorrect: false,
         keyboardType: widget.keyboardType,
         onTap: widget.scrollController?.lunaAnimateToStart,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        onChanged: widget.onChanged,
         onSubmitted: widget?.onSubmitted,
       );
 }

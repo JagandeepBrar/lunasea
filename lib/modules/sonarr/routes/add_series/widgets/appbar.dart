@@ -9,7 +9,7 @@ Widget SonarrSeriesAddAppBar({
   @required bool autofocus,
 }) =>
     LunaAppBar(
-      title: 'Add Series',
+      title: 'sonarr.AddSeries'.tr(),
       scrollControllers: [scrollController],
       bottom: _SearchBar(
         scrollController: scrollController,
@@ -19,19 +19,20 @@ Widget SonarrSeriesAddAppBar({
     );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
-  final ScrollController scrollController;
   final String query;
   final bool autofocus;
+  final ScrollController scrollController;
 
-  _SearchBar({
+  const _SearchBar({
     Key key,
-    @required this.scrollController,
     @required this.query,
     @required this.autofocus,
+    @required this.scrollController,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<_SearchBar> createState() => _State();
@@ -48,7 +49,7 @@ class _State extends State<_SearchBar> {
 
   @override
   Widget build(BuildContext context) => Consumer<SonarrState>(
-        builder: (context, state, _) => Container(
+        builder: (context, state, _) => SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

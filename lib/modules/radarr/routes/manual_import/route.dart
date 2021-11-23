@@ -30,7 +30,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(context),
-        bottomNavigationBar: RadarrManualImportBottomActionBar(),
+        bottomNavigationBar: const RadarrManualImportBottomActionBar(),
       ),
     );
   }
@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           });
         }
         if (snapshot.hasData) return _list(context, snapshot.data);
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }

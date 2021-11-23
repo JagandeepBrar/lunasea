@@ -11,19 +11,21 @@ SonarrHistoryRecord _$SonarrHistoryRecordFromJson(Map<String, dynamic> json) =>
       episodeId: json['episodeId'] as int?,
       seriesId: json['seriesId'] as int?,
       sourceTitle: json['sourceTitle'] as String?,
+      language: json['language'] == null
+          ? null
+          : SonarrEpisodeFileLanguage.fromJson(
+              json['language'] as Map<String, dynamic>),
       quality: json['quality'] == null
           ? null
           : SonarrEpisodeFileQuality.fromJson(
               json['quality'] as Map<String, dynamic>),
       qualityCutoffNotMet: json['qualityCutoffNotMet'] as bool?,
+      languageCutoffNotMet: json['languageCutoffNotMet'] as bool?,
       date: SonarrUtilities.dateTimeFromJson(json['date'] as String?),
       downloadId: json['downloadId'] as String?,
-      eventType: SonarrUtilities.historyEventTypeFromJson(
-          json['eventType'] as String?),
-      data: json['data'] == null
-          ? null
-          : SonarrHistoryRecordData.fromJson(
-              json['data'] as Map<String, dynamic>),
+      eventType:
+          SonarrUtilities.eventTypeFromJson(json['eventType'] as String?),
+      data: json['data'] as Map<String, dynamic>?,
       episode: json['episode'] == null
           ? null
           : SonarrEpisode.fromJson(json['episode'] as Map<String, dynamic>),
@@ -33,19 +35,29 @@ SonarrHistoryRecord _$SonarrHistoryRecordFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
     );
 
-Map<String, dynamic> _$SonarrHistoryRecordToJson(
-        SonarrHistoryRecord instance) =>
-    <String, dynamic>{
-      'episodeId': instance.episodeId,
-      'seriesId': instance.seriesId,
-      'sourceTitle': instance.sourceTitle,
-      'quality': instance.quality?.toJson(),
-      'qualityCutoffNotMet': instance.qualityCutoffNotMet,
-      'date': SonarrUtilities.dateTimeToJson(instance.date),
-      'downloadId': instance.downloadId,
-      'eventType': SonarrUtilities.historyEventTypeToJson(instance.eventType),
-      'data': instance.data?.toJson(),
-      'episode': instance.episode?.toJson(),
-      'series': instance.series?.toJson(),
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrHistoryRecordToJson(SonarrHistoryRecord instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('episodeId', instance.episodeId);
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('sourceTitle', instance.sourceTitle);
+  writeNotNull('language', instance.language?.toJson());
+  writeNotNull('quality', instance.quality?.toJson());
+  writeNotNull('qualityCutoffNotMet', instance.qualityCutoffNotMet);
+  writeNotNull('languageCutoffNotMet', instance.languageCutoffNotMet);
+  writeNotNull('date', SonarrUtilities.dateTimeToJson(instance.date));
+  writeNotNull('downloadId', instance.downloadId);
+  writeNotNull(
+      'eventType', SonarrUtilities.eventTypeToJson(instance.eventType));
+  writeNotNull('data', instance.data);
+  writeNotNull('episode', instance.episode?.toJson());
+  writeNotNull('series', instance.series?.toJson());
+  writeNotNull('id', instance.id);
+  return val;
+}

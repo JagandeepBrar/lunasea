@@ -3,28 +3,23 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'episode_file_language.g.dart';
 
-/// Model for an episode file's language from Sonarr.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrEpisodeFileLanguage {
-    /// Identifier of the language profile
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Name of the language profile
-    @JsonKey(name: 'name')
-    String? name;
+  @JsonKey(name: 'name')
+  String? name;
 
-    SonarrEpisodeFileLanguage({
-        this.id,
-        this.name,
-    });
+  SonarrEpisodeFileLanguage({
+    this.id,
+    this.name,
+  });
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  @override
+  String toString() => json.encode(this.toJson());
 
-    /// Deserialize a JSON map to a [SonarrEpisodeFileLanguage] object.
-    factory SonarrEpisodeFileLanguage.fromJson(Map<String, dynamic> json) => _$SonarrEpisodeFileLanguageFromJson(json);
-    /// Serialize a [SonarrEpisodeFileLanguage] object to a JSON map.
-    Map<String, dynamic> toJson() => _$SonarrEpisodeFileLanguageToJson(this);
+  factory SonarrEpisodeFileLanguage.fromJson(Map<String, dynamic> json) =>
+      _$SonarrEpisodeFileLanguageFromJson(json);
+  Map<String, dynamic> toJson() => _$SonarrEpisodeFileLanguageToJson(this);
 }

@@ -95,10 +95,9 @@ class SonarrSeriesEditState extends ChangeNotifier {
   }
 
   void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
-    _languageProfile = (languageProfiles ?? []).firstWhere(
+    _languageProfile = languageProfiles.firstWhere(
       (profile) => profile.id == series.languageProfileId,
-      orElse: () =>
-          (languageProfiles?.isEmpty ?? true) ? null : languageProfiles[0],
+      orElse: () => languageProfiles.isEmpty ? null : languageProfiles[0],
     );
   }
 

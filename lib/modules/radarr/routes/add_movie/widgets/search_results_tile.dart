@@ -8,7 +8,7 @@ class RadarrAddMovieSearchResultTile extends StatefulWidget {
   final bool exists;
   final bool isExcluded;
 
-  RadarrAddMovieSearchResultTile({
+  const RadarrAddMovieSearchResultTile({
     Key key,
     @required this.movie,
     @required this.exists,
@@ -59,7 +59,7 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
       summary = '${widget.movie.overview}\n';
     }
     return TextSpan(
-      style: TextStyle(fontStyle: FontStyle.italic),
+      style: const TextStyle(fontStyle: FontStyle.italic),
       text: summary,
     );
   }

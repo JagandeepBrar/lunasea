@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -43,7 +42,7 @@ class SettingsConfigurationSearchEditRouter extends SettingsPageRouter {
 class _Widget extends StatefulWidget {
   final int indexerId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.indexerId,
   }) : super(key: key);

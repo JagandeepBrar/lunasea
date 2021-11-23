@@ -16,6 +16,10 @@ class LidarrDetailsArtistArguments {
 class LidarrDetailsArtist extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/details/artist';
 
+  const LidarrDetailsArtist({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrDetailsArtist> createState() => _State();
 }
@@ -63,7 +67,7 @@ class _State extends State<LidarrDetailsArtist> {
                 ? _body
                 : _error
                     ? LunaMessage.error(onTap: _fetch)
-                    : LunaLoader()
+                    : const LunaLoader()
             : null,
       );
 
@@ -76,7 +80,7 @@ class _State extends State<LidarrDetailsArtist> {
         actions: _arguments == null || _arguments.data == null
             ? null
             : <Widget>[
-                LidarrDetailsHideButton(),
+                const LidarrDetailsHideButton(),
                 LidarrDetailsEditButton(data: _arguments.data),
                 LidarrDetailsSettingsButton(
                   data: _arguments.data,

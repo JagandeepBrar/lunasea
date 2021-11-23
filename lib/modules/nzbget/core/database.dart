@@ -34,8 +34,8 @@ class NZBGetDatabase extends LunaModuleDatabase {
   }
 
   @override
-  NZBGetDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  NZBGetDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'NZBGET_NAVIGATION_INDEX':
         return NZBGetDatabaseValue.NAVIGATION_INDEX;
       default:

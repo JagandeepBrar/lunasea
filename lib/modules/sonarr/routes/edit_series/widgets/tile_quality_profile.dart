@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesEditQualityProfileTile extends StatelessWidget {
   final List<SonarrQualityProfile> profiles;
 
-  SonarrSeriesEditQualityProfileTile({
+  const SonarrSeriesEditQualityProfileTile({
     Key key,
     @required this.profiles,
   }) : super(key: key);
@@ -14,7 +14,7 @@ class SonarrSeriesEditQualityProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Quality Profile'),
+      title: LunaText.title(text: 'sonarr.QualityProfile'.tr()),
       subtitle: LunaText.subtitle(
           text: context.watch<SonarrSeriesEditState>().qualityProfile?.name ??
               LunaUI.TEXT_EMDASH),

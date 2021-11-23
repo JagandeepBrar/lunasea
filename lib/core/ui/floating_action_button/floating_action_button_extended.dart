@@ -9,7 +9,7 @@ class LunaFloatingActionButtonExtended extends StatelessWidget {
   final void Function() onPressed;
   final Object heroTag;
 
-  LunaFloatingActionButtonExtended({
+  const LunaFloatingActionButtonExtended({
     Key key,
     @required this.icon,
     @required this.label,

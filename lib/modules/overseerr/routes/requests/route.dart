@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrRequestsRoute extends StatefulWidget {
+  const OverseerrRequestsRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
@@ -19,7 +23,7 @@ class _State extends State<OverseerrRequestsRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: OverseerrRequestsListView(),
+      body: const OverseerrRequestsListView(),
     );
   }
 }

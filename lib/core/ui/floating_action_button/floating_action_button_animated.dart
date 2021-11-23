@@ -9,7 +9,7 @@ class LunaFloatingActionButtonAnimated extends StatelessWidget {
   final Color backgroundColor;
   final Function onPressed;
 
-  LunaFloatingActionButtonAnimated({
+  const LunaFloatingActionButtonAnimated({
     Key key,
     @required this.onPressed,
     @required this.icon,

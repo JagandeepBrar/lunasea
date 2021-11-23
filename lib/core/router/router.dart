@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -37,23 +36,26 @@ class LunaRouter {
       };
 
   Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder>{
-        Lidarr.ROUTE_NAME: (context) => Lidarr(),
-        LidarrAddSearch.ROUTE_NAME: (context) => LidarrAddSearch(),
-        LidarrAddDetails.ROUTE_NAME: (context) => LidarrAddDetails(),
-        LidarrEditArtist.ROUTE_NAME: (context) => LidarrEditArtist(),
-        LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
-        LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
-        LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
+        Lidarr.ROUTE_NAME: (context) => const Lidarr(),
+        LidarrAddSearch.ROUTE_NAME: (context) => const LidarrAddSearch(),
+        LidarrAddDetails.ROUTE_NAME: (context) => const LidarrAddDetails(),
+        LidarrEditArtist.ROUTE_NAME: (context) => const LidarrEditArtist(),
+        LidarrDetailsAlbum.ROUTE_NAME: (context) => const LidarrDetailsAlbum(),
+        LidarrDetailsArtist.ROUTE_NAME: (context) =>
+            const LidarrDetailsArtist(),
+        LidarrSearchResults.ROUTE_NAME: (context) =>
+            const LidarrSearchResults(),
       };
 
   Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder>{
-        NZBGet.ROUTE_NAME: (context) => NZBGet(),
-        NZBGetStatistics.ROUTE_NAME: (context) => NZBGetStatistics(),
+        NZBGet.ROUTE_NAME: (context) => const NZBGet(),
+        NZBGetStatistics.ROUTE_NAME: (context) => const NZBGetStatistics(),
       };
 
   Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder>{
-        SABnzbd.ROUTE_NAME: (context) => SABnzbd(),
-        SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
-        SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
+        SABnzbd.ROUTE_NAME: (context) => const SABnzbd(),
+        SABnzbdStatistics.ROUTE_NAME: (context) => const SABnzbdStatistics(),
+        SABnzbdHistoryStages.ROUTE_NAME: (context) =>
+            const SABnzbdHistoryStages(),
       };
 }

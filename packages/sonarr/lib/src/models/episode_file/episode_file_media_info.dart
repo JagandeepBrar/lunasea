@@ -3,33 +3,68 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'episode_file_media_info.g.dart';
 
-/// Model for an episode file's media info from Sonarr.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrEpisodeFileMediaInfo {
-    /// Audio channels in the file
-    @JsonKey(name: 'audioChannels')
-    double? audioChannels;
+  @JsonKey(name: 'audioBitrate')
+  int? audioBitrate;
 
-    /// Audio codec of the file
-    @JsonKey(name: 'audioCodec')
-    String? audioCodec;
+  @JsonKey(name: 'audioChannels')
+  double? audioChannels;
 
-    /// Video codec of the file
-    @JsonKey(name: 'videoCodec')
-    String? videoCodec;
+  @JsonKey(name: 'audioCodec')
+  String? audioCodec;
 
-    SonarrEpisodeFileMediaInfo({
-        this.audioChannels,
-        this.audioCodec,
-        this.videoCodec,
-    });
+  @JsonKey(name: 'audioLanguages')
+  String? audioLanguages;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  @JsonKey(name: 'audioStreamCount')
+  int? audioStreamCount;
 
-    /// Deserialize a JSON map to a [SonarrEpisodeFileMediaInfo] object.
-    factory SonarrEpisodeFileMediaInfo.fromJson(Map<String, dynamic> json) => _$SonarrEpisodeFileMediaInfoFromJson(json);
-    /// Serialize a [SonarrEpisodeFileMediaInfo] object to a JSON map.
-    Map<String, dynamic> toJson() => _$SonarrEpisodeFileMediaInfoToJson(this);
+  @JsonKey(name: 'videoBitDepth')
+  int? videoBitDepth;
+
+  @JsonKey(name: 'videoBitrate')
+  int? videoBitrate;
+
+  @JsonKey(name: 'videoCodec')
+  String? videoCodec;
+
+  @JsonKey(name: 'videoFps')
+  double? videoFps;
+
+  @JsonKey(name: 'resolution')
+  String? resolution;
+
+  @JsonKey(name: 'runTime')
+  String? runTime;
+
+  @JsonKey(name: 'scanType')
+  String? scanType;
+
+  @JsonKey(name: 'subtitles')
+  String? subtitles;
+
+  SonarrEpisodeFileMediaInfo({
+    this.audioBitrate,
+    this.audioChannels,
+    this.audioCodec,
+    this.audioLanguages,
+    this.audioStreamCount,
+    this.videoBitDepth,
+    this.videoBitrate,
+    this.videoCodec,
+    this.videoFps,
+    this.resolution,
+    this.runTime,
+    this.scanType,
+    this.subtitles,
+  });
+
+  @override
+  String toString() => json.encode(this.toJson());
+
+  factory SonarrEpisodeFileMediaInfo.fromJson(Map<String, dynamic> json) =>
+      _$SonarrEpisodeFileMediaInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SonarrEpisodeFileMediaInfoToJson(this);
 }

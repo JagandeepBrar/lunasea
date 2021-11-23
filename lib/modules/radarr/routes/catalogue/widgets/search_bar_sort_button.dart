@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrCatalogueSearchBarSortButton extends StatefulWidget {
   final ScrollController controller;
 
-  RadarrCatalogueSearchBarSortButton({
+  const RadarrCatalogueSearchBarSortButton({
     Key key,
     @required this.controller,
   }) : super(key: key);

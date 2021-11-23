@@ -7,7 +7,7 @@ class TautulliMediaDetailsHistory extends StatefulWidget {
   final TautulliMediaType type;
   final int ratingKey;
 
-  TautulliMediaDetailsHistory({
+  const TautulliMediaDetailsHistory({
     @required this.type,
     @required this.ratingKey,
     Key key,
@@ -108,7 +108,7 @@ class _State extends State<TautulliMediaDetailsHistory>
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _history(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

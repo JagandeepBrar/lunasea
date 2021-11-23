@@ -7,7 +7,7 @@ class TautulliHistoryTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliHistoryTile({
+  const TautulliHistoryTile({
     Key key,
     @required this.history,
   }) : super(key: key);
@@ -49,7 +49,7 @@ class TautulliHistoryTile extends StatelessWidget {
 
   Widget get _details => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 LunaText.title(text: history.lsTitle, maxLines: 1),
@@ -69,7 +69,7 @@ class TautulliHistoryTile extends StatelessWidget {
 
   Widget get _subtitle => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -106,7 +106,7 @@ class TautulliHistoryTile extends StatelessWidget {
               history.lsWatchStatusIcon,
               size: LunaUI.FONT_SIZE_SUBHEADER,
             ),
-            padding: EdgeInsets.only(right: 6.0),
+            padding: const EdgeInsets.only(right: 6.0),
           ),
           Expanded(
             child: LunaText.subtitle(

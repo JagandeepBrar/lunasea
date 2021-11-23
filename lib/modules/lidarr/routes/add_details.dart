@@ -14,6 +14,10 @@ class LidarrAddDetailsArguments {
 class LidarrAddDetails extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/add/details';
 
+  const LidarrAddDetails({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrAddDetails> createState() => _State();
 }
@@ -147,7 +151,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               case ConnectionState.waiting:
               case ConnectionState.active:
               default:
-                return LunaLoader();
+                return const LunaLoader();
             }
           },
         );

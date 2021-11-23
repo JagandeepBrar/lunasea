@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditTagsTile extends StatelessWidget {
+  const RadarrMoviesEditTagsTile({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:tuple/tuple.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
+  const SABnzbdAppBarStats({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Selector<SABnzbdState, Tuple5<bool, String, String, String, int>>(
@@ -20,22 +23,22 @@ class SABnzbdAppBarStats extends StatelessWidget {
           child: Center(
             child: RichText(
               text: TextSpan(
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white54,
                   fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: [
                   TextSpan(
                     text: _status(data.item1, data.item2),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                       fontSize: LunaUI.FONT_SIZE_HEADER,
                       color: LunaColours.accent,
                     ),
                   ),
-                  TextSpan(text: '\n'),
+                  const TextSpan(text: '\n'),
                   TextSpan(text: data.item3 == '0:00:00' ? '―' : data.item3),
-                  TextSpan(text: '\t\t•\t\t'),
+                  const TextSpan(text: '\t\t•\t\t'),
                   TextSpan(text: data.item4 == '0.0 B' ? '―' : data.item4)
                 ],
               ),

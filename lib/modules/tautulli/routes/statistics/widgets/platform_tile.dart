@@ -7,7 +7,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliStatisticsPlatformTile({
+  const TautulliStatisticsPlatformTile({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -28,7 +28,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
         width: _imageDimension / 1.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage(LunaAssets.blankDevice),
             fit: BoxFit.cover,
           ),
@@ -37,7 +37,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -60,7 +60,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
 
   Widget _subtitle(BuildContext context) => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -79,7 +79,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
                     : null,
               ),
             ),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             data['total_duration'] != null
                 ? TextSpan(
                     text: Duration(seconds: data['total_duration'])
@@ -96,14 +96,14 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
                               : null,
                     ),
                   )
-                : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
-            TextSpan(text: '\n'),
+                : const TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: '\n'),
             data['last_play'] != null
                 ? TextSpan(
                     text:
                         'Last Used ${DateTime.fromMillisecondsSinceEpoch(data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
                   )
-                : TextSpan(text: LunaUI.TEXT_EMDASH)
+                : const TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),
         softWrap: false,

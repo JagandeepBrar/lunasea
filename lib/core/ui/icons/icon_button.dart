@@ -71,15 +71,26 @@ class LunaIconButton extends StatelessWidget {
   }
 
   Widget _icon() {
-    if (icon != null) return Icon(icon, color: color);
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyle(
+    if (loadingState == LunaLoadingState.ERROR) {
+      return Icon(
+        Icons.error,
         color: color,
-        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: textSize,
-      ),
-    );
+      );
+    } else if (icon != null) {
+      return Icon(
+        icon,
+        color: color,
+      );
+    } else {
+      return Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          fontSize: textSize,
+        ),
+      );
+    }
   }
 }

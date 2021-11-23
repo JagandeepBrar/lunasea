@@ -7,7 +7,7 @@ class LidarrCatalogue extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
   final Function refreshAllPages;
 
-  LidarrCatalogue({
+  const LidarrCatalogue({
     Key key,
     @required this.refreshIndicatorKey,
     @required this.refreshAllPages,
@@ -78,7 +78,7 @@ class _State extends State<LidarrCatalogue>
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       ),

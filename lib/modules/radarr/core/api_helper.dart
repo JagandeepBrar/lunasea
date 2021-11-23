@@ -282,7 +282,9 @@ class RadarrAPIHelper {
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
-                title: 'Updated Movie', message: movie.title);
+              title: 'Updated Movie',
+              message: movie.title,
+            );
           return true;
         });
       }).catchError((error, stack) {
@@ -446,12 +448,18 @@ class RadarrAPIHelper {
           .tag
           .create(label: label)
           .then((tag) {
-        showLunaSuccessSnackBar(title: 'Added Tag', message: tag.label);
+        showLunaSuccessSnackBar(
+          title: 'radarr.AddedTag'.tr(),
+          message: tag.label,
+        );
         return true;
       }).catchError((error, stack) {
         LunaLogger().error('Failed to add tag: $label', error, stack);
         if (showSnackbar)
-          showLunaErrorSnackBar(title: 'Failed to Add Tag', error: error);
+          showLunaErrorSnackBar(
+            title: 'radarr.FailedToAddTag'.tr(),
+            error: error,
+          );
         return false;
       });
     }
@@ -523,11 +531,11 @@ class RadarrAPIHelper {
     @required RadarrManualImport import,
   }) {
     if (import?.movie == null || import.movie.id == null)
-      return Tuple2(null, 'All selections must have a movie set');
+      return const Tuple2(null, 'All selections must have a movie set');
     if (import?.quality == null || (import.quality?.quality?.id ?? -1) < 0)
-      return Tuple2(null, 'All selections must have a quality set');
+      return const Tuple2(null, 'All selections must have a quality set');
     if ((import?.languages?.length ?? 0) == 0)
-      return Tuple2(null, 'All selections must have a language set');
+      return const Tuple2(null, 'All selections must have a language set');
     return Tuple2(
       RadarrManualImportFile(
         path: import.path,

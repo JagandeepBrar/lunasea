@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
   final RadarrMovieCredits credits;
 
-  RadarrMovieDetailsCastCrewTile({
+  const RadarrMovieDetailsCastCrewTile({
     Key key,
     @required this.credits,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
       title: credits.personName,
       posterPlaceholder: LunaAssets.blankUser,
       posterUrl: credits.images.isEmpty ? null : credits.images[0].url,
-      posterHeaders: {},
+      posterHeaders: const {},
       subtitle1: TextSpan(text: position),
       subtitle2: TextSpan(
         text: credits.type.readable,

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliUserDetailsSyncedItems extends StatefulWidget {
   final TautulliTableUser user;
 
-  TautulliUserDetailsSyncedItems({
+  const TautulliUserDetailsSyncedItems({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -23,6 +23,7 @@ class _State extends State<TautulliUserDetailsSyncedItems>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setUserSyncedItems(
           widget.user.userId,
@@ -63,7 +64,7 @@ class _State extends State<TautulliUserDetailsSyncedItems>
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData) return _syncedItems(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

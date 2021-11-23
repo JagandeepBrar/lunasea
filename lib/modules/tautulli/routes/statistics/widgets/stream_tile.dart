@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
 class TautulliStatisticsStreamTile extends StatelessWidget {
@@ -7,7 +6,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliStatisticsStreamTile({
+  const TautulliStatisticsStreamTile({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -28,7 +27,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         width: _imageDimension / 1.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage(LunaAssets.blankStream),
             fit: BoxFit.cover,
           ),
@@ -37,7 +36,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -60,7 +59,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
 
   Widget _subtitle(BuildContext context) => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -68,12 +67,12 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
             TextSpan(
               text: data['count'].toString() +
                   (data['count'] == 1 ? ' Play' : ' Plays'),
-              style: TextStyle(
+              style: const TextStyle(
                 color: LunaColours.accent,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               ),
             ),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             int.tryParse(data['started']) != null
                 ? TextSpan(
                     text: LunaDatabaseValue.USE_24_HOUR_TIME.data
@@ -84,14 +83,14 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
                             DateTime.fromMillisecondsSinceEpoch(
                                 int.tryParse(data['started']) * 1000)),
                   )
-                : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
-            TextSpan(text: '\n'),
+                : const TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: '\n'),
             data['last_play'] != null
                 ? TextSpan(
                     text:
                         'Last Used ${DateTime.fromMillisecondsSinceEpoch(data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
                   )
-                : TextSpan(text: LunaUI.TEXT_EMDASH)
+                : const TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),
         softWrap: false,

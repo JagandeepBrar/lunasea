@@ -6,6 +6,10 @@ import 'package:lunasea/modules/sabnzbd.dart';
 class SABnzbd extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd';
 
+  const SABnzbd({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SABnzbd> createState() => _State();
 }
@@ -66,7 +70,7 @@ class _State extends State<SABnzbd> {
         Selector<SABnzbdState, bool>(
           selector: (_, model) => model.error,
           builder: (context, error, widget) =>
-              error ? Container() : SABnzbdAppBarStats(),
+              error ? Container() : const SABnzbdAppBarStats(),
         ),
         LunaIconButton(
           icon: Icons.more_vert,

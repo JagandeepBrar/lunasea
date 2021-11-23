@@ -15,36 +15,46 @@ SonarrEpisodeFile _$SonarrEpisodeFileFromJson(Map<String, dynamic> json) =>
       size: json['size'] as int?,
       dateAdded: SonarrUtilities.dateTimeFromJson(json['dateAdded'] as String?),
       sceneName: json['sceneName'] as String?,
-      quality: json['quality'] == null
-          ? null
-          : SonarrEpisodeFileQuality.fromJson(
-              json['quality'] as Map<String, dynamic>),
+      releaseGroup: json['releaseGroup'] as String?,
       language: json['language'] == null
           ? null
           : SonarrEpisodeFileLanguage.fromJson(
               json['language'] as Map<String, dynamic>),
+      quality: json['quality'] == null
+          ? null
+          : SonarrEpisodeFileQuality.fromJson(
+              json['quality'] as Map<String, dynamic>),
       mediaInfo: json['mediaInfo'] == null
           ? null
           : SonarrEpisodeFileMediaInfo.fromJson(
               json['mediaInfo'] as Map<String, dynamic>),
-      originalFilePath: json['originalFilePath'] as String?,
       qualityCutoffNotMet: json['qualityCutoffNotMet'] as bool?,
+      languageCutoffNotMet: json['languageCutoffNotMet'] as bool?,
       id: json['id'] as int?,
     );
 
-Map<String, dynamic> _$SonarrEpisodeFileToJson(SonarrEpisodeFile instance) =>
-    <String, dynamic>{
-      'seriesId': instance.seriesId,
-      'seasonNumber': instance.seasonNumber,
-      'relativePath': instance.relativePath,
-      'path': instance.path,
-      'size': instance.size,
-      'dateAdded': SonarrUtilities.dateTimeToJson(instance.dateAdded),
-      'sceneName': instance.sceneName,
-      'quality': instance.quality?.toJson(),
-      'language': instance.language?.toJson(),
-      'mediaInfo': instance.mediaInfo?.toJson(),
-      'originalFilePath': instance.originalFilePath,
-      'qualityCutoffNotMet': instance.qualityCutoffNotMet,
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrEpisodeFileToJson(SonarrEpisodeFile instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  writeNotNull('relativePath', instance.relativePath);
+  writeNotNull('path', instance.path);
+  writeNotNull('size', instance.size);
+  writeNotNull('dateAdded', SonarrUtilities.dateTimeToJson(instance.dateAdded));
+  writeNotNull('sceneName', instance.sceneName);
+  writeNotNull('releaseGroup', instance.releaseGroup);
+  writeNotNull('language', instance.language?.toJson());
+  writeNotNull('quality', instance.quality?.toJson());
+  writeNotNull('mediaInfo', instance.mediaInfo?.toJson());
+  writeNotNull('qualityCutoffNotMet', instance.qualityCutoffNotMet);
+  writeNotNull('languageCutoffNotMet', instance.languageCutoffNotMet);
+  writeNotNull('id', instance.id);
+  return val;
+}

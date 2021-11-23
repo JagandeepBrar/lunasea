@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
+  const SettingsAccountRestoreConfigurationTile({Key key,}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesLibraryTile extends StatelessWidget {
   final TautulliTableLibrary library;
 
-  TautulliLibrariesLibraryTile({
+  const TautulliLibrariesLibraryTile({
     Key key,
     @required this.library,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
       title: LunaText.title(text: library.sectionName),
       subtitle: RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -30,11 +30,11 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
             ),
             TextSpan(text: '${library.duration.lunaTimestampWords}\n'),
             TextSpan(
-              style: TextStyle(
+              style: const TextStyle(
                 color: LunaColours.accent,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               ),
-              text: '${library.lastAccessed?.lunaAge ?? 'Unknown'}',
+              text: library.lastAccessed?.lunaAge ?? 'Unknown',
             ),
           ],
         ),

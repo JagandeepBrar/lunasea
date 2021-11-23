@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsActionBar extends StatelessWidget {
+  const RadarrAddMovieDetailsActionBar({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaBottomActionBar(

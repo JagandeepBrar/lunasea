@@ -7,11 +7,12 @@ class LidarrMissingTile extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function refresh;
 
-  LidarrMissingTile({
+  const LidarrMissingTile({
+    Key key,
     @required this.entry,
     @required this.scaffoldKey,
     @required this.refresh,
-  });
+  }) : super(key: key);
 
   @override
   State<LidarrMissingTile> createState() => _State();
@@ -24,20 +25,20 @@ class _State extends State<LidarrMissingTile> {
         title: LunaText.title(text: widget.entry.artistTitle),
         subtitle: RichText(
           text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: widget.entry.title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white70,
                   fontStyle: FontStyle.italic,
                 ),
               ),
               TextSpan(
                 text: '\nReleased ${widget.entry.releaseDateString}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: LunaColours.red,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),

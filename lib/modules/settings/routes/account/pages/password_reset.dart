@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -66,12 +65,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 LunaTextInputBar(
                   controller: _emailController,
                   isFormField: true,
-                  margin: EdgeInsets.all(12.0),
+                  margin: const EdgeInsets.all(12.0),
                   labelIcon: Icons.person,
                   labelText: 'settings.Email'.tr(),
                   action: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
-                  autofillHints: [
+                  autofillHints: const [
                     AutofillHints.username,
                     AutofillHints.email,
                   ],

@@ -20,26 +20,40 @@ SonarrMissingRecord _$SonarrMissingRecordFromJson(Map<String, dynamic> json) =>
       hasFile: json['hasFile'] as bool?,
       monitored: json['monitored'] as bool?,
       unverifiedSceneNumbering: json['unverifiedSceneNumbering'] as bool?,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : SonarrImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
       series: json['series'] == null
           ? null
           : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
       id: json['id'] as int?,
     );
 
-Map<String, dynamic> _$SonarrMissingRecordToJson(
-        SonarrMissingRecord instance) =>
-    <String, dynamic>{
-      'seriesId': instance.seriesId,
-      'episodeFileId': instance.episodeFileId,
-      'seasonNumber': instance.seasonNumber,
-      'episodeNumber': instance.episodeNumber,
-      'title': instance.title,
-      'airDate': instance.airDate,
-      'airDateUtc': SonarrUtilities.dateTimeToJson(instance.airDateUtc),
-      'overview': instance.overview,
-      'hasFile': instance.hasFile,
-      'monitored': instance.monitored,
-      'unverifiedSceneNumbering': instance.unverifiedSceneNumbering,
-      'series': instance.series?.toJson(),
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrMissingRecordToJson(SonarrMissingRecord instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('episodeFileId', instance.episodeFileId);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  writeNotNull('episodeNumber', instance.episodeNumber);
+  writeNotNull('title', instance.title);
+  writeNotNull('airDate', instance.airDate);
+  writeNotNull(
+      'airDateUtc', SonarrUtilities.dateTimeToJson(instance.airDateUtc));
+  writeNotNull('overview', instance.overview);
+  writeNotNull('hasFile', instance.hasFile);
+  writeNotNull('monitored', instance.monitored);
+  writeNotNull('unverifiedSceneNumbering', instance.unverifiedSceneNumbering);
+  writeNotNull('images', instance.images?.map((e) => e?.toJson()).toList());
+  writeNotNull('series', instance.series?.toJson());
+  writeNotNull('id', instance.id);
+  return val;
+}

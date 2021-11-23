@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
@@ -50,7 +49,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Tags',
       scrollControllers: [scrollController],
-      actions: [RadarrTagsAppBarActionAddTag()],
+      actions: const [
+        RadarrTagsAppBarActionAddTag(),
+      ],
     );
   }
 
@@ -73,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             return LunaMessage.error(onTap: _refreshKey.currentState.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -82,8 +83,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _list(List<RadarrTag> tags) {
     if ((tags?.length ?? 0) == 0) {
       return LunaMessage(
-        text: 'No Tags Found',
-        buttonText: 'Refresh',
+        text: 'radarr.NoTagsFound'.tr(),
+        buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState.show,
       );
     }

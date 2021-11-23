@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 class NZBGetHistorySearchBar extends StatefulWidget {
   final ScrollController scrollController;
 
-  NZBGetHistorySearchBar({
+  const NZBGetHistorySearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);

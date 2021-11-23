@@ -1,41 +1,65 @@
 part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to episodes within Sonarr.
-/// 
+///
 /// [SonarrCommandHandler_Episode] internally handles routing the HTTP client to the API calls.
 class SonarrCommandHandler_Episode {
-    final Dio _client;
+  final Dio _client;
 
-    /// Create a series command handler using an initialized [Dio] client.
-    SonarrCommandHandler_Episode(this._client);
+  /// Create a series command handler using an initialized [Dio] client.
+  SonarrCommandHandler_Episode(this._client);
 
-    /// Handler for [episode?seriesid={id}](https://github.com/Sonarr/Sonarr/wiki/Episode#get).
-    /// 
-    /// Returns all episodes for the given series.
-    /// 
-    /// Required Parameters:
-    /// - `seriesId`: Series ID for which to fetch episodes for
-    Future<List<SonarrEpisode>> getSeriesEpisodes({
-        required int seriesId,
-    }) async => _commandGetSeriesEpisodes(_client, seriesId: seriesId);
+  /// Handler for [episode](https://github.com/Sonarr/Sonarr/wiki/Episode#get).
+  ///
+  /// Returns all episodes for the given series or with the given episode IDs.
+  Future<List<SonarrEpisode>> getMulti({
+    int? seriesId,
+    int? seasonNumber,
+    List<int>? episodeIds,
+    int? episodeFileId,
+    bool? includeImages,
+  }) async =>
+      _commandGetEpisodes(
+        _client,
+        seriesId: seriesId,
+        seasonNumber: seasonNumber,
+        episodeIds: episodeIds,
+        episodeFileId: episodeFileId,
+        includeImages: includeImages,
+      );
 
-    /// Handler for [episode/{id}](https://github.com/Sonarr/Sonarr/wiki/Episode#getid).
-    /// 
-    /// Returns the episode with the matching ID.
-    /// 
-    /// Required Parameters:
-    /// - `episodeId`: Episode ID for the episode to fetch
-    Future<SonarrEpisode> getEpisode({
-        required int episodeId,
-    }) async => _commandGetEpisode(_client, episodeId: episodeId);
+  /// Handler for [episode/{id}](https://github.com/Sonarr/Sonarr/wiki/Episode#getid).
+  ///
+  /// Returns the episode with the matching ID.
+  Future<SonarrEpisode> get({
+    required int episodeId,
+  }) async =>
+      _commandGetEpisode(
+        _client,
+        episodeId: episodeId,
+      );
 
-    /// Handler for [episode](https://github.com/Sonarr/Sonarr/wiki/Episode#put).
-    /// 
-    /// Update the given episode, currently only monitored is changed, all other modifications are ignored.
-    /// 
-    /// Required Parameters:
-    /// - `episode`: [SonarrEpisode] object containing the updated episode
-    Future<SonarrEpisode> updateEpisode({
-        required SonarrEpisode episode,
-    }) async => _commandUpdateEpisode(_client, episode: episode);
+  /// Handler for [episode](https://github.com/Sonarr/Sonarr/wiki/Episode#put).
+  ///
+  /// Update the given episode, currently only monitored is changed, all other modifications are ignored.
+  Future<SonarrEpisode> update({
+    required SonarrEpisode episode,
+  }) async =>
+      _commandUpdateEpisode(
+        _client,
+        episode: episode,
+      );
+
+  /// Handler for `episode/monitor`.
+  ///
+  /// Sets the monitored state for the given episode IDs.
+  Future<List<SonarrEpisode>> setMonitored({
+    required List<int> episodeIds,
+    required bool monitored,
+  }) async =>
+      _commandEpisodeSetMonitored(
+        _client,
+        episodeIds: episodeIds,
+        monitored: monitored,
+      );
 }

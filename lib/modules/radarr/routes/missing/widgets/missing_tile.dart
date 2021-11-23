@@ -6,7 +6,7 @@ class RadarrMissingTile extends StatefulWidget {
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
 
-  RadarrMissingTile({
+  const RadarrMissingTile({
     Key key,
     @required this.movie,
     @required this.profile,
@@ -65,7 +65,7 @@ class _State extends State<RadarrMissingTile> {
   TextSpan _subtitle3() {
     String _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
     return TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           color: LunaColours.red,
         ),

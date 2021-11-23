@@ -92,6 +92,7 @@ class LunaButton extends Card {
           decoration: decoration,
           onTap: onTap,
           onLongPress: onLongPress,
+          loadingState: loadingState,
         );
       case LunaLoadingState.ERROR:
         return LunaButton.icon(
@@ -105,6 +106,7 @@ class LunaButton extends Card {
           decoration: decoration,
           onTap: onTap,
           onLongPress: onLongPress,
+          loadingState: loadingState,
         );
       default:
         break;
@@ -124,6 +126,7 @@ class LunaButton extends Card {
           decoration: decoration,
           onTap: onTap,
           onLongPress: onLongPress,
+          loadingState: loadingState,
         );
       case LunaButtonType.ICON:
         assert(icon != null);
@@ -138,6 +141,7 @@ class LunaButton extends Card {
           decoration: decoration,
           onTap: onTap,
           onLongPress: onLongPress,
+          loadingState: loadingState,
         );
       case LunaButtonType.LOADER:
         return LunaButton.loader(
@@ -149,6 +153,7 @@ class LunaButton extends Card {
           decoration: decoration,
           onTap: onTap,
           onLongPress: onLongPress,
+          loadingState: loadingState,
         );
     }
     throw Exception("Attempted to create an invalid LunaButton");
@@ -166,6 +171,7 @@ class LunaButton extends Card {
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
     Decoration decoration,
+    LunaLoadingState loadingState,
     Function onTap,
     Function onLongPress,
   }) {
@@ -182,12 +188,12 @@ class LunaButton extends Card {
                   color: color,
                   size: iconSize,
                 ),
-                padding: EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsets.only(right: 8.0),
               ),
             Flexible(
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   fontSize: LunaUI.FONT_SIZE_BUTTON,
@@ -199,7 +205,7 @@ class LunaButton extends Card {
             ),
           ],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
       ),
       margin: margin,
       height: height,
@@ -208,6 +214,7 @@ class LunaButton extends Card {
       decoration: decoration,
       onTap: onTap,
       onLongPress: onLongPress,
+      loadingState: loadingState,
     );
   }
 
@@ -222,6 +229,7 @@ class LunaButton extends Card {
     Decoration decoration,
     Function onTap,
     Function onLongPress,
+    LunaLoadingState loadingState,
   }) {
     return LunaButton._(
       child: LunaLoader(
@@ -236,6 +244,7 @@ class LunaButton extends Card {
       decoration: decoration,
       onTap: onTap,
       onLongPress: onLongPress,
+      loadingState: loadingState,
     );
   }
 
@@ -252,6 +261,7 @@ class LunaButton extends Card {
     Decoration decoration,
     Function onTap,
     Function onLongPress,
+    LunaLoadingState loadingState,
   }) {
     return LunaButton._(
       child: Icon(
@@ -266,6 +276,7 @@ class LunaButton extends Card {
       decoration: decoration,
       onTap: onTap,
       onLongPress: onLongPress,
+      loadingState: loadingState,
     );
   }
 }

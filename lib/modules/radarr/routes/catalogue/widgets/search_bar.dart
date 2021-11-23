@@ -6,13 +6,13 @@ class RadarrCatalogueSearchBar extends StatefulWidget
     implements PreferredSizeWidget {
   final ScrollController scrollController;
 
-  RadarrCatalogueSearchBar({
+  const RadarrCatalogueSearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(62.0);
+  Size get preferredSize => const Size.fromHeight(62.0);
 
   @override
   State<RadarrCatalogueSearchBar> createState() => _State();

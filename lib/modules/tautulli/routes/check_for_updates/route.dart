@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -66,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           }
           if (snapshot.hasData)
             return _list(snapshot.data[0], snapshot.data[1]);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

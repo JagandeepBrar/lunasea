@@ -6,6 +6,10 @@ import 'package:lunasea/modules/nzbget.dart';
 class NZBGet extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget';
 
+  const NZBGet({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
@@ -66,7 +70,7 @@ class _State extends State<NZBGet> {
         Selector<NZBGetState, bool>(
           selector: (_, model) => model.error,
           builder: (context, error, widget) =>
-              error ? Container() : NZBGetAppBarStats(),
+              error ? Container() : const NZBGetAppBarStats(),
         ),
         LunaIconButton(
           icon: Icons.more_vert,

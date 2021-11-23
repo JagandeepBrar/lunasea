@@ -36,8 +36,8 @@ class SearchDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SearchDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  SearchDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'SEARCH_HIDE_XXX':
         return SearchDatabaseValue.HIDE_XXX;
       case 'SEARCH_SHOW_LINKS':

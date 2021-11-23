@@ -6,66 +6,80 @@ import 'package:sonarr/utilities.dart';
 
 part 'history_record.g.dart';
 
-/// Model to store an individual history record from Sonarr.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrHistoryRecord {
-    @JsonKey(name: 'episodeId')
-    int? episodeId;
+  @JsonKey(name: 'episodeId')
+  int? episodeId;
 
-    @JsonKey(name: 'seriesId')
-    int? seriesId;
+  @JsonKey(name: 'seriesId')
+  int? seriesId;
 
-    @JsonKey(name: 'sourceTitle')
-    String? sourceTitle;
+  @JsonKey(name: 'sourceTitle')
+  String? sourceTitle;
 
-    @JsonKey(name: 'quality')
-    SonarrEpisodeFileQuality? quality;
+  @JsonKey(name: 'language')
+  SonarrEpisodeFileLanguage? language;
 
-    @JsonKey(name: 'qualityCutoffNotMet')
-    bool? qualityCutoffNotMet;
+  @JsonKey(name: 'quality')
+  SonarrEpisodeFileQuality? quality;
 
-    @JsonKey(name: 'date', toJson: SonarrUtilities.dateTimeToJson, fromJson: SonarrUtilities.dateTimeFromJson)
-    DateTime? date;
+  @JsonKey(name: 'qualityCutoffNotMet')
+  bool? qualityCutoffNotMet;
 
-    @JsonKey(name: 'downloadId')
-    String? downloadId;
+  @JsonKey(name: 'languageCutoffNotMet')
+  bool? languageCutoffNotMet;
 
-    @JsonKey(name: 'eventType', toJson: SonarrUtilities.historyEventTypeToJson, fromJson: SonarrUtilities.historyEventTypeFromJson)
-    SonarrHistoryEventType? eventType;
+  @JsonKey(
+    name: 'date',
+    toJson: SonarrUtilities.dateTimeToJson,
+    fromJson: SonarrUtilities.dateTimeFromJson,
+  )
+  DateTime? date;
 
-    @JsonKey(name: 'data')
-    SonarrHistoryRecordData? data;
+  @JsonKey(name: 'downloadId')
+  String? downloadId;
 
-    @JsonKey(name: 'episode')
-    SonarrEpisode? episode;
+  @JsonKey(
+    name: 'eventType',
+    toJson: SonarrUtilities.eventTypeToJson,
+    fromJson: SonarrUtilities.eventTypeFromJson,
+  )
+  SonarrEventType? eventType;
 
-    @JsonKey(name: 'series')
-    SonarrSeries? series;
+  @JsonKey(name: 'data')
+  Map<String, dynamic>? data;
 
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'episode')
+  SonarrEpisode? episode;
 
-    SonarrHistoryRecord({
-        this.episodeId,
-        this.seriesId,
-        this.sourceTitle,
-        this.quality,
-        this.qualityCutoffNotMet,
-        this.date,
-        this.downloadId,
-        this.eventType,
-        this.data,
-        this.episode,
-        this.series,
-        this.id,
-    });
+  @JsonKey(name: 'series')
+  SonarrSeries? series;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Deserialize a JSON map to a [SonarrHistoryRecord] object.
-    factory SonarrHistoryRecord.fromJson(Map<String, dynamic> json) => _$SonarrHistoryRecordFromJson(json);
-    /// Serialize a [SonarrHistoryRecord] object to a JSON map.
-    Map<String, dynamic> toJson() => _$SonarrHistoryRecordToJson(this);
+  SonarrHistoryRecord({
+    this.episodeId,
+    this.seriesId,
+    this.sourceTitle,
+    this.language,
+    this.quality,
+    this.qualityCutoffNotMet,
+    this.languageCutoffNotMet,
+    this.date,
+    this.downloadId,
+    this.eventType,
+    this.data,
+    this.episode,
+    this.series,
+    this.id,
+  });
+
+  @override
+  String toString() => json.encode(this.toJson());
+
+  factory SonarrHistoryRecord.fromJson(Map<String, dynamic> json) =>
+      _$SonarrHistoryRecordFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SonarrHistoryRecordToJson(this);
 }

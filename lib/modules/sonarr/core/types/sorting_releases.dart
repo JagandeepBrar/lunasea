@@ -123,10 +123,14 @@ class _Sorter {
 
   List<SonarrRelease> _seeders(List<SonarrRelease> releases, bool ascending) {
     List<SonarrRelease> _torrent = _weight(
-        releases.where((release) => release.protocol == 'torrent').toList(),
+        releases
+            .where((release) => release.protocol == SonarrProtocol.TORRENT)
+            .toList(),
         true);
     List<SonarrRelease> _usenet = _weight(
-        releases.where((release) => release.protocol == 'usenet').toList(),
+        releases
+            .where((release) => release.protocol == SonarrProtocol.USENET)
+            .toList(),
         true);
     ascending
         ? _torrent
@@ -147,10 +151,14 @@ class _Sorter {
 
   List<SonarrRelease> _type(List<SonarrRelease> releases, bool ascending) {
     List<SonarrRelease> _torrent = _weight(
-        releases.where((release) => release.protocol == 'torrent').toList(),
+        releases
+            .where((release) => release.protocol == SonarrProtocol.TORRENT)
+            .toList(),
         true);
     List<SonarrRelease> _usenet = _weight(
-        releases.where((release) => release.protocol == 'usenet').toList(),
+        releases
+            .where((release) => release.protocol == SonarrProtocol.USENET)
+            .toList(),
         true);
     return ascending ? [..._torrent, ..._usenet] : [..._usenet, ..._torrent];
   }

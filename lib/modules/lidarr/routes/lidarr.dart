@@ -5,6 +5,10 @@ import 'package:lunasea/modules/lidarr.dart';
 class Lidarr extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr';
 
+  const Lidarr({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<Lidarr> createState() => _State();
 }

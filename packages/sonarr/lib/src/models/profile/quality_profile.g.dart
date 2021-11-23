@@ -11,10 +11,7 @@ SonarrQualityProfile _$SonarrQualityProfileFromJson(
     SonarrQualityProfile(
       name: json['name'] as String?,
       upgradeAllowed: json['upgradeAllowed'] as bool?,
-      cutoff: json['cutoff'] == null
-          ? null
-          : SonarrQualityProfileCutoff.fromJson(
-              json['cutoff'] as Map<String, dynamic>),
+      cutoff: json['cutoff'] as int?,
       items: (json['items'] as List<dynamic>?)
           ?.map((e) =>
               SonarrQualityProfileItem.fromJson(e as Map<String, dynamic>))
@@ -23,11 +20,19 @@ SonarrQualityProfile _$SonarrQualityProfileFromJson(
     );
 
 Map<String, dynamic> _$SonarrQualityProfileToJson(
-        SonarrQualityProfile instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'upgradeAllowed': instance.upgradeAllowed,
-      'cutoff': instance.cutoff?.toJson(),
-      'items': instance.items?.map((e) => e.toJson()).toList(),
-      'id': instance.id,
-    };
+    SonarrQualityProfile instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('upgradeAllowed', instance.upgradeAllowed);
+  writeNotNull('cutoff', instance.cutoff);
+  writeNotNull('items', instance.items?.map((e) => e.toJson()).toList());
+  writeNotNull('id', instance.id);
+  return val;
+}

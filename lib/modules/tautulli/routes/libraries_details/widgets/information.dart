@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsInformation extends StatefulWidget {
   final int sectionId;
 
-  TautulliLibrariesDetailsInformation({
+  const TautulliLibrariesDetailsInformation({
     Key key,
     @required this.sectionId,
   }) : super(key: key);
@@ -24,6 +24,7 @@ class _State extends State<TautulliLibrariesDetailsInformation>
   @override
   bool get wantKeepAlive => true;
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetLibrariesTable();
     context.read<TautulliState>().fetchLibraryWatchTimeStats(widget.sectionId);
@@ -39,7 +40,7 @@ class _State extends State<TautulliLibrariesDetailsInformation>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      body: _initialLoad ? _body() : LunaLoader(),
+      body: _initialLoad ? _body() : const LunaLoader(),
     );
   }
 
@@ -68,7 +69,7 @@ class _State extends State<TautulliLibrariesDetailsInformation>
                     );
             return _list(library, snapshot.data[1]);
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -85,9 +86,9 @@ class _State extends State<TautulliLibrariesDetailsInformation>
     return LunaListView(
       controller: TautulliLibrariesDetailsNavigationBar.scrollControllers[0],
       children: [
-        LunaHeader(text: 'Details'),
+        const LunaHeader(text: 'Details'),
         TautulliLibrariesDetailsInformationDetails(library: library),
-        LunaHeader(text: 'Global Stats'),
+        const LunaHeader(text: 'Global Stats'),
         TautulliLibrariesDetailsInformationGlobalStats(
             watchtime: watchTimeStats),
       ],

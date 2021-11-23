@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -38,7 +37,7 @@ class TautulliActivityDetailsRouter extends TautulliPageRouter {
 class _Widget extends StatefulWidget {
   final String sessionId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.sessionId,
   }) : super(key: key);
@@ -104,7 +103,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 orElse: () => null);
             return _session(session);
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

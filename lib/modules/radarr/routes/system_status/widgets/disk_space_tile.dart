@@ -45,7 +45,7 @@ class RadarrDiskSpaceTile extends StatelessWidget {
   Widget percentBar() {
     return LinearPercentIndicator(
       percent: (diskSpace.lunaPercentage ?? 0) / 100,
-      padding: EdgeInsets.only(left: 2.0, right: 2.0, top: 26.0),
+      padding: const EdgeInsets.only(left: 2.0, right: 2.0, top: 26.0),
       progressColor: diskSpace.lunaColor,
       backgroundColor: diskSpace.lunaColor.withOpacity(0.30),
       lineHeight: 4.0,

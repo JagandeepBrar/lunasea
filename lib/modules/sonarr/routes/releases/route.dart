@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -28,9 +27,10 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       LunaRouter.router.navigateTo(
         context,
         route(
-            episodeId: episodeId,
-            seriesId: seriesId,
-            seasonNumber: seasonNumber),
+          episodeId: episodeId,
+          seriesId: seriesId,
+          seasonNumber: seasonNumber,
+        ),
       );
 
   @override
@@ -39,10 +39,13 @@ class SonarrReleasesRouter extends SonarrPageRouter {
     int seriesId,
     int seasonNumber,
   }) {
-    if (episodeId != null) return '$fullRoute/episode/$episodeId';
-    if (seriesId != null && seasonNumber != null)
+    if (episodeId != null) {
+      return '$fullRoute/episode/$episodeId';
+    } else if (seriesId != null && seasonNumber != null) {
       return '$fullRoute/series/$seriesId/season/$seasonNumber';
-    return SonarrHomeRouter().route();
+    } else {
+      throw Exception('episodeId or seriesId must be passed to this route');
+    }
   }
 
   @override
@@ -52,12 +55,12 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!context.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: 'Sonarr');
+            return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
           }
-          int episodeId = (params['episodeid']?.isNotEmpty ?? false)
-              ? (int.tryParse(params['episodeid'][0]) ?? -1)
-              : -1;
-          return _Widget(episodeId: episodeId);
+          int episodeId = int.tryParse(params['episodeid'][0]) ?? -1;
+          return _Widget(
+            episodeId: episodeId,
+          );
         },
       ),
       transitionType: LunaRouter.transitionType,
@@ -66,14 +69,11 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       '$fullRoute/series/:seriesid/season/:seasonnumber',
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!context.read<SonarrState>().enabled)
-            return LunaNotEnabledRoute(module: 'Sonarr');
-          int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-              ? (int.tryParse(params['seriesid'][0]) ?? -1)
-              : -1;
-          int seasonNumber = (params['seasonnumber']?.isNotEmpty ?? false)
-              ? (int.tryParse(params['seasonnumber'][0]) ?? -1)
-              : -1;
+          if (!context.read<SonarrState>().enabled) {
+            return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
+          }
+          int seriesId = int.tryParse(params['seriesid'][0]) ?? -1;
+          int seasonNumber = int.tryParse(params['seasonnumber'][0]) ?? -1;
           return _Widget(
             seriesId: seriesId,
             seasonNumber: seasonNumber,
@@ -90,7 +90,7 @@ class _Widget extends StatefulWidget {
   final int seriesId;
   final int seasonNumber;
 
-  _Widget({
+  const _Widget({
     Key key,
     this.episodeId,
     this.seriesId,
@@ -101,122 +101,110 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
-    with LunaLoadCallbackMixin, LunaScrollControllerMixin {
+class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
-  Future<List<SonarrRelease>> _future;
-
-  Future<void> loadCallback() async {
-    if (context.read<SonarrState>().api != null && mounted)
-      setState(() {
-        if (widget.episodeId != null) {
-          _future = context
-              .read<SonarrState>()
-              .api
-              .release
-              .getReleases(episodeId: widget.episodeId);
-        } else if (widget.seriesId != null && widget.seasonNumber != null) {
-          _future = context
-              .read<SonarrState>()
-              .api
-              .release
-              .getSeasonReleases(
-                  seriesId: widget.seriesId, seasonNumber: widget.seasonNumber)
-              .then((data) =>
-                  data = data.where((release) => release.fullSeason).toList());
-        } else {
-          LunaLogger().warning(
-            '_Widget',
-            '_refresh',
-            'No valid episodeId or (seriesId & seasonNumber) found',
-          );
-        }
-      });
-    if (_future != null) await _future;
-  }
 
   @override
-  Widget build(BuildContext context) => LunaScaffold(
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => SonarrReleasesState(
+        context: context,
+        episodeId: widget.episodeId,
+        seriesId: widget.seriesId,
+        seasonNumber: widget.seasonNumber,
+      ),
+      builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
-        body: _body(),
-      );
-
-  Widget _appBar() {
-    return SonarrReleasesAppBar(scrollController: scrollController);
+        appBar: _appBar(context),
+        body: _body(context),
+      ),
+    );
   }
 
-  Widget _body() {
+  Widget _appBar(BuildContext context) {
+    return LunaAppBar(
+      title: 'sonarr.Releases'.tr(),
+      scrollControllers: [scrollController],
+      bottom: SonarrReleasesSearchBar(scrollController: scrollController),
+    );
+  }
+
+  Widget _body(BuildContext context) {
     return LunaRefreshIndicator(
       context: context,
       key: _refreshKey,
-      onRefresh: loadCallback,
+      onRefresh: () async {
+        context.read<SonarrReleasesState>().refreshReleases(context);
+        await context.read<SonarrReleasesState>().releases;
+      },
       child: FutureBuilder(
-        future: _future,
+        future: context.read<SonarrReleasesState>().releases,
         builder: (context, AsyncSnapshot<List<SonarrRelease>> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {
               LunaLogger().error(
-                  'Unable to fetch Sonarr releases: ${widget.episodeId}',
-                  snapshot.error,
-                  snapshot.stackTrace);
+                'Unable to fetch Sonarr releases',
+                snapshot.error,
+                snapshot.stackTrace,
+              );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(
+              onTap: () => _refreshKey.currentState.show,
+            );
           }
-          if (snapshot.hasData) return _releases(snapshot.data);
-          return LunaLoader();
+          if (snapshot.hasData) return _list(context, snapshot.data);
+          return const LunaLoader();
         },
       ),
     );
   }
 
-  Widget _releases(List<SonarrRelease> releases) {
-    if ((releases?.length ?? 0) == 0)
-      return LunaMessage(
-        text: 'No Releases Found',
-        buttonText: 'Refresh',
-        onTap: _refreshKey.currentState?.show,
-      );
-    return Consumer<SonarrState>(builder: (context, state, _) {
-      List<SonarrRelease> _filtered = _filterAndSort(releases);
-      if ((_filtered?.length ?? 0) == 0)
-        return LunaListView(
-          controller: scrollController,
-          children: [
-            LunaMessage.inList(text: 'No Releases Found'),
-          ],
+  Widget _list(BuildContext context, List<SonarrRelease> releases) {
+    return Consumer<SonarrReleasesState>(
+      builder: (context, state, _) {
+        if (releases?.isEmpty ?? true) {
+          return LunaMessage(
+            text: 'sonarr.NoReleasesFound'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
+            onTap: _refreshKey.currentState.show,
+          );
+        }
+        List<SonarrRelease> _processed = _filterAndSortReleases(
+          releases ?? [],
+          state,
         );
-      return LunaListViewBuilder(
-        controller: scrollController,
-        itemCount: _filtered.length,
-        itemBuilder: (context, index) => SonarrReleasesReleaseTile(
-          key: ObjectKey(_filtered[index].guid),
-          release: _filtered[index],
-          isSeasonRelease: widget.episodeId == null,
-        ),
-      );
-    });
+        return LunaListViewBuilder(
+          controller: scrollController,
+          itemCount: _processed.isEmpty ? 1 : _processed.length,
+          itemBuilder: (context, index) {
+            if ((_processed?.length ?? 0) == 0) {
+              return LunaMessage.inList(text: 'sonarr.NoReleasesFound'.tr());
+            }
+            return SonarrReleasesTile(release: _processed[index]);
+          },
+        );
+      },
+    );
   }
 
-  List<SonarrRelease> _filterAndSort(List<SonarrRelease> releases) {
-    if (releases?.isEmpty ?? true) return releases;
-    List<SonarrRelease> _filtered = List<SonarrRelease>.from(releases);
-    SonarrState _state = context.read<SonarrState>();
-    // Filter
-    _filtered = _filtered.where((release) {
-      if (_state.releasesSearchQuery != null &&
-          _state.releasesSearchQuery.isNotEmpty)
-        return release.title
-            .toLowerCase()
-            .contains(_state.releasesSearchQuery.toLowerCase());
-      return release != null;
-    }).toList();
-    _filtered = _state.releasesHidingType.filter(_filtered);
-    // Sort
-    _filtered =
-        _state.releasesSortType.sort(_filtered, _state.releasesSortAscending);
-    return _filtered;
+  List<SonarrRelease> _filterAndSortReleases(
+    List<SonarrRelease> releases,
+    SonarrReleasesState state,
+  ) {
+    if (releases == null || releases.isEmpty) return releases;
+    List<SonarrRelease> filtered = releases.where(
+      (release) {
+        String _query = state.searchQuery;
+        if (_query != null && _query.isNotEmpty) {
+          return release.title.toLowerCase().contains(_query.toLowerCase());
+        }
+        return release != null;
+      },
+    ).toList();
+    filtered = state.filterType.filter(filtered);
+    filtered = state.sortType.sort(filtered, state.sortAscending);
+    return filtered;
   }
 }

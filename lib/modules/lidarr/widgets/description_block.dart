@@ -9,14 +9,15 @@ class LidarrDescriptionBlock extends StatefulWidget {
   final bool squareImage;
   final Map headers;
 
-  LidarrDescriptionBlock({
+  const LidarrDescriptionBlock({
+    Key key,
     @required this.description,
     @required this.title,
     @required this.uri,
     @required this.fallbackImage,
     @required this.headers,
     this.squareImage = false,
-  });
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -54,13 +55,13 @@ class _State extends State<LidarrDescriptionBlock> {
                     widget.description ?? 'No summary is available.',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 5,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  padding: EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12.0),
                 ),
                 alignment: Alignment.topLeft,
               ),

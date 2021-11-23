@@ -7,7 +7,7 @@ class LidarrMissing extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
   final Function refreshAllPages;
 
-  LidarrMissing({
+  const LidarrMissing({
     Key key,
     @required this.refreshIndicatorKey,
     @required this.refreshAllPages,
@@ -70,7 +70,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
               case ConnectionState.waiting:
               case ConnectionState.active:
               default:
-                return LunaLoader();
+                return const LunaLoader();
             }
           },
         ),

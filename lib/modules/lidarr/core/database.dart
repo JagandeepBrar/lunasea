@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
 
@@ -54,8 +53,8 @@ class LidarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  LidarrDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  LidarrDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'LIDARR_NAVIGATION_INDEX':
         return LidarrDatabaseValue.NAVIGATION_INDEX;
       case 'LIDARR_ADD_MONITORED':

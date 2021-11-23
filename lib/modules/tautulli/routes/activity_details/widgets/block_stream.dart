@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliActivityDetailsStreamBlock extends StatelessWidget {
   final TautulliSession session;
 
-  TautulliActivityDetailsStreamBlock({
+  const TautulliActivityDetailsStreamBlock({
     Key key,
     @required this.session,
   }) : super(key: key);

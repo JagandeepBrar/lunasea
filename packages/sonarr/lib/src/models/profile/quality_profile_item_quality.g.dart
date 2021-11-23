@@ -16,10 +16,18 @@ SonarrQualityProfileItemQuality _$SonarrQualityProfileItemQualityFromJson(
     );
 
 Map<String, dynamic> _$SonarrQualityProfileItemQualityToJson(
-        SonarrQualityProfileItemQuality instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'source': instance.source,
-      'resolution': instance.resolution,
-    };
+    SonarrQualityProfileItemQuality instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  writeNotNull('source', instance.source);
+  writeNotNull('resolution', instance.resolution);
+  return val;
+}

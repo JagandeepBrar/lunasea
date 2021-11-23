@@ -9,41 +9,34 @@ class SonarrState extends LunaModuleState {
 
   @override
   void dispose() {
-    _getQueueTimer?.cancel();
     super.dispose();
   }
 
   @override
   void reset() {
     // Reset stored data
-    _queue = null;
     _series = null;
-    _missing = null;
     _upcoming = null;
-    _history = null;
+    _missing = null;
+
+    _rootFolders = null;
     _qualityProfiles = null;
     _languageProfiles = null;
-    _rootFolders = null;
     _tags = null;
-    _episodes = {};
-    _selectedEpisodes = [];
-    // Reset search query fields
-    _releasesSearchQuery = '';
+
     // Reinitialize
     resetProfile();
-    resetQueue();
-    resetSeries();
-    resetUpcoming();
-    resetMissing();
-    resetHistory();
-    resetQualityProfiles();
-    resetLanguageProfiles();
-    resetRootFolders();
-    resetTags();
+    if (_enabled) {
+      fetchAllSeries();
+      fetchUpcoming();
+      fetchMissing();
+      fetchQualityProfiles();
+      fetchLanguageProfiles();
+      fetchRootFolders();
+      fetchTags();
+    }
     notifyListeners();
   }
-
-  void notify() => notifyListeners();
 
   ///////////////
   /// PROFILE ///
@@ -73,140 +66,19 @@ class SonarrState extends LunaModuleState {
   void resetProfile() {
     ProfileHiveObject _profile = Database.currentProfileObject;
     // Copy profile into state
+    _api = null;
     _enabled = _profile.sonarrEnabled ?? false;
     _host = _profile.sonarrHost ?? '';
     _apiKey = _profile.sonarrKey ?? '';
     _headers = _profile.sonarrHeaders ?? {};
     // Create the API instance if Sonarr is enabled
-    _api = _enabled
-        ? Sonarr(
-            host: _host,
-            apiKey: _apiKey,
-            headers: Map<String, dynamic>.from(_headers),
-          )
-        : null;
-  }
-
-  /////////////
-  /// QUEUE ///
-  /////////////
-
-  /// Timer to handle refreshing queue data
-  Timer _getQueueTimer;
-
-  /// Cancel the periodic timer
-  void createQueueTimer() => _getQueueTimer = Timer.periodic(
-        Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
-        (_) => queue = _api.queue.getQueue(),
+    if (_enabled) {
+      _api = Sonarr(
+        host: _host,
+        apiKey: _apiKey,
+        headers: Map<String, dynamic>.from(_headers),
       );
-
-  /// Cancel the queue timer
-  void cancelQueueTimer() => _getQueueTimer?.cancel();
-
-  /// Storing queue data
-  Future<List<SonarrQueueRecord>> _queue;
-  Future<List<SonarrQueueRecord>> get queue => _queue;
-  set queue(Future<List<SonarrQueueRecord>> queue) {
-    assert(queue != null);
-    _queue = queue;
-    notifyListeners();
-  }
-
-  /// Reset the queue:
-  /// - Cancel timer & clear state of future
-  /// - Recreate timer (if enabled)
-  /// - Set initial state of the future
-  void resetQueue() {
-    cancelQueueTimer();
-    _queue = null;
-    if (_api != null) {
-      _queue = _api.queue.getQueue();
-      createQueueTimer();
     }
-    notifyListeners();
-  }
-
-  ////////////////
-  /// EPISODES ///
-  ////////////////
-
-  Map<int, Future<List<SonarrEpisode>>> _episodes = {};
-  Map<int, Future<List<SonarrEpisode>>> get episodes => _episodes;
-  void fetchEpisodes(int seriesId) {
-    assert(seriesId != null);
-    if (_api != null)
-      _episodes[seriesId] = _api.episode.getSeriesEpisodes(seriesId: seriesId);
-    notifyListeners();
-  }
-
-  List<int> _selectedEpisodes = [];
-  List<int> get selectedEpisodes => _selectedEpisodes;
-  set selectedEpisodes(List<int> selectedEpisodes) {
-    assert(selectedEpisodes != null);
-    _selectedEpisodes = selectedEpisodes;
-    notifyListeners();
-  }
-
-  void addSelectedEpisode(int id) {
-    if (!_selectedEpisodes.contains(id)) _selectedEpisodes.add(id);
-    notifyListeners();
-  }
-
-  void removeSelectedEpisode(int id) {
-    if (_selectedEpisodes.contains(id)) _selectedEpisodes.remove(id);
-    notifyListeners();
-  }
-
-  void toggleSelectedEpisode(int id) {
-    _selectedEpisodes.contains(id)
-        ? _selectedEpisodes.remove(id)
-        : _selectedEpisodes.add(id);
-    notifyListeners();
-  }
-
-  Future<List<SonarrRootFolder>> _rootFolders;
-  Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
-  void resetRootFolders() {
-    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
-    notifyListeners();
-  }
-
-  ////////////////
-  /// RELEASES ///
-  ////////////////
-
-  String _releasesSearchQuery = '';
-  String get releasesSearchQuery => _releasesSearchQuery;
-  set releasesSearchQuery(String releasesSearchQuery) {
-    assert(releasesSearchQuery != null);
-    _releasesSearchQuery = releasesSearchQuery;
-    notifyListeners();
-  }
-
-  SonarrReleasesFilter _releasesHidingType = SonarrReleasesFilter.ALL;
-  SonarrReleasesFilter get releasesHidingType => _releasesHidingType;
-  set releasesHidingType(SonarrReleasesFilter releasesHidingType) {
-    assert(releasesHidingType != null);
-    _releasesHidingType = releasesHidingType;
-    notifyListeners();
-  }
-
-  SonarrReleasesSorting _releasesSortType =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-  SonarrReleasesSorting get releasesSortType => _releasesSortType;
-  set releasesSortType(SonarrReleasesSorting releasesSortType) {
-    assert(releasesSortType != null);
-    _releasesSortType = releasesSortType;
-    notifyListeners();
-  }
-
-  bool _releasesSortAscending =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
-  bool get releasesSortAscending => _releasesSortAscending;
-  set releasesSortAscending(bool releasesSortAscending) {
-    assert(releasesSortAscending != null);
-    _releasesSortAscending = releasesSortAscending;
-    notifyListeners();
   }
 
   //////////////
@@ -230,11 +102,12 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  SonarrSeriesFilter _seriesHidingType = SonarrSeriesFilter.ALL;
-  SonarrSeriesFilter get seriesHidingType => _seriesHidingType;
-  set seriesHidingType(SonarrSeriesFilter seriesHidingType) {
-    assert(seriesHidingType != null);
-    _seriesHidingType = seriesHidingType;
+  SonarrSeriesFilter _seriesFilterType =
+      SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
+  SonarrSeriesFilter get seriesFilterType => _seriesFilterType;
+  set seriesFilterType(SonarrSeriesFilter seriesFilterType) {
+    assert(seriesFilterType != null);
+    _seriesFilterType = seriesFilterType;
     notifyListeners();
   }
 
@@ -247,27 +120,37 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<List<SonarrSeries>> _series;
-  Future<List<SonarrSeries>> get series => _series;
-  set series(Future<List<SonarrSeries>> series) {
-    assert(series != null);
-    _series = series;
+  Future<Map<int, SonarrSeries>> _series;
+  Future<Map<int, SonarrSeries>> get series => _series;
+  void fetchAllSeries() {
+    if (_api != null) {
+      _series = _api.series.getAll().then((series) {
+        return {
+          for (SonarrSeries s in series) s.id: s,
+        };
+      });
+    }
     notifyListeners();
   }
 
-  void resetSeries() {
-    if (_api != null) _series = _api.series.getAllSeries();
-    notifyListeners();
-  }
-
-  Future<void> resetSingleSeries(int seriesId) async {
+  Future<void> fetchSeries(int seriesId) async {
     assert(seriesId != null);
     if (_api != null) {
-      SonarrSeries movie = await _api.series.getSeries(seriesId: seriesId);
-      List<SonarrSeries> allSeries = await _series;
-      int index = allSeries?.indexWhere((s) => s.id == seriesId) ?? -1;
-      if (index >= 0) allSeries[index] = movie;
+      SonarrSeries series = await _api.series.get(seriesId: seriesId);
+      (await _series)[seriesId] = series;
     }
+    notifyListeners();
+  }
+
+  Future<void> setSingleSeries(SonarrSeries series) async {
+    assert(series != null);
+    (await _series)[series.id] = series;
+    notifyListeners();
+  }
+
+  Future<void> removeSingleSeries(int seriesId) async {
+    assert(seriesId != null);
+    (await _series).remove(seriesId);
     notifyListeners();
   }
 
@@ -283,35 +166,12 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetMissing() {
+  void fetchMissing() {
     if (_api != null)
       _missing = _api.wanted.getMissing(
-        pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
         sortDir: SonarrSortDirection.DESCENDING,
         sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
-      );
-    notifyListeners();
-  }
-
-  ///////////////
-  /// HISTORY ///
-  ///////////////
-
-  Future<SonarrHistory> _history;
-  Future<SonarrHistory> get history => _history;
-  set history(Future<SonarrHistory> history) {
-    assert(history != null);
-    _history = history;
-    notifyListeners();
-  }
-
-  void resetHistory() {
-    if (_api != null)
-      _history = _api.history.getHistory(
-        page: 1,
-        pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        sortKey: SonarrHistorySortKey.DATE,
-        sortDirection: SonarrSortDirection.DESCENDING,
       );
     notifyListeners();
   }
@@ -328,20 +188,21 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetUpcoming() {
+  void fetchUpcoming() {
     DateTime start = DateTime.now();
     DateTime end = start
         .add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
     if (_api != null)
-      _upcoming = _api.calendar.getCalendar(
+      _upcoming = _api.calendar.get(
         start: start,
         end: end,
+        includeEpisodeFile: true,
       );
     notifyListeners();
   }
 
   ////////////////
-  /// PROFILES ///
+  /// METADATA ///
   ////////////////
 
   Future<List<SonarrQualityProfile>> _qualityProfiles;
@@ -352,7 +213,7 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetQualityProfiles() {
+  void fetchQualityProfiles() {
     if (_api != null) _qualityProfiles = _api.profile.getQualityProfiles();
     notifyListeners();
   }
@@ -365,14 +226,17 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetLanguageProfiles() {
+  void fetchLanguageProfiles() {
     if (_api != null) _languageProfiles = _api.profile.getLanguageProfiles();
     notifyListeners();
   }
 
-  ////////////
-  /// TAGS ///
-  ////////////
+  Future<List<SonarrRootFolder>> _rootFolders;
+  Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
+  void fetchRootFolders() {
+    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
+    notifyListeners();
+  }
 
   Future<List<SonarrTag>> _tags;
   Future<List<SonarrTag>> get tags => _tags;
@@ -382,32 +246,8 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  void resetTags() {
+  void fetchTags() {
     if (_api != null) _tags = _api.tag.getAllTags();
-    notifyListeners();
-  }
-
-  /////////////////////
-  /// DELETE SERIES ///
-  /////////////////////
-
-  bool _removeSeriesDeleteFiles = false;
-  bool get removeSeriesDeleteFiles => _removeSeriesDeleteFiles;
-  set removeSeriesDeleteFiles(bool removeSeriesDeleteFiles) {
-    assert(removeSeriesDeleteFiles != null);
-    _removeSeriesDeleteFiles = removeSeriesDeleteFiles;
-    notifyListeners();
-  }
-
-  ////////////////////
-  /// DELETE QUEUE ///
-  ////////////////////
-
-  bool _removeQueueBlacklist = false;
-  bool get removeQueueBlacklist => _removeQueueBlacklist;
-  set removeQueueBlacklist(bool removeQueueBlacklist) {
-    assert(removeQueueBlacklist != null);
-    _removeQueueBlacklist = removeQueueBlacklist;
     notifyListeners();
   }
 
@@ -415,38 +255,35 @@ class SonarrState extends LunaModuleState {
   /// IMAGES ///
   //////////////
 
+  String _baseImageURL() {
+    return _host.endsWith('/')
+        ? '${_host}api/MediaCover'
+        : '$_host/api/MediaCover';
+  }
+
   String getBannerURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/banner.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/banner-70.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/banner.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/banner-70.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String getPosterURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/poster.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/poster-500.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/poster.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String getFanartURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/MediaCover'
-          : '$_host/api/MediaCover';
       return highRes
-          ? '$_base/$seriesId/fanart.jpg?apikey=$_apiKey'
-          : '$_base/$seriesId/fanart-360.jpg?apikey=$_apiKey';
+          ? '${_baseImageURL()}/$seriesId/fanart.jpg?apikey=$_apiKey'
+          : '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
     }
     return null;
   }

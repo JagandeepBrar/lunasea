@@ -14,6 +14,10 @@ class SABnzbdHistoryStagesArguments {
 class SABnzbdHistoryStages extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/history/stages';
 
+  const SABnzbdHistoryStages({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SABnzbdHistoryStages> createState() => _State();
 }

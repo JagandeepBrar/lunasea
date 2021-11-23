@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
@@ -78,8 +77,8 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  DashboardDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  DashboardDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'HOME_NAVIGATION_INDEX':
         return DashboardDatabaseValue.NAVIGATION_INDEX;
       case 'HOME_CALENDAR_STARTING_DAY':

@@ -87,7 +87,7 @@ extension TautulliSessionExtension on TautulliSession {
   String get lunaDuration {
     double _percent = (this.progressPercent ?? 0) / 100;
     String _progress = Duration(
-            seconds: ((this.streamDuration ?? Duration(seconds: 0)).inSeconds *
+            seconds: ((this.streamDuration ?? const Duration(seconds: 0)).inSeconds *
                     _percent)
                 .floor())
         .lunaTimestamp;

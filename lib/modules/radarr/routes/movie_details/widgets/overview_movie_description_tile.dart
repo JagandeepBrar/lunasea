@@ -5,11 +5,12 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
   final RadarrMovie movie;
 
-  RadarrMovieDetailsOverviewDescriptionTile({
+  const RadarrMovieDetailsOverviewDescriptionTile({
     Key key,
     @required this.movie,
   }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return LunaFourLineCardWithPoster(
       posterPlaceholder: LunaAssets.blankVideo,

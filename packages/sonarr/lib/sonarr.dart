@@ -15,6 +15,7 @@ class Sonarr {
     required this.episode,
     required this.episodeFile,
     required this.history,
+    required this.importList,
     required this.profile,
     required this.queue,
     required this.release,
@@ -51,6 +52,7 @@ class Sonarr {
       episode: SonarrCommandHandler_Episode(_dio),
       episodeFile: SonarrCommandHandler_EpisodeFile(_dio),
       history: SonarrCommandHandler_History(_dio),
+      importList: SonarrCommandHandler_ImportList(_dio),
       profile: SonarrCommandHandler_Profile(_dio),
       queue: SonarrCommandHandler_Queue(_dio),
       release: SonarrCommandHandler_Release(_dio),
@@ -73,6 +75,7 @@ class Sonarr {
       episode: SonarrCommandHandler_Episode(client),
       episodeFile: SonarrCommandHandler_EpisodeFile(client),
       history: SonarrCommandHandler_History(client),
+      importList: SonarrCommandHandler_ImportList(client),
       profile: SonarrCommandHandler_Profile(client),
       queue: SonarrCommandHandler_Queue(client),
       release: SonarrCommandHandler_Release(client),
@@ -92,6 +95,7 @@ class Sonarr {
   final SonarrCommandHandler_Episode episode;
   final SonarrCommandHandler_EpisodeFile episodeFile;
   final SonarrCommandHandler_History history;
+  final SonarrCommandHandler_ImportList importList;
   final SonarrCommandHandler_Profile profile;
   final SonarrCommandHandler_Queue queue;
   final SonarrCommandHandler_Release release;

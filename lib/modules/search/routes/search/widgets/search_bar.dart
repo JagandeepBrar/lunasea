@@ -6,14 +6,14 @@ class SearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
   final Function(String) submitCallback;
 
-  SearchSearchBar({
+  const SearchSearchBar({
     Key key,
     @required this.submitCallback,
     @required this.scrollController,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(62.0);
+  Size get preferredSize => const Size.fromHeight(62.0);
 
   @override
   State<SearchSearchBar> createState() => _State();
@@ -35,7 +35,7 @@ class _State extends State<SearchSearchBar> {
               onChanged: (value) =>
                   context.read<SearchState>().searchQuery = value,
               onSubmitted: widget.submitCallback,
-              margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+              margin: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
             ),
           ),
         ),

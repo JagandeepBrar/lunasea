@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsHideButton extends StatelessWidget {
+  const LidarrDetailsHideButton({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LunaIconButton(

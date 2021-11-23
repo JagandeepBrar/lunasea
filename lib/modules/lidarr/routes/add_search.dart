@@ -5,6 +5,10 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrAddSearch extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/add/search';
 
+  const LidarrAddSearch({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrAddSearch> createState() => _State();
 }
@@ -76,7 +80,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

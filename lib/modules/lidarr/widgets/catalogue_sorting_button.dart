@@ -5,7 +5,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrCatalogueSortButton extends StatefulWidget {
   final ScrollController controller;
 
-  LidarrCatalogueSortButton({
+  const LidarrCatalogueSortButton({
     Key key,
     @required this.controller,
   }) : super(key: key);
@@ -44,7 +44,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                   children: [
                     Text(
                       LidarrCatalogueSorting.values[index].readable,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                       ),
                     ),

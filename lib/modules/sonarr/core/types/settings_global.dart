@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrGlobalSettingsType {
   WEB_GUI,
-  MANAGE_TAGS,
-  VIEW_QUEUE,
   RUN_RSS_SYNC,
   SEARCH_ALL_MISSING,
   UPDATE_LIBRARY,
@@ -15,10 +15,6 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
     switch (this) {
       case SonarrGlobalSettingsType.WEB_GUI:
         return Icons.language;
-      case SonarrGlobalSettingsType.VIEW_QUEUE:
-        return Icons.queue;
-      case SonarrGlobalSettingsType.MANAGE_TAGS:
-        return Icons.style;
       case SonarrGlobalSettingsType.UPDATE_LIBRARY:
         return Icons.autorenew;
       case SonarrGlobalSettingsType.RUN_RSS_SYNC:
@@ -34,20 +30,48 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
   String get name {
     switch (this) {
       case SonarrGlobalSettingsType.WEB_GUI:
-        return 'View Web GUI';
-      case SonarrGlobalSettingsType.VIEW_QUEUE:
-        return 'View Queue';
-      case SonarrGlobalSettingsType.MANAGE_TAGS:
-        return 'Manage Tags';
+        return 'sonarr.ViewWebGUI'.tr();
       case SonarrGlobalSettingsType.UPDATE_LIBRARY:
-        return 'Update Library';
+        return 'sonarr.UpdateLibrary'.tr();
       case SonarrGlobalSettingsType.RUN_RSS_SYNC:
-        return 'Run RSS Sync';
+        return 'sonarr.RunRSSSync'.tr();
       case SonarrGlobalSettingsType.SEARCH_ALL_MISSING:
-        return 'Search All Missing';
+        return 'sonarr.SearchAllMissing'.tr();
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
-        return 'Backup Database';
+        return 'sonarr.BackupDatabase'.tr();
     }
     throw Exception('Invalid SonarrGlobalSettingsType');
   }
+
+  Future<void> execute(BuildContext context) async {
+    switch (this) {
+      case SonarrGlobalSettingsType.WEB_GUI:
+        return _webGUI(context);
+      case SonarrGlobalSettingsType.RUN_RSS_SYNC:
+        return _runRssSync(context);
+      case SonarrGlobalSettingsType.SEARCH_ALL_MISSING:
+        return _searchAllMissing(context);
+      case SonarrGlobalSettingsType.UPDATE_LIBRARY:
+        return _updateLibrary(context);
+      case SonarrGlobalSettingsType.BACKUP_DATABASE:
+        return _backupDatabase(context);
+    }
+    throw Exception('Invalid RadarrGlobalSettingsType');
+  }
+
+  Future<void> _webGUI(BuildContext context) async =>
+      context.read<SonarrState>().host.lunaOpenGenericLink(
+            headers: context.read<SonarrState>().headers,
+          );
+  Future<void> _backupDatabase(BuildContext context) async =>
+      SonarrAPIController().backupDatabase(context: context);
+  Future<void> _searchAllMissing(BuildContext context) async {
+    bool result = await SonarrDialogs().searchAllMissingEpisodes(context);
+    if (result) SonarrAPIController().missingEpisodesSearch(context: context);
+  }
+
+  Future<void> _runRssSync(BuildContext context) async =>
+      SonarrAPIController().runRSSSync(context: context);
+  Future<void> _updateLibrary(BuildContext context) async =>
+      SonarrAPIController().updateLibrary(context: context);
 }

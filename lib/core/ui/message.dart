@@ -15,7 +15,7 @@ class LunaMessage extends StatelessWidget {
     this.buttonText,
     this.onTap,
     this.useSafeArea = true,
-  }) {
+  }) : super(key: key) {
     assert(text != null);
     if (buttonText != null)
       assert(onTap != null, 'onTap must be defined if buttonText is defined');
@@ -114,8 +114,8 @@ class LunaMessage extends StatelessWidget {
                         fontSize: LunaUI.FONT_SIZE_MESSAGES,
                       ),
                     ),
-                    margin:
-                        EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 24.0, horizontal: 12.0),
                   ),
                 ),
               ],

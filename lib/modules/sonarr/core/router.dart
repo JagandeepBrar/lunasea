@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -14,6 +13,7 @@ class SonarrRouter extends LunaModuleRouter {
     SonarrSeriesDetailsRouter().defineRoute(router);
     SonarrSeasonDetailsRouter().defineRoute(router);
     // Other
+    SonarrHistoryRouter().defineRoute(router);
     SonarrQueueRouter().defineRoute(router);
     SonarrReleasesRouter().defineRoute(router);
     SonarrTagsRouter().defineRoute(router);

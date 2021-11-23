@@ -14,8 +14,16 @@ SonarrEpisodeFileLanguage _$SonarrEpisodeFileLanguageFromJson(
     );
 
 Map<String, dynamic> _$SonarrEpisodeFileLanguageToJson(
-        SonarrEpisodeFileLanguage instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+    SonarrEpisodeFileLanguage instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  return val;
+}

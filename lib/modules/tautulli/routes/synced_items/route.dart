@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -25,6 +24,7 @@ class _State extends State<_Widget>
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetSyncedItems();
     await context.read<TautulliState>().syncedItems;
@@ -66,7 +66,7 @@ class _State extends State<_Widget>
               return LunaMessage.error(onTap: _refreshKey.currentState.show);
             }
             if (snapshot.hasData) return _list(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),

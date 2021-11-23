@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDiscoverPage extends StatefulWidget {
+  const RadarrAddMovieDiscoverPage({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
@@ -56,7 +60,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
               if (snapshot.hasData)
                 return _list(
                     snapshot.data[0], snapshot.data[1], snapshot.data[2]);
-              return LunaLoader();
+              return const LunaLoader();
             },
           ),
         ),

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsAccountSignedOutPage extends StatefulWidget {
   final ScrollController scrollController;
 
-  SettingsAccountSignedOutPage({
+  const SettingsAccountSignedOutPage({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -61,7 +61,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
               width: 200.0,
             ),
           ),
-          padding: EdgeInsets.symmetric(vertical: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
         ),
         AutofillGroup(
           child: LunaCard(
@@ -71,23 +71,23 @@ class _State extends State<SettingsAccountSignedOutPage> {
                 LunaTextInputBar(
                   controller: _emailController,
                   isFormField: true,
-                  margin: EdgeInsets.all(12.0),
+                  margin: const EdgeInsets.all(12.0),
                   labelIcon: Icons.person,
                   labelText: 'settings.Email'.tr(),
                   action: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
-                  autofillHints: [AutofillHints.username, AutofillHints.email],
+                  autofillHints: const [AutofillHints.username, AutofillHints.email],
                 ),
                 LunaTextInputBar(
                   controller: _passwordController,
                   isFormField: true,
                   margin:
-                      EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
+                      const EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
                   labelIcon: Icons.vpn_key,
                   labelText: 'settings.Password'.tr(),
                   obscureText: true,
                   keyboardType: TextInputType.text,
-                  autofillHints: [
+                  autofillHints: const [
                     AutofillHints.password,
                     AutofillHints.newPassword
                   ],
@@ -102,7 +102,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
             child: InkWell(
               child: Text(
                 'settings.ForgotYourPassword'.tr(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: LunaColours.accent,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   fontSize: LunaUI.FONT_SIZE_SUBTITLE,
@@ -113,7 +113,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                   SettingsAccountPasswordResetRouter().navigateTo(context),
             ),
           ),
-          padding: EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
         )
       ],
     );

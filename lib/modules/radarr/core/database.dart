@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/radarr/core/deprecated/availability.dart';
@@ -121,8 +120,8 @@ class RadarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  RadarrDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  RadarrDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'RADARR_NAVIGATION_INDEX':
         return RadarrDatabaseValue.NAVIGATION_INDEX;
       case 'RADARR_NAVIGATION_INDEX_MOVIE_DETAILS':
@@ -391,12 +390,16 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         if (value is int) box.put(this.key, value);
         return;
     }
-    LunaLogger().warning('RadarrDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
+    LunaLogger().warning(
+      'RadarrDatabaseValueExtension',
+      'put',
+      'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}',
+    );
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
+  ValueListenableBuilder listen({
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) =>
       ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,

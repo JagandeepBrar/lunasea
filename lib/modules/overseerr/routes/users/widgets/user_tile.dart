@@ -5,7 +5,7 @@ import 'package:lunasea/modules/overseerr.dart';
 class OverseerrUserTile extends StatelessWidget {
   final OverseerrUser user;
 
-  OverseerrUserTile({
+  const OverseerrUserTile({
     Key key,
     @required this.user,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class OverseerrUserTile extends StatelessWidget {
       subtitle1: TextSpan(text: user.lunaEmail()),
       subtitle2: TextSpan(
         text: user.lunaAmountOfRequests(),
-        style: TextStyle(
+        style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),

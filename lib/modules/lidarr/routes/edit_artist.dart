@@ -14,6 +14,10 @@ class LidarrEditArtistArguments {
 class LidarrEditArtist extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/edit/artist';
 
+  const LidarrEditArtist({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrEditArtist> createState() => _State();
 }
@@ -96,7 +100,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
     return LunaBottomActionBar(
       actions: [
         LunaButton.text(
-          text: 'Update Artist',
+          text: 'lunasea.Update'.tr(),
           icon: Icons.edit_rounded,
           onTap: _save,
         ),
@@ -118,7 +122,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       );

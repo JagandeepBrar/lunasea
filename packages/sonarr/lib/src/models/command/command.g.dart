@@ -28,22 +28,30 @@ SonarrCommand _$SonarrCommandFromJson(Map<String, dynamic> json) =>
       ..stateChangeTime =
           SonarrUtilities.dateTimeFromJson(json['stateChangeTime'] as String?);
 
-Map<String, dynamic> _$SonarrCommandToJson(SonarrCommand instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'message': instance.message,
-      'body': instance.body?.toJson(),
-      'priority': instance.priority,
-      'status': instance.status,
-      'queued': SonarrUtilities.dateTimeToJson(instance.queued),
-      'started': SonarrUtilities.dateTimeToJson(instance.started),
-      'trigger': instance.trigger,
-      'state': instance.state,
-      'manual': instance.manual,
-      'startedOn': SonarrUtilities.dateTimeToJson(instance.startedOn),
-      'stateChangeTime':
-          SonarrUtilities.dateTimeToJson(instance.stateChangeTime),
-      'sendUpdatesToClient': instance.sendUpdatesToClient,
-      'updateScheduledTask': instance.updateScheduledTask,
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrCommandToJson(SonarrCommand instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('message', instance.message);
+  writeNotNull('body', instance.body?.toJson());
+  writeNotNull('priority', instance.priority);
+  writeNotNull('status', instance.status);
+  writeNotNull('queued', SonarrUtilities.dateTimeToJson(instance.queued));
+  writeNotNull('started', SonarrUtilities.dateTimeToJson(instance.started));
+  writeNotNull('trigger', instance.trigger);
+  writeNotNull('state', instance.state);
+  writeNotNull('manual', instance.manual);
+  writeNotNull('startedOn', SonarrUtilities.dateTimeToJson(instance.startedOn));
+  writeNotNull('stateChangeTime',
+      SonarrUtilities.dateTimeToJson(instance.stateChangeTime));
+  writeNotNull('sendUpdatesToClient', instance.sendUpdatesToClient);
+  writeNotNull('updateScheduledTask', instance.updateScheduledTask);
+  writeNotNull('id', instance.id);
+  return val;
+}

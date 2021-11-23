@@ -6,7 +6,7 @@ class RadarrUpcomingTile extends StatefulWidget {
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
 
-  RadarrUpcomingTile({
+  const RadarrUpcomingTile({
     Key key,
     @required this.movie,
     @required this.profile,

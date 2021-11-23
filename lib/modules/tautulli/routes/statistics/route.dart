@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -30,6 +29,7 @@ class _State extends State<_Widget>
     'top_music',
   ];
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetStatistics();
     await context.read<TautulliState>().statistics;
@@ -48,7 +48,7 @@ class _State extends State<_Widget>
     return LunaAppBar(
       title: 'Statistics',
       scrollControllers: [scrollController],
-      actions: [
+      actions: const [
         TautulliStatisticsTypeButton(),
         TautulliStatisticsTimeRangeButton(),
       ],
@@ -75,7 +75,7 @@ class _State extends State<_Widget>
               return LunaMessage.error(onTap: _refreshKey.currentState.show);
             }
             if (snapshot.hasData) return _statistics(snapshot.data);
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       ),

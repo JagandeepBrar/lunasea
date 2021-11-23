@@ -4,10 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingTile extends StatefulWidget {
   final SonarrCalendar record;
+  final SonarrSeries series;
 
-  SonarrUpcomingTile({
+  const SonarrUpcomingTile({
     Key key,
     @required this.record,
+    this.series,
   }) : super(key: key);
 
   @override
@@ -17,24 +19,23 @@ class SonarrUpcomingTile extends StatefulWidget {
 class _State extends State<SonarrUpcomingTile> {
   @override
   Widget build(BuildContext context) {
-    return Selector<SonarrState, Future<SonarrMissing>>(
-      selector: (_, state) => state.missing,
-      builder: (context, missing, _) => LunaFourLineCardWithPoster(
-        backgroundUrl:
-            context.read<SonarrState>().getBannerURL(widget.record.seriesId),
-        posterUrl:
-            context.read<SonarrState>().getPosterURL(widget.record.seriesId),
-        posterHeaders: context.read<SonarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
-        title: widget.record.series.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        subtitle3: _subtitle3(),
-        darken: !widget.record.monitored,
-        onTap: _onTap,
-        onLongPress: _onLongPress,
-        trailing: _trailing(),
-      ),
+    return LunaFourLineCardWithPoster(
+      backgroundUrl:
+          context.read<SonarrState>().getBannerURL(widget.record.seriesId),
+      posterUrl:
+          context.read<SonarrState>().getPosterURL(widget.record.seriesId),
+      posterHeaders: context.read<SonarrState>().headers,
+      posterPlaceholder: LunaAssets.blankVideo,
+      title: widget.record?.series?.title ??
+          widget.series?.title ??
+          LunaUI.TEXT_EMDASH,
+      subtitle1: _subtitle1(),
+      subtitle2: _subtitle2(),
+      subtitle3: _subtitle3(),
+      darken: !widget.record.monitored,
+      onTap: _onTap,
+      onLongPress: _onLongPress,
+      trailing: _trailing(),
     );
   }
 
@@ -51,7 +52,7 @@ class _State extends State<SonarrUpcomingTile> {
             text: widget.record.seasonNumber == 0
                 ? 'Specials '
                 : 'Season ${widget.record.seasonNumber} '),
-        TextSpan(text: LunaUI.TEXT_EMDASH),
+        const TextSpan(text: LunaUI.TEXT_EMDASH),
         TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
       ],
     );
@@ -59,7 +60,7 @@ class _State extends State<SonarrUpcomingTile> {
 
   TextSpan _subtitle2() {
     return TextSpan(
-      style: TextStyle(fontStyle: FontStyle.italic),
+      style: const TextStyle(fontStyle: FontStyle.italic),
       children: [
         TextSpan(text: widget.record.title ?? 'Unknown Title'),
       ],
@@ -82,8 +83,9 @@ class _State extends State<SonarrUpcomingTile> {
           TextSpan(text: widget.record.lunaHasAired ? 'Missing' : 'Unaired'),
         if (widget.record.hasFile)
           TextSpan(
-              text:
-                  'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})'),
+            text:
+                'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})',
+          ),
       ],
     );
   }

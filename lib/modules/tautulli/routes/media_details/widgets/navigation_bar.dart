@@ -16,7 +16,7 @@ class TautulliMediaDetailsNavigationBar extends StatelessWidget {
     'History',
   ];
 
-  TautulliMediaDetailsNavigationBar({
+  const TautulliMediaDetailsNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

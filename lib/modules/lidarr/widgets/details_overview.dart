@@ -5,7 +5,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrDetailsOverview extends StatefulWidget {
   final LidarrCatalogueData data;
 
-  LidarrDetailsOverview({
+  const LidarrDetailsOverview({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -36,6 +36,7 @@ class _State extends State<LidarrDetailsOverview>
           headers: Database.currentProfileObject.getLidarr()['headers'],
         ),
         LunaButtonContainer(
+          buttonsPerRow: 4,
           children: [
             if (widget.data.bandsintownURI != null &&
                 widget.data.bandsintownURI.isNotEmpty)
@@ -44,14 +45,15 @@ class _State extends State<LidarrDetailsOverview>
                 child: InkWell(
                   child: Padding(
                     child: Image.asset(LunaAssets.serviceBandsintown),
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
                       await widget.data?.bandsintownURI?.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
-                margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
             if (widget.data.discogsURI != null &&
                 widget.data.discogsURI.isNotEmpty)
@@ -60,14 +62,15 @@ class _State extends State<LidarrDetailsOverview>
                 child: InkWell(
                   child: Padding(
                     child: Image.asset(LunaAssets.serviceDiscogs),
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
                       await widget.data?.discogsURI?.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
-                margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
             if (widget.data.lastfmURI != null &&
                 widget.data.lastfmURI.isNotEmpty)
@@ -76,14 +79,15 @@ class _State extends State<LidarrDetailsOverview>
                 child: InkWell(
                   child: Padding(
                     child: Image.asset(LunaAssets.serviceLastfm),
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12.0),
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
                       await widget.data?.lastfmURI?.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
-                margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
           ],
         ),

@@ -16,6 +16,10 @@ class LidarrSearchResultsArguments {
 class LidarrSearchResults extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/search/results';
 
+  const LidarrSearchResults({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrSearchResults> createState() => _State();
 }
@@ -29,6 +33,7 @@ class _State extends State<LidarrSearchResults>
   Future<List<LidarrReleaseData>> _future;
   List<LidarrReleaseData> _results = [];
 
+  @override
   Future<void> loadCallback() async {
     _arguments = ModalRoute.of(context).settings.arguments;
     if (mounted) setState(() => _results = []);
@@ -79,7 +84,7 @@ class _State extends State<LidarrSearchResults>
             case ConnectionState.waiting:
             case ConnectionState.active:
             default:
-              return LunaLoader();
+              return const LunaLoader();
           }
         },
       ),

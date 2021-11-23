@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -48,7 +50,7 @@ void _writeFile(String path, Map<dynamic, dynamic> data) {
     print('    Appending localization strings...');
     // Add all the localization strings to the file, and write back the string version of the map.
     fileData.addAll(data);
-    JsonEncoder encoder = JsonEncoder.withIndent('    ');
+    JsonEncoder encoder = const JsonEncoder.withIndent('    ');
     file.writeAsStringSync(
       encoder.convert(fileData),
       mode: FileMode.write,

@@ -18,6 +18,10 @@ class LidarrDetailsAlbumArguments {
 class LidarrDetailsAlbum extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/details/album';
 
+  const LidarrDetailsAlbum({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<LidarrDetailsAlbum> createState() => _State();
 }
@@ -88,7 +92,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
                 case ConnectionState.waiting:
                 case ConnectionState.active:
                 default:
-                  return LunaLoader();
+                  return const LunaLoader();
               }
             },
           ),

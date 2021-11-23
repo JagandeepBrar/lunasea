@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'image.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SonarrSeriesImage {
+class SonarrImage {
   @JsonKey(name: 'coverType')
   String? coverType;
 
@@ -14,7 +14,7 @@ class SonarrSeriesImage {
   @JsonKey(name: 'remoteUrl')
   String? remoteUrl;
 
-  SonarrSeriesImage({
+  SonarrImage({
     this.coverType,
     this.url,
     this.remoteUrl,
@@ -23,8 +23,8 @@ class SonarrSeriesImage {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SonarrSeriesImage.fromJson(Map<String, dynamic> json) =>
-      _$SonarrSeriesImageFromJson(json);
+  factory SonarrImage.fromJson(Map<String, dynamic> json) =>
+      _$SonarrImageFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SonarrSeriesImageToJson(this);
+  Map<String, dynamic> toJson() => _$SonarrImageToJson(this);
 }

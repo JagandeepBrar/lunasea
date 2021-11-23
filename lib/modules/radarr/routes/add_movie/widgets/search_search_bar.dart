@@ -8,7 +8,7 @@ class RadarrAddMovieSearchSearchBar extends StatefulWidget
   final bool autofocus;
   final ScrollController scrollController;
 
-  RadarrAddMovieSearchSearchBar({
+  const RadarrAddMovieSearchSearchBar({
     Key key,
     @required this.query,
     @required this.autofocus,
@@ -16,7 +16,8 @@ class RadarrAddMovieSearchSearchBar extends StatefulWidget
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(62.0);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.appBarHeight);
 
   @override
   State<RadarrAddMovieSearchSearchBar> createState() => _State();
@@ -54,7 +55,7 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
           ),
         ],
       ),
-      padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
+      padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -49,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _sortingMovies(),
         _sortingMoviesDirection(),
         _filteringMovies(),
-        LunaDivider(),
+        const LunaDivider(),
         _sortingReleases(),
         _sortingReleasesDirection(),
         _filteringReleases(),

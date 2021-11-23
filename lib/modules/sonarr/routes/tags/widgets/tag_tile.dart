@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrTagsTagTile extends StatefulWidget {
   final SonarrTag tag;
 
-  SonarrTagsTagTile({
+  const SonarrTagsTagTile({
     Key key,
     @required this.tag,
   }) : super(key: key);
@@ -17,10 +17,11 @@ class SonarrTagsTagTile extends StatefulWidget {
 class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
   List<String> seriesList;
 
+  @override
   Future<void> loadCallback() async {
     await context.read<SonarrState>().series.then((series) {
       List<String> _series = [];
-      series.forEach((element) {
+      series.values.forEach((element) {
         if (element.tags.contains(widget.tag.id)) _series.add(element.title);
       });
       _series.sort();
@@ -85,7 +86,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
             title: 'Deleted Tag',
             message: widget.tag.label,
           );
-          context.read<SonarrState>().resetTags();
+          context.read<SonarrState>().fetchTags();
         }).catchError((error, stack) {
           LunaLogger().error(
             'Failed to delete tag: ${widget.tag.id}',

@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -48,7 +47,7 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -77,7 +76,8 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   void initState() {
     super.initState();
     _pageController = PageController(
-        initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data);
+      initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data,
+    );
   }
 
   RadarrMovie _findMovie(List<RadarrMovie> movies) {
@@ -103,7 +103,9 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   Widget build(BuildContext context) {
     if (widget.movieId <= 0)
       return LunaInvalidRoute(
-          title: 'Movie Details', message: 'Movie Not Found');
+        title: 'Movie Details',
+        message: 'Movie Not Found',
+      );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar(),
@@ -143,7 +145,11 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   Widget _body() {
     return Consumer<RadarrState>(
       builder: (context, state, _) => FutureBuilder(
-        future: Future.wait([state.qualityProfiles, state.tags, state.movies]),
+        future: Future.wait([
+          state.qualityProfiles,
+          state.tags,
+          state.movies,
+        ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)
@@ -166,7 +172,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[1]);
             return _pages(qualityProfile, tags);
           }
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -180,8 +186,11 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
         controller: _pageController,
         children: [
           RadarrMovieDetailsOverviewPage(
-              movie: movie, qualityProfile: qualityProfile, tags: tags),
-          RadarrMovieDetailsFilesPage(),
+            movie: movie,
+            qualityProfile: qualityProfile,
+            tags: tags,
+          ),
+          const RadarrMovieDetailsFilesPage(),
           RadarrMovieDetailsHistoryPage(movie: movie),
           RadarrMovieDetailsCastCrewPage(movie: movie),
         ],

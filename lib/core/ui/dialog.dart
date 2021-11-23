@@ -15,7 +15,7 @@ abstract class LunaDialog {
       Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: LunaDialog.HEADER_SIZE,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
@@ -29,7 +29,7 @@ abstract class LunaDialog {
       TextSpan(
         text: text,
         style: TextStyle(
-          color: color == null ? LunaColours.accent : color,
+          color: color ?? LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           fontSize: fontSize,
         ),
@@ -41,7 +41,7 @@ abstract class LunaDialog {
   }) =>
       RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaDialog.BODY_SIZE,
           ),
           children: children,
@@ -58,7 +58,7 @@ abstract class LunaDialog {
         child: Text(
           text,
           style: TextStyle(
-            color: textColor == null ? LunaColours.accent : textColor,
+            color: textColor ?? LunaColours.accent,
             fontSize: LunaDialog.BUTTON_SIZE,
           ),
         ),
@@ -96,7 +96,7 @@ abstract class LunaDialog {
         child: ListBody(
           children: children,
         ),
-        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
+        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
       );
 
   static Widget textContent({
@@ -105,7 +105,7 @@ abstract class LunaDialog {
   }) =>
       Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: LunaDialog.BODY_SIZE,
         ),
@@ -117,7 +117,7 @@ abstract class LunaDialog {
   }) =>
       TextSpan(
         text: text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: LunaDialog.BODY_SIZE,
         ),
@@ -134,19 +134,19 @@ abstract class LunaDialog {
         controller: controller,
         decoration: InputDecoration(
           labelText: title,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: LunaColours.accent),
           ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
           ),
         ),
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: LunaDialog.BODY_SIZE,
         ),
@@ -171,19 +171,19 @@ abstract class LunaDialog {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: title,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: LunaColours.accent),
           ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
           ),
         ),
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: LunaDialog.BODY_SIZE,
         ),
@@ -212,7 +212,7 @@ abstract class LunaDialog {
         ),
         title: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: LunaDialog.BODY_SIZE,
             color: Colors.white,
           ),
@@ -235,7 +235,7 @@ abstract class LunaDialog {
       CheckboxListTile(
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: BODY_SIZE,
             color: Colors.white,
           ),
@@ -246,15 +246,15 @@ abstract class LunaDialog {
       );
 
   static EdgeInsets tileContentPadding() =>
-      EdgeInsets.symmetric(horizontal: 32.0, vertical: 0.0);
+      const EdgeInsets.symmetric(horizontal: 32.0, vertical: 0.0);
   static EdgeInsets textDialogContentPadding() =>
-      EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
+      const EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
   static EdgeInsets listDialogContentPadding() =>
-      EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0);
+      const EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0);
   static EdgeInsets inputTextDialogContentPadding() =>
-      EdgeInsets.fromLTRB(24.0, 34.0, 24.0, 22.0);
+      const EdgeInsets.fromLTRB(24.0, 34.0, 24.0, 22.0);
   static EdgeInsets inputDialogContentPadding() =>
-      EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
+      const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
 
   static Future<void> dialog({
     @required BuildContext context,

@@ -3,9 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:tuple/tuple.dart';
 
 class RadarrCatalogueRoute extends StatefulWidget {
+  const RadarrCatalogueRoute({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }
@@ -24,7 +27,11 @@ class _State extends State<RadarrCatalogueRoute>
     _state.fetchMovies();
     _state.fetchQualityProfiles();
     _state.fetchTags();
-    await Future.wait([_state.movies, _state.qualityProfiles, _state.tags]);
+    await Future.wait([
+      _state.movies,
+      _state.qualityProfiles,
+      _state.tags,
+    ]);
   }
 
   @override
@@ -34,15 +41,15 @@ class _State extends State<RadarrCatalogueRoute>
       scaffoldKey: _scaffoldKey,
       body: _body(),
       appBar: _appBar(),
-      extendBody: true,
     );
   }
 
   Widget _appBar() {
     return LunaAppBar.empty(
       child: RadarrCatalogueSearchBar(
-          scrollController: RadarrNavigationBar.scrollControllers[0]),
-      height: 62.0,
+        scrollController: RadarrNavigationBar.scrollControllers[0],
+      ),
+      height: LunaTextInputBar.appBarHeight,
     );
   }
 
@@ -55,32 +62,65 @@ class _State extends State<RadarrCatalogueRoute>
               RadarrState,
               Tuple2<Future<List<RadarrMovie>>,
                   Future<List<RadarrQualityProfile>>>>(
-          selector: (_, state) => Tuple2(state.movies, state.qualityProfiles),
+          selector: (_, state) => Tuple2(
+                state.movies,
+                state.qualityProfiles,
+              ),
           builder: (context, tuple, _) {
             return FutureBuilder(
-              future: Future.wait([tuple.item1, tuple.item2]),
+              future: Future.wait([
+                tuple.item1,
+                tuple.item2,
+              ]),
               builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if (snapshot.hasError) {
-                  if (snapshot.connectionState != ConnectionState.waiting)
+                  if (snapshot.connectionState != ConnectionState.waiting) {
                     LunaLogger().error(
                       'Unable to fetch Radarr movies',
                       snapshot.error,
                       snapshot.stackTrace,
                     );
+                  }
                   return LunaMessage.error(
-                      onTap: _refreshKey.currentState.show);
+                    onTap: _refreshKey.currentState.show,
+                  );
                 }
                 if (snapshot.hasData)
-                  return _movies(snapshot.data[0], snapshot.data[1]);
-                return LunaLoader();
+                  return _movies(
+                    snapshot.data[0],
+                    snapshot.data[1],
+                  );
+                return const LunaLoader();
               },
             );
           }),
     );
   }
 
+  List<RadarrMovie> _filterAndSort(
+    List<RadarrMovie> movies,
+    String query,
+  ) {
+    if (movies?.isEmpty ?? true) return movies;
+    RadarrMoviesSorting sorting = context.watch<RadarrState>().moviesSortType;
+    RadarrMoviesFilter filter = context.watch<RadarrState>().moviesFilterType;
+    bool ascending = context.watch<RadarrState>().moviesSortAscending;
+    // Filter
+    List<RadarrMovie> filtered = movies.where((movie) {
+      if (query != null && query.isNotEmpty && movie.id != null)
+        return movie.title.toLowerCase().contains(query.toLowerCase());
+      return (movie != null && movie.id != null);
+    }).toList();
+    filtered = filter.filter(filtered);
+    // Sort
+    filtered = sorting.sort(filtered, ascending);
+    return filtered;
+  }
+
   Widget _movies(
-      List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
+    List<RadarrMovie> movies,
+    List<RadarrQualityProfile> qualityProfiles,
+  ) {
     if ((movies?.length ?? 0) == 0)
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
@@ -107,8 +147,10 @@ class _State extends State<RadarrCatalogueRoute>
                               ])
                             : 'radarr.SearchFor'.tr(args: ['"$query"']),
                         backgroundColor: LunaColours.accent,
-                        onTap: () async => RadarrAddMovieRouter()
-                            .navigateTo(context, query: query ?? ''),
+                        onTap: () async => RadarrAddMovieRouter().navigateTo(
+                          context,
+                          query: query ?? '',
+                        ),
                       ),
                     ],
                   ),
@@ -120,28 +162,11 @@ class _State extends State<RadarrCatalogueRoute>
             itemBuilder: (context, index) => RadarrCatalogueTile(
               movie: _filtered[index],
               profile: qualityProfiles.firstWhere(
-                  (element) => element.id == _filtered[index].qualityProfileId,
-                  orElse: null),
+                (element) => element.id == _filtered[index].qualityProfileId,
+                orElse: () => null,
+              ),
             ),
           );
         });
-  }
-
-  List<RadarrMovie> _filterAndSort(List<RadarrMovie> movies, String query) {
-    if (movies?.isEmpty ?? true) return movies;
-    // Pull values from state
-    RadarrMoviesSorting sorting = context.read<RadarrState>().moviesSortType;
-    RadarrMoviesFilter filter = context.read<RadarrState>().moviesFilterType;
-    bool ascending = context.read<RadarrState>().moviesSortAscending;
-    // Filter
-    List<RadarrMovie> filtered = movies.where((movie) {
-      if (query != null && query.isNotEmpty && movie.id != null)
-        return movie.title.toLowerCase().contains(query.toLowerCase());
-      return (movie != null && movie.id != null);
-    }).toList();
-    filtered = filter.filter(filtered);
-    // Sort
-    filtered = sorting.sort(filtered, ascending);
-    return filtered;
   }
 }

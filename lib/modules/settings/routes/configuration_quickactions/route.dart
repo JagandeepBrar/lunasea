@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -11,6 +10,7 @@ class SettingsConfigurationQuickActionsRouter extends SettingsPageRouter {
   @override
   Widget widget() => _Widget();
 
+  @override
   void defineRoute(FluroRouter router) {
     super.noParameterRouteDefinition(router);
   }

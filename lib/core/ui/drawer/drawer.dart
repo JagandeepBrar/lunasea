@@ -5,9 +5,10 @@ import 'package:lunasea/modules/wake_on_lan.dart';
 class LunaDrawer extends StatelessWidget {
   final String page;
 
-  LunaDrawer({
+  const LunaDrawer({
+    Key key,
     @required this.page,
-  });
+  }) : super(key: key);
 
   static List<LunaModule> moduleOrderedList() {
     LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
@@ -34,8 +35,8 @@ class LunaDrawer extends StatelessWidget {
               children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
                   ? _getAlphabeticalOrder(context)
                   : _getManualOrder(context),
-              padding: EdgeInsets.only(bottom: 8.0),
-              physics: ClampingScrollPhysics(),
+              padding: const EdgeInsets.only(bottom: 8.0),
+              physics: const ClampingScrollPhysics(),
             ),
           ),
         ),
@@ -48,7 +49,7 @@ class LunaDrawer extends StatelessWidget {
       LunaDrawerHeader(),
       _buildEntry(context: context, module: LunaModule.DASHBOARD),
       _buildEntry(context: context, module: LunaModule.SETTINGS),
-      LunaDivider(),
+      const LunaDivider(),
     ];
   }
 
@@ -67,7 +68,7 @@ class LunaDrawer extends StatelessWidget {
             module: module,
           );
         }
-        return SizedBox(height: 0.0);
+        return const SizedBox(height: 0.0);
       }),
     ];
   }
@@ -84,7 +85,7 @@ class LunaDrawer extends StatelessWidget {
             module: module,
           );
         }
-        return SizedBox(height: 0.0);
+        return const SizedBox(height: 0.0);
       }),
     ];
   }
@@ -97,12 +98,12 @@ class LunaDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(
         module.icon,
-        color: currentPage ? LunaColours.accent : Colors.white,
+        color: currentPage ? module.color : Colors.white,
       ),
       title: Text(
         module.name,
         style: TextStyle(
-          color: currentPage ? LunaColours.accent : Colors.white,
+          color: currentPage ? module.color : Colors.white,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
       ),
@@ -110,7 +111,7 @@ class LunaDrawer extends StatelessWidget {
         Navigator.of(context).pop();
         if (!currentPage) module.launch();
       },
-      contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+      contentPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
   }
 
@@ -119,7 +120,7 @@ class LunaDrawer extends StatelessWidget {
       leading: Icon(LunaModule.WAKE_ON_LAN.icon),
       title: Text(
         LunaModule.WAKE_ON_LAN.name,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
@@ -140,7 +141,7 @@ class LunaDrawer extends StatelessWidget {
           );
         });
       },
-      contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+      contentPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
   }
 }

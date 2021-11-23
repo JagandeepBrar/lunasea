@@ -14,7 +14,7 @@ class LunaScaffold extends StatelessWidget {
   /// Called when [LunaDatabaseValue.ENABLED_PROFILE] has changed. Triggered within the build function.
   final void Function(BuildContext) onProfileChange;
 
-  LunaScaffold({
+  const LunaScaffold({
     Key key,
     @required this.scaffoldKey,
     this.appBar,

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
   final TautulliPlexLog log;
 
-  TautulliLogsPlexMediaScannerLogTile({
+  const TautulliLogsPlexMediaScannerLogTile({
     Key key,
     @required this.log,
   }) : super(key: key);
@@ -25,7 +25,7 @@ class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
   TextSpan _subtitle2() {
     return TextSpan(
       text: log.level ?? LunaUI.TEXT_EMDASH,
-      style: TextStyle(
+      style: const TextStyle(
         color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),

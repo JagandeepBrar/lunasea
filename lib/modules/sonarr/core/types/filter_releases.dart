@@ -1,13 +1,33 @@
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+part 'filter_releases.g.dart';
+
+@HiveType(typeId: 28, adapterName: 'SonarrReleasesFilterAdapter')
 enum SonarrReleasesFilter {
+  @HiveField(0)
   ALL,
+  @HiveField(1)
   APPROVED,
+  @HiveField(2)
   REJECTED,
 }
 
 extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
-  String get value {
+  SonarrReleasesFilter fromKey(String key) {
+    switch (key) {
+      case 'all':
+        return SonarrReleasesFilter.ALL;
+      case 'approved':
+        return SonarrReleasesFilter.APPROVED;
+      case 'rejected':
+        return SonarrReleasesFilter.REJECTED;
+      default:
+        return null;
+    }
+  }
+
+  String get key {
     switch (this) {
       case SonarrReleasesFilter.ALL:
         return 'all';
@@ -16,26 +36,26 @@ extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
       case SonarrReleasesFilter.REJECTED:
         return 'rejected';
     }
-    throw Exception('value not found');
+    throw Exception('Invalid SonarrReleasesFilter');
   }
 
   String get readable {
     switch (this) {
       case SonarrReleasesFilter.ALL:
-        return 'All';
+        return 'sonarr.All'.tr();
       case SonarrReleasesFilter.APPROVED:
-        return 'Approved';
+        return 'sonarr.Approved'.tr();
       case SonarrReleasesFilter.REJECTED:
-        return 'Rejected';
+        return 'sonarr.Rejected'.tr();
     }
-    throw Exception('readable not found');
+    throw Exception('Invalid SonarrReleasesFilter');
   }
 
   List<SonarrRelease> filter(List<SonarrRelease> releases) =>
-      _Sorter().byType(releases, this);
+      _Filterer().byType(releases, this);
 }
 
-class _Sorter {
+class _Filterer {
   List<SonarrRelease> byType(
     List<SonarrRelease> releases,
     SonarrReleasesFilter type,

@@ -33,28 +33,37 @@ SonarrAddedRelease _$SonarrAddedReleaseFromJson(Map<String, dynamic> json) =>
       special: json['special'] as bool?,
     );
 
-Map<String, dynamic> _$SonarrAddedReleaseToJson(SonarrAddedRelease instance) =>
-    <String, dynamic>{
-      'guid': instance.guid,
-      'qualityWeight': instance.qualityWeight,
-      'age': instance.age,
-      'ageHours': instance.ageHours,
-      'ageMinutes': instance.ageMinutes,
-      'size': instance.size,
-      'indexerId': instance.indexerId,
-      'fullSeason': instance.fullSeason,
-      'seasonNumber': instance.seasonNumber,
-      'approved': instance.approved,
-      'temporarilyRejected': instance.temporarilyRejected,
-      'rejected': instance.rejected,
-      'tvdbId': instance.tvdbId,
-      'tvRageId': instance.tvRageId,
-      'publishDate': SonarrUtilities.dateTimeToJson(instance.publishDate),
-      'downloadAllowed': instance.downloadAllowed,
-      'releaseWeight': instance.releaseWeight,
-      'protocol': instance.protocol,
-      'isDaily': instance.isDaily,
-      'isAbsoluteNumbering': instance.isAbsoluteNumbering,
-      'isPossibleSpecialEpisode': instance.isPossibleSpecialEpisode,
-      'special': instance.special,
-    };
+Map<String, dynamic> _$SonarrAddedReleaseToJson(SonarrAddedRelease instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('guid', instance.guid);
+  writeNotNull('qualityWeight', instance.qualityWeight);
+  writeNotNull('age', instance.age);
+  writeNotNull('ageHours', instance.ageHours);
+  writeNotNull('ageMinutes', instance.ageMinutes);
+  writeNotNull('size', instance.size);
+  writeNotNull('indexerId', instance.indexerId);
+  writeNotNull('fullSeason', instance.fullSeason);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  writeNotNull('approved', instance.approved);
+  writeNotNull('temporarilyRejected', instance.temporarilyRejected);
+  writeNotNull('rejected', instance.rejected);
+  writeNotNull('tvdbId', instance.tvdbId);
+  writeNotNull('tvRageId', instance.tvRageId);
+  writeNotNull(
+      'publishDate', SonarrUtilities.dateTimeToJson(instance.publishDate));
+  writeNotNull('downloadAllowed', instance.downloadAllowed);
+  writeNotNull('releaseWeight', instance.releaseWeight);
+  writeNotNull('protocol', instance.protocol);
+  writeNotNull('isDaily', instance.isDaily);
+  writeNotNull('isAbsoluteNumbering', instance.isAbsoluteNumbering);
+  writeNotNull('isPossibleSpecialEpisode', instance.isPossibleSpecialEpisode);
+  writeNotNull('special', instance.special);
+  return val;
+}

@@ -6,7 +6,7 @@ class RadarrCatalogueTile extends StatefulWidget {
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
 
-  RadarrCatalogueTile({
+  const RadarrCatalogueTile({
     Key key,
     @required this.movie,
     @required this.profile,
@@ -105,7 +105,7 @@ class _State extends State<RadarrCatalogueTile> {
         .withOpacity(widget.movie.monitored ? 1 : 0.30);
     return Padding(
       child: Icon(icon, size: 16.0, color: _color),
-      padding: EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.only(right: 8.0),
     );
   }
 
@@ -122,7 +122,7 @@ class _State extends State<RadarrCatalogueTile> {
           child: widget.movie.hasFile
               ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
               : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
-          padding: EdgeInsets.only(top: 1.5),
+          padding: const EdgeInsets.only(top: 1.5),
         ),
       ],
     );

@@ -1,26 +1,48 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000001)
 
 #### NEW
+
+- `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
+- `[Notifications]` Support time-sensitive notifications
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
+- `[Sonarr]` (Catalogue) Many additional sorting and filtering options
+- `[Sonarr]` (Catalogue) Ability to set default filtering method
+- `[Sonarr]` (Episodes) Entirely revamped details view
+- `[Sonarr]` (Episodes) View media info for downloaded episodes
+- `[Sonarr]` (Episodes) View history for a single episode
+- `[Sonarr]` (Season Details) View history for a single season
+- `[Sonarr]` (Series Details) View history for a single series
+- `[Sonarr]` (History) Now an infinite scrolling list
+- `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
+- `[Sonarr]` (Home) "History" tab has been replaced with a "More" tab
+- `[Sonarr]` (Releases) Ability to set default filtering method
+- `[Sonarr]` (Releases) Now shows preferred word score
 
-#### FIXES
-- `[Flutter]` Update packages
-- `[Flutter]` Upgrade to Firebase SDK v8.7.0
+#### TWEAKS
 
-## v5.1.1 (50101002)
+- `[Dashboard]` (Modules) Always use module's brand colour for module list
+- `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
 
 #### FIXES
 
 - `[Dashboard]` Only show calendar type switcher icon when on the calendar page
 - `[Flutter]` Update packages
-- `[Flutter]` Upgrade to Firebase SDK v8.3.0
+- `[Flutter]` Upgrade to Firebase SDK v8.9.0
+- `[Settings]` (Calendar) Starting type would have incorrect icons
+- `[Settings]` (Notifications) Overseerr would not be displayed
+- `[Sonarr]` Now only utilizes v3 API routes
+- `[Sonarr]` (Edit) Vastly speed up response time on editing a series
+- `[Sonarr]` (Seasons) Now correctly calculates available episode count in season list
+- `[Networking]` TLS v1.3 is now fully supported
+- `[UI/UX]` (Bottom Sheet) Tightly size all bottom sheets to the content
 - `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
 - `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views
-- `[UI/UX]` (Router) OSlide transitions between pages could not occur on some devices
+- `[UI/UX]` (Router) Slide transitions between pages could not occur on some devices
 - `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
 - `[UI/UX]` (Theme) Remove deprecated theme values
+- `[UI/UX]` Many minor fixes in the user interface and experience
 
 ## v5.1.0 (50100004)
 

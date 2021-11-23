@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -46,7 +45,7 @@ class RadarrMoviesEditRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -86,7 +85,7 @@ class _State extends State<_Widget>
                 state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
             bottomNavigationBar: state == LunaLoadingState.ERROR
                 ? null
-                : RadarrEditMovieActionBar(),
+                : const RadarrEditMovieActionBar(),
           );
         });
   }
@@ -107,19 +106,17 @@ class _State extends State<_Widget>
 
   Widget _body(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait(
-        [
-          context.select<RadarrState, Future<List<RadarrMovie>>>(
-            (state) => state.movies,
-          ),
-          context.select<RadarrState, Future<List<RadarrQualityProfile>>>(
-            (state) => state.qualityProfiles,
-          ),
-          context.select<RadarrState, Future<List<RadarrTag>>>(
-            (state) => state.tags,
-          ),
-        ],
-      ),
+      future: Future.wait([
+        context.select<RadarrState, Future<List<RadarrMovie>>>(
+          (state) => state.movies,
+        ),
+        context.select<RadarrState, Future<List<RadarrQualityProfile>>>(
+          (state) => state.qualityProfiles,
+        ),
+        context.select<RadarrState, Future<List<RadarrTag>>>(
+          (state) => state.tags,
+        ),
+      ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
           return LunaMessage.error(onTap: loadCallback);
@@ -130,7 +127,7 @@ class _State extends State<_Widget>
             (movie) => movie?.id == widget.movieId,
             orElse: () => null,
           );
-          if (movie == null) return LunaLoader();
+          if (movie == null) return const LunaLoader();
           return _list(
             context,
             movie: movie,
@@ -138,7 +135,7 @@ class _State extends State<_Widget>
             tags: snapshot.data[2],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }
@@ -160,11 +157,11 @@ class _State extends State<_Widget>
     return LunaListView(
       controller: scrollController,
       children: [
-        RadarrMoviesEditMonitoredTile(),
-        RadarrMoviesEditMinimumAvailabilityTile(),
+        const RadarrMoviesEditMonitoredTile(),
+        const RadarrMoviesEditMinimumAvailabilityTile(),
         RadarrMoviesEditQualityProfileTile(profiles: qualityProfiles),
-        RadarrMoviesEditPathTile(),
-        RadarrMoviesEditTagsTile(),
+        const RadarrMoviesEditPathTile(),
+        const RadarrMoviesEditTagsTile(),
       ],
     );
   }

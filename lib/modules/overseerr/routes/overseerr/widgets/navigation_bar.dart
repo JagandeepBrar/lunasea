@@ -18,7 +18,7 @@ class OverseerrNavigationBar extends StatelessWidget {
         'Users',
       ];
 
-  OverseerrNavigationBar({
+  const OverseerrNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

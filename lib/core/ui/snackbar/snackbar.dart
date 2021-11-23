@@ -51,7 +51,7 @@ Future<void> showLunaSnackBar({
     showFlash(
       context: LunaState.navigatorKey.currentContext,
       duration:
-          duration != null ? duration : Duration(seconds: showButton ? 4 : 2),
+          duration ?? Duration(seconds: showButton ? 4 : 2),
       builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
         controller: controller,
@@ -62,7 +62,7 @@ Future<void> showLunaSnackBar({
               color: Colors.black.withOpacity(0.10))
         ],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-        margin: EdgeInsets.all(_PADDING),
+        margin: const EdgeInsets.all(_PADDING),
         behavior: FlashBehavior.floating,
         position: position,
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -71,14 +71,14 @@ Future<void> showLunaSnackBar({
         child: FlashBar(
           title: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               fontSize: LunaUI.FONT_SIZE_TITLE,
             ),
           ),
           content: Text(
             message,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
@@ -89,13 +89,13 @@ Future<void> showLunaSnackBar({
               icon: type.icon,
               color: type.color,
             ),
-            padding: EdgeInsets.only(left: _PADDING),
+            padding: const EdgeInsets.only(left: _PADDING),
           ),
           primaryAction: showButton
               ? TextButton(
                   child: Text(
                     buttonText.toUpperCase(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                       color: LunaColours.accent,
                     ),

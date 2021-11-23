@@ -6,7 +6,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
   final TautulliUpdateCheck update;
 
-  TautulliCheckForUpdatesTautulliTile({
+  const TautulliCheckForUpdatesTautulliTile({
     Key key,
     @required this.update,
   }) : super(key: key);
@@ -38,13 +38,13 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
   Widget _subtitle() {
     return RichText(
       text: TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white70,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
           if (!update.update)
-            TextSpan(
+            const TextSpan(
               text: 'No Updates Available\n',
               style: TextStyle(
                 color: LunaColours.accent,
@@ -52,7 +52,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
               ),
             ),
           if (update.update)
-            TextSpan(
+            const TextSpan(
               text: 'Update Available\n',
               style: TextStyle(
                 color: LunaColours.orange,

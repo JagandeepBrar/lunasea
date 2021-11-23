@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -40,7 +39,7 @@ class TautulliUserDetailsRouter extends TautulliPageRouter {
 class _Widget extends StatefulWidget {
   final int userId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.userId,
   }) : super(key: key);
@@ -61,6 +60,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     );
   }
 
+  @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetUsers();
     await context.read<TautulliState>().users;
@@ -117,7 +117,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
                 );
               return _page(user);
             }
-            return LunaLoader();
+            return const LunaLoader();
           },
         ),
       );

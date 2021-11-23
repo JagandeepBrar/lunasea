@@ -7,7 +7,7 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
   final double _imageDimension = 83.0;
   final double _padding = 8.0;
 
-  TautulliStatisticsRecentlyWatchedTile({
+  const TautulliStatisticsRecentlyWatchedTile({
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -49,7 +49,7 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
 
   Widget _details(BuildContext context) => Expanded(
         child: Padding(
-          child: Container(
+          child: SizedBox(
             child: Column(
               children: [
                 _title,
@@ -72,23 +72,23 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
 
   Widget _subtitle(BuildContext context) => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
           children: <TextSpan>[
             TextSpan(text: data['friendly_name'] ?? 'Unknown User'),
-            TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
             data['player'] != null
                 ? TextSpan(text: data['player'])
-                : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
-            TextSpan(text: '\n'),
+                : const TextSpan(text: LunaUI.TEXT_EMDASH),
+            const TextSpan(text: '\n'),
             data['last_watch'] != null
                 ? TextSpan(
                     text:
                         'Watched ${DateTime.fromMillisecondsSinceEpoch(data['last_watch'] * 1000)?.lunaAge ?? 'Unknown'}',
                   )
-                : TextSpan(text: LunaUI.TEXT_EMDASH)
+                : const TextSpan(text: LunaUI.TEXT_EMDASH)
           ],
         ),
         softWrap: false,

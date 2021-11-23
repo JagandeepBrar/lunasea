@@ -7,10 +7,11 @@ class LunaHighlightedNode extends StatelessWidget {
   final String text;
 
   LunaHighlightedNode({
+    Key key,
     @required this.text,
     this.backgroundColor = LunaColours.accent,
     this.textColor = Colors.white,
-  }) {
+  }) : super(key: key) {
     assert(text != null);
   }
 
@@ -27,7 +28,7 @@ class LunaHighlightedNode extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       ),
       decoration: BoxDecoration(
         color: backgroundColor,

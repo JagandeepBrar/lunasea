@@ -25,26 +25,39 @@ SonarrEpisode _$SonarrEpisodeFromJson(Map<String, dynamic> json) =>
       monitored: json['monitored'] as bool?,
       absoluteEpisodeNumber: json['absoluteEpisodeNumber'] as int?,
       unverifiedSceneNumbering: json['unverifiedSceneNumbering'] as bool?,
-      lastSearchTime:
-          SonarrUtilities.dateTimeFromJson(json['lastSearchTime'] as String?),
+      series: json['series'] == null
+          ? null
+          : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
       id: json['id'] as int?,
-    );
+    )..images = (json['images'] as List<dynamic>?)
+        ?.map((e) => SonarrImage.fromJson(e as Map<String, dynamic>))
+        .toList();
 
-Map<String, dynamic> _$SonarrEpisodeToJson(SonarrEpisode instance) =>
-    <String, dynamic>{
-      'seriesId': instance.seriesId,
-      'episodeFileId': instance.episodeFileId,
-      'seasonNumber': instance.seasonNumber,
-      'episodeNumber': instance.episodeNumber,
-      'title': instance.title,
-      'airDate': instance.airDate,
-      'airDateUtc': SonarrUtilities.dateTimeToJson(instance.airDateUtc),
-      'overview': instance.overview,
-      'episodeFile': instance.episodeFile?.toJson(),
-      'hasFile': instance.hasFile,
-      'monitored': instance.monitored,
-      'absoluteEpisodeNumber': instance.absoluteEpisodeNumber,
-      'unverifiedSceneNumbering': instance.unverifiedSceneNumbering,
-      'lastSearchTime': SonarrUtilities.dateTimeToJson(instance.lastSearchTime),
-      'id': instance.id,
-    };
+Map<String, dynamic> _$SonarrEpisodeToJson(SonarrEpisode instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('episodeFileId', instance.episodeFileId);
+  writeNotNull('seasonNumber', instance.seasonNumber);
+  writeNotNull('episodeNumber', instance.episodeNumber);
+  writeNotNull('title', instance.title);
+  writeNotNull('airDate', instance.airDate);
+  writeNotNull(
+      'airDateUtc', SonarrUtilities.dateTimeToJson(instance.airDateUtc));
+  writeNotNull('overview', instance.overview);
+  writeNotNull('episodeFile', instance.episodeFile?.toJson());
+  writeNotNull('hasFile', instance.hasFile);
+  writeNotNull('monitored', instance.monitored);
+  writeNotNull('absoluteEpisodeNumber', instance.absoluteEpisodeNumber);
+  writeNotNull('unverifiedSceneNumbering', instance.unverifiedSceneNumbering);
+  writeNotNull('series', instance.series?.toJson());
+  writeNotNull('images', instance.images?.map((e) => e.toJson()).toList());
+  writeNotNull('id', instance.id);
+  return val;
+}

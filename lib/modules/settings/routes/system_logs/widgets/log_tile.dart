@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class SettingsSystemLogTile extends StatelessWidget {
   final LunaLogHiveObject log;
 
-  SettingsSystemLogTile({
+  const SettingsSystemLogTile({
     Key key,
     @required this.log,
   }) : super(key: key);

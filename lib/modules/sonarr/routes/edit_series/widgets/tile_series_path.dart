@@ -3,11 +3,15 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
+  const SonarrSeriesEditSeriesPathTile({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Series Path'),
+      title: LunaText.title(text: 'sonarr.SeriesPath'.tr()),
       subtitle: LunaText.subtitle(
           text: context.watch<SonarrSeriesEditState>().seriesPath ??
               LunaUI.TEXT_EMDASH),
@@ -19,7 +23,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     Tuple2<bool, String> _values = await LunaDialogs().editText(
       context,
-      'Series Path',
+      'sonarr.SeriesPath'.tr(),
       prefill: context.read<SonarrSeriesEditState>().seriesPath,
     );
     if (_values.item1)

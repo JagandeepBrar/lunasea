@@ -16,8 +16,16 @@ SonarrQueueStatusMessage _$SonarrQueueStatusMessageFromJson(
     );
 
 Map<String, dynamic> _$SonarrQueueStatusMessageToJson(
-        SonarrQueueStatusMessage instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'messages': instance.messages,
-    };
+    SonarrQueueStatusMessage instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('messages', instance.messages);
+  return val;
+}

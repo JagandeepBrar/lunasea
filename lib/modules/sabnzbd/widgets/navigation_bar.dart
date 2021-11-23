@@ -16,7 +16,7 @@ class SABnzbdNavigationBar extends StatelessWidget {
     'History',
   ];
 
-  SABnzbdNavigationBar({
+  const SABnzbdNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

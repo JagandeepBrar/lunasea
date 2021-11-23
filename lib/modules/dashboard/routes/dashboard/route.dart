@@ -68,7 +68,7 @@ class _State extends State<_DashboardHomeRoute> {
   }
 
   List<Widget> get _tabs => [
-        DashboardModulesRoute(),
-        DashboardCalendarRoute(),
+        const DashboardModulesRoute(),
+        const DashboardCalendarRoute(),
       ];
 }

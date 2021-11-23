@@ -1,113 +1,99 @@
-
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sonarr/models.dart';
 import 'package:sonarr/utilities.dart';
+import 'package:sonarr/models.dart';
 
 part 'calendar.g.dart';
 
-/// Model for calendar entries from Sonarr.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SonarrCalendar {
-    /// Series identifier
-    @JsonKey(name: 'seriesId')
-    int? seriesId;
+  @JsonKey(name: 'seriesId')
+  int? seriesId;
 
-    /// Episode file identifier
-    @JsonKey(name: 'episodeFileId')
-    int? episodeFileId;
+  @JsonKey(name: 'episodeFileId')
+  int? episodeFileId;
 
-    /// Season Number
-    @JsonKey(name: 'seasonNumber')
-    int? seasonNumber;
+  @JsonKey(name: 'seasonNumber')
+  int? seasonNumber;
 
-    /// Episode Number
-    @JsonKey(name: 'episodeNumber')
-    int? episodeNumber;
+  @JsonKey(name: 'episodeNumber')
+  int? episodeNumber;
 
-    /// Title
-    @JsonKey(name: 'title')
-    String? title;
+  @JsonKey(name: 'title')
+  String? title;
 
-    /// Air date
-    @JsonKey(name: 'airDate')
-    String? airDate;
+  @JsonKey(name: 'airDate')
+  String? airDate;
 
-    /// [DateTime] object containing the air date
-    @JsonKey(name: 'airDateUtc', fromJson: SonarrUtilities.dateTimeFromJson, toJson: SonarrUtilities.dateTimeToJson)
-    DateTime? airDateUtc;
+  @JsonKey(
+    name: 'airDateUtc',
+    fromJson: SonarrUtilities.dateTimeFromJson,
+    toJson: SonarrUtilities.dateTimeToJson,
+  )
+  DateTime? airDateUtc;
 
-    /// [SonarrEpisodeFile] object containing the episode file details (if available)
-    @JsonKey(name: 'episodeFile')
-    SonarrEpisodeFile? episodeFile;
+  @JsonKey(name: 'overview')
+  String? overview;
 
-    /// Overview of the episode
-    @JsonKey(name: 'overview')
-    String? overview;
+  @JsonKey(name: 'episodeFile')
+  SonarrEpisodeFile? episodeFile;
 
-    /// Does the episode have a file?
-    @JsonKey(name: 'hasFile')
-    bool? hasFile;
+  @JsonKey(name: 'hasFile')
+  bool? hasFile;
 
-    /// Is the episode monitored?
-    @JsonKey(name: 'monitored')
-    bool? monitored;
+  @JsonKey(name: 'monitored')
+  bool? monitored;
 
-    /// Absolute episode number
-    @JsonKey(name: 'absoluteEpisodeNumber')
-    int? absoluteEpisodeNumber;
+  @JsonKey(name: 'absoluteEpisodeNumber')
+  int? absoluteEpisodeNumber;
 
-    /// Scene absolute episode number
-    @JsonKey(name: 'sceneAbsoluteEpisodeNumber')
-    int? sceneAbsoluteEpisodeNumber;
+  @JsonKey(name: 'sceneAbsoluteEpisodeNumber')
+  int? sceneAbsoluteEpisodeNumber;
 
-    /// Scene episode number
-    @JsonKey(name: 'sceneEpisodeNumber')
-    int? sceneEpisodeNumber;
+  @JsonKey(name: 'sceneEpisodeNumber')
+  int? sceneEpisodeNumber;
 
-    /// Scene season number
-    @JsonKey(name: 'sceneSeasonNumber')
-    int? sceneSeasonNumber;
+  @JsonKey(name: 'sceneSeasonNumber')
+  int? sceneSeasonNumber;
 
-    /// Is the scene numbering unverified?
-    @JsonKey(name: 'unverifiedSceneNumbering')
-    bool? unverifiedSceneNumbering;
+  @JsonKey(name: 'unverifiedSceneNumbering')
+  bool? unverifiedSceneNumbering;
 
-    /// [SonarrSeries] object containing details about the series
-    @JsonKey(name: 'series')
-    SonarrSeries? series;
+  @JsonKey(name: 'series')
+  SonarrSeries? series;
 
-    /// Episode identifier
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'images')
+  List<SonarrImage>? images;
 
-    SonarrCalendar({
-        this.seriesId,
-        this.episodeFileId,
-        this.seasonNumber,
-        this.episodeNumber,
-        this.title,
-        this.airDate,
-        this.airDateUtc,
-        this.episodeFile,
-        this.overview,
-        this.hasFile,
-        this.monitored,
-        this.absoluteEpisodeNumber,
-        this.sceneAbsoluteEpisodeNumber,
-        this.sceneEpisodeNumber,
-        this.sceneSeasonNumber,
-        this.unverifiedSceneNumbering,
-        this.series,
-        this.id,
-    });
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  SonarrCalendar({
+    this.seriesId,
+    this.episodeFileId,
+    this.seasonNumber,
+    this.episodeNumber,
+    this.title,
+    this.airDate,
+    this.airDateUtc,
+    this.overview,
+    this.episodeFile,
+    this.hasFile,
+    this.monitored,
+    this.absoluteEpisodeNumber,
+    this.sceneAbsoluteEpisodeNumber,
+    this.sceneEpisodeNumber,
+    this.sceneSeasonNumber,
+    this.unverifiedSceneNumbering,
+    this.series,
+    this.images,
+    this.id,
+  });
 
-    /// Deserialize a JSON map to a [SonarrCalendar] object.
-    factory SonarrCalendar.fromJson(Map<String, dynamic> json) => _$SonarrCalendarFromJson(json);
-    /// Serialize a [SonarrCalendar] object to a JSON map.
-    Map<String, dynamic> toJson() => _$SonarrCalendarToJson(this);
+  @override
+  String toString() => json.encode(this.toJson());
+
+  factory SonarrCalendar.fromJson(Map<String, dynamic> json) =>
+      _$SonarrCalendarFromJson(json);
+  Map<String, dynamic> toJson() => _$SonarrCalendarToJson(this);
 }

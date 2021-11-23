@@ -15,9 +15,17 @@ SonarrEpisodeFileQualityRevision _$SonarrEpisodeFileQualityRevisionFromJson(
     );
 
 Map<String, dynamic> _$SonarrEpisodeFileQualityRevisionToJson(
-        SonarrEpisodeFileQualityRevision instance) =>
-    <String, dynamic>{
-      'version': instance.version,
-      'real': instance.real,
-      'isRepack': instance.isRepack,
-    };
+    SonarrEpisodeFileQualityRevision instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('version', instance.version);
+  writeNotNull('real', instance.real);
+  writeNotNull('isRepack', instance.isRepack);
+  return val;
+}

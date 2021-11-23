@@ -7,7 +7,7 @@ class RadarrMovieDetailsOverviewPage extends StatefulWidget {
   final RadarrQualityProfile qualityProfile;
   final List<RadarrTag> tags;
 
-  RadarrMovieDetailsOverviewPage({
+  const RadarrMovieDetailsOverviewPage({
     Key key,
     @required this.movie,
     @required this.qualityProfile,

@@ -14,7 +14,7 @@ class LunaTableContent extends StatelessWidget {
   final Color bodyColor;
   final EdgeInsets padding;
 
-  LunaTableContent({
+  const LunaTableContent({
     Key key,
     @required this.title,
     @required this.body,
@@ -34,7 +34,7 @@ class LunaTableContent extends StatelessWidget {
       child: Row(
         children: [
           _title(),
-          Container(width: LunaUI.MARGIN_DEFAULT.left, height: 0.0),
+          SizedBox(width: LunaUI.MARGIN_DEFAULT.left, height: 0.0),
           _subtitle(),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,

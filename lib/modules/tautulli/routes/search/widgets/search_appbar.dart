@@ -15,13 +15,13 @@ Widget TautulliSearchAppBar({
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
 
-  _SearchBar({
+  const _SearchBar({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(62.0);
+  Size get preferredSize => const Size.fromHeight(62.0);
 
   @override
   State<_SearchBar> createState() => _State();
@@ -38,7 +38,7 @@ class _State extends State<_SearchBar> {
 
   @override
   Widget build(BuildContext context) => Consumer<TautulliState>(
-        builder: (context, state, _) => Container(
+        builder: (context, state, _) => SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

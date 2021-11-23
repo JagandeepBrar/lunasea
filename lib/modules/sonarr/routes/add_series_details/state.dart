@@ -3,20 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsState extends ChangeNotifier {
-  final SonarrSeriesLookup series;
+  final SonarrSeries series;
   bool canExecuteAction = false;
 
   SonarrSeriesAddDetailsState({
     @required this.series,
-  }) {
-    _processSeasons();
-  }
-
-  void _processSeasons() {
-    SonarrMonitorStatus _status =
-        SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data;
-    _status.process(series.seasons);
-  }
+  });
 
   bool _monitored = true;
   bool get monitored => _monitored;
@@ -57,6 +49,23 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
           element.value ==
           SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.data,
       orElse: () => SonarrSeriesType.STANDARD,
+    );
+  }
+
+  SonarrSeriesMonitorType _monitorType;
+  SonarrSeriesMonitorType get monitorType => _monitorType;
+  set monitorType(SonarrSeriesMonitorType monitorType) {
+    assert(monitorType != null);
+    _monitorType = monitorType;
+    notifyListeners();
+  }
+
+  void initializeMonitorType() {
+    _monitorType = SonarrSeriesMonitorType.values.firstWhere(
+      (element) =>
+          element.value ==
+          SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE.data,
+      orElse: () => SonarrSeriesMonitorType.ALL,
     );
   }
 

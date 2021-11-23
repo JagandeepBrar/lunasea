@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 class SettingsNotificationsModuleTile extends StatelessWidget {
   final LunaModule module;
 
-  SettingsNotificationsModuleTile({
+  const SettingsNotificationsModuleTile({
     Key key,
     @required this.module,
   }) : super(key: key);

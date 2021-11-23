@@ -125,21 +125,21 @@ extension LunaLanguageExtension on LunaLanguage {
   Locale get locale {
     switch (this) {
       case LunaLanguage.ENGLISH:
-        return Locale('en');
+        return const Locale('en');
       case LunaLanguage.FRENCH:
-        return Locale('fr');
+        return const Locale('fr');
       case LunaLanguage.GERMAN:
-        return Locale('de');
+        return const Locale('de');
       case LunaLanguage.ITALIAN:
-        return Locale('it');
+        return const Locale('it');
       case LunaLanguage.NORWEGIAN_BOKMAL:
-        return Locale('nb', 'NO');
+        return const Locale('nb', 'NO');
       case LunaLanguage.PORTUGUESE:
-        return Locale('pt');
+        return const Locale('pt');
       case LunaLanguage.RUSSIAN:
-        return Locale('ru');
+        return const Locale('ru');
       case LunaLanguage.SWEDISH:
-        return Locale('sv');
+        return const Locale('sv');
     }
     throw Exception('Invalid LunaLanguage');
   }

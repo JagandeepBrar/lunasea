@@ -14,8 +14,16 @@ SonarrUnmappedFolder _$SonarrUnmappedFolderFromJson(
     );
 
 Map<String, dynamic> _$SonarrUnmappedFolderToJson(
-        SonarrUnmappedFolder instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'path': instance.path,
-    };
+    SonarrUnmappedFolder instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('path', instance.path);
+  return val;
+}

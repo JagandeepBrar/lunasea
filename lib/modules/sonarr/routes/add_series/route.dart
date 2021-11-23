@@ -1,7 +1,12 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+
+class _SonarrAddSeriesArguments {
+  final String query;
+
+  _SonarrAddSeriesArguments(this.query);
+}
 
 class SonarrAddSeriesRouter extends SonarrPageRouter {
   SonarrAddSeriesRouter() : super('/sonarr/addseries');
@@ -13,22 +18,20 @@ class SonarrAddSeriesRouter extends SonarrPageRouter {
   Future<void> navigateTo(
     BuildContext context, {
     @required String query,
-  }) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(),
-        routeSettings: RouteSettings(arguments: _Arguments(query)),
-      );
+  }) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(),
+      routeSettings: RouteSettings(
+        arguments: _SonarrAddSeriesArguments(query),
+      ),
+    );
+  }
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
-}
-
-class _Arguments {
-  final String query;
-
-  _Arguments(this.query);
+  void defineRoute(FluroRouter router) {
+    super.noParameterRouteDefinition(router);
+  }
 }
 
 class _Widget extends StatefulWidget {
@@ -38,7 +41,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _Arguments _arguments;
+  _SonarrAddSeriesArguments _arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
-        body: SonarrSeriesAddSearchResults(scrollController: scrollController),
+        body: _body(),
       ),
     );
   }
@@ -62,5 +65,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       query: _arguments?.query,
       autofocus: (_arguments?.query ?? '').isEmpty,
     );
+  }
+
+  Widget _body() {
+    return SonarrAddSeriesSearchPage(scrollController: scrollController);
   }
 }

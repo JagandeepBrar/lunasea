@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrRequestsListView extends StatefulWidget {
-  OverseerrRequestsListView({
+  const OverseerrRequestsListView({
     Key key,
   }) : super(key: key);
 

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsAccountSignedInPage extends StatefulWidget {
   final ScrollController scrollController;
 
-  SettingsAccountSignedInPage({
+  const SettingsAccountSignedInPage({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class _State extends State<SettingsAccountSignedInPage> {
   Widget _body() {
     return LunaListView(
       controller: widget.scrollController,
-      children: [
+      children: const [
         SettingsAccountBackupConfigurationTile(),
         SettingsAccountRestoreConfigurationTile(),
         SettingsAccountDeleteConfigurationTile(),

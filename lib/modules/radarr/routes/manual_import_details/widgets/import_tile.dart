@@ -5,11 +5,12 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrManualImportDetailsTile extends StatelessWidget {
   final RadarrManualImport manualImport;
 
-  RadarrManualImportDetailsTile({
+  const RadarrManualImportDetailsTile({
     Key key,
     @required this.manualImport,
   }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => RadarrManualImportDetailsTileState(context, manualImport),
@@ -64,7 +65,7 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
           .watch<RadarrManualImportDetailsTileState>()
           .manualImport
           .lunaMovie,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         color: LunaColours.accent,
       ),

@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
@@ -48,11 +47,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _pastDays(),
         _futureDays(),
-        LunaDivider(),
+        const LunaDivider(),
         _startingDay(),
         _startingSize(),
         _startingType(),
-        LunaDivider(),
+        const LunaDivider(),
         _modulesLidarr(),
         _modulesRadarr(),
         _modulesSonarr(),

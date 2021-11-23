@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
@@ -55,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _enabledToggle(),
         _connectionDetailsPage(),
-        LunaDivider(),
+        const LunaDivider(),
         _homePage(),
         //_defaultPagesPage(),
       ],

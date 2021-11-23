@@ -6,7 +6,7 @@ class LunaShapeBorder extends RoundedRectangleBorder {
     bool useBorder = false,
   }) : super(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-          side: useBorder ? BorderSide(color: Colors.white12) : BorderSide.none,
+          side: useBorder ? const BorderSide(color: Colors.white12) : BorderSide.none,
         );
 
   factory LunaShapeBorder.rounded() => LunaShapeBorder._internal();

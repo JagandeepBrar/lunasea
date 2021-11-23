@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrSystemStatusDiskSpacePage extends StatefulWidget {
   final ScrollController scrollController;
 
-  RadarrSystemStatusDiskSpacePage({
+  const RadarrSystemStatusDiskSpacePage({
     Key key,
     @required this.scrollController,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
           }
           if (snapshot.hasData)
             return _list(snapshot.data[0], snapshot.data[1]);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -77,7 +77,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
     List<Widget> _disks = [LunaMessage.inList(text: 'No Disks Found')];
     if ((diskSpace?.length ?? 0) != 0)
       _disks = [
-        LunaHeader(text: 'Disks'),
+        const LunaHeader(text: 'Disks'),
         ...List.generate(
           diskSpace.length,
           (index) => RadarrDiskSpaceTile(diskSpace: diskSpace[index]),
@@ -89,7 +89,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
     ];
     if ((rootFolders?.length ?? 0) != 0)
       _rootFolders = [
-        LunaHeader(text: 'Root Folders'),
+        const LunaHeader(text: 'Root Folders'),
         ...List.generate(
           rootFolders.length,
           (index) => RadarrDiskSpaceTile(rootFolder: rootFolders[index]),

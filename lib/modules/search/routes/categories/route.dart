@@ -72,7 +72,7 @@ class _State extends State<_Widget>
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) return _list(snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/lidarr.dart';
 class LidarrDetailsAlbumList extends StatefulWidget {
   final int artistID;
 
-  LidarrDetailsAlbumList({
+  const LidarrDetailsAlbumList({
     Key key,
     @required this.artistID,
   }) : super(key: key);
@@ -66,7 +66,7 @@ class _State extends State<LidarrDetailsAlbumList>
               case ConnectionState.waiting:
               case ConnectionState.active:
               default:
-                return LunaLoader();
+                return const LunaLoader();
             }
           },
         ),

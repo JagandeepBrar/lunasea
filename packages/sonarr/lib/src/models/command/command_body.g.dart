@@ -20,17 +20,25 @@ SonarrCommandBody _$SonarrCommandBodyFromJson(Map<String, dynamic> json) =>
       suppressMessages: json['suppressMessages'] as bool?,
     )..type = json['type'] as String?;
 
-Map<String, dynamic> _$SonarrCommandBodyToJson(SonarrCommandBody instance) =>
-    <String, dynamic>{
-      'seriesId': instance.seriesId,
-      'isNewSeries': instance.isNewSeries,
-      'type': instance.type,
-      'sendUpdatesToClient': instance.sendUpdatesToClient,
-      'updateScheduledTask': instance.updateScheduledTask,
-      'completionMessage': instance.completionMessage,
-      'requiresDiskAccess': instance.requiresDiskAccess,
-      'isExclusive': instance.isExclusive,
-      'name': instance.name,
-      'trigger': instance.trigger,
-      'suppressMessages': instance.suppressMessages,
-    };
+Map<String, dynamic> _$SonarrCommandBodyToJson(SonarrCommandBody instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('isNewSeries', instance.isNewSeries);
+  writeNotNull('type', instance.type);
+  writeNotNull('sendUpdatesToClient', instance.sendUpdatesToClient);
+  writeNotNull('updateScheduledTask', instance.updateScheduledTask);
+  writeNotNull('completionMessage', instance.completionMessage);
+  writeNotNull('requiresDiskAccess', instance.requiresDiskAccess);
+  writeNotNull('isExclusive', instance.isExclusive);
+  writeNotNull('name', instance.name);
+  writeNotNull('trigger', instance.trigger);
+  writeNotNull('suppressMessages', instance.suppressMessages);
+  return val;
+}

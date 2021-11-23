@@ -4,7 +4,7 @@ import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardAppBarSwitchViewAction extends StatefulWidget {
   final PageController pageController;
-  DashboardAppBarSwitchViewAction({
+  const DashboardAppBarSwitchViewAction({
     Key key,
     @required this.pageController,
   }) : super(key: key);
@@ -29,7 +29,6 @@ class _State extends State<DashboardAppBarSwitchViewAction> {
   }
 
   void _pageControllerListener() {
-    // TODO: This should be accessed in a better way: Add enum of page titles that can be mapped via an extension to icons, strings, etc.
     if ((widget.pageController?.page?.round() == 1)) {
       setState(() => _showButton = true);
     } else {

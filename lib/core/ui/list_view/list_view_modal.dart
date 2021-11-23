@@ -9,31 +9,56 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 /// By default, the list is shrink-wrapped.
 class LunaListViewModal extends StatelessWidget {
   final List<Widget> children;
+  final LunaBottomActionBar actionBar;
+  final LunaAppBar appBar;
   final double itemExtent;
-  final bool shrinkWrap;
 
-  LunaListViewModal({
+  const LunaListViewModal({
     Key key,
     @required this.children,
+    this.appBar,
+    this.actionBar,
     this.itemExtent,
-    this.shrinkWrap = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: ModalScrollController.of(context),
-      child: ListView(
-        controller: ModalScrollController.of(context),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        children: children,
-        itemExtent: itemExtent,
-        shrinkWrap: shrinkWrap,
-        padding: MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-              vertical: LunaUI.MARGIN_CARD.bottom,
-            )),
-        physics: AlwaysScrollableScrollPhysics(),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (appBar != null) appBar,
+        Flexible(
+          child: Scrollbar(
+            controller: ModalScrollController.of(context),
+            child: ListView(
+              controller: ModalScrollController.of(context),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: children,
+              itemExtent: itemExtent,
+              shrinkWrap: true,
+              padding: _padding(context),
+              physics: const AlwaysScrollableScrollPhysics(),
+            ),
+          ),
+        ),
+        if (actionBar != null) actionBar,
+      ],
+    );
+  }
+
+  EdgeInsets _padding(BuildContext context) {
+    EdgeInsets _padding = MediaQuery.of(context).padding;
+    EdgeInsets _viewInsets = MediaQuery.of(context).viewInsets;
+
+    return EdgeInsets.fromLTRB(
+      _padding.left + _viewInsets.left,
+      appBar != null
+          ? LunaUI.MARGIN_CARD.top
+          : _padding.top + _viewInsets.top + LunaUI.MARGIN_CARD.top,
+      _padding.right + _viewInsets.right,
+      actionBar != null
+          ? 0
+          : _padding.bottom + _viewInsets.bottom + LunaUI.MARGIN_CARD.bottom,
     );
   }
 }

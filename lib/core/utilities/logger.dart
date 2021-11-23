@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaLogger {
@@ -42,7 +41,7 @@ class LunaLogger {
       if (log != null) logs.add(log.toMap());
     });
     // Create a string
-    JsonEncoder encoder = JsonEncoder.withIndent('    ');
+    JsonEncoder encoder = const JsonEncoder.withIndent('    ');
     String data = encoder.convert(logs);
     return data;
   }
@@ -61,7 +60,7 @@ class LunaLogger {
         LunaFirebaseCrashlytics.isPlatformCompatible &&
         LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
         LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
-        !(error is DioError))
+        error is! DioError)
       LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
   }
 
@@ -76,7 +75,7 @@ class LunaLogger {
         LunaFirebaseCrashlytics.isPlatformCompatible &&
         LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
         LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
-        !(error is DioError))
+        error is! DioError)
       LunaFirebaseCrashlytics.instance.recordFlutterError(details);
   }
 
@@ -114,7 +113,7 @@ class LunaLogger {
 
   /// Log a new critical-level log.
   void critical(dynamic error, StackTrace stackTrace) {
-    if (!(error is DioError)) {
+    if (error is! DioError) {
       recordCrashlyticsError(error, stackTrace);
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.CRITICAL,

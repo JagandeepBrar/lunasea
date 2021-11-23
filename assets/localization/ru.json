@@ -183,5 +183,10 @@
     "tautulli.BackingUpConfigurationDescription": "Резервное копирование конфигурации в фоновом режиме",
     "tautulli.BackingUpConfiguration": "Резервное копирование конфигурации…",
     "tautulli.Audio": "Аудио",
-    "tautulli.Activity": "Активность"
+    "tautulli.Activity": "Активность",
+    "overseerr.Users": "Пользователи",
+    "overseerr.UnknownUser": "Неизвестный пользователь",
+    "overseerr.NoUsersFound": "Пользователи не найдены",
+    "overseerr.NoRequestsFound": "Запросы не найдены",
+    "overseerr.Requests": "Запросы"
 }

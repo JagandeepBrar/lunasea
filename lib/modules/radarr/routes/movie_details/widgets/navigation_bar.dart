@@ -20,7 +20,7 @@ class RadarrMovieDetailsNavigationBar extends StatefulWidget {
   final PageController pageController;
   final RadarrMovie movie;
 
-  RadarrMovieDetailsNavigationBar({
+  const RadarrMovieDetailsNavigationBar({
     Key key,
     @required this.pageController,
     @required this.movie,

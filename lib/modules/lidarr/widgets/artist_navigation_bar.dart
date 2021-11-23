@@ -16,7 +16,7 @@ class LidarrArtistNavigationBar extends StatelessWidget {
     LunaIcons.music,
   ];
 
-  LidarrArtistNavigationBar({
+  const LidarrArtistNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

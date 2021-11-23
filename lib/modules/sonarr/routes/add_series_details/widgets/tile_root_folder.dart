@@ -3,11 +3,15 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
+  const SonarrSeriesAddDetailsRootFolderTile({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Root Folder'),
+      title: LunaText.title(text: 'sonarr.RootFolder'.tr()),
       subtitle: LunaText.subtitle(
           text: context.watch<SonarrSeriesAddDetailsState>().rootFolder?.path ??
               LunaUI.TEXT_EMDASH),

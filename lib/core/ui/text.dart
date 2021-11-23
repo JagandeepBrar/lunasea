@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaText extends Text {
   /// Create a new [Text] widget.
-  LunaText({
+  const LunaText({
     @required String text,
     Key key,
     int maxLines,
@@ -14,7 +14,7 @@ class LunaText extends Text {
   }) : super(
           text,
           key: key,
-          maxLines: maxLines,
+          maxLines: maxLines == 0 ? null : maxLines,
           overflow: overflow,
           softWrap: softWrap,
           style: style,
@@ -54,6 +54,7 @@ class LunaText extends Text {
     TextAlign textAlign = TextAlign.start,
     Color color = Colors.white70,
     bool darken = false,
+    FontStyle fontStyle = FontStyle.normal,
   }) =>
       LunaText(
         key: key,
@@ -65,6 +66,7 @@ class LunaText extends Text {
         style: TextStyle(
           color: darken ? color.withOpacity(0.30) : color,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontStyle: fontStyle,
         ),
       );
 }

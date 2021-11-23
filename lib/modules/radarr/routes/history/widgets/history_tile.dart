@@ -8,7 +8,7 @@ class RadarrHistoryTile extends StatelessWidget {
   final String title;
 
   /// If [movieHistory] is false (default), you must supply a title or else a dash will be shown.
-  RadarrHistoryTile({
+  const RadarrHistoryTile({
     Key key,
     @required this.history,
     this.movieHistory = false,
@@ -43,8 +43,10 @@ class RadarrHistoryTile extends StatelessWidget {
                   backgroundColor: LunaColours.blueGrey,
                 )),
       ],
-      expandedTableContent: history.eventType
-              ?.lunaTableContent(history, movieHistory: movieHistory) ??
+      expandedTableContent: history.eventType?.lunaTableContent(
+            history,
+            movieHistory: movieHistory,
+          ) ??
           [],
       onLongPress: movieHistory
           ? null

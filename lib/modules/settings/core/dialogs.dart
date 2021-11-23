@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
@@ -769,13 +767,24 @@ class SettingsDialogs {
       Navigator.of(context).pop();
     }
 
+    IconData _getIcon(CalendarStartingType type) {
+      switch (type) {
+        case CalendarStartingType.CALENDAR:
+          return CalendarStartingType.SCHEDULE.icon;
+        case CalendarStartingType.SCHEDULE:
+          return CalendarStartingType.CALENDAR.icon;
+        default:
+          return Icons.help;
+      }
+    }
+
     await LunaDialog.dialog(
       context: context,
       title: 'settings.StartingType'.tr(),
       content: List.generate(
         CalendarStartingType.values.length,
         (index) => LunaDialog.tile(
-          icon: CalendarStartingType.values[index].icon,
+          icon: _getIcon(CalendarStartingType.values[index]),
           iconColor: LunaColours().byListIndex(index),
           text: CalendarStartingType.values[index].name,
           onTap: () => _setValues(true, CalendarStartingType.values[index]),
@@ -1098,7 +1107,7 @@ class SettingsDialogs {
               text: '${'settings.FirebaseCrashlyticsHint4'.tr()}\n\n',
             ),
             LunaDialog.bolded(
-              text: '${'settings.FirebaseCrashlyticsHint5'.tr()}',
+              text: 'settings.FirebaseCrashlyticsHint5'.tr(),
               color: LunaColours.accent,
               fontSize: LunaDialog.SUBBODY_SIZE,
             ),

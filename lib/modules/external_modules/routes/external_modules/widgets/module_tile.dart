@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class ExternalModulesModuleTile extends StatelessWidget {
   final ExternalModuleHiveObject module;
 
-  ExternalModulesModuleTile({
+  const ExternalModulesModuleTile({
     Key key,
     @required this.module,
   }) : super(key: key);

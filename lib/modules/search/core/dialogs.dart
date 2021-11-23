@@ -31,19 +31,19 @@ class SearchDialogs {
                       Expanded(
                         child: Text(
                           LunaDatabaseValue.ENABLED_PROFILE.data,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                           ),
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_drop_down,
                         color: LunaColours.accent,
                       ),
                     ],
                   ),
-                  padding: EdgeInsets.only(bottom: 2.0),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(bottom: 2.0),
+                  decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: LunaColours.accent,
@@ -77,7 +77,7 @@ class SearchDialogs {
                 },
               ),
               padding: LunaDialog.tileContentPadding()
-                  .add(EdgeInsets.only(bottom: 16.0)),
+                  .add(const EdgeInsets.only(bottom: 16.0)),
             ),
             if (Database.currentProfileObject.sabnzbdEnabled)
               LunaDialog.tile(

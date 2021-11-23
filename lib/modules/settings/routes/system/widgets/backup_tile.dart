@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
+  const SettingsSystemBackupRestoreBackupTile({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LunaListTile(

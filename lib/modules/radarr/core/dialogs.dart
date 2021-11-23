@@ -4,7 +4,8 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
   Future<Tuple2<bool, RadarrGlobalSettingsType>> globalSettings(
-      BuildContext context) async {
+    BuildContext context,
+  ) async {
     bool _flag = false;
     RadarrGlobalSettingsType _value;
 
@@ -32,7 +33,9 @@ class RadarrDialogs {
   }
 
   Future<Tuple2<bool, RadarrMovieSettingsType>> movieSettings(
-      BuildContext context, RadarrMovie movie) async {
+    BuildContext context,
+    RadarrMovie movie,
+  ) async {
     bool _flag = false;
     RadarrMovieSettingsType _value;
 
@@ -379,12 +382,13 @@ class RadarrDialogs {
                 (index) => LunaDialog.checkbox(
                     title: filteredLanguages[index].name,
                     value: context
-                            .read<RadarrManualImportDetailsTileState>()
-                            .manualImport
-                            .languages
-                            .indexWhere((lang) =>
-                                lang.id == filteredLanguages[index].id) !=
-                        -1,
+                                .read<RadarrManualImportDetailsTileState>()
+                                .manualImport
+                                .languages
+                                ?.indexWhere((lang) =>
+                                    lang.id == filteredLanguages[index].id) !=
+                            -1 ??
+                        false,
                     onChanged: (value) => value
                         ? context
                             .read<RadarrManualImportDetailsTileState>()
@@ -414,7 +418,7 @@ class RadarrDialogs {
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const RadarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>
@@ -519,7 +523,7 @@ class RadarrDialogs {
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
               return AlertDialog(
                 actions: <Widget>[
-                  RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                  const RadarrTagsAppBarActionAddTag(asDialogButton: true),
                   LunaDialog.button(
                     text: 'Close',
                     onPressed: () =>
@@ -619,7 +623,7 @@ class RadarrDialogs {
       title: 'Remove Movie',
       buttons: [
         LunaDialog.button(
-          text: 'Remove',
+          text: 'lunasea.Remove'.tr(),
           textColor: LunaColours.red,
           onPressed: () => _setValues(true),
         ),

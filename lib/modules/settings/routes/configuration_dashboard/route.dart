@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
@@ -47,7 +46,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         _calendarSettingsPage(),
         _homePage(),
-        _useBrandColours(),
       ],
     );
   }
@@ -84,22 +82,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         SettingsConfigurationDashboardCalendarSettingsRouter()
             .navigateTo(context);
       },
-    );
-  }
-
-  Widget _useBrandColours() {
-    return DashboardDatabaseValue.MODULES_BRAND_COLOURS.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Use Brand Colours'),
-        subtitle: LunaText.subtitle(text: 'For Module Icons'),
-        trailing: LunaSwitch(
-          value: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data,
-          onChanged: (value) {
-            DashboardDatabaseValue.MODULES_BRAND_COLOURS.put(value);
-          },
-        ),
-      ),
     );
   }
 }

@@ -16,10 +16,10 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
   final Color titleColor;
   final Map posterHeaders;
   final LunaIconButton trailing;
-  static final double itemExtent = 67.0;
-  static final double _padding = 8.0;
+  static const double itemExtent = 67.0;
+  static const double _padding = 8.0;
 
-  LunaTwoLineCardWithPoster({
+  const LunaTwoLineCardWithPoster({
     Key key,
     @required this.posterPlaceholder,
     @required this.posterUrl,
@@ -75,7 +75,7 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
   Widget _body(BuildContext context) {
     return Expanded(
       child: Padding(
-        child: Container(
+        child: SizedBox(
           child: Column(
             children: [
               _title(),
@@ -92,7 +92,7 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
           ),
           height: (itemExtent - (_padding * 2)),
         ),
-        padding: EdgeInsets.all(_padding),
+        padding: const EdgeInsets.all(_padding),
       ),
     );
   }
@@ -122,10 +122,10 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
   }
 
   Widget _trailing() {
-    return Container(
+    return SizedBox(
       child: Padding(
         child: trailing,
-        padding: EdgeInsets.only(right: 12.0),
+        padding: const EdgeInsets.only(right: 12.0),
       ),
       height: itemExtent,
     );

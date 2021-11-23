@@ -16,8 +16,16 @@ SonarrLanguageProfileItem _$SonarrLanguageProfileItemFromJson(
             json['language'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$SonarrLanguageProfileItemToJson(
-        SonarrLanguageProfileItem instance) =>
-    <String, dynamic>{
-      'allowed': instance.allowed,
-      'language': instance.language?.toJson(),
-    };
+    SonarrLanguageProfileItem instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('allowed', instance.allowed);
+  writeNotNull('language', instance.language?.toJson());
+  return val;
+}

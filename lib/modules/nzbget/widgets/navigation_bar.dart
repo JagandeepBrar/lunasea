@@ -16,7 +16,7 @@ class NZBGetNavigationBar extends StatelessWidget {
     LunaIcons.history,
   ];
 
-  NZBGetNavigationBar({
+  const NZBGetNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

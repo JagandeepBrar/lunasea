@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
@@ -26,13 +27,40 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   String name(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored ? 'Unmonitor Series' : 'Monitor Series';
+        return series.monitored
+            ? 'sonarr.UnmonitorSeries'.tr()
+            : 'sonarr.MonitorSeries'.tr();
       case SonarrSeriesSettingsType.EDIT:
-        return 'Edit Series';
+        return 'sonarr.EditSeries'.tr();
       case SonarrSeriesSettingsType.REFRESH:
-        return 'Refresh Series';
+        return 'sonarr.RefreshSeries'.tr();
       case SonarrSeriesSettingsType.DELETE:
-        return 'Remove Series';
+        return 'sonarr.RemoveSeries'.tr();
+    }
+    throw Exception('Invalid SonarrSeriesSettingsType');
+  }
+
+  Future<void> execute(BuildContext context, SonarrSeries series) async {
+    switch (this) {
+      case SonarrSeriesSettingsType.EDIT:
+        return SonarrEditSeriesRouter()
+            .navigateTo(context, seriesId: series.id);
+      case SonarrSeriesSettingsType.REFRESH:
+        return SonarrAPIController()
+            .refreshSeries(context: context, series: series);
+      case SonarrSeriesSettingsType.DELETE:
+        bool result = await SonarrDialogs().removeSeries(context);
+        if (result) {
+          SonarrAPIController()
+              .removeSeries(context: context, series: series)
+              .then((_) => Navigator.of(context).lunaSafetyPop());
+        }
+        return;
+      case SonarrSeriesSettingsType.MONITORED:
+        return SonarrAPIController().toggleSeriesMonitored(
+          context: context,
+          series: series,
+        );
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }

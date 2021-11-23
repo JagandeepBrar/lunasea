@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -46,7 +45,7 @@ class RadarrReleasesRouter extends RadarrPageRouter {
 class _Widget extends StatefulWidget {
   final int movieId;
 
-  _Widget({
+  const _Widget({
     Key key,
     @required this.movieId,
   }) : super(key: key);
@@ -110,7 +109,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             );
           }
           if (snapshot.hasData) return _list(context, snapshot.data);
-          return LunaLoader();
+          return const LunaLoader();
         },
       ),
     );
@@ -145,7 +144,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<RadarrRelease> _filterAndSortReleases(
-      List<RadarrRelease> releases, RadarrReleasesState state) {
+    List<RadarrRelease> releases,
+    RadarrReleasesState state,
+  ) {
     if (releases == null || releases.isEmpty) return releases;
     List<RadarrRelease> filtered = releases.where(
       (release) {

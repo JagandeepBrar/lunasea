@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsNewsletterLogTile extends StatelessWidget {
   final TautulliNewsletterLogRecord newsletter;
 
-  TautulliLogsNewsletterLogTile({
+  const TautulliLogsNewsletterLogTile({
     Key key,
     @required this.newsletter,
   }) : super(key: key);
@@ -24,7 +23,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
 
   Widget _subtitle() => RichText(
         text: TextSpan(
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white70,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
           ),
@@ -38,7 +37,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
                       .format(newsletter.timestamp)
                   : DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} hh:mm a')
                       .format(newsletter.timestamp),
-              style: TextStyle(
+              style: const TextStyle(
                 color: LunaColours.accent,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               ),

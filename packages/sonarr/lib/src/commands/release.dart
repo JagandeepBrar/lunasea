@@ -12,10 +12,7 @@ class SonarrCommandHandler_Release {
   /// Handler for [release](https://github.com/Sonarr/Sonarr/wiki/Release#get).
   ///
   /// Returns the a list of releases for the episode.
-  ///
-  /// Required Parameters:
-  /// - `episodeId`: Episode ID for the episode to find releases for
-  Future<List<SonarrRelease>> getReleases({
+  Future<List<SonarrRelease>> get({
     required int episodeId,
   }) async =>
       _commandGetReleases(_client, episodeId: episodeId);
@@ -23,11 +20,7 @@ class SonarrCommandHandler_Release {
   /// Handler for [release](https://github.com/Sonarr/Sonarr/wiki/Release#get).
   ///
   /// Returns the a list of releases for the season.
-  ///
-  /// Required Parameters:
-  /// - `seriesId`: Series ID for season searching
-  /// - `seasonNumber`: Season number to search for
-  Future<List<SonarrRelease>> getSeasonReleases({
+  Future<List<SonarrRelease>> getSeasonPack({
     required int seriesId,
     required int seasonNumber,
   }) async =>
@@ -38,13 +31,7 @@ class SonarrCommandHandler_Release {
   ///
   /// Adds a previously searched release to the download client, if the release is still in Sonarr's search cache (30 minute cache).
   /// If the release is not found in the cache Sonarr will return a 404.
-  ///
-  /// > **`useVersion3` is required to push season releases.**
-  ///
-  /// Required Parameters:
-  /// - `guid`: Release GUID
-  /// - `indexerId`: Indentifier for the indexer
-  Future<SonarrAddedRelease> addRelease({
+  Future<SonarrAddedRelease> add({
     required String guid,
     required int indexerId,
   }) async =>

@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 class NZBGetHistoryHideButton extends StatefulWidget {
   final ScrollController controller;
 
-  NZBGetHistoryHideButton({
+  const NZBGetHistoryHideButton({
     Key key,
     @required this.controller,
   }) : super(key: key);
@@ -28,7 +28,7 @@ class _State extends State<NZBGetHistoryHideButton> {
         ),
         height: LunaTextInputBar.appBarInnerHeight,
         width: LunaTextInputBar.appBarInnerHeight,
-        margin: EdgeInsets.only(left: 12.0),
+        margin: const EdgeInsets.only(left: 12.0),
         color: Theme.of(context).canvasColor,
       );
 }

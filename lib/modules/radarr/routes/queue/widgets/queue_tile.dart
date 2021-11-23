@@ -6,7 +6,7 @@ class RadarrQueueTile extends StatelessWidget {
   final RadarrQueueRecord record;
   final RadarrMovie movie;
 
-  RadarrQueueTile({
+  const RadarrQueueTile({
     Key key,
     @required this.record,
     @required this.movie,
@@ -50,7 +50,7 @@ class RadarrQueueTile extends StatelessWidget {
       children: [
         TextSpan(
           text: record.lunaQuality,
-          style: TextStyle(
+          style: const TextStyle(
             color: LunaColours.accent,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),

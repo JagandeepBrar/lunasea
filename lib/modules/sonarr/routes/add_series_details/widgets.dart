@@ -1,7 +1,6 @@
 export 'widgets/bottom_action_bar.dart';
 export 'widgets/tile_language_profile.dart';
-export 'widgets/tile_monitor_status.dart';
-export 'widgets/tile_monitored.dart';
+export 'widgets/tile_monitor.dart';
 export 'widgets/tile_quality_profile.dart';
 export 'widgets/tile_root_folder.dart';
 export 'widgets/tile_series_type.dart';

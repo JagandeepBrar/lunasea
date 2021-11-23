@@ -20,8 +20,16 @@ SonarrEpisodeFileQuality _$SonarrEpisodeFileQualityFromJson(
     );
 
 Map<String, dynamic> _$SonarrEpisodeFileQualityToJson(
-        SonarrEpisodeFileQuality instance) =>
-    <String, dynamic>{
-      'quality': instance.quality?.toJson(),
-      'revision': instance.revision?.toJson(),
-    };
+    SonarrEpisodeFileQuality instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('quality', instance.quality?.toJson());
+  writeNotNull('revision', instance.revision?.toJson());
+  return val;
+}

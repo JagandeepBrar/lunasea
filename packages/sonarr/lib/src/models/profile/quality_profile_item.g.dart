@@ -17,8 +17,16 @@ SonarrQualityProfileItem _$SonarrQualityProfileItemFromJson(
     );
 
 Map<String, dynamic> _$SonarrQualityProfileItemToJson(
-        SonarrQualityProfileItem instance) =>
-    <String, dynamic>{
-      'allowed': instance.allowed,
-      'quality': instance.quality?.toJson(),
-    };
+    SonarrQualityProfileItem instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('allowed', instance.allowed);
+  writeNotNull('quality', instance.quality?.toJson());
+  return val;
+}

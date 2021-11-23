@@ -16,7 +16,7 @@ class TautulliGraphsNavigationBar extends StatelessWidget {
     'Stream Information',
   ];
 
-  TautulliGraphsNavigationBar({
+  const TautulliGraphsNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

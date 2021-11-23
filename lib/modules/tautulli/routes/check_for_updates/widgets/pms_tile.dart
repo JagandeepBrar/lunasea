@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
   final TautulliPMSUpdate update;
 
-  TautulliCheckForUpdatesPMSTile({
+  const TautulliCheckForUpdatesPMSTile({
     Key key,
     @required this.update,
   }) : super(key: key);
@@ -37,13 +37,13 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
   Widget _subtitle() {
     return RichText(
       text: TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white70,
           fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
           if (!update.updateAvailable)
-            TextSpan(
+            const TextSpan(
               text: 'No Updates Available\n',
               style: TextStyle(
                 color: LunaColours.accent,
@@ -53,7 +53,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
           if (!update.updateAvailable)
             TextSpan(text: 'Current Version: ${update.version}'),
           if (update.updateAvailable)
-            TextSpan(
+            const TextSpan(
               text: 'Update Available\n',
               style: TextStyle(
                 color: LunaColours.orange,

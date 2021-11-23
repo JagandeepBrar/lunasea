@@ -70,7 +70,7 @@ extension SettingsBannersExtension on SettingsBanners {
               headerColor: headerColor,
               bodyColor: bodyColor,
             );
-          return SizedBox(height: 0.0, width: double.infinity);
+          return const SizedBox(height: 0.0, width: double.infinity);
         },
       );
 }

@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -46,14 +45,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           future: LunaFirebaseMessaging().areNotificationsAllowed(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData && !snapshot.data)
-              return LunaBanner(
+              return const LunaBanner(
                 headerText: 'Not Authorized',
                 bodyText:
                     'LunaSea is not authorized to show notifications. Please go to your device\'s settings to enable notifications.',
                 icon: Icons.error_outline_rounded,
                 iconColor: LunaColours.red,
               );
-            return SizedBox(height: 0.0, width: double.infinity);
+            return const SizedBox(height: 0.0, width: double.infinity);
           },
         ),
         SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT.banner(),
@@ -65,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap:
               LunaLinks.NOTIFICATIONS_GETTING_STARTED.url.lunaOpenGenericLink,
         ),
-        LunaDivider(),
+        const LunaDivider(),
         ..._modules(),
       ],
     );
@@ -73,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List<Widget> _modules() {
     List<SettingsNotificationsModuleTile> modules = [];
-    for (LunaModule module in LunaModule.DASHBOARD.allModules()) {
+    for (LunaModule module in LunaModule.values) {
       if (module.hasWebhooks) {
         modules.add(SettingsNotificationsModuleTile(module: module));
       }

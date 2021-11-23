@@ -5,6 +5,10 @@ import 'package:lunasea/modules/sabnzbd.dart';
 class SABnzbdStatistics extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/statistics';
 
+  const SABnzbdStatistics({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<SABnzbdStatistics> createState() => _State();
 }
@@ -62,7 +66,7 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
               case ConnectionState.waiting:
               case ConnectionState.active:
               default:
-                return LunaLoader();
+                return const LunaLoader();
             }
           },
         ),
@@ -71,9 +75,9 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
   Widget get _list => LunaListView(
         controller: scrollController,
         children: <Widget>[
-          LunaHeader(text: 'Status'),
+          const LunaHeader(text: 'Status'),
           _status(),
-          LunaHeader(text: 'Statistics'),
+          const LunaHeader(text: 'Statistics'),
           _statistics(),
           ..._serverStatistics(),
         ],

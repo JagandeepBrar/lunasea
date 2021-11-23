@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -82,7 +81,7 @@ class _State extends State<_Widget>
         scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(),
-        bottomNavigationBar: RadarrAddMovieDetailsActionBar(),
+        bottomNavigationBar: const RadarrAddMovieDetailsActionBar(),
       ),
     );
   }
@@ -124,7 +123,7 @@ class _State extends State<_Widget>
             tags: snapshot.data[2],
           );
         }
-        return LunaLoader();
+        return const LunaLoader();
       },
     );
   }
@@ -157,11 +156,11 @@ class _State extends State<_Widget>
             exists: false,
             isExcluded: false,
           ),
-          RadarrAddMovieDetailsMonitoredTile(),
-          RadarrAddMovieDetailsRootFolderTile(),
-          RadarrAddMovieDetailsMinimumAvailabilityTile(),
-          RadarrAddMovieDetailsQualityProfileTile(),
-          RadarrAddMovieDetailsTagsTile(),
+          const RadarrAddMovieDetailsMonitoredTile(),
+          const RadarrAddMovieDetailsRootFolderTile(),
+          const RadarrAddMovieDetailsMinimumAvailabilityTile(),
+          const RadarrAddMovieDetailsQualityProfileTile(),
+          const RadarrAddMovieDetailsTagsTile(),
         ],
       ),
     );

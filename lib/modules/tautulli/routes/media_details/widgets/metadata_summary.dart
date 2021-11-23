@@ -6,7 +6,7 @@ class TautulliMediaDetailsMetadataSummary extends StatefulWidget {
   final TautulliMetadata metadata;
   final TautulliMediaType type;
 
-  TautulliMediaDetailsMetadataSummary({
+  const TautulliMediaDetailsMetadataSummary({
     Key key,
     @required this.metadata,
     @required this.type,
@@ -40,7 +40,7 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
 
   @override
   Widget build(BuildContext context) {
-    if (_summary == null && _buttons == null) return SizedBox(height: 0.0);
+    if (_summary == null && _buttons == null) return const SizedBox(height: 0.0);
     return LunaCard(
       context: context,
       child: InkWell(
@@ -54,7 +54,7 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
                     Padding(
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                           ),
                           text: _summary,

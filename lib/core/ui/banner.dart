@@ -14,7 +14,7 @@ class LunaBanner extends StatelessWidget {
   final Function dismissCallback;
   final List<LunaButton> buttons;
 
-  LunaBanner({
+  const LunaBanner({
     Key key,
     this.dismissCallback,
     @required this.headerText,
@@ -60,7 +60,7 @@ class LunaBanner extends StatelessWidget {
                   ),
                   if (dismissCallback != null)
                     InkWell(
-                      child: Icon(
+                      child: const Icon(
                         Icons.close_rounded,
                         size: 20.0,
                         color: LunaColours.accent,

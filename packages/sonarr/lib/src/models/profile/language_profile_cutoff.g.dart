@@ -14,8 +14,16 @@ SonarrLanguageProfileCutoff _$SonarrLanguageProfileCutoffFromJson(
     );
 
 Map<String, dynamic> _$SonarrLanguageProfileCutoffToJson(
-        SonarrLanguageProfileCutoff instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+    SonarrLanguageProfileCutoff instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  return val;
+}

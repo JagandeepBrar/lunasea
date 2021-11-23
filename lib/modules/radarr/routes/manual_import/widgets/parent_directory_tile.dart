@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrManualImportParentDirectoryTile extends StatefulWidget {
   final RadarrFileSystem fileSystem;
 
-  RadarrManualImportParentDirectoryTile({
+  const RadarrManualImportParentDirectoryTile({
     Key key,
     @required this.fileSystem,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class _State extends State<RadarrManualImportParentDirectoryTile> {
   Widget build(BuildContext context) {
     if (widget.fileSystem == null ||
         widget.fileSystem.parent == null ||
-        widget.fileSystem.parent.isEmpty) return SizedBox(height: 0.0);
+        widget.fileSystem.parent.isEmpty) return const SizedBox(height: 0.0);
     return LunaListTile(
       context: context,
       title: LunaText.title(text: LunaUI.TEXT_ELLIPSIS),

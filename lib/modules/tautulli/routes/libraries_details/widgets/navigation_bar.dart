@@ -16,7 +16,7 @@ class TautulliLibrariesDetailsNavigationBar extends StatelessWidget {
     'User Stats',
   ];
 
-  TautulliLibrariesDetailsNavigationBar({
+  const TautulliLibrariesDetailsNavigationBar({
     Key key,
     @required this.pageController,
   }) : super(key: key);

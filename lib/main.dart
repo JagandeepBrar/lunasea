@@ -18,7 +18,7 @@ Future<void> main() async {
           fallbackLocale: localization.fallbackLocale,
           startLocale: localization.fallbackLocale,
           useFallbackTranslations: true,
-          child: LunaBIOS(),
+          child: const LunaBIOS(),
         ),
       );
     },
@@ -27,16 +27,6 @@ Future<void> main() async {
 }
 
 /// Initializes LunaSea before running the BIOS Widget.
-///
-/// Sets up (in order):
-/// - System UI Overlay Styling
-/// - Logger
-/// - Network
-/// - Image Cache
-/// - Router
-/// - Firebase
-/// - IAPs
-/// - Database
 Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
   //LunaSea initialization
@@ -53,6 +43,10 @@ Future<void> _init() async {
 }
 
 class LunaBIOS extends StatefulWidget {
+  const LunaBIOS({
+    Key key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _State();
 }

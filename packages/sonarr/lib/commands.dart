@@ -30,13 +30,19 @@ part 'src/commands/episode_file/get_series_episode_files.dart';
 
 // Episode
 part 'src/commands/episode.dart';
-part 'src/commands/episode/get_all_episodes.dart';
 part 'src/commands/episode/get_episode.dart';
+part 'src/commands/episode/get_episodes.dart';
+part 'src/commands/episode/set_monitored.dart';
 part 'src/commands/episode/update_episode.dart';
 
 // History
 part 'src/commands/history.dart';
 part 'src/commands/history/get_history.dart';
+part 'src/commands/history/get_history_by_series.dart';
+
+// Import List
+part 'src/commands/import_list.dart';
+part 'src/commands/import_list/get_exclusion_list.dart';
 
 // Profile
 part 'src/commands/profile.dart';

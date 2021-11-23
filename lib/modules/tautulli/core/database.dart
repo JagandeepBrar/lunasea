@@ -56,8 +56,8 @@ class TautulliDatabase extends LunaModuleDatabase {
   }
 
   @override
-  TautulliDatabaseValue valueFromKey(String key) {
-    switch (key) {
+  TautulliDatabaseValue valueFromKey(String value) {
+    switch (value) {
       case 'TAUTULLI_NAVIGATION_INDEX':
         return TautulliDatabaseValue.NAVIGATION_INDEX;
       case 'TAUTULLI_NAVIGATION_INDEX_GRAPHS':

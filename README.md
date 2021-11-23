@@ -1,6 +1,7 @@
 # <img width="40px" src="./assets/images/branding_logo.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
 
 <!-- [![Codemagic build status](https://api.codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/status_badge.svg)](https://codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/latest_build) -->
+
 [![App Store](https://img.shields.io/badge/%20Download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
 [![License](https://img.shields.io/github/license/CometTools/LunaSea?style=flat)](https://github.com/CometTools/LunaSea/blob/production/LICENSE)
@@ -62,7 +63,9 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -85,6 +88,12 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://ersen.srht.site/"><img src="https://avatars.githubusercontent.com/u/88676873?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oğuz Ersen</b></sub></a><br /><a href="#translation-ersen0" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/bittin"><img src="https://avatars.githubusercontent.com/u/43197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bittin</b></sub></a><br /><a href="#translation-bittin" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/almontegil"><img src="https://avatars.githubusercontent.com/u/68232356?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gil</b></sub></a><br /><a href="#translation-almontegil" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/TheSander562"><img src="https://avatars.githubusercontent.com/u/14059770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sander Lambrechts</b></sub></a><br /><a href="#translation-TheSander562" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/Guilhermerrrr"><img src="https://avatars.githubusercontent.com/u/92966143?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guilhermerrrr</b></sub></a><br /><a href="#translation-Guilhermerrrr" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/Ben-Wallner"><img src="https://avatars.githubusercontent.com/u/24373331?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Biber</b></sub></a><br /><a href="#translation-Ben-Wallner" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Sytom"><img src="https://avatars.githubusercontent.com/u/30535521?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sytom</b></sub></a><br /><a href="#translation-Sytom" title="Translation">🌍</a></td>
   </tr>
 </table>
 

@@ -1,6 +1,6 @@
 {
     "settings.AccountDescription": "你的LunaSea账户",
-    "settings.AccountHelp": "LunaSea账户",
+    "settings.AccountHelp": "账户帮助",
     "settings.AddModule": "添加模块",
     "settings.AddModuleFailed": "添加模块失败",
     "settings.AddModuleSuccess": "增加模块",
@@ -107,7 +107,7 @@
     "settings.NoBackupsFound": "未找到备份",
     "settings.NoExternalModulesFound": "未找到外部模块",
     "settings.NoHeadersAdded": "未添加响应头",
-    "settings.OpenLinksIn": "在…中打开链接",
+    "settings.OpenLinksIn": "打开链接…",
     "settings.Password": "密码",
     "settings.PasswordValidation": "需要密码",
     "settings.Profiles": "简介",

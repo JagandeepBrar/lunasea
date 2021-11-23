@@ -10,7 +10,7 @@
 - `[Sonarr]` (Catalogue) Many additional sorting and filtering options
 - `[Sonarr]` (Catalogue) Ability to set default filtering method
 - `[Sonarr]` (Episodes) Entirely revamped details view
-- `[Sonarr]` (Episodes) View media info for individual episodes
+- `[Sonarr]` (Episodes) View media info for downloaded episodes
 - `[Sonarr]` (Episodes) View history for a single episode
 - `[Sonarr]` (Season Details) View history for a single season
 - `[Sonarr]` (Series Details) View history for a single series
@@ -35,7 +35,7 @@
 - `[Sonarr]` Now only utilizes v3 API routes
 - `[Sonarr]` (Edit) Vastly speed up response time on editing a series
 - `[Sonarr]` (Seasons) Now correctly calculates available episode count in season list
-- `[TLS]` TLS v1.3 is now fully supported
+- `[Networking]` TLS v1.3 is now fully supported
 - `[UI/UX]` (Bottom Sheet) Tightly size all bottom sheets to the content
 - `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
 - `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views

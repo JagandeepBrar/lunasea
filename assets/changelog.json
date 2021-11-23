@@ -1,7 +1,56 @@
 {
-  "motd": "Welcome to LunaSea v5.1.1!\n\nA small update to fix some minor bugs that have popped up over the past few months. Bigger things are planned in the future as development of LunaSea starts to pick up again, stay tuned!",
-  "new": [],
-  "tweaks": [],
+  "motd": "Welcome to LunaSea v6.0.0!\n\nSonarr has had many foundational changes and now only supports v3.0.0+ of Sonarr as LunaSea now only utilizes the v3 API routes to make the module much more performant. The episode view has been revamped to now include file media information and single episode history, and you can now view all, series-specific, or season-specific history with the new history tiles that contain much more information!\n\nMany additional changes (and reintroducing removed features such as the queue and multi-episode select) will come soon in additional builds of v6.0.0 in the coming weeks!",
+  "new": [
+    {
+      "module": "Dashboard",
+      "changes": [
+        "(Calendar) Use different marker colours depending on how much content is missing"
+      ]
+    },
+    {
+      "module": "Notifications",
+      "changes": [
+        "Support time-sensitive notifications"
+      ]
+    },
+    {
+      "module": "Settings",
+      "changes": [
+        "(Sonarr) Removed toggle to enable v3 features"
+      ]
+    },
+    {
+      "module": "Sonarr",
+      "changes": [
+        "(Catalogue) Many additional sorting and filtering options",
+        "(Catalogue) Ability to set default filtering method",
+        "(Episodes) Entirely revamped details view",
+        "(Episodes) View media info for downloaded episodes",
+        "(Episodes) View history for a single episode",
+        "(Season Details) View history for a single season",
+        "(Series Details) View history for a single series",
+        "(History) Now an infinite scrolling list",
+        "(History) Tiles are now expandable tiles with much more detail",
+        "(Home) \"History\" tab has been replaced with a \"More\" tab",
+        "(Releases) Ability to set default filtering method",
+        "(Releases) Now shows preferred word score"
+      ]
+    }
+  ],
+  "tweaks": [
+    {
+      "module": "Dashboard",
+      "changes": [
+        "(Modules) Always use module's brand colour for module list"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(Drawer) Use module's brand colour for highlighted colour"
+      ]
+    }
+  ],
   "fixes": [
     {
       "module": "Dashboard",
@@ -13,17 +62,40 @@
       "module": "Flutter",
       "changes": [
         "Update packages",
-        "Upgrade to Firebase SDK v8.3.0"
+        "Upgrade to Firebase SDK v8.9.0"
+      ]
+    },
+    {
+      "module": "Settings",
+      "changes": [
+        "(Calendar) Starting type would have incorrect icons",
+        "(Notifications) Overseerr would not be displayed"
+      ]
+    },
+    {
+      "module": "Sonarr",
+      "changes": [
+        "Now only utilizes v3 API routes",
+        "(Edit) Vastly speed up response time on editing a series",
+        "(Seasons) Now correctly calculates available episode count in season list"
+      ]
+    },
+    {
+      "module": "Networking",
+      "changes": [
+        "TLS v1.3 is now fully supported"
       ]
     },
     {
       "module": "UI/UX",
       "changes": [
+        "(Bottom Sheet) Tightly size all bottom sheets to the content",
         "(ListView) Make padding around the end of infinite list loaders and icons more consistent",
         "(Popup Menu) Positioning could get unaligned or broken if opened in specific views",
-        "(Router) OSlide transitions between pages could not occur on some devices",
+        "(Router) Slide transitions between pages could not occur on some devices",
         "(Snackbar) Snackbars would not be shown in some cases",
-        "(Theme) Remove deprecated theme values"
+        "(Theme) Remove deprecated theme values",
+        "Many minor fixes in the user interface and experience"
       ]
     }
   ],

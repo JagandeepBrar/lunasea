@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -23,6 +24,7 @@ class SonarrSeasonHeader extends StatelessWidget {
               ),
       ),
       onLongPress: () async {
+        HapticFeedback.heavyImpact();
         Tuple2<bool, SonarrSeasonSettingsType> result =
             await SonarrDialogs().seasonSettings(context, seasonNumber);
         if (result.item1)

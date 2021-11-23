@@ -81,7 +81,7 @@
     "settings.DrawerDescription": "自定义抽屉",
     "settings.DeleteHeaderHint1": "您确定要删除此标题吗？",
     "settings.DeleteHeader": "删除标题",
-    "settings.FirebaseCrashlytics": "Firebase Crashlytics",
+    "settings.FirebaseCrashlytics": "奔溃统计",
     "settings.HostHint1": "这是您访问服务的 Web GUI 的 URL",
     "settings.HostHint2": "您必须包含 http:// 或 https://",
     "settings.HostHint4": "不使用反向代理时，请包括端口",

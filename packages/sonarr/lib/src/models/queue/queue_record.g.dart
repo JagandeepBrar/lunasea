@@ -8,12 +8,12 @@ part of 'queue_record.dart';
 
 SonarrQueueRecord _$SonarrQueueRecordFromJson(Map<String, dynamic> json) =>
     SonarrQueueRecord(
-      series: json['series'] == null
+      seriesId: json['seriesId'] as int?,
+      episodeId: json['episodeId'] as int?,
+      language: json['language'] == null
           ? null
-          : SonarrSeries.fromJson(json['series'] as Map<String, dynamic>),
-      episode: json['episode'] == null
-          ? null
-          : SonarrEpisode.fromJson(json['episode'] as Map<String, dynamic>),
+          : SonarrEpisodeFileLanguage.fromJson(
+              json['language'] as Map<String, dynamic>),
       quality: json['quality'] == null
           ? null
           : SonarrEpisodeFileQuality.fromJson(
@@ -26,12 +26,17 @@ SonarrQueueRecord _$SonarrQueueRecordFromJson(Map<String, dynamic> json) =>
           json['estimatedCompletionTime'] as String?),
       status: json['status'] as String?,
       trackedDownloadStatus: json['trackedDownloadStatus'] as String?,
+      trackedDownloadState: json['trackedDownloadState'] as String?,
       statusMessages: (json['statusMessages'] as List<dynamic>?)
           ?.map((e) =>
               SonarrQueueStatusMessage.fromJson(e as Map<String, dynamic>))
           .toList(),
+      downloadId: json['downloadId'] as String?,
+      protocol: json['protocol'] as String?,
+      downloadClient: json['downloadClient'] as String?,
+      indexer: json['indexer'] as String?,
       id: json['id'] as int?,
-    )..protocol = json['protocol'] as String?;
+    );
 
 Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
   final val = <String, dynamic>{};
@@ -42,8 +47,9 @@ Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
     }
   }
 
-  writeNotNull('series', instance.series?.toJson());
-  writeNotNull('episode', instance.episode?.toJson());
+  writeNotNull('seriesId', instance.seriesId);
+  writeNotNull('episodeId', instance.episodeId);
+  writeNotNull('language', instance.language?.toJson());
   writeNotNull('quality', instance.quality?.toJson());
   writeNotNull('size', instance.size);
   writeNotNull('title', instance.title);
@@ -53,9 +59,13 @@ Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
       SonarrUtilities.dateTimeToJson(instance.estimatedCompletionTime));
   writeNotNull('status', instance.status);
   writeNotNull('trackedDownloadStatus', instance.trackedDownloadStatus);
+  writeNotNull('trackedDownloadState', instance.trackedDownloadState);
   writeNotNull('statusMessages',
       instance.statusMessages?.map((e) => e.toJson()).toList());
+  writeNotNull('downloadId', instance.downloadId);
   writeNotNull('protocol', instance.protocol);
+  writeNotNull('downloadClient', instance.downloadClient);
+  writeNotNull('indexer', instance.indexer);
   writeNotNull('id', instance.id);
   return val;
 }

@@ -71,17 +71,13 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
   Future<void> _handleDelete() async {
     if (seriesList?.isNotEmpty ?? true) {
       showLunaErrorSnackBar(
-          title: 'Cannot Delete Tag',
-          message: 'The tag must not be attached to any series');
+        title: 'Cannot Delete Tag',
+        message: 'The tag must not be attached to any series',
+      );
     } else {
       bool result = await SonarrDialogs().deleteTag(context);
       if (result)
-        context
-            .read<SonarrState>()
-            .api
-            .tag
-            .deleteTag(id: widget.tag.id)
-            .then((_) {
+        context.read<SonarrState>().api.tag.delete(id: widget.tag.id).then((_) {
           showLunaSuccessSnackBar(
             title: 'Deleted Tag',
             message: widget.tag.label,

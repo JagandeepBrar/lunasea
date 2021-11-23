@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to wanted/missing episodes within Sonarr.
 ///
-/// [SonarrCommandHandler_Wanted] internally handles routing the HTTP client to the API calls.
-class SonarrCommandHandler_Wanted {
+/// [SonarrController_Wanted] internally handles routing the HTTP client to the API calls.
+class SonarrController_Wanted {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrCommandHandler_Wanted(this._client);
+  SonarrController_Wanted(this._client);
 
   /// Handler for [wanted/missing](https://github.com/Sonarr/Sonarr/wiki/Wanted-Missing#get).
   ///

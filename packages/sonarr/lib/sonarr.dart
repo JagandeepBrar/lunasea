@@ -1,8 +1,8 @@
 library sonarr;
 
 import 'package:dio/dio.dart';
-import 'commands.dart';
-export 'commands.dart';
+import 'controllers.dart';
+export 'controllers.dart';
 export 'models.dart';
 export 'types.dart';
 export 'utilities.dart';
@@ -47,21 +47,21 @@ class Sonarr {
     );
     return Sonarr._internal(
       httpClient: _dio,
-      calendar: SonarrCommandHandler_Calendar(_dio),
-      command: SonarrCommandHandler_Command(_dio),
-      episode: SonarrCommandHandler_Episode(_dio),
-      episodeFile: SonarrCommandHandler_EpisodeFile(_dio),
-      history: SonarrCommandHandler_History(_dio),
-      importList: SonarrCommandHandler_ImportList(_dio),
-      profile: SonarrCommandHandler_Profile(_dio),
-      queue: SonarrCommandHandler_Queue(_dio),
-      release: SonarrCommandHandler_Release(_dio),
-      rootFolder: SonarrCommandHandler_RootFolder(_dio),
-      series: SonarrCommandHandler_Series(_dio),
-      seriesLookup: SonarrCommandHandler_SeriesLookup(_dio),
-      system: SonarrCommandHandler_System(_dio),
-      tag: SonarrCommandHandler_Tag(_dio),
-      wanted: SonarrCommandHandler_Wanted(_dio),
+      calendar: SonarrController_Calendar(_dio),
+      command: SonarrController_Command(_dio),
+      episode: SonarrController_Episode(_dio),
+      episodeFile: SonarrController_EpisodeFile(_dio),
+      history: SonarrController_History(_dio),
+      importList: SonarrController_ImportList(_dio),
+      profile: SonarrController_Profile(_dio),
+      queue: SonarrController_Queue(_dio),
+      release: SonarrController_Release(_dio),
+      rootFolder: SonarrController_RootFolder(_dio),
+      series: SonarrController_Series(_dio),
+      seriesLookup: SonarrController_SeriesLookup(_dio),
+      system: SonarrController_System(_dio),
+      tag: SonarrController_Tag(_dio),
+      wanted: SonarrController_Wanted(_dio),
     );
   }
 
@@ -70,39 +70,39 @@ class Sonarr {
   }) {
     return Sonarr._internal(
       httpClient: client,
-      calendar: SonarrCommandHandler_Calendar(client),
-      command: SonarrCommandHandler_Command(client),
-      episode: SonarrCommandHandler_Episode(client),
-      episodeFile: SonarrCommandHandler_EpisodeFile(client),
-      history: SonarrCommandHandler_History(client),
-      importList: SonarrCommandHandler_ImportList(client),
-      profile: SonarrCommandHandler_Profile(client),
-      queue: SonarrCommandHandler_Queue(client),
-      release: SonarrCommandHandler_Release(client),
-      rootFolder: SonarrCommandHandler_RootFolder(client),
-      series: SonarrCommandHandler_Series(client),
-      seriesLookup: SonarrCommandHandler_SeriesLookup(client),
-      system: SonarrCommandHandler_System(client),
-      tag: SonarrCommandHandler_Tag(client),
-      wanted: SonarrCommandHandler_Wanted(client),
+      calendar: SonarrController_Calendar(client),
+      command: SonarrController_Command(client),
+      episode: SonarrController_Episode(client),
+      episodeFile: SonarrController_EpisodeFile(client),
+      history: SonarrController_History(client),
+      importList: SonarrController_ImportList(client),
+      profile: SonarrController_Profile(client),
+      queue: SonarrController_Queue(client),
+      release: SonarrController_Release(client),
+      rootFolder: SonarrController_RootFolder(client),
+      series: SonarrController_Series(client),
+      seriesLookup: SonarrController_SeriesLookup(client),
+      system: SonarrController_System(client),
+      tag: SonarrController_Tag(client),
+      wanted: SonarrController_Wanted(client),
     );
   }
 
   final Dio httpClient;
 
-  final SonarrCommandHandler_Calendar calendar;
-  final SonarrCommandHandler_Command command;
-  final SonarrCommandHandler_Episode episode;
-  final SonarrCommandHandler_EpisodeFile episodeFile;
-  final SonarrCommandHandler_History history;
-  final SonarrCommandHandler_ImportList importList;
-  final SonarrCommandHandler_Profile profile;
-  final SonarrCommandHandler_Queue queue;
-  final SonarrCommandHandler_Release release;
-  final SonarrCommandHandler_RootFolder rootFolder;
-  final SonarrCommandHandler_Series series;
-  final SonarrCommandHandler_SeriesLookup seriesLookup;
-  final SonarrCommandHandler_System system;
-  final SonarrCommandHandler_Tag tag;
-  final SonarrCommandHandler_Wanted wanted;
+  final SonarrController_Calendar calendar;
+  final SonarrController_Command command;
+  final SonarrController_Episode episode;
+  final SonarrController_EpisodeFile episodeFile;
+  final SonarrController_History history;
+  final SonarrController_ImportList importList;
+  final SonarrController_Profile profile;
+  final SonarrController_Queue queue;
+  final SonarrController_Release release;
+  final SonarrController_RootFolder rootFolder;
+  final SonarrController_Series series;
+  final SonarrController_SeriesLookup seriesLookup;
+  final SonarrController_System system;
+  final SonarrController_Tag tag;
+  final SonarrController_Wanted wanted;
 }

@@ -234,7 +234,7 @@ class SonarrState extends LunaModuleState {
   Future<List<SonarrRootFolder>> _rootFolders;
   Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
   void fetchRootFolders() {
-    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
+    if (_api != null) _rootFolders = _api.rootFolder.get();
     notifyListeners();
   }
 
@@ -247,7 +247,7 @@ class SonarrState extends LunaModuleState {
   }
 
   void fetchTags() {
-    if (_api != null) _tags = _api.tag.getAllTags();
+    if (_api != null) _tags = _api.tag.getAll();
     notifyListeners();
   }
 

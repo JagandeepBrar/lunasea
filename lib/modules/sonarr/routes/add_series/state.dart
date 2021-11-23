@@ -30,8 +30,7 @@ class SonarrAddSeriesState extends ChangeNotifier {
   Future<List<SonarrExclusion>> get exclusions => _exclusions;
   void fetchExclusions(BuildContext context) {
     if ((context.read<SonarrState>().enabled ?? false)) {
-      _exclusions =
-          context.read<SonarrState>().api.importList.getExclusionList();
+      _exclusions = context.read<SonarrState>().api.importList.get();
     }
     notifyListeners();
   }

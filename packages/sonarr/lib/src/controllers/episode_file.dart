@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to episode files within Sonarr.
 ///
-/// [SonarrCommandHandler_EpisodeFile] internally handles routing the HTTP client to the API calls.
-class SonarrCommandHandler_EpisodeFile {
+/// [SonarrController_EpisodeFile] internally handles routing the HTTP client to the API calls.
+class SonarrController_EpisodeFile {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrCommandHandler_EpisodeFile(this._client);
+  SonarrController_EpisodeFile(this._client);
 
   /// Handler for [episodefile/{id}](https://github.com/Sonarr/Sonarr/wiki/EpisodeFile#delete).
   ///

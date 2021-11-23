@@ -97,6 +97,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Ben-Wallner",
+      "name": "Ben Biber",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24373331?v=4",
+      "profile": "https://github.com/Ben-Wallner",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

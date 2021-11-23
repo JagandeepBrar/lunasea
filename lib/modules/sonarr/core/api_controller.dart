@@ -626,7 +626,7 @@ class SonarrAPIController {
         return series;
       }).catchError((error, stack) {
         LunaLogger().error(
-          'Failed to add movie (tmdbId: ${series.tvdbId})',
+          'Failed to add series (tmdbId: ${series.tvdbId})',
           error,
           stack,
         );

@@ -104,6 +104,8 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           'sonarr.EpisodeNumber'.tr(
             args: [episode?.episodeNumber.toString()],
           ),
+          if (episode?.absoluteEpisodeNumber != null)
+            ' (${episode.absoluteEpisodeNumber})',
         ].join(),
       ),
       _highlightedNodes(context),

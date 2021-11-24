@@ -5,6 +5,7 @@
 #### NEW
 
 - `[Sonarr]` (Releases) Ability to sort by preferred word score
+- `[Sonarr]` (Episode Sheet) Show the absolute episode number if available
 
 #### FIXES
 

@@ -4,8 +4,9 @@
 
 #### NEW
 
-- `[Sonarr]` (Releases) Ability to sort by preferred word score
 - `[Sonarr]` (Episode Sheet) Show the absolute episode number if available
+- `[Sonarr]` (Releases) Ability to sort by preferred word score
+- `[Sonarr]` (Series Details) Ability to pull-to-refresh series and season list
 
 #### FIXES
 

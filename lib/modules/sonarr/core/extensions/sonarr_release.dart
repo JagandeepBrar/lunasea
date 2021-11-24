@@ -57,8 +57,10 @@ extension SonarrReleaseExtension on SonarrRelease {
   }
 
   String lunaPreferredWordScore({bool nullOnEmpty = false}) {
-    if ((this.preferredWordScore ?? 0) != 0)
-      return '+${this.preferredWordScore}';
+    if ((this.preferredWordScore ?? 0) != 0) {
+      String _prefix = this.preferredWordScore > 0 ? '+' : '';
+      return '$_prefix${this.preferredWordScore}';
+    }
     if (nullOnEmpty) return null;
     return LunaUI.TEXT_EMDASH;
   }

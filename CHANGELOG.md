@@ -1,5 +1,11 @@
 # LunaSea Changelog
 
+## v6.0.0 (60000002)
+
+#### FIXES
+
+- `[Sonarr]` (Releases) Correctly display negative preferred word scores
+
 ## v6.0.0 (60000001)
 
 #### NEW

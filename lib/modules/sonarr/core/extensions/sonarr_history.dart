@@ -26,8 +26,10 @@ extension SonarrHistoryRecordLunaExtension on SonarrHistoryRecord {
   }
 
   String lunaPreferredWordScore() {
-    if (lunaHasPreferredWordScore())
-      return '+${this.data['preferredWordScore']}';
+    if (lunaHasPreferredWordScore()) {
+      String _prefix = this.data['preferredWordScore'] > 0 ? '+' : '';
+      return '$_prefix${this.data['preferredWordScore']}';
+    }
     return LunaUI.TEXT_EMDASH;
   }
 }

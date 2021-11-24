@@ -17,6 +17,8 @@ enum SonarrReleasesSorting {
   TYPE,
   @HiveField(5)
   WEIGHT,
+  @HiveField(6)
+  WORD_SCORE,
 }
 
 extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
@@ -34,6 +36,8 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         return 'type';
       case SonarrReleasesSorting.SIZE:
         return 'size';
+      case SonarrReleasesSorting.WORD_SCORE:
+        return 'word_score';
       default:
         return null;
     }
@@ -53,6 +57,8 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         return 'Type';
       case SonarrReleasesSorting.SIZE:
         return 'Size';
+      case SonarrReleasesSorting.WORD_SCORE:
+        return 'sonarr.WordScore'.tr();
       default:
         return null;
     }
@@ -72,6 +78,8 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         return SonarrReleasesSorting.TYPE;
       case 'weight':
         return SonarrReleasesSorting.WEIGHT;
+      case 'word_score':
+        return SonarrReleasesSorting.WORD_SCORE;
       default:
         return null;
     }
@@ -100,6 +108,8 @@ class _Sorter {
         return _type(releases, ascending);
       case SonarrReleasesSorting.SIZE:
         return _size(releases, ascending);
+      case SonarrReleasesSorting.WORD_SCORE:
+        return _wordScore(releases, ascending);
     }
     throw Exception('sorting type not found');
   }
@@ -167,6 +177,15 @@ class _Sorter {
     ascending
         ? releases.sort((a, b) => (a.size ?? -1).compareTo((b.size ?? -1)))
         : releases.sort((a, b) => (b.size ?? -1).compareTo((a.size ?? -1)));
+    return releases;
+  }
+
+  List<SonarrRelease> _wordScore(List<SonarrRelease> releases, bool ascending) {
+    ascending
+        ? releases.sort((a, b) =>
+            (b.preferredWordScore ?? 0).compareTo((a.preferredWordScore ?? 0)))
+        : releases.sort((a, b) =>
+            (a.preferredWordScore ?? 0).compareTo((b.preferredWordScore ?? 0)));
     return releases;
   }
 }

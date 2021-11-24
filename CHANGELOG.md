@@ -2,6 +2,10 @@
 
 ## v6.0.0 (60000002)
 
+#### NEW
+
+- `[Sonarr]` (Releases) Ability to sort by preferred word score
+
 #### FIXES
 
 - `[Sonarr]` (Releases) Correctly display negative preferred word scores

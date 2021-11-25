@@ -1,4 +1,3 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -139,8 +138,8 @@ class _State extends State<LunaExpandableListTile> {
                         ...widget.expandedTableContent
                             .map<Widget>((content) => Padding(
                                   child: content,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
                                 ))
                             .toList(),
                         if (widget.expandedTableButtons != null)
@@ -163,7 +162,8 @@ class _State extends State<LunaExpandableListTile> {
                                 }),
                               ],
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 6.0),
                           ),
                       ],
                     ),

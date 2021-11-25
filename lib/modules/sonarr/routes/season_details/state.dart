@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -5,15 +6,38 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeasonDetailsState extends ChangeNotifier {
   final int seriesId;
   final int seasonNumber;
+  int _currentQueueItems = 0;
+  int currentEpisodeId;
 
   SonarrSeasonDetailsState({
     @required BuildContext context,
     @required this.seriesId,
     @required this.seasonNumber,
   }) {
-    fetchEpisodes(context);
-    fetchFiles(context);
-    fetchHistory(context);
+    fetchState(context, queueHardCheck: false);
+  }
+
+  Future<void> fetchState(
+    BuildContext context, {
+    bool shouldFetchEpisodes = true,
+    bool shouldFetchFiles = true,
+    bool shouldFetchHistory = true,
+    bool shouldFetchQueue = true,
+    bool queueHardCheck = true,
+    bool shouldFetchMostRecentEpisodeHistory = true,
+  }) async {
+    if (shouldFetchEpisodes) fetchEpisodes(context);
+    if (shouldFetchFiles) fetchFiles(context);
+    if (shouldFetchHistory) fetchHistory(context);
+    if (shouldFetchQueue) fetchQueue(context, hardCheck: queueHardCheck);
+    if (shouldFetchMostRecentEpisodeHistory)
+      fetchEpisodeHistory(context, currentEpisodeId);
+  }
+
+  @override
+  void dispose() {
+    _queueTimer?.cancel();
+    super.dispose();
   }
 
   LunaLoadingState _episodeSearchState = LunaLoadingState.INACTIVE;
@@ -107,6 +131,64 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
           for (SonarrEpisodeFile f in files) f.id: f,
         };
       });
+    }
+    notifyListeners();
+  }
+
+  Timer _queueTimer;
+  void cancelQueueTimer() => _queueTimer?.cancel();
+  void createQueueTimer(BuildContext context) {
+    _queueTimer = Timer.periodic(
+      const Duration(seconds: 15),
+      (_) => fetchQueue(context),
+    );
+  }
+
+  Future<List<SonarrQueueRecord>> _queue;
+  Future<List<SonarrQueueRecord>> get queue => _queue;
+  set queue(Future<List<SonarrQueueRecord>> queue) {
+    assert(queue != null);
+    _queue = queue;
+    notifyListeners();
+  }
+
+  Future<void> fetchQueue(
+    BuildContext context, {
+    bool hardCheck = false,
+  }) async {
+    cancelQueueTimer();
+    if (context.read<SonarrState>().enabled) {
+      // "Hard" check by telling Sonarr to refresh the monitored downloads
+      // Give it 500 ms to internally check and then continue to fetch queue
+      if (hardCheck) {
+        await context
+            .read<SonarrState>()
+            .api
+            .command
+            .refreshMonitoredDownloads()
+            .then(
+              (_) => Future.delayed(const Duration(milliseconds: 500), () {}),
+            );
+      }
+      _queue = context
+          .read<SonarrState>()
+          .api
+          .queue
+          .getDetails(
+            seriesId: seriesId,
+            includeEpisode: true,
+          )
+          .then((queue) {
+        if (_currentQueueItems != queue.length) {
+          fetchState(
+            context,
+            shouldFetchQueue: false,
+          );
+        }
+        _currentQueueItems = queue.length;
+        return queue;
+      });
+      createQueueTimer(context);
     }
     notifyListeners();
   }

@@ -16,17 +16,9 @@ extension SonarrReleaseExtension on SonarrRelease {
   String get lunaProtocol {
     if (this.protocol != null)
       return this.protocol == SonarrProtocol.TORRENT
-          ? '${this.protocol.readable} (${this?.seeders ?? 0}/${this?.leechers ?? 0})'
-          : this.protocol.readable;
+          ? '${this.protocol.lunaReadable()} (${this?.seeders ?? 0}/${this?.leechers ?? 0})'
+          : this.protocol.lunaReadable();
     return LunaUI.TEXT_EMDASH;
-  }
-
-  Color get lunaProtocolColor {
-    if (this.protocol == SonarrProtocol.USENET) return LunaColours.accent;
-    int seeders = this.seeders ?? 0;
-    if (seeders > 10) return LunaColours.blue;
-    if (seeders > 0) return LunaColours.orange;
-    return LunaColours.red;
   }
 
   String get lunaIndexer {

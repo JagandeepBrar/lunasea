@@ -85,7 +85,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       ),
       text: [
         '${widget.season.lunaPercentageComplete}%',
-        LunaUI.TEXT_EMDASH.lunaPad(),
+        LunaUI.TEXT_BULLET,
         '${widget?.season?.statistics?.episodeFileCount ?? 0}/${widget?.season?.statistics?.episodeCount ?? 0}',
         'sonarr.EpisodesAvailable'.tr(),
       ].join(' '),

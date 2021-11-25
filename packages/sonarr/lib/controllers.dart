@@ -53,6 +53,7 @@ part 'src/controllers/profile/get_quality_profiles.dart';
 part 'src/controllers/queue.dart';
 part 'src/controllers/queue/delete_queue.dart';
 part 'src/controllers/queue/get_queue.dart';
+part 'src/controllers/queue/get_queue_details.dart';
 
 // Releases
 part 'src/controllers/release.dart';

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sonarr/models.dart';
+import 'package:sonarr/types.dart';
 import 'package:sonarr/utilities.dart';
 
 part 'queue_record.g.dart';
@@ -12,6 +13,12 @@ class SonarrQueueRecord {
 
   @JsonKey(name: 'episodeId')
   int? episodeId;
+
+  @JsonKey(name: 'series')
+  SonarrSeries? series;
+
+  @JsonKey(name: 'episode')
+  SonarrEpisode? episode;
 
   @JsonKey(name: 'language')
   SonarrEpisodeFileLanguage? language;
@@ -38,23 +45,42 @@ class SonarrQueueRecord {
   )
   DateTime? estimatedCompletionTime;
 
-  @JsonKey(name: 'status')
-  String? status;
+  @JsonKey(
+    name: 'status',
+    toJson: SonarrUtilities.queueStatusToJson,
+    fromJson: SonarrUtilities.queueStatusFromJson,
+  )
+  SonarrQueueStatus? status;
 
-  @JsonKey(name: 'trackedDownloadStatus')
-  String? trackedDownloadStatus;
+  @JsonKey(
+    name: 'trackedDownloadStatus',
+    toJson: SonarrUtilities.queueTrackedDownloadStatusToJson,
+    fromJson: SonarrUtilities.queueTrackedDownloadStatusFromJson,
+  )
+  SonarrTrackedDownloadStatus? trackedDownloadStatus;
 
-  @JsonKey(name: 'trackedDownloadState')
-  String? trackedDownloadState;
+  @JsonKey(
+    name: 'trackedDownloadState',
+    toJson: SonarrUtilities.queueTrackedDownloadStateToJson,
+    fromJson: SonarrUtilities.queueTrackedDownloadStateFromJson,
+  )
+  SonarrTrackedDownloadState? trackedDownloadState;
 
   @JsonKey(name: 'statusMessages')
   List<SonarrQueueStatusMessage>? statusMessages;
 
+  @JsonKey(name: 'errorMessage')
+  String? errorMessage;
+
   @JsonKey(name: 'downloadId')
   String? downloadId;
 
-  @JsonKey(name: 'protocol')
-  String? protocol;
+  @JsonKey(
+    name: 'protocol',
+    toJson: SonarrUtilities.protocolToJson,
+    fromJson: SonarrUtilities.protocolFromJson,
+  )
+  SonarrProtocol? protocol;
 
   @JsonKey(name: 'downloadClient')
   String? downloadClient;
@@ -68,6 +94,8 @@ class SonarrQueueRecord {
   SonarrQueueRecord({
     this.seriesId,
     this.episodeId,
+    this.series,
+    this.episode,
     this.language,
     this.quality,
     this.size,
@@ -79,6 +107,7 @@ class SonarrQueueRecord {
     this.trackedDownloadStatus,
     this.trackedDownloadState,
     this.statusMessages,
+    this.errorMessage,
     this.downloadId,
     this.protocol,
     this.downloadClient,

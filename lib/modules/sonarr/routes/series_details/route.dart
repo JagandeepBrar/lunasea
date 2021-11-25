@@ -6,10 +6,10 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
   SonarrSeriesDetailsRouter() : super('/sonarr/series/:seriesid');
 
   @override
-  _Widget widget({
+  _SonarrSeriesDetails widget({
     @required int seriesId,
   }) {
-    return _Widget(seriesId: seriesId);
+    return _SonarrSeriesDetails(seriesId: seriesId);
   }
 
   @override
@@ -38,16 +38,16 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
         int seriesId = (params['seriesid']?.isNotEmpty ?? false)
             ? (int.tryParse(params['seriesid'][0]) ?? -1)
             : -1;
-        return _Widget(seriesId: seriesId);
+        return _SonarrSeriesDetails(seriesId: seriesId);
       },
     );
   }
 }
 
-class _Widget extends StatefulWidget {
+class _SonarrSeriesDetails extends StatefulWidget {
   final int seriesId;
 
-  const _Widget({
+  const _SonarrSeriesDetails({
     Key key,
     @required this.seriesId,
   }) : super(key: key);
@@ -56,7 +56,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaLoadCallbackMixin {
+class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   SonarrSeries series;
   PageController _pageController;

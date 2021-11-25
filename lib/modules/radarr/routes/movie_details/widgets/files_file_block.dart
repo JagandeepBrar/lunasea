@@ -32,7 +32,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             widget.movieFile.mediaInfo.audioCodec ?? LunaUI.TEXT_EMDASH,
             if (widget.movieFile.mediaInfo.audioChannels != null)
               widget.movieFile.mediaInfo.audioChannels.toString(),
-          ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+          ].join(LunaUI.TEXT_BULLET.lunaPad()),
         ),
         LunaTableContent(title: 'size', body: widget.movieFile?.lunaSize),
         LunaTableContent(

@@ -194,9 +194,6 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
 
   List<Widget> _history(BuildContext context) {
     return [
-      LunaHeader(
-        text: 'sonarr.History'.tr(),
-      ),
       FutureBuilder(
         future: context.select<SonarrSeasonDetailsState, Future<SonarrHistory>>(
           (s) => s.getEpisodeHistory(episode.id),

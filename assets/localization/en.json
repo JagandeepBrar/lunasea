@@ -612,6 +612,7 @@
     "sonarr.SystemStatusDescription": "System Status & Disk Space",
     "sonarr.Tags": "Tags",
     "sonarr.TagsDescription": "Manage Your Tags",
+    "sonarr.TimeLeft": "Time Left",
     "sonarr.Torrent": "Torrent",
     "sonarr.Unaired": "Unaired",
     "sonarr.Unmonitored": "Unmonitored",

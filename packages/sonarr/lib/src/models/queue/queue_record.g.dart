@@ -26,8 +26,8 @@ SonarrQueueRecord _$SonarrQueueRecordFromJson(Map<String, dynamic> json) =>
               json['quality'] as Map<String, dynamic>),
       size: (json['size'] as num?)?.toDouble(),
       title: json['title'] as String?,
-      sizeLeft: (json['sizeleft'] as num?)?.toDouble(),
-      timeLeft: json['timeleft'] as String?,
+      sizeleft: (json['sizeleft'] as num?)?.toDouble(),
+      timeleft: json['timeleft'] as String?,
       estimatedCompletionTime: SonarrUtilities.dateTimeFromJson(
           json['estimatedCompletionTime'] as String?),
       status: SonarrUtilities.queueStatusFromJson(json['status'] as String?),
@@ -64,8 +64,8 @@ Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
   writeNotNull('quality', instance.quality?.toJson());
   writeNotNull('size', instance.size);
   writeNotNull('title', instance.title);
-  writeNotNull('sizeleft', instance.sizeLeft);
-  writeNotNull('timeleft', instance.timeLeft);
+  writeNotNull('sizeleft', instance.sizeleft);
+  writeNotNull('timeleft', instance.timeleft);
   writeNotNull('estimatedCompletionTime',
       SonarrUtilities.dateTimeToJson(instance.estimatedCompletionTime));
   writeNotNull('status', SonarrUtilities.queueStatusToJson(instance.status));

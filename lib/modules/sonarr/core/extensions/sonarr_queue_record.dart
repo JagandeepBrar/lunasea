@@ -96,9 +96,15 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
     return Tuple3(_title, _icon, _color);
   }
 
-  int get lunaPercentageComplete {
-    if (this.sizeLeft == null || this.size == null || this.size == 0) return 0;
-    double sizeFetched = this.size - this.sizeLeft;
-    return ((sizeFetched / this.size) * 100).round();
+  String lunaPercentage() {
+    if (this.sizeleft == null || this.size == null || this.size == 0)
+      return '0%';
+    double sizeFetched = this.size - this.sizeleft;
+    int percentage = ((sizeFetched / this.size) * 100).round();
+    return '$percentage%';
+  }
+
+  String lunaTimeLeft() {
+    return this.timeleft ?? LunaUI.TEXT_EMDASH;
   }
 }

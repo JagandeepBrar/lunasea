@@ -23,7 +23,7 @@ class _State extends State<SonarrQueueTile> {
       title: widget.queueRecord.title,
       collapsedSubtitle1: _subtitle1(),
       collapsedSubtitle2: _subtitle2(),
-      expandedTableContent: const [],
+      expandedTableContent: _expandedTableContent(),
       expandedHighlightedNodes: _expandedHighlightedNodes(),
       collapsedTrailing: _collapsedTrailing(),
     );
@@ -43,14 +43,16 @@ class _State extends State<SonarrQueueTile> {
       children: [
         TextSpan(
           text: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+          style: const TextStyle(
+            color: LunaColours.accent,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(text: '${widget.queueRecord.lunaPercentageComplete}%'),
+        TextSpan(text: widget.queueRecord.lunaPercentage()),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: widget.queueRecord.lunaTimeLeft()),
       ],
-      style: const TextStyle(
-        color: LunaColours.accent,
-        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-      ),
     );
   }
 
@@ -77,21 +79,54 @@ class _State extends State<SonarrQueueTile> {
         widget.queueRecord.lunaStatusParameters();
     return [
       LunaHighlightedNode(
+        text: widget.queueRecord.protocol.lunaReadable(),
+        backgroundColor: widget.queueRecord.protocol.lunaProtocolColor(),
+      ),
+      LunaHighlightedNode(
+        text: widget.queueRecord.lunaPercentage(),
+        backgroundColor: LunaColours.blueGrey,
+      ),
+      LunaHighlightedNode(
         text: widget.queueRecord.status.lunaStatus(),
         backgroundColor: _status.item3 == Colors.white
             ? LunaColours.blueGrey
             : _status.item3,
       ),
-      LunaHighlightedNode(
-        text: widget.queueRecord.protocol.lunaReadable(),
-        backgroundColor: widget.queueRecord.protocol.lunaProtocolColor(),
+    ];
+  }
+
+  List<LunaTableContent> _expandedTableContent() {
+    return [
+      if (widget.queueRecord.series != null)
+        LunaTableContent(
+          title: 'sonarr.Series'.tr(),
+          body: widget.queueRecord.series.title,
+        ),
+      if (widget.queueRecord.episode != null)
+        LunaTableContent(
+          title: 'sonarr.Episode'.tr(),
+          body: widget.queueRecord.episode.lunaSeasonEpisode(),
+        ),
+      LunaTableContent(
+        title: 'sonarr.Quality'.tr(),
+        body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
-      LunaHighlightedNode(
-        text: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+      LunaTableContent(
+        title: 'sonarr.Language'.tr(),
+        body: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
       ),
-      LunaHighlightedNode(
-        text: '${widget.queueRecord.lunaPercentageComplete}%',
-        backgroundColor: LunaColours.blueGrey,
+      LunaTableContent(
+        title: 'sonarr.Client'.tr(),
+        body: widget.queueRecord.downloadClient ?? LunaUI.TEXT_EMDASH,
+      ),
+      LunaTableContent(
+        title: 'sonarr.Size'.tr(),
+        body: widget.queueRecord.size.floor().lunaBytesToString() ??
+            LunaUI.TEXT_EMDASH,
+      ),
+      LunaTableContent(
+        title: 'sonarr.TimeLeft'.tr(),
+        body: widget.queueRecord.lunaTimeLeft(),
       ),
     ];
   }

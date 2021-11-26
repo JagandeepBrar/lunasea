@@ -21,7 +21,7 @@ extension SonarrEpisodeExtension on SonarrEpisode {
   ) {
     if (queueRecord != null) {
       return [
-        '${queueRecord.lunaPercentageComplete}%',
+        queueRecord.lunaPercentage(),
         LunaUI.TEXT_EMDASH,
         queueRecord.lunaStatusParameters().item1,
       ].join(' ');

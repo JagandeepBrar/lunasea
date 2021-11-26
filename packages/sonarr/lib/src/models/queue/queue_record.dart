@@ -33,10 +33,10 @@ class SonarrQueueRecord {
   String? title;
 
   @JsonKey(name: 'sizeleft')
-  double? sizeLeft;
+  double? sizeleft;
 
   @JsonKey(name: 'timeleft')
-  String? timeLeft;
+  String? timeleft;
 
   @JsonKey(
     name: 'estimatedCompletionTime',
@@ -100,8 +100,8 @@ class SonarrQueueRecord {
     this.quality,
     this.size,
     this.title,
-    this.sizeLeft,
-    this.timeLeft,
+    this.sizeleft,
+    this.timeleft,
     this.estimatedCompletionTime,
     this.status,
     this.trackedDownloadStatus,

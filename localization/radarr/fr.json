@@ -1,6 +1,7 @@
 {
     "radarr.AddMovie": "Ajouter un film",
     "radarr.AddMovieAndSearch": "Ajouter + Rechercher",
+    "radarr.AddedTag": "Étiquette ajoutée",
     "radarr.Age": "Âge",
     "radarr.All": "Tout",
     "radarr.Alphabetical": "Alphabétique",
@@ -22,6 +23,7 @@
     "radarr.DownloadFailed": "Échec du téléchargement",
     "radarr.DownloadIgnored": "Téléchargement ignoré",
     "radarr.EditMovie": "Modifier le film",
+    "radarr.FailedToAddTag": "Échec de l'ajout d'une étiquette",
     "radarr.FileBrowser": "Navigateur de fichier…",
     "radarr.FilterCatalogue": "Catalogue des filtres",
     "radarr.GrabbedFrom": "Récupéré depuis {}",
@@ -58,6 +60,7 @@
     "radarr.NoResultsFound": "Aucun résultat",
     "radarr.NoSubdirectoriesFound": "Aucun sous-répertoire trouvé",
     "radarr.NoSummaryIsAvailable": "Aucun résumé n'est disponible.",
+    "radarr.NoTagsFound": "Aucune étiquette trouvée",
     "radarr.ParentDirectory": "Répertoire parent",
     "radarr.PhysicalRelease": "Sortie sur support physique",
     "radarr.Quality": "Qualité",

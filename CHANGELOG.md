@@ -11,6 +11,7 @@
 #### FIXES
 
 - `[Sonarr]` (Releases) Correctly display negative preferred word scores
+- `[Tautulli]` (Updates) Checking for updates could fail in some cases
 
 ## v6.0.0 (60000001)
 

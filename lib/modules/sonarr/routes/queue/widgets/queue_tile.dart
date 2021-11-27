@@ -76,7 +76,7 @@ class _State extends State<SonarrQueueTile> {
 
   List<LunaHighlightedNode> _expandedHighlightedNodes() {
     Tuple3<String, IconData, Color> _status =
-        widget.queueRecord.lunaStatusParameters();
+        widget.queueRecord.lunaStatusParameters(canBeWhite: false);
     return [
       LunaHighlightedNode(
         text: widget.queueRecord.protocol.lunaReadable(),
@@ -84,13 +84,11 @@ class _State extends State<SonarrQueueTile> {
       ),
       LunaHighlightedNode(
         text: widget.queueRecord.lunaPercentage(),
-        backgroundColor: LunaColours.blueGrey,
+        backgroundColor: _status.item3,
       ),
       LunaHighlightedNode(
         text: widget.queueRecord.status.lunaStatus(),
-        backgroundColor: _status.item3 == Colors.white
-            ? LunaColours.blueGrey
-            : _status.item3,
+        backgroundColor: _status.item3,
       ),
     ];
   }

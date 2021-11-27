@@ -49,7 +49,10 @@ class _State extends State<SonarrQueueTile> {
           ),
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(text: widget.queueRecord.lunaPercentage()),
+        TextSpan(
+          text: widget.queueRecord.size?.floor()?.lunaBytesToString() ??
+              LunaUI.TEXT_EMDASH,
+        ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: widget.queueRecord.lunaTimeLeft()),
       ],
@@ -59,16 +62,13 @@ class _State extends State<SonarrQueueTile> {
   TextSpan _subtitle1() {
     return TextSpan(
       children: [
+        if (widget.queueRecord.series != null)
+          TextSpan(text: widget.queueRecord.series.title),
+        if (widget.queueRecord.series != null)
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(
           text: widget.queueRecord.episode?.lunaSeasonEpisode() ??
               LunaUI.TEXT_EMDASH,
-        ),
-        const TextSpan(text: ': '),
-        TextSpan(
-          text: widget.queueRecord.episode?.title ?? LunaUI.TEXT_EMDASH,
-          style: const TextStyle(
-            fontStyle: FontStyle.italic,
-          ),
         ),
       ],
     );
@@ -107,6 +107,12 @@ class _State extends State<SonarrQueueTile> {
           title: 'sonarr.Episode'.tr(),
           body: widget.queueRecord.episode.lunaSeasonEpisode(),
         ),
+      if (widget.queueRecord.episode != null)
+        LunaTableContent(
+          title: 'sonarr.Title'.tr(),
+          body: widget.queueRecord.episode.title,
+        ),
+      const LunaTableContent(title: '', body: ''),
       LunaTableContent(
         title: 'sonarr.Quality'.tr(),
         body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
@@ -121,7 +127,7 @@ class _State extends State<SonarrQueueTile> {
       ),
       LunaTableContent(
         title: 'sonarr.Size'.tr(),
-        body: widget.queueRecord.size.floor().lunaBytesToString() ??
+        body: widget.queueRecord.size?.floor()?.lunaBytesToString() ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(

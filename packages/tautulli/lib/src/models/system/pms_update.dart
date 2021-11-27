@@ -103,7 +103,7 @@ class TautulliPMSUpdate {
 
   Map<String, dynamic> toJson() => _$TautulliPMSUpdateToJson(this);
 
-  static List<String>? _releaseNotesFromJson(String notes) =>
+  static List<String>? _releaseNotesFromJson(String? notes) =>
       notes?.split("\n") ?? [];
   static String? _releaseNotesToJson(List<String>? notes) =>
       notes?.join("\n") ?? '';

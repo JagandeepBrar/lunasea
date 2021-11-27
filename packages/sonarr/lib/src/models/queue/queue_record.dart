@@ -88,6 +88,9 @@ class SonarrQueueRecord {
   @JsonKey(name: 'indexer')
   String? indexer;
 
+  @JsonKey(name: 'outputPath')
+  String? outputPath;
+
   @JsonKey(name: 'id')
   int? id;
 
@@ -112,6 +115,7 @@ class SonarrQueueRecord {
     this.protocol,
     this.downloadClient,
     this.indexer,
+    this.outputPath,
     this.id,
   });
 

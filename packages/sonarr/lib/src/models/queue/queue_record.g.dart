@@ -44,6 +44,7 @@ SonarrQueueRecord _$SonarrQueueRecordFromJson(Map<String, dynamic> json) =>
       protocol: SonarrUtilities.protocolFromJson(json['protocol'] as String?),
       downloadClient: json['downloadClient'] as String?,
       indexer: json['indexer'] as String?,
+      outputPath: json['outputPath'] as String?,
       id: json['id'] as int?,
     );
 
@@ -84,6 +85,7 @@ Map<String, dynamic> _$SonarrQueueRecordToJson(SonarrQueueRecord instance) {
   writeNotNull('protocol', SonarrUtilities.protocolToJson(instance.protocol));
   writeNotNull('downloadClient', instance.downloadClient);
   writeNotNull('indexer', instance.indexer);
+  writeNotNull('outputPath', instance.outputPath);
   writeNotNull('id', instance.id);
   return val;
 }

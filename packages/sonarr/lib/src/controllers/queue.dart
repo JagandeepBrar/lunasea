@@ -16,12 +16,20 @@ class SonarrController_Queue {
     bool? includeUnknownSeriesItems,
     bool? includeSeries,
     bool? includeEpisode,
+    SonarrSortDirection? sortDirection,
+    SonarrQueueSortKey? sortKey,
+    int? page,
+    int? pageSize,
   }) async =>
       _commandGetQueue(
         _client,
         includeUnknownSeriesItems: includeUnknownSeriesItems,
         includeEpisode: includeEpisode,
         includeSeries: includeSeries,
+        sortDirection: sortDirection,
+        sortKey: sortKey,
+        page: page,
+        pageSize: pageSize,
       );
 
   /// Handler for [queue/details](https://github.com/Sonarr/Sonarr/wiki/Queue#get).

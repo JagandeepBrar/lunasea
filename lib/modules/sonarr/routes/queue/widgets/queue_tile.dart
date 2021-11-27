@@ -4,12 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrQueueTile extends StatefulWidget {
   final SonarrQueueRecord queueRecord;
-  final bool episodeQueue;
+  final bool enableLongPress;
 
   const SonarrQueueTile({
     Key key,
     @required this.queueRecord,
-    this.episodeQueue = false,
+    this.enableLongPress = true,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,16 @@ class _State extends State<SonarrQueueTile> {
       collapsedSubtitle2: _subtitle2(),
       expandedTableContent: _expandedTableContent(),
       expandedHighlightedNodes: _expandedHighlightedNodes(),
+      expandedTableButtons: _tableButtons(),
       collapsedTrailing: _collapsedTrailing(),
+      onLongPress: widget.enableLongPress ? _onLongPress : null,
+    );
+  }
+
+  Future<void> _onLongPress() async {
+    SonarrSeriesDetailsRouter().navigateTo(
+      context,
+      seriesId: widget.queueRecord.seriesId,
     );
   }
 
@@ -131,6 +140,41 @@ class _State extends State<SonarrQueueTile> {
       LunaTableContent(
         title: 'sonarr.TimeLeft'.tr(),
         body: widget.queueRecord.lunaTimeLeft(),
+      ),
+    ];
+  }
+
+  List<LunaButton> _tableButtons() {
+    return [
+      if ((widget.queueRecord?.statusMessages ?? []).isNotEmpty)
+        LunaButton.text(
+          icon: Icons.messenger_outline_rounded,
+          color: LunaColours.orange,
+          text: 'sonarr.Messages'.tr(),
+          onTap: () async {
+            LunaDialogs().showMessages(
+              context,
+              widget.queueRecord.statusMessages
+                  .map<String>((status) => status.messages.join('\n'))
+                  .toList(),
+            );
+          },
+        ),
+      // if (widget.queueRecord?.trackedDownloadState ==
+      //         SonarrTrackedDownloadState.IMPORT_PENDING &&
+      //     (widget.queueRecord?.outputPath ?? '').isNotEmpty)
+      //   LunaButton.text(
+      //     icon: Icons.download_done_rounded,
+      //     text: 'sonarr.Import'.tr(),
+      //     onTap: () async {},
+      //   ),
+      LunaButton.text(
+        icon: Icons.delete_rounded,
+        color: LunaColours.red,
+        text: 'lunasea.Remove'.tr(),
+        onTap: () async {
+          // TODO
+        },
       ),
     ];
   }

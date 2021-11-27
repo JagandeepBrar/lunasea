@@ -187,7 +187,9 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
 
   List<Widget> _queue(BuildContext context) {
     if (queueRecords?.isNotEmpty ?? false) {
-      return queueRecords.map((r) => SonarrQueueTile(queueRecord: r)).toList();
+      return queueRecords
+          .map((r) => SonarrQueueTile(queueRecord: r, enableLongPress: false))
+          .toList();
     }
     return [];
   }

@@ -66,8 +66,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.queue_rounded,
             color: LunaColours().byListIndex(2),
           ),
-          onTap: () async => _showComingSoonMessage(),
-          // onTap: () async => SonarrQueueRouter().navigateTo(context),
+          onTap: () async => SonarrQueueRouter().navigateTo(context),
         ),
         LunaListTile(
           context: context,

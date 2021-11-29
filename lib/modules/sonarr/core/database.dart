@@ -64,6 +64,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
         case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
         case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
+        case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
+        case SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT:
           data[value.key] = value.data;
           break;
       }
@@ -111,6 +113,8 @@ class SonarrDatabase extends LunaModuleDatabase {
           case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
           case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE:
+          case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
+          case SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT:
             value.put(config[key]);
             break;
         }
@@ -168,6 +172,10 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING;
       case 'SONARR_ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET':
         return SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET;
+      case 'SONARR_QUEUE_REMOVE_DOWNLOAD_CLIENT':
+        return SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT;
+      case 'SONARR_QUEUE_ADD_BLOCKLIST':
+        return SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST;
       default:
         return null;
     }
@@ -198,6 +206,8 @@ enum SonarrDatabaseValue {
   REMOVE_SERIES_EXCLUSION_LIST,
   UPCOMING_FUTURE_DAYS,
   QUEUE_REFRESH_RATE,
+  QUEUE_REMOVE_DOWNLOAD_CLIENT,
+  QUEUE_ADD_BLOCKLIST,
   CONTENT_PAGE_SIZE,
 }
 
@@ -252,6 +262,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_ADD_SERIES_SEARCH_FOR_MISSING';
       case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
         return 'SONARR_DEFAULT_FILTERING_RELEASES';
+      case SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT:
+        return 'SONARR_QUEUE_REMOVE_DOWNLOAD_CLIENT';
+      case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
+        return 'SONARR_QUEUE_ADD_BLOCKLIST';
     }
     throw Exception('key not found');
   }
@@ -268,7 +282,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         return _box.get(this.key, defaultValue: 7);
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
-        return _box.get(this.key, defaultValue: 60);
+        return _box.get(this.key, defaultValue: 15);
       case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         return _box.get(this.key, defaultValue: 25);
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
@@ -312,6 +326,10 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET:
         return _box.get(this.key, defaultValue: false);
       case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
+        return _box.get(this.key, defaultValue: false);
+      case SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT:
+        return _box.get(this.key, defaultValue: false);
+      case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
         return _box.get(this.key, defaultValue: false);
     }
     throw Exception('data not found');
@@ -390,6 +408,12 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         if (value is bool) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING:
+        if (value is bool) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT:
+        if (value is bool) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
         if (value is bool) box.put(this.key, value);
         return;
     }

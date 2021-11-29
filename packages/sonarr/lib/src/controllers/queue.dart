@@ -52,9 +52,15 @@ class SonarrController_Queue {
   /// Handler for [queue](https://github.com/Sonarr/Sonarr/wiki/Queue#delete).
   ///
   /// Deletes an item from the queue and download client..
-  Future<void> deleteRecord({
+  Future<void> delete({
     required int id,
-    bool? blacklist,
+    bool? removeFromClient,
+    bool? blocklist,
   }) async =>
-      _commandDeleteQueue(_client, id: id, blacklist: blacklist);
+      _commandDeleteQueue(
+        _client,
+        id: id,
+        blocklist: blocklist,
+        removeFromClient: removeFromClient,
+      );
 }

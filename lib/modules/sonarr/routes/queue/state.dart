@@ -12,7 +12,7 @@ class SonarrQueueState extends ChangeNotifier {
   void cancelTimer() => _timer?.cancel();
   void createTimer(BuildContext context) {
     _timer = Timer.periodic(
-      const Duration(seconds: 15),
+      Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
       (_) => fetchQueue(context),
     );
   }

@@ -93,6 +93,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       itemBuilder: (context, index) => SonarrQueueTile(
         key: ObjectKey(queue.records[index].id),
         queueRecord: queue.records[index],
+        type: SonarrQueueTileType.ALL,
       ),
     );
   }

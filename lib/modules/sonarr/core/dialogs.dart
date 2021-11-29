@@ -696,4 +696,45 @@ class SonarrDialogs {
     );
     return _flag;
   }
+
+  Future<bool> removeFromQueue(BuildContext context) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'sonarr.RemoveFromQueue'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Remove'.tr(),
+          textColor: LunaColours.red,
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.RemoveFromDownloadClient'.tr(),
+            value: SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.put(value),
+          ),
+        ),
+        SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.AddReleaseToBlocklist'.tr(),
+            value: SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.put(value),
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+    return _flag;
+  }
 }

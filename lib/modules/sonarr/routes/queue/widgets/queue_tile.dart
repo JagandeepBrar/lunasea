@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+enum SonarrQueueTileType {
+  ALL,
+  EPISODE,
+}
+
 class SonarrQueueTile extends StatefulWidget {
   final SonarrQueueRecord queueRecord;
-  final bool enableLongPress;
+  final SonarrQueueTileType type;
 
   const SonarrQueueTile({
     Key key,
     @required this.queueRecord,
-    this.enableLongPress = true,
+    @required this.type,
   }) : super(key: key);
 
   @override
@@ -27,7 +32,7 @@ class _State extends State<SonarrQueueTile> {
       expandedHighlightedNodes: _expandedHighlightedNodes(),
       expandedTableButtons: _tableButtons(),
       collapsedTrailing: _collapsedTrailing(),
-      onLongPress: widget.enableLongPress ? _onLongPress : null,
+      onLongPress: widget.type == SonarrQueueTileType.ALL ? _onLongPress : null,
     );
   }
 
@@ -160,9 +165,9 @@ class _State extends State<SonarrQueueTile> {
             );
           },
         ),
-      // if (widget.queueRecord?.trackedDownloadState ==
-      //         SonarrTrackedDownloadState.IMPORT_PENDING &&
-      //     (widget.queueRecord?.outputPath ?? '').isNotEmpty)
+      // if (widget.queueRecord.status == SonarrQueueStatus.COMPLETED &&
+      //     widget.queueRecord?.trackedDownloadStatus ==
+      //         SonarrTrackedDownloadStatus.WARNING)
       //   LunaButton.text(
       //     icon: Icons.download_done_rounded,
       //     text: 'sonarr.Import'.tr(),
@@ -173,7 +178,31 @@ class _State extends State<SonarrQueueTile> {
         color: LunaColours.red,
         text: 'lunasea.Remove'.tr(),
         onTap: () async {
-          // TODO
+          bool result = await SonarrDialogs().removeFromQueue(context);
+          if (result) {
+            SonarrAPIController()
+                .removeFromQueue(
+              context: context,
+              queueRecord: widget.queueRecord,
+            )
+                .then((_) {
+              switch (widget.type) {
+                case SonarrQueueTileType.ALL:
+                  context.read<SonarrQueueState>().fetchQueue(
+                        context,
+                        hardCheck: true,
+                      );
+                  break;
+                case SonarrQueueTileType.EPISODE:
+                  context.read<SonarrSeasonDetailsState>().fetchState(
+                        context,
+                        shouldFetchEpisodes: false,
+                        shouldFetchFiles: false,
+                      );
+                  break;
+              }
+            });
+          }
         },
       ),
     ];

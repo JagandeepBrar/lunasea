@@ -72,7 +72,7 @@ class _State extends State<SABnzbdHistoryTile> {
     return [
       LunaButton.text(
         text: 'Stages',
-        icon: Icons.subject,
+        icon: Icons.subject_rounded,
         onTap: () async => _enterStages(),
       ),
       LunaButton.text(

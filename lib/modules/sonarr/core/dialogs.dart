@@ -350,7 +350,7 @@ class SonarrDialogs {
         titles.length,
         (index) => LunaDialog.tile(
           text: titles[index],
-          icon: Icons.sort,
+          icon: Icons.sort_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, index),
         ),
@@ -435,7 +435,7 @@ class SonarrDialogs {
         profiles.length,
         (index) => LunaDialog.tile(
           text: profiles[index].name,
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
         ),
@@ -463,7 +463,7 @@ class SonarrDialogs {
         profiles.length,
         (index) => LunaDialog.tile(
           text: profiles[index].name,
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
         ),
@@ -497,7 +497,7 @@ class SonarrDialogs {
                   text: folders[index].freeSpace.lunaBytesToString())
             ],
           ),
-          icon: Icons.folder,
+          icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
         ),
@@ -525,7 +525,7 @@ class SonarrDialogs {
         SonarrSeriesMonitorType.values.length,
         (index) => LunaDialog.tile(
           text: SonarrSeriesMonitorType.values[index].lunaName,
-          icon: Icons.view_list,
+          icon: Icons.view_list_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesMonitorType.values[index]),
         ),
@@ -554,7 +554,7 @@ class SonarrDialogs {
         (index) => LunaDialog.tile(
           text:
               SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
-          icon: Icons.folder_open,
+          icon: Icons.folder_open_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesType.values[index]),
         ),

@@ -98,7 +98,9 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     }
 
     return LunaIconButton(
-      icon: widget.season.monitored ? Icons.turned_in : Icons.turned_in_not,
+      icon: widget.season.monitored
+          ? Icons.turned_in_rounded
+          : Icons.turned_in_not_rounded,
       color: widget.season.monitored ? Colors.white : Colors.white30,
       loadingState: _loadingState,
       onPressed: () async {

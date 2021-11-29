@@ -113,11 +113,20 @@ class _State extends State<RadarrCatalogueTile> {
     return Row(
       children: [
         _buildReleaseIcon(
-            Icons.videocam, LunaColours.orange, widget.movie.lunaIsInCinemas),
+          Icons.videocam_rounded,
+          LunaColours.orange,
+          widget.movie.lunaIsInCinemas,
+        ),
         _buildReleaseIcon(
-            Icons.album, LunaColours.blue, widget.movie.lunaIsReleased),
+          Icons.album_rounded,
+          LunaColours.blue,
+          widget.movie.lunaIsReleased,
+        ),
         _buildReleaseIcon(
-            Icons.check_circle, LunaColours.accent, widget.movie.hasFile),
+          Icons.check_circle_rounded,
+          LunaColours.accent,
+          widget.movie.hasFile,
+        ),
         Padding(
           child: widget.movie.hasFile
               ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)

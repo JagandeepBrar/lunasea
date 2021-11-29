@@ -53,22 +53,17 @@ class _State extends State<SonarrQueueTile> {
   }
 
   TextSpan _subtitle2() {
+    Tuple3<String, IconData, Color> _params =
+        widget.queueRecord.lunaStatusParameters(canBeWhite: false);
     return TextSpan(
+      style: TextStyle(
+        color: _params.item3,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
       children: [
-        TextSpan(
-          text: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
-          style: const TextStyle(
-            color: LunaColours.accent,
-            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          ),
-        ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(
-          text: widget.queueRecord.size?.floor()?.lunaBytesToString() ??
-              LunaUI.TEXT_EMDASH,
-        ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(text: widget.queueRecord.lunaTimeLeft()),
+        TextSpan(text: widget.queueRecord.lunaPercentage()),
+        TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
+        TextSpan(text: _params.item1),
       ],
     );
   }

@@ -36,7 +36,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollControllers: [scrollController],
       actions: [
         LunaIconButton(
-          icon: Icons.help_outline,
+          icon: Icons.help_outline_rounded,
           onPressed: () async => LunaDialogs().textPreview(
             context,
             'Profiles',
@@ -60,21 +60,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'Add'),
           subtitle: LunaText.subtitle(text: 'Add a New Profile'),
-          trailing: LunaIconButton(icon: Icons.add),
+          trailing: LunaIconButton(icon: Icons.add_rounded),
           onTap: () async => LunaProfile().addProfile(),
         ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'Rename'),
           subtitle: LunaText.subtitle(text: 'Rename an Existing Profile'),
-          trailing: LunaIconButton(icon: Icons.text_format),
+          trailing: LunaIconButton(icon: Icons.text_format_rounded),
           onTap: () async => LunaProfile().renameProfile(),
         ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'Delete'),
           subtitle: LunaText.subtitle(text: 'Delete an Existing Profile'),
-          trailing: LunaIconButton(icon: Icons.delete),
+          trailing: LunaIconButton(icon: Icons.delete_rounded),
           onTap: () async => LunaProfile().deleteProfile(),
         ),
       ],
@@ -89,7 +89,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         builder: (context, _, __) =>
             LunaText.subtitle(text: LunaDatabaseValue.ENABLED_PROFILE.data),
       ),
-      trailing: LunaIconButton(icon: Icons.switch_account),
+      trailing: LunaIconButton(icon: Icons.switch_account_rounded),
       onTap: () async {
         Tuple2<bool, String> results = await SettingsDialogs().enabledProfile(
           LunaState.navigatorKey.currentContext,

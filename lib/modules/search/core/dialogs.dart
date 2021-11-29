@@ -37,7 +37,7 @@ class SearchDialogs {
                         ),
                       ),
                       const Icon(
-                        Icons.arrow_drop_down,
+                        Icons.arrow_drop_down_rounded,
                         color: LunaColours.accent,
                       ),
                     ],

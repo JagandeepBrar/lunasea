@@ -37,7 +37,7 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
       case CalendarStartingType.SCHEDULE:
         return LunaIcons.calendar;
       case CalendarStartingType.CALENDAR:
-        return Icons.calendar_view_day;
+        return Icons.calendar_view_day_rounded;
     }
     throw Exception('Invalid CalendarStartingType');
   }

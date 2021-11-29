@@ -158,7 +158,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           LunaButton(
             type: LunaButtonType.TEXT,
             text: 'lunasea.Delete'.tr(),
-            icon: Icons.delete,
+            icon: Icons.delete_rounded,
             onTap: () async {
               bool result = await SonarrDialogs().deleteEpisode(context);
               if (result) {

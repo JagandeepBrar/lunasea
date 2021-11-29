@@ -20,9 +20,9 @@ extension HeaderTypeExtension on HeaderType {
   IconData get icon {
     switch (this) {
       case HeaderType.GENERIC:
-        return Icons.device_hub;
+        return Icons.device_hub_rounded;
       case HeaderType.AUTHORIZATION:
-        return Icons.verified_user;
+        return Icons.verified_user_rounded;
     }
     throw Exception('Invalid HeaderType');
   }

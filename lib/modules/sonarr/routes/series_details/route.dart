@@ -131,7 +131,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
         ? null
         : [
             LunaIconButton(
-              icon: Icons.edit,
+              icon: Icons.edit_rounded,
               onPressed: () async => SonarrEditSeriesRouter().navigateTo(
                 context,
                 seriesId: widget.seriesId,

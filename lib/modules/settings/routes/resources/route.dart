@@ -60,7 +60,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'Feedback Board'),
           subtitle: LunaText.subtitle(text: 'Request New Features'),
-          trailing: LunaIconButton(icon: Icons.speaker_notes),
+          trailing: LunaIconButton(icon: Icons.speaker_notes_rounded),
           onTap: LunaLinks.FEEDBACK_BOARD.launch,
         ),
         LunaListTile(
@@ -82,7 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               context: context,
               title: LunaText.title(text: 'TestFlight'),
               subtitle: LunaText.subtitle(text: 'Join the TestFlight Beta'),
-              trailing: LunaIconButton(icon: Icons.developer_board),
+              trailing: LunaIconButton(icon: Icons.developer_board_rounded),
               onTap: LunaLinks.TESTFLIGHT.launch),
         LunaListTile(
             context: context,
@@ -95,7 +95,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'Weblate'),
           subtitle: LunaText.subtitle(text: 'Help Localize LunaSea'),
-          trailing: LunaIconButton(icon: Icons.translate),
+          trailing: LunaIconButton(icon: Icons.translate_rounded),
           onTap: LunaLinks.WEBLATE.launch,
         ),
         LunaListTile(

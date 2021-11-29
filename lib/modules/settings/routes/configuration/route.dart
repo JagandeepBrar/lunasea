@@ -38,7 +38,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollControllers: [scrollController],
       actions: [
         LunaIconButton(
-          icon: Icons.switch_account,
+          icon: Icons.switch_account_rounded,
           onPressed: () async {
             Tuple2<bool, String> results =
                 await SettingsDialogs().enabledProfile(
@@ -110,7 +110,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             subtitle: LunaText.subtitle(
               text: 'settings.QuickActionsDescription'.tr(),
             ),
-            trailing: LunaIconButton(icon: Icons.rounded_corner),
+            trailing: LunaIconButton(icon: Icons.rounded_corner_rounded),
             onTap: () async =>
                 SettingsConfigurationQuickActionsRouter().navigateTo(context),
           ),

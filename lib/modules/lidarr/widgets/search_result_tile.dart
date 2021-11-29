@@ -71,8 +71,9 @@ class _State extends State<LidarrReleasesTile> {
 
   Widget _trailing() {
     return LunaIconButton(
-      icon:
-          widget.release.approved ? Icons.file_download : Icons.report_outlined,
+      icon: widget.release.approved
+          ? Icons.file_download_rounded
+          : Icons.report_outlined,
       color: widget.release.approved ? Colors.white : LunaColours.red,
       onPressed: () async =>
           widget.release.approved ? _startDownload() : _showWarnings(),

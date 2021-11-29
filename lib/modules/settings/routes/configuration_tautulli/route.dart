@@ -38,7 +38,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollControllers: [scrollController],
       actions: [
         LunaIconButton(
-          icon: Icons.help_outline,
+          icon: Icons.help_outline_rounded,
           onPressed: () async =>
               SettingsDialogs().moduleInformation(context, LunaModule.TAUTULLI),
         ),
@@ -112,7 +112,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           subtitle: LunaText.subtitle(
               text:
                   terminationMessage.isEmpty ? 'Not Set' : terminationMessage),
-          trailing: LunaIconButton(icon: Icons.videocam_off),
+          trailing: LunaIconButton(icon: Icons.videocam_off_rounded),
           onTap: () async {
             Tuple2<bool, String> result =
                 await TautulliDialogs.setTerminationMessage(context);
@@ -137,7 +137,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         context: context,
         title: LunaText.title(text: 'Activity Refresh Rate'),
         subtitle: LunaText.subtitle(text: refreshRate),
-        trailing: LunaIconButton(icon: Icons.refresh),
+        trailing: LunaIconButton(icon: Icons.refresh_rounded),
         onTap: () async {
           List<dynamic> _values = await TautulliDialogs.setRefreshRate(context);
           if (_values[0]) TautulliDatabaseValue.REFRESH_RATE.put(_values[1]);

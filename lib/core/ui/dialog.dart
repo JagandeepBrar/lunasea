@@ -205,7 +205,7 @@ abstract class LunaDialog {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              icon ?? Icons.error_outline,
+              icon ?? Icons.error_outline_rounded,
               color: iconColor ?? LunaColours.accent,
             ),
           ],

@@ -143,7 +143,7 @@ class RadarrDialogs {
         titles.length,
         (index) => LunaDialog.tile(
           text: titles[index],
-          icon: Icons.sort,
+          icon: Icons.sort_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, index),
         ),
@@ -293,7 +293,7 @@ class RadarrDialogs {
         RadarrAvailability.values.length,
         (index) => LunaDialog.tile(
           text: RadarrAvailability.values[index].readable,
-          icon: Icons.folder,
+          icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, RadarrAvailability.values[index]),
         ),
@@ -600,7 +600,7 @@ class RadarrDialogs {
                   text: folders[index].freeSpace.lunaBytesToString())
             ],
           ),
-          icon: Icons.folder,
+          icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
         ),

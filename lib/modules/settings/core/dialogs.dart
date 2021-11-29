@@ -51,7 +51,7 @@ class SettingsDialogs {
           ? List.generate(
               backups.length,
               (index) => LunaDialog.tile(
-                icon: Icons.file_copy,
+                icon: Icons.file_copy_rounded,
                 iconColor: LunaColours().byListIndex(index),
                 text: backups[index].title.toString(),
                 onTap: () => _setValues(true, backups[index]),
@@ -521,7 +521,7 @@ class SettingsDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          icon: Icons.settings,
+          icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
@@ -599,7 +599,7 @@ class SettingsDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          icon: Icons.settings,
+          icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
@@ -629,7 +629,7 @@ class SettingsDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          icon: Icons.settings,
+          icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
@@ -774,7 +774,7 @@ class SettingsDialogs {
         case CalendarStartingType.SCHEDULE:
           return CalendarStartingType.CALENDAR.icon;
         default:
-          return Icons.help;
+          return Icons.help_rounded;
       }
     }
 

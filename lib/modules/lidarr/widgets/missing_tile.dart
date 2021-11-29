@@ -50,7 +50,7 @@ class _State extends State<LidarrMissingTile> {
           maxLines: 2,
         ),
         trailing: LunaIconButton(
-          icon: Icons.search,
+          icon: Icons.search_rounded,
           onPressed: () async => _search(),
           onLongPress: () async => _interactiveSearch(),
         ),

@@ -19,7 +19,7 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
         onPressed: () async => _onPressed(context),
       );
     return LunaIconButton(
-      icon: Icons.add,
+      icon: Icons.add_rounded,
       onPressed: () async => _onPressed(context),
     );
   }

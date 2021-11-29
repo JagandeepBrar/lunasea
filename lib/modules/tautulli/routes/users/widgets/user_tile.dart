@@ -73,7 +73,7 @@ class TautulliUserTile extends StatelessWidget {
         children: [
           const Padding(
             child: Icon(
-              Icons.visibility,
+              Icons.visibility_rounded,
               size: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             padding: EdgeInsets.only(right: 6.0),
@@ -91,7 +91,7 @@ class TautulliUserTile extends StatelessWidget {
         children: [
           const Padding(
             child: Icon(
-              Icons.play_arrow,
+              Icons.play_arrow_rounded,
               size: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             padding: EdgeInsets.only(right: 6.0),

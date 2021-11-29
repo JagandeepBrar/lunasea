@@ -22,7 +22,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
           builder: (context, state, _) =>
               LunaPopupMenuButton<SonarrSeriesSorting>(
             tooltip: 'sonarr.SortCatalogue'.tr(),
-            icon: Icons.sort,
+            icon: Icons.sort_rounded,
             onSelected: (result) {
               if (state.seriesSortType == result) {
                 state.seriesSortAscending = !state.seriesSortAscending;
@@ -54,8 +54,8 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                         SonarrSeriesSorting.values[index])
                       Icon(
                         state.seriesSortAscending
-                            ? Icons.arrow_upward
-                            : Icons.arrow_downward,
+                            ? Icons.arrow_upward_rounded
+                            : Icons.arrow_downward_rounded,
                         size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
                         color: LunaColours.accent,
                       ),

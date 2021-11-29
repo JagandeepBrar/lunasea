@@ -68,7 +68,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
         LunaButton(
           type: LunaButtonType.TEXT,
           text: 'Delete',
-          icon: Icons.delete,
+          icon: Icons.delete_rounded,
           onTap: () async => _deleteFile(),
           color: LunaColours.red,
           loadingState: _deleteFileState,

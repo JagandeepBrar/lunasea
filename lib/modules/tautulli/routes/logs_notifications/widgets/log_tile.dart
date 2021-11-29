@@ -52,7 +52,9 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
   Widget _trailing() => Column(
         children: [
           LunaIconButton(
-            icon: notification.success ? Icons.check_circle : Icons.cancel,
+            icon: notification.success
+                ? Icons.check_circle_rounded
+                : Icons.cancel_rounded,
             color: notification.success ? Colors.white : LunaColours.red,
           ),
         ],

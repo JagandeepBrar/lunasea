@@ -73,7 +73,7 @@ class LunaIconButton extends StatelessWidget {
   Widget _icon() {
     if (loadingState == LunaLoadingState.ERROR) {
       return Icon(
-        Icons.error,
+        Icons.error_rounded,
         color: color,
       );
     } else if (icon != null) {

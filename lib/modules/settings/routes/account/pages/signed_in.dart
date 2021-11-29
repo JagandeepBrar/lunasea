@@ -31,7 +31,7 @@ class _State extends State<SettingsAccountSignedInPage> {
       actions: [
         LunaButton.text(
           text: 'settings.SignOut'.tr(),
-          icon: Icons.logout,
+          icon: Icons.logout_rounded,
           color: LunaColours.red,
           onTap: () async {
             bool result =

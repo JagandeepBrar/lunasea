@@ -46,7 +46,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
       trailing: (seriesList?.isNotEmpty ?? true)
           ? null
           : LunaIconButton(
-              icon: Icons.delete,
+              icon: Icons.delete_rounded,
               color: LunaColours.red,
               onPressed: _handleDelete,
             ),

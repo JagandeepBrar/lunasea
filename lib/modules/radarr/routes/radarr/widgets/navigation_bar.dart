@@ -12,7 +12,7 @@ class RadarrNavigationBar extends StatelessWidget {
     LunaIcons.movies,
     LunaIcons.upcoming,
     LunaIcons.calendar_missing,
-    Icons.more_horiz,
+    Icons.more_horiz_rounded,
   ];
 
   static List<String> get titles => [

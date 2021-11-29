@@ -25,13 +25,13 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
   IconData get icon {
     switch (this) {
       case LunaSnackbarType.SUCCESS:
-        return Icons.check_circle_outline;
+        return Icons.check_circle_outline_rounded;
       case LunaSnackbarType.ERROR:
-        return Icons.error_outline;
+        return Icons.error_outline_rounded;
       case LunaSnackbarType.INFO:
-        return Icons.info_outline;
+        return Icons.info_outline_rounded;
       default:
-        return Icons.help_outline;
+        return Icons.help_outline_rounded;
     }
   }
 }
@@ -50,8 +50,7 @@ Future<void> showLunaSnackBar({
 }) async =>
     showFlash(
       context: LunaState.navigatorKey.currentContext,
-      duration:
-          duration ?? Duration(seconds: showButton ? 4 : 2),
+      duration: duration ?? Duration(seconds: showButton ? 4 : 2),
       builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
         controller: controller,

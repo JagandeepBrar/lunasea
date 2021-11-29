@@ -7,8 +7,8 @@ class TautulliLibrariesDetailsNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    Icons.info_outline,
-    Icons.people,
+    Icons.info_outline_rounded,
+    Icons.people_rounded,
   ];
 
   static const List<String> titles = [

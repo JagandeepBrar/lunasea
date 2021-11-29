@@ -23,12 +23,12 @@ extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
   IconData get lsWatchStatusIcon {
     switch (this.watchedStatus) {
       case TautulliWatchedStatus.PARTIALLY_WATCHED:
-        return Icons.radio_button_checked;
+        return Icons.radio_button_checked_rounded;
       case TautulliWatchedStatus.WATCHED:
-        return Icons.check_circle;
+        return Icons.check_circle_rounded;
       case TautulliWatchedStatus.UNWATCHED:
       default:
-        return Icons.radio_button_unchecked;
+        return Icons.radio_button_unchecked_rounded;
     }
   }
 

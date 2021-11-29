@@ -91,11 +91,11 @@ class _State extends State<Lidarr> {
     if (_api.enabled)
       actions = [
         LunaIconButton(
-          icon: Icons.add,
+          icon: Icons.add_rounded,
           onPressed: () async => _enterAddArtist(),
         ),
         LunaIconButton(
-          icon: Icons.more_vert,
+          icon: Icons.more_vert_rounded,
           onPressed: () async => _handlePopup(),
         ),
       ];

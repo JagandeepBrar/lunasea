@@ -27,21 +27,21 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
   IconData lunaIcon() {
     switch (this) {
       case SonarrEventType.EPISODE_FILE_RENAMED:
-        return Icons.drive_file_rename_outline;
+        return Icons.drive_file_rename_outline_rounded;
       case SonarrEventType.EPISODE_FILE_DELETED:
-        return Icons.delete;
+        return Icons.delete_rounded;
       case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
         return Icons.download_rounded;
       case SonarrEventType.DOWNLOAD_FAILED:
-        return Icons.cloud_download;
+        return Icons.cloud_download_rounded;
       case SonarrEventType.DOWNLOAD_IGNORED:
-        return Icons.cancel;
+        return Icons.cancel_rounded;
       case SonarrEventType.GRABBED:
-        return Icons.cloud_download;
+        return Icons.cloud_download_rounded;
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return Icons.download_rounded;
       default:
-        return Icons.help;
+        return Icons.help_rounded;
     }
   }
 

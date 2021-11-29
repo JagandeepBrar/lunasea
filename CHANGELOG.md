@@ -4,14 +4,21 @@
 
 #### NEW
 
-- `[Sonarr]` (Episode Sheet) Show the absolute episode number if available
+- `[Sonarr]` (Episode Sheet) Show the absolute episode number for anime
+- `[Sonarr]` (Episode Sheet) Show queue tile when the episode has queued releases
 - `[Sonarr]` (Releases) Ability to sort by preferred word score
 - `[Sonarr]` (Series Details) Ability to pull-to-refresh series and season list
+- `[Sonarr]` (Queue) Re-added ability to view all queued releases
+- `[Sonarr]` (Queue) Option to remove from download client and add to blocklist on remove
 
 #### FIXES
 
+- `[Radarr]` (Files) Could fail to load with files without media information
 - `[Sonarr]` (Releases) Correctly display negative preferred word scores
+- `[Sonarr]` (Queue) Check monitored download status first on pull to refresh
 - `[Tautulli]` (Updates) Checking for updates could fail in some cases
+
+---
 
 ## v6.0.0 (60000001)
 

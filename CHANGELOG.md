@@ -7,15 +7,20 @@
 - `[Sonarr]` (Episode Sheet) Show the absolute episode number for anime
 - `[Sonarr]` (Episode Sheet) Show queue tile when the episode has queued releases
 - `[Sonarr]` (Releases) Ability to sort by preferred word score
-- `[Sonarr]` (Series Details) Ability to pull-to-refresh series and season list
+- `[Sonarr]` (Series Details) Ability to pull-to-refresh series on the season list
 - `[Sonarr]` (Queue) Re-added ability to view all queued releases
 - `[Sonarr]` (Queue) Option to remove from download client and add to blocklist on remove
+
+#### TWEAKS
+
+- `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
+- `[UI/UX]` (List Tiles) Improve consistency in padding between sizes
 
 #### FIXES
 
 - `[Radarr]` (Files) Could fail to load with files without media information
 - `[Sonarr]` (Releases) Correctly display negative preferred word scores
-- `[Sonarr]` (Queue) Check monitored download status first on pull to refresh
+- `[Sonarr]` (Queue) Check monitored download status on pull to refresh
 - `[Tautulli]` (Updates) Checking for updates could fail in some cases
 
 ---

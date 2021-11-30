@@ -10,5 +10,20 @@
     "settings.AddHeader": "Header Toevoegen",
     "settings.AllFieldsAreRequired": "Alle velden zijn vereist",
     "settings.AmoledTheme": "AMOLED Thema",
-    "settings.AmoledThemeBorders": "AMOLED Thema Randen"
+    "settings.AmoledThemeBorders": "AMOLED Thema Randen",
+    "settings.BackupConfigurationHint2": "De encryptie sleutel moet minimaal 8 karakters zijn",
+    "settings.AmoledThemeBordersDescription": "Subtiele Randen Aan Het UI Toevoegen",
+    "settings.AmoledThemeDescription": "Puur Zwart Donker Thema",
+    "settings.ApiKey": "API-sleutel",
+    "settings.ApiKeyRequired": "API-sleutel Vereist",
+    "settings.ApiKeyRequiredMessage": "API-sleutel is vereist om te verbinden met {}",
+    "settings.Appearance": "Uiterlijk",
+    "settings.AppearanceDescription": "Look & Feel Aanpassen",
+    "settings.AutomaticallyManageOrderDescription": "Modulen Alfabetisch Weergeven",
+    "settings.AutomaticallyManageOrder": "Automatisch Sorteren",
+    "settings.BackgroundImageOpacity": "Doorzichtigheid Achtergrondafbeelding",
+    "settings.BackupConfiguration": "Back-up Configuratie",
+    "settings.BackupConfigurationHint1": "Alle back-ups zijn versleuteld voordat ze worden geëxporteerd",
+    "settings.BackupList": "Back-up Lijst",
+    "settings.BackupToCloud": "Back-up naar Cloud"
 }

@@ -1,6 +1,7 @@
 {
     "radarr.AddMovie": "Film Toevoegen",
     "radarr.AddMovieAndSearch": "Voeg Toe + Zoek",
+    "radarr.AddedTag": "Label Toegevoegd",
     "radarr.Age": "Leeftijd",
     "radarr.All": "Alle",
     "radarr.Alphabetical": "Alfabetisch",
@@ -22,6 +23,7 @@
     "radarr.DownloadFailed": "Download Gefaald",
     "radarr.DownloadIgnored": "Download Genegeerd",
     "radarr.EditMovie": "Bewerk Film",
+    "radarr.FailedToAddTag": "Label Toevoegen Gefaald",
     "radarr.FileBrowser": "Bestand Browser…",
     "radarr.FilterCatalogue": "Filter Catalogus",
     "radarr.GrabbedFrom": "Gepakt van {}",
@@ -58,6 +60,7 @@
     "radarr.NoResultsFound": "Geen Resultaten Gevonden",
     "radarr.NoSubdirectoriesFound": "Geen Subdirectories Gevonden",
     "radarr.NoSummaryIsAvailable": "Geen samenvatting beschikbaar.",
+    "radarr.NoTagsFound": "Geen Labels Gevonden",
     "radarr.ParentDirectory": "Parent Directory",
     "radarr.PhysicalRelease": "Fysieke Release",
     "radarr.Quality": "Kwaliteit",

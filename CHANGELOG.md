@@ -6,6 +6,10 @@
 
 - `[Sonarr]` (Queue) Hide redundant queue information on episode sheet
 
+#### FIXES
+
+- `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
+
 ---
 
 ## v6.0.0 (60000002)

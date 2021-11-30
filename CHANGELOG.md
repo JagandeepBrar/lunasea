@@ -2,6 +2,10 @@
 
 ## WIP
 
+#### TWEAK
+
+- `[Sonarr]` (Queue) Hide redundant queue information on episode sheet
+
 ---
 
 ## v6.0.0 (60000002)

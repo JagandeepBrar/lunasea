@@ -138,22 +138,24 @@ class _State extends State<SonarrQueueTile> {
 
   List<LunaTableContent> _expandedTableContent() {
     return [
-      if (widget.queueRecord.series != null)
+      if (widget.type == SonarrQueueTileType.ALL)
         LunaTableContent(
           title: 'sonarr.Series'.tr(),
-          body: widget.queueRecord.series.title,
+          body: widget.queueRecord.series?.title ?? LunaUI.TEXT_EMDASH,
         ),
-      if (widget.queueRecord.episode != null)
+      if (widget.type == SonarrQueueTileType.ALL)
         LunaTableContent(
           title: 'sonarr.Episode'.tr(),
-          body: widget.queueRecord.episode.lunaSeasonEpisode(),
+          body: widget.queueRecord.episode?.lunaSeasonEpisode() ??
+              LunaUI.TEXT_EMDASH,
         ),
-      if (widget.queueRecord.episode != null)
+      if (widget.type == SonarrQueueTileType.ALL)
         LunaTableContent(
           title: 'sonarr.Title'.tr(),
-          body: widget.queueRecord.episode.title,
+          body: widget.queueRecord.episode?.title ?? LunaUI.TEXT_EMDASH,
         ),
-      const LunaTableContent(title: '', body: ''),
+      if (widget.type == SonarrQueueTileType.ALL)
+        const LunaTableContent(title: '', body: ''),
       LunaTableContent(
         title: 'sonarr.Quality'.tr(),
         body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,

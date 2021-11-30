@@ -112,7 +112,7 @@ class _State extends State<RadarrUpcomingTile> {
 
   LunaIconButton _trailing() {
     return LunaIconButton(
-      icon: Icons.search,
+      icon: Icons.search_rounded,
       onPressed: () async => RadarrAPIHelper().automaticSearch(
           context: context,
           movieId: widget.movie.id,

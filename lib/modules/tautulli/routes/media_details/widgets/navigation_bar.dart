@@ -7,7 +7,7 @@ class TautulliMediaDetailsNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    Icons.info_outline,
+    Icons.info_outline_rounded,
     LunaIcons.history,
   ];
 

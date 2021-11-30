@@ -96,7 +96,7 @@ class LunaButton extends Card {
         );
       case LunaLoadingState.ERROR:
         return LunaButton.icon(
-          icon: Icons.error,
+          icon: Icons.error_rounded,
           iconSize: iconSize,
           color: color,
           backgroundColor: backgroundColor,

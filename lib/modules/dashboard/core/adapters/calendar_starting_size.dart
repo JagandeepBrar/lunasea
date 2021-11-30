@@ -54,11 +54,11 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
   IconData get icon {
     switch (this) {
       case CalendarStartingSize.ONE_WEEK:
-        return Icons.photo_size_select_small;
+        return Icons.photo_size_select_small_rounded;
       case CalendarStartingSize.TWO_WEEKS:
-        return Icons.photo_size_select_large;
+        return Icons.photo_size_select_large_rounded;
       case CalendarStartingSize.ONE_MONTH:
-        return Icons.photo_size_select_actual;
+        return Icons.photo_size_select_actual_rounded;
     }
     throw Exception('Invalid CalendarStartingSize');
   }

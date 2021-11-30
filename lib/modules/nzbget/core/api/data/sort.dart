@@ -72,21 +72,21 @@ extension NZBGetSortExtension on NZBGetSort {
     switch (this) {
       case NZBGetSort.name_asc:
       case NZBGetSort.name_desc:
-        return Icons.text_rotate_vertical;
+        return Icons.text_rotate_vertical_rounded;
       case NZBGetSort.priority_asc:
       case NZBGetSort.priority_desc:
-        return Icons.low_priority;
+        return Icons.low_priority_rounded;
       case NZBGetSort.category_asc:
       case NZBGetSort.category_desc:
-        return Icons.category;
+        return Icons.category_rounded;
       case NZBGetSort.size_asc:
       case NZBGetSort.size_desc:
-        return Icons.sd_card;
+        return Icons.sd_card_rounded;
       case NZBGetSort.left_asc:
       case NZBGetSort.left_desc:
-        return Icons.storage;
+        return Icons.storage_rounded;
       default:
-        return Icons.question_answer;
+        return Icons.question_answer_rounded;
     }
   }
 }

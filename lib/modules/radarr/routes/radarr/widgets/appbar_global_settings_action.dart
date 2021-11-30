@@ -10,7 +10,7 @@ class RadarrAppBarGlobalSettingsAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaIconButton(
-      icon: Icons.more_vert,
+      icon: Icons.more_vert_rounded,
       onPressed: () async {
         Tuple2<bool, RadarrGlobalSettingsType> values =
             await RadarrDialogs().globalSettings(context);

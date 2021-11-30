@@ -419,5 +419,8 @@
     "overseerr.UnknownUser": "Unbekannter Benutzer",
     "overseerr.NoUsersFound": "Keine Benutzer gefunden",
     "overseerr.NoRequestsFound": "Keine Anfragen gefunden",
-    "overseerr.Requests": "Anfragen"
+    "overseerr.Requests": "Anfragen",
+    "overseerr.NoRequests": "Keine Anfragen",
+    "overseerr.OneRequest": "1 Anfrage",
+    "overseerr.SomeRequests": "{} Anfragen"
 }

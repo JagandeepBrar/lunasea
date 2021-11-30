@@ -49,9 +49,11 @@ class SonarrHistoryTile extends StatelessWidget {
       title: type != SonarrHistoryTileType.ALL
           ? history.sourceTitle
           : series?.title ?? LunaUI.TEXT_EMDASH,
-      collapsedSubtitle1: _isThreeLine ? _subtitle1() : _subtitle2(),
-      collapsedSubtitle2: _isThreeLine ? _subtitle2() : _subtitle3(),
-      collapsedSubtitle3: _isThreeLine ? _subtitle3() : null,
+      collapsedSubtitles: [
+        if (_isThreeLine) _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,

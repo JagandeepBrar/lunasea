@@ -21,8 +21,10 @@ class _State extends State<RadarrReleasesTile> {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: widget.release.title,
-      collapsedSubtitle1: _subtitle1(),
-      collapsedSubtitle2: _subtitle2(),
+      collapsedSubtitles: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
       collapsedTrailing: _trailing(),
       expandedHighlightedNodes: _highlightedNodes(),
       expandedTableContent: _tableContent(),

@@ -20,7 +20,7 @@ class _State extends State<LidarrDetailsSettingsButton> {
   @override
   Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LunaIconButton(
-          icon: Icons.more_vert,
+          icon: Icons.more_vert_rounded,
           onPressed: () async => _handlePopup(context),
         ),
       );

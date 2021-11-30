@@ -15,7 +15,18 @@ extension SonarrEpisodeExtension on SonarrEpisode {
     return DateFormat.yMMMMd().format(this.airDateUtc.toLocal());
   }
 
-  String lunaDownloadedQuality(SonarrEpisodeFile file) {
+  String lunaDownloadedQuality(
+    SonarrEpisodeFile file,
+    SonarrQueueRecord queueRecord,
+  ) {
+    if (queueRecord != null) {
+      return [
+        queueRecord.lunaPercentage(),
+        LunaUI.TEXT_EMDASH,
+        queueRecord.lunaStatusParameters().item1,
+      ].join(' ');
+    }
+
     if (!this.hasFile) {
       if (_hasAired()) return 'sonarr.Unaired'.tr();
       return 'sonarr.Missing'.tr();
@@ -26,7 +37,14 @@ extension SonarrEpisodeExtension on SonarrEpisode {
     return '$quality ${LunaUI.TEXT_EMDASH} $size';
   }
 
-  Color lunaDownloadedQualityColor(SonarrEpisodeFile file) {
+  Color lunaDownloadedQualityColor(
+    SonarrEpisodeFile file,
+    SonarrQueueRecord queueRecord,
+  ) {
+    if (queueRecord != null) {
+      return queueRecord.lunaStatusParameters(canBeWhite: false).item3;
+    }
+
     if (!this.hasFile) {
       if (_hasAired()) return LunaColours.blue;
       return LunaColours.red;

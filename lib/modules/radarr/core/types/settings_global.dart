@@ -14,15 +14,15 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
   IconData get icon {
     switch (this) {
       case RadarrGlobalSettingsType.WEB_GUI:
-        return Icons.language;
+        return Icons.language_rounded;
       case RadarrGlobalSettingsType.UPDATE_LIBRARY:
-        return Icons.autorenew;
+        return Icons.autorenew_rounded;
       case RadarrGlobalSettingsType.RUN_RSS_SYNC:
-        return Icons.rss_feed;
+        return Icons.rss_feed_rounded;
       case RadarrGlobalSettingsType.SEARCH_ALL_MISSING:
-        return Icons.search;
+        return Icons.search_rounded;
       case RadarrGlobalSettingsType.BACKUP_DATABASE:
-        return Icons.save;
+        return Icons.save_rounded;
     }
     throw Exception('Invalid RadarrGlobalSettingsType');
   }

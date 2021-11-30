@@ -30,12 +30,23 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   }
 
   Future<void> _refresh() async {
-    context.read<SonarrSeasonDetailsState>().fetchEpisodes(context);
-    context.read<SonarrSeasonDetailsState>().fetchFiles(context);
+    await context.read<SonarrSeasonDetailsState>().fetchState(
+          context,
+          shouldFetchHistory: false,
+          shouldFetchMostRecentEpisodeHistory: false,
+        );
     await Future.wait([
       context.read<SonarrSeasonDetailsState>().episodes,
       context.read<SonarrSeasonDetailsState>().files,
+      context.read<SonarrSeasonDetailsState>().queue,
     ]);
+  }
+
+  List<SonarrQueueRecord> _findQueueRecords(
+    List<SonarrQueueRecord> records,
+    int episodeId,
+  ) {
+    return records.where((q) => q.episodeId == episodeId).toList();
   }
 
   Widget _body() {
@@ -48,19 +59,18 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
           future: Future.wait([
             state.episodes,
             state.files,
+            state.queue,
           ]),
           builder: (
             context,
             snapshot,
           ) {
             if (snapshot.hasError) {
-              if (snapshot.connectionState != ConnectionState.waiting) {
-                LunaLogger().error(
-                  'Unable to fetch Sonarr episode files',
-                  snapshot.error,
-                  snapshot.stackTrace,
-                );
-              }
+              LunaLogger().error(
+                'Unable to fetch Sonarr episode files',
+                snapshot.error,
+                snapshot.stackTrace,
+              );
               return LunaMessage.error(
                 onTap: _refreshKey.currentState.show,
               );
@@ -69,6 +79,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
               return _list(
                 episodes: snapshot.data[0],
                 episodeFiles: snapshot.data[1],
+                queue: snapshot.data[2],
               );
             return const LunaLoader();
           },
@@ -80,6 +91,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   Widget _list({
     @required Map<int, SonarrEpisode> episodes,
     @required Map<int, SonarrEpisodeFile> episodeFiles,
+    @required List<SonarrQueueRecord> queue,
   }) {
     if (episodes?.isEmpty ?? true) {
       return LunaMessage(
@@ -92,6 +104,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
     List<Widget> _widgets = _buildSeasonWidgets(
       episodes: episodes,
       episodeFiles: episodeFiles,
+      queue: queue,
     );
 
     return LunaListViewBuilder(
@@ -104,6 +117,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   List<Widget> _buildSeasonWidgets({
     @required Map<int, SonarrEpisode> episodes,
     @required Map<int, SonarrEpisodeFile> episodeFiles,
+    @required List<SonarrQueueRecord> queue,
   }) {
     List<SonarrEpisode> _episodes = episodes.values.toList()
       ..sort((a, b) {
@@ -121,6 +135,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
                 episodeFile: episode.hasFile && episodeFiles != null
                     ? episodeFiles[episode.episodeFileId]
                     : null,
+                queueRecords: _findQueueRecords(queue, episode.id),
               ))
           .toList();
     }
@@ -136,6 +151,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
           episodeFile: episode.hasFile && episodeFiles != null
               ? episodeFiles[episode.episodeFileId]
               : null,
+          queueRecords: _findQueueRecords(queue, episode.id),
         ));
       });
     });

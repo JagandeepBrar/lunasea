@@ -25,6 +25,8 @@ class SonarrReleasesSortingAdapter extends TypeAdapter<SonarrReleasesSorting> {
         return SonarrReleasesSorting.TYPE;
       case 5:
         return SonarrReleasesSorting.WEIGHT;
+      case 6:
+        return SonarrReleasesSorting.WORD_SCORE;
       default:
         return SonarrReleasesSorting.AGE;
     }
@@ -50,6 +52,9 @@ class SonarrReleasesSortingAdapter extends TypeAdapter<SonarrReleasesSorting> {
         break;
       case SonarrReleasesSorting.WEIGHT:
         writer.writeByte(5);
+        break;
+      case SonarrReleasesSorting.WORD_SCORE:
+        writer.writeByte(6);
         break;
     }
   }

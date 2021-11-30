@@ -7,8 +7,8 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    Icons.search,
-    Icons.whatshot,
+    Icons.search_rounded,
+    Icons.whatshot_rounded,
   ];
 
   static List<String> get titles => [

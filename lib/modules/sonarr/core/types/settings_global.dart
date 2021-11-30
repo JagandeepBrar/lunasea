@@ -14,15 +14,15 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
   IconData get icon {
     switch (this) {
       case SonarrGlobalSettingsType.WEB_GUI:
-        return Icons.language;
+        return Icons.language_rounded;
       case SonarrGlobalSettingsType.UPDATE_LIBRARY:
-        return Icons.autorenew;
+        return Icons.autorenew_rounded;
       case SonarrGlobalSettingsType.RUN_RSS_SYNC:
-        return Icons.rss_feed;
+        return Icons.rss_feed_rounded;
       case SonarrGlobalSettingsType.SEARCH_ALL_MISSING:
-        return Icons.search;
+        return Icons.search_rounded;
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
-        return Icons.save;
+        return Icons.save_rounded;
     }
     throw Exception('Invalid SonarrGlobalSettingsType');
   }

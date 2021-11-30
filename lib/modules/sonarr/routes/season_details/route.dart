@@ -7,11 +7,11 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
       : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
 
   @override
-  _Widget widget({
+  _SonarrSeasonDetails widget({
     @required int seriesId,
     @required int seasonNumber,
   }) {
-    return _Widget(
+    return _SonarrSeasonDetails(
       seriesId: seriesId,
       seasonNumber: seasonNumber,
     );
@@ -47,15 +47,16 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
         int seasonNumber = (params['seasonnumber']?.isNotEmpty ?? false)
             ? (int.tryParse(params['seasonnumber'][0]) ?? -1)
             : -1;
-        return _Widget(seriesId: seriesId, seasonNumber: seasonNumber);
+        return _SonarrSeasonDetails(
+            seriesId: seriesId, seasonNumber: seasonNumber);
       });
 }
 
-class _Widget extends StatefulWidget {
+class _SonarrSeasonDetails extends StatefulWidget {
   final int seriesId;
   final int seasonNumber;
 
-  const _Widget({
+  const _SonarrSeasonDetails({
     Key key,
     @required this.seriesId,
     @required this.seasonNumber,
@@ -65,7 +66,8 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<_SonarrSeasonDetails>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PageController _pageController;
 

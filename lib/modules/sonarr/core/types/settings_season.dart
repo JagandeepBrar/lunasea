@@ -11,9 +11,9 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType {
   IconData get icon {
     switch (this) {
       case SonarrSeasonSettingsType.AUTOMATIC_SEARCH:
-        return Icons.search;
+        return Icons.search_rounded;
       case SonarrSeasonSettingsType.INTERACTIVE_SEARCH:
-        return Icons.youtube_searched_for;
+        return Icons.youtube_searched_for_rounded;
     }
     throw Exception('Invalid SonarrSeasonSettingsType');
   }

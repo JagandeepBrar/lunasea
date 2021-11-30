@@ -123,7 +123,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: LunaText.title(text: key.toString()),
       subtitle: LunaText.subtitle(text: value.toString()),
       trailing: LunaIconButton(
-        icon: Icons.delete,
+        icon: Icons.delete_rounded,
         color: LunaColours.red,
         onPressed: () async => HeaderUtility().deleteHeader(context,
             headers: _indexer.headers, key: key, indexer: _indexer),

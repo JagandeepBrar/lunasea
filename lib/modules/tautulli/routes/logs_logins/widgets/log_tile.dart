@@ -55,7 +55,8 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
     return Column(
       children: [
         LunaIconButton(
-          icon: login.success ? Icons.check_circle : Icons.cancel,
+          icon:
+              login.success ? Icons.check_circle_rounded : Icons.cancel_rounded,
           color: login.success ? Colors.white : LunaColours.red,
         ),
       ],

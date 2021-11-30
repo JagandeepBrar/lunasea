@@ -13,7 +13,7 @@ class TautulliStatisticsTypeButton extends StatelessWidget {
         selector: (_, state) => state.statisticsType,
         builder: (context, type, _) => LunaPopupMenuButton<TautulliStatsType>(
             tooltip: 'Statistics Type',
-            icon: Icons.merge_type,
+            icon: Icons.merge_type_rounded,
             onSelected: (value) {
               context.read<TautulliState>().statisticsType = value;
               context.read<TautulliState>().resetStatistics();

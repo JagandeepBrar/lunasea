@@ -21,8 +21,10 @@ class _State extends State<SonarrReleasesTile> {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: widget.release.title,
-      collapsedSubtitle1: _subtitle1(),
-      collapsedSubtitle2: _subtitle2(),
+      collapsedSubtitles: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
       collapsedTrailing: _trailing(),
       expandedHighlightedNodes: _highlightedNodes(),
       expandedTableContent: _tableContent(),
@@ -47,7 +49,9 @@ class _State extends State<SonarrReleasesTile> {
         TextSpan(
           text: widget.release.lunaProtocol,
           style: TextStyle(
-            color: widget.release.lunaProtocolColor,
+            color: widget.release.protocol.lunaProtocolColor(
+              release: widget.release,
+            ),
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
@@ -86,8 +90,10 @@ class _State extends State<SonarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.readable,
-        backgroundColor: widget.release.lunaProtocolColor,
+        text: widget.release.protocol.lunaReadable(),
+        backgroundColor: widget.release.protocol.lunaProtocolColor(
+          release: widget.release,
+        ),
       ),
       if (widget.release.lunaPreferredWordScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(

@@ -64,7 +64,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
         scrollControllers: [scrollController],
         actions: <Widget>[
           LunaIconButton(
-            icon: Icons.search,
+            icon: Icons.search_rounded,
             onPressed: () async => _automaticSearch(),
             onLongPress: () async => _manualSearch(),
           ),

@@ -15,17 +15,17 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
   IconData get icon {
     switch (this) {
       case TautulliGlobalSettingsType.WEB_GUI:
-        return Icons.language;
+        return Icons.language_rounded;
       case TautulliGlobalSettingsType.BACKUP_CONFIG:
-        return Icons.note;
+        return Icons.note_rounded;
       case TautulliGlobalSettingsType.BACKUP_DB:
-        return Icons.save;
+        return Icons.save_rounded;
       case TautulliGlobalSettingsType.DELETE_CACHE:
-        return Icons.cached;
+        return Icons.cached_rounded;
       case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE:
-        return Icons.image;
+        return Icons.image_rounded;
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
-        return Icons.delete_sweep;
+        return Icons.delete_sweep_rounded;
     }
     throw Exception('Invalid TautulliGlobalSettingsType');
   }

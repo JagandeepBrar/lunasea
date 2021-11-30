@@ -9,8 +9,8 @@ class TautulliUserDetailsNavigationBar extends StatelessWidget {
   static const List<IconData> icons = [
     LunaIcons.user,
     LunaIcons.history,
-    Icons.sync,
-    Icons.computer,
+    Icons.sync_rounded,
+    Icons.computer_rounded,
   ];
 
   static const List<String> titles = [

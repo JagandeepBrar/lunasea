@@ -69,11 +69,11 @@ class _State<T> extends State<LunaPagedListView<T>> {
               padding: const EdgeInsets.only(bottom: 0.0),
             ),
             newPageErrorIndicatorBuilder: (context) => LunaIconButton(
-              icon: Icons.error,
+              icon: Icons.error_rounded,
               color: LunaColours.red,
             ),
             noMoreItemsIndicatorBuilder: (context) => LunaIconButton(
-              icon: Icons.check,
+              icon: Icons.check_rounded,
               color: LunaColours.accent,
             ),
             noItemsFoundIndicatorBuilder: (context) => LunaMessage(

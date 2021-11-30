@@ -87,9 +87,10 @@ extension TautulliSessionExtension on TautulliSession {
   String get lunaDuration {
     double _percent = (this.progressPercent ?? 0) / 100;
     String _progress = Duration(
-            seconds: ((this.streamDuration ?? const Duration(seconds: 0)).inSeconds *
-                    _percent)
-                .floor())
+            seconds:
+                ((this.streamDuration ?? const Duration(seconds: 0)).inSeconds *
+                        _percent)
+                    .floor())
         .lunaTimestamp;
     String _total = this.streamDuration.lunaTimestamp;
     return '$_progress/$_total (${this.progressPercent}%)';
@@ -187,12 +188,12 @@ extension TautulliSessionExtension on TautulliSession {
   IconData get lunaSessionStateIcon {
     switch (this.state) {
       case TautulliSessionState.PAUSED:
-        return Icons.pause;
+        return Icons.pause_rounded;
       case TautulliSessionState.PLAYING:
-        return Icons.play_arrow;
+        return Icons.play_arrow_rounded;
       case TautulliSessionState.BUFFERING:
       default:
-        return Icons.compare_arrows;
+        return Icons.compare_arrows_rounded;
     }
   }
 

@@ -13,13 +13,15 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   IconData icon(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored ? Icons.turned_in_not : Icons.turned_in;
+        return series.monitored
+            ? Icons.turned_in_not_rounded
+            : Icons.turned_in_rounded;
       case SonarrSeriesSettingsType.EDIT:
-        return Icons.edit;
+        return Icons.edit_rounded;
       case SonarrSeriesSettingsType.REFRESH:
-        return Icons.refresh;
+        return Icons.refresh_rounded;
       case SonarrSeriesSettingsType.DELETE:
-        return Icons.delete;
+        return Icons.delete_rounded;
     }
     throw Exception('Invalid SonarrSeriesSettingsType');
   }

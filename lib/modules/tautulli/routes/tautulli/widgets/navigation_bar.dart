@@ -11,7 +11,7 @@ class TautulliNavigationBar extends StatefulWidget {
     LunaIcons.monitoring,
     LunaIcons.user,
     LunaIcons.history,
-    Icons.more_horiz,
+    Icons.more_horiz_rounded,
   ];
 
   static List<String> get titles => [

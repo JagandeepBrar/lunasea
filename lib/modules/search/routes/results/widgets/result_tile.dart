@@ -14,8 +14,10 @@ class SearchResultTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: data.title,
-      collapsedSubtitle1: _subtitle1(),
-      collapsedSubtitle2: _subtitle2(),
+      collapsedSubtitles: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
       expandedTableContent: _tableContent(),
       collapsedTrailing: _trailing(context),
       expandedTableButtons: _tableButtons(context),

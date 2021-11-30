@@ -7,10 +7,10 @@ class NZBGetDialogs {
 
   static Future<List<dynamic>> globalSettings(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['View Web GUI', Icons.language, 'web_gui'],
-      ['Add NZB', Icons.add, 'add_nzb'],
-      ['Sort Queue', Icons.sort, 'sort'],
-      ['Status & Statistics', Icons.info_outline, 'server_details'],
+      ['View Web GUI', Icons.language_rounded, 'web_gui'],
+      ['Add NZB', Icons.add_rounded, 'add_nzb'],
+      ['Sort Queue', Icons.sort_rounded, 'sort'],
+      ['Status & Statistics', Icons.info_outline_rounded, 'server_details'],
     ];
     bool _flag = false;
     String _value = '';
@@ -42,13 +42,13 @@ class NZBGetDialogs {
       BuildContext context, String title, bool isPaused) async {
     List<List<dynamic>> _options = [
       isPaused
-          ? ['Resume Job', Icons.play_arrow, 'status']
-          : ['Pause Job', Icons.pause, 'status'],
-      ['Change Category', Icons.category, 'category'],
-      ['Change Priority', Icons.low_priority, 'priority'],
-      ['Set Password', Icons.vpn_key, 'password'],
-      ['Rename Job', Icons.text_format, 'rename'],
-      ['Delete Job', Icons.delete, 'delete'],
+          ? ['Resume Job', Icons.play_arrow_rounded, 'status']
+          : ['Pause Job', Icons.pause_rounded, 'status'],
+      ['Change Category', Icons.category_rounded, 'category'],
+      ['Change Priority', Icons.low_priority_rounded, 'priority'],
+      ['Set Password', Icons.vpn_key_rounded, 'password'],
+      ['Rename Job', Icons.text_format_rounded, 'rename'],
+      ['Delete Job', Icons.delete_rounded, 'delete'],
     ];
     bool _flag = false;
     String _value = '';
@@ -159,7 +159,7 @@ class NZBGetDialogs {
         NZBGetPriority.values.length,
         (index) => LunaDialog.tile(
           text: NZBGetPriority.values[index].name,
-          icon: Icons.low_priority,
+          icon: Icons.low_priority_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, NZBGetPriority.values[index]),
         ),
@@ -189,7 +189,7 @@ class NZBGetDialogs {
           text: categories[index].name.isEmpty
               ? 'No Category'
               : categories[index].name,
-          icon: Icons.category,
+          icon: Icons.category_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, categories[index]),
         ),
@@ -300,8 +300,8 @@ class NZBGetDialogs {
 
   static Future<List<dynamic>> addNZB(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Add by URL', Icons.link, 'link'],
-      ['Add by File', Icons.sd_card, 'file'],
+      ['Add by URL', Icons.link_rounded, 'link'],
+      ['Add by File', Icons.sd_card_rounded, 'file'],
     ];
     bool _flag = false;
     String _type = '';
@@ -373,14 +373,14 @@ class NZBGetDialogs {
   static Future<List<dynamic>> speedLimit(
       BuildContext context, String currentSpeed) async {
     List<List<dynamic>> _options = [
-      ['Unlimited', Icons.timeline, 0],
-      ['125 MB/s', Icons.timeline, 128000],
-      ['100 MB/s', Icons.timeline, 102400],
-      ['75 MB/s', Icons.timeline, 76800],
-      ['50 MB/s', Icons.timeline, 51200],
-      ['25 MB/s', Icons.timeline, 25600],
-      ['10 MB/s', Icons.timeline, 10240],
-      ['Custom...', Icons.timeline, -1],
+      ['Unlimited', Icons.timeline_rounded, 0],
+      ['125 MB/s', Icons.timeline_rounded, 128000],
+      ['100 MB/s', Icons.timeline_rounded, 102400],
+      ['75 MB/s', Icons.timeline_rounded, 76800],
+      ['50 MB/s', Icons.timeline_rounded, 51200],
+      ['25 MB/s', Icons.timeline_rounded, 25600],
+      ['10 MB/s', Icons.timeline_rounded, 10240],
+      ['Custom...', Icons.timeline_rounded, -1],
     ];
     bool _flag = false;
     int _limit = 0;
@@ -458,9 +458,9 @@ class NZBGetDialogs {
   static Future<List<dynamic>> historySettings(
       BuildContext context, String title) async {
     List<List<dynamic>> _options = [
-      ['Retry Job', Icons.autorenew, 'retry'],
-      ['Hide History', Icons.visibility_off, 'hide'],
-      ['Delete History', Icons.delete, 'delete'],
+      ['Retry Job', Icons.autorenew_rounded, 'retry'],
+      ['Hide History', Icons.visibility_off_rounded, 'hide'],
+      ['Delete History', Icons.delete_rounded, 'delete'],
     ];
     bool _flag = false;
     String _value = '';
@@ -490,13 +490,13 @@ class NZBGetDialogs {
 
   static Future<List<dynamic>> pauseFor(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['5 Minutes', Icons.access_time, 5],
-      ['15 Minutes', Icons.access_time, 15],
-      ['30 Minutes', Icons.access_time, 30],
-      ['1 Hour', Icons.access_time, 60],
-      ['3 Hours', Icons.access_time, 180],
-      ['6 Hours', Icons.access_time, 360],
-      ['Custom...', Icons.access_time, -1],
+      ['5 Minutes', Icons.access_time_rounded, 5],
+      ['15 Minutes', Icons.access_time_rounded, 15],
+      ['30 Minutes', Icons.access_time_rounded, 30],
+      ['1 Hour', Icons.access_time_rounded, 60],
+      ['3 Hours', Icons.access_time_rounded, 180],
+      ['6 Hours', Icons.access_time_rounded, 360],
+      ['Custom...', Icons.access_time_rounded, -1],
     ];
     bool _flag = false;
     int _duration = 0;

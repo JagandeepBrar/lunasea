@@ -7,12 +7,12 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> globalSettings(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['View Web GUI', Icons.language, 'web_gui'],
-      ['Add NZB', Icons.add, 'add_nzb'],
-      ['Sort Queue', Icons.sort, 'sort'],
-      ['Clear History', Icons.clear_all, 'clear_history'],
-      ['On Complete Action', Icons.settings_power, 'complete_action'],
-      ['Status & Statistics', Icons.info_outline, 'server_details'],
+      ['View Web GUI', Icons.language_rounded, 'web_gui'],
+      ['Add NZB', Icons.add_rounded, 'add_nzb'],
+      ['Sort Queue', Icons.sort_rounded, 'sort'],
+      ['Clear History', Icons.clear_all_rounded, 'clear_history'],
+      ['On Complete Action', Icons.settings_power_rounded, 'complete_action'],
+      ['Status & Statistics', Icons.info_outline_rounded, 'server_details'],
     ];
     bool _flag = false;
     String _value = '';
@@ -44,13 +44,13 @@ class SABnzbdDialogs {
       BuildContext context, String title, bool isPaused) async {
     List<List<dynamic>> _options = [
       isPaused
-          ? ['Resume Job', Icons.play_arrow, 'status']
-          : ['Pause Job', Icons.pause, 'status'],
-      ['Change Category', Icons.category, 'category'],
-      ['Change Priority', Icons.low_priority, 'priority'],
-      ['Set Password', Icons.vpn_key, 'password'],
-      ['Rename Job', Icons.text_format, 'rename'],
-      ['Delete Job', Icons.delete, 'delete'],
+          ? ['Resume Job', Icons.play_arrow_rounded, 'status']
+          : ['Pause Job', Icons.pause_rounded, 'status'],
+      ['Change Category', Icons.category_rounded, 'category'],
+      ['Change Priority', Icons.low_priority_rounded, 'priority'],
+      ['Set Password', Icons.vpn_key_rounded, 'password'],
+      ['Rename Job', Icons.text_format_rounded, 'rename'],
+      ['Delete Job', Icons.delete_rounded, 'delete'],
     ];
     bool _flag = false;
     String _value = '';
@@ -81,9 +81,9 @@ class SABnzbdDialogs {
   static Future<List<dynamic>> historySettings(
       BuildContext context, String title, bool failed) async {
     List<List<dynamic>> _options = [
-      if (failed) ['Retry Job', Icons.autorenew, 'retry'],
-      if (failed) ['Set Password', Icons.vpn_key, 'password'],
-      ['Delete History', Icons.delete, 'delete'],
+      if (failed) ['Retry Job', Icons.autorenew_rounded, 'retry'],
+      if (failed) ['Set Password', Icons.vpn_key_rounded, 'password'],
+      ['Delete History', Icons.delete_rounded, 'delete'],
     ];
     bool _flag = false;
     String _value = '';
@@ -131,7 +131,7 @@ class SABnzbdDialogs {
         categories.length,
         (index) => LunaDialog.tile(
           text: categories[index].category,
-          icon: Icons.category,
+          icon: Icons.category_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, categories[index].category),
         ),
@@ -143,12 +143,12 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> sortQueue(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Age (Ascending)', Icons.access_time, 'avg_age', 'asc'],
-      ['Age (Descending)', Icons.access_time, 'avg_age', 'desc'],
-      ['Name (Ascending)', Icons.text_rotate_vertical, 'name', 'asc'],
-      ['Name (Descending)', Icons.text_rotate_vertical, 'name', 'desc'],
-      ['Size (Ascending)', Icons.sd_card, 'size', 'asc'],
-      ['Size (Descending)', Icons.sd_card, 'size', 'desc'],
+      ['Age (Ascending)', Icons.access_time_rounded, 'avg_age', 'asc'],
+      ['Age (Descending)', Icons.access_time_rounded, 'avg_age', 'desc'],
+      ['Name (Ascending)', Icons.text_rotate_vertical_rounded, 'name', 'asc'],
+      ['Name (Descending)', Icons.text_rotate_vertical_rounded, 'name', 'desc'],
+      ['Size (Ascending)', Icons.sd_card_rounded, 'size', 'asc'],
+      ['Size (Descending)', Icons.sd_card_rounded, 'size', 'desc'],
     ];
     bool _flag = false;
     String _sort = '';
@@ -182,8 +182,8 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> addNZB(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Add by URL', Icons.link, 'link'],
-      ['Add by File', Icons.sd_card, 'file'],
+      ['Add by URL', Icons.link_rounded, 'link'],
+      ['Add by File', Icons.sd_card_rounded, 'file'],
     ];
     bool _flag = false;
     String _value = '';
@@ -332,12 +332,12 @@ class SABnzbdDialogs {
   static Future<List<dynamic>> speedLimit(
       BuildContext context, int currentSpeed) async {
     List<List<dynamic>> _options = [
-      ['20%', Icons.timeline, 20],
-      ['40%', Icons.timeline, 40],
-      ['60%', Icons.timeline, 60],
-      ['80%', Icons.timeline, 80],
-      ['100%', Icons.timeline, 100],
-      ['Custom...', Icons.timeline, -1],
+      ['20%', Icons.timeline_rounded, 20],
+      ['40%', Icons.timeline_rounded, 40],
+      ['60%', Icons.timeline_rounded, 60],
+      ['80%', Icons.timeline_rounded, 80],
+      ['100%', Icons.timeline_rounded, 100],
+      ['Custom...', Icons.timeline_rounded, -1],
     ];
     bool _flag = false;
     int _limit = 0;
@@ -366,13 +366,13 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> pauseFor(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['5 Minutes', Icons.access_time, 5],
-      ['15 Minutes', Icons.access_time, 15],
-      ['30 Minutes', Icons.access_time, 30],
-      ['1 Hour', Icons.access_time, 60],
-      ['3 Hours', Icons.access_time, 180],
-      ['6 Hours', Icons.access_time, 360],
-      ['Custom...', Icons.access_time, -1],
+      ['5 Minutes', Icons.access_time_rounded, 5],
+      ['15 Minutes', Icons.access_time_rounded, 15],
+      ['30 Minutes', Icons.access_time_rounded, 30],
+      ['1 Hour', Icons.access_time_rounded, 60],
+      ['3 Hours', Icons.access_time_rounded, 180],
+      ['6 Hours', Icons.access_time_rounded, 360],
+      ['Custom...', Icons.access_time_rounded, -1],
     ];
     bool _flag = false;
     int _duration = 0;
@@ -454,12 +454,12 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> changePriority(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Category Default', Icons.low_priority, -100],
-      ['Force', Icons.low_priority, 2],
-      ['High', Icons.low_priority, 1],
-      ['Normal', Icons.low_priority, 0],
-      ['Low', Icons.low_priority, -1],
-      ['Stop', Icons.low_priority, -4],
+      ['Category Default', Icons.low_priority_rounded, -100],
+      ['Force', Icons.low_priority_rounded, 2],
+      ['High', Icons.low_priority_rounded, 1],
+      ['Normal', Icons.low_priority_rounded, 0],
+      ['Low', Icons.low_priority_rounded, -1],
+      ['Stop', Icons.low_priority_rounded, -4],
     ];
     bool _flag = false;
     int _priority = 0;
@@ -492,11 +492,11 @@ class SABnzbdDialogs {
   static Future<List<dynamic>> changeOnCompleteAction(
       BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Shutdown SABnzbd', Icons.settings_power, 'shutdown_program'],
-      ['Shutdown Machine', Icons.settings_power, 'shutdown_pc'],
-      ['Hibernate Machine', Icons.settings_power, 'hibernate_pc'],
-      ['Standby Machine', Icons.settings_power, 'standby_pc'],
-      ['Nothing', Icons.settings_power, 'none'],
+      ['Shutdown SABnzbd', Icons.settings_power_rounded, 'shutdown_program'],
+      ['Shutdown Machine', Icons.settings_power_rounded, 'shutdown_pc'],
+      ['Hibernate Machine', Icons.settings_power_rounded, 'hibernate_pc'],
+      ['Standby Machine', Icons.settings_power_rounded, 'standby_pc'],
+      ['Nothing', Icons.settings_power_rounded, 'none'],
     ];
     bool _flag = false;
     String _action = '';
@@ -528,10 +528,10 @@ class SABnzbdDialogs {
 
   static Future<List<dynamic>> clearAllHistory(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['Clear All', Icons.clear_all, 'all', false],
-      ['Clear Completed', Icons.clear_all, 'completed', false],
-      ['Clear Failed', Icons.clear_all, 'failed', false],
-      ['Clear & Delete Failed', Icons.clear_all, 'failed', true],
+      ['Clear All', Icons.clear_all_rounded, 'all', false],
+      ['Clear Completed', Icons.clear_all_rounded, 'completed', false],
+      ['Clear Failed', Icons.clear_all_rounded, 'failed', false],
+      ['Clear & Delete Failed', Icons.clear_all_rounded, 'failed', true],
     ];
     bool _flag = false;
     bool _delete = false;

@@ -35,7 +35,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
         LunaButton(
           type: LunaButtonType.TEXT,
           text: 'settings.Register'.tr(),
-          icon: Icons.app_registration,
+          icon: Icons.app_registration_rounded,
           onTap: _register,
           loadingState: _state,
         ),
@@ -72,18 +72,21 @@ class _State extends State<SettingsAccountSignedOutPage> {
                   controller: _emailController,
                   isFormField: true,
                   margin: const EdgeInsets.all(12.0),
-                  labelIcon: Icons.person,
+                  labelIcon: Icons.person_rounded,
                   labelText: 'settings.Email'.tr(),
                   action: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
-                  autofillHints: const [AutofillHints.username, AutofillHints.email],
+                  autofillHints: const [
+                    AutofillHints.username,
+                    AutofillHints.email
+                  ],
                 ),
                 LunaTextInputBar(
                   controller: _passwordController,
                   isFormField: true,
-                  margin:
-                      const EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
-                  labelIcon: Icons.vpn_key,
+                  margin: const EdgeInsets.only(
+                      bottom: 12.0, left: 12.0, right: 12.0),
+                  labelIcon: Icons.vpn_key_rounded,
                   labelText: 'settings.Password'.tr(),
                   obscureText: true,
                   keyboardType: TextInputType.text,

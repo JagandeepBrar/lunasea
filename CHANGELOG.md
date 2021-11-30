@@ -1,5 +1,31 @@
 # LunaSea Changelog
 
+## v6.0.0 (60000002)
+
+#### NEW
+
+- `[Sonarr]` (Episode Sheet) Show the absolute episode number when available
+- `[Sonarr]` (Episode Sheet) Show queue tile when the episode has queued releases
+- `[Sonarr]` (Releases) Ability to sort by preferred word score
+- `[Sonarr]` (Series Details) Ability to pull-to-refresh series on the season list
+- `[Sonarr]` (Queue) Re-added ability to view all queued releases
+- `[Sonarr]` (Queue) Option to remove from download client and add to blocklist on remove
+
+#### TWEAKS
+
+- `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
+- `[UI/UX]` (List Tiles) Improve consistency in padding between different tile sizes
+
+#### FIXES
+
+- `[Radarr]` (Files) Could fail to load with files without media information
+- `[Sonarr]` (Queue) Check monitored download status on pull to refresh
+- `[Sonarr]` (Releases) Correctly display negative preferred word scores
+- `[Tautulli]` (Updates) Checking for updates could fail in some cases
+- `[UI/UX]` (List Tiles) Fix cases where trailing icons were not vertically centered in collapsed tiles
+
+---
+
 ## v6.0.0 (60000001)
 
 #### NEW

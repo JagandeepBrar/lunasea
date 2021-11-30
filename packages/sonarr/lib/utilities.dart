@@ -47,6 +47,23 @@ class SonarrUtilities {
 
   static SonarrProtocol? protocolFromJson(String? protocol) =>
       SonarrProtocol.USENET.from(protocol);
-
   static String? protocolToJson(SonarrProtocol? protocol) => protocol?.value;
+
+  static SonarrQueueStatus? queueStatusFromJson(String? status) =>
+      SonarrQueueStatus.DOWNLOADING.from(status);
+  static String? queueStatusToJson(SonarrQueueStatus? status) => status?.value;
+
+  static SonarrTrackedDownloadState? queueTrackedDownloadStateFromJson(
+          String? state) =>
+      SonarrTrackedDownloadState.DOWNLOADING.from(state);
+  static String? queueTrackedDownloadStateToJson(
+          SonarrTrackedDownloadState? state) =>
+      state?.value;
+
+  static SonarrTrackedDownloadStatus? queueTrackedDownloadStatusFromJson(
+          String? status) =>
+      SonarrTrackedDownloadStatus.OK.from(status);
+  static String? queueTrackedDownloadStatusToJson(
+          SonarrTrackedDownloadStatus? status) =>
+      status?.value;
 }

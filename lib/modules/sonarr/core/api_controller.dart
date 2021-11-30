@@ -574,10 +574,11 @@ class SonarrAPIController {
           error,
           stack,
         );
-        showLunaErrorSnackBar(
-          title: 'sonarr.FailedToRemoveSeries'.tr(),
-          error: error,
-        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToRemoveSeries'.tr(),
+            error: error,
+          );
         return false;
       });
     }
@@ -639,5 +640,40 @@ class SonarrAPIController {
       });
     }
     return null;
+  }
+
+  Future<bool> removeFromQueue({
+    @required BuildContext context,
+    @required SonarrQueueRecord queueRecord,
+    bool showSnackbar = true,
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api
+          .queue
+          .delete(id: queueRecord.id)
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'sonarr.RemovedFromQueue'.tr(),
+            message: queueRecord.title,
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to remove queue record: ${queueRecord.id}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToRemoveFromQueue'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
   }
 }

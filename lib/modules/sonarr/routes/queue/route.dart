@@ -36,7 +36,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Future<void> _onRefresh(BuildContext context) async {
-    context.read<SonarrQueueState>().fetchQueue(
+    await context.read<SonarrQueueState>().fetchQueue(
           context,
           hardCheck: true,
         );

@@ -15,14 +15,16 @@ class SettingsSystemLogTile extends StatelessWidget {
         .lunaDateTimeReadable();
     return LunaExpandableListTile(
       title: log.message,
-      collapsedSubtitle1: TextSpan(text: dateTime),
-      collapsedSubtitle2: TextSpan(
-        text: log.type.name.toUpperCase(),
-        style: TextStyle(
-          color: log.type.color,
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      collapsedSubtitles: [
+        TextSpan(text: dateTime),
+        TextSpan(
+          text: log.type.name.toUpperCase(),
+          style: TextStyle(
+            color: log.type.color,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
         ),
-      ),
+      ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: log.type.name.toUpperCase(),

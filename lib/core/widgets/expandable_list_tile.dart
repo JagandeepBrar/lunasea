@@ -3,9 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaExpandableListTile extends StatefulWidget {
   final String title;
-  final TextSpan collapsedSubtitle1;
-  final TextSpan collapsedSubtitle2;
-  final TextSpan collapsedSubtitle3;
+  final List<TextSpan> collapsedSubtitles;
   final Widget collapsedTrailing;
   final Widget collapsedLeading;
   final Color backgroundColor;
@@ -23,9 +21,7 @@ class LunaExpandableListTile extends StatefulWidget {
   LunaExpandableListTile({
     Key key,
     @required this.title,
-    @required this.collapsedSubtitle1,
-    this.collapsedSubtitle2,
-    this.collapsedSubtitle3,
+    @required this.collapsedSubtitles,
     this.collapsedTrailing,
     this.collapsedLeading,
     this.onLongPress,
@@ -36,8 +32,7 @@ class LunaExpandableListTile extends StatefulWidget {
     this.backgroundColor,
     this.initialExpanded = false,
   }) : super(key: key) {
-    assert(title != null);
-    assert(collapsedSubtitle1 != null);
+    assert(collapsedSubtitles != null);
     if (expandedCustomWidget == null) {
       assert(expandedTableContent != null);
     }
@@ -73,31 +68,37 @@ class _State extends State<LunaExpandableListTile> {
     );
   }
 
+  List<TextSpan> _parseSubtitles() {
+    if (widget.collapsedSubtitles.isEmpty) return [];
+    List<TextSpan> _result = [];
+    for (int i = 0; i < widget.collapsedSubtitles.length; i++) {
+      _result.add(widget.collapsedSubtitles[i]);
+      if (i != widget.collapsedSubtitles.length - 1) {
+        _result.add(const TextSpan(text: '\n'));
+      }
+    }
+    return _result;
+  }
+
   Widget collapsed() {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: widget.title),
+      title: LunaText.title(text: widget.title ?? LunaUI.TEXT_EMDASH),
       subtitle: RichText(
         text: TextSpan(
           style: const TextStyle(
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             color: Colors.white70,
           ),
-          children: [
-            widget.collapsedSubtitle1,
-            if (widget.collapsedSubtitle2 != null) const TextSpan(text: '\n'),
-            if (widget.collapsedSubtitle2 != null) widget.collapsedSubtitle2,
-            if (widget.collapsedSubtitle3 != null) const TextSpan(text: '\n'),
-            if (widget.collapsedSubtitle3 != null) widget.collapsedSubtitle3,
-          ],
+          children: _parseSubtitles(),
         ),
         overflow: TextOverflow.fade,
         softWrap: false,
-        maxLines: 3,
+        maxLines: widget.collapsedSubtitles.length,
       ),
       onTap: controller.toggle,
       onLongPress: widget.onLongPress,
-      contentPadding: widget.collapsedSubtitle2 != null,
+      contentPadding: widget.collapsedSubtitles.length > 1,
       trailing: widget.collapsedTrailing,
       leading: widget.collapsedLeading,
       color: widget.backgroundColor,
@@ -114,7 +115,7 @@ class _State extends State<LunaExpandableListTile> {
                 children: [
                   Padding(
                     child: LunaText.title(
-                      text: widget.title,
+                      text: widget.title ?? LunaUI.TEXT_EMDASH,
                       softWrap: true,
                       maxLines: 8,
                     ),

@@ -21,8 +21,10 @@ class _State extends State<SABnzbdHistoryTile> {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: widget.data.name,
-      collapsedSubtitle1: _subtitle1(),
-      collapsedSubtitle2: _subtitle2(),
+      collapsedSubtitles: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
       expandedTableContent: _expandedTableContent(),
       expandedHighlightedNodes: _expandedHighlightedNodes(),
       expandedTableButtons: _expandedButtons(),

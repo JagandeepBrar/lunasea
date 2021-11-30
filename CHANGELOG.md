@@ -14,7 +14,7 @@
 #### TWEAKS
 
 - `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
-- `[UI/UX]` (List Tiles) Improve consistency in padding between sizes
+- `[UI/UX]` (List Tiles) Improve consistency in padding between different tile sizes
 
 #### FIXES
 
@@ -22,6 +22,7 @@
 - `[Sonarr]` (Releases) Correctly display negative preferred word scores
 - `[Sonarr]` (Queue) Check monitored download status on pull to refresh
 - `[Tautulli]` (Updates) Checking for updates could fail in some cases
+- `[UI/UX]` (List Tiles) Fix cases where leading and trailing icons were not vertically centered in collapsed tiles
 
 ---
 

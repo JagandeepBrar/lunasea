@@ -737,4 +737,88 @@ class SonarrDialogs {
     );
     return _flag;
   }
+
+  Future<void> showQueueStatusMessages(
+    BuildContext context,
+    List<SonarrQueueStatusMessage> messages,
+  ) async {
+    if (messages.isEmpty) {
+      return LunaDialogs().textPreview(
+        context,
+        'sonarr.Messages'.tr(),
+        'sonarr.NoMessagesFound'.tr(),
+      );
+    }
+    await LunaDialog.dialog(
+      context: context,
+      title: 'sonarr.Messages'.tr(),
+      cancelButtonText: 'lunasea.Close'.tr(),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+      content: List.generate(
+        messages.length,
+        (index) => Padding(
+          padding: LunaDialog.tileContentPadding(),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.only(right: 32.0),
+                    child: Icon(
+                      Icons.warning_amber_rounded,
+                      color: LunaColours.orange,
+                      size: 24.0,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      messages[index].title,
+                      style: const TextStyle(
+                        fontSize: LunaDialog.BODY_SIZE,
+                        color: LunaColours.orange,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 3,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (messages[index].messages.isNotEmpty)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 56.0, // 32.0 + iconSize
+                              ),
+                              child: LunaDialog.richText(
+                                children: [
+                                  TextSpan(
+                                    text: messages[index]
+                                        .messages
+                                        .map((s) => '${LunaUI.TEXT_BULLET} $s')
+                                        .join('\n'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

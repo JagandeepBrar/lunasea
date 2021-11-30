@@ -37,7 +37,9 @@ class _State extends State<LidarrCatalogueTile> {
           ),
         ),
         trailing: LunaIconButton(
-          icon: widget.data.monitored ? Icons.turned_in : Icons.turned_in_not,
+          icon: widget.data.monitored
+              ? Icons.turned_in_rounded
+              : Icons.turned_in_not_rounded,
           color: widget.data.monitored ? Colors.white : Colors.white30,
           onPressed: _toggleMonitoredStatus,
         ),

@@ -23,7 +23,7 @@ class TautulliActivityDetailsUserAction extends StatelessWidget {
               orElse: () => null);
           if (session != null)
             return LunaIconButton(
-              icon: Icons.person,
+              icon: Icons.person_rounded,
               onPressed: () async => _onPressed(context, session.userId),
             );
         }

@@ -188,5 +188,8 @@
     "overseerr.UnknownUser": "Неизвестный пользователь",
     "overseerr.NoUsersFound": "Пользователи не найдены",
     "overseerr.NoRequestsFound": "Запросы не найдены",
-    "overseerr.Requests": "Запросы"
+    "overseerr.Requests": "Запросы",
+    "overseerr.NoRequests": "Нет запросов",
+    "overseerr.OneRequest": "1 запрос",
+    "overseerr.SomeRequests": "{} запросов"
 }

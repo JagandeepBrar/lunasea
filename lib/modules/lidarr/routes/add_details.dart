@@ -121,7 +121,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           scrollControllers: [scrollController],
           actions: [
             LunaIconButton(
-              icon: Icons.link,
+              icon: Icons.link_rounded,
               onPressed: () async {
                 if (_arguments.data.discogsLink == null ||
                     _arguments.data.discogsLink == '')

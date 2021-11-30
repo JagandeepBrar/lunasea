@@ -38,7 +38,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Lidarr',
       actions: [
         LunaIconButton(
-          icon: Icons.help_outline,
+          icon: Icons.help_outline_rounded,
           onPressed: () async {
             SettingsDialogs().moduleInformation(context, LunaModule.LIDARR);
           },

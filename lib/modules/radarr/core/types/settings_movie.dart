@@ -13,13 +13,15 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
   IconData icon(RadarrMovie movie) {
     switch (this) {
       case RadarrMovieSettingsType.MONITORED:
-        return movie.monitored ? Icons.turned_in_not : Icons.turned_in;
+        return movie.monitored
+            ? Icons.turned_in_not_rounded
+            : Icons.turned_in_rounded;
       case RadarrMovieSettingsType.EDIT:
-        return Icons.edit;
+        return Icons.edit_rounded;
       case RadarrMovieSettingsType.REFRESH:
-        return Icons.refresh;
+        return Icons.refresh_rounded;
       case RadarrMovieSettingsType.DELETE:
-        return Icons.delete;
+        return Icons.delete_rounded;
     }
     throw Exception('Invalid RadarrMovieSettingsType');
   }

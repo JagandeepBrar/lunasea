@@ -23,7 +23,7 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
         builder: (context, state, _) =>
             LunaPopupMenuButton<RadarrMoviesSorting>(
           tooltip: 'radarr.SortCatalogue'.tr(),
-          icon: Icons.sort,
+          icon: Icons.sort_rounded,
           onSelected: (result) {
             if (state.moviesSortType == result) {
               state.moviesSortAscending = !state.moviesSortAscending;
@@ -54,8 +54,8 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
                   if (state.moviesSortType == RadarrMoviesSorting.values[index])
                     Icon(
                       state.moviesSortAscending
-                          ? Icons.arrow_upward
-                          : Icons.arrow_downward,
+                          ? Icons.arrow_upward_rounded
+                          : Icons.arrow_downward_rounded,
                       size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
                       color: LunaColours.accent,
                     ),

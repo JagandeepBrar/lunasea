@@ -28,7 +28,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
             }, orElse: () => null);
             if (_record != null)
               return LunaIconButton(
-                icon: Icons.info_outline,
+                icon: Icons.info_outline_rounded,
                 onPressed: () async => _onPressed(context, _record),
               );
           }

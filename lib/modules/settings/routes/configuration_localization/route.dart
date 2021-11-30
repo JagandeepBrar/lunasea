@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ??
             LunaUI.TEXT_EMDASH,
       ),
-      trailing: LunaIconButton(icon: Icons.language),
+      trailing: LunaIconButton(icon: Icons.language_rounded),
       onTap: () async {
         Tuple2<bool, LunaLanguage> result =
             await SettingsDialogs().changeLanguage(context);

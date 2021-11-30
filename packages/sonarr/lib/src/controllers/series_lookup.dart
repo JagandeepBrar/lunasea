@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to series lookup within Sonarr.
 ///
-/// [SonarrCommandHandler_SeriesLookup] internally handles routing the HTTP client to the API calls.
-class SonarrCommandHandler_SeriesLookup {
+/// [SonarrController_SeriesLookup] internally handles routing the HTTP client to the API calls.
+class SonarrController_SeriesLookup {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrCommandHandler_SeriesLookup(this._client);
+  SonarrController_SeriesLookup(this._client);
 
   /// Handler for [series/lookup](https://github.com/Sonarr/Sonarr/wiki/Series-Lookup#get).
   ///

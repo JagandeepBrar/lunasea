@@ -37,6 +37,7 @@ export 'src/models/profile/quality_profile_item.dart';
 export 'src/models/profile/quality_profile.dart';
 
 /// Queue
+export 'src/models/queue/queue.dart';
 export 'src/models/queue/queue_record.dart';
 export 'src/models/queue/queue_status_message.dart';
 

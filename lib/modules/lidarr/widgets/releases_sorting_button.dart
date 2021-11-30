@@ -24,7 +24,7 @@ class _State extends State<LidarrReleasesSortButton> {
           builder: (context, model, _) =>
               LunaPopupMenuButton<LidarrReleasesSorting>(
             tooltip: 'Sort Releases',
-            icon: Icons.sort,
+            icon: Icons.sort_rounded,
             onSelected: (result) {
               if (model.sortReleasesType == result) {
                 model.sortReleasesAscending = !model.sortReleasesAscending;
@@ -52,8 +52,8 @@ class _State extends State<LidarrReleasesSortButton> {
                         LidarrReleasesSorting.values[index])
                       Icon(
                         model.sortReleasesAscending
-                            ? Icons.arrow_upward
-                            : Icons.arrow_downward,
+                            ? Icons.arrow_upward_rounded
+                            : Icons.arrow_downward_rounded,
                         size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
                         color: LunaColours.accent,
                       ),
@@ -63,8 +63,8 @@ class _State extends State<LidarrReleasesSortButton> {
             ),
           ),
         ),
-        margin:
-            LunaTextInputBar.appBarMargin.subtract(const EdgeInsets.only(left: 12.0)),
+        margin: LunaTextInputBar.appBarMargin
+            .subtract(const EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
       );
 }

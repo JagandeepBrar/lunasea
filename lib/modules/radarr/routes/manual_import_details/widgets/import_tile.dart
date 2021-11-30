@@ -21,8 +21,10 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
             .manualImport
             .relativePath,
         collapsedTrailing: _trailing(context),
-        collapsedSubtitle1: _subtitle1(context),
-        collapsedSubtitle2: _subtitle2(context),
+        collapsedSubtitles: [
+          _subtitle1(context),
+          _subtitle2(context),
+        ],
         expandedTableButtons: _buttons(context),
         expandedTableContent: _table(context),
         backgroundColor: context

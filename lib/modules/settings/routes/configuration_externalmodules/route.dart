@@ -39,7 +39,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: LunaModule.EXTERNAL_MODULES.name,
       actions: [
         LunaIconButton(
-          icon: Icons.help_outline,
+          icon: Icons.help_outline_rounded,
           onPressed: () async {
             SettingsDialogs()
                 .moduleInformation(context, LunaModule.EXTERNAL_MODULES);

@@ -22,8 +22,8 @@ class _State extends State<LidarrCatalogueHideButton> {
           builder: (context, model, widget) => InkWell(
             child: LunaIconButton(
               icon: model.hideUnmonitoredArtists
-                  ? Icons.visibility_off
-                  : Icons.visibility,
+                  ? Icons.visibility_off_rounded
+                  : Icons.visibility_rounded,
             ),
             onTap: () =>
                 model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,

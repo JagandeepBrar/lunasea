@@ -14,8 +14,10 @@ class RadarrHealthCheckTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: healthCheck.message,
-      collapsedSubtitle1: subtitle1(),
-      collapsedSubtitle2: subtitle2(),
+      collapsedSubtitles: [
+        subtitle1(),
+        subtitle2(),
+      ],
       expandedTableContent: expandedTable(),
       expandedHighlightedNodes: highlightedNodes(),
       onLongPress: healthCheck.wikiUrl.lunaOpenGenericLink,

@@ -66,7 +66,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                   controller: _emailController,
                   isFormField: true,
                   margin: const EdgeInsets.all(12.0),
-                  labelIcon: Icons.person,
+                  labelIcon: Icons.person_rounded,
                   labelText: 'settings.Email'.tr(),
                   action: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,

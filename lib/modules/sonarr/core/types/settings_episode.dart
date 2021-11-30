@@ -13,13 +13,15 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
   IconData icon(SonarrEpisode episode) {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
-        return episode.monitored ? Icons.turned_in_not : Icons.turned_in;
+        return episode.monitored
+            ? Icons.turned_in_not_rounded
+            : Icons.turned_in_rounded;
       case SonarrEpisodeSettingsType.AUTOMATIC_SEARCH:
-        return Icons.search;
+        return Icons.search_rounded;
       case SonarrEpisodeSettingsType.INTERACTIVE_SEARCH:
-        return Icons.youtube_searched_for;
+        return Icons.youtube_searched_for_rounded;
       case SonarrEpisodeSettingsType.DELETE_FILE:
-        return Icons.delete;
+        return Icons.delete_rounded;
     }
     throw Exception('Invalid SonarrEpisodeSettingsType');
   }

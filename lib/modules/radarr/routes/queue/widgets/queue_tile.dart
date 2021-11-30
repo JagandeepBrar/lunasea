@@ -25,8 +25,10 @@ class RadarrQueueTile extends StatelessWidget {
           );
         return LunaExpandableListTile(
           title: record.title,
-          collapsedSubtitle1: _subtitle1(),
-          collapsedSubtitle2: _subtitle2(),
+          collapsedSubtitles: [
+            _subtitle1(),
+            _subtitle2(),
+          ],
           expandedHighlightedNodes: _highlightedNodes(),
           expandedTableContent: _tableContent(movie),
           expandedTableButtons: _tableButtons(context),

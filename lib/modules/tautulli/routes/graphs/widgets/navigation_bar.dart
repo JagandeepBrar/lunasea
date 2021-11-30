@@ -8,7 +8,7 @@ class TautulliGraphsNavigationBar extends StatelessWidget {
 
   static const List<IconData> icons = [
     LunaIcons.history,
-    Icons.videocam,
+    Icons.videocam_rounded,
   ];
 
   static const List<String> titles = [

@@ -1,5 +1,6 @@
 // Packages
 export 'package:easy_localization/easy_localization.dart';
+export 'package:expandable/expandable.dart';
 export 'package:flash/flash.dart';
 export 'package:fluro/fluro.dart';
 export 'package:hive/hive.dart';

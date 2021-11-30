@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         context: context,
         title: LunaText.title(text: 'All Logs'),
         subtitle: LunaText.subtitle(text: 'View Logs of All Types'),
-        trailing: LunaIconButton(icon: Icons.developer_mode),
+        trailing: LunaIconButton(icon: Icons.developer_mode_rounded),
         onTap: () async => _viewLogs('all'),
       ),
       ...List.generate(
@@ -82,7 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _clearLogs() {
     return LunaButton.text(
       text: 'Clear',
-      icon: Icons.delete,
+      icon: Icons.delete_rounded,
       color: LunaColours.red,
       onTap: () async {
         bool result = await SettingsDialogs().clearLogs(context);
@@ -101,7 +101,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return Builder(
       builder: (context) => LunaButton.text(
         text: 'Export',
-        icon: Icons.file_download,
+        icon: Icons.file_download_rounded,
         onTap: () async {
           showLunaInfoSnackBar(
             title: 'Exporting Logs',

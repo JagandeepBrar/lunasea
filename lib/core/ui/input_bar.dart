@@ -37,7 +37,7 @@ class LunaTextInputBar extends StatefulWidget {
     this.action = TextInputAction.search,
     this.keyboardType = TextInputType.text,
     this.labelText,
-    this.labelIcon = Icons.search,
+    this.labelIcon = Icons.search_rounded,
     this.margin = LunaUI.MARGIN_CARD,
     this.autofocus = false,
     this.obscureText = false,
@@ -98,7 +98,7 @@ class _State extends State<LunaTextInputBar> {
         suffixIcon: AnimatedOpacity(
           child: InkWell(
             child: const Icon(
-              Icons.close,
+              Icons.close_rounded,
               color: LunaColours.accent,
               size: 24.0,
             ),

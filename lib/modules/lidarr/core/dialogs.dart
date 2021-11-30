@@ -22,7 +22,7 @@ class LidarrDialogs {
       content: List.generate(
         qualities.length,
         (index) => LunaDialog.tile(
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: qualities[index].name,
           onTap: () => _setValues(true, qualities[index]),
@@ -50,7 +50,7 @@ class LidarrDialogs {
       content: List.generate(
         metadatas.length,
         (index) => LunaDialog.tile(
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: metadatas[index].name,
           onTap: () => _setValues(true, metadatas[index]),
@@ -151,9 +151,9 @@ class LidarrDialogs {
   static Future<List<dynamic>> editArtist(
       BuildContext context, LidarrCatalogueData entry) async {
     List<List<dynamic>> _options = [
-      ['Edit Artist', Icons.edit, 'edit_artist'],
-      ['Refresh Artist', Icons.refresh, 'refresh_artist'],
-      ['Remove Artist', Icons.delete, 'remove_artist'],
+      ['Edit Artist', Icons.edit_rounded, 'edit_artist'],
+      ['Refresh Artist', Icons.refresh_rounded, 'refresh_artist'],
+      ['Remove Artist', Icons.delete_rounded, 'remove_artist'],
     ];
     bool _flag = false;
     String _value = '';
@@ -205,7 +205,7 @@ class LidarrDialogs {
                   text: folders[index].freeSpace.lunaBytesToString()),
             ],
           ),
-          icon: Icons.folder,
+          icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
         ),
@@ -217,11 +217,11 @@ class LidarrDialogs {
 
   static Future<List<dynamic>> globalSettings(BuildContext context) async {
     List<List<dynamic>> _options = [
-      ['View Web GUI', Icons.language, 'web_gui'],
-      ['Update Library', Icons.autorenew, 'update_library'],
-      ['Run RSS Sync', Icons.rss_feed, 'rss_sync'],
-      ['Search All Missing', Icons.search, 'missing_search'],
-      ['Backup Database', Icons.save, 'backup'],
+      ['View Web GUI', Icons.language_rounded, 'web_gui'],
+      ['Update Library', Icons.autorenew_rounded, 'update_library'],
+      ['Run RSS Sync', Icons.rss_feed_rounded, 'rss_sync'],
+      ['Search All Missing', Icons.search_rounded, 'missing_search'],
+      ['Backup Database', Icons.save_rounded, 'backup'],
     ];
     bool _flag = false;
     String _value = '';

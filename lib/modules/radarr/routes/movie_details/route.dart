@@ -120,7 +120,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
         ? null
         : [
             LunaIconButton(
-              icon: Icons.edit,
+              icon: Icons.edit_rounded,
               onPressed: () async => RadarrMoviesEditRouter()
                   .navigateTo(context, movieId: widget.movieId),
             ),

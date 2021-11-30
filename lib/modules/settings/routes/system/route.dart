@@ -72,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             context: context,
             title: LunaText.title(text: 'Version: $version'),
             subtitle: LunaText.subtitle(text: 'View Recent Changes'),
-            trailing: LunaIconButton(icon: Icons.system_update),
+            trailing: LunaIconButton(icon: Icons.system_update_rounded),
             onTap: () async => LunaChangelog().showChangelog(
                 snapshot.data?.version, snapshot.data?.buildNumber),
           );
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       context: context,
       title: LunaText.title(text: 'Logs'),
       subtitle: LunaText.subtitle(text: 'View, Export, and Clear Logs'),
-      trailing: LunaIconButton(icon: Icons.developer_mode),
+      trailing: LunaIconButton(icon: Icons.developer_mode_rounded),
       onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
     );
   }
@@ -156,7 +156,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       context: context,
       title: LunaText.title(text: 'Clear Configuration'),
       subtitle: LunaText.subtitle(text: 'Clean Slate'),
-      trailing: LunaIconButton(icon: Icons.delete_sweep),
+      trailing: LunaIconButton(icon: Icons.delete_sweep_rounded),
       onTap: () async {
         bool result = await SettingsDialogs().clearConfiguration(context);
         if (result) {

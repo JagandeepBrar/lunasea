@@ -39,7 +39,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Quick Actions',
       actions: [
         LunaIconButton(
-          icon: Icons.help_outline,
+          icon: Icons.help_outline_rounded,
           onPressed: () async => LunaDialogs().textPreview(
             context,
             'Quick Actions',

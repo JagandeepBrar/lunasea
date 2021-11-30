@@ -38,7 +38,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       scrollControllers: [scrollController],
       actions: [
         LunaIconButton(
-          icon: Icons.search,
+          icon: Icons.search_rounded,
           onPressed: () async {
             context.read<SearchState>().activeSubcategory = null;
             SearchSearchRouter().navigateTo(context);

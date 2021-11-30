@@ -24,7 +24,7 @@ class _State extends State<LidarrCatalogueSortButton> {
           builder: (context, model, _) =>
               LunaPopupMenuButton<LidarrCatalogueSorting>(
             tooltip: 'Sort Catalogue',
-            icon: Icons.sort,
+            icon: Icons.sort_rounded,
             onSelected: (result) {
               if (model.sortCatalogueType == result) {
                 model.sortCatalogueAscending = !model.sortCatalogueAscending;
@@ -52,8 +52,8 @@ class _State extends State<LidarrCatalogueSortButton> {
                         LidarrCatalogueSorting.values[index])
                       Icon(
                         model.sortCatalogueAscending
-                            ? Icons.arrow_upward
-                            : Icons.arrow_downward,
+                            ? Icons.arrow_upward_rounded
+                            : Icons.arrow_downward_rounded,
                         size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
                         color: LunaColours.accent,
                       ),

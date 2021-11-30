@@ -6,15 +6,15 @@ extension ProductDetailsExtension on ProductDetails {
   IconData get lunaIcon {
     switch (this.id) {
       case LunaInAppPurchases.DONATION_01:
-        return Icons.local_drink;
+        return Icons.local_drink_rounded;
       case LunaInAppPurchases.DONATION_03:
-        return Icons.local_cafe;
+        return Icons.local_cafe_rounded;
       case LunaInAppPurchases.DONATION_05:
-        return Icons.local_bar;
+        return Icons.local_bar_rounded;
       case LunaInAppPurchases.DONATION_10:
-        return Icons.fastfood;
+        return Icons.fastfood_rounded;
       default:
-        return Icons.attach_money;
+        return Icons.attach_money_rounded;
     }
   }
 

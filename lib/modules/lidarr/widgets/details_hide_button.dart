@@ -11,8 +11,8 @@ class LidarrDetailsHideButton extends StatelessWidget {
   Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LunaIconButton(
           icon: model.hideUnmonitoredAlbums
-              ? Icons.visibility_off
-              : Icons.visibility,
+              ? Icons.visibility_off_rounded
+              : Icons.visibility_rounded,
           onPressed: () =>
               model.hideUnmonitoredAlbums = !model.hideUnmonitoredAlbums,
         ),

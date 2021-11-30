@@ -28,21 +28,21 @@ extension LunaRadarrEventType on RadarrEventType {
   IconData get lunaIcon {
     switch (this) {
       case RadarrEventType.GRABBED:
-        return Icons.cloud_download;
+        return Icons.cloud_download_rounded;
       case RadarrEventType.DOWNLOAD_FAILED:
-        return Icons.cloud_download;
+        return Icons.cloud_download_rounded;
       case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED:
         return Icons.download_rounded;
       case RadarrEventType.MOVIE_FOLDER_IMPORTED:
         return Icons.download_rounded;
       case RadarrEventType.MOVIE_FILE_DELETED:
-        return Icons.delete;
+        return Icons.delete_rounded;
       case RadarrEventType.DOWNLOAD_IGNORED:
-        return Icons.cancel;
+        return Icons.cancel_rounded;
       case RadarrEventType.MOVIE_FILE_RENAMED:
-        return Icons.drive_file_rename_outline;
+        return Icons.drive_file_rename_outline_rounded;
       default:
-        return Icons.help;
+        return Icons.help_rounded;
     }
   }
 

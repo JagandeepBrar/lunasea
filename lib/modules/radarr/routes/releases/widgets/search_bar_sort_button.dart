@@ -23,7 +23,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
         builder: (context, state, _) =>
             LunaPopupMenuButton<RadarrReleasesSorting>(
           tooltip: 'Sort Releases',
-          icon: Icons.sort,
+          icon: Icons.sort_rounded,
           onSelected: (result) {
             if (state.sortType == result) {
               state.sortAscending = !state.sortAscending;
@@ -54,8 +54,8 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                   if (state.sortType == RadarrReleasesSorting.values[index])
                     Icon(
                       state.sortAscending
-                          ? Icons.arrow_upward
-                          : Icons.arrow_downward,
+                          ? Icons.arrow_upward_rounded
+                          : Icons.arrow_downward_rounded,
                       size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
                       color: LunaColours.accent,
                     ),

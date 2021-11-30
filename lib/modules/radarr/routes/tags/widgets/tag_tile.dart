@@ -53,7 +53,7 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
     // Default to true, to not try to delete a tag that actually does have movies attached
     if (movieList?.isNotEmpty ?? true) return null;
     return LunaIconButton(
-      icon: Icons.delete,
+      icon: Icons.delete_rounded,
       color: LunaColours.red,
       onPressed: _delete,
     );

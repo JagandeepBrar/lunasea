@@ -20,19 +20,40 @@ class LunaListTile extends Card {
           key: key,
           child: Container(
             child: InkWell(
-              child: ListTile(
-                title: title,
-                subtitle: subtitle,
-                trailing: trailing,
-                leading: leading,
-                mouseCursor: onTap != null || onLongPress != null
-                    ? SystemMouseCursors.click
-                    : null,
-                contentPadding: contentPadding
-                    ? customContentPadding ??
-                        const EdgeInsets.symmetric(
-                            vertical: 6.0, horizontal: 12.0)
-                    : null,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ListTile(
+                      title: title,
+                      subtitle: subtitle,
+                      // trailing: trailing,
+                      leading: leading,
+                      mouseCursor: onTap != null || onLongPress != null
+                          ? SystemMouseCursors.click
+                          : null,
+                      contentPadding: contentPadding
+                          ? customContentPadding?.copyWith(
+                                right: trailing != null ? 0 : null,
+                              ) ??
+                              LunaUI.MARGIN_CARD.copyWith(
+                                right: trailing != null ? 0 : null,
+                              )
+                          : LunaUI.MARGIN_CARD.copyWith(
+                              top: 0,
+                              bottom: 0,
+                              right: trailing != null ? 0 : null,
+                            ),
+                    ),
+                  ),
+                  if (trailing != null)
+                    Padding(
+                      padding: EdgeInsets.only(right: LunaUI.MARGIN_CARD.right),
+                      child: SizedBox(
+                        width: 48.0,
+                        child: trailing,
+                      ),
+                    ),
+                ],
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               mouseCursor: SystemMouseCursors.click,

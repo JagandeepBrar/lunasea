@@ -73,7 +73,7 @@ class _State extends State<SABnzbd> {
               error ? Container() : const SABnzbdAppBarStats(),
         ),
         LunaIconButton(
-          icon: Icons.more_vert,
+          icon: Icons.more_vert_rounded,
           onPressed: () async => _handlePopup(),
         ),
       ];

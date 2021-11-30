@@ -350,7 +350,7 @@ class SonarrDialogs {
         titles.length,
         (index) => LunaDialog.tile(
           text: titles[index],
-          icon: Icons.sort,
+          icon: Icons.sort_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, index),
         ),
@@ -435,7 +435,7 @@ class SonarrDialogs {
         profiles.length,
         (index) => LunaDialog.tile(
           text: profiles[index].name,
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
         ),
@@ -463,7 +463,7 @@ class SonarrDialogs {
         profiles.length,
         (index) => LunaDialog.tile(
           text: profiles[index].name,
-          icon: Icons.portrait,
+          icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
         ),
@@ -497,7 +497,7 @@ class SonarrDialogs {
                   text: folders[index].freeSpace.lunaBytesToString())
             ],
           ),
-          icon: Icons.folder,
+          icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
         ),
@@ -525,7 +525,7 @@ class SonarrDialogs {
         SonarrSeriesMonitorType.values.length,
         (index) => LunaDialog.tile(
           text: SonarrSeriesMonitorType.values[index].lunaName,
-          icon: Icons.view_list,
+          icon: Icons.view_list_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesMonitorType.values[index]),
         ),
@@ -554,7 +554,7 @@ class SonarrDialogs {
         (index) => LunaDialog.tile(
           text:
               SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
-          icon: Icons.folder_open,
+          icon: Icons.folder_open_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesType.values[index]),
         ),
@@ -695,5 +695,130 @@ class SonarrDialogs {
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
     return _flag;
+  }
+
+  Future<bool> removeFromQueue(BuildContext context) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'sonarr.RemoveFromQueue'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Remove'.tr(),
+          textColor: LunaColours.red,
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.RemoveFromDownloadClient'.tr(),
+            value: SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.QUEUE_REMOVE_DOWNLOAD_CLIENT.put(value),
+          ),
+        ),
+        SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'sonarr.AddReleaseToBlocklist'.tr(),
+            value: SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.data,
+            onChanged: (value) =>
+                SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST.put(value),
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+    return _flag;
+  }
+
+  Future<void> showQueueStatusMessages(
+    BuildContext context,
+    List<SonarrQueueStatusMessage> messages,
+  ) async {
+    if (messages.isEmpty) {
+      return LunaDialogs().textPreview(
+        context,
+        'sonarr.Messages'.tr(),
+        'sonarr.NoMessagesFound'.tr(),
+      );
+    }
+    await LunaDialog.dialog(
+      context: context,
+      title: 'sonarr.Messages'.tr(),
+      cancelButtonText: 'lunasea.Close'.tr(),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+      content: List.generate(
+        messages.length,
+        (index) => Padding(
+          padding: LunaDialog.tileContentPadding(),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.only(right: 32.0),
+                    child: Icon(
+                      Icons.warning_amber_rounded,
+                      color: LunaColours.orange,
+                      size: 24.0,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      messages[index].title,
+                      style: const TextStyle(
+                        fontSize: LunaDialog.BODY_SIZE,
+                        color: LunaColours.orange,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 3,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (messages[index].messages.isNotEmpty)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 56.0, // 32.0 + iconSize
+                              ),
+                              child: LunaDialog.richText(
+                                children: [
+                                  TextSpan(
+                                    text: messages[index]
+                                        .messages
+                                        .map((s) => '${LunaUI.TEXT_BULLET} $s')
+                                        .join('\n'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

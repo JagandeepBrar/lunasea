@@ -37,7 +37,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       actions: [
         LunaButton.text(
             text: 'settings.AddHeader'.tr(),
-            icon: Icons.add,
+            icon: Icons.add_rounded,
             onTap: () async {
               await HeaderUtility().addHeader(context, headers: _headers());
               _resetState();
@@ -83,7 +83,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       title: LunaText.title(text: key),
       subtitle: LunaText.subtitle(text: value),
       trailing: LunaIconButton(
-          icon: Icons.delete,
+          icon: Icons.delete_rounded,
           color: LunaColours.red,
           onPressed: () async {
             await HeaderUtility()

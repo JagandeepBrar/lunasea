@@ -41,7 +41,7 @@ class _State extends State<SonarrMissingTile> {
 
   Widget _trailing() {
     return LunaIconButton(
-      icon: Icons.search,
+      icon: Icons.search_rounded,
       onPressed: _trailingOnTap,
       onLongPress: _trailingOnLongPress,
     );

@@ -14,25 +14,22 @@ class SonarrState extends LunaModuleState {
 
   @override
   void reset() {
-    // Reset stored data
     _series = null;
     _upcoming = null;
     _missing = null;
-
     _rootFolders = null;
     _qualityProfiles = null;
     _languageProfiles = null;
     _tags = null;
 
-    // Reinitialize
     resetProfile();
     if (_enabled) {
       fetchAllSeries();
       fetchUpcoming();
       fetchMissing();
+      fetchRootFolders();
       fetchQualityProfiles();
       fetchLanguageProfiles();
-      fetchRootFolders();
       fetchTags();
     }
     notifyListeners();
@@ -81,9 +78,9 @@ class SonarrState extends LunaModuleState {
     }
   }
 
-  //////////////
-  /// SERIES ///
-  //////////////
+  /////////////////
+  /// CATALOGUE ///
+  /////////////////
 
   String _seriesSearchQuery = '';
   String get seriesSearchQuery => _seriesSearchQuery;
@@ -119,6 +116,10 @@ class SonarrState extends LunaModuleState {
     _seriesSortAscending = seriesSortAscending;
     notifyListeners();
   }
+
+  //////////////
+  /// SERIES ///
+  //////////////
 
   Future<Map<int, SonarrSeries>> _series;
   Future<Map<int, SonarrSeries>> get series => _series;
@@ -202,7 +203,7 @@ class SonarrState extends LunaModuleState {
   }
 
   ////////////////
-  /// METADATA ///
+  /// PROFILES ///
   ////////////////
 
   Future<List<SonarrQualityProfile>> _qualityProfiles;
@@ -231,12 +232,20 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
+  ////////////////////
+  /// ROOT FOLDERS ///
+  ////////////////////
+
   Future<List<SonarrRootFolder>> _rootFolders;
   Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
   void fetchRootFolders() {
-    if (_api != null) _rootFolders = _api.rootFolder.getRootFolders();
+    if (_api != null) _rootFolders = _api.rootFolder.get();
     notifyListeners();
   }
+
+  ////////////
+  /// TAGS ///
+  ////////////
 
   Future<List<SonarrTag>> _tags;
   Future<List<SonarrTag>> get tags => _tags;
@@ -247,7 +256,7 @@ class SonarrState extends LunaModuleState {
   }
 
   void fetchTags() {
-    if (_api != null) _tags = _api.tag.getAllTags();
+    if (_api != null) _tags = _api.tag.getAll();
     notifyListeners();
   }
 

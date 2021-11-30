@@ -47,7 +47,7 @@ class _State extends State<_Widget>
       scrollControllers: [scrollController],
       actions: <Widget>[
         LunaIconButton(
-          icon: Icons.search,
+          icon: Icons.search_rounded,
           onPressed: _enterSearch,
         ),
       ],

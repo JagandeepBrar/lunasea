@@ -70,7 +70,7 @@ class CalendarLidarrData extends CalendarData {
 
   @override
   Widget trailing(BuildContext context) => LunaIconButton(
-        icon: Icons.search,
+        icon: Icons.search_rounded,
         onPressed: () async => trailingOnPress(context),
         onLongPress: () async => trailingOnLongPress(context),
       );

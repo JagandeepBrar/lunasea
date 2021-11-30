@@ -5,11 +5,13 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrEpisodeTile extends StatefulWidget {
   final SonarrEpisode episode;
   final SonarrEpisodeFile episodeFile;
+  final List<SonarrQueueRecord> queueRecords;
 
   const SonarrEpisodeTile({
     Key key,
     @required this.episode,
     this.episodeFile,
+    this.queueRecords,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class _State extends State<SonarrEpisodeTile> {
       context: context,
       episode: widget.episode,
       episodeFile: widget.episodeFile,
+      queueRecords: widget.queueRecords,
     ).showModal(context: context);
   }
 
@@ -67,19 +70,36 @@ class _State extends State<SonarrEpisodeTile> {
           TextSpan(text: widget.episode.lunaAirDate()),
           const TextSpan(text: '\n'),
           TextSpan(
-            text: widget.episode.lunaDownloadedQuality(widget.episodeFile),
+            text: widget.episode.lunaDownloadedQuality(
+              widget.episodeFile,
+              widget.queueRecords?.isNotEmpty ?? false
+                  ? widget.queueRecords.first
+                  : null,
+            ),
             style: TextStyle(
               color: widget.episode.monitored
-                  ? widget.episode
-                      .lunaDownloadedQualityColor(widget.episodeFile)
+                  ? widget.episode.lunaDownloadedQualityColor(
+                      widget.episodeFile,
+                      widget.queueRecords?.isNotEmpty ?? false
+                          ? widget.queueRecords.first
+                          : null,
+                    )
                   : widget.episode
-                      .lunaDownloadedQualityColor(widget.episodeFile)
+                      .lunaDownloadedQualityColor(
+                        widget.episodeFile,
+                        widget.queueRecords?.isNotEmpty ?? false
+                            ? widget.queueRecords.first
+                            : null,
+                      )
                       .withOpacity(0.30),
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
           ),
         ],
       ),
+      maxLines: 2,
+      softWrap: false,
+      overflow: TextOverflow.fade,
     );
   }
 

@@ -19,19 +19,21 @@ class RadarrHistoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: movieHistory ? history?.sourceTitle : title,
-      collapsedSubtitle1: TextSpan(
-        text: [
-          history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
-          history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-        ].join(LunaUI.TEXT_BULLET.lunaPad()),
-      ),
-      collapsedSubtitle2: TextSpan(
-        text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
-        style: TextStyle(
-          color: history?.eventType?.lunaColour ?? LunaColours.blueGrey,
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      collapsedSubtitles: [
+        TextSpan(
+          text: [
+            history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
+            history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+          ].join(LunaUI.TEXT_BULLET.lunaPad()),
         ),
-      ),
+        TextSpan(
+          text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
+          style: TextStyle(
+            color: history?.eventType?.lunaColour ?? LunaColours.blueGrey,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
+        ),
+      ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable,

@@ -1,7 +1,5 @@
 # <img width="40px" src="./assets/images/branding_logo.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
 
-<!-- [![Codemagic build status](https://api.codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/status_badge.svg)](https://codemagic.io/apps/5f497067a048048c9153dc44/5f497067a048048c9153dc43/latest_build) -->
-
 [![App Store](https://img.shields.io/badge/%20Download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
 [![License](https://img.shields.io/github/license/CometTools/LunaSea?style=flat)](https://github.com/CometTools/LunaSea/blob/production/LICENSE)

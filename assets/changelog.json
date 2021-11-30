@@ -1,101 +1,51 @@
 {
-  "motd": "Welcome to LunaSea v6.0.0!\n\nSonarr has had many foundational changes and now only supports v3.0.0+ of Sonarr as LunaSea now only utilizes the v3 API routes to make the module much more performant. The episode view has been revamped to now include file media information and single episode history, and you can now view all, series-specific, or season-specific history with the new history tiles that contain much more information!\n\nMany additional changes (and reintroducing removed features such as the queue and multi-episode select) will come soon in additional builds of v6.0.0 in the coming weeks!",
+  "motd": "This build's key new feature is the reintroduction of the queue in Sonarr with expanded functionality including being able to view and manage queued content from the episode sheet itself!",
   "new": [
-    {
-      "module": "Dashboard",
-      "changes": [
-        "(Calendar) Use different marker colours depending on how much content is missing"
-      ]
-    },
-    {
-      "module": "Notifications",
-      "changes": [
-        "Support time-sensitive notifications"
-      ]
-    },
-    {
-      "module": "Settings",
-      "changes": [
-        "(Sonarr) Removed toggle to enable v3 features"
-      ]
-    },
     {
       "module": "Sonarr",
       "changes": [
-        "(Catalogue) Many additional sorting and filtering options",
-        "(Catalogue) Ability to set default filtering method",
-        "(Episodes) Entirely revamped details view",
-        "(Episodes) View media info for downloaded episodes",
-        "(Episodes) View history for a single episode",
-        "(Season Details) View history for a single season",
-        "(Series Details) View history for a single series",
-        "(History) Now an infinite scrolling list",
-        "(History) Tiles are now expandable tiles with much more detail",
-        "(Home) \"History\" tab has been replaced with a \"More\" tab",
-        "(Releases) Ability to set default filtering method",
-        "(Releases) Now shows preferred word score"
+        "(Episode Sheet) Show the absolute episode number when available",
+        "(Episode Sheet) Show queue tile when the episode has queued releases",
+        "(Releases) Ability to sort by preferred word score",
+        "(Series Details) Ability to pull-to-refresh series on the season list",
+        "(Queue) Re-added ability to view all queued releases",
+        "(Queue) Option to remove from download client and add to blocklist on remove"
       ]
     }
   ],
   "tweaks": [
     {
-      "module": "Dashboard",
-      "changes": [
-        "(Modules) Always use module's brand colour for module list"
-      ]
-    },
-    {
       "module": "UI/UX",
       "changes": [
-        "(Drawer) Use module's brand colour for highlighted colour"
+        "(Icons) Ensure all icons are of the \"rounded\" family",
+        "(List Tiles) Improve consistency in padding between different tile sizes"
       ]
     }
   ],
   "fixes": [
     {
-      "module": "Dashboard",
+      "module": "Radarr",
       "changes": [
-        "Only show calendar type switcher icon when on the calendar page"
-      ]
-    },
-    {
-      "module": "Flutter",
-      "changes": [
-        "Update packages",
-        "Upgrade to Firebase SDK v8.9.0"
-      ]
-    },
-    {
-      "module": "Settings",
-      "changes": [
-        "(Calendar) Starting type would have incorrect icons",
-        "(Notifications) Overseerr would not be displayed"
+        "(Files) Could fail to load with files without media information"
       ]
     },
     {
       "module": "Sonarr",
       "changes": [
-        "Now only utilizes v3 API routes",
-        "(Edit) Vastly speed up response time on editing a series",
-        "(Seasons) Now correctly calculates available episode count in season list"
+        "(Queue) Check monitored download status on pull to refresh",
+        "(Releases) Correctly display negative preferred word scores"
       ]
     },
     {
-      "module": "Networking",
+      "module": "Tautulli",
       "changes": [
-        "TLS v1.3 is now fully supported"
+        "(Updates) Checking for updates could fail in some cases"
       ]
     },
     {
       "module": "UI/UX",
       "changes": [
-        "(Bottom Sheet) Tightly size all bottom sheets to the content",
-        "(ListView) Make padding around the end of infinite list loaders and icons more consistent",
-        "(Popup Menu) Positioning could get unaligned or broken if opened in specific views",
-        "(Router) Slide transitions between pages could not occur on some devices",
-        "(Snackbar) Snackbars would not be shown in some cases",
-        "(Theme) Remove deprecated theme values",
-        "Many minor fixes in the user interface and experience"
+        "(List Tiles) Fix cases where trailing icons were not vertically centered in collapsed tiles"
       ]
     }
   ],

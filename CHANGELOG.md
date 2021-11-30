@@ -4,7 +4,7 @@
 
 #### NEW
 
-- `[Sonarr]` (Episode Sheet) Show the absolute episode number for anime
+- `[Sonarr]` (Episode Sheet) Show the absolute episode number when available
 - `[Sonarr]` (Episode Sheet) Show queue tile when the episode has queued releases
 - `[Sonarr]` (Releases) Ability to sort by preferred word score
 - `[Sonarr]` (Series Details) Ability to pull-to-refresh series on the season list
@@ -19,10 +19,10 @@
 #### FIXES
 
 - `[Radarr]` (Files) Could fail to load with files without media information
-- `[Sonarr]` (Releases) Correctly display negative preferred word scores
 - `[Sonarr]` (Queue) Check monitored download status on pull to refresh
+- `[Sonarr]` (Releases) Correctly display negative preferred word scores
 - `[Tautulli]` (Updates) Checking for updates could fail in some cases
-- `[UI/UX]` (List Tiles) Fix cases where leading and trailing icons were not vertically centered in collapsed tiles
+- `[UI/UX]` (List Tiles) Fix cases where trailing icons were not vertically centered in collapsed tiles
 
 ---
 

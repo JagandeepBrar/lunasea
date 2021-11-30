@@ -59,11 +59,11 @@ class LidarrAPI {
           qualityProfile: entry['qualityProfileId'] ?? 0,
           metadataProfile: entry['metadataProfileId'] ?? 0,
           quality: entry['qualityProfileId'] != null
-              ? _qualities[entry['qualityProfileId']].name ??
+              ? _qualities[entry['qualityProfileId']]?.name ??
                   'Unknown Quality Profile'
               : '',
           metadata: entry['metadataProfileId'] != null
-              ? _metadatas[entry['metadataProfileId']].name ??
+              ? _metadatas[entry['metadataProfileId']]?.name ??
                   'Unknown Metadata Profile'
               : '',
           genres: entry['genres'] ?? [],
@@ -140,11 +140,11 @@ class LidarrAPI {
         qualityProfile: response.data['qualityProfileId'] ?? 0,
         metadataProfile: response.data['metadataProfileId'] ?? 0,
         quality: response.data['qualityProfileId'] != null
-            ? _qualities[response.data['qualityProfileId']].name ??
+            ? _qualities[response.data['qualityProfileId']]?.name ??
                 'Unknown Quality Profile'
             : '',
         metadata: response.data['metadataProfileId'] != null
-            ? _metadatas[response.data['metadataProfileId']].name ??
+            ? _metadatas[response.data['metadataProfileId']]?.name ??
                 'Unknown Metadata Profile'
             : '',
         genres: response.data['genres'] ?? [],

@@ -15,6 +15,7 @@ class LunaBottomModalSheet {
       shape: LunaUI.shapeBorder,
       builder: builder ?? this.builder,
       closeProgressThreshold: 0.90,
+      elevation: LunaUI.ELEVATION,
     );
   }
 

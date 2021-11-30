@@ -34,7 +34,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Localization',
+      title: 'settings.Localization'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _language() {
     return LunaListTile(
       context: context,
-      title: LunaText.title(text: 'Language'),
+      title: LunaText.title(text: 'settings.Language'.tr()),
       subtitle: LunaText.subtitle(
         text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ??
             LunaUI.TEXT_EMDASH,

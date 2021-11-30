@@ -1,53 +1,7 @@
 {
-  "motd": "This build's key new feature is the reintroduction of the queue in Sonarr with expanded functionality including being able to view and manage queued content from the episode sheet itself!",
-  "new": [
-    {
-      "module": "Sonarr",
-      "changes": [
-        "(Episode Sheet) Show the absolute episode number when available",
-        "(Episode Sheet) Show queue tile when the episode has queued releases",
-        "(Releases) Ability to sort by preferred word score",
-        "(Series Details) Ability to pull-to-refresh series on the season list",
-        "(Queue) Re-added ability to view all queued releases",
-        "(Queue) Option to remove from download client and add to blocklist on remove"
-      ]
-    }
-  ],
-  "tweaks": [
-    {
-      "module": "UI/UX",
-      "changes": [
-        "(Icons) Ensure all icons are of the \"rounded\" family",
-        "(List Tiles) Improve consistency in padding between different tile sizes"
-      ]
-    }
-  ],
-  "fixes": [
-    {
-      "module": "Radarr",
-      "changes": [
-        "(Files) Could fail to load with files without media information"
-      ]
-    },
-    {
-      "module": "Sonarr",
-      "changes": [
-        "(Queue) Check monitored download status on pull to refresh",
-        "(Releases) Correctly display negative preferred word scores"
-      ]
-    },
-    {
-      "module": "Tautulli",
-      "changes": [
-        "(Updates) Checking for updates could fail in some cases"
-      ]
-    },
-    {
-      "module": "UI/UX",
-      "changes": [
-        "(List Tiles) Fix cases where trailing icons were not vertically centered in collapsed tiles"
-      ]
-    }
-  ],
+  "motd": "",
+  "new": [],
+  "tweaks": [],
+  "fixes": [],
   "platform": []
 }

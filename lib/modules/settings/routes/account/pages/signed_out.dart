@@ -156,7 +156,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
       if (response.state) {
         showLunaSuccessSnackBar(
           title: 'settings.RegisteredSuccess'.tr(),
-          message: response.user.email,
+          message: response.user.user.email,
         );
       } else {
         showLunaErrorSnackBar(
@@ -183,7 +183,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
       if (response.state) {
         showLunaSuccessSnackBar(
           title: 'settings.SignedInSuccess'.tr(),
-          message: response.user.email,
+          message: response.user.user.email,
         );
       } else {
         showLunaErrorSnackBar(

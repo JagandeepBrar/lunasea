@@ -36,9 +36,24 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.Account'.tr(),
       scrollControllers: [scrollController],
       actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async => SettingsDialogs().accountHelpMessage(context),
+        StreamBuilder(
+          stream: LunaFirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return LunaIconButton(
+                icon: Icons.help_outline_rounded,
+                onPressed: () async {
+                  SettingsDialogs().accountHelpMessage(context);
+                },
+              );
+            }
+            return LunaIconButton(
+              icon: Icons.settings_rounded,
+              onPressed: () async {
+                SettingsAccountSettingsRouter().navigateTo(context);
+              },
+            );
+          },
         ),
       ],
     );

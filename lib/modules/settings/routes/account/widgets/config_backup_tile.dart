@@ -2,24 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsAccountBackupConfigurationTile extends StatelessWidget {
+class SettingsAccountBackupConfigurationTile extends StatefulWidget {
   const SettingsAccountBackupConfigurationTile({
     Key key,
   }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<SettingsAccountBackupConfigurationTile> {
+  LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
+
+  void updateState(LunaLoadingState state) {
+    if (mounted) setState(() => _loadingState = state);
+  }
 
   @override
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
       title: LunaText.title(text: 'settings.BackupToCloud'.tr()),
-      subtitle:
-          LunaText.subtitle(text: 'settings.BackupToCloudDescription'.tr()),
-      trailing: LunaIconButton(icon: Icons.cloud_upload_rounded),
+      subtitle: LunaText.subtitle(
+        text: 'settings.BackupToCloudDescription'.tr(),
+      ),
+      trailing: LunaIconButton(
+        icon: Icons.cloud_upload_rounded,
+        loadingState: _loadingState,
+      ),
       onTap: () async => _backup(context),
     );
   }
 
   Future<void> _backup(BuildContext context) async {
+    if (_loadingState == LunaLoadingState.ACTIVE) return;
+    updateState(LunaLoadingState.ACTIVE);
+
     try {
       Tuple2<bool, String> _values =
           await SettingsDialogs().backupConfiguration(context);
@@ -31,14 +49,16 @@ class SettingsAccountBackupConfigurationTile extends StatelessWidget {
             DateFormat('MMMM dd, yyyy\nhh:mm:ss a').format(DateTime.now());
         String id = LunaUUID().uuid;
         if (encrypted != LunaEncryption.ENCRYPTION_FAILURE)
-          LunaFirebaseFirestore()
+          await LunaFirebaseFirestore()
               .addBackupEntry(id, timestamp, title: title)
               .then((_) => LunaFirebaseStorage().uploadBackup(encrypted, id))
-              .then((_) => showLunaSuccessSnackBar(
-                    title: 'settings.BackupToCloudSuccess'.tr(),
-                    message: title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
-                  ))
-              .catchError((error, stack) {
+              .then((_) {
+            updateState(LunaLoadingState.INACTIVE);
+            showLunaSuccessSnackBar(
+              title: 'settings.BackupToCloudSuccess'.tr(),
+              message: title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
+            );
+          }).catchError((error, stack) {
             LunaLogger().error(
               'Failed to backup configuration to the cloud',
               error,
@@ -57,5 +77,6 @@ class SettingsAccountBackupConfigurationTile extends StatelessWidget {
         error: error,
       );
     }
+    updateState(LunaLoadingState.INACTIVE);
   }
 }

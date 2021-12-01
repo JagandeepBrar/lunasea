@@ -9,6 +9,7 @@ class SettingsRouter extends LunaModuleRouter {
     // Account
     SettingsAccountRouter().defineRoute(router);
     SettingsAccountPasswordResetRouter().defineRoute(router);
+    SettingsAccountSettingsRouter().defineRoute(router);
     // Configuration
     SettingsConfigurationRouter().defineRoute(router);
     SettingsConfigurationAppearanceRouter().defineRoute(router);

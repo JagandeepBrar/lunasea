@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class LunaFirebaseAuthResponse {
+class LunaFirebaseResponse {
   final bool state;
-  final User user;
+  final UserCredential user;
   final FirebaseAuthException error;
 
-  LunaFirebaseAuthResponse({
+  LunaFirebaseResponse({
     @required this.state,
-    @required this.user,
-    @required this.error,
+    this.user,
+    this.error,
   });
 }

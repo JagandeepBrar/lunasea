@@ -2,22 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
-  const SettingsAccountRestoreConfigurationTile({Key key,}) : super(key: key);
+class SettingsAccountRestoreConfigurationTile extends StatefulWidget {
+  const SettingsAccountRestoreConfigurationTile({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<SettingsAccountRestoreConfigurationTile> {
+  LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
+
+  void updateState(LunaLoadingState state) {
+    if (mounted) setState(() => _loadingState = state);
+  }
 
   @override
   Widget build(BuildContext context) {
     return LunaListTile(
       context: context,
       title: LunaText.title(text: 'settings.RestoreFromCloud'.tr()),
-      subtitle:
-          LunaText.subtitle(text: 'settings.RestoreFromCloudDescription'.tr()),
-      trailing: LunaIconButton(icon: Icons.cloud_download_rounded),
+      subtitle: LunaText.subtitle(
+        text: 'settings.RestoreFromCloudDescription'.tr(),
+      ),
+      trailing: LunaIconButton(
+        icon: Icons.cloud_download_rounded,
+        loadingState: _loadingState,
+      ),
       onTap: () async => _restore(context),
     );
   }
 
   Future<void> _restore(BuildContext context) async {
+    if (_loadingState == LunaLoadingState.ACTIVE) return;
+    updateState(LunaLoadingState.ACTIVE);
     try {
       List<LunaFirebaseBackupDocument> documents =
           await LunaFirebaseFirestore().getBackupEntries();
@@ -31,12 +50,13 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
         if (key.item1) {
           String decrypted = LunaEncryption().decrypt(key.item2, encrypted);
           if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-            LunaConfiguration()
-                .import(context, decrypted)
-                .then((_) => showLunaSuccessSnackBar(
-                      title: 'settings.RestoreFromCloudSuccess'.tr(),
-                      message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
-                    ));
+            await LunaConfiguration().import(context, decrypted).then((_) {
+              updateState(LunaLoadingState.INACTIVE);
+              showLunaSuccessSnackBar(
+                title: 'settings.RestoreFromCloudSuccess'.tr(),
+                message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
+              );
+            });
           } else {
             showLunaErrorSnackBar(
               title: 'settings.RestoreFromCloudFailure'.tr(),
@@ -52,5 +72,6 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
         error: error,
       );
     }
+    updateState(LunaLoadingState.INACTIVE);
   }
 }

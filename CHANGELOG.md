@@ -2,6 +2,10 @@
 
 ## WIP
 
+#### NEW
+
+- `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
+
 #### TWEAK
 
 - `[Sonarr]` (Queue) Hide redundant queue information on episode sheet

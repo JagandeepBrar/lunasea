@@ -32,41 +32,60 @@ class LunaFirebaseAuth {
 
   /// Register a new user using Firebase Authentication.
   ///
-  /// Returns a [LunaFirebaseAuthResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
-  Future<LunaFirebaseAuthResponse> registerUser(
+  /// Returns a [LunaFirebaseResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
+  Future<LunaFirebaseResponse> registerUser(
       String email, String password) async {
     try {
       assert(email != null && password != null);
       UserCredential _user = await instance.createUserWithEmailAndPassword(
           email: email, password: password);
       LunaFirebaseFirestore().addDeviceToken();
-      return LunaFirebaseAuthResponse(
-          state: true, user: _user.user, error: null);
+      return LunaFirebaseResponse(state: true, user: _user);
     } on FirebaseAuthException catch (error) {
-      return LunaFirebaseAuthResponse(state: false, user: null, error: error);
+      return LunaFirebaseResponse(state: false, error: error);
     } catch (error, stack) {
       LunaLogger().error("Failed to register user: $email", error, stack);
-      return LunaFirebaseAuthResponse(state: false, user: null, error: null);
+      return LunaFirebaseResponse(state: false);
     }
   }
 
   /// Sign in a user using Firebase Authentication.
   ///
-  /// Returns a [LunaFirebaseAuthResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
-  Future<LunaFirebaseAuthResponse> signInUser(
-      String email, String password) async {
+  /// Returns a [LunaFirebaseResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
+  Future<LunaFirebaseResponse> signInUser(String email, String password) async {
     try {
       assert(email != null && password != null);
       UserCredential _user = await instance.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       LunaFirebaseFirestore().addDeviceToken();
-      return LunaFirebaseAuthResponse(
-          state: true, user: _user.user, error: null);
+      return LunaFirebaseResponse(state: true, user: _user);
     } on FirebaseAuthException catch (error) {
-      return LunaFirebaseAuthResponse(state: false, user: null, error: error);
+      return LunaFirebaseResponse(state: false, error: error);
     } catch (error, stack) {
       LunaLogger().error("Failed to login user: $email", error, stack);
-      return LunaFirebaseAuthResponse(state: false, user: null, error: null);
+      return LunaFirebaseResponse(state: false);
+    }
+  }
+
+  /// Delete the currently logged in user from the Firebase project.
+  ///
+  /// The user's password is required to validate and acquire fresh credentials to process the deletion.
+  Future<LunaFirebaseResponse> deleteUser(String password) async {
+    try {
+      return await user
+          .reauthenticateWithCredential(EmailAuthProvider.credential(
+            email: email,
+            password: password,
+          ))
+          .then((credentials) => credentials.user.delete())
+          .then((_) => LunaFirebaseResponse(state: true));
+    } on FirebaseAuthException catch (error) {
+      return LunaFirebaseResponse(state: false, error: error);
+    } catch (error, stack) {
+      LunaLogger().error('Failed to delete user: ${user.email}', error, stack);
+      rethrow;
     }
   }
 

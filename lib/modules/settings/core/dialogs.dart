@@ -454,6 +454,66 @@ class SettingsDialogs {
     return _flag;
   }
 
+  Future<Tuple2<bool, String>> confirmDeleteAccount(
+    BuildContext context,
+  ) async {
+    final _formKey = GlobalKey<FormState>();
+    final _textController = TextEditingController();
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      if (_formKey.currentState.validate()) {
+        _flag = flag;
+        Navigator.of(context).pop();
+      }
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.DeleteAccount'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Delete'.tr(),
+          onPressed: () => _setValues(true),
+          textColor: LunaColours.red,
+        ),
+      ],
+      content: [
+        LunaDialog.richText(
+          children: [
+            LunaDialog.bolded(
+              text: 'settings.DeleteAccountWarning1'.tr().toUpperCase(),
+              color: LunaColours.red,
+              fontSize: LunaDialog.SUBBODY_SIZE,
+            ),
+            LunaDialog.textSpanContent(text: '\n\n'),
+            LunaDialog.textSpanContent(
+              text: 'settings.DeleteAccountHint1'.tr(),
+            ),
+            LunaDialog.textSpanContent(text: '\n\n'),
+            LunaDialog.textSpanContent(
+              text: 'settings.DeleteAccountHint2'.tr(),
+            ),
+          ],
+          alignment: TextAlign.center,
+        ),
+        Form(
+          key: _formKey,
+          child: LunaDialog.textFormInput(
+            controller: _textController,
+            title: 'settings.Password'.tr(),
+            obscureText: true,
+            onSubmitted: (_) => _setValues(true),
+            validator: (value) =>
+                value.isEmpty ? 'settings.PasswordValidation'.tr() : null,
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return Tuple2(_flag, _textController.text);
+  }
+
   Future<Tuple2<bool, String>> addProfile(
     BuildContext context,
     List<String> profiles,

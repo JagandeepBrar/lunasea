@@ -13,8 +13,14 @@ class DashboardAppBarSwitchViewAction extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<DashboardAppBarSwitchViewAction> {
+class _State extends State<DashboardAppBarSwitchViewAction>
+    with LunaLoadCallbackMixin {
   bool _showButton = false;
+
+  @override
+  Future<void> loadCallback() async {
+    _pageControllerListener();
+  }
 
   @override
   void initState() {

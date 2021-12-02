@@ -13,6 +13,7 @@
 #### FIXES
 
 - `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
+- `[Dashboard]` (Calendar) Calendar type switcher would not show when starting on calendar page
 
 ---
 

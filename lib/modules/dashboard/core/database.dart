@@ -39,6 +39,7 @@ class DashboardDatabase extends LunaModuleDatabase {
         case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
         case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
         case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
+        case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
           data[value.key] = value.data;
           break;
       }
@@ -70,6 +71,7 @@ class DashboardDatabase extends LunaModuleDatabase {
           case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
           case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
           case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
+          case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
             value.put(config[key]);
             break;
         }
@@ -99,6 +101,8 @@ class DashboardDatabase extends LunaModuleDatabase {
         return DashboardDatabaseValue.CALENDAR_DAYS_PAST;
       case 'HOME_CALENDAR_DAYS_FUTURE':
         return DashboardDatabaseValue.CALENDAR_DAYS_FUTURE;
+      case 'DASHBOARD_CALENDAR_SHOW_PAST_DAYS':
+        return DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS;
       default:
         return null;
     }
@@ -116,6 +120,7 @@ enum DashboardDatabaseValue {
   MODULES_BRAND_COLOURS,
   CALENDAR_DAYS_PAST,
   CALENDAR_DAYS_FUTURE,
+  CALENDAR_SHOW_PAST_DAYS,
 }
 
 extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
@@ -141,6 +146,8 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         return 'HOME_CALENDAR_DAYS_PAST';
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
         return 'HOME_CALENDAR_DAYS_FUTURE';
+      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        return 'DASHBOARD_CALENDAR_SHOW_PAST_DAYS';
     }
     throw Exception('key not found');
   }
@@ -168,6 +175,8 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         return box.get(key, defaultValue: 14);
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
         return box.get(key, defaultValue: 14);
+      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        return box.get(key, defaultValue: true);
     }
     throw Exception('data not found');
   }
@@ -204,6 +213,9 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         return;
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
         if (value.runtimeType == int) box.put(key, value);
+        return;
+      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        if (value.runtimeType == bool) box.put(key, value);
         return;
     }
     LunaLogger().warning(

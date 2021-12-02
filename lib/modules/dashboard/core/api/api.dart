@@ -133,7 +133,7 @@ class CalendarAPI {
         Map<String, dynamic>.from(sonarr['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${sonarr['host']}/api/',
+        baseUrl: '${sonarr['host']}/api/v3/',
         queryParameters: {
           if (sonarr['key'] != '') 'apikey': sonarr['key'],
           'start': _startDate(today),
@@ -144,7 +144,10 @@ class CalendarAPI {
         maxRedirects: 5,
       ),
     );
-    Response response = await _client.get('calendar');
+    Response response = await _client.get('calendar', queryParameters: {
+      'includeSeries': true,
+      'includeEpisodeFile': true,
+    });
     if (response.data.length > 0) {
       for (var entry in response.data) {
         DateTime date =

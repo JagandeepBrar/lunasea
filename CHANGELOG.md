@@ -14,6 +14,7 @@
 
 - `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
 - `[Dashboard]` (Calendar) Calendar type switcher would not show when starting on calendar page
+- `[Dashboard]` (Calendar) Use Sonarr v3 routes for fetching the calendar
 
 ---
 

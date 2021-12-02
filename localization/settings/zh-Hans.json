@@ -174,5 +174,14 @@
     "settings.RestoreFromCloudSuccessMessage": "您的配置已恢复",
     "settings.RestoreFromCloud": "从云端恢复",
     "settings.HeaderKeyValidation": "需要标题键",
-    "settings.HeaderValue": "标题值"
+    "settings.HeaderValue": "标题值",
+    "settings.AccountSettings": "帐户设置",
+    "settings.DeleteAccountHint2": "此过程还将删除所有存储的云备份和附加到此帐户的数据。",
+    "settings.DeleteAccountHint1": "您确定要删除您的 LunaSea 帐户吗？",
+    "settings.AccountDeleted": "帐户已删除",
+    "settings.AccountDeletedMessage": "已成功删除您的 LunaSea 帐户",
+    "settings.DeleteAccount": "删除帐户",
+    "settings.DeleteAccountDescription": "永久删除您的帐户",
+    "settings.DeleteAccountWarning1": "这个过程不可逆",
+    "settings.FailedToDeleteAccount": "删除账户失败"
 }

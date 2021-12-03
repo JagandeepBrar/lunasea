@@ -4,6 +4,7 @@
 
 #### NEW
 
+- `[Dashboard]` (Calendar) Add option to show past days in schedule view
 - `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
 
 #### TWEAK

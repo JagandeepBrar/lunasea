@@ -275,17 +275,21 @@ class _State extends State<DashboardCalendarWidget> {
       );
     return LunaListView(
       controller: DashboardNavigationBar.scrollControllers[1],
-      children: _buildDays().expand((element) => element).toList(),
+      children: _buildScheduleDays().expand((element) => element).toList(),
     );
   }
 
-  List<List<Widget>> _buildDays() {
+  List<List<Widget>> _buildScheduleDays() {
     List<List<Widget>> days = [];
     List<DateTime> keys = widget.events.keys.toList();
     keys.sort();
     for (var key in keys) {
-      if (key.isAfter(_today.subtract(const Duration(days: 1))) &&
-          widget.events[key].isNotEmpty) days.add(_day(key));
+      bool _showPastDays = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data;
+      bool _dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
+      bool _dayHasEvents = widget.events[key].isNotEmpty;
+      if ((_showPastDays || _dayInFuture) && _dayHasEvents) {
+        days.add(_day(key));
+      }
     }
     return days;
   }

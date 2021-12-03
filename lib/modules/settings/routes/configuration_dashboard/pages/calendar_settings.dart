@@ -45,17 +45,31 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        _pastDays(),
         _futureDays(),
+        _pastDays(),
+        _pastDaysInSchedule(),
         const LunaDivider(),
         _startingDay(),
         _startingSize(),
-        _startingType(),
+        _startingView(),
         const LunaDivider(),
         _modulesLidarr(),
         _modulesRadarr(),
         _modulesSonarr(),
       ],
+    );
+  }
+
+  Widget _pastDaysInSchedule() {
+    return DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.listen(
+      builder: (context, box, widget) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: 'Past Days In Schedule View'),
+        trailing: LunaSwitch(
+          value: DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data,
+          onChanged: DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.put,
+        ),
+      ),
     );
   }
 
@@ -160,11 +174,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _startingType() {
+  Widget _startingView() {
     return DashboardDatabaseValue.CALENDAR_STARTING_TYPE.listen(
       builder: (context, box, widget) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Starting Type'),
+        title: LunaText.title(text: 'settings.StartingView'.tr()),
         subtitle: LunaText.subtitle(
             text: (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
                     as CalendarStartingType)
@@ -172,7 +186,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async {
           Tuple2<bool, CalendarStartingType> _values =
-              await SettingsDialogs().editCalendarStartingType(context);
+              await SettingsDialogs().editCalendarStartingView(context);
           if (_values.item1) {
             DashboardDatabaseValue.CALENDAR_STARTING_TYPE.put(_values.item2);
           }

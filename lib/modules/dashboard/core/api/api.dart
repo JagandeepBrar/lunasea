@@ -55,7 +55,7 @@ class CalendarAPI {
       for (var entry in response.data) {
         DateTime date =
             DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
-        if (date != null) {
+        if (date != null && _isDateWithinBounds(date, today)) {
           List day = map[date] ?? [];
           day.add(CalendarLidarrData(
             id: entry['id'] ?? 0,
@@ -108,7 +108,7 @@ class CalendarAPI {
           release ??= digitalRelease.isBefore(physicalRelease)
               ? digitalRelease
               : physicalRelease;
-          if (release != null) {
+          if (release != null && _isDateWithinBounds(release, today)) {
             List day = map[release] ?? [];
             day.add(CalendarRadarrData(
               id: entry['id'] ?? 0,
@@ -152,7 +152,7 @@ class CalendarAPI {
       for (var entry in response.data) {
         DateTime date =
             DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
-        if (date != null) {
+        if (date != null && _isDateWithinBounds(date, today)) {
           List day = map[date] ?? [];
           day.add(CalendarSonarrData(
             id: entry['id'] ?? 0,
@@ -173,9 +173,27 @@ class CalendarAPI {
     }
   }
 
-  String _startDate(DateTime today) =>
-      DateFormat('y-MM-dd').format(today.subtract(
-          Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data)));
-  String _endDate(DateTime today) => DateFormat('y-MM-dd').format(today.add(
-      Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data + 1)));
+  String _startDate(DateTime today) {
+    return DateFormat('y-MM-dd').format(_startBoundDate(today));
+  }
+
+  String _endDate(DateTime today) {
+    return DateFormat('y-MM-dd').format(_endBoundDate(today));
+  }
+
+  DateTime _startBoundDate(DateTime today) {
+    return today.subtract(
+      Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data + 1),
+    );
+  }
+
+  DateTime _endBoundDate(DateTime today) {
+    return today.add(
+      Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data + 1),
+    );
+  }
+
+  bool _isDateWithinBounds(DateTime date, DateTime today) {
+    return date.isBetween(_startBoundDate(today), _endBoundDate(today));
+  }
 }

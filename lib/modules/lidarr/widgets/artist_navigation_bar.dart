@@ -13,7 +13,7 @@ class LidarrArtistNavigationBar extends StatelessWidget {
 
   static const List<IconData> icons = [
     Icons.subject_rounded,
-    LunaIcons.music,
+    Icons.my_library_music_rounded,
   ];
 
   const LidarrArtistNavigationBar({

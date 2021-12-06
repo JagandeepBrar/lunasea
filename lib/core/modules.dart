@@ -292,25 +292,25 @@ extension LunaModuleExtension on LunaModule {
   IconData get icon {
     switch (this) {
       case LunaModule.DASHBOARD:
-        return LunaIcons.home;
+        return Icons.home_rounded;
       case LunaModule.LIDARR:
-        return LunaIcons.music;
+        return Icons.music_note_rounded;
       case LunaModule.NZBGET:
-        return LunaIcons.nzbget;
+        return LunaBrandIcons.nzbget;
       case LunaModule.RADARR:
-        return LunaIcons.radarr;
+        return LunaBrandIcons.radarr;
       case LunaModule.SABNZBD:
-        return LunaIcons.sabnzbd;
+        return LunaBrandIcons.sabnzbd;
       case LunaModule.SEARCH:
         return Icons.search_rounded;
       case LunaModule.SETTINGS:
-        return LunaIcons.settings;
+        return Icons.settings_rounded;
       case LunaModule.SONARR:
-        return LunaIcons.television;
+        return Icons.live_tv_rounded;
       case LunaModule.TAUTULLI:
-        return LunaIcons.tautulli;
+        return LunaBrandIcons.tautulli;
       case LunaModule.OVERSEERR:
-        return LunaIcons.overseerr;
+        return LunaBrandIcons.overseerr;
       case LunaModule.WAKE_ON_LAN:
         return Icons.settings_remote_rounded;
       case LunaModule.EXTERNAL_MODULES:

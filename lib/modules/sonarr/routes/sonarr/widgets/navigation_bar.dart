@@ -9,9 +9,9 @@ class SonarrNavigationBar extends StatelessWidget {
   );
 
   static const List<IconData> icons = [
-    LunaIcons.television,
-    LunaIcons.upcoming,
-    LunaIcons.calendar_missing,
+    Icons.live_tv_rounded,
+    Icons.insert_invitation_rounded,
+    Icons.event_busy_rounded,
     Icons.more_horiz_rounded,
   ];
 

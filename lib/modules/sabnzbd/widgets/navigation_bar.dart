@@ -7,8 +7,8 @@ class SABnzbdNavigationBar extends StatelessWidget {
   final PageController pageController;
 
   static const List<IconData> icons = [
-    LunaIcons.queue,
-    LunaIcons.history,
+    Icons.queue_rounded,
+    Icons.history_rounded,
   ];
 
   static const List<String> titles = [

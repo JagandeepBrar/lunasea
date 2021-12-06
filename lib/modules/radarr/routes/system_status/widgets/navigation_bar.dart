@@ -5,8 +5,8 @@ class RadarrSystemStatusNavigationBar extends StatelessWidget {
   final PageController pageController;
   static const List<IconData> icons = [
     Icons.subject_rounded,
-    LunaIcons.monitoring,
-    Icons.donut_large_rounded
+    Icons.health_and_safety,
+    Icons.donut_large_rounded,
   ];
   static const List<String> titles = ['About', 'Health Check', 'Disk Space'];
   static List<ScrollController> scrollControllers =

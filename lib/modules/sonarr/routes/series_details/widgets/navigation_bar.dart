@@ -7,8 +7,8 @@ class SonarrSeriesDetailsNavigationBar extends StatelessWidget {
 
   static const List<IconData> icons = [
     Icons.subject_rounded,
-    LunaIcons.television,
-    LunaIcons.history,
+    Icons.live_tv_rounded,
+    Icons.history_rounded,
   ];
 
   static final List<String> titles = [

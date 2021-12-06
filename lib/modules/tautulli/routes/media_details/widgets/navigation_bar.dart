@@ -8,7 +8,7 @@ class TautulliMediaDetailsNavigationBar extends StatelessWidget {
 
   static const List<IconData> icons = [
     Icons.info_outline_rounded,
-    LunaIcons.history,
+    Icons.history_rounded,
   ];
 
   static const List<String> titles = [

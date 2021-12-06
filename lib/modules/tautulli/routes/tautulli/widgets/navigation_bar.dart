@@ -8,9 +8,9 @@ class TautulliNavigationBar extends StatefulWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    LunaIcons.monitoring,
-    LunaIcons.user,
-    LunaIcons.history,
+    Icons.timelapse_rounded,
+    Icons.person_rounded,
+    Icons.history_rounded,
     Icons.more_horiz_rounded,
   ];
 

@@ -138,7 +138,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               ? '1 Item'
               : '${RadarrDatabaseValue.QUEUE_PAGE_SIZE.data} Items',
         ),
-        trailing: LunaIconButton(icon: LunaIcons.queue),
+        trailing: LunaIconButton(icon: Icons.queue_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await RadarrDialogs().setQueuePageSize(context);

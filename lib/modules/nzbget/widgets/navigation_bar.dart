@@ -12,8 +12,8 @@ class NZBGetNavigationBar extends StatelessWidget {
   ];
 
   static const List<IconData> icons = [
-    LunaIcons.queue,
-    LunaIcons.history,
+    Icons.queue_rounded,
+    Icons.history_rounded,
   ];
 
   const NZBGetNavigationBar({

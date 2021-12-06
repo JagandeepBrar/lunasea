@@ -222,7 +222,7 @@ class _State extends State<LunaAppBar> {
       );
     return InkWell(
       child: const Center(
-        child: Icon(Icons.arrow_back_ios_rounded),
+        child: Icon(Icons.arrow_back_ios_new_rounded),
       ),
       onTap: () async {
         HapticFeedback.lightImpact();
@@ -275,7 +275,7 @@ class _State extends State<LunaAppBar> {
               widget.title,
               style: const TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
             ),
-            const Icon(Icons.arrow_drop_down),
+            const Icon(Icons.arrow_drop_down_rounded),
           ],
         ),
         onSelected: (result) {

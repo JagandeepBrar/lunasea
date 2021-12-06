@@ -35,7 +35,9 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
           title: LunaText.title(text: 'radarr.History'.tr()),
           subtitle: LunaText.subtitle(text: 'radarr.HistoryDescription'.tr()),
           trailing: LunaIconButton(
-              icon: Icons.history_rounded, color: LunaColours().byListIndex(0)),
+            icon: Icons.history_rounded,
+            color: LunaColours().byListIndex(0),
+          ),
           onTap: () async => RadarrHistoryRouter().navigateTo(context),
         ),
         LunaListTile(
@@ -44,8 +46,9 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
           subtitle:
               LunaText.subtitle(text: 'radarr.ManualImportDescription'.tr()),
           trailing: LunaIconButton(
-              icon: Icons.download_done_rounded,
-              color: LunaColours().byListIndex(1)),
+            icon: Icons.download_done_rounded,
+            color: LunaColours().byListIndex(1),
+          ),
           onTap: () async => RadarrManualImportRouter().navigateTo(context),
         ),
         LunaListTile(
@@ -53,7 +56,9 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
           title: LunaText.title(text: 'radarr.Queue'.tr()),
           subtitle: LunaText.subtitle(text: 'radarr.QueueDescription'.tr()),
           trailing: LunaIconButton(
-              icon: Icons.queue_rounded, color: LunaColours().byListIndex(2)),
+            icon: Icons.queue_rounded,
+            color: LunaColours().byListIndex(2),
+          ),
           onTap: () async => RadarrQueueRouter().navigateTo(context),
         ),
         LunaListTile(
@@ -62,7 +67,9 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
           subtitle:
               LunaText.subtitle(text: 'radarr.SystemStatusDescription'.tr()),
           trailing: LunaIconButton(
-              icon: LunaIcons.monitoring, color: LunaColours().byListIndex(3)),
+            icon: Icons.computer_rounded,
+            color: LunaColours().byListIndex(3),
+          ),
           onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
         ),
         LunaListTile(
@@ -70,7 +77,9 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
           title: LunaText.title(text: 'radarr.Tags'.tr()),
           subtitle: LunaText.subtitle(text: 'radarr.TagsDescription'.tr()),
           trailing: LunaIconButton(
-              icon: Icons.style_rounded, color: LunaColours().byListIndex(4)),
+            icon: Icons.style_rounded,
+            color: LunaColours().byListIndex(4),
+          ),
           onTap: () async => RadarrTagsRouter().navigateTo(context),
         ),
       ],

@@ -775,7 +775,7 @@ class SettingsDialogs {
       content: List.generate(
         CalendarStartingDay.values.length,
         (index) => LunaDialog.tile(
-          icon: LunaIcons.calendar,
+          icon: Icons.calendar_today_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: CalendarStartingDay.values[index].name,
           onTap: () => _setValues(true, CalendarStartingDay.values[index]),

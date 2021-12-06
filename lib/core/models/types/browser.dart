@@ -74,15 +74,15 @@ extension LunaBrowserExtension on LunaBrowser {
   IconData get icon {
     switch (this) {
       case LunaBrowser.APPLE_SAFARI:
-        return LunaIcons.safari;
+        return LunaBrandIcons.safari;
       case LunaBrowser.BRAVE_BROWSER:
-        return LunaIcons.bravebrowser;
+        return LunaBrandIcons.bravebrowser;
       case LunaBrowser.GOOGLE_CHROME:
-        return LunaIcons.chrome;
+        return LunaBrandIcons.chrome;
       case LunaBrowser.MICROSOFT_EDGE:
-        return LunaIcons.microsoftedge;
+        return LunaBrandIcons.microsoftedge;
       case LunaBrowser.MOZILLA_FIREFOX:
-        return LunaIcons.firefox;
+        return LunaBrandIcons.firefox;
       default:
         return null;
     }

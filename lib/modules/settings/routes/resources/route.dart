@@ -46,14 +46,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'Discord'),
           subtitle: LunaText.subtitle(text: 'Chat & Discussions'),
-          trailing: LunaIconButton(icon: LunaIcons.discord),
+          trailing: LunaIconButton(icon: LunaBrandIcons.discord),
           onTap: LunaLinks.DISCORD.launch,
         ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'Documentation'),
           subtitle: LunaText.subtitle(text: 'View the Documentation'),
-          trailing: LunaIconButton(icon: LunaIcons.documentation),
+          trailing: LunaIconButton(icon: Icons.auto_stories_rounded),
           onTap: LunaLinks.DOCUMENTATION.launch,
         ),
         LunaListTile(
@@ -67,14 +67,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'GitHub'),
           subtitle: LunaText.subtitle(text: 'View the Source Code'),
-          trailing: LunaIconButton(icon: LunaIcons.github),
+          trailing: LunaIconButton(icon: LunaBrandIcons.github),
           onTap: LunaLinks.GITHUB.launch,
         ),
         LunaListTile(
           context: context,
           title: LunaText.title(text: 'Reddit'),
           subtitle: LunaText.subtitle(text: 'Ask Questions & Get Support'),
-          trailing: LunaIconButton(icon: LunaIcons.reddit),
+          trailing: LunaIconButton(icon: LunaBrandIcons.reddit),
           onTap: LunaLinks.REDDIT.launch,
         ),
         if (Platform.isIOS)
@@ -89,7 +89,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: LunaText.title(text: 'System Status'),
             subtitle:
                 LunaText.subtitle(text: 'Status Page for Hosted Services'),
-            trailing: LunaIconButton(icon: LunaIcons.monitoring),
+            trailing: LunaIconButton(icon: Icons.health_and_safety),
             onTap: LunaLinks.SYSTEM_STATUS.launch),
         LunaListTile(
           context: context,
@@ -102,7 +102,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context: context,
           title: LunaText.title(text: 'Website'),
           subtitle: LunaText.subtitle(text: 'Visit LunaSea\'s Website'),
-          trailing: LunaIconButton(icon: LunaIcons.home),
+          trailing: LunaIconButton(icon: Icons.home_rounded),
           onTap: LunaLinks.WEBSITE.launch,
         ),
       ],

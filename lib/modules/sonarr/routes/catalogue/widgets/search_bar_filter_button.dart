@@ -22,7 +22,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
           builder: (context, state, _) =>
               LunaPopupMenuButton<SonarrSeriesFilter>(
             tooltip: 'sonarr.FilterCatalogue'.tr(),
-            icon: Icons.filter_alt_outlined,
+            icon: Icons.filter_list_rounded,
             onSelected: (result) {
               state.seriesFilterType = result;
               widget.controller.lunaAnimateToStart();

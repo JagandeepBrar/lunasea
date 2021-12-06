@@ -4,8 +4,8 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeasonDetailsNavigationBar extends StatefulWidget {
   static const List<IconData> icons = [
-    LunaIcons.television,
-    LunaIcons.history,
+    Icons.live_tv_rounded,
+    Icons.history_rounded,
   ];
 
   static final List<String> titles = [

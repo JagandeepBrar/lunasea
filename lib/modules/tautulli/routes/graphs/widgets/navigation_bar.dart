@@ -7,7 +7,7 @@ class TautulliGraphsNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    LunaIcons.history,
+    Icons.history_rounded,
     Icons.videocam_rounded,
   ];
 

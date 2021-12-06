@@ -174,5 +174,14 @@
     "settings.AllFieldsAreRequired": "Tous les champs sont requis",
     "settings.AddModuleSuccess": "Module ajouté",
     "settings.AddModuleFailed": "Échec lors de l'ajout du module",
-    "settings.AddModule": "Ajouter un module"
+    "settings.AddModule": "Ajouter un module",
+    "settings.AccountDeletedMessage": "Vous avez réussi à supprimer votre compte LunaSea",
+    "settings.DeleteAccountHint2": "Ce processus supprimera également toutes les sauvegardes stockées dans le nuage et les données liées à ce compte.",
+    "settings.DeleteAccountWarning1": "Ce processus est irréversible",
+    "settings.FailedToDeleteAccount": "Échec de la suppression du compte",
+    "settings.AccountSettings": "Paramètres du compte",
+    "settings.DeleteAccount": "Supprimer le compte",
+    "settings.AccountDeleted": "Compte supprimé",
+    "settings.DeleteAccountDescription": "Supprimer définitivement votre compte",
+    "settings.DeleteAccountHint1": "Voulez-vous vraiment supprimer votre compte LunaSea ?"
 }

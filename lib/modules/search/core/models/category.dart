@@ -25,7 +25,7 @@ class NewznabCategoryData {
   IconData get icon {
     if (id >= 1000 && id <= 1999) return Icons.games_rounded;
     if (id >= 2000 && id <= 2999) return Icons.movie_rounded;
-    if (id >= 3000 && id <= 3999) return Icons.library_music_rounded;
+    if (id >= 3000 && id <= 3999) return Icons.music_note_rounded;
     if (id >= 4000 && id <= 4999) return Icons.computer_rounded;
     if (id >= 5000 && id <= 5999) return Icons.live_tv_rounded;
     if (id >= 6000 && id <= 6999) return Icons.lock_rounded;

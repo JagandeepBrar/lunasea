@@ -287,7 +287,7 @@ class _State extends State<DashboardCalendarWidget> {
       bool _showPastDays = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data;
       bool _dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
       bool _dayHasEvents = widget.events[key].isNotEmpty;
-      if (_showPastDays || _dayInFuture || _dayHasEvents) {
+      if ((_showPastDays || _dayInFuture) && _dayHasEvents) {
         days.add(_day(key));
       }
     }

@@ -9,9 +9,9 @@ class RadarrNavigationBar extends StatelessWidget {
   );
 
   static const List<IconData> icons = [
-    LunaIcons.movies,
-    LunaIcons.upcoming,
-    LunaIcons.calendar_missing,
+    Icons.movie_rounded,
+    Icons.date_range_rounded,
+    Icons.event_busy_rounded,
     Icons.more_horiz_rounded,
   ];
 

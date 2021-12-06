@@ -23,7 +23,7 @@ class _State extends State<RadarrReleasesAppBarFilterButton> {
         builder: (context, state, _) =>
             LunaPopupMenuButton<RadarrReleasesFilter>(
           tooltip: 'Filter Releases',
-          icon: Icons.filter_alt_outlined,
+          icon: Icons.filter_list_rounded,
           onSelected: (result) {
             state.filterType = result;
             widget.controller.lunaAnimateToStart();

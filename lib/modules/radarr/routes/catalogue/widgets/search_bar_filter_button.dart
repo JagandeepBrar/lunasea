@@ -22,7 +22,7 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
       child: Consumer<RadarrState>(
         builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesFilter>(
           tooltip: 'radarr.FilterCatalogue'.tr(),
-          icon: Icons.filter_alt_outlined,
+          icon: Icons.filter_list_rounded,
           onSelected: (result) {
             state.moviesFilterType = result;
             widget.controller.lunaAnimateToStart();

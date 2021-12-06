@@ -25,7 +25,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
     return Column(
       children: [
         LunaIconButton(
-          icon: LunaIcons.plex,
+          icon: LunaBrandIcons.plex,
           color: LunaColours().byListIndex(0),
         ),
       ],

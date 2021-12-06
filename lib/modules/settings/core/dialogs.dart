@@ -775,7 +775,7 @@ class SettingsDialogs {
       content: List.generate(
         CalendarStartingDay.values.length,
         (index) => LunaDialog.tile(
-          icon: LunaIcons.calendar,
+          icon: Icons.calendar_today_rounded,
           iconColor: LunaColours().byListIndex(index),
           text: CalendarStartingDay.values[index].name,
           onTap: () => _setValues(true, CalendarStartingDay.values[index]),
@@ -815,7 +815,7 @@ class SettingsDialogs {
     return Tuple2(_flag, _startingSize);
   }
 
-  Future<Tuple2<bool, CalendarStartingType>> editCalendarStartingType(
+  Future<Tuple2<bool, CalendarStartingType>> editCalendarStartingView(
     BuildContext context,
   ) async {
     bool _flag = false;
@@ -840,7 +840,7 @@ class SettingsDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'settings.StartingType'.tr(),
+      title: 'settings.StartingView'.tr(),
       content: List.generate(
         CalendarStartingType.values.length,
         (index) => LunaDialog.tile(

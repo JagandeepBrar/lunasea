@@ -74,7 +74,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
           subtitle:
               LunaText.subtitle(text: 'sonarr.SystemStatusDescription'.tr()),
           trailing: LunaIconButton(
-            icon: LunaIcons.monitoring,
+            icon: Icons.computer_rounded,
             color: LunaColours().byListIndex(3),
           ),
           onTap: () async => _showComingSoonMessage(),

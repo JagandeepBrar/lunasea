@@ -7,8 +7,8 @@ class TautulliUserDetailsNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    LunaIcons.user,
-    LunaIcons.history,
+    Icons.person_rounded,
+    Icons.history_rounded,
     Icons.sync_rounded,
     Icons.computer_rounded,
   ];

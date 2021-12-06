@@ -7,9 +7,9 @@ class LidarrNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   static const List<IconData> icons = [
-    LunaIcons.music,
-    LunaIcons.calendar_missing,
-    LunaIcons.history,
+    Icons.people_rounded,
+    Icons.event_busy_rounded,
+    Icons.history_rounded,
   ];
 
   static List<String> get titles => [

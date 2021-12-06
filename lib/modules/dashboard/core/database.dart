@@ -176,7 +176,7 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
         return box.get(key, defaultValue: 14);
       case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
-        return box.get(key, defaultValue: true);
+        return box.get(key, defaultValue: false);
     }
     throw Exception('data not found');
   }

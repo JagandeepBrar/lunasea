@@ -83,9 +83,9 @@ flutter:
     - assets/images/
     - assets/localization/
   fonts:
-    - family: LunaIcons
+    - family: LunaBrandIcons
       fonts:
-        - asset: assets/LunaIcons.ttf
+        - asset: assets/LunaBrandIcons.ttf
 
 flutter_icons:
   android: true

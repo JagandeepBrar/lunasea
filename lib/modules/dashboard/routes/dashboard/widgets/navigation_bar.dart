@@ -14,8 +14,8 @@ class DashboardNavigationBar extends StatelessWidget {
       ];
 
   static const List<IconData> icons = [
-    LunaIcons.modules,
-    LunaIcons.calendar,
+    Icons.workspaces_rounded,
+    Icons.calendar_today_rounded,
   ];
 
   const DashboardNavigationBar({

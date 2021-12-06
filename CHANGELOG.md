@@ -4,17 +4,20 @@
 
 #### NEW
 
+- `[Dashboard]` (Calendar) Add option to show past days in schedule view
 - `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
 
 #### TWEAK
 
 - `[Sonarr]` (Queue) Hide redundant queue information on episode sheet
+- `[UI/UX]` (Icons) Replace custom icons (except branding icons) with Flutter defaults
 
 #### FIXES
 
-- `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
 - `[Dashboard]` (Calendar) Calendar type switcher would not show when starting on calendar page
 - `[Dashboard]` (Calendar) Use Sonarr v3 routes for fetching the calendar
+- `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
+- `[Tautulli]` (Activity) Activity counter badge would not completely fade away
 
 ---
 

@@ -183,5 +183,6 @@
     "settings.DeleteAccount": "Hesabı Sil",
     "settings.AccountDeleted": "Hesap Silindi",
     "settings.FailedToDeleteAccount": "Hesap Silinemedi",
-    "settings.DeleteAccountDescription": "Hesabınızı Kalıcı Olarak Silin"
+    "settings.DeleteAccountDescription": "Hesabınızı Kalıcı Olarak Silin",
+    "settings.StartingView": "Başlangıç Görünümü"
 }

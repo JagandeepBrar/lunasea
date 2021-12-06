@@ -183,5 +183,6 @@
     "settings.DeleteAccount": "Supprimer le compte",
     "settings.AccountDeleted": "Compte supprimé",
     "settings.DeleteAccountDescription": "Supprimer définitivement votre compte",
-    "settings.DeleteAccountHint1": "Voulez-vous vraiment supprimer votre compte LunaSea ?"
+    "settings.DeleteAccountHint1": "Voulez-vous vraiment supprimer votre compte LunaSea ?",
+    "settings.StartingView": "Vue d'ensemble"
 }

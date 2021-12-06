@@ -260,13 +260,11 @@
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = VPH33JQH4R;
 						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 					};
 					9C7092AE25E77E470056AE0B = {
 						CreatedOnToolsVersion = 12.4;
-						DevelopmentTeam = VPH33JQH4R;
 						ProvisioningStyle = Automatic;
 					};
 				};

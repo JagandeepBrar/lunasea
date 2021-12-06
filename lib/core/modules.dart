@@ -294,7 +294,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.DASHBOARD:
         return Icons.home_rounded;
       case LunaModule.LIDARR:
-        return Icons.music_note_rounded;
+        return LunaBrandIcons.lidarr;
       case LunaModule.NZBGET:
         return LunaBrandIcons.nzbget;
       case LunaModule.RADARR:
@@ -306,7 +306,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SETTINGS:
         return Icons.settings_rounded;
       case LunaModule.SONARR:
-        return Icons.live_tv_rounded;
+        return LunaBrandIcons.sonarr;
       case LunaModule.TAUTULLI:
         return LunaBrandIcons.tautulli;
       case LunaModule.OVERSEERR:

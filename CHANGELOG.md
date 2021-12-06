@@ -6,6 +6,7 @@
 
 - `[Dashboard]` (Calendar) Add option to show past days in schedule view
 - `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
+- `[UI/UX]` (Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr
 
 #### TWEAK
 

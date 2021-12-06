@@ -18,8 +18,6 @@ class LunaBrandIcons {
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData microsoftedge =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData nzbget =
-      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData overseerr =
       IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData plex =
@@ -36,4 +34,8 @@ class LunaBrandIcons {
       IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData sonarr =
       IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData nzbget =
+      IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData lidarr =
+      IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

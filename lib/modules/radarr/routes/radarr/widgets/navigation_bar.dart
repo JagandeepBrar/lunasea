@@ -10,7 +10,7 @@ class RadarrNavigationBar extends StatelessWidget {
 
   static const List<IconData> icons = [
     Icons.movie_rounded,
-    Icons.date_range_rounded,
+    Icons.insert_invitation_rounded,
     Icons.event_busy_rounded,
     Icons.more_horiz_rounded,
   ];

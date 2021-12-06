@@ -306,7 +306,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SETTINGS:
         return Icons.settings_rounded;
       case LunaModule.SONARR:
-        return Icons.live_tv_rounded;
+        return LunaBrandIcons.sonarr;
       case LunaModule.TAUTULLI:
         return LunaBrandIcons.tautulli;
       case LunaModule.OVERSEERR:

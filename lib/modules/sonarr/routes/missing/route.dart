@@ -79,7 +79,7 @@ class _State extends State<SonarrMissingRoute>
     return LunaListViewBuilder(
       controller: SonarrNavigationBar.scrollControllers[2],
       itemCount: missing.records.length,
-      itemExtent: SonarrMissingTile.ITEM_EXTENT + LunaUI.MARGIN_CARD.vertical,
+      itemExtent: SonarrMissingTile.itemExtent,
       itemBuilder: (context, index) => SonarrMissingTile(
         record: missing.records[index],
         series: series[missing.records[index].seriesId],

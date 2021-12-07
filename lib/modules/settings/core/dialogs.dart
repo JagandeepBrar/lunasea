@@ -1238,34 +1238,6 @@ class SettingsDialogs {
     return Tuple2(_flag, _opacity);
   }
 
-  Future<void> moduleInformation(
-    BuildContext context,
-    LunaModule module,
-  ) async {
-    List<Widget> _buttons = [
-      if (module.github?.isNotEmpty ?? false)
-        LunaDialog.button(
-          text: 'GitHub',
-          onPressed: () async => module.github.lunaOpenGenericLink(),
-        ),
-      if (module.website?.isNotEmpty ?? false)
-        LunaDialog.button(
-          text: 'lunasea.Website'.tr(),
-          textColor: LunaColours.orange,
-          onPressed: () async => module.website.lunaOpenGenericLink(),
-        ),
-    ];
-    await LunaDialog.dialog(
-      context: context,
-      title: module.name ?? LunaUI.TEXT_EMDASH,
-      buttons: _buttons.isEmpty ? null : _buttons,
-      content: [
-        LunaDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)
-      ],
-      contentPadding: LunaDialog.textDialogContentPadding(),
-    );
-  }
-
   Future<void> accountHelpMessage(BuildContext context) async {
     await LunaDialog.dialog(
       context: context,

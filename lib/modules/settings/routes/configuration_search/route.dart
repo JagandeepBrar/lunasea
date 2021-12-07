@@ -36,13 +36,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Search',
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async =>
-              SettingsDialogs().moduleInformation(context, LunaModule.SEARCH),
-        ),
-      ],
     );
   }
 
@@ -65,6 +58,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, _) => LunaListView(
         controller: scrollController,
         children: [
+          LunaModule.SEARCH.informationBanner(),
           ..._indexerSection(),
           ..._customization(),
         ],

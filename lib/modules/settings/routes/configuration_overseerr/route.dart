@@ -37,14 +37,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: LunaModule.OVERSEERR.name,
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async {
-            SettingsDialogs().moduleInformation(context, LunaModule.OVERSEERR);
-          },
-        ),
-      ],
     );
   }
 
@@ -52,6 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        LunaModule.OVERSEERR.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
       ],

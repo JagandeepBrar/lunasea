@@ -35,13 +35,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Sonarr',
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async =>
-              SettingsDialogs().moduleInformation(context, LunaModule.SONARR),
-        ),
-      ],
     );
   }
 
@@ -49,6 +42,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        LunaModule.SONARR.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
         const LunaDivider(),

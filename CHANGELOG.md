@@ -1,5 +1,15 @@
 # LunaSea Changelog
 
+## WIP
+
+#### NEW
+
+- `[Settings]` (Configuration) Show dismissable banner with module information and links
+
+#### FIXES
+
+- `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
+
 ## v6.0.0 (60000003)
 
 #### NEW

@@ -46,7 +46,7 @@ class SonarrQueueState extends ChangeNotifier {
       _queue = context.read<SonarrState>().api.queue.get(
             includeEpisode: true,
             includeSeries: true,
-            pageSize: 100,
+            pageSize: SonarrDatabaseValue.QUEUE_PAGE_SIZE.data,
           );
       createTimer(context);
     }

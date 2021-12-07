@@ -666,7 +666,7 @@ class RadarrDialogs {
 
     await LunaDialog.dialog(
       context: context,
-      title: 'Queue Page Size',
+      title: 'Queue Size',
       buttons: [
         LunaDialog.button(
           text: 'Set',

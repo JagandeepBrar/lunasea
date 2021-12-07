@@ -3,7 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMissingTile extends StatefulWidget {
-  static const ITEM_EXTENT = LunaFourLineCardWithPoster.itemExtent;
+  static final itemExtent =
+      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;

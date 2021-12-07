@@ -36,15 +36,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: LunaModule.NZBGET.name,
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async => SettingsDialogs().moduleInformation(
-            context,
-            LunaModule.NZBGET,
-          ),
-        ),
-      ],
     );
   }
 
@@ -52,6 +43,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        LunaModule.NZBGET.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
         const LunaDivider(),

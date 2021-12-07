@@ -36,17 +36,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       scrollControllers: [scrollController],
       title: 'Wake on LAN',
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async {
-            SettingsDialogs().moduleInformation(
-              context,
-              LunaModule.WAKE_ON_LAN,
-            );
-          },
-        ),
-      ],
     );
   }
 
@@ -56,6 +45,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, _) => LunaListView(
         controller: scrollController,
         children: [
+          LunaModule.WAKE_ON_LAN.informationBanner(),
           _enabledToggle(),
           _broadcastAddress(),
           _macAddress(),

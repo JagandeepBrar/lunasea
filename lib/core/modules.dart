@@ -533,7 +533,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
       case LunaModule.EXTERNAL_MODULES:
-        return 'LunaSea allows you to add additional modules that are not currently supported, allowing you to open the module\'s web GUI without having to leave LunaSea!';
+        return 'LunaSea allows you to add additional modules that are not currently supported directly within the application, allowing you to open the module\'s web GUI without having to leave LunaSea!';
     }
     throw Exception('Invalid LunaModule');
   }
@@ -598,6 +598,41 @@ extension LunaModuleExtension on LunaModule {
         return false;
     }
     throw Exception('Invalid LunaModule');
+  }
+
+  Widget informationBanner() {
+    String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
+    void markSeen() => Database.alertsBox.put(key, false);
+
+    return ValueListenableBuilder(
+      valueListenable: Database.alertsBox.listenable(keys: [key]),
+      builder: (context, box, _) {
+        if (Database.alertsBox.get(key, defaultValue: true)) {
+          return LunaBanner(
+            dismissCallback: markSeen,
+            headerText: this.name,
+            bodyText: this.information,
+            icon: this.icon,
+            iconColor: this.color,
+            buttons: [
+              if (this.github != null)
+                LunaButton.text(
+                  text: 'GitHub',
+                  icon: LunaBrandIcons.github,
+                  onTap: this.github.lunaOpenGenericLink,
+                ),
+              if (this.website != null)
+                LunaButton.text(
+                  text: 'lunasea.Website'.tr(),
+                  icon: Icons.home_rounded,
+                  onTap: this.website.lunaOpenGenericLink,
+                ),
+            ],
+          );
+        }
+        return const SizedBox(height: 0.0, width: double.infinity);
+      },
+    );
   }
 
   /// Clears/hides all banners for the module.

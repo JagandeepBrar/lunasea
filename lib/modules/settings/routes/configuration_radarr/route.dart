@@ -50,7 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _defaultPagesPage(),
         _defaultSortingFilteringPage(),
         _discoverUseRadarrSuggestionsToggle(),
-        _queuePageSize(),
+        _queueSize(),
       ],
     );
   }
@@ -122,11 +122,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _queuePageSize() {
+  Widget _queueSize() {
     return RadarrDatabaseValue.QUEUE_PAGE_SIZE.listen(
       builder: (context, _, __) => LunaListTile(
         context: context,
-        title: LunaText.title(text: 'Queue Page Size'),
+        title: LunaText.title(text: 'Queue Size'),
         subtitle: LunaText.subtitle(
           text: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data == 1
               ? '1 Item'

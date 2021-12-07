@@ -57,6 +57,7 @@ class SonarrDatabase extends LunaModuleDatabase {
         case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING:
         case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
         case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
+        case SonarrDatabaseValue.QUEUE_PAGE_SIZE:
         case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
@@ -106,6 +107,7 @@ class SonarrDatabase extends LunaModuleDatabase {
           case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
           case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS:
           case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
+          case SonarrDatabaseValue.QUEUE_PAGE_SIZE:
           case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
           case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
           case SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES:
@@ -132,6 +134,8 @@ class SonarrDatabase extends LunaModuleDatabase {
         return SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS;
       case 'SONARR_UPCOMING_FUTURE_DAYS':
         return SonarrDatabaseValue.UPCOMING_FUTURE_DAYS;
+      case 'SONARR_QUEUE_PAGE_SIZE':
+        return SonarrDatabaseValue.QUEUE_PAGE_SIZE;
       case 'SONARR_QUEUE_REFRESH_RATE':
         return SonarrDatabaseValue.QUEUE_REFRESH_RATE;
       case 'SONARR_CONTENT_PAGE_SIZE':
@@ -205,6 +209,7 @@ enum SonarrDatabaseValue {
   REMOVE_SERIES_DELETE_FILES,
   REMOVE_SERIES_EXCLUSION_LIST,
   UPCOMING_FUTURE_DAYS,
+  QUEUE_PAGE_SIZE,
   QUEUE_REFRESH_RATE,
   QUEUE_REMOVE_DOWNLOAD_CLIENT,
   QUEUE_ADD_BLOCKLIST,
@@ -224,6 +229,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return 'SONARR_UPCOMING_FUTURE_DAYS';
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         return 'SONARR_QUEUE_REFRESH_RATE';
+      case SonarrDatabaseValue.QUEUE_PAGE_SIZE:
+        return 'SONARR_QUEUE_PAGE_SIZE';
       case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
         return 'SONARR_CONTENT_PAGE_SIZE';
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
@@ -281,6 +288,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return _box.get(this.key, defaultValue: 0);
       case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
         return _box.get(this.key, defaultValue: 7);
+      case SonarrDatabaseValue.QUEUE_PAGE_SIZE:
+        return _box.get(this.key, defaultValue: 50);
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         return _box.get(this.key, defaultValue: 15);
       case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
@@ -390,6 +399,9 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         if (value is bool) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
+        if (value is int) box.put(this.key, value);
+        return;
+      case SonarrDatabaseValue.QUEUE_PAGE_SIZE:
         if (value is int) box.put(this.key, value);
         return;
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:

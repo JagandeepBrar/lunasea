@@ -48,6 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const LunaDivider(),
         _defaultPagesPage(),
         _defaultSortingFilteringPage(),
+        _queueSize(),
       ],
     );
   }
@@ -101,6 +102,27 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async =>
           SettingsConfigurationSonarrDefaultSortingRouter().navigateTo(context),
+    );
+  }
+
+  Widget _queueSize() {
+    return SonarrDatabaseValue.QUEUE_PAGE_SIZE.listen(
+      builder: (context, _, __) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: 'Queue Size'),
+        subtitle: LunaText.subtitle(
+          text: SonarrDatabaseValue.QUEUE_PAGE_SIZE.data == 1
+              ? '1 Item'
+              : '${SonarrDatabaseValue.QUEUE_PAGE_SIZE.data} Items',
+        ),
+        trailing: LunaIconButton(icon: Icons.queue_rounded),
+        onTap: () async {
+          Tuple2<bool, int> result =
+              await SonarrDialogs().setQueuePageSize(context);
+          if (result.item1)
+            SonarrDatabaseValue.QUEUE_PAGE_SIZE.put(result.item2);
+        },
+      ),
     );
   }
 }

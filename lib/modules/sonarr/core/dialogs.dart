@@ -821,4 +821,51 @@ class SonarrDialogs {
       ),
     );
   }
+
+  Future<Tuple2<bool, int>> setQueuePageSize(BuildContext context) async {
+    bool _flag = false;
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    TextEditingController _textController = TextEditingController(
+      text: SonarrDatabaseValue.QUEUE_PAGE_SIZE.data.toString(),
+    );
+
+    void _setValues(bool flag) {
+      if (_formKey.currentState.validate()) {
+        _flag = flag;
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'Queue Size',
+      buttons: [
+        LunaDialog.button(
+          text: 'Set',
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(
+            text: 'Set the amount of items fetched for the queue.'),
+        Form(
+          key: _formKey,
+          child: LunaDialog.textFormInput(
+            controller: _textController,
+            title: 'Queue Page Size',
+            onSubmitted: (_) => _setValues(true),
+            validator: (value) {
+              int _value = int.tryParse(value);
+              if (_value != null && _value >= 1) return null;
+              return 'Minimum of 1 Item';
+            },
+            keyboardType: TextInputType.number,
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.inputTextDialogContentPadding(),
+    );
+
+    return Tuple2(_flag, int.tryParse(_textController.text) ?? 50);
+  }
 }

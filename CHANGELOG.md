@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000003)
 
 #### NEW
 
@@ -93,6 +93,8 @@
 - `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
 - `[UI/UX]` (Theme) Remove deprecated theme values
 - `[UI/UX]` Many minor fixes in the user interface and experience
+
+---
 
 ## v5.1.0 (50100004)
 

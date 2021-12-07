@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesTile extends StatefulWidget {
+  static const ITEM_EXTENT = LunaFourLineCardWithPoster.itemExtent;
+
   final SonarrSeries series;
   final SonarrQualityProfile profile;
 

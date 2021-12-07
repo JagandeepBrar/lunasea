@@ -159,6 +159,8 @@ class _State extends State<RadarrCatalogueRoute>
           return LunaListViewBuilder(
             controller: RadarrNavigationBar.scrollControllers[0],
             itemCount: _filtered.length,
+            itemExtent:
+                RadarrCatalogueTile.ITEM_EXTENT + LunaUI.MARGIN_CARD.vertical,
             itemBuilder: (context, index) => RadarrCatalogueTile(
               movie: _filtered[index],
               profile: qualityProfiles.firstWhere(

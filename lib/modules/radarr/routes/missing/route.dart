@@ -76,6 +76,7 @@ class _State extends State<RadarrMissingRoute>
     return LunaListViewBuilder(
       controller: RadarrNavigationBar.scrollControllers[2],
       itemCount: movies.length,
+      itemExtent: RadarrMissingTile.ITEM_EXTENT + LunaUI.MARGIN_CARD.vertical,
       itemBuilder: (context, index) => RadarrMissingTile(
         movie: movies[index],
         profile: qualityProfiles.firstWhere(

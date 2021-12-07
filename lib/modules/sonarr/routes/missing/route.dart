@@ -76,14 +76,13 @@ class _State extends State<SonarrMissingRoute>
         buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState?.show,
       );
-    return LunaListView(
+    return LunaListViewBuilder(
       controller: SonarrNavigationBar.scrollControllers[2],
-      children: List.generate(
-        missing.records.length,
-        (index) => SonarrMissingTile(
-          record: missing.records[index],
-          series: series[missing.records[index].seriesId],
-        ),
+      itemCount: missing.records.length,
+      itemExtent: SonarrMissingTile.ITEM_EXTENT + LunaUI.MARGIN_CARD.vertical,
+      itemBuilder: (context, index) => SonarrMissingTile(
+        record: missing.records[index],
+        series: series[missing.records[index].seriesId],
       ),
     );
   }

@@ -144,12 +144,13 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
   }
 
   Widget _trailing() {
-    return SizedBox(
-      child: Padding(
+    return Padding(
+      padding: EdgeInsets.only(right: LunaUI.MARGIN_CARD.right),
+      child: SizedBox(
+        width: 48.0,
+        height: itemExtent,
         child: trailing,
-        padding: const EdgeInsets.only(right: 12.0),
       ),
-      height: itemExtent,
     );
   }
 }

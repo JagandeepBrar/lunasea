@@ -9,6 +9,9 @@
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
+- `[UI/UX]` (List Tiles) Fixed consistency of trailing icon/text size
+
+---
 
 ## v6.0.0 (60000003)
 

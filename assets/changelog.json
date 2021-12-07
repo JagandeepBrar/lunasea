@@ -1,7 +1,66 @@
 {
-  "motd": "",
-  "new": [],
-  "tweaks": [],
-  "fixes": [],
+  "motd": "This build includes some minor but necessary changes for the next public release, including the ability to delete your LunaSea account (with all cloud data) directly from the app!\n\nThis build also removes the usage of custom icons (outside of branding/logo icons), and now uses only built-in icons for a more consistent feel across the UI.",
+  "new": [
+    {
+      "module": "Dashboard",
+      "changes": [
+        "(Calendar) Add option to show past days in schedule view"
+      ]
+    },
+    {
+      "module": "Settings",
+      "changes": [
+        "(Account) Ability to delete your LunaSea account and all cloud data"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr"
+      ]
+    }
+  ],
+  "tweaks": [
+    {
+      "module": "Sonarr",
+      "changes": [
+        "(Queue) Hide redundant queue information on episode sheet"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(Drawer) Update the list divider styling",
+        "(Icons) Replace custom icons (except branding icons) with Flutter defaults"
+      ]
+    }
+  ],
+  "fixes": [
+    {
+      "module": "Dashboard",
+      "changes": [
+        "(Calendar) Calendar type switcher would not show when starting on calendar page",
+        "(Calendar) Use Sonarr v3 routes for fetching the calendar"
+      ]
+    },
+    {
+      "module": "Lidarr",
+      "changes": [
+        "(Artists) Safe-guard fetching of artist quality profiles"
+      ]
+    },
+    {
+      "module": "LunaSea",
+      "changes": [
+        "(Keyboards) External keyboard inputs were not being accepted"
+      ]
+    },
+    {
+      "module": "Tautulli",
+      "changes": [
+        "(Activity) Activity counter badge would not completely fade away"
+      ]
+    }
+  ],
   "platform": []
 }

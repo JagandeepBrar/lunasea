@@ -183,5 +183,6 @@
     "settings.DeleteAccount": "删除帐户",
     "settings.DeleteAccountDescription": "永久删除您的帐户",
     "settings.DeleteAccountWarning1": "这个过程不可逆",
-    "settings.FailedToDeleteAccount": "删除账户失败"
+    "settings.FailedToDeleteAccount": "删除账户失败",
+    "settings.StartingView": "开始视图"
 }

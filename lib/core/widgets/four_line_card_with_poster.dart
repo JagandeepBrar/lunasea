@@ -22,7 +22,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
   final Map posterHeaders;
   final LunaIconButton trailing;
   static const double itemExtent = 90.0;
-  static const double _padding = 8.0;
+  static const double padding = 8.0;
 
   const LunaFourLineCardWithPoster({
     Key key,
@@ -104,9 +104,9 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
           ),
-          height: (itemExtent - (_padding * 2)),
+          height: (itemExtent - (padding * 2)),
         ),
-        padding: const EdgeInsets.all(_padding),
+        padding: const EdgeInsets.all(padding),
       ),
     );
   }

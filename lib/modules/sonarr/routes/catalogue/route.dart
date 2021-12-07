@@ -168,6 +168,8 @@ class _State extends State<SonarrCatalogueRoute>
         return LunaListViewBuilder(
           controller: SonarrNavigationBar.scrollControllers[0],
           itemCount: _filtered.length,
+          itemExtent:
+              SonarrSeriesTile.ITEM_EXTENT + LunaUI.MARGIN_CARD.vertical,
           itemBuilder: (context, index) => SonarrSeriesTile(
             series: _filtered[index],
             profile: qualities.firstWhere(

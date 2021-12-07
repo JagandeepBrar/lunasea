@@ -36,7 +36,6 @@ class DashboardDatabase extends LunaModuleDatabase {
         case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
         case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
         case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
         case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
         case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
         case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
@@ -68,7 +67,6 @@ class DashboardDatabase extends LunaModuleDatabase {
           case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
           case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
           case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-          case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
           case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
           case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
           case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
@@ -95,8 +93,6 @@ class DashboardDatabase extends LunaModuleDatabase {
         return DashboardDatabaseValue.CALENDAR_ENABLE_RADARR;
       case 'HOME_CALENDAR_ENABLE_SONARR':
         return DashboardDatabaseValue.CALENDAR_ENABLE_SONARR;
-      case 'HOME_MODULES_BRAND_COLOURS':
-        return DashboardDatabaseValue.MODULES_BRAND_COLOURS;
       case 'HOME_CALENDAR_DAYS_PAST':
         return DashboardDatabaseValue.CALENDAR_DAYS_PAST;
       case 'HOME_CALENDAR_DAYS_FUTURE':
@@ -117,7 +113,6 @@ enum DashboardDatabaseValue {
   CALENDAR_ENABLE_LIDARR,
   CALENDAR_ENABLE_RADARR,
   CALENDAR_ENABLE_SONARR,
-  MODULES_BRAND_COLOURS,
   CALENDAR_DAYS_PAST,
   CALENDAR_DAYS_FUTURE,
   CALENDAR_SHOW_PAST_DAYS,
@@ -140,8 +135,6 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         return 'HOME_CALENDAR_ENABLE_RADARR';
       case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
         return 'HOME_CALENDAR_ENABLE_SONARR';
-      case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
-        return 'HOME_MODULES_BRAND_COLOURS';
       case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
         return 'HOME_CALENDAR_DAYS_PAST';
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
@@ -169,8 +162,6 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         return box.get(key, defaultValue: true);
       case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
         return box.get(key, defaultValue: true);
-      case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
-        return box.get(key, defaultValue: false);
       case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
         return box.get(key, defaultValue: 14);
       case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
@@ -203,9 +194,6 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
         if (value.runtimeType == bool) box.put(key, value);
         return;
       case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.MODULES_BRAND_COLOURS:
         if (value.runtimeType == bool) box.put(key, value);
         return;
       case DashboardDatabaseValue.CALENDAR_DAYS_PAST:

@@ -99,9 +99,7 @@ class _State extends State<DashboardModulesRoute>
       subtitle: LunaText.subtitle(text: LunaModule.WAKE_ON_LAN.description),
       trailing: LunaIconButton(
         icon: LunaModule.WAKE_ON_LAN.icon,
-        color: DashboardDatabaseValue.MODULES_BRAND_COLOURS.data
-            ? LunaModule.WAKE_ON_LAN.color
-            : LunaColours().byListIndex(listIndex),
+        color: LunaModule.WAKE_ON_LAN.color,
       ),
       onTap: () async {
         WakeOnLANAPI api = WakeOnLANAPI.fromProfile();

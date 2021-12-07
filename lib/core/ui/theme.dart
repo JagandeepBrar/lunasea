@@ -44,6 +44,17 @@ class LunaTheme {
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),
+      tooltipTheme: const TooltipThemeData(
+        decoration: BoxDecoration(
+          color: LunaColours.secondary,
+          borderRadius: BorderRadius.all(Radius.circular(LunaUI.BORDER_RADIUS)),
+        ),
+        textStyle: TextStyle(
+          color: Colors.white70,
+          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+        ),
+        preferBelow: true,
+      ),
       unselectedWidgetColor: Colors.white,
       textTheme: _sharedTextTheme,
       textButtonTheme: _sharedTextButtonThemeData,
@@ -65,6 +76,20 @@ class LunaTheme {
       toggleableActiveColor: LunaColours.accent,
       iconTheme: const IconThemeData(
         color: Colors.white,
+      ),
+      tooltipTheme: TooltipThemeData(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(LunaUI.BORDER_RADIUS),
+          ),
+          border: useAMOLEDBorders ? Border.all(color: Colors.white12) : null,
+        ),
+        textStyle: const TextStyle(
+          color: Colors.white70,
+          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+        ),
+        preferBelow: true,
       ),
       unselectedWidgetColor: Colors.white,
       textTheme: _sharedTextTheme,
@@ -96,7 +121,8 @@ class LunaTheme {
     return TextButtonThemeData(
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all<Color>(
-            LunaColours.splash.withOpacity(0.30)),
+          LunaColours.splash.withOpacity(0.30),
+        ),
       ),
     );
   }

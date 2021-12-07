@@ -5,6 +5,7 @@
 #### NEW
 
 - `[Settings]` (Configuration) Show dismissable banner with module information and links
+- `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
 
 #### FIXES
 

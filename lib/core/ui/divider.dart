@@ -8,7 +8,7 @@ class LunaDivider extends Divider {
           key: key,
           thickness: 1.0,
           color: LunaColours.splash,
-          indent: 60.0,
-          endIndent: 60.0,
+          indent: LunaUI.DEFAULT_MARGIN_SIZE * 5,
+          endIndent: LunaUI.DEFAULT_MARGIN_SIZE * 5,
         );
 }

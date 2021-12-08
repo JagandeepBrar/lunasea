@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -120,7 +119,7 @@ class RadarrDatabase extends LunaModuleDatabase {
 
 extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
   String get key {
-    return 'RADARR_${describeEnum(this)}';
+    return 'RADARR_${this.name}';
   }
 
   dynamic get data {

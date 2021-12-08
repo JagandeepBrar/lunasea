@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -60,7 +59,7 @@ class TautulliDatabase extends LunaModuleDatabase {
 
 extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
   String get key {
-    return 'TAUTULLI_${describeEnum(this)}';
+    return 'TAUTULLI_${this.name}';
   }
 
   dynamic get data {

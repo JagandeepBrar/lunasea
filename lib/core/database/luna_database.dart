@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -98,7 +97,7 @@ class LunaDatabase extends LunaModuleDatabase {
 extension LunaDatabaseValueExtension on LunaDatabaseValue {
   String get key {
     if (this == LunaDatabaseValue.ENABLED_PROFILE) return 'profile';
-    return 'LUNASEA_${describeEnum(this)}';
+    return 'LUNASEA_${this.name}';
   }
 
   dynamic get data {

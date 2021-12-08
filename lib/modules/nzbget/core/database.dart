@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -49,7 +48,7 @@ class NZBGetDatabase extends LunaModuleDatabase {
 
 extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
   String get key {
-    return 'NZBGET_${describeEnum(this)}';
+    return 'NZBGET_${this.name}';
   }
 
   dynamic get data {

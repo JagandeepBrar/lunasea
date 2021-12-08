@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -50,7 +49,7 @@ class SearchDatabase extends LunaModuleDatabase {
 
 extension SearchDatabaseValueExtension on SearchDatabaseValue {
   String get key {
-    return 'SEARCH_${describeEnum(this)}';
+    return 'SEARCH_${this.name}';
   }
 
   dynamic get data {

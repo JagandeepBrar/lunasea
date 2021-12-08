@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
@@ -73,7 +72,7 @@ class LidarrDatabase extends LunaModuleDatabase {
 
 extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
   String get key {
-    return 'LIDARR_${describeEnum(this)}';
+    return 'LIDARR_${this.name}';
   }
 
   dynamic get data {

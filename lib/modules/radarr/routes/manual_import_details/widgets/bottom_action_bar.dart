@@ -37,7 +37,7 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
     Tuple2<bool, RadarrImportMode> result =
         await RadarrDialogs().setManualImportMode(context);
     if (result.item1)
-      RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.put(result.item2);
+      RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.put(result.item2.value);
   }
 
   Future<void> _importOnTap(BuildContext context) async {

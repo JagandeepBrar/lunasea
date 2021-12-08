@@ -9,5 +9,5 @@ abstract class LunaModuleDatabase {
   void import(Map<String, dynamic> config);
 
   /// Return the Database enumerator value given the key
-  dynamic valueFromKey(String value);
+  dynamic valueFromKey(String key);
 }

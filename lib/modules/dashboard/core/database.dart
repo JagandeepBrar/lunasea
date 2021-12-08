@@ -1,6 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
+
+enum DashboardDatabaseValue {
+  NAVIGATION_INDEX,
+  CALENDAR_STARTING_DAY,
+  CALENDAR_STARTING_SIZE,
+  CALENDAR_STARTING_TYPE,
+  CALENDAR_ENABLE_LIDARR,
+  CALENDAR_ENABLE_RADARR,
+  CALENDAR_ENABLE_SONARR,
+  CALENDAR_DAYS_PAST,
+  CALENDAR_DAYS_FUTURE,
+  CALENDAR_SHOW_PAST_DAYS,
+}
 
 class DashboardDatabase extends LunaModuleDatabase {
   @override
@@ -32,13 +46,7 @@ class DashboardDatabase extends LunaModuleDatabase {
               .key;
           break;
         // Primitive values
-        case DashboardDatabaseValue.NAVIGATION_INDEX:
-        case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-        case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-        case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-        case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
-        case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        default:
           data[value.key] = value.data;
           break;
       }
@@ -63,13 +71,7 @@ class DashboardDatabase extends LunaModuleDatabase {
             value.put(CalendarStartingType.CALENDAR.fromKey(config[key]));
             break;
           // Primitive values
-          case DashboardDatabaseValue.NAVIGATION_INDEX:
-          case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-          case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-          case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-          case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-          case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
-          case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+          default:
             value.put(config[key]);
             break;
         }
@@ -77,147 +79,95 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  DashboardDatabaseValue valueFromKey(String value) {
-    switch (value) {
-      case 'HOME_NAVIGATION_INDEX':
-        return DashboardDatabaseValue.NAVIGATION_INDEX;
-      case 'HOME_CALENDAR_STARTING_DAY':
-        return DashboardDatabaseValue.CALENDAR_STARTING_DAY;
-      case 'HOME_CALENDAR_STARTING_SIZE':
-        return DashboardDatabaseValue.CALENDAR_STARTING_SIZE;
-      case 'HOME_CALENDAR_STARTING_TYPE':
-        return DashboardDatabaseValue.CALENDAR_STARTING_TYPE;
-      case 'HOME_CALENDAR_ENABLE_LIDARR':
-        return DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR;
-      case 'HOME_CALENDAR_ENABLE_RADARR':
-        return DashboardDatabaseValue.CALENDAR_ENABLE_RADARR;
-      case 'HOME_CALENDAR_ENABLE_SONARR':
-        return DashboardDatabaseValue.CALENDAR_ENABLE_SONARR;
-      case 'HOME_CALENDAR_DAYS_PAST':
-        return DashboardDatabaseValue.CALENDAR_DAYS_PAST;
-      case 'HOME_CALENDAR_DAYS_FUTURE':
-        return DashboardDatabaseValue.CALENDAR_DAYS_FUTURE;
-      case 'DASHBOARD_CALENDAR_SHOW_PAST_DAYS':
-        return DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS;
-      default:
-        return null;
+  DashboardDatabaseValue valueFromKey(String key) {
+    for (DashboardDatabaseValue value in DashboardDatabaseValue.values) {
+      if (value.key == key) return value;
     }
+    return null;
   }
-}
-
-enum DashboardDatabaseValue {
-  NAVIGATION_INDEX,
-  CALENDAR_STARTING_DAY,
-  CALENDAR_STARTING_SIZE,
-  CALENDAR_STARTING_TYPE,
-  CALENDAR_ENABLE_LIDARR,
-  CALENDAR_ENABLE_RADARR,
-  CALENDAR_ENABLE_SONARR,
-  CALENDAR_DAYS_PAST,
-  CALENDAR_DAYS_FUTURE,
-  CALENDAR_SHOW_PAST_DAYS,
 }
 
 extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
   String get key {
-    switch (this) {
-      case DashboardDatabaseValue.NAVIGATION_INDEX:
-        return 'HOME_NAVIGATION_INDEX';
-      case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
-        return 'HOME_CALENDAR_STARTING_DAY';
-      case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
-        return 'HOME_CALENDAR_STARTING_SIZE';
-      case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
-        return 'HOME_CALENDAR_STARTING_TYPE';
-      case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-        return 'HOME_CALENDAR_ENABLE_LIDARR';
-      case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-        return 'HOME_CALENDAR_ENABLE_RADARR';
-      case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        return 'HOME_CALENDAR_ENABLE_SONARR';
-      case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-        return 'HOME_CALENDAR_DAYS_PAST';
-      case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
-        return 'HOME_CALENDAR_DAYS_FUTURE';
-      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
-        return 'DASHBOARD_CALENDAR_SHOW_PAST_DAYS';
-    }
-    throw Exception('key not found');
+    return 'HOME_${describeEnum(this)}';
   }
 
   dynamic get data {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case DashboardDatabaseValue.NAVIGATION_INDEX:
-        return box.get(key, defaultValue: 0);
-      case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
-        return box.get(key, defaultValue: CalendarStartingDay.MONDAY);
-      case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
-        return box.get(key, defaultValue: CalendarStartingSize.ONE_WEEK);
-      case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
-        return box.get(key, defaultValue: CalendarStartingType.CALENDAR);
-      case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-        return box.get(key, defaultValue: true);
-      case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-        return box.get(key, defaultValue: true);
-      case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        return box.get(key, defaultValue: true);
-      case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-        return box.get(key, defaultValue: 14);
-      case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
-        return box.get(key, defaultValue: 14);
-      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
-        return box.get(key, defaultValue: false);
-    }
-    throw Exception('data not found');
+    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case DashboardDatabaseValue.NAVIGATION_INDEX:
-        if (value.runtimeType == int) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
-        if (value.runtimeType == CalendarStartingDay) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
-        if (value.runtimeType == CalendarStartingSize) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
-        if (value.runtimeType == CalendarStartingType) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
-        if (value.runtimeType == int) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
-        if (value.runtimeType == int) box.put(key, value);
-        return;
-      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
+    if (this._isTypeValid(value)) {
+      Database.lunaSeaBox.put(this.key, value);
+    } else {
+      LunaLogger().warning(
+        this.runtimeType.toString(),
+        'put',
+        'Invalid Database Insert (${this.key}, ${value.runtimeType})',
+      );
     }
-    LunaLogger().warning(
-      'DashboardDatabaseValueExtension',
-      'put',
-      'Attempted to enter data for invalid DashboardDatabaseValue: ${this?.toString() ?? 'null'}',
-    );
   }
 
   ValueListenableBuilder listen({
+    Key key,
     @required Widget Function(BuildContext, dynamic, Widget) builder,
-  }) =>
-      ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
-        builder: builder,
-      );
+  }) {
+    return ValueListenableBuilder(
+      key: key,
+      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      builder: builder,
+    );
+  }
+
+  bool _isTypeValid(dynamic value) {
+    switch (this) {
+      case DashboardDatabaseValue.NAVIGATION_INDEX:
+        return value is int;
+      case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
+        return value is CalendarStartingDay;
+      case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
+        return value is CalendarStartingSize;
+      case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
+        return value is CalendarStartingType;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
+        return value is bool;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
+        return value is bool;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
+        return value is bool;
+      case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
+        return value is int;
+      case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
+        return value is int;
+      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        return value is bool;
+    }
+    throw Exception('Invalid DashboardDatabaseValue');
+  }
+
+  dynamic get _defaultValue {
+    switch (this) {
+      case DashboardDatabaseValue.NAVIGATION_INDEX:
+        return 0;
+      case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
+        return CalendarStartingDay.MONDAY;
+      case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
+        return CalendarStartingSize.ONE_WEEK;
+      case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
+        return CalendarStartingType.CALENDAR;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR:
+        return true;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_RADARR:
+        return true;
+      case DashboardDatabaseValue.CALENDAR_ENABLE_SONARR:
+        return true;
+      case DashboardDatabaseValue.CALENDAR_DAYS_PAST:
+        return 14;
+      case DashboardDatabaseValue.CALENDAR_DAYS_FUTURE:
+        return 14;
+      case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
+        return false;
+    }
+    throw Exception('Invalid DashboardDatabaseValue');
+  }
 }

@@ -1,5 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+
+enum SABnzbdDatabaseValue {
+  NAVIGATION_INDEX,
+}
 
 class SABnzbdDatabase extends LunaModuleDatabase {
   @override
@@ -11,7 +16,7 @@ class SABnzbdDatabase extends LunaModuleDatabase {
     for (SABnzbdDatabaseValue value in SABnzbdDatabaseValue.values) {
       switch (value) {
         // Primitive values
-        case SABnzbdDatabaseValue.NAVIGATION_INDEX:
+        default:
           data[value.key] = value.data;
           break;
       }
@@ -26,7 +31,7 @@ class SABnzbdDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Primitive values
-          case SABnzbdDatabaseValue.NAVIGATION_INDEX:
+          default:
             value.put(config[key]);
             break;
         }
@@ -34,53 +39,59 @@ class SABnzbdDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SABnzbdDatabaseValue valueFromKey(String value) {
-    switch (value) {
-      case 'SABNZBD_NAVIGATION_INDEX':
-        return SABnzbdDatabaseValue.NAVIGATION_INDEX;
-      default:
-        return null;
+  SABnzbdDatabaseValue valueFromKey(String key) {
+    for (SABnzbdDatabaseValue value in SABnzbdDatabaseValue.values) {
+      if (value.key == key) return value;
     }
+    return null;
   }
-}
-
-enum SABnzbdDatabaseValue {
-  NAVIGATION_INDEX,
 }
 
 extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
   String get key {
-    switch (this) {
-      case SABnzbdDatabaseValue.NAVIGATION_INDEX:
-        return 'SABNZBD_NAVIGATION_INDEX';
-    }
-    throw Exception('key not found');
+    return 'SABNZBD_${describeEnum(this)}';
   }
 
   dynamic get data {
-    final _box = Database.lunaSeaBox;
-    switch (this) {
-      case SABnzbdDatabaseValue.NAVIGATION_INDEX:
-        return _box.get(this.key, defaultValue: 0);
-    }
-    throw Exception('data not found');
+    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case SABnzbdDatabaseValue.NAVIGATION_INDEX:
-        if (value.runtimeType == int) box.put(this.key, value);
-        return;
+    if (this._isTypeValid(value)) {
+      Database.lunaSeaBox.put(this.key, value);
+    } else {
+      LunaLogger().warning(
+        this.runtimeType.toString(),
+        'put',
+        'Invalid Database Insert (${this.key}, ${value.runtimeType})',
+      );
     }
-    LunaLogger().warning('SABnzbdDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid SABnzbdDatabaseValue: ${this?.toString() ?? 'null'}');
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
-      ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
-        builder: builder,
-      );
+  ValueListenableBuilder listen({
+    Key key,
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) {
+    return ValueListenableBuilder(
+      key: key,
+      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      builder: builder,
+    );
+  }
+
+  bool _isTypeValid(dynamic value) {
+    switch (this) {
+      case SABnzbdDatabaseValue.NAVIGATION_INDEX:
+        return value is int;
+    }
+    throw Exception('Invalid SABnzbdDatabaseValue');
+  }
+
+  dynamic get _defaultValue {
+    switch (this) {
+      case SABnzbdDatabaseValue.NAVIGATION_INDEX:
+        return 0;
+    }
+    throw Exception('Invalid SABnzbdDatabaseValue');
+  }
 }

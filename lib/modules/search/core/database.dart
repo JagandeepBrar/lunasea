@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+
+enum SearchDatabaseValue {
+  HIDE_XXX,
+  SHOW_LINKS,
+}
 
 class SearchDatabase extends LunaModuleDatabase {
   @override
@@ -11,8 +17,7 @@ class SearchDatabase extends LunaModuleDatabase {
     for (SearchDatabaseValue value in SearchDatabaseValue.values) {
       switch (value) {
         // Primitive values
-        case SearchDatabaseValue.SHOW_LINKS:
-        case SearchDatabaseValue.HIDE_XXX:
+        default:
           data[value.key] = value.data;
           break;
       }
@@ -27,8 +32,7 @@ class SearchDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Primitive values
-          case SearchDatabaseValue.SHOW_LINKS:
-          case SearchDatabaseValue.HIDE_XXX:
+          default:
             value.put(config[key]);
             break;
         }
@@ -36,63 +40,63 @@ class SearchDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SearchDatabaseValue valueFromKey(String value) {
-    switch (value) {
-      case 'SEARCH_HIDE_XXX':
-        return SearchDatabaseValue.HIDE_XXX;
-      case 'SEARCH_SHOW_LINKS':
-        return SearchDatabaseValue.SHOW_LINKS;
-      default:
-        return null;
+  SearchDatabaseValue valueFromKey(String key) {
+    for (SearchDatabaseValue value in SearchDatabaseValue.values) {
+      if (value.key == key) return value;
     }
+    return null;
   }
-}
-
-enum SearchDatabaseValue {
-  HIDE_XXX,
-  SHOW_LINKS,
 }
 
 extension SearchDatabaseValueExtension on SearchDatabaseValue {
   String get key {
-    switch (this) {
-      case SearchDatabaseValue.HIDE_XXX:
-        return 'SEARCH_HIDE_XXX';
-      case SearchDatabaseValue.SHOW_LINKS:
-        return 'SEARCH_SHOW_LINKS';
-    }
-    throw Exception('key not found');
+    return 'SEARCH_${describeEnum(this)}';
   }
 
   dynamic get data {
-    final _box = Database.lunaSeaBox;
-    switch (this) {
-      case SearchDatabaseValue.HIDE_XXX:
-        return _box.get(this.key, defaultValue: false);
-      case SearchDatabaseValue.SHOW_LINKS:
-        return _box.get(this.key, defaultValue: true);
-    }
-    throw Exception('data not found');
+    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case SearchDatabaseValue.HIDE_XXX:
-        if (value.runtimeType == bool) box.put(this.key, value);
-        return;
-      case SearchDatabaseValue.SHOW_LINKS:
-        if (value.runtimeType == bool) box.put(this.key, value);
-        return;
+    if (this._isTypeValid(value)) {
+      Database.lunaSeaBox.put(this.key, value);
+    } else {
+      LunaLogger().warning(
+        this.runtimeType.toString(),
+        'put',
+        'Invalid Database Insert (${this.key}, ${value.runtimeType})',
+      );
     }
-    LunaLogger().warning('SearchDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
-      ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
-        builder: builder,
-      );
+  ValueListenableBuilder listen({
+    Key key,
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) {
+    return ValueListenableBuilder(
+      key: key,
+      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      builder: builder,
+    );
+  }
+
+  bool _isTypeValid(dynamic value) {
+    switch (this) {
+      case SearchDatabaseValue.HIDE_XXX:
+        return value is bool;
+      case SearchDatabaseValue.SHOW_LINKS:
+        return value is bool;
+    }
+    throw Exception('Invalid SearchDatabaseValue');
+  }
+
+  dynamic get _defaultValue {
+    switch (this) {
+      case SearchDatabaseValue.HIDE_XXX:
+        return false;
+      case SearchDatabaseValue.SHOW_LINKS:
+        return true;
+    }
+    throw Exception('Invalid SearchDatabaseValue');
+  }
 }

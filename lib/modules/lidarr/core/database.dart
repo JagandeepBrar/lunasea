@@ -1,6 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
+
+enum LidarrDatabaseValue {
+  NAVIGATION_INDEX,
+  ADD_MONITORED,
+  ADD_ALBUM_FOLDERS,
+  ADD_QUALITY_PROFILE,
+  ADD_METADATA_PROFILE,
+  ADD_ROOT_FOLDER,
+}
 
 class LidarrDatabase extends LunaModuleDatabase {
   @override
@@ -15,16 +25,16 @@ class LidarrDatabase extends LunaModuleDatabase {
     Map<String, dynamic> data = {};
     for (LidarrDatabaseValue value in LidarrDatabaseValue.values) {
       switch (value) {
-        // Primitive values
-        case LidarrDatabaseValue.NAVIGATION_INDEX:
-          data[value.key] = value.data;
-          break;
         // Non-exported values
         case LidarrDatabaseValue.ADD_MONITORED:
         case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
         case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
         case LidarrDatabaseValue.ADD_METADATA_PROFILE:
         case LidarrDatabaseValue.ADD_ROOT_FOLDER:
+          break;
+        // Primitive values
+        default:
+          data[value.key] = value.data;
           break;
       }
     }
@@ -53,103 +63,79 @@ class LidarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  LidarrDatabaseValue valueFromKey(String value) {
-    switch (value) {
-      case 'LIDARR_NAVIGATION_INDEX':
-        return LidarrDatabaseValue.NAVIGATION_INDEX;
-      case 'LIDARR_ADD_MONITORED':
-        return LidarrDatabaseValue.ADD_MONITORED;
-      case 'LIDARR_ADD_ALBUM_FOLDERS':
-        return LidarrDatabaseValue.ADD_ALBUM_FOLDERS;
-      case 'LIDARR_ADD_QUALITY_PROFILE':
-        return LidarrDatabaseValue.ADD_QUALITY_PROFILE;
-      case 'LIDARR_ADD_METADATA_PROFILE':
-        return LidarrDatabaseValue.ADD_METADATA_PROFILE;
-      case 'LIDARR_ADD_ROOT_FOLDER':
-        return LidarrDatabaseValue.ADD_ROOT_FOLDER;
-      default:
-        return null;
+  LidarrDatabaseValue valueFromKey(String key) {
+    for (LidarrDatabaseValue value in LidarrDatabaseValue.values) {
+      if (value.key == key) return value;
     }
+    return null;
   }
-}
-
-enum LidarrDatabaseValue {
-  NAVIGATION_INDEX,
-  ADD_MONITORED,
-  ADD_ALBUM_FOLDERS,
-  ADD_QUALITY_PROFILE,
-  ADD_METADATA_PROFILE,
-  ADD_ROOT_FOLDER,
 }
 
 extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
   String get key {
-    switch (this) {
-      case LidarrDatabaseValue.NAVIGATION_INDEX:
-        return 'LIDARR_NAVIGATION_INDEX';
-      case LidarrDatabaseValue.ADD_MONITORED:
-        return 'LIDARR_ADD_MONITORED';
-      case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
-        return 'LIDARR_ADD_ALBUM_FOLDERS';
-      case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
-        return 'LIDARR_ADD_QUALITY_PROFILE';
-      case LidarrDatabaseValue.ADD_METADATA_PROFILE:
-        return 'LIDARR_ADD_METADATA_PROFILE';
-      case LidarrDatabaseValue.ADD_ROOT_FOLDER:
-        return 'LIDARR_ADD_ROOT_FOLDER';
-    }
-    throw Exception('key not found');
+    return 'LIDARR_${describeEnum(this)}';
   }
 
   dynamic get data {
-    final _box = Database.lunaSeaBox;
-    switch (this) {
-      case LidarrDatabaseValue.NAVIGATION_INDEX:
-        return _box.get(key, defaultValue: 0);
-      case LidarrDatabaseValue.ADD_MONITORED:
-        return _box.get(key, defaultValue: true);
-      case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
-        return _box.get(key, defaultValue: true);
-      case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
-        return _box.get(key);
-      case LidarrDatabaseValue.ADD_METADATA_PROFILE:
-        return _box.get(key);
-      case LidarrDatabaseValue.ADD_ROOT_FOLDER:
-        return _box.get(key);
-    }
-    throw Exception('data not found');
+    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case LidarrDatabaseValue.NAVIGATION_INDEX:
-        if (value.runtimeType == int) box.put(key, value);
-        return;
-      case LidarrDatabaseValue.ADD_MONITORED:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
-        if (value.runtimeType == bool) box.put(key, value);
-        return;
-      case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
-        if (value.runtimeType == LidarrQualityProfile) box.put(key, value);
-        return;
-      case LidarrDatabaseValue.ADD_METADATA_PROFILE:
-        if (value.runtimeType == LidarrMetadataProfile) box.put(key, value);
-        return;
-      case LidarrDatabaseValue.ADD_ROOT_FOLDER:
-        if (value.runtimeType == LidarrRootFolder) box.put(key, value);
-        return;
+    if (this._isTypeValid(value)) {
+      Database.lunaSeaBox.put(this.key, value);
+    } else {
+      LunaLogger().warning(
+        this.runtimeType.toString(),
+        'put',
+        'Invalid Database Insert (${this.key}, ${value.runtimeType})',
+      );
     }
-    LunaLogger().warning('LidarrDatabaseValueExtension', 'put',
-        'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
   }
 
-  ValueListenableBuilder listen(
-          {@required Widget Function(BuildContext, dynamic, Widget) builder}) =>
-      ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [key]),
-        builder: builder,
-      );
+  ValueListenableBuilder listen({
+    Key key,
+    @required Widget Function(BuildContext, dynamic, Widget) builder,
+  }) {
+    return ValueListenableBuilder(
+      key: key,
+      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      builder: builder,
+    );
+  }
+
+  bool _isTypeValid(dynamic value) {
+    switch (this) {
+      case LidarrDatabaseValue.NAVIGATION_INDEX:
+        return value is int;
+      case LidarrDatabaseValue.ADD_MONITORED:
+        return value is bool;
+      case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
+        return value is bool;
+      case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
+        return value is LidarrQualityProfile;
+      case LidarrDatabaseValue.ADD_METADATA_PROFILE:
+        return value is LidarrMetadataProfile;
+      case LidarrDatabaseValue.ADD_ROOT_FOLDER:
+        return value is LidarrRootFolder;
+    }
+    throw Exception('Invalid LidarrDatabaseValue');
+  }
+
+  dynamic get _defaultValue {
+    switch (this) {
+      case LidarrDatabaseValue.NAVIGATION_INDEX:
+        return 0;
+      case LidarrDatabaseValue.ADD_MONITORED:
+        return true;
+      case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
+        return true;
+      case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
+        return null;
+      case LidarrDatabaseValue.ADD_METADATA_PROFILE:
+        return null;
+      case LidarrDatabaseValue.ADD_ROOT_FOLDER:
+        return null;
+    }
+    throw Exception('Invalid LidarrDatabaseValue');
+  }
 }

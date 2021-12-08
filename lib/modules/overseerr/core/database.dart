@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+
+enum OverseerrDatabaseValue {
+  NAVIGATION_INDEX,
+  CONTENT_PAGE_SIZE,
+}
 
 class OverseerrDatabase extends LunaModuleDatabase {
   @override
@@ -11,8 +17,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
     for (OverseerrDatabaseValue value in OverseerrDatabaseValue.values) {
       switch (value) {
         // Primitive values
-        case OverseerrDatabaseValue.NAVIGATION_INDEX:
-        case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+        default:
           data[value.key] = value.data;
           break;
       }
@@ -27,8 +32,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Primitive values
-          case OverseerrDatabaseValue.NAVIGATION_INDEX:
-          case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+          default:
             value.put(config[key]);
             break;
         }
@@ -36,68 +40,63 @@ class OverseerrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  OverseerrDatabaseValue valueFromKey(String value) {
-    switch (value) {
-      case 'OVERSEERR_NAVIGATION_INDEX':
-        return OverseerrDatabaseValue.NAVIGATION_INDEX;
-      case 'OVERSEERR_CONTENT_PAGE_SIZE':
-        return OverseerrDatabaseValue.CONTENT_PAGE_SIZE;
-      default:
-        return null;
+  OverseerrDatabaseValue valueFromKey(String key) {
+    for (OverseerrDatabaseValue value in OverseerrDatabaseValue.values) {
+      if (value.key == key) return value;
     }
+    return null;
   }
-}
-
-enum OverseerrDatabaseValue {
-  NAVIGATION_INDEX,
-  CONTENT_PAGE_SIZE,
 }
 
 extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
   String get key {
-    switch (this) {
-      case OverseerrDatabaseValue.NAVIGATION_INDEX:
-        return 'OVERSEERR_NAVIGATION_INDEX';
-      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
-        return 'OVERSEERR_CONTENT_PAGE_SIZE';
-    }
-    throw Exception('Invalid OverseerrDatabaseValue instance');
+    return 'OVERSEERR_${describeEnum(this)}';
   }
 
   dynamic get data {
-    final _box = Database.lunaSeaBox;
-    switch (this) {
-      case OverseerrDatabaseValue.NAVIGATION_INDEX:
-        return _box.get(this.key, defaultValue: 0);
-      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
-        return _box.get(this.key, defaultValue: 25);
-    }
-    throw Exception('Invalid OverseerrDatabaseValue instance');
+    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
-    final box = Database.lunaSeaBox;
-    switch (this) {
-      case OverseerrDatabaseValue.NAVIGATION_INDEX:
-        if (value is int) box.put(this.key, value);
-        return;
-      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
-        if (value is int) box.put(this.key, value);
-        return;
+    if (this._isTypeValid(value)) {
+      Database.lunaSeaBox.put(this.key, value);
+    } else {
+      LunaLogger().warning(
+        this.runtimeType.toString(),
+        'put',
+        'Invalid Database Insert (${this.key}, ${value.runtimeType})',
+      );
     }
-    LunaLogger().warning(
-      'OverseerrDatabaseValueExtension',
-      'put',
-      'Attempted to enter data for invalid OverseerrDatabaseValue: ${this?.toString() ?? 'null'}',
-    );
   }
 
   ValueListenableBuilder listen({
+    Key key,
     @required Widget Function(BuildContext, dynamic, Widget) builder,
   }) {
     return ValueListenableBuilder(
+      key: key,
       valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
       builder: builder,
     );
+  }
+
+  bool _isTypeValid(dynamic value) {
+    switch (this) {
+      case OverseerrDatabaseValue.NAVIGATION_INDEX:
+        return value is int;
+      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+        return value is int;
+    }
+    throw Exception('Invalid OverseerrDatabaseValue');
+  }
+
+  dynamic get _defaultValue {
+    switch (this) {
+      case OverseerrDatabaseValue.NAVIGATION_INDEX:
+        return 0;
+      case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
+        return 25;
+    }
+    throw Exception('Invalid OverseerrDatabaseValue');
   }
 }

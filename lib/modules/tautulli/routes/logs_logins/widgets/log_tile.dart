@@ -18,6 +18,7 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
       subtitle: _subtitle(),
       trailing: _trailing(),
       contentPadding: true,
+      height: LunaListTile.itemHeightExtended(4),
     );
   }
 

@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMissingTile extends StatefulWidget {
-  static final itemExtent =
-      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
+  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
 
   final SonarrMissingRecord record;
   final SonarrSeries series;

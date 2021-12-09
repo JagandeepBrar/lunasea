@@ -129,6 +129,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
 
   Widget get _list => LunaListView(
         controller: scrollController,
+        itemExtent: LunaListTile.itemExtent,
         children: <Widget>[
           LunaListTile(
             context: context,

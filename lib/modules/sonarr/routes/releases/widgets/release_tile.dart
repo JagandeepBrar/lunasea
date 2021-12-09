@@ -3,6 +3,9 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrReleasesTile extends StatefulWidget {
+  static final itemHeight = LunaListTile.itemHeightExtended(2);
+  static final itemExtent = LunaListTile.itemExtentExtended(2);
+
   final SonarrRelease release;
 
   const SonarrReleasesTile({
@@ -26,6 +29,7 @@ class _State extends State<SonarrReleasesTile> {
         _subtitle2(),
       ],
       collapsedTrailing: _trailing(),
+      collapsedHeight: SonarrReleasesTile.itemHeight,
       expandedHighlightedNodes: _highlightedNodes(),
       expandedTableContent: _tableContent(),
       expandedTableButtons: _tableButtons(),

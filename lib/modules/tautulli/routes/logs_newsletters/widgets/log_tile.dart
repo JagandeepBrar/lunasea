@@ -17,6 +17,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
       title: LunaText.title(text: newsletter.agentName),
       subtitle: _subtitle(),
       trailing: _trailing(),
+      height: LunaListTile.itemHeightExtended(4),
       contentPadding: true,
     );
   }

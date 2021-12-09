@@ -6,12 +6,12 @@ class LunaExpandableListTile extends StatefulWidget {
   final List<TextSpan> collapsedSubtitles;
   final Widget collapsedTrailing;
   final Widget collapsedLeading;
+  final double collapsedHeight;
   final Color backgroundColor;
   final Function onLongPress;
   final List<LunaHighlightedNode> expandedHighlightedNodes;
   final List<LunaTableContent> expandedTableContent;
   final List<LunaButton> expandedTableButtons;
-  final Widget expandedCustomWidget;
   final bool initialExpanded;
 
   /// Create a [LunaExpandableListTile] which is a list tile that expands into a table-style card.
@@ -22,20 +22,19 @@ class LunaExpandableListTile extends StatefulWidget {
     Key key,
     @required this.title,
     @required this.collapsedSubtitles,
+    @required this.expandedTableContent,
     this.collapsedTrailing,
     this.collapsedLeading,
+    this.collapsedHeight,
     this.onLongPress,
     this.expandedHighlightedNodes,
-    this.expandedTableContent,
     this.expandedTableButtons,
-    this.expandedCustomWidget,
     this.backgroundColor,
     this.initialExpanded = false,
   }) : super(key: key) {
+    assert(title != null);
     assert(collapsedSubtitles != null);
-    if (expandedCustomWidget == null) {
-      assert(expandedTableContent != null);
-    }
+    assert(expandedTableContent != null);
   }
 
   @override
@@ -96,6 +95,7 @@ class _State extends State<LunaExpandableListTile> {
         softWrap: false,
         maxLines: widget.collapsedSubtitles.length,
       ),
+      height: widget.collapsedHeight,
       onTap: controller.toggle,
       onLongPress: widget.onLongPress,
       contentPadding: widget.collapsedSubtitles.length > 1,
@@ -106,8 +106,10 @@ class _State extends State<LunaExpandableListTile> {
   }
 
   Widget expanded() {
-    Widget child = widget.expandedCustomWidget ??
-        Row(
+    return LunaCard(
+      context: context,
+      child: InkWell(
+        child: Row(
           children: [
             Expanded(
               child: Column(
@@ -119,19 +121,18 @@ class _State extends State<LunaExpandableListTile> {
                       softWrap: true,
                       maxLines: 8,
                     ),
-                    padding: const EdgeInsets.only(
-                        bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
+                    padding: LunaUI.MARGIN_CARD
+                        .copyWith(top: LunaUI.MARGIN_DEFAULT.top),
                   ),
                   if (widget.expandedHighlightedNodes != null)
                     Padding(
                       child: Wrap(
                         direction: Axis.horizontal,
-                        spacing: 6.0,
-                        runSpacing: 6.0,
+                        spacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                        runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
                         children: widget.expandedHighlightedNodes,
                       ),
-                      padding: const EdgeInsets.only(
-                          bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
+                      padding: LunaUI.MARGIN_CARD.copyWith(top: 0, bottom: 0),
                     ),
                   Padding(
                     child: Column(
@@ -168,17 +169,13 @@ class _State extends State<LunaExpandableListTile> {
                           ),
                       ],
                     ),
-                    padding: const EdgeInsets.only(bottom: 6.0),
+                    padding: LunaUI.MARGIN_CARD.copyWith(left: 0.0, right: 0.0),
                   ),
                 ],
               ),
             ),
           ],
-        );
-    return LunaCard(
-      context: context,
-      child: InkWell(
-        child: child,
+        ),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         onTap: controller.toggle,
         onLongPress: widget.onLongPress,

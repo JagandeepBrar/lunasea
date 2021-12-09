@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFourLineCardWithPoster extends StatelessWidget {
+  static final double itemExtent = LunaListTile.itemExtentExtended(3);
+  static final double _itemHeight = LunaListTile.itemHeightExtended(3);
+
   final Function onTap;
   final Function onLongPress;
   final String backgroundUrl;
@@ -21,8 +24,6 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
   final Color titleColor;
   final Map posterHeaders;
   final LunaIconButton trailing;
-  static const double itemExtent = 90.0;
-  static const double padding = 8.0;
 
   const LunaFourLineCardWithPoster({
     Key key,
@@ -56,7 +57,6 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
           children: [
             _poster(context),
             _body(context),
-            if (trailing != null) _trailing(),
           ],
         ),
         onTap: onTap,
@@ -69,7 +69,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
               uri: backgroundUrl,
               headers: posterHeaders,
             ),
-      height: itemExtent,
+      height: _itemHeight,
     );
   }
 
@@ -77,36 +77,36 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
     return LunaNetworkImage(
       url: posterUrl,
       placeholderAsset: posterPlaceholder,
-      height: itemExtent,
-      width: itemExtent / 1.5,
+      height: _itemHeight,
+      width: _itemHeight / 1.5,
       headers: posterHeaders,
     );
   }
 
   Widget _body(BuildContext context) {
     return Expanded(
-      child: Padding(
-        child: SizedBox(
-          child: Column(
-            children: [
-              _title(),
-              if (customSubtitle1 != null) customSubtitle1,
-              if (customSubtitle1 == null && subtitle1 != null)
-                _subtitle(subtitle1, subtitle1MaxLines),
-              if (customSubtitle2 != null) customSubtitle2,
-              if (customSubtitle2 == null && subtitle2 != null)
-                _subtitle(subtitle2, subtitle2MaxLines),
-              if (customSubtitle3 != null) customSubtitle3,
-              if (customSubtitle3 == null && subtitle3 != null)
-                _subtitle(subtitle3, subtitle3MaxLines),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (itemExtent - (padding * 2)),
+      child: LunaListTile(
+        context: context,
+        title: _title(),
+        height: _itemHeight,
+        color: Colors.transparent,
+        subtitle: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (customSubtitle1 != null) customSubtitle1,
+            if (customSubtitle1 == null && subtitle1 != null)
+              _subtitle(subtitle1, subtitle1MaxLines),
+            if (customSubtitle2 != null) customSubtitle2,
+            if (customSubtitle2 == null && subtitle2 != null)
+              _subtitle(subtitle2, subtitle2MaxLines),
+            if (customSubtitle3 != null) customSubtitle3,
+            if (customSubtitle3 == null && subtitle3 != null)
+              _subtitle(subtitle3, subtitle3MaxLines),
+          ],
         ),
-        padding: const EdgeInsets.all(padding),
+        margin: EdgeInsets.zero,
+        trailing: trailing,
       ),
     );
   }
@@ -121,27 +121,19 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
   }
 
   Widget _subtitle(TextSpan text, int maxLines) {
-    return RichText(
-      text: TextSpan(
-        style: TextStyle(
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-          color: darken ? Colors.white30 : Colors.white70,
+    return SizedBox(
+      height: 16.0,
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            color: darken ? Colors.white30 : Colors.white70,
+          ),
+          children: [text],
         ),
-        children: [text],
-      ),
-      overflow: TextOverflow.fade,
-      softWrap: maxLines == 1 ? false : true,
-      maxLines: maxLines,
-    );
-  }
-
-  Widget _trailing() {
-    return Padding(
-      padding: EdgeInsets.only(right: LunaUI.MARGIN_CARD.right),
-      child: SizedBox(
-        width: 48.0,
-        height: itemExtent,
-        child: trailing,
+        overflow: TextOverflow.fade,
+        softWrap: maxLines == 1 ? false : true,
+        maxLines: maxLines,
       ),
     );
   }

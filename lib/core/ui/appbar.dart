@@ -273,7 +273,7 @@ class _State extends State<LunaAppBar> {
           children: [
             Text(
               widget.title,
-              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
+              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
             ),
             const Icon(Icons.arrow_drop_down_rounded),
           ],

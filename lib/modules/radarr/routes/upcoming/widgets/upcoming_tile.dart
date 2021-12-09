@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrUpcomingTile extends StatefulWidget {
-  static final itemExtent =
-      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
+  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;

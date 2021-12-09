@@ -47,13 +47,13 @@ class LunaUI {
   static const double FONT_SIZE_APP_BAR = 18.0;
   static const double FONT_SIZE_BUTTON = 14.0;
   static const double FONT_SIZE_GRAPH_LEGEND = 10.0;
-  static const double FONT_SIZE_HEADER = 18.0;
+  static const double FONT_SIZE_HEADER = 16.0;
   static const double FONT_SIZE_HIGHLIGHTED_NODE = 12.0;
   static const double FONT_SIZE_MESSAGES = 16.0;
   static const double FONT_SIZE_NAVIGATION_BAR = 13.0;
   static const double FONT_SIZE_SUBHEADER = 12.0;
-  static const double FONT_SIZE_SUBTITLE = 13.0;
-  static const double FONT_SIZE_TITLE = 16.0;
+  static const double FONT_SIZE_SUBTITLE = 12.0;
+  static const double FONT_SIZE_TITLE = 14.0;
   static const FontWeight FONT_WEIGHT_BOLD = FontWeight.w600;
   // UI-Related
   static const int ANIMATION_SPEED = 250;

@@ -107,7 +107,7 @@ class LunaDrawer extends StatelessWidget {
         module.name,
         style: TextStyle(
           color: currentPage ? module.color : Colors.white,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
         ),
       ),
       onTap: () async {
@@ -125,7 +125,7 @@ class LunaDrawer extends StatelessWidget {
         LunaModule.WAKE_ON_LAN.name,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
         ),
       ),
       onTap: () async {

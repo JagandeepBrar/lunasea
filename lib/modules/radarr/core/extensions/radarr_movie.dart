@@ -100,17 +100,24 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.accent
               : LunaColours.accent.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
-    return const Text('');
+    return const Text(
+      '',
+      style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+    );
   }
 
   Text lunaNextReleaseTextObject(bool isMonitored) {
     DateTime now = DateTime.now();
     // If we already have a file or it is released
-    if (this.hasFile || lunaIsReleased) return const Text('');
+    if (this.hasFile || lunaIsReleased)
+      return const Text(
+        '',
+        style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+      );
     // In Cinemas
     if (this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
       String _date = this.inCinemas.lunaDaysDifference?.toUpperCase() ??
@@ -121,7 +128,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.orange
               : LunaColours.orange.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
@@ -137,13 +144,16 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.blue
               : LunaColours.blue.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
     }
     // Unknown case
-    return const Text('');
+    return const Text(
+      '',
+      style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+    );
   }
 
   /// Compare two movies by their release dates. Returns an integer value compatible with `.sort()` in arrays.

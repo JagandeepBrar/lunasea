@@ -53,6 +53,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
           ],
         ),
       ),
+      height: LunaListTile.itemHeightExtended(3),
       decoration: syncedItem.ratingKey != null
           ? LunaCardDecoration(
               uri: context.watch<TautulliState>().getImageURLFromRatingKey(

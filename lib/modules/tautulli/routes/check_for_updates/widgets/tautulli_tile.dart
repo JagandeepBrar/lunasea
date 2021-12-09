@@ -19,6 +19,9 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
       subtitle: _subtitle(),
       trailing: _trailing(),
       contentPadding: true,
+      height: update.update
+          ? LunaListTile.itemHeightExtended(4)
+          : LunaListTile.itemHeightExtended(2),
     );
   }
 

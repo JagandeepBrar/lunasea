@@ -48,11 +48,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return Column(
       children: [
+        SizedBox(height: LunaUI.MARGIN_CARD.bottom),
         LunaListTile(
           context: context,
-          margin: LunaUI.MARGIN_DEFAULT.subtract(
-            EdgeInsets.only(bottom: LunaUI.MARGIN_CARD.bottom),
-          ),
           title: LunaText.title(
             text: 'settings.AutomaticallyManageOrder'.tr(),
           ),

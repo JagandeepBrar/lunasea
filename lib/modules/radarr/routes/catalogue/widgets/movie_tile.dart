@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueTile extends StatefulWidget {
-  static final itemExtent =
-      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
+  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -130,12 +129,9 @@ class _State extends State<RadarrCatalogueTile> {
           LunaColours.accent,
           widget.movie.hasFile,
         ),
-        Padding(
-          child: widget.movie.hasFile
-              ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-              : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
-          padding: const EdgeInsets.only(top: 1.5),
-        ),
+        widget.movie.hasFile
+            ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
+            : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
       ],
     );
   }

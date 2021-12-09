@@ -65,7 +65,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
         ],
       ),
       overflow: TextOverflow.fade,
-      maxLines: 3,
+      maxLines: 2,
     );
   }
 }

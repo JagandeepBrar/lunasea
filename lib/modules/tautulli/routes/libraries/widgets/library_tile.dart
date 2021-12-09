@@ -41,6 +41,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         overflow: TextOverflow.fade,
         maxLines: 3,
       ),
+      height: LunaListTile.itemHeightExtended(3),
       contentPadding: true,
       decoration: LunaCardDecoration(
         uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),

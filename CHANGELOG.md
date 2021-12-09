@@ -11,7 +11,8 @@
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
-- `[UI/UX]` (List Tiles) Fixed consistency of trailing icon/text size
+- `[UI/UX]` (List Tiles) Improved consistency of trailing icon/text size
+- `[UI/UX]` (List Tiles) Improved consistency of tile height and padding across different sizes
 
 ---
 

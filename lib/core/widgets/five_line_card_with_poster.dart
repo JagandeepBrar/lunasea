@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFiveLineCardWithPoster extends StatelessWidget {
+  static final double itemExtent = LunaListTile.itemExtentExtended(4);
+  static final double _itemHeight = LunaListTile.itemHeightExtended(4);
+
   final Function onTap;
   final Function onLongPress;
   final String backgroundUrl;
@@ -24,8 +27,6 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
   final Color titleColor;
   final Map posterHeaders;
   final LunaIconButton trailing;
-  static const double itemExtent = 105.0;
-  static const double _padding = 8.0;
 
   const LunaFiveLineCardWithPoster({
     Key key,
@@ -62,7 +63,6 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
           children: [
             _poster(context),
             _body(context),
-            if (trailing != null) _trailing(),
           ],
         ),
         onTap: onTap,
@@ -75,6 +75,7 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
               uri: backgroundUrl,
               headers: posterHeaders,
             ),
+      height: _itemHeight,
     );
   }
 
@@ -82,39 +83,39 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
     return LunaNetworkImage(
       url: posterUrl,
       placeholderAsset: posterPlaceholder,
-      height: itemExtent,
-      width: itemExtent / 1.5,
+      height: _itemHeight,
+      width: _itemHeight / 1.5,
       headers: posterHeaders,
     );
   }
 
   Widget _body(BuildContext context) {
     return Expanded(
-      child: Padding(
-        child: SizedBox(
-          child: Column(
-            children: [
-              _title(),
-              if (customSubtitle1 != null) customSubtitle1,
-              if (customSubtitle1 == null && subtitle1 != null)
-                _subtitle(subtitle1, subtitle1MaxLines),
-              if (customSubtitle2 != null) customSubtitle2,
-              if (customSubtitle2 == null && subtitle2 != null)
-                _subtitle(subtitle2, subtitle2MaxLines),
-              if (customSubtitle3 != null) customSubtitle3,
-              if (customSubtitle3 == null && subtitle3 != null)
-                _subtitle(subtitle3, subtitle3MaxLines),
-              if (customSubtitle4 != null) customSubtitle4,
-              if (customSubtitle4 == null && subtitle4 != null)
-                _subtitle(subtitle4, subtitle4MaxLines),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (itemExtent - (_padding * 2)),
+      child: LunaListTile(
+        context: context,
+        title: _title(),
+        height: _itemHeight,
+        color: Colors.transparent,
+        subtitle: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (customSubtitle1 != null) customSubtitle1,
+            if (customSubtitle1 == null && subtitle1 != null)
+              _subtitle(subtitle1, subtitle1MaxLines),
+            if (customSubtitle2 != null) customSubtitle2,
+            if (customSubtitle2 == null && subtitle2 != null)
+              _subtitle(subtitle2, subtitle2MaxLines),
+            if (customSubtitle3 != null) customSubtitle3,
+            if (customSubtitle3 == null && subtitle3 != null)
+              _subtitle(subtitle3, subtitle3MaxLines),
+            if (customSubtitle4 != null) customSubtitle4,
+            if (customSubtitle4 == null && subtitle4 != null)
+              _subtitle(subtitle4, subtitle4MaxLines),
+          ],
         ),
-        padding: const EdgeInsets.all(_padding),
+        margin: EdgeInsets.zero,
+        trailing: trailing,
       ),
     );
   }
@@ -140,17 +141,6 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
       overflow: TextOverflow.fade,
       softWrap: maxLines == 1 ? false : true,
       maxLines: maxLines,
-    );
-  }
-
-  Widget _trailing() {
-    return Padding(
-      padding: EdgeInsets.only(right: LunaUI.MARGIN_CARD.right),
-      child: SizedBox(
-        width: 48.0,
-        height: itemExtent,
-        child: trailing,
-      ),
     );
   }
 }

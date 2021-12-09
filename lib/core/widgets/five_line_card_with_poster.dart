@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFiveLineCardWithPoster extends StatelessWidget {
-  static final double itemExtent = LunaListTile.itemExtentExtended(4);
-  static final double _itemHeight = LunaListTile.itemHeightExtended(4);
+  static final double itemExtent = LunaListTile.extentFromSubtitleLines(4);
+  static final double _itemHeight = LunaListTile.heightFromSubtitleLines(4);
 
   final Function onTap;
   final Function onLongPress;
@@ -116,6 +116,7 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
         ),
         margin: EdgeInsets.zero,
         trailing: trailing,
+        drawBorder: false,
       ),
     );
   }
@@ -133,7 +134,7 @@ class LunaFiveLineCardWithPoster extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
           color: darken ? Colors.white30 : Colors.white70,
         ),
         children: [text],

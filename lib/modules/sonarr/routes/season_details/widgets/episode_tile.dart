@@ -64,7 +64,7 @@ class _State extends State<SonarrEpisodeTile> {
       text: TextSpan(
         style: TextStyle(
           color: widget.episode.monitored ? Colors.white70 : Colors.white30,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
         ),
         children: [
           TextSpan(text: widget.episode.lunaAirDate()),
@@ -106,7 +106,6 @@ class _State extends State<SonarrEpisodeTile> {
   Widget _leading(BuildContext context) {
     return LunaIconButton(
       text: widget.episode.episodeNumber.toString(),
-      textSize: LunaUI.FONT_SIZE_BUTTON,
       color: widget.episode.monitored ? Colors.white : Colors.white30,
     );
   }

@@ -172,7 +172,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
       maxLines: 3,
       style: const TextStyle(
         color: Colors.white70,
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
       ),
     );
   }

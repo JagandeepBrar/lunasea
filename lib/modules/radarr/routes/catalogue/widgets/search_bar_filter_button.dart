@@ -35,7 +35,7 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
               child: Text(
                 RadarrMoviesFilter.values[index].readable,
                 style: TextStyle(
-                  fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                  fontSize: LunaUI.FONT_SIZE_H3,
                   color:
                       state.moviesFilterType == RadarrMoviesFilter.values[index]
                           ? LunaColours.accent

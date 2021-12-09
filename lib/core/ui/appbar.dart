@@ -241,7 +241,7 @@ class _State extends State<LunaAppBar> {
       title: Text(
         widget.title ?? '',
         overflow: TextOverflow.fade,
-        style: const TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
+        style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
       ),
       leading: _sharedLeading(context),
       automaticallyImplyLeading: !(widget.hideLeading ?? false),
@@ -273,7 +273,7 @@ class _State extends State<LunaAppBar> {
           children: [
             Text(
               widget.title,
-              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
+              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
             ),
             const Icon(Icons.arrow_drop_down_rounded),
           ],
@@ -290,7 +290,7 @@ class _State extends State<LunaAppBar> {
                 child: Text(
                   profile,
                   style: TextStyle(
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_H3,
                     color:
                         (LunaDatabaseValue.ENABLED_PROFILE.data ?? 'default') ==
                                 profile

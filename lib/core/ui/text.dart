@@ -41,7 +41,7 @@ class LunaText extends Text {
         style: TextStyle(
           color: darken ? color.withOpacity(0.30) : color,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          fontSize: LunaUI.FONT_SIZE_TITLE,
+          fontSize: LunaUI.FONT_SIZE_H2,
         ),
       );
 
@@ -65,7 +65,7 @@ class LunaText extends Text {
         overflow: TextOverflow.fade,
         style: TextStyle(
           color: darken ? color.withOpacity(0.30) : color,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontStyle: fontStyle,
         ),
       );

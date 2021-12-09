@@ -43,7 +43,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                           child: Text(
                             profile,
                             style: TextStyle(
-                              fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                              fontSize: LunaUI.FONT_SIZE_H3,
                               color: (LunaDatabaseValue.ENABLED_PROFILE.data ??
                                           'default') ==
                                       profile

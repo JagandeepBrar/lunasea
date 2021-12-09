@@ -17,7 +17,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
       title: LunaText.title(text: newsletter.agentName),
       subtitle: _subtitle(),
       trailing: _trailing(),
-      height: LunaListTile.itemHeightExtended(4),
+      height: LunaListTile.heightFromSubtitleLines(4),
       contentPadding: true,
     );
   }
@@ -26,7 +26,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
         text: TextSpan(
           style: const TextStyle(
             color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: [
             TextSpan(text: '${newsletter.notifyAction}\n'),

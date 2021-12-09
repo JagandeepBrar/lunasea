@@ -6,22 +6,18 @@ class LunaIconButton extends StatelessWidget {
   final IconData icon;
   final double iconSize;
   final String text;
-  final double textSize;
   final Color color;
   final Function onPressed;
   final Function onLongPress;
   final LunaLoadingState loadingState;
   final AlignmentGeometry alignment;
-  final EdgeInsetsGeometry padding;
 
   LunaIconButton({
     Key key,
     this.text,
-    this.textSize = 10.0,
     this.icon,
-    this.iconSize = 24.0,
+    this.iconSize = LunaUI.DEFAULT_ICON_SIZE,
     this.alignment = Alignment.center,
-    this.padding = const EdgeInsets.all(8.0),
     this.color = Colors.white,
     this.onPressed,
     this.onLongPress,
@@ -37,9 +33,10 @@ class LunaIconButton extends StatelessWidget {
         icon: loadingState == LunaLoadingState.ACTIVE ? _loader() : _icon(),
         iconSize: iconSize,
         alignment: alignment,
-        padding: padding,
+        padding: EdgeInsets.zero,
         onPressed: _onPressed(),
       ),
+      hoverColor: Colors.transparent,
       onLongPress: _onLongPress(),
     );
   }
@@ -64,7 +61,7 @@ class LunaIconButton extends StatelessWidget {
 
   Widget _loader() {
     return LunaLoader(
-      size: 12.0,
+      size: LunaUI.FONT_SIZE_H4,
       color: color,
       useSafeArea: false,
     );
@@ -88,7 +85,7 @@ class LunaIconButton extends StatelessWidget {
         style: TextStyle(
           color: color,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          fontSize: textSize,
+          fontSize: LunaUI.FONT_SIZE_H5,
         ),
       );
     }

@@ -48,7 +48,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async {
             Database().clearAlertsBox();
             showLunaSuccessSnackBar(
-                title: 'Cleared', message: 'Cleared Alerts Box');
+              title: 'Cleared',
+              message: 'Cleared Alerts Box',
+            );
           },
         ),
       ],

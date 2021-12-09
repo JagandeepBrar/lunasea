@@ -57,7 +57,7 @@ class _State extends State<LidarrDescriptionBlock> {
                     maxLines: 5,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                      fontSize: LunaUI.FONT_SIZE_H3,
                     ),
                     textAlign: TextAlign.start,
                   ),

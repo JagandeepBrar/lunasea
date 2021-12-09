@@ -116,9 +116,10 @@ class _State extends State<RadarrUpcomingTile> {
     return LunaIconButton(
       icon: Icons.search_rounded,
       onPressed: () async => RadarrAPIHelper().automaticSearch(
-          context: context,
-          movieId: widget.movie.id,
-          title: widget.movie.title),
+        context: context,
+        movieId: widget.movie.id,
+        title: widget.movie.title,
+      ),
       onLongPress: () async =>
           RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
     );

@@ -43,17 +43,21 @@ class LunaUI {
   static const String TEXT_OBFUSCATED_PASSWORD = '••••••••••';
   static const String TEXT_ELLIPSIS = '…';
   static const String TEXT_EMDASH = '—';
+  // <--> Font-Related
+  static const double FONT_SIZE_H1 = 18.0;
+  static const double FONT_SIZE_H2 = 16.0;
+  static const double FONT_SIZE_H3 = 14.0;
+  static const double FONT_SIZE_H4 = 12.0;
+  static const double FONT_SIZE_H5 = 10.0;
+  // <--> Icon-Related
   // Font-Related
-  static const double FONT_SIZE_APP_BAR = 18.0;
-  static const double FONT_SIZE_BUTTON = 14.0;
-  static const double FONT_SIZE_GRAPH_LEGEND = 10.0;
-  static const double FONT_SIZE_HEADER = 16.0;
-  static const double FONT_SIZE_HIGHLIGHTED_NODE = 12.0;
-  static const double FONT_SIZE_MESSAGES = 16.0;
-  static const double FONT_SIZE_NAVIGATION_BAR = 13.0;
-  static const double FONT_SIZE_SUBHEADER = 12.0;
-  static const double FONT_SIZE_SUBTITLE = 12.0;
-  static const double FONT_SIZE_TITLE = 14.0;
+  static const double FONT_SIZE_BUTTON = FONT_SIZE_H3;
+  static const double FONT_SIZE_GRAPH_LEGEND = FONT_SIZE_H5;
+  static const double FONT_SIZE_HEADER = FONT_SIZE_H2;
+  static const double FONT_SIZE_MESSAGES = FONT_SIZE_H2;
+  static const double FONT_SIZE_SUBHEADER = FONT_SIZE_H3;
+  static const double FONT_SIZE_SUBTITLE = FONT_SIZE_H3;
+  static const double FONT_SIZE_TITLE = FONT_SIZE_H2;
   static const FontWeight FONT_WEIGHT_BOLD = FontWeight.w600;
   // UI-Related
   static const int ANIMATION_SPEED = 250;
@@ -61,10 +65,15 @@ class LunaUI {
   static const double BORDER_RADIUS = 10.0;
   static const double BUTTON_BACKGROUND_OPACITY = 0.80;
   static const double ELEVATION = 0.0;
+  static const double DEFAULT_ICON_SIZE = 22.0;
   static const double DEFAULT_MARGIN_SIZE = 12.0;
   static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(DEFAULT_MARGIN_SIZE);
   static const EdgeInsets MARGIN_CARD = EdgeInsets.symmetric(
     horizontal: DEFAULT_MARGIN_SIZE,
+    vertical: DEFAULT_MARGIN_SIZE / 2,
+  );
+  static const EdgeInsets MARGIN_BUTTON = EdgeInsets.symmetric(
+    horizontal: DEFAULT_MARGIN_SIZE / 2,
     vertical: DEFAULT_MARGIN_SIZE / 2,
   );
   // Border-Related

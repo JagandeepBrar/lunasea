@@ -48,6 +48,7 @@ class _State extends State<SonarrSeriesTile> {
             ? LunaColours.accent
             : LunaColours.accent.withOpacity(0.30),
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        fontSize: LunaUI.FONT_SIZE_H3,
       );
     return TextSpan(
       text: text,

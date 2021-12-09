@@ -6,7 +6,7 @@ extension SonarrCalendarExtension on SonarrCalendar {
     if (this.airDateUtc != null)
       return LunaDatabaseValue.USE_24_HOUR_TIME.data
           ? DateFormat.Hm().format(this.airDateUtc.toLocal())
-          : DateFormat('hh:mm a').format(this.airDateUtc.toLocal());
+          : DateFormat('hh:mm\na').format(this.airDateUtc.toLocal());
     return LunaUI.TEXT_EMDASH;
   }
 

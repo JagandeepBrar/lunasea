@@ -40,7 +40,8 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
 
   @override
   Widget build(BuildContext context) {
-    if (_summary == null && _buttons == null) return const SizedBox(height: 0.0);
+    if (_summary == null && _buttons == null)
+      return const SizedBox(height: 0.0);
     return LunaCard(
       context: context,
       child: InkWell(
@@ -55,7 +56,7 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
                       child: RichText(
                         text: TextSpan(
                           style: const TextStyle(
-                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_H3,
                           ),
                           text: _summary,
                         ),

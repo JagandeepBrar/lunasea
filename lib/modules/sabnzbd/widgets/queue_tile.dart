@@ -30,6 +30,7 @@ class _State extends State<SABnzbdQueueTile> {
           text: widget.data.name,
           darken: widget.data.isPaused,
         ),
+        height: LunaListTile.heightFromSubtitleLines(2),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -46,7 +47,7 @@ class _State extends State<SABnzbdQueueTile> {
                     : LunaColours.accent.withOpacity(0.15),
                 lineHeight: 4.0,
               ),
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
             ),
             LunaText.subtitle(
               text: widget.data.subtitle,

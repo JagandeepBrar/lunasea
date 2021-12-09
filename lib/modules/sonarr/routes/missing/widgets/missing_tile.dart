@@ -52,7 +52,7 @@ class _State extends State<SonarrMissingTile> {
   TextSpan _subtitle1() {
     return TextSpan(
       style: TextStyle(
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
         color: widget.record.monitored ? Colors.white70 : Colors.white30,
       ),
       children: [
@@ -69,7 +69,7 @@ class _State extends State<SonarrMissingTile> {
   TextSpan _subtitle2() {
     return TextSpan(
       style: TextStyle(
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
         color: widget.record.monitored ? Colors.white70 : Colors.white30,
       ),
       children: [
@@ -86,7 +86,7 @@ class _State extends State<SonarrMissingTile> {
   TextSpan _subtitle3() {
     return TextSpan(
       style: const TextStyle(
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
         color: LunaColours.red,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),

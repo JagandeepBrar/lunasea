@@ -36,7 +36,7 @@ class _State extends State<RadarrReleasesAppBarFilterButton> {
               child: Text(
                 RadarrReleasesFilter.values[index].readable,
                 style: TextStyle(
-                  fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                  fontSize: LunaUI.FONT_SIZE_H3,
                   color: state.filterType == RadarrReleasesFilter.values[index]
                       ? LunaColours.accent
                       : Colors.white,

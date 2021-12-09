@@ -19,7 +19,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         text: TextSpan(
           style: const TextStyle(
             color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: <TextSpan>[
             TextSpan(text: '${library.readableCount}\n'),
@@ -41,7 +41,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         overflow: TextOverflow.fade,
         maxLines: 3,
       ),
-      height: LunaListTile.itemHeightExtended(3),
+      height: LunaListTile.heightFromSubtitleLines(3),
       contentPadding: true,
       decoration: LunaCardDecoration(
         uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),

@@ -19,7 +19,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
         text: TextSpan(
           style: const TextStyle(
             color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: [
             TextSpan(
@@ -53,7 +53,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
           ],
         ),
       ),
-      height: LunaListTile.itemHeightExtended(3),
+      height: LunaListTile.heightFromSubtitleLines(3),
       decoration: syncedItem.ratingKey != null
           ? LunaCardDecoration(
               uri: context.watch<TautulliState>().getImageURLFromRatingKey(

@@ -28,7 +28,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                       TautulliStatsType.values[index].value
                           .lunaCapitalizeFirstLetters(),
                       style: TextStyle(
-                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        fontSize: LunaUI.FONT_SIZE_H3,
                         color: type == TautulliGraphYAxis.values[index]
                             ? LunaColours.accent
                             : Colors.white,

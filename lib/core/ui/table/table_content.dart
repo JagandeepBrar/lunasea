@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTableContent extends StatelessWidget {
@@ -12,7 +11,6 @@ class LunaTableContent extends StatelessWidget {
   final TextAlign bodyAlign;
   final Color titleColor;
   final Color bodyColor;
-  final EdgeInsets padding;
 
   const LunaTableContent({
     Key key,
@@ -25,7 +23,6 @@ class LunaTableContent extends StatelessWidget {
     this.bodyFlex = 10,
     this.titleColor = Colors.white70,
     this.bodyColor = Colors.white,
-    this.padding = const EdgeInsets.symmetric(vertical: 4.0),
   }) : super(key: key);
 
   @override
@@ -34,23 +31,29 @@ class LunaTableContent extends StatelessWidget {
       child: Row(
         children: [
           _title(),
-          SizedBox(width: LunaUI.MARGIN_DEFAULT.left, height: 0.0),
           _subtitle(),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
-      padding: padding,
+      padding:
+          const EdgeInsets.symmetric(vertical: LunaUI.DEFAULT_MARGIN_SIZE / 2),
     );
   }
 
   Widget _title() {
     return Expanded(
-      child: Text(
-        title?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
-        textAlign: titleAlign,
-        style: TextStyle(
-          color: titleColor,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+      child: Padding(
+        child: Text(
+          title?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
+          textAlign: titleAlign,
+          style: TextStyle(
+            color: titleColor,
+            fontSize: LunaUI.FONT_SIZE_H3,
+          ),
+        ),
+        padding: const EdgeInsets.only(
+          top: LunaUI.DEFAULT_MARGIN_SIZE / 4,
+          bottom: LunaUI.DEFAULT_MARGIN_SIZE / 4,
         ),
       ),
       flex: titleFlex,
@@ -60,24 +63,23 @@ class LunaTableContent extends StatelessWidget {
   Widget _subtitle() {
     return Expanded(
       child: InkWell(
-        child: Text(
-          body ?? LunaUI.TEXT_EMDASH,
-          textAlign: bodyAlign,
-          style: TextStyle(
-            color: bodyColor,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        child: Padding(
+          child: Text(
+            body ?? LunaUI.TEXT_EMDASH,
+            textAlign: bodyAlign,
+            style: TextStyle(
+              color: bodyColor,
+              fontSize: LunaUI.FONT_SIZE_H3,
+            ),
+          ),
+          padding: const EdgeInsets.only(
+            top: LunaUI.DEFAULT_MARGIN_SIZE / 4,
+            bottom: LunaUI.DEFAULT_MARGIN_SIZE / 4,
           ),
         ),
         onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
-        onLongPress: !bodyIsUrl
-            ? null
-            : () async {
-                await Clipboard.setData(ClipboardData(text: body));
-                showLunaSuccessSnackBar(
-                    title: 'Copied Content',
-                    message: 'Copied link to the clipboard');
-              },
-        borderRadius: BorderRadius.circular(5.0),
+        // onLongPress: !bodyIsUrl ? null : () => body.copyToClipboard(),
+        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
       ),
       flex: bodyFlex,
     );

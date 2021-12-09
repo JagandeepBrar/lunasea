@@ -18,7 +18,7 @@ class LunaHeader extends StatelessWidget {
       text.toUpperCase(),
       style: const TextStyle(
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: LunaUI.FONT_SIZE_HEADER,
+        fontSize: LunaUI.FONT_SIZE_H2,
         color: Colors.white,
       ),
     );
@@ -28,7 +28,7 @@ class LunaHeader extends StatelessWidget {
     return Padding(
       child: Container(
         height: 2.0,
-        width: 48.0,
+        width: LunaUI.DEFAULT_MARGIN_SIZE * 3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
           color: LunaColours.accent,
@@ -46,7 +46,7 @@ class LunaHeader extends StatelessWidget {
     return Text(
       subtitle,
       style: const TextStyle(
-        fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+        fontSize: LunaUI.FONT_SIZE_H4,
         color: Colors.white70,
         fontWeight: FontWeight.w300,
       ),

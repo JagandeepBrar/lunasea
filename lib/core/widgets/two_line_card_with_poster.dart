@@ -110,7 +110,7 @@ class LunaTwoLineCardWithPoster extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
           color: darken ? Colors.white30 : Colors.white70,
         ),
         children: [text],

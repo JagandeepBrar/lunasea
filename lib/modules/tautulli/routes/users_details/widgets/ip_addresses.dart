@@ -91,7 +91,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
         text: TextSpan(
           style: const TextStyle(
             color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: [
             TextSpan(text: record.lastSeen?.lunaAge ?? 'Unknown'),

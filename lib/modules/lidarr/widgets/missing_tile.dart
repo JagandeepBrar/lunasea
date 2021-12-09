@@ -22,11 +22,12 @@ class _State extends State<LidarrMissingTile> {
   @override
   Widget build(BuildContext context) => LunaListTile(
         context: context,
+        height: LunaListTile.heightFromSubtitleLines(2),
         title: LunaText.title(text: widget.entry.artistTitle),
         subtitle: RichText(
           text: TextSpan(
             style: const TextStyle(
-              fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+              fontSize: LunaUI.FONT_SIZE_H3,
             ),
             children: <TextSpan>[
               TextSpan(

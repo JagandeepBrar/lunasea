@@ -43,7 +43,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                     Text(
                       SonarrSeriesSorting.values[index].readable,
                       style: TextStyle(
-                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        fontSize: LunaUI.FONT_SIZE_H3,
                         color: state.seriesSortType ==
                                 SonarrSeriesSorting.values[index]
                             ? LunaColours.accent
@@ -56,7 +56,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                         state.seriesSortAscending
                             ? Icons.arrow_upward_rounded
                             : Icons.arrow_downward_rounded,
-                        size: LunaUI.FONT_SIZE_SUBTITLE + 2.0,
+                        size: LunaUI.FONT_SIZE_H2,
                         color: LunaColours.accent,
                       ),
                   ],

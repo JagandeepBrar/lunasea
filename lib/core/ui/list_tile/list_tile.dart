@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaListTile extends Card {
-  static const _baseHeight = 25.0;
-  static const _perLineHeight = 22.0;
-  static final double itemExtent = _baseHeight + LunaUI.MARGIN_CARD.vertical;
+  static const BASE_HEIGHT = 43.0;
+  static const PER_LINE_HEIGHT = 17.0;
+  static const TITLE_SPACER_HEIGHT = LunaUI.DEFAULT_MARGIN_SIZE / 2;
+  static final double itemExtent = BASE_HEIGHT + LunaUI.MARGIN_CARD.vertical;
 
-  static double itemHeightExtended(int subtitleLines) {
-    if (subtitleLines == 0) return _baseHeight;
-    return _baseHeight + (subtitleLines * _perLineHeight);
+  static double heightFromSubtitleLines(int subtitleLines) {
+    if (subtitleLines == 0) return BASE_HEIGHT;
+    return BASE_HEIGHT +
+        TITLE_SPACER_HEIGHT +
+        (subtitleLines * PER_LINE_HEIGHT);
   }
 
-  static double itemExtentExtended(int subtitleLines) {
-    return itemHeightExtended(subtitleLines) + LunaUI.MARGIN_CARD.vertical;
+  static double extentFromSubtitleLines(int subtitleLines) {
+    return heightFromSubtitleLines(subtitleLines) + LunaUI.MARGIN_CARD.vertical;
   }
 
   LunaListTile({
@@ -27,6 +30,7 @@ class LunaListTile extends Card {
     Function onTap,
     Function onLongPress,
     bool contentPadding = false,
+    bool drawBorder = true,
     double height,
     EdgeInsets margin = LunaUI.MARGIN_CARD,
   }) : super(
@@ -34,8 +38,8 @@ class LunaListTile extends Card {
           child: Container(
             height: height ??
                 (subtitle == null
-                    ? itemHeightExtended(0)
-                    : itemHeightExtended(1)),
+                    ? heightFromSubtitleLines(0)
+                    : heightFromSubtitleLines(1)),
             child: InkWell(
               mouseCursor: onTap != null || onLongPress != null
                   ? SystemMouseCursors.click
@@ -43,21 +47,19 @@ class LunaListTile extends Card {
               child: Row(
                 children: [
                   if (leading != null)
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: LunaUI.MARGIN_CARD.left / 2),
-                      child: SizedBox(
-                        width: 48.0,
-                        child: leading,
-                      ),
+                    SizedBox(
+                      width: LunaUI.DEFAULT_MARGIN_SIZE * 5,
+                      child: leading,
                     ),
                   Expanded(
                     child: Padding(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           title,
+                          if (subtitle != null)
+                            const SizedBox(height: TITLE_SPACER_HEIGHT),
                           if (subtitle != null) subtitle,
                         ],
                       ),
@@ -71,13 +73,9 @@ class LunaListTile extends Card {
                     ),
                   ),
                   if (trailing != null)
-                    Padding(
-                      padding:
-                          EdgeInsets.only(right: LunaUI.MARGIN_CARD.right / 2),
-                      child: SizedBox(
-                        width: 48.0,
-                        child: trailing,
-                      ),
+                    SizedBox(
+                      width: LunaUI.DEFAULT_MARGIN_SIZE * 5,
+                      child: trailing,
                     ),
                 ],
               ),
@@ -89,7 +87,7 @@ class LunaListTile extends Card {
           ),
           margin: margin,
           elevation: LunaUI.ELEVATION,
-          shape: LunaUI.shapeBorder,
+          shape: drawBorder ? LunaUI.shapeBorder : LunaShapeBorder.rounded(),
           color: color ?? Theme.of(context).primaryColor,
         );
 }

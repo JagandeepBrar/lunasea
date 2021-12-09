@@ -22,7 +22,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
         text: TextSpan(
           style: TextStyle(
             color: series.monitored ? Colors.white70 : Colors.white30,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: [
             _subtitle1(),

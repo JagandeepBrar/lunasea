@@ -213,7 +213,7 @@ class RadarrBottomModalSheets {
                       maxLines: 2,
                       overflow: TextOverflow.fade,
                       style: const TextStyle(
-                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        fontSize: LunaUI.FONT_SIZE_H3,
                         color: Colors.white70,
                         fontStyle: FontStyle.italic,
                       ),

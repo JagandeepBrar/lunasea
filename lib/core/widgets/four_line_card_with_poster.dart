@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFourLineCardWithPoster extends StatelessWidget {
-  static final double itemExtent = LunaListTile.itemExtentExtended(3);
-  static final double _itemHeight = LunaListTile.itemHeightExtended(3);
+  static final double itemExtent = LunaListTile.extentFromSubtitleLines(3);
+  static final double _itemHeight = LunaListTile.heightFromSubtitleLines(3);
 
   final Function onTap;
   final Function onLongPress;
@@ -107,26 +107,29 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
         ),
         margin: EdgeInsets.zero,
         trailing: trailing,
+        drawBorder: false,
       ),
     );
   }
 
   Widget _title() {
-    return LunaText.title(
-      text: title,
-      color: titleColor,
-      darken: darken,
-      maxLines: 1,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: LunaText.title(
+        text: title,
+        color: titleColor,
+        darken: darken,
+        maxLines: 1,
+      ),
     );
   }
 
   Widget _subtitle(TextSpan text, int maxLines) {
     return SizedBox(
-      height: 16.0,
       child: RichText(
         text: TextSpan(
           style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
             color: darken ? Colors.white30 : Colors.white70,
           ),
           children: [text],
@@ -135,6 +138,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
         softWrap: maxLines == 1 ? false : true,
         maxLines: maxLines,
       ),
+      height: LunaListTile.PER_LINE_HEIGHT * maxLines,
     );
   }
 }

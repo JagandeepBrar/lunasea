@@ -36,7 +36,7 @@ class _State extends State<SonarrReleasesAppBarFilterButton> {
               child: Text(
                 SonarrReleasesFilter.values[index].readable,
                 style: TextStyle(
-                  fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                  fontSize: LunaUI.FONT_SIZE_H3,
                   color: state.filterType == SonarrReleasesFilter.values[index]
                       ? LunaColours.accent
                       : Colors.white,

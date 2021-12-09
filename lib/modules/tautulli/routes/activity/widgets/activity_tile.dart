@@ -85,10 +85,9 @@ class TautulliActivityTile extends StatelessWidget {
         Container(
           child: Icon(
             session.lunaSessionStateIcon,
-            size: LunaUI.FONT_SIZE_SUBTITLE,
+            size: LunaUI.FONT_SIZE_H3,
             color: Colors.white70,
           ),
-          alignment: Alignment.centerLeft,
           width: 16.0 + session.lunaSessionStateIconOffset,
           transform: Matrix4.translationValues(
               session.lunaSessionStateIconOffset, 0.0, 0.0),
@@ -99,8 +98,10 @@ class TautulliActivityTile extends StatelessWidget {
   }
 
   Widget _subtitle4() {
-    return Padding(
+    return SizedBox(
+      height: LunaListTile.PER_LINE_HEIGHT,
       child: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
           LinearPercentIndicator(
             percent: session.lunaTranscodeProgress,
@@ -118,7 +119,6 @@ class TautulliActivityTile extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.only(top: 4.0),
     );
   }
 

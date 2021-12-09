@@ -20,8 +20,8 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
       trailing: _trailing(),
       contentPadding: true,
       height: update.update
-          ? LunaListTile.itemHeightExtended(4)
-          : LunaListTile.itemHeightExtended(2),
+          ? LunaListTile.heightFromSubtitleLines(4)
+          : LunaListTile.heightFromSubtitleLines(2),
     );
   }
 
@@ -43,7 +43,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
       text: TextSpan(
         style: const TextStyle(
           color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
         ),
         children: <TextSpan>[
           if (!update.update)

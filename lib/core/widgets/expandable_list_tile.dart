@@ -86,7 +86,7 @@ class _State extends State<LunaExpandableListTile> {
       subtitle: RichText(
         text: TextSpan(
           style: const TextStyle(
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
             color: Colors.white70,
           ),
           children: _parseSubtitles(),

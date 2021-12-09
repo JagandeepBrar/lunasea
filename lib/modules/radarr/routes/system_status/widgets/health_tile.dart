@@ -34,7 +34,7 @@ class RadarrHealthCheckTile extends StatelessWidget {
       style: TextStyle(
         color: healthCheck.type.lunaColour,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
       ),
     );
   }

@@ -53,7 +53,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                             color: widget.data.monitored
                                 ? Colors.white70
                                 : Colors.white30,
-                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_H3,
                           ),
                           children: <TextSpan>[
                             TextSpan(

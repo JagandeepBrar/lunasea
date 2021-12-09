@@ -106,33 +106,37 @@ class _State extends State<RadarrCatalogueTile> {
     Color _color = (highlight ? color : Colors.grey)
         .withOpacity(widget.movie.monitored ? 1 : 0.30);
     return Padding(
-      child: Icon(icon, size: 16.0, color: _color),
-      padding: const EdgeInsets.only(right: 8.0),
+      child: Icon(icon, size: LunaUI.FONT_SIZE_H2, color: _color),
+      padding: const EdgeInsets.only(right: LunaUI.DEFAULT_MARGIN_SIZE / 2),
     );
   }
 
   Widget _subtitle3() {
-    return Row(
-      children: [
-        _buildReleaseIcon(
-          Icons.videocam_rounded,
-          LunaColours.orange,
-          widget.movie.lunaIsInCinemas,
-        ),
-        _buildReleaseIcon(
-          Icons.album_rounded,
-          LunaColours.blue,
-          widget.movie.lunaIsReleased,
-        ),
-        _buildReleaseIcon(
-          Icons.check_circle_rounded,
-          LunaColours.accent,
-          widget.movie.hasFile,
-        ),
-        widget.movie.hasFile
-            ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-            : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
-      ],
+    return SizedBox(
+      height: LunaListTile.PER_LINE_HEIGHT,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _buildReleaseIcon(
+            Icons.videocam_rounded,
+            LunaColours.orange,
+            widget.movie.lunaIsInCinemas,
+          ),
+          _buildReleaseIcon(
+            Icons.album_rounded,
+            LunaColours.blue,
+            widget.movie.lunaIsReleased,
+          ),
+          _buildReleaseIcon(
+            Icons.check_circle_rounded,
+            LunaColours.accent,
+            widget.movie.hasFile,
+          ),
+          widget.movie.hasFile
+              ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
+              : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
+        ],
+      ),
     );
   }
 

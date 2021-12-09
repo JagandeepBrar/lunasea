@@ -26,22 +26,22 @@ class _State extends State<DashboardCalendarWidget> {
   final TextStyle dayTileStyle = const TextStyle(
     color: Colors.white,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle outsideDayTileStyle = const TextStyle(
     color: Colors.white54,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle unavailableTitleStyle = const TextStyle(
     color: Colors.white12,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle weekdayTitleStyle = const TextStyle(
     color: LunaColours.accent,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
 
   final double _calendarBulletSize = 8.0;
@@ -259,7 +259,7 @@ class _State extends State<DashboardCalendarWidget> {
     return Expanded(
       child: LunaListView(
         controller: DashboardNavigationBar.scrollControllers[1],
-        itemExtent: LunaListTile.itemExtentExtended(2),
+        itemExtent: LunaListTile.extentFromSubtitleLines(2),
         children: _selectedEvents.map(_entry).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
@@ -330,6 +330,7 @@ class _State extends State<DashboardCalendarWidget> {
         softWrap: false,
         maxLines: 2,
       ),
+      height: LunaListTile.heightFromSubtitleLines(2),
       trailing: event.trailing(context),
       onTap: () async => event.enterContent(context),
       contentPadding: true,

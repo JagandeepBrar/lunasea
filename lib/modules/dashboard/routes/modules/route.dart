@@ -38,7 +38,7 @@ class _State extends State<DashboardModulesRoute>
     }
     return LunaListView(
       controller: DashboardNavigationBar.scrollControllers[0],
-      itemExtent: LunaListTile.itemExtentExtended(1),
+      itemExtent: LunaListTile.extentFromSubtitleLines(1),
       children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
           ? _buildAlphabeticalList()
           : _buildManuallyOrderedList(),
@@ -87,7 +87,7 @@ class _State extends State<DashboardModulesRoute>
     return LunaListTile(
       context: context,
       title: LunaText.title(text: module.name),
-      // subtitle: LunaText.subtitle(text: module.description),
+      subtitle: LunaText.subtitle(text: module.description),
       trailing: LunaIconButton(icon: module.icon, color: module.color),
       onTap: module.launch,
     );

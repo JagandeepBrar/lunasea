@@ -100,13 +100,13 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.accent
               : LunaColours.accent.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
     return const Text(
       '',
-      style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+      style: TextStyle(fontSize: LunaUI.FONT_SIZE_H3),
     );
   }
 
@@ -116,7 +116,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     if (this.hasFile || lunaIsReleased)
       return const Text(
         '',
-        style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+        style: TextStyle(fontSize: LunaUI.FONT_SIZE_H3),
       );
     // In Cinemas
     if (this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
@@ -128,7 +128,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.orange
               : LunaColours.orange.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
@@ -144,7 +144,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           color: isMonitored
               ? LunaColours.blue
               : LunaColours.blue.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBHEADER,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
@@ -152,7 +152,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     // Unknown case
     return const Text(
       '',
-      style: TextStyle(fontSize: LunaUI.FONT_SIZE_SUBHEADER),
+      style: TextStyle(fontSize: LunaUI.FONT_SIZE_H3),
     );
   }
 

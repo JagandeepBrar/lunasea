@@ -34,7 +34,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         text: TextSpan(
           style: TextStyle(
             color: widget.season.monitored ? Colors.white70 : Colors.white30,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: [
             _subtitle1(),

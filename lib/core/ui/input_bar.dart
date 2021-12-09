@@ -85,7 +85,7 @@ class _State extends State<LunaTextInputBar> {
 
   TextStyle get _sharedTextStyle => const TextStyle(
         color: Colors.white,
-        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_H3,
       );
 
   InputDecoration get _sharedInputDecoration => InputDecoration(
@@ -93,7 +93,7 @@ class _State extends State<LunaTextInputBar> {
         labelStyle: const TextStyle(
           color: Colors.white54,
           decoration: TextDecoration.none,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
         ),
         suffixIcon: AnimatedOpacity(
           child: InkWell(

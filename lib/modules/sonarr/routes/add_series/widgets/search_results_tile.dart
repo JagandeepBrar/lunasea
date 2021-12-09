@@ -51,7 +51,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
 
   TextSpan _subtitle2() => TextSpan(
         style: TextStyle(
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontStyle: FontStyle.italic,
           color: widget.exists ? Colors.white30 : Colors.white70,
         ),

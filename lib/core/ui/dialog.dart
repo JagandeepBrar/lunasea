@@ -4,10 +4,9 @@ import 'package:lunasea/core.dart';
 
 // ignore: avoid_classes_with_only_static_members
 abstract class LunaDialog {
-  static const HEADER_SIZE = LunaUI.FONT_SIZE_HEADER;
-  static const BODY_SIZE = LunaUI.FONT_SIZE_SUBTITLE;
-  static const SUBBODY_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
-  static const BUTTON_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
+  static const HEADER_SIZE = LunaUI.FONT_SIZE_H1;
+  static const BODY_SIZE = LunaUI.FONT_SIZE_H4;
+  static const BUTTON_SIZE = LunaUI.FONT_SIZE_H4;
 
   static Widget title({
     @required String text,

@@ -24,43 +24,38 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
   @override
   Widget build(BuildContext context) {
     if (widget.season == null) return const SizedBox(height: 0.0);
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(
-        text: widget.season.lunaTitle,
-        darken: !widget.season.monitored,
-      ),
-      subtitle: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: widget.season.monitored ? Colors.white70 : Colors.white30,
-            fontSize: LunaUI.FONT_SIZE_H3,
-          ),
-          children: [
-            _subtitle1(),
-            const TextSpan(text: '\n'),
-            _subtitle2(),
-          ],
-        ),
-      ),
-      trailing: _trailing(context),
-      onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
+    return LunaThreeLineCardWithPoster(
+      posterPlaceholder: LunaAssets.blankVideo,
+      posterUrl: widget.season?.images
+              ?.firstWhere((e) => e.coverType == 'poster', orElse: () => null)
+              ?.url ??
+          '',
+      posterHeaders: context.read<SonarrState>().headers,
+      title: widget.season.lunaTitle,
+      darken: !widget.season.monitored,
+      subtitle1: _subtitle1(),
+      subtitle2: _subtitle2(),
+      trailing: _trailing(),
+      onTap: _onTap,
+      onLongPress: _onLongPress,
+    );
+  }
+
+  Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: widget.seriesId,
         seasonNumber: widget.season.seasonNumber,
-      ),
-      onLongPress: () async {
-        Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
-            .seasonSettings(context, widget.season.seasonNumber);
-        if (result.item1)
-          result.item2.execute(
-            context,
-            widget.seriesId,
-            widget.season.seasonNumber,
-          );
-      },
-      contentPadding: true,
-    );
+      );
+
+  Future<void> _onLongPress() async {
+    Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
+        .seasonSettings(context, widget.season.seasonNumber);
+    if (result.item1)
+      result.item2.execute(
+        context,
+        widget.seriesId,
+        widget.season.seasonNumber,
+      );
   }
 
   TextSpan _subtitle1() {
@@ -92,7 +87,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     );
   }
 
-  Widget _trailing(BuildContext context) {
+  Widget _trailing() {
     Future<void> setLoadingState(LunaLoadingState state) async {
       if (this.mounted) setState(() => _loadingState = state);
     }

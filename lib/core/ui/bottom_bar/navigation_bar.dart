@@ -90,7 +90,7 @@ class _State extends State<LunaBottomNavigationBar> {
                           icon: widget.icons[index],
                           text: widget.titles[index],
                           active: _index == index,
-                          iconSize: LunaUI.DEFAULT_ICON_SIZE,
+                          iconSize: LunaUI.ICON_SIZE_DEFAULT,
                           haptic: true,
                           padding: _index == index
                               ? const EdgeInsets.all(10.0)
@@ -99,7 +99,7 @@ class _State extends State<LunaBottomNavigationBar> {
                           iconColor: Colors.white,
                           textStyle: const TextStyle(
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                            fontSize: LunaUI.FONT_SIZE_H4,
+                            fontSize: LunaUI.FONT_SIZE_H3,
                             color: Colors.white,
                           ),
                           iconActiveColor: LunaColours.accent,

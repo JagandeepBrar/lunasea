@@ -12,7 +12,7 @@ class OverseerrUserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaTwoLineCardWithPoster(
+    return LunaThreeLineCardWithPoster(
       title: user.lunaDisplayName(),
       subtitle1: TextSpan(text: user.lunaEmail()),
       subtitle2: TextSpan(
@@ -25,6 +25,7 @@ class OverseerrUserTile extends StatelessWidget {
       posterPlaceholder: LunaAssets.blankUser,
       posterHeaders: context.read<OverseerrState>().headers,
       posterUrl: user.avatar,
+      posterIsSquare: true,
     );
   }
 }

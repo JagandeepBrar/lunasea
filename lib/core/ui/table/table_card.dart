@@ -19,7 +19,12 @@ class LunaTableCard extends StatelessWidget {
       context: context,
       child: Padding(
         child: _body(),
-        padding: LunaUI.MARGIN_DEFAULT,
+        padding: const EdgeInsets.only(
+          left: LunaUI.DEFAULT_MARGIN_SIZE,
+          right: LunaUI.DEFAULT_MARGIN_SIZE,
+          top: LunaUI.DEFAULT_MARGIN_SIZE - LunaUI.DEFAULT_MARGIN_SIZE / 4,
+          bottom: LunaUI.DEFAULT_MARGIN_SIZE - LunaUI.DEFAULT_MARGIN_SIZE / 4,
+        ),
       ),
     );
   }
@@ -47,14 +52,7 @@ class LunaTableCard extends StatelessWidget {
   }
 
   List<Widget> _content() {
-    return content
-            ?.map<Widget>((content) => Padding(
-                  child: content,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: LunaUI.DEFAULT_MARGIN_SIZE),
-                ))
-            ?.toList() ??
-        [];
+    return content;
   }
 
   Widget _buttons() {

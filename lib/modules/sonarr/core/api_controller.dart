@@ -176,13 +176,14 @@ class SonarrAPIController {
           throw Exception('Series does not exist in catalogue');
         }
         return series[seriesId].clone();
-      }).then((series) {
+      }).then((series) async {
         series.seasons.forEach((seriesSeason) {
           if (seriesSeason.seasonNumber == season.seasonNumber) {
             seriesSeason.monitored = !seriesSeason.monitored;
           }
         });
-        return context.read<SonarrState>().api.series.update(series: series);
+        await context.read<SonarrState>().api.series.update(series: series);
+        return series;
       }).then((series) {
         return context.read<SonarrState>().setSingleSeries(series);
       }).then((series) {

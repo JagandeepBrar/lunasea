@@ -32,6 +32,9 @@ class _State extends State<SonarrQueueTile> {
         _subtitle3(),
         _subtitle4(),
       ],
+      collapsedHeight: widget.type == SonarrQueueTileType.ALL
+          ? LunaListTile.heightFromSubtitleLines(4)
+          : LunaListTile.heightFromSubtitleLines(2),
       expandedTableContent: _expandedTableContent(),
       expandedHighlightedNodes: _expandedHighlightedNodes(),
       expandedTableButtons: _tableButtons(),
@@ -155,7 +158,7 @@ class _State extends State<SonarrQueueTile> {
           body: widget.queueRecord.episode?.title ?? LunaUI.TEXT_EMDASH,
         ),
       if (widget.type == SonarrQueueTileType.ALL)
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
       LunaTableContent(
         title: 'sonarr.Quality'.tr(),
         body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,

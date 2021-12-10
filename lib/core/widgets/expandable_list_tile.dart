@@ -109,72 +109,84 @@ class _State extends State<LunaExpandableListTile> {
     return LunaCard(
       context: context,
       child: InkWell(
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    child: LunaText.title(
-                      text: widget.title ?? LunaUI.TEXT_EMDASH,
-                      softWrap: true,
-                      maxLines: 8,
-                    ),
-                    padding: LunaUI.MARGIN_CARD
-                        .copyWith(top: LunaUI.MARGIN_DEFAULT.top),
-                  ),
-                  if (widget.expandedHighlightedNodes != null)
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: LunaUI.DEFAULT_MARGIN_SIZE,
+            bottom: widget.expandedTableButtons?.isEmpty ?? true
+                ? (LunaUI.DEFAULT_MARGIN_SIZE / 4 * 3)
+                : LunaUI.DEFAULT_MARGIN_SIZE / 2,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Padding(
-                      child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
-                        runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
-                        children: widget.expandedHighlightedNodes,
+                      child: LunaText.title(
+                        text: widget.title ?? LunaUI.TEXT_EMDASH,
+                        softWrap: true,
+                        maxLines: 8,
                       ),
-                      padding: LunaUI.MARGIN_CARD.copyWith(top: 0, bottom: 0),
+                      padding: const EdgeInsets.only(
+                        left: LunaUI.DEFAULT_MARGIN_SIZE,
+                        right: LunaUI.DEFAULT_MARGIN_SIZE,
+                        bottom: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                      ),
                     ),
-                  Padding(
-                    child: Column(
-                      children: [
-                        ...widget.expandedTableContent
-                            .map<Widget>((content) => Padding(
-                                  child: content,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12.0),
-                                ))
-                            .toList(),
-                        if (widget.expandedTableButtons != null)
-                          Padding(
-                            child: Wrap(
-                              children: [
-                                ...List.generate(
-                                    widget.expandedTableButtons.length,
-                                    (index) {
-                                  double widthFactor = 0.5;
-                                  if (index ==
-                                          (widget.expandedTableButtons.length -
-                                              1) &&
-                                      widget.expandedTableButtons.length.isOdd)
-                                    widthFactor = 1;
-                                  return FractionallySizedBox(
-                                    child: widget.expandedTableButtons[index],
-                                    widthFactor: widthFactor,
-                                  );
-                                }),
-                              ],
+                    if (widget.expandedHighlightedNodes != null)
+                      Padding(
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          spacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                          runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                          children: widget.expandedHighlightedNodes,
+                        ),
+                        padding: const EdgeInsets.only(
+                          left: LunaUI.DEFAULT_MARGIN_SIZE,
+                          right: LunaUI.DEFAULT_MARGIN_SIZE,
+                          bottom: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                        ),
+                      ),
+                    ...widget.expandedTableContent
+                        .map((child) => Padding(
+                              child: child,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: LunaUI.DEFAULT_MARGIN_SIZE,
+                              ),
+                            ))
+                        .toList(),
+                    if (widget.expandedTableButtons != null)
+                      Padding(
+                        child: Wrap(
+                          children: [
+                            ...List.generate(
+                              widget.expandedTableButtons.length,
+                              (index) {
+                                int bCount = widget.expandedTableButtons.length;
+                                double widthFactor = 0.5;
+
+                                if (index == (bCount - 1) && bCount.isOdd) {
+                                  widthFactor = 1;
+                                }
+
+                                return FractionallySizedBox(
+                                  child: widget.expandedTableButtons[index],
+                                  widthFactor: widthFactor,
+                                );
+                              },
                             ),
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 6.0),
-                          ),
-                      ],
-                    ),
-                    padding: LunaUI.MARGIN_CARD.copyWith(left: 0.0, right: 0.0),
-                  ),
-                ],
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         onTap: controller.toggle,

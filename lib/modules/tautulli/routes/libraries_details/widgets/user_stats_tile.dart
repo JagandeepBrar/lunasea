@@ -12,7 +12,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaTwoLineCardWithPoster(
+    return LunaThreeLineCardWithPoster(
       posterUrl:
           context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
       posterHeaders:
@@ -22,6 +22,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
       customSubtitle1: _subtitle1(),
       customSubtitle2: _subtitle2(),
       onTap: () async => _onTap(context),
+      posterIsSquare: true,
     );
   }
 

@@ -50,6 +50,8 @@ class LunaUI {
   static const double FONT_SIZE_H4 = 12.0;
   static const double FONT_SIZE_H5 = 10.0;
   // <--> Icon-Related
+  static const double ICON_SIZE_APPBAR = 24.0;
+  static const double ICON_SIZE_DEFAULT = 22.0;
   // Font-Related
   static const double FONT_SIZE_BUTTON = FONT_SIZE_H3;
   static const double FONT_SIZE_GRAPH_LEGEND = FONT_SIZE_H5;
@@ -65,7 +67,6 @@ class LunaUI {
   static const double BORDER_RADIUS = 10.0;
   static const double BUTTON_BACKGROUND_OPACITY = 0.80;
   static const double ELEVATION = 0.0;
-  static const double DEFAULT_ICON_SIZE = 22.0;
   static const double DEFAULT_MARGIN_SIZE = 12.0;
   static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(DEFAULT_MARGIN_SIZE);
   static const EdgeInsets MARGIN_CARD = EdgeInsets.symmetric(

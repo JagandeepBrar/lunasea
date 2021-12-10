@@ -212,6 +212,7 @@ class _State extends State<LunaAppBar> {
     if (widget.useDrawer)
       return IconButton(
         icon: const Icon(Icons.menu_rounded),
+        iconSize: LunaUI.ICON_SIZE_APPBAR,
         onPressed: () async {
           HapticFeedback.lightImpact();
           if (Scaffold.of(context).hasDrawer) {
@@ -220,19 +221,11 @@ class _State extends State<LunaAppBar> {
           }
         },
       );
-    return InkWell(
-      child: const Center(
-        child: Icon(Icons.arrow_back_ios_new_rounded),
-      ),
-      onTap: () async {
-        HapticFeedback.lightImpact();
-        Navigator.of(context).lunaSafetyPop();
-      },
-      onLongPress: () async {
-        HapticFeedback.heavyImpact();
-        Navigator.of(context).lunaPopToFirst();
-      },
-      borderRadius: BorderRadius.circular(28.0),
+    return LunaIconButton(
+      icon: Icons.arrow_back_ios_new_rounded,
+      iconSize: LunaUI.ICON_SIZE_APPBAR,
+      onPressed: () async => Navigator.of(context).lunaSafetyPop(),
+      onLongPress: () async => Navigator.of(context).lunaPopToFirst(),
     );
   }
 

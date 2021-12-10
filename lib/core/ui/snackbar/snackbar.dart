@@ -36,8 +36,6 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
   }
 }
 
-const _PADDING = 8.0;
-
 Future<void> showLunaSnackBar({
   @required String title,
   @required LunaSnackbarType type,
@@ -61,7 +59,7 @@ Future<void> showLunaSnackBar({
               color: Colors.black.withOpacity(0.10))
         ],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-        margin: const EdgeInsets.all(_PADDING),
+        margin: LunaUI.MARGIN_DEFAULT,
         behavior: FlashBehavior.floating,
         position: position,
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
@@ -72,7 +70,7 @@ Future<void> showLunaSnackBar({
             title,
             style: const TextStyle(
               fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              fontSize: LunaUI.FONT_SIZE_TITLE,
+              fontSize: LunaUI.FONT_SIZE_H2,
             ),
           ),
           content: Text(
@@ -88,7 +86,9 @@ Future<void> showLunaSnackBar({
               icon: type.icon,
               color: type.color,
             ),
-            padding: const EdgeInsets.only(left: _PADDING),
+            padding: const EdgeInsets.only(
+              left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+            ),
           ),
           primaryAction: showButton
               ? TextButton(

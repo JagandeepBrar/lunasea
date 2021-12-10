@@ -785,7 +785,7 @@ class SonarrDialogs {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 3,
+                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 4,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

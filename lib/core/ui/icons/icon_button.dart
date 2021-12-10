@@ -16,7 +16,7 @@ class LunaIconButton extends StatelessWidget {
     Key key,
     this.text,
     this.icon,
-    this.iconSize = LunaUI.DEFAULT_ICON_SIZE,
+    this.iconSize = LunaUI.ICON_SIZE_DEFAULT,
     this.alignment = Alignment.center,
     this.color = Colors.white,
     this.onPressed,
@@ -36,6 +36,7 @@ class LunaIconButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         onPressed: _onPressed(),
       ),
+      mouseCursor: MouseCursor.defer,
       hoverColor: Colors.transparent,
       onLongPress: _onLongPress(),
     );

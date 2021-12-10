@@ -44,7 +44,7 @@ class SonarrSeriesDetailsOverviewInformationBlock extends StatelessWidget {
           title: 'tags',
           body: series?.lunaTags(tags),
         ),
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
         LunaTableContent(
           title: 'status',
           body: series?.status?.lunaCapitalizeFirstLetters(),
@@ -57,7 +57,7 @@ class SonarrSeriesDetailsOverviewInformationBlock extends StatelessWidget {
           title: 'added on',
           body: series?.lunaDateAdded,
         ),
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
         LunaTableContent(
           title: 'year',
           body: series?.lunaYear,

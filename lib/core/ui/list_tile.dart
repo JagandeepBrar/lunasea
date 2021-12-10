@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaListTile extends Card {
-  static const BASE_HEIGHT = 43.0;
-  static const PER_LINE_HEIGHT = 17.0;
-  static const TITLE_SPACER_HEIGHT = LunaUI.DEFAULT_MARGIN_SIZE / 4;
-  static final double itemExtent = BASE_HEIGHT + LunaUI.MARGIN_CARD.vertical;
+  static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 3.0;
+  static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 3.0;
+  static const TITLE_SPACER_HEIGHT = LunaUI.DEFAULT_MARGIN_SIZE / 2;
 
-  static double heightFromSubtitleLines(int subtitleLines) {
-    if (subtitleLines == 0) return BASE_HEIGHT;
+  static const BASE_HEIGHT = (LunaUI.DEFAULT_MARGIN_SIZE * 2) + TITLE_HEIGHT;
+  static const BASE_ITEM_EXTENT = BASE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE;
+
+  static double heightFromSubtitleLines(
+    int subtitleLines, {
+    bool alwaysAddSpacer = false,
+  }) {
+    if (subtitleLines == 0) {
+      return alwaysAddSpacer ? BASE_HEIGHT + TITLE_SPACER_HEIGHT : BASE_HEIGHT;
+    }
     return BASE_HEIGHT +
         TITLE_SPACER_HEIGHT +
-        (subtitleLines * PER_LINE_HEIGHT);
+        (subtitleLines * SUBTITLE_HEIGHT);
   }
 
   static double extentFromSubtitleLines(int subtitleLines) {
@@ -58,7 +65,10 @@ class LunaListTile extends Card {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          title,
+                          SizedBox(
+                            child: title,
+                            height: TITLE_HEIGHT,
+                          ),
                           if (subtitle != null)
                             const SizedBox(height: TITLE_SPACER_HEIGHT),
                           if (subtitle != null) subtitle,

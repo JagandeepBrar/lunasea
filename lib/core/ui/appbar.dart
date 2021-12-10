@@ -26,7 +26,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize {
     double _size = (height ?? APPBAR_HEIGHT);
-    if (bottom != null) _size += bottom.preferredSize.height;
+    if (bottom != null) _size += bottom.preferredSize.height - 0.0;
     return Size.fromHeight(_size);
   }
 
@@ -210,22 +210,28 @@ class _State extends State<LunaAppBar> {
   Widget _sharedLeading(BuildContext context) {
     if (widget.hideLeading ?? false) return null;
     if (widget.useDrawer)
-      return IconButton(
-        icon: const Icon(Icons.menu_rounded),
-        iconSize: LunaUI.ICON_SIZE_APPBAR,
-        onPressed: () async {
-          HapticFeedback.lightImpact();
-          if (Scaffold.of(context).hasDrawer) {
-            Scaffold.of(context).openDrawer();
-            FocusManager.instance.primaryFocus?.unfocus();
-          }
-        },
+      return SizedBox(
+        child: IconButton(
+          icon: const Icon(Icons.menu_rounded),
+          iconSize: LunaUI.ICON_SIZE_APPBAR,
+          onPressed: () async {
+            HapticFeedback.lightImpact();
+            if (Scaffold.of(context).hasDrawer) {
+              Scaffold.of(context).openDrawer();
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+        ),
+        height: 55.0,
       );
-    return LunaIconButton(
-      icon: Icons.arrow_back_ios_new_rounded,
-      iconSize: LunaUI.ICON_SIZE_APPBAR,
-      onPressed: () async => Navigator.of(context).lunaSafetyPop(),
-      onLongPress: () async => Navigator.of(context).lunaPopToFirst(),
+    return SizedBox(
+      child: LunaIconButton(
+        icon: Icons.arrow_back_ios_new_rounded,
+        iconSize: LunaUI.ICON_SIZE_APPBAR,
+        onPressed: () async => Navigator.of(context).lunaSafetyPop(),
+        onLongPress: () async => Navigator.of(context).lunaPopToFirst(),
+      ),
+      height: 55.0,
     );
   }
 

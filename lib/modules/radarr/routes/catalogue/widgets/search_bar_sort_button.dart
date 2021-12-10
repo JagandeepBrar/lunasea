@@ -67,8 +67,8 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
       ),
       margin: EdgeInsets.zero,
       color: Theme.of(context).canvasColor,
-      height: LunaTextInputBar.appBarInnerHeight,
-      width: LunaTextInputBar.appBarInnerHeight,
+      height: LunaTextInputBar.defaultHeight,
+      width: LunaTextInputBar.defaultHeight,
     );
   }
 }

@@ -232,8 +232,8 @@ class RadarrBottomModalSheets {
                       const RadarrManualImportDetailsConfigureMoviesSearchBar(),
                   hideLeading: true,
                 ),
-                appBarHeight:
-                    LunaAppBar.APPBAR_HEIGHT + LunaTextInputBar.appBarHeight,
+                appBarHeight: LunaAppBar.APPBAR_HEIGHT +
+                    LunaTextInputBar.defaultAppBarHeight,
               );
             }
             return const LunaLoader();

@@ -23,20 +23,25 @@ class _State extends State<RadarrUpcomingTile> {
   Widget build(BuildContext context) {
     return Selector<RadarrState, Future<List<RadarrMovie>>>(
       selector: (_, state) => state.missing,
-      builder: (context, missing, _) => LunaFourLineCardWithPoster(
-        backgroundUrl:
-            context.read<RadarrState>().getPosterURL(widget.movie.id),
-        posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
-        posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
-        darken: !widget.movie.monitored,
-        title: widget.movie.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        subtitle3: _subtitle3(),
-        trailing: _trailing(),
-        onTap: _onTap,
-      ),
+      builder: (context, missing, _) {
+        return LunaBlock(
+          title: widget.movie.title,
+          body: [
+            _subtitle1(),
+            _subtitle2(),
+            _subtitle3(),
+          ],
+          trailing: _trailing(),
+          backgroundUrl:
+              context.read<RadarrState>().getPosterURL(widget.movie.id),
+          posterHeaders: context.read<RadarrState>().headers,
+          posterPlaceholder: LunaAssets.blankVideo,
+          posterIsSquare: false,
+          posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+          onTap: _onTap,
+          disabled: !widget.movie.monitored,
+        );
+      },
     );
   }
 

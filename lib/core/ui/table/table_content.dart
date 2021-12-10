@@ -51,8 +51,8 @@ class LunaTableContent extends StatelessWidget {
     bool bodyIsUrl = false,
     TextAlign titleAlign = TextAlign.end,
     TextAlign bodyAlign = TextAlign.start,
-    int titleFlex = 5,
-    int bodyFlex = 10,
+    int titleFlex = 1,
+    int bodyFlex = 2,
     Color titleColor = Colors.white70,
     Color bodyColor = Colors.white,
   }) =>
@@ -73,15 +73,12 @@ class LunaTableContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (type == _Type.SPACER) return SizedBox(height: spacerSize);
-    return Padding(
-      child: Row(
-        children: [
-          _title(),
-          _subtitle(),
-        ],
-        crossAxisAlignment: CrossAxisAlignment.start,
-      ),
-      padding: EdgeInsets.zero,
+    return Row(
+      children: [
+        _title(),
+        _subtitle(),
+      ],
+      crossAxisAlignment: CrossAxisAlignment.start,
     );
   }
 
@@ -99,7 +96,7 @@ class LunaTableContent extends StatelessWidget {
         padding: const EdgeInsets.only(
           top: LunaUI.DEFAULT_MARGIN_SIZE / 4,
           bottom: LunaUI.DEFAULT_MARGIN_SIZE / 4,
-          right: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+          right: LunaUI.DEFAULT_MARGIN_SIZE / 4,
         ),
       ),
       flex: titleFlex,
@@ -124,9 +121,8 @@ class LunaTableContent extends StatelessWidget {
             left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
           ),
         ),
-        onTap: body.lunaOpenGenericLink,
-        // onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
-        // onLongPress: !bodyIsUrl ? null : () => body.copyToClipboard(),
+        onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
+        onLongPress: !bodyIsUrl ? null : () => body.copyToClipboard(),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
       ),
       flex: bodyFlex,

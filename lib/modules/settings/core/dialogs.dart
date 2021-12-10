@@ -484,6 +484,7 @@ class SettingsDialogs {
             LunaDialog.bolded(
               text: 'settings.DeleteAccountWarning1'.tr().toUpperCase(),
               color: LunaColours.red,
+              fontSize: LunaDialog.BUTTON_SIZE,
             ),
             LunaDialog.textSpanContent(text: '\n\n'),
             LunaDialog.textSpanContent(
@@ -1154,6 +1155,7 @@ class SettingsDialogs {
             LunaDialog.bolded(
               text: '${'settings.FirebaseCrashlyticsHint1'.tr()}\n\n',
               color: LunaColours.red,
+              fontSize: LunaDialog.BUTTON_SIZE,
             ),
             LunaDialog.textSpanContent(
               text: '${'settings.FirebaseCrashlyticsHint2'.tr()}\n\n',
@@ -1167,6 +1169,7 @@ class SettingsDialogs {
             LunaDialog.bolded(
               text: 'settings.FirebaseCrashlyticsHint5'.tr(),
               color: LunaColours.accent,
+              fontSize: LunaDialog.BUTTON_SIZE,
             ),
           ],
           alignment: TextAlign.center,

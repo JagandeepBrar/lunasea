@@ -32,7 +32,7 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(LunaTextInputBar.appBarHeight);
+      const Size.fromHeight(LunaTextInputBar.defaultAppBarHeight);
 
   @override
   State<_SearchBar> createState() => _State();
@@ -70,7 +70,7 @@ class _State extends State<_SearchBar> {
               ),
             ],
           ),
-          height: LunaTextInputBar.appBarHeight,
+          height: LunaTextInputBar.defaultAppBarHeight,
         ),
       );
 }

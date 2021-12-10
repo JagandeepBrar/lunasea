@@ -65,8 +65,8 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
           ),
         ),
       ),
-      height: LunaTextInputBar.appBarInnerHeight,
-      width: LunaTextInputBar.appBarInnerHeight,
+      height: LunaTextInputBar.defaultHeight,
+      width: LunaTextInputBar.defaultHeight,
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
       color: Theme.of(context).canvasColor,
     );

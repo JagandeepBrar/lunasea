@@ -46,8 +46,8 @@ class _State extends State<RadarrReleasesAppBarFilterButton> {
           ),
         ),
       ),
-      height: LunaTextInputBar.appBarInnerHeight,
-      width: LunaTextInputBar.appBarInnerHeight,
+      height: LunaTextInputBar.defaultHeight,
+      width: LunaTextInputBar.defaultHeight,
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
       color: Theme.of(context).canvasColor,
     );

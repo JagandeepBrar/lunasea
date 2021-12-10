@@ -138,7 +138,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
         softWrap: maxLines == 1 ? false : true,
         maxLines: maxLines,
       ),
-      height: LunaListTile.PER_LINE_HEIGHT * maxLines,
+      height: LunaListTile.SUBTITLE_HEIGHT * maxLines,
     );
   }
 }

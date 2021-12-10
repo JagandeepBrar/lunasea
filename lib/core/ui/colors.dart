@@ -40,6 +40,10 @@ class LunaColours {
   /// Blue Grey
   static const Color blueGrey = Color(0xFF848FA5);
 
+  /// Shades of White
+  static const Color white30 = Colors.white30;
+  static const Color white70 = Colors.white70;
+
   /// Returns the correct colour for a graph by what layer it is on the graph canvas.
   Color byGraphLayer(int index) {
     switch (index) {

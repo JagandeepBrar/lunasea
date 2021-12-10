@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueTile extends StatefulWidget {
-  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
+  static final itemExtent = LunaBlock.findItemExtent(2, hasBottom: true);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -23,17 +23,20 @@ class _State extends State<RadarrCatalogueTile> {
   Widget build(BuildContext context) {
     return Selector<RadarrState, Future<List<RadarrMovie>>>(
       selector: (_, state) => state.movies,
-      builder: (context, movies, _) => LunaFourLineCardWithPoster(
+      builder: (context, movies, _) => LunaBlock(
         backgroundUrl:
             context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
         posterPlaceholder: LunaAssets.blankVideo,
-        darken: !widget.movie.monitored,
+        disabled: !widget.movie.monitored,
         title: widget.movie.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        customSubtitle3: _subtitle3(),
+        body: [
+          _subtitle1(),
+          _subtitle2(),
+        ],
+        posterIsSquare: false,
+        bottom: _subtitle3(),
         onTap: _onTap,
         onLongPress: _onLongPress,
       ),
@@ -105,15 +108,21 @@ class _State extends State<RadarrCatalogueTile> {
   Widget _buildReleaseIcon(IconData icon, Color color, bool highlight) {
     Color _color = (highlight ? color : Colors.grey)
         .withOpacity(widget.movie.monitored ? 1 : 0.30);
-    return Padding(
-      child: Icon(icon, size: LunaUI.FONT_SIZE_H2, color: _color),
-      padding: const EdgeInsets.only(right: LunaUI.DEFAULT_MARGIN_SIZE / 2),
+    return Container(
+      child: Icon(
+        icon,
+        size: LunaUI.FONT_SIZE_H2,
+        color: _color,
+      ),
+      alignment: Alignment.bottomLeft,
+      width: LunaListTile.SUBTITLE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE / 2,
+      height: LunaListTile.SUBTITLE_HEIGHT,
     );
   }
 
   Widget _subtitle3() {
     return SizedBox(
-      height: LunaListTile.PER_LINE_HEIGHT,
+      height: LunaListTile.SUBTITLE_HEIGHT,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -132,9 +141,14 @@ class _State extends State<RadarrCatalogueTile> {
             LunaColours.accent,
             widget.movie.hasFile,
           ),
-          widget.movie.hasFile
-              ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-              : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
+          Container(
+            height: LunaListTile.SUBTITLE_HEIGHT,
+            alignment: Alignment.topCenter,
+            child: widget.movie.hasFile
+                ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
+                : widget.movie
+                    .lunaNextReleaseTextObject(widget.movie.monitored),
+          ),
         ],
       ),
     );

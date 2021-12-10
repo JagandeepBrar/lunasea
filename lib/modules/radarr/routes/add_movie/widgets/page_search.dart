@@ -49,7 +49,7 @@ class _State extends State<RadarrAddMovieSearchPage>
         autofocus: widget.autofocusSearchBar,
         scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
       ),
-      height: LunaTextInputBar.appBarHeight,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 

@@ -23,7 +23,7 @@ class RadarrAddMovieSearchResultTile extends StatefulWidget {
 class _State extends State<RadarrAddMovieSearchResultTile> {
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
+    return LunaThreeLineCardWithPoster(
       backgroundUrl: widget.movie.remotePoster,
       posterUrl: widget.movie.remotePoster,
       posterHeaders: context.watch<RadarrState>().headers,
@@ -33,7 +33,6 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
       titleColor: widget.isExcluded ? LunaColours.red : Colors.white,
       subtitle1: _subtitle1(),
       subtitle2: _subtitle2(),
-      subtitle2MaxLines: 2,
       onTap: _onTap,
       onLongPress: _onLongPress,
     );

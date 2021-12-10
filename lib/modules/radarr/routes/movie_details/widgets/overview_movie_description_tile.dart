@@ -12,7 +12,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
+    return LunaThreeLineCardWithPoster(
       posterPlaceholder: LunaAssets.blankVideo,
       backgroundUrl: context.read<RadarrState>().getFanartURL(movie.id),
       posterUrl: context.read<RadarrState>().getPosterURL(movie.id),
@@ -20,10 +20,10 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
       title: movie.title,
       subtitle1: TextSpan(
         text: movie.overview == null || movie.overview.isEmpty
-            ? 'No summary is available.\n\n\n'
-            : '${movie.overview}\n\n\n',
+            ? 'No summary is available.\n\n'
+            : '${movie.overview}\n\n',
       ),
-      subtitle1MaxLines: 3,
+      subtitle1MaxLines: 2,
       onTap: () async =>
           LunaDialogs().textPreview(context, movie.title, movie.overview),
     );

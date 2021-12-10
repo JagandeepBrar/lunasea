@@ -49,7 +49,7 @@ class _State extends State<RadarrCatalogueRoute>
       child: RadarrCatalogueSearchBar(
         scrollController: RadarrNavigationBar.scrollControllers[0],
       ),
-      height: LunaTextInputBar.appBarHeight,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 

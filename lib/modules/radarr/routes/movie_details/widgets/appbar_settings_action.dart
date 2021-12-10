@@ -25,6 +25,7 @@ class RadarrAppBarMovieSettingsAction extends StatelessWidget {
             if (movie != null)
               return LunaIconButton(
                 icon: Icons.more_vert_rounded,
+                iconSize: LunaUI.ICON_SIZE_APPBAR,
                 onPressed: () async {
                   Tuple2<bool, RadarrMovieSettingsType> values =
                       await RadarrDialogs().movieSettings(context, movie);

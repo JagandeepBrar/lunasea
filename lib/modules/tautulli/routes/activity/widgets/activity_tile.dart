@@ -99,7 +99,7 @@ class TautulliActivityTile extends StatelessWidget {
 
   Widget _subtitle4() {
     return SizedBox(
-      height: LunaListTile.PER_LINE_HEIGHT,
+      height: LunaListTile.SUBTITLE_HEIGHT,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

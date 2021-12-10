@@ -202,7 +202,9 @@ class LidarrDialogs {
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
-                  text: folders[index].freeSpace.lunaBytesToString()),
+                text: folders[index].freeSpace.lunaBytesToString(),
+                fontSize: LunaDialog.BUTTON_SIZE,
+              ),
             ],
           ),
           icon: Icons.folder_rounded,

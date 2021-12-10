@@ -30,52 +30,45 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
     return LunaListView(
       controller: RadarrNavigationBar.scrollControllers[3],
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'radarr.History'.tr()),
-          subtitle: LunaText.subtitle(text: 'radarr.HistoryDescription'.tr()),
+        LunaBlock(
+          title: 'radarr.History'.tr(),
+          body: [TextSpan(text: 'radarr.HistoryDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.history_rounded,
             color: LunaColours().byListIndex(0),
           ),
           onTap: () async => RadarrHistoryRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'radarr.ManualImport'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'radarr.ManualImportDescription'.tr()),
+        LunaBlock(
+          title: 'radarr.ManualImport'.tr(),
+          body: [TextSpan(text: 'radarr.ManualImportDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.download_done_rounded,
             color: LunaColours().byListIndex(1),
           ),
           onTap: () async => RadarrManualImportRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'radarr.Queue'.tr()),
-          subtitle: LunaText.subtitle(text: 'radarr.QueueDescription'.tr()),
+        LunaBlock(
+          title: 'radarr.Queue'.tr(),
+          body: [TextSpan(text: 'radarr.QueueDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.queue_rounded,
             color: LunaColours().byListIndex(2),
           ),
           onTap: () async => RadarrQueueRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'radarr.SystemStatus'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'radarr.SystemStatusDescription'.tr()),
+        LunaBlock(
+          title: 'radarr.SystemStatus'.tr(),
+          body: [TextSpan(text: 'radarr.SystemStatusDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.computer_rounded,
             color: LunaColours().byListIndex(3),
           ),
           onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'radarr.Tags'.tr()),
-          subtitle: LunaText.subtitle(text: 'radarr.TagsDescription'.tr()),
+        LunaBlock(
+          title: 'radarr.Tags'.tr(),
+          body: [TextSpan(text: 'radarr.TagsDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.style_rounded,
             color: LunaColours().byListIndex(4),

@@ -12,7 +12,8 @@ class RadarrManualImportPathBar extends StatefulWidget
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(62.0);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.defaultAppBarHeight);
 
   @override
   State<RadarrManualImportPathBar> createState() => _State();
@@ -21,7 +22,7 @@ class RadarrManualImportPathBar extends StatefulWidget
 class _State extends State<RadarrManualImportPathBar> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SizedBox(
       child: Row(
         children: [
           Expanded(
@@ -42,12 +43,12 @@ class _State extends State<RadarrManualImportPathBar> {
                       .fetchDirectories(context, value);
                 }
               },
-              margin: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+              margin: EdgeInsets.zero,
             ),
           ),
         ],
       ),
-      padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 }

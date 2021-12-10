@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTextInputBar extends StatefulWidget {
-  static const double appBarHeight = 62.0;
-  static const double appBarInnerHeight = 62.0 - 13.0;
+  static const double defaultHeight = 50.0;
+  static const double defaultAppBarHeight =
+      defaultHeight + LunaUI.DEFAULT_MARGIN_SIZE;
   static const EdgeInsets appBarMargin = EdgeInsets.fromLTRB(
-    12.0,
-    1.0,
-    12.0,
-    12.0,
+    LunaUI.DEFAULT_MARGIN_SIZE,
+    0,
+    LunaUI.DEFAULT_MARGIN_SIZE,
+    LunaUI.DEFAULT_MARGIN_SIZE,
   );
 
   final TextEditingController controller;
@@ -79,7 +80,7 @@ class _State extends State<LunaTextInputBar> {
             child: widget.isFormField ? _isForm : _isNotForm,
           ),
         ),
-        height: LunaTextInputBar.appBarInnerHeight,
+        height: LunaTextInputBar.defaultHeight,
         color: Theme.of(context).canvasColor,
       );
 

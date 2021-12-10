@@ -48,7 +48,7 @@ class _State extends State<SABnzbdHistory>
     return LunaAppBar.empty(
       child: SABnzbdHistorySearchBar(
           scrollController: SABnzbdNavigationBar.scrollControllers[1]),
-      height: 62.0,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 

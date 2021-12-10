@@ -9,6 +9,9 @@ class CalendarLidarrData extends CalendarData {
   int artistId;
   bool hasAllFiles;
 
+  @override
+  bool get isPosterSquare => true;
+
   CalendarLidarrData({
     @required int id,
     @required String title,
@@ -27,36 +30,32 @@ class CalendarLidarrData extends CalendarData {
   }
 
   @override
-  TextSpan get subtitle => TextSpan(
+  List<TextSpan> get body {
+    return [
+      TextSpan(
+        text: albumTitle,
         style: const TextStyle(
-          color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_H3,
+          fontStyle: FontStyle.italic,
         ),
-        children: <TextSpan>[
-          TextSpan(
-            text: albumTitle,
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
+      ),
+      if (!hasAllFiles)
+        const TextSpan(
+          text: 'Not Downloaded',
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.red,
           ),
-          if (!hasAllFiles)
-            const TextSpan(
-              text: '\nNot Downloaded',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.red,
-              ),
-            ),
-          if (hasAllFiles)
-            const TextSpan(
-              text: '\nDownloaded',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              ),
-            )
-        ],
-      );
+        ),
+      if (hasAllFiles)
+        const TextSpan(
+          text: 'Downloaded',
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.accent,
+          ),
+        )
+    ];
+  }
 
   @override
   Future<void> enterContent(BuildContext context) async =>
@@ -94,4 +93,22 @@ class CalendarLidarrData extends CalendarData {
           title: albumTitle,
         ),
       );
+
+  @override
+  String backgroundUrl(BuildContext context) {
+    return api['enabled']
+        ? (api['host'] as String).endsWith('/')
+            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
+            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
+        : '';
+  }
+
+  @override
+  String posterUrl(BuildContext context) {
+    return api['enabled']
+        ? (api['host'] as String).endsWith('/')
+            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
+            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
+        : '';
+  }
 }

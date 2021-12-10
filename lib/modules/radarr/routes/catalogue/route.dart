@@ -128,46 +128,47 @@ class _State extends State<RadarrCatalogueRoute>
         onTap: _refreshKey.currentState.show,
       );
     return Selector<RadarrState, String>(
-        selector: (_, state) => state.moviesSearchQuery,
-        builder: (context, query, _) {
-          List<RadarrMovie> _filtered = _filterAndSort(movies, query);
-          if ((_filtered?.length ?? 0) == 0)
-            return LunaListView(
-              controller: RadarrNavigationBar.scrollControllers[0],
-              children: [
-                LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
-                if ((query ?? '').isNotEmpty)
-                  LunaButtonContainer(
-                    children: [
-                      LunaButton.text(
-                        icon: null,
-                        text: query.length > 20
-                            ? 'radarr.SearchFor'.tr(args: [
-                                '"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'
-                              ])
-                            : 'radarr.SearchFor'.tr(args: ['"$query"']),
-                        backgroundColor: LunaColours.accent,
-                        onTap: () async => RadarrAddMovieRouter().navigateTo(
-                          context,
-                          query: query ?? '',
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-            );
-          return LunaListViewBuilder(
+      selector: (_, state) => state.moviesSearchQuery,
+      builder: (context, query, _) {
+        List<RadarrMovie> _filtered = _filterAndSort(movies, query);
+        if ((_filtered?.length ?? 0) == 0)
+          return LunaListView(
             controller: RadarrNavigationBar.scrollControllers[0],
-            itemCount: _filtered.length,
-            itemExtent: RadarrCatalogueTile.itemExtent,
-            itemBuilder: (context, index) => RadarrCatalogueTile(
-              movie: _filtered[index],
-              profile: qualityProfiles.firstWhere(
-                (element) => element.id == _filtered[index].qualityProfileId,
-                orElse: () => null,
-              ),
-            ),
+            children: [
+              LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
+              if ((query ?? '').isNotEmpty)
+                LunaButtonContainer(
+                  children: [
+                    LunaButton.text(
+                      icon: null,
+                      text: query.length > 20
+                          ? 'radarr.SearchFor'.tr(args: [
+                              '"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'
+                            ])
+                          : 'radarr.SearchFor'.tr(args: ['"$query"']),
+                      backgroundColor: LunaColours.accent,
+                      onTap: () async => RadarrAddMovieRouter().navigateTo(
+                        context,
+                        query: query ?? '',
+                      ),
+                    ),
+                  ],
+                ),
+            ],
           );
-        });
+        return LunaListViewBuilder(
+          controller: RadarrNavigationBar.scrollControllers[0],
+          itemCount: _filtered.length,
+          itemExtent: RadarrCatalogueTile.itemExtent,
+          itemBuilder: (context, index) => RadarrCatalogueTile(
+            movie: _filtered[index],
+            profile: qualityProfiles.firstWhere(
+              (element) => element.id == _filtered[index].qualityProfileId,
+              orElse: () => null,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

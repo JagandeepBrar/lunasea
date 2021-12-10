@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueTile extends StatefulWidget {
-  static final itemExtent = LunaBlock.findItemExtent(2, hasBottom: true);
+  static final itemExtent = LunaBlock.calculateItemExtent(2, hasBottom: true);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -25,7 +25,7 @@ class _State extends State<RadarrCatalogueTile> {
       selector: (_, state) => state.movies,
       builder: (context, movies, _) => LunaBlock(
         backgroundUrl:
-            context.read<RadarrState>().getPosterURL(widget.movie.id),
+            context.read<RadarrState>().getFanartURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
         posterPlaceholder: LunaAssets.blankVideo,

@@ -6,7 +6,7 @@ import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
-  final Map<DateTime, List> events;
+  final Map<DateTime, List<CalendarData>> events;
 
   const DashboardCalendarWidget({
     Key key,
@@ -45,7 +45,7 @@ class _State extends State<DashboardCalendarWidget> {
   );
 
   final double _calendarBulletSize = 8.0;
-  List _selectedEvents;
+  List<CalendarData> _selectedEvents;
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _State extends State<DashboardCalendarWidget> {
   Widget _markerBuilder(
     BuildContext context,
     DateTime date,
-    List<dynamic> events,
+    List<CalendarData> events,
   ) {
     Color color;
     int missingCount = _countMissingContent(date, events);
@@ -217,7 +217,7 @@ class _State extends State<DashboardCalendarWidget> {
 
   /// -1: Date is after today (with content)
   /// -100: Event list was empty or null
-  int _countMissingContent(DateTime date, List<dynamic> events) {
+  int _countMissingContent(DateTime date, List<CalendarData> events) {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
 
@@ -259,7 +259,7 @@ class _State extends State<DashboardCalendarWidget> {
     return Expanded(
       child: LunaListView(
         controller: DashboardNavigationBar.scrollControllers[1],
-        itemExtent: LunaListTile.extentFromSubtitleLines(2),
+        itemExtent: LunaBlock.calculateItemExtent(2),
         children: _selectedEvents.map(_entry).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
@@ -305,7 +305,7 @@ class _State extends State<DashboardCalendarWidget> {
     ];
   }
 
-  Widget _entry(dynamic event) {
+  Widget _entry(CalendarData event) {
     Map headers;
     switch (event.runtimeType) {
       case CalendarLidarrData:
@@ -318,26 +318,22 @@ class _State extends State<DashboardCalendarWidget> {
         headers = Database.currentProfileObject.getSonarr()['headers'];
         break;
       default:
-        headers = {};
+        headers = const {};
         break;
     }
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: event.title),
-      subtitle: RichText(
-        text: event.subtitle,
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 2,
-      ),
-      height: LunaListTile.heightFromSubtitleLines(2),
+    return LunaBlock(
+      title: event.title,
+      body: event.body,
+      posterHeaders: headers,
+      backgroundHeaders: headers,
+      posterUrl: event.posterUrl(context),
+      posterPlaceholder: LunaAssets.blankVideo,
+      posterIsSquare: event.isPosterSquare,
+      backgroundUrl: event.backgroundUrl(context),
       trailing: event.trailing(context),
       onTap: () async => event.enterContent(context),
-      contentPadding: true,
-      decoration: LunaCardDecoration(
-        uri: event.bannerURI,
-        headers: headers,
-      ),
+      // backgroundUrl: event.bannerURI,
+      // backgroundHeaders: headers,
     );
   }
 }

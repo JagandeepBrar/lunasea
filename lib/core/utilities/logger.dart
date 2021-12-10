@@ -108,6 +108,11 @@ class LunaLogger {
       error: error,
       stackTrace: stackTrace,
     );
+    if (kDebugMode) {
+      print(message);
+      print(error);
+      print(stackTrace);
+    }
     Database.logsBox.add(log);
   }
 
@@ -121,6 +126,10 @@ class LunaLogger {
         error: error,
         stackTrace: stackTrace,
       );
+      if (kDebugMode) {
+        print(error);
+        print(stackTrace);
+      }
       Database.logsBox.add(log);
     }
   }

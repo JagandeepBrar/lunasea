@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaListTile extends Card {
-  static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 3.0;
-  static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 3.0;
+  static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 4.0;
+  static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 4.0;
   static const TITLE_SPACER_HEIGHT = LunaUI.DEFAULT_MARGIN_SIZE / 2;
 
   static const BASE_HEIGHT = (LunaUI.DEFAULT_MARGIN_SIZE * 2) + TITLE_HEIGHT;

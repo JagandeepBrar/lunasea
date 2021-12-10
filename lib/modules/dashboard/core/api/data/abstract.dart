@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 abstract class CalendarData {
   int id;
   String title;
+  List<TextSpan> get body;
 
-  TextSpan get subtitle;
   String get bannerURI;
+  String backgroundUrl(BuildContext context);
+  String posterUrl(BuildContext context);
+  bool get isPosterSquare;
+
   Widget trailing(BuildContext context);
   Future<void> enterContent(BuildContext context);
   Future<void> trailingOnPress(BuildContext context);

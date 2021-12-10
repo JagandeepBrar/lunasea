@@ -22,8 +22,8 @@ class CalendarAPI {
     );
   }
 
-  Future<Map<DateTime, List>> getUpcoming(DateTime today) async {
-    Map<DateTime, List> _upcoming = {};
+  Future<Map<DateTime, List<CalendarData>>> getUpcoming(DateTime today) async {
+    Map<DateTime, List<CalendarData>> _upcoming = {};
     if (lidarr['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
       await _getLidarrUpcoming(_upcoming, today);
     if (radarr['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
@@ -34,7 +34,9 @@ class CalendarAPI {
   }
 
   Future<void> _getLidarrUpcoming(
-      Map<DateTime, List> map, DateTime today) async {
+    Map<DateTime, List<CalendarData>> map,
+    DateTime today,
+  ) async {
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(lidarr['headers']);
     Dio _client = Dio(
@@ -43,7 +45,7 @@ class CalendarAPI {
         queryParameters: {
           if (lidarr['key'] != '') 'apikey': lidarr['key'],
           'start': _startDate(today),
-          'end': _startDate(today),
+          'end': _endDate(today),
         },
         headers: _headers,
         followRedirects: true,
@@ -56,7 +58,7 @@ class CalendarAPI {
         DateTime date =
             DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
-          List day = map[date] ?? [];
+          List<CalendarData> day = map[date] ?? [];
           day.add(CalendarLidarrData(
             id: entry['id'] ?? 0,
             title: entry['artist']['artistName'] ?? 'Unknown Artist',
@@ -74,7 +76,9 @@ class CalendarAPI {
   }
 
   Future<void> _getRadarrUpcoming(
-      Map<DateTime, List> map, DateTime today) async {
+    Map<DateTime, List<CalendarData>> map,
+    DateTime today,
+  ) async {
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(radarr['headers']);
     Dio _client = Dio(
@@ -109,7 +113,7 @@ class CalendarAPI {
               ? digitalRelease
               : physicalRelease;
           if (release != null && _isDateWithinBounds(release, today)) {
-            List day = map[release] ?? [];
+            List<CalendarData> day = map[release] ?? [];
             day.add(CalendarRadarrData(
               id: entry['id'] ?? 0,
               title: entry['title'] ?? 'Unknown Title',
@@ -128,7 +132,9 @@ class CalendarAPI {
   }
 
   Future<void> _getSonarrUpcoming(
-      Map<DateTime, List> map, DateTime today) async {
+    Map<DateTime, List<CalendarData>> map,
+    DateTime today,
+  ) async {
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(sonarr['headers']);
     Dio _client = Dio(
@@ -153,7 +159,7 @@ class CalendarAPI {
         DateTime date =
             DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
-          List day = map[date] ?? [];
+          List<CalendarData> day = map[date] ?? [];
           day.add(CalendarSonarrData(
             id: entry['id'] ?? 0,
             seriesID: entry['seriesId'] ?? 0,

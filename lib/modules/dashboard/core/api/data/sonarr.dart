@@ -13,6 +13,9 @@ class CalendarSonarrData extends CalendarData {
   bool hasFile;
   String fileQualityProfile;
 
+  @override
+  bool get isPosterSquare => false;
+
   CalendarSonarrData({
     @required int id,
     @required String title,
@@ -26,39 +29,37 @@ class CalendarSonarrData extends CalendarData {
   }) : super(id, title);
 
   @override
-  TextSpan get subtitle => TextSpan(
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_H3,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: 'Season $seasonNumber Episode $episodeNumber: ',
-          ),
+  List<TextSpan> get body {
+    return [
+      TextSpan(
+        children: [
+          TextSpan(text: 'Season $seasonNumber Episode $episodeNumber: '),
           TextSpan(
             text: episodeTitle,
             style: const TextStyle(
               fontStyle: FontStyle.italic,
             ),
           ),
-          if (!hasFile)
-            TextSpan(
-              text: hasAired ? '\nMissing' : '\nUnaired',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: hasAired ? LunaColours.red : LunaColours.blue,
-              ),
-            ),
-          if (hasFile)
-            TextSpan(
-              text: '\nDownloaded ($fileQualityProfile)',
-              style: const TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              ),
-            )
         ],
-      );
+      ),
+      if (!hasFile)
+        TextSpan(
+          text: hasAired ? 'sonarr.Missing'.tr() : 'sonarr.Unaired'.tr(),
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: hasAired ? LunaColours.red : LunaColours.blue,
+          ),
+        ),
+      if (hasFile)
+        TextSpan(
+          text: 'Downloaded ($fileQualityProfile)',
+          style: const TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.accent,
+          ),
+        )
+    ];
+  }
 
   bool get hasAired {
     if (airTimeObject != null) return DateTime.now().isAfter(airTimeObject);
@@ -82,12 +83,10 @@ class CalendarSonarrData extends CalendarData {
       );
 
   @override
-  Widget trailing(BuildContext context) => InkWell(
-        child: LunaIconButton(
-          text: airTimeString,
-          onPressed: () async => trailingOnPress(context),
-          onLongPress: () => trailingOnLongPress(context),
-        ),
+  Widget trailing(BuildContext context) => LunaIconButton(
+        text: airTimeString,
+        onPressed: () async => trailingOnPress(context),
+        onLongPress: () => trailingOnLongPress(context),
       );
 
   DateTime get airTimeObject {
@@ -134,4 +133,14 @@ class CalendarSonarrData extends CalendarData {
         context,
         episodeId: id,
       );
+
+  @override
+  String backgroundUrl(BuildContext context) {
+    return context.read<SonarrState>().getFanartURL(this.seriesID);
+  }
+
+  @override
+  String posterUrl(BuildContext context) {
+    return context.read<SonarrState>().getPosterURL(this.seriesID);
+  }
 }

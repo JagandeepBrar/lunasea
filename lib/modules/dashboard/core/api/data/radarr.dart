@@ -20,46 +20,41 @@ class CalendarRadarrData extends CalendarData {
   }) : super(id, title);
 
   @override
-  TextSpan get subtitle => TextSpan(
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_H3,
-        ),
+  List<TextSpan> get body {
+    return [
+      TextSpan(
         children: [
-          TextSpan(
-            children: [
-              TextSpan(text: year.toString()),
-              TextSpan(text: LunaUI.TEXT_BULLET.lunaPad(1, '\t')),
-              TextSpan(text: runtime.lunaRuntime()),
-            ],
-          ),
-          const TextSpan(text: '\n'),
-          if (!hasFile)
-            const TextSpan(
-              text: 'Not Downloaded',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.red,
-              ),
-            ),
-          if (hasFile)
-            TextSpan(
-              text: 'Downloaded ($fileQualityProfile)',
-              style: const TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              ),
-            )
+          TextSpan(text: year.toString()),
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: runtime.lunaRuntime()),
         ],
-      );
+      ),
+      if (!hasFile)
+        const TextSpan(
+          text: 'Not Downloaded',
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.red,
+          ),
+        ),
+      if (hasFile)
+        TextSpan(
+          text: 'Downloaded ($fileQualityProfile)',
+          style: const TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.accent,
+          ),
+        )
+    ];
+  }
 
   @override
   String get bannerURI {
     if (api['enabled']) {
       if ((api['host'] as String).endsWith('/')) {
-        return '${api['host']}api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
+        return '${api['host']}api/v3/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
       }
-      return '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
+      return '${api['host']}/api/v3/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
     }
     return '';
   }
@@ -84,4 +79,17 @@ class CalendarRadarrData extends CalendarData {
   @override
   Future<void> trailingOnLongPress(BuildContext context) async =>
       RadarrReleasesRouter().navigateTo(context, movieId: id);
+
+  @override
+  String backgroundUrl(BuildContext context) {
+    return context.read<RadarrState>().getFanartURL(this.id);
+  }
+
+  @override
+  String posterUrl(BuildContext context) {
+    return context.read<RadarrState>().getPosterURL(this.id);
+  }
+
+  @override
+  bool get isPosterSquare => false;
 }

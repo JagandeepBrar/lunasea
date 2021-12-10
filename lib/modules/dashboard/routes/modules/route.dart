@@ -38,7 +38,7 @@ class _State extends State<DashboardModulesRoute>
     }
     return LunaListView(
       controller: DashboardNavigationBar.scrollControllers[0],
-      itemExtent: LunaListTile.extentFromSubtitleLines(1),
+      itemExtent: LunaBlock.calculateItemExtent(1),
       children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
           ? _buildAlphabeticalList()
           : _buildManuallyOrderedList(),
@@ -84,20 +84,18 @@ class _State extends State<DashboardModulesRoute>
   }
 
   Widget _buildFromLunaModule(LunaModule module, int listIndex) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: module.name),
-      subtitle: LunaText.subtitle(text: module.description),
+    return LunaBlock(
+      title: module.name,
+      body: [TextSpan(text: module.description)],
       trailing: LunaIconButton(icon: module.icon, color: module.color),
       onTap: module.launch,
     );
   }
 
   Widget _buildWakeOnLAN(BuildContext context, int listIndex) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: LunaModule.WAKE_ON_LAN.name),
-      subtitle: LunaText.subtitle(text: LunaModule.WAKE_ON_LAN.description),
+    return LunaBlock(
+      title: LunaModule.WAKE_ON_LAN.name,
+      body: [TextSpan(text: LunaModule.WAKE_ON_LAN.description)],
       trailing: LunaIconButton(
         icon: LunaModule.WAKE_ON_LAN.icon,
         color: LunaModule.WAKE_ON_LAN.color,

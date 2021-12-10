@@ -46,12 +46,12 @@ class LunaBlock extends StatelessWidget {
     this.trailing,
   }) : super(key: key);
 
-  static double findItemExtent(
+  static double calculateItemExtent(
     int subtitleLines, {
     bool hasBottom = false,
     double bottomHeight = LunaListTile.SUBTITLE_HEIGHT,
   }) {
-    double height = findItemHeight(
+    double height = calculateItemHeight(
       subtitleLines,
       hasBottom: hasBottom,
       bottomHeight: bottomHeight,
@@ -59,7 +59,7 @@ class LunaBlock extends StatelessWidget {
     return height + LunaUI.MARGIN_CARD.vertical;
   }
 
-  static double findItemHeight(
+  static double calculateItemHeight(
     int subtitleLines, {
     bool hasBottom = false,
     double bottomHeight = LunaListTile.SUBTITLE_HEIGHT,
@@ -75,7 +75,7 @@ class LunaBlock extends StatelessWidget {
   double _calculateHeight() {
     int _scalar = customBodyMaxLines;
     _scalar ??= body?.length ?? 0;
-    return findItemHeight(
+    return calculateItemHeight(
       _scalar,
       hasBottom: bottom != null,
       bottomHeight: bottomHeight,
@@ -122,21 +122,21 @@ class LunaBlock extends StatelessWidget {
       posterPlaceholder != null,
       'Poster placeholder required when defining a poster URL',
     );
+    double _dimension = height - LunaUI.MARGIN_DEFAULT.top;
 
     if (posterIsSquare) {
       return Padding(
-        padding: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE),
+        padding: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE / 2),
         child: LunaNetworkImage(
           url: posterUrl ?? '',
           headers: posterHeaders,
           placeholderAsset: posterPlaceholder,
-          height: height - LunaUI.MARGIN_DEFAULT.vertical,
-          width: height - LunaUI.MARGIN_DEFAULT.vertical,
+          height: _dimension / 1.5,
+          width: _dimension / 1.5,
         ),
       );
     }
 
-    double _dimension = height - LunaUI.MARGIN_DEFAULT.top;
     return Padding(
       padding: LunaUI.MARGIN_BUTTON.copyWith(right: 0),
       child: LunaNetworkImage(
@@ -201,7 +201,7 @@ class LunaBlock extends StatelessWidget {
               ),
               children: [textSpan],
             ),
-            overflow: TextOverflow.fade,
+            overflow: TextOverflow.clip,
             softWrap: maxLines == 1 ? false : true,
             maxLines: maxLines,
           ),

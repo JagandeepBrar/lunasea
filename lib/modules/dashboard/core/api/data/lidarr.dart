@@ -9,9 +9,6 @@ class CalendarLidarrData extends CalendarData {
   int artistId;
   bool hasAllFiles;
 
-  @override
-  bool get isPosterSquare => true;
-
   CalendarLidarrData({
     @required int id,
     @required String title,
@@ -38,6 +35,7 @@ class CalendarLidarrData extends CalendarData {
           fontStyle: FontStyle.italic,
         ),
       ),
+      const TextSpan(text: ''),
       if (!hasAllFiles)
         const TextSpan(
           text: 'Not Downloaded',

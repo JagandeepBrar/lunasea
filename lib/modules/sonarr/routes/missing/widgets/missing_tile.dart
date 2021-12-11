@@ -58,10 +58,10 @@ class _State extends State<SonarrMissingTile> {
       children: [
         TextSpan(
             text: widget.record.seasonNumber == 0
-                ? 'Specials '
-                : 'Season ${widget.record.seasonNumber} '),
-        const TextSpan(text: LunaUI.TEXT_EMDASH),
-        TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
+                ? 'Specials'
+                : 'Season ${widget.record.seasonNumber}'),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: 'Episode ${widget.record.episodeNumber}'),
       ],
     );
   }
@@ -77,7 +77,7 @@ class _State extends State<SonarrMissingTile> {
           style: const TextStyle(
             fontStyle: FontStyle.italic,
           ),
-          text: widget.record.title ?? 'Unknown Title',
+          text: widget.record.title ?? 'lunasea.Unknown'.tr(),
         ),
       ],
     );

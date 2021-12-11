@@ -13,9 +13,6 @@ class CalendarSonarrData extends CalendarData {
   bool hasFile;
   String fileQualityProfile;
 
-  @override
-  bool get isPosterSquare => false;
-
   CalendarSonarrData({
     @required int id,
     @required String title,
@@ -33,14 +30,17 @@ class CalendarSonarrData extends CalendarData {
     return [
       TextSpan(
         children: [
-          TextSpan(text: 'Season $seasonNumber Episode $episodeNumber: '),
           TextSpan(
-            text: episodeTitle,
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+              text: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber'),
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: 'Episode $episodeNumber'),
         ],
+      ),
+      TextSpan(
+        style: const TextStyle(
+          fontStyle: FontStyle.italic,
+        ),
+        text: episodeTitle ?? 'lunasea.Unknown'.tr(),
       ),
       if (!hasFile)
         TextSpan(
@@ -57,7 +57,7 @@ class CalendarSonarrData extends CalendarData {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             color: LunaColours.accent,
           ),
-        )
+        ),
     ];
   }
 

@@ -206,8 +206,9 @@ class _State extends State<DashboardCalendarWidget> {
                 },
                 onDaySelected: _onDaySelected,
               ),
-              padding: LunaUI.MARGIN_DEFAULT
-                  .subtract(const EdgeInsets.symmetric(horizontal: 6.0)),
+              padding: const EdgeInsets.symmetric(
+                vertical: LunaUI.DEFAULT_MARGIN_SIZE,
+              ),
             ),
           ),
         );
@@ -259,7 +260,6 @@ class _State extends State<DashboardCalendarWidget> {
     return Expanded(
       child: LunaListView(
         controller: DashboardNavigationBar.scrollControllers[1],
-        itemExtent: LunaBlock.calculateItemExtent(2),
         children: _selectedEvents.map(_entry).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
@@ -328,12 +328,9 @@ class _State extends State<DashboardCalendarWidget> {
       backgroundHeaders: headers,
       posterUrl: event.posterUrl(context),
       posterPlaceholder: LunaAssets.blankVideo,
-      posterIsSquare: event.isPosterSquare,
       backgroundUrl: event.backgroundUrl(context),
       trailing: event.trailing(context),
       onTap: () async => event.enterContent(context),
-      // backgroundUrl: event.bannerURI,
-      // backgroundHeaders: headers,
     );
   }
 }

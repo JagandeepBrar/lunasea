@@ -122,29 +122,16 @@ class LunaBlock extends StatelessWidget {
       posterPlaceholder != null,
       'Poster placeholder required when defining a poster URL',
     );
-    double _dimension = height - LunaUI.MARGIN_DEFAULT.top;
 
-    if (posterIsSquare) {
-      return Padding(
-        padding: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE / 2),
-        child: LunaNetworkImage(
-          url: posterUrl ?? '',
-          headers: posterHeaders,
-          placeholderAsset: posterPlaceholder,
-          height: _dimension / 1.5,
-          width: _dimension / 1.5,
-        ),
-      );
-    }
-
+    double _dimension = height - LunaUI.DEFAULT_MARGIN_SIZE;
     return Padding(
-      padding: LunaUI.MARGIN_BUTTON.copyWith(right: 0),
+      padding: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       child: LunaNetworkImage(
         url: posterUrl ?? '',
         headers: posterHeaders,
         placeholderAsset: posterPlaceholder,
         height: _dimension,
-        width: _dimension / 1.5,
+        width: _dimension / (posterIsSquare ? 1.0 : 1.5),
       ),
     );
   }

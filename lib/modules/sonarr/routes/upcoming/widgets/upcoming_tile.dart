@@ -50,10 +50,10 @@ class _State extends State<SonarrUpcomingTile> {
       children: [
         TextSpan(
             text: widget.record.seasonNumber == 0
-                ? 'Specials '
-                : 'Season ${widget.record.seasonNumber} '),
-        const TextSpan(text: LunaUI.TEXT_EMDASH),
-        TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
+                ? 'Specials'
+                : 'Season ${widget.record.seasonNumber}'),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: 'Episode ${widget.record.episodeNumber}'),
       ],
     );
   }

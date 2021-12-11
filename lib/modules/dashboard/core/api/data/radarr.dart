@@ -29,6 +29,7 @@ class CalendarRadarrData extends CalendarData {
           TextSpan(text: runtime.lunaRuntime()),
         ],
       ),
+      const TextSpan(text: ''),
       if (!hasFile)
         const TextSpan(
           text: 'Not Downloaded',
@@ -89,7 +90,4 @@ class CalendarRadarrData extends CalendarData {
   String posterUrl(BuildContext context) {
     return context.read<RadarrState>().getPosterURL(this.id);
   }
-
-  @override
-  bool get isPosterSquare => false;
 }

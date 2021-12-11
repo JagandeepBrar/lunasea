@@ -8,7 +8,6 @@ abstract class CalendarData {
   String get bannerURI;
   String backgroundUrl(BuildContext context);
   String posterUrl(BuildContext context);
-  bool get isPosterSquare;
 
   Widget trailing(BuildContext context);
   Future<void> enterContent(BuildContext context);

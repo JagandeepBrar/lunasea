@@ -17,78 +17,37 @@ class LidarrDetailsAlbumTile extends StatefulWidget {
 }
 
 class _State extends State<LidarrDetailsAlbumTile> {
-  final double _imageDimension = 70.0;
-
   @override
-  Widget build(BuildContext context) => LunaCard(
-        context: context,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-          child: Row(
-            children: <Widget>[
-              widget.data.albumCoverURI() != null &&
-                      widget.data.albumCoverURI() != ''
-                  ? LunaNetworkImage(
-                      url: widget.data.albumCoverURI(),
-                      placeholderAsset: LunaAssets.blankAudio,
-                      headers: ((Database.currentProfileObject
-                                  .getLidarr()['headers'] ??
-                              {}) as Map)
-                          .cast<String, String>(),
-                      height: _imageDimension,
-                      width: _imageDimension,
-                    )
-                  : Container(),
-              Expanded(
-                child: Padding(
-                  child: Column(
-                    children: <Widget>[
-                      LunaText.title(
-                          text: widget.data.title,
-                          darken: !widget.data.monitored),
-                      RichText(
-                        text: TextSpan(
-                          text: widget.data.tracks,
-                          style: TextStyle(
-                            color: widget.data.monitored
-                                ? Colors.white70
-                                : Colors.white30,
-                            fontSize: LunaUI.FONT_SIZE_H3,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '\n${widget.data.releaseDateString}',
-                              style: TextStyle(
-                                color: widget.data.monitored
-                                    ? LunaColours.accent
-                                    : LunaColours.accent.withOpacity(0.30),
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                ),
-              ),
-              Padding(
-                child: LunaIconButton(
-                  icon: widget.data.monitored
-                      ? Icons.turned_in_rounded
-                      : Icons.turned_in_not_rounded,
-                  color: widget.data.monitored ? Colors.white : Colors.white30,
-                  onPressed: _toggleMonitoredStatus,
-                ),
-                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 12.0, 0.0),
-              ),
-            ],
+  Widget build(BuildContext context) {
+    return LunaBlock(
+      title: widget.data.title,
+      disabled: !widget.data.monitored,
+      posterHeaders: Database.currentProfileObject.getLidarr()['headers'] ?? {},
+      posterPlaceholder: LunaAssets.blankAudio,
+      posterIsSquare: true,
+      posterUrl: widget.data.albumCoverURI(),
+      body: [
+        TextSpan(text: widget.data.tracks),
+        TextSpan(
+          text: widget.data.releaseDateString,
+          style: TextStyle(
+            color: widget.data.monitored
+                ? LunaColours.accent
+                : LunaColours.accent.withOpacity(0.30),
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
-          onTap: () async => _enterAlbum(),
         ),
-      );
+      ],
+      trailing: LunaIconButton(
+        icon: widget.data.monitored
+            ? Icons.turned_in_rounded
+            : Icons.turned_in_not_rounded,
+        color: widget.data.monitored ? Colors.white : Colors.white30,
+        onPressed: _toggleMonitoredStatus,
+      ),
+      onTap: _enterAlbum,
+    );
+  }
 
   Future<void> _toggleMonitoredStatus() async {
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);

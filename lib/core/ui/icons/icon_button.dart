@@ -35,9 +35,12 @@ class LunaIconButton extends StatelessWidget {
         alignment: alignment,
         padding: EdgeInsets.zero,
         onPressed: _onPressed(),
+        mouseCursor:
+            onPressed != null ? SystemMouseCursors.click : MouseCursor.defer,
       ),
-      mouseCursor: MouseCursor.defer,
       hoverColor: Colors.transparent,
+      mouseCursor:
+          onLongPress != null ? SystemMouseCursors.click : MouseCursor.defer,
       onLongPress: _onLongPress(),
     );
   }

@@ -72,36 +72,19 @@ class _State extends State<LunaExpandableListTile> {
     List<TextSpan> _result = [];
     for (int i = 0; i < widget.collapsedSubtitles.length; i++) {
       _result.add(widget.collapsedSubtitles[i]);
-      if (i != widget.collapsedSubtitles.length - 1) {
-        _result.add(const TextSpan(text: '\n'));
-      }
     }
     return _result;
   }
 
   Widget collapsed() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: widget.title ?? LunaUI.TEXT_EMDASH),
-      subtitle: RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            fontSize: LunaUI.FONT_SIZE_H3,
-            color: Colors.white70,
-          ),
-          children: _parseSubtitles(),
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: widget.collapsedSubtitles.length,
-      ),
-      height: widget.collapsedHeight,
+    return LunaBlock(
+      title: widget.title ?? LunaUI.TEXT_EMDASH,
+      body: _parseSubtitles(),
       onTap: controller.toggle,
       onLongPress: widget.onLongPress,
-      contentPadding: widget.collapsedSubtitles.length > 1,
       trailing: widget.collapsedTrailing,
       leading: widget.collapsedLeading,
-      color: widget.backgroundColor,
+      // color: widget.backgroundColor,
     );
   }
 

@@ -114,7 +114,7 @@ class _State extends State<RadarrCatalogueTile> {
         size: LunaUI.FONT_SIZE_H2,
         color: _color,
       ),
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.centerLeft,
       width: LunaListTile.SUBTITLE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE / 2,
       height: LunaListTile.SUBTITLE_HEIGHT,
     );
@@ -143,7 +143,7 @@ class _State extends State<RadarrCatalogueTile> {
           ),
           Container(
             height: LunaListTile.SUBTITLE_HEIGHT,
-            alignment: Alignment.topCenter,
+            alignment: Alignment.centerLeft,
             child: widget.movie.hasFile
                 ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
                 : widget.movie

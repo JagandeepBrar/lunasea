@@ -25,21 +25,22 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
         position = LunaUI.TEXT_EMDASH;
         break;
     }
-    return LunaThreeLineCardWithPoster(
+    return LunaBlock(
       title: credits.personName,
       posterPlaceholder: LunaAssets.blankUser,
       posterUrl: credits.images.isEmpty ? null : credits.images[0].url,
-      posterHeaders: const {},
-      subtitle1: TextSpan(text: position),
-      subtitle2: TextSpan(
-        text: credits.type.readable,
-        style: TextStyle(
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          color: credits.type == RadarrCreditType.CAST
-              ? LunaColours.accent
-              : LunaColours.orange,
+      body: [
+        TextSpan(text: position),
+        TextSpan(
+          text: credits.type.readable,
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: credits.type == RadarrCreditType.CAST
+                ? LunaColours.accent
+                : LunaColours.orange,
+          ),
         ),
-      ),
+      ],
       onTap: credits.personTmdbId?.toString()?.lunaOpenTheMovieDBCredits,
     );
   }

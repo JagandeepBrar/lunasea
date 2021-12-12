@@ -11,6 +11,7 @@
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
+- `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
 - `[UI/UX]` (List Tiles) Improved consistency of trailing icon/text size
 - `[UI/UX]` (List Tiles) Improved consistency of tile height and padding across different sizes
 

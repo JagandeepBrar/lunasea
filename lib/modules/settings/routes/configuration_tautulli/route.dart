@@ -58,9 +58,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.TAUTULLI.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.TAUTULLI.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.tautulliEnabled ?? false,
           onChanged: (value) {
@@ -74,10 +73,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(text: 'Connection Details for Tautulli'),
+    return LunaBlock(
+      title: 'Connection Details',
+      body: const [
+        TextSpan(text: 'Connection Details for Tautulli'),
+      ],
       trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
       onTap: () async => SettingsConfigurationTautulliConnectionDetailsRouter()
           .navigateTo(context),

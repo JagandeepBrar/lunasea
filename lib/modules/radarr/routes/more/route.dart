@@ -29,6 +29,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
   Widget _body() {
     return LunaListView(
       controller: RadarrNavigationBar.scrollControllers[3],
+      itemExtent: LunaBlock.calculateItemExtent(1),
       children: [
         LunaBlock(
           title: 'radarr.History'.tr(),

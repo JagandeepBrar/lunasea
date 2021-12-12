@@ -228,7 +228,10 @@ class LidarrAPI {
               : entry['statistics']['totalTrackCount'] ?? 0,
           percentageTracks: entry['statistics'] == null
               ? 0
-              : entry['statistics']['percentOfTracks'] ?? 0,
+              : entry['statistics']['percentOfTracks']
+                      ?.toString()
+                      ?.toDouble() ??
+                  0,
           releaseDate: entry['releaseDate'] ?? '',
         ));
       }

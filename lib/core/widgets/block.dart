@@ -10,11 +10,12 @@ class LunaBlock extends StatelessWidget {
   /// And allows that single [TextSpan] to overflow to this many lines
   final int customBodyMaxLines;
   final List<TextSpan> body;
+
+  final Widget leading;
+  final Widget trailing;
   final Widget bottom;
   final double bottomHeight;
 
-  final LunaIconButton leading;
-  final LunaIconButton trailing;
   final Function onTap;
   final Function onLongPress;
 
@@ -94,6 +95,9 @@ class LunaBlock extends StatelessWidget {
             _tile(context, _height),
           ],
         ),
+        mouseCursor: onTap != null || onLongPress != null
+            ? SystemMouseCursors.click
+            : MouseCursor.defer,
         onTap: onTap,
         onLongPress: onLongPress,
       ),
@@ -179,7 +183,7 @@ class LunaBlock extends StatelessWidget {
       return SizedBox(
         height: height,
         child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+          scrollDirection: maxLines > 1 ? Axis.vertical : Axis.horizontal,
           child: RichText(
             text: TextSpan(
               style: TextStyle(
@@ -188,7 +192,7 @@ class LunaBlock extends StatelessWidget {
               ),
               children: [textSpan],
             ),
-            overflow: TextOverflow.clip,
+            overflow: maxLines == 1 ? TextOverflow.clip : TextOverflow.fade,
             softWrap: maxLines == 1 ? false : true,
             maxLines: maxLines,
           ),

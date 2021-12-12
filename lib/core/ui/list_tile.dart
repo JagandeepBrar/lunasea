@@ -48,9 +48,6 @@ class LunaListTile extends Card {
                     ? heightFromSubtitleLines(0)
                     : heightFromSubtitleLines(1)),
             child: InkWell(
-              mouseCursor: onTap != null || onLongPress != null
-                  ? SystemMouseCursors.click
-                  : null,
               child: Row(
                 children: [
                   if (leading != null)
@@ -98,6 +95,7 @@ class LunaListTile extends Card {
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: onTap,
               onLongPress: onLongPress,
+              mouseCursor: MouseCursor.defer,
             ),
             decoration: decoration,
           ),

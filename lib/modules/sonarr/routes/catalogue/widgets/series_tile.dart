@@ -23,17 +23,19 @@ class _State extends State<SonarrSeriesTile> {
   Widget build(BuildContext context) {
     return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
       selector: (_, state) => state.series,
-      builder: (context, series, _) => LunaFourLineCardWithPoster(
+      builder: (context, series, _) => LunaBlock(
         backgroundUrl:
             context.read<SonarrState>().getPosterURL(widget.series.id),
         posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
         posterHeaders: context.read<SonarrState>().headers,
         posterPlaceholder: LunaAssets.blankVideo,
-        darken: !widget.series.monitored,
+        disabled: !widget.series.monitored,
         title: widget.series.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        subtitle3: _subtitle3(),
+        body: [
+          _subtitle1(),
+          _subtitle2(),
+          _subtitle3(),
+        ],
         onTap: _onTap,
         onLongPress: _onLongPress,
       ),
@@ -91,6 +93,7 @@ class _State extends State<SonarrSeriesTile> {
   }
 
   TextSpan _subtitle3() {
+    SonarrSeriesSorting _sorting = context.read<SonarrState>().seriesSortType;
     return TextSpan(
       children: [
         _buildChildTextSpan(
@@ -98,14 +101,18 @@ class _State extends State<SonarrSeriesTile> {
           SonarrSeriesSorting.NETWORK,
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        if (context.read<SonarrState>().seriesSortType ==
-            SonarrSeriesSorting.DATE_ADDED)
+        if (_sorting == SonarrSeriesSorting.DATE_ADDED)
           _buildChildTextSpan(
             widget.series.lunaDateAdded,
             SonarrSeriesSorting.DATE_ADDED,
           ),
-        if (context.read<SonarrState>().seriesSortType !=
-            SonarrSeriesSorting.DATE_ADDED)
+        if (_sorting == SonarrSeriesSorting.PREVIOUS_AIRING)
+          _buildChildTextSpan(
+            widget.series.lunaPreviousAiring,
+            SonarrSeriesSorting.PREVIOUS_AIRING,
+          ),
+        if (_sorting != SonarrSeriesSorting.DATE_ADDED &&
+            _sorting != SonarrSeriesSorting.PREVIOUS_AIRING)
           _buildChildTextSpan(
             widget.series.lunaNextAiringLine,
             SonarrSeriesSorting.NEXT_AIRING,

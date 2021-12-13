@@ -5,6 +5,7 @@
 #### NEW
 
 - `[Settings]` (Configuration) Show dismissable banner with module information and links
+- `[Sonarr]` (Catalogue) Previous airing sorting option
 - `[Sonarr]` (Queue) Option to set queue page size
 - `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
 

@@ -56,3 +56,4 @@ coverage/
 /ios/ExportOptions.plist
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
+/lib/core/firebase/firebase_options.dart

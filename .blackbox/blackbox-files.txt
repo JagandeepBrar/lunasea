@@ -2,4 +2,5 @@ android/key.jks
 android/key.properties
 ios/ExportOptions.plist
 ios/GoogleService-Info.plist
+lib/core/firebase/firebase_options.dart
 macos/GoogleService-Info.plist

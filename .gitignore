@@ -54,5 +54,4 @@ coverage/
 /android/key.jks
 /android/key.properties
 /ios/ExportOptions.plist
-/macos/GoogleService-Info.plist
 /lib/core/firebase/firebase_options.dart

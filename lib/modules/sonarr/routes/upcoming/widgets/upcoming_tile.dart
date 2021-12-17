@@ -19,20 +19,22 @@ class SonarrUpcomingTile extends StatefulWidget {
 class _State extends State<SonarrUpcomingTile> {
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
+    return LunaBlock(
       backgroundUrl:
-          context.read<SonarrState>().getBannerURL(widget.record.seriesId),
+          context.read<SonarrState>().getFanartURL(widget.record.seriesId),
       posterUrl:
           context.read<SonarrState>().getPosterURL(widget.record.seriesId),
       posterHeaders: context.read<SonarrState>().headers,
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       title: widget.record?.series?.title ??
           widget.series?.title ??
           LunaUI.TEXT_EMDASH,
-      subtitle1: _subtitle1(),
-      subtitle2: _subtitle2(),
-      subtitle3: _subtitle3(),
-      darken: !widget.record.monitored,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
+      disabled: !widget.record.monitored,
       onTap: _onTap,
       onLongPress: _onLongPress,
       trailing: _trailing(),

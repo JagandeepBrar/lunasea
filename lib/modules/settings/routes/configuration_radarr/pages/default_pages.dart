@@ -53,100 +53,87 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    return RadarrDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Home'),
-        subtitle: LunaText.subtitle(
-          text: RadarrNavigationBar
-              .titles[RadarrDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        trailing: LunaIconButton(
-          icon: RadarrNavigationBar
-              .icons[RadarrDatabaseValue.NAVIGATION_INDEX.data],
-        ),
+    RadarrDatabaseValue _db = RadarrDatabaseValue.NAVIGATION_INDEX;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Home',
+        body: [TextSpan(text: RadarrNavigationBar.titles[_db.data])],
+        trailing: LunaIconButton(icon: RadarrNavigationBar.icons[_db.data]),
         onTap: () async {
           Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(
             context,
             titles: RadarrNavigationBar.titles,
             icons: RadarrNavigationBar.icons,
           );
-          if (values.item1)
-            RadarrDatabaseValue.NAVIGATION_INDEX.put(values.item2);
+          if (values.item1) _db.put(values.item2);
         },
       ),
     );
   }
 
   Widget _movieDetailsPage() {
-    return RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Movie Details'),
-        subtitle: LunaText.subtitle(
-            text: RadarrMovieDetailsNavigationBar.titles[
-                RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+    RadarrDatabaseValue _db =
+        RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Movie Details',
+        body: [
+          TextSpan(text: RadarrMovieDetailsNavigationBar.titles[_db.data]),
+        ],
         trailing: LunaIconButton(
-            icon: RadarrMovieDetailsNavigationBar.icons[
-                RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+          icon: RadarrMovieDetailsNavigationBar.icons[_db.data],
+        ),
         onTap: () async {
           Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(
             context,
             titles: RadarrMovieDetailsNavigationBar.titles,
             icons: RadarrMovieDetailsNavigationBar.icons,
           );
-          if (values.item1)
-            RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS
-                .put(values.item2);
+          if (values.item1) _db.put(values.item2);
         },
       ),
     );
   }
 
   Widget _addMoviePage() {
-    return RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Add Movie'),
-        subtitle: LunaText.subtitle(
-            text: RadarrAddMovieNavigationBar
-                .titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
-        trailing: LunaIconButton(
-            icon: RadarrAddMovieNavigationBar
-                .icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+    RadarrDatabaseValue _db = RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Add Movie',
+        body: [TextSpan(text: RadarrAddMovieNavigationBar.titles[_db.data])],
+        trailing:
+            LunaIconButton(icon: RadarrAddMovieNavigationBar.icons[_db.data]),
         onTap: () async {
           Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(
             context,
             titles: RadarrAddMovieNavigationBar.titles,
             icons: RadarrAddMovieNavigationBar.icons,
           );
-          if (values.item1)
-            RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(values.item2);
+          if (values.item1) _db.put(values.item2);
         },
       ),
     );
   }
 
   Widget _systemStatusPage() {
-    return RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'System Status'),
-        subtitle: LunaText.subtitle(
-            text: RadarrSystemStatusNavigationBar.titles[
-                RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+    RadarrDatabaseValue _db =
+        RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'System Status',
+        body: [
+          TextSpan(text: RadarrSystemStatusNavigationBar.titles[_db.data]),
+        ],
         trailing: LunaIconButton(
-            icon: RadarrSystemStatusNavigationBar.icons[
-                RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+          icon: RadarrSystemStatusNavigationBar.icons[_db.data],
+        ),
         onTap: () async {
           Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(
             context,
             titles: RadarrSystemStatusNavigationBar.titles,
             icons: RadarrSystemStatusNavigationBar.icons,
           );
-          if (values.item1)
-            RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS
-                .put(values.item2);
+          if (values.item1) _db.put(values.item2);
         },
       ),
     );

@@ -80,7 +80,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           args: [LunaModule.LIDARR.name],
         ),
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationLidarrConnectionDetailsRouter()
             .navigateTo(context);

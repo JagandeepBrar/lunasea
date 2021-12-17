@@ -58,9 +58,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.RADARR.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.RADARR.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.radarrEnabled ?? false,
           onChanged: (value) {
@@ -74,70 +73,60 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(text: 'Connection Details for Radarr'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'Connection Details',
+      body: const [TextSpan(text: 'Connection Details for Radarr')],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationRadarrConnectionDetailsRouter()
           .navigateTo(context),
     );
   }
 
   Widget _defaultPagesPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Default Pages'),
-      subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'Default Pages',
+      body: const [TextSpan(text: 'Set Default Landing Pages')],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationRadarrDefaultPagesRouter().navigateTo(context),
     );
   }
 
   Widget _defaultSortingFilteringPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Default Sorting & Filtering'),
-      subtitle:
-          LunaText.subtitle(text: 'Set Default Sorting & Filtering Methods'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'Default Sorting & Filtering',
+      body: const [TextSpan(text: 'Set Default Sorting & Filtering Methods')],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationRadarrDefaultSortingRouter().navigateTo(context),
     );
   }
 
   Widget _discoverUseRadarrSuggestionsToggle() {
-    return RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Discover Suggestions'),
-        subtitle: LunaText.subtitle(text: 'Add Suggested Releases in Discover'),
+    RadarrDatabaseValue _db = RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'Discover Suggestions',
+        body: const [TextSpan(text: 'Add Suggested Releases in Discover')],
         trailing: LunaSwitch(
-          value: RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.data,
-          onChanged: (value) =>
-              RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.put(value),
+          value: _db.data,
+          onChanged: (value) => _db.put(value),
         ),
       ),
     );
   }
 
   Widget _queueSize() {
-    return RadarrDatabaseValue.QUEUE_PAGE_SIZE.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Queue Size'),
-        subtitle: LunaText.subtitle(
-          text: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data == 1
-              ? '1 Item'
-              : '${RadarrDatabaseValue.QUEUE_PAGE_SIZE.data} Items',
-        ),
-        trailing: LunaIconButton(icon: Icons.queue_rounded),
+    RadarrDatabaseValue _db = RadarrDatabaseValue.QUEUE_PAGE_SIZE;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'Queue Size',
+        body: [TextSpan(text: _db.data == 1 ? '1 Item' : '${_db.data} Items')],
+        trailing: const LunaIconButton(icon: Icons.queue_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await RadarrDialogs().setQueuePageSize(context);
-          if (result.item1)
-            RadarrDatabaseValue.QUEUE_PAGE_SIZE.put(result.item2);
+          if (result.item1) _db.put(result.item2);
         },
       ),
     );

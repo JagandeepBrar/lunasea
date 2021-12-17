@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesTile extends StatefulWidget {
-  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
+  static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final SonarrSeries series;
   final SonarrQualityProfile profile;
@@ -25,10 +25,10 @@ class _State extends State<SonarrSeriesTile> {
       selector: (_, state) => state.series,
       builder: (context, series, _) => LunaBlock(
         backgroundUrl:
-            context.read<SonarrState>().getPosterURL(widget.series.id),
+            context.read<SonarrState>().getFanartURL(widget.series.id),
         posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
         posterHeaders: context.read<SonarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
+        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
         disabled: !widget.series.monitored,
         title: widget.series.title,
         body: [
@@ -44,14 +44,13 @@ class _State extends State<SonarrSeriesTile> {
 
   TextSpan _buildChildTextSpan(String text, SonarrSeriesSorting sorting) {
     TextStyle style;
-    if (context.read<SonarrState>().seriesSortType == sorting)
-      style = TextStyle(
-        color: widget.series.monitored
-            ? LunaColours.accent
-            : LunaColours.accent.withOpacity(0.30),
+    if (context.read<SonarrState>().seriesSortType == sorting) {
+      style = const TextStyle(
+        color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: LunaUI.FONT_SIZE_H3,
       );
+    }
     return TextSpan(
       text: text,
       style: style,

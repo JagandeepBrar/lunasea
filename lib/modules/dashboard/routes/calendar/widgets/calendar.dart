@@ -327,7 +327,7 @@ class _State extends State<DashboardCalendarWidget> {
       posterHeaders: headers,
       backgroundHeaders: headers,
       posterUrl: event.posterUrl(context),
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundUrl: event.backgroundUrl(context),
       trailing: event.trailing(context),
       onTap: () async => event.enterContent(context),

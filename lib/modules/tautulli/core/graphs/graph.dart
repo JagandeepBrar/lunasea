@@ -106,7 +106,7 @@ class TautulliGraphHelper {
       child: Container(
         height: GRAPH_HEIGHT + LEGEND_HEIGHT,
         alignment: Alignment.center,
-        child: LunaIconButton(
+        child: const LunaIconButton(
           icon: Icons.error_rounded,
           iconSize: 60.0,
           color: Colors.white12,

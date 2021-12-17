@@ -83,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               ? '1 Day'
               : '${DashboardDatabaseValue.CALENDAR_DAYS_PAST.data} Days',
         ),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await DashboardDialogs().setPastDays(context);
@@ -105,7 +105,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               ? '1 Day'
               : '${DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data} Days',
         ),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await DashboardDialogs().setFutureDays(context);
@@ -183,7 +183,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             text: (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
                     as CalendarStartingType)
                 .name),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingType> _values =
               await SettingsDialogs().editCalendarStartingView(context);
@@ -204,7 +204,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             text: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
                     as CalendarStartingDay)
                 .name),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingDay> results =
               await SettingsDialogs().editCalendarStartingDay(context);
@@ -225,7 +225,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             text: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
                     as CalendarStartingSize)
                 .name),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingSize> _values =
               await SettingsDialogs().editCalendarStartingSize(context);

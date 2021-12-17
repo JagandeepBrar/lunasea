@@ -20,7 +20,7 @@ extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
               : this.parentTitle
           : this.grandparentTitle;
 
-  IconData get lsWatchStatusIcon {
+  IconData get lunaWatchStatusIcon {
     switch (this.watchedStatus) {
       case TautulliWatchedStatus.PARTIALLY_WATCHED:
         return Icons.radio_button_checked_rounded;

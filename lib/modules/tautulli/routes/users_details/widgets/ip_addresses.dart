@@ -84,43 +84,28 @@ class _State extends State<TautulliUserDetailsIPAddresses>
   }
 
   Widget _tile(TautulliUserIPRecord record) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: record.ipAddress),
-      subtitle: RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_H3,
-          ),
+    int _count = record.playCount;
+    return LunaBlock(
+      title: record.ipAddress,
+      body: [
+        TextSpan(
           children: [
-            TextSpan(text: record.lastSeen?.lunaAge ?? 'Unknown'),
-            const TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
-            TextSpan(
-              text: record.playCount == 1
-                  ? '1 Play'
-                  : '${record.playCount} Plays',
-            ),
-            const TextSpan(text: '\n'),
-            TextSpan(text: record.lastPlayed),
+            TextSpan(text: record.lastSeen?.lunaAge ?? 'lunasea.Unknown'.tr()),
+            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: _count == 1 ? '1 Play' : '$_count Plays'),
           ],
         ),
-        maxLines: 2,
-        softWrap: false,
-        overflow: TextOverflow.fade,
+        TextSpan(text: record.lastPlayed),
+      ],
+      backgroundUrl: context.read<TautulliState>().getImageURLFromPath(
+            record.thumb ?? '',
+            width: MediaQuery.of(context).size.width.truncate(),
+          ),
+      backgroundHeaders: context.read<TautulliState>().headers,
+      onTap: () async => TautulliIPAddressDetailsRouter().navigateTo(
+        context,
+        ipAddress: record.ipAddress,
       ),
-      decoration: record.thumb != null && record.thumb.isNotEmpty
-          ? LunaCardDecoration(
-              uri: context.read<TautulliState>().getImageURLFromPath(
-                    record.thumb ?? '',
-                    width: MediaQuery.of(context).size.width.truncate(),
-                  ),
-              headers: context.read<TautulliState>().headers,
-            )
-          : null,
-      contentPadding: true,
-      onTap: () async => TautulliIPAddressDetailsRouter()
-          .navigateTo(context, ipAddress: record.ipAddress),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaLogger {
@@ -101,24 +102,26 @@ class LunaLogger {
 
   /// Log a new error-level log.
   void error(String message, dynamic error, StackTrace stackTrace) {
-    recordCrashlyticsError(error, stackTrace);
-    LunaLogHiveObject log = LunaLogHiveObject.withError(
-      type: LunaLogType.ERROR,
-      message: message,
-      error: error,
-      stackTrace: stackTrace,
-    );
-    if (kDebugMode) {
-      print(message);
-      print(error);
-      print(stackTrace);
+    if (error is! DioError && error is! NetworkImageLoadException) {
+      recordCrashlyticsError(error, stackTrace);
+      LunaLogHiveObject log = LunaLogHiveObject.withError(
+        type: LunaLogType.ERROR,
+        message: message,
+        error: error,
+        stackTrace: stackTrace,
+      );
+      if (kDebugMode) {
+        print(message);
+        print(error);
+        print(stackTrace);
+      }
+      Database.logsBox.add(log);
     }
-    Database.logsBox.add(log);
   }
 
   /// Log a new critical-level log.
   void critical(dynamic error, StackTrace stackTrace) {
-    if (error is! DioError) {
+    if (error is! DioError && error is! NetworkImageLoadException) {
       recordCrashlyticsError(error, stackTrace);
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.CRITICAL,

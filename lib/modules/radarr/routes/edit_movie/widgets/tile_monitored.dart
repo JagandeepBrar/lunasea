@@ -9,10 +9,9 @@ class RadarrMoviesEditMonitoredTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'radarr.Monitored'.tr()),
-      subtitle: LunaText.subtitle(text: 'radarr.MonitoredDescription'.tr()),
+    return LunaBlock(
+      title: 'radarr.Monitored'.tr(),
+      body: [TextSpan(text: 'radarr.MonitoredDescription'.tr())],
       trailing: LunaSwitch(
         value: context.watch<RadarrMoviesEditState>().monitored,
         onChanged: (value) =>

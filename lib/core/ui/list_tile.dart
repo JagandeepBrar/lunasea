@@ -4,21 +4,13 @@ import 'package:lunasea/core.dart';
 class LunaListTile extends Card {
   static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 4.0;
   static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 4.0;
-  static const TITLE_SPACER_HEIGHT = LunaUI.DEFAULT_MARGIN_SIZE / 2;
 
   static const BASE_HEIGHT = (LunaUI.DEFAULT_MARGIN_SIZE * 2) + TITLE_HEIGHT;
   static const BASE_ITEM_EXTENT = BASE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE;
 
-  static double heightFromSubtitleLines(
-    int subtitleLines, {
-    bool alwaysAddSpacer = false,
-  }) {
-    if (subtitleLines == 0) {
-      return alwaysAddSpacer ? BASE_HEIGHT + TITLE_SPACER_HEIGHT : BASE_HEIGHT;
-    }
-    return BASE_HEIGHT +
-        TITLE_SPACER_HEIGHT +
-        (subtitleLines * SUBTITLE_HEIGHT);
+  static double heightFromSubtitleLines(int subtitleLines) {
+    if (subtitleLines == 0) return BASE_HEIGHT;
+    return BASE_HEIGHT + (subtitleLines * SUBTITLE_HEIGHT);
   }
 
   static double extentFromSubtitleLines(int subtitleLines) {
@@ -66,8 +58,6 @@ class LunaListTile extends Card {
                             child: title,
                             height: TITLE_HEIGHT,
                           ),
-                          if (subtitle != null)
-                            const SizedBox(height: TITLE_SPACER_HEIGHT),
                           if (subtitle != null) subtitle,
                         ],
                       ),

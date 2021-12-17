@@ -68,11 +68,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           if (snapshot.hasError) version = 'Unknown';
           if (snapshot.hasData)
             version = '${snapshot.data.version} (${snapshot.data.buildNumber})';
-          return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Version: $version'),
-            subtitle: LunaText.subtitle(text: 'View Recent Changes'),
-            trailing: LunaIconButton(icon: Icons.system_update_rounded),
+          return LunaBlock(
+            title: 'Version: $version',
+            body: const [TextSpan(text: 'View Recent Changes')],
+            trailing: const LunaIconButton(icon: Icons.system_update_rounded),
             onTap: () async => LunaChangelog().showChangelog(
                 snapshot.data?.version, snapshot.data?.buildNumber),
           );
@@ -80,21 +79,19 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _logs() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Logs'),
-      subtitle: LunaText.subtitle(text: 'View, Export, and Clear Logs'),
-      trailing: LunaIconButton(icon: Icons.developer_mode_rounded),
+    return LunaBlock(
+      title: 'Logs',
+      body: const [TextSpan(text: 'View, Export, and Clear Logs')],
+      trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
       onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
     );
   }
 
   Widget _enableAnalytics() {
     return LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Firebase Analytics'),
-        subtitle: LunaText.subtitle(text: 'User Engagement Tracking'),
+      builder: (context, box, _) => LunaBlock(
+        title: 'Firebase Analytics',
+        body: const [TextSpan(text: 'User Engagement Tracking')],
         trailing: LunaSwitch(
           value: LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.data,
           onChanged: (value) async {
@@ -108,10 +105,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enableCrashlytics() {
     return LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Firebase Crashlytics'),
-        subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
+      builder: (context, box, _) => LunaBlock(
+        title: 'Firebase Crashlytics',
+        body: const [TextSpan(text: 'Crash and Error Tracking')],
         trailing: LunaSwitch(
             value: LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data,
             onChanged: (value) async {
@@ -131,11 +127,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hideTooltipBanners() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Dismiss Tooltip Banners'),
-      subtitle: LunaText.subtitle(text: 'Hide Tooltips, Alerts, & Hints'),
-      trailing: LunaIconButton(icon: Icons.rule_rounded),
+    return LunaBlock(
+      title: 'Dismiss Tooltip Banners',
+      body: const [TextSpan(text: 'Hide Tooltips, Alerts, & Hints')],
+      trailing: const LunaIconButton(icon: Icons.rule_rounded),
       onTap: () async {
         bool result = await SettingsDialogs().dismissTooltipBanners(context);
         if (result) {
@@ -152,11 +147,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _clearConfiguration() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Clear Configuration'),
-      subtitle: LunaText.subtitle(text: 'Clean Slate'),
-      trailing: LunaIconButton(icon: Icons.delete_sweep_rounded),
+    return LunaBlock(
+      title: 'Clear Configuration',
+      body: const [TextSpan(text: 'Clean Slate')],
+      trailing: const LunaIconButton(icon: Icons.delete_sweep_rounded),
       onTap: () async {
         bool result = await SettingsDialogs().clearConfiguration(context);
         if (result) {

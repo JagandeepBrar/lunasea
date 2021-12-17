@@ -64,17 +64,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.sonarrHost;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Host'),
-      subtitle:
-          LunaText.subtitle(text: (host ?? '').isEmpty ? 'Not Set' : host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String host = Database.currentProfileObject.sonarrHost ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject.sonarrHost ?? '',
+          prefill: host,
         );
         if (_values.item1) {
           Database.currentProfileObject.sonarrHost = _values.item2;
@@ -86,17 +84,23 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.sonarrKey;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'API Key'),
-      subtitle: LunaText.subtitle(
-          text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String apiKey = Database.currentProfileObject.sonarrKey ?? '';
+    return LunaBlock(
+      title: 'settings.ApiKey'.tr(),
+      body: [
+        TextSpan(
+          text: apiKey.isEmpty
+              ? 'lunasea.NotSet'.tr()
+              : LunaUI.TEXT_BULLET.repeat(12),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
-            context, 'Sonarr API Key',
-            prefill: Database.currentProfileObject.sonarrKey ?? '');
+          context,
+          'settings.ApiKey'.tr(),
+          prefill: apiKey,
+        );
         if (_values.item1) {
           Database.currentProfileObject.sonarrKey = _values.item2;
           Database.currentProfileObject.save();
@@ -108,8 +112,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _testConnection() {
     return LunaButton.text(
-      text: 'Test Connection',
-      icon: Icons.wifi_tethering_rounded,
+      text: 'settings.TestConnection'.tr(),
+      icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
         ProfileHiveObject _profile = Database.currentProfileObject;
         if (_profile.sonarrHost == null || _profile.sonarrHost.isEmpty) {
@@ -127,18 +131,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Sonarr(
-                host: _profile.sonarrHost,
-                apiKey: _profile.sonarrKey,
-                headers:
-                    Map<String, dynamic>.from(_profile.sonarrHeaders ?? {}))
-            .system
-            .getStatus()
-            .then((_) => showLunaSuccessSnackBar(
-                  title: 'Connected Successfully',
-                  message: 'Sonarr is ready to use with LunaSea',
-                ))
-            .catchError((error, trace) {
-          LunaLogger().error('Connection Test Failed', error, trace);
+          host: _profile.sonarrHost,
+          apiKey: _profile.sonarrKey,
+          headers: Map<String, dynamic>.from(
+            _profile.sonarrHeaders ?? {},
+          ),
+        ).system.getStatus().then((_) {
+          showLunaSuccessSnackBar(
+            title: 'Connected Successfully',
+            message: 'Sonarr is ready to use with LunaSea',
+          );
+        }).catchError((error, trace) {
+          LunaLogger().error(
+            'Connection Test Failed',
+            error,
+            trace,
+          );
           showLunaErrorSnackBar(
             title: 'Connection Test Failed',
             error: error,
@@ -149,13 +157,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _customHeaders() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-      onTap: () async =>
-          SettingsConfigurationSonarrHeadersRouter().navigateTo(context),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async => SettingsConfigurationSonarrHeadersRouter().navigateTo(
+        context,
+      ),
     );
   }
 }

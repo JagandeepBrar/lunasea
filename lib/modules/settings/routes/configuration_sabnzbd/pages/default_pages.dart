@@ -36,7 +36,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Pages',
+      title: 'settings.DefaultPages'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -51,21 +51,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    return SABnzbdDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Home'),
-        subtitle: LunaText.subtitle(
-          text: SABnzbdNavigationBar
-              .titles[SABnzbdDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        trailing: LunaIconButton(
-          icon: SABnzbdNavigationBar
-              .icons[SABnzbdDatabaseValue.NAVIGATION_INDEX.data],
-        ),
+    SABnzbdDatabaseValue _db = SABnzbdDatabaseValue.NAVIGATION_INDEX;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'lunasea.Home'.tr(),
+        body: [TextSpan(text: SABnzbdNavigationBar.titles[_db.data])],
+        trailing: LunaIconButton(icon: SABnzbdNavigationBar.icons[_db.data]),
         onTap: () async {
           List values = await SABnzbdDialogs.defaultPage(context);
-          if (values[0]) SABnzbdDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );

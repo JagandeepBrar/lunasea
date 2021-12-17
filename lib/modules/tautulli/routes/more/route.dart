@@ -31,10 +31,9 @@ class _State extends State<TautulliMoreRoute>
     return LunaListView(
       controller: TautulliNavigationBar.scrollControllers[3],
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Check for Updates'),
-          subtitle: LunaText.subtitle(text: 'Tautulli & Plex Updates'),
+        LunaBlock(
+          title: 'Check for Updates',
+          body: const [TextSpan(text: 'Tautulli & Plex Updates')],
           trailing: LunaIconButton(
             icon: Icons.system_update_rounded,
             color: LunaColours().byListIndex(0),
@@ -42,70 +41,63 @@ class _State extends State<TautulliMoreRoute>
           onTap: () async =>
               TautulliCheckForUpdatesRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Graphs'),
-          subtitle: LunaText.subtitle(text: 'Play Count & Duration Graphs'),
+        LunaBlock(
+          title: 'Graphs',
+          body: const [TextSpan(text: 'Play Count & Duration Graphs')],
           trailing: LunaIconButton(
             icon: Icons.insert_chart_rounded,
             color: LunaColours().byListIndex(1),
           ),
           onTap: () async => TautulliGraphsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Libraries'),
-          subtitle: LunaText.subtitle(text: 'Plex Library Information'),
+        LunaBlock(
+          title: 'Libraries',
+          body: const [TextSpan(text: 'Plex Library Information')],
           trailing: LunaIconButton(
             icon: Icons.video_library_rounded,
             color: LunaColours().byListIndex(2),
           ),
           onTap: () async => TautulliLibrariesRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Logs'),
-          subtitle: LunaText.subtitle(text: 'Tautulli & Plex Logs'),
+        LunaBlock(
+          title: 'Logs',
+          body: const [TextSpan(text: 'Tautulli & Plex Logs')],
           trailing: LunaIconButton(
             icon: Icons.developer_mode_rounded,
             color: LunaColours().byListIndex(3),
           ),
           onTap: () async => TautulliLogsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Recently Added'),
-          subtitle: LunaText.subtitle(text: 'Recently Added Content to Plex'),
+        LunaBlock(
+          title: 'Recently Added',
+          body: const [TextSpan(text: 'Recently Added Content to Plex')],
           trailing: LunaIconButton(
             icon: Icons.recent_actors_rounded,
             color: LunaColours().byListIndex(4),
           ),
           onTap: () async => TautulliRecentlyAddedRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Search'),
-          subtitle: LunaText.subtitle(text: 'Search Your Libraries'),
+        LunaBlock(
+          title: 'Search',
+          body: const [TextSpan(text: 'Search Your Libraries')],
           trailing: LunaIconButton(
             icon: Icons.search_rounded,
             color: LunaColours().byListIndex(5),
           ),
           onTap: () async => TautulliSearchRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Statistics'),
-          subtitle: LunaText.subtitle(text: 'User & Library Statistics'),
+        LunaBlock(
+          title: 'Statistics',
+          body: const [TextSpan(text: 'User & Library Statistics')],
           trailing: LunaIconButton(
             icon: Icons.format_list_numbered_rounded,
             color: LunaColours().byListIndex(6),
           ),
           onTap: () async => TautulliStatisticsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Synced Items'),
-          subtitle: LunaText.subtitle(text: 'Synced Content on Devices'),
+        LunaBlock(
+          title: 'Synced Items',
+          body: const [TextSpan(text: 'Synced Content on Devices')],
           trailing: LunaIconButton(
             icon: Icons.sync_rounded,
             color: LunaColours().byListIndex(7),

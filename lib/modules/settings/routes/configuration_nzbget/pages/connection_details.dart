@@ -66,18 +66,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.nzbgetHost;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Host'),
-      subtitle: LunaText.subtitle(
-        text: (host ?? '').isEmpty ? 'Not Set' : host,
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String host = Database.currentProfileObject.nzbgetHost ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject.nzbgetHost ?? '',
+          prefill: host,
         );
         if (_values.item1) {
           Database.currentProfileObject.nzbgetHost = _values.item2;
@@ -89,19 +86,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _username() {
-    String username = Database.currentProfileObject.nzbgetUser;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Username'),
-      subtitle: LunaText.subtitle(
-        text: (username ?? '').isEmpty ? 'Not Set' : username,
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String username = Database.currentProfileObject.nzbgetUser ?? '';
+    return LunaBlock(
+      title: 'settings.Username'.tr(),
+      body: [
+        TextSpan(text: username.isEmpty ? 'lunasea.NotSet'.tr() : username),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
-          'NZBGet Username',
-          prefill: Database.currentProfileObject.nzbgetUser ?? '',
+          'settings.Username'.tr(),
+          prefill: username,
         );
         if (_values.item1) {
           Database.currentProfileObject.nzbgetUser = _values.item2;
@@ -113,19 +109,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _password() {
-    String password = Database.currentProfileObject.nzbgetPass;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Password'),
-      subtitle: LunaText.subtitle(
-        text: (password ?? '').isEmpty ? 'Not Set' : '••••••••••••',
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String password = Database.currentProfileObject.nzbgetPass ?? '';
+    return LunaBlock(
+      title: 'settings.Password'.tr(),
+      body: [
+        TextSpan(
+          text: password.isEmpty
+              ? 'settings.NotSet'.tr()
+              : LunaUI.TEXT_BULLET.repeat(12),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
-          'NZBGet Password',
-          prefill: Database.currentProfileObject.nzbgetPass ?? '',
+          'settings.Password'.tr(),
+          prefill: password,
           extraText: [
             LunaDialog.textSpanContent(
               text:
@@ -148,8 +147,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _testConnection() {
     return LunaButton.text(
-      text: 'Test Connection',
-      icon: Icons.wifi_tethering_rounded,
+      text: 'settings.TestConnection'.tr(),
+      icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
         ProfileHiveObject _profile = Database.currentProfileObject;
         if (_profile.nzbgetHost == null || _profile.nzbgetHost.isEmpty) {
@@ -177,13 +176,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _customHeaders() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-      onTap: () async =>
-          SettingsConfigurationNZBGetHeadersRouter().navigateTo(context),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async {
+        SettingsConfigurationNZBGetHeadersRouter().navigateTo(context);
+      },
     );
   }
 }

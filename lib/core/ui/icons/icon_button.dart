@@ -6,15 +6,43 @@ class LunaIconButton extends StatelessWidget {
   final IconData icon;
   final double iconSize;
   final String text;
+  final double textSize;
   final Color color;
   final Function onPressed;
   final Function onLongPress;
   final LunaLoadingState loadingState;
   final AlignmentGeometry alignment;
 
-  LunaIconButton({
+  const LunaIconButton.arrow({
     Key key,
     this.text,
+    this.textSize = LunaUI.FONT_SIZE_H5,
+    this.icon = LunaIcons.ARROW_RIGHT,
+    this.iconSize = LunaUI.ICON_SIZE_DEFAULT,
+    this.alignment = Alignment.center,
+    this.color = Colors.white,
+    this.onPressed,
+    this.onLongPress,
+    this.loadingState,
+  }) : super(key: key);
+
+  const LunaIconButton.appBar({
+    Key key,
+    this.text,
+    this.textSize = LunaUI.FONT_SIZE_H5,
+    this.icon,
+    this.iconSize = LunaUI.ICON_SIZE_APPBAR,
+    this.alignment = Alignment.center,
+    this.color = Colors.white,
+    this.onPressed,
+    this.onLongPress,
+    this.loadingState,
+  }) : super(key: key);
+
+  const LunaIconButton({
+    Key key,
+    this.text,
+    this.textSize = LunaUI.FONT_SIZE_H5,
     this.icon,
     this.iconSize = LunaUI.ICON_SIZE_DEFAULT,
     this.alignment = Alignment.center,
@@ -22,9 +50,7 @@ class LunaIconButton extends StatelessWidget {
     this.onPressed,
     this.onLongPress,
     this.loadingState,
-  }) : super(key: key) {
-    assert((text != null || icon != null), 'both text and icon cannot be null');
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +98,7 @@ class LunaIconButton extends StatelessWidget {
   }
 
   Widget _icon() {
+    assert((text != null || icon != null), 'both text and icon cannot be null');
     if (loadingState == LunaLoadingState.ERROR) {
       return Icon(
         Icons.error_rounded,
@@ -89,7 +116,7 @@ class LunaIconButton extends StatelessWidget {
         style: TextStyle(
           color: color,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          fontSize: LunaUI.FONT_SIZE_H5,
+          fontSize: textSize,
         ),
       );
     }

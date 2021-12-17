@@ -13,7 +13,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundUrl: context.read<RadarrState>().getFanartURL(movie.id),
       posterUrl: context.read<RadarrState>().getPosterURL(movie.id),
       posterHeaders: context.read<RadarrState>().headers,

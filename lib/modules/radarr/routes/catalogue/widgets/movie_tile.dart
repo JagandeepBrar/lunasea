@@ -28,7 +28,7 @@ class _State extends State<RadarrCatalogueTile> {
             context.read<RadarrState>().getFanartURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
+        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
         disabled: !widget.movie.monitored,
         title: widget.movie.title,
         body: [
@@ -100,29 +100,32 @@ class _State extends State<RadarrCatalogueTile> {
         if (context.read<RadarrState>().moviesSortType ==
             RadarrMoviesSorting.IN_CINEMAS)
           _buildChildTextSpan(
-              widget.movie.lunaInCinemasOn, RadarrMoviesSorting.IN_CINEMAS),
+            widget.movie.lunaInCinemasOn,
+            RadarrMoviesSorting.IN_CINEMAS,
+          ),
       ],
     );
   }
 
   Widget _buildReleaseIcon(IconData icon, Color color, bool highlight) {
-    Color _color = (highlight ? color : Colors.grey)
-        .withOpacity(widget.movie.monitored ? 1 : 0.30);
-    return Container(
-      child: Icon(
-        icon,
-        size: LunaUI.FONT_SIZE_H2,
-        color: _color,
+    return Padding(
+      child: Container(
+        child: Icon(
+          icon,
+          size: LunaUI.FONT_SIZE_H2,
+          color: highlight ? color : LunaColours.grey.disabled(),
+        ),
+        width: LunaBlock.SUBTITLE_HEIGHT,
+        height: LunaBlock.SUBTITLE_HEIGHT,
+        alignment: Alignment.centerLeft,
       ),
-      alignment: Alignment.centerLeft,
-      width: LunaListTile.SUBTITLE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE / 2,
-      height: LunaListTile.SUBTITLE_HEIGHT,
+      padding: const EdgeInsets.only(right: LunaUI.DEFAULT_MARGIN_SIZE / 4),
     );
   }
 
   Widget _subtitle3() {
     return SizedBox(
-      height: LunaListTile.SUBTITLE_HEIGHT,
+      height: LunaBlock.SUBTITLE_HEIGHT,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -142,12 +145,11 @@ class _State extends State<RadarrCatalogueTile> {
             widget.movie.hasFile,
           ),
           Container(
-            height: LunaListTile.SUBTITLE_HEIGHT,
-            alignment: Alignment.centerLeft,
+            height: LunaBlock.SUBTITLE_HEIGHT,
             child: widget.movie.hasFile
-                ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-                : widget.movie
-                    .lunaNextReleaseTextObject(widget.movie.monitored),
+                ? widget.movie.lunaHasFileTextObject()
+                : widget.movie.lunaNextReleaseTextObject(),
+            alignment: Alignment.center,
           ),
         ],
       ),

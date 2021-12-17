@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TautulliActivityTile extends StatelessWidget {
   final TautulliSession session;
@@ -15,19 +14,23 @@ class TautulliActivityTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaFiveLineCardWithPoster(
+    return LunaBlock(
       title: session.lunaTitle,
       posterUrl: session.lunaArtworkPath(context),
       posterHeaders: context.read<TautulliState>().headers,
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundUrl: context.watch<TautulliState>().getImageURLFromPath(
             session.art,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
-      subtitle1: _subtitle1(),
-      subtitle2: _subtitle2(),
-      customSubtitle3: _subtitle3(),
-      customSubtitle4: _subtitle4(),
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
+      bottom: _bottomWidget(),
+      bottomHeight: LunaLinearPercentIndicator.height,
+      trailing: LunaIconButton(icon: session.lunaSessionStateIcon),
       onTap: disableOnTap ? null : () async => _enterDetails(context),
     );
   }
@@ -37,7 +40,7 @@ class TautulliActivityTile extends StatelessWidget {
       return TextSpan(
         children: [
           TextSpan(text: session.parentTitle),
-          TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
           TextSpan(
               text: 'tautulli.Episode'.tr(args: [
             session.mediaIndex?.toString() ?? LunaUI.TEXT_EMDASH
@@ -76,46 +79,38 @@ class TautulliActivityTile extends StatelessWidget {
   }
 
   TextSpan _subtitle2() {
-    return TextSpan(text: session.lunaTranscodeDecision);
+    return TextSpan(text: session.lunaFriendlyName);
   }
 
-  Widget _subtitle3() {
-    return Row(
-      children: [
-        Container(
-          child: Icon(
-            session.lunaSessionStateIcon,
-            size: LunaUI.FONT_SIZE_H3,
-            color: Colors.white70,
-          ),
-          width: 16.0 + session.lunaSessionStateIconOffset,
-          transform: Matrix4.translationValues(
-              session.lunaSessionStateIconOffset, 0.0, 0.0),
-        ),
-        LunaText.subtitle(text: session.lunaFriendlyName),
-      ],
+  TextSpan _subtitle3() {
+    return TextSpan(
+      text: session.lunaTranscodeDecision,
+      style: const TextStyle(
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        color: LunaColours.accent,
+      ),
     );
   }
 
-  Widget _subtitle4() {
+  Widget _bottomWidget() {
     return SizedBox(
-      height: LunaListTile.SUBTITLE_HEIGHT,
+      height: LunaLinearPercentIndicator.height,
       child: Stack(
-        alignment: Alignment.bottomCenter,
+        alignment: Alignment.center,
         children: [
-          LinearPercentIndicator(
+          LunaLinearPercentIndicator(
             percent: session.lunaTranscodeProgress,
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            progressColor: LunaColours.splash.withOpacity(0.30),
+            progressColor: LunaColours.accent.withOpacity(
+              LunaUI.OPACITY_SPLASH,
+            ),
             backgroundColor: Colors.transparent,
-            lineHeight: 4.0,
           ),
-          LinearPercentIndicator(
+          LunaLinearPercentIndicator(
             percent: session.lunaProgressPercent,
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
             progressColor: LunaColours.accent,
-            backgroundColor: LunaColours.accent.withOpacity(0.15),
-            lineHeight: 4.0,
+            backgroundColor: LunaColours.grey.withOpacity(
+              LunaUI.OPACITY_SPLASH,
+            ),
           ),
         ],
       ),

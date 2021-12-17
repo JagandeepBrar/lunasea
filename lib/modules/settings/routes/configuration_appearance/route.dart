@@ -103,7 +103,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               ? 'lunasea.Disabled'.tr()
               : '${LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data}%',
         ),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await SettingsDialogs().changeBackgroundImageOpacity(context);

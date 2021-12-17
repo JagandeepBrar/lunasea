@@ -19,15 +19,15 @@ class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
 class _State extends State<RadarrAddMovieDiscoveryResultTile> {
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
+    return LunaBlock(
       backgroundUrl: widget.movie.remotePoster,
       posterUrl: widget.movie.remotePoster,
       posterHeaders: context.watch<RadarrState>().headers,
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       title: widget.movie.title,
-      subtitle1: _subtitle1(),
-      subtitle2: _subtitle2(),
-      subtitle2MaxLines: 2,
+      body: [_subtitle1()],
+      bottom: _subtitle2(),
+      bottomHeight: LunaBlock.SUBTITLE_HEIGHT * 2,
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
@@ -45,16 +45,27 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
     );
   }
 
-  TextSpan _subtitle2() {
+  Widget _subtitle2() {
     String summary;
     if (widget.movie.overview == null || widget.movie.overview.isEmpty) {
       summary = 'radarr.NoSummaryIsAvailable'.tr();
     } else {
-      summary = '${widget.movie.overview}\n';
+      summary = widget.movie.overview;
     }
-    return TextSpan(
-      style: const TextStyle(fontStyle: FontStyle.italic),
-      text: summary,
+    return SizedBox(
+      height: LunaBlock.SUBTITLE_HEIGHT * 2,
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontStyle: FontStyle.italic,
+            fontSize: LunaUI.FONT_SIZE_H3,
+            color: LunaColours.grey,
+          ),
+          text: summary,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
     );
   }
 

@@ -54,9 +54,6 @@ class SonarrHistoryTile extends StatelessWidget {
         _subtitle2(),
         _subtitle3(),
       ],
-      collapsedHeight: _isThreeLine
-          ? LunaListTile.heightFromSubtitleLines(3)
-          : LunaListTile.heightFromSubtitleLines(2),
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,

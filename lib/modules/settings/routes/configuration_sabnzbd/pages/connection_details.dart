@@ -65,17 +65,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.sabnzbdHost;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Host'),
-      subtitle:
-          LunaText.subtitle(text: (host ?? '').isEmpty ? 'Not Set' : host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String host = Database.currentProfileObject.sabnzbdHost ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [TextSpan(text: host.isEmpty ? 'settings.NotSet'.tr() : host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject.sabnzbdHost ?? '',
+          prefill: host,
         );
         if (_values.item1) {
           Database.currentProfileObject.sabnzbdHost = _values.item2;
@@ -87,18 +85,23 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.sabnzbdKey;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'API Key'),
-      subtitle: LunaText.subtitle(
-        text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••',
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String apiKey = Database.currentProfileObject.sabnzbdKey ?? '';
+    return LunaBlock(
+      title: 'settings.ApiKey'.tr(),
+      body: [
+        TextSpan(
+          text: apiKey.isEmpty
+              ? 'settings.NotSet'.tr()
+              : LunaUI.TEXT_BULLET.repeat(12),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
-            context, 'SABnzbd API Key',
-            prefill: Database.currentProfileObject.sabnzbdKey ?? '');
+          context,
+          'settings.ApiKey'.tr(),
+          prefill: apiKey,
+        );
         if (_values.item1) {
           Database.currentProfileObject.sabnzbdKey = _values.item2;
           Database.currentProfileObject.save();
@@ -146,11 +149,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _customHeaders() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationSABnzbdHeadersRouter().navigateTo(context),
     );

@@ -165,7 +165,6 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
                 ? 'No summary is available.'
                 : _arguments.data.overview,
             uri: _arguments.data.posterURI ?? '',
-            fallbackImage: LunaAssets.blankUser,
             squareImage: true,
             headers: Database.currentProfileObject.getLidarr()['headers'],
           ),
@@ -173,11 +172,11 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               valueListenable: Database.lunaSeaBox
                   .listenable(keys: [LidarrDatabaseValue.ADD_MONITORED.key]),
               builder: (context, box, widget) {
-                return LunaListTile(
-                  context: context,
-                  title: LunaText.title(text: 'Monitored'),
-                  subtitle: LunaText.subtitle(
-                      text: 'Monitor artist for new releases'),
+                return LunaBlock(
+                  title: 'Monitored',
+                  body: const [
+                    TextSpan(text: 'Monitor artist for new releases'),
+                  ],
                   trailing: LunaSwitch(
                     value: LidarrDatabaseValue.ADD_MONITORED.data,
                     onChanged: (value) =>
@@ -189,11 +188,11 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               valueListenable: Database.lunaSeaBox.listenable(
                   keys: [LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key]),
               builder: (context, box, widget) {
-                return LunaListTile(
-                  context: context,
-                  title: LunaText.title(text: 'Use Album Folders'),
-                  subtitle:
-                      LunaText.subtitle(text: 'Sort tracks into album folders'),
+                return LunaBlock(
+                  title: 'Use Album Folders',
+                  body: const [
+                    TextSpan(text: 'Sort tracks into album folders'),
+                  ],
                   trailing: LunaSwitch(
                     value: LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data,
                     onChanged: (value) =>
@@ -207,12 +206,12 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             builder: (context, box, widget) {
               LidarrRootFolder _rootfolder =
                   LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Root Folder'),
-                subtitle: LunaText.subtitle(
-                    text: _rootfolder?.path ?? 'Unknown Root Folder'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Root Folder',
+                body: [
+                  TextSpan(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values =
                       await LidarrDialogs.editRootFolder(context, _rootFolders);
@@ -228,12 +227,12 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             builder: (context, box, widget) {
               LidarrQualityProfile _profile =
                   LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Quality Profile'),
-                subtitle: LunaText.subtitle(
-                    text: _profile?.name ?? 'Unknown Profile'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Quality Profile',
+                body: [
+                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values = await LidarrDialogs.editQualityProfile(
                       context, _qualityProfiles);
@@ -249,12 +248,12 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             builder: (context, box, widget) {
               LidarrMetadataProfile _profile =
                   LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Metadata Profile'),
-                subtitle: LunaText.subtitle(
-                    text: _profile?.name ?? 'Unknown Profile'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Metadata Profile',
+                body: [
+                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values = await LidarrDialogs.editMetadataProfile(
                       context, _metadataProfiles);

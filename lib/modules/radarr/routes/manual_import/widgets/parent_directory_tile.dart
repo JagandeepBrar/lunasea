@@ -22,10 +22,9 @@ class _State extends State<RadarrManualImportParentDirectoryTile> {
     if (widget.fileSystem == null ||
         widget.fileSystem.parent == null ||
         widget.fileSystem.parent.isEmpty) return const SizedBox(height: 0.0);
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: LunaUI.TEXT_ELLIPSIS),
-      subtitle: LunaText.subtitle(text: 'radarr.ParentDirectory'.tr()),
+    return LunaBlock(
+      title: LunaUI.TEXT_ELLIPSIS,
+      body: [TextSpan(text: 'radarr.ParentDirectory'.tr())],
       trailing: LunaIconButton(
         icon: Icons.arrow_upward_rounded,
         loadingState: _loadingState,

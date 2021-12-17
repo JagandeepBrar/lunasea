@@ -6,7 +6,6 @@ class LunaExpandableListTile extends StatefulWidget {
   final List<TextSpan> collapsedSubtitles;
   final Widget collapsedTrailing;
   final Widget collapsedLeading;
-  final double collapsedHeight;
   final Color backgroundColor;
   final Function onLongPress;
   final List<LunaHighlightedNode> expandedHighlightedNodes;
@@ -25,7 +24,6 @@ class LunaExpandableListTile extends StatefulWidget {
     @required this.expandedTableContent,
     this.collapsedTrailing,
     this.collapsedLeading,
-    this.collapsedHeight,
     this.onLongPress,
     this.expandedHighlightedNodes,
     this.expandedTableButtons,

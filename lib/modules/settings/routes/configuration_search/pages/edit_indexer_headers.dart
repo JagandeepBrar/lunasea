@@ -113,20 +113,23 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         (_indexer.headers ?? {}).cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
-        .map<LunaListTile>((key) => _headerTile(key, headers[key]))
+        .map<LunaBlock>((key) => _headerBlock(key, headers[key]))
         .toList();
   }
 
-  LunaListTile _headerTile(String key, String value) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: key.toString()),
-      subtitle: LunaText.subtitle(text: value.toString()),
+  LunaBlock _headerBlock(String key, String value) {
+    return LunaBlock(
+      title: key.toString(),
+      body: [TextSpan(text: value.toString())],
       trailing: LunaIconButton(
-        icon: Icons.delete_rounded,
+        icon: LunaIcons.DELETE,
         color: LunaColours.red,
-        onPressed: () async => HeaderUtility().deleteHeader(context,
-            headers: _indexer.headers, key: key, indexer: _indexer),
+        onPressed: () async => HeaderUtility().deleteHeader(
+          context,
+          headers: _indexer.headers,
+          key: key,
+          indexer: _indexer,
+        ),
       ),
     );
   }

@@ -5,7 +5,6 @@ class LidarrDescriptionBlock extends StatefulWidget {
   final String description;
   final String title;
   final String uri;
-  final String fallbackImage;
   final bool squareImage;
   final Map headers;
 
@@ -14,7 +13,6 @@ class LidarrDescriptionBlock extends StatefulWidget {
     @required this.description,
     @required this.title,
     @required this.uri,
-    @required this.fallbackImage,
     @required this.headers,
     this.squareImage = false,
   }) : super(key: key);
@@ -35,12 +33,13 @@ class _State extends State<LidarrDescriptionBlock> {
           children: <Widget>[
             widget.uri != null
                 ? LunaNetworkImage(
+                    context: context,
                     height: _imageDimension,
                     width: widget.squareImage
                         ? _imageDimension
                         : _imageDimension / 1.5,
                     url: widget.uri,
-                    placeholderAsset: widget.fallbackImage,
+                    placeholderIcon: LunaIcons.USER,
                     headers: ((Database.currentProfileObject
                                 .getLidarr()['headers'] ??
                             {}) as Map)

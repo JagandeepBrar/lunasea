@@ -12,11 +12,13 @@ class OverseerrRequestTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaThreeLineCardWithPoster(
+    return LunaBlock(
       title: request.requestedBy.displayName ?? 'overseerr.UnknownUser'.tr(),
-      subtitle1: const TextSpan(text: 'Placeholder 1'),
-      subtitle2: const TextSpan(text: 'Placeholder 2'),
-      posterPlaceholder: LunaAssets.blankUser,
+      body: const [
+        TextSpan(text: 'Placeholder 1'),
+        TextSpan(text: 'Placeholder 2'),
+      ],
+      posterPlaceholderIcon: LunaIcons.USER,
       posterHeaders: context.read<OverseerrState>().headers,
       posterUrl: request.requestedBy.avatar,
       posterIsSquare: true,

@@ -18,7 +18,6 @@ class SearchResultTile extends StatelessWidget {
         _subtitle1(),
         _subtitle2(),
       ],
-      collapsedHeight: LunaListTile.heightFromSubtitleLines(2),
       expandedTableContent: _tableContent(),
       collapsedTrailing: _trailing(context),
       expandedTableButtons: _tableButtons(context),

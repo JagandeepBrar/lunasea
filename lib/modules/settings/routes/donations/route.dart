@@ -95,10 +95,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _iapTile(ProductDetails product) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: product.lunaName),
-      subtitle: LunaText.subtitle(text: product.price),
+    return LunaBlock(
+      title: product.lunaName,
+      body: [TextSpan(text: product.price)],
       trailing: LunaIconButton(icon: product.lunaIcon),
       onTap: () async {
         final PurchaseParam _parameters = PurchaseParam(

@@ -78,40 +78,35 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: const [
         TextSpan(text: 'Connection Details for Tautulli'),
       ],
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationTautulliConnectionDetailsRouter()
           .navigateTo(context),
     );
   }
 
   Widget _defaultPagesPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Default Pages'),
-      subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'Default Pages',
+      body: const [TextSpan(text: 'Set Default Landing Pages')],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationTautulliDefaultPagesRouter().navigateTo(context),
     );
   }
 
   Widget _defaultTerminationMessage() {
-    return TautulliDatabaseValue.TERMINATION_MESSAGE.listen(
+    TautulliDatabaseValue _db = TautulliDatabaseValue.TERMINATION_MESSAGE;
+    return _db.listen(
       builder: (context, box, _) {
-        String terminationMessage =
-            TautulliDatabaseValue.TERMINATION_MESSAGE.data;
-        return LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Default Termination Message'),
-          subtitle: LunaText.subtitle(
-              text:
-                  terminationMessage.isEmpty ? 'Not Set' : terminationMessage),
-          trailing: LunaIconButton(icon: Icons.videocam_off_rounded),
+        String message = _db.data;
+        return LunaBlock(
+          title: 'Default Termination Message',
+          body: [TextSpan(text: message.isEmpty ? 'Not Set' : message)],
+          trailing: const LunaIconButton(icon: Icons.videocam_off_rounded),
           onTap: () async {
             Tuple2<bool, String> result =
                 await TautulliDialogs.setTerminationMessage(context);
-            if (result.item1)
-              TautulliDatabaseValue.TERMINATION_MESSAGE.put(result.item2);
+            if (result.item1) _db.put(result.item2);
           },
         );
       },
@@ -119,19 +114,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _activityRefreshRate() {
-    return TautulliDatabaseValue.REFRESH_RATE.listen(
-        builder: (context, box, _) {
+    TautulliDatabaseValue _db = TautulliDatabaseValue.REFRESH_RATE;
+    return _db.listen(builder: (context, box, _) {
       String refreshRate;
-      if (TautulliDatabaseValue.REFRESH_RATE.data == 1)
-        refreshRate = 'Every Second';
-      if (TautulliDatabaseValue.REFRESH_RATE.data != 1)
-        refreshRate =
-            'Every ${TautulliDatabaseValue.REFRESH_RATE.data} Seconds';
-      return LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Activity Refresh Rate'),
-        subtitle: LunaText.subtitle(text: refreshRate),
-        trailing: LunaIconButton(icon: Icons.refresh_rounded),
+      if (_db.data == 1) refreshRate = 'Every Second';
+      if (_db.data != 1) refreshRate = 'Every ${_db.data} Seconds';
+      return LunaBlock(
+        title: 'Activity Refresh Rate',
+        body: [TextSpan(text: refreshRate)],
+        trailing: const LunaIconButton(icon: LunaIcons.REFRESH),
         onTap: () async {
           List<dynamic> _values = await TautulliDialogs.setRefreshRate(context);
           if (_values[0]) TautulliDatabaseValue.REFRESH_RATE.put(_values[1]);
@@ -141,26 +132,20 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _statisticsItemCount() {
-    return ValueListenableBuilder(
-      valueListenable: Database.lunaSeaBox
-          .listenable(keys: [TautulliDatabaseValue.STATISTICS_STATS_COUNT.key]),
+    TautulliDatabaseValue _db = TautulliDatabaseValue.STATISTICS_STATS_COUNT;
+    return _db.listen(
       builder: (context, box, _) {
         String statisticsItems;
-        if (TautulliDatabaseValue.STATISTICS_STATS_COUNT.data == 1)
-          statisticsItems = '1 Item';
-        if (TautulliDatabaseValue.STATISTICS_STATS_COUNT.data != 1)
-          statisticsItems =
-              '${TautulliDatabaseValue.STATISTICS_STATS_COUNT.data} Items';
-        return LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Statistics Item Count'),
-          subtitle: LunaText.subtitle(text: statisticsItems),
-          trailing: LunaIconButton(icon: Icons.format_list_numbered),
+        if (_db.data == 1) statisticsItems = '1 Item';
+        if (_db.data != 1) statisticsItems = '${_db.data} Items';
+        return LunaBlock(
+          title: 'Statistics Item Count',
+          body: [TextSpan(text: statisticsItems)],
+          trailing: const LunaIconButton(icon: Icons.format_list_numbered),
           onTap: () async {
             List<dynamic> _values =
                 await TautulliDialogs.setStatisticsItemCount(context);
-            if (_values[0])
-              TautulliDatabaseValue.STATISTICS_STATS_COUNT.put(_values[1]);
+            if (_values[0]) _db.put(_values[1]);
           },
         );
       },

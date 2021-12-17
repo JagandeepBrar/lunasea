@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrMissingTile extends StatefulWidget {
+  static final double extent = LunaBlock.calculateItemExtent(2);
+
   final LidarrMissingData entry;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function refresh;
@@ -20,49 +22,40 @@ class LidarrMissingTile extends StatefulWidget {
 
 class _State extends State<LidarrMissingTile> {
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        height: LunaListTile.heightFromSubtitleLines(2),
-        title: LunaText.title(text: widget.entry.artistTitle),
-        subtitle: RichText(
-          text: TextSpan(
-            style: const TextStyle(
-              fontSize: LunaUI.FONT_SIZE_H3,
-            ),
-            children: <TextSpan>[
-              TextSpan(
-                text: widget.entry.title,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              TextSpan(
-                text: '\nReleased ${widget.entry.releaseDateString}',
-                style: const TextStyle(
-                  color: LunaColours.red,
-                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                ),
-              ),
-            ],
+  Widget build(BuildContext context) {
+    return LunaBlock(
+      title: widget.entry.artistTitle,
+      body: [
+        TextSpan(
+          text: widget.entry.title,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontStyle: FontStyle.italic,
           ),
-          overflow: TextOverflow.fade,
-          softWrap: false,
-          maxLines: 2,
         ),
-        trailing: LunaIconButton(
-          icon: Icons.search_rounded,
-          onPressed: () async => _search(),
-          onLongPress: () async => _interactiveSearch(),
+        TextSpan(
+          text: 'Released ${widget.entry.releaseDateString}',
+          style: const TextStyle(
+            color: LunaColours.red,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
         ),
-        onTap: () async => _enterAlbum(),
-        onLongPress: () async => _enterArtist(),
-        decoration: LunaCardDecoration(
-          uri: widget.entry.bannerURI(),
-          headers: Database.currentProfileObject.getLidarr()['headers'],
-        ),
-        contentPadding: true,
-      );
+      ],
+      trailing: LunaIconButton(
+        icon: LunaIcons.SEARCH,
+        onPressed: () async => _search(),
+        onLongPress: () async => _interactiveSearch(),
+      ),
+      onTap: () async => _enterAlbum(),
+      onLongPress: () async => _enterArtist(),
+      posterUrl: widget.entry.albumCoverURI(),
+      posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
+      posterIsSquare: true,
+      posterPlaceholderIcon: LunaIcons.MUSIC,
+      backgroundUrl: widget.entry.bannerURI(),
+      backgroundHeaders: Database.currentProfileObject.getLidarr()['headers'],
+    );
+  }
 
   Future<void> _search() async {
     final _api = LidarrAPI.from(Database.currentProfileObject);

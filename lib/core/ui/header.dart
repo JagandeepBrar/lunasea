@@ -41,13 +41,16 @@ class LunaHeader extends StatelessWidget {
   }
 
   Widget _subtitle() {
-    return Text(
-      subtitle,
-      style: const TextStyle(
-        fontSize: LunaUI.FONT_SIZE_H4,
-        color: Colors.white70,
-        fontWeight: FontWeight.w300,
+    return Padding(
+      child: Text(
+        subtitle,
+        style: const TextStyle(
+          fontSize: LunaUI.FONT_SIZE_H4,
+          color: Colors.white70,
+          fontWeight: FontWeight.w300,
+        ),
       ),
+      padding: const EdgeInsets.only(bottom: LunaUI.DEFAULT_MARGIN_SIZE / 2),
     );
   }
 

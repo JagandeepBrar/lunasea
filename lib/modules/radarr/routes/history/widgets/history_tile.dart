@@ -19,7 +19,6 @@ class RadarrHistoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
       title: movieHistory ? history?.sourceTitle : title,
-      collapsedHeight: LunaListTile.heightFromSubtitleLines(2),
       collapsedSubtitles: [
         TextSpan(
           text: [

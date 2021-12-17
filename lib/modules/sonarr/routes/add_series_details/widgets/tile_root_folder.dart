@@ -9,13 +9,15 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'sonarr.RootFolder'.tr()),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'sonarr.RootFolder'.tr(),
+      body: [
+        TextSpan(
           text: context.watch<SonarrSeriesAddDetailsState>().rootFolder?.path ??
-              LunaUI.TEXT_EMDASH),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              LunaUI.TEXT_EMDASH,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => _onTap(context),
     );
   }

@@ -35,10 +35,10 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: LunaColours.primary,
       primaryColor: LunaColours.secondary,
-      highlightColor: LunaColours.splash.withOpacity(0.15),
+      highlightColor: LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       cardColor: LunaColours.secondary,
-      hoverColor: LunaColours.accent.withOpacity(0.15),
-      splashColor: LunaColours.accent.withOpacity(0.30),
+      hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
       dialogBackgroundColor: LunaColours.secondary,
       toggleableActiveColor: LunaColours.accent,
       iconTheme: const IconThemeData(
@@ -68,10 +68,10 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: Colors.black,
       primaryColor: Colors.black,
-      highlightColor: LunaColours.splash.withOpacity(0.15),
+      highlightColor: LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       cardColor: Colors.black,
-      hoverColor: LunaColours.accent.withOpacity(0.15),
-      splashColor: LunaColours.accent.withOpacity(0.30),
+      hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
       dialogBackgroundColor: Colors.black,
       toggleableActiveColor: LunaColours.accent,
       iconTheme: const IconThemeData(
@@ -121,7 +121,7 @@ class LunaTheme {
     return TextButtonThemeData(
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all<Color>(
-          LunaColours.splash.withOpacity(0.30),
+          LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH),
         ),
       ),
     );

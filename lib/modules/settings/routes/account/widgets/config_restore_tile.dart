@@ -20,14 +20,11 @@ class _State extends State<SettingsAccountRestoreConfigurationTile> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.RestoreFromCloud'.tr()),
-      subtitle: LunaText.subtitle(
-        text: 'settings.RestoreFromCloudDescription'.tr(),
-      ),
+    return LunaBlock(
+      title: 'settings.RestoreFromCloud'.tr(),
+      body: [TextSpan(text: 'settings.RestoreFromCloudDescription'.tr())],
       trailing: LunaIconButton(
-        icon: Icons.cloud_download_rounded,
+        icon: LunaIcons.CLOUD_DOWNLOAD,
         loadingState: _loadingState,
       ),
       onTap: () async => _restore(context),

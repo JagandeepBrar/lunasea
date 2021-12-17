@@ -25,7 +25,6 @@ class SettingsSystemLogTile extends StatelessWidget {
           ),
         ),
       ],
-      collapsedHeight: LunaListTile.heightFromSubtitleLines(2),
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: log.type.name.toUpperCase(),

@@ -9,6 +9,7 @@ class CalendarRadarrData extends CalendarData {
   String fileQualityProfile;
   int year;
   int runtime;
+  String studio;
 
   CalendarRadarrData({
     @required int id,
@@ -17,6 +18,7 @@ class CalendarRadarrData extends CalendarData {
     @required this.fileQualityProfile,
     @required this.year,
     @required this.runtime,
+    @required this.studio,
   }) : super(id, title);
 
   @override
@@ -27,6 +29,8 @@ class CalendarRadarrData extends CalendarData {
           TextSpan(text: year.toString()),
           TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
           TextSpan(text: runtime.lunaRuntime()),
+          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: studio),
         ],
       ),
       const TextSpan(text: ''),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class LunaBlock extends StatelessWidget {
+  static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 4.0;
+
   final bool disabled;
   final String title;
   final Color titleColor;
@@ -11,6 +14,12 @@ class LunaBlock extends StatelessWidget {
   final int customBodyMaxLines;
   final List<TextSpan> body;
 
+  /// Icons that lead the body lines. If defined, then the length of this list
+  /// must match the length of [body]. If a specific line does not need a
+  /// leading icon, pass in null.
+  final List<IconData> bodyLeadingIcons;
+  final Color bodyLeadingIconsColor;
+
   final Widget leading;
   final Widget trailing;
   final Widget bottom;
@@ -19,7 +28,7 @@ class LunaBlock extends StatelessWidget {
   final Function onTap;
   final Function onLongPress;
 
-  final String posterPlaceholder;
+  final IconData posterPlaceholderIcon;
   final String posterUrl;
   final Map posterHeaders;
   final bool posterIsSquare;
@@ -32,10 +41,12 @@ class LunaBlock extends StatelessWidget {
     @required this.title,
     this.titleColor = Colors.white,
     this.body,
+    this.bodyLeadingIcons,
+    this.bodyLeadingIconsColor = LunaColours.accent,
     this.bottom,
-    this.bottomHeight = LunaListTile.SUBTITLE_HEIGHT,
+    this.bottomHeight = SUBTITLE_HEIGHT,
     this.customBodyMaxLines,
-    this.posterPlaceholder,
+    this.posterPlaceholderIcon,
     this.posterUrl,
     this.posterHeaders = const {},
     this.posterIsSquare = false,
@@ -50,7 +61,7 @@ class LunaBlock extends StatelessWidget {
   static double calculateItemExtent(
     int subtitleLines, {
     bool hasBottom = false,
-    double bottomHeight = LunaListTile.SUBTITLE_HEIGHT,
+    double bottomHeight = SUBTITLE_HEIGHT,
   }) {
     double height = calculateItemHeight(
       subtitleLines,
@@ -63,12 +74,9 @@ class LunaBlock extends StatelessWidget {
   static double calculateItemHeight(
     int subtitleLines, {
     bool hasBottom = false,
-    double bottomHeight = LunaListTile.SUBTITLE_HEIGHT,
+    double bottomHeight = SUBTITLE_HEIGHT,
   }) {
-    double height = LunaListTile.heightFromSubtitleLines(
-      subtitleLines,
-      alwaysAddSpacer: hasBottom,
-    );
+    double height = LunaListTile.heightFromSubtitleLines(subtitleLines);
     if (hasBottom) height += bottomHeight;
     return height;
   }
@@ -89,10 +97,19 @@ class LunaBlock extends StatelessWidget {
     return LunaCard(
       context: context,
       child: InkWell(
-        child: Row(
+        child: Stack(
           children: [
-            _poster(_height),
-            _tile(context, _height),
+            if (backgroundUrl?.isNotEmpty ?? false)
+              _fadeInBackground(context, _height),
+            Opacity(
+              opacity: disabled ? LunaUI.OPACITY_DISABLED : 1.0,
+              child: Row(
+                children: [
+                  _poster(context, _height),
+                  _tile(context, _height),
+                ],
+              ),
+            ),
           ],
         ),
         mouseCursor: onTap != null || onLongPress != null
@@ -102,38 +119,51 @@ class LunaBlock extends StatelessWidget {
         onLongPress: onLongPress,
       ),
       height: _height,
-      decoration: _decoration(),
     );
   }
 
-  Decoration _decoration() {
-    if (backgroundUrl == null) {
-      return null;
-    }
+  Widget _fadeInBackground(BuildContext context, double _height) {
+    int _percent = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int;
+    if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
-    return LunaCardDecoration(
-      uri: backgroundUrl,
-      headers: backgroundHeaders,
+    double _opacity = _percent / 100;
+    if (disabled) _opacity *= LunaUI.OPACITY_DISABLED;
+
+    return Opacity(
+      opacity: _opacity,
+      child: FadeInImage(
+        placeholder: MemoryImage(kTransparentImage),
+        height: _height,
+        width: MediaQuery.of(context).size.width,
+        fadeInDuration: const Duration(
+          milliseconds: LunaUI.ANIMATION_SPEED_IMAGES,
+        ),
+        fit: BoxFit.cover,
+        image: NetworkImage(
+          backgroundUrl,
+          headers: backgroundHeaders?.cast<String, String>(),
+        ),
+        imageErrorBuilder: (context, error, stack) => SizedBox(
+          height: _height,
+          width: MediaQuery.of(context).size.width,
+        ),
+      ),
     );
   }
 
-  Widget _poster(double height) {
-    if (posterUrl == null && posterPlaceholder == null) {
+  Widget _poster(BuildContext context, double height) {
+    if (posterUrl == null && posterPlaceholderIcon == null) {
       return const SizedBox(width: 0.0, height: 0.0);
     }
-
-    assert(
-      posterPlaceholder != null,
-      'Poster placeholder required when defining a poster URL',
-    );
 
     double _dimension = height - LunaUI.DEFAULT_MARGIN_SIZE;
     return Padding(
       padding: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       child: LunaNetworkImage(
+        context: context,
         url: posterUrl ?? '',
         headers: posterHeaders,
-        placeholderAsset: posterPlaceholder,
+        placeholderIcon: posterPlaceholderIcon,
         height: _dimension,
         width: _dimension / (posterIsSquare ? 1.0 : 1.5),
       ),
@@ -149,7 +179,7 @@ class LunaBlock extends StatelessWidget {
           child: LunaText.title(
             text: title,
             color: titleColor,
-            darken: disabled,
+            overflow: TextOverflow.visible,
             maxLines: 1,
           ),
         ),
@@ -166,7 +196,14 @@ class LunaBlock extends StatelessWidget {
 
   Widget _subtitle() {
     int maxLines = customBodyMaxLines ?? 1;
-    double height = LunaListTile.SUBTITLE_HEIGHT * maxLines;
+    double height = SUBTITLE_HEIGHT * maxLines;
+
+    if (bodyLeadingIcons != null) {
+      assert(
+        bodyLeadingIcons.length == body?.length,
+        'bodyLeadingIcons and body should be the same size',
+      );
+    }
 
     Widget _wrapper(List<Widget> children) {
       return Expanded(
@@ -179,23 +216,49 @@ class LunaBlock extends StatelessWidget {
       );
     }
 
-    Widget _entry(TextSpan textSpan) {
+    Widget _entry(TextSpan textSpan, IconData icon) {
       return SizedBox(
         height: height,
-        child: SingleChildScrollView(
-          scrollDirection: maxLines > 1 ? Axis.vertical : Axis.horizontal,
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: LunaUI.FONT_SIZE_H3,
-                color: disabled ? LunaColours.white30 : LunaColours.white70,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (icon != null)
+              Padding(
+                child: Container(
+                  child: Icon(
+                    icon,
+                    color: bodyLeadingIconsColor,
+                    size: LunaUI.FONT_SIZE_H2,
+                  ),
+                  height: SUBTITLE_HEIGHT * maxLines,
+                  width: SUBTITLE_HEIGHT,
+                  alignment: Alignment.centerLeft,
+                ),
+                padding: const EdgeInsets.only(
+                  right: LunaUI.DEFAULT_MARGIN_SIZE / 4,
+                ),
               ),
-              children: [textSpan],
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: maxLines > 1 ? Axis.vertical : Axis.horizontal,
+                child: Container(
+                  child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: LunaUI.FONT_SIZE_H3,
+                        color: LunaColours.grey,
+                      ),
+                      children: [textSpan],
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: maxLines == 1 ? false : true,
+                    maxLines: maxLines,
+                  ),
+                  alignment: Alignment.center,
+                ),
+              ),
             ),
-            overflow: maxLines == 1 ? TextOverflow.clip : TextOverflow.fade,
-            softWrap: maxLines == 1 ? false : true,
-            maxLines: maxLines,
-          ),
+          ],
         ),
       );
     }
@@ -204,9 +267,11 @@ class LunaBlock extends StatelessWidget {
 
     if (body?.isNotEmpty ?? false) {
       if (customBodyMaxLines != null) {
-        _children.add(_entry(body[0]));
+        _children.add(_entry(body[0], bodyLeadingIcons?.elementAtOrNull(0)));
       } else {
-        _children.addAll(body.map(_entry));
+        for (int i = 0; i < body.length; i++) {
+          _children.add(_entry(body[i], bodyLeadingIcons?.elementAtOrNull(i)));
+        }
       }
     }
 

@@ -56,11 +56,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           },
         ),
         SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT.banner(),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Getting Started'),
-          subtitle: LunaText.subtitle(text: 'Information & Setup Instructions'),
-          trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+        LunaBlock(
+          title: 'Getting Started',
+          body: const [TextSpan(text: 'Information & Setup Instructions')],
+          trailing: const LunaIconButton.arrow(),
           onTap:
               LunaLinks.NOTIFICATIONS_GETTING_STARTED.url.lunaOpenGenericLink,
         ),

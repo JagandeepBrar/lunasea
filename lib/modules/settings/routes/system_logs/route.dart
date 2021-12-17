@@ -51,22 +51,19 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return LunaListView(controller: scrollController, children: [
-      LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'All Logs'),
-        subtitle: LunaText.subtitle(text: 'View Logs of All Types'),
-        trailing: LunaIconButton(icon: Icons.developer_mode_rounded),
+      LunaBlock(
+        title: 'All Logs',
+        body: const [TextSpan(text: 'View Logs of All Types')],
+        trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
         onTap: () async => _viewLogs('all'),
       ),
       ...List.generate(
         LunaLogType.values.length,
         (index) {
           if (LunaLogType.values[index].enabled)
-            return LunaListTile(
-              context: context,
-              title: LunaText.title(text: LunaLogType.values[index].name),
-              subtitle: LunaText.subtitle(
-                  text: LunaLogType.values[index].description),
+            return LunaBlock(
+              title: LunaLogType.values[index].name,
+              body: [TextSpan(text: LunaLogType.values[index].description)],
               trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
               onTap: () async => _viewLogs(LunaLogType.values[index].key),
             );
@@ -82,7 +79,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _clearLogs() {
     return LunaButton.text(
       text: 'Clear',
-      icon: Icons.delete_rounded,
+      icon: LunaIcons.DELETE,
       color: LunaColours.red,
       onTap: () async {
         bool result = await SettingsDialogs().clearLogs(context);
@@ -101,7 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return Builder(
       builder: (context) => LunaButton.text(
         text: 'Export',
-        icon: Icons.file_download_rounded,
+        icon: LunaIcons.DOWNLOAD,
         onTap: () async {
           showLunaInfoSnackBar(
             title: 'Exporting Logs',

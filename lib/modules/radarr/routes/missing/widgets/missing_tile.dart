@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMissingTile extends StatefulWidget {
-  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
+  static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -25,10 +25,10 @@ class _State extends State<RadarrMissingTile> {
       selector: (_, state) => state.missing,
       builder: (context, missing, _) => LunaBlock(
         backgroundUrl:
-            context.read<RadarrState>().getPosterURL(widget.movie.id),
+            context.read<RadarrState>().getFanartURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
+        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
         disabled: !widget.movie.monitored,
         title: widget.movie.title,
         body: [

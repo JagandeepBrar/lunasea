@@ -12,18 +12,20 @@ class SonarrSeriesDetailsOverviewDescriptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
-      posterPlaceholder: LunaAssets.blankVideo,
+    return LunaBlock(
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundUrl: context.read<SonarrState>().getFanartURL(series.id),
       posterUrl: context.read<SonarrState>().getPosterURL(series.id),
       posterHeaders: context.read<SonarrState>().headers,
       title: series.title,
-      subtitle1: TextSpan(
-        text: series.overview == null || series.overview.isEmpty
-            ? 'No summary is available.\n\n\n'
-            : '${series.overview}\n\n\n',
-      ),
-      subtitle1MaxLines: 3,
+      body: [
+        TextSpan(
+          text: series.overview == null || series.overview.isEmpty
+              ? 'sonarr.NoSummaryAvailable'.tr()
+              : series.overview,
+        ),
+      ],
+      customBodyMaxLines: 3,
       onTap: () async => LunaDialogs().textPreview(
         context,
         series.title,

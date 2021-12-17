@@ -3,6 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddSearchResultTile extends StatefulWidget {
+  static final double extent = LunaBlock.calculateItemExtent(
+    1,
+    hasBottom: true,
+    bottomHeight: LunaBlock.SUBTITLE_HEIGHT * 2,
+  );
+
   final SonarrSeries series;
   final bool onTapShowOverview;
   final bool exists;
@@ -23,17 +29,17 @@ class SonarrSeriesAddSearchResultTile extends StatefulWidget {
 class _State extends State<SonarrSeriesAddSearchResultTile> {
   @override
   Widget build(BuildContext context) {
-    return LunaFourLineCardWithPoster(
+    return LunaBlock(
       backgroundUrl: widget.series.remotePoster,
       posterUrl: widget.series.remotePoster,
       posterHeaders: context.watch<SonarrState>().headers,
-      posterPlaceholder: LunaAssets.blankVideo,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       title: widget.series.title,
-      darken: widget.exists,
       titleColor: widget.isExcluded ? LunaColours.red : Colors.white,
-      subtitle1: _subtitle1(),
-      subtitle2: _subtitle2(),
-      subtitle2MaxLines: 2,
+      disabled: widget.exists,
+      body: [_subtitle1()],
+      bottom: _subtitle2(),
+      bottomHeight: LunaBlock.SUBTITLE_HEIGHT * 2,
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
@@ -49,14 +55,23 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     ]);
   }
 
-  TextSpan _subtitle2() => TextSpan(
-        style: TextStyle(
-          fontSize: LunaUI.FONT_SIZE_H3,
-          fontStyle: FontStyle.italic,
-          color: widget.exists ? Colors.white30 : Colors.white70,
+  Widget _subtitle2() {
+    return SizedBox(
+      height: LunaBlock.SUBTITLE_HEIGHT * 2,
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            fontStyle: FontStyle.italic,
+            fontSize: LunaUI.FONT_SIZE_H3,
+            color: LunaColours.grey,
+          ),
+          text: widget.series.lunaOverview,
         ),
-        text: '${widget.series.lunaOverview}\n',
-      );
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
+    );
+  }
 
   Future<void> _onTap() async {
     if (widget.onTapShowOverview) {

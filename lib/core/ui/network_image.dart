@@ -1,36 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class LunaNetworkImage extends ClipRRect {
   LunaNetworkImage({
     Key key,
-    double height,
-    double width,
+    @required BuildContext context,
+    @required double height,
+    @required double width,
     String url,
-    @required String placeholderAsset,
+    IconData placeholderIcon,
+    @Deprecated('Use placeholderIcon') String placeholderAsset,
     Map headers,
-    bool roundCorners = true,
   }) : super(
           key: key,
           child: SizedBox(
             child: Stack(
-              fit: StackFit.expand,
+              alignment: Alignment.center,
               children: [
-                Image.asset(
-                  placeholderAsset,
+                Container(
                   height: height,
                   width: width,
-                  isAntiAlias: true,
+                  child: Center(
+                    child: placeholderIcon != null
+                        ? Icon(
+                            placeholderIcon,
+                            color: LunaColours.accent,
+                            size: height / 3,
+                          )
+                        : null,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                    border: LunaUI.shouldUseBorder
+                        ? Border.all(color: Colors.white12)
+                        : null,
+                  ),
                 ),
-                if (url != null && url.isNotEmpty)
+                if (url?.isNotEmpty ?? false)
                   FadeInImage(
                     height: height,
                     width: width,
                     fadeInDuration: const Duration(
-                      milliseconds: LunaUI.ANIMATION_IMAGE_FADE_IN_SPEED,
+                      milliseconds: LunaUI.ANIMATION_SPEED_IMAGES,
                     ),
                     fadeOutDuration: const Duration(milliseconds: 1),
-                    placeholder: AssetImage(placeholderAsset),
+                    placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
                     image: NetworkImage(
                       url,
@@ -47,11 +63,6 @@ class LunaNetworkImage extends ClipRRect {
             width: width,
           ),
           clipBehavior: Clip.antiAlias,
-          borderRadius:
-              roundCorners ? BorderRadius.circular(LunaUI.BORDER_RADIUS) : null,
-        ) {
-    // assert(height != null);
-    // assert(width != null);
-    assert(placeholderAsset != null);
-  }
+          borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+        );
 }

@@ -28,11 +28,12 @@ class TautulliStatisticsUserTile extends StatelessWidget {
       );
 
   Widget _poster(BuildContext context) => LunaNetworkImage(
+        context: context,
         url: context
             .watch<TautulliState>()
             .getImageURLFromPath(data['user_thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholderAsset: LunaAssets.blankUser,
+        placeholderIcon: LunaIcons.USER,
         height: _imageDimension,
         width: _imageDimension / 1.5,
       );

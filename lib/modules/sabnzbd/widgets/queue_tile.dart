@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class SABnzbdQueueTile extends StatefulWidget {
   final int index;
@@ -24,40 +23,18 @@ class SABnzbdQueueTile extends StatefulWidget {
 
 class _State extends State<SABnzbdQueueTile> {
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title: LunaText.title(
-          text: widget.data.name,
-          darken: widget.data.isPaused,
-        ),
-        height: LunaListTile.heightFromSubtitleLines(2),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              child: LinearPercentIndicator(
-                percent: min(1.0, max(0, widget.data.percentageDone / 100)),
-                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                progressColor: widget.data.isPaused
-                    ? LunaColours.accent.withOpacity(0.30)
-                    : LunaColours.accent,
-                backgroundColor: widget.data.isPaused
-                    ? LunaColours.accent.withOpacity(0.05)
-                    : LunaColours.accent.withOpacity(0.15),
-                lineHeight: 4.0,
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-            ),
-            LunaText.subtitle(
-              text: widget.data.subtitle,
-              darken: widget.data.isPaused,
-            ),
-          ],
-        ),
-        trailing: LunaReorderableListDragger(index: widget.index),
-        onTap: _handlePopup,
-      );
+  Widget build(BuildContext context) {
+    return LunaBlock(
+      title: widget.data.name,
+      body: [TextSpan(text: widget.data.subtitle)],
+      bottomHeight: LunaLinearPercentIndicator.height,
+      bottom: LunaLinearPercentIndicator(
+        percent: min(1.0, max(0, widget.data.percentageDone / 100)),
+      ),
+      trailing: LunaReorderableListViewDragger(index: widget.index),
+      onTap: _handlePopup,
+    );
+  }
 
   Future<void> _handlePopup() async {
     _Helper _helper = _Helper(widget.queueContext, widget.data, widget.refresh);

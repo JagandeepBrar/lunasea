@@ -72,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       subtitle: LunaText.subtitle(
         text: (host ?? '').isEmpty ? 'lunasea.NotSet'.tr() : host,
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
@@ -97,7 +97,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             ? 'lunasea.NotSet'.tr()
             : LunaUI.TEXT_OBFUSCATED_PASSWORD,
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
@@ -169,7 +169,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       subtitle: LunaText.subtitle(
         text: 'settings.CustomHeadersDescription'.tr(),
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationLidarrHeadersRouter().navigateTo(context);
       },

@@ -123,6 +123,7 @@ class CalendarAPI {
                   : '',
               year: entry['year'] ?? 0,
               runtime: entry['runtime'] ?? 0,
+              studio: entry['studio'] ?? LunaUI.TEXT_EMDASH,
             ));
             map[release] = day;
           }

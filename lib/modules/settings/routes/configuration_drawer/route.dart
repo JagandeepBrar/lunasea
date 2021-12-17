@@ -82,11 +82,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                   context: context,
                   title: LunaText.title(
                     text: _modules[index].name,
-                    darken: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
                   ),
                   subtitle: LunaText.subtitle(
                     text: _modules[index].description,
-                    darken: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
                   ),
                   leading: LunaIconButton(
                     icon: _modules[index].icon,
@@ -96,7 +94,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                   ),
                   trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
                       ? null
-                      : LunaReorderableListDragger(index: index),
+                      : LunaReorderableListViewDragger(index: index),
                 ),
               );
             },

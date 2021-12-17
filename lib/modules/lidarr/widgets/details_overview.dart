@@ -31,7 +31,6 @@ class _State extends State<LidarrDetailsOverview>
               ? 'No summary is available.'
               : widget?.data?.overview,
           uri: widget?.data?.posterURI() ?? '',
-          fallbackImage: LunaAssets.blankUser,
           squareImage: true,
           headers: Database.currentProfileObject.getLidarr()['headers'],
         ),

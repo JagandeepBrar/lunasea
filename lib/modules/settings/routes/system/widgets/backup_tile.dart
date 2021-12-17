@@ -10,11 +10,10 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Backup to Device'),
-      subtitle: LunaText.subtitle(text: 'Backup Configuration Data'),
-      trailing: LunaIconButton(icon: Icons.upload_rounded),
+    return LunaBlock(
+      title: 'Backup to Device',
+      body: const [TextSpan(text: 'Backup Configuration Data')],
+      trailing: const LunaIconButton(icon: Icons.upload_rounded),
       onTap: () async => _backup(context),
     );
   }

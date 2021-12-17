@@ -23,7 +23,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
       title: widget.data.title,
       disabled: !widget.data.monitored,
       posterHeaders: Database.currentProfileObject.getLidarr()['headers'] ?? {},
-      posterPlaceholder: LunaAssets.blankAudio,
+      posterPlaceholderIcon: LunaIcons.MUSIC,
       posterIsSquare: true,
       posterUrl: widget.data.albumCoverURI(),
       body: [
@@ -31,9 +31,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
         TextSpan(
           text: widget.data.releaseDateString,
           style: TextStyle(
-            color: widget.data.monitored
-                ? LunaColours.accent
-                : LunaColours.accent.withOpacity(0.30),
+            color: LunaColours.accent.enabled(widget.data.monitored),
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),

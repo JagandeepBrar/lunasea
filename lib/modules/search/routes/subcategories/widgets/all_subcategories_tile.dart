@@ -9,19 +9,19 @@ class SearchSubcategoryAllTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'search.AllSubcategories'.tr()),
-      subtitle: LunaText.subtitle(
-          text: context.read<SearchState>().activeCategory?.name ??
-              'lunasea.Unknown'.tr()),
-      trailing: LunaIconButton(
-          icon: context.read<SearchState>().activeCategory?.icon,
-          color: LunaColours().byListIndex(0)),
-      onTap: () async {
-        context.read<SearchState>().activeSubcategory = null;
-        SearchResultsRouter().navigateTo(context);
-      },
+    return Selector<SearchState, NewznabCategoryData>(
+      selector: (_, state) => state.activeCategory,
+      builder: (context, category, _) => LunaBlock(
+        title: 'search.AllSubcategories'.tr(),
+        body: [TextSpan(text: category?.name ?? 'lunasea.Unknown'.tr())],
+        trailing: LunaIconButton(
+            icon: context.read<SearchState>().activeCategory?.icon,
+            color: LunaColours().byListIndex(0)),
+        onTap: () async {
+          context.read<SearchState>().activeSubcategory = null;
+          SearchResultsRouter().navigateTo(context);
+        },
+      ),
     );
   }
 }

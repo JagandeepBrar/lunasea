@@ -15,8 +15,6 @@ class LunaTableContent extends StatelessWidget {
   final double spacerSize;
   final TextAlign titleAlign;
   final TextAlign bodyAlign;
-  final Color titleColor;
-  final Color bodyColor;
   final _Type type;
 
   const LunaTableContent._({
@@ -29,8 +27,6 @@ class LunaTableContent extends StatelessWidget {
     this.titleFlex = 5,
     this.bodyFlex = 10,
     this.spacerSize = LunaUI.DEFAULT_MARGIN_SIZE,
-    this.titleColor = Colors.white70,
-    this.bodyColor = Colors.white,
     @required this.type,
   });
 
@@ -53,8 +49,6 @@ class LunaTableContent extends StatelessWidget {
     TextAlign bodyAlign = TextAlign.start,
     int titleFlex = 1,
     int bodyFlex = 2,
-    Color titleColor = Colors.white70,
-    Color bodyColor = Colors.white,
   }) =>
       LunaTableContent._(
         key: key,
@@ -65,8 +59,6 @@ class LunaTableContent extends StatelessWidget {
         bodyAlign: bodyAlign,
         titleFlex: titleFlex,
         bodyFlex: bodyFlex,
-        titleColor: titleColor,
-        bodyColor: bodyColor,
         type: _Type.CONTENT,
       );
 
@@ -88,8 +80,8 @@ class LunaTableContent extends StatelessWidget {
         child: Text(
           title?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
           textAlign: titleAlign,
-          style: TextStyle(
-            color: titleColor,
+          style: const TextStyle(
+            color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_H3,
           ),
         ),
@@ -110,8 +102,8 @@ class LunaTableContent extends StatelessWidget {
           child: Text(
             body ?? LunaUI.TEXT_EMDASH,
             textAlign: bodyAlign,
-            style: TextStyle(
-              color: bodyColor,
+            style: const TextStyle(
+              color: LunaColours.white,
               fontSize: LunaUI.FONT_SIZE_H3,
             ),
           ),

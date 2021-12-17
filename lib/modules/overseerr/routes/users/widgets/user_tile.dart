@@ -12,17 +12,19 @@ class OverseerrUserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaThreeLineCardWithPoster(
+    return LunaBlock(
       title: user.lunaDisplayName(),
-      subtitle1: TextSpan(text: user.lunaEmail()),
-      subtitle2: TextSpan(
-        text: user.lunaAmountOfRequests(),
-        style: const TextStyle(
-          color: LunaColours.accent,
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      body: [
+        TextSpan(text: user.lunaEmail()),
+        TextSpan(
+          text: user.lunaAmountOfRequests(),
+          style: const TextStyle(
+            color: LunaColours.accent,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
         ),
-      ),
-      posterPlaceholder: LunaAssets.blankUser,
+      ],
+      posterPlaceholderIcon: LunaIcons.USER,
       posterHeaders: context.read<OverseerrState>().headers,
       posterUrl: user.avatar,
       posterIsSquare: true,

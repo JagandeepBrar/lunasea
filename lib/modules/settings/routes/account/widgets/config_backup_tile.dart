@@ -20,14 +20,11 @@ class _State extends State<SettingsAccountBackupConfigurationTile> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.BackupToCloud'.tr()),
-      subtitle: LunaText.subtitle(
-        text: 'settings.BackupToCloudDescription'.tr(),
-      ),
+    return LunaBlock(
+      title: 'settings.BackupToCloud'.tr(),
+      body: [TextSpan(text: 'settings.BackupToCloudDescription'.tr())],
       trailing: LunaIconButton(
-        icon: Icons.cloud_upload_rounded,
+        icon: LunaIcons.CLOUD_UPLOAD,
         loadingState: _loadingState,
       ),
       onTap: () async => _backup(context),

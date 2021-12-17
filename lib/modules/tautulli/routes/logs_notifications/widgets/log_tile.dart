@@ -12,43 +12,27 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: notification.agentName),
-      subtitle: _subtitle(),
+    return LunaBlock(
+      title: notification.agentName,
+      body: _body(),
       trailing: _trailing(),
-      contentPadding: true,
-      height: LunaListTile.heightFromSubtitleLines(4),
     );
   }
 
-  Widget _subtitle() => RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_H3,
-          ),
-          children: [
-            TextSpan(text: '${notification.notifyAction}\n'),
-            TextSpan(text: '${notification.subjectText}\n'),
-            TextSpan(text: '${notification.bodyText}\n'),
-            TextSpan(
-              text: LunaDatabaseValue.USE_24_HOUR_TIME.data
-                  ? DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} HH:mm')
-                      .format(notification.timestamp)
-                  : DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} hh:mm a')
-                      .format(notification.timestamp),
-              style: const TextStyle(
-                color: LunaColours.accent,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-            ),
-          ],
+  List<TextSpan> _body() {
+    return [
+      TextSpan(text: notification.notifyAction),
+      TextSpan(text: notification.subjectText),
+      TextSpan(text: notification.bodyText),
+      TextSpan(
+        text: notification.timestamp.lunaDateTimeReadable(),
+        style: const TextStyle(
+          color: LunaColours.accent,
+          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
-        softWrap: false,
-        overflow: TextOverflow.fade,
-        maxLines: 4,
-      );
+      ),
+    ];
+  }
 
   Widget _trailing() => Column(
         children: [
@@ -56,7 +40,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
             icon: notification.success
                 ? Icons.check_circle_rounded
                 : Icons.cancel_rounded,
-            color: notification.success ? Colors.white : LunaColours.red,
+            color: notification.success ? LunaColours.white : LunaColours.red,
           ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

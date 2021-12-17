@@ -77,7 +77,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       context: context,
       title: LunaText.title(text: 'Calendar Settings'),
       subtitle: LunaText.subtitle(text: 'Customize the Unified Calendar'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationDashboardCalendarSettingsRouter()
             .navigateTo(context);

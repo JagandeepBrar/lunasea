@@ -25,7 +25,6 @@ class _State extends State<RadarrReleasesTile> {
         _subtitle1(),
         _subtitle2(),
       ],
-      collapsedHeight: LunaListTile.heightFromSubtitleLines(2),
       collapsedTrailing: _trailing(),
       expandedHighlightedNodes: _highlightedNodes(),
       expandedTableContent: _tableContent(),

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrUpcomingTile extends StatefulWidget {
-  static final itemExtent = LunaFourLineCardWithPoster.itemExtent;
+  static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -33,9 +33,9 @@ class _State extends State<RadarrUpcomingTile> {
           ],
           trailing: _trailing(),
           backgroundUrl:
-              context.read<RadarrState>().getPosterURL(widget.movie.id),
+              context.read<RadarrState>().getFanartURL(widget.movie.id),
           posterHeaders: context.read<RadarrState>().headers,
-          posterPlaceholder: LunaAssets.blankVideo,
+          posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
           posterIsSquare: false,
           posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
           onTap: _onTap,

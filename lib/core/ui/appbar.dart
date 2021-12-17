@@ -211,9 +211,8 @@ class _State extends State<LunaAppBar> {
     if (widget.hideLeading ?? false) return null;
     if (widget.useDrawer)
       return SizedBox(
-        child: IconButton(
-          icon: const Icon(Icons.menu_rounded),
-          iconSize: LunaUI.ICON_SIZE_APPBAR,
+        child: LunaIconButton.appBar(
+          icon: Icons.menu_rounded,
           onPressed: () async {
             HapticFeedback.lightImpact();
             if (Scaffold.of(context).hasDrawer) {
@@ -222,16 +221,15 @@ class _State extends State<LunaAppBar> {
             }
           },
         ),
-        height: 55.0,
+        height: kToolbarHeight,
       );
     return SizedBox(
-      child: LunaIconButton(
+      child: LunaIconButton.appBar(
         icon: Icons.arrow_back_ios_new_rounded,
-        iconSize: LunaUI.ICON_SIZE_APPBAR,
         onPressed: () async => Navigator.of(context).lunaSafetyPop(),
         onLongPress: () async => Navigator.of(context).lunaPopToFirst(),
       ),
-      height: 55.0,
+      height: kToolbarHeight,
     );
   }
 

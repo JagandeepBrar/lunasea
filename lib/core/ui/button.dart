@@ -46,11 +46,11 @@ class LunaButton extends Card {
           ),
           margin: margin,
           color: backgroundColor != null
-              ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+              ? backgroundColor.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
               : LunaTheme.isAMOLEDTheme
-                  ? Colors.black.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+                  ? Colors.black.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
                   : LunaColours.primary
-                      .withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
+                      .withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND),
           shape: backgroundColor != null
               ? LunaShapeBorder.rounded()
               : LunaUI.shapeBorder,

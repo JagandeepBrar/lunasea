@@ -23,16 +23,12 @@ class _State extends State<SonarrEpisodeTile> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(
-        text: widget.episode.title,
-        darken: !widget.episode.monitored,
-      ),
-      subtitle: _collapsedSubtitle(),
-      leading: _leading(context),
-      trailing: _trailing(context),
-      contentPadding: true,
+    return LunaBlock(
+      disabled: !widget.episode.monitored,
+      title: widget.episode.title,
+      body: _body(),
+      leading: _leading(),
+      trailing: _trailing(),
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
@@ -59,65 +55,43 @@ class _State extends State<SonarrEpisodeTile> {
     }
   }
 
-  Widget _collapsedSubtitle() {
-    return RichText(
-      text: TextSpan(
-        style: TextStyle(
-          color: widget.episode.monitored ? Colors.white70 : Colors.white30,
-          fontSize: LunaUI.FONT_SIZE_H3,
+  List<TextSpan> _body() {
+    return [
+      TextSpan(text: widget.episode.lunaAirDate()),
+      TextSpan(
+        text: widget.episode.lunaDownloadedQuality(
+          widget.episodeFile,
+          widget.queueRecords?.isNotEmpty ?? false
+              ? widget.queueRecords.first
+              : null,
         ),
-        children: [
-          TextSpan(text: widget.episode.lunaAirDate()),
-          const TextSpan(text: '\n'),
-          TextSpan(
-            text: widget.episode.lunaDownloadedQuality(
-              widget.episodeFile,
-              widget.queueRecords?.isNotEmpty ?? false
-                  ? widget.queueRecords.first
-                  : null,
-            ),
-            style: TextStyle(
-              color: widget.episode.monitored
-                  ? widget.episode.lunaDownloadedQualityColor(
-                      widget.episodeFile,
-                      widget.queueRecords?.isNotEmpty ?? false
-                          ? widget.queueRecords.first
-                          : null,
-                    )
-                  : widget.episode
-                      .lunaDownloadedQualityColor(
-                        widget.episodeFile,
-                        widget.queueRecords?.isNotEmpty ?? false
-                            ? widget.queueRecords.first
-                            : null,
-                      )
-                      .withOpacity(0.30),
-              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-            ),
+        style: TextStyle(
+          color: widget.episode.lunaDownloadedQualityColor(
+            widget.episodeFile,
+            widget.queueRecords?.isNotEmpty ?? false
+                ? widget.queueRecords.first
+                : null,
           ),
-        ],
+          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+        ),
       ),
-      maxLines: 2,
-      softWrap: false,
-      overflow: TextOverflow.fade,
-    );
+    ];
   }
 
-  Widget _leading(BuildContext context) {
+  Widget _leading() {
     return LunaIconButton(
       text: widget.episode.episodeNumber.toString(),
-      color: widget.episode.monitored ? Colors.white : Colors.white30,
+      textSize: LunaUI.FONT_SIZE_H4,
     );
   }
 
-  Widget _trailing(BuildContext context) {
+  Widget _trailing() {
     Future<void> setLoadingState(LunaLoadingState state) async {
       if (this.mounted) setState(() => _loadingState = state);
     }
 
     return LunaIconButton(
       icon: Icons.search_rounded,
-      color: widget.episode.monitored ? Colors.white : Colors.white30,
       loadingState: _loadingState,
       onPressed: () async {
         setLoadingState(LunaLoadingState.ACTIVE);

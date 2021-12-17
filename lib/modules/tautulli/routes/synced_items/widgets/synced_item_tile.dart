@@ -12,64 +12,66 @@ class TautulliSyncedItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: syncedItem.syncTitle),
-      subtitle: RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_H3,
+    return LunaBlock(
+      title: syncedItem.syncTitle,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
+      backgroundHeaders: context.watch<TautulliState>().headers,
+      backgroundUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
+            syncedItem?.ratingKey,
+            width: MediaQuery.of(context).size.width.truncate(),
           ),
-          children: [
-            TextSpan(
-              text:
-                  (syncedItem.state ?? 'Unknown').lunaCapitalizeFirstLetters(),
-              style: const TextStyle(
-                color: LunaColours.accent,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-            ),
-            const TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t'),
-            TextSpan(
-                text: (syncedItem.metadataType ?? 'Unknown')
-                    .lunaCapitalizeFirstLetters()),
-            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
-            TextSpan(
-              text: (syncedItem.itemCompleteCount ?? 0) == 1
-                  ? '1 Item'
-                  : '${(syncedItem.itemCompleteCount ?? 0)} Items',
-            ),
-            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
-            TextSpan(
-                text:
-                    (syncedItem.totalSize ?? 0).lunaBytesToString(decimals: 1)),
-            const TextSpan(text: '\n'),
-            TextSpan(text: syncedItem.user ?? 'Unknown User'),
-            const TextSpan(text: '\n'),
-            TextSpan(text: syncedItem.platform ?? 'Unknown Platform'),
-            const TextSpan(text: '\t${LunaUI.TEXT_BULLET}\t'),
-            TextSpan(text: syncedItem.deviceName ?? 'Unknown Device'),
-          ],
-        ),
-      ),
-      height: LunaListTile.heightFromSubtitleLines(3),
-      decoration: syncedItem.ratingKey != null
-          ? LunaCardDecoration(
-              uri: context.watch<TautulliState>().getImageURLFromRatingKey(
-                    syncedItem.ratingKey,
-                    width: MediaQuery.of(context).size.width.truncate(),
-                  ),
-              headers: context.watch<TautulliState>().headers,
-            )
-          : null,
       onTap: () async => _onTap(context),
-      contentPadding: true,
     );
   }
 
-  Future<void> _onTap(BuildContext context) async =>
-      TautulliMediaDetailsRouter().navigateTo(context,
-          ratingKey: syncedItem.ratingKey,
-          mediaType: TautulliMediaType.NULL.from(syncedItem.metadataType));
+  TextSpan _subtitle1() {
+    int _count = syncedItem.itemCompleteCount ?? 0;
+    int _size = syncedItem.totalSize ?? 0;
+    String _type = syncedItem.metadataType ?? 'lunasea.Unknown'.tr();
+
+    return TextSpan(
+      children: [
+        TextSpan(text: _type.lunaCapitalizeFirstLetters()),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: _count == 1 ? '1 Item' : '$_count Items'),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: _size.lunaBytesToString(decimals: 1)),
+      ],
+    );
+  }
+
+  TextSpan _subtitle2() {
+    return TextSpan(
+      children: [
+        TextSpan(text: syncedItem.user ?? 'Unknown User'),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: syncedItem.deviceName ?? 'Unknown Device'),
+        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: syncedItem.platform ?? 'Unknown Platform'),
+      ],
+    );
+  }
+
+  TextSpan _subtitle3() {
+    String _state = syncedItem.state ?? 'lunasea.Unknown'.tr();
+    return TextSpan(
+      text: _state.lunaCapitalizeFirstLetters(),
+      style: const TextStyle(
+        color: LunaColours.accent,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+    );
+  }
+
+  Future<void> _onTap(BuildContext context) async {
+    TautulliMediaDetailsRouter().navigateTo(
+      context,
+      ratingKey: syncedItem.ratingKey,
+      mediaType: TautulliMediaType.NULL.from(syncedItem.metadataType),
+    );
+  }
 }

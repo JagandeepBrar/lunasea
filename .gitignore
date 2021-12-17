@@ -49,10 +49,11 @@ coverage/
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
-/android/key.properties
+
+# Encrypted Files
 /android/app/google-services.json
 /android/key.jks
+/android/key.properties
 /ios/ExportOptions.plist
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
-/vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf

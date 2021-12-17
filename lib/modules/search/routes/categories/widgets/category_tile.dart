@@ -14,14 +14,13 @@ class SearchCategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: category.name ?? 'lunasea.Unknown'.tr()),
-      subtitle: LunaText.subtitle(
-        text: category.subcategoriesTitleList,
-      ),
+    return LunaBlock(
+      title: category.name ?? 'lunasea.Unknown'.tr(),
+      body: [TextSpan(text: category.subcategoriesTitleList)],
       trailing: LunaIconButton(
-          icon: category.icon, color: LunaColours().byListIndex(index)),
+        icon: category.icon,
+        color: LunaColours().byListIndex(index),
+      ),
       onTap: () async {
         context.read<SearchState>().activeCategory = category;
         SearchSubcategoriesRouter().navigateTo(context);

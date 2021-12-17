@@ -41,20 +41,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Logins'),
-          subtitle: LunaText.subtitle(text: 'Tautulli Login Logs'),
+        LunaBlock(
+          title: 'Logins',
+          body: const [TextSpan(text: 'Tautulli Login Logs')],
           trailing: LunaIconButton(
             icon: Icons.vpn_key_rounded,
             color: LunaColours().byListIndex(0),
           ),
           onTap: () async => TautulliLogsLoginsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Newsletters'),
-          subtitle: LunaText.subtitle(text: 'Tautulli Newsletter Logs'),
+        LunaBlock(
+          title: 'Newsletters',
+          body: const [TextSpan(text: 'Tautulli Newsletter Logs')],
           trailing: LunaIconButton(
             icon: Icons.email_rounded,
             color: LunaColours().byListIndex(1),
@@ -62,10 +60,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               TautulliLogsNewslettersRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Notifications'),
-          subtitle: LunaText.subtitle(text: 'Tautulli Notification Logs'),
+        LunaBlock(
+          title: 'Notifications',
+          body: const [TextSpan(text: 'Tautulli Notification Logs')],
           trailing: LunaIconButton(
             icon: Icons.notifications_rounded,
             color: LunaColours().byListIndex(2),
@@ -73,10 +70,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               TautulliLogsNotificationsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Plex Media Scanner'),
-          subtitle: LunaText.subtitle(text: 'Plex Media Scanner Logs'),
+        LunaBlock(
+          title: 'Plex Media Scanner',
+          body: const [TextSpan(text: 'Plex Media Scanner Logs')],
           trailing: LunaIconButton(
             icon: Icons.scanner_rounded,
             color: LunaColours().byListIndex(3),
@@ -84,10 +80,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               TautulliLogsPlexMediaScannerRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Plex Media Server'),
-          subtitle: LunaText.subtitle(text: 'Plex Media Server Logs'),
+        LunaBlock(
+          title: 'Plex Media Server',
+          body: const [TextSpan(text: 'Plex Media Server Logs')],
           trailing: LunaIconButton(
             icon: LunaBrandIcons.plex,
             color: LunaColours().byListIndex(4),
@@ -95,10 +90,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               TautulliLogsPlexMediaServerRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Tautulli'),
-          subtitle: LunaText.subtitle(text: 'Tautulli Logs'),
+        LunaBlock(
+          title: 'Tautulli',
+          body: const [TextSpan(text: 'Tautulli Logs')],
           trailing: LunaIconButton(
             icon: LunaBrandIcons.tautulli,
             color: LunaColours().byListIndex(5),

@@ -43,6 +43,18 @@ class LidarrMissingData {
     return 'Unknown Date/Time';
   }
 
+  String albumCoverURI({bool highRes = false}) {
+    if (api['enabled']) {
+      String _base = (api['host'] as String).endsWith('/')
+          ? '${api['host']}api/v1/MediaCover/Album'
+          : '${api['host']}/api/v1/MediaCover/Album';
+      return highRes
+          ? '$_base/$albumID/cover.jpg?apikey=${api['key']}'
+          : '$_base/$albumID/cover-500.jpg?apikey=${api['key']}';
+    }
+    return '';
+  }
+
   String posterURI({bool highRes = false}) {
     if (api['enabled']) {
       String _base = (api['host'] as String).endsWith('/')

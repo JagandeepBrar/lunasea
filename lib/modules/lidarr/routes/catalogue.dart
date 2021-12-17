@@ -107,7 +107,7 @@ class _State extends State<LidarrCatalogue>
         return LunaListViewBuilder(
           controller: LidarrNavigationBar.scrollControllers[0],
           itemCount: filtered.length,
-          itemExtent: LunaListTile.extentFromSubtitleLines(2),
+          itemExtent: LunaBlock.calculateItemExtent(2),
           itemBuilder: (context, index) => LidarrCatalogueTile(
             data: filtered[index],
             scaffoldKey: _scaffoldKey,

@@ -9,18 +9,20 @@ class RadarrAddMovieDetailsTagsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'radarr.Tags'.tr()),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'radarr.Tags'.tr(),
+      body: [
+        TextSpan(
           text: context.watch<RadarrAddMovieDetailsState>().tags.isEmpty
               ? LunaUI.TEXT_EMDASH
               : context
                   .watch<RadarrAddMovieDetailsState>()
                   .tags
                   .map((e) => e.label)
-                  .join(', ')),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+                  .join(', '),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => await RadarrDialogs().setAddTags(context),
     );
   }

@@ -58,59 +58,48 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'settings.Appearance'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'settings.AppearanceDescription'.tr()),
-          trailing: LunaIconButton(icon: Icons.brush_rounded),
+        LunaBlock(
+          title: 'settings.Appearance'.tr(),
+          body: [TextSpan(text: 'settings.AppearanceDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.brush_rounded),
           onTap: () async =>
               SettingsConfigurationAppearanceRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'settings.Drawer'.tr()),
-          subtitle: LunaText.subtitle(text: 'settings.DrawerDescription'.tr()),
-          trailing: LunaIconButton(icon: Icons.menu_rounded),
+        LunaBlock(
+          title: 'settings.Drawer'.tr(),
+          body: [TextSpan(text: 'settings.DrawerDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.menu_rounded),
           onTap: () async =>
               SettingsConfigurationDrawerRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'settings.Localization'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'settings.LocalizationDescription'.tr()),
-          trailing: LunaIconButton(icon: Icons.translate_rounded),
+        LunaBlock(
+          title: 'settings.Localization'.tr(),
+          body: [TextSpan(text: 'settings.LocalizationDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.translate_rounded),
           onTap: () async =>
               SettingsConfigurationLocalizationRouter().navigateTo(context),
         ),
         if (Platform.isIOS)
           LunaDatabaseValue.SELECTED_BROWSER.listen(
-            builder: (context, box, widget) => LunaListTile(
-              context: context,
-              title: LunaText.title(text: 'settings.OpenLinksIn'.tr()),
-              subtitle: LunaText.subtitle(
-                  text: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser)
-                      .name),
-              trailing: LunaIconButton(
-                  icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser)
-                      .icon),
-              onTap: () async {
-                Tuple2<bool, LunaBrowser> result =
-                    await SettingsDialogs().changeBrowser(context);
-                if (result.item1)
-                  LunaDatabaseValue.SELECTED_BROWSER.put(result.item2);
-              },
-            ),
+            builder: (context, box, widget) {
+              LunaDatabaseValue _db = LunaDatabaseValue.SELECTED_BROWSER;
+              return LunaBlock(
+                title: 'settings.OpenLinksIn'.tr(),
+                body: [TextSpan(text: (_db.data as LunaBrowser).name)],
+                trailing: LunaIconButton(icon: (_db.data as LunaBrowser).icon),
+                onTap: () async {
+                  Tuple2<bool, LunaBrowser> result =
+                      await SettingsDialogs().changeBrowser(context);
+                  if (result.item1) _db.put(result.item2);
+                },
+              );
+            },
           ),
         if (LunaQuickActions.isPlatformCompatible)
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'settings.QuickActions'.tr()),
-            subtitle: LunaText.subtitle(
-              text: 'settings.QuickActionsDescription'.tr(),
-            ),
-            trailing: LunaIconButton(icon: Icons.rounded_corner_rounded),
+          LunaBlock(
+            title: 'settings.QuickActions'.tr(),
+            body: [TextSpan(text: 'settings.QuickActionsDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.rounded_corner_rounded),
             onTap: () async =>
                 SettingsConfigurationQuickActionsRouter().navigateTo(context),
           ),
@@ -127,12 +116,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _tileFromModuleMap(LunaModule module) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: module.name),
-      subtitle: LunaText.subtitle(
-        text: 'settings.ConfigureModule'.tr(args: [module.name]),
-      ),
+    return LunaBlock(
+      title: module.name,
+      body: [
+        TextSpan(text: 'settings.ConfigureModule'.tr(args: [module.name]))
+      ],
       trailing: LunaIconButton(icon: module.icon),
       onTap: () async => module.settingsPage.navigateTo(context),
     );

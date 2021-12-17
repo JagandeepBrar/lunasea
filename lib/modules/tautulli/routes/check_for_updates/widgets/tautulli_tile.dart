@@ -13,15 +13,10 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Tautulli'),
-      subtitle: _subtitle(),
+    return LunaBlock(
+      title: 'Tautulli',
+      body: _subtitle(),
       trailing: _trailing(),
-      contentPadding: true,
-      height: update.update
-          ? LunaListTile.heightFromSubtitleLines(4)
-          : LunaListTile.heightFromSubtitleLines(2),
     );
   }
 
@@ -38,45 +33,53 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
     );
   }
 
-  Widget _subtitle() {
-    return RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_H3,
+  List<TextSpan> _subtitle() {
+    return [
+      if (!update.update)
+        const TextSpan(
+          text: 'No Updates Available',
+          style: TextStyle(
+            color: LunaColours.accent,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
         ),
-        children: <TextSpan>[
-          if (!update.update)
-            const TextSpan(
-              text: 'No Updates Available\n',
-              style: TextStyle(
-                color: LunaColours.accent,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-            ),
-          if (update.update)
-            const TextSpan(
-              text: 'Update Available\n',
-              style: TextStyle(
-                color: LunaColours.orange,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-            ),
-          if (update.update)
+      if (update.update)
+        const TextSpan(
+          text: 'Update Available',
+          style: TextStyle(
+            color: LunaColours.orange,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
+        ),
+      if (update.update)
+        TextSpan(
+          children: [
+            const TextSpan(text: 'Current Version: '),
             TextSpan(
-              text:
-                  'Current Version: ${update.currentRelease ?? update.currentVersion?.substring(0, min(7, update.currentVersion?.length ?? 0)) ?? 'Unknown'}\n',
+              text: update.currentRelease ??
+                  update.currentVersion?.substring(
+                    0,
+                    min(7, update.currentVersion?.length ?? 0),
+                  ) ??
+                  'lunasea.Unknown'.tr(),
             ),
-          if (update.update)
+          ],
+        ),
+      if (update.update)
+        TextSpan(
+          children: [
+            const TextSpan(text: 'Latest Version: '),
             TextSpan(
-              text:
-                  'Latest Version: ${update.latestRelease ?? update.latestVersion?.substring(0, min(7, update.latestVersion?.length ?? 0)) ?? 'Unknown'}\n',
+              text: update.latestRelease ??
+                  update.latestVersion?.substring(
+                    0,
+                    min(7, update.latestVersion?.length ?? 0),
+                  ) ??
+                  'lunasea.Unknown'.tr(),
             ),
-          TextSpan(text: 'Install Type: ${update.installType}'),
-        ],
-      ),
-      overflow: TextOverflow.fade,
-      maxLines: 4,
-    );
+          ],
+        ),
+      TextSpan(text: 'Install Type: ${update.installType}'),
+    ];
   }
 }

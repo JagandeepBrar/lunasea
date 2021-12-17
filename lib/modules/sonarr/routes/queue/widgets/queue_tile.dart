@@ -32,9 +32,6 @@ class _State extends State<SonarrQueueTile> {
         _subtitle3(),
         _subtitle4(),
       ],
-      collapsedHeight: widget.type == SonarrQueueTileType.ALL
-          ? LunaListTile.heightFromSubtitleLines(4)
-          : LunaListTile.heightFromSubtitleLines(2),
       expandedTableContent: _expandedTableContent(),
       expandedHighlightedNodes: _expandedHighlightedNodes(),
       expandedTableButtons: _tableButtons(),

@@ -12,15 +12,14 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaThreeLineCardWithPoster(
-      posterPlaceholder: LunaAssets.blankVideo,
-      posterUrl: context.read<SonarrState>().getPosterURL(series.id),
-      posterHeaders: context.read<SonarrState>().headers,
+    return LunaBlock(
       title: 'sonarr.AllSeasons'.tr(),
-      darken: !series.monitored,
-      subtitle1: _subtitle1(),
-      subtitle2: _subtitle2(),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      disabled: !series.monitored,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: series.id,

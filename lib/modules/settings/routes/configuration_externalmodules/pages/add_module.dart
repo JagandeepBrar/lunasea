@@ -86,7 +86,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             ? 'lunasea.NotSet'.tr()
             : _module.displayName,
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs().editText(
           context,
@@ -108,7 +108,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             ? 'lunasea.NotSet'.tr()
             : _module.host,
       ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values =
             await SettingsDialogs().editExternalModuleHost(

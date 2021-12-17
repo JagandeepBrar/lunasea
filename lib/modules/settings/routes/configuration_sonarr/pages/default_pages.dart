@@ -34,7 +34,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Pages',
+      title: 'settings.DefaultPages'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -51,67 +51,73 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    return SonarrDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Home'),
-        subtitle: LunaText.subtitle(
-            text: SonarrNavigationBar
-                .titles[SonarrDatabaseValue.NAVIGATION_INDEX.data]),
-        trailing: LunaIconButton(
-            icon: SonarrNavigationBar
-                .icons[SonarrDatabaseValue.NAVIGATION_INDEX.data]),
-        onTap: () async {
-          List values = await SonarrDialogs.setDefaultPage(context,
+    SonarrDatabaseValue _db = SonarrDatabaseValue.NAVIGATION_INDEX;
+    return _db.listen(
+      builder: (context, box, _) {
+        return LunaBlock(
+          title: 'lunasea.Home'.tr(),
+          body: [TextSpan(text: SonarrNavigationBar.titles[_db.data])],
+          trailing: LunaIconButton(icon: SonarrNavigationBar.icons[_db.data]),
+          onTap: () async {
+            List values = await SonarrDialogs.setDefaultPage(
+              context,
               titles: SonarrNavigationBar.titles,
-              icons: SonarrNavigationBar.icons);
-          if (values[0]) SonarrDatabaseValue.NAVIGATION_INDEX.put(values[1]);
-        },
-      ),
+              icons: SonarrNavigationBar.icons,
+            );
+            if (values[0]) _db.put(values[1]);
+          },
+        );
+      },
     );
   }
 
   Widget _seriesDetailsPage() {
-    return SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Series Details'),
-        subtitle: LunaText.subtitle(
-            text: SonarrSeriesDetailsNavigationBar.titles[
-                SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.data]),
-        trailing: LunaIconButton(
-            icon: SonarrSeriesDetailsNavigationBar.icons[
-                SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.data]),
-        onTap: () async {
-          List values = await SonarrDialogs.setDefaultPage(context,
+    SonarrDatabaseValue _db =
+        SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) {
+        return LunaBlock(
+          title: 'sonarr.SeriesDetails'.tr(),
+          body: [
+            TextSpan(text: SonarrSeriesDetailsNavigationBar.titles[_db.data])
+          ],
+          trailing: LunaIconButton(
+              icon: SonarrSeriesDetailsNavigationBar.icons[_db.data]),
+          onTap: () async {
+            List values = await SonarrDialogs.setDefaultPage(
+              context,
               titles: SonarrSeriesDetailsNavigationBar.titles,
-              icons: SonarrSeriesDetailsNavigationBar.icons);
-          if (values[0])
-            SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.put(values[1]);
-        },
-      ),
+              icons: SonarrSeriesDetailsNavigationBar.icons,
+            );
+            if (values[0]) _db.put(values[1]);
+          },
+        );
+      },
     );
   }
 
   Widget _seasonDetailsPage() {
-    return SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Season Details'),
-        subtitle: LunaText.subtitle(
-            text: SonarrSeasonDetailsNavigationBar.titles[
-                SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data]),
-        trailing: LunaIconButton(
-            icon: SonarrSeasonDetailsNavigationBar.icons[
-                SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data]),
-        onTap: () async {
-          List values = await SonarrDialogs.setDefaultPage(context,
+    SonarrDatabaseValue _db =
+        SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) {
+        return LunaBlock(
+          title: 'sonarr.SeasonDetails'.tr(),
+          body: [
+            TextSpan(text: SonarrSeasonDetailsNavigationBar.titles[_db.data])
+          ],
+          trailing: LunaIconButton(
+              icon: SonarrSeasonDetailsNavigationBar.icons[_db.data]),
+          onTap: () async {
+            List values = await SonarrDialogs.setDefaultPage(
+              context,
               titles: SonarrSeasonDetailsNavigationBar.titles,
-              icons: SonarrSeasonDetailsNavigationBar.icons);
-          if (values[0])
-            SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.put(values[1]);
-        },
-      ),
+              icons: SonarrSeasonDetailsNavigationBar.icons,
+            );
+            if (values[0]) _db.put(values[1]);
+          },
+        );
+      },
     );
   }
 }

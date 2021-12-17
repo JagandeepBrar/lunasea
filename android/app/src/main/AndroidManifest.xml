@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.lunasea.lunasea">
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
+        
         android:usesCleartextTraffic="true"
         android:label="LunaSea"
         android:icon="@mipmap/ic_launcher">
@@ -17,6 +18,7 @@
             android:value="true" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

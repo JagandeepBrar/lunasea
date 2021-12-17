@@ -22,20 +22,22 @@ class LidarrCatalogueTile extends StatefulWidget {
 
 class _State extends State<LidarrCatalogueTile> {
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title: LunaText.title(
-          text: widget.data.title,
-          darken: !widget.data.monitored,
-        ),
-        subtitle: Selector<LidarrState, LidarrCatalogueSorting>(
-          selector: (_, state) => state.sortCatalogueType,
-          builder: (context, type, _) => LunaText.subtitle(
-            text: widget.data.subtitle(type),
-            darken: !widget.data.monitored,
-            maxLines: 2,
+  Widget build(BuildContext context) {
+    return Selector<LidarrState, LidarrCatalogueSorting>(
+      selector: (_, state) => state.sortCatalogueType,
+      builder: (context, sortingType, _) => LunaBlock(
+        title: widget.data.title,
+        disabled: !widget.data.monitored,
+        body: [
+          TextSpan(
+            children: [
+              TextSpan(text: widget.data.albums),
+              TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+              TextSpan(text: widget.data.tracks),
+            ],
           ),
-        ),
+          TextSpan(text: widget.data.subtitle(sortingType)),
+        ],
         trailing: LunaIconButton(
           icon: widget.data.monitored
               ? Icons.turned_in_rounded
@@ -43,14 +45,17 @@ class _State extends State<LidarrCatalogueTile> {
           color: widget.data.monitored ? Colors.white : Colors.white30,
           onPressed: _toggleMonitoredStatus,
         ),
-        contentPadding: true,
-        decoration: LunaCardDecoration(
-          uri: widget.data.bannerURI(),
-          headers: Database.currentProfileObject.getLidarr()['headers'],
-        ),
+        posterPlaceholderIcon: LunaIcons.USER,
+        posterUrl: widget.data.posterURI(),
+        posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
+        backgroundUrl: widget.data.bannerURI(),
+        backgroundHeaders: Database.currentProfileObject.getLidarr()['headers'],
+        posterIsSquare: true,
         onTap: () async => _enterArtist(),
         onLongPress: () async => _handlePopup(),
-      );
+      ),
+    );
+  }
 
   Future<void> _toggleMonitoredStatus() async {
     final _api = LidarrAPI.from(Database.currentProfileObject);

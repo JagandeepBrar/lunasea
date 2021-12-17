@@ -50,14 +50,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _language() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.Language'.tr()),
-      subtitle: LunaText.subtitle(
-        text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ??
-            LunaUI.TEXT_EMDASH,
-      ),
-      trailing: LunaIconButton(icon: Icons.language_rounded),
+    String _language = LunaLanguage.ENGLISH.fromLocale(context.locale)?.name;
+    return LunaBlock(
+      title: 'settings.Language'.tr(),
+      body: [TextSpan(text: _language ?? LunaUI.TEXT_EMDASH)],
+      trailing: const LunaIconButton(icon: Icons.language_rounded),
       onTap: () async {
         Tuple2<bool, LunaLanguage> result =
             await SettingsDialogs().changeLanguage(context);
@@ -70,14 +67,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _use24HourTime() {
-    return LunaDatabaseValue.USE_24_HOUR_TIME.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Use 24 Hour Time'),
-        subtitle: LunaText.subtitle(text: 'Show Timestamps in 24 Hour Style'),
+    LunaDatabaseValue _db = LunaDatabaseValue.USE_24_HOUR_TIME;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'Use 24 Hour Time',
+        body: const [TextSpan(text: 'Show Timestamps in 24 Hour Style')],
         trailing: LunaSwitch(
-          value: LunaDatabaseValue.USE_24_HOUR_TIME.data,
-          onChanged: (value) => LunaDatabaseValue.USE_24_HOUR_TIME.put(value),
+          value: _db.data,
+          onChanged: (value) => _db.put(value),
         ),
       ),
     );

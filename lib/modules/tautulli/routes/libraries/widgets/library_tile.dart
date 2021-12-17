@@ -12,45 +12,33 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: library.sectionName),
-      subtitle: RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: LunaUI.FONT_SIZE_H3,
-          ),
-          children: <TextSpan>[
-            TextSpan(text: '${library.readableCount}\n'),
-            TextSpan(
-              text: library.plays == 1
-                  ? '1 Play ${LunaUI.TEXT_EMDASH} '
-                  : '${library.plays} Plays ${LunaUI.TEXT_EMDASH} ',
-            ),
-            TextSpan(text: '${library.duration.lunaTimestampWords}\n'),
-            TextSpan(
-              style: const TextStyle(
-                color: LunaColours.accent,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              ),
-              text: library.lastAccessed?.lunaAge ?? 'Unknown',
-            ),
+    int _plays = library.plays;
+    return LunaBlock(
+      title: library.sectionName,
+      body: [
+        TextSpan(text: library.readableCount),
+        TextSpan(
+          children: [
+            TextSpan(text: _plays == 1 ? '1 Play' : '$_plays Plays'),
+            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: library.duration.lunaTimestampWords),
           ],
         ),
-        overflow: TextOverflow.fade,
-        maxLines: 3,
+        TextSpan(
+          style: const TextStyle(
+            color: LunaColours.accent,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+          ),
+          text: library.lastAccessed?.lunaAge ?? 'Unknown',
+        ),
+      ],
+      backgroundUrl:
+          context.watch<TautulliState>().getImageURLFromPath(library.thumb),
+      backgroundHeaders: context.watch<TautulliState>().headers,
+      onTap: () async => TautulliLibrariesDetailsRouter().navigateTo(
+        context,
+        sectionId: library.sectionId,
       ),
-      height: LunaListTile.heightFromSubtitleLines(3),
-      contentPadding: true,
-      decoration: LunaCardDecoration(
-        uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),
-        headers: context.watch<TautulliState>().headers,
-      ),
-      onTap: () async => _onTap(context),
     );
   }
-
-  Future<void> _onTap(BuildContext context) => TautulliLibrariesDetailsRouter()
-      .navigateTo(context, sectionId: library.sectionId);
 }

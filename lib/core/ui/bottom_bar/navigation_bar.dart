@@ -82,7 +82,7 @@ class _State extends State<LunaBottomNavigationBar> {
                 duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
                 tabBackgroundColor: Theme.of(context)
                     .canvasColor
-                    .withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
+                    .withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND),
                 activeColor: LunaColours.accent,
                 tabs: List.generate(
                     widget.icons.length,

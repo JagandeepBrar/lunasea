@@ -42,9 +42,10 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
   }
 
   Widget _poster(BuildContext context) => LunaNetworkImage(
+        context: context,
         url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholderAsset: LunaAssets.blankVideo,
+        placeholderIcon: LunaIcons.VIDEO_CAM,
         height: _imageDimension,
         width: _imageDimension / 1.5,
       );

@@ -698,4 +698,29 @@ class RadarrDialogs {
 
     return Tuple2(_flag, int.tryParse(_textController.text) ?? 50);
   }
+
+  Future<void> addMovieOptions(BuildContext context) async {
+    await LunaDialog.dialog(
+      context: context,
+      title: 'lunasea.Options'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Close'.tr(),
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+        ),
+      ],
+      showCancelButton: false,
+      content: [
+        RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'radarr.StartSearchForMissingMovie'.tr(),
+            value: RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING.data,
+            onChanged: (value) =>
+                RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING.put(value),
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+  }
 }

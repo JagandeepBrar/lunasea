@@ -95,9 +95,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _actionTile(String title, LunaDatabaseValue action) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: title),
+    return LunaBlock(
+      title: title,
       trailing: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),
         builder: (context, _, __) => LunaSwitch(

@@ -76,7 +76,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<IndexerHiveObject> indexers = Database.indexersBox.values.toList();
     indexers.sort((a, b) =>
         a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
-    List<LunaListTile> list = List.generate(
+    List<LunaBlock> list = List.generate(
       indexers.length,
       (index) => _indexerTile(indexers[index], indexers[index].key),
     );
@@ -84,11 +84,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _indexerTile(IndexerHiveObject indexer, int index) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: indexer.displayName),
-      subtitle: LunaText.subtitle(text: indexer.host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: indexer.displayName,
+      body: [TextSpan(text: indexer.host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
         context,
         indexerId: index,
@@ -105,28 +104,28 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hideAdultCategories() {
-    return SearchDatabaseValue.HIDE_XXX.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Hide Adult Categories'),
-        subtitle: LunaText.subtitle(text: 'Hide Adult Content'),
+    SearchDatabaseValue _db = SearchDatabaseValue.HIDE_XXX;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Hide Adult Categories',
+        body: const [TextSpan(text: 'Hide Adult Content')],
         trailing: LunaSwitch(
-          value: SearchDatabaseValue.HIDE_XXX.data,
-          onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),
+          value: _db.data,
+          onChanged: (value) => _db.put(value),
         ),
       ),
     );
   }
 
   Widget _showLinks() {
-    return SearchDatabaseValue.SHOW_LINKS.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Show Links'),
-        subtitle: LunaText.subtitle(text: 'Show Download and Comments Links'),
+    SearchDatabaseValue _db = SearchDatabaseValue.SHOW_LINKS;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Show Links',
+        body: const [TextSpan(text: 'Show Download and Comments Links')],
         trailing: LunaSwitch(
-          value: SearchDatabaseValue.SHOW_LINKS.data,
-          onChanged: (value) => SearchDatabaseValue.SHOW_LINKS.put(value),
+          value: _db.data,
+          onChanged: (value) => _db.put(value),
         ),
       ),
     );

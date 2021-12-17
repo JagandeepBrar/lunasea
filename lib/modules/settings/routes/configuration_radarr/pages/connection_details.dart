@@ -65,18 +65,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.radarrHost;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Host'),
-      subtitle: LunaText.subtitle(
-        text: (host ?? '').isEmpty ? 'Not Set' : host,
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String host = Database.currentProfileObject.radarrHost ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject.radarrHost ?? '',
+          prefill: host,
         );
         if (_values.item1) {
           Database.currentProfileObject.radarrHost = _values.item2;
@@ -88,19 +85,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.radarrKey;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'API Key'),
-      subtitle: LunaText.subtitle(
-        text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••',
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String apiKey = Database.currentProfileObject.radarrKey ?? '';
+    return LunaBlock(
+      title: 'settings.ApiKey'.tr(),
+      body: [
+        TextSpan(
+          text: apiKey.isEmpty
+              ? 'settings.NotSet'.tr()
+              : LunaUI.TEXT_BULLET.repeat(12),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
-          'Radarr API Key',
-          prefill: Database.currentProfileObject.radarrKey ?? '',
+          'settings.ApiKey'.tr(),
+          prefill: apiKey,
         );
         if (_values.item1) {
           Database.currentProfileObject.radarrKey = _values.item2;
@@ -113,8 +113,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _testConnection() {
     return LunaButton.text(
-      text: 'Test Connection',
-      icon: Icons.wifi_tethering_rounded,
+      text: 'settings.TestConnection'.tr(),
+      icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
         ProfileHiveObject _profile = Database.currentProfileObject;
         if (_profile.radarrHost == null || _profile.radarrHost.isEmpty) {
@@ -162,11 +162,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _customHeaders() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationRadarrHeadersRouter().navigateTo(context);
       },

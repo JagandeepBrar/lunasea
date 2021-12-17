@@ -42,67 +42,59 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Discord'),
-          subtitle: LunaText.subtitle(text: 'Chat & Discussions'),
-          trailing: LunaIconButton(icon: LunaBrandIcons.discord),
+        LunaBlock(
+          title: 'Discord',
+          body: const [TextSpan(text: 'Chat & Discussions')],
+          trailing: const LunaIconButton(icon: LunaBrandIcons.discord),
           onTap: LunaLinks.DISCORD.launch,
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Documentation'),
-          subtitle: LunaText.subtitle(text: 'View the Documentation'),
-          trailing: LunaIconButton(icon: Icons.auto_stories_rounded),
+        LunaBlock(
+          title: 'Documentation',
+          body: const [TextSpan(text: 'View the Documentation')],
+          trailing: const LunaIconButton(icon: Icons.auto_stories_rounded),
           onTap: LunaLinks.DOCUMENTATION.launch,
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Feedback Board'),
-          subtitle: LunaText.subtitle(text: 'Request New Features'),
-          trailing: LunaIconButton(icon: Icons.speaker_notes_rounded),
+        LunaBlock(
+          title: 'Feedback Board',
+          body: const [TextSpan(text: 'Request New Features')],
+          trailing: const LunaIconButton(icon: Icons.speaker_notes_rounded),
           onTap: LunaLinks.FEEDBACK_BOARD.launch,
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'GitHub'),
-          subtitle: LunaText.subtitle(text: 'View the Source Code'),
-          trailing: LunaIconButton(icon: LunaBrandIcons.github),
+        LunaBlock(
+          title: 'GitHub',
+          body: const [TextSpan(text: 'View the Source Code')],
+          trailing: const LunaIconButton(icon: LunaBrandIcons.github),
           onTap: LunaLinks.GITHUB.launch,
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Reddit'),
-          subtitle: LunaText.subtitle(text: 'Ask Questions & Get Support'),
-          trailing: LunaIconButton(icon: LunaBrandIcons.reddit),
+        LunaBlock(
+          title: 'Reddit',
+          body: const [TextSpan(text: 'Ask Questions & Get Support')],
+          trailing: const LunaIconButton(icon: LunaBrandIcons.reddit),
           onTap: LunaLinks.REDDIT.launch,
         ),
         if (Platform.isIOS)
-          LunaListTile(
-              context: context,
-              title: LunaText.title(text: 'TestFlight'),
-              subtitle: LunaText.subtitle(text: 'Join the TestFlight Beta'),
-              trailing: LunaIconButton(icon: Icons.developer_board_rounded),
-              onTap: LunaLinks.TESTFLIGHT.launch),
-        LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'System Status'),
-            subtitle:
-                LunaText.subtitle(text: 'Status Page for Hosted Services'),
-            trailing: LunaIconButton(icon: Icons.health_and_safety),
-            onTap: LunaLinks.SYSTEM_STATUS.launch),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Weblate'),
-          subtitle: LunaText.subtitle(text: 'Help Localize LunaSea'),
-          trailing: LunaIconButton(icon: Icons.translate_rounded),
+          LunaBlock(
+            title: 'TestFlight',
+            body: const [TextSpan(text: 'Join the TestFlight Beta')],
+            trailing: const LunaIconButton(icon: Icons.developer_board_rounded),
+            onTap: LunaLinks.TESTFLIGHT.launch,
+          ),
+        LunaBlock(
+          title: 'System Status',
+          body: const [TextSpan(text: 'Status Page for Hosted Services')],
+          trailing: const LunaIconButton(icon: Icons.health_and_safety),
+          onTap: LunaLinks.SYSTEM_STATUS.launch,
+        ),
+        LunaBlock(
+          title: 'Weblate',
+          body: const [TextSpan(text: 'Help Localize LunaSea')],
+          trailing: const LunaIconButton(icon: LunaIcons.TRANSLATE),
           onTap: LunaLinks.WEBLATE.launch,
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Website'),
-          subtitle: LunaText.subtitle(text: 'Visit LunaSea\'s Website'),
-          trailing: LunaIconButton(icon: Icons.home_rounded),
+        LunaBlock(
+          title: 'Website',
+          body: const [TextSpan(text: 'Visit LunaSea\'s Website')],
+          trailing: const LunaIconButton(icon: LunaIcons.HOME),
           onTap: LunaLinks.WEBSITE.launch,
         ),
       ],

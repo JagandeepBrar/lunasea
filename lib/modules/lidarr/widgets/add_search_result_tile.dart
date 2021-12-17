@@ -13,18 +13,14 @@ class LidarrAddSearchResultTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: data.title, darken: alreadyAdded),
-        subtitle: LunaText.subtitle(
-          text: '${data.overview.trim()}\n\n',
-          darken: alreadyAdded,
-          maxLines: 2,
-        ),
-        contentPadding: true,
-        trailing: alreadyAdded
-            ? null
-            : LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+  Widget build(BuildContext context) => LunaBlock(
+        title: data.title,
+        disabled: alreadyAdded,
+        body: [
+          TextSpan(text: data.overview.trim()),
+        ],
+        customBodyMaxLines: 2,
+        trailing: alreadyAdded ? null : const LunaIconButton.arrow(),
         onTap: () async => _enterDetails(context),
       );
 

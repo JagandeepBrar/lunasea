@@ -27,19 +27,20 @@ class LunaText extends Text {
     @required String text,
     int maxLines = 1,
     bool softWrap = false,
+    @Deprecated('Dead property') bool darken,
     TextAlign textAlign = TextAlign.start,
+    TextOverflow overflow = TextOverflow.fade,
     Color color = Colors.white,
-    bool darken = false,
   }) =>
       LunaText(
         text: text,
         key: key,
         maxLines: maxLines,
-        overflow: TextOverflow.fade,
+        overflow: overflow,
         softWrap: softWrap,
         textAlign: textAlign,
         style: TextStyle(
-          color: darken ? color.withOpacity(0.30) : color,
+          color: color,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           fontSize: LunaUI.FONT_SIZE_H2,
         ),
@@ -51,9 +52,10 @@ class LunaText extends Text {
     @required String text,
     int maxLines = 1,
     bool softWrap = false,
+    @Deprecated('Dead property') bool darken,
     TextAlign textAlign = TextAlign.start,
+    TextOverflow overflow = TextOverflow.fade,
     Color color = Colors.white70,
-    bool darken = false,
     FontStyle fontStyle = FontStyle.normal,
   }) =>
       LunaText(
@@ -62,9 +64,9 @@ class LunaText extends Text {
         softWrap: softWrap,
         maxLines: maxLines,
         textAlign: textAlign,
-        overflow: TextOverflow.fade,
+        overflow: overflow,
         style: TextStyle(
-          color: darken ? color.withOpacity(0.30) : color,
+          color: color,
           fontSize: LunaUI.FONT_SIZE_H3,
           fontStyle: fontStyle,
         ),

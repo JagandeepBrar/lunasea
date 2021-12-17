@@ -48,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _enabledToggle(),
         _connectionDetailsPage(),
         const LunaDivider(),
-        _homePage(),
+        _defaultPagesPage(),
         //_defaultPagesPage(),
       ],
     );
@@ -57,9 +57,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.SABNZBD.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.SABNZBD.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.sabnzbdEnabled ?? false,
           onChanged: (value) {
@@ -73,34 +72,28 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(text: 'Connection Details for SABnzbd'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.SABNZBD.name],
+          ),
+        )
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSABnzbdConnectionDetailsRouter()
           .navigateTo(context),
     );
   }
 
-  Widget _homePage() {
-    return SABnzbdDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Default Page'),
-        subtitle: LunaText.subtitle(
-          text: SABnzbdNavigationBar
-              .titles[SABnzbdDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        trailing: LunaIconButton(
-          icon: SABnzbdNavigationBar
-              .icons[SABnzbdDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        onTap: () async {
-          List values = await SABnzbdDialogs.defaultPage(context);
-          if (values[0]) SABnzbdDatabaseValue.NAVIGATION_INDEX.put(values[1]);
-        },
-      ),
+  Widget _defaultPagesPage() {
+    return LunaBlock(
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async =>
+          SettingsConfigurationSABnzbdDefaultPagesRouter().navigateTo(context),
     );
   }
 }

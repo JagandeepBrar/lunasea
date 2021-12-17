@@ -18,6 +18,7 @@ export 'ui/header.dart';
 export 'ui/highlighted_node.dart';
 export 'ui/icons.dart';
 export 'ui/input_bar.dart';
+export 'ui/linear_indicator.dart';
 export 'ui/list_tile.dart';
 export 'ui/list_view.dart';
 export 'ui/loader.dart';
@@ -63,9 +64,11 @@ class LunaUI {
   static const FontWeight FONT_WEIGHT_BOLD = FontWeight.w600;
   // UI-Related
   static const int ANIMATION_SPEED = 250;
-  static const int ANIMATION_IMAGE_FADE_IN_SPEED = 125;
+  static const int ANIMATION_SPEED_IMAGES = 175;
   static const double BORDER_RADIUS = 10.0;
-  static const double BUTTON_BACKGROUND_OPACITY = 0.80;
+  static const double OPACITY_BUTTON_BACKGROUND = 0.80;
+  static const double OPACITY_DISABLED = 0.50;
+  static const double OPACITY_SPLASH = 0.25;
   static const double ELEVATION = 0.0;
   static const double DEFAULT_MARGIN_SIZE = 12.0;
   static const EdgeInsets MARGIN_DEFAULT = EdgeInsets.all(DEFAULT_MARGIN_SIZE);

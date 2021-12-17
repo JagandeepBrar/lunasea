@@ -51,7 +51,6 @@ coverage/
 /.blackbox/secring.gpg
 
 # Encrypted Files
-/android/app/google-services.json
 /android/key.jks
 /android/key.properties
 /ios/ExportOptions.plist

@@ -91,7 +91,6 @@ class _State extends State<LunaBIOS> {
         LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag ?? 'en';
     LunaQuickActions().initialize();
     LunaChangelog().checkAndShowChangelog();
-    LunaFirebaseAnalytics().appOpened();
   }
 
   @override
@@ -109,10 +108,6 @@ class _State extends State<LunaBIOS> {
               routes: LunaRouter().routes,
               onGenerateRoute: LunaRouter.router.generator,
               navigatorKey: LunaState.navigatorKey,
-              navigatorObservers: [
-                if (LunaFirebaseAnalytics.isPlatformCompatible)
-                  LunaFirebaseAnalytics.observer,
-              ],
               darkTheme: LunaTheme().activeTheme(),
               theme: LunaTheme().activeTheme(),
               title: 'LunaSea',

@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.0):
+  - cloud_firestore (3.1.5):
     - Firebase/CoreOnly (~> 8.9.0)
     - Firebase/Firestore (~> 8.9.0)
     - firebase_core
@@ -11,9 +11,6 @@ PODS:
     - FirebaseAuth (~> 8.9.0)
   - Firebase/CoreOnly (8.9.0):
     - FirebaseCore (= 8.9.0)
-  - Firebase/Crashlytics (8.9.0):
-    - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 8.9.0)
   - Firebase/Firestore (8.9.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.9.0)
@@ -23,25 +20,20 @@ PODS:
   - Firebase/Storage (8.9.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.9.0)
-  - firebase_auth (3.2.0):
+  - firebase_auth (3.3.4):
     - Firebase/Auth (~> 8.9.0)
     - Firebase/CoreOnly (~> 8.9.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (1.10.0):
+  - firebase_core (1.10.6):
     - Firebase/CoreOnly (~> 8.9.0)
     - FlutterMacOS
-  - firebase_crashlytics (2.3.0):
-    - Firebase/CoreOnly (~> 8.9.0)
-    - Firebase/Crashlytics (~> 8.9.0)
-    - firebase_core
-    - FlutterMacOS
-  - firebase_messaging (11.1.0):
+  - firebase_messaging (11.2.4):
     - Firebase/CoreOnly (~> 8.9.0)
     - Firebase/Messaging (~> 8.9.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_storage (10.1.0):
+  - firebase_storage (10.2.4):
     - Firebase/CoreOnly (~> 8.9.0)
     - Firebase/Storage (~> 8.9.0)
     - firebase_core
@@ -55,18 +47,11 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/Logger (~> 7.6)
-  - FirebaseCoreDiagnostics (8.9.0):
+  - FirebaseCoreDiagnostics (8.10.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/Logger (~> 7.6)
     - nanopb (~> 2.30908.0)
-  - FirebaseCrashlytics (8.9.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleDataTransport (~> 9.1)
-    - GoogleUtilities/Environment (~> 7.6)
-    - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
   - FirebaseFirestore (8.9.0):
     - FirebaseFirestore/AutodetectLeveldb (= 8.9.0)
   - FirebaseFirestore/AutodetectLeveldb (8.9.0):
@@ -75,7 +60,7 @@ PODS:
   - FirebaseFirestore/Base (8.9.0)
   - FirebaseFirestore/WithLeveldb (8.9.0):
     - FirebaseFirestore/Base
-  - FirebaseInstallations (8.9.0):
+  - FirebaseInstallations (8.10.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/UserDefaults (~> 7.6)
@@ -139,7 +124,6 @@ DEPENDENCIES:
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - firebase_auth (from `Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
-  - firebase_crashlytics (from `Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos`)
   - firebase_messaging (from `Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos`)
   - firebase_storage (from `Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `8.9.0`)
@@ -157,7 +141,6 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
-    - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseMessaging
     - FirebaseStorage
@@ -176,8 +159,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos
   firebase_core:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
-  firebase_crashlytics:
-    :path: Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos
   firebase_messaging:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos
   firebase_storage:
@@ -206,20 +187,18 @@ CHECKOUT OPTIONS:
     :tag: 8.9.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 635c4f823019b5d905149856e9242806787dc973
+  cloud_firestore: 3081be06968400a92d26f1143e794eb391c553c8
   file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: 13d8d96499e2635428d5bf0ec675df21f95d9a95
-  firebase_auth: 04bf9ff2c4c793d6c2cb4070bed10b8c693ad8bc
-  firebase_core: f7e0e04eb75da503e953da4fe54d02697e5ec2d8
-  firebase_crashlytics: da8a3127373fcdd9f261e65a11cc5ff7cd0445da
-  firebase_messaging: a6db59d37bbc35db20d7e3f37430035cb97ad6f4
-  firebase_storage: ca5b600aff78ee5cc01dfbee5a3d42ad05d2d25d
+  firebase_auth: 93152664a5331c5363e2f5528a9bbaadcf4859ed
+  firebase_core: e0159870e86f57998fc9853a50d6309a3ab2eee6
+  firebase_messaging: 5757ecfd9318eb3b14593dbfa0f153d40a021a9f
+  firebase_storage: 5d0a09f47ef925f20ca3bfa0e837aad77d72778b
   FirebaseAuth: 2b78b2a32c07b3ecfa4970bdf1d3632b8304099b
   FirebaseCore: 599ee609343eaf4941bd188f85e3aa077ffe325b
-  FirebaseCoreDiagnostics: 5daa63f1c1409d981a2d5007daa100b36eac6a34
-  FirebaseCrashlytics: 40efbd81157dae307ec95612fa1328347284d2c2
+  FirebaseCoreDiagnostics: 56fb7216d87e0e6ec2feddefa9d8a392fe8b2c18
   FirebaseFirestore: 7c22bff6c0e1f222920cd110e9da13a117b61fea
-  FirebaseInstallations: caa7c8e0d3e2345b8829d2fa9ca1b4dfbf2fcc85
+  FirebaseInstallations: 830327b45345ffc859eaa9c17bcd5ae893fd5425
   FirebaseMessaging: 82c4a48638f53f7b184f3cc9f6cd2cbe533ab316
   FirebaseStorage: 452c98c31ccb40b819764bf3039426c4388d9939
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
@@ -237,4 +216,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b26bb765a568f6d4f2c0d9767ef2eee43a3f07ed
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2

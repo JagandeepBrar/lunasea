@@ -49,11 +49,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const SettingsSystemBackupRestoreBackupTile(),
         const SettingsSystemBackupRestoreRestoreTile(),
         const LunaDivider(),
-        if (LunaFirebaseAnalytics.isPlatformCompatible) _enableAnalytics(),
-        if (LunaFirebaseCrashlytics.isPlatformCompatible) _enableCrashlytics(),
-        if (LunaFirebaseCrashlytics.isPlatformCompatible ||
-            LunaFirebaseAnalytics.isPlatformCompatible)
-          const LunaDivider(),
         if (kDebugMode) _hideTooltipBanners(),
         _clearConfiguration(),
       ],
@@ -84,45 +79,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: const [TextSpan(text: 'View, Export, and Clear Logs')],
       trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
       onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
-    );
-  }
-
-  Widget _enableAnalytics() {
-    return LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.listen(
-      builder: (context, box, _) => LunaBlock(
-        title: 'Firebase Analytics',
-        body: const [TextSpan(text: 'User Engagement Tracking')],
-        trailing: LunaSwitch(
-          value: LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.data,
-          onChanged: (value) async {
-            LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.put(value);
-            LunaFirebaseAnalytics().setEnabledState();
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _enableCrashlytics() {
-    return LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.listen(
-      builder: (context, box, _) => LunaBlock(
-        title: 'Firebase Crashlytics',
-        body: const [TextSpan(text: 'Crash and Error Tracking')],
-        trailing: LunaSwitch(
-            value: LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data,
-            onChanged: (value) async {
-              LunaDatabaseValue enabled =
-                  LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS;
-              if (enabled.data) {
-                bool result =
-                    await SettingsDialogs().disableCrashlyticsWarning(context);
-                if (result) enabled.put(value);
-              } else {
-                enabled.put(value);
-              }
-              LunaFirebaseCrashlytics().setEnabledState();
-            }),
-      ),
     );
   }
 

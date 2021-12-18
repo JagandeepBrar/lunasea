@@ -18,10 +18,8 @@ dependencies:
   file_picker: ^4.2.8
   file_selector_macos: ^0.0.4
   file_selector_platform_interface: ^2.0.2
-  firebase_analytics: ^9.0.4
   firebase_auth: ^3.3.4
   firebase_core: ^1.10.6
-  firebase_crashlytics: ^2.4.4
   firebase_messaging: ^11.2.4
   firebase_storage: ^10.2.4
   fl_chart: ^0.40.6

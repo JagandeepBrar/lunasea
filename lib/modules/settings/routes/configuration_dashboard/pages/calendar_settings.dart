@@ -61,177 +61,163 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _pastDaysInSchedule() {
-    return DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Past Days In Schedule View'),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Past Days In Schedule View',
         trailing: LunaSwitch(
-          value: DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data,
-          onChanged: DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.put,
+          value: _db.data,
+          onChanged: _db.put,
         ),
       ),
     );
   }
 
   Widget _pastDays() {
-    return DashboardDatabaseValue.CALENDAR_DAYS_PAST.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Past Days'),
-        subtitle: LunaText.subtitle(
-          text: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data == 1
-              ? '1 Day'
-              : '${DashboardDatabaseValue.CALENDAR_DAYS_PAST.data} Days',
-        ),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_DAYS_PAST;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Past Days',
+        body: [
+          TextSpan(text: _db.data == 1 ? '1 Day' : '${_db.data} Days'),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await DashboardDialogs().setPastDays(context);
-          if (result.item1) {
-            DashboardDatabaseValue.CALENDAR_DAYS_PAST.put(result.item2);
-          }
+          if (result.item1) _db.put(result.item2);
         },
       ),
     );
   }
 
   Widget _futureDays() {
-    return DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Future Days'),
-        subtitle: LunaText.subtitle(
-          text: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data == 1
-              ? '1 Day'
-              : '${DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data} Days',
-        ),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_DAYS_FUTURE;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Future Days',
+        body: [
+          TextSpan(text: _db.data == 1 ? '1 Day' : '${_db.data} Days'),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await DashboardDialogs().setFutureDays(context);
-          if (result.item1) {
-            DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.put(result.item2);
-          }
+          if (result.item1) _db.put(result.item2);
         },
       ),
     );
   }
 
   Widget _modulesLidarr() {
-    return DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: LunaModule.LIDARR.name),
-        subtitle: LunaText.subtitle(
-          text:
-              'settings.ShowCalendarEntries'.tr(args: [LunaModule.LIDARR.name]),
-        ),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: LunaModule.LIDARR.name,
+        body: [
+          TextSpan(
+            text: 'settings.ShowCalendarEntries'.tr(
+              args: [LunaModule.LIDARR.name],
+            ),
+          )
+        ],
         trailing: LunaSwitch(
-          value: DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data,
-          onChanged: (value) {
-            DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.put(value);
-          },
+          value: _db.data,
+          onChanged: _db.put,
         ),
       ),
     );
   }
 
   Widget _modulesRadarr() {
-    return DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: LunaModule.RADARR.name),
-        subtitle: LunaText.subtitle(
-          text:
-              'settings.ShowCalendarEntries'.tr(args: [LunaModule.RADARR.name]),
-        ),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_ENABLE_RADARR;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: LunaModule.RADARR.name,
+        body: [
+          TextSpan(
+            text: 'settings.ShowCalendarEntries'.tr(
+              args: [LunaModule.RADARR.name],
+            ),
+          )
+        ],
         trailing: LunaSwitch(
-          value: DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data,
-          onChanged: (value) {
-            DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.put(value);
-          },
+          value: _db.data,
+          onChanged: _db.put,
         ),
       ),
     );
   }
 
   Widget _modulesSonarr() {
-    return DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: LunaModule.SONARR.name),
-        subtitle: LunaText.subtitle(
-          text:
-              'settings.ShowCalendarEntries'.tr(args: [LunaModule.SONARR.name]),
-        ),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_ENABLE_SONARR;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: LunaModule.SONARR.name,
+        body: [
+          TextSpan(
+            text: 'settings.ShowCalendarEntries'.tr(
+              args: [LunaModule.SONARR.name],
+            ),
+          )
+        ],
         trailing: LunaSwitch(
-          value: DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data,
-          onChanged: (value) {
-            DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.put(value);
-          },
+          value: _db.data,
+          onChanged: _db.put,
         ),
       ),
     );
   }
 
   Widget _startingView() {
-    return DashboardDatabaseValue.CALENDAR_STARTING_TYPE.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.StartingView'.tr()),
-        subtitle: LunaText.subtitle(
-            text: (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
-                    as CalendarStartingType)
-                .name),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_STARTING_TYPE;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'settings.StartingView'.tr(),
+        body: [
+          TextSpan(text: (_db.data as CalendarStartingType).name),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingType> _values =
               await SettingsDialogs().editCalendarStartingView(context);
-          if (_values.item1) {
-            DashboardDatabaseValue.CALENDAR_STARTING_TYPE.put(_values.item2);
-          }
+          if (_values.item1) _db.put(_values.item2);
         },
       ),
     );
   }
 
   Widget _startingDay() {
-    return DashboardDatabaseValue.CALENDAR_STARTING_DAY.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.StartingDay'.tr()),
-        subtitle: LunaText.subtitle(
-            text: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
-                    as CalendarStartingDay)
-                .name),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_STARTING_DAY;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'settings.StartingDay'.tr(),
+        body: [
+          TextSpan(text: (_db.data as CalendarStartingDay).name),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingDay> results =
               await SettingsDialogs().editCalendarStartingDay(context);
-          if (results.item1) {
-            DashboardDatabaseValue.CALENDAR_STARTING_DAY.put(results.item2);
-          }
+          if (results.item1) _db.put(results.item2);
         },
       ),
     );
   }
 
   Widget _startingSize() {
-    return DashboardDatabaseValue.CALENDAR_STARTING_SIZE.listen(
-      builder: (context, box, widget) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Starting Size'),
-        subtitle: LunaText.subtitle(
-            text: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-                    as CalendarStartingSize)
-                .name),
+    DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_STARTING_SIZE;
+    return _db.listen(
+      builder: (context, box, widget) => LunaBlock(
+        title: 'Starting Size',
+        body: [
+          TextSpan(text: (_db.data as CalendarStartingSize).name),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, CalendarStartingSize> _values =
               await SettingsDialogs().editCalendarStartingSize(context);
-          if (_values.item1) {
-            DashboardDatabaseValue.CALENDAR_STARTING_SIZE.put(_values.item2);
-          }
+          if (_values.item1) _db.put(_values.item2);
         },
       ),
     );

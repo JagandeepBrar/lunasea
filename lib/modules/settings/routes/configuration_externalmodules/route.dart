@@ -77,7 +77,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Database.externalModulesBox.values.toList();
     modules.sort((a, b) =>
         a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
-    List<LunaListTile> list = List.generate(
+    List<LunaBlock> list = List.generate(
       modules.length,
       (index) => _moduleTile(modules[index], modules[index].key),
     );
@@ -85,16 +85,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _moduleTile(ExternalModuleHiveObject module, int index) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: module.displayName),
-      subtitle: LunaText.subtitle(text: module.host),
+    return LunaBlock(
+      title: module.displayName,
+      body: [TextSpan(text: module.host)],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationExternalModulesEditRouter().navigateTo(
-        context,
-        moduleId: index,
-      ),
+      onTap: () async {
+        return SettingsConfigurationExternalModulesEditRouter().navigateTo(
+          context,
+          moduleId: index,
+        );
+      },
     );
   }
 }

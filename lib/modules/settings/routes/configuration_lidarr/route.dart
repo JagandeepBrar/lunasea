@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: 'Lidarr',
+      title: LunaModule.LIDARR.name,
     );
   }
 
@@ -47,7 +47,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _enabledToggle(),
         _connectionDetailsPage(),
         const LunaDivider(),
-        _homePage(),
+        _defaultPagesPage(),
         //_defaultPagesPage(),
       ],
     );
@@ -56,9 +56,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.LIDARR.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.LIDARR.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.lidarrEnabled ?? false,
           onChanged: (value) {
@@ -72,14 +71,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.ConnectionDetails'.tr()),
-      subtitle: LunaText.subtitle(
-        text: 'settings.ConnectionDetailsDescription'.tr(
-          args: [LunaModule.LIDARR.name],
+    return LunaBlock(
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.LIDARR.name],
+          ),
         ),
-      ),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationLidarrConnectionDetailsRouter()
@@ -88,24 +88,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _homePage() {
-    return LidarrDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.DefaultPage'.tr()),
-        subtitle: LunaText.subtitle(
-          text: LidarrNavigationBar
-              .titles[LidarrDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        trailing: LunaIconButton(
-          icon: LidarrNavigationBar
-              .icons[LidarrDatabaseValue.NAVIGATION_INDEX.data],
-        ),
-        onTap: () async {
-          List values = await LidarrDialogs.defaultPage(context);
-          if (values[0]) LidarrDatabaseValue.NAVIGATION_INDEX.put(values[1]);
-        },
-      ),
+  Widget _defaultPagesPage() {
+    return LunaBlock(
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async =>
+          SettingsConfigurationLidarrDefaultPagesRouter().navigateTo(context),
     );
   }
 }

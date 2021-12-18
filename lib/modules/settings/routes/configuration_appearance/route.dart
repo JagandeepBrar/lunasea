@@ -51,17 +51,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _amoledTheme() {
-    return LunaDatabaseValue.THEME_AMOLED.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.AmoledTheme'.tr()),
-        subtitle: LunaText.subtitle(
-          text: 'settings.AmoledThemeDescription'.tr(),
-        ),
+    LunaDatabaseValue _db = LunaDatabaseValue.THEME_AMOLED;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'settings.AmoledTheme'.tr(),
+        body: [
+          TextSpan(text: 'settings.AmoledThemeDescription'.tr()),
+        ],
         trailing: LunaSwitch(
-          value: LunaDatabaseValue.THEME_AMOLED.data,
+          value: _db.data,
           onChanged: (value) {
-            LunaDatabaseValue.THEME_AMOLED.put(value);
+            _db.put(value);
             LunaTheme().initialize();
           },
         ),
@@ -77,12 +77,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           LunaDatabaseValue.THEME_AMOLED.key,
         ],
       ),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.AmoledThemeBorders'.tr()),
-        subtitle: LunaText.subtitle(
-          text: 'settings.AmoledThemeBordersDescription'.tr(),
-        ),
+      builder: (context, _, __) => LunaBlock(
+        title: 'settings.AmoledThemeBorders'.tr(),
+        body: [
+          TextSpan(text: 'settings.AmoledThemeBordersDescription'.tr()),
+        ],
         trailing: LunaSwitch(
           value: LunaDatabaseValue.THEME_AMOLED_BORDER.data,
           onChanged: LunaDatabaseValue.THEME_AMOLED.data
@@ -94,22 +93,20 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _imageBackgroundOpacity() {
-    return LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'settings.BackgroundImageOpacity'.tr()),
-        subtitle: LunaText.subtitle(
-          text: LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data == 0
-              ? 'lunasea.Disabled'.tr()
-              : '${LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data}%',
-        ),
+    LunaDatabaseValue _db = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'settings.BackgroundImageOpacity'.tr(),
+        body: [
+          TextSpan(
+            text: _db.data == 0 ? 'lunasea.Disabled'.tr() : '${_db.data}%',
+          ),
+        ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, int> result =
               await SettingsDialogs().changeBackgroundImageOpacity(context);
-          if (result.item1) {
-            LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.put(result.item2);
-          }
+          if (result.item1) _db.put(result.item2);
         },
       ),
     );

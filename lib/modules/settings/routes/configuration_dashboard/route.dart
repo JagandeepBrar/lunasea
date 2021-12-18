@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationDashboardRouter extends SettingsPageRouter {
@@ -45,38 +44,25 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       controller: scrollController,
       children: [
         _calendarSettingsPage(),
-        _homePage(),
+        _defaultPagesPage(),
       ],
     );
   }
 
-  Widget _homePage() {
-    return DashboardDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Default Page'),
-        subtitle: LunaText.subtitle(
-            text: DashboardNavigationBar
-                .titles[DashboardDatabaseValue.NAVIGATION_INDEX.data]),
-        trailing: LunaIconButton(
-            icon: DashboardNavigationBar
-                .icons[DashboardDatabaseValue.NAVIGATION_INDEX.data]),
-        onTap: () async {
-          Tuple2<bool, int> values =
-              await DashboardDialogs().defaultPage(context);
-          if (values.item1) {
-            DashboardDatabaseValue.NAVIGATION_INDEX.put(values.item2);
-          }
-        },
-      ),
+  Widget _defaultPagesPage() {
+    return LunaBlock(
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async => SettingsConfigurationDashboardDefaultPagesRouter()
+          .navigateTo(context),
     );
   }
 
   Widget _calendarSettingsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Calendar Settings'),
-      subtitle: LunaText.subtitle(text: 'Customize the Unified Calendar'),
+    return LunaBlock(
+      title: 'Calendar Settings',
+      body: const [TextSpan(text: 'Customize the Unified Calendar')],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationDashboardCalendarSettingsRouter()

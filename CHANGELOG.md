@@ -9,6 +9,8 @@
 - `[Sonarr]` (Queue) Option to set queue page size
 - `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
 
+#### TWEAKS
+
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours

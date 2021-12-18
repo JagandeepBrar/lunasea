@@ -65,18 +65,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.lidarrHost;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.Host'.tr()),
-      subtitle: LunaText.subtitle(
-        text: (host ?? '').isEmpty ? 'lunasea.NotSet'.tr() : host,
-      ),
+    String host = Database.currentProfileObject.lidarrHost ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject.lidarrHost ?? '',
+          prefill: host,
         );
         if (_values.item1) {
           Database.currentProfileObject.lidarrHost = _values.item2;
@@ -88,21 +85,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.lidarrKey;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.ApiKey'.tr()),
-      subtitle: LunaText.subtitle(
-        text: (apiKey ?? '').isEmpty
-            ? 'lunasea.NotSet'.tr()
-            : LunaUI.TEXT_OBFUSCATED_PASSWORD,
-      ),
+    String apiKey = Database.currentProfileObject.lidarrKey ?? '';
+    return LunaBlock(
+      title: 'settings.ApiKey'.tr(),
+      body: [
+        TextSpan(
+          text: apiKey.isEmpty
+              ? 'lunasea.NotSet'.tr()
+              : LunaUI.TEXT_OBFUSCATED_PASSWORD,
+        ),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
           'settings.ApiKey'.tr(),
-          prefill: Database.currentProfileObject.lidarrKey ?? '',
+          prefill: apiKey,
         );
         if (_values.item1) {
           Database.currentProfileObject.lidarrKey = _values.item2;
@@ -163,12 +161,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _customHeaders() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.CustomHeaders'.tr()),
-      subtitle: LunaText.subtitle(
-        text: 'settings.CustomHeadersDescription'.tr(),
-      ),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationLidarrHeadersRouter().navigateTo(context);

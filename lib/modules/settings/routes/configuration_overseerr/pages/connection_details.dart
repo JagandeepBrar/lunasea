@@ -92,7 +92,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         TextSpan(
           text: apiKey.isEmpty
               ? 'settings.NotSet'.tr()
-              : LunaUI.TEXT_BULLET.repeat(12),
+              : LunaUI.TEXT_OBFUSCATED_PASSWORD,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

@@ -123,20 +123,20 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayNameTile() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.DisplayName'.tr()),
-      subtitle: LunaText.subtitle(
-        text: _module.displayName == null || _module.displayName.isEmpty
-            ? 'lunasea.NotSet'.tr()
-            : _module.displayName,
-      ),
+    String _displayName = _module.displayName ?? '';
+    return LunaBlock(
+      title: 'settings.DisplayName'.tr(),
+      body: [
+        TextSpan(
+          text: _displayName.isEmpty ? 'lunasea.NotSet'.tr() : _displayName,
+        ),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs().editText(
           context,
           'settings.DisplayName'.tr(),
-          prefill: _module.displayName,
+          prefill: _displayName,
         );
         if (values.item1) _module.displayName = values.item2;
         _module.save();
@@ -145,20 +145,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hostTile() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.Host'.tr()),
-      subtitle: LunaText.subtitle(
-        text: _module.host == null || _module.host.isEmpty
-            ? 'lunasea.NotSet'.tr()
-            : _module.host,
-      ),
+    String _host = _module.host ?? '';
+    return LunaBlock(
+      title: 'settings.Host'.tr(),
+      body: [
+        TextSpan(text: _host.isEmpty ? 'lunasea.NotSet'.tr() : _host),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values =
             await SettingsDialogs().editExternalModuleHost(
           context,
-          prefill: _module.host,
+          prefill: _host,
         );
         if (values.item1) _module.host = values.item2;
         _module.save();

@@ -1,3 +1,5 @@
+android/app/google-services.json
 android/key.jks
 android/key.properties
-lib/core/firebase/firebase_options.dart
+ios/GoogleService-Info.plist
+macos/GoogleService-Info.plist

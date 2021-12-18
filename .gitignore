@@ -49,8 +49,9 @@ coverage/
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
-
-# Encrypted Files
-/android/key.jks
 /android/key.properties
-/lib/core/firebase/firebase_options.dart
+/android/app/google-services.json
+/android/key.jks
+/ios/GoogleService-Info.plist
+/macos/GoogleService-Info.plist
+/vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf

@@ -266,8 +266,8 @@ class SonarrState extends LunaModuleState {
 
   String _baseImageURL() {
     return _host.endsWith('/')
-        ? '${_host}api/MediaCover'
-        : '$_host/api/MediaCover';
+        ? '${_host}api/v3/MediaCover'
+        : '$_host/api/v3/MediaCover';
   }
 
   String getBannerURL(int seriesId, {bool highRes = false}) {

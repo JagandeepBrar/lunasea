@@ -10,6 +10,7 @@ class LunaIcons {
   static const IconData DELETE = Icons.delete_rounded;
   static const IconData DEVICES = Icons.devices_rounded;
   static const IconData DOWNLOAD = Icons.file_download_rounded;
+  static const IconData ERROR = Icons.error_rounded;
   static const IconData HOME = Icons.home_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
   static const IconData PLAY = Icons.play_arrow_rounded;

@@ -24,6 +24,12 @@ class TautulliSyncedItemTile extends StatelessWidget {
             syncedItem?.ratingKey,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
+      posterHeaders: context.watch<TautulliState>().headers,
+      posterUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
+            syncedItem?.ratingKey,
+            width: MediaQuery.of(context).size.width.truncate(),
+          ),
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       onTap: () async => _onTap(context),
     );
   }

@@ -46,10 +46,8 @@ class _State extends State<RadarrCatalogueTile> {
   TextSpan _buildChildTextSpan(String text, RadarrMoviesSorting sorting) {
     TextStyle style;
     if (context.read<RadarrState>().moviesSortType == sorting)
-      style = TextStyle(
-        color: widget.movie.monitored
-            ? LunaColours.accent
-            : LunaColours.accent.withOpacity(0.30),
+      style = const TextStyle(
+        color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       );
     return TextSpan(

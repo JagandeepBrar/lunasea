@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliSearchResultTile extends StatelessWidget {
+class TautulliSearchResultTile extends StatefulWidget {
   final TautulliSearchResult result;
   final TautulliMediaType mediaType;
-  final double _imageDimension = 84.0;
-  final double _padding = 8.0;
 
   const TautulliSearchResultTile({
     Key key,
@@ -15,68 +13,37 @@ class TautulliSearchResultTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<TautulliSearchResultTile> {
+  @override
   Widget build(BuildContext context) {
-    return LunaCard(
-      context: context,
-      child: InkWell(
-        child: Row(
-          children: [
-            _poster(context),
-            _details,
-          ],
-        ),
-        onTap: () async => _onTap(context),
-      ),
-      decoration: result.art != null && result.art.isNotEmpty
-          ? LunaCardDecoration(
-              uri: context
-                  .watch<TautulliState>()
-                  .getImageURLFromPath(result.art),
-              headers: context.watch<TautulliState>().headers,
-            )
-          : null,
+    return LunaBlock(
+      title: widget.result.title,
+      body: [
+        TextSpan(text: _body1),
+        TextSpan(text: widget.result.grandparentTitle),
+        _library(),
+      ],
+      posterUrl: context
+          .watch<TautulliState>()
+          .getImageURLFromPath(widget.result.thumb),
+      posterHeaders: context.watch<TautulliState>().headers,
+      backgroundHeaders: context.watch<TautulliState>().headers,
+      backgroundUrl:
+          context.watch<TautulliState>().getImageURLFromPath(widget.result.art),
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      onTap: _onTap,
     );
   }
 
-  Widget _poster(BuildContext context) => LunaNetworkImage(
-        context: context,
-        url: context.watch<TautulliState>().getImageURLFromPath(result.thumb),
-        headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        height: _imageDimension,
-        width: _imageDimension / 1.5,
-        placeholderIcon: LunaIcons.VIDEO_CAM,
-      );
-
-  Widget get _details => Expanded(
-        child: Padding(
-          child: SizedBox(
-            child: Column(
-              children: [
-                _title,
-                _subtitleOne,
-                _subtitleTwo,
-                _library,
-                // _date,
-                // _userInfo,
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-            ),
-            height: (_imageDimension - (_padding * 2)) + 1,
-          ),
-          padding: EdgeInsets.all(_padding),
-        ),
-      );
-
-  Widget get _title => LunaText.title(text: result.title, maxLines: 1);
-
-  Widget get _subtitleOne {
+  String get _body1 {
     String _text = '';
-    switch (result.mediaType) {
+    switch (widget.result.mediaType) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.SHOW:
-        _text = result.year?.toString() ?? 'Unknown';
+        _text = widget.result.year?.toString() ?? 'Unknown';
         break;
       case TautulliMediaType.ARTIST:
         break;
@@ -84,36 +51,31 @@ class TautulliSearchResultTile extends StatelessWidget {
       case TautulliMediaType.EPISODE:
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.TRACK:
-        _text = result?.parentTitle ?? '';
+        _text = widget.result?.parentTitle ?? '';
         break;
       case TautulliMediaType.COLLECTION:
         _text =
-            '${result?.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${result?.maxYear ?? 0}';
+            '${widget.result?.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${widget.result?.maxYear ?? 0}';
         break;
       default:
         break;
     }
-    return LunaText.subtitle(text: _text, maxLines: 1);
+    return _text;
   }
 
-  Widget get _subtitleTwo =>
-      LunaText.subtitle(text: result.grandparentTitle, maxLines: 1);
+  TextSpan _library() {
+    return TextSpan(
+      text: widget.result.libraryName,
+      style: const TextStyle(
+        color: LunaColours.accent,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+    );
+  }
 
-  Widget get _library => Text(
-        result.libraryName,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        style: const TextStyle(
-          color: LunaColours.accent,
-          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        ),
-      );
-
-  Future<void> _onTap(BuildContext context) async =>
-      TautulliMediaDetailsRouter().navigateTo(
+  Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
         context,
-        ratingKey: result.ratingKey,
-        mediaType: mediaType,
+        ratingKey: widget.result.ratingKey,
+        mediaType: widget.mediaType,
       );
 }

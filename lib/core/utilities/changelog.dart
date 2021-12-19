@@ -9,6 +9,19 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
   String _version;
   String _buildNumber;
 
+  static Future<dynamic> delayedShow([
+    Duration duration = const Duration(seconds: 1),
+    bool checkBuildNumber = true,
+  ]) async {
+    Future.delayed(
+      duration,
+      () async => LunaChangelogSheet().show(
+        context: LunaState.navigatorKey.currentContext,
+        checkBuildNumber: checkBuildNumber,
+      ),
+    );
+  }
+
   @override
   Future<dynamic> show({
     @required BuildContext context,

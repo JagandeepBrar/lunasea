@@ -12,6 +12,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
             builder: (context, snapshot) =>
                 LunaText.title(text: LunaFirebaseAuth().email ?? 'LunaSea'),
           ),
+          margin: EdgeInsets.zero,
           accountEmail: LunaDatabaseValue.ENABLED_PROFILE.listen(
             builder: (context, lunaBox, widget) => ValueListenableBuilder(
               valueListenable: Database.profilesBox.listenable(),
@@ -23,10 +24,13 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                     children: [
                       LunaText.subtitle(
                         text: LunaDatabaseValue.ENABLED_PROFILE.data,
+                        color: LunaColours.white
+                            .withOpacity(LunaUI.OPACITY_DIMMED),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_drop_down_rounded,
-                        color: LunaColours.grey,
+                        color: LunaColours.white
+                            .withOpacity(LunaUI.OPACITY_DIMMED),
                         size: LunaUI.FONT_SIZE_HEADER,
                       ),
                     ],
@@ -48,7 +52,8 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                                           'default') ==
                                       profile
                                   ? LunaColours.accent
-                                  : Colors.white,
+                                  : LunaColours.white
+                                      .withOpacity(LunaUI.OPACITY_DIMMED),
                             ),
                           ),
                         )
@@ -64,7 +69,9 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
             image: DecorationImage(
               image: const AssetImage(LunaAssets.brandingLogo),
               colorFilter: ColorFilter.mode(
-                  LunaColours.primary.withOpacity(0.15), BlendMode.dstATop),
+                LunaColours.primary.withOpacity(0.15),
+                BlendMode.dstATop,
+              ),
               fit: BoxFit.cover,
             ),
           ),

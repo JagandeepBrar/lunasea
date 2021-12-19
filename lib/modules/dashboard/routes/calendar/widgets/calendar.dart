@@ -24,12 +24,12 @@ class _State extends State<DashboardCalendarWidget> {
   CalendarFormat _calendarFormat;
 
   final TextStyle dayTileStyle = const TextStyle(
-    color: Colors.white,
+    color: LunaColours.white,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle outsideDayTileStyle = const TextStyle(
-    color: Colors.white54,
+    color: LunaColours.white70,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_H3,
   );
@@ -84,7 +84,8 @@ class _State extends State<DashboardCalendarWidget> {
                     _calendarList(),
                   ],
                 ),
-                padding: EdgeInsets.only(top: LunaUI.MARGIN_CARD.top),
+                padding:
+                    EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top),
               );
             }
             return _schedule();
@@ -173,11 +174,13 @@ class _State extends State<DashboardCalendarWidget> {
                   isTodayHighlighted: true,
                   outsideDaysVisible: false,
                   selectedDecoration: BoxDecoration(
-                    color: LunaColours.accent.withOpacity(0.20),
+                    color:
+                        LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
                     shape: BoxShape.circle,
                   ),
                   todayDecoration: BoxDecoration(
-                    color: LunaColours.primary.withOpacity(0.60),
+                    color: LunaColours.primary
+                        .withOpacity(LunaUI.OPACITY_DISABLED),
                     shape: BoxShape.circle,
                   ),
                   weekendTextStyle: dayTileStyle,

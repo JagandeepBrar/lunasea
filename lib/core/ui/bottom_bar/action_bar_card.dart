@@ -99,13 +99,12 @@ class LunaActionBarCard extends StatelessWidget {
         onTap: _onTapHandler(),
         onLongPress: _onLongPressHandler(),
       ),
-      margin: LunaUI.MARGIN_BUTTON,
+      margin: LunaUI.MARGIN_HALF,
       color: backgroundColor != null
-          ? backgroundColor.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
+          ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
           : LunaTheme.isAMOLEDTheme
-              ? Colors.black.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
-              : LunaColours.primary
-                  .withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND),
+              ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
+              : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
     );
   }
 

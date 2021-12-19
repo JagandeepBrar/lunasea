@@ -162,7 +162,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           LidarrDescriptionBlock(
             title: _arguments.data.title ?? 'Unknown',
             description: _arguments.data.overview == ''
-                ? 'No summary is available.'
+                ? 'No Summary Available'
                 : _arguments.data.overview,
             uri: _arguments.data.posterURI ?? '',
             squareImage: true,

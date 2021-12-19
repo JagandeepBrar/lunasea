@@ -48,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return Column(
       children: [
-        SizedBox(height: LunaUI.MARGIN_CARD.bottom),
+        SizedBox(height: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom),
         LunaBlock(
           title: 'settings.AutomaticallyManageOrder'.tr(),
           body: [
@@ -64,10 +64,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const LunaDivider(),
         Expanded(
           child: LunaReorderableListViewBuilder(
-            padding: MediaQuery.of(context)
-                .padding
-                .copyWith(top: 0)
-                .add(EdgeInsets.only(bottom: LunaUI.MARGIN_CARD.bottom)),
+            padding: MediaQuery.of(context).padding.copyWith(top: 0).add(
+                EdgeInsets.only(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)),
             controller: scrollController,
             itemCount: _modules.length,
             itemBuilder: (context, index) => _reorderableModuleTile(index),

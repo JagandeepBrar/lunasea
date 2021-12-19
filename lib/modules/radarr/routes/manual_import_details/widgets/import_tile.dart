@@ -31,7 +31,7 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
                 .watch<RadarrManualImportDetailsState>()
                 .selectedFiles
                 .contains(manualImport.id)
-            ? LunaColours.accent.withOpacity(0.15)
+            ? LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH)
             : null,
       ),
     );

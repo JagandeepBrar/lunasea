@@ -6,7 +6,7 @@ class LunaCard extends Card {
     Key key,
     @required BuildContext context,
     @required Widget child,
-    EdgeInsets margin = LunaUI.MARGIN_CARD,
+    EdgeInsets margin = LunaUI.MARGIN_H_DEFAULT_V_HALF,
     Color color,
     Decoration decoration,
     double height,

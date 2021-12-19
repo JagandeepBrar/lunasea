@@ -68,7 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     String host = Database.currentProfileObject.sabnzbdHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
-      body: [TextSpan(text: host.isEmpty ? 'settings.NotSet'.tr() : host)],
+      body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
@@ -91,7 +91,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: apiKey.isEmpty
-              ? 'settings.NotSet'.tr()
+              ? 'lunasea.NotSet'.tr()
               : LunaUI.TEXT_OBFUSCATED_PASSWORD,
         ),
       ],

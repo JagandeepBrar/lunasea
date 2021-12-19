@@ -4,9 +4,6 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
   final TautulliMetadata metadata;
-  final double _height = 105.0;
-  final double _width = 70.0;
-  final double _padding = 8.0;
 
   const TautulliMediaDetailsMetadataHeaderTile({
     Key key,
@@ -15,31 +12,31 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaCard(
-      context: context,
-      child: _body(context),
-      decoration: metadata.art != null && metadata.art.isNotEmpty
-          ? LunaCardDecoration(
-              uri: context.watch<TautulliState>().getImageURLFromPath(
-                    metadata.art,
-                    width: MediaQuery.of(context).size.width.truncate(),
-                  ),
-              headers: context.watch<TautulliState>().headers,
-            )
-          : null,
+    return LunaBlock(
+      title: _title,
+      body: _body,
+      backgroundHeaders: context.watch<TautulliState>().headers,
+      backgroundUrl: context.watch<TautulliState>().getImageURLFromPath(
+            metadata.art,
+            width: MediaQuery.of(context).size.width.truncate(),
+          ),
+      bottom: const SizedBox(),
+      bottomHeight: _bottomHeight,
+      posterUrl:
+          context.watch<TautulliState>().getImageURLFromPath(_posterLink),
+      posterHeaders: context.watch<TautulliState>().headers,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
     );
   }
 
-  Widget _body(BuildContext context) {
-    return Row(
-      children: [
-        _poster(context),
-        Expanded(child: _mediaInfo),
-      ],
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-    );
-  }
+  String get _title =>
+      metadata.grandparentTitle == null || metadata.grandparentTitle.isEmpty
+          ? metadata.parentTitle == null || metadata.parentTitle.isEmpty
+              ? metadata.title == null || metadata.title.isEmpty
+                  ? 'Unknown Title'
+                  : metadata.title
+              : metadata.parentTitle
+          : metadata.grandparentTitle;
 
   String get _posterLink {
     switch (metadata.mediaType) {
@@ -61,53 +58,16 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     }
   }
 
-  Widget _poster(BuildContext context) {
-    return LunaNetworkImage(
-      context: context,
-      url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
-      placeholderIcon: LunaIcons.VIDEO_CAM,
-      height: _height,
-      width: _width,
-      headers: context.watch<TautulliState>().headers.cast<String, String>(),
-    );
-  }
-
-  Widget get _mediaInfo => Padding(
-        child: SizedBox(
-          child: Column(
-            children: [
-              LunaText.title(text: _title, maxLines: 1),
-              const SizedBox(height: 4.0),
-              ..._subtitles,
-            ],
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-          ),
-          height: (_height - (_padding * 2)),
-        ),
-        padding: EdgeInsets.all(_padding),
-      );
-
-  String get _title =>
-      metadata.grandparentTitle == null || metadata.grandparentTitle.isEmpty
-          ? metadata.parentTitle == null || metadata.parentTitle.isEmpty
-              ? metadata.title == null || metadata.title.isEmpty
-                  ? 'Unknown Title'
-                  : metadata.title
-              : metadata.parentTitle
-          : metadata.grandparentTitle;
-
-  List<Widget> get _subtitles {
+  List<TextSpan> get _body {
     switch (metadata.mediaType) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.SHOW:
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.SEASON:
-        return [_subtitleOne];
+        return [_subtitle1];
       case TautulliMediaType.EPISODE:
       case TautulliMediaType.TRACK:
-        return [_subtitleOne, _subtitleTwo];
+        return [_subtitle1, _subtitle2];
       case TautulliMediaType.ARTIST:
       case TautulliMediaType.COLLECTION:
       case TautulliMediaType.LIVE:
@@ -117,13 +77,32 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     }
   }
 
-  Widget get _subtitleOne {
+  double get _bottomHeight {
+    switch (metadata.mediaType) {
+      case TautulliMediaType.MOVIE:
+      case TautulliMediaType.SHOW:
+      case TautulliMediaType.ALBUM:
+      case TautulliMediaType.SEASON:
+        return LunaBlock.SUBTITLE_HEIGHT * 2;
+      case TautulliMediaType.EPISODE:
+      case TautulliMediaType.TRACK:
+        return LunaBlock.SUBTITLE_HEIGHT;
+      case TautulliMediaType.ARTIST:
+      case TautulliMediaType.COLLECTION:
+      case TautulliMediaType.LIVE:
+      case TautulliMediaType.NULL:
+      default:
+        return LunaBlock.SUBTITLE_HEIGHT * 3;
+    }
+  }
+
+  TextSpan get _subtitle1 {
     String _text = '';
     switch (metadata.mediaType) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.ARTIST:
       case TautulliMediaType.SHOW:
-        _text = metadata.year?.toString() ?? 'Unknown';
+        _text = metadata.year?.toString() ?? 'lunasea.Unknown'.tr();
         break;
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.SEASON:
@@ -141,19 +120,19 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
         break;
       case TautulliMediaType.NULL:
       default:
-        _text = 'Unknown';
+        _text = 'lunasea.Unknown'.tr();
         break;
     }
-    return LunaText.subtitle(text: _text);
+    return TextSpan(text: _text);
   }
 
-  Widget get _subtitleTwo {
+  TextSpan get _subtitle2 {
     String _text = '';
     switch (metadata.mediaType) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.ARTIST:
       case TautulliMediaType.SHOW:
-        _text = metadata.year?.toString() ?? 'Unknown';
+        _text = metadata.year?.toString() ?? 'lunasea.Unknown'.tr();
         break;
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.SEASON:
@@ -165,16 +144,9 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
         break;
       case TautulliMediaType.NULL:
       default:
-        _text = 'Unknown';
+        _text = 'lunasea.Unknown'.tr();
         break;
     }
-    return Text(
-      _text,
-      maxLines: 3,
-      style: const TextStyle(
-        color: LunaColours.grey,
-        fontSize: LunaUI.FONT_SIZE_H3,
-      ),
-    );
+    return TextSpan(text: _text);
   }
 }

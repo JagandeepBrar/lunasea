@@ -76,7 +76,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
         runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
         children: _nodes,
       ),
-      padding: LunaUI.MARGIN_CARD.copyWith(top: 0),
+      padding: LunaUI.MARGIN_H_DEFAULT_V_HALF.copyWith(top: 0),
     );
   }
 
@@ -102,7 +102,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       ),
       _highlightedNodes(context),
       Padding(
-        padding: LunaUI.MARGIN_CARD.copyWith(top: 0),
+        padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
         child: LunaText.subtitle(
           text: episode.overview ?? 'sonarr.NoSummaryAvailable'.tr(),
           maxLines: 0,

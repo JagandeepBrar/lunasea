@@ -17,7 +17,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         title: data.title,
         disabled: alreadyAdded,
         body: [
-          TextSpan(text: data.overview.trim()),
+          LunaTextSpan.extended(text: data.overview.trim()),
         ],
         customBodyMaxLines: 2,
         trailing: alreadyAdded ? null : const LunaIconButton.arrow(),

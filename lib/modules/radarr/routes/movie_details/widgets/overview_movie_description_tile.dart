@@ -19,7 +19,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
       posterHeaders: context.read<RadarrState>().headers,
       title: movie.title,
       body: [
-        TextSpan(
+        LunaTextSpan.extended(
           text: movie.overview == null || movie.overview.isEmpty
               ? 'sonarr.NoSummaryAvailable'.tr()
               : movie.overview,

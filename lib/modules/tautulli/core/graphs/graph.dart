@@ -44,7 +44,7 @@ class TautulliGraphHelper {
                     ].join()
                   : data.categories[value.truncate()].toUpperCase(),
           getTextStyles: (_, __) => const TextStyle(
-            color: Colors.white30,
+            color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),
         ),
@@ -107,9 +107,9 @@ class TautulliGraphHelper {
         height: GRAPH_HEIGHT + LEGEND_HEIGHT,
         alignment: Alignment.center,
         child: const LunaIconButton(
-          icon: Icons.error_rounded,
-          iconSize: 60.0,
-          color: LunaColours.white10,
+          icon: LunaIcons.ERROR,
+          iconSize: LunaUI.ICON_SIZE * 2,
+          color: LunaColours.red,
         ),
       ),
     );

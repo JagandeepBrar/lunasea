@@ -5,8 +5,6 @@ enum LunaDatabaseValue {
   DRAWER_AUTOMATIC_MANAGE,
   DRAWER_MANUAL_ORDER,
   ENABLED_PROFILE,
-  ENABLE_FIREBASE_ANALYTICS,
-  ENABLE_FIREBASE_CRASHLYTICS,
   THEME_AMOLED,
   THEME_AMOLED_BORDER,
   THEME_IMAGE_BACKGROUND_OPACITY,
@@ -135,10 +133,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
         return value is List;
-      case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
-        return value is bool;
-      case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
-        return value is bool;
       case LunaDatabaseValue.THEME_AMOLED:
         return value is bool;
       case LunaDatabaseValue.THEME_AMOLED_BORDER:
@@ -187,10 +181,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return false;
       case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
         return 10;
-      case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
-        return true;
-      case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
-        return true;
       case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
         return false;
       case LunaDatabaseValue.QUICK_ACTIONS_RADARR:

@@ -15,7 +15,7 @@ class LunaButton extends Card {
   LunaButton._({
     Key key,
     @required Widget child,
-    EdgeInsets margin = LunaUI.MARGIN_BUTTON,
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     Color backgroundColor,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
@@ -46,11 +46,10 @@ class LunaButton extends Card {
           ),
           margin: margin,
           color: backgroundColor != null
-              ? backgroundColor.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
+              ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
               : LunaTheme.isAMOLEDTheme
-                  ? Colors.black.withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND)
-                  : LunaColours.primary
-                      .withOpacity(LunaUI.OPACITY_BUTTON_BACKGROUND),
+                  ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
+                  : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
           shape: backgroundColor != null
               ? LunaShapeBorder.rounded()
               : LunaUI.shapeBorder,
@@ -71,7 +70,7 @@ class LunaButton extends Card {
     IconData icon,
     double iconSize = LunaUI.ICON_SIZE,
     LunaLoadingState loadingState,
-    EdgeInsets margin = LunaUI.MARGIN_BUTTON,
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
     Decoration decoration,
@@ -164,7 +163,7 @@ class LunaButton extends Card {
     double iconSize = LunaUI.ICON_SIZE,
     Color color = LunaColours.accent,
     Color backgroundColor,
-    EdgeInsets margin = LunaUI.MARGIN_BUTTON,
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
     Decoration decoration,
@@ -219,7 +218,7 @@ class LunaButton extends Card {
 
   /// Build a button that contains a [LunaLoader].
   factory LunaButton.loader({
-    EdgeInsets margin = LunaUI.MARGIN_BUTTON,
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     Color color = LunaColours.accent,
     Color backgroundColor,
     double height = DEFAULT_HEIGHT,
@@ -251,7 +250,7 @@ class LunaButton extends Card {
     @required IconData icon,
     Color color = LunaColours.accent,
     Color backgroundColor,
-    EdgeInsets margin = LunaUI.MARGIN_BUTTON,
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     double iconSize = LunaUI.ICON_SIZE,
     Alignment alignment = Alignment.center,

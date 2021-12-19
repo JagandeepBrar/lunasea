@@ -24,7 +24,7 @@ class NZBGetAppBarStats extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 style: const TextStyle(
-                  color: Colors.white54,
+                  color: LunaColours.grey,
                   fontSize: LunaUI.FONT_SIZE_H3,
                 ),
                 children: [

@@ -85,8 +85,9 @@ class _State<T> extends State<LunaPagedListView<T>> {
           padding: widget.padding ??
               MediaQuery.of(context)
                   .padding
-                  .copyWith(bottom: LunaUI.MARGIN_CARD.bottom)
-                  .add(EdgeInsets.only(top: LunaUI.MARGIN_CARD.top)),
+                  .copyWith(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)
+                  .add(
+                      EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top)),
           physics: const AlwaysScrollableScrollPhysics(),
         ),
       ),

@@ -57,12 +57,6 @@ class _State extends State<TautulliStatisticsPlatformTile> {
               ),
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH),
-      widget.data['last_play'] != null
-          ? TextSpan(
-              text:
-                  'Last Used ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
-            )
-          : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];
   }
 }

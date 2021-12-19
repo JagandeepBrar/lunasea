@@ -4,7 +4,6 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrBottomModalSheets {
   Future<void> configureManualImport(BuildContext context) async {
-    // TODO: Abstract this
     await LunaBottomModalSheet().show(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(
@@ -75,7 +74,6 @@ class RadarrBottomModalSheets {
   }
 
   Future<void> selectQuality(BuildContext context) async {
-    // TODO: Abstract this
     await LunaBottomModalSheet().show(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(
@@ -171,7 +169,6 @@ class RadarrBottomModalSheets {
       return _filtered;
     }
 
-    // TODO: Abstract this
     await LunaBottomModalSheet().show(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(

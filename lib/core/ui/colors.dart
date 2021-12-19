@@ -36,7 +36,6 @@ class LunaColours {
   /// Shades of White
   static const Color white = Color(0xFFFFFFFF);
   static const Color white70 = Color(0xB3FFFFFF);
-  static const Color white30 = Color(0x4DFFFFFF);
   static const Color white10 = Color(0x1AFFFFFF);
 
   /// Returns the correct colour for a graph by what layer it is on the graph canvas.

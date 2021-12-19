@@ -22,7 +22,7 @@ class TautulliLineGraphHelper {
                       ?.toString()
                   : '??',
           getTextStyles: (_, __) => const TextStyle(
-            color: Colors.white30,
+            color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),
         ),
@@ -43,7 +43,11 @@ class TautulliLineGraphHelper {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors: [LunaColours().byGraphLayer(sIndex).withOpacity(0.20)],
+            colors: [
+              LunaColours()
+                  .byGraphLayer(sIndex)
+                  .withOpacity(LunaUI.OPACITY_SPLASH)
+            ],
           ),
           dotData: FlDotData(
             show: true,
@@ -101,7 +105,7 @@ class TautulliLineGraphHelper {
         (index) => TouchedSpotIndicatorData(
           FlLine(
             strokeWidth: 3.0,
-            color: bar.colors[0].withOpacity(0.50),
+            color: bar.colors[0].withOpacity(LunaUI.OPACITY_DISABLED),
           ),
           FlDotData(
             show: true,

@@ -24,7 +24,7 @@ class LunaLinearPercentIndicator extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: LinearPercentIndicator(
         percent: percent,
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 2.0),
         lineHeight: 4.0,
         progressColor: progressColor,
         backgroundColor:

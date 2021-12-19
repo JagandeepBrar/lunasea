@@ -39,12 +39,8 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
     return TextSpan(
       style: TextStyle(
         color: series.lunaPercentageComplete == 100
-            ? series.monitored
-                ? LunaColours.accent
-                : LunaColours.accent.withOpacity(0.30)
-            : series.monitored
-                ? LunaColours.red
-                : LunaColours.red.withOpacity(0.30),
+            ? LunaColours.accent
+            : LunaColours.red,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),
       text: [

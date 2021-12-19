@@ -798,7 +798,7 @@ class SonarrDialogs {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                left: 56.0, // 32.0 + iconSize
+                                left: 32.0 + LunaUI.ICON_SIZE,
                               ),
                               child: LunaDialog.richText(
                                 children: [

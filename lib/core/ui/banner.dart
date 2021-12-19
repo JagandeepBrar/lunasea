@@ -32,12 +32,13 @@ class LunaBanner extends StatelessWidget {
     return LunaCard(
       context: context,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: LunaUI.MARGIN_CARD.top),
+        padding:
+            EdgeInsets.symmetric(vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.top),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: LunaUI.MARGIN_CARD,
+              padding: LunaUI.MARGIN_H_DEFAULT_V_HALF,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -73,7 +74,7 @@ class LunaBanner extends StatelessWidget {
             ),
             if (bodyText?.isNotEmpty ?? false)
               Padding(
-                padding: LunaUI.MARGIN_CARD.copyWith(top: 0),
+                padding: LunaUI.MARGIN_H_DEFAULT_V_HALF.copyWith(top: 0),
                 child: LunaText.subtitle(
                   text: bodyText.toString(),
                   color: bodyColor,
@@ -84,7 +85,7 @@ class LunaBanner extends StatelessWidget {
             if (buttons?.isNotEmpty ?? false)
               LunaButtonContainer(
                 padding: EdgeInsets.symmetric(
-                    horizontal: LunaUI.MARGIN_CARD.left / 2),
+                    horizontal: LunaUI.MARGIN_H_DEFAULT_V_HALF.left / 2),
                 children: buttons,
               ),
           ],

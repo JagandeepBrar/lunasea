@@ -54,9 +54,10 @@ Future<void> showLunaSnackBar({
         controller: controller,
         boxShadows: [
           BoxShadow(
-              blurRadius: 6.0,
-              spreadRadius: 4.0,
-              color: Colors.black.withOpacity(0.10))
+            blurRadius: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+            spreadRadius: LunaUI.DEFAULT_MARGIN_SIZE / 4,
+            color: Colors.black.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+          ),
         ],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
         margin: LunaUI.MARGIN_DEFAULT,
@@ -66,19 +67,15 @@ Future<void> showLunaSnackBar({
         borderColor:
             LunaUI.shouldUseBorder ? LunaColours.white10 : Colors.transparent,
         child: FlashBar(
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              fontSize: LunaUI.FONT_SIZE_H2,
-            ),
+          title: LunaText.title(
+            text: title,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
           ),
-          content: Text(
-            message,
-            style: const TextStyle(
-              color: LunaColours.grey,
-              fontSize: LunaUI.FONT_SIZE_H3,
-            ),
+          content: LunaText.subtitle(
+            text: message,
+            maxLines: 8,
+            overflow: TextOverflow.ellipsis,
           ),
           shouldIconPulse: false,
           icon: Padding(

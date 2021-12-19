@@ -91,7 +91,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: apiKey.isEmpty
-              ? 'settings.NotSet'.tr()
+              ? 'lunasea.NotSet'.tr()
               : LunaUI.TEXT_OBFUSCATED_PASSWORD,
         ),
       ],

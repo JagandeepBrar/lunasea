@@ -31,12 +31,22 @@ class LunaDrawer extends StatelessWidget {
         valueListenable: Database.indexersBox.listenable(),
         builder: (context, indexerBox, widget) => Drawer(
           child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
-            builder: (context, _, __) => ListView(
-              children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
-                  ? _getAlphabeticalOrder(context)
-                  : _getManualOrder(context),
-              padding: const EdgeInsets.only(bottom: 8.0),
-              physics: const ClampingScrollPhysics(),
+            builder: (context, _, __) => Column(
+              children: [
+                LunaDrawerHeader(),
+                Expanded(
+                  child: LunaListView(
+                    controller: PrimaryScrollController.of(context),
+                    children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+                        ? _getAlphabeticalOrder(context)
+                        : _getManualOrder(context),
+                    physics: const ClampingScrollPhysics(),
+                    padding: MediaQuery.of(context)
+                        .padding
+                        .copyWith(top: LunaUI.MARGIN_SIZE_HALF),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -46,13 +56,17 @@ class LunaDrawer extends StatelessWidget {
 
   List<Widget> _sharedHeader(BuildContext context) {
     return [
-      LunaDrawerHeader(),
-      _buildEntry(context: context, module: LunaModule.DASHBOARD),
-      _buildEntry(context: context, module: LunaModule.SETTINGS),
-      const Divider(
-        thickness: 1.0,
-        color: LunaColours.white10,
+      _buildEntry(
+        context: context,
+        module: LunaModule.DASHBOARD,
+        showDescription: false,
       ),
+      _buildEntry(
+        context: context,
+        module: LunaModule.SETTINGS,
+        showDescription: false,
+      ),
+      const LunaDivider(),
     ];
   }
 
@@ -96,38 +110,29 @@ class LunaDrawer extends StatelessWidget {
   Widget _buildEntry({
     @required BuildContext context,
     @required LunaModule module,
+    bool showDescription = true,
   }) {
     bool currentPage = page == module.key.toLowerCase();
-    return ListTile(
-      leading: Icon(
-        module.icon,
+    return LunaBlock(
+      leading: LunaIconButton(
+        icon: module.icon,
         color: currentPage ? module.color : Colors.white,
       ),
-      title: Text(
-        module.name,
-        style: TextStyle(
-          color: currentPage ? module.color : Colors.white,
-          fontSize: LunaUI.FONT_SIZE_H3,
-        ),
-      ),
+      title: module.name,
+      body: showDescription ? [TextSpan(text: module.description)] : [],
+      titleColor: currentPage ? module.color : Colors.white,
       onTap: () async {
         Navigator.of(context).pop();
         if (!currentPage) module.launch();
       },
-      contentPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
   }
 
   Widget _buildWakeOnLAN(BuildContext context) {
-    return ListTile(
-      leading: Icon(LunaModule.WAKE_ON_LAN.icon),
-      title: Text(
-        LunaModule.WAKE_ON_LAN.name,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: LunaUI.FONT_SIZE_H3,
-        ),
-      ),
+    return LunaBlock(
+      leading: LunaIconButton(icon: LunaModule.WAKE_ON_LAN.icon),
+      title: LunaModule.WAKE_ON_LAN.name,
+      // body: [TextSpan(text: LunaModule.WAKE_ON_LAN.description)],
       onTap: () async {
         WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
         await api
@@ -144,7 +149,6 @@ class LunaDrawer extends StatelessWidget {
           );
         });
       },
-      contentPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
     );
   }
 }

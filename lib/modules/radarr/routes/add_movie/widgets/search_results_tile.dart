@@ -67,7 +67,9 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
             fontSize: LunaUI.FONT_SIZE_H3,
             color: LunaColours.grey,
           ),
-          text: summary,
+          children: [
+            LunaTextSpan.extended(text: summary),
+          ],
         ),
         overflow: TextOverflow.ellipsis,
         maxLines: 2,

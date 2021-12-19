@@ -19,7 +19,7 @@ class SonarrSeriesDetailsOverviewDescriptionTile extends StatelessWidget {
       posterHeaders: context.read<SonarrState>().headers,
       title: series.title,
       body: [
-        TextSpan(
+        LunaTextSpan.extended(
           text: series.overview == null || series.overview.isEmpty
               ? 'sonarr.NoSummaryAvailable'.tr()
               : series.overview,

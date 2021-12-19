@@ -65,7 +65,9 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
             fontSize: LunaUI.FONT_SIZE_H3,
             color: LunaColours.grey,
           ),
-          text: widget.series.lunaOverview,
+          children: [
+            LunaTextSpan.extended(text: widget.series.lunaOverview),
+          ],
         ),
         overflow: TextOverflow.ellipsis,
         maxLines: 2,

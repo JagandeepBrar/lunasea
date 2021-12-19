@@ -24,6 +24,7 @@ class _State extends State<LidarrDetailsTrackTile> {
           TextSpan(text: widget?.data?.duration?.lunaTimestamp(divisor: 1000)),
           widget?.data?.file(widget.monitored),
         ],
+        disabled: !widget.monitored,
         leading: LunaIconButton(text: widget?.data?.trackNumber),
       );
 }

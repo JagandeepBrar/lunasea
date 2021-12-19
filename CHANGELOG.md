@@ -4,6 +4,7 @@
 
 #### NEW
 
+- `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
 - `[Settings]` (Configuration) Show dismissable banner with module information and links
 - `[Sonarr]` (Catalogue) Previous airing sorting option
 - `[Sonarr]` (Queue) Option to set queue page size
@@ -11,12 +12,15 @@
 
 #### TWEAKS
 
+- `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
+- `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
+- `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding
+- `[UI/UX]` (Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.
+
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
 - `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
-- `[UI/UX]` (List Tiles) Improved consistency of trailing icon/text size
-- `[UI/UX]` (List Tiles) Improved consistency of tile height and padding across different sizes
 
 ---
 

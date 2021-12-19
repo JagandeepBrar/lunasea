@@ -107,7 +107,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
   Widget get _subtitle => RichText(
         text: TextSpan(
           style: const TextStyle(
-            color: Colors.white70,
+            color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_H3,
           ),
           children: <TextSpan>[

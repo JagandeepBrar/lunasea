@@ -134,7 +134,7 @@ abstract class LunaDialog {
         decoration: InputDecoration(
           labelText: title,
           labelStyle: const TextStyle(
-            color: Colors.white54,
+            color: LunaColours.grey,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),
@@ -171,7 +171,7 @@ abstract class LunaDialog {
         decoration: InputDecoration(
           labelText: title,
           labelStyle: const TextStyle(
-            color: Colors.white54,
+            color: LunaColours.grey,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),

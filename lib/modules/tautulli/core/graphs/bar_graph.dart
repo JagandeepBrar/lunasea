@@ -66,7 +66,7 @@ class TautulliBarGraphHelper {
             return BarTooltipItem(
               (_header + _body).trim(),
               const TextStyle(
-                color: Colors.white70,
+                color: LunaColours.grey,
                 fontSize: LunaUI.FONT_SIZE_SUBHEADER,
               ),
             );

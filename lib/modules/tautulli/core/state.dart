@@ -651,7 +651,7 @@ class TautulliState extends LunaModuleState {
 
   /// Get the direct URL to an image via `pms_image_proxy` using a rating key.
   String getImageURLFromRatingKey(int ratingKey, {int width = 300}) {
-    if (ratingKey == null) return '';
+    if (ratingKey == null) return null;
     if (host.endsWith('/'))
       return [
         host,
@@ -671,6 +671,7 @@ class TautulliState extends LunaModuleState {
 
   /// Get the direct URL to an image via `pms_image_proxy` using an image path.
   String getImageURLFromPath(String path, {int width = 300}) {
+    if (path == null || path.isEmpty) return null;
     if (host.endsWith('/'))
       return [
         host,

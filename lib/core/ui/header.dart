@@ -46,7 +46,7 @@ class LunaHeader extends StatelessWidget {
         subtitle,
         style: const TextStyle(
           fontSize: LunaUI.FONT_SIZE_H4,
-          color: Colors.white70,
+          color: LunaColours.grey,
           fontWeight: FontWeight.w300,
         ),
       ),

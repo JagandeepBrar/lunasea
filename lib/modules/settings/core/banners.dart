@@ -55,7 +55,7 @@ extension SettingsBannersExtension on SettingsBanners {
   /// Create a new [ValueListenableBuilder]
   ValueListenableBuilder banner({
     Color headerColor = Colors.white,
-    Color bodyColor = Colors.white70,
+    Color bodyColor = LunaColours.grey,
   }) =>
       ValueListenableBuilder(
         valueListenable: Database.alertsBox.listenable(keys: [key]),

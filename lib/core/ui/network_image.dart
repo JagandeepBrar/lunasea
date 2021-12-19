@@ -34,7 +34,7 @@ class LunaNetworkImage extends ClipRRect {
                     color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                     border: LunaUI.shouldUseBorder
-                        ? Border.all(color: Colors.white12)
+                        ? Border.all(color: LunaColours.white10)
                         : null,
                   ),
                 ),

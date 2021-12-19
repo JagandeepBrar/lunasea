@@ -23,7 +23,7 @@ class LunaBanner extends StatelessWidget {
     this.iconColor = LunaColours.accent,
     this.backgroundColor,
     this.headerColor = Colors.white,
-    this.bodyColor = Colors.white70,
+    this.bodyColor = LunaColours.grey,
     this.buttons,
   }) : super(key: key);
 

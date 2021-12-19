@@ -42,7 +42,6 @@ class _State extends State<LidarrCatalogueTile> {
           icon: widget.data.monitored
               ? Icons.turned_in_rounded
               : Icons.turned_in_not_rounded,
-          color: widget.data.monitored ? Colors.white : Colors.white30,
           onPressed: _toggleMonitoredStatus,
         ),
         posterPlaceholderIcon: LunaIcons.USER,

@@ -15,7 +15,7 @@ class TautulliGraphHelper {
 
   FlBorderData borderData() => FlBorderData(
         show: true,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: LunaColours.white10),
       );
 
   FlTitlesData titlesData(
@@ -109,7 +109,7 @@ class TautulliGraphHelper {
         child: const LunaIconButton(
           icon: Icons.error_rounded,
           iconSize: 60.0,
-          color: Colors.white12,
+          color: LunaColours.white10,
         ),
       ),
     );

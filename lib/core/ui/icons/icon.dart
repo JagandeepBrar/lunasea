@@ -8,6 +8,7 @@ class LunaIcons {
   static const IconData CLOUD_UPLOAD = Icons.cloud_upload_rounded;
   static const IconData CONNECTION_TEST = Icons.wifi_tethering_rounded;
   static const IconData DELETE = Icons.delete_rounded;
+  static const IconData DEVICES = Icons.devices_rounded;
   static const IconData DOWNLOAD = Icons.file_download_rounded;
   static const IconData HOME = Icons.home_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
@@ -15,6 +16,7 @@ class LunaIcons {
   static const IconData REFRESH = Icons.refresh_rounded;
   static const IconData RENAME = Icons.text_format_rounded;
   static const IconData SEARCH = Icons.search_rounded;
+  static const IconData SHUFFLE = Icons.shuffle_rounded;
   static const IconData TRANSLATE = Icons.translate_rounded;
   static const IconData USER = Icons.person_rounded;
   static const IconData VIDEO_CAM = Icons.videocam_rounded;

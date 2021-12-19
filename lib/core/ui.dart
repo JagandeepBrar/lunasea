@@ -52,8 +52,7 @@ class LunaUI {
   static const double FONT_SIZE_H4 = 12.0;
   static const double FONT_SIZE_H5 = 10.0;
   // <--> Icon-Related
-  static const double ICON_SIZE_APPBAR = 24.0;
-  static const double ICON_SIZE_DEFAULT = 22.0;
+  static const double ICON_SIZE = 24.0;
   // Font-Related
   static const double FONT_SIZE_BUTTON = FONT_SIZE_H3;
   static const double FONT_SIZE_GRAPH_LEGEND = FONT_SIZE_H5;

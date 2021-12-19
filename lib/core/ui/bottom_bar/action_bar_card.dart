@@ -59,7 +59,7 @@ class LunaActionBarCard extends StatelessWidget {
                           overflow: TextOverflow.fade,
                           style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_SUBHEADER,
-                            color: Colors.white70,
+                            color: LunaColours.grey,
                           ),
                         ),
                     ],

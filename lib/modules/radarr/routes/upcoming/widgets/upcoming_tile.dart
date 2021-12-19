@@ -74,19 +74,15 @@ class _State extends State<RadarrUpcomingTile> {
     String _days;
     String type;
     if (widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-      color = widget.movie.monitored
-          ? LunaColours.blue
-          : LunaColours.blue.withOpacity(0.30);
+      color = LunaColours.blue;
       _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
       type = 'release';
     } else if (!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-      color = widget.movie.monitored
-          ? LunaColours.orange
-          : LunaColours.orange.withOpacity(0.30);
+      color = LunaColours.orange;
       _days = widget.movie.inCinemas.lunaDaysDifference;
       type = 'cinema';
     } else {
-      color = widget.movie.monitored ? Colors.white70 : Colors.white30;
+      color = LunaColours.grey;
       _days = LunaUI.TEXT_EMDASH;
       type = 'unknown';
     }

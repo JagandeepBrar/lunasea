@@ -64,7 +64,7 @@ Future<void> showLunaSnackBar({
         position: position,
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         borderColor:
-            LunaUI.shouldUseBorder ? Colors.white12 : Colors.transparent,
+            LunaUI.shouldUseBorder ? LunaColours.white10 : Colors.transparent,
         child: FlashBar(
           title: Text(
             title,
@@ -76,7 +76,7 @@ Future<void> showLunaSnackBar({
           content: Text(
             message,
             style: const TextStyle(
-              color: Colors.white70,
+              color: LunaColours.grey,
               fontSize: LunaUI.FONT_SIZE_H3,
             ),
           ),

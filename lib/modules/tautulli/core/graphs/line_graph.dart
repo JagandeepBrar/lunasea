@@ -87,7 +87,7 @@ class TautulliLineGraphHelper {
                       : Duration(seconds: value ?? 0).lunaTimestampWords,
                 ].join().trim(),
                 const TextStyle(
-                  color: Colors.white70,
+                  color: LunaColours.grey,
                   fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                 ),
               );

@@ -34,7 +34,7 @@ class _State extends State<DashboardCalendarWidget> {
     fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle unavailableTitleStyle = const TextStyle(
-    color: Colors.white12,
+    color: LunaColours.white10,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
     fontSize: LunaUI.FONT_SIZE_H3,
   );

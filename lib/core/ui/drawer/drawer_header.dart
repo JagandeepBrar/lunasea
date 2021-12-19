@@ -26,7 +26,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                       ),
                       const Icon(
                         Icons.arrow_drop_down_rounded,
-                        color: Colors.white70,
+                        color: LunaColours.grey,
                         size: LunaUI.FONT_SIZE_HEADER,
                       ),
                     ],

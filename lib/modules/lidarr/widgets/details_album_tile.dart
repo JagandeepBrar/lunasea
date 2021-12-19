@@ -30,8 +30,8 @@ class _State extends State<LidarrDetailsAlbumTile> {
         TextSpan(text: widget.data.tracks),
         TextSpan(
           text: widget.data.releaseDateString,
-          style: TextStyle(
-            color: LunaColours.accent.enabled(widget.data.monitored),
+          style: const TextStyle(
+            color: LunaColours.accent,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
@@ -40,7 +40,6 @@ class _State extends State<LidarrDetailsAlbumTile> {
         icon: widget.data.monitored
             ? Icons.turned_in_rounded
             : Icons.turned_in_not_rounded,
-        color: widget.data.monitored ? Colors.white : Colors.white30,
         onPressed: _toggleMonitoredStatus,
       ),
       onTap: _enterAlbum,

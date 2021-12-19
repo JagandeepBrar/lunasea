@@ -29,7 +29,7 @@ class _State extends State<LidarrMissingTile> {
         TextSpan(
           text: widget.entry.title,
           style: const TextStyle(
-            color: Colors.white70,
+            color: LunaColours.grey,
             fontStyle: FontStyle.italic,
           ),
         ),

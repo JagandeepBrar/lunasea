@@ -90,7 +90,7 @@ class _State extends State<LunaBottomNavigationBar> {
                           icon: widget.icons[index],
                           text: widget.titles[index],
                           active: _index == index,
-                          iconSize: LunaUI.ICON_SIZE_DEFAULT,
+                          iconSize: LunaUI.ICON_SIZE,
                           haptic: true,
                           padding: _index == index
                               ? const EdgeInsets.all(10.0)
@@ -108,7 +108,7 @@ class _State extends State<LunaBottomNavigationBar> {
                               : widget.leadingOnTab[index],
                         )).toList(),
                 tabActiveBorder: LunaUI.shouldUseBorder
-                    ? Border.all(color: Colors.white12)
+                    ? Border.all(color: LunaColours.white10)
                     : null,
                 tabBorder: LunaUI.shouldUseBorder
                     ? Border.all(color: Colors.transparent)

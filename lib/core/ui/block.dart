@@ -332,7 +332,7 @@ class LunaBlock extends StatelessWidget {
                     softWrap: maxLines == 1 ? false : true,
                     maxLines: maxLines,
                   ),
-                  alignment: Alignment.center,
+                  alignment: Alignment.centerLeft,
                 ),
               ),
             ),

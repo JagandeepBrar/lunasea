@@ -55,7 +55,7 @@ class LunaText extends Text {
     @Deprecated('Dead property') bool darken,
     TextAlign textAlign = TextAlign.start,
     TextOverflow overflow = TextOverflow.fade,
-    Color color = Colors.white70,
+    Color color = LunaColours.grey,
     FontStyle fontStyle = FontStyle.normal,
   }) =>
       LunaText(

@@ -11,7 +11,7 @@ class RadarrAppBarAddMoviesAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaIconButton(
       icon: Icons.add_rounded,
-      iconSize: LunaUI.ICON_SIZE_APPBAR,
+      iconSize: LunaUI.ICON_SIZE,
       onPressed: () async => RadarrAddMovieRouter().navigateTo(
         context,
         query: '',

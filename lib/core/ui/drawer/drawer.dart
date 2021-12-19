@@ -51,7 +51,7 @@ class LunaDrawer extends StatelessWidget {
       _buildEntry(context: context, module: LunaModule.SETTINGS),
       const Divider(
         thickness: 1.0,
-        color: Colors.white12,
+        color: LunaColours.white10,
       ),
     ];
   }

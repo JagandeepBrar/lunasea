@@ -85,14 +85,14 @@ class _State extends State<LunaTextInputBar> {
       );
 
   TextStyle get _sharedTextStyle => const TextStyle(
-        color: Colors.white,
+        color: LunaColours.white,
         fontSize: LunaUI.FONT_SIZE_H3,
       );
 
   InputDecoration get _sharedInputDecoration => InputDecoration(
         labelText: widget.labelText ?? 'lunasea.SearchTextBar'.tr(),
         labelStyle: const TextStyle(
-          color: Colors.white54,
+          color: LunaColours.grey,
           decoration: TextDecoration.none,
           fontSize: LunaUI.FONT_SIZE_H3,
         ),

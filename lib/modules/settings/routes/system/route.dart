@@ -67,8 +67,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: 'Version: $version',
             body: const [TextSpan(text: 'View Recent Changes')],
             trailing: const LunaIconButton(icon: Icons.system_update_rounded),
-            onTap: () async => LunaChangelog().showChangelog(
-                snapshot.data?.version, snapshot.data?.buildNumber),
+            onTap: () async => LunaChangelogSheet().show(context: context),
           );
         });
   }

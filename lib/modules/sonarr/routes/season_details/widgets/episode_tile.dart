@@ -40,7 +40,7 @@ class _State extends State<SonarrEpisodeTile> {
       episode: widget.episode,
       episodeFile: widget.episodeFile,
       queueRecords: widget.queueRecords,
-    ).showModal(context: context);
+    ).show(context: context);
   }
 
   Future<void> _onLongPress() async {

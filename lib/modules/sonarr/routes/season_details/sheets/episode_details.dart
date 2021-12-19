@@ -150,7 +150,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               icon: Icons.info_outline_rounded,
               onTap: () async =>
                   SonarrMediaInfoSheet(mediaInfo: episodeFile.mediaInfo)
-                      .showModal(context: context),
+                      .show(context: context),
             ),
           LunaButton(
             type: LunaButtonType.TEXT,

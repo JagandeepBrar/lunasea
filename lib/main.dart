@@ -90,7 +90,10 @@ class _State extends State<LunaBIOS> {
     Intl.defaultLocale =
         LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag ?? 'en';
     LunaQuickActions().initialize();
-    LunaChangelog().checkAndShowChangelog();
+    LunaChangelogSheet().show(
+      context: LunaState.navigatorKey.currentContext,
+      checkBuildNumber: true,
+    );
   }
 
   @override

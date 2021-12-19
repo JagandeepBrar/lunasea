@@ -90,7 +90,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
 
   Future<void> _viewMediaInfo() async {
     // TODO: Abstract this
-    LunaBottomModalSheet().showModal(
+    LunaBottomModalSheet().show(
       context: context,
       builder: (context) => LunaListViewModal(
         children: [

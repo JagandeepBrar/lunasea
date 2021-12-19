@@ -4,123 +4,128 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class LunaChangelog {
-  /// Check if the current build number is not equal to the stored build number.
-  ///
-  /// If they are not the same, stores the current build number and shows the changelog.
-  Future<void> checkAndShowChangelog() async {
-    PackageInfo.fromPlatform().then((package) {
-      if (package != null &&
-          AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
-        AlertsDatabaseValue.CHANGELOG.put(package.buildNumber);
-        showChangelog(package.version, package.buildNumber);
+class LunaChangelogSheet extends LunaBottomModalSheet {
+  _Changelog _changelog;
+  String _version;
+  String _buildNumber;
+
+  @override
+  Future<dynamic> show({
+    @required BuildContext context,
+    Widget Function(BuildContext context) builder,
+    bool checkBuildNumber = false,
+  }) async {
+    try {
+      _changelog =
+          await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext)
+              .loadString('assets/changelog.json')
+              .then((data) => _Changelog.fromJson(json.decode(data)));
+
+      PackageInfo _package = await PackageInfo.fromPlatform();
+      if (_package == null) return;
+
+      _version = _package.version;
+      _buildNumber = _package.buildNumber;
+
+      if (checkBuildNumber) {
+        AlertsDatabaseValue _db = AlertsDatabaseValue.CHANGELOG;
+        if (_db.data == _package.buildNumber) return;
+        _db.put(_package.buildNumber);
       }
-    }).catchError((error, stack) {
-      LunaLogger().error('Failed to fetch platform information', error, stack);
-    });
+
+      return this.showModal(context: context, builder: builder);
+    } catch (error, stack) {
+      LunaLogger().error('Failed to show changelog sheet', error, stack);
+    }
   }
 
-  /// Load the changelog asset and show a bottom modal sheet with the changelog.
-  Future<void> showChangelog(String version, String buildNumber) async {
-    await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext)
-        .loadString('assets/changelog.json')
-        .then((data) {
-      _Changelog changelog = _Changelog.fromJson(json.decode(data));
-      // TODO: Abstract this
-      LunaBottomModalSheet().showModal(
-        context: LunaState.navigatorKey.currentContext,
-        builder: (context) => LunaListViewModal(
-          children: [
-            if (version != null && buildNumber != null)
-              LunaHeader(
-                  text: '$version ($buildNumber)', subtitle: changelog.motd),
-            if (version == null || buildNumber == null)
-              LunaHeader(text: 'LunaSea', subtitle: changelog.motd),
-            if ((changelog.changesNew?.length ?? 0) != 0)
-              const LunaHeader(text: 'New'),
-            if ((changelog.changesNew?.length ?? 0) != 0)
-              LunaTableCard(
-                content: List<LunaTableContent>.generate(
-                  changelog.changesNew.length,
-                  (index) => LunaTableContent(
-                    title: changelog.changesNew[index].module,
-                    body: changelog.changesNew[index].changes
-                        .fold(
-                            '',
-                            (data, object) =>
-                                data += '${LunaUI.TEXT_BULLET}\t$object\n')
-                        .trim(),
-                  ),
-                ),
-              ),
-            if ((changelog.changesTweaks?.length ?? 0) != 0)
-              const LunaHeader(text: 'Tweaks'),
-            if ((changelog.changesTweaks?.length ?? 0) != 0)
-              LunaTableCard(
-                content: List<LunaTableContent>.generate(
-                  changelog.changesTweaks.length,
-                  (index) => LunaTableContent(
-                    title: changelog.changesTweaks[index].module,
-                    body: changelog.changesTweaks[index].changes
-                        .fold(
-                            '',
-                            (data, object) =>
-                                data += '${LunaUI.TEXT_BULLET}\t$object\n')
-                        .trim(),
-                  ),
-                ),
-              ),
-            if ((changelog.changesFixes?.length ?? 0) != 0)
-              const LunaHeader(text: 'Fixes'),
-            if ((changelog.changesFixes?.length ?? 0) != 0)
-              LunaTableCard(
-                content: List<LunaTableContent>.generate(
-                  changelog.changesFixes.length,
-                  (index) => LunaTableContent(
-                    title: changelog.changesFixes[index].module,
-                    body: changelog.changesFixes[index].changes
-                        .fold(
-                            '',
-                            (data, object) =>
-                                data += '${LunaUI.TEXT_BULLET}\t$object\n')
-                        .trim(),
-                  ),
-                ),
-              ),
-            if ((changelog.changesPlatform?.length ?? 0) != 0)
-              const LunaHeader(text: 'Platform-Specific'),
-            if ((changelog.changesPlatform?.length ?? 0) != 0)
-              LunaTableCard(
-                content: List<LunaTableContent>.generate(
-                  changelog.changesPlatform.length,
-                  (index) => LunaTableContent(
-                    title: changelog.changesPlatform[index].module,
-                    body: changelog.changesPlatform[index].changes
-                        .fold(
-                            '',
-                            (data, object) =>
-                                data += '${LunaUI.TEXT_BULLET}\t$object\n')
-                        .trim(),
-                  ),
-                ),
-              ),
-            const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
-          ],
-          actionBar: LunaBottomActionBar(
-            actions: [
-              LunaButton.text(
-                text: 'Full Changelog',
-                icon: Icons.track_changes_rounded,
-                onTap: LunaLinks.CHANGELOG.launch,
-              ),
-            ],
+  @override
+  Widget builder(BuildContext context) {
+    return LunaListViewModal(
+      children: [
+        if (_version != null && _buildNumber != null)
+          LunaHeader(
+              text: '$_version ($_buildNumber)', subtitle: _changelog.motd),
+        if (_version == null || _buildNumber == null)
+          LunaHeader(text: 'LunaSea', subtitle: _changelog.motd),
+        if ((_changelog.changesNew?.length ?? 0) != 0)
+          const LunaHeader(text: 'New'),
+        if ((_changelog.changesNew?.length ?? 0) != 0)
+          LunaTableCard(
+            content: List<LunaTableContent>.generate(
+              _changelog.changesNew.length,
+              (index) {
+                String _body = _changelog.changesNew[index].changes
+                    .fold('', (d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .trim();
+                return LunaTableContent(
+                  title: _changelog.changesNew[index].module,
+                  body: _body,
+                );
+              },
+            ),
           ),
-        ),
-      );
-    }).catchError((error, stack) {
-      LunaLogger().error('Failed to fetched changelog asset', error, stack);
-      showLunaErrorSnackBar(title: 'Failed to Load Changelog', error: error);
-    });
+        if ((_changelog.changesTweaks?.length ?? 0) != 0)
+          const LunaHeader(text: 'Tweaks'),
+        if ((_changelog.changesTweaks?.length ?? 0) != 0)
+          LunaTableCard(
+            content: List<LunaTableContent>.generate(
+              _changelog.changesTweaks.length,
+              (index) {
+                String _body = _changelog.changesTweaks[index].changes
+                    .fold('', (d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .trim();
+                return LunaTableContent(
+                  title: _changelog.changesTweaks[index].module,
+                  body: _body,
+                );
+              },
+            ),
+          ),
+        if ((_changelog.changesFixes?.length ?? 0) != 0)
+          const LunaHeader(text: 'Fixes'),
+        if ((_changelog.changesFixes?.length ?? 0) != 0)
+          LunaTableCard(
+            content: List<LunaTableContent>.generate(
+                _changelog.changesFixes.length, (index) {
+              String _body = _changelog.changesFixes[index].changes
+                  .fold('', (d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                  .trim();
+              return LunaTableContent(
+                title: _changelog.changesFixes[index].module,
+                body: _body,
+              );
+            }),
+          ),
+        if ((_changelog.changesPlatform?.length ?? 0) != 0)
+          const LunaHeader(text: 'Platform-Specific'),
+        if ((_changelog.changesPlatform?.length ?? 0) != 0)
+          LunaTableCard(
+            content: List<LunaTableContent>.generate(
+              _changelog.changesPlatform.length,
+              (index) {
+                String _body = _changelog.changesPlatform[index].changes
+                    .fold('', (d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .trim();
+                return LunaTableContent(
+                  title: _changelog.changesPlatform[index].module,
+                  body: _body,
+                );
+              },
+            ),
+          ),
+        const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
+      ],
+      actionBar: LunaBottomActionBar(
+        actions: [
+          LunaButton.text(
+            text: 'Full Changelog',
+            icon: Icons.track_changes_rounded,
+            onTap: LunaLinks.CHANGELOG.launch,
+          ),
+        ],
+      ),
+    );
   }
 }
 

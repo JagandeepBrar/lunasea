@@ -109,9 +109,15 @@ class _Sorter {
 
   List<SonarrSeries> _continuing(List<SonarrSeries> series) =>
       series.where((s) => !s.ended).toList();
+
   List<SonarrSeries> _ended(List<SonarrSeries> series) =>
       series.where((s) => s.ended).toList();
-  List<SonarrSeries> _missing(List<SonarrSeries> series) => series
-      .where((s) => s.statistics.episodeCount != s.statistics.episodeFileCount)
-      .toList();
+
+  List<SonarrSeries> _missing(List<SonarrSeries> series) {
+    return series
+        .where((s) =>
+            (s?.statistics?.episodeCount ?? 0) !=
+            (s?.statistics?.episodeFileCount ?? 0))
+        .toList();
+  }
 }

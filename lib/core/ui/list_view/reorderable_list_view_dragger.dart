@@ -16,9 +16,9 @@ class LunaReorderableListViewDragger extends StatelessWidget {
       children: [
         ReorderableDragStartListener(
           index: index,
-          child: const Icon(
-            Icons.menu_rounded,
-            size: LunaUI.ICON_SIZE,
+          child: const LunaIconButton(
+            icon: Icons.menu_rounded,
+            mouseCursor: SystemMouseCursors.click,
           ),
         ),
       ],

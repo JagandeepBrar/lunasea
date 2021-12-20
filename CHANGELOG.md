@@ -8,19 +8,23 @@
 - `[Settings]` (Configuration) Show dismissable banner with module information and links
 - `[Sonarr]` (Catalogue) Previous airing sorting option
 - `[Sonarr]` (Queue) Option to set queue page size
-- `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
+- `[UI/UX]` (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled
 
 #### TWEAKS
 
+- `[UI/UX]` (Fonts) Normalized font sizes across the UI to be more in-line with system standards
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
 - `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
 - `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding
 - `[UI/UX]` (Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.
+- `[UI/UX]` (Tile Blocks) Fade-in background image loads
+- `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
 
 #### FIXES
 
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
 - `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
+- `[Sonarr]` (Catalogue) Missing filter would fail to load when using Sonarr v4 in some cases
 
 ---
 

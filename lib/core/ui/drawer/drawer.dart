@@ -33,7 +33,7 @@ class LunaDrawer extends StatelessWidget {
           child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
             builder: (context, _, __) => Column(
               children: [
-                LunaDrawerHeader(),
+                const LunaDrawerHeader(),
                 Expanded(
                   child: LunaListView(
                     controller: PrimaryScrollController.of(context),
@@ -66,7 +66,6 @@ class LunaDrawer extends StatelessWidget {
         module: LunaModule.SETTINGS,
         showDescription: false,
       ),
-      const LunaDivider(),
     ];
   }
 
@@ -79,10 +78,10 @@ class LunaDrawer extends StatelessWidget {
       ..._sharedHeader(context),
       ..._modules.map((module) {
         if (module.isEnabled) {
-          if (module == LunaModule.WAKE_ON_LAN) return _buildWakeOnLAN(context);
           return _buildEntry(
             context: context,
             module: module,
+            onTap: module == LunaModule.WAKE_ON_LAN ? _wakeOnLAN : null,
           );
         }
         return const SizedBox(height: 0.0);
@@ -96,10 +95,10 @@ class LunaDrawer extends StatelessWidget {
       ..._sharedHeader(context),
       ..._modules.map((module) {
         if (module.isEnabled) {
-          if (module == LunaModule.WAKE_ON_LAN) return _buildWakeOnLAN(context);
           return _buildEntry(
             context: context,
             module: module,
+            onTap: module == LunaModule.WAKE_ON_LAN ? _wakeOnLAN : null,
           );
         }
         return const SizedBox(height: 0.0);
@@ -111,44 +110,43 @@ class LunaDrawer extends StatelessWidget {
     @required BuildContext context,
     @required LunaModule module,
     bool showDescription = true,
+    Function onTap,
   }) {
     bool currentPage = page == module.key.toLowerCase();
-    return LunaBlock(
-      leading: LunaIconButton(
-        icon: module.icon,
-        color: currentPage ? module.color : Colors.white,
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        // 10.0 is title-leading gap at 0.0 [horizontalTitleGap]
+        horizontal: LunaUI.MARGIN_SIZE_HALF + 10.0,
       ),
-      title: module.name,
-      body: showDescription ? [TextSpan(text: module.description)] : [],
-      titleColor: currentPage ? module.color : Colors.white,
-      onTap: () async {
-        Navigator.of(context).pop();
-        if (!currentPage) module.launch();
-      },
+      horizontalTitleGap: LunaUI.MARGIN_SIZE_HALF,
+      leading: Icon(
+        module.icon,
+        color: currentPage ? module.color : LunaColours.white,
+      ),
+      title: Text(module.name),
+      textColor: currentPage ? module.color : LunaColours.white,
+      onTap: onTap ??
+          () async {
+            Navigator.of(context).pop();
+            if (!currentPage) module.launch();
+          },
     );
   }
 
-  Widget _buildWakeOnLAN(BuildContext context) {
-    return LunaBlock(
-      leading: LunaIconButton(icon: LunaModule.WAKE_ON_LAN.icon),
-      title: LunaModule.WAKE_ON_LAN.name,
-      // body: [TextSpan(text: LunaModule.WAKE_ON_LAN.description)],
-      onTap: () async {
-        WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
-        await api
-            .wake()
-            .then((_) => showLunaSuccessSnackBar(
-                  title: 'Machine is Waking Up...',
-                  message: 'Magic packet successfully sent',
-                ))
-            .catchError((error, stack) {
-          LunaLogger().error('Failed to wake machine', error, stack);
-          return showLunaErrorSnackBar(
-            title: 'Failed to Wake Machine',
-            error: error,
-          );
-        });
-      },
-    );
+  Future<void> _wakeOnLAN() async {
+    WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
+    await api
+        .wake()
+        .then((_) => showLunaSuccessSnackBar(
+              title: 'Machine is Waking Up...',
+              message: 'Magic packet successfully sent',
+            ))
+        .catchError((error, stack) {
+      LunaLogger().error('Failed to wake machine', error, stack);
+      return showLunaErrorSnackBar(
+        title: 'Failed to Wake Machine',
+        error: error,
+      );
+    });
   }
 }

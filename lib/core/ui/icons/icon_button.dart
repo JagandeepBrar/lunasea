@@ -12,6 +12,7 @@ class LunaIconButton extends StatelessWidget {
   final Function onLongPress;
   final LunaLoadingState loadingState;
   final AlignmentGeometry alignment;
+  final MouseCursor mouseCursor;
 
   const LunaIconButton.arrow({
     Key key,
@@ -24,6 +25,7 @@ class LunaIconButton extends StatelessWidget {
     this.onPressed,
     this.onLongPress,
     this.loadingState,
+    this.mouseCursor,
   }) : super(key: key);
 
   const LunaIconButton.appBar({
@@ -37,6 +39,7 @@ class LunaIconButton extends StatelessWidget {
     this.onPressed,
     this.onLongPress,
     this.loadingState,
+    this.mouseCursor,
   }) : super(key: key);
 
   const LunaIconButton({
@@ -50,6 +53,7 @@ class LunaIconButton extends StatelessWidget {
     this.onPressed,
     this.onLongPress,
     this.loadingState,
+    this.mouseCursor,
   }) : super(key: key);
 
   @override
@@ -61,12 +65,12 @@ class LunaIconButton extends StatelessWidget {
         alignment: alignment,
         padding: EdgeInsets.zero,
         onPressed: _onPressed(),
-        mouseCursor:
-            onPressed != null ? SystemMouseCursors.click : MouseCursor.defer,
+        mouseCursor: mouseCursor ??
+            (onPressed != null ? SystemMouseCursors.click : MouseCursor.defer),
       ),
       hoverColor: Colors.transparent,
-      mouseCursor:
-          onLongPress != null ? SystemMouseCursors.click : MouseCursor.defer,
+      mouseCursor: mouseCursor ??
+          (onLongPress != null ? SystemMouseCursors.click : MouseCursor.defer),
       onLongPress: _onLongPress(),
     );
   }

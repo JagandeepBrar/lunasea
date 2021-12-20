@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrHistoryTile extends StatefulWidget {
+  static final double extent = LunaBlock.calculateItemExtent(2);
   final LidarrHistoryData entry;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function refresh;

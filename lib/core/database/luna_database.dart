@@ -180,7 +180,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.THEME_AMOLED_BORDER:
         return false;
       case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
-        return 10;
+        return 20;
       case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
         return false;
       case LunaDatabaseValue.QUICK_ACTIONS_RADARR:

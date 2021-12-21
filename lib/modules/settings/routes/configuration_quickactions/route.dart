@@ -36,20 +36,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: 'Quick Actions',
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async => LunaDialogs().textPreview(
-            context,
-            'Quick Actions',
-            [
-              'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing LunaSea\'s icon.',
-              'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
-            ].join('\n\n'),
-          ),
-        )
-      ],
+      title: 'settings.QuickActions'.tr(),
     );
   }
 
@@ -57,6 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        SettingsBanners.QUICK_ACTIONS_SUPPORT.banner(),
         _actionTile(
           LunaModule.LIDARR.name,
           LunaDatabaseValue.QUICK_ACTIONS_LIDARR,

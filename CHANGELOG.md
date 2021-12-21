@@ -4,8 +4,9 @@
 
 #### NEW
 
+- `[Dashboard]` (Calendar) Now has content poster and larger tiles
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
-- `[Settings]` (Configuration) Show dismissable banner with module information and links
+- `[Settings]` (Configuration) Show dismissable block with module information and links
 - `[Lidarr]` (Catalogue) Show artist poster in catalogue list
 - `[Lidarr]` (Missing) Show album cover in missing list
 - `[Sonarr]` (Catalogue) Previous airing sorting option
@@ -14,7 +15,9 @@
 
 #### TWEAKS
 
+- `[UI/UX]` (Drawer) Reduced the size of the header area
 - `[UI/UX]` (Fonts) Normalized font sizes across the UI to be more in-line with system standards
+- `[UI/UX]` (Images) Set the default image opacity to 20% (a custom set value is uneffected)
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
 - `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
 - `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding
@@ -24,9 +27,11 @@
 
 #### FIXES
 
+- `[Dashboard]` (Calendar) Lidarr entries would not appear
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
 - `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
 - `[Sonarr]` (Catalogue) Missing filter would fail to load when using Sonarr v4 in some cases
+- `[Sonarr]` (Images) Images now use v3 API path
 
 ---
 

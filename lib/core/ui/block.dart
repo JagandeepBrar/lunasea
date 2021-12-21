@@ -177,8 +177,7 @@ class LunaBlock extends StatelessWidget {
       // ignore: deprecated_member_use_from_same_package
       child: LunaListTile(
         context: context,
-        title: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+        title: _scrollableText(
           child: LunaText.title(
             text: title,
             color: titleColor,
@@ -242,7 +241,7 @@ class LunaBlock extends StatelessWidget {
                 ),
               ),
             Expanded(
-              child: SingleChildScrollView(
+              child: _scrollableText(
                 scrollDirection: maxLines > 1 ? Axis.vertical : Axis.horizontal,
                 child: Container(
                   child: RichText(
@@ -286,5 +285,18 @@ class LunaBlock extends StatelessWidget {
     }
 
     return _children.isEmpty ? null : _wrapper(_children);
+  }
+
+  Widget _scrollableText({
+    @required Widget child,
+    Axis scrollDirection = Axis.horizontal,
+  }) {
+    return FadingEdgeScrollView.fromSingleChildScrollView(
+      child: SingleChildScrollView(
+        controller: ScrollController(),
+        scrollDirection: scrollDirection,
+        child: child,
+      ),
+    );
   }
 }

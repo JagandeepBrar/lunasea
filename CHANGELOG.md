@@ -4,15 +4,16 @@
 
 #### NEW
 
-- `[Dashboard]` (Calendar) Now has content poster and larger tiles
+- `[Dashboard]` (Calendar) Display content poster and additional information
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
 - `[Settings]` (Configuration) Show dismissable block with module information and links
 - `[Lidarr]` (Add Artist) Show artist poster in result list
 - `[Lidarr]` (Add Artist) Allow user to select monitoring options
 - `[Lidarr]` (Add Artist) Removed toggle to use album folders
 - `[Lidarr]` (Catalogue) Show artist poster in catalogue list
-- `[Lidarr]` (Missing) Show album cover in missing list
+- `[Lidarr]` (Missing) Display album covers
 - `[Sonarr]` (Catalogue) Previous airing sorting option
+- `[Sonarr]` (Season List) Display season posters
 - `[Sonarr]` (Queue) Option to set queue page size
 - `[UI/UX]` (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled
 

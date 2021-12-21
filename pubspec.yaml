@@ -15,6 +15,7 @@ dependencies:
   easy_localization: ^3.0.0
   encrypt: ^5.0.1
   expandable: ^5.0.1
+  fading_edge_scrollview: ^2.0.1
   file_picker: ^4.2.8
   file_selector_macos: ^0.0.4
   file_selector_platform_interface: ^2.0.2

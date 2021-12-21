@@ -132,25 +132,10 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
         children: <Widget>[
           LunaBlock(
             title: 'Monitored',
-            body: const [TextSpan(text: 'Monitor artist for new releases')],
             trailing: LunaSwitch(
               value: _monitored,
               onChanged: (value) => setState(() => _monitored = value),
             ),
-          ),
-          LunaBlock(
-            title: 'Use Album Folders',
-            body: const [TextSpan(text: 'Sort tracks into album folders')],
-            trailing: LunaSwitch(
-              value: _albumFolders,
-              onChanged: (value) => setState(() => _albumFolders = value),
-            ),
-          ),
-          LunaBlock(
-            title: 'Artist Path',
-            body: [TextSpan(text: _path)],
-            trailing: const LunaIconButton.arrow(),
-            onTap: _changePath,
           ),
           LunaBlock(
             title: 'Quality Profile',
@@ -163,6 +148,12 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
             body: [TextSpan(text: _metadataProfile.name)],
             trailing: const LunaIconButton.arrow(),
             onTap: _changeMetadata,
+          ),
+          LunaBlock(
+            title: 'Artist Path',
+            body: [TextSpan(text: _path)],
+            trailing: const LunaIconButton.arrow(),
+            onTap: _changePath,
           ),
         ],
       );

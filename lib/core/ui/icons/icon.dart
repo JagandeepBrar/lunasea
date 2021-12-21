@@ -13,6 +13,8 @@ class LunaIcons {
   static const IconData DOWNLOAD = Icons.file_download_rounded;
   static const IconData ERROR = Icons.error_rounded;
   static const IconData HOME = Icons.home_rounded;
+  static const IconData MONITOR_OFF = Icons.turned_in_not_rounded;
+  static const IconData MONITOR_ON = Icons.turned_in_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
   static const IconData PLAY = Icons.play_arrow_rounded;
   static const IconData REFRESH = Icons.refresh_rounded;

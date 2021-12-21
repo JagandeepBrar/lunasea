@@ -25,6 +25,9 @@ class _State extends State<LidarrDetailsTrackTile> {
           widget?.data?.file(widget.monitored),
         ],
         disabled: !widget.monitored,
-        leading: LunaIconButton(text: widget?.data?.trackNumber),
+        leading: LunaIconButton(
+          text: widget?.data?.trackNumber,
+          textSize: LunaUI.FONT_SIZE_H4,
+        ),
       );
 }

@@ -3,6 +3,7 @@ export 'data/catalogue.dart';
 export 'data/history.dart';
 export 'data/metadata.dart';
 export 'data/missing.dart';
+export 'data/monitor_status.dart';
 export 'data/qualityprofile.dart';
 export 'data/release.dart';
 export 'data/rootfolder.dart';

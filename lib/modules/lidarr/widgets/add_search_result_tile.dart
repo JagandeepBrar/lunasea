@@ -19,10 +19,22 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         body: [
           LunaTextSpan.extended(text: data.overview.trim()),
         ],
-        customBodyMaxLines: 2,
+        customBodyMaxLines: 3,
         trailing: alreadyAdded ? null : const LunaIconButton.arrow(),
+        posterIsSquare: true,
+        posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
+        posterPlaceholderIcon: LunaIcons.USER,
+        posterUrl: _posterUrl,
         onTap: () async => _enterDetails(context),
       );
+
+  String get _posterUrl {
+    Map<String, dynamic> image = data?.images?.firstWhere(
+      (e) => e['coverType'] == 'poster',
+      orElse: () => <String, dynamic>{},
+    );
+    return image['url'];
+  }
 
   Future<void> _enterDetails(BuildContext context) async {
     if (alreadyAdded) {

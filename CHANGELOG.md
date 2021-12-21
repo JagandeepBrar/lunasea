@@ -7,6 +7,9 @@
 - `[Dashboard]` (Calendar) Now has content poster and larger tiles
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
 - `[Settings]` (Configuration) Show dismissable block with module information and links
+- `[Lidarr]` (Add Artist) Show artist poster in result list
+- `[Lidarr]` (Add Artist) Allow user to select monitoring options
+- `[Lidarr]` (Add Artist) Removed toggle to use album folders
 - `[Lidarr]` (Catalogue) Show artist poster in catalogue list
 - `[Lidarr]` (Missing) Show album cover in missing list
 - `[Sonarr]` (Catalogue) Previous airing sorting option
@@ -15,7 +18,7 @@
 
 #### TWEAKS
 
-- `[UI/UX]` (Drawer) Reduced the size of the header area
+- `[UI/UX]` (Drawer) Heavily reduced the size of the header area
 - `[UI/UX]` (Fonts) Normalized font sizes across the UI to be more in-line with system standards
 - `[UI/UX]` (Images) Set the default image opacity to 20% (a custom set value is uneffected)
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles

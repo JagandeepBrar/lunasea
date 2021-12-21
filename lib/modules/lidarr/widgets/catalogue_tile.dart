@@ -40,8 +40,8 @@ class _State extends State<LidarrCatalogueTile> {
         ],
         trailing: LunaIconButton(
           icon: widget.data.monitored
-              ? Icons.turned_in_rounded
-              : Icons.turned_in_not_rounded,
+              ? LunaIcons.MONITOR_ON
+              : LunaIcons.MONITOR_OFF,
           onPressed: _toggleMonitoredStatus,
         ),
         posterPlaceholderIcon: LunaIcons.USER,

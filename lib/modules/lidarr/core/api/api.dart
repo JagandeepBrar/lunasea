@@ -688,8 +688,7 @@ class LidarrAPI {
       LidarrQualityProfile quality,
       LidarrRootFolder rootFolder,
       LidarrMetadataProfile metadata,
-      bool monitored,
-      bool albumFolders,
+      LidarrMonitorStatus monitorStatus,
       {bool search = false}) async {
     try {
       Response response = await _dio.post(
@@ -700,10 +699,11 @@ class LidarrAPI {
           'qualityProfileId': quality.id,
           'metadataProfileId': metadata.id,
           'rootFolderPath': rootFolder.path,
-          'monitored': monitored,
-          'albumFolder': albumFolders,
+          'monitored': monitorStatus != LidarrMonitorStatus.NONE,
+          'albumFolder': true,
           'addOptions': {
             'searchForMissingAlbums': search,
+            'monitor': monitorStatus.key,
           },
         }),
       );

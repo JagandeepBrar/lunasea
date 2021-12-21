@@ -3,7 +3,34 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDialogs {
-  LidarrDialogs._();
+  Future<Tuple2<bool, LidarrMonitorStatus>> selectMonitoringOption(
+    BuildContext context,
+  ) async {
+    bool _flag = false;
+    LidarrMonitorStatus _value;
+
+    void _setValues(bool flag, LidarrMonitorStatus value) {
+      _flag = flag;
+      _value = value;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'Monitoring Options',
+      content: List.generate(
+        LidarrMonitorStatus.values.length,
+        (index) => LunaDialog.tile(
+          text: LidarrMonitorStatus.values[index].readable,
+          icon: LunaIcons.MONITOR_ON,
+          iconColor: LunaColours().byListIndex(index),
+          onTap: () => _setValues(true, LidarrMonitorStatus.values[index]),
+        ),
+      ),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+    return Tuple2(_flag, _value);
+  }
 
   static Future<List<dynamic>> editQualityProfile(
       BuildContext context, List<LidarrQualityProfile> qualities) async {

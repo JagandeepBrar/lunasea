@@ -41,9 +41,9 @@ class LunaDrawer extends StatelessWidget {
                         ? _getAlphabeticalOrder(context)
                         : _getManualOrder(context),
                     physics: const ClampingScrollPhysics(),
-                    padding: MediaQuery.of(context)
-                        .padding
-                        .copyWith(top: LunaUI.MARGIN_SIZE_HALF),
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                   ),
                 ),
               ],
@@ -65,6 +65,11 @@ class LunaDrawer extends StatelessWidget {
         context: context,
         module: LunaModule.SETTINGS,
         showDescription: false,
+      ),
+      const Divider(
+        thickness: 1.0,
+        height: 1.0,
+        color: LunaColours.white10,
       ),
     ];
   }
@@ -113,23 +118,36 @@ class LunaDrawer extends StatelessWidget {
     Function onTap,
   }) {
     bool currentPage = page == module.key.toLowerCase();
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-        // 10.0 is title-leading gap at 0.0 [horizontalTitleGap]
-        horizontal: LunaUI.MARGIN_SIZE_HALF + 10.0,
+    return SizedBox(
+      height: 56.0,
+      child: InkWell(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              child: Icon(
+                module.icon,
+                color: currentPage ? module.color : LunaColours.white,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: LunaUI.DEFAULT_MARGIN_SIZE * 1.5,
+              ),
+            ),
+            Text(
+              module.name,
+              style: TextStyle(
+                color: currentPage ? module.color : LunaColours.white,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+              ),
+            ),
+          ],
+        ),
+        onTap: onTap ??
+            () async {
+              Navigator.of(context).pop();
+              if (!currentPage) module.launch();
+            },
       ),
-      horizontalTitleGap: LunaUI.MARGIN_SIZE_HALF,
-      leading: Icon(
-        module.icon,
-        color: currentPage ? module.color : LunaColours.white,
-      ),
-      title: Text(module.name),
-      textColor: currentPage ? module.color : LunaColours.white,
-      onTap: onTap ??
-          () async {
-            Navigator.of(context).pop();
-            if (!currentPage) module.launch();
-          },
     );
   }
 

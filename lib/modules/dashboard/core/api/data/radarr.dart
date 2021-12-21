@@ -29,11 +29,9 @@ class CalendarRadarrData extends CalendarData {
           TextSpan(text: year.toString()),
           TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
           TextSpan(text: runtime.lunaRuntime()),
-          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-          TextSpan(text: studio),
         ],
       ),
-      const TextSpan(text: ''),
+      TextSpan(text: studio),
       if (!hasFile)
         const TextSpan(
           text: 'Not Downloaded',

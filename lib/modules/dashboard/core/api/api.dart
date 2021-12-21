@@ -64,6 +64,9 @@ class CalendarAPI {
             title: entry['artist']['artistName'] ?? 'Unknown Artist',
             albumTitle: entry['title'] ?? 'Unknown Album Title',
             artistId: entry['artist']['id'] ?? 0,
+            totalTrackCount: entry['statistics'] != null
+                ? entry['statistics']['totalTrackCount'] ?? 0
+                : 0,
             hasAllFiles: (entry['statistics'] != null
                     ? entry['statistics']['percentOfTracks'] ?? 0
                     : 0) ==

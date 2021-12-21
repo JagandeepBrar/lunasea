@@ -6,6 +6,8 @@
 
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
 - `[Settings]` (Configuration) Show dismissable banner with module information and links
+- `[Lidarr]` (Catalogue) Show artist poster in catalogue list
+- `[Lidarr]` (Missing) Show album cover in missing list
 - `[Sonarr]` (Catalogue) Previous airing sorting option
 - `[Sonarr]` (Queue) Option to set queue page size
 - `[UI/UX]` (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled

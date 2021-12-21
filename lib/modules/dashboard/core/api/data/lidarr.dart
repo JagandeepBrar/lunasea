@@ -7,6 +7,7 @@ class CalendarLidarrData extends CalendarData {
   final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
   String albumTitle;
   int artistId;
+  int totalTrackCount;
   bool hasAllFiles;
 
   CalendarLidarrData({
@@ -15,6 +16,7 @@ class CalendarLidarrData extends CalendarData {
     @required this.albumTitle,
     @required this.artistId,
     @required this.hasAllFiles,
+    @required this.totalTrackCount,
   }) : super(id, title);
 
   @override
@@ -35,7 +37,9 @@ class CalendarLidarrData extends CalendarData {
           fontStyle: FontStyle.italic,
         ),
       ),
-      const TextSpan(text: ''),
+      TextSpan(
+        text: totalTrackCount == 1 ? '1 Track' : '$totalTrackCount Tracks',
+      ),
       if (!hasAllFiles)
         const TextSpan(
           text: 'Not Downloaded',

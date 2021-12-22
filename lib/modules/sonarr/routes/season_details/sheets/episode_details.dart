@@ -68,16 +68,15 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           text: 'sonarr.Missing'.tr(),
         ),
     ];
+    if (_nodes.isEmpty) return const SizedBox(height: 0, width: 0);
     return Padding(
       child: Wrap(
         direction: Axis.horizontal,
-        spacing: 6.0,
-        runSpacing: 6.0,
+        spacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+        runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
         children: _nodes,
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: LunaUI.DEFAULT_MARGIN_SIZE,
-      ),
+      padding: LunaUI.MARGIN_H_DEFAULT_V_HALF.copyWith(top: 0),
     );
   }
 
@@ -103,9 +102,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       ),
       _highlightedNodes(context),
       Padding(
-        padding: LunaUI.MARGIN_CARD.copyWith(
-          top: LunaUI.DEFAULT_MARGIN_SIZE,
-        ),
+        padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
         child: LunaText.subtitle(
           text: episode.overview ?? 'sonarr.NoSummaryAvailable'.tr(),
           maxLines: 0,
@@ -153,7 +150,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               icon: Icons.info_outline_rounded,
               onTap: () async =>
                   SonarrMediaInfoSheet(mediaInfo: episodeFile.mediaInfo)
-                      .showModal(context: context),
+                      .show(context: context),
             ),
           LunaButton(
             type: LunaButtonType.TEXT,

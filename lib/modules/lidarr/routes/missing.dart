@@ -87,6 +87,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
     return LunaListViewBuilder(
       controller: LidarrNavigationBar.scrollControllers[1],
       itemCount: _results.length,
+      itemExtent: LidarrMissingTile.extent,
       itemBuilder: (context, index) => LidarrMissingTile(
         scaffoldKey: _scaffoldKey,
         entry: _results[index],

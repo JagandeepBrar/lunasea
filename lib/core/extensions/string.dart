@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -103,4 +104,15 @@ extension StringLinksExtension on String {
   /// Attach this string as a series ID to TVMaze and attempt to launch it as a URL.
   Future<void> lunaOpenTVMaze() async =>
       await _openLink('https://www.tvmaze.com/shows/$this');
+
+  Future<void> copyToClipboard({
+    bool showSnackBar = true,
+  }) async {
+    await Clipboard.setData(ClipboardData(text: this));
+    if (showSnackBar)
+      showLunaSuccessSnackBar(
+        title: 'Copied',
+        message: 'Copied content to the clipboard',
+      );
+  }
 }

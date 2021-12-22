@@ -33,10 +33,9 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: widget.tag.label),
-      subtitle: LunaText.subtitle(text: _subtitle()),
+    return LunaBlock(
+      title: widget.tag.label,
+      body: [TextSpan(text: _subtitle())],
       trailing: _trailing(),
       onTap: _movieDialog,
     );
@@ -53,7 +52,7 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
     // Default to true, to not try to delete a tag that actually does have movies attached
     if (movieList?.isNotEmpty ?? true) return null;
     return LunaIconButton(
-      icon: Icons.delete_rounded,
+      icon: LunaIcons.DELETE,
       color: LunaColours.red,
       onPressed: _delete,
     );

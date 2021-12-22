@@ -24,46 +24,55 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
   @override
   Widget build(BuildContext context) {
     if (widget.season == null) return const SizedBox(height: 0.0);
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(
-        text: widget.season.lunaTitle,
-        darken: !widget.season.monitored,
-      ),
-      subtitle: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: widget.season.monitored ? Colors.white70 : Colors.white30,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-          ),
-          children: [
-            _subtitle1(),
-            const TextSpan(text: '\n'),
-            _subtitle2(),
-          ],
-        ),
-      ),
-      trailing: _trailing(context),
-      onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
-        context,
-        seriesId: widget.seriesId,
-        seasonNumber: widget.season.seasonNumber,
-      ),
-      onLongPress: () async {
-        Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
-            .seasonSettings(context, widget.season.seasonNumber);
-        if (result.item1)
-          result.item2.execute(
-            context,
-            widget.seriesId,
-            widget.season.seasonNumber,
-          );
-      },
-      contentPadding: true,
+    return LunaBlock(
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      posterUrl: widget.season?.images
+              ?.firstWhere((e) => e.coverType == 'poster', orElse: () => null)
+              ?.url ??
+          '',
+      posterHeaders: context.read<SonarrState>().headers,
+      title: widget.season.lunaTitle,
+      disabled: !widget.season.monitored,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
+      trailing: _trailing(),
+      onTap: _onTap,
+      onLongPress: _onLongPress,
     );
   }
 
+  Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
+        context,
+        seriesId: widget.seriesId,
+        seasonNumber: widget.season.seasonNumber,
+      );
+
+  Future<void> _onLongPress() async {
+    Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
+        .seasonSettings(context, widget.season.seasonNumber);
+    if (result.item1)
+      result.item2.execute(
+        context,
+        widget.seriesId,
+        widget.season.seasonNumber,
+      );
+  }
+
   TextSpan _subtitle1() {
+    return TextSpan(
+      text: widget.season.statistics?.previousAiring?.lunaDateTimeReadable(
+            timeOnNewLine: false,
+            showSeconds: false,
+            sameLineDelimiter: '@',
+          ) ??
+          LunaUI.TEXT_EMDASH,
+    );
+  }
+
+  TextSpan _subtitle2() {
     return TextSpan(
       text: widget.season?.statistics?.sizeOnDisk
               ?.lunaBytesToString(decimals: 1) ??
@@ -71,16 +80,12 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     );
   }
 
-  TextSpan _subtitle2() {
+  TextSpan _subtitle3() {
     return TextSpan(
       style: TextStyle(
         color: widget.season.lunaPercentageComplete == 100
-            ? widget.season.monitored
-                ? LunaColours.accent
-                : LunaColours.accent.withOpacity(0.30)
-            : widget.season.monitored
-                ? LunaColours.red
-                : LunaColours.red.withOpacity(0.30),
+            ? LunaColours.accent
+            : LunaColours.red,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),
       text: [
@@ -92,7 +97,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     );
   }
 
-  Widget _trailing(BuildContext context) {
+  Widget _trailing() {
     Future<void> setLoadingState(LunaLoadingState state) async {
       if (this.mounted) setState(() => _loadingState = state);
     }
@@ -101,7 +106,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       icon: widget.season.monitored
           ? Icons.turned_in_rounded
           : Icons.turned_in_not_rounded,
-      color: widget.season.monitored ? Colors.white : Colors.white30,
+      color: LunaColours.white,
       loadingState: _loadingState,
       onPressed: () async {
         setLoadingState(LunaLoadingState.ACTIVE);

@@ -72,6 +72,7 @@ class _State extends State<TautulliHistoryRoute>
     return LunaListViewBuilder(
       controller: TautulliNavigationBar.scrollControllers[2],
       itemCount: history.records.length,
+      itemExtent: LunaBlock.calculateItemExtent(3),
       itemBuilder: (context, index) =>
           TautulliHistoryTile(history: history.records[index]),
     );

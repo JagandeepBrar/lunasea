@@ -56,9 +56,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.SONARR.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.SONARR.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.sonarrEnabled ?? false,
           onChanged: (value) {
@@ -72,55 +71,54 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(text: 'Connection Details for Sonarr'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.SONARR.name],
+          ),
+        )
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSonarrConnectionDetailsRouter()
           .navigateTo(context),
     );
   }
 
   Widget _defaultPagesPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Default Pages'),
-      subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationSonarrDefaultPagesRouter().navigateTo(context),
     );
   }
 
   Widget _defaultSortingFilteringPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Default Sorting & Filtering'),
-      subtitle:
-          LunaText.subtitle(text: 'Set Default Sorting & Filtering Methods'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.DefaultSortingAndFiltering'.tr(),
+      body: [
+        TextSpan(text: 'settings.DefaultSortingAndFilteringDescription'.tr()),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationSonarrDefaultSortingRouter().navigateTo(context),
     );
   }
 
   Widget _queueSize() {
-    return SonarrDatabaseValue.QUEUE_PAGE_SIZE.listen(
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Queue Size'),
-        subtitle: LunaText.subtitle(
-          text: SonarrDatabaseValue.QUEUE_PAGE_SIZE.data == 1
-              ? '1 Item'
-              : '${SonarrDatabaseValue.QUEUE_PAGE_SIZE.data} Items',
-        ),
-        trailing: LunaIconButton(icon: Icons.queue_rounded),
+    SonarrDatabaseValue _db = SonarrDatabaseValue.QUEUE_PAGE_SIZE;
+    return _db.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'Queue Size',
+        body: [TextSpan(text: _db.data == 1 ? '1 Item' : '${_db.data} Items')],
+        trailing: const LunaIconButton(icon: Icons.queue_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await SonarrDialogs().setQueuePageSize(context);
-          if (result.item1)
-            SonarrDatabaseValue.QUEUE_PAGE_SIZE.put(result.item2);
+          if (result.item1) _db.put(result.item2);
         },
       ),
     );

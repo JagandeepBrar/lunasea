@@ -9,13 +9,15 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'sonarr.SeriesPath'.tr()),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'sonarr.SeriesPath'.tr(),
+      body: [
+        TextSpan(
           text: context.watch<SonarrSeriesEditState>().seriesPath ??
-              LunaUI.TEXT_EMDASH),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              LunaUI.TEXT_EMDASH,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => _onTap(context),
     );
   }

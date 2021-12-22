@@ -131,7 +131,7 @@ class _State extends State<TautulliUserDetailsProfile>
               ? widget.user.lastSeen?.lunaAge ?? 'Unknown'
               : 'Never',
         ),
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
         LunaTableContent(
             title: 'title', body: widget.user.lastPlayed ?? 'None'),
         LunaTableContent(

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -49,7 +48,7 @@ class SABnzbdDatabase extends LunaModuleDatabase {
 
 extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
   String get key {
-    return 'SABNZBD_${describeEnum(this)}';
+    return 'SABNZBD_${this.name}';
   }
 
   dynamic get data {

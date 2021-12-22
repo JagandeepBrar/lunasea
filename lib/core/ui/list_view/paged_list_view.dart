@@ -68,11 +68,11 @@ class _State<T> extends State<LunaPagedListView<T>> {
               ),
               padding: const EdgeInsets.only(bottom: 0.0),
             ),
-            newPageErrorIndicatorBuilder: (context) => LunaIconButton(
+            newPageErrorIndicatorBuilder: (context) => const LunaIconButton(
               icon: Icons.error_rounded,
               color: LunaColours.red,
             ),
-            noMoreItemsIndicatorBuilder: (context) => LunaIconButton(
+            noMoreItemsIndicatorBuilder: (context) => const LunaIconButton(
               icon: Icons.check_rounded,
               color: LunaColours.accent,
             ),
@@ -85,8 +85,9 @@ class _State<T> extends State<LunaPagedListView<T>> {
           padding: widget.padding ??
               MediaQuery.of(context)
                   .padding
-                  .copyWith(bottom: LunaUI.MARGIN_CARD.bottom)
-                  .add(EdgeInsets.only(top: LunaUI.MARGIN_CARD.top)),
+                  .copyWith(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)
+                  .add(
+                      EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top)),
           physics: const AlwaysScrollableScrollPhysics(),
         ),
       ),

@@ -92,6 +92,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
       );
     return LunaListViewBuilder(
       controller: widget.scrollController,
+      itemExtent: SonarrSeriesAddSearchResultTile.extent,
       itemCount: results.length,
       itemBuilder: (context, index) {
         SonarrExclusion exclusion = exclusions?.firstWhere(

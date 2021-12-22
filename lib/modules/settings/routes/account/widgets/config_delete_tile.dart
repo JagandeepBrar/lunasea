@@ -20,13 +20,11 @@ class _State extends State<SettingsAccountDeleteConfigurationTile> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.DeleteCloudBackup'.tr()),
-      subtitle:
-          LunaText.subtitle(text: 'settings.DeleteCloudBackupDescription'.tr()),
+    return LunaBlock(
+      title: 'settings.DeleteCloudBackup'.tr(),
+      body: [TextSpan(text: 'settings.DeleteCloudBackupDescription'.tr())],
       trailing: LunaIconButton(
-        icon: Icons.cloud_off_rounded,
+        icon: LunaIcons.CLOUD_DELETE,
         loadingState: _loadingState,
       ),
       onTap: () async => _delete(context),

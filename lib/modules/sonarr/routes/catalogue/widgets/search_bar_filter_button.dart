@@ -35,7 +35,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
                 child: Text(
                   SonarrSeriesFilter.values[index].readable,
                   style: TextStyle(
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_H3,
                     color: state.seriesFilterType ==
                             SonarrSeriesFilter.values[index]
                         ? LunaColours.accent
@@ -46,8 +46,8 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
             ),
           ),
         ),
-        height: LunaTextInputBar.appBarInnerHeight,
-        width: LunaTextInputBar.appBarInnerHeight,
+        height: LunaTextInputBar.defaultHeight,
+        width: LunaTextInputBar.defaultHeight,
         margin: const EdgeInsets.symmetric(horizontal: 12.0),
         color: Theme.of(context).canvasColor,
       );

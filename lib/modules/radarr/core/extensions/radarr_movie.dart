@@ -92,36 +92,42 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     return this.sizeOnDisk.lunaBytesToString();
   }
 
-  Text lunaHasFileTextObject(bool isMonitored) {
+  Text lunaHasFileTextObject() {
     if (this.hasFile)
       return Text(
         lunaFileSize,
-        style: TextStyle(
-          color: isMonitored
-              ? LunaColours.accent
-              : LunaColours.accent.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        style: const TextStyle(
+          color: LunaColours.accent,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
-    return const Text('');
+    return const Text(
+      '',
+      style: TextStyle(
+        fontSize: LunaUI.FONT_SIZE_H3,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+    );
   }
 
-  Text lunaNextReleaseTextObject(bool isMonitored) {
+  Text lunaNextReleaseTextObject() {
     DateTime now = DateTime.now();
     // If we already have a file or it is released
-    if (this.hasFile || lunaIsReleased) return const Text('');
+    if (this.hasFile || lunaIsReleased)
+      return const Text(
+        '',
+        style: TextStyle(fontSize: LunaUI.FONT_SIZE_H3),
+      );
     // In Cinemas
     if (this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
       String _date = this.inCinemas.lunaDaysDifference?.toUpperCase() ??
           LunaUI.TEXT_EMDASH;
       return Text(
         _date == 'TODAY' ? _date : 'IN $_date',
-        style: TextStyle(
-          color: isMonitored
-              ? LunaColours.orange
-              : LunaColours.orange.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        style: const TextStyle(
+          color: LunaColours.orange,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
@@ -133,17 +139,21 @@ extension LunaRadarrMovieExtension on RadarrMovie {
           _release.lunaDaysDifference?.toUpperCase() ?? LunaUI.TEXT_EMDASH;
       return Text(
         _date == 'TODAY' ? _date : 'IN $_date',
-        style: TextStyle(
-          color: isMonitored
-              ? LunaColours.blue
-              : LunaColours.blue.withOpacity(0.30),
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+        style: const TextStyle(
+          color: LunaColours.blue,
+          fontSize: LunaUI.FONT_SIZE_H3,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
       );
     }
     // Unknown case
-    return const Text('');
+    return const Text(
+      '',
+      style: TextStyle(
+        fontSize: LunaUI.FONT_SIZE_H3,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      ),
+    );
   }
 
   /// Compare two movies by their release dates. Returns an integer value compatible with `.sort()` in arrays.

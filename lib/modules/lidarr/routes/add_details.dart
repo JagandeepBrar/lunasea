@@ -162,57 +162,24 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           LidarrDescriptionBlock(
             title: _arguments.data.title ?? 'Unknown',
             description: _arguments.data.overview == ''
-                ? 'No summary is available.'
+                ? 'No Summary Available'
                 : _arguments.data.overview,
             uri: _arguments.data.posterURI ?? '',
-            fallbackImage: LunaAssets.blankUser,
             squareImage: true,
             headers: Database.currentProfileObject.getLidarr()['headers'],
           ),
-          ValueListenableBuilder(
-              valueListenable: Database.lunaSeaBox
-                  .listenable(keys: [LidarrDatabaseValue.ADD_MONITORED.key]),
-              builder: (context, box, widget) {
-                return LunaListTile(
-                  context: context,
-                  title: LunaText.title(text: 'Monitored'),
-                  subtitle: LunaText.subtitle(
-                      text: 'Monitor artist for new releases'),
-                  trailing: LunaSwitch(
-                    value: LidarrDatabaseValue.ADD_MONITORED.data,
-                    onChanged: (value) =>
-                        LidarrDatabaseValue.ADD_MONITORED.put(value),
-                  ),
-                );
-              }),
-          ValueListenableBuilder(
-              valueListenable: Database.lunaSeaBox.listenable(
-                  keys: [LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key]),
-              builder: (context, box, widget) {
-                return LunaListTile(
-                  context: context,
-                  title: LunaText.title(text: 'Use Album Folders'),
-                  subtitle:
-                      LunaText.subtitle(text: 'Sort tracks into album folders'),
-                  trailing: LunaSwitch(
-                    value: LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data,
-                    onChanged: (value) =>
-                        LidarrDatabaseValue.ADD_ALBUM_FOLDERS.put(value),
-                  ),
-                );
-              }),
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox
                 .listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
             builder: (context, box, widget) {
               LidarrRootFolder _rootfolder =
                   LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Root Folder'),
-                subtitle: LunaText.subtitle(
-                    text: _rootfolder?.path ?? 'Unknown Root Folder'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Root Folder',
+                body: [
+                  TextSpan(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values =
                       await LidarrDialogs.editRootFolder(context, _rootFolders);
@@ -222,18 +189,36 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               );
             },
           ),
+          LidarrDatabaseValue.ADD_MONITORED_STATUS.listen(
+              builder: (context, box, _) {
+            LidarrDatabaseValue _db = LidarrDatabaseValue.ADD_MONITORED_STATUS;
+            LidarrMonitorStatus _status =
+                LidarrMonitorStatus.ALL.fromKey(_db.data);
+            _status ??= LidarrMonitorStatus.ALL;
+
+            return LunaBlock(
+              title: 'Monitor',
+              trailing: const LunaIconButton.arrow(),
+              body: [TextSpan(text: _status.readable)],
+              onTap: () async {
+                Tuple2<bool, LidarrMonitorStatus> _result =
+                    await LidarrDialogs().selectMonitoringOption(context);
+                if (_result.item1) _db.put(_result.item2.key);
+              },
+            );
+          }),
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(
                 keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
             builder: (context, box, widget) {
               LidarrQualityProfile _profile =
                   LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Quality Profile'),
-                subtitle: LunaText.subtitle(
-                    text: _profile?.name ?? 'Unknown Profile'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Quality Profile',
+                body: [
+                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values = await LidarrDialogs.editQualityProfile(
                       context, _qualityProfiles);
@@ -249,12 +234,12 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             builder: (context, box, widget) {
               LidarrMetadataProfile _profile =
                   LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
-              return LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Metadata Profile'),
-                subtitle: LunaText.subtitle(
-                    text: _profile?.name ?? 'Unknown Profile'),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              return LunaBlock(
+                title: 'Metadata Profile',
+                body: [
+                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+                ],
+                trailing: const LunaIconButton.arrow(),
                 onTap: () async {
                   List _values = await LidarrDialogs.editMetadataProfile(
                       context, _metadataProfiles);
@@ -275,8 +260,8 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           LidarrDatabaseValue.ADD_QUALITY_PROFILE.data,
           LidarrDatabaseValue.ADD_ROOT_FOLDER.data,
           LidarrDatabaseValue.ADD_METADATA_PROFILE.data,
-          LidarrDatabaseValue.ADD_MONITORED.data ?? true,
-          LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data ?? true,
+          LidarrMonitorStatus.ALL
+              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data),
           search: search,
         )
         .then((id) => Navigator.of(context)

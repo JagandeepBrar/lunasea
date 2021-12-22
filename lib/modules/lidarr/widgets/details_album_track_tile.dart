@@ -18,35 +18,16 @@ class LidarrDetailsTrackTile extends StatefulWidget {
 
 class _State extends State<LidarrDetailsTrackTile> {
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title:
-            LunaText.title(text: widget.data.title, darken: !widget.monitored),
-        subtitle: RichText(
-          text: TextSpan(
-              style: TextStyle(
-                color: widget.monitored ? Colors.white70 : Colors.white30,
-                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text:
-                      '${widget?.data?.duration?.lunaTimestamp(divisor: 1000)}\n',
-                ),
-                widget?.data?.file(widget.monitored),
-              ]),
+  Widget build(BuildContext context) => LunaBlock(
+        title: widget.data.title,
+        body: [
+          TextSpan(text: widget?.data?.duration?.lunaTimestamp(divisor: 1000)),
+          widget?.data?.file(widget.monitored),
+        ],
+        disabled: !widget.monitored,
+        leading: LunaIconButton(
+          text: widget?.data?.trackNumber,
+          textSize: LunaUI.FONT_SIZE_H4,
         ),
-        leading: IconButton(
-          icon: Text(
-            widget?.data?.trackNumber,
-            style: TextStyle(
-              color: widget.monitored ? Colors.white : Colors.white30,
-              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              fontSize: LunaUI.FONT_SIZE_TITLE,
-            ),
-          ),
-          onPressed: null,
-        ),
-        contentPadding: true,
       );
 }

@@ -12,7 +12,8 @@ class LidarrReleasesSearchBar extends StatefulWidget
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.defaultAppBarHeight);
 
   @override
   State<LidarrReleasesSearchBar> createState() => _State();
@@ -44,7 +45,7 @@ class _State extends State<LidarrReleasesSearchBar> {
           LidarrReleasesSortButton(controller: widget.scrollController),
         ],
       ),
-      height: LunaTextInputBar.appBarHeight,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 }

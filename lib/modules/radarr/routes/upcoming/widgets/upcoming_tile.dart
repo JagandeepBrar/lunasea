@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrUpcomingTile extends StatefulWidget {
-  static final itemExtent =
-      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
+  static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -24,20 +23,25 @@ class _State extends State<RadarrUpcomingTile> {
   Widget build(BuildContext context) {
     return Selector<RadarrState, Future<List<RadarrMovie>>>(
       selector: (_, state) => state.missing,
-      builder: (context, missing, _) => LunaFourLineCardWithPoster(
-        backgroundUrl:
-            context.read<RadarrState>().getPosterURL(widget.movie.id),
-        posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
-        posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
-        darken: !widget.movie.monitored,
-        title: widget.movie.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        subtitle3: _subtitle3(),
-        trailing: _trailing(),
-        onTap: _onTap,
-      ),
+      builder: (context, missing, _) {
+        return LunaBlock(
+          title: widget.movie.title,
+          body: [
+            _subtitle1(),
+            _subtitle2(),
+            _subtitle3(),
+          ],
+          trailing: _trailing(),
+          backgroundUrl:
+              context.read<RadarrState>().getFanartURL(widget.movie.id),
+          posterHeaders: context.read<RadarrState>().headers,
+          posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+          posterIsSquare: false,
+          posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+          onTap: _onTap,
+          disabled: !widget.movie.monitored,
+        );
+      },
     );
   }
 
@@ -70,19 +74,15 @@ class _State extends State<RadarrUpcomingTile> {
     String _days;
     String type;
     if (widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-      color = widget.movie.monitored
-          ? LunaColours.blue
-          : LunaColours.blue.withOpacity(0.30);
+      color = LunaColours.blue;
       _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
       type = 'release';
     } else if (!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-      color = widget.movie.monitored
-          ? LunaColours.orange
-          : LunaColours.orange.withOpacity(0.30);
+      color = LunaColours.orange;
       _days = widget.movie.inCinemas.lunaDaysDifference;
       type = 'cinema';
     } else {
-      color = widget.movie.monitored ? Colors.white70 : Colors.white30;
+      color = LunaColours.grey;
       _days = LunaUI.TEXT_EMDASH;
       type = 'unknown';
     }
@@ -117,9 +117,10 @@ class _State extends State<RadarrUpcomingTile> {
     return LunaIconButton(
       icon: Icons.search_rounded,
       onPressed: () async => RadarrAPIHelper().automaticSearch(
-          context: context,
-          movieId: widget.movie.id,
-          title: widget.movie.title),
+        context: context,
+        movieId: widget.movie.id,
+        title: widget.movie.title,
+      ),
       onLongPress: () async =>
           RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
     );

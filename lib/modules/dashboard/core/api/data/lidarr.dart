@@ -7,6 +7,7 @@ class CalendarLidarrData extends CalendarData {
   final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
   String albumTitle;
   int artistId;
+  int totalTrackCount;
   bool hasAllFiles;
 
   CalendarLidarrData({
@@ -15,6 +16,7 @@ class CalendarLidarrData extends CalendarData {
     @required this.albumTitle,
     @required this.artistId,
     @required this.hasAllFiles,
+    @required this.totalTrackCount,
   }) : super(id, title);
 
   @override
@@ -27,36 +29,35 @@ class CalendarLidarrData extends CalendarData {
   }
 
   @override
-  TextSpan get subtitle => TextSpan(
+  List<TextSpan> get body {
+    return [
+      TextSpan(
+        text: albumTitle,
         style: const TextStyle(
-          color: Colors.white70,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontStyle: FontStyle.italic,
         ),
-        children: <TextSpan>[
-          TextSpan(
-            text: albumTitle,
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
+      ),
+      TextSpan(
+        text: totalTrackCount == 1 ? '1 Track' : '$totalTrackCount Tracks',
+      ),
+      if (!hasAllFiles)
+        const TextSpan(
+          text: 'Not Downloaded',
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.red,
           ),
-          if (!hasAllFiles)
-            const TextSpan(
-              text: '\nNot Downloaded',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.red,
-              ),
-            ),
-          if (hasAllFiles)
-            const TextSpan(
-              text: '\nDownloaded',
-              style: TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              ),
-            )
-        ],
-      );
+        ),
+      if (hasAllFiles)
+        const TextSpan(
+          text: 'Downloaded',
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: LunaColours.accent,
+          ),
+        )
+    ];
+  }
 
   @override
   Future<void> enterContent(BuildContext context) async =>
@@ -94,4 +95,22 @@ class CalendarLidarrData extends CalendarData {
           title: albumTitle,
         ),
       );
+
+  @override
+  String backgroundUrl(BuildContext context) {
+    return api['enabled']
+        ? (api['host'] as String).endsWith('/')
+            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
+            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
+        : '';
+  }
+
+  @override
+  String posterUrl(BuildContext context) {
+    return api['enabled']
+        ? (api['host'] as String).endsWith('/')
+            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
+            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
+        : '';
+  }
 }

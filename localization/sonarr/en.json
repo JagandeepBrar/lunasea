@@ -106,7 +106,7 @@
   "sonarr.MonitorSeries": "Monitor Series",
   "sonarr.Monitored": "Monitored",
   "sonarr.Monitoring": "Monitoring",
-  "sonarr.MonitoredDescription": "Monitor series for new releases",
+  "sonarr.MonitoredDescription": "Download monitored episodes in this series",
   "sonarr.More": "More",
   "sonarr.Name": "Name",
   "sonarr.NoEpisodesFound": "No Episodes Found",

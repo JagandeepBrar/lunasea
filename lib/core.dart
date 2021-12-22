@@ -1,6 +1,7 @@
 // Packages
 export 'package:easy_localization/easy_localization.dart';
 export 'package:expandable/expandable.dart';
+export 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 export 'package:flash/flash.dart';
 export 'package:fluro/fluro.dart';
 export 'package:hive/hive.dart';
@@ -27,4 +28,3 @@ export 'core/state.dart';
 export 'core/system.dart';
 export 'core/ui.dart';
 export 'core/utilities.dart';
-export 'core/widgets.dart';

@@ -10,13 +10,12 @@ enum LunaButtonType {
 
 /// A Luna-styled button.
 class LunaButton extends Card {
-  static const DEFAULT_HEIGHT = 50.0;
+  static const DEFAULT_HEIGHT = 46.0;
 
   LunaButton._({
     Key key,
     @required Widget child,
-    EdgeInsets margin =
-        const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     Color backgroundColor,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
@@ -47,11 +46,10 @@ class LunaButton extends Card {
           ),
           margin: margin,
           color: backgroundColor != null
-              ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+              ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
               : LunaTheme.isAMOLEDTheme
-                  ? Colors.black.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
-                  : LunaColours.primary
-                      .withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
+                  ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
+                  : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
           shape: backgroundColor != null
               ? LunaShapeBorder.rounded()
               : LunaUI.shapeBorder,
@@ -70,10 +68,9 @@ class LunaButton extends Card {
     Color backgroundColor,
     String text,
     IconData icon,
-    double iconSize = 22.0,
+    double iconSize = LunaUI.ICON_SIZE,
     LunaLoadingState loadingState,
-    EdgeInsets margin =
-        const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
     Decoration decoration,
@@ -163,11 +160,10 @@ class LunaButton extends Card {
   factory LunaButton.text({
     @required String text,
     @required IconData icon,
-    double iconSize = 22.0,
+    double iconSize = LunaUI.ICON_SIZE,
     Color color = LunaColours.accent,
     Color backgroundColor,
-    EdgeInsets margin =
-        const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
     Decoration decoration,
@@ -188,7 +184,8 @@ class LunaButton extends Card {
                   color: color,
                   size: iconSize,
                 ),
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsets.only(
+                    right: LunaUI.DEFAULT_MARGIN_SIZE / 2),
               ),
             Flexible(
               child: Text(
@@ -196,7 +193,7 @@ class LunaButton extends Card {
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                  fontSize: LunaUI.FONT_SIZE_BUTTON,
+                  fontSize: LunaUI.FONT_SIZE_H3,
                 ),
                 overflow: TextOverflow.fade,
                 softWrap: false,
@@ -205,7 +202,8 @@ class LunaButton extends Card {
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding:
+            const EdgeInsets.symmetric(horizontal: LunaUI.DEFAULT_MARGIN_SIZE),
       ),
       margin: margin,
       height: height,
@@ -220,8 +218,7 @@ class LunaButton extends Card {
 
   /// Build a button that contains a [LunaLoader].
   factory LunaButton.loader({
-    EdgeInsets margin =
-        const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     Color color = LunaColours.accent,
     Color backgroundColor,
     double height = DEFAULT_HEIGHT,
@@ -235,7 +232,7 @@ class LunaButton extends Card {
       child: LunaLoader(
         useSafeArea: false,
         color: color,
-        size: 16.0,
+        size: LunaUI.FONT_SIZE_H3,
       ),
       margin: margin,
       height: height,
@@ -253,10 +250,9 @@ class LunaButton extends Card {
     @required IconData icon,
     Color color = LunaColours.accent,
     Color backgroundColor,
-    EdgeInsets margin =
-        const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+    EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
-    double iconSize = 22.0,
+    double iconSize = LunaUI.ICON_SIZE,
     Alignment alignment = Alignment.center,
     Decoration decoration,
     Function onTap,

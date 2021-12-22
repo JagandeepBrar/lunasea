@@ -48,7 +48,7 @@ class SearchResultTile extends StatelessWidget {
       if (SearchDatabaseValue.SHOW_LINKS.data &&
           data.linkComments != null &&
           data.linkDownload != null)
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
       if (SearchDatabaseValue.SHOW_LINKS.data && data.linkComments != null)
         LunaTableContent(
             title: 'search.Comments'.tr(),

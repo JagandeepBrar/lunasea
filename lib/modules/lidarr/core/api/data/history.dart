@@ -122,9 +122,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
         style: const TextStyle(
@@ -150,9 +148,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
         style: const TextStyle(
@@ -175,9 +171,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
         style: const TextStyle(
@@ -203,9 +197,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text:
             '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${super.historyReasonMessages[reason] ?? reason})',
@@ -229,9 +221,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
         style: const TextStyle(
@@ -254,9 +244,7 @@ class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
   @override
   List<TextSpan> get subtitle {
     return [
-      TextSpan(
-        text: '$timestampString\n',
-      ),
+      TextSpan(text: timestampString),
       TextSpan(
         text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
         style: const TextStyle(

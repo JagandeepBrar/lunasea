@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'season_statistics.dart';
+import 'package:sonarr/models.dart';
 
 part 'season.g.dart';
 
@@ -15,10 +15,14 @@ class SonarrSeriesSeason {
   @JsonKey(name: 'statistics')
   SonarrSeriesSeasonStatistics? statistics;
 
+  @JsonKey(name: 'images')
+  List<SonarrImage>? images;
+
   SonarrSeriesSeason({
     this.seasonNumber,
     this.monitored,
     this.statistics,
+    this.images,
   });
 
   @override

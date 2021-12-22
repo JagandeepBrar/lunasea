@@ -39,7 +39,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'radarr.ManualImport'.tr(),
       scrollControllers: [scrollController],
-      bottom: RadarrManualImportPathBar(scrollController: scrollController),
+      bottom: LunaAppBar.empty(
+        height: LunaTextInputBar.defaultAppBarHeight,
+        child: RadarrManualImportPathBar(scrollController: scrollController),
+      ),
     );
   }
 

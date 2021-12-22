@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
-class LunaReorderableListDragger extends StatelessWidget {
+class LunaReorderableListViewDragger extends StatelessWidget {
   final int index;
 
-  const LunaReorderableListDragger({
+  const LunaReorderableListViewDragger({
     Key key,
     @required this.index,
   }) : super(key: key);
@@ -15,7 +16,10 @@ class LunaReorderableListDragger extends StatelessWidget {
       children: [
         ReorderableDragStartListener(
           index: index,
-          child: const Icon(Icons.menu_rounded),
+          child: const LunaIconButton(
+            icon: Icons.menu_rounded,
+            mouseCursor: SystemMouseCursors.click,
+          ),
         ),
       ],
     );

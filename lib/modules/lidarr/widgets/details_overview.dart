@@ -28,10 +28,9 @@ class _State extends State<LidarrDetailsOverview>
         LidarrDescriptionBlock(
           title: widget?.data?.title ?? 'Unknown',
           description: widget?.data?.overview == ''
-              ? 'No summary is available.'
+              ? 'No Summary Available'
               : widget?.data?.overview,
           uri: widget?.data?.posterURI() ?? '',
-          fallbackImage: LunaAssets.blankUser,
           squareImage: true,
           headers: Database.currentProfileObject.getLidarr()['headers'],
         ),

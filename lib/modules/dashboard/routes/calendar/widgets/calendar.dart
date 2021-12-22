@@ -6,7 +6,7 @@ import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
-  final Map<DateTime, List> events;
+  final Map<DateTime, List<CalendarData>> events;
 
   const DashboardCalendarWidget({
     Key key,
@@ -24,28 +24,28 @@ class _State extends State<DashboardCalendarWidget> {
   CalendarFormat _calendarFormat;
 
   final TextStyle dayTileStyle = const TextStyle(
-    color: Colors.white,
+    color: LunaColours.white,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle outsideDayTileStyle = const TextStyle(
-    color: Colors.white54,
+    color: LunaColours.white70,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle unavailableTitleStyle = const TextStyle(
-    color: Colors.white12,
+    color: LunaColours.white10,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
   final TextStyle weekdayTitleStyle = const TextStyle(
     color: LunaColours.accent,
     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+    fontSize: LunaUI.FONT_SIZE_H3,
   );
 
   final double _calendarBulletSize = 8.0;
-  List _selectedEvents;
+  List<CalendarData> _selectedEvents;
 
   @override
   void initState() {
@@ -84,7 +84,8 @@ class _State extends State<DashboardCalendarWidget> {
                     _calendarList(),
                   ],
                 ),
-                padding: EdgeInsets.only(top: LunaUI.MARGIN_CARD.top),
+                padding:
+                    EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top),
               );
             }
             return _schedule();
@@ -95,7 +96,7 @@ class _State extends State<DashboardCalendarWidget> {
   Widget _markerBuilder(
     BuildContext context,
     DateTime date,
-    List<dynamic> events,
+    List<CalendarData> events,
   ) {
     Color color;
     int missingCount = _countMissingContent(date, events);
@@ -173,11 +174,13 @@ class _State extends State<DashboardCalendarWidget> {
                   isTodayHighlighted: true,
                   outsideDaysVisible: false,
                   selectedDecoration: BoxDecoration(
-                    color: LunaColours.accent.withOpacity(0.20),
+                    color:
+                        LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
                     shape: BoxShape.circle,
                   ),
                   todayDecoration: BoxDecoration(
-                    color: LunaColours.primary.withOpacity(0.60),
+                    color: LunaColours.primary
+                        .withOpacity(LunaUI.OPACITY_DISABLED),
                     shape: BoxShape.circle,
                   ),
                   weekendTextStyle: dayTileStyle,
@@ -206,8 +209,9 @@ class _State extends State<DashboardCalendarWidget> {
                 },
                 onDaySelected: _onDaySelected,
               ),
-              padding: LunaUI.MARGIN_DEFAULT
-                  .subtract(const EdgeInsets.symmetric(horizontal: 6.0)),
+              padding: const EdgeInsets.symmetric(
+                vertical: LunaUI.DEFAULT_MARGIN_SIZE,
+              ),
             ),
           ),
         );
@@ -217,7 +221,7 @@ class _State extends State<DashboardCalendarWidget> {
 
   /// -1: Date is after today (with content)
   /// -100: Event list was empty or null
-  int _countMissingContent(DateTime date, List<dynamic> events) {
+  int _countMissingContent(DateTime date, List<CalendarData> events) {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
 
@@ -304,7 +308,7 @@ class _State extends State<DashboardCalendarWidget> {
     ];
   }
 
-  Widget _entry(dynamic event) {
+  Widget _entry(CalendarData event) {
     Map headers;
     switch (event.runtimeType) {
       case CalendarLidarrData:
@@ -317,25 +321,19 @@ class _State extends State<DashboardCalendarWidget> {
         headers = Database.currentProfileObject.getSonarr()['headers'];
         break;
       default:
-        headers = {};
+        headers = const {};
         break;
     }
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: event.title),
-      subtitle: RichText(
-        text: event.subtitle,
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 2,
-      ),
+    return LunaBlock(
+      title: event.title,
+      body: event.body,
+      posterHeaders: headers,
+      backgroundHeaders: headers,
+      posterUrl: event.posterUrl(context),
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      backgroundUrl: event.backgroundUrl(context),
       trailing: event.trailing(context),
       onTap: () async => event.enterContent(context),
-      contentPadding: true,
-      decoration: LunaCardDecoration(
-        uri: event.bannerURI,
-        headers: headers,
-      ),
     );
   }
 }

@@ -23,6 +23,8 @@ class SonarrSeriesSortingAdapter extends TypeAdapter<SonarrSeriesSorting> {
         return SonarrSeriesSorting.NETWORK;
       case 4:
         return SonarrSeriesSorting.NEXT_AIRING;
+      case 8:
+        return SonarrSeriesSorting.PREVIOUS_AIRING;
       case 5:
         return SonarrSeriesSorting.QUALITY;
       case 6:
@@ -51,6 +53,9 @@ class SonarrSeriesSortingAdapter extends TypeAdapter<SonarrSeriesSorting> {
         break;
       case SonarrSeriesSorting.NEXT_AIRING:
         writer.writeByte(4);
+        break;
+      case SonarrSeriesSorting.PREVIOUS_AIRING:
+        writer.writeByte(8);
         break;
       case SonarrSeriesSorting.QUALITY:
         writer.writeByte(5);

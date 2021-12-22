@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Pages',
+      title: 'settings.DefaultPages'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -50,21 +50,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    return NZBGetDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Home'),
-        subtitle: LunaText.subtitle(
-          text: NZBGetNavigationBar
-              .titles[NZBGetDatabaseValue.NAVIGATION_INDEX.data],
-        ),
+    NZBGetDatabaseValue _db = NZBGetDatabaseValue.NAVIGATION_INDEX;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'lunasea.Home'.tr(),
+        body: [TextSpan(text: NZBGetNavigationBar.titles[_db.data])],
         trailing: LunaIconButton(
-          icon: NZBGetNavigationBar
-              .icons[NZBGetDatabaseValue.NAVIGATION_INDEX.data],
+          icon: NZBGetNavigationBar.icons[_db.data],
         ),
         onTap: () async {
           List values = await NZBGetDialogs.defaultPage(context);
-          if (values[0]) NZBGetDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );

@@ -37,8 +37,8 @@ class DashboardState extends LunaModuleState {
     notifyListeners();
   }
 
-  Future<Map<DateTime, List>> _upcoming;
-  Future<Map<DateTime, List>> get upcoming => _upcoming;
+  Future<Map<DateTime, List<CalendarData>>> _upcoming;
+  Future<Map<DateTime, List<CalendarData>>> get upcoming => _upcoming;
   void resetUpcoming() {
     if (_api != null) _upcoming = _api.getUpcoming(DateTime.now());
     notifyListeners();

@@ -12,27 +12,14 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(
-        text: 'sonarr.AllSeasons'.tr(),
-        darken: !series.monitored,
-      ),
-      subtitle: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: series.monitored ? Colors.white70 : Colors.white30,
-            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-          ),
-          children: [
-            _subtitle1(),
-            const TextSpan(text: '\n'),
-            _subtitle2(),
-          ],
-        ),
-      ),
-      contentPadding: true,
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'sonarr.AllSeasons'.tr(),
+      disabled: !series.monitored,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: series.id,
@@ -52,12 +39,8 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
     return TextSpan(
       style: TextStyle(
         color: series.lunaPercentageComplete == 100
-            ? series.monitored
-                ? LunaColours.accent
-                : LunaColours.accent.withOpacity(0.30)
-            : series.monitored
-                ? LunaColours.red
-                : LunaColours.red.withOpacity(0.30),
+            ? LunaColours.accent
+            : LunaColours.red,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),
       text: [

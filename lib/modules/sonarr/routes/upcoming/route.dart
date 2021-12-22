@@ -117,7 +117,10 @@ class _State extends State<SonarrUpcomingRoute>
     Map<int, SonarrSeries> series,
   ) =>
       [
-        LunaHeader(text: date),
+        LunaHeader(
+          text: date,
+          // subtitle: 'This is a test',
+        ),
         ...List.generate(
           upcoming.length,
           (index) => SonarrUpcomingTile(

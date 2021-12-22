@@ -90,6 +90,7 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
     return LunaListViewBuilder(
       controller: LidarrNavigationBar.scrollControllers[2],
       itemCount: _results.length,
+      itemExtent: LidarrHistoryTile.extent,
       itemBuilder: (context, index) => LidarrHistoryTile(
         entry: _results[index],
         scaffoldKey: _scaffoldKey,

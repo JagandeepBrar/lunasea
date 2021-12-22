@@ -55,9 +55,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledToggle() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Enable Wake on LAN'),
+    return LunaBlock(
+      title: 'Enable Wake on LAN',
       trailing: LunaSwitch(
         value: Database.currentProfileObject.wakeOnLANEnabled ?? false,
         onChanged: (value) {
@@ -71,15 +70,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _broadcastAddress() {
     String broadcastAddress =
         Database.currentProfileObject.wakeOnLANBroadcastAddress;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.BroadcastAddress'.tr()),
-      subtitle: LunaText.subtitle(
-        text: broadcastAddress == null || broadcastAddress == ''
-            ? 'Not Set'
-            : broadcastAddress,
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.BroadcastAddress'.tr(),
+      body: [
+        TextSpan(
+          text: broadcastAddress == null || broadcastAddress == ''
+              ? 'Not Set'
+              : broadcastAddress,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values =
             await SettingsDialogs().editBroadcastAddress(
@@ -97,13 +97,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _macAddress() {
     String macAddress = Database.currentProfileObject.wakeOnLANMACAddress;
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.MACAddress'.tr()),
-      subtitle: LunaText.subtitle(
-        text: macAddress == null || macAddress == '' ? 'Not Set' : macAddress,
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.MACAddress'.tr(),
+      body: [
+        TextSpan(
+          text: macAddress == null || macAddress == '' ? 'Not Set' : macAddress,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editMACAddress(
           context,

@@ -50,7 +50,7 @@ class LidarrAPI {
         entries.add(LidarrCatalogueData(
           title: entry['artistName'] ?? 'Unknown Artist',
           sortTitle: entry['sortName'] ?? 'Unknown Artist',
-          overview: entry['overview'] ?? 'No summary is available.',
+          overview: entry['overview'] ?? 'No Summary Available',
           path: entry['path'] ?? 'Unknown Path',
           artistID: entry['id'] ?? 0,
           artistType: entry['artistType'] ?? 'Unknown Artist Type',
@@ -130,7 +130,7 @@ class LidarrAPI {
       return LidarrCatalogueData(
         title: response.data['artistName'] ?? 'Unknown Artist',
         sortTitle: response.data['sortName'] ?? 'Unknown Artist',
-        overview: response.data['overview'] ?? 'No summary is available.',
+        overview: response.data['overview'] ?? 'No Summary Available',
         artistType: response.data['artistType'] ?? 'Unknown Artist Type',
         path: response.data['path'] ?? 'Unknown Path',
         artistID: response.data['id'] ?? 0,
@@ -228,7 +228,10 @@ class LidarrAPI {
               : entry['statistics']['totalTrackCount'] ?? 0,
           percentageTracks: entry['statistics'] == null
               ? 0
-              : entry['statistics']['percentOfTracks'] ?? 0,
+              : entry['statistics']['percentOfTracks']
+                      ?.toString()
+                      ?.toDouble() ??
+                  0,
           releaseDate: entry['releaseDate'] ?? '',
         ));
       }
@@ -662,7 +665,7 @@ class LidarrAPI {
           title: entry['artistName'] ?? 'Unknown Artist Name',
           foreignArtistId: entry['foreignArtistId'] ?? '',
           overview: entry['overview'] == null || entry['overview'] == ''
-              ? 'No summary is available.'
+              ? 'No Summary Available'
               : entry['overview'],
           tadbId: entry['tadbId'] ?? 0,
           artistType: entry['artistType'] ?? 'Unknown Artist Type',
@@ -685,8 +688,7 @@ class LidarrAPI {
       LidarrQualityProfile quality,
       LidarrRootFolder rootFolder,
       LidarrMetadataProfile metadata,
-      bool monitored,
-      bool albumFolders,
+      LidarrMonitorStatus monitorStatus,
       {bool search = false}) async {
     try {
       Response response = await _dio.post(
@@ -697,10 +699,11 @@ class LidarrAPI {
           'qualityProfileId': quality.id,
           'metadataProfileId': metadata.id,
           'rootFolderPath': rootFolder.path,
-          'monitored': monitored,
-          'albumFolder': albumFolders,
+          'monitored': monitorStatus != LidarrMonitorStatus.NONE,
+          'albumFolder': true,
           'addOptions': {
             'searchForMissingAlbums': search,
+            'monitor': monitorStatus.key,
           },
         }),
       );

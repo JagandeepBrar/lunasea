@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LunaColours {
   /// List of LunaSea colours in order that the should appear in a list.
@@ -25,20 +26,17 @@ class LunaColours {
   /// Core secondary colour (appbar, bottom bar, etc.),
   static const Color secondary = Color(0xFF282834);
 
-  /// Blue
   static const Color blue = Color(0xFF00A8E8);
-
-  /// Orange
+  static const Color blueGrey = Color(0xFF848FA5);
+  static const Color grey = Color(0xFFBBBBBB);
   static const Color orange = Color(0xFFFF9000);
-
-  /// Red
+  static const Color purple = Color(0xFF9649CB);
   static const Color red = Color(0xFFF71735);
 
-  /// Purple
-  static const Color purple = Color(0xFF9649CB);
-
-  /// Blue Grey
-  static const Color blueGrey = Color(0xFF848FA5);
+  /// Shades of White
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color white70 = Color(0xB3FFFFFF);
+  static const Color white10 = Color(0x1AFFFFFF);
 
   /// Returns the correct colour for a graph by what layer it is on the graph canvas.
   Color byGraphLayer(int index) {
@@ -58,5 +56,17 @@ class LunaColours {
   /// If the index is greater than the list of colour's length, uses modulus to loop list.
   Color byListIndex(int index) {
     return _LIST_COLOR_ICONS[index % _LIST_COLOR_ICONS.length];
+  }
+}
+
+extension LunaColor on Color {
+  Color disabled([bool condition = true]) {
+    if (condition) return this.withOpacity(LunaUI.OPACITY_DISABLED);
+    return this;
+  }
+
+  Color enabled([bool condition = true]) {
+    if (condition) return this;
+    return this.withOpacity(LunaUI.OPACITY_DISABLED);
   }
 }

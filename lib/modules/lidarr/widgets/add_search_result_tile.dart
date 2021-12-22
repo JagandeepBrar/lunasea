@@ -13,20 +13,28 @@ class LidarrAddSearchResultTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: data.title, darken: alreadyAdded),
-        subtitle: LunaText.subtitle(
-          text: '${data.overview.trim()}\n\n',
-          darken: alreadyAdded,
-          maxLines: 2,
-        ),
-        contentPadding: true,
-        trailing: alreadyAdded
-            ? null
-            : LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+  Widget build(BuildContext context) => LunaBlock(
+        title: data.title,
+        disabled: alreadyAdded,
+        body: [
+          LunaTextSpan.extended(text: data.overview.trim()),
+        ],
+        customBodyMaxLines: 3,
+        trailing: alreadyAdded ? null : const LunaIconButton.arrow(),
+        posterIsSquare: true,
+        posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
+        posterPlaceholderIcon: LunaIcons.USER,
+        posterUrl: _posterUrl,
         onTap: () async => _enterDetails(context),
       );
+
+  String get _posterUrl {
+    Map<String, dynamic> image = data?.images?.firstWhere(
+      (e) => e['coverType'] == 'poster',
+      orElse: () => <String, dynamic>{},
+    );
+    return image['url'];
+  }
 
   Future<void> _enterDetails(BuildContext context) async {
     if (alreadyAdded) {

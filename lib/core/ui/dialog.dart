@@ -4,10 +4,9 @@ import 'package:lunasea/core.dart';
 
 // ignore: avoid_classes_with_only_static_members
 abstract class LunaDialog {
-  static const HEADER_SIZE = LunaUI.FONT_SIZE_HEADER;
-  static const BODY_SIZE = LunaUI.FONT_SIZE_SUBTITLE;
-  static const SUBBODY_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
-  static const BUTTON_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
+  static const HEADER_SIZE = LunaUI.FONT_SIZE_H1;
+  static const BODY_SIZE = LunaUI.FONT_SIZE_H3;
+  static const BUTTON_SIZE = LunaUI.FONT_SIZE_H4;
 
   static Widget title({
     @required String text,
@@ -135,7 +134,7 @@ abstract class LunaDialog {
         decoration: InputDecoration(
           labelText: title,
           labelStyle: const TextStyle(
-            color: Colors.white54,
+            color: LunaColours.grey,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),
@@ -143,7 +142,8 @@ abstract class LunaDialog {
             borderSide: BorderSide(color: LunaColours.accent),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
+            borderSide: BorderSide(
+                color: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH)),
           ),
         ),
         style: const TextStyle(
@@ -172,7 +172,7 @@ abstract class LunaDialog {
         decoration: InputDecoration(
           labelText: title,
           labelStyle: const TextStyle(
-            color: Colors.white54,
+            color: LunaColours.grey,
             decoration: TextDecoration.none,
             fontSize: LunaDialog.BODY_SIZE,
           ),
@@ -180,7 +180,8 @@ abstract class LunaDialog {
             borderSide: BorderSide(color: LunaColours.accent),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
+            borderSide: BorderSide(
+                color: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH)),
           ),
         ),
         style: const TextStyle(

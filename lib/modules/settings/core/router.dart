@@ -19,6 +19,7 @@ class SettingsRouter extends LunaModuleRouter {
     // Configuration/Dashboard
     SettingsConfigurationDashboardRouter().defineRoute(router);
     SettingsConfigurationDashboardCalendarSettingsRouter().defineRoute(router);
+    SettingsConfigurationDashboardDefaultPagesRouter().defineRoute(router);
     // Configuration/External Modules
     SettingsConfigurationExternalModulesRouter().defineRoute(router);
     SettingsConfigurationExternalModulesAddRouter().defineRoute(router);
@@ -26,6 +27,7 @@ class SettingsRouter extends LunaModuleRouter {
     // Configuration/Lidarr
     SettingsConfigurationLidarrRouter().defineRoute(router);
     SettingsConfigurationLidarrConnectionDetailsRouter().defineRoute(router);
+    SettingsConfigurationLidarrDefaultPagesRouter().defineRoute(router);
     SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
     // Configuration/NZBGet
     SettingsConfigurationNZBGetRouter().defineRoute(router);

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
@@ -89,7 +88,7 @@ class DashboardDatabase extends LunaModuleDatabase {
 
 extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
   String get key {
-    return 'HOME_${describeEnum(this)}';
+    return 'HOME_${this.name}';
   }
 
   dynamic get data {

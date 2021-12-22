@@ -58,8 +58,7 @@ class LidarrCatalogueData {
     return 'Unknown';
   }
 
-  String subtitle(LidarrCatalogueSorting sorting) =>
-      '$albums\t•\t$tracks\n${_sortSubtitle(sorting)}';
+  String subtitle(LidarrCatalogueSorting sorting) => _sortSubtitle(sorting);
 
   String _sortSubtitle(LidarrCatalogueSorting sorting) {
     switch (sorting) {

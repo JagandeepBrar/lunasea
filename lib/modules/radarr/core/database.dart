@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -22,6 +21,7 @@ enum RadarrDatabaseValue {
   ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID,
   ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID,
   ADD_MOVIE_DEFAULT_TAGS,
+  ADD_MOVIE_SEARCH_FOR_MISSING,
   ADD_DISCOVER_USE_SUGGESTIONS,
   MANUAL_IMPORT_DEFAULT_MODE,
   QUEUE_PAGE_SIZE,
@@ -120,7 +120,7 @@ class RadarrDatabase extends LunaModuleDatabase {
 
 extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
   String get key {
-    return 'RADARR_${describeEnum(this)}';
+    return 'RADARR_${this.name}';
   }
 
   dynamic get data {
@@ -200,6 +200,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         return false;
       case RadarrDatabaseValue.CONTENT_PAGE_SIZE:
         return 25;
+      case RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING:
+        return false;
     }
     throw Exception('Invalid RadarrDatabaseValue');
   }
@@ -254,6 +256,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         return value is bool;
       case RadarrDatabaseValue.CONTENT_PAGE_SIZE:
         return value is int;
+      case RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING:
+        return value is bool;
     }
     throw Exception('Invalid RadarrDatabaseValue');
   }

@@ -155,7 +155,7 @@ class _State extends State<SonarrQueueTile> {
           body: widget.queueRecord.episode?.title ?? LunaUI.TEXT_EMDASH,
         ),
       if (widget.type == SonarrQueueTileType.ALL)
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
       LunaTableContent(
         title: 'sonarr.Quality'.tr(),
         body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,

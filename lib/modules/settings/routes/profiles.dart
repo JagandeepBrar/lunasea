@@ -34,20 +34,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Profiles',
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async => LunaDialogs().textPreview(
-            context,
-            'Profiles',
-            [
-              'Profiles allow you to add multiple instances of modules into LunaSea.',
-              'Newznab indexer searching is enabled and shared across all profiles.',
-              'You can switch between profiles in the main navigation drawer of LunaSea.',
-            ].join('\n\n'),
-          ),
-        ),
-      ],
     );
   }
 
@@ -55,26 +41,24 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        SettingsBanners.PROFILES_SUPPORT.banner(),
         _enabledProfile(),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Add'),
-          subtitle: LunaText.subtitle(text: 'Add a New Profile'),
-          trailing: LunaIconButton(icon: Icons.add_rounded),
+        LunaBlock(
+          title: 'settings.AddProfile'.tr(),
+          body: [TextSpan(text: 'settings.AddProfileDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.ADD),
           onTap: () async => LunaProfile().addProfile(),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Rename'),
-          subtitle: LunaText.subtitle(text: 'Rename an Existing Profile'),
-          trailing: LunaIconButton(icon: Icons.text_format_rounded),
+        LunaBlock(
+          title: 'settings.RenameProfile'.tr(),
+          body: [TextSpan(text: 'settings.RenameProfileDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.RENAME),
           onTap: () async => LunaProfile().renameProfile(),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Delete'),
-          subtitle: LunaText.subtitle(text: 'Delete an Existing Profile'),
-          trailing: LunaIconButton(icon: Icons.delete_rounded),
+        LunaBlock(
+          title: 'settings.DeleteProfile'.tr(),
+          body: [TextSpan(text: 'settings.DeleteProfileDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.DELETE),
           onTap: () async => LunaProfile().deleteProfile(),
         ),
       ],
@@ -82,23 +66,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledProfile() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Enabled Profile'),
-      subtitle: LunaDatabaseValue.ENABLED_PROFILE.listen(
-        builder: (context, _, __) =>
-            LunaText.subtitle(text: LunaDatabaseValue.ENABLED_PROFILE.data),
+    return LunaDatabaseValue.ENABLED_PROFILE.listen(
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enabled Profile',
+        body: [TextSpan(text: LunaDatabaseValue.ENABLED_PROFILE.data)],
+        trailing: const LunaIconButton(icon: LunaIcons.USER),
+        onTap: () async {
+          Tuple2<bool, String> results = await SettingsDialogs().enabledProfile(
+            LunaState.navigatorKey.currentContext,
+            LunaProfile().profilesList(),
+          );
+          if (results.item1 &&
+              results.item2 != LunaDatabaseValue.ENABLED_PROFILE.data)
+            LunaProfile().safelyChangeProfiles(results.item2);
+        },
       ),
-      trailing: LunaIconButton(icon: Icons.switch_account_rounded),
-      onTap: () async {
-        Tuple2<bool, String> results = await SettingsDialogs().enabledProfile(
-          LunaState.navigatorKey.currentContext,
-          LunaProfile().profilesList(),
-        );
-        if (results.item1 &&
-            results.item2 != LunaDatabaseValue.ENABLED_PROFILE.data)
-          LunaProfile().safelyChangeProfiles(results.item2);
-      },
     );
   }
 }

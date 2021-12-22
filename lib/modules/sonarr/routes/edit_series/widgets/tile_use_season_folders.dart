@@ -9,15 +9,13 @@ class SonarrSeriesEditSeasonFoldersTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'sonarr.UseSeasonFolders'.tr()),
-      subtitle:
-          LunaText.subtitle(text: 'sonarr.UseSeasonFoldersDescription'.tr()),
+    return LunaBlock(
+      title: 'sonarr.UseSeasonFolders'.tr(),
       trailing: LunaSwitch(
         value: context.watch<SonarrSeriesEditState>().useSeasonFolders,
-        onChanged: (value) =>
-            context.read<SonarrSeriesEditState>().useSeasonFolders = value,
+        onChanged: (value) {
+          context.read<SonarrSeriesEditState>().useSeasonFolders = value;
+        },
       ),
     );
   }

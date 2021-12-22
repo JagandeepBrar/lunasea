@@ -53,21 +53,23 @@ class _State extends State<SABnzbdHistoryStages>
           controller: scrollController,
           children: List.generate(
             _arguments.data.stageLog.length,
-            (index) => LunaListTile(
-                context: context,
-                title: LunaText.title(
-                    text: _arguments.data.stageLog[index]['name']),
-                subtitle: LunaText.subtitle(
-                    text: _arguments.data.stageLog[index]['actions'][0]
-                        .replaceAll('<br/>', '.\n')),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-                onTap: () async {
-                  String _data = _arguments.data.stageLog[index]['actions']
-                      .join(',\n')
-                      .replaceAll('<br/>', '.\n');
-                  LunaDialogs().textPreview(
-                      context, _arguments.data.stageLog[index]['name'], _data);
-                }),
+            (index) => LunaBlock(
+              title: _arguments.data.stageLog[index]['name'],
+              body: [
+                TextSpan(
+                  text: _arguments.data.stageLog[index]['actions'][0]
+                      .replaceAll('<br/>', '.\n'),
+                ),
+              ],
+              trailing: const LunaIconButton.arrow(),
+              onTap: () async {
+                String _data = _arguments.data.stageLog[index]['actions']
+                    .join(',\n')
+                    .replaceAll('<br/>', '.\n');
+                LunaDialogs().textPreview(
+                    context, _arguments.data.stageLog[index]['name'], _data);
+              },
+            ),
           ),
         );
 }

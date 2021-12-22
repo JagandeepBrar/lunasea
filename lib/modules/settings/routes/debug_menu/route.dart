@@ -42,13 +42,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'Clear Alerts Box'),
+        LunaBlock(
+          title: 'Clear Alerts Box',
           onTap: () async {
             Database().clearAlertsBox();
             showLunaSuccessSnackBar(
-                title: 'Cleared', message: 'Cleared Alerts Box');
+              title: 'Cleared',
+              message: 'Cleared Alerts Box',
+            );
           },
         ),
       ],

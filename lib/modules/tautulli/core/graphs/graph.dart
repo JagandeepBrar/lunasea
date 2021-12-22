@@ -15,7 +15,7 @@ class TautulliGraphHelper {
 
   FlBorderData borderData() => FlBorderData(
         show: true,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: LunaColours.white10),
       );
 
   FlTitlesData titlesData(
@@ -44,7 +44,7 @@ class TautulliGraphHelper {
                     ].join()
                   : data.categories[value.truncate()].toUpperCase(),
           getTextStyles: (_, __) => const TextStyle(
-            color: Colors.white30,
+            color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
           ),
         ),
@@ -106,10 +106,10 @@ class TautulliGraphHelper {
       child: Container(
         height: GRAPH_HEIGHT + LEGEND_HEIGHT,
         alignment: Alignment.center,
-        child: LunaIconButton(
-          icon: Icons.error_rounded,
-          iconSize: 60.0,
-          color: Colors.white12,
+        child: const LunaIconButton(
+          icon: LunaIcons.ERROR,
+          iconSize: LunaUI.ICON_SIZE * 2,
+          color: LunaColours.red,
         ),
       ),
     );

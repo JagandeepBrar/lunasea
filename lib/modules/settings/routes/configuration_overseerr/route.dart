@@ -54,9 +54,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Enable ${LunaModule.OVERSEERR.name}'),
+      builder: (context, _, __) => LunaBlock(
+        title: 'Enable ${LunaModule.OVERSEERR.name}',
         trailing: LunaSwitch(
           value: Database.currentProfileObject.overseerrEnabled ?? false,
           onChanged: (value) {
@@ -70,17 +69,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _connectionDetailsPage() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Connection Details'),
-      subtitle: LunaText.subtitle(
-        text: 'Connection Details for ${LunaModule.OVERSEERR.name}',
-      ),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-      onTap: () async {
-        SettingsConfigurationOverseerrConnectionDetailsRouter()
-            .navigateTo(context);
-      },
+    return LunaBlock(
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.OVERSEERR.name],
+          ),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async => SettingsConfigurationOverseerrConnectionDetailsRouter()
+          .navigateTo(context),
     );
   }
 }

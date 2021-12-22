@@ -12,11 +12,10 @@ class SearchIndexerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: indexer.displayName),
-      subtitle: LunaText.subtitle(text: indexer.host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: indexer.displayName,
+      body: [TextSpan(text: indexer.host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         context.read<SearchState>().indexer = indexer;
         SearchCategoriesRouter().navigateTo(context);

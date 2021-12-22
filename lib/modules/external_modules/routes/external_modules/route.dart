@@ -51,6 +51,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     }
     return LunaListView(
       controller: scrollController,
+      itemExtent: LunaBlock.calculateItemExtent(1),
       children: _list,
     );
   }

@@ -39,14 +39,13 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: widget.tag.label),
-      subtitle: LunaText.subtitle(text: subtitle()),
+    return LunaBlock(
+      title: widget.tag.label,
+      body: [TextSpan(text: subtitle())],
       trailing: (seriesList?.isNotEmpty ?? true)
           ? null
           : LunaIconButton(
-              icon: Icons.delete_rounded,
+              icon: LunaIcons.DELETE,
               color: LunaColours.red,
               onPressed: _handleDelete,
             ),

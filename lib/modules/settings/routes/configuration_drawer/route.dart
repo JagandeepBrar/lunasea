@@ -48,60 +48,27 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return Column(
       children: [
-        LunaListTile(
-          context: context,
-          margin: LunaUI.MARGIN_DEFAULT.subtract(
-            EdgeInsets.only(bottom: LunaUI.MARGIN_CARD.bottom),
-          ),
-          title: LunaText.title(
-            text: 'settings.AutomaticallyManageOrder'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.AutomaticallyManageOrderDescription'.tr(),
-          ),
+        SizedBox(height: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom),
+        LunaBlock(
+          title: 'settings.AutomaticallyManageOrder'.tr(),
+          body: [
+            TextSpan(text: 'settings.AutomaticallyManageOrderDescription'.tr()),
+          ],
           trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
             builder: (context, _, __) => LunaSwitch(
               value: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
-              onChanged: (value) {
-                LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.put(value);
-              },
+              onChanged: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.put,
             ),
           ),
         ),
         const LunaDivider(),
         Expanded(
           child: LunaReorderableListViewBuilder(
-            padding: MediaQuery.of(context)
-                .padding
-                .copyWith(top: 0)
-                .add(EdgeInsets.only(bottom: LunaUI.MARGIN_CARD.bottom)),
+            padding: MediaQuery.of(context).padding.copyWith(top: 0).add(
+                EdgeInsets.only(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)),
             controller: scrollController,
             itemCount: _modules.length,
-            itemBuilder: (context, index) {
-              return LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
-                key: ObjectKey(_modules[index]),
-                builder: (context, _, __) => LunaListTile(
-                  context: context,
-                  title: LunaText.title(
-                    text: _modules[index].name,
-                    darken: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
-                  ),
-                  subtitle: LunaText.subtitle(
-                    text: _modules[index].description,
-                    darken: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
-                  ),
-                  leading: LunaIconButton(
-                    icon: _modules[index].icon,
-                    color: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
-                        ? Colors.white30
-                        : Colors.white,
-                  ),
-                  trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
-                      ? null
-                      : LunaReorderableListDragger(index: index),
-                ),
-              );
-            },
+            itemBuilder: (context, index) => _reorderableModuleTile(index),
             onReorder: (oIndex, nIndex) {
               if (oIndex > _modules.length) oIndex = _modules.length;
               if (oIndex < nIndex) nIndex--;
@@ -113,6 +80,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _reorderableModuleTile(int index) {
+    return LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
+      key: ObjectKey(_modules[index]),
+      builder: (context, _, __) => LunaBlock(
+        disabled: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
+        title: _modules[index].name,
+        body: [TextSpan(text: _modules[index].description)],
+        leading: LunaIconButton(icon: _modules[index].icon),
+        trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+            ? null
+            : LunaReorderableListViewDragger(index: index),
+      ),
     );
   }
 }

@@ -23,6 +23,7 @@ class SonarrController_Series {
     List<SonarrTag> tags = const [],
     bool searchForMissingEpisodes = false,
     bool searchForCutoffUnmetEpisodes = false,
+    bool includeSeasonImages = false,
   }) async =>
       _commandAddSeries(
         _client,
@@ -58,16 +59,24 @@ class SonarrController_Series {
   /// Returns the series with the matching ID.
   Future<SonarrSeries> get({
     required int seriesId,
+    bool includeSeasonImages = false,
   }) async =>
       _commandGetSeries(
         _client,
         seriesId: seriesId,
+        includeSeasonImages: includeSeasonImages,
       );
 
   /// Handler for [series](https://github.com/Sonarr/Sonarr/wiki/Series#get).
   ///
   /// Returns a list of all series.
-  Future<List<SonarrSeries>> getAll() async => _commandGetAllSeries(_client);
+  Future<List<SonarrSeries>> getAll({
+    bool includeSeasonImages = false,
+  }) async =>
+      _commandGetAllSeries(
+        _client,
+        includeSeasonImages: includeSeasonImages,
+      );
 
   /// Handler for [series]https://github.com/Sonarr/Sonarr/wiki/Series#put).
   ///

@@ -81,65 +81,67 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayName() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Display Name'),
-      subtitle: LunaText.subtitle(
-          text: _indexer.displayName == null || _indexer.displayName.isEmpty
-              ? 'Not Set'
-              : _indexer.displayName),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String _name = _indexer.displayName ?? '';
+    return LunaBlock(
+      title: 'Display Name',
+      body: [TextSpan(text: _name.isEmpty ? 'lunasea.NotSet'.tr() : _name)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
-        Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Display Name', prefill: _indexer.displayName);
-        if (values.item1 && mounted)
+        Tuple2<bool, String> values = await LunaDialogs().editText(
+          context,
+          'Display Name',
+          prefill: _name,
+        );
+        if (values.item1 && mounted) {
           setState(() => _indexer.displayName = values.item2);
+        }
       },
     );
   }
 
   Widget _apiURL() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Indexer API Host'),
-      subtitle: LunaText.subtitle(
-          text: _indexer.host == null || _indexer.host.isEmpty
-              ? 'Not Set'
-              : _indexer.host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String _host = _indexer.host ?? '';
+    return LunaBlock(
+      title: 'Indexer API Host',
+      body: [TextSpan(text: _host.isEmpty ? 'lunasea.NotSet'.tr() : _host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
-        Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Indexer API Host', prefill: _indexer.host);
-        if (values.item1 && mounted)
+        Tuple2<bool, String> values = await LunaDialogs().editText(
+          context,
+          'Indexer API Host',
+          prefill: _host,
+        );
+        if (values.item1 && mounted) {
           setState(() => _indexer.host = values.item2);
+        }
       },
     );
   }
 
   Widget _apiKey() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Indexer API Key'),
-      subtitle: LunaText.subtitle(
-          text: _indexer.apiKey == null || _indexer.apiKey.isEmpty
-              ? 'Not Set'
-              : _indexer.apiKey),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    String _key = _indexer.apiKey ?? '';
+    return LunaBlock(
+      title: 'Indexer API Key',
+      body: [TextSpan(text: _key.isEmpty ? 'lunasea.NotSet'.tr() : _key)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
-        Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
-        if (values.item1 && mounted)
+        Tuple2<bool, String> values = await LunaDialogs().editText(
+          context,
+          'Indexer API Key',
+          prefill: _key,
+        );
+        if (values.item1 && mounted) {
           setState(() => _indexer.apiKey = values.item2);
+        }
       },
     );
   }
 
   Widget _headers() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchAddHeadersRouter()
           .navigateTo(context, indexer: _indexer),
     );

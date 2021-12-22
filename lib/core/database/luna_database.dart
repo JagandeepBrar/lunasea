@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -6,8 +5,6 @@ enum LunaDatabaseValue {
   DRAWER_AUTOMATIC_MANAGE,
   DRAWER_MANUAL_ORDER,
   ENABLED_PROFILE,
-  ENABLE_FIREBASE_ANALYTICS,
-  ENABLE_FIREBASE_CRASHLYTICS,
   THEME_AMOLED,
   THEME_AMOLED_BORDER,
   THEME_IMAGE_BACKGROUND_OPACITY,
@@ -22,6 +19,7 @@ enum LunaDatabaseValue {
   QUICK_ACTIONS_TAUTULLI,
   QUICK_ACTIONS_SEARCH,
   USE_24_HOUR_TIME,
+  DEFAULT_LAUNCH_MODULE,
 }
 
 class LunaDatabase extends LunaModuleDatabase {
@@ -47,6 +45,10 @@ class LunaDatabase extends LunaModuleDatabase {
           data[value.key] =
               (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key;
           break;
+        case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+          data[value.key] =
+              (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule).key;
+          break;
         case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
           data[value.key] = LunaDrawer.moduleOrderedList()
               ?.map<String>((module) => module.key)
@@ -70,6 +72,9 @@ class LunaDatabase extends LunaModuleDatabase {
           // Non-primitive values
           case LunaDatabaseValue.SELECTED_BROWSER:
             value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key]));
+            break;
+          case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+            value.put(LunaModule.DASHBOARD.fromKey(config[key]));
             break;
           case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
             value.put(
@@ -98,7 +103,7 @@ class LunaDatabase extends LunaModuleDatabase {
 extension LunaDatabaseValueExtension on LunaDatabaseValue {
   String get key {
     if (this == LunaDatabaseValue.ENABLED_PROFILE) return 'profile';
-    return 'LUNASEA_${describeEnum(this)}';
+    return 'LUNASEA_${this.name}';
   }
 
   dynamic get data {
@@ -136,10 +141,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
         return value is List;
-      case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
-        return value is bool;
-      case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
-        return value is bool;
       case LunaDatabaseValue.THEME_AMOLED:
         return value is bool;
       case LunaDatabaseValue.THEME_AMOLED_BORDER:
@@ -168,6 +169,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.USE_24_HOUR_TIME:
         return value is bool;
+      case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+        return value is LunaModule;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }
@@ -187,11 +190,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.THEME_AMOLED_BORDER:
         return false;
       case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
-        return 10;
-      case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
-        return true;
-      case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
-        return true;
+        return 20;
       case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
         return false;
       case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
@@ -212,6 +211,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return false;
       case LunaDatabaseValue.USE_24_HOUR_TIME:
         return false;
+      case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+        return LunaModule.DASHBOARD;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }

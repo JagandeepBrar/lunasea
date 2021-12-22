@@ -51,7 +51,7 @@ class _State extends State<SonarrCatalogueRoute>
       child: SonarrSeriesSearchBar(
         scrollController: SonarrNavigationBar.scrollControllers[0],
       ),
-      height: LunaTextInputBar.appBarHeight,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 

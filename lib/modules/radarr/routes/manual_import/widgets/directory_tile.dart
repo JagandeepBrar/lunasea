@@ -22,26 +22,19 @@ class _State extends State<RadarrManualImportDirectoryTile> {
     if (widget.directory == null ||
         widget.directory.path == null ||
         widget.directory.path.isEmpty) return const SizedBox(height: 0.0);
-    return LunaListTile(
-        context: context,
-        title:
-            LunaText.title(text: widget.directory?.name ?? LunaUI.TEXT_EMDASH),
-        subtitle: LunaText.subtitle(
-          text: widget.directory.path,
-        ),
-        trailing: LunaIconButton(
-          icon: Icons.arrow_forward_ios_rounded,
-          loadingState: _loadingState,
-        ),
-        onTap: () async {
-          if (_loadingState == LunaLoadingState.INACTIVE) {
-            if (mounted)
-              setState(() => _loadingState = LunaLoadingState.ACTIVE);
-            context.read<RadarrManualImportState>().fetchDirectories(
-                  context,
-                  widget.directory.path,
-                );
-          }
-        });
+    return LunaBlock(
+      title: widget.directory?.name ?? LunaUI.TEXT_EMDASH,
+      body: [TextSpan(text: widget.directory.path)],
+      trailing: LunaIconButton.arrow(loadingState: _loadingState),
+      onTap: () async {
+        if (_loadingState == LunaLoadingState.INACTIVE) {
+          if (mounted) setState(() => _loadingState = LunaLoadingState.ACTIVE);
+          context.read<RadarrManualImportState>().fetchDirectories(
+                context,
+                widget.directory.path,
+              );
+        }
+      },
+    );
   }
 }

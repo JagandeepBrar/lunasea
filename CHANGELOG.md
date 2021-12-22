@@ -1,17 +1,41 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000004)
 
 #### NEW
 
-- `[Settings]` (Configuration) Show dismissable banner with module information and links
+- `[Dashboard]` (Calendar) Display content poster and additional information
+- `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
+- `[Settings]` Show dismissable blocks with information and links
+- `[Lidarr]` (Add Artist) Show artist poster in result list
+- `[Lidarr]` (Add Artist) Allow user to select monitoring options
+- `[Lidarr]` (Add Artist) Removed toggle to use album folders
+- `[Lidarr]` (Catalogue) Show artist poster in catalogue list
+- `[Lidarr]` (Missing) Display album covers
+- `[Sonarr]` (Catalogue) Previous airing sorting option
+- `[Sonarr]` (Season List) Display season posters
 - `[Sonarr]` (Queue) Option to set queue page size
+- `[UI/UX]` (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled
+
+#### TWEAKS
+
+- `[UI/UX]` (Drawer) Heavily reduced the size of the header area
+- `[UI/UX]` (Fonts) Normalized font sizes across the UI
+- `[UI/UX]` (Images) Set the default image opacity to 20% (custom set values are uneffected)
+- `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
+- `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
+- `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding
+- `[UI/UX]` (Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.
+- `[UI/UX]` (Tile Blocks) Fade-in background image loads
 - `[UI/UX]` (Tooltips) Added styling to match LunaSea theme
 
 #### FIXES
 
+- `[Dashboard]` (Calendar) Lidarr entries would not appear
 - `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
-- `[UI/UX]` (List Tiles) Fixed consistency of trailing icon/text size
+- `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
+- `[Sonarr]` (Catalogue) Missing filter would fail to load when using Sonarr v4 in some cases
+- `[Sonarr]` (Images) Images now use v3 API path
 
 ---
 

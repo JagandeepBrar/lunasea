@@ -3,21 +3,23 @@ import 'package:lunasea/core.dart';
 
 enum SettingsBanners {
   NOTIFICATIONS_MODULE_SUPPORT,
+  QUICK_ACTIONS_SUPPORT,
+  PROFILES_SUPPORT,
 }
 
 extension SettingsBannersExtension on SettingsBanners {
   String get key {
-    switch (this) {
-      case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
-        return 'SETTINGS_NOTIFICATIONS_MODULE_SUPPORT';
-    }
-    throw Exception('Invalid SettingsBanners');
+    return 'SETTINGS_${this.name}';
   }
 
   String get header {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
         return 'settings.BannersNotificationModuleSupportHeader'.tr();
+      case SettingsBanners.QUICK_ACTIONS_SUPPORT:
+        return 'settings.QuickActions'.tr();
+      case SettingsBanners.PROFILES_SUPPORT:
+        return 'settings.Profiles'.tr();
     }
     throw Exception('Invalid SettingsBanners');
   }
@@ -26,6 +28,17 @@ extension SettingsBannersExtension on SettingsBanners {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
         return 'settings.BannersNotificationModuleSupportBody'.tr();
+      case SettingsBanners.QUICK_ACTIONS_SUPPORT:
+        return [
+          'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing LunaSea\'s icon.',
+          'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
+        ].join('\n\n');
+
+      case SettingsBanners.PROFILES_SUPPORT:
+        return [
+          'Profiles allow you to add multiple instances of modules into LunaSea. You can switch between profiles in the main navigation drawer.',
+          'Newznab indexer searching and external modules are enabled and shared across all profiles.',
+        ].join('\n\n');
     }
     throw Exception('Invalid SettingsBanners');
   }
@@ -33,15 +46,21 @@ extension SettingsBannersExtension on SettingsBanners {
   Color get iconColor {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
+      case SettingsBanners.QUICK_ACTIONS_SUPPORT:
+      case SettingsBanners.PROFILES_SUPPORT:
+      default:
         return LunaColours.accent;
     }
-    throw Exception('Invalid SettingsBanners');
   }
 
   IconData get icon {
     switch (this) {
       case SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT:
         return Icons.info_outline_rounded;
+      case SettingsBanners.QUICK_ACTIONS_SUPPORT:
+        return Icons.rounded_corner_rounded;
+      case SettingsBanners.PROFILES_SUPPORT:
+        return LunaIcons.PROFILES;
     }
     throw Exception('Invalid SettingsBanners');
   }
@@ -55,7 +74,7 @@ extension SettingsBannersExtension on SettingsBanners {
   /// Create a new [ValueListenableBuilder]
   ValueListenableBuilder banner({
     Color headerColor = Colors.white,
-    Color bodyColor = Colors.white70,
+    Color bodyColor = LunaColours.grey,
   }) =>
       ValueListenableBuilder(
         valueListenable: Database.alertsBox.listenable(keys: [key]),

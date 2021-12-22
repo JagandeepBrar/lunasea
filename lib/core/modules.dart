@@ -533,7 +533,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
       case LunaModule.EXTERNAL_MODULES:
-        return 'LunaSea allows you to add additional modules that are not currently supported directly within the application, allowing you to open the module\'s web GUI without having to leave LunaSea!';
+        return 'LunaSea allows you to add links to additional modules that are not currently supported allowing you to open the module\'s web GUI without having to leave LunaSea!';
     }
     throw Exception('Invalid LunaModule');
   }

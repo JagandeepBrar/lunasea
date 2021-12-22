@@ -15,6 +15,8 @@ enum SonarrSeriesSorting {
   NETWORK,
   @HiveField(4)
   NEXT_AIRING,
+  @HiveField(8)
+  PREVIOUS_AIRING,
   @HiveField(5)
   QUALITY,
   @HiveField(6)
@@ -42,6 +44,8 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
         return 'quality';
       case SonarrSeriesSorting.NEXT_AIRING:
         return 'next_airing';
+      case SonarrSeriesSorting.PREVIOUS_AIRING:
+        return 'previous_airing';
       default:
         return null;
     }
@@ -65,6 +69,8 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
         return 'Quality Profile';
       case SonarrSeriesSorting.NEXT_AIRING:
         return 'Next Airing';
+      case SonarrSeriesSorting.PREVIOUS_AIRING:
+        return 'Previous Airing';
       default:
         return null;
     }
@@ -88,6 +94,8 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
         return SonarrSeriesSorting.QUALITY;
       case 'next_airing':
         return SonarrSeriesSorting.NEXT_AIRING;
+      case 'previous_airing':
+        return SonarrSeriesSorting.PREVIOUS_AIRING;
       default:
         return null;
     }
@@ -109,6 +117,8 @@ class _Sorter {
         return _network(data, ascending);
       case SonarrSeriesSorting.NEXT_AIRING:
         return _nextAiring(data, ascending);
+      case SonarrSeriesSorting.PREVIOUS_AIRING:
+        return _previousAiring(data, ascending);
       case SonarrSeriesSorting.SIZE:
         return _size(data, ascending);
       case SonarrSeriesSorting.TYPE:
@@ -197,6 +207,33 @@ class _Sorter {
         if (b.nextAiring == null) return -1;
         if (a.nextAiring == null) return 1;
         int _comparison = b.nextAiring.compareTo(a.nextAiring);
+        return _comparison == 0
+            ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+            : _comparison;
+      }
+    });
+    return series;
+  }
+
+  List<SonarrSeries> _previousAiring(
+      List<SonarrSeries> series, bool ascending) {
+    series.sort((a, b) {
+      if (a.previousAiring == null && b.previousAiring == null) {
+        if (a.status == 'ended' && b.status != 'ended') return 1;
+        if (b.status == 'ended' && a.status != 'ended') return -1;
+        return a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase());
+      }
+      if (ascending) {
+        if (a.previousAiring == null) return 1;
+        if (b.previousAiring == null) return -1;
+        int _comparison = a.previousAiring.compareTo(b.previousAiring);
+        return _comparison == 0
+            ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+            : _comparison;
+      } else {
+        if (b.previousAiring == null) return -1;
+        if (a.previousAiring == null) return 1;
+        int _comparison = b.previousAiring.compareTo(a.previousAiring);
         return _comparison == 0
             ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
             : _comparison;

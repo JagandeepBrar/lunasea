@@ -48,7 +48,7 @@ class _State extends State<DashboardAppBarSwitchViewAction>
       selector: (_, state) => state.calendarStartingType,
       builder: (context, view, _) {
         if (_showButton) {
-          return LunaIconButton(
+          return LunaIconButton.appBar(
             icon: view.icon,
             onPressed: () {
               if (view == CalendarStartingType.CALENDAR) {

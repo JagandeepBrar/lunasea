@@ -53,12 +53,14 @@ class LunaListViewModal extends StatelessWidget {
     return EdgeInsets.fromLTRB(
       _padding.left + _viewInsets.left,
       appBar != null
-          ? LunaUI.MARGIN_CARD.top
-          : _padding.top + _viewInsets.top + LunaUI.MARGIN_CARD.top,
+          ? LunaUI.MARGIN_H_DEFAULT_V_HALF.top
+          : _padding.top + _viewInsets.top + LunaUI.MARGIN_H_DEFAULT_V_HALF.top,
       _padding.right + _viewInsets.right,
       actionBar != null
           ? 0
-          : _padding.bottom + _viewInsets.bottom + LunaUI.MARGIN_CARD.bottom,
+          : _padding.bottom +
+              _viewInsets.bottom +
+              LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
     );
   }
 }

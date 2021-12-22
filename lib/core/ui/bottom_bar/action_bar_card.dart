@@ -21,7 +21,7 @@ class LunaActionBarCard extends StatelessWidget {
     this.onLongPress,
     this.backgroundColor,
     this.color = LunaColours.accent,
-    this.icon = Icons.arrow_forward_ios_rounded,
+    this.icon = LunaIcons.ARROW_RIGHT,
     this.checkboxState,
     this.checkboxOnChanged,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class LunaActionBarCard extends StatelessWidget {
                           overflow: TextOverflow.fade,
                           style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_SUBHEADER,
-                            color: Colors.white70,
+                            color: LunaColours.grey,
                           ),
                         ),
                     ],
@@ -77,7 +77,7 @@ class LunaActionBarCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (icon != null)
+                if (checkboxState == null && icon != null)
                   Container(
                     width: 30.0,
                     alignment: Alignment.centerRight,
@@ -96,26 +96,38 @@ class LunaActionBarCard extends StatelessWidget {
           height: LunaButton.DEFAULT_HEIGHT,
         ),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-        onTap: onTap == null
-            ? null
-            : () async {
-                HapticFeedback.lightImpact();
-                onTap();
-              },
-        onLongPress: onLongPress == null
-            ? null
-            : () async {
-                HapticFeedback.heavyImpact();
-                onLongPress();
-              },
+        onTap: _onTapHandler(),
+        onLongPress: _onLongPressHandler(),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+      margin: LunaUI.MARGIN_HALF,
       color: backgroundColor != null
-          ? backgroundColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
+          ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
           : LunaTheme.isAMOLEDTheme
-              ? Colors.black.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY)
-              : LunaColours.primary
-                  .withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
+              ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
+              : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
     );
+  }
+
+  Function _onTapHandler() {
+    if (onTap != null) {
+      return () async {
+        HapticFeedback.lightImpact();
+        onTap();
+      };
+    }
+    if (checkboxState != null && checkboxOnChanged != null) {
+      return () async => checkboxOnChanged(!checkboxState);
+    }
+    return null;
+  }
+
+  Function _onLongPressHandler() {
+    if (onLongPress != null) {
+      return () async {
+        HapticFeedback.heavyImpact();
+        onLongPress();
+      };
+    }
+    return null;
   }
 }

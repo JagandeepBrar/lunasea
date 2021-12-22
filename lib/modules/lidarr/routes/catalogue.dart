@@ -50,8 +50,9 @@ class _State extends State<LidarrCatalogue>
   Widget _appBar() {
     return LunaAppBar.empty(
       child: LidarrCatalogueSearchBar(
-          scrollController: LidarrNavigationBar.scrollControllers[0]),
-      height: 62.0,
+        scrollController: LidarrNavigationBar.scrollControllers[0],
+      ),
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 
@@ -106,6 +107,7 @@ class _State extends State<LidarrCatalogue>
         return LunaListViewBuilder(
           controller: LidarrNavigationBar.scrollControllers[0],
           itemCount: filtered.length,
+          itemExtent: LunaBlock.calculateItemExtent(2),
           itemBuilder: (context, index) => LidarrCatalogueTile(
             data: filtered[index],
             scaffoldKey: _scaffoldKey,

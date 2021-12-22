@@ -29,7 +29,7 @@ class LunaFloatingActionButtonExtended extends StatelessWidget {
         style: TextStyle(
           color: color,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-          fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+          fontSize: LunaUI.FONT_SIZE_H3,
           letterSpacing: 0.35,
         ),
       ),

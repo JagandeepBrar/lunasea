@@ -130,45 +130,30 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   Widget get _list => LunaListView(
         controller: scrollController,
         children: <Widget>[
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Monitored'),
-            subtitle:
-                LunaText.subtitle(text: 'Monitor artist for new releases'),
+          LunaBlock(
+            title: 'Monitored',
             trailing: LunaSwitch(
               value: _monitored,
               onChanged: (value) => setState(() => _monitored = value),
             ),
           ),
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Use Album Folders'),
-            subtitle: LunaText.subtitle(text: 'Sort tracks into album folders'),
-            trailing: LunaSwitch(
-              value: _albumFolders,
-              onChanged: (value) => setState(() => _albumFolders = value),
-            ),
-          ),
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Artist Path'),
-            subtitle: LunaText.subtitle(text: _path),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-            onTap: _changePath,
-          ),
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Quality Profile'),
-            subtitle: LunaText.subtitle(text: _qualityProfile.name),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+          LunaBlock(
+            title: 'Quality Profile',
+            body: [TextSpan(text: _qualityProfile.name)],
+            trailing: const LunaIconButton.arrow(),
             onTap: _changeProfile,
           ),
-          LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Metadata Profile'),
-            subtitle: LunaText.subtitle(text: _metadataProfile.name),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+          LunaBlock(
+            title: 'Metadata Profile',
+            body: [TextSpan(text: _metadataProfile.name)],
+            trailing: const LunaIconButton.arrow(),
             onTap: _changeMetadata,
+          ),
+          LunaBlock(
+            title: 'Artist Path',
+            body: [TextSpan(text: _path)],
+            trailing: const LunaIconButton.arrow(),
+            onTap: _changePath,
           ),
         ],
       );

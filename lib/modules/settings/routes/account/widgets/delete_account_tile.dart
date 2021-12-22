@@ -20,22 +20,21 @@ class _State extends State<SettingsAccountDeleteAccountTile> {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'settings.DeleteAccount'.tr()),
-      subtitle: LunaText.subtitle(
-        text: 'settings.DeleteAccountDescription'.tr(),
-      ),
+    return LunaBlock(
+      title: 'settings.DeleteAccount'.tr(),
+      body: [
+        TextSpan(text: 'settings.DeleteAccountDescription'.tr()),
+      ],
       trailing: LunaIconButton(
-        icon: Icons.delete_rounded,
+        icon: LunaIcons.DELETE,
         color: LunaColours.red,
         loadingState: _loadingState,
       ),
-      onTap: () async => _delete(context),
+      onTap: _delete,
     );
   }
 
-  Future<void> _delete(BuildContext context) async {
+  Future<void> _delete() async {
     if (_loadingState == LunaLoadingState.ACTIVE) return;
     updateState(LunaLoadingState.ACTIVE);
 

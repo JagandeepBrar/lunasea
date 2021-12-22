@@ -26,6 +26,7 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
     );
   }
 
+  // ignore: unused_element
   Future<void> _showComingSoonMessage() async {
     showLunaInfoSnackBar(
       title: 'lunasea.ComingSoon'.tr(),
@@ -37,55 +38,48 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
     return LunaListView(
       controller: SonarrNavigationBar.scrollControllers[3],
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'sonarr.History'.tr()),
-          subtitle: LunaText.subtitle(text: 'sonarr.HistoryDescription'.tr()),
+        LunaBlock(
+          title: 'sonarr.History'.tr(),
+          body: [TextSpan(text: 'sonarr.HistoryDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.history_rounded,
             color: LunaColours().byListIndex(0),
           ),
           onTap: () async => SonarrHistoryRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'sonarr.ManualImport'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'sonarr.ManualImportDescription'.tr()),
-          trailing: LunaIconButton(
-            icon: Icons.download_done_rounded,
-            color: LunaColours().byListIndex(1),
-          ),
-          onTap: () async => _showComingSoonMessage(),
-        ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'sonarr.Queue'.tr()),
-          subtitle: LunaText.subtitle(text: 'sonarr.QueueDescription'.tr()),
+        // LunaBlock(
+        //   title: 'sonarr.ManualImport'.tr(),
+        //   body: [TextSpan(text: 'sonarr.ManualImportDescription'.tr())],
+        //   trailing: LunaIconButton(
+        //     icon: Icons.download_done_rounded,
+        //     color: LunaColours().byListIndex(1),
+        //   ),
+        //   onTap: () async => _showComingSoonMessage(),
+        // ),
+        LunaBlock(
+          title: 'sonarr.Queue'.tr(),
+          body: [TextSpan(text: 'sonarr.QueueDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.queue_rounded,
-            color: LunaColours().byListIndex(2),
+            color: LunaColours().byListIndex(1),
           ),
           onTap: () async => SonarrQueueRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'sonarr.SystemStatus'.tr()),
-          subtitle:
-              LunaText.subtitle(text: 'sonarr.SystemStatusDescription'.tr()),
-          trailing: LunaIconButton(
-            icon: Icons.computer_rounded,
-            color: LunaColours().byListIndex(3),
-          ),
-          onTap: () async => _showComingSoonMessage(),
-        ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(text: 'sonarr.Tags'.tr()),
-          subtitle: LunaText.subtitle(text: 'sonarr.TagsDescription'.tr()),
+        // LunaBlock(
+        //   title: 'sonarr.SystemStatus'.tr(),
+        //   body: [TextSpan(text: 'sonarr.SystemStatusDescription'.tr())],
+        //   trailing: LunaIconButton(
+        //     icon: Icons.computer_rounded,
+        //     color: LunaColours().byListIndex(3),
+        //   ),
+        //   onTap: () async => _showComingSoonMessage(),
+        // ),
+        LunaBlock(
+          title: 'sonarr.Tags'.tr(),
+          body: [TextSpan(text: 'sonarr.TagsDescription'.tr())],
           trailing: LunaIconButton(
             icon: Icons.style_rounded,
-            color: LunaColours().byListIndex(4),
+            color: LunaColours().byListIndex(2),
           ),
           onTap: () async => SonarrTagsRouter().navigateTo(context),
         ),

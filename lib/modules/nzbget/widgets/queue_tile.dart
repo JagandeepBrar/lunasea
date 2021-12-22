@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NZBGetQueueTile extends StatefulWidget {
   final int index;
@@ -25,37 +24,13 @@ class NZBGetQueueTile extends StatefulWidget {
 class _State extends State<NZBGetQueueTile> {
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(
-        text: widget.data.name,
-        darken: widget.data.paused,
+    return LunaBlock(
+      title: widget.data.name,
+      body: [TextSpan(text: widget.data.subtitle)],
+      bottom: LunaLinearPercentIndicator(
+        percent: min(1.0, max(0, widget.data.percentageDone / 100)),
       ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Padding(
-            child: LinearPercentIndicator(
-              percent: min(1.0, max(0, widget.data.percentageDone / 100)),
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              progressColor: widget.data.paused
-                  ? LunaColours.accent.withOpacity(0.30)
-                  : LunaColours.accent,
-              backgroundColor: widget.data.paused
-                  ? LunaColours.accent.withOpacity(0.05)
-                  : LunaColours.accent.withOpacity(0.15),
-              lineHeight: 4.0,
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-          ),
-          LunaText.subtitle(
-            text: widget.data.subtitle,
-            darken: widget.data.paused,
-          ),
-        ],
-      ),
-      trailing: LunaReorderableListDragger(index: widget.index),
+      trailing: LunaReorderableListViewDragger(index: widget.index),
       onTap: _handlePopup,
     );
   }

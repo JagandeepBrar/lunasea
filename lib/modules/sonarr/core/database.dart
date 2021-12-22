@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -121,7 +120,7 @@ class SonarrDatabase extends LunaModuleDatabase {
 
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
   String get key {
-    return 'SONARR_${describeEnum(this)}';
+    return 'SONARR_${this.name}';
   }
 
   dynamic get data {

@@ -69,25 +69,27 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
   Widget _noHeadersFound() =>
       LunaMessage.inList(text: 'settings.NoHeadersAdded'.tr());
 
-  List<LunaListTile> _headerList() {
+  List<LunaBlock> _headerList() {
     Map<String, dynamic> headers = (_headers() ?? {}).cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
-        .map<LunaListTile>((key) => _headerTile(key, headers[key]))
+        .map<LunaBlock>((key) => _headerBlock(key, headers[key]))
         .toList();
   }
 
-  LunaListTile _headerTile(String key, String value) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: key),
-      subtitle: LunaText.subtitle(text: value),
+  LunaBlock _headerBlock(String key, String value) {
+    return LunaBlock(
+      title: key,
+      body: [TextSpan(text: value)],
       trailing: LunaIconButton(
-          icon: Icons.delete_rounded,
+          icon: LunaIcons.DELETE,
           color: LunaColours.red,
           onPressed: () async {
-            await HeaderUtility()
-                .deleteHeader(context, headers: _headers(), key: key);
+            await HeaderUtility().deleteHeader(
+              context,
+              key: key,
+              headers: _headers(),
+            );
             _resetState();
           }),
     );

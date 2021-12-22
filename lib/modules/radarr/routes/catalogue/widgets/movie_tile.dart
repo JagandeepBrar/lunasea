@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueTile extends StatefulWidget {
-  static final itemExtent =
-      LunaFourLineCardWithPoster.itemExtent + LunaUI.MARGIN_CARD.vertical;
+  static final itemExtent = LunaBlock.calculateItemExtent(2, hasBottom: true);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
@@ -24,17 +23,20 @@ class _State extends State<RadarrCatalogueTile> {
   Widget build(BuildContext context) {
     return Selector<RadarrState, Future<List<RadarrMovie>>>(
       selector: (_, state) => state.movies,
-      builder: (context, movies, _) => LunaFourLineCardWithPoster(
+      builder: (context, movies, _) => LunaBlock(
         backgroundUrl:
-            context.read<RadarrState>().getPosterURL(widget.movie.id),
+            context.read<RadarrState>().getFanartURL(widget.movie.id),
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholder: LunaAssets.blankVideo,
-        darken: !widget.movie.monitored,
+        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+        disabled: !widget.movie.monitored,
         title: widget.movie.title,
-        subtitle1: _subtitle1(),
-        subtitle2: _subtitle2(),
-        customSubtitle3: _subtitle3(),
+        body: [
+          _subtitle1(),
+          _subtitle2(),
+        ],
+        posterIsSquare: false,
+        bottom: _subtitle3(),
         onTap: _onTap,
         onLongPress: _onLongPress,
       ),
@@ -44,10 +46,8 @@ class _State extends State<RadarrCatalogueTile> {
   TextSpan _buildChildTextSpan(String text, RadarrMoviesSorting sorting) {
     TextStyle style;
     if (context.read<RadarrState>().moviesSortType == sorting)
-      style = TextStyle(
-        color: widget.movie.monitored
-            ? LunaColours.accent
-            : LunaColours.accent.withOpacity(0.30),
+      style = const TextStyle(
+        color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       );
     return TextSpan(
@@ -98,45 +98,59 @@ class _State extends State<RadarrCatalogueTile> {
         if (context.read<RadarrState>().moviesSortType ==
             RadarrMoviesSorting.IN_CINEMAS)
           _buildChildTextSpan(
-              widget.movie.lunaInCinemasOn, RadarrMoviesSorting.IN_CINEMAS),
+            widget.movie.lunaInCinemasOn,
+            RadarrMoviesSorting.IN_CINEMAS,
+          ),
       ],
     );
   }
 
   Widget _buildReleaseIcon(IconData icon, Color color, bool highlight) {
-    Color _color = (highlight ? color : Colors.grey)
-        .withOpacity(widget.movie.monitored ? 1 : 0.30);
     return Padding(
-      child: Icon(icon, size: 16.0, color: _color),
-      padding: const EdgeInsets.only(right: 8.0),
+      child: Container(
+        child: Icon(
+          icon,
+          size: LunaUI.FONT_SIZE_H2,
+          color: highlight ? color : LunaColours.grey.disabled(),
+        ),
+        width: LunaBlock.SUBTITLE_HEIGHT,
+        height: LunaBlock.SUBTITLE_HEIGHT,
+        alignment: Alignment.centerLeft,
+      ),
+      padding: const EdgeInsets.only(right: LunaUI.DEFAULT_MARGIN_SIZE / 4),
     );
   }
 
   Widget _subtitle3() {
-    return Row(
-      children: [
-        _buildReleaseIcon(
-          Icons.videocam_rounded,
-          LunaColours.orange,
-          widget.movie.lunaIsInCinemas,
-        ),
-        _buildReleaseIcon(
-          Icons.album_rounded,
-          LunaColours.blue,
-          widget.movie.lunaIsReleased,
-        ),
-        _buildReleaseIcon(
-          Icons.check_circle_rounded,
-          LunaColours.accent,
-          widget.movie.hasFile,
-        ),
-        Padding(
-          child: widget.movie.hasFile
-              ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-              : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
-          padding: const EdgeInsets.only(top: 1.5),
-        ),
-      ],
+    return SizedBox(
+      height: LunaBlock.SUBTITLE_HEIGHT,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _buildReleaseIcon(
+            Icons.videocam_rounded,
+            LunaColours.orange,
+            widget.movie.lunaIsInCinemas,
+          ),
+          _buildReleaseIcon(
+            Icons.album_rounded,
+            LunaColours.blue,
+            widget.movie.lunaIsReleased,
+          ),
+          _buildReleaseIcon(
+            Icons.check_circle_rounded,
+            LunaColours.accent,
+            widget.movie.hasFile,
+          ),
+          Container(
+            height: LunaBlock.SUBTITLE_HEIGHT,
+            child: widget.movie.hasFile
+                ? widget.movie.lunaHasFileTextObject()
+                : widget.movie.lunaNextReleaseTextObject(),
+            alignment: Alignment.center,
+          ),
+        ],
+      ),
     );
   }
 

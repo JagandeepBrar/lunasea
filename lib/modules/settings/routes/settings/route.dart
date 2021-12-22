@@ -46,95 +46,55 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.Account'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.AccountDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.person_rounded),
+        LunaBlock(
+          title: 'settings.Account'.tr(),
+          body: [TextSpan(text: 'settings.AccountDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.person_rounded),
           onTap: () async => SettingsAccountRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.Configuration'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.ConfigurationDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.device_hub_rounded),
+        LunaBlock(
+          title: 'settings.Configuration'.tr(),
+          body: [TextSpan(text: 'settings.ConfigurationDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.device_hub_rounded),
           onTap: () async => SettingsConfigurationRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.Notifications'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.NotificationsDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.notifications_rounded),
+        LunaBlock(
+          title: 'settings.Notifications'.tr(),
+          body: [TextSpan(text: 'settings.NotificationsDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.notifications_rounded),
           onTap: () async => SettingsNotificationsRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.Profiles'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.ProfilesDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.switch_account_rounded),
+        LunaBlock(
+          title: 'settings.Profiles'.tr(),
+          body: [TextSpan(text: 'settings.ProfilesDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.switch_account_rounded),
           onTap: () async => SettingsProfilesRouter().navigateTo(context),
         ),
         const LunaDivider(),
         if (LunaInAppPurchases.isPlatformCompatible)
-          LunaListTile(
-            context: context,
-            title: LunaText.title(
-              text: 'settings.Donations'.tr(),
-            ),
-            subtitle: LunaText.subtitle(
-              text: 'settings.DonationsDescription'.tr(),
-            ),
-            trailing: LunaIconButton(icon: Icons.attach_money_rounded),
+          LunaBlock(
+            title: 'settings.Donations'.tr(),
+            body: [TextSpan(text: 'settings.DonationsDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.attach_money_rounded),
             onTap: () async => SettingsDonationsRouter().navigateTo(context),
           ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.Resources'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.ResourcesDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.help_outline_rounded),
+        LunaBlock(
+          title: 'settings.Resources'.tr(),
+          body: [TextSpan(text: 'settings.ResourcesDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.help_outline_rounded),
           onTap: () async => SettingsResourcesRouter().navigateTo(context),
         ),
-        LunaListTile(
-          context: context,
-          title: LunaText.title(
-            text: 'settings.System'.tr(),
-          ),
-          subtitle: LunaText.subtitle(
-            text: 'settings.SystemDescription'.tr(),
-          ),
-          trailing: LunaIconButton(icon: Icons.settings_rounded),
+        LunaBlock(
+          title: 'settings.System'.tr(),
+          body: [TextSpan(text: 'settings.SystemDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.settings_rounded),
           onTap: () async => SettingsSystemRouter().navigateTo(context),
         ),
         if (kDebugMode)
-          LunaListTile(
-            context: context,
-            title: LunaText.title(
-              text: 'settings.DebugMenu'.tr(),
-            ),
-            subtitle: LunaText.subtitle(
-              text: 'settings.DebugMenuDescription'.tr(),
-            ),
-            trailing: LunaIconButton(icon: Icons.bug_report_rounded),
+          LunaBlock(
+            title: 'settings.DebugMenu'.tr(),
+            body: [TextSpan(text: 'settings.DebugMenuDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.bug_report_rounded),
             onTap: () async => SettingsDebugMenuRouter().navigateTo(context),
           ),
       ],

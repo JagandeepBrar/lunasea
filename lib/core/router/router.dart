@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
 import 'package:lunasea/modules.dart';
 
 class LunaRouter {
@@ -16,6 +17,12 @@ class LunaRouter {
     router.notFoundHandler = Handler(
       handlerFunc: (context, params) => LunaInvalidRoute(),
     );
+    router.define(
+      '/',
+      handler: Handler(handlerFunc: (context, params) => const LunaOS()),
+      transitionType: transitionType,
+    );
+    // Module routers
     DashboardRouter().defineAllRoutes(router);
     ExternalModulesRouter().defineAllRoutes(router);
     OverseerrRouter().defineAllRoutes(router);

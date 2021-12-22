@@ -108,7 +108,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
             title: 'Post', body: _statistics.postPaused ? 'Paused' : 'Active'),
         LunaTableContent(
             title: 'Scan', body: _statistics.scanPaused ? 'Paused' : 'Active'),
-        const LunaTableContent(title: '', body: ''),
+        LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'Uptime', body: _statistics.uptimeString),
         LunaTableContent(
             title: 'Speed Limit', body: _statistics.speedLimitString),

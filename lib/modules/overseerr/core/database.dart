@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -50,7 +49,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
 
 extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
   String get key {
-    return 'OVERSEERR_${describeEnum(this)}';
+    return 'OVERSEERR_${this.name}';
   }
 
   dynamic get data {

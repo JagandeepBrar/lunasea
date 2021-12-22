@@ -1,11 +1,14 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
 
 enum LidarrDatabaseValue {
   NAVIGATION_INDEX,
+  @Deprecated("Replaced by ADD_MONITORED_STATUS")
   ADD_MONITORED,
+  ADD_MONITORED_STATUS,
   ADD_ALBUM_FOLDERS,
   ADD_QUALITY_PROFILE,
   ADD_METADATA_PROFILE,
@@ -26,7 +29,6 @@ class LidarrDatabase extends LunaModuleDatabase {
     for (LidarrDatabaseValue value in LidarrDatabaseValue.values) {
       switch (value) {
         // Non-exported values
-        case LidarrDatabaseValue.ADD_MONITORED:
         case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
         case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
         case LidarrDatabaseValue.ADD_METADATA_PROFILE:
@@ -47,16 +49,15 @@ class LidarrDatabase extends LunaModuleDatabase {
       LidarrDatabaseValue value = valueFromKey(key);
       if (value != null)
         switch (value) {
-          // Primitive values
-          case LidarrDatabaseValue.NAVIGATION_INDEX:
-            value.put(config[key]);
-            break;
           // Non-imported values
-          case LidarrDatabaseValue.ADD_MONITORED:
           case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
           case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
           case LidarrDatabaseValue.ADD_METADATA_PROFILE:
           case LidarrDatabaseValue.ADD_ROOT_FOLDER:
+            break;
+          // Primitive values
+          default:
+            value.put(config[key]);
             break;
         }
     }
@@ -73,7 +74,7 @@ class LidarrDatabase extends LunaModuleDatabase {
 
 extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
   String get key {
-    return 'LIDARR_${describeEnum(this)}';
+    return 'LIDARR_${this.name}';
   }
 
   dynamic get data {
@@ -117,6 +118,8 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         return value is LidarrMetadataProfile;
       case LidarrDatabaseValue.ADD_ROOT_FOLDER:
         return value is LidarrRootFolder;
+      case LidarrDatabaseValue.ADD_MONITORED_STATUS:
+        return value is String;
     }
     throw Exception('Invalid LidarrDatabaseValue');
   }
@@ -135,6 +138,8 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         return null;
       case LidarrDatabaseValue.ADD_ROOT_FOLDER:
         return null;
+      case LidarrDatabaseValue.ADD_MONITORED_STATUS:
+        return LidarrMonitorStatus.ALL.key;
     }
     throw Exception('Invalid LidarrDatabaseValue');
   }

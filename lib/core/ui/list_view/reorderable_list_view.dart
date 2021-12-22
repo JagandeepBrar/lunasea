@@ -30,7 +30,7 @@ class LunaReorderableListView extends StatelessWidget {
         children: children,
         padding: padding ??
             MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-                  vertical: LunaUI.MARGIN_CARD.bottom,
+                  vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
                 )),
         physics: physics,
         onReorder: onReorder,

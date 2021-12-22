@@ -56,6 +56,15 @@ extension SonarrSeriesExtension on SonarrSeries {
         );
   }
 
+  String get lunaPreviousAiring {
+    if (this.previousAiring == null) return LunaUI.TEXT_EMDASH;
+    return this.previousAiring.lunaDateTimeReadable(
+          timeOnNewLine: false,
+          showSeconds: false,
+          sameLineDelimiter: '@',
+        );
+  }
+
   String get lunaDateAdded {
     if (this.added == null) {
       return 'lunasea.Unknown'.tr();

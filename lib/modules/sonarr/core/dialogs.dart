@@ -494,7 +494,9 @@ class SonarrDialogs {
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
-                  text: folders[index].freeSpace.lunaBytesToString())
+                text: folders[index].freeSpace.lunaBytesToString(),
+                fontSize: LunaDialog.BUTTON_SIZE,
+              ),
             ],
           ),
           icon: Icons.folder_rounded,
@@ -785,7 +787,7 @@ class SonarrDialogs {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 3,
+                  vertical: LunaUI.DEFAULT_MARGIN_SIZE / 4,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -796,7 +798,7 @@ class SonarrDialogs {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                left: 56.0, // 32.0 + iconSize
+                                left: 32.0 + LunaUI.ICON_SIZE,
                               ),
                               child: LunaDialog.richText(
                                 children: [

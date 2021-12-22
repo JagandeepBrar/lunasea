@@ -13,7 +13,8 @@ class LidarrAddSearchBar extends StatefulWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(LunaTextInputBar.appBarHeight);
+  Size get preferredSize =>
+      const Size.fromHeight(LunaTextInputBar.defaultAppBarHeight);
 
   @override
   State<LidarrAddSearchBar> createState() => _State();
@@ -53,7 +54,7 @@ class _State extends State<LidarrAddSearchBar> {
           ),
         ],
       ),
-      height: LunaTextInputBar.appBarHeight,
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 }

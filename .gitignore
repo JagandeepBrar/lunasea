@@ -52,7 +52,6 @@ coverage/
 /android/key.properties
 /android/app/google-services.json
 /android/key.jks
-/ios/ExportOptions.plist
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
 /vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf

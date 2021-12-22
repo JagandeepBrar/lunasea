@@ -11,12 +11,13 @@ class NZBGetLogTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: data.text),
-        subtitle: LunaText.subtitle(text: data.timestamp),
-        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-        onTap: () async =>
-            LunaDialogs().textPreview(context, 'Log Entry', data.text),
-      );
+  Widget build(BuildContext context) {
+    return LunaBlock(
+      title: data.text,
+      body: [TextSpan(text: data.timestamp)],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async =>
+          LunaDialogs().textPreview(context, 'Log Entry', data.text),
+    );
+  }
 }

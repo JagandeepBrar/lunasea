@@ -32,7 +32,7 @@ class SearchDialogs {
                         child: Text(
                           LunaDatabaseValue.ENABLED_PROFILE.data,
                           style: const TextStyle(
-                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_H3,
                           ),
                         ),
                       ),
@@ -64,7 +64,7 @@ class SearchDialogs {
                         child: Text(
                           profile,
                           style: TextStyle(
-                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_H3,
                             color: (LunaDatabaseValue.ENABLED_PROFILE.data ??
                                         'default') ==
                                     profile

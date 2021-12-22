@@ -120,14 +120,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayName() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Display Name'),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'Display Name',
+      body: [
+        TextSpan(
           text: _indexer.displayName == null || _indexer.displayName.isEmpty
               ? 'Not Set'
-              : _indexer.displayName),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              : _indexer.displayName,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
             .editText(context, 'Display Name', prefill: _indexer.displayName);
@@ -138,14 +140,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiURL() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Indexer API Host'),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'Indexer API Host',
+      body: [
+        TextSpan(
           text: _indexer.host == null || _indexer.host.isEmpty
               ? 'Not Set'
-              : _indexer.host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              : _indexer.host,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
             .editText(context, 'Indexer API Host', prefill: _indexer.host);
@@ -156,14 +160,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Indexer API Key'),
-      subtitle: LunaText.subtitle(
+    return LunaBlock(
+      title: 'Indexer API Key',
+      body: [
+        TextSpan(
           text: _indexer.apiKey == null || _indexer.apiKey.isEmpty
               ? 'Not Set'
-              : _indexer.apiKey),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+              : _indexer.apiKey,
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
             .editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
@@ -174,11 +180,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _headers() {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: 'Custom Headers'),
-      subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: 'settings.CustomHeaders'.tr(),
+      body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchEditHeadersRouter()
           .navigateTo(context, indexerId: widget.indexerId),
     );

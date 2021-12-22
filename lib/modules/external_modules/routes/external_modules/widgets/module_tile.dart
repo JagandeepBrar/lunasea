@@ -11,11 +11,10 @@ class ExternalModulesModuleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaListTile(
-      context: context,
-      title: LunaText.title(text: module.displayName),
-      subtitle: LunaText.subtitle(text: module.host),
-      trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+    return LunaBlock(
+      title: module.displayName,
+      body: [TextSpan(text: module.host)],
+      trailing: const LunaIconButton.arrow(),
       onTap: () async => module.host.lunaOpenGenericLink(),
     );
   }

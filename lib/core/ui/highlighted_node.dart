@@ -23,7 +23,7 @@ class LunaHighlightedNode extends StatelessWidget {
           text,
           maxLines: 1,
           style: TextStyle(
-            fontSize: LunaUI.FONT_SIZE_HIGHLIGHTED_NODE,
+            fontSize: LunaUI.FONT_SIZE_H4,
             color: textColor,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),

@@ -6,7 +6,7 @@ class LunaProfile {
   List<String> profilesList() => Database.profilesBox.keys
       .map<String>((profile) => profile as String)
       .toList()
-        ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
 
   /// Safely change profiles.
   ///

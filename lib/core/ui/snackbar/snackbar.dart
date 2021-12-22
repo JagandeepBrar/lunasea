@@ -36,8 +36,6 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
   }
 }
 
-const _PADDING = 8.0;
-
 Future<void> showLunaSnackBar({
   @required String title,
   @required LunaSnackbarType type,
@@ -56,31 +54,28 @@ Future<void> showLunaSnackBar({
         controller: controller,
         boxShadows: [
           BoxShadow(
-              blurRadius: 6.0,
-              spreadRadius: 4.0,
-              color: Colors.black.withOpacity(0.10))
+            blurRadius: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+            spreadRadius: LunaUI.DEFAULT_MARGIN_SIZE / 4,
+            color: Colors.black.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+          ),
         ],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-        margin: const EdgeInsets.all(_PADDING),
+        margin: LunaUI.MARGIN_DEFAULT,
         behavior: FlashBehavior.floating,
         position: position,
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         borderColor:
-            LunaUI.shouldUseBorder ? Colors.white12 : Colors.transparent,
+            LunaUI.shouldUseBorder ? LunaColours.white10 : Colors.transparent,
         child: FlashBar(
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-              fontSize: LunaUI.FONT_SIZE_TITLE,
-            ),
+          title: LunaText.title(
+            text: title,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
           ),
-          content: Text(
-            message,
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-            ),
+          content: LunaText.subtitle(
+            text: message,
+            maxLines: 8,
+            overflow: TextOverflow.ellipsis,
           ),
           shouldIconPulse: false,
           icon: Padding(
@@ -88,7 +83,9 @@ Future<void> showLunaSnackBar({
               icon: type.icon,
               color: type.color,
             ),
-            padding: const EdgeInsets.only(left: _PADDING),
+            padding: const EdgeInsets.only(
+              left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
+            ),
           ),
           primaryAction: showButton
               ? TextButton(

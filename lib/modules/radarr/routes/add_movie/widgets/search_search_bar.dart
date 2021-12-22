@@ -17,7 +17,7 @@ class RadarrAddMovieSearchSearchBar extends StatefulWidget
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(LunaTextInputBar.appBarHeight);
+      const Size.fromHeight(LunaTextInputBar.defaultAppBarHeight);
 
   @override
   State<RadarrAddMovieSearchSearchBar> createState() => _State();
@@ -34,7 +34,7 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SizedBox(
       child: Row(
         children: [
           Expanded(
@@ -55,7 +55,7 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
           ),
         ],
       ),
-      padding: const EdgeInsets.only(top: 1.0, bottom: 1.0),
+      height: LunaTextInputBar.defaultAppBarHeight,
     );
   }
 }

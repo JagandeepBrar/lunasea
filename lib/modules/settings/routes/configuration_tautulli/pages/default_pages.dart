@@ -54,110 +54,108 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    return TautulliDatabaseValue.NAVIGATION_INDEX.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Home'),
-        subtitle: LunaText.subtitle(
-            text: TautulliNavigationBar
-                .titles[TautulliDatabaseValue.NAVIGATION_INDEX.data]),
-        trailing: LunaIconButton(
-            icon: TautulliNavigationBar
-                .icons[TautulliDatabaseValue.NAVIGATION_INDEX.data]),
+    TautulliDatabaseValue _db = TautulliDatabaseValue.NAVIGATION_INDEX;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'lunasea.Home'.tr(),
+        body: [TextSpan(text: TautulliNavigationBar.titles[_db.data])],
+        trailing: LunaIconButton(icon: TautulliNavigationBar.icons[_db.data]),
         onTap: () async {
-          List values = await TautulliDialogs.setDefaultPage(context,
-              titles: TautulliNavigationBar.titles,
-              icons: TautulliNavigationBar.icons);
-          if (values[0]) TautulliDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+          List values = await TautulliDialogs.setDefaultPage(
+            context,
+            titles: TautulliNavigationBar.titles,
+            icons: TautulliNavigationBar.icons,
+          );
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );
   }
 
   Widget _graphsPage() {
-    return TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Graphs'),
-        subtitle: LunaText.subtitle(
-            text: TautulliGraphsNavigationBar
-                .titles[TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.data]),
-        trailing: LunaIconButton(
-            icon: TautulliGraphsNavigationBar
-                .icons[TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.data]),
+    TautulliDatabaseValue _db = TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Graphs',
+        body: [TextSpan(text: TautulliGraphsNavigationBar.titles[_db.data])],
+        trailing:
+            LunaIconButton(icon: TautulliGraphsNavigationBar.icons[_db.data]),
         onTap: () async {
-          List values = await TautulliDialogs.setDefaultPage(context,
-              titles: TautulliGraphsNavigationBar.titles,
-              icons: TautulliGraphsNavigationBar.icons);
-          if (values[0])
-            TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.put(values[1]);
+          List values = await TautulliDialogs.setDefaultPage(
+            context,
+            titles: TautulliGraphsNavigationBar.titles,
+            icons: TautulliGraphsNavigationBar.icons,
+          );
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );
   }
 
   Widget _libraryDetailsPage() {
-    return TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Library Details'),
-        subtitle: LunaText.subtitle(
-            text: TautulliLibrariesDetailsNavigationBar.titles[
-                TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.data]),
+    TautulliDatabaseValue _db =
+        TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Library Details',
+        body: [
+          TextSpan(text: TautulliLibrariesDetailsNavigationBar.titles[_db.data])
+        ],
         trailing: LunaIconButton(
-            icon: TautulliLibrariesDetailsNavigationBar.icons[
-                TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.data]),
+            icon: TautulliLibrariesDetailsNavigationBar.icons[_db.data]),
         onTap: () async {
-          List values = await TautulliDialogs.setDefaultPage(context,
-              titles: TautulliLibrariesDetailsNavigationBar.titles,
-              icons: TautulliLibrariesDetailsNavigationBar.icons);
-          if (values[0])
-            TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS
-                .put(values[1]);
+          List values = await TautulliDialogs.setDefaultPage(
+            context,
+            titles: TautulliLibrariesDetailsNavigationBar.titles,
+            icons: TautulliLibrariesDetailsNavigationBar.icons,
+          );
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );
   }
 
   Widget _mediaDetailsPage() {
-    return TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'Media Details'),
-        subtitle: LunaText.subtitle(
-            text: TautulliMediaDetailsNavigationBar.titles[
-                TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data]),
+    TautulliDatabaseValue _db =
+        TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'Media Details',
+        body: [
+          TextSpan(text: TautulliMediaDetailsNavigationBar.titles[_db.data]),
+        ],
         trailing: LunaIconButton(
-            icon: TautulliMediaDetailsNavigationBar.icons[
-                TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data]),
+            icon: TautulliMediaDetailsNavigationBar.icons[_db.data]),
         onTap: () async {
-          List values = await TautulliDialogs.setDefaultPage(context,
-              titles: TautulliMediaDetailsNavigationBar.titles,
-              icons: TautulliMediaDetailsNavigationBar.icons);
-          if (values[0])
-            TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.put(values[1]);
+          List values = await TautulliDialogs.setDefaultPage(
+            context,
+            titles: TautulliMediaDetailsNavigationBar.titles,
+            icons: TautulliMediaDetailsNavigationBar.icons,
+          );
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );
   }
 
   Widget _userDetailsPage() {
-    return TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.listen(
-      builder: (context, box, _) => LunaListTile(
-        context: context,
-        title: LunaText.title(text: 'User Details'),
-        subtitle: LunaText.subtitle(
-            text: TautulliUserDetailsNavigationBar.titles[
-                TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data]),
+    TautulliDatabaseValue _db =
+        TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS;
+    return _db.listen(
+      builder: (context, box, _) => LunaBlock(
+        title: 'User Details',
+        body: [
+          TextSpan(text: TautulliUserDetailsNavigationBar.titles[_db.data]),
+        ],
         trailing: LunaIconButton(
-            icon: TautulliUserDetailsNavigationBar.icons[
-                TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data]),
+            icon: TautulliUserDetailsNavigationBar.icons[_db.data]),
         onTap: () async {
-          List values = await TautulliDialogs.setDefaultPage(context,
-              titles: TautulliUserDetailsNavigationBar.titles,
-              icons: TautulliUserDetailsNavigationBar.icons);
-          if (values[0])
-            TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.put(values[1]);
+          List values = await TautulliDialogs.setDefaultPage(
+            context,
+            titles: TautulliUserDetailsNavigationBar.titles,
+            icons: TautulliUserDetailsNavigationBar.icons,
+          );
+          if (values[0]) _db.put(values[1]);
         },
       ),
     );

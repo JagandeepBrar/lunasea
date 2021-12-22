@@ -11,18 +11,16 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaBottomActionBar(
       actions: [
-        LunaButton(
-          type: LunaButtonType.TEXT,
-          text: 'radarr.AddMovie'.tr(),
-          icon: Icons.add_rounded,
-          onTap: () async => _onTap(context, false),
-          loadingState: context.watch<RadarrAddMovieDetailsState>().state,
+        LunaActionBarCard(
+          title: 'lunasea.Options'.tr(),
+          subtitle: 'radarr.StartSearchFor'.tr(),
+          onTap: () async => RadarrDialogs().addMovieOptions(context),
         ),
         LunaButton(
           type: LunaButtonType.TEXT,
-          text: 'radarr.AddMovieAndSearch'.tr(),
-          icon: Icons.search_rounded,
-          onTap: () async => _onTap(context, true),
+          text: 'lunasea.Add'.tr(),
+          icon: Icons.add_rounded,
+          onTap: () async => _onTap(context, false),
           loadingState: context.watch<RadarrAddMovieDetailsState>().state,
         ),
       ],

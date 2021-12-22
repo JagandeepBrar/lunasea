@@ -12,23 +12,49 @@ class LunaIconButton extends StatelessWidget {
   final Function onLongPress;
   final LunaLoadingState loadingState;
   final AlignmentGeometry alignment;
-  final EdgeInsetsGeometry padding;
+  final MouseCursor mouseCursor;
 
-  LunaIconButton({
+  const LunaIconButton.arrow({
     Key key,
     this.text,
-    this.textSize = 10.0,
-    this.icon,
-    this.iconSize = 24.0,
+    this.textSize = LunaUI.FONT_SIZE_H5,
+    this.icon = LunaIcons.ARROW_RIGHT,
+    this.iconSize = LunaUI.ICON_SIZE,
     this.alignment = Alignment.center,
-    this.padding = const EdgeInsets.all(8.0),
     this.color = Colors.white,
     this.onPressed,
     this.onLongPress,
     this.loadingState,
-  }) : super(key: key) {
-    assert((text != null || icon != null), 'both text and icon cannot be null');
-  }
+    this.mouseCursor,
+  }) : super(key: key);
+
+  const LunaIconButton.appBar({
+    Key key,
+    this.text,
+    this.textSize = LunaUI.FONT_SIZE_H5,
+    this.icon,
+    this.iconSize = LunaUI.ICON_SIZE,
+    this.alignment = Alignment.center,
+    this.color = Colors.white,
+    this.onPressed,
+    this.onLongPress,
+    this.loadingState,
+    this.mouseCursor,
+  }) : super(key: key);
+
+  const LunaIconButton({
+    Key key,
+    this.text,
+    this.textSize = LunaUI.FONT_SIZE_H5,
+    this.icon,
+    this.iconSize = LunaUI.ICON_SIZE,
+    this.alignment = Alignment.center,
+    this.color = Colors.white,
+    this.onPressed,
+    this.onLongPress,
+    this.loadingState,
+    this.mouseCursor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +63,14 @@ class LunaIconButton extends StatelessWidget {
         icon: loadingState == LunaLoadingState.ACTIVE ? _loader() : _icon(),
         iconSize: iconSize,
         alignment: alignment,
-        padding: padding,
+        padding: EdgeInsets.zero,
         onPressed: _onPressed(),
+        mouseCursor: mouseCursor ??
+            (onPressed != null ? SystemMouseCursors.click : MouseCursor.defer),
       ),
+      hoverColor: Colors.transparent,
+      mouseCursor: mouseCursor ??
+          (onLongPress != null ? SystemMouseCursors.click : MouseCursor.defer),
       onLongPress: _onLongPress(),
     );
   }
@@ -64,13 +95,14 @@ class LunaIconButton extends StatelessWidget {
 
   Widget _loader() {
     return LunaLoader(
-      size: 12.0,
+      size: LunaUI.FONT_SIZE_H4,
       color: color,
       useSafeArea: false,
     );
   }
 
   Widget _icon() {
+    assert((text != null || icon != null), 'both text and icon cannot be null');
     if (loadingState == LunaLoadingState.ERROR) {
       return Icon(
         Icons.error_rounded,

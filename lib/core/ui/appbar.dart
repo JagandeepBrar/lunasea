@@ -22,11 +22,12 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<String> profiles;
   final PageController pageController;
   final List<ScrollController> scrollControllers;
+  final Color backgroundColor;
 
   @override
   Size get preferredSize {
     double _size = (height ?? APPBAR_HEIGHT);
-    if (bottom != null) _size += bottom.preferredSize.height;
+    if (bottom != null) _size += bottom.preferredSize.height - 0.0;
     return Size.fromHeight(_size);
   }
 
@@ -42,6 +43,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.pageController,
     this.scrollControllers,
     this.hideLeading = false,
+    this.backgroundColor,
   });
 
   /// Create a new [AppBar] widget pre-styled for LunaSea.
@@ -58,6 +60,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     bool useDrawer = false,
     bool hideLeading = false,
     PageController pageController,
+    Color backgroundColor,
     List<ScrollController> scrollControllers,
   }) {
     assert(title != null);
@@ -72,6 +75,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       hideLeading: hideLeading,
+      backgroundColor: backgroundColor,
       type: _APPBAR_TYPE.DEFAULT,
     );
   }
@@ -86,6 +90,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     @required double height,
     EdgeInsets padding = LunaTextInputBar.appBarMargin,
     Alignment alignment = Alignment.topCenter,
+    Color backgroundColor,
   }) {
     assert(child != null);
     assert(height != null);
@@ -98,6 +103,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
       ),
       height: height,
       useDrawer: false,
+      backgroundColor: backgroundColor,
       type: _APPBAR_TYPE.EMPTY,
     );
   }
@@ -117,6 +123,8 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     List<Widget> actions,
     PageController pageController,
     List<ScrollController> scrollControllers,
+    PreferredSizeWidget bottom,
+    Color backgroundColor,
   }) {
     assert(title != null);
     assert(profiles != null);
@@ -129,18 +137,22 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         actions: actions,
         useDrawer: useDrawer,
         hideLeading: hideLeading,
+        bottom: bottom,
         pageController: pageController,
         scrollControllers: scrollControllers,
+        backgroundColor: backgroundColor,
         type: _APPBAR_TYPE.DEFAULT,
       );
     return LunaAppBar._internal(
       title: title,
       profiles: profiles,
       actions: actions,
+      bottom: bottom,
       useDrawer: useDrawer,
       hideLeading: hideLeading,
       pageController: pageController,
       scrollControllers: scrollControllers,
+      backgroundColor: backgroundColor,
       type: _APPBAR_TYPE.DROPDOWN,
     );
   }
@@ -210,38 +222,36 @@ class _State extends State<LunaAppBar> {
   Widget _sharedLeading(BuildContext context) {
     if (widget.hideLeading ?? false) return null;
     if (widget.useDrawer)
-      return IconButton(
-        icon: const Icon(Icons.menu_rounded),
-        onPressed: () async {
-          HapticFeedback.lightImpact();
-          if (Scaffold.of(context).hasDrawer) {
-            Scaffold.of(context).openDrawer();
-            FocusManager.instance.primaryFocus?.unfocus();
-          }
-        },
+      return SizedBox(
+        child: LunaIconButton.appBar(
+          icon: Icons.menu_rounded,
+          onPressed: () async {
+            HapticFeedback.lightImpact();
+            if (Scaffold.of(context).hasDrawer) {
+              Scaffold.of(context).openDrawer();
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+        ),
+        height: kToolbarHeight,
       );
-    return InkWell(
-      child: const Center(
-        child: Icon(Icons.arrow_back_ios_new_rounded),
+    return SizedBox(
+      child: LunaIconButton.appBar(
+        icon: Icons.arrow_back_ios_new_rounded,
+        onPressed: () async => Navigator.of(context).lunaSafetyPop(),
+        onLongPress: () async => Navigator.of(context).lunaPopToFirst(),
       ),
-      onTap: () async {
-        HapticFeedback.lightImpact();
-        Navigator.of(context).lunaSafetyPop();
-      },
-      onLongPress: () async {
-        HapticFeedback.heavyImpact();
-        Navigator.of(context).lunaPopToFirst();
-      },
-      borderRadius: BorderRadius.circular(28.0),
+      height: kToolbarHeight,
     );
   }
 
   Widget _default(BuildContext context) {
     return AppBar(
+      backgroundColor: widget.backgroundColor,
       title: Text(
         widget.title ?? '',
         overflow: TextOverflow.fade,
-        style: const TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
+        style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
       ),
       leading: _sharedLeading(context),
       automaticallyImplyLeading: !(widget.hideLeading ?? false),
@@ -254,6 +264,7 @@ class _State extends State<LunaAppBar> {
 
   Widget _empty(BuildContext context) {
     return AppBar(
+      backgroundColor: widget.backgroundColor,
       automaticallyImplyLeading: false,
       toolbarHeight: widget.height,
       leadingWidth: 0.0,
@@ -265,15 +276,24 @@ class _State extends State<LunaAppBar> {
 
   Widget _dropdown(BuildContext context) {
     return AppBar(
+      backgroundColor: widget.backgroundColor,
+      automaticallyImplyLeading: !(widget.hideLeading ?? false),
       title: LunaPopupMenuButton<String>(
         tooltip: 'Change Profiles',
-        child: Wrap(
-          direction: Axis.horizontal,
-          crossAxisAlignment: WrapCrossAlignment.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.title,
-              style: const TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
+            Flexible(
+              child: FadingEdgeScrollView.fromSingleChildScrollView(
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    widget.title,
+                    style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
+                  ),
+                ),
+              ),
             ),
             const Icon(Icons.arrow_drop_down_rounded),
           ],
@@ -290,7 +310,7 @@ class _State extends State<LunaAppBar> {
                 child: Text(
                   profile,
                   style: TextStyle(
-                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_H3,
                     color:
                         (LunaDatabaseValue.ENABLED_PROFILE.data ?? 'default') ==
                                 profile
@@ -306,6 +326,7 @@ class _State extends State<LunaAppBar> {
       centerTitle: false,
       elevation: 0,
       actions: widget.actions,
+      bottom: widget.bottom,
     );
   }
 }

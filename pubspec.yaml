@@ -58,12 +58,8 @@ dependencies:
   uuid: ^3.0.5
   wake_on_lan:
     path: packages/wake_on_lan
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
-      ref: 03d957e8b5c99fc83cd4a781031b154ab3de8753
   xml: ^5.3.1
+  bitsdojo_window: ^0.1.1+1
 
 dev_dependencies:
   build_runner: ^2.1.7

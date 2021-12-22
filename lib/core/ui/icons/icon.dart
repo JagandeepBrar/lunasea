@@ -20,6 +20,7 @@ class LunaIcons {
   static const IconData REFRESH = Icons.refresh_rounded;
   static const IconData RENAME = Icons.text_format_rounded;
   static const IconData SEARCH = Icons.search_rounded;
+  static const IconData SETTINGS = Icons.settings_rounded;
   static const IconData SHUFFLE = Icons.shuffle_rounded;
   static const IconData TRANSLATE = Icons.translate_rounded;
   static const IconData USER = Icons.person_rounded;

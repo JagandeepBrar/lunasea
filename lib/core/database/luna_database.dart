@@ -19,6 +19,7 @@ enum LunaDatabaseValue {
   QUICK_ACTIONS_TAUTULLI,
   QUICK_ACTIONS_SEARCH,
   USE_24_HOUR_TIME,
+  DEFAULT_LAUNCH_MODULE,
 }
 
 class LunaDatabase extends LunaModuleDatabase {
@@ -44,6 +45,10 @@ class LunaDatabase extends LunaModuleDatabase {
           data[value.key] =
               (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key;
           break;
+        case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+          data[value.key] =
+              (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule).key;
+          break;
         case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
           data[value.key] = LunaDrawer.moduleOrderedList()
               ?.map<String>((module) => module.key)
@@ -67,6 +72,9 @@ class LunaDatabase extends LunaModuleDatabase {
           // Non-primitive values
           case LunaDatabaseValue.SELECTED_BROWSER:
             value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key]));
+            break;
+          case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+            value.put(LunaModule.DASHBOARD.fromKey(config[key]));
             break;
           case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
             value.put(
@@ -161,6 +169,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.USE_24_HOUR_TIME:
         return value is bool;
+      case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+        return value is LunaModule;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }
@@ -201,6 +211,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return false;
       case LunaDatabaseValue.USE_24_HOUR_TIME:
         return false;
+      case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
+        return LunaModule.DASHBOARD;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }

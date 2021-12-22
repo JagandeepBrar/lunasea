@@ -67,7 +67,7 @@ class LunaFirebaseMessaging {
   /// Return a [StreamSubscription] that will show a notification banner on a newly received notification.
   ///
   /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
-  StreamSubscription<RemoteMessage> onMessageListener() {
+  StreamSubscription<RemoteMessage> registerOnMessageListener() {
     return onMessage.listen((message) {
       if (message == null) return;
       LunaModule module = (message.data ?? {}).isNotEmpty
@@ -88,7 +88,7 @@ class LunaFirebaseMessaging {
   /// Returns a [StreamSubscription] that will handle messages/notifications that are opened while LunaSea is running in the background.
   ///
   /// This listens on [FirebaseMessaging.onMessageOpenedApp], where the application must be open but in the background.
-  StreamSubscription<RemoteMessage> onMessageOpenedAppListener() =>
+  StreamSubscription<RemoteMessage> registerOnMessageOpenedAppListener() =>
       onMessageOpenedApp.listen(_handleWebhook);
 
   /// Check to see if there was an initial [RemoteMessage] available to be accessed.

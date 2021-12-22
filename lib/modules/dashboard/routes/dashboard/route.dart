@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardHomeRouter extends DashboardPageRouter {
-  DashboardHomeRouter() : super('/');
+  DashboardHomeRouter() : super('/dashboard');
 
   @override
   _DashboardHomeRoute widget() => _DashboardHomeRoute();

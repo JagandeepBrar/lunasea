@@ -33,7 +33,7 @@ class LunaDrawer extends StatelessWidget {
           child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
             builder: (context, _, __) => Column(
               children: [
-                const LunaDrawerHeader(),
+                LunaDrawerHeader(page: page),
                 Expanded(
                   child: LunaListView(
                     controller: PrimaryScrollController.of(context),
@@ -59,17 +59,6 @@ class LunaDrawer extends StatelessWidget {
       _buildEntry(
         context: context,
         module: LunaModule.DASHBOARD,
-        showDescription: false,
-      ),
-      _buildEntry(
-        context: context,
-        module: LunaModule.SETTINGS,
-        showDescription: false,
-      ),
-      const Divider(
-        thickness: 1.0,
-        height: 1.0,
-        color: LunaColours.white10,
       ),
     ];
   }
@@ -114,7 +103,6 @@ class LunaDrawer extends StatelessWidget {
   Widget _buildEntry({
     @required BuildContext context,
     @required LunaModule module,
-    bool showDescription = true,
     Function onTap,
   }) {
     bool currentPage = page == module.key.toLowerCase();
@@ -129,9 +117,7 @@ class LunaDrawer extends StatelessWidget {
                 module.icon,
                 color: currentPage ? module.color : LunaColours.white,
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: LunaUI.DEFAULT_MARGIN_SIZE * 1.5,
-              ),
+              padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
             ),
             Text(
               module.name,

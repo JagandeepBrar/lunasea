@@ -25,6 +25,11 @@ blackbox:
     (scripts):
       - blackbox_update_all_files
 build:
+  profile:
+    (description): Build - Profile Release
+    (execution): once
+    (scripts):
+      - flutter run --profile --cache-sksl --purge-persistent-cache
   android:
     apk:
       (description): Build (Android) - Build Split APKs

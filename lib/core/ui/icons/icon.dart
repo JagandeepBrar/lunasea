@@ -17,6 +17,7 @@ class LunaIcons {
   static const IconData MONITOR_ON = Icons.turned_in_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
   static const IconData PLAY = Icons.play_arrow_rounded;
+  static const IconData PROFILES = Icons.switch_account_rounded;
   static const IconData REFRESH = Icons.refresh_rounded;
   static const IconData RENAME = Icons.text_format_rounded;
   static const IconData SEARCH = Icons.search_rounded;

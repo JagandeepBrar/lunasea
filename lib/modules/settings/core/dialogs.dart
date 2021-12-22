@@ -689,7 +689,7 @@ class SettingsDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          icon: Icons.settings_rounded,
+          icon: LunaIcons.USER,
           iconColor: LunaColours().byListIndex(index),
           text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),

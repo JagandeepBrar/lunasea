@@ -1,12 +1,12 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000004)
 
 #### NEW
 
 - `[Dashboard]` (Calendar) Display content poster and additional information
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
-- `[Settings]` (Configuration) Show dismissable block with module information and links
+- `[Settings]` Show dismissable blocks with information and links
 - `[Lidarr]` (Add Artist) Show artist poster in result list
 - `[Lidarr]` (Add Artist) Allow user to select monitoring options
 - `[Lidarr]` (Add Artist) Removed toggle to use album folders
@@ -20,8 +20,8 @@
 #### TWEAKS
 
 - `[UI/UX]` (Drawer) Heavily reduced the size of the header area
-- `[UI/UX]` (Fonts) Normalized font sizes across the UI to be more in-line with system standards
-- `[UI/UX]` (Images) Set the default image opacity to 20% (a custom set value is uneffected)
+- `[UI/UX]` (Fonts) Normalized font sizes across the UI
+- `[UI/UX]` (Images) Set the default image opacity to 20% (custom set values are uneffected)
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
 - `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
 - `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding

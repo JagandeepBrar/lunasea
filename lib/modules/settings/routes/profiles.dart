@@ -34,20 +34,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'Profiles',
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
-          icon: Icons.help_outline_rounded,
-          onPressed: () async => LunaDialogs().textPreview(
-            context,
-            'Profiles',
-            [
-              'Profiles allow you to add multiple instances of modules into LunaSea.',
-              'Newznab indexer searching is enabled and shared across all profiles.',
-              'You can switch between profiles in the main navigation drawer of LunaSea.',
-            ].join('\n\n'),
-          ),
-        ),
-      ],
     );
   }
 
@@ -55,6 +41,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        SettingsBanners.PROFILES_SUPPORT.banner(),
         _enabledProfile(),
         LunaBlock(
           title: 'settings.AddProfile'.tr(),
@@ -83,7 +70,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _, __) => LunaBlock(
         title: 'Enabled Profile',
         body: [TextSpan(text: LunaDatabaseValue.ENABLED_PROFILE.data)],
-        trailing: const LunaIconButton(icon: Icons.switch_account_rounded),
+        trailing: const LunaIconButton(icon: LunaIcons.USER),
         onTap: () async {
           Tuple2<bool, String> results = await SettingsDialogs().enabledProfile(
             LunaState.navigatorKey.currentContext,

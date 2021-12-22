@@ -160,6 +160,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mfrelink",
+      "name": "Mark Frelink",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3245077?v=4",
+      "profile": "https://www.openflixr.com",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

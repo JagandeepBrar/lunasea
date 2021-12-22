@@ -184,5 +184,13 @@
     "settings.AccountDeleted": "Compte supprimé",
     "settings.DeleteAccountDescription": "Supprimer définitivement votre compte",
     "settings.DeleteAccountHint1": "Voulez-vous vraiment supprimer votre compte LunaSea ?",
-    "settings.StartingView": "Vue d'ensemble"
+    "settings.StartingView": "Vue d'ensemble",
+    "settings.AddProfileDescription": "Ajouter un nouveau profil",
+    "settings.DefaultPages": "Pages par défaut",
+    "settings.DefaultPagesDescription": "Définir les pages de destination par défaut",
+    "settings.DefaultSortingAndFiltering": "Tri et filtrage par défaut",
+    "settings.DefaultSortingAndFilteringDescription": "Définir les méthodes de tri et de filtrage par défaut",
+    "settings.DeleteProfileDescription": "Supprimer un profil existant",
+    "settings.RenameProfileDescription": "Renommer un profil existant",
+    "settings.Add": "Ajouter"
 }

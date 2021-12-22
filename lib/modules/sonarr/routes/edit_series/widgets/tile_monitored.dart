@@ -11,7 +11,6 @@ class SonarrSeriesEditMonitoredTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaBlock(
       title: 'sonarr.Monitored'.tr(),
-      body: [TextSpan(text: 'sonarr.MonitoredDescription'.tr())],
       trailing: LunaSwitch(
         value: context.watch<SonarrSeriesEditState>().monitored,
         onChanged: (value) =>

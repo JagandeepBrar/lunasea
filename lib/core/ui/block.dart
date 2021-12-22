@@ -141,9 +141,11 @@ class LunaBlock extends StatelessWidget {
           milliseconds: LunaUI.ANIMATION_SPEED_IMAGES,
         ),
         fit: BoxFit.cover,
-        image: NetworkImage(
+        image: CachedNetworkImageProvider(
           backgroundUrl,
           headers: backgroundHeaders?.cast<String, String>(),
+          cacheManager: LunaImageCache.instance,
+          errorListener: () {},
         ),
         imageErrorBuilder: (context, error, stack) => SizedBox(
           height: _height,

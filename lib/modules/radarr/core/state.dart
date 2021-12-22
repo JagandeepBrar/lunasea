@@ -214,7 +214,8 @@ class RadarrState extends LunaModuleState {
               a.lunaEarlierReleaseDate != null) return -1;
           if (a.lunaEarlierReleaseDate == null &&
               b.lunaEarlierReleaseDate == null) _comparison = 0;
-          _comparison ??= b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
+          _comparison ??=
+              b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
           if (_comparison == 0)
             return a.sortTitle
                 .toLowerCase()
@@ -324,26 +325,12 @@ class RadarrState extends LunaModuleState {
   /// IMAGES ///
   //////////////
 
-  String getPosterURL(int movieId, {bool highRes = false}) {
+  String getPosterURL(int movieId) {
     if (_enabled) {
       String _base = _host.endsWith('/')
           ? '${_host}api/v3/MediaCover'
           : '$_host/api/v3/MediaCover';
-      return highRes
-          ? '$_base/$movieId/poster.jpg?apikey=$_apiKey'
-          : '$_base/$movieId/poster-500.jpg?apikey=$_apiKey';
-    }
-    return null;
-  }
-
-  String getBannerURL(int movieId, {bool highRes = false}) {
-    if (_enabled) {
-      String _base = _host.endsWith('/')
-          ? '${_host}api/v3/MediaCover'
-          : '$_host/api/v3/MediaCover';
-      return highRes
-          ? '$_base/$movieId/banner.jpg?apikey=$_apiKey'
-          : '$_base/$movieId/banner-70.jpg?apikey=$_apiKey';
+      return '$_base/$movieId/poster-250.jpg?apikey=$_apiKey';
     }
     return null;
   }
@@ -353,9 +340,7 @@ class RadarrState extends LunaModuleState {
       String _base = _host.endsWith('/')
           ? '${_host}api/v3/MediaCover'
           : '$_host/api/v3/MediaCover';
-      return highRes
-          ? '$_base/$movieId/fanart.jpg?apikey=$_apiKey'
-          : '$_base/$movieId/fanart-360.jpg?apikey=$_apiKey';
+      return '$_base/$movieId/fanart-360.jpg?apikey=$_apiKey';
     }
     return null;
   }

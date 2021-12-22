@@ -37,14 +37,12 @@ class LidarrAlbumData {
     return trackCount != 1 ? '$trackCount Tracks' : '$trackCount Track';
   }
 
-  String albumCoverURI({bool highRes = false}) {
+  String albumCoverURI() {
     if (api['enabled']) {
       String _base = (api['host'] as String).endsWith('/')
           ? '${api['host']}api/v1/MediaCover/Album'
           : '${api['host']}/api/v1/MediaCover/Album';
-      return highRes
-          ? '$_base/$albumID/cover.jpg?apikey=${api['key']}'
-          : '$_base/$albumID/cover-500.jpg?apikey=${api['key']}';
+      return '$_base/$albumID/cover-250.jpg?apikey=${api['key']}';
     }
     return '';
   }

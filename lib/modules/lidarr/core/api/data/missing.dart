@@ -43,26 +43,22 @@ class LidarrMissingData {
     return 'Unknown Date/Time';
   }
 
-  String albumCoverURI({bool highRes = false}) {
+  String albumCoverURI() {
     if (api['enabled']) {
       String _base = (api['host'] as String).endsWith('/')
           ? '${api['host']}api/v1/MediaCover/Album'
           : '${api['host']}/api/v1/MediaCover/Album';
-      return highRes
-          ? '$_base/$albumID/cover.jpg?apikey=${api['key']}'
-          : '$_base/$albumID/cover-500.jpg?apikey=${api['key']}';
+      return '$_base/$albumID/cover-250.jpg?apikey=${api['key']}';
     }
     return '';
   }
 
-  String posterURI({bool highRes = false}) {
+  String posterURI() {
     if (api['enabled']) {
       String _base = (api['host'] as String).endsWith('/')
           ? '${api['host']}api/v1/MediaCover/Artist'
           : '${api['host']}/api/v1/MediaCover/Artist';
-      return highRes
-          ? '$_base/$artistID/poster.jpg?apikey=${api['key']}'
-          : '$_base/$artistID/poster-500.jpg?apikey=${api['key']}';
+      return '$_base/$artistID/poster-250.jpg?apikey=${api['key']}';
     }
     return '';
   }
@@ -72,21 +68,7 @@ class LidarrMissingData {
       String _base = (api['host'] as String).endsWith('/')
           ? '${api['host']}api/v1/MediaCover/Artist'
           : '${api['host']}/api/v1/MediaCover/Artist';
-      return highRes
-          ? '$_base/$artistID/fanart.jpg?apikey=${api['key']}'
-          : '$_base/$artistID/fanart-360.jpg?apikey=${api['key']}';
-    }
-    return '';
-  }
-
-  String bannerURI({bool highRes = false}) {
-    String _base = (api['host'] as String).endsWith('/')
-        ? '${api['host']}api/v1/MediaCover/Artist'
-        : '${api['host']}/api/v1/MediaCover/Artist';
-    if (api['enabled']) {
-      return highRes
-          ? '$_base/$artistID/banner.jpg?apikey=${api['key']}'
-          : '$_base/$artistID/banner-70.jpg?apikey=${api['key']}';
+      return '$_base/$artistID/fanart-360.jpg?apikey=${api['key']}';
     }
     return '';
   }

@@ -10,7 +10,6 @@ export 'ui/card.dart';
 export 'ui/colors.dart';
 export 'ui/containers.dart';
 export 'ui/controllers.dart';
-export 'ui/decoration.dart';
 export 'ui/dialog.dart';
 export 'ui/divider.dart';
 export 'ui/drawer.dart';
@@ -68,7 +67,7 @@ class LunaUI {
 
   // <--> Other
   static const int ANIMATION_SPEED = 250;
-  static const int ANIMATION_SPEED_IMAGES = 175;
+  static const int ANIMATION_SPEED_IMAGES = 150;
   static const double BORDER_RADIUS = 10.0;
   static const double OPACITY_DIMMED = 0.75;
   static const double OPACITY_DISABLED = 0.50;

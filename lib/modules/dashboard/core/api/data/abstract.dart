@@ -5,7 +5,6 @@ abstract class CalendarData {
   String title;
   List<TextSpan> get body;
 
-  String get bannerURI;
   String backgroundUrl(BuildContext context);
   String posterUrl(BuildContext context);
 

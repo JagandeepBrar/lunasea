@@ -47,7 +47,7 @@ class _State extends State<LidarrCatalogueTile> {
         posterPlaceholderIcon: LunaIcons.USER,
         posterUrl: widget.data.posterURI(),
         posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
-        backgroundUrl: widget.data.bannerURI(),
+        backgroundUrl: widget.data.fanartURI(),
         backgroundHeaders: Database.currentProfileObject.getLidarr()['headers'],
         posterIsSquare: true,
         onTap: () async => _enterArtist(),

@@ -52,7 +52,7 @@ class _State extends State<LidarrMissingTile> {
       posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
       posterIsSquare: true,
       posterPlaceholderIcon: LunaIcons.MUSIC,
-      backgroundUrl: widget.entry.bannerURI(),
+      backgroundUrl: widget.entry.fanartURI(),
       backgroundHeaders: Database.currentProfileObject.getLidarr()['headers'],
     );
   }

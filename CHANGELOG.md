@@ -6,12 +6,14 @@
 
 - `[Dashboard]` (Calendar) Display content poster and additional information
 - `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
-- `[Settings]` Show dismissable blocks with information and links
+- `[Images]` (Cache) Cache fetched images to disk
 - `[Lidarr]` (Add Artist) Show artist poster in result list
 - `[Lidarr]` (Add Artist) Allow user to select monitoring options
 - `[Lidarr]` (Add Artist) Removed toggle to use album folders
 - `[Lidarr]` (Catalogue) Show artist poster in catalogue list
 - `[Lidarr]` (Missing) Display album covers
+- `[Settings]` (Configuration) Show dismissable blocks with information and links
+- `[Settings]` (System) Ability to clear image cache
 - `[Sonarr]` (Catalogue) Previous airing sorting option
 - `[Sonarr]` (Season List) Display season posters
 - `[Sonarr]` (Queue) Option to set queue page size

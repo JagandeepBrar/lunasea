@@ -451,6 +451,8 @@
     "tautulli.Video": "Video",
     "tautulli.ViewWebGUI": "View Web GUI",
     "tautulli.Year": "Year",
+    "lidarr.StartSearchFor": "Start Search For…",
+    "lidarr.StartSearchForMissingAlbums": "Start search for missing albums",
     "overseerr.NoRequests": "No Requests",
     "overseerr.OneRequest": "1 Request",
     "overseerr.SomeRequests": "{} Requests",

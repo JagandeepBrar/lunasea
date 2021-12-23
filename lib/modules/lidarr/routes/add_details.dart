@@ -100,15 +100,15 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   Widget _bottomActionBar() {
     return LunaBottomActionBar(
       actions: [
+        LunaActionBarCard(
+          title: 'lunasea.Options'.tr(),
+          subtitle: 'radarr.StartSearchFor'.tr(),
+          onTap: () async => LidarrDialogs().addArtistOptions(context),
+        ),
         LunaButton.text(
           text: 'Add',
           icon: Icons.add_rounded,
-          onTap: () async => _addArtist(false),
-        ),
-        LunaButton.text(
-          text: 'Add + Search',
-          icon: Icons.search_rounded,
-          onTap: () async => _addArtist(true),
+          onTap: () async => _addArtist(),
         ),
       ],
     );
@@ -119,20 +119,6 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
       : LunaAppBar(
           title: _arguments.data.title,
           scrollControllers: [scrollController],
-          actions: [
-            LunaIconButton(
-              icon: Icons.link_rounded,
-              onPressed: () async {
-                if (_arguments.data.discogsLink == null ||
-                    _arguments.data.discogsLink == '')
-                  showLunaInfoSnackBar(
-                    title: 'No Discogs Page Available',
-                    message: 'No Discogs URL is available',
-                  );
-                _arguments.data.discogsLink.lunaOpenGenericLink();
-              },
-            )
-          ],
         );
 
   Widget get _body => _arguments == null
@@ -167,6 +153,15 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             uri: _arguments.data.posterURI ?? '',
             squareImage: true,
             headers: Database.currentProfileObject.getLidarr()['headers'],
+            onLongPress: () async {
+              if (_arguments.data.discogsLink == null ||
+                  _arguments.data.discogsLink == '')
+                showLunaInfoSnackBar(
+                  title: 'No Discogs Page Available',
+                  message: 'No Discogs URL is available',
+                );
+              _arguments.data.discogsLink.lunaOpenGenericLink();
+            },
           ),
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox
@@ -252,8 +247,9 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
         ],
       );
 
-  Future<void> _addArtist(bool search) async {
+  Future<void> _addArtist() async {
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+    bool search = LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data;
     await _api
         .addArtist(
           _arguments.data,

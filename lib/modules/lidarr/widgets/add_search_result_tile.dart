@@ -26,6 +26,14 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         posterPlaceholderIcon: LunaIcons.USER,
         posterUrl: _posterUrl,
         onTap: () async => _enterDetails(context),
+        onLongPress: () async {
+          if (data.discogsLink == null || data.discogsLink == '')
+            showLunaInfoSnackBar(
+              title: 'No Discogs Page Available',
+              message: 'No Discogs URL is available',
+            );
+          data.discogsLink.lunaOpenGenericLink();
+        },
       );
 
   String get _posterUrl {

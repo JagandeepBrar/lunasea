@@ -305,4 +305,29 @@ class LidarrDialogs {
 
     return [_flag, _index];
   }
+
+  Future<void> addArtistOptions(BuildContext context) async {
+    await LunaDialog.dialog(
+      context: context,
+      title: 'lunasea.Options'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Close'.tr(),
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+        ),
+      ],
+      showCancelButton: false,
+      content: [
+        LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.listen(
+          builder: (context, value, _) => LunaDialog.checkbox(
+            title: 'lidarr.StartSearchForMissingAlbums'.tr(),
+            value: LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data,
+            onChanged: (value) =>
+                LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.put(value),
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+  }
 }

@@ -9,6 +9,7 @@ enum LidarrDatabaseValue {
   @Deprecated("Replaced by ADD_MONITORED_STATUS")
   ADD_MONITORED,
   ADD_MONITORED_STATUS,
+  ADD_ARTIST_SEARCH_FOR_MISSING,
   ADD_ALBUM_FOLDERS,
   ADD_QUALITY_PROFILE,
   ADD_METADATA_PROFILE,
@@ -120,6 +121,8 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         return value is LidarrRootFolder;
       case LidarrDatabaseValue.ADD_MONITORED_STATUS:
         return value is String;
+      case LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING:
+        return value is bool;
     }
     throw Exception('Invalid LidarrDatabaseValue');
   }
@@ -140,6 +143,8 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         return null;
       case LidarrDatabaseValue.ADD_MONITORED_STATUS:
         return LidarrMonitorStatus.ALL.key;
+      case LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING:
+        return false;
     }
     throw Exception('Invalid LidarrDatabaseValue');
   }

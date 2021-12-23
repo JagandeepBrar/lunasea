@@ -44,7 +44,7 @@
     "sonarr.MonitorEpisode": "监控集",
     "sonarr.MonitorSeries": "监控系列",
     "sonarr.Monitored": "被监控",
-    "sonarr.MonitoredDescription": "监控新版本",
+    "sonarr.MonitoredDescription": "下载本系列中的受监控剧集",
     "sonarr.NoEpisodesFound": "未找到剧集",
     "sonarr.NoHistoryFound": "未找到历史记录",
     "sonarr.NoResultsFound": "未找到结果",

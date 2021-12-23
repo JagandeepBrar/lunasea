@@ -286,16 +286,22 @@ class RadarrDialogs {
       Navigator.of(context, rootNavigator: true).pop();
     }
 
+    List<RadarrAvailability> _values = RadarrAvailability.values.where((a) {
+      if (a == RadarrAvailability.PREDB) return false;
+      if (a == RadarrAvailability.TBA) return false;
+      return true;
+    }).toList();
+
     await LunaDialog.dialog(
       context: context,
       title: 'radarr.MinimumAvailability'.tr(),
       content: List.generate(
-        RadarrAvailability.values.length,
+        _values.length,
         (index) => LunaDialog.tile(
-          text: RadarrAvailability.values[index].readable,
+          text: _values[index].readable,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
-          onTap: () => _setValues(true, RadarrAvailability.values[index]),
+          onTap: () => _setValues(true, _values[index]),
         ),
       ),
       contentPadding: LunaDialog.listDialogContentPadding(),

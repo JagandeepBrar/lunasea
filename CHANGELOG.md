@@ -10,6 +10,7 @@
 - `[Radarr]` (Add) Would not trigger a search for missing movie when selected
 - `[Radarr]` (Add) Removed ability to set PreDB or TBA minimum availability
 - `[Radarr]` (Edit) Removed ability to set PreDB or TBA minimum availability
+- `[UI/UX]` (AppBar) tighten profile switcher tappable area
 
 ---
 

@@ -4,7 +4,9 @@
 
 #### FIX
 
-- `[Radarr]` (Add Movie) Would not trigger a search on add when selected
+- `[Radarr]` (Add) Would not trigger a search for missing movie when selected
+- `[Radarr]` (Add) Removed ability to set PreDB or TBA minimum availability
+- `[Radarr]` (Edit) Removed ability to set PreDB or TBA minimum availability
 
 ---
 

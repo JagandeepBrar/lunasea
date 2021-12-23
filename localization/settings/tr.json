@@ -192,5 +192,7 @@
     "settings.Add": "Ekle",
     "settings.AddProfileDescription": "Yeni Bir Profil Ekleyin",
     "settings.DefaultPages": "Öntanımlı Sayfalar",
-    "settings.DefaultPagesDescription": "Öntanımlı Açılış Sayfalarını Ayarlayın"
+    "settings.DefaultPagesDescription": "Öntanımlı Açılış Sayfalarını Ayarlayın",
+    "settings.ClearImageCache": "Resim Önbelleğini Temizle",
+    "settings.ClearImageCacheHint1": "Tüm resimleri önbellekten temizlemek istediğinizden emin misiniz?"
 }

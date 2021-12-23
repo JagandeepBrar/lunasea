@@ -184,5 +184,16 @@
     "settings.AccountDeleted": "Hesap Silindi",
     "settings.FailedToDeleteAccount": "Hesap Silinemedi",
     "settings.DeleteAccountDescription": "Hesabınızı Kalıcı Olarak Silin",
-    "settings.StartingView": "Başlangıç Görünümü"
+    "settings.StartingView": "Başlangıç Görünümü",
+    "settings.DefaultSortingAndFiltering": "Öntanımlı Sıralama ve Süzme",
+    "settings.DeleteProfileDescription": "Mevcut Bir Profili Silin",
+    "settings.RenameProfileDescription": "Mevcut Bir Profili Yeniden Adlandırın",
+    "settings.DefaultSortingAndFilteringDescription": "Öntanımlı Sıralama ve Süzme Yöntemlerini Ayarlayın",
+    "settings.Add": "Ekle",
+    "settings.AddProfileDescription": "Yeni Bir Profil Ekleyin",
+    "settings.DefaultPages": "Öntanımlı Sayfalar",
+    "settings.DefaultPagesDescription": "Öntanımlı Açılış Sayfalarını Ayarlayın",
+    "settings.ClearImageCache": "Resim Önbelleğini Temizle",
+    "settings.ClearImageCacheHint1": "Tüm resimleri önbellekten temizlemek istediğinizden emin misiniz?",
+    "settings.ClearImageCacheHint2": "Büyük bir kütüphane için resimleri yeniden indirmek büyük miktarda veri tüketebilir."
 }

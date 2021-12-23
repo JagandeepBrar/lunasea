@@ -73,5 +73,19 @@
     "sonarr.FailedToBackupDatabase": "Échec de la sauvegarde de la base de données",
     "sonarr.MissingEpisodesHint1": "Voulez-vous vraiment rechercher tous les épisodes manquants ?",
     "sonarr.Quality": "Qualité",
-    "sonarr.RemovedSeries": "Série retirée"
+    "sonarr.RemovedSeries": "Série retirée",
+    "sonarr.DestinationRelative": "Destination relative",
+    "sonarr.Codec": "Codec",
+    "sonarr.Continuing": "Continuer",
+    "sonarr.DeleteReasonManual": "Le fichier a été supprimé via l'interface utilisateur",
+    "sonarr.DownloadingRelease": "Téléchargement de la version…",
+    "sonarr.AddReleaseToBlocklist": "Ajouter une version à la liste de blocage",
+    "sonarr.DownloadedWaitingToImport": "Téléchargé : En attente d'importation",
+    "sonarr.CheckDownloadClient": "Vérifiez le client de téléchargement pour plus de détails",
+    "sonarr.Downloaded": "Téléchargé",
+    "sonarr.DownloadedImporting": "Téléchargé : importation",
+    "sonarr.DownloadedWaitingToProcess": "Téléchargé : En attente de traitement",
+    "sonarr.Downloading": "Téléchargement",
+    "sonarr.DownloadingWithMessage": "Téléchargement : {}",
+    "sonarr.DownloadClientUnavailable": "Le client de téléchargement n'est pas disponible"
 }

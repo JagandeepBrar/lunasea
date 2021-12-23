@@ -20,14 +20,14 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
           type: LunaButtonType.TEXT,
           text: 'lunasea.Add'.tr(),
           icon: Icons.add_rounded,
-          onTap: () async => _onTap(context, false),
+          onTap: () async => _onTap(context),
           loadingState: context.watch<RadarrAddMovieDetailsState>().state,
         ),
       ],
     );
   }
 
-  Future<void> _onTap(BuildContext context, bool searchOnAdd) async {
+  Future<void> _onTap(BuildContext context) async {
     if (context.read<RadarrAddMovieDetailsState>().canExecuteAction) {
       context.read<RadarrAddMovieDetailsState>().state =
           LunaLoadingState.ACTIVE;
@@ -41,7 +41,7 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
             context.read<RadarrAddMovieDetailsState>().qualityProfile,
         availability: context.read<RadarrAddMovieDetailsState>().availability,
         tags: context.read<RadarrAddMovieDetailsState>().tags,
-        searchForMovie: searchOnAdd,
+        searchForMovie: RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING.data,
       )
           .then((movie) async {
         context.read<RadarrState>().fetchMovies();

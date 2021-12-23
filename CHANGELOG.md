@@ -1,5 +1,13 @@
 # LunaSea Changelog
 
+## WIP
+
+#### FIX
+
+- `[Radarr]` (Add Movie) Would not trigger a search on add when selected
+
+---
+
 ## v6.0.0 (60000004)
 
 #### NEW

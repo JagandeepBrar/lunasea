@@ -7,6 +7,7 @@ class LidarrDescriptionBlock extends StatefulWidget {
   final String uri;
   final bool squareImage;
   final Map headers;
+  final Function onLongPress;
 
   const LidarrDescriptionBlock({
     Key key,
@@ -15,6 +16,7 @@ class LidarrDescriptionBlock extends StatefulWidget {
     @required this.uri,
     @required this.headers,
     this.squareImage = false,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -38,6 +40,7 @@ class _State extends State<LidarrDescriptionBlock> {
         widget.title,
         widget.description.trim() ?? 'No Summary Available',
       ),
+      onLongPress: widget.onLongPress,
       customBodyMaxLines: 3,
       posterPlaceholderIcon: LunaIcons.USER,
       posterHeaders: widget.headers,

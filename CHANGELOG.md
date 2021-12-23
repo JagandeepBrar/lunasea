@@ -2,6 +2,9 @@
 
 ## WIP
 
+- `[Lidarr]` (Add) Long-press result tile to view Discogs page
+- `[Lidarr]` (Add) Match add options UI to Sonarr and Radarr
+
 #### FIX
 
 - `[Radarr]` (Add) Would not trigger a search for missing movie when selected

@@ -271,29 +271,16 @@ class SonarrState extends LunaModuleState {
         : '$_host/api/v3/MediaCover';
   }
 
-  String getBannerURL(int seriesId, {bool highRes = false}) {
+  String getPosterURL(int seriesId) {
     if (_enabled) {
-      return highRes
-          ? '${_baseImageURL()}/$seriesId/banner.jpg?apikey=$_apiKey'
-          : '${_baseImageURL()}/$seriesId/banner-70.jpg?apikey=$_apiKey';
-    }
-    return null;
-  }
-
-  String getPosterURL(int seriesId, {bool highRes = false}) {
-    if (_enabled) {
-      return highRes
-          ? '${_baseImageURL()}/$seriesId/poster.jpg?apikey=$_apiKey'
-          : '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
+      return '${_baseImageURL()}/$seriesId/poster-250.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String getFanartURL(int seriesId, {bool highRes = false}) {
     if (_enabled) {
-      return highRes
-          ? '${_baseImageURL()}/$seriesId/fanart.jpg?apikey=$_apiKey'
-          : '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
+      return '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
     }
     return null;
   }

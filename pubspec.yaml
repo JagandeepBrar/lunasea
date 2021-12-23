@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 6.0.0+60000003
+version: 6.0.0+60000004
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -9,6 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   badges: ^2.0.2
+  bitsdojo_window: ^0.1.1+1
+  cached_network_image: ^3.2.0
   cloud_firestore: ^3.1.5
   convert: ^3.0.1
   dio: ^4.0.4
@@ -26,6 +28,7 @@ dependencies:
   fl_chart: ^0.40.6
   flash: ^2.0.3+1
   fluro: ^2.0.3
+  flutter_cache_manager: ^3.3.0
   flutter_spinkit: ^5.1.0
   google_nav_bar: ^5.0.5
   hive: ^2.0.5
@@ -59,7 +62,6 @@ dependencies:
   wake_on_lan:
     path: packages/wake_on_lan
   xml: ^5.3.1
-  bitsdojo_window: ^0.1.1+1
 
 dev_dependencies:
   build_runner: ^2.1.7

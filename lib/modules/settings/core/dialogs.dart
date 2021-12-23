@@ -1004,6 +1004,34 @@ class SettingsDialogs {
     return _flag;
   }
 
+  Future<bool> clearImageCache(BuildContext context) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.ClearImageCache'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Clear'.tr(),
+          textColor: LunaColours.red,
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(text: 'settings.ClearImageCacheHint1'.tr()),
+        LunaDialog.textContent(text: ''),
+        LunaDialog.textContent(text: 'settings.ClearImageCacheHint2'.tr()),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return _flag;
+  }
+
   Future<bool> clearConfiguration(BuildContext context) async {
     bool _flag = false;
 

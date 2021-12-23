@@ -52,17 +52,6 @@ class CalendarRadarrData extends CalendarData {
   }
 
   @override
-  String get bannerURI {
-    if (api['enabled']) {
-      if ((api['host'] as String).endsWith('/')) {
-        return '${api['host']}api/v3/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
-      }
-      return '${api['host']}/api/v3/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
-    }
-    return '';
-  }
-
-  @override
   Future<void> enterContent(BuildContext context) async =>
       RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
 

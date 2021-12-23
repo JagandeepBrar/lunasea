@@ -67,15 +67,6 @@ class CalendarSonarrData extends CalendarData {
   }
 
   @override
-  String get bannerURI {
-    return api['enabled']
-        ? (api['host'] as String).endsWith('/')
-            ? '${api['host']}api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
-            : '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
-        : '';
-  }
-
-  @override
   Future<void> enterContent(BuildContext context) async =>
       SonarrSeriesDetailsRouter().navigateTo(
         context,

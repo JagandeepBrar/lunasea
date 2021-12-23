@@ -30,31 +30,33 @@ build:
       (description): Build (Android) - Build Split APKs
       (execution): once
       (scripts):
-        - ./scripts/build/apk.sh
+        - flutter clean
+        - flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release
     aab:
       (description): Build (Android) - Build Appbundle
       (execution): once
       (scripts):
-        - ./scripts/build/aab.sh
+        - flutter clean
+        - flutter build appbundle --bundle-sksl-path shaders/android_sksl.json --release
   ios:
     ipa:
       (description): Build (iOS) - Build IPA
       (execution): once
       (scripts):
-        - ./scripts/build/ipa.sh
+        - flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release
     archive:
       (description): Build (iOS) - Build Xcode Archive
       (execution): once
       (scripts):
         - flutter clean
-        - flutter build ios --bundle-sksl-path shaders/ios_sksl.json
+        - flutter build ios --bundle-sksl-path shaders/ios_sksl.json --release
   macos:
     archive:
       (description): Build (iOS) - Build Xcode Archive
       (execution): once
       (scripts):
         - flutter clean
-        - flutter build macos
+        - flutter build macos --release
 cocoapods:
   clearcache:
     (description): Cocoapods - Delete Cache & Derived Data
@@ -109,4 +111,9 @@ generate:
     (description): Generator - Localizations
     (execution): once
     (scripts):
-      - dart ./scripts/generate/localization.dart
+      - dart ./scripts/generate_localization.dart
+profile:
+  (description): Run in Profile Mode
+  (execution): once
+  (scripts):
+    - flutter run --profile --cache-sksl --purge-persistent-cache

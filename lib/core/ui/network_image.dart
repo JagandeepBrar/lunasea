@@ -48,9 +48,11 @@ class LunaNetworkImage extends ClipRRect {
                     fadeOutDuration: const Duration(milliseconds: 1),
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
-                    image: NetworkImage(
+                    image: CachedNetworkImageProvider(
                       url,
                       headers: headers?.cast<String, String>(),
+                      cacheManager: LunaImageCache.instance,
+                      errorListener: () {},
                     ),
                     imageErrorBuilder: (context, error, stack) => SizedBox(
                       height: height,

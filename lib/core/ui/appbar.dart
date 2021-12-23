@@ -282,6 +282,7 @@ class _State extends State<LunaAppBar> {
         tooltip: 'Change Profiles',
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
               child: FadingEdgeScrollView.fromSingleChildScrollView(

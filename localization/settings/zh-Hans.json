@@ -184,5 +184,13 @@
     "settings.DeleteAccountDescription": "永久删除您的帐户",
     "settings.DeleteAccountWarning1": "这个过程不可逆",
     "settings.FailedToDeleteAccount": "删除账户失败",
-    "settings.StartingView": "开始视图"
+    "settings.StartingView": "开始视图",
+    "settings.DefaultPages": "默认页",
+    "settings.DefaultPagesDescription": "设置默认登录页",
+    "settings.DefaultSortingAndFiltering": "默认排序和过滤",
+    "settings.DefaultSortingAndFilteringDescription": "设置默认排序和过滤方法",
+    "settings.DeleteProfileDescription": "删除现有配置文件",
+    "settings.RenameProfileDescription": "重命名现有配置文件",
+    "settings.Add": "添加",
+    "settings.AddProfileDescription": "添加新配置文件"
 }

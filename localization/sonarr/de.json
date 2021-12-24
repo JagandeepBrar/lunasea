@@ -44,7 +44,7 @@
     "sonarr.Monitor": "Überwachen",
     "sonarr.MonitorEpisode": "Folge überwachen",
     "sonarr.MonitorSeries": "Serie überwachen",
-    "sonarr.MonitoredDescription": "Serie für neue Releases überwachen",
+    "sonarr.MonitoredDescription": "Überwachte Folgen dieser Serie herunterladen",
     "sonarr.NoEpisodesFound": "Keine Folgen gefunden",
     "sonarr.NoHistoryFound": "Kein Verlauf gefunden",
     "sonarr.NoLongerMonitoring": "Nicht länger überwacht",

@@ -14,6 +14,7 @@ export 'ui/dialog.dart';
 export 'ui/divider.dart';
 export 'ui/drawer.dart';
 export 'ui/floating_action_button.dart';
+export 'ui/grid_view.dart';
 export 'ui/header.dart';
 export 'ui/highlighted_node.dart';
 export 'ui/icons.dart';
@@ -65,9 +66,12 @@ class LunaUI {
   // <--> Icons
   static const double ICON_SIZE = 24.0;
 
-  // <--> Other
+  // <--> Animations
   static const int ANIMATION_SPEED = 250;
-  static const int ANIMATION_SPEED_IMAGES = 150;
+  static const int ANIMATION_SPEED_IMAGES = 125;
+  static const int ANIMATION_SPEED_SCROLLING = ANIMATION_SPEED * 2;
+
+  // <--> Other
   static const double BORDER_RADIUS = 10.0;
   static const double OPACITY_DIMMED = 0.75;
   static const double OPACITY_DISABLED = 0.50;

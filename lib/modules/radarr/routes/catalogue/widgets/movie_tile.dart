@@ -2,16 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
+enum _RadarrCatalogueTileType {
+  TILE,
+  GRID,
+}
+
 class RadarrCatalogueTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(2, hasBottom: true);
 
   final RadarrMovie movie;
   final RadarrQualityProfile profile;
+  final _RadarrCatalogueTileType type;
 
   const RadarrCatalogueTile({
     Key key,
     @required this.movie,
     @required this.profile,
+    this.type = _RadarrCatalogueTileType.TILE,
+  }) : super(key: key);
+
+  const RadarrCatalogueTile.grid({
+    Key key,
+    @required this.movie,
+    @required this.profile,
+    this.type = _RadarrCatalogueTileType.GRID,
   }) : super(key: key);
 
   @override
@@ -23,23 +37,54 @@ class _State extends State<RadarrCatalogueTile> {
   Widget build(BuildContext context) {
     return Selector<RadarrState, Future<List<RadarrMovie>>>(
       selector: (_, state) => state.movies,
-      builder: (context, movies, _) => LunaBlock(
-        backgroundUrl:
-            context.read<RadarrState>().getFanartURL(widget.movie.id),
-        posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
-        posterHeaders: context.read<RadarrState>().headers,
-        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-        disabled: !widget.movie.monitored,
-        title: widget.movie.title,
-        body: [
-          _subtitle1(),
-          _subtitle2(),
-        ],
-        posterIsSquare: false,
-        bottom: _subtitle3(),
-        onTap: _onTap,
-        onLongPress: _onLongPress,
-      ),
+      builder: (context, movies, _) {
+        switch (widget.type) {
+          case _RadarrCatalogueTileType.TILE:
+            return _buildBlockTile();
+          case _RadarrCatalogueTileType.GRID:
+            return _buildGridTile();
+          default:
+            throw Exception('Invalid _RadarrCatalogueTileType');
+        }
+      },
+    );
+  }
+
+  Widget _buildBlockTile() {
+    return LunaBlock(
+      key: ObjectKey(widget.movie),
+      backgroundUrl: context.read<RadarrState>().getFanartURL(widget.movie.id),
+      posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+      posterHeaders: context.read<RadarrState>().headers,
+      backgroundHeaders: context.read<RadarrState>().headers,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      disabled: !widget.movie.monitored,
+      title: widget.movie.title,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+      ],
+      posterIsSquare: false,
+      bottom: _subtitle3(),
+      onTap: _onTap,
+      onLongPress: _onLongPress,
+    );
+  }
+
+  Widget _buildGridTile() {
+    RadarrMoviesSorting _sorting = context.read<RadarrState>().moviesSortType;
+    return LunaGridBlock(
+      key: ObjectKey(widget.movie),
+      backgroundUrl: context.read<RadarrState>().getFanartURL(widget.movie.id),
+      posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+      posterHeaders: context.read<RadarrState>().headers,
+      backgroundHeaders: context.read<RadarrState>().headers,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      title: widget.movie.title,
+      subtitle: TextSpan(text: _sorting.value(widget.movie, widget.profile)),
+      disabled: !widget.movie.monitored,
+      onTap: _onTap,
+      onLongPress: _onLongPress,
     );
   }
 

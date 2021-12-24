@@ -62,20 +62,16 @@ class _State extends State<SonarrCatalogueRoute>
       onRefresh: _refresh,
       child: Selector<
           SonarrState,
-          Tuple3<
-              Future<Map<int, SonarrSeries>>,
-              Future<List<SonarrQualityProfile>>,
-              Future<List<SonarrLanguageProfile>>>>(
-        selector: (_, state) => Tuple3(
+          Tuple2<Future<Map<int, SonarrSeries>>,
+              Future<List<SonarrQualityProfile>>>>(
+        selector: (_, state) => Tuple2(
           state.series,
           state.qualityProfiles,
-          state.languageProfiles,
         ),
         builder: (context, tuple, _) => FutureBuilder(
           future: Future.wait([
             tuple.item1,
             tuple.item2,
-            tuple.item3,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
@@ -94,7 +90,6 @@ class _State extends State<SonarrCatalogueRoute>
               return _series(
                 snapshot.data[0],
                 snapshot.data[1],
-                snapshot.data[2],
               );
             }
             return const LunaLoader();
@@ -128,7 +123,6 @@ class _State extends State<SonarrCatalogueRoute>
   Widget _series(
     Map<int, SonarrSeries> series,
     List<SonarrQualityProfile> qualities,
-    List<SonarrLanguageProfile> languages,
   ) {
     if ((series?.length ?? 0) == 0)
       return LunaMessage(
@@ -165,19 +159,51 @@ class _State extends State<SonarrCatalogueRoute>
                 ),
             ],
           );
-        return LunaListViewBuilder(
-          controller: SonarrNavigationBar.scrollControllers[0],
-          itemCount: _filtered.length,
-          itemExtent: SonarrSeriesTile.itemExtent,
-          itemBuilder: (context, index) => SonarrSeriesTile(
-            series: _filtered[index],
-            profile: qualities.firstWhere(
-              (element) => element.id == _filtered[index].qualityProfileId,
-              orElse: () => null,
-            ),
-          ),
-        );
+        switch (context.read<SonarrState>().seriesViewType) {
+          case LunaListViewOption.BLOCK_VIEW:
+            return _blockView(_filtered, qualities);
+          case LunaListViewOption.GRID_VIEW:
+            return _gridView(_filtered, qualities);
+          default:
+            throw Exception('Invalid moviesViewType');
+        }
       },
+    );
+  }
+
+  Widget _blockView(
+    List<SonarrSeries> series,
+    List<SonarrQualityProfile> qualities,
+  ) {
+    return LunaListViewBuilder(
+      controller: SonarrNavigationBar.scrollControllers[0],
+      itemCount: series.length,
+      itemExtent: SonarrSeriesTile.itemExtent,
+      itemBuilder: (context, index) => SonarrSeriesTile(
+        series: series[index],
+        profile: qualities.firstWhere(
+          (element) => element.id == series[index].qualityProfileId,
+          orElse: () => null,
+        ),
+      ),
+    );
+  }
+
+  Widget _gridView(
+    List<SonarrSeries> series,
+    List<SonarrQualityProfile> qualities,
+  ) {
+    return LunaGridViewBuilder(
+      controller: SonarrNavigationBar.scrollControllers[0],
+      sliverGridDelegate: LunaGridBlock.MAX_CROSS_AXIS_EXTENT,
+      itemCount: series.length,
+      itemBuilder: (context, index) => SonarrSeriesTile.grid(
+        series: series[index],
+        profile: qualities.firstWhere(
+          (element) => element.id == series[index].qualityProfileId,
+          orElse: () => null,
+        ),
+      ),
     );
   }
 }

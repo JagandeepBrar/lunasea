@@ -47,8 +47,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         _enabledToggle(),
         _connectionDetailsPage(),
         const LunaDivider(),
+        _defaultOptionsPage(),
         _defaultPagesPage(),
-        _defaultSortingFilteringPage(),
         _discoverUseRadarrSuggestionsToggle(),
         _queueSize(),
       ],
@@ -82,6 +82,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
+  Widget _defaultOptionsPage() {
+    return LunaBlock(
+      title: 'settings.DefaultOptions'.tr(),
+      body: [TextSpan(text: 'settings.DefaultOptionsDescription'.tr())],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async =>
+          SettingsConfigurationRadarrDefaultOptionsRouter().navigateTo(context),
+    );
+  }
+
   Widget _defaultPagesPage() {
     return LunaBlock(
       title: 'Default Pages',
@@ -89,16 +99,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       trailing: const LunaIconButton.arrow(),
       onTap: () async =>
           SettingsConfigurationRadarrDefaultPagesRouter().navigateTo(context),
-    );
-  }
-
-  Widget _defaultSortingFilteringPage() {
-    return LunaBlock(
-      title: 'Default Sorting & Filtering',
-      body: const [TextSpan(text: 'Set Default Sorting & Filtering Methods')],
-      trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationRadarrDefaultSortingRouter().navigateTo(context),
     );
   }
 

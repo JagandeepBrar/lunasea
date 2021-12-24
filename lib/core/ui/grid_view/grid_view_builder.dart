@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LunaListViewBuilder extends StatelessWidget {
+class LunaGridViewBuilder extends StatelessWidget {
   final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
   final double itemExtent;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
   final ScrollPhysics physics;
   final ScrollController controller;
+  final SliverGridDelegate sliverGridDelegate;
 
-  const LunaListViewBuilder({
+  const LunaGridViewBuilder({
     Key key,
     @required this.itemCount,
     @required this.itemBuilder,
+    @required this.sliverGridDelegate,
     this.itemExtent,
     @required this.controller,
     this.padding,
@@ -23,19 +25,19 @@ class LunaListViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: controller,
-      child: ListView.builder(
+      child: GridView.builder(
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: padding ?? _defaultPadding(context),
         physics: physics,
         itemCount: itemCount,
+        gridDelegate: sliverGridDelegate,
         itemBuilder: itemBuilder,
-        itemExtent: itemExtent,
       ),
     );
   }
 
   EdgeInsets _defaultPadding(BuildContext context) {
-    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF_VERTICAL);
+    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF);
   }
 }

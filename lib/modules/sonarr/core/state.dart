@@ -81,6 +81,15 @@ class SonarrState extends LunaModuleState {
   /////////////////
   /// CATALOGUE ///
   /////////////////
+  
+  LunaListViewOption _seriesViewType =
+      SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data;
+  LunaListViewOption get seriesViewType => _seriesViewType;
+  set seriesViewType(LunaListViewOption seriesViewType) {
+    assert(seriesViewType != null);
+    _seriesViewType = seriesViewType;
+    notifyListeners();
+  }
 
   String _seriesSearchQuery = '';
   String get seriesSearchQuery => _seriesSearchQuery;
@@ -273,7 +282,7 @@ class SonarrState extends LunaModuleState {
 
   String getPosterURL(int seriesId) {
     if (_enabled) {
-      return '${_baseImageURL()}/$seriesId/poster-250.jpg?apikey=$_apiKey';
+      return '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }

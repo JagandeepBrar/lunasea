@@ -12,6 +12,7 @@ export 'package:provider/provider.dart';
 export 'package:stash/stash_api.dart';
 export 'package:stash_memory/stash_memory.dart';
 export 'package:supercharged/supercharged.dart';
+export 'package:transparent_image/transparent_image.dart';
 export 'package:tuple/tuple.dart';
 // Local
 export 'core/assets.dart';

@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SettingsConfigurationSonarrDefaultSortingRouter
+class SettingsConfigurationSonarrDefaultOptionsRouter
     extends SettingsPageRouter {
-  SettingsConfigurationSonarrDefaultSortingRouter()
-      : super('/settings/configuration/sonarr/sorting');
+  SettingsConfigurationSonarrDefaultOptionsRouter()
+      : super('/settings/configuration/sonarr/options');
 
   @override
   _Widget widget() => _Widget();
@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Sorting & Filtering',
+      title: 'settings.DefaultOptions'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -44,14 +44,51 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        LunaHeader(text: 'sonarr.Series'.tr()),
+        _filteringSeries(),
         _sortingSeries(),
         _sortingSeriesDirection(),
-        _filteringSeries(),
-        const LunaDivider(),
+        _viewSeries(),
+        LunaHeader(text: 'sonarr.Releases'.tr()),
+        _filteringReleases(),
         _sortingReleases(),
         _sortingReleasesDirection(),
-        _filteringReleases(),
       ],
+    );
+  }
+
+  Widget _viewSeries() {
+    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_VIEW_SERIES;
+    return _db.listen(
+      builder: (context, box, _) {
+        LunaListViewOption _view = _db.data;
+        return LunaBlock(
+          title: 'lunasea.View'.tr(),
+          body: [TextSpan(text: _view.readable)],
+          trailing: const LunaIconButton.arrow(),
+          onTap: () async {
+            List<String> titles = LunaListViewOption.values
+                .map<String>((view) => view.readable)
+                .toList();
+            List<IconData> icons = LunaListViewOption.values
+                .map<IconData>((view) => view.icon)
+                .toList();
+
+            Tuple2<bool, int> values = await SettingsDialogs().setDefaultOption(
+              context,
+              title: 'lunasea.View'.tr(),
+              values: titles,
+              icons: icons,
+            );
+
+            if (values.item1) {
+              LunaListViewOption _opt = LunaListViewOption.values[values.item2];
+              context.read<SonarrState>().seriesViewType = _opt;
+              _db.put(_opt);
+            }
+          },
+        );
+      },
     );
   }
 
@@ -59,15 +96,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_SORTING_SERIES;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Series Sort Category',
+        title: 'settings.SortCategory'.tr(),
         body: [TextSpan(text: (_db.data as SonarrSeriesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrSeriesSorting.values
               .map<String>((sorting) => sorting.readable)
               .toList();
-          Tuple2<bool, int> values = await SonarrDialogs()
-              .setDefaultSortingOrFiltering(context, titles: titles);
+          List<IconData> icons = List.filled(titles.length, LunaIcons.SORT);
+
+          Tuple2<bool, int> values = await SettingsDialogs().setDefaultOption(
+            context,
+            title: 'settings.SortCategory'.tr(),
+            values: titles,
+            icons: icons,
+          );
+
           if (values.item1) {
             _db.put(SonarrSeriesSorting.values[values.item2]);
             context.read<SonarrState>().seriesSortType = _db.data;
@@ -84,16 +128,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Series Sort Direction',
-        body: [TextSpan(text: _db.data ? 'Ascending' : 'Descending')],
+        title: 'settings.SortDirection'.tr(),
+        body: [
+          TextSpan(
+            text:
+                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+          ),
+        ],
         trailing: LunaSwitch(
           value: _db.data,
-          onChanged: (value) {
-            _db.put(value);
-            context.read<SonarrState>().seriesSortType =
-                SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
-            context.read<SonarrState>().seriesSortAscending = _db.data;
-          },
+          onChanged: (value) => _db.put(value),
         ),
       ),
     );
@@ -103,15 +147,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_FILTERING_SERIES;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Series Filter Category',
+        title: 'settings.FilterCategory'.tr(),
         body: [TextSpan(text: (_db.data as SonarrSeriesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrSeriesFilter.values
-              .map<String>((filter) => filter.readable)
+              .map<String>((sorting) => sorting.readable)
               .toList();
-          Tuple2<bool, int> values = await SonarrDialogs()
-              .setDefaultSortingOrFiltering(context, titles: titles);
+          List<IconData> icons = List.filled(titles.length, LunaIcons.FILTER);
+
+          Tuple2<bool, int> values = await SettingsDialogs().setDefaultOption(
+            context,
+            title: 'settings.FilterCategory'.tr(),
+            values: titles,
+            icons: icons,
+          );
+
           if (values.item1) {
             _db.put(SonarrSeriesFilter.values[values.item2]);
           }
@@ -124,15 +175,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Releases Sort Category',
+        title: 'settings.SortCategory'.tr(),
         body: [TextSpan(text: (_db.data as SonarrReleasesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrReleasesSorting.values
               .map<String>((sorting) => sorting.readable)
               .toList();
-          Tuple2<bool, int> values = await SonarrDialogs()
-              .setDefaultSortingOrFiltering(context, titles: titles);
+          List<IconData> icons = List.filled(titles.length, LunaIcons.SORT);
+
+          Tuple2<bool, int> values = await SettingsDialogs().setDefaultOption(
+            context,
+            title: 'settings.SortCategory'.tr(),
+            values: titles,
+            icons: icons,
+          );
+
           if (values.item1) {
             _db.put(SonarrReleasesSorting.values[values.item2]);
           }
@@ -146,8 +204,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Releases Sort Direction',
-        body: [TextSpan(text: _db.data ? 'Ascending' : 'Descending')],
+        title: 'settings.SortDirection'.tr(),
+        body: [
+          TextSpan(
+            text:
+                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+          ),
+        ],
         trailing: LunaSwitch(
           value: _db.data,
           onChanged: (value) => _db.put(value),
@@ -160,18 +223,24 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Releases Filter Category',
+        title: 'settings.FilterCategory'.tr(),
         body: [TextSpan(text: (_db.data as SonarrReleasesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrReleasesFilter.values
-              .map<String>((filter) => filter.readable)
+              .map<String>((sorting) => sorting.readable)
               .toList();
-          Tuple2<bool, int> values = await SonarrDialogs()
-              .setDefaultSortingOrFiltering(context, titles: titles);
+          List<IconData> icons = List.filled(titles.length, LunaIcons.FILTER);
+
+          Tuple2<bool, int> values = await SettingsDialogs().setDefaultOption(
+            context,
+            title: 'settings.FilterCategory'.tr(),
+            values: titles,
+            icons: icons,
+          );
+
           if (values.item1) {
             _db.put(SonarrReleasesFilter.values[values.item2]);
-            context.read<SonarrState>().seriesFilterType = _db.data;
           }
         },
       ),

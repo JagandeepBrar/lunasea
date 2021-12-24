@@ -129,7 +129,7 @@ class LidarrCatalogueData {
       String _base = (api['host'] as String).endsWith('/')
           ? '${api['host']}api/v1/MediaCover/Artist'
           : '${api['host']}/api/v1/MediaCover/Artist';
-      return '$_base/$artistID/poster-250.jpg?apikey=${api['key']}';
+      return '$_base/$artistID/poster-500.jpg?apikey=${api['key']}';
     }
     return '';
   }

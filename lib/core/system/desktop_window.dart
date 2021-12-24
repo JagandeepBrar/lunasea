@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
@@ -17,9 +18,12 @@ class LunaDesktopWindow {
 
         final win = appWindow;
         win.minSize = minSize;
-        win.size = size;
-        win.alignment = Alignment.center;
         win.title = "LunaSea";
+        if (!kDebugMode) {
+          win.size = size;
+          win.alignment = Alignment.center;
+        }
+
         win.show();
       });
     }

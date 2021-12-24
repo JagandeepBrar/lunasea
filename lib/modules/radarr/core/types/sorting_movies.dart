@@ -114,6 +114,34 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
     throw Exception('Unknown RadarrMoviesSorting');
   }
 
+  String value(RadarrMovie movie, RadarrQualityProfile profile) {
+    switch (this) {
+      case RadarrMoviesSorting.ALPHABETICAL:
+        return movie.lunaYear;
+      case RadarrMoviesSorting.DATE_ADDED:
+        return movie.lunaDateAdded;
+      case RadarrMoviesSorting.DIGITAL_RELEASE:
+        return movie.lunaDigitalReleaseDate;
+      case RadarrMoviesSorting.IN_CINEMAS:
+        return movie.lunaInCinemasOn;
+      case RadarrMoviesSorting.MIN_AVAILABILITY:
+        return movie.lunaMinimumAvailability;
+      case RadarrMoviesSorting.PHYSICAL_RELEASE:
+        return movie.lunaPhysicalReleaseDate;
+      case RadarrMoviesSorting.QUALITY_PROFILE:
+        return profile?.name ?? LunaUI.TEXT_EMDASH;
+      case RadarrMoviesSorting.RUNTIME:
+        return movie.lunaRuntime;
+      case RadarrMoviesSorting.SIZE:
+        return movie.lunaFileSize;
+      case RadarrMoviesSorting.STUDIO:
+        return movie.lunaStudio;
+      case RadarrMoviesSorting.YEAR:
+        return movie.lunaYear;
+    }
+    throw Exception('Invalid RadarrMoviesSorting');
+  }
+
   List<RadarrMovie> sort(List<RadarrMovie> data, bool ascending) =>
       _Sorter().byType(data, this, ascending);
 }

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -86,7 +85,7 @@ class _State extends State<RadarrCatalogueRoute>
                   );
                 }
                 if (snapshot.hasData)
-                  return _movies(
+                  return _movieList(
                     snapshot.data[0],
                     snapshot.data[1],
                   );
@@ -117,7 +116,7 @@ class _State extends State<RadarrCatalogueRoute>
     return filtered;
   }
 
-  Widget _movies(
+  Widget _movieList(
     List<RadarrMovie> movies,
     List<RadarrQualityProfile> qualityProfiles,
   ) {
@@ -156,19 +155,51 @@ class _State extends State<RadarrCatalogueRoute>
                 ),
             ],
           );
-        return LunaListViewBuilder(
-          controller: RadarrNavigationBar.scrollControllers[0],
-          itemCount: _filtered.length,
-          itemExtent: RadarrCatalogueTile.itemExtent,
-          itemBuilder: (context, index) => RadarrCatalogueTile(
-            movie: _filtered[index],
-            profile: qualityProfiles.firstWhere(
-              (element) => element.id == _filtered[index].qualityProfileId,
-              orElse: () => null,
-            ),
-          ),
-        );
+        switch (context.read<RadarrState>().moviesViewType) {
+          case LunaListViewOption.BLOCK_VIEW:
+            return _blockView(_filtered, qualityProfiles);
+          case LunaListViewOption.GRID_VIEW:
+            return _gridView(_filtered, qualityProfiles);
+          default:
+            throw Exception('Invalid moviesViewType');
+        }
       },
+    );
+  }
+
+  Widget _blockView(
+    List<RadarrMovie> movies,
+    List<RadarrQualityProfile> qualityProfiles,
+  ) {
+    return LunaListViewBuilder(
+      controller: RadarrNavigationBar.scrollControllers[0],
+      itemCount: movies.length,
+      itemExtent: RadarrCatalogueTile.itemExtent,
+      itemBuilder: (context, index) => RadarrCatalogueTile(
+        movie: movies[index],
+        profile: qualityProfiles.firstWhere(
+          (element) => element.id == movies[index].qualityProfileId,
+          orElse: () => null,
+        ),
+      ),
+    );
+  }
+
+  Widget _gridView(
+    List<RadarrMovie> movies,
+    List<RadarrQualityProfile> qualityProfiles,
+  ) {
+    return LunaGridViewBuilder(
+      controller: RadarrNavigationBar.scrollControllers[0],
+      sliverGridDelegate: LunaGridBlock.MAX_CROSS_AXIS_EXTENT,
+      itemCount: movies.length,
+      itemBuilder: (context, index) => RadarrCatalogueTile.grid(
+        movie: movies[index],
+        profile: qualityProfiles.firstWhere(
+          (element) => element.id == movies[index].qualityProfileId,
+          orElse: () => null,
+        ),
+      ),
     );
   }
 }

@@ -76,6 +76,10 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
     }
   }
 
+  String value(SonarrSeries series, SonarrQualityProfile profile) {
+    return series.lunaEpisodeCount;
+  }
+
   SonarrSeriesSorting fromKey(String key) {
     switch (key) {
       case 'abc':

@@ -100,8 +100,8 @@ class CalendarLidarrData extends CalendarData {
   String posterUrl(BuildContext context) {
     return api['enabled']
         ? (api['host'] as String).endsWith('/')
-            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/poster-250.jpg?apikey=${api['key']}'
-            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/poster-250.jpg?apikey=${api['key']}'
+            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
+            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
         : '';
   }
 }

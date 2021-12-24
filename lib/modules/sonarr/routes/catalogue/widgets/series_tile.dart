@@ -2,16 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+enum _SonarrSeriesTileType {
+  TILE,
+  GRID,
+}
+
 class SonarrSeriesTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final SonarrSeries series;
   final SonarrQualityProfile profile;
+  final _SonarrSeriesTileType type;
 
   const SonarrSeriesTile({
     Key key,
     @required this.series,
     @required this.profile,
+    this.type = _SonarrSeriesTileType.TILE,
+  }) : super(key: key);
+
+  const SonarrSeriesTile.grid({
+    Key key,
+    @required this.series,
+    @required this.profile,
+    this.type = _SonarrSeriesTileType.GRID,
   }) : super(key: key);
 
   @override
@@ -23,22 +37,51 @@ class _State extends State<SonarrSeriesTile> {
   Widget build(BuildContext context) {
     return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
       selector: (_, state) => state.series,
-      builder: (context, series, _) => LunaBlock(
-        backgroundUrl:
-            context.read<SonarrState>().getFanartURL(widget.series.id),
-        posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
-        posterHeaders: context.read<SonarrState>().headers,
-        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-        disabled: !widget.series.monitored,
-        title: widget.series.title,
-        body: [
-          _subtitle1(),
-          _subtitle2(),
-          _subtitle3(),
-        ],
-        onTap: _onTap,
-        onLongPress: _onLongPress,
-      ),
+      builder: (context, series, _) {
+        switch (widget.type) {
+          case _SonarrSeriesTileType.TILE:
+            return _buildBlockTile();
+          case _SonarrSeriesTileType.GRID:
+            return _buildGridTile();
+          default:
+            throw Exception('Invalid _SonarrSeriesTileType');
+        }
+      },
+    );
+  }
+
+  Widget _buildBlockTile() {
+    return LunaBlock(
+      backgroundUrl: context.read<SonarrState>().getFanartURL(widget.series.id),
+      posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
+      posterHeaders: context.read<SonarrState>().headers,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      disabled: !widget.series.monitored,
+      title: widget.series.title,
+      body: [
+        _subtitle1(),
+        _subtitle2(),
+        _subtitle3(),
+      ],
+      onTap: _onTap,
+      onLongPress: _onLongPress,
+    );
+  }
+
+  Widget _buildGridTile() {
+    SonarrSeriesSorting _sorting = context.read<SonarrState>().seriesSortType;
+    return LunaGridBlock(
+      key: ObjectKey(widget.series),
+      backgroundUrl: context.read<SonarrState>().getFanartURL(widget.series.id),
+      posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
+      posterHeaders: context.read<SonarrState>().headers,
+      backgroundHeaders: context.read<SonarrState>().headers,
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      title: widget.series.title,
+      subtitle: TextSpan(text: _sorting.value(widget.series, widget.profile)),
+      disabled: !widget.series.monitored,
+      onTap: _onTap,
+      onLongPress: _onLongPress,
     );
   }
 

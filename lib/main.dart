@@ -107,7 +107,10 @@ class _State extends State<LunaOS> {
     Intl.defaultLocale = tag;
 
     LunaQuickActions().initialize();
-    LunaChangelogSheet.delayedShow();
+    LunaChangelogSheet().show(
+      context: LunaState.navigatorKey.currentContext,
+      checkBuildNumber: true,
+    );
   }
 
   @override

@@ -16,6 +16,7 @@ enum SonarrDatabaseValue {
   ADD_SERIES_DEFAULT_QUALITY_PROFILE,
   ADD_SERIES_DEFAULT_ROOT_FOLDER,
   ADD_SERIES_DEFAULT_TAGS,
+  DEFAULT_VIEW_SERIES,
   DEFAULT_FILTERING_SERIES,
   DEFAULT_FILTERING_RELEASES,
   DEFAULT_SORTING_SERIES,
@@ -73,6 +74,11 @@ class SonarrDatabase extends LunaModuleDatabase {
                   as SonarrReleasesFilter)
               .key;
           break;
+        case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
+          data[value.key] = (SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data
+                  as LunaListViewOption)
+              .key;
+          break;
         // Primitive values
         default:
           data[value.key] = value.data;
@@ -100,6 +106,9 @@ class SonarrDatabase extends LunaModuleDatabase {
             break;
           case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
             value.put(SonarrReleasesFilter.ALL.fromKey(config[key]));
+            break;
+          case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
+            value.put(LunaListViewOption.GRID_VIEW.fromKey(config[key]));
             break;
           // Primitive values
           default:
@@ -206,6 +215,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return value is bool;
       case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
         return value is bool;
+      case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
+        return value is LunaListViewOption;
     }
     throw Exception('Invalid SonarrDatabaseValue');
   }
@@ -266,6 +277,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         return false;
       case SonarrDatabaseValue.QUEUE_ADD_BLOCKLIST:
         return false;
+      case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
+        return LunaListViewOption.BLOCK_VIEW;
     }
     throw Exception('Invalid SonarrDatabaseValue');
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class LunaNetworkImage extends ClipRRect {
   LunaNetworkImage({
@@ -26,7 +25,7 @@ class LunaNetworkImage extends ClipRRect {
                         ? Icon(
                             placeholderIcon,
                             color: LunaColours.accent,
-                            size: height / 3,
+                            size: width * 0.40,
                           )
                         : null,
                   ),

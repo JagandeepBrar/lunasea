@@ -33,6 +33,7 @@ class LunaDatabase extends LunaModuleDatabase {
     Hive.registerAdapter(LunaIndexerIconAdapter());
     Hive.registerAdapter(LunaLogTypeAdapter());
     Hive.registerAdapter(LunaModuleAdapter());
+    Hive.registerAdapter(LunaListViewOptionAdapter());
   }
 
   @override

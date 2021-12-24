@@ -37,8 +37,8 @@ class SettingsRouter extends LunaModuleRouter {
     // Configuration/Radarr
     SettingsConfigurationRadarrRouter().defineRoute(router);
     SettingsConfigurationRadarrConnectionDetailsRouter().defineRoute(router);
+    SettingsConfigurationRadarrDefaultOptionsRouter().defineRoute(router);
     SettingsConfigurationRadarrDefaultPagesRouter().defineRoute(router);
-    SettingsConfigurationRadarrDefaultSortingRouter().defineRoute(router);
     SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
     // Configuration/SABnzbd
     SettingsConfigurationSABnzbdRouter().defineRoute(router);
@@ -54,8 +54,8 @@ class SettingsRouter extends LunaModuleRouter {
     // Configuration/Sonarr
     SettingsConfigurationSonarrRouter().defineRoute(router);
     SettingsConfigurationSonarrConnectionDetailsRouter().defineRoute(router);
+    SettingsConfigurationSonarrDefaultOptionsRouter().defineRoute(router);
     SettingsConfigurationSonarrDefaultPagesRouter().defineRoute(router);
-    SettingsConfigurationSonarrDefaultSortingRouter().defineRoute(router);
     SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
     // Configuration/Overseerr
     SettingsConfigurationOverseerrRouter().defineRoute(router);

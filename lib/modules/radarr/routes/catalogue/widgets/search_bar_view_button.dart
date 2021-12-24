@@ -2,42 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrCatalogueSearchBarFilterButton extends StatefulWidget {
+class RadarrCatalogueSearchBarViewButton extends StatefulWidget {
   final ScrollController controller;
 
-  const RadarrCatalogueSearchBarFilterButton({
+  const RadarrCatalogueSearchBarViewButton({
     Key key,
     @required this.controller,
   }) : super(key: key);
 
   @override
-  State<RadarrCatalogueSearchBarFilterButton> createState() => _State();
+  State<RadarrCatalogueSearchBarViewButton> createState() => _State();
 }
 
-class _State extends State<RadarrCatalogueSearchBarFilterButton> {
+class _State extends State<RadarrCatalogueSearchBarViewButton> {
   @override
   Widget build(BuildContext context) {
     return LunaCard(
       context: context,
       child: Consumer<RadarrState>(
-        builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesFilter>(
-          tooltip: 'radarr.FilterCatalogue'.tr(),
-          icon: LunaIcons.FILTER,
+        builder: (context, state, _) => LunaPopupMenuButton<LunaListViewOption>(
+          tooltip: 'lunasea.View'.tr(),
+          icon: LunaIcons.VIEW,
           onSelected: (result) {
-            state.moviesFilterType = result;
+            state.moviesViewType = result;
             widget.controller.lunaAnimateToStart();
           },
           itemBuilder: (context) =>
-              List<PopupMenuEntry<RadarrMoviesFilter>>.generate(
-            RadarrMoviesFilter.values.length,
-            (index) => PopupMenuItem<RadarrMoviesFilter>(
-              value: RadarrMoviesFilter.values[index],
+              List<PopupMenuEntry<LunaListViewOption>>.generate(
+            LunaListViewOption.values.length,
+            (index) => PopupMenuItem<LunaListViewOption>(
+              value: LunaListViewOption.values[index],
               child: Text(
-                RadarrMoviesFilter.values[index].readable,
+                LunaListViewOption.values[index].readable,
                 style: TextStyle(
                   fontSize: LunaUI.FONT_SIZE_H3,
                   color:
-                      state.moviesFilterType == RadarrMoviesFilter.values[index]
+                      state.moviesViewType == LunaListViewOption.values[index]
                           ? LunaColours.accent
                           : Colors.white,
                 ),
@@ -46,10 +46,10 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
           ),
         ),
       ),
-      height: LunaTextInputBar.defaultHeight,
-      width: LunaTextInputBar.defaultHeight,
       margin: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE),
       color: Theme.of(context).canvasColor,
+      height: LunaTextInputBar.defaultHeight,
+      width: LunaTextInputBar.defaultHeight,
     );
   }
 }

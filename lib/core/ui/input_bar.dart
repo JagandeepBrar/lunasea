@@ -15,6 +15,7 @@ class LunaTextInputBar extends StatefulWidget {
   final TextEditingController controller;
   final ScrollController scrollController;
   final TextInputAction action;
+  final FocusNode focusNode;
   final TextInputType keyboardType;
   final Iterable<String> autofillHints;
   final String labelText;
@@ -27,7 +28,7 @@ class LunaTextInputBar extends StatefulWidget {
   final String Function(String) validator;
   final EdgeInsets margin;
 
-  LunaTextInputBar({
+  const LunaTextInputBar({
     Key key,
     @required this.controller,
     this.scrollController,
@@ -40,12 +41,11 @@ class LunaTextInputBar extends StatefulWidget {
     this.labelText,
     this.labelIcon = Icons.search_rounded,
     this.margin = LunaUI.MARGIN_H_DEFAULT_V_HALF,
+    this.focusNode,
     this.autofocus = false,
     this.obscureText = false,
     this.isFormField = false,
-  }) : super(key: key) {
-    assert(controller != null);
-  }
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -117,7 +117,7 @@ class _State extends State<LunaTextInputBar> {
             hoverColor: Colors.transparent,
           ),
           opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         ),
         icon: Padding(
           child: Icon(
@@ -145,10 +145,12 @@ class _State extends State<LunaTextInputBar> {
         onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged,
         onFieldSubmitted: widget?.onSubmitted,
+        focusNode: widget.focusNode,
       );
 
   TextField get _isNotForm => TextField(
         autofillHints: widget.autofillHints,
+        focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         controller: widget.controller,
         decoration: _sharedInputDecoration,

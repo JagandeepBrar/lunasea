@@ -67,7 +67,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
         ),
         height: LunaTextInputBar.defaultHeight,
         width: LunaTextInputBar.defaultHeight,
-        margin: EdgeInsets.zero,
+        margin: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE),
         color: Theme.of(context).canvasColor,
       );
 }

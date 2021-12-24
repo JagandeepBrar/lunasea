@@ -93,6 +93,15 @@ class RadarrState extends LunaModuleState {
     notifyListeners();
   }
 
+  LunaListViewOption _moviesViewType =
+      RadarrDatabaseValue.DEFAULT_VIEW_MOVIES.data;
+  LunaListViewOption get moviesViewType => _moviesViewType;
+  set moviesViewType(LunaListViewOption moviesViewType) {
+    assert(moviesViewType != null);
+    _moviesViewType = moviesViewType;
+    notifyListeners();
+  }
+
   RadarrMoviesSorting _moviesSortType =
       RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
   RadarrMoviesSorting get moviesSortType => _moviesSortType;
@@ -330,7 +339,7 @@ class RadarrState extends LunaModuleState {
       String _base = _host.endsWith('/')
           ? '${_host}api/v3/MediaCover'
           : '$_host/api/v3/MediaCover';
-      return '$_base/$movieId/poster-250.jpg?apikey=$_apiKey';
+      return '$_base/$movieId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }

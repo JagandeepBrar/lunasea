@@ -5,6 +5,39 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
+  Future<Tuple2<bool, int>> setDefaultOption(
+    BuildContext context, {
+    @required String title,
+    @required List<String> values,
+    @required List<IconData> icons,
+  }) async {
+    bool _flag = false;
+    int _index = 0;
+
+    void _setValues(bool flag, int index) {
+      _flag = flag;
+      _index = index;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: title,
+      content: List.generate(
+        values.length,
+        (index) => LunaDialog.tile(
+          text: values[index],
+          icon: icons[index],
+          iconColor: LunaColours().byListIndex(index),
+          onTap: () => _setValues(true, index),
+        ),
+      ),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+
+    return Tuple2(_flag, _index);
+  }
+
   Future<bool> confirmAccountSignOut(BuildContext context) async {
     bool _flag = false;
 

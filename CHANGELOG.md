@@ -2,8 +2,14 @@
 
 ## WIP
 
+#### NEW
+
 - `[Lidarr]` (Add) Long-press result tile to view Discogs page
 - `[Lidarr]` (Add) Match add options UI to Sonarr and Radarr
+- `[Radarr]` (Catalogue) Grid view support
+- `[Settings]` (Configuration) Ability to set default view for Radarr and Sonarr catalogue
+- `[Sonarr]` (Catalogue) Grid view support
+- `[UIUX]` (Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr
 
 #### FIX
 

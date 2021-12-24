@@ -10,6 +10,7 @@ enum RadarrDatabaseValue {
   NAVIGATION_INDEX_MOVIE_DETAILS,
   NAVIGATION_INDEX_ADD_MOVIE,
   NAVIGATION_INDEX_SYSTEM_STATUS,
+  DEFAULT_VIEW_MOVIES,
   DEFAULT_SORTING_MOVIES,
   DEFAULT_SORTING_MOVIES_ASCENDING,
   DEFAULT_FILTERING_MOVIES,
@@ -73,6 +74,11 @@ class RadarrDatabase extends LunaModuleDatabase {
                   as RadarrReleasesFilter)
               .key;
           break;
+        case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
+          data[value.key] = (RadarrDatabaseValue.DEFAULT_VIEW_MOVIES.data
+                  as LunaListViewOption)
+              .key;
+          break;
         // Primitive values
         default:
           data[value.key] = value.data;
@@ -100,6 +106,9 @@ class RadarrDatabase extends LunaModuleDatabase {
             break;
           case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
             value.put(RadarrReleasesFilter.ALL.fromKey(config[key]));
+            break;
+          case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
+            value.put(LunaListViewOption.GRID_VIEW.fromKey(config[key]));
             break;
           // Primitive values
           default:
@@ -202,6 +211,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         return 25;
       case RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING:
         return false;
+      case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
+        return LunaListViewOption.BLOCK_VIEW;
     }
     throw Exception('Invalid RadarrDatabaseValue');
   }
@@ -258,6 +269,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         return value is int;
       case RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING:
         return value is bool;
+      case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
+        return value is LunaListViewOption;
     }
     throw Exception('Invalid RadarrDatabaseValue');
   }

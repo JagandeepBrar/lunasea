@@ -330,37 +330,6 @@ class SonarrDialogs {
     return Tuple2(_flag, _textController.text);
   }
 
-  Future<Tuple2<bool, int>> setDefaultSortingOrFiltering(
-    BuildContext context, {
-    @required List<String> titles,
-  }) async {
-    bool _flag = false;
-    int _index = 0;
-
-    void _setValues(bool flag, int index) {
-      _flag = flag;
-      _index = index;
-      Navigator.of(context, rootNavigator: true).pop();
-    }
-
-    await LunaDialog.dialog(
-      context: context,
-      title: 'Sorting & Filtering',
-      content: List.generate(
-        titles.length,
-        (index) => LunaDialog.tile(
-          text: titles[index],
-          icon: Icons.sort_rounded,
-          iconColor: LunaColours().byListIndex(index),
-          onTap: () => _setValues(true, index),
-        ),
-      ),
-      contentPadding: LunaDialog.listDialogContentPadding(),
-    );
-
-    return Tuple2(_flag, _index);
-  }
-
   Future<bool> searchAllMissingEpisodes(
     BuildContext context,
   ) async {

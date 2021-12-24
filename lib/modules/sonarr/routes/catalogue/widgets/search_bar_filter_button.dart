@@ -48,7 +48,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
         ),
         height: LunaTextInputBar.defaultHeight,
         width: LunaTextInputBar.defaultHeight,
-        margin: const EdgeInsets.symmetric(horizontal: 12.0),
+        margin: const EdgeInsets.only(left: LunaUI.DEFAULT_MARGIN_SIZE),
         color: Theme.of(context).canvasColor,
       );
 }

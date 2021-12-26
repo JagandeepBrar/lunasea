@@ -19,20 +19,28 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'monitoring',
-            body: (movie?.monitored ?? false) ? 'Yes' : 'No'),
+          title: 'monitoring',
+          body: (movie?.monitored ?? false) ? 'Yes' : 'No',
+        ),
         LunaTableContent(title: 'path', body: movie?.path),
         LunaTableContent(title: 'quality', body: qualityProfile?.name),
         LunaTableContent(
-            title: 'availability', body: movie?.lunaMinimumAvailability),
+          title: 'availability',
+          body: movie?.lunaMinimumAvailability,
+        ),
         LunaTableContent(title: 'tags', body: movie?.lunaTags(tags)),
         LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'status', body: movie?.status?.readable),
-        LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
-        LunaTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
+        LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn()),
         LunaTableContent(
-            title: 'physical', body: movie?.lunaPhysicalReleaseDate),
-        LunaTableContent(title: 'added on', body: movie?.lunaDateAdded),
+          title: 'digital',
+          body: movie?.lunaDigitalReleaseDate(),
+        ),
+        LunaTableContent(
+          title: 'physical',
+          body: movie?.lunaPhysicalReleaseDate(),
+        ),
+        LunaTableContent(title: 'added on', body: movie?.lunaDateAdded()),
         LunaTableContent(title: '', body: ''),
         LunaTableContent(title: 'year', body: movie?.lunaYear),
         LunaTableContent(title: 'studio', body: movie?.lunaStudio),

@@ -37,8 +37,9 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaDateAdded {
-    if (this.added != null) return this.added.lunaDateReadable;
+  String lunaDateAdded([bool short = false]) {
+    if (this.added != null)
+      return this.added.lunaDateReadable(shortMonth: short);
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -48,26 +49,27 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     return false;
   }
 
-  String get lunaInCinemasOn {
-    if (this.inCinemas != null) return this.inCinemas.lunaDateReadable;
+  String lunaInCinemasOn([bool short = false]) {
+    if (this.inCinemas != null)
+      return this.inCinemas.lunaDateReadable(shortMonth: short);
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaPhysicalReleaseDate {
+  String lunaPhysicalReleaseDate([bool short = false]) {
     if (this.physicalRelease != null)
-      return this.physicalRelease.lunaDateReadable;
+      return this.physicalRelease.lunaDateReadable(shortMonth: short);
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaDigitalReleaseDate {
+  String lunaDigitalReleaseDate([bool short = false]) {
     if (this.digitalRelease != null)
-      return this.digitalRelease.lunaDateReadable;
+      return this.digitalRelease.lunaDateReadable(shortMonth: short);
     return LunaUI.TEXT_EMDASH;
   }
 
   String get lunaReleaseDate {
     if (this.lunaEarlierReleaseDate != null)
-      return this.lunaEarlierReleaseDate.lunaDateReadable;
+      return this.lunaEarlierReleaseDate.lunaDateReadable();
     return LunaUI.TEXT_EMDASH;
   }
 

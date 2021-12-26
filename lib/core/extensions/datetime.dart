@@ -53,8 +53,12 @@ extension DateTimeExtension on DateTime {
   /// Returns the date as a string.
   ///
   /// Formatted as "<month name> <day>, <year>".
-  String get lunaDateReadable =>
-      DateFormat('MMMM dd, y').format(this.toLocal());
+  String lunaDateReadable({
+    bool shortMonth = false,
+  }) {
+    return DateFormat(shortMonth ? 'MMM dd, y' : 'MMMM dd, y')
+        .format(this.toLocal());
+  }
 
   /// Returns the date and time as a string.
   ///

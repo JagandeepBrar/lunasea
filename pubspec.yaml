@@ -62,6 +62,7 @@ dependencies:
   wake_on_lan:
     path: packages/wake_on_lan
   xml: ^5.3.1
+  layout: ^1.0.2
 
 dev_dependencies:
   build_runner: ^2.1.7

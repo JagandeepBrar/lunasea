@@ -131,19 +131,21 @@ class _State extends State<RadarrCatalogueTile> {
             context.read<RadarrState>().moviesSortType !=
                 RadarrMoviesSorting.PHYSICAL_RELEASE)
           _buildChildTextSpan(
-              widget.movie.lunaDateAdded, RadarrMoviesSorting.DATE_ADDED),
+            widget.movie.lunaDateAdded(),
+            RadarrMoviesSorting.DATE_ADDED,
+          ),
         if (context.read<RadarrState>().moviesSortType ==
             RadarrMoviesSorting.PHYSICAL_RELEASE)
-          _buildChildTextSpan(widget.movie.lunaPhysicalReleaseDate,
+          _buildChildTextSpan(widget.movie.lunaPhysicalReleaseDate(),
               RadarrMoviesSorting.PHYSICAL_RELEASE),
         if (context.read<RadarrState>().moviesSortType ==
             RadarrMoviesSorting.DIGITAL_RELEASE)
-          _buildChildTextSpan(widget.movie.lunaDigitalReleaseDate,
+          _buildChildTextSpan(widget.movie.lunaDigitalReleaseDate(),
               RadarrMoviesSorting.DIGITAL_RELEASE),
         if (context.read<RadarrState>().moviesSortType ==
             RadarrMoviesSorting.IN_CINEMAS)
           _buildChildTextSpan(
-            widget.movie.lunaInCinemasOn,
+            widget.movie.lunaInCinemasOn(),
             RadarrMoviesSorting.IN_CINEMAS,
           ),
       ],

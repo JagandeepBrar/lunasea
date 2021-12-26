@@ -119,15 +119,15 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
       case RadarrMoviesSorting.ALPHABETICAL:
         return movie.lunaYear;
       case RadarrMoviesSorting.DATE_ADDED:
-        return movie.lunaDateAdded;
+        return movie.lunaDateAdded(true);
       case RadarrMoviesSorting.DIGITAL_RELEASE:
-        return movie.lunaDigitalReleaseDate;
+        return movie.lunaDigitalReleaseDate(true);
       case RadarrMoviesSorting.IN_CINEMAS:
-        return movie.lunaInCinemasOn;
+        return movie.lunaInCinemasOn(true);
       case RadarrMoviesSorting.MIN_AVAILABILITY:
         return movie.lunaMinimumAvailability;
       case RadarrMoviesSorting.PHYSICAL_RELEASE:
-        return movie.lunaPhysicalReleaseDate;
+        return movie.lunaPhysicalReleaseDate(true);
       case RadarrMoviesSorting.QUALITY_PROFILE:
         return profile?.name ?? LunaUI.TEXT_EMDASH;
       case RadarrMoviesSorting.RUNTIME:

@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final String pageId;
   final PreferredSizeWidget appBar;
   final Widget body;
   final Widget drawer;
@@ -10,6 +12,7 @@ class LunaScaffold extends StatelessWidget {
   final Widget floatingActionButton;
   final bool extendBody;
   final bool extendBodyBehindAppBar;
+  final bool hideDrawer;
 
   /// Called when [LunaDatabaseValue.ENABLED_PROFILE] has changed. Triggered within the build function.
   final void Function(BuildContext) onProfileChange;
@@ -17,6 +20,7 @@ class LunaScaffold extends StatelessWidget {
   const LunaScaffold({
     Key key,
     @required this.scaffoldKey,
+    this.pageId,
     this.appBar,
     this.body,
     this.drawer,
@@ -25,6 +29,7 @@ class LunaScaffold extends StatelessWidget {
     this.extendBody = false,
     this.extendBodyBehindAppBar = false,
     this.onProfileChange,
+    this.hideDrawer = false,
   }) : super(key: key);
 
   @override
@@ -39,22 +44,61 @@ class LunaScaffold extends StatelessWidget {
 
   Widget get scaffold {
     return ValueListenableBuilder(
-      valueListenable: Database.lunaSeaBox
-          .listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
+      valueListenable: Database.lunaSeaBox.listenable(
+        keys: [LunaDatabaseValue.ENABLED_PROFILE.key],
+      ),
       builder: (context, _, __) {
         if (onProfileChange != null) onProfileChange(context);
-        return Scaffold(
-          key: scaffoldKey,
-          appBar: appBar,
-          body: body,
-          drawer: drawer,
-          bottomNavigationBar: bottomNavigationBar,
-          floatingActionButton: floatingActionButton,
-          extendBody: extendBody,
-          extendBodyBehindAppBar: extendBodyBehindAppBar,
-          onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+        return AdaptiveBuilder.builder(
+          builder: (context, layout, child) {
+            if (!kDebugMode) return _scaffoldSmall(child);
+            if (layout.breakpoint < LayoutBreakpoint.md) {
+              return _scaffoldSmall(child);
+            }
+            return _scaffoldMedium(child);
+          },
+          child: body,
         );
       },
     );
   }
+
+  Widget _scaffoldSmall(Widget child) {
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar,
+      body: child,
+      drawer: hideDrawer ? null : drawer,
+      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+      extendBody: extendBody,
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
+      onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+    );
+  }
+
+  Widget _scaffoldMedium(Widget child) => Scaffold(
+        key: scaffoldKey,
+        body: Row(
+          children: [
+            if (!hideDrawer)
+              LunaDrawer(
+                page: pageId?.split('/')?.elementAtOrNull(1) ?? '',
+              ),
+            Expanded(
+              child: Column(
+                children: [
+                  if (appBar != null) appBar,
+                  Expanded(child: child),
+                  if (bottomNavigationBar != null) bottomNavigationBar,
+                ],
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: floatingActionButton,
+        extendBody: extendBody,
+        extendBodyBehindAppBar: extendBodyBehindAppBar,
+        onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+      );
 }

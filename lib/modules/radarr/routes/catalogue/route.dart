@@ -40,6 +40,7 @@ class _State extends State<RadarrCatalogueRoute>
       scaffoldKey: _scaffoldKey,
       body: _body(),
       appBar: _appBar(),
+      hideDrawer: true,
     );
   }
 

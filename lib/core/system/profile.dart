@@ -13,14 +13,21 @@ class LunaProfile {
   /// Does this safely by:
   /// - Ensures that the passed in profile isn't already enabled
   /// - Ensures that the profile exists
-  Future<bool> safelyChangeProfiles(String profile,
-      {bool showSnackbar = true}) async {
+  Future<bool> safelyChangeProfiles(
+    String profile, {
+    bool showSnackbar = true,
+    bool popToFirst = false,
+  }) async {
     if (LunaDatabaseValue.ENABLED_PROFILE.data == profile) return true;
     if (Database.profilesBox.containsKey(profile)) {
       LunaDatabaseValue.ENABLED_PROFILE.put(profile);
       LunaState.reset(LunaState.navigatorKey.currentContext);
       if (showSnackbar)
-        showLunaSuccessSnackBar(title: 'Changed Profile', message: profile);
+        showLunaSuccessSnackBar(
+          title: 'Changed Profile',
+          message: profile,
+        );
+      if (popToFirst) LunaState.navigatorKey.currentState.lunaPopToFirst();
       return true;
     } else {
       LunaLogger().warning('LunaProfile', 'changeProfile',

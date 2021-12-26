@@ -55,16 +55,18 @@ class LunaBIOS extends StatelessWidget {
           LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
         builder: (context, box, _) {
-          return MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            routes: LunaRouter().routes,
-            onGenerateRoute: LunaRouter.router.generator,
-            navigatorKey: LunaState.navigatorKey,
-            darkTheme: LunaTheme().activeTheme(),
-            theme: LunaTheme().activeTheme(),
-            title: 'LunaSea',
+          return Layout(
+            child: MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              routes: LunaRouter().routes,
+              onGenerateRoute: LunaRouter.router.generator,
+              navigatorKey: LunaState.navigatorKey,
+              darkTheme: LunaTheme().activeTheme(),
+              theme: LunaTheme().activeTheme(),
+              title: 'LunaSea',
+            ),
           );
         },
       ),

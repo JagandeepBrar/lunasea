@@ -6,6 +6,7 @@ export 'routes/configuration_drawer.dart';
 export 'routes/configuration_externalmodules.dart';
 export 'routes/configuration_lidarr.dart';
 export 'routes/configuration_localization.dart';
+export 'routes/configuration_network.dart';
 export 'routes/configuration_nzbget.dart';
 export 'routes/configuration_overseerr.dart';
 export 'routes/configuration_quickactions.dart';

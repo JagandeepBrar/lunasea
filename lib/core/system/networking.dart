@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:lunasea/core.dart';
+
 class LunaNetworking extends HttpOverrides {
   /// Initialize the default HTTP client by setting [HttpOverrides]'s global HTTP client to [LunaNetworking].
   void initialize() {
@@ -12,8 +14,8 @@ class LunaNetworking extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {
     final HttpClient client = super.createHttpClient(context);
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) => true;
+    if (!LunaDatabaseValue.NETWORKING_TLS_VALIDATION.data)
+      client.badCertificateCallback = (cert, host, port) => true;
     return client;
   }
 

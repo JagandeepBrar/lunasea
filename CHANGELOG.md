@@ -1,13 +1,15 @@
 # LunaSea Changelog
 
-## WIP
+## v6.0.0 (60000005)
 
 #### NEW
 
 - `[Lidarr]` (Add) Long-press result tile to view Discogs page
-- `[Lidarr]` (Add) Match add options UI to Sonarr and Radarr
+- `[Lidarr]` (Add) Align add options UI to Sonarr and Radarr
+- `[Network]` (TLS) Ability to enable TLS certificate validation
 - `[Radarr]` (Catalogue) Grid view support
 - `[Settings]` (Configuration) Ability to set default view for Radarr and Sonarr catalogue
+- `[Settings]` (Configuration) Network configuration section
 - `[Sonarr]` (Catalogue) Grid view support
 - `[UI/UX]` (Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr
 
@@ -21,7 +23,8 @@
 - `[Radarr]` (Add) Would not trigger a search for missing movie when selected
 - `[Radarr]` (Add) Removed ability to set PreDB or TBA minimum availability
 - `[Radarr]` (Edit) Removed ability to set PreDB or TBA minimum availability
-- `[UI/UX]` (AppBar) tighten profile switcher tappable area
+- `[Sonarr]` (Missing) Air date would show in days for very old content
+- `[UI/UX]` (AppBar) Tighten profile switcher tappable area
 
 ---
 

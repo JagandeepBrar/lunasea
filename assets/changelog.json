@@ -1,53 +1,42 @@
 {
-  "motd": "This build introduces a substantial rework of many UI elements, including a much more performant tile block, normalized font sizes, a new minified drawer header, and more!\n\nAlongside other changes in this build (listed below), this build also completely removes all Firebase Crashlytics & Analytics data collection.",
+  "motd": "This build introduces a long requested new feature, grid view support for Radarr and Sonarr's catalogues! Grid view support for Lidarr will come in a future release.\n\nThis build also aligns Lidarr's add options UI with Radarr and Sonarr, and fixes a bug that prevented searches from triggering when adding new content in Radarr.",
   "new": [
-    {
-      "module": "Dashboard",
-      "changes": [
-        "(Calendar) Display content poster and additional information"
-      ]
-    },
-    {
-      "module": "Firebase",
-      "changes": [
-        "(Analytics) Completely removed Analytics and Crashlytics"
-      ]
-    },
-    {
-      "module": "Images",
-      "changes": [
-        "(Cache) Cache fetched images to disk"
-      ]
-    },
     {
       "module": "Lidarr",
       "changes": [
-        "(Add Artist) Show artist poster in result list",
-        "(Add Artist) Allow user to select monitoring options",
-        "(Add Artist) Removed toggle to use album folders",
-        "(Catalogue) Show artist poster in catalogue list",
-        "(Missing) Display album covers"
+        "(Add) Long-press result tile to view Discogs page",
+        "(Add) Align add options UI to Sonarr and Radarr"
+      ]
+    },
+    {
+      "module": "Network",
+      "changes": [
+        "(TLS) Ability to enable TLS certificate validation"
+      ]
+    },
+    {
+      "module": "Radarr",
+      "changes": [
+        "(Catalogue) Grid view support"
       ]
     },
     {
       "module": "Settings",
       "changes": [
-        "(Configuration) Show dismissable blocks with information and links",
-        "(System) Ability to clear image cache"
+        "(Configuration) Ability to set default view for Radarr and Sonarr catalogue",
+        "(Configuration) Network configuration section"
       ]
     },
     {
       "module": "Sonarr",
       "changes": [
-        "(Catalogue) Previous airing sorting option",
-        "(Season List) Display season posters",
-        "(Queue) Option to set queue page size"
+        "(Catalogue) Grid view support"
       ]
     },
     {
       "module": "UI/UX",
       "changes": [
-        "(Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled"
+        "(Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr"
       ]
     }
   ],
@@ -55,37 +44,30 @@
     {
       "module": "UI/UX",
       "changes": [
-        "(Drawer) Heavily reduced the size of the header area",
-        "(Fonts) Normalized font sizes across the UI",
-        "(Images) Set the default image opacity to 20% (custom set values are uneffected)",
-        "(Tile Blocks) Heavily improved build and memory performance of tiles",
-        "(Tile Blocks) Improved consistency in trailing icon/text size",
-        "(Tile Blocks) Improved consistency of tile height, content spacing, and padding",
-        "(Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.",
-        "(Tile Blocks) Fade-in background image loads",
-        "(Tooltips) Added styling to match LunaSea theme"
+        "(Drawer) Add more padding to drawer module tiles",
+        "(Drawer) Use the primary colour as the background colour"
       ]
     }
   ],
   "fixes": [
     {
-      "module": "Dashboard",
+      "module": "Radarr",
       "changes": [
-        "(Calendar) Lidarr entries would not appear",
-        "(Modules) Unbranded icons could use incorrect colours"
-      ]
-    },
-    {
-      "module": "Lidarr",
-      "changes": [
-        "(Albums) List would fail to load on nightly Lidarr builds"
+        "(Add) Would not trigger a search for missing movie when selected",
+        "(Add) Removed ability to set PreDB or TBA minimum availability",
+        "(Edit) Removed ability to set PreDB or TBA minimum availability"
       ]
     },
     {
       "module": "Sonarr",
       "changes": [
-        "(Catalogue) Missing filter would fail to load when using Sonarr v4 in some cases",
-        "(Images) Images now use v3 API path"
+        "(Missing) Air date would show in days for very old content"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(AppBar) Tighten profile switcher tappable area"
       ]
     }
   ],

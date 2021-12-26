@@ -13,8 +13,7 @@ extension DateTimeExtension on DateTime {
     if (this == null) return 'lunasea.Unknown'.tr();
     Duration diff = DateTime.now().toLocal().difference(this);
     if (diff.inSeconds < 10) return 'Just Now';
-    if (diff.inDays >= 1)
-      return '${diff.inDays} ${diff.inDays == 1 ? 'Day' : 'Days'} Ago';
+    if (diff.inDays >= 1) return '${this.lunaDaysDifference} Ago';
     if (diff.inHours >= 1)
       return '${diff.inHours} ${diff.inHours == 1 ? 'Hour' : 'Hours'} Ago';
     if (diff.inMinutes >= 1)

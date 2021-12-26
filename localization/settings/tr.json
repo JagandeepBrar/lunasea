@@ -195,5 +195,10 @@
     "settings.DefaultPagesDescription": "Öntanımlı Açılış Sayfalarını Ayarlayın",
     "settings.ClearImageCache": "Resim Önbelleğini Temizle",
     "settings.ClearImageCacheHint1": "Tüm resimleri önbellekten temizlemek istediğinizden emin misiniz?",
-    "settings.ClearImageCacheHint2": "Büyük bir kütüphane için resimleri yeniden indirmek büyük miktarda veri tüketebilir."
+    "settings.ClearImageCacheHint2": "Büyük bir kütüphane için resimleri yeniden indirmek büyük miktarda veri tüketebilir.",
+    "settings.DefaultOptionsDescription": "Sıralama, Süzme ve Görüntüleme Seçeneklerini Ayarlayın",
+    "settings.DefaultOptions": "Öntanımlı Seçenekler",
+    "settings.SortDirection": "Sıralama Yönü",
+    "settings.FilterCategory": "Süzme Kategorisi",
+    "settings.SortCategory": "Sıralama Kategorisi"
 }

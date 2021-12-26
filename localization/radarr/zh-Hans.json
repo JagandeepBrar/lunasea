@@ -73,6 +73,7 @@
     "radarr.Rejected": "拒绝了",
     "radarr.Released": "发布",
     "radarr.ReleasedToday": "今天发布",
+    "radarr.Releases": "发布",
     "radarr.RemoveMovie": "删除电影",
     "radarr.RootFolder": "根文件夹",
     "radarr.RunRSSSync": "运行RSS同步",

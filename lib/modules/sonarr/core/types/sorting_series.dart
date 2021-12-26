@@ -77,7 +77,27 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
   }
 
   String value(SonarrSeries series, SonarrQualityProfile profile) {
-    return series.lunaEpisodeCount;
+    switch (this) {
+      case SonarrSeriesSorting.ALPHABETICAL:
+        return series.lunaEpisodeCount;
+      case SonarrSeriesSorting.DATE_ADDED:
+        return series.lunaDateAddedShort;
+      case SonarrSeriesSorting.EPISODES:
+        return series.lunaEpisodeCount;
+      case SonarrSeriesSorting.NETWORK:
+        return series.lunaNetwork;
+      case SonarrSeriesSorting.NEXT_AIRING:
+        return series.lunaNextAiring(true);
+      case SonarrSeriesSorting.PREVIOUS_AIRING:
+        return series.lunaPreviousAiring(true);
+      case SonarrSeriesSorting.QUALITY:
+        return profile?.name ?? LunaUI.TEXT_EMDASH;
+      case SonarrSeriesSorting.SIZE:
+        return series.lunaSizeOnDisk;
+      case SonarrSeriesSorting.TYPE:
+        return series.lunaSeriesType;
+    }
+    throw Exception('Invalid SonarrSeriesSorting');
   }
 
   SonarrSeriesSorting fromKey(String key) {

@@ -5,6 +5,7 @@ enum LunaDatabaseValue {
   DRAWER_AUTOMATIC_MANAGE,
   DRAWER_MANUAL_ORDER,
   ENABLED_PROFILE,
+  NETWORKING_TLS_VALIDATION,
   THEME_AMOLED,
   THEME_AMOLED_BORDER,
   THEME_IMAGE_BACKGROUND_OPACITY,
@@ -172,6 +173,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
         return value is LunaModule;
+      case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
+        return value is bool;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }
@@ -214,6 +217,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return false;
       case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
         return LunaModule.DASHBOARD;
+      case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
+        return false;
     }
     throw Exception('Invalid LunaDatabaseValue');
   }

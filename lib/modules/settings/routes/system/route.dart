@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -49,7 +48,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const SettingsSystemBackupRestoreBackupTile(),
         const SettingsSystemBackupRestoreRestoreTile(),
         const LunaDivider(),
-        if (kDebugMode) _hideTooltipBanners(),
         _clearImageCache(),
         _clearConfiguration(),
       ],
@@ -79,26 +77,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: const [TextSpan(text: 'View, Export, and Clear Logs')],
       trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
       onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
-    );
-  }
-
-  Widget _hideTooltipBanners() {
-    return LunaBlock(
-      title: 'Dismiss Tooltip Banners',
-      body: const [TextSpan(text: 'Hide Tooltips, Alerts, & Hints')],
-      trailing: const LunaIconButton(icon: Icons.rule_rounded),
-      onTap: () async {
-        bool result = await SettingsDialogs().dismissTooltipBanners(context);
-        if (result) {
-          for (LunaModule module in LunaModule.values) {
-            module.hideAllBanners();
-          }
-          showLunaSuccessSnackBar(
-            title: 'Dismissed Banners',
-            message: 'All banners have been dismissed',
-          );
-        }
-      },
     );
   }
 

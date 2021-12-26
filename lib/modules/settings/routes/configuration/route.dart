@@ -79,6 +79,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               SettingsConfigurationLocalizationRouter().navigateTo(context),
         ),
+        LunaBlock(
+          title: 'settings.Network'.tr(),
+          body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.network_check_rounded),
+          onTap: () async =>
+              SettingsConfigurationNetworkRouter().navigateTo(context),
+        ),
         if (Platform.isIOS)
           LunaDatabaseValue.SELECTED_BROWSER.listen(
             builder: (context, box, widget) {

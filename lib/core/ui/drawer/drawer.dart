@@ -30,6 +30,8 @@ class LunaDrawer extends StatelessWidget {
       builder: (context, lunaBox, widget) => ValueListenableBuilder(
         valueListenable: Database.indexersBox.listenable(),
         builder: (context, indexerBox, widget) => Drawer(
+          elevation: LunaUI.ELEVATION,
+          backgroundColor: Theme.of(context).primaryColor,
           child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
             builder: (context, _, __) => Column(
               children: [
@@ -107,7 +109,7 @@ class LunaDrawer extends StatelessWidget {
   }) {
     bool currentPage = page == module.key.toLowerCase();
     return SizedBox(
-      height: 56.0,
+      height: LunaTextInputBar.defaultAppBarHeight,
       child: InkWell(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +119,7 @@ class LunaDrawer extends StatelessWidget {
                 module.icon,
                 color: currentPage ? module.color : LunaColours.white,
               ),
-              padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
+              padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL * 1.5,
             ),
             Text(
               module.name,

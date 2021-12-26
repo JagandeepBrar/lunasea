@@ -9,7 +9,12 @@
 - `[Radarr]` (Catalogue) Grid view support
 - `[Settings]` (Configuration) Ability to set default view for Radarr and Sonarr catalogue
 - `[Sonarr]` (Catalogue) Grid view support
-- `[UIUX]` (Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr
+- `[UI/UX]` (Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr
+
+#### TWEAK
+
+- `[UI/UX]` (Drawer) Add more padding to drawer module tiles
+- `[UI/UX]` (Drawer) Use the primary colour as the background colour
 
 #### FIX
 

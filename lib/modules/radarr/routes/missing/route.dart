@@ -26,6 +26,7 @@ class _State extends State<RadarrMissingRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body,
+      hideDrawer: true,
     );
   }
 

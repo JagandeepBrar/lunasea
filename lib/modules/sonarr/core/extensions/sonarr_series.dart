@@ -38,30 +38,24 @@ extension SonarrSeriesExtension on SonarrSeries {
     return _total == 0 ? 0 : ((_available / _total) * 100).round();
   }
 
-  String get lunaNextAiringLine {
+  String lunaNextAiring([bool short = false]) {
     if (this.status == 'ended') return 'sonarr.SeriesEnded'.tr();
     if (this.nextAiring == null) return 'lunasea.Unknown'.tr();
     return this.nextAiring.lunaDateTimeReadable(
           timeOnNewLine: false,
           showSeconds: false,
           sameLineDelimiter: '@',
+          shortMonth: short,
         );
   }
 
-  String get lunaNextAiring {
-    if (this.nextAiring == null) return LunaUI.TEXT_EMDASH;
-    return this.nextAiring.lunaDateTimeReadable(
-          timeOnNewLine: true,
-          showSeconds: false,
-        );
-  }
-
-  String get lunaPreviousAiring {
+  String lunaPreviousAiring([bool short = false]) {
     if (this.previousAiring == null) return LunaUI.TEXT_EMDASH;
     return this.previousAiring.lunaDateTimeReadable(
           timeOnNewLine: false,
           showSeconds: false,
           sameLineDelimiter: '@',
+          shortMonth: short,
         );
   }
 
@@ -70,6 +64,13 @@ extension SonarrSeriesExtension on SonarrSeries {
       return 'lunasea.Unknown'.tr();
     }
     return DateFormat('MMMM dd, y').format(this.added.toLocal());
+  }
+
+  String get lunaDateAddedShort {
+    if (this.added == null) {
+      return 'lunasea.Unknown'.tr();
+    }
+    return DateFormat('MMM dd, y').format(this.added.toLocal());
   }
 
   String get lunaYear {

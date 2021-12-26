@@ -150,13 +150,13 @@ class _State extends State<SonarrSeriesTile> {
           ),
         if (_sorting == SonarrSeriesSorting.PREVIOUS_AIRING)
           _buildChildTextSpan(
-            widget.series.lunaPreviousAiring,
+            widget.series.lunaPreviousAiring(),
             SonarrSeriesSorting.PREVIOUS_AIRING,
           ),
         if (_sorting != SonarrSeriesSorting.DATE_ADDED &&
             _sorting != SonarrSeriesSorting.PREVIOUS_AIRING)
           _buildChildTextSpan(
-            widget.series.lunaNextAiringLine,
+            widget.series.lunaNextAiring(),
             SonarrSeriesSorting.NEXT_AIRING,
           ),
       ],

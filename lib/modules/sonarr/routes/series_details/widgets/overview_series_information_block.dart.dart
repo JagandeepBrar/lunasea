@@ -51,7 +51,7 @@ class SonarrSeriesDetailsOverviewInformationBlock extends StatelessWidget {
         ),
         LunaTableContent(
           title: 'next airing',
-          body: series?.lunaNextAiring,
+          body: series?.lunaNextAiring(),
         ),
         LunaTableContent(
           title: 'added on',

@@ -195,5 +195,10 @@
     "settings.AddProfileDescription": "添加新配置文件",
     "settings.ClearImageCacheHint2": "为大型库重新下载图像可能会消耗大量数据。",
     "settings.ClearImageCache": "清除图像缓存",
-    "settings.ClearImageCacheHint1": "您确定要清除缓存中的所有图像吗？"
+    "settings.ClearImageCacheHint1": "您确定要清除缓存中的所有图像吗？",
+    "settings.DefaultOptions": "默认选项",
+    "settings.SortCategory": "排序类别",
+    "settings.DefaultOptionsDescription": "设置排序、过滤和查看选项",
+    "settings.SortDirection": "排序方向",
+    "settings.FilterCategory": "过滤器类别"
 }

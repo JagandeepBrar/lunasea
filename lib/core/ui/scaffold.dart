@@ -51,11 +51,9 @@ class LunaScaffold extends StatelessWidget {
         if (onProfileChange != null) onProfileChange(context);
         return AdaptiveBuilder.builder(
           builder: (context, layout, child) {
-            if (!kDebugMode) return _scaffoldSmall(child);
-            if (layout.breakpoint < LayoutBreakpoint.md) {
-              return _scaffoldSmall(child);
-            }
-            return _scaffoldMedium(child);
+            if (kDebugMode && layout.breakpoint >= LayoutBreakpoint.md)
+              return _scaffoldMedium(child);
+            return _scaffoldSmall(child);
           },
           child: body,
         );

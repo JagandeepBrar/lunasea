@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaGridBlock extends StatelessWidget {
-  static const MAX_CROSS_AXIS_EXTENT = SliverGridDelegateWithMaxCrossAxisExtent(
-    maxCrossAxisExtent: 180.0,
-    childAspectRatio: 0.5825,
-  );
+  static const MAX_CROSS_AXIS_EXTENT = 180.0;
+  static const CHILD_ASPECT_RATIO = 7 / 12;
+
+  static SliverGridDelegateWithMaxCrossAxisExtent getMaxCrossAxisExtent({
+    double maxCrossAxisExtent = MAX_CROSS_AXIS_EXTENT,
+    double childAspectRatio = CHILD_ASPECT_RATIO,
+  }) {
+    return SliverGridDelegateWithMaxCrossAxisExtent(
+      maxCrossAxisExtent: maxCrossAxisExtent,
+      childAspectRatio: childAspectRatio,
+    );
+  }
 
   final IconData posterPlaceholderIcon;
   final String posterUrl;
@@ -56,7 +64,7 @@ class LunaGridBlock extends StatelessWidget {
                     _poster(context),
                     _title(),
                     _subtitle(),
-                    const SizedBox(height: LunaUI.MARGIN_SIZE_HALF),
+                    const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE),
                   ],
                 ),
                 padding: EdgeInsets.zero,
@@ -111,17 +119,14 @@ class LunaGridBlock extends StatelessWidget {
 
     return Flexible(
       child: Padding(
-        child: LayoutBuilder(builder: (context, constraints) {
-          double _dimension = constraints.maxWidth;
-          return LunaNetworkImage(
-            context: context,
-            url: posterUrl ?? '',
-            height: _dimension * 1.5,
-            width: _dimension,
-            headers: posterHeaders,
-            placeholderIcon: posterPlaceholderIcon,
-          );
-        }),
+        child: LunaNetworkImage(
+          context: context,
+          url: posterUrl ?? '',
+          height: MAX_CROSS_AXIS_EXTENT * 1.5,
+          width: MAX_CROSS_AXIS_EXTENT,
+          headers: posterHeaders,
+          placeholderIcon: posterPlaceholderIcon,
+        ),
         padding: LunaUI.MARGIN_HALF,
       ),
     );

@@ -81,7 +81,7 @@ class SonarrState extends LunaModuleState {
   /////////////////
   /// CATALOGUE ///
   /////////////////
-  
+
   LunaListViewOption _seriesViewType =
       SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data;
   LunaListViewOption get seriesViewType => _seriesViewType;

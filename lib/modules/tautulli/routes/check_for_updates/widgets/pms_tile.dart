@@ -34,7 +34,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
 
   List<TextSpan> _subtitle() {
     return [
-      if (!update.updateAvailable)
+      if (!(update?.updateAvailable ?? false))
         const TextSpan(
           text: 'No Updates Available',
           style: TextStyle(
@@ -42,9 +42,10 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-      if (!update.updateAvailable)
-        TextSpan(text: 'Current Version: ${update.version}'),
-      if (update.updateAvailable)
+      if (!(update?.updateAvailable ?? false))
+        TextSpan(
+            text: 'Current Version: ${update?.version ?? LunaUI.TEXT_EMDASH}'),
+      if (update?.updateAvailable ?? false)
         const TextSpan(
           text: 'Update Available',
           style: TextStyle(
@@ -52,8 +53,9 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-      if (update.updateAvailable)
-        TextSpan(text: 'Latest Version: ${update.version}'),
+      if (update?.updateAvailable ?? false)
+        TextSpan(
+            text: 'Latest Version: ${update?.version ?? LunaUI.TEXT_EMDASH}'),
     ];
   }
 }

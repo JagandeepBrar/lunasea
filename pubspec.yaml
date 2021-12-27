@@ -59,8 +59,7 @@ dependencies:
   tuple: ^2.0.0
   url_launcher: ^6.0.17
   uuid: ^3.0.5
-  wake_on_lan:
-    path: packages/wake_on_lan
+  wake_on_lan: ^2.0.2+1
   xml: ^5.3.1
   layout: ^1.0.2
 

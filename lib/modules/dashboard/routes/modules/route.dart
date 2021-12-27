@@ -24,6 +24,7 @@ class _State extends State<DashboardModulesRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      hideDrawer: true,
       body: _list(),
     );
   }

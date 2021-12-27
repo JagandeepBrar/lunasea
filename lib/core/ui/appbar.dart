@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
@@ -221,6 +222,8 @@ class _State extends State<LunaAppBar> {
 
   Widget _sharedLeading(BuildContext context) {
     if (widget.hideLeading ?? false) return null;
+    if (kDebugMode && context.breakpoint >= LayoutBreakpoint.md) return null;
+
     if (widget.useDrawer)
       return SizedBox(
         child: LunaIconButton.appBar(

@@ -132,7 +132,8 @@ class LunaDrawer extends StatelessWidget {
         ),
         onTap: onTap ??
             () async {
-              Navigator.of(context).pop();
+              LayoutBreakpoint _bp = context.breakpoint;
+              if (_bp < LayoutBreakpoint.md) Navigator.of(context).pop();
               if (!currentPage) module.launch();
             },
       ),

@@ -195,7 +195,7 @@ class _State extends State<SonarrCatalogueRoute>
   ) {
     return LunaGridViewBuilder(
       controller: SonarrNavigationBar.scrollControllers[0],
-      sliverGridDelegate: LunaGridBlock.MAX_CROSS_AXIS_EXTENT,
+      sliverGridDelegate: LunaGridBlock.getMaxCrossAxisExtent(),
       itemCount: series.length,
       itemBuilder: (context, index) => SonarrSeriesTile.grid(
         series: series[index],

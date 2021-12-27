@@ -192,7 +192,7 @@ class _State extends State<RadarrCatalogueRoute>
   ) {
     return LunaGridViewBuilder(
       controller: RadarrNavigationBar.scrollControllers[0],
-      sliverGridDelegate: LunaGridBlock.MAX_CROSS_AXIS_EXTENT,
+      sliverGridDelegate: LunaGridBlock.getMaxCrossAxisExtent(),
       itemCount: movies.length,
       itemBuilder: (context, index) => RadarrCatalogueTile.grid(
         movie: movies[index],

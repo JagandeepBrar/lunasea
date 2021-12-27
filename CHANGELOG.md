@@ -1,5 +1,12 @@
 # LunaSea Changelog
 
+## WIP
+
+#### FIX
+
+- `[Radarr]` (Releases) Negative custom word scores would be incorrectly displayed
+- `[Tautulli]` (Check for Updates) Would fail to build the UI in some cases
+
 ## v6.0.0 (60000005)
 
 #### NEW

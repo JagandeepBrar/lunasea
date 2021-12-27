@@ -1,9 +1,6 @@
 name: sonarr
-description: Facilitate the communication to and from Sonarr's API, a smart PVR for newsgroup and bittorrent users.
-version: 3.0.0
-homepage: https://github.com/CometTools/LunaSea/tree/master/packages/sonarr
-repository: https://github.com/CometTools/LunaSea/tree/master/packages
-issue_tracker: https://github.com/CometTools/LunaSea/issues
+description: sonarr
+version: 0.0.1
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:

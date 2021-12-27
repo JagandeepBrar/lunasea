@@ -1,9 +1,6 @@
 name: radarr
-description: Facilitate the communication to and from Radarr's API, a movie collection manager for Usenet and BitTorrent users.
-version: 2.1.1+1
-homepage: https://github.com/CometTools/LunaSea/tree/master/packages/radarr
-repository: https://github.com/CometTools/LunaSea/tree/master/packages
-issue_tracker: https://github.com/CometTools/LunaSea/issues
+description: radarr
+version: 0.0.1
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:

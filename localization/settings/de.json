@@ -195,5 +195,7 @@
     "settings.FailedToDeleteAccount": "Löschen des Kontos fehlgeschlagen",
     "settings.ClearImageCache": "Entferne Bild-Zwischenspeicher",
     "settings.ClearImageCacheHint1": "Bist du sicher dass du alle Bilder aus dem Zwischenspeicher entfernen möchtest?",
-    "settings.DeleteProfileDescription": "Lösche ein existierendes Profil"
+    "settings.DeleteProfileDescription": "Lösche ein existierendes Profil",
+    "settings.DefaultOptions": "Standardeinstellungen",
+    "settings.DefaultOptionsDescription": "Sortierung, Filterung und Ansichtsoptionen bearbeiten"
 }

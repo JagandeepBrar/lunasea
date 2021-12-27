@@ -49,4 +49,13 @@ extension RadarrReleaseExtension on RadarrRelease {
     if (this.size != null) return this.size.lunaBytesToString();
     return LunaUI.TEXT_EMDASH;
   }
+
+  String lunaCustomFormatScore({bool nullOnEmpty = false}) {
+    if ((this.customFormatScore ?? 0) != 0) {
+      String _prefix = this.customFormatScore > 0 ? '+' : '';
+      return '$_prefix${this.customFormatScore}';
+    }
+    if (nullOnEmpty) return null;
+    return LunaUI.TEXT_EMDASH;
+  }
 }

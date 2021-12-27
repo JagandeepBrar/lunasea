@@ -77,10 +77,11 @@ class _State extends State<RadarrReleasesTile> {
         text: widget.release.protocol.readable,
         backgroundColor: widget.release.lunaProtocolColor,
       ),
-      if ((widget.release.customFormatScore ?? 0) != 0)
+      if (widget.release.lunaCustomFormatScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(
-            text: '+${widget.release.customFormatScore}',
-            backgroundColor: LunaColours.orange),
+          text: widget.release.lunaCustomFormatScore(),
+          backgroundColor: LunaColours.purple,
+        ),
       ...widget.release.customFormats.map<LunaHighlightedNode>((custom) =>
           LunaHighlightedNode(
               text: custom.name, backgroundColor: LunaColours.blueGrey)),

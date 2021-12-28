@@ -31,6 +31,8 @@ class _State extends State<TautulliActivityRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.TAUTULLI,
+      hideDrawer: true,
       body: _body(),
     );
   }

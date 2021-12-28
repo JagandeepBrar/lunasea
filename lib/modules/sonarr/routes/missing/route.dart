@@ -32,6 +32,8 @@ class _State extends State<SonarrMissingRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
+      hideDrawer: true,
       body: _body(),
     );
   }

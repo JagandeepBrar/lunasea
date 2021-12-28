@@ -27,6 +27,8 @@ class _State extends State<RadarrMovieDetailsHistoryPage>
   Widget build(BuildContext context) {
     super.build(context);
     return LunaScaffold(
+      module: LunaModule.RADARR,
+      hideDrawer: true,
       scaffoldKey: _scaffoldKey,
       body: _body(),
     );

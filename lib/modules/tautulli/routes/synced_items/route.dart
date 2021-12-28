@@ -34,6 +34,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.TAUTULLI,
       appBar: _appBar(),
       body: _body(),
     );

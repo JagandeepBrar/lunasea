@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 
 class LunaScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final String pageId;
+  final LunaModule module;
   final PreferredSizeWidget appBar;
   final Widget body;
   final Widget drawer;
@@ -20,7 +20,7 @@ class LunaScaffold extends StatelessWidget {
   const LunaScaffold({
     Key key,
     @required this.scaffoldKey,
-    this.pageId,
+    this.module,
     this.appBar,
     this.body,
     this.drawer,
@@ -79,10 +79,7 @@ class LunaScaffold extends StatelessWidget {
         key: scaffoldKey,
         body: Row(
           children: [
-            if (!hideDrawer)
-              LunaDrawer(
-                page: pageId?.split('/')?.elementAtOrNull(1) ?? '',
-              ),
+            if (!hideDrawer) LunaDrawer(page: module?.key ?? ''),
             Expanded(
               child: Column(
                 children: [

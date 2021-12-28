@@ -72,6 +72,7 @@ class _State extends State<DashboardCalendarWidget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
         scaffoldKey: _scaffoldKey,
+        module: LunaModule.DASHBOARD,
         hideDrawer: true,
         body: Selector<DashboardState, CalendarStartingType>(
           selector: (_, state) => state.calendarStartingType,

@@ -32,6 +32,8 @@ class _State extends State<SonarrSeriesDetailsOverviewPage>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
+      hideDrawer: true,
       body: Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
         selector: (_, state) => state.series,
         builder: (context, movies, _) => LunaListView(

@@ -34,6 +34,7 @@ class _State extends State<_DashboardHomeRoute> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.DASHBOARD,
       body: _body(),
       drawer: _drawer(),
       appBar: _appBar(),

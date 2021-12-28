@@ -24,6 +24,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
+        module: LunaModule.TAUTULLI,
         appBar: TautulliSearchAppBar(scrollController: scrollController),
         body: TautulliSearchSearchResults(scrollController: scrollController),
       );

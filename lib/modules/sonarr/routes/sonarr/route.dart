@@ -36,6 +36,7 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
       drawer: _drawer(),
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),

@@ -77,6 +77,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.TAUTULLI,
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body,

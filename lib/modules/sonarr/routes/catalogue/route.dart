@@ -41,6 +41,8 @@ class _State extends State<SonarrCatalogueRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
+      hideDrawer: true,
       body: _body(),
       appBar: _appBar(),
     );

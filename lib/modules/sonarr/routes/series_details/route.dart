@@ -119,6 +119,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
     }
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
       appBar: _appBar(),
       bottomNavigationBar:
           context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,

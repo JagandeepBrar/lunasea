@@ -23,6 +23,8 @@ class _State extends State<OverseerrUserRoute>
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.OVERSEERR,
+      hideDrawer: true,
       body: const OverseerrUserListView(),
     );
   }

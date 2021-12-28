@@ -22,6 +22,8 @@ class _State extends State<SonarrMoreRoute> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.SONARR,
+      hideDrawer: true,
       body: _body(),
     );
   }

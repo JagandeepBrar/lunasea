@@ -108,6 +108,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
+      module: LunaModule.RADARR,
       appBar: _appBar(),
       bottomNavigationBar:
           context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,

@@ -1,64 +1,61 @@
 # LunaSea Changelog
 
-## WIP
-
-#### FIX
-
-- `[Radarr]` (Releases) Negative custom word scores would be incorrectly displayed
-- `[Tautulli]` (Check for Updates) Would fail to build the UI in some cases
-- `[UI/UX]` (Grid View) Bottom padding of grid view tiles was inconsistent
-
-## v6.0.0 (60000005)
-
-#### NEW
-
-- `[Lidarr]` (Add) Long-press result tile to view Discogs page
-- `[Lidarr]` (Add) Align add options UI to Sonarr and Radarr
-- `[Network]` (TLS) Ability to enable TLS certificate validation
-- `[Radarr]` (Catalogue) Grid view support
-- `[Settings]` (Configuration) Ability to set default view for Radarr and Sonarr catalogue
-- `[Settings]` (Configuration) Network configuration section
-- `[Sonarr]` (Catalogue) Grid view support
-- `[UI/UX]` (Search Bar) Expand catalogue search bar on focus in Radarr and Sonarr
-
-#### TWEAK
-
-- `[UI/UX]` (Drawer) Add more padding to drawer module tiles
-- `[UI/UX]` (Drawer) Use the primary colour as the background colour
-
-#### FIX
-
-- `[Radarr]` (Add) Would not trigger a search for missing movie when selected
-- `[Radarr]` (Add) Removed ability to set PreDB or TBA minimum availability
-- `[Radarr]` (Edit) Removed ability to set PreDB or TBA minimum availability
-- `[Sonarr]` (Missing) Air date would show in days for very old content
-- `[UI/UX]` (AppBar) Tighten profile switcher tappable area
-
----
-
-## v6.0.0 (60000004)
+## v6.0.0 (60000006)
 
 #### NEW
 
 - `[Dashboard]` (Calendar) Display content poster and additional information
-- `[Firebase]` (Analytics) Completely removed Analytics and Crashlytics
-- `[Images]` (Cache) Cache fetched images to disk
+- `[Dashboard]` (Calendar) Add option to show past days in schedule view
+- `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
+- `[Lidarr]` (Add Artist) Long-press result tile to view Discogs page
 - `[Lidarr]` (Add Artist) Show artist poster in result list
 - `[Lidarr]` (Add Artist) Allow user to select monitoring options
 - `[Lidarr]` (Add Artist) Removed toggle to use album folders
 - `[Lidarr]` (Catalogue) Show artist poster in catalogue list
 - `[Lidarr]` (Missing) Display album covers
+- `[Notifications]` (Priority) Support time-sensitive notifications
+- `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
 - `[Settings]` (Configuration) Show dismissable blocks with information and links
+- `[Settings]` (Network) Ability to enable TLS certificate validation
+- `[Settings]` (Radarr) Ability to set default catalogue view
+- `[Settings]` (Sonarr) Removed toggle to enable v3 features
+- `[Settings]` (Sonarr) Ability to set default catalogue view
+- `[Settings]` (Sonarr) Ability to set default filtering method
+- `[Settings]` (Sonarr) Ability to set queue fetch size
 - `[Settings]` (System) Ability to clear image cache
-- `[Sonarr]` (Catalogue) Previous airing sorting option
+- `[Radarr]` (Catalogue) Grid view support
+- `[Radarr]` (Catalogue) Expand search bar on focus
+- `[Sonarr]` (Catalogue) Grid view support
+- `[Sonarr]` (Catalogue) Expand search bar on focus
+- `[Sonarr]` (Catalogue) Many additional sorting and filtering options
+- `[Sonarr]` (Episodes) Entirely revamped details view
+- `[Sonarr]` (Episodes) View media info for downloaded episodes
+- `[Sonarr]` (Episodes) View history for a single episode
+- `[Sonarr]` (Episodes) View active queued releases for a single episode
+- `[Sonarr]` (Season Details) View history for a single season
+- `[Sonarr]` (Series Details) View history for a single series
+- `[Sonarr]` (History) Now an infinite scrolling list
+- `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
+- `[Sonarr]` (Home) "History" tab has been replaced with a "More" tab
 - `[Sonarr]` (Season List) Display season posters
 - `[Sonarr]` (Queue) Option to set queue page size
+- `[Sonarr]` (Releases) Ability to set default filtering method
+- `[Sonarr]` (Releases) Now shows preferred word score
+- `[System]` (Analytics) Completely removed Firebase Analytics
+- `[System]` (Analytics) Completely removed Firebase Crashlytics
+- `[System]` (Images) Cache fetched images to disk
+- `[UI/UX]` (Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr
 - `[UI/UX]` (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled
 
 #### TWEAKS
 
+- `[Dashboard]` (Modules) Always use module's brand colour for module list
+- `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
 - `[UI/UX]` (Drawer) Heavily reduced the size of the header area
+- `[UI/UX]` (Drawer) Use the primary colour as the background colour
 - `[UI/UX]` (Fonts) Normalized font sizes across the UI
+- `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
+- `[UI/UX]` (Icons) Replace custom icons (except branding icons) with Flutter defaults
 - `[UI/UX]` (Images) Set the default image opacity to 20% (custom set values are uneffected)
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
 - `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
@@ -69,107 +66,31 @@
 
 #### FIXES
 
-- `[Dashboard]` (Calendar) Lidarr entries would not appear
-- `[Dashboard]` (Modules) Unbranded icons could use incorrect colours
-- `[Lidarr]` (Albums) List would fail to load on nightly Lidarr builds
-- `[Sonarr]` (Catalogue) Missing filter would fail to load when using Sonarr v4 in some cases
-- `[Sonarr]` (Images) Images now use v3 API path
-
----
-
-## v6.0.0 (60000003)
-
-#### NEW
-
-- `[Dashboard]` (Calendar) Add option to show past days in schedule view
-- `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
-- `[UI/UX]` (Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr
-
-#### TWEAK
-
-- `[Sonarr]` (Queue) Hide redundant queue information on episode sheet
-- `[UI/UX]` (Drawer) Update the list divider styling
-- `[UI/UX]` (Icons) Replace custom icons (except branding icons) with Flutter defaults
-
-#### FIXES
-
-- `[Dashboard]` (Calendar) Calendar type switcher would not show when starting on calendar page
-- `[Dashboard]` (Calendar) Use Sonarr v3 routes for fetching the calendar
+- `[Dashboard]` (Calendar) Only show type switcher icon when on the calendar page
 - `[Lidarr]` (Artists) Safe-guard fetching of artist quality profiles
-- `[LunaSea]` (Keyboards) External keyboard inputs were not being accepted
-- `[Tautulli]` (Activity) Activity counter badge would not completely fade away
-
----
-
-## v6.0.0 (60000002)
-
-#### NEW
-
-- `[Sonarr]` (Episode Sheet) Show the absolute episode number when available
-- `[Sonarr]` (Episode Sheet) Show queue tile when the episode has queued releases
-- `[Sonarr]` (Releases) Ability to sort by preferred word score
-- `[Sonarr]` (Series Details) Ability to pull-to-refresh series on the season list
-- `[Sonarr]` (Queue) Re-added ability to view all queued releases
-- `[Sonarr]` (Queue) Option to remove from download client and add to blocklist on remove
-
-#### TWEAKS
-
-- `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
-- `[UI/UX]` (List Tiles) Improve consistency in padding between different tile sizes
-
-#### FIXES
-
-- `[Radarr]` (Files) Could fail to load with files without media information
-- `[Sonarr]` (Queue) Check monitored download status on pull to refresh
-- `[Sonarr]` (Releases) Correctly display negative preferred word scores
-- `[Tautulli]` (Updates) Checking for updates could fail in some cases
-- `[UI/UX]` (List Tiles) Fix cases where trailing icons were not vertically centered in collapsed tiles
-
----
-
-## v6.0.0 (60000001)
-
-#### NEW
-
-- `[Dashboard]` (Calendar) Use different marker colours depending on how much content is missing
-- `[Notifications]` Support time-sensitive notifications
-- `[Settings]` (Sonarr) Removed toggle to enable v3 features
-- `[Sonarr]` (Catalogue) Many additional sorting and filtering options
-- `[Sonarr]` (Catalogue) Ability to set default filtering method
-- `[Sonarr]` (Episodes) Entirely revamped details view
-- `[Sonarr]` (Episodes) View media info for downloaded episodes
-- `[Sonarr]` (Episodes) View history for a single episode
-- `[Sonarr]` (Season Details) View history for a single season
-- `[Sonarr]` (Series Details) View history for a single series
-- `[Sonarr]` (History) Now an infinite scrolling list
-- `[Sonarr]` (History) Tiles are now expandable tiles with much more detail
-- `[Sonarr]` (Home) "History" tab has been replaced with a "More" tab
-- `[Sonarr]` (Releases) Ability to set default filtering method
-- `[Sonarr]` (Releases) Now shows preferred word score
-
-#### TWEAKS
-
-- `[Dashboard]` (Modules) Always use module's brand colour for module list
-- `[UI/UX]` (Drawer) Use module's brand colour for highlighted colour
-
-#### FIXES
-
-- `[Dashboard]` Only show calendar type switcher icon when on the calendar page
-- `[Flutter]` Update packages
-- `[Flutter]` Upgrade to Firebase SDK v8.9.0
+- `[Radarr]` (Add Movie) Removed ability to set PreDB or TBA minimum availability
+- `[Radarr]` (Edit Movie) Removed ability to set PreDB or TBA minimum availability
+- `[Radarr]` (Files) Failed to load when files have no media information
+- `[Radarr]` (Releases) Negative custom word scores would be incorrectly displayed
 - `[Settings]` (Calendar) Starting type would have incorrect icons
 - `[Settings]` (Notifications) Overseerr would not be displayed
-- `[Sonarr]` Now only utilizes v3 API routes
-- `[Sonarr]` (Edit) Vastly speed up response time on editing a series
-- `[Sonarr]` (Seasons) Now correctly calculates available episode count in season list
-- `[Networking]` TLS v1.3 is now fully supported
+- `[Sonarr]` (API) Now only utilizes v3 API routes
+- `[Sonarr]` (Catalogue) Missing filter would fail to load when using Sonarr v4
+- `[Sonarr]` (Edit Series) Vastly speed up response time on submitting updates
+- `[Sonarr]` (Missing) Air date would show in days for very old content
+- `[Sonarr]` (Queue) Check monitored download status on pull to refresh
+- `[Sonarr]` (Season List) Correctly calculate the available episode count
+- `[System]` Update packages
+- `[System]` Upgrade to Firebase SDK v8.9.0
+- `[System]` TLS v1.3 is now fully supported
+- `[Tautulli]` (Activity) Activity counter badge would not completely fade away
+- `[Tautulli]` (Check for Updates) Checking for updates could fail in some cases
 - `[UI/UX]` (Bottom Sheet) Tightly size all bottom sheets to the content
-- `[UI/UX]` (ListView) Make padding around the end of infinite list loaders and icons more consistent
+- `[UI/UX]` (List View) Make padding around the end of infinite list loaders and icons more consistent
 - `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views
 - `[UI/UX]` (Router) Slide transitions between pages could not occur on some devices
 - `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
-- `[UI/UX]` (Theme) Remove deprecated theme values
-- `[UI/UX]` Many minor fixes in the user interface and experience
+- `[UI/UX]` (Theme) Removed deprecated theme values
 
 ---
 

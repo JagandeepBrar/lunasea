@@ -5,7 +5,6 @@
 import FlutterMacOS
 import Foundation
 
-import bitsdojo_window_macos
 import cloud_firestore
 import file_selector_macos
 import firebase_auth
@@ -18,9 +17,9 @@ import share_plus_macos
 import shared_preferences_macos
 import sqflite
 import url_launcher_macos
+import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  BitsdojoWindowPlugin.register(with: registry.registrar(forPlugin: "BitsdojoWindowPlugin"))
   FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
@@ -33,4 +32,5 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+  WindowManagerPlugin.register(with: registry.registrar(forPlugin: "WindowManagerPlugin"))
 }

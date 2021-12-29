@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrManualImportBottomActionBar extends StatelessWidget {
   const RadarrManualImportBottomActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
           text: 'radarr.Quick'.tr(),
           icon: Icons.search_rounded,
           onTap: () async {
-            String path = context.read<RadarrManualImportState>().currentPath;
+            String? path = context.read<RadarrManualImportState>().currentPath;
             RadarrAPIHelper().quickImport(context: context, path: path);
           },
         ),
@@ -23,10 +23,10 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
           text: 'radarr.Interactive'.tr(),
           icon: Icons.person_rounded,
           onTap: () async {
-            String path = context.read<RadarrManualImportState>().currentPath;
+            String? path = context.read<RadarrManualImportState>().currentPath;
             RadarrManualImportDetailsRouter().navigateTo(
               context,
-              path: (path ?? '').isNotEmpty ? path : '/',
+              path: (path ?? '').isNotEmpty ? path! : '/',
             );
           },
         ),

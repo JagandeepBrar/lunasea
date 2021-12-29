@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaHighlightedNode extends StatelessWidget {
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Color textColor;
   final String text;
 
   LunaHighlightedNode({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.backgroundColor = LunaColours.accent,
     this.textColor = Colors.white,
   }) : super(key: key) {

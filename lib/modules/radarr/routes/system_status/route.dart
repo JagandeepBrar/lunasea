@@ -21,7 +21,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -35,9 +35,9 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
-          context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
+          context.watch<RadarrState>().enabled! ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }

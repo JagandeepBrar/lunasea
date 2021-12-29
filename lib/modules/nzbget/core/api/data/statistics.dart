@@ -13,15 +13,15 @@ class NZBGetStatisticsData {
   bool scanPaused;
 
   NZBGetStatisticsData({
-    @required this.freeSpaceHigh,
-    @required this.freeSpaceLow,
-    @required this.downloadedHigh,
-    @required this.downloadedLow,
-    @required this.uptimeSeconds,
-    @required this.speedLimit,
-    @required this.serverPaused,
-    @required this.postPaused,
-    @required this.scanPaused,
+    required this.freeSpaceHigh,
+    required this.freeSpaceLow,
+    required this.downloadedHigh,
+    required this.downloadedLow,
+    required this.uptimeSeconds,
+    required this.speedLimit,
+    required this.serverPaused,
+    required this.postPaused,
+    required this.scanPaused,
   });
 
   int get freeSpace {

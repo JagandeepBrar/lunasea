@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
-  final SonarrSeries series;
+  final SonarrSeries? series;
 
   const SonarrSeriesDetailsOverviewLinksSection({
-    Key key,
-    @required this.series,
+    Key? key,
+    required this.series,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
     return LunaButtonContainer(
       buttonsPerRow: 4,
       children: [
-        if (series.imdbId != null && series.imdbId.isNotEmpty)
+        if (series!.imdbId != null && series!.imdbId!.isNotEmpty)
           LunaCard(
             context: context,
             child: InkWell(
@@ -29,7 +29,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
-        if (series.tvdbId != null && series.tvdbId != 0)
+        if (series!.tvdbId != null && series!.tvdbId != 0)
           LunaCard(
             context: context,
             child: InkWell(
@@ -44,7 +44,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
-        if (series.tvdbId != null && series.tvdbId != 0)
+        if (series!.tvdbId != null && series!.tvdbId != 0)
           LunaCard(
             context: context,
             child: InkWell(
@@ -59,7 +59,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
-        if (series.tvMazeId != null && series.tvMazeId != 0)
+        if (series!.tvMazeId != null && series!.tvMazeId != 0)
           LunaCard(
             context: context,
             child: InkWell(

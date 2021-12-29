@@ -35,7 +35,7 @@ class LunaFirebaseStorage {
   /// Delete a backup configuration from Firebase storage.
   ///
   /// If the user is not signed in, returns null.
-  Future<bool> deleteBackup(String id) async {
+  Future<bool> deleteBackup(String? id) async {
     if (!LunaFirebaseAuth().isSignedIn) return false;
     try {
       await instanceBackup
@@ -51,13 +51,13 @@ class LunaFirebaseStorage {
   /// Download a backup configuration from Firebase storage.
   ///
   /// If the user is not signed in, returns null.
-  Future<String> downloadBackup(String id) async {
+  Future<String?> downloadBackup(String? id) async {
     if (!LunaFirebaseAuth().isSignedIn) return null;
     try {
-      Uint8List data = await instanceBackup
+      Uint8List? data = await instanceBackup
           .ref('${LunaFirebaseAuth().uid}/$id.lunasea')
           .getData();
-      return String.fromCharCodes(data);
+      return String.fromCharCodes(data!);
     } catch (error, stack) {
       LunaLogger()
           .error('Failed to download backup from Firebase', error, stack);

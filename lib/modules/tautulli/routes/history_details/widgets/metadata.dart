@@ -1,15 +1,16 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryDetailsMetadata extends StatelessWidget {
   final int ratingKey;
-  final int sessionKey;
-  final int referenceId;
+  final int? sessionKey;
+  final int? referenceId;
 
   const TautulliHistoryDetailsMetadata({
-    Key key,
-    @required this.ratingKey,
+    Key? key,
+    required this.ratingKey,
     this.sessionKey,
     this.referenceId,
   }) : super(key: key);
@@ -20,12 +21,12 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
         builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
           if (snapshot.hasError) return Container();
           if (snapshot.hasData) {
-            TautulliHistoryRecord _record =
-                snapshot.data.records.firstWhere((record) {
+            TautulliHistoryRecord? _record =
+                snapshot.data!.records!.firstWhereOrNull((record) {
               if (record.referenceId == (referenceId ?? -1) ||
                   record.sessionKey == (sessionKey ?? -1)) return true;
               return false;
-            }, orElse: () => null);
+            });
             if (_record != null)
               return LunaIconButton(
                 icon: Icons.info_outline_rounded,

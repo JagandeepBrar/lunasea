@@ -5,14 +5,14 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeasonDetailsState extends ChangeNotifier {
   final int seriesId;
-  final int seasonNumber;
+  final int? seasonNumber;
   int _currentQueueItems = 0;
-  int currentEpisodeId;
+  int? currentEpisodeId;
 
   SonarrSeasonDetailsState({
-    @required BuildContext context,
-    @required this.seriesId,
-    @required this.seasonNumber,
+    required BuildContext context,
+    required this.seriesId,
+    required this.seasonNumber,
   }) {
     fetchState(context, queueHardCheck: false);
   }
@@ -61,11 +61,11 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchEpisodeHistory(BuildContext context, int episodeId) async {
-    if (context.read<SonarrState>().enabled) {
+  Future<void> fetchEpisodeHistory(BuildContext context, int? episodeId) async {
+    if (context.read<SonarrState>().enabled!) {
       episodeHistoryCache.put(
         episodeId.toString(),
-        context.read<SonarrState>().api.history.get(
+        context.read<SonarrState>().api!.history.get(
               pageSize: 1000,
               episodeId: episodeId,
             ),
@@ -74,19 +74,19 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<SonarrHistory> getEpisodeHistory(int episodeId) async {
+  Future<SonarrHistory> getEpisodeHistory(int? episodeId) async {
     return episodeHistoryCache
         .get(episodeId.toString())
         .then((data) => data as SonarrHistory);
   }
 
-  Future<Map<int, SonarrEpisode>> _episodes;
-  Future<Map<int, SonarrEpisode>> get episodes => _episodes;
+  Future<Map<int?, SonarrEpisode>>? _episodes;
+  Future<Map<int?, SonarrEpisode>>? get episodes => _episodes;
   Future<void> fetchEpisodes(BuildContext context) async {
     if (context.read<SonarrState>().enabled ?? false) {
       _episodes = context
           .read<SonarrState>()
-          .api
+          .api!
           .episode
           .getMulti(seriesId: seriesId, seasonNumber: seasonNumber)
           .then((episodes) {
@@ -100,16 +100,16 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
 
   Future<void> setSingleEpisode(SonarrEpisode episode) async {
     assert(episode != null);
-    (await _episodes)[episode.id] = episode;
+    (await _episodes)![episode.id] = episode;
     notifyListeners();
   }
 
-  Future<List<SonarrHistoryRecord>> _history;
-  Future<List<SonarrHistoryRecord>> get history => _history;
+  Future<List<SonarrHistoryRecord>>? _history;
+  Future<List<SonarrHistoryRecord>>? get history => _history;
   Future<void> fetchHistory(BuildContext context) async {
     if (this.seasonNumber == null) return;
     if (context.read<SonarrState>().enabled ?? false) {
-      _history = context.read<SonarrState>().api.history.getBySeries(
+      _history = context.read<SonarrState>().api!.history.getBySeries(
             seriesId: seriesId,
             seasonNumber: seasonNumber,
           );
@@ -117,13 +117,13 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Map<int, SonarrEpisodeFile>> _files;
-  Future<Map<int, SonarrEpisodeFile>> get files => _files;
+  Future<Map<int?, SonarrEpisodeFile>>? _files;
+  Future<Map<int?, SonarrEpisodeFile>>? get files => _files;
   Future<void> fetchFiles(BuildContext context) async {
     if (context.read<SonarrState>().enabled ?? false) {
       _files = context
           .read<SonarrState>()
-          .api
+          .api!
           .episodeFile
           .getSeries(seriesId: seriesId)
           .then((files) {
@@ -135,7 +135,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Timer _queueTimer;
+  Timer? _queueTimer;
   void cancelQueueTimer() => _queueTimer?.cancel();
   void createQueueTimer(BuildContext context) {
     _queueTimer = Timer.periodic(
@@ -144,7 +144,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     );
   }
 
-  Future<List<SonarrQueueRecord>> _queue;
+  late Future<List<SonarrQueueRecord>> _queue;
   Future<List<SonarrQueueRecord>> get queue => _queue;
   set queue(Future<List<SonarrQueueRecord>> queue) {
     assert(queue != null);
@@ -157,13 +157,13 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     bool hardCheck = false,
   }) async {
     cancelQueueTimer();
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       // "Hard" check by telling Sonarr to refresh the monitored downloads
       // Give it 500 ms to internally check and then continue to fetch queue
       if (hardCheck) {
         await context
             .read<SonarrState>()
-            .api
+            .api!
             .command
             .refreshMonitoredDownloads()
             .then(
@@ -172,7 +172,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
       }
       _queue = context
           .read<SonarrState>()
-          .api
+          .api!
           .queue
           .getDetails(
             seriesId: seriesId,

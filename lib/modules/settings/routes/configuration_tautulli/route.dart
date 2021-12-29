@@ -27,7 +27,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -58,13 +58,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject.tautulliEnabled ?? false,
+          value: Database.currentProfileObject!.tautulliEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject.tautulliEnabled = value;
-            Database.currentProfileObject.save();
+            Database.currentProfileObject!.tautulliEnabled = value;
+            Database.currentProfileObject!.save();
             context.read<TautulliState>().reset();
           },
         ),
@@ -116,7 +116,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _activityRefreshRate() {
     TautulliDatabaseValue _db = TautulliDatabaseValue.REFRESH_RATE;
     return _db.listen(builder: (context, box, _) {
-      String refreshRate;
+      String? refreshRate;
       if (_db.data == 1) refreshRate = 'Every Second';
       if (_db.data != 1) refreshRate = 'Every ${_db.data} Seconds';
       return LunaBlock(
@@ -135,7 +135,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     TautulliDatabaseValue _db = TautulliDatabaseValue.STATISTICS_STATS_COUNT;
     return _db.listen(
       builder: (context, box, _) {
-        String statisticsItems;
+        String? statisticsItems;
         if (_db.data == 1) statisticsItems = '1 Item';
         if (_db.data != 1) statisticsItems = '${_db.data} Items';
         return LunaBlock(

@@ -6,8 +6,8 @@ class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
   final RadarrExtraFile extraFile;
 
   const RadarrMovieDetailsFilesExtraFileBlock({
-    Key key,
-    @required this.extraFile,
+    Key? key,
+    required this.extraFile,
   }) : super(key: key);
 
   @override

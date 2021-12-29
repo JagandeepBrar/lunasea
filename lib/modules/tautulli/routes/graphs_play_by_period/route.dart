@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsPlayByPeriodRoute extends StatefulWidget {
   const TautulliGraphsPlayByPeriodRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -6,21 +6,21 @@ class RadarrHealthCheckTile extends StatelessWidget {
   final RadarrHealthCheck healthCheck;
 
   const RadarrHealthCheckTile({
-    Key key,
-    @required this.healthCheck,
+    Key? key,
+    required this.healthCheck,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: healthCheck.message,
+      title: healthCheck.message!,
       collapsedSubtitles: [
         subtitle1(),
         subtitle2(),
       ],
       expandedTableContent: expandedTable(),
       expandedHighlightedNodes: highlightedNodes(),
-      onLongPress: healthCheck.wikiUrl.lunaOpenGenericLink,
+      onLongPress: healthCheck.wikiUrl!.lunaOpenGenericLink,
     );
   }
 
@@ -30,7 +30,7 @@ class RadarrHealthCheckTile extends StatelessWidget {
 
   TextSpan subtitle2() {
     return TextSpan(
-      text: healthCheck.type.readable,
+      text: healthCheck.type!.readable,
       style: TextStyle(
         color: healthCheck.type.lunaColour,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -42,7 +42,7 @@ class RadarrHealthCheckTile extends StatelessWidget {
   List<LunaHighlightedNode> highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: healthCheck.type.readable,
+        text: healthCheck.type!.readable!,
         backgroundColor: healthCheck.type.lunaColour,
       ),
     ];

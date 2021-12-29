@@ -43,7 +43,7 @@ abstract class LunaPageRouter {
   /// - Parses and injects the required parameters into the route for the handler
   void withParameterRouteDefinition(
     FluroRouter router,
-    Widget Function(BuildContext, Map<String, List<String>>) handlerFunc, {
+    Widget Function(BuildContext?, Map<String, List<String>>) handlerFunc, {
     bool homeRoute = false,
   });
 

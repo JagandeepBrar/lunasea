@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 // ignore: non_constant_identifier_names
 Widget TautulliSearchAppBar({
-  @required ScrollController scrollController,
+  required ScrollController scrollController,
 }) =>
     LunaAppBar(
       title: 'Search',
@@ -16,8 +16,8 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
 
   const _SearchBar({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

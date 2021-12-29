@@ -7,8 +7,8 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
   final TautulliUpdateCheck update;
 
   const TautulliCheckForUpdatesTautulliTile({
-    Key key,
-    @required this.update,
+    Key? key,
+    required this.update,
   }) : super(key: key);
 
   @override
@@ -57,9 +57,9 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
             const TextSpan(text: 'Current Version: '),
             TextSpan(
               text: update?.currentRelease ??
-                  update.currentVersion.substring(
+                  update.currentVersion!.substring(
                     0,
-                    min(7, update.currentVersion.length ?? 0),
+                    min(7, update.currentVersion!.length ?? 0),
                   ) ??
                   'lunasea.Unknown'.tr(),
             ),
@@ -71,9 +71,9 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
             const TextSpan(text: 'Latest Version: '),
             TextSpan(
               text: update?.latestRelease ??
-                  update.latestVersion.substring(
+                  update.latestVersion!.substring(
                     0,
-                    min(7, update.latestVersion.length ?? 0),
+                    min(7, update.latestVersion!.length ?? 0),
                   ) ??
                   'lunasea.Unknown'.tr(),
             ),

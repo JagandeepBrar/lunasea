@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   const SettingsSystemBackupRestoreRestoreTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
 
   Future<void> _restore(BuildContext context) async {
     try {
-      File file = await LunaFileSystem().import(context, ['lunasea']);
+      File? file = await LunaFileSystem().import(context, ['lunasea']);
       if (file != null) {
         String _data = file.readAsStringSync();
         Tuple2<bool, String> _key =

@@ -6,8 +6,8 @@ class NZBGetLogTile extends StatelessWidget {
   final NZBGetLogData data;
 
   const NZBGetLogTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class NZBGetLogTile extends StatelessWidget {
       body: [TextSpan(text: data.timestamp)],
       trailing: const LunaIconButton.arrow(),
       onTap: () async =>
-          LunaDialogs().textPreview(context, 'Log Entry', data.text),
+          LunaDialogs().textPreview(context, 'Log Entry', data.text!),
     );
   }
 }

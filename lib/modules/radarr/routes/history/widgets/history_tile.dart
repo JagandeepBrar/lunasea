@@ -5,12 +5,12 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrHistoryTile extends StatelessWidget {
   final RadarrHistoryRecord history;
   final bool movieHistory;
-  final String title;
+  final String? title;
 
   /// If [movieHistory] is false (default), you must supply a title or else a dash will be shown.
   const RadarrHistoryTile({
-    Key key,
-    @required this.history,
+    Key? key,
+    required this.history,
     this.movieHistory = false,
     this.title = LunaUI.TEXT_EMDASH,
   }) : super(key: key);
@@ -18,13 +18,13 @@ class RadarrHistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: movieHistory ? history?.sourceTitle : title,
+      title: movieHistory ? history?.sourceTitle! : title!,
       collapsedSubtitles: [
         TextSpan(
           text: [
             history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
             history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-          ].join(LunaUI.TEXT_BULLET.lunaPad()),
+          ].join(LunaUI.TEXT_BULLET.lunaPad()!),
         ),
         TextSpan(
           text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
@@ -36,12 +36,12 @@ class RadarrHistoryTile extends StatelessWidget {
       ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
-          text: history.eventType?.readable,
+          text: history.eventType?.readable!,
           backgroundColor: history.eventType?.lunaColour,
         ),
-        ...history.customFormats
+        ...history.customFormats!
             .map<LunaHighlightedNode>((format) => LunaHighlightedNode(
-                  text: format.name,
+                  text: format.name!,
                   backgroundColor: LunaColours.blueGrey,
                 )),
       ],

@@ -8,8 +8,8 @@ enum LidarrMonitorStatus {
   NONE,
 }
 
-extension LidarrMonitorStatusExtension on LidarrMonitorStatus {
-  LidarrMonitorStatus fromKey(String key) {
+extension LidarrMonitorStatusExtension on LidarrMonitorStatus? {
+  LidarrMonitorStatus? fromKey(String? key) {
     switch (key) {
       case 'all':
         return LidarrMonitorStatus.ALL;

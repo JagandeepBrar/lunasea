@@ -6,7 +6,7 @@ class _RadarrManualImportDetailsArguments {
   final String path;
 
   _RadarrManualImportDetailsArguments({
-    @required this.path,
+    required this.path,
   }) {
     assert(path != null);
   }
@@ -21,7 +21,7 @@ class RadarrManualImportDetailsRouter extends RadarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required String path,
+    required String path,
   }) async {
     LunaRouter.router.navigateTo(
       context,
@@ -56,8 +56,8 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _RadarrManualImportDetailsArguments arguments =
-        ModalRoute.of(context).settings.arguments;
+    _RadarrManualImportDetailsArguments? arguments =
+        ModalRoute.of(context)!.settings.arguments as _RadarrManualImportDetailsArguments?;
     if (arguments == null || arguments.path == null || arguments.path.isEmpty) {
       return LunaInvalidRoute(
         title: 'radarr.ManualImport'.tr(),
@@ -72,7 +72,7 @@ class _State extends State<_Widget>
       builder: (context, _) {
         return LunaScaffold(
           scaffoldKey: _scaffoldKey,
-          appBar: _appBar(),
+          appBar: _appBar() as PreferredSizeWidget?,
           body: _body(context),
           bottomNavigationBar: const RadarrManualImportDetailsBottomActionBar(),
         );
@@ -92,7 +92,7 @@ class _State extends State<_Widget>
       future: Future.wait(
         [
           context.select(
-            (RadarrManualImportDetailsState state) => state.manualImport,
+            ((RadarrManualImportDetailsState state) => state.manualImport.then((value) => value!)) as Future<_> Function(_),
           ),
           context.select(
             (RadarrState state) => state.qualityProfiles,
@@ -121,7 +121,7 @@ class _State extends State<_Widget>
             snapshot.hasData) {
           return _list(
             context,
-            manualImport: snapshot.data[0],
+            manualImport: snapshot.data![0] as List<RadarrManualImport>,
           );
         }
         return const LunaLoader();
@@ -131,7 +131,7 @@ class _State extends State<_Widget>
 
   Widget _list(
     BuildContext context, {
-    @required List<RadarrManualImport> manualImport,
+    required List<RadarrManualImport> manualImport,
   }) {
     if ((manualImport?.length ?? 0) == 0) {
       return LunaMessage(

@@ -4,7 +4,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountDeleteConfigurationTile extends StatefulWidget {
   const SettingsAccountDeleteConfigurationTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -38,18 +38,18 @@ class _State extends State<SettingsAccountDeleteConfigurationTile> {
     try {
       List<LunaFirebaseBackupDocument> documents =
           await LunaFirebaseFirestore().getBackupEntries();
-      Tuple2<bool, LunaFirebaseBackupDocument> result =
+      Tuple2<bool, LunaFirebaseBackupDocument?> result =
           await SettingsDialogs().getBackupFromCloud(context, documents);
       if (result.item1) {
         await LunaFirebaseFirestore()
-            .deleteBackupEntry(result.item2.id)
-            .then((_) => LunaFirebaseStorage().deleteBackup(result.item2.id))
+            .deleteBackupEntry(result.item2!.id)
+            .then((_) => LunaFirebaseStorage().deleteBackup(result.item2!.id))
             .then((_) {
           updateState(LunaLoadingState.INACTIVE);
           showLunaSuccessSnackBar(
             title: 'settings.DeleteCloudBackupSuccess'.tr(),
             message:
-                result.item2.title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
+                result.item2!.title!.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
           );
         }).catchError((error, stack) {
           LunaLogger().error('Firebase Backup Deletion Failed', error, stack);

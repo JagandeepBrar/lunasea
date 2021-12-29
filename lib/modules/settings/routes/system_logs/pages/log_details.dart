@@ -7,7 +7,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
 
   @override
   Widget widget({
-    @required String type,
+    required String type,
   }) {
     return _Widget(type: LunaLogType.ERROR.fromKey((type)));
   }
@@ -15,14 +15,14 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required String type,
+    required String type,
   }) async {
     LunaRouter.router.navigateTo(context, route(type: type));
   }
 
   @override
   String route({
-    @required String type,
+    required String type,
   }) {
     return fullRoute.replaceFirst(':type', type);
   }
@@ -33,7 +33,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
       router,
       (context, params) {
         String type =
-            (params['type']?.isNotEmpty ?? false) ? params['type'][0] : '';
+            (params['type']?.isNotEmpty ?? false) ? params['type']![0] : '';
         return _Widget(type: LunaLogType.ERROR.fromKey(type));
       },
     );
@@ -41,11 +41,11 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
 }
 
 class _Widget extends StatefulWidget {
-  final LunaLogType type;
+  final LunaLogType? type;
 
   const _Widget({
-    Key key,
-    @required this.type,
+    Key? key,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -74,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
         valueListenable: Database.logsBox.listenable(),
-        builder: (context, box, _) {
+        builder: (context, dynamic box, _) {
           List<LunaLogHiveObject> logs = filter(box);
           if ((logs?.length ?? 0) == 0)
             return LunaMessage.goBack(

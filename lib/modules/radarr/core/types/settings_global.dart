@@ -10,7 +10,7 @@ enum RadarrGlobalSettingsType {
   BACKUP_DATABASE,
 }
 
-extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
+extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType? {
   IconData get icon {
     switch (this) {
       case RadarrGlobalSettingsType.WEB_GUI:
@@ -60,7 +60,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<RadarrState>().host.lunaOpenGenericLink(
+      context.read<RadarrState>().host!.lunaOpenGenericLink(
             headers: context.read<RadarrState>().headers,
           );
   Future<void> _backupDatabase(BuildContext context) async =>

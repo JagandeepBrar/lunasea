@@ -21,7 +21,7 @@ enum LunaIndexerIcon {
   NZBSU,
 }
 
-extension LunaIndexerIconExtension on LunaIndexerIcon {
+extension LunaIndexerIconExtension on LunaIndexerIcon? {
   LunaIndexerIcon fromKey(String key) {
     switch (key) {
       case 'generic':

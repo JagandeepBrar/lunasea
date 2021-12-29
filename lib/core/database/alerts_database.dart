@@ -39,7 +39,7 @@ extension AlertsDatabaseValueExtension on AlertsDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) =>
       ValueListenableBuilder(
         valueListenable: Database.alertsBox.listenable(keys: [this.key]),

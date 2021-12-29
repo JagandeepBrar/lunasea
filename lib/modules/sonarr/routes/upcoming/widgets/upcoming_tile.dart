@@ -4,11 +4,11 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingTile extends StatefulWidget {
   final SonarrCalendar record;
-  final SonarrSeries series;
+  final SonarrSeries? series;
 
   const SonarrUpcomingTile({
-    Key key,
-    @required this.record,
+    Key? key,
+    required this.record,
     this.series,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class _State extends State<SonarrUpcomingTile> {
         _subtitle2(),
         _subtitle3(),
       ],
-      disabled: !widget.record.monitored,
+      disabled: !widget.record.monitored!,
       onTap: _onTap,
       onLongPress: _onLongPress,
       trailing: _trailing(),
@@ -70,7 +70,7 @@ class _State extends State<SonarrUpcomingTile> {
   }
 
   TextSpan _subtitle3() {
-    Color color = widget.record.hasFile
+    Color color = widget.record.hasFile!
         ? LunaColours.accent
         : widget.record.lunaHasAired
             ? LunaColours.red
@@ -81,9 +81,9 @@ class _State extends State<SonarrUpcomingTile> {
         color: color,
       ),
       children: [
-        if (!widget.record.hasFile)
+        if (!widget.record.hasFile!)
           TextSpan(text: widget.record.lunaHasAired ? 'Missing' : 'Unaired'),
-        if (widget.record.hasFile)
+        if (widget.record.hasFile!)
           TextSpan(
             text:
                 'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})',
@@ -105,9 +105,9 @@ class _State extends State<SonarrUpcomingTile> {
 
   Future<void> _trailingOnPressed() async {
     Provider.of<SonarrState>(context, listen: false)
-        .api
+        .api!
         .command
-        .episodeSearch(episodeIds: [widget.record.id])
+        .episodeSearch(episodeIds: [widget.record.id!])
         .then((_) => showLunaSuccessSnackBar(
               title: 'Searching for Episode...',
               message: widget.record.title,

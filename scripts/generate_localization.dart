@@ -41,15 +41,15 @@ void main() {
   });
 }
 
-void _writeFile(String path, Map<dynamic, dynamic> data) {
+void _writeFile(String path, Map<dynamic, dynamic>? data) {
   // Read the current data in the file
   File file = File(path);
-  Map<dynamic, dynamic> fileData = jsonDecode(file.readAsStringSync());
+  Map<dynamic, dynamic>? fileData = jsonDecode(file.readAsStringSync());
   // Ensure the file exists
   if (file.existsSync()) {
     print('    Appending localization strings...');
     // Add all the localization strings to the file, and write back the string version of the map.
-    fileData.addAll(data);
+    fileData!.addAll(data!);
     JsonEncoder encoder = const JsonEncoder.withIndent('    ');
     file.writeAsStringSync(
       encoder.convert(fileData),

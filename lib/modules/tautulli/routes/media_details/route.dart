@@ -7,8 +7,8 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
 
   @override
   _Widget widget({
-    @required int ratingKey,
-    @required TautulliMediaType mediaType,
+    required int ratingKey,
+    required TautulliMediaType mediaType,
   }) =>
       _Widget(
         ratingKey: ratingKey,
@@ -18,8 +18,8 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required int ratingKey,
-    @required TautulliMediaType mediaType,
+    required int? ratingKey,
+    required TautulliMediaType? mediaType,
   }) async =>
       LunaRouter.router.navigateTo(
         context,
@@ -31,8 +31,8 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
 
   @override
   String route({
-    @required int ratingKey,
-    @required TautulliMediaType mediaType,
+    required int? ratingKey,
+    required TautulliMediaType? mediaType,
   }) =>
       fullRoute
           .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
@@ -42,12 +42,12 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
   void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
         router,
         (context, params) {
-          TautulliMediaType mediaType =
+          TautulliMediaType? mediaType =
               (params['mediatype']?.isNotEmpty ?? false)
-                  ? TautulliMediaType.NULL.from(params['mediatype'][0])
+                  ? TautulliMediaType.NULL.from(params['mediatype']![0])
                   : null;
           int ratingKey = (params['ratingkey']?.isNotEmpty ?? false)
-              ? int.tryParse(params['ratingkey'][0]) ?? -1
+              ? int.tryParse(params['ratingkey']![0]) ?? -1
               : -1;
           return _Widget(
             ratingKey: ratingKey,
@@ -59,12 +59,12 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
 
 class _Widget extends StatefulWidget {
   final int ratingKey;
-  final TautulliMediaType mediaType;
+  final TautulliMediaType? mediaType;
 
   const _Widget({
-    Key key,
-    @required this.ratingKey,
-    @required this.mediaType,
+    Key? key,
+    required this.ratingKey,
+    required this.mediaType,
   }) : super(key: key);
 
   @override
@@ -73,7 +73,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -100,7 +100,7 @@ class _State extends State<_Widget> {
     );
   }
 
-  Widget _bottomNavigationBar() {
+  Widget? _bottomNavigationBar() {
     if (widget.mediaType != null &&
         widget.mediaType != TautulliMediaType.NULL &&
         widget.mediaType != TautulliMediaType.COLLECTION &&

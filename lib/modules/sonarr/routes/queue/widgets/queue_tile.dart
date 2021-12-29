@@ -12,9 +12,9 @@ class SonarrQueueTile extends StatefulWidget {
   final SonarrQueueTileType type;
 
   const SonarrQueueTile({
-    Key key,
-    @required this.queueRecord,
-    @required this.type,
+    Key? key,
+    required this.queueRecord,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class _State extends State<SonarrQueueTile> {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: widget.queueRecord.title,
+      title: widget.queueRecord.title!,
       collapsedSubtitles: [
         if (widget.type == SonarrQueueTileType.ALL) _subtitle1(),
         if (widget.type == SonarrQueueTileType.ALL) _subtitle2(),
@@ -65,7 +65,7 @@ class _State extends State<SonarrQueueTile> {
 
   TextSpan _subtitle1() {
     return TextSpan(
-      text: widget.queueRecord.series.title ?? LunaUI.TEXT_EMDASH,
+      text: widget.queueRecord.series!.title ?? LunaUI.TEXT_EMDASH,
     );
   }
 
@@ -77,7 +77,7 @@ class _State extends State<SonarrQueueTile> {
                 LunaUI.TEXT_EMDASH),
         const TextSpan(text: ': '),
         TextSpan(
-            text: widget.queueRecord.episode.title ?? LunaUI.TEXT_EMDASH,
+            text: widget.queueRecord.episode!.title ?? LunaUI.TEXT_EMDASH,
             style: const TextStyle(fontStyle: FontStyle.italic)),
       ],
     );
@@ -190,7 +190,7 @@ class _State extends State<SonarrQueueTile> {
           onTap: () async {
             SonarrDialogs().showQueueStatusMessages(
               context,
-              widget.queueRecord.statusMessages,
+              widget.queueRecord.statusMessages!,
             );
           },
         ),

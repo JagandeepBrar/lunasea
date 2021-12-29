@@ -13,34 +13,34 @@ class DashboardState extends LunaModuleState {
     resetUpcoming();
   }
 
-  CalendarStartingType _calendarStartingType =
+  CalendarStartingType? _calendarStartingType =
       DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data;
-  CalendarStartingType get calendarStartingType => _calendarStartingType;
+  CalendarStartingType get calendarStartingType => _calendarStartingType!;
   set calendarStartingType(CalendarStartingType calendarStartingType) {
     assert(calendarStartingType != null);
     _calendarStartingType = calendarStartingType;
     notifyListeners();
   }
 
-  CalendarAPI _api;
-  CalendarAPI get api => _api;
+  CalendarAPI? _api;
+  CalendarAPI? get api => _api;
   void resetAPI() {
-    ProfileHiveObject _profile = Database.currentProfileObject;
+    ProfileHiveObject? _profile = Database.currentProfileObject;
     _api = CalendarAPI.from(_profile);
     notifyListeners();
   }
 
-  DateTime _today;
-  DateTime get today => _today;
+  DateTime? _today;
+  DateTime? get today => _today;
   void resetToday() {
     _today = DateTime.now();
     notifyListeners();
   }
 
-  Future<Map<DateTime, List<CalendarData>>> _upcoming;
-  Future<Map<DateTime, List<CalendarData>>> get upcoming => _upcoming;
+  Future<Map<DateTime, List<CalendarData>>>? _upcoming;
+  Future<Map<DateTime, List<CalendarData>>>? get upcoming => _upcoming;
   void resetUpcoming() {
-    if (_api != null) _upcoming = _api.getUpcoming(DateTime.now());
+    if (_api != null) _upcoming = _api!.getUpcoming(DateTime.now());
     notifyListeners();
   }
 }

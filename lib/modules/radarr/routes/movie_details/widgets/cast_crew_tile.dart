@@ -6,8 +6,8 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
   final RadarrMovieCredits credits;
 
   const RadarrMovieDetailsCastCrewTile({
-    Key key,
-    @required this.credits,
+    Key? key,
+    required this.credits,
   }) : super(key: key);
 
   @override
@@ -15,11 +15,11 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
     return LunaBlock(
       title: credits.personName,
       posterPlaceholderIcon: LunaIcons.USER,
-      posterUrl: credits.images.isEmpty ? null : credits.images[0].url,
+      posterUrl: credits.images!.isEmpty ? null : credits.images![0].url,
       body: [
         TextSpan(text: _position),
         TextSpan(
-          text: credits.type.readable,
+          text: credits.type!.readable,
           style: TextStyle(
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             color: credits.type == RadarrCreditType.CAST
@@ -32,12 +32,12 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
     );
   }
 
-  String get _position {
+  String? get _position {
     switch (credits.type) {
       case RadarrCreditType.CREW:
-        return credits.job.isEmpty ? LunaUI.TEXT_EMDASH : credits.job;
+        return credits.job!.isEmpty ? LunaUI.TEXT_EMDASH : credits.job;
       case RadarrCreditType.CAST:
-        return credits.character.isEmpty
+        return credits.character!.isEmpty
             ? LunaUI.TEXT_EMDASH
             : credits.character;
       default:

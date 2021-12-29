@@ -11,7 +11,7 @@ enum CalendarStartingType {
   SCHEDULE,
 }
 
-extension CalendarStartingTypeExtension on CalendarStartingType {
+extension CalendarStartingTypeExtension on CalendarStartingType? {
   String get name {
     switch (this) {
       case CalendarStartingType.SCHEDULE:
@@ -42,7 +42,7 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
     throw Exception('Invalid CalendarStartingType');
   }
 
-  CalendarStartingType fromKey(String key) {
+  CalendarStartingType? fromKey(String? key) {
     switch (key) {
       case 'schedule':
         return CalendarStartingType.SCHEDULE;

@@ -6,8 +6,8 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
   final RadarrManualImport manualImport;
 
   const RadarrManualImportDetailsTile({
-    Key key,
-    @required this.manualImport,
+    Key? key,
+    required this.manualImport,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
         title: context
             .watch<RadarrManualImportDetailsTileState>()
             .manualImport
-            .relativePath,
+            .relativePath!,
         collapsedTrailing: _trailing(context),
         collapsedSubtitles: [
           _subtitle1(context),
@@ -153,7 +153,7 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
             .read<RadarrManualImportDetailsTileState>()
             .manualImport
             .rejections
-            ?.map<String>((rejection) => rejection.reason)
+            ?.map<String?>((rejection) => rejection.reason)
             ?.toList(),
       ),
     );
@@ -185,7 +185,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
     if ((_manualImport.languages ?? [])
             .indexWhere((lang) => lang.id == language.id) >=
         0) return;
-    _manualImport.languages.add(language);
+    _manualImport.languages!.add(language);
     notifyListeners();
   }
 
@@ -194,7 +194,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
     int index = (_manualImport.languages ?? [])
         .indexWhere((lang) => lang.id == language.id);
     if (index == -1) return;
-    _manualImport.languages.removeAt(index);
+    _manualImport.languages!.removeAt(index);
     notifyListeners();
   }
 
@@ -202,14 +202,14 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
     if (_manualImport.movie != null &&
         _manualImport.quality != null &&
         (_manualImport.languages?.length ?? 0) > 0 &&
-        _manualImport.languages[0].id >= 0)
+        _manualImport.languages![0].id! >= 0)
       Future.microtask(() => context
           .read<RadarrManualImportDetailsState>()
-          .addSelectedFile(_manualImport.id));
+          .addSelectedFile(_manualImport.id!));
   }
 
-  Future<void> fetchUpdates(BuildContext context, int movieId) async {
-    if (context.read<RadarrState>().enabled) {
+  Future<void> fetchUpdates(BuildContext context, int? movieId) async {
+    if (context.read<RadarrState>().enabled!) {
       RadarrManualImportUpdateData data = RadarrManualImportUpdateData(
         id: manualImport.id,
         path: manualImport.path,
@@ -219,7 +219,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
       );
       context
           .read<RadarrState>()
-          .api
+          .api!
           .manualImport
           .update(data: [data]).then((value) {
         if ((value?.length ?? 0) > 0) {
@@ -236,7 +236,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
 
   void updateQuality(RadarrQuality quality) {
     assert(quality != null);
-    _manualImport.quality.quality = quality;
+    _manualImport.quality!.quality = quality;
     notifyListeners();
   }
 }

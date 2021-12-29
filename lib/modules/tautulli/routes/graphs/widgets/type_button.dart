@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsTypeButton extends StatelessWidget {
   const TautulliGraphsTypeButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                     value: TautulliGraphYAxis.values[index],
                     child: Text(
                       TautulliStatsType.values[index].value
-                          .lunaCapitalizeFirstLetters(),
+                          .lunaCapitalizeFirstLetters()!,
                       style: TextStyle(
                         fontSize: LunaUI.FONT_SIZE_H3,
                         color: type == TautulliGraphYAxis.values[index]

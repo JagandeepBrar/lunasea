@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryRoute extends StatefulWidget {
   const TautulliHistoryRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -64,19 +64,19 @@ class _State extends State<TautulliHistoryRoute>
     );
   }
 
-  Widget _history(TautulliHistory history) {
+  Widget _history(TautulliHistory? history) {
     if ((history?.records?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No History Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: TautulliNavigationBar.scrollControllers[2],
-      itemCount: history.records.length,
+      itemCount: history!.records!.length,
       itemExtent: LunaBlock.calculateItemExtent(3),
       itemBuilder: (context, index) =>
-          TautulliHistoryTile(history: history.records[index]),
+          TautulliHistoryTile(history: history.records![index]),
     );
   }
 }

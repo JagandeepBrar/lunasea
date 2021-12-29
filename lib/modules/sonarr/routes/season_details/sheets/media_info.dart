@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMediaInfoSheet extends LunaBottomModalSheet {
-  final SonarrEpisodeFileMediaInfo mediaInfo;
+  final SonarrEpisodeFileMediaInfo? mediaInfo;
 
   SonarrMediaInfoSheet({
-    @required this.mediaInfo,
+    required this.mediaInfo,
   });
 
   @override
@@ -18,27 +18,27 @@ class SonarrMediaInfoSheet extends LunaBottomModalSheet {
           content: [
             LunaTableContent(
               title: 'sonarr.BitDepth'.tr(),
-              body: mediaInfo.lunaVideoBitDepth,
+              body: mediaInfo!.lunaVideoBitDepth,
             ),
             LunaTableContent(
               title: 'sonarr.Bitrate'.tr(),
-              body: mediaInfo.lunaVideoBitrate,
+              body: mediaInfo!.lunaVideoBitrate,
             ),
             LunaTableContent(
               title: 'sonarr.Codec'.tr(),
-              body: mediaInfo.lunaVideoCodec,
+              body: mediaInfo!.lunaVideoCodec,
             ),
             LunaTableContent(
               title: 'sonarr.FPS'.tr(),
-              body: mediaInfo.lunaVideoFps,
+              body: mediaInfo!.lunaVideoFps,
             ),
             LunaTableContent(
               title: 'sonarr.Resolution'.tr(),
-              body: mediaInfo.lunaVideoResolution,
+              body: mediaInfo!.lunaVideoResolution,
             ),
             LunaTableContent(
               title: 'sonarr.ScanType'.tr(),
-              body: mediaInfo.lunaVideoScanType,
+              body: mediaInfo!.lunaVideoScanType,
             ),
           ],
         ),
@@ -47,23 +47,23 @@ class SonarrMediaInfoSheet extends LunaBottomModalSheet {
           content: [
             LunaTableContent(
               title: 'sonarr.Bitrate'.tr(),
-              body: mediaInfo.lunaAudioBitrate,
+              body: mediaInfo!.lunaAudioBitrate,
             ),
             LunaTableContent(
               title: 'sonarr.Channels'.tr(),
-              body: mediaInfo.lunaAudioChannels,
+              body: mediaInfo!.lunaAudioChannels,
             ),
             LunaTableContent(
               title: 'sonarr.Codec'.tr(),
-              body: mediaInfo.lunaAudioCodec,
+              body: mediaInfo!.lunaAudioCodec,
             ),
             LunaTableContent(
               title: 'sonarr.Languages'.tr(),
-              body: mediaInfo.lunaAudioLanguages,
+              body: mediaInfo!.lunaAudioLanguages,
             ),
             LunaTableContent(
               title: 'sonarr.Streams'.tr(),
-              body: mediaInfo.lunaAudioStreamCount,
+              body: mediaInfo!.lunaAudioStreamCount,
             ),
           ],
         ),
@@ -72,11 +72,11 @@ class SonarrMediaInfoSheet extends LunaBottomModalSheet {
           content: [
             LunaTableContent(
               title: 'sonarr.Runtime'.tr(),
-              body: mediaInfo.lunaRunTime,
+              body: mediaInfo!.lunaRunTime,
             ),
             LunaTableContent(
               title: 'sonarr.Subtitles'.tr(),
-              body: mediaInfo.lunaSubtitles,
+              body: mediaInfo!.lunaSubtitles,
             ),
           ],
         ),

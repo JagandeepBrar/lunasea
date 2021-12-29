@@ -4,7 +4,7 @@ import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrRequestsRoute extends StatefulWidget {
   const OverseerrRequestsRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

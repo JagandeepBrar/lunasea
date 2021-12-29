@@ -21,7 +21,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.OVERSEERR,
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -47,15 +47,15 @@ class _State extends State<_Widget> {
     return LunaDrawer(page: LunaModule.OVERSEERR.key);
   }
 
-  Widget _bottomNavigationBar() {
-    if (context.read<OverseerrState>().enabled) {
+  Widget? _bottomNavigationBar() {
+    if (context.read<OverseerrState>().enabled!) {
       return OverseerrNavigationBar(pageController: _pageController);
     }
     return null;
   }
 
   Widget _appBar() {
-    List<String> profiles = Database.profilesBox.keys.fold(
+    List<String?> profiles = Database.profilesBox.keys.fold(
       [],
       (value, element) {
         if (Database.profilesBox.get(element)?.overseerrEnabled ?? false) {
@@ -64,8 +64,8 @@ class _State extends State<_Widget> {
         return value;
       },
     );
-    List<Widget> actions;
-    if (context.watch<OverseerrState>().enabled) actions = [];
+    List<Widget>? actions;
+    if (context.watch<OverseerrState>().enabled!) actions = [];
     return LunaAppBar.dropdown(
       title: LunaModule.OVERSEERR.name,
       useDrawer: true,
@@ -77,10 +77,10 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return Selector<OverseerrState, bool>(
+    return Selector<OverseerrState, bool?>(
       selector: (_, state) => state.enabled,
       builder: (context, enabled, _) {
-        if (!enabled) {
+        if (!enabled!) {
           return LunaMessage.moduleNotEnabled(
             context: context,
             module: 'Overseerr',

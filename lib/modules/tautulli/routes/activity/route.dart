@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliActivityRoute extends StatefulWidget {
   const TautulliActivityRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -43,9 +43,9 @@ class _State extends State<TautulliActivityRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: FutureBuilder(
-        future: context.select<TautulliState, Future<TautulliActivity>>(
+        future: context.select<TautulliState, Future<TautulliActivity?>>(
             (state) => state.activity),
-        builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
+        builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)
               LunaLogger().error(
@@ -53,7 +53,7 @@ class _State extends State<TautulliActivityRoute>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -62,20 +62,20 @@ class _State extends State<TautulliActivityRoute>
     );
   }
 
-  Widget _list(TautulliActivity activity) {
+  Widget _list(TautulliActivity? activity) {
     if ((activity?.sessions?.length ?? 0) == 0)
       return LunaMessage(
         text: 'tautulli.NoActiveStreams'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListView(
       controller: TautulliNavigationBar.scrollControllers[0],
       children: [
         TautulliActivityStatus(activity: activity),
         ...List.generate(
-          activity.sessions.length,
-          (index) => TautulliActivityTile(session: activity.sessions[index]),
+          activity!.sessions!.length,
+          (index) => TautulliActivityTile(session: activity.sessions![index]),
         ),
       ],
     );

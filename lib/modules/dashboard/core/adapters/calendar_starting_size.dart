@@ -14,7 +14,7 @@ enum CalendarStartingSize {
   ONE_MONTH,
 }
 
-extension CalendarStartingSizeExtension on CalendarStartingSize {
+extension CalendarStartingSizeExtension on CalendarStartingSize? {
   CalendarFormat get data {
     switch (this) {
       case CalendarStartingSize.ONE_WEEK:
@@ -63,7 +63,7 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
     throw Exception('Invalid CalendarStartingSize');
   }
 
-  CalendarStartingSize fromKey(String key) {
+  CalendarStartingSize? fromKey(String? key) {
     switch (key) {
       case 'oneweek':
         return CalendarStartingSize.ONE_WEEK;

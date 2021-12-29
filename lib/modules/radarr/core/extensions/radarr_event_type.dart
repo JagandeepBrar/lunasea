@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-extension LunaRadarrEventType on RadarrEventType {
+extension LunaRadarrEventType on RadarrEventType? {
   // Get LunaSea associated colour of the event type.
   Color get lunaColour {
     switch (this) {
@@ -67,11 +67,11 @@ extension LunaRadarrEventType on RadarrEventType {
     }
   }
 
-  String lunaReadable(RadarrHistoryRecord record) {
+  String? lunaReadable(RadarrHistoryRecord record) {
     switch (this) {
       case RadarrEventType.GRABBED:
         return 'radarr.GrabbedFrom'
-            .tr(args: [record.data['indexer'] ?? LunaUI.TEXT_EMDASH]);
+            .tr(args: [record.data!['indexer'] ?? LunaUI.TEXT_EMDASH]);
       case RadarrEventType.DOWNLOAD_FAILED:
         return 'radarr.DownloadFailed'.tr();
       case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED:
@@ -131,42 +131,42 @@ extension LunaRadarrEventType on RadarrEventType {
       LunaTableContent(
         title: 'languages',
         body: record?.languages
-                ?.map<String>((language) => language.name)
+                ?.map<String?>((language) => language.name)
                 ?.join('\n') ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'indexer',
-        body: record.data['indexer'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['indexer'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'group',
-        body: record.data['releaseGroup'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['releaseGroup'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'client',
-        body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'age',
-        body: record.data['ageHours'] != null
-            ? double?.tryParse((record.data['ageHours'] as String))
+        body: record.data!['ageHours'] != null
+            ? double.tryParse((record.data!['ageHours'] as String))
                     ?.lunaHoursToAge() ??
                 LunaUI.TEXT_EMDASH
             : LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'published date',
-        body: DateTime.tryParse(record.data['publishedDate']) != null
-            ? DateTime.tryParse(record.data['publishedDate'])
+        body: DateTime.tryParse(record.data!['publishedDate']) != null
+            ? DateTime.tryParse(record.data!['publishedDate'])
                     ?.lunaDateTimeReadable(timeOnNewLine: true) ??
                 LunaUI.TEXT_EMDASH
             : LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'info url',
-        body: record.data['nzbInfoUrl'] ?? LunaUI.TEXT_EMDASH,
-        bodyIsUrl: record.data['nzbInfoUrl'] != null,
+        body: record.data!['nzbInfoUrl'] ?? LunaUI.TEXT_EMDASH,
+        bodyIsUrl: record.data!['nzbInfoUrl'] != null,
       ),
     ];
   }
@@ -183,11 +183,11 @@ extension LunaRadarrEventType on RadarrEventType {
         ),
       LunaTableContent(
         title: 'client',
-        body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'message',
-        body: record.data['message'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['message'] ?? LunaUI.TEXT_EMDASH,
       ),
     ];
   }
@@ -207,21 +207,21 @@ extension LunaRadarrEventType on RadarrEventType {
       LunaTableContent(
         title: 'languages',
         body: record?.languages
-                ?.map<String>((language) => language.name)
+                ?.map<String?>((language) => language.name)
                 ?.join('\n') ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'client',
-        body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'source',
-        body: record.data['droppedPath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['droppedPath'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'imported to',
-        body: record.data['importedPath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['importedPath'] ?? LunaUI.TEXT_EMDASH,
       ),
     ];
   }
@@ -238,7 +238,7 @@ extension LunaRadarrEventType on RadarrEventType {
         ),
       LunaTableContent(
         title: 'message',
-        body: record.data['message'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['message'] ?? LunaUI.TEXT_EMDASH,
       ),
     ];
   }
@@ -266,11 +266,11 @@ extension LunaRadarrEventType on RadarrEventType {
     return [
       LunaTableContent(
         title: 'source',
-        body: record.data['sourceRelativePath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['sourceRelativePath'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'destination',
-        body: record.data['relativePath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['relativePath'] ?? LunaUI.TEXT_EMDASH,
       ),
     ];
   }
@@ -290,21 +290,21 @@ extension LunaRadarrEventType on RadarrEventType {
       LunaTableContent(
         title: 'languages',
         body: record?.languages
-                ?.map<String>((language) => language.name)
+                ?.map<String?>((language) => language.name)
                 ?.join('\n') ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'client',
-        body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['downloadClientName'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'source',
-        body: record.data['droppedPath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['droppedPath'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'imported to',
-        body: record.data['importedPath'] ?? LunaUI.TEXT_EMDASH,
+        body: record.data!['importedPath'] ?? LunaUI.TEXT_EMDASH,
       ),
     ];
   }

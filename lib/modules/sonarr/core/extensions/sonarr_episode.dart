@@ -12,12 +12,12 @@ extension SonarrEpisodeExtension on SonarrEpisode {
 
   String lunaAirDate() {
     if (this.airDateUtc == null) return 'lunasea.UnknownDate'.tr();
-    return DateFormat.yMMMMd().format(this.airDateUtc.toLocal());
+    return DateFormat.yMMMMd().format(this.airDateUtc!.toLocal());
   }
 
   String lunaDownloadedQuality(
-    SonarrEpisodeFile file,
-    SonarrQueueRecord queueRecord,
+    SonarrEpisodeFile? file,
+    SonarrQueueRecord? queueRecord,
   ) {
     if (queueRecord != null) {
       return [
@@ -27,30 +27,30 @@ extension SonarrEpisodeExtension on SonarrEpisode {
       ].join(' ');
     }
 
-    if (!this.hasFile) {
+    if (!this.hasFile!) {
       if (_hasAired()) return 'sonarr.Unaired'.tr();
       return 'sonarr.Missing'.tr();
     }
     if (file == null) return 'lunasea.Unknown'.tr();
     String quality = file?.quality?.quality?.name ?? 'lunasea.Unknown'.tr();
-    String size = file?.size?.lunaBytesToString();
+    String? size = file?.size?.lunaBytesToString();
     return '$quality ${LunaUI.TEXT_EMDASH} $size';
   }
 
   Color lunaDownloadedQualityColor(
-    SonarrEpisodeFile file,
-    SonarrQueueRecord queueRecord,
+    SonarrEpisodeFile? file,
+    SonarrQueueRecord? queueRecord,
   ) {
     if (queueRecord != null) {
       return queueRecord.lunaStatusParameters(canBeWhite: false).item3;
     }
 
-    if (!this.hasFile) {
+    if (!this.hasFile!) {
       if (_hasAired()) return LunaColours.blue;
       return LunaColours.red;
     }
     if (file == null) return LunaColours.blueGrey;
-    if (file.qualityCutoffNotMet) return LunaColours.orange;
+    if (file.qualityCutoffNotMet!) return LunaColours.orange;
     return LunaColours.accent;
   }
 

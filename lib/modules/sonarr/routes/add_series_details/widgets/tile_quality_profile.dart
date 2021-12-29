@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsQualityProfileTile extends StatelessWidget {
   const SonarrSeriesAddDetailsQualityProfileTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,12 +28,12 @@ class SonarrSeriesAddDetailsQualityProfileTile extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     List<SonarrQualityProfile> _profiles =
         await context.read<SonarrState>().qualityProfiles;
-    Tuple2<bool, SonarrQualityProfile> result =
+    Tuple2<bool, SonarrQualityProfile?> result =
         await SonarrDialogs().editQualityProfile(context, _profiles);
     if (result.item1) {
-      context.read<SonarrSeriesAddDetailsState>().qualityProfile = result.item2;
+      context.read<SonarrSeriesAddDetailsState>().qualityProfile = result.item2!;
       SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE
-          .put(result.item2.id);
+          .put(result.item2!.id);
     }
   }
 }

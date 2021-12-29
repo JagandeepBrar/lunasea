@@ -4,12 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEpisodeTile extends StatefulWidget {
   final SonarrEpisode episode;
-  final SonarrEpisodeFile episodeFile;
-  final List<SonarrQueueRecord> queueRecords;
+  final SonarrEpisodeFile? episodeFile;
+  final List<SonarrQueueRecord>? queueRecords;
 
   const SonarrEpisodeTile({
-    Key key,
-    @required this.episode,
+    Key? key,
+    required this.episode,
     this.episodeFile,
     this.queueRecords,
   }) : super(key: key);
@@ -24,7 +24,7 @@ class _State extends State<SonarrEpisodeTile> {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      disabled: !widget.episode.monitored,
+      disabled: !widget.episode.monitored!,
       title: widget.episode.title,
       body: _body(),
       leading: _leading(),
@@ -44,7 +44,7 @@ class _State extends State<SonarrEpisodeTile> {
   }
 
   Future<void> _onLongPress() async {
-    Tuple2<bool, SonarrEpisodeSettingsType> results = await SonarrDialogs()
+    Tuple2<bool, SonarrEpisodeSettingsType?> results = await SonarrDialogs()
         .episodeSettings(context: context, episode: widget.episode);
     if (results.item1) {
       results.item2.execute(
@@ -62,14 +62,14 @@ class _State extends State<SonarrEpisodeTile> {
         text: widget.episode.lunaDownloadedQuality(
           widget.episodeFile,
           widget.queueRecords?.isNotEmpty ?? false
-              ? widget.queueRecords.first
+              ? widget.queueRecords!.first
               : null,
         ),
         style: TextStyle(
           color: widget.episode.lunaDownloadedQualityColor(
             widget.episodeFile,
             widget.queueRecords?.isNotEmpty ?? false
-                ? widget.queueRecords.first
+                ? widget.queueRecords!.first
                 : null,
           ),
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,

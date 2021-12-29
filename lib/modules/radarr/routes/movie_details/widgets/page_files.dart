@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsFilesPage extends StatefulWidget {
   const RadarrMovieDetailsFilesPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,8 +39,8 @@ class _State extends State<RadarrMovieDetailsFilesPage>
           context.read<RadarrMovieDetailsState>().fetchFiles(context),
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<RadarrMovieDetailsState>().movieFiles,
-          context.watch<RadarrMovieDetailsState>().extraFiles,
+          context.watch<RadarrMovieDetailsState>().movieFiles.then((value) => value!),
+          context.watch<RadarrMovieDetailsState>().extraFiles.then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -48,10 +48,10 @@ class _State extends State<RadarrMovieDetailsFilesPage>
                 'Unable to fetch Radarr files: ${context.read<RadarrMovieDetailsState>().movie.id}',
                 snapshot.error,
                 snapshot.stackTrace);
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
-            return _list(snapshot.data[0], snapshot.data[1]);
+            return _list(snapshot.data![0] as List<RadarrMovieFile>, snapshot.data![1] as List<RadarrExtraFile>);
           return const LunaLoader();
         },
       ),
@@ -64,7 +64,7 @@ class _State extends State<RadarrMovieDetailsFilesPage>
       return LunaMessage(
         text: 'No Files Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListView(
       controller: RadarrMovieDetailsNavigationBar.scrollControllers[1],

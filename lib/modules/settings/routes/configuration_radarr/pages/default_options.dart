@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -98,7 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesSorting).readable)],
+        body: [TextSpan(text: (_db.data as RadarrMoviesSorting?).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = RadarrMoviesSorting.values
@@ -154,11 +154,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesFilter).readable)],
+        body: [TextSpan(text: (_db.data as RadarrMoviesFilter?).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          List<String> titles = RadarrMoviesFilter.values
-              .map<String>((filter) => filter.readable)
+          List<String?> titles = RadarrMoviesFilter.values
+              .map<String?>((filter) => filter.readable)
               .toList();
           List<IconData> icons = List.filled(titles.length, LunaIcons.FILTER);
 
@@ -183,11 +183,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesSorting).readable)],
+        body: [TextSpan(text: (_db.data as RadarrReleasesSorting?).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          List<String> titles = RadarrReleasesSorting.values
-              .map<String>((sorting) => sorting.readable)
+          List<String?> titles = RadarrReleasesSorting.values
+              .map<String?>((sorting) => sorting.readable)
               .toList();
           List<IconData> icons = List.filled(titles.length, LunaIcons.SORT);
 
@@ -231,11 +231,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesFilter).readable)],
+        body: [TextSpan(text: (_db.data as RadarrReleasesFilter?).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          List<String> titles = RadarrReleasesFilter.values
-              .map<String>((sorting) => sorting.readable)
+          List<String?> titles = RadarrReleasesFilter.values
+              .map<String?>((sorting) => sorting.readable)
               .toList();
           List<IconData> icons = List.filled(titles.length, LunaIcons.FILTER);
 

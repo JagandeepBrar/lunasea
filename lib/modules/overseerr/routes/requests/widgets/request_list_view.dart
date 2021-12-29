@@ -4,7 +4,7 @@ import 'package:lunasea/modules/overseerr.dart';
 
 class OverseerrRequestsListView extends StatefulWidget {
   const OverseerrRequestsListView({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,17 +27,17 @@ class _State extends State<OverseerrRequestsListView> {
     final int pageSize = OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data;
     await context
         .read<OverseerrState>()
-        .api
+        .api!
         .requests
         .getRequests(
           take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
           skip: pageKey * pageSize,
         )
         .then((data) {
-      if (data.results.length < pageSize) {
-        return _pagingController.appendLastPage(data.results);
+      if (data.results!.length < pageSize) {
+        return _pagingController.appendLastPage(data.results!);
       }
-      return _pagingController.appendPage(data.results, pageKey + 1);
+      return _pagingController.appendPage(data.results!, pageKey + 1);
     }).catchError((error, stack) {
       LunaLogger().error(
         'Unable to fetch Overseerr requests page / take: $pageSize / skip: ${pageKey * pageSize}',

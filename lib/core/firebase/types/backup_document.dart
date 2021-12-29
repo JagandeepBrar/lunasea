@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class LunaFirebaseBackupDocument {
-  final String id;
-  final int timestamp;
-  final String title;
-  final String description;
+  final String? id;
+  final int? timestamp;
+  final String? title;
+  final String? description;
 
   LunaFirebaseBackupDocument({
-    @required this.id,
-    @required this.timestamp,
-    @required this.title,
-    @required this.description,
+    required this.id,
+    required this.timestamp,
+    required this.title,
+    required this.description,
   });
 
   factory LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(

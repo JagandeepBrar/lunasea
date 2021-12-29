@@ -6,8 +6,8 @@ class TautulliSearchSearchResults extends StatefulWidget {
   final ScrollController scrollController;
 
   const TautulliSearchSearchResults({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _State extends State<TautulliSearchSearchResults> {
 
   @override
   Widget build(BuildContext context) =>
-      Selector<TautulliState, Future<TautulliSearch>>(
+      Selector<TautulliState, Future<TautulliSearch>?>(
         selector: (_, state) => state.search,
         builder: (context, future, _) {
           if (future == null) return Container();
@@ -45,7 +45,7 @@ class _State extends State<TautulliSearchSearchResults> {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData &&
               snapshot.connectionState == ConnectionState.done)
@@ -56,7 +56,7 @@ class _State extends State<TautulliSearchSearchResults> {
     );
   }
 
-  Widget _results(TautulliSearch search) {
+  Widget _results(TautulliSearch? search) {
     if ((search?.count ?? 0) == 0)
       return LunaMessage(
         text: 'No Results Found',
@@ -66,14 +66,14 @@ class _State extends State<TautulliSearchSearchResults> {
     return LunaListView(
       controller: widget.scrollController,
       children: [
-        ..._movies(search.results.movies),
-        ..._series(search.results.shows),
-        ..._seasons(search.results.seasons),
-        ..._episodes(search.results.episodes),
-        ..._artists(search.results.artists),
-        ..._albums(search.results.albums),
-        ..._tracks(search.results.tracks),
-        ..._collections(search.results.collections),
+        ..._movies(search!.results!.movies!),
+        ..._series(search.results!.shows!),
+        ..._seasons(search.results!.seasons!),
+        ..._episodes(search.results!.episodes!),
+        ..._artists(search.results!.artists!),
+        ..._albums(search.results!.albums!),
+        ..._tracks(search.results!.tracks!),
+        ..._collections(search.results!.collections!),
       ],
     );
   }

@@ -159,50 +159,50 @@ class ProfileHiveObject extends HiveObject {
 
   ProfileHiveObject({
     //Lidarr
-    @required this.lidarrEnabled,
-    @required this.lidarrHost,
-    @required this.lidarrKey,
-    @required this.lidarrHeaders,
+    required this.lidarrEnabled,
+    required this.lidarrHost,
+    required this.lidarrKey,
+    required this.lidarrHeaders,
     //Radarr
-    @required this.radarrEnabled,
-    @required this.radarrHost,
-    @required this.radarrKey,
-    @required this.radarrHeaders,
+    required this.radarrEnabled,
+    required this.radarrHost,
+    required this.radarrKey,
+    required this.radarrHeaders,
     //Sonarr
-    @required this.sonarrEnabled,
-    @required this.sonarrHost,
-    @required this.sonarrKey,
-    @required this.sonarrHeaders,
+    required this.sonarrEnabled,
+    required this.sonarrHost,
+    required this.sonarrKey,
+    required this.sonarrHeaders,
     //SABnzbd
-    @required this.sabnzbdEnabled,
-    @required this.sabnzbdHost,
-    @required this.sabnzbdKey,
-    @required this.sabnzbdHeaders,
+    required this.sabnzbdEnabled,
+    required this.sabnzbdHost,
+    required this.sabnzbdKey,
+    required this.sabnzbdHeaders,
     //NZBGet
-    @required this.nzbgetEnabled,
-    @required this.nzbgetHost,
-    @required this.nzbgetUser,
-    @required this.nzbgetPass,
-    @required this.nzbgetHeaders,
+    required this.nzbgetEnabled,
+    required this.nzbgetHost,
+    required this.nzbgetUser,
+    required this.nzbgetPass,
+    required this.nzbgetHeaders,
     //Wake On LAN
-    @required this.wakeOnLANEnabled,
-    @required this.wakeOnLANBroadcastAddress,
-    @required this.wakeOnLANMACAddress,
+    required this.wakeOnLANEnabled,
+    required this.wakeOnLANBroadcastAddress,
+    required this.wakeOnLANMACAddress,
     //Tautulli
-    @required this.tautulliEnabled,
-    @required this.tautulliHost,
-    @required this.tautulliKey,
-    @required this.tautulliHeaders,
+    required this.tautulliEnabled,
+    required this.tautulliHost,
+    required this.tautulliKey,
+    required this.tautulliHeaders,
     //Ombi
-    @required this.ombiEnabled,
-    @required this.ombiHost,
-    @required this.ombiKey,
-    @required this.ombiHeaders,
+    required this.ombiEnabled,
+    required this.ombiHost,
+    required this.ombiKey,
+    required this.ombiHeaders,
     //Overseerr
-    @required this.overseerrEnabled,
-    @required this.overseerrHost,
-    @required this.overseerrKey,
-    @required this.overseerrHeaders,
+    required this.overseerrEnabled,
+    required this.overseerrHost,
+    required this.overseerrKey,
+    required this.overseerrHeaders,
   });
 
   @override
@@ -259,13 +259,13 @@ class ProfileHiveObject extends HiveObject {
 
   //Lidarr
   @HiveField(0)
-  bool lidarrEnabled;
+  bool? lidarrEnabled;
   @HiveField(1)
-  String lidarrHost;
+  String? lidarrHost;
   @HiveField(2)
-  String lidarrKey;
+  String? lidarrKey;
   @HiveField(26)
-  Map lidarrHeaders;
+  Map? lidarrHeaders;
 
   Map<String, dynamic> getLidarr() => {
         'enabled': lidarrEnabled ?? false,
@@ -276,13 +276,13 @@ class ProfileHiveObject extends HiveObject {
 
   //Radarr
   @HiveField(3)
-  bool radarrEnabled;
+  bool? radarrEnabled;
   @HiveField(4)
-  String radarrHost;
+  String? radarrHost;
   @HiveField(5)
-  String radarrKey;
+  String? radarrKey;
   @HiveField(27)
-  Map radarrHeaders;
+  Map? radarrHeaders;
 
   Map<String, dynamic> getRadarr() => {
         'enabled': radarrEnabled ?? false,
@@ -293,15 +293,15 @@ class ProfileHiveObject extends HiveObject {
 
   //Sonarr
   @HiveField(6)
-  bool sonarrEnabled;
+  bool? sonarrEnabled;
   @HiveField(7)
-  String sonarrHost;
+  String? sonarrHost;
   @HiveField(8)
-  String sonarrKey;
+  String? sonarrKey;
   @HiveField(21)
-  bool sonarrVersion3; // Deprecated
+  bool? sonarrVersion3; // Deprecated
   @HiveField(28)
-  Map sonarrHeaders;
+  Map? sonarrHeaders;
 
   Map<String, dynamic> getSonarr() => {
         'enabled': sonarrEnabled ?? false,
@@ -312,13 +312,13 @@ class ProfileHiveObject extends HiveObject {
 
   //SABnzbd
   @HiveField(9)
-  bool sabnzbdEnabled;
+  bool? sabnzbdEnabled;
   @HiveField(10)
-  String sabnzbdHost;
+  String? sabnzbdHost;
   @HiveField(11)
-  String sabnzbdKey;
+  String? sabnzbdKey;
   @HiveField(29)
-  Map sabnzbdHeaders;
+  Map? sabnzbdHeaders;
 
   Map<String, dynamic> getSABnzbd() => {
         'enabled': sabnzbdEnabled ?? false,
@@ -329,17 +329,17 @@ class ProfileHiveObject extends HiveObject {
 
   //NZBGet
   @HiveField(12)
-  bool nzbgetEnabled;
+  bool? nzbgetEnabled;
   @HiveField(13)
-  String nzbgetHost;
+  String? nzbgetHost;
   @HiveField(14)
-  String nzbgetUser;
+  String? nzbgetUser;
   @HiveField(15)
-  String nzbgetPass;
+  String? nzbgetPass;
   @HiveField(22)
-  bool nzbgetBasicAuth; // Deprecated
+  bool? nzbgetBasicAuth; // Deprecated
   @HiveField(30)
-  Map nzbgetHeaders;
+  Map? nzbgetHeaders;
 
   Map<String, dynamic> getNZBGet() => {
         'enabled': nzbgetEnabled ?? false,
@@ -351,11 +351,11 @@ class ProfileHiveObject extends HiveObject {
 
   //Wake On LAN
   @HiveField(23)
-  bool wakeOnLANEnabled;
+  bool? wakeOnLANEnabled;
   @HiveField(24)
-  String wakeOnLANBroadcastAddress;
+  String? wakeOnLANBroadcastAddress;
   @HiveField(25)
-  String wakeOnLANMACAddress;
+  String? wakeOnLANMACAddress;
 
   Map<String, dynamic> getWakeOnLAN() => {
         'enabled': wakeOnLANEnabled ?? false,
@@ -365,13 +365,13 @@ class ProfileHiveObject extends HiveObject {
 
   //Tautulli
   @HiveField(31)
-  bool tautulliEnabled;
+  bool? tautulliEnabled;
   @HiveField(32)
-  String tautulliHost;
+  String? tautulliHost;
   @HiveField(33)
-  String tautulliKey;
+  String? tautulliKey;
   @HiveField(35)
-  Map tautulliHeaders;
+  Map? tautulliHeaders;
 
   Map<String, dynamic> getTautulli() => {
         'enabled': tautulliEnabled ?? false,
@@ -382,13 +382,13 @@ class ProfileHiveObject extends HiveObject {
 
   //Ombi
   @HiveField(36)
-  bool ombiEnabled;
+  bool? ombiEnabled;
   @HiveField(37)
-  String ombiHost;
+  String? ombiHost;
   @HiveField(38)
-  String ombiKey;
+  String? ombiKey;
   @HiveField(39)
-  Map ombiHeaders;
+  Map? ombiHeaders;
 
   Map<String, dynamic> getOmbi() => {
         'enabled': ombiEnabled ?? false,
@@ -399,13 +399,13 @@ class ProfileHiveObject extends HiveObject {
 
   //Overseerr
   @HiveField(40)
-  bool overseerrEnabled;
+  bool? overseerrEnabled;
   @HiveField(41)
-  String overseerrHost;
+  String? overseerrHost;
   @HiveField(42)
-  String overseerrKey;
+  String? overseerrKey;
   @HiveField(43)
-  Map overseerrHeaders;
+  Map? overseerrHeaders;
 
   Map<String, dynamic> getOverseerr() => {
         'enabled': overseerrEnabled ?? false,

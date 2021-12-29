@@ -9,8 +9,8 @@ class NZBGetQueue extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const NZBGetQueue({
-    Key key,
-    @required this.refreshIndicatorKey,
+    Key? key,
+    required this.refreshIndicatorKey,
   }) : super(key: key);
 
   @override
@@ -20,9 +20,9 @@ class NZBGetQueue extends StatefulWidget {
 class _State extends State<NZBGetQueue>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Timer _timer;
-  Future _future;
-  List<NZBGetQueueData> _queue = [];
+  Timer? _timer;
+  Future? _future;
+  List<NZBGetQueueData>? _queue = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -66,10 +66,10 @@ class _State extends State<NZBGetQueue>
   }
 
   Future _fetch() async {
-    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
+    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject!);
     return _fetchStatus(_api).then((_) => _fetchQueue(_api)).then((_) {
       try {
-        if (_timer == null || !_timer.isActive) _createTimer();
+        if (_timer == null || !_timer!.isActive) _createTimer();
         _setError(false);
         return true;
       } catch (error) {
@@ -126,7 +126,7 @@ class _State extends State<NZBGetQueue>
     if (_queue == null) {
       return LunaMessage.error(onTap: _refresh);
     }
-    if (_queue.isEmpty) {
+    if (_queue!.isEmpty) {
       return LunaMessage(
         text: 'Empty Queue',
         buttonText: 'Refresh',
@@ -140,26 +140,26 @@ class _State extends State<NZBGetQueue>
     return LunaReorderableListViewBuilder(
       controller: NZBGetNavigationBar.scrollControllers[0],
       onReorder: (oIndex, nIndex) async {
-        if (oIndex > _queue.length) oIndex = _queue.length;
+        if (oIndex > _queue!.length) oIndex = _queue!.length;
         if (oIndex < nIndex) nIndex--;
-        NZBGetQueueData data = _queue[oIndex];
+        NZBGetQueueData data = _queue![oIndex];
         if (mounted)
           setState(() {
-            _queue.remove(data);
-            _queue.insert(nIndex, data);
+            _queue!.remove(data);
+            _queue!.insert(nIndex, data);
           });
-        await NZBGetAPI.from(Database.currentProfileObject)
+        await NZBGetAPI.from(Database.currentProfileObject!)
             .moveQueue(data.id, (nIndex - oIndex))
             .then((_) => showLunaSuccessSnackBar(
                 title: 'Moved Job in Queue', message: data.name))
             .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Move Job', error: error));
       },
-      itemCount: _queue.length,
+      itemCount: _queue!.length,
       itemBuilder: (context, index) => NZBGetQueueTile(
-        key: Key(_queue[index].id.toString()),
+        key: Key(_queue![index].id.toString()),
         index: index,
-        data: _queue[index],
+        data: _queue![index],
         queueContext: context,
         refresh: _fetchWithoutMessage,
       ),

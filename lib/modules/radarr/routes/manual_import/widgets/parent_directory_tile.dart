@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrManualImportParentDirectoryTile extends StatefulWidget {
-  final RadarrFileSystem fileSystem;
+  final RadarrFileSystem? fileSystem;
 
   const RadarrManualImportParentDirectoryTile({
-    Key key,
-    @required this.fileSystem,
+    Key? key,
+    required this.fileSystem,
   }) : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class _State extends State<RadarrManualImportParentDirectoryTile> {
   @override
   Widget build(BuildContext context) {
     if (widget.fileSystem == null ||
-        widget.fileSystem.parent == null ||
-        widget.fileSystem.parent.isEmpty) return const SizedBox(height: 0.0);
+        widget.fileSystem!.parent == null ||
+        widget.fileSystem!.parent!.isEmpty) return const SizedBox(height: 0.0);
     return LunaBlock(
       title: LunaUI.TEXT_ELLIPSIS,
       body: [TextSpan(text: 'radarr.ParentDirectory'.tr())],
@@ -34,7 +34,7 @@ class _State extends State<RadarrManualImportParentDirectoryTile> {
           if (mounted) setState(() => _loadingState = LunaLoadingState.ACTIVE);
           context.read<RadarrManualImportState>().fetchDirectories(
                 context,
-                widget.fileSystem.parent,
+                widget.fileSystem!.parent,
               );
         }
       },

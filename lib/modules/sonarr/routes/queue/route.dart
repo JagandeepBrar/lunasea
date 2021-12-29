@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => SonarrQueueState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -67,11 +67,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               );
             }
             return LunaMessage.error(
-              onTap: _refreshKey.currentState.show,
+              onTap: _refreshKey.currentState!.show,
             );
           }
           if (snapshot.hasData) {
-            return _list(snapshot.data);
+            return _list(snapshot.data!);
           }
           return const LunaLoader();
         },
@@ -80,19 +80,19 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _list(SonarrQueue queue) {
-    if (queue.records.isEmpty) {
+    if (queue.records!.isEmpty) {
       return LunaMessage(
         text: 'sonarr.EmptyQueue'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     }
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: queue.records.length,
+      itemCount: queue.records!.length,
       itemBuilder: (context, index) => SonarrQueueTile(
-        key: ObjectKey(queue.records[index].id),
-        queueRecord: queue.records[index],
+        key: ObjectKey(queue.records![index].id),
+        queueRecord: queue.records![index],
         type: SonarrQueueTileType.ALL,
       ),
     );

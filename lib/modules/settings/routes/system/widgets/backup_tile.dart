@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
   const SettingsSystemBackupRestoreBackupTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

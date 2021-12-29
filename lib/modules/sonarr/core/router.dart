@@ -32,7 +32,7 @@ abstract class SonarrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context.read<SonarrState>().enabled) {
+          if (!homeRoute && !context!.read<SonarrState>().enabled!) {
             return LunaNotEnabledRoute(module: 'Sonarr');
           }
           return widget();
@@ -45,14 +45,14 @@ abstract class SonarrPageRouter extends LunaPageRouter {
   @override
   void withParameterRouteDefinition(
     FluroRouter router,
-    Widget Function(BuildContext, Map<String, List<String>>) handlerFunc, {
+    Widget Function(BuildContext?, Map<String, List<String>>) handlerFunc, {
     bool homeRoute = false,
   }) {
     router.define(
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context.read<SonarrState>().enabled) {
+          if (!homeRoute && !context!.read<SonarrState>().enabled!) {
             return LunaNotEnabledRoute(module: 'Sonarr');
           }
           return handlerFunc(context, params);

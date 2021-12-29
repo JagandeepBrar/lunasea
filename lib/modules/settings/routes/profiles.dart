@@ -25,7 +25,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -72,8 +72,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         body: [TextSpan(text: LunaDatabaseValue.ENABLED_PROFILE.data)],
         trailing: const LunaIconButton(icon: LunaIcons.USER),
         onTap: () async {
-          Tuple2<bool, String> results = await SettingsDialogs().enabledProfile(
-            LunaState.navigatorKey.currentContext,
+          Tuple2<bool, String?> results = await SettingsDialogs().enabledProfile(
+            LunaState.navigatorKey.currentContext!,
             LunaProfile().profilesList(),
           );
           if (results.item1 &&

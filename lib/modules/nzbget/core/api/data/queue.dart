@@ -13,15 +13,15 @@ class NZBGetQueueData {
   int queueSeconds;
 
   NZBGetQueueData({
-    @required this.id,
-    @required this.name,
-    @required this.status,
-    @required this.remaining,
-    @required this.downloaded,
-    @required this.sizeTotal,
-    @required this.category,
-    @required this.speed,
-    @required this.queueSeconds,
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.remaining,
+    required this.downloaded,
+    required this.sizeTotal,
+    required this.category,
+    required this.speed,
+    required this.queueSeconds,
   });
 
   int get percentageDone {

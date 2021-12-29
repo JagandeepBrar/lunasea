@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsPlayCountByPlatformStreamTypeGraph extends StatelessWidget {
   const TautulliGraphsPlayCountByPlatformStreamTypeGraph({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class TautulliGraphsPlayCountByPlatformStreamTypeGraph extends StatelessWidget {
               }
               return TautulliGraphHelper().errorContainer(context);
             }
-            if (snapshot.hasData) return _graph(context, snapshot.data);
+            if (snapshot.hasData) return _graph(context, snapshot.data!);
             return TautulliGraphHelper().loadingContainer(context);
           },
         ),
@@ -53,7 +53,7 @@ class TautulliGraphsPlayCountByPlatformStreamTypeGraph extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
             ),
           ),
-          TautulliGraphHelper().createLegend(data.series),
+          TautulliGraphHelper().createLegend(data.series!),
         ],
       ),
     );

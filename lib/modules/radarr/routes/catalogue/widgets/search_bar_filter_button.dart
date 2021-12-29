@@ -6,8 +6,8 @@ class RadarrCatalogueSearchBarFilterButton extends StatefulWidget {
   final ScrollController controller;
 
   const RadarrCatalogueSearchBarFilterButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
             (index) => PopupMenuItem<RadarrMoviesFilter>(
               value: RadarrMoviesFilter.values[index],
               child: Text(
-                RadarrMoviesFilter.values[index].readable,
+                RadarrMoviesFilter.values[index].readable!,
                 style: TextStyle(
                   fontSize: LunaUI.FONT_SIZE_H3,
                   color:

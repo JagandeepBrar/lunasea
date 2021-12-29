@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
-  Future<Tuple2<bool, RadarrGlobalSettingsType>> globalSettings(
+  Future<Tuple2<bool, RadarrGlobalSettingsType?>> globalSettings(
     BuildContext context,
   ) async {
     bool _flag = false;
-    RadarrGlobalSettingsType _value;
+    RadarrGlobalSettingsType? _value;
 
     void _setValues(bool flag, RadarrGlobalSettingsType value) {
       _flag = flag;
@@ -32,12 +32,12 @@ class RadarrDialogs {
     return Tuple2(_flag, _value);
   }
 
-  Future<Tuple2<bool, RadarrMovieSettingsType>> movieSettings(
+  Future<Tuple2<bool, RadarrMovieSettingsType?>> movieSettings(
     BuildContext context,
     RadarrMovie movie,
   ) async {
     bool _flag = false;
-    RadarrMovieSettingsType _value;
+    RadarrMovieSettingsType? _value;
 
     void _setValues(bool flag, RadarrMovieSettingsType value) {
       _flag = flag;
@@ -64,8 +64,8 @@ class RadarrDialogs {
 
   Future<Tuple2<bool, int>> setDefaultPage(
     BuildContext context, {
-    @required List<String> titles,
-    @required List<IconData> icons,
+    required List<String> titles,
+    required List<IconData> icons,
   }) async {
     bool _flag = false;
     int _index = 0;
@@ -94,10 +94,10 @@ class RadarrDialogs {
     return Tuple2(_flag, _index);
   }
 
-  Future<Tuple2<bool, RadarrImportMode>> setManualImportMode(
+  Future<Tuple2<bool, RadarrImportMode?>> setManualImportMode(
       BuildContext context) async {
     bool _flag = false;
-    RadarrImportMode _mode;
+    RadarrImportMode? _mode;
 
     void _setValues(bool flag, RadarrImportMode mode) {
       _flag = flag;
@@ -129,7 +129,7 @@ class RadarrDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -244,10 +244,10 @@ class RadarrDialogs {
     return _flag;
   }
 
-  Future<Tuple2<bool, RadarrAvailability>> editMinimumAvailability(
+  Future<Tuple2<bool, RadarrAvailability?>> editMinimumAvailability(
       BuildContext context) async {
     bool _flag = false;
-    RadarrAvailability availability;
+    RadarrAvailability? availability;
 
     void _setValues(bool flag, RadarrAvailability value) {
       _flag = flag;
@@ -267,7 +267,7 @@ class RadarrDialogs {
       content: List.generate(
         _values.length,
         (index) => LunaDialog.tile(
-          text: _values[index].readable,
+          text: _values[index].readable!,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, _values[index]),
@@ -278,12 +278,12 @@ class RadarrDialogs {
     return Tuple2(_flag, availability);
   }
 
-  Future<Tuple2<bool, RadarrQualityProfile>> editQualityProfile(
-      BuildContext context, List<RadarrQualityProfile> profiles) async {
+  Future<Tuple2<bool, RadarrQualityProfile?>> editQualityProfile(
+      BuildContext context, List<RadarrQualityProfile?> profiles) async {
     bool _flag = false;
-    RadarrQualityProfile profile;
+    RadarrQualityProfile? profile;
 
-    void _setValues(bool flag, RadarrQualityProfile value) {
+    void _setValues(bool flag, RadarrQualityProfile? value) {
       _flag = flag;
       profile = value;
       Navigator.of(context, rootNavigator: true).pop();
@@ -295,7 +295,7 @@ class RadarrDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          text: profiles[index].name,
+          text: profiles[index]!.name!,
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
@@ -306,10 +306,10 @@ class RadarrDialogs {
     return Tuple2(_flag, profile);
   }
 
-  Future<Tuple2<bool, RadarrQualityDefinition>> selectQualityDefinition(
+  Future<Tuple2<bool, RadarrQualityDefinition?>> selectQualityDefinition(
       BuildContext context, List<RadarrQualityDefinition> definitions) async {
     bool _flag = false;
-    RadarrQualityDefinition profile;
+    RadarrQualityDefinition? profile;
 
     void _setValues(bool flag, RadarrQualityDefinition value) {
       _flag = flag;
@@ -323,7 +323,7 @@ class RadarrDialogs {
       content: List.generate(
         definitions.length,
         (index) => LunaDialog.tile(
-          text: definitions[index].title,
+          text: definitions[index].title!,
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, definitions[index]),
@@ -337,7 +337,7 @@ class RadarrDialogs {
   Future<void> setManualImportLanguages(
       BuildContext context, List<RadarrLanguage> languages) async {
     List<RadarrLanguage> filteredLanguages =
-        languages.where((lang) => lang.id >= 0).toList();
+        languages.where((lang) => lang.id! >= 0).toList();
     await showDialog(
       context: context,
       builder: (_) => ChangeNotifierProvider.value(
@@ -355,7 +355,7 @@ class RadarrDialogs {
               children: List.generate(
                 filteredLanguages.length,
                 (index) => LunaDialog.checkbox(
-                    title: filteredLanguages[index].name,
+                    title: filteredLanguages[index].name!,
                     value: context
                                 .read<RadarrManualImportDetailsTileState>()
                                 .manualImport
@@ -364,7 +364,7 @@ class RadarrDialogs {
                                     lang.id == filteredLanguages[index].id) !=
                             -1 ??
                         false,
-                    onChanged: (value) => value
+                    onChanged: (value) => value!
                         ? context
                             .read<RadarrManualImportDetailsTileState>()
                             .addLanguage(filteredLanguages[index])
@@ -411,21 +411,21 @@ class RadarrDialogs {
                       );
                     return LunaDialog.content(
                       children: List.generate(
-                        snapshot.data.length,
+                        snapshot.data!.length,
                         (index) => LunaDialog.checkbox(
-                          title: snapshot.data[index].label,
+                          title: snapshot.data![index].label!,
                           value: context
                               .watch<RadarrMoviesEditState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .where((tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrMoviesEditState>().tags;
-                            selected
-                                ? _tags.add(snapshot.data[index])
+                            selected!
+                                ? _tags.add(snapshot.data![index])
                                 : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data[index].id);
+                                    (tag) => tag.id == snapshot.data![index].id);
                             context.read<RadarrMoviesEditState>().tags = _tags;
                           },
                         ),
@@ -516,21 +516,21 @@ class RadarrDialogs {
                       );
                     return LunaDialog.content(
                       children: List.generate(
-                        snapshot.data.length,
+                        snapshot.data!.length,
                         (index) => LunaDialog.checkbox(
-                          title: snapshot.data[index].label,
+                          title: snapshot.data![index].label!,
                           value: context
                               .watch<RadarrAddMovieDetailsState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .where((tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrAddMovieDetailsState>().tags;
-                            selected
-                                ? _tags.add(snapshot.data[index])
+                            selected!
+                                ? _tags.add(snapshot.data![index])
                                 : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data[index].id);
+                                    (tag) => tag.id == snapshot.data![index].id);
                             context.read<RadarrAddMovieDetailsState>().tags =
                                 _tags;
                           },
@@ -551,10 +551,10 @@ class RadarrDialogs {
     );
   }
 
-  Future<Tuple2<bool, RadarrRootFolder>> editRootFolder(
+  Future<Tuple2<bool, RadarrRootFolder?>> editRootFolder(
       BuildContext context, List<RadarrRootFolder> folders) async {
     bool _flag = false;
-    RadarrRootFolder _folder;
+    RadarrRootFolder? _folder;
 
     void _setValues(bool flag, RadarrRootFolder value) {
       _flag = flag;
@@ -568,7 +568,7 @@ class RadarrDialogs {
       content: List.generate(
         folders.length,
         (index) => LunaDialog.tile(
-          text: folders[index].path,
+          text: folders[index].path!,
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
@@ -576,7 +576,7 @@ class RadarrDialogs {
                 fontSize: LunaDialog.BUTTON_SIZE,
               ),
             ],
-          ),
+          ) as RichText?,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
@@ -635,7 +635,7 @@ class RadarrDialogs {
         text: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data.toString());
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -660,7 +660,7 @@ class RadarrDialogs {
             title: 'Queue Page Size',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },

@@ -17,7 +17,7 @@ class SonarrAddSeriesRouter extends SonarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required String query,
+    required String query,
   }) async {
     LunaRouter.router.navigateTo(
       context,
@@ -41,11 +41,11 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _SonarrAddSeriesArguments _arguments;
+  _SonarrAddSeriesArguments? _arguments;
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context).settings.arguments;
+    _arguments = ModalRoute.of(context)!.settings.arguments as _SonarrAddSeriesArguments?;
     return ChangeNotifierProvider(
       create: (context) => SonarrAddSeriesState(
         context,
@@ -53,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(),
       ),
     );

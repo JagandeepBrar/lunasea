@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsHistoryPage extends StatefulWidget {
   const SonarrSeriesDetailsHistoryPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class _State extends State<SonarrSeriesDetailsHistoryPage>
           context.read<SonarrSeriesDetailsState>().fetchHistory(context),
       child: FutureBuilder(
         future: context.select<SonarrSeriesDetailsState,
-            Future<List<SonarrHistoryRecord>>>((s) => s.history),
+            Future<List<SonarrHistoryRecord>>?>((s) => s.history),
         builder: (context, AsyncSnapshot<List<SonarrHistoryRecord>> snapshot) {
           if (snapshot.hasError) {
             LunaLogger().error(
@@ -47,7 +47,7 @@ class _State extends State<SonarrSeriesDetailsHistoryPage>
               snapshot.error,
               snapshot.stackTrace,
             );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -56,16 +56,16 @@ class _State extends State<SonarrSeriesDetailsHistoryPage>
     );
   }
 
-  Widget _list(List<SonarrHistoryRecord> history) {
+  Widget _list(List<SonarrHistoryRecord>? history) {
     if ((history?.length ?? 0) == 0)
       return LunaMessage(
         text: 'sonarr.NoHistoryFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: SonarrSeriesDetailsNavigationBar.scrollControllers[2],
-      itemCount: history.length,
+      itemCount: history!.length,
       itemBuilder: (context, index) => SonarrHistoryTile(
         history: history[index],
         type: SonarrHistoryTileType.SERIES,

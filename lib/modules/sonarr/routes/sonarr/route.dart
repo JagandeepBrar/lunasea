@@ -22,7 +22,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -48,15 +48,15 @@ class _State extends State<_Widget> {
     return LunaDrawer(page: LunaModule.SONARR.key);
   }
 
-  Widget _bottomNavigationBar() {
-    if (context.read<SonarrState>().enabled) {
+  Widget? _bottomNavigationBar() {
+    if (context.read<SonarrState>().enabled!) {
       return SonarrNavigationBar(pageController: _pageController);
     }
     return null;
   }
 
   Widget _appBar() {
-    List<String> profiles = Database.profilesBox.keys.fold(
+    List<String?> profiles = Database.profilesBox.keys.fold(
       [],
       (value, element) {
         if (Database.profilesBox.get(element)?.sonarrEnabled ?? false) {
@@ -65,8 +65,8 @@ class _State extends State<_Widget> {
         return value;
       },
     );
-    List<Widget> actions;
-    if (context.watch<SonarrState>().enabled) {
+    List<Widget>? actions;
+    if (context.watch<SonarrState>().enabled!) {
       actions = [
         const SonarrAppBarAddSeriesAction(),
         const SonarrAppBarGlobalSettingsAction(),
@@ -83,10 +83,10 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return Selector<SonarrState, bool>(
+    return Selector<SonarrState, bool?>(
       selector: (_, state) => state.enabled,
       builder: (context, enabled, _) {
-        if (!enabled) {
+        if (!enabled!) {
           return LunaMessage.moduleNotEnabled(
             context: context,
             module: 'Sonarr',

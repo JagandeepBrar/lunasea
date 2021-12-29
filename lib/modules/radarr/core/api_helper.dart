@@ -7,17 +7,17 @@ class RadarrAPIHelper {
   ///
   /// Updates the movie catalogue list in [RadarrState].
   Future<bool> toggleMonitored({
-    @required BuildContext context,
-    @required RadarrMovie movie,
+    required BuildContext context,
+    required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
     assert(movie != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       RadarrMovie movieCopy = movie.clone();
-      movieCopy.monitored = !movie.monitored;
+      movieCopy.monitored = !movie.monitored!;
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .movie
           .update(movie: movieCopy)
           .then((data) async {
@@ -28,7 +28,7 @@ class RadarrAPIHelper {
           if (showSnackbar)
             showLunaSuccessSnackBar(
                 title:
-                    movieCopy.monitored ? 'Monitoring' : 'No Longer Monitoring',
+                    movieCopy.monitored! ? 'Monitoring' : 'No Longer Monitoring',
                 message: movie.title);
           return true;
         });
@@ -39,7 +39,7 @@ class RadarrAPIHelper {
             stack);
         if (showSnackbar)
           showLunaErrorSnackBar(
-              title: movie.monitored
+              title: movie.monitored!
                   ? 'Failed to Unmonitor Movie'
                   : 'Failed to Monitor Movie',
               error: error);
@@ -51,17 +51,17 @@ class RadarrAPIHelper {
 
   /// Refreshes a single movie.
   Future<bool> refreshMovie({
-    @required BuildContext context,
-    @required RadarrMovie movie,
+    required BuildContext context,
+    required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
     assert(movie != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
-          .refreshMovie(movieIds: [movie.id]).then((_) {
+          .refreshMovie(movieIds: [movie.id!]).then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(title: 'Refreshing...', message: movie.title);
         return true;
@@ -79,15 +79,15 @@ class RadarrAPIHelper {
   /// Add a new movie.
   ///
   /// Returns the newly added [RadarrMovie] instance.
-  Future<RadarrMovie> addMovie({
-    @required BuildContext context,
-    @required RadarrMovie movie,
-    @required RadarrRootFolder rootFolder,
-    @required bool monitored,
-    @required RadarrQualityProfile qualityProfile,
-    @required RadarrAvailability availability,
-    @required List<RadarrTag> tags,
-    @required bool searchForMovie,
+  Future<RadarrMovie?> addMovie({
+    required BuildContext context,
+    required RadarrMovie movie,
+    required RadarrRootFolder rootFolder,
+    required bool monitored,
+    required RadarrQualityProfile qualityProfile,
+    required RadarrAvailability availability,
+    required List<RadarrTag> tags,
+    required bool searchForMovie,
     bool showSnackbar = true,
   }) async {
     assert(movie != null);
@@ -97,10 +97,10 @@ class RadarrAPIHelper {
     assert(availability != null);
     assert(tags != null);
     assert(searchForMovie != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .movie
           .create(
             movie: movie,
@@ -134,11 +134,11 @@ class RadarrAPIHelper {
 
   /// Backup the database.
   Future<bool> backupDatabase({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled) {
-      return await context.read<RadarrState>().api.command.backup().then((_) {
+    if (context.read<RadarrState>().enabled!) {
+      return await context.read<RadarrState>().api!.command.backup().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
               title: 'Backing Up Database${LunaUI.TEXT_ELLIPSIS}',
@@ -157,13 +157,13 @@ class RadarrAPIHelper {
 
   /// Search for all missing movies.
   Future<bool> missingMovieSearch({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
           .missingMovieSearch()
           .then((_) {
@@ -185,11 +185,11 @@ class RadarrAPIHelper {
 
   /// Run an RSS sync.
   Future<bool> runRSSSync({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled) {
-      return await context.read<RadarrState>().api.command.rssSync().then((_) {
+    if (context.read<RadarrState>().enabled!) {
+      return await context.read<RadarrState>().api!.command.rssSync().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
               title: 'Running RSS Sync${LunaUI.TEXT_ELLIPSIS}',
@@ -207,13 +207,13 @@ class RadarrAPIHelper {
 
   /// Update all movies in your library.
   Future<bool> updateLibrary({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
           .refreshMovie()
           .then((_) {
@@ -235,17 +235,17 @@ class RadarrAPIHelper {
 
   /// Delete a movie file.
   Future<bool> deleteMovieFile({
-    @required BuildContext context,
-    @required RadarrMovieFile movieFile,
+    required BuildContext context,
+    required RadarrMovieFile movieFile,
     bool showSnackbar = true,
   }) async {
     assert(movieFile != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .movieFile
-          .delete(movieFileId: movieFile.id)
+          .delete(movieFileId: movieFile.id!)
           .then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -264,15 +264,15 @@ class RadarrAPIHelper {
 
   /// Update a movie in Radarr.
   Future<bool> updateMovie({
-    @required BuildContext context,
-    @required RadarrMovie movie,
+    required BuildContext context,
+    required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
     assert(movie != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .movie
           .update(movie: movie)
           .then((_) async {
@@ -298,18 +298,18 @@ class RadarrAPIHelper {
 
   /// Remove a movie.
   Future<bool> removeMovie({
-    @required BuildContext context,
-    @required RadarrMovie movie,
+    required BuildContext context,
+    required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
     assert(movie != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .movie
           .delete(
-            movieId: movie.id,
+            movieId: movie.id!,
             addImportExclusion:
                 RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
             deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data,
@@ -342,17 +342,17 @@ class RadarrAPIHelper {
 
   /// Execute a quick import.
   Future<bool> quickImport({
-    @required BuildContext context,
-    @required String path,
+    required BuildContext context,
+    required String? path,
     bool showSnackbar = true,
   }) async {
     assert(path != null && path.isNotEmpty);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
-          .downloadedMoviesScan(path: path)
+          .downloadedMoviesScan(path: path!)
           .then((_) async {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -372,17 +372,17 @@ class RadarrAPIHelper {
 
   /// Trigger an automatic search of a movie.
   Future<bool> automaticSearch({
-    @required BuildContext context,
-    @required int movieId,
-    @required String title,
+    required BuildContext context,
+    required int movieId,
+    required String title,
     bool showSnackbar = true,
   }) async {
     assert(movieId != null);
     assert(title != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
           .moviesSearch(movieIds: [movieId]).then((_) async {
         if (showSnackbar)
@@ -404,17 +404,17 @@ class RadarrAPIHelper {
 
   /// Push a release to the download client(s) connected to Radarr.
   Future<bool> pushRelease({
-    @required BuildContext context,
-    @required RadarrRelease release,
+    required BuildContext context,
+    required RadarrRelease release,
     bool showSnackbar = true,
   }) async {
     assert(release != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .release
-          .push(indexerId: release.indexerId, guid: release.guid)
+          .push(indexerId: release.indexerId!, guid: release.guid!)
           .then((value) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -436,15 +436,15 @@ class RadarrAPIHelper {
 
   /// Add a new tag.
   Future<bool> addTag({
-    @required BuildContext context,
-    @required String label,
+    required BuildContext context,
+    required String label,
     bool showSnackbar = true,
   }) async {
     assert(label != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .tag
           .create(label: label)
           .then((tag) {
@@ -468,17 +468,17 @@ class RadarrAPIHelper {
 
   /// Delete a tag.
   Future<bool> deleteTag({
-    @required BuildContext context,
-    @required RadarrTag tag,
+    required BuildContext context,
+    required RadarrTag tag,
     bool showSnackbar = true,
   }) async {
     assert(tag != null);
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .tag
-          .delete(id: tag.id)
+          .delete(id: tag.id!)
           .then((_) {
         showLunaSuccessSnackBar(title: 'Deleted Tag', message: tag.label);
         return true;
@@ -493,22 +493,22 @@ class RadarrAPIHelper {
   }
 
   Future<bool> triggerManualImport({
-    @required BuildContext context,
-    @required List<RadarrManualImportFile> files,
-    @required RadarrImportMode importMode,
+    required BuildContext context,
+    required List<RadarrManualImportFile?> files,
+    required RadarrImportMode? importMode,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled) {
+    if (context.read<RadarrState>().enabled!) {
       return await context
           .read<RadarrState>()
-          .api
+          .api!
           .command
           .manualImport(
-            files: files,
-            importMode: importMode,
+            files: files as List<RadarrManualImportFile>,
+            importMode: importMode!,
           )
           .then((_) {
-        String message = '${files.length} Files';
+        String? message = '${files.length} Files';
         if ((files?.length ?? 0) == 1) message = files[0].path;
         showLunaSuccessSnackBar(
           title:
@@ -527,10 +527,10 @@ class RadarrAPIHelper {
   }
 
   /// Given a [RadarrManualImport] instance, create a [RadarrManualImportFile] which is sent within the command to start the import.
-  Tuple2<RadarrManualImportFile, String> buildManualImportFile({
-    @required RadarrManualImport import,
+  Tuple2<RadarrManualImportFile?, String?> buildManualImportFile({
+    required RadarrManualImport import,
   }) {
-    if (import?.movie == null || import.movie.id == null)
+    if (import?.movie == null || import.movie!.id == null)
       return const Tuple2(null, 'All selections must have a movie set');
     if (import?.quality == null || (import.quality?.quality?.id ?? -1) < 0)
       return const Tuple2(null, 'All selections must have a quality set');
@@ -539,7 +539,7 @@ class RadarrAPIHelper {
     return Tuple2(
       RadarrManualImportFile(
         path: import.path,
-        movieId: import.movie.id,
+        movieId: import.movie!.id,
         quality: import.quality,
         languages: import.languages,
       ),

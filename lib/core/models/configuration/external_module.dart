@@ -31,8 +31,8 @@ class ExternalModuleHiveObject extends HiveObject {
       );
 
   ExternalModuleHiveObject({
-    @required this.displayName,
-    @required this.host,
+    required this.displayName,
+    required this.host,
   });
 
   @override
@@ -44,7 +44,7 @@ class ExternalModuleHiveObject extends HiveObject {
       };
 
   @HiveField(0)
-  String displayName;
+  String? displayName;
   @HiveField(1)
-  String host;
+  String? host;
 }

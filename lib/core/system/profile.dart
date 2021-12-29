@@ -3,10 +3,10 @@ import 'package:lunasea/modules/settings.dart';
 
 class LunaProfile {
   /// Returns a list of the profiles, sorted by their lowercase key/display name.
-  List<String> profilesList() => Database.profilesBox.keys
-      .map<String>((profile) => profile as String)
+  List<String?> profilesList() => Database.profilesBox.keys
+      .map<String?>((profile) => profile as String?)
       .toList()
-    ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    ..sort((a, b) => a!.toLowerCase().compareTo(b!.toLowerCase()));
 
   /// Safely change profiles.
   ///
@@ -14,7 +14,7 @@ class LunaProfile {
   /// - Ensures that the passed in profile isn't already enabled
   /// - Ensures that the profile exists
   Future<bool> safelyChangeProfiles(
-    String profile, {
+    String? profile, {
     bool showSnackbar = true,
     bool popToFirst = false,
   }) async {
@@ -27,7 +27,7 @@ class LunaProfile {
           title: 'Changed Profile',
           message: profile,
         );
-      if (popToFirst) LunaState.navigatorKey.currentState.lunaPopToFirst();
+      if (popToFirst) LunaState.navigatorKey.currentState!.lunaPopToFirst();
       return true;
     } else {
       LunaLogger().warning('LunaProfile', 'changeProfile',
@@ -42,16 +42,16 @@ class LunaProfile {
   /// - Shows a input bar for a new name
   /// - Updates the profile's key (which is also the display name)
   Future<bool> renameProfile({bool showSnackbar = true}) async {
-    List<String> profiles = profilesList();
-    Tuple2<bool, String> selectedProfile = await SettingsDialogs()
-        .renameProfile(LunaState.navigatorKey.currentContext, profiles);
+    List<String?> profiles = profilesList();
+    Tuple2<bool, String?> selectedProfile = await SettingsDialogs()
+        .renameProfile(LunaState.navigatorKey.currentContext!, profiles);
     if (selectedProfile.item1) {
       Tuple2<bool, String> newProfile = await SettingsDialogs()
           .renameProfileSelected(
-              LunaState.navigatorKey.currentContext, profiles);
+              LunaState.navigatorKey.currentContext!, profiles);
       if (newProfile.item1) {
         ProfileHiveObject oldProfileObject =
-            Database.profilesBox.get(selectedProfile.item2);
+            Database.profilesBox.get(selectedProfile.item2)!;
         Database.profilesBox.put(newProfile.item2,
             ProfileHiveObject.fromProfileHiveObject(oldProfileObject));
         if (LunaDatabaseValue.ENABLED_PROFILE.data == selectedProfile.item2)
@@ -74,11 +74,11 @@ class LunaProfile {
   /// Show a dialog with a list of profiles, on selection:
   /// - Validate that the profile is not currently enabled
   Future<bool> deleteProfile({bool showSnackbar = true}) async {
-    List<String> profiles = profilesList();
+    List<String?> profiles = profilesList();
     profiles.remove(LunaDatabaseValue.ENABLED_PROFILE.data);
     if (profiles?.isNotEmpty ?? false) {
-      Tuple2<bool, String> selectedProfile = await SettingsDialogs()
-          .deleteProfile(LunaState.navigatorKey.currentContext, profiles);
+      Tuple2<bool, String?> selectedProfile = await SettingsDialogs()
+          .deleteProfile(LunaState.navigatorKey.currentContext!, profiles);
       if (selectedProfile.item1) {
         if (selectedProfile.item2 != LunaDatabaseValue.ENABLED_PROFILE.data) {
           Database.profilesBox.delete(selectedProfile.item2);
@@ -102,9 +102,9 @@ class LunaProfile {
   }
 
   Future<bool> addProfile({bool showSnackbar = true}) async {
-    List<String> profiles = profilesList();
+    List<String?> profiles = profilesList();
     Tuple2<bool, String> result = await SettingsDialogs()
-        .addProfile(LunaState.navigatorKey.currentContext, profiles);
+        .addProfile(LunaState.navigatorKey.currentContext!, profiles);
     if (result.item1) {
       Database.profilesBox.put(result.item2, ProfileHiveObject.empty());
       safelyChangeProfiles(result.item2);

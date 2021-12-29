@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaLRUCache {
-  String _key;
-  Cache _cache;
+  String? _key;
+  late Cache _cache;
 
   LunaLRUCache({
-    @required LunaModule module,
-    @required String id,
+    required LunaModule module,
+    required String id,
     EvictionPolicy evictionPolicy = const LruEvictionPolicy(),
     ExpiryPolicy expiryPolicy = const EternalExpiryPolicy(),
     int maxEntries = 25,

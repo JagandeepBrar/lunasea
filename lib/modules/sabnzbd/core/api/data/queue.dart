@@ -10,19 +10,19 @@ class SABnzbdQueueData {
   int sizeLeft;
 
   SABnzbdQueueData({
-    @required this.name,
-    @required this.nzoId,
-    @required this.sizeTotal,
-    @required this.sizeLeft,
-    @required this.status,
-    @required this.timeLeft,
-    @required this.category,
+    required this.name,
+    required this.nzoId,
+    required this.sizeTotal,
+    required this.sizeLeft,
+    required this.status,
+    required this.timeLeft,
+    required this.category,
   });
 
   int get percentageDone {
     return sizeTotal == 0
         ? 0
-        : (((sizeTotal - sizeLeft) / sizeTotal) * 100).round() ?? 0.0;
+        : (((sizeTotal - sizeLeft) / sizeTotal) * 100).round() ?? 0.0 as int;
   }
 
   String get formattedCategory {

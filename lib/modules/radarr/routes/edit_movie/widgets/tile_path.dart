@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditPathTile extends StatelessWidget {
   const RadarrMoviesEditPathTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

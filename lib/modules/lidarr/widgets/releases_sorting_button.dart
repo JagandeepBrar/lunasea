@@ -6,8 +6,8 @@ class LidarrReleasesSortButton extends StatefulWidget {
   final ScrollController controller;
 
   const LidarrReleasesSortButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class _State extends State<LidarrReleasesSortButton> {
           ),
         ),
         margin: LunaTextInputBar.appBarMargin
-            .subtract(const EdgeInsets.only(left: 12.0)),
+            .subtract(const EdgeInsets.only(left: 12.0)) as EdgeInsets,
         color: Theme.of(context).canvasColor,
       );
 }

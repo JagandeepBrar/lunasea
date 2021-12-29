@@ -6,7 +6,7 @@ class NZBGetStatistics extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget/statistics';
 
   const NZBGetStatistics({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -17,8 +17,8 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-  Future<bool> _future;
-  NZBGetStatisticsData _statistics;
+  Future<bool>? _future;
+  late NZBGetStatisticsData _statistics;
   List<NZBGetLogData> _logs = [];
 
   @override
@@ -35,7 +35,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
   }
 
   Future<bool> _fetch() async {
-    final _api = NZBGetAPI.from(Database.currentProfileObject);
+    final _api = NZBGetAPI.from(Database.currentProfileObject!);
     return _fetchStatistics(_api)
         .then((_) => _fetchLogs(_api))
         .then((_) => true);
@@ -52,7 +52,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
         body: _body,
       );
 

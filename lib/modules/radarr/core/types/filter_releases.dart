@@ -13,8 +13,8 @@ enum RadarrReleasesFilter {
   REJECTED,
 }
 
-extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
-  String get key {
+extension RadarrReleasesFilterExtension on RadarrReleasesFilter? {
+  String? get key {
     switch (this) {
       case RadarrReleasesFilter.ALL:
         return 'all';
@@ -27,7 +27,7 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
     }
   }
 
-  String get readable {
+  String? get readable {
     switch (this) {
       case RadarrReleasesFilter.ALL:
         return 'radarr.All'.tr();
@@ -40,7 +40,7 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
     }
   }
 
-  RadarrReleasesFilter fromKey(String key) {
+  RadarrReleasesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return RadarrReleasesFilter.ALL;
@@ -60,7 +60,7 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
 class _Filterer {
   List<RadarrRelease> byType(
     List<RadarrRelease> releases,
-    RadarrReleasesFilter type,
+    RadarrReleasesFilter? type,
   ) {
     switch (type) {
       case RadarrReleasesFilter.ALL:
@@ -74,7 +74,7 @@ class _Filterer {
   }
 
   List<RadarrRelease> _approved(List<RadarrRelease> releases) =>
-      releases.where((element) => element.approved).toList();
+      releases.where((element) => element.approved!).toList();
   List<RadarrRelease> _rejected(List<RadarrRelease> releases) =>
-      releases.where((element) => !element.approved).toList();
+      releases.where((element) => !element.approved!).toList();
 }

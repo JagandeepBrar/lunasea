@@ -6,7 +6,7 @@ class DashboardNavigationBar extends StatelessWidget {
     icons.length,
     (_) => ScrollController(),
   );
-  final PageController pageController;
+  final PageController? pageController;
 
   static List<String> get titles => [
         'dashboard.Modules'.tr(),
@@ -19,8 +19,8 @@ class DashboardNavigationBar extends StatelessWidget {
   ];
 
   const DashboardNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

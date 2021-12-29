@@ -6,8 +6,8 @@ class TautulliIPAddressDetailsWHOISTile extends StatelessWidget {
   final TautulliWHOISInfo whois;
 
   const TautulliIPAddressDetailsWHOISTile({
-    Key key,
-    @required this.whois,
+    Key? key,
+    required this.whois,
   }) : super(key: key);
 
   @override

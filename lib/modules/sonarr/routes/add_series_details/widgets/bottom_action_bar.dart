@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
   const SonarrAddSeriesDetailsActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -47,7 +47,7 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
       )
           .then((series) async {
         context.read<SonarrState>().fetchAllSeries();
-        context.read<SonarrSeriesAddDetailsState>().series.id = series.id;
+        context.read<SonarrSeriesAddDetailsState>().series.id = series!.id;
         Navigator.of(context).popAndPushNamed(
             SonarrSeriesDetailsRouter().route(seriesId: series.id));
       }).catchError((error, stack) {

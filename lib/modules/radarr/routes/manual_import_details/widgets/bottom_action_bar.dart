@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
   const RadarrManualImportDetailsBottomActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -34,10 +34,10 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
   }
 
   Future<void> _importModeOnTap(BuildContext context) async {
-    Tuple2<bool, RadarrImportMode> result =
+    Tuple2<bool, RadarrImportMode?> result =
         await RadarrDialogs().setManualImportMode(context);
     if (result.item1)
-      RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.put(result.item2.value);
+      RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.put(result.item2!.value);
   }
 
   Future<void> _importOnTap(BuildContext context) async {
@@ -45,7 +45,7 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
         context.read<RadarrManualImportDetailsState>().loadingState ==
             LunaLoadingState.INACTIVE) {
       List<RadarrManualImport> _imports =
-          await context.read<RadarrManualImportDetailsState>().manualImport;
+          await context.read<RadarrManualImportDetailsState>().manualImport!;
       _imports = _imports
           .where((import) => context
               .read<RadarrManualImportDetailsState>()
@@ -59,10 +59,10 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
         return;
       }
       bool _allValid = true;
-      List<RadarrManualImportFile> _files = [];
+      List<RadarrManualImportFile?> _files = [];
       _imports.forEach((import) {
         if (_allValid) {
-          Tuple2<RadarrManualImportFile, String> _file =
+          Tuple2<RadarrManualImportFile?, String?> _file =
               RadarrAPIHelper().buildManualImportFile(import: import);
           if (_file.item1 != null) {
             _files.add(_file.item1);

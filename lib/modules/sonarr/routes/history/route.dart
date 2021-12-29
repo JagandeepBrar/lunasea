@@ -41,7 +41,7 @@ class _State extends State<_Widget>
   Future<void> _fetchPage(int pageKey) async {
     await context
         .read<SonarrState>()
-        .api
+        .api!
         .history
         .get(
           page: pageKey,
@@ -51,10 +51,10 @@ class _State extends State<_Widget>
           includeEpisode: true,
         )
         .then((data) {
-      if (data.totalRecords > (data.page * data.pageSize)) {
-        return _pagingController.appendPage(data.records, pageKey + 1);
+      if (data.totalRecords! > (data.page! * data.pageSize!)) {
+        return _pagingController.appendPage(data.records!, pageKey + 1);
       }
-      return _pagingController.appendLastPage(data.records);
+      return _pagingController.appendLastPage(data.records!);
     }).catchError((error, stack) {
       LunaLogger().error(
         'Unable to fetch Sonarr history page: $pageKey',
@@ -69,7 +69,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -101,7 +101,7 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _list(Map<int, SonarrSeries> series) {
+  Widget _list(Map<int, SonarrSeries>? series) {
     return LunaPagedListView<SonarrHistoryRecord>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
@@ -110,7 +110,7 @@ class _State extends State<_Widget>
       noItemsFoundMessage: 'sonarr.NoHistoryFound'.tr(),
       itemBuilder: (context, history, _) => SonarrHistoryTile(
         history: history,
-        series: series[history.seriesId],
+        series: series![history.seriesId!],
         type: SonarrHistoryTileType.ALL,
       ),
     );

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaHeader extends StatelessWidget {
-  final String text;
-  final String subtitle;
+  final String? text;
+  final String? subtitle;
 
   const LunaHeader({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.subtitle,
   }) : super(key: key);
 
   Widget _headerText() {
     return Text(
-      text.toUpperCase(),
+      text!.toUpperCase(),
       style: const TextStyle(
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: LunaUI.FONT_SIZE_H2,
@@ -43,7 +43,7 @@ class LunaHeader extends StatelessWidget {
   Widget _subtitle() {
     return Padding(
       child: Text(
-        subtitle,
+        subtitle!,
         style: const TextStyle(
           fontSize: LunaUI.FONT_SIZE_H4,
           color: LunaColours.grey,

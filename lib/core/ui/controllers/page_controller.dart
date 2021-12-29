@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Needed for situations that a page has a keyboard prompt to unfocus the keyboard.
 class LunaPageController extends PageController {
   LunaPageController({
-    int initialPage,
+    int? initialPage,
   }) : super(
           initialPage: initialPage ?? 0,
         ) {

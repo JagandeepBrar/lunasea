@@ -7,9 +7,9 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
   final ScrollController scrollController;
 
   const TautulliHistoryDetailsInformation({
-    Key key,
-    @required this.history,
-    @required this.scrollController,
+    Key? key,
+    required this.history,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -44,15 +44,15 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
       content: [
         LunaTableContent(title: 'state', body: history.lsState),
         LunaTableContent(
-            title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date)),
-        LunaTableContent(title: 'started', body: history.date.lunaTime),
+            title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date!)),
+        LunaTableContent(title: 'started', body: history.date!.lunaTime),
         LunaTableContent(
             title: 'stopped',
             body: history.state == null
-                ? history.stopped.lunaTime
+                ? history.stopped!.lunaTime
                 : LunaUI.TEXT_EMDASH),
         LunaTableContent(
-            title: 'paused', body: history.pausedCounter.lunaTimestampWords),
+            title: 'paused', body: history.pausedCounter!.lunaTimestampWords),
       ],
     );
   }

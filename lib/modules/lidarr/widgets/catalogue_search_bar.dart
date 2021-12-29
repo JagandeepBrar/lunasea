@@ -7,8 +7,8 @@ class LidarrCatalogueSearchBar extends StatefulWidget
   final ScrollController scrollController;
 
   const LidarrCatalogueSearchBar({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

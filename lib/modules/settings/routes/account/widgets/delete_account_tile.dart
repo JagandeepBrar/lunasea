@@ -4,7 +4,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountDeleteAccountTile extends StatefulWidget {
   const SettingsAccountDeleteAccountTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

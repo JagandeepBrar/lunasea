@@ -26,7 +26,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -61,7 +61,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           String version = 'Loading${LunaUI.TEXT_ELLIPSIS}';
           if (snapshot.hasError) version = 'Unknown';
           if (snapshot.hasData)
-            version = '${snapshot.data.version} (${snapshot.data.buildNumber})';
+            version = '${snapshot.data!.version} (${snapshot.data!.buildNumber})';
           return LunaBlock(
             title: 'Version: $version',
             body: const [TextSpan(text: 'View Recent Changes')],

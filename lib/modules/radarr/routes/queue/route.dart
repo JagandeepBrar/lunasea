@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -29,15 +30,15 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
 
   @override
   Future<void> loadCallback() async {
-    if (context.read<RadarrState>().enabled) {
-      await context.read<RadarrState>().api.command.refreshMonitoredDownloads();
+    if (context.read<RadarrState>().enabled!) {
+      await context.read<RadarrState>().api!.command.refreshMonitoredDownloads();
       context.read<RadarrState>().fetchQueue();
       await context.read<RadarrState>().queue;
     }
@@ -58,7 +59,7 @@ class _State extends State<_Widget>
       child: FutureBuilder(
         future: Future.wait([
           context.select((RadarrState state) => state.queue),
-          context.select((RadarrState state) => state.movies),
+          context.select(((RadarrState state) => state.movies.then((value) => value!)) as Future<_> Function(_)),
         ]),
         builder: (context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasError) {
@@ -73,8 +74,8 @@ class _State extends State<_Widget>
           }
           if (snapshot.hasData) {
             return _list(
-              snapshot.data[0],
-              snapshot.data[1],
+              snapshot.data![0],
+              snapshot.data![1],
             );
           }
           return const LunaLoader();
@@ -93,14 +94,13 @@ class _State extends State<_Widget>
     }
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: queue.records.length,
+      itemCount: queue.records!.length,
       itemBuilder: (context, index) {
-        RadarrMovie movie = movies.firstWhere(
-          (movie) => movie.id == queue.records[index].movieId,
-          orElse: () => null,
+        RadarrMovie? movie = movies.firstWhereOrNull(
+          (movie) => movie.id == queue.records![index].movieId,
         );
         return RadarrQueueTile(
-          record: queue.records[index],
+          record: queue.records![index],
           movie: movie,
         );
       },

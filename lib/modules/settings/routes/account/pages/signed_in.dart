@@ -6,8 +6,8 @@ class SettingsAccountSignedInPage extends StatefulWidget {
   final ScrollController scrollController;
 
   const SettingsAccountSignedInPage({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

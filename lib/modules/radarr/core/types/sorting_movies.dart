@@ -29,8 +29,8 @@ enum RadarrMoviesSorting {
   YEAR,
 }
 
-extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
-  String get key {
+extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
+  String? get key {
     switch (this) {
       case RadarrMoviesSorting.ALPHABETICAL:
         return 'abc';
@@ -58,7 +58,7 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
     return null;
   }
 
-  RadarrMoviesSorting fromKey(String key) {
+  RadarrMoviesSorting? fromKey(String? key) {
     switch (key) {
       case 'abc':
         return RadarrMoviesSorting.ALPHABETICAL;
@@ -114,7 +114,7 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
     throw Exception('Unknown RadarrMoviesSorting');
   }
 
-  String value(RadarrMovie movie, RadarrQualityProfile profile) {
+  String? value(RadarrMovie movie, RadarrQualityProfile? profile) {
     switch (this) {
       case RadarrMoviesSorting.ALPHABETICAL:
         return movie.lunaYear;
@@ -148,7 +148,7 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
 
 class _Sorter {
   List<RadarrMovie> byType(
-      List<RadarrMovie> data, RadarrMoviesSorting type, bool ascending) {
+      List<RadarrMovie> data, RadarrMoviesSorting? type, bool ascending) {
     switch (type) {
       case RadarrMoviesSorting.DATE_ADDED:
         return _dateAdded(data, ascending);
@@ -179,59 +179,59 @@ class _Sorter {
   List<RadarrMovie> _alphabetical(List<RadarrMovie> series, bool ascending) {
     ascending
         ? series.sort((a, b) =>
-            a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()))
+            a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase()))
         : series.sort((a, b) =>
-            b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
+            b.sortTitle!.toLowerCase().compareTo(a.sortTitle!.toLowerCase()));
     return series;
   }
 
   List<RadarrMovie> _dateAdded(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.added == null) _comparison = 1;
       if (b.added == null) _comparison = -1;
       if (a.added == null && b.added == null) _comparison = 0;
       if (a.added != null && b.added != null)
         _comparison = ascending
-            ? (a.added).compareTo(b.added)
-            : (b.added).compareTo(a.added);
+            ? a.added!.compareTo(b.added!)
+            : b.added!.compareTo(a.added!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _digitalRelease(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.digitalRelease == null) _comparison = 1;
       if (b.digitalRelease == null) _comparison = -1;
       if (a.digitalRelease == null && b.digitalRelease == null) _comparison = 0;
       if (a.digitalRelease != null && b.digitalRelease != null)
         _comparison = ascending
-            ? (a.digitalRelease).compareTo(b.digitalRelease)
-            : (b.digitalRelease).compareTo(a.digitalRelease);
+            ? a.digitalRelease!.compareTo(b.digitalRelease!)
+            : b.digitalRelease!.compareTo(a.digitalRelease!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _inCinemas(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.inCinemas == null) _comparison = 1;
       if (b.inCinemas == null) _comparison = -1;
       if (a.inCinemas == null && b.inCinemas == null) _comparison = 0;
       if (a.inCinemas != null && b.inCinemas != null)
         _comparison = ascending
-            ? (a.inCinemas).compareTo(b.inCinemas)
-            : (b.inCinemas).compareTo(a.inCinemas);
+            ? a.inCinemas!.compareTo(b.inCinemas!)
+            : b.inCinemas!.compareTo(a.inCinemas!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
@@ -239,45 +239,45 @@ class _Sorter {
   List<RadarrMovie> _minimumAvailability(
       List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.minimumAvailability == null) _comparison = 1;
       if (b.minimumAvailability == null) _comparison = -1;
       if (a.minimumAvailability == null && b.minimumAvailability == null)
         _comparison = 0;
       if (a.minimumAvailability != null && b.minimumAvailability != null)
         _comparison = ascending
-            ? (a.minimumAvailability.value)
-                .compareTo(b.minimumAvailability.value)
-            : (b.minimumAvailability.value)
-                .compareTo(a.minimumAvailability.value);
+            ? a.minimumAvailability!.value!
+                .compareTo(b.minimumAvailability!.value!)
+            : b.minimumAvailability!.value!
+                .compareTo(a.minimumAvailability!.value!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _physicalRelease(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.physicalRelease == null) _comparison = 1;
       if (b.physicalRelease == null) _comparison = -1;
       if (a.physicalRelease == null && b.physicalRelease == null)
         _comparison = 0;
       if (a.physicalRelease != null && b.physicalRelease != null)
         _comparison = ascending
-            ? (a.physicalRelease).compareTo(b.physicalRelease)
-            : (b.physicalRelease).compareTo(a.physicalRelease);
+            ? a.physicalRelease!.compareTo(b.physicalRelease!)
+            : b.physicalRelease!.compareTo(a.physicalRelease!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _runtime(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.runtime == null || a.runtime == 0) _comparison = 1;
       if (b.runtime == null || b.runtime == 0) _comparison = -1;
       if ((a.runtime == null || a.runtime == 0) &&
@@ -287,18 +287,18 @@ class _Sorter {
           a.runtime != 0 &&
           b.runtime != 0)
         _comparison = ascending
-            ? (a.runtime).compareTo(b.runtime)
-            : (b.runtime).compareTo(a.runtime);
+            ? a.runtime!.compareTo(b.runtime!)
+            : b.runtime!.compareTo(a.runtime!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _qualityProfile(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.qualityProfileId == null || a.qualityProfileId == 0)
         _comparison = 1;
       if (b.qualityProfileId == null || b.qualityProfileId == 0)
@@ -311,18 +311,18 @@ class _Sorter {
           a.qualityProfileId != 0 &&
           b.qualityProfileId != 0)
         _comparison = ascending
-            ? (a.qualityProfileId).compareTo(b.qualityProfileId)
-            : (b.qualityProfileId).compareTo(a.qualityProfileId);
+            ? a.qualityProfileId!.compareTo(b.qualityProfileId!)
+            : b.qualityProfileId!.compareTo(a.qualityProfileId!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _size(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.sizeOnDisk == null || a.sizeOnDisk == 0) _comparison = 1;
       if (b.sizeOnDisk == null || b.sizeOnDisk == 0) _comparison = -1;
       if ((a.sizeOnDisk == null || a.sizeOnDisk == 0) &&
@@ -332,49 +332,49 @@ class _Sorter {
           a.sizeOnDisk != 0 &&
           b.sizeOnDisk != 0)
         _comparison = ascending
-            ? (a.sizeOnDisk).compareTo(b.sizeOnDisk)
-            : (b.sizeOnDisk).compareTo(a.sizeOnDisk);
+            ? a.sizeOnDisk!.compareTo(b.sizeOnDisk!)
+            : b.sizeOnDisk!.compareTo(a.sizeOnDisk!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _studio(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
-      if (a.studio == null || a.studio.isEmpty) _comparison = 1;
-      if (b.studio == null || b.studio.isEmpty) _comparison = -1;
-      if ((a.studio == null || a.studio.isEmpty) &&
-          (b.studio == null || b.studio.isEmpty)) _comparison = 0;
+      int? _comparison;
+      if (a.studio == null || a.studio!.isEmpty) _comparison = 1;
+      if (b.studio == null || b.studio!.isEmpty) _comparison = -1;
+      if ((a.studio == null || a.studio!.isEmpty) &&
+          (b.studio == null || b.studio!.isEmpty)) _comparison = 0;
       if (a.studio != null &&
           b.studio != null &&
-          a.studio.isNotEmpty &&
-          b.studio.isNotEmpty)
+          a.studio!.isNotEmpty &&
+          b.studio!.isNotEmpty)
         _comparison = ascending
-            ? (a.studio.toLowerCase()).compareTo(b.studio.toLowerCase())
-            : (b.studio.toLowerCase()).compareTo(a.studio.toLowerCase());
+            ? (a.studio!.toLowerCase()).compareTo(b.studio!.toLowerCase())
+            : (b.studio!.toLowerCase()).compareTo(a.studio!.toLowerCase());
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }
 
   List<RadarrMovie> _year(List<RadarrMovie> movies, bool ascending) {
     movies.sort((a, b) {
-      int _comparison;
+      int? _comparison;
       if (a.year == null || a.year == 0) _comparison = 1;
       if (b.year == null || b.year == 0) _comparison = -1;
       if ((a.year == null || a.year == 0) && (b.year == null || b.year == 0))
         _comparison = 0;
       if (a.year != null && b.year != null && a.year != 0 && b.year != 0)
         _comparison =
-            ascending ? (a.year).compareTo(b.year) : (b.year).compareTo(a.year);
+            ascending ? a.year!.compareTo(b.year!) : b.year!.compareTo(a.year!);
       return _comparison == 0
-          ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-          : _comparison;
+          ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
+          : _comparison!;
     });
     return movies;
   }

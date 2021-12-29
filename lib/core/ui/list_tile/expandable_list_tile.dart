@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 class LunaExpandableListTile extends StatefulWidget {
   final String title;
   final List<TextSpan> collapsedSubtitles;
-  final Widget collapsedTrailing;
-  final Widget collapsedLeading;
-  final Color backgroundColor;
-  final Function onLongPress;
-  final List<LunaHighlightedNode> expandedHighlightedNodes;
+  final Widget? collapsedTrailing;
+  final Widget? collapsedLeading;
+  final Color? backgroundColor;
+  final Function? onLongPress;
+  final List<LunaHighlightedNode>? expandedHighlightedNodes;
   final List<LunaTableContent> expandedTableContent;
-  final List<LunaButton> expandedTableButtons;
+  final List<LunaButton>? expandedTableButtons;
   final bool initialExpanded;
 
   /// Create a [LunaExpandableListTile] which is a list tile that expands into a table-style card.
@@ -18,10 +18,10 @@ class LunaExpandableListTile extends StatefulWidget {
   /// If [expandedWidget] is supplied, that widget is used as the body within the expanded card.
   /// Any
   LunaExpandableListTile({
-    Key key,
-    @required this.title,
-    @required this.collapsedSubtitles,
-    @required this.expandedTableContent,
+    Key? key,
+    required this.title,
+    required this.collapsedSubtitles,
+    required this.expandedTableContent,
     this.collapsedTrailing,
     this.collapsedLeading,
     this.onLongPress,
@@ -40,7 +40,7 @@ class LunaExpandableListTile extends StatefulWidget {
 }
 
 class _State extends State<LunaExpandableListTile> {
-  ExpandableController controller;
+  ExpandableController? controller;
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _State extends State<LunaExpandableListTile> {
     return LunaBlock(
       title: widget.title ?? LunaUI.TEXT_EMDASH,
       body: _parseSubtitles(),
-      onTap: controller.toggle,
+      onTap: controller!.toggle,
       onLongPress: widget.onLongPress,
       trailing: widget.collapsedTrailing,
       leading: widget.collapsedLeading,
@@ -121,7 +121,7 @@ class _State extends State<LunaExpandableListTile> {
                           direction: Axis.horizontal,
                           spacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
                           runSpacing: LunaUI.DEFAULT_MARGIN_SIZE / 2,
-                          children: widget.expandedHighlightedNodes,
+                          children: widget.expandedHighlightedNodes!,
                         ),
                         padding: const EdgeInsets.only(
                           left: LunaUI.DEFAULT_MARGIN_SIZE,
@@ -142,9 +142,9 @@ class _State extends State<LunaExpandableListTile> {
                         child: Wrap(
                           children: [
                             ...List.generate(
-                              widget.expandedTableButtons.length,
+                              widget.expandedTableButtons!.length,
                               (index) {
-                                int bCount = widget.expandedTableButtons.length;
+                                int bCount = widget.expandedTableButtons!.length;
                                 double widthFactor = 0.5;
 
                                 if (index == (bCount - 1) && bCount.isOdd) {
@@ -152,7 +152,7 @@ class _State extends State<LunaExpandableListTile> {
                                 }
 
                                 return FractionallySizedBox(
-                                  child: widget.expandedTableButtons[index],
+                                  child: widget.expandedTableButtons![index],
                                   widthFactor: widthFactor,
                                 );
                               },
@@ -170,8 +170,8 @@ class _State extends State<LunaExpandableListTile> {
           ),
         ),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-        onTap: controller.toggle,
-        onLongPress: widget.onLongPress,
+        onTap: controller!.toggle,
+        onLongPress: widget.onLongPress as void Function()?,
       ),
       color: widget.backgroundColor,
     );

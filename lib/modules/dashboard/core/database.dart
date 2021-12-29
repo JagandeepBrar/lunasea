@@ -31,17 +31,17 @@ class DashboardDatabase extends LunaModuleDatabase {
         // Non-primitive values
         case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
-                  as CalendarStartingDay)
+                  as CalendarStartingDay?)
               .key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-                  as CalendarStartingSize)
+                  as CalendarStartingSize?)
               .key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
-                  as CalendarStartingType)
+                  as CalendarStartingType?)
               .key;
           break;
         // Primitive values
@@ -54,9 +54,9 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      DashboardDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      DashboardDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primitive values
@@ -78,7 +78,7 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  DashboardDatabaseValue valueFromKey(String key) {
+  DashboardDatabaseValue? valueFromKey(String key) {
     for (DashboardDatabaseValue value in DashboardDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -108,8 +108,8 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

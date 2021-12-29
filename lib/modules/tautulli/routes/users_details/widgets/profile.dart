@@ -6,8 +6,8 @@ class TautulliUserDetailsProfile extends StatefulWidget {
   final TautulliTableUser user;
 
   const TautulliUserDetailsProfile({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -30,34 +30,34 @@ class _State extends State<TautulliUserDetailsProfile>
   Future<void> loadCallback() async {
     // Initial load or refresh of the user profile data
     context.read<TautulliState>().setUserProfile(
-          widget.user.userId,
+          widget.user.userId!,
           context
               .read<TautulliState>()
-              .api
+              .api!
               .users
-              .getUser(userId: widget.user.userId),
+              .getUser(userId: widget.user.userId!),
         );
     // Initial load or refresh of the user watch stats
     context.read<TautulliState>().setUserWatchStats(
-          widget.user.userId,
-          context.read<TautulliState>().api.users.getUserWatchTimeStats(
-              userId: widget.user.userId, queryDays: [1, 7, 30, 0]),
+          widget.user.userId!,
+          context.read<TautulliState>().api!.users.getUserWatchTimeStats(
+              userId: widget.user.userId!, queryDays: [1, 7, 30, 0]),
         );
     // Initial load or refresh of the user player stats
     context.read<TautulliState>().setUserPlayerStats(
-          widget.user.userId,
+          widget.user.userId!,
           context
               .read<TautulliState>()
-              .api
+              .api!
               .users
-              .getUserPlayerStats(userId: widget.user.userId),
+              .getUserPlayerStats(userId: widget.user.userId!),
         );
     setState(() => _initialLoad = true);
     // This await keeps the refresh indicator showing until the data is loaded
     await Future.wait([
-      context.read<TautulliState>().userProfile[widget.user.userId],
-      context.read<TautulliState>().userWatchStats[widget.user.userId],
-      context.read<TautulliState>().userPlayerStats[widget.user.userId],
+      context.read<TautulliState>().userProfile[widget.user.userId!].then((value) => value!),
+      context.read<TautulliState>().userWatchStats[widget.user.userId!].then((value) => value!),
+      context.read<TautulliState>().userPlayerStats[widget.user.userId!].then((value) => value!),
     ]);
   }
 
@@ -79,9 +79,9 @@ class _State extends State<TautulliUserDetailsProfile>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliState>().userProfile[widget.user.userId],
-          context.watch<TautulliState>().userWatchStats[widget.user.userId],
-          context.watch<TautulliState>().userPlayerStats[widget.user.userId],
+          context.watch<TautulliState>().userProfile[widget.user.userId!].then((value) => value!),
+          context.watch<TautulliState>().userWatchStats[widget.user.userId!].then((value) => value!),
+          context.watch<TautulliState>().userPlayerStats[widget.user.userId!].then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -91,13 +91,13 @@ class _State extends State<TautulliUserDetailsProfile>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
             return _list(
-              user: snapshot.data[0],
-              watchtime: snapshot.data[1],
-              player: snapshot.data[2],
+              user: snapshot.data![0] as TautulliUser,
+              watchtime: snapshot.data![1] as List<TautulliUserWatchTimeStats>,
+              player: snapshot.data![2] as List<TautulliUserPlayerStats>,
             );
           return const LunaLoader();
         },
@@ -106,9 +106,9 @@ class _State extends State<TautulliUserDetailsProfile>
   }
 
   Widget _list({
-    @required TautulliUser user,
-    @required List<TautulliUserWatchTimeStats> watchtime,
-    @required List<TautulliUserPlayerStats> player,
+    required TautulliUser user,
+    required List<TautulliUserWatchTimeStats> watchtime,
+    required List<TautulliUserPlayerStats> player,
   }) {
     return LunaListView(
       controller: TautulliUserDetailsNavigationBar.scrollControllers[0],
@@ -152,19 +152,19 @@ class _State extends State<TautulliUserDetailsProfile>
         (index) => LunaTableContent(
           title: _globalStatsTitle(watchtime[index].queryDays),
           body: _globalStatsContent(
-              watchtime[index].totalPlays, watchtime[index].totalTime),
+              watchtime[index].totalPlays, watchtime[index].totalTime!),
         ),
       ),
     );
   }
 
-  String _globalStatsTitle(int days) {
+  String _globalStatsTitle(int? days) {
     if (days == 0) return 'All Time';
     if (days == 1) return '24 Hours';
     return '$days Days';
   }
 
-  String _globalStatsContent(int plays, Duration duration) {
+  String _globalStatsContent(int? plays, Duration duration) {
     String _plays = plays == 1 ? '1 Play' : '$plays Plays';
     return '$_plays\n${duration.lunaTimestampWords}';
   }

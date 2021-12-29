@@ -17,16 +17,16 @@ class NZBGetHistoryData {
   DateTime now = DateTime.now();
 
   NZBGetHistoryData({
-    @required this.id,
-    @required this.name,
-    @required this.status,
-    @required this.timestamp,
-    @required this.downloadedLow,
-    @required this.downloadedHigh,
-    @required this.category,
-    @required this.storageLocation,
-    @required this.downloadTime,
-    @required this.health,
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.timestamp,
+    required this.downloadedLow,
+    required this.downloadedHigh,
+    required this.category,
+    required this.storageLocation,
+    required this.downloadTime,
+    required this.health,
   });
 
   int get downloaded {
@@ -46,7 +46,7 @@ class NZBGetHistoryData {
     return downloaded?.lunaBytesToString();
   }
 
-  DateTime get timestampObject {
+  DateTime? get timestampObject {
     return timestamp == -1
         ? null
         : DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);

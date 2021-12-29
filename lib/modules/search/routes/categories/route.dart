@@ -35,7 +35,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -68,10 +68,10 @@ class _State extends State<_Widget>
               snapshot.error,
               snapshot.stackTrace,
             );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) return _list(snapshot.data);
+              snapshot.hasData) return _list(snapshot.data!);
           return const LunaLoader();
         },
       ),
@@ -100,7 +100,7 @@ class _State extends State<_Widget>
     return categories.where((category) {
       if (!SearchDatabaseValue.HIDE_XXX.data) return true;
       if (category.id >= 6000 && category.id <= 6999) return false;
-      if (ADULT_CATEGORIES.contains(category.name.toLowerCase().trim())) {
+      if (ADULT_CATEGORIES.contains(category.name!.toLowerCase().trim())) {
         return false;
       }
       return true;

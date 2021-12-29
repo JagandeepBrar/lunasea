@@ -9,13 +9,13 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 /// By default, the list is shrink-wrapped.
 class LunaListViewModal extends StatelessWidget {
   final List<Widget> children;
-  final LunaBottomActionBar actionBar;
-  final LunaAppBar appBar;
-  final double itemExtent;
+  final LunaBottomActionBar? actionBar;
+  final LunaAppBar? appBar;
+  final double? itemExtent;
 
   const LunaListViewModal({
-    Key key,
-    @required this.children,
+    Key? key,
+    required this.children,
     this.appBar,
     this.actionBar,
     this.itemExtent,
@@ -26,7 +26,7 @@ class LunaListViewModal extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (appBar != null) appBar,
+        if (appBar != null) appBar!,
         Flexible(
           child: Scrollbar(
             controller: ModalScrollController.of(context),
@@ -41,7 +41,7 @@ class LunaListViewModal extends StatelessWidget {
             ),
           ),
         ),
-        if (actionBar != null) actionBar,
+        if (actionBar != null) actionBar!,
       ],
     );
   }

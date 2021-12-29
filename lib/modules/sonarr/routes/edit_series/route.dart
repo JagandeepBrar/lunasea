@@ -7,7 +7,7 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
 
   @override
   _Widget widget({
-    @required int seriesId,
+    required int seriesId,
   }) {
     return _Widget(
       seriesId: seriesId,
@@ -17,14 +17,14 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required int seriesId,
+    required int? seriesId,
   }) async {
     LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
   }
 
   @override
   String route({
-    @required int seriesId,
+    required int? seriesId,
   }) {
     return fullRoute.replaceFirst(':seriesid', seriesId.toString());
   }
@@ -37,7 +37,7 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
       router,
       (context, params) {
         int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seriesid'][0]) ?? -1)
+            ? (int.tryParse(params['seriesid']![0]) ?? -1)
             : -1;
         return _Widget(seriesId: seriesId);
       },
@@ -49,8 +49,8 @@ class _Widget extends StatefulWidget {
   final int seriesId;
 
   const _Widget({
-    Key key,
-    @required this.seriesId,
+    Key? key,
+    required this.seriesId,
   }) : super(key: key);
 
   @override
@@ -83,7 +83,7 @@ class _State extends State<_Widget>
                   (state) => state.state);
           return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            appBar: _appBar(),
+            appBar: _appBar() as PreferredSizeWidget?,
             body:
                 state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
             bottomNavigationBar: state == LunaLoadingState.ERROR
@@ -110,9 +110,9 @@ class _State extends State<_Widget>
   Widget _body(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        context.select<SonarrState, Future<Map<int, SonarrSeries>>>(
+        context.select<SonarrState, Future<Map<int?, SonarrSeries>>?>(
           (state) => state.series,
-        ),
+        ).then((value) => value!),
         context.select<SonarrState, Future<List<SonarrQualityProfile>>>(
           (state) => state.qualityProfiles,
         ),
@@ -128,14 +128,14 @@ class _State extends State<_Widget>
           return LunaMessage.error(onTap: loadCallback);
         }
         if (snapshot.hasData) {
-          SonarrSeries series = (snapshot.data[0] as Map)[widget.seriesId];
+          SonarrSeries? series = (snapshot.data![0] as Map)[widget.seriesId];
           if (series == null) return const LunaLoader();
           return _list(
             context,
             series: series,
-            qualityProfiles: snapshot.data[1],
-            tags: snapshot.data[2],
-            languageProfiles: snapshot.data[3],
+            qualityProfiles: snapshot.data![1] as List<SonarrQualityProfile?>,
+            tags: snapshot.data![2] as List<SonarrTag>,
+            languageProfiles: snapshot.data![3] as List<SonarrLanguageProfile?>,
           );
         }
         return const LunaLoader();
@@ -145,10 +145,10 @@ class _State extends State<_Widget>
 
   Widget _list(
     BuildContext context, {
-    @required SonarrSeries series,
-    @required List<SonarrQualityProfile> qualityProfiles,
-    @required List<SonarrLanguageProfile> languageProfiles,
-    @required List<SonarrTag> tags,
+    required SonarrSeries series,
+    required List<SonarrQualityProfile?> qualityProfiles,
+    required List<SonarrLanguageProfile?> languageProfiles,
+    required List<SonarrTag> tags,
   }) {
     if (context.read<SonarrSeriesEditState>().series == null) {
       context.read<SonarrSeriesEditState>().series = series;

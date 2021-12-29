@@ -3,13 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMediaDetailsMetadataSummary extends StatefulWidget {
-  final TautulliMetadata metadata;
-  final TautulliMediaType type;
+  final TautulliMetadata? metadata;
+  final TautulliMediaType? type;
 
   const TautulliMediaDetailsMetadataSummary({
-    Key key,
-    @required this.metadata,
-    @required this.type,
+    Key? key,
+    required this.metadata,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -25,15 +25,15 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
     TautulliMediaType.COLLECTION,
     TautulliMediaType.NULL,
   ];
-  String _summary;
-  Widget _buttons;
+  String? _summary;
+  Widget? _buttons;
 
   @override
   void initState() {
     super.initState();
-    if (widget.metadata.summary != null &&
-        widget.metadata.summary.trim().isNotEmpty) {
-      _summary = widget.metadata.summary.trim();
+    if (widget.metadata!.summary != null &&
+        widget.metadata!.summary!.trim().isNotEmpty) {
+      _summary = widget.metadata!.summary!.trim();
     }
     _buttons = _buildButtons();
   }
@@ -71,19 +71,19 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
                         _buttons == null ? 12.0 : 6.0,
                       ),
                     ),
-                  if (_buttons != null) _buttons,
+                  if (_buttons != null) _buttons!,
                 ],
               ),
             ),
           ],
         ),
         onTap: () async =>
-            LunaDialogs().textPreview(context, widget.metadata.title, _summary),
+            LunaDialogs().textPreview(context, widget.metadata!.title, _summary!),
       ),
     );
   }
 
-  Widget _buildButtons() {
+  Widget? _buildButtons() {
     if (_blacklist.contains(widget.type)) return null;
     return LunaButtonContainer(
       children: _buttonBuilder(),
@@ -123,7 +123,7 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
 
   Widget _button(TautulliMediaDetailsSwitcherType type) {
     return LunaButton.text(
-      text: type.label,
+      text: type.label!,
       icon: Icons.info_outline_rounded,
       onTap: () => _buttonOnTap(type),
     );
@@ -136,15 +136,15 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
           context: context,
           mediaType: TautulliMediaType.SHOW,
           ratingKey: widget.type == TautulliMediaType.EPISODE
-              ? widget.metadata.grandparentRatingKey
-              : widget.metadata.parentRatingKey,
+              ? widget.metadata!.grandparentRatingKey
+              : widget.metadata!.parentRatingKey,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_SEASON:
         value.goTo(
           context: context,
           mediaType: TautulliMediaType.SEASON,
-          ratingKey: widget.metadata.parentRatingKey,
+          ratingKey: widget.metadata!.parentRatingKey,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_ARTIST:
@@ -152,15 +152,15 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
           context: context,
           mediaType: TautulliMediaType.ARTIST,
           ratingKey: widget.type == TautulliMediaType.TRACK
-              ? widget.metadata.grandparentRatingKey
-              : widget.metadata.parentRatingKey,
+              ? widget.metadata!.grandparentRatingKey
+              : widget.metadata!.parentRatingKey,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM:
         value.goTo(
           context: context,
           mediaType: TautulliMediaType.ALBUM,
-          ratingKey: widget.metadata.parentRatingKey,
+          ratingKey: widget.metadata!.parentRatingKey,
         );
         break;
     }

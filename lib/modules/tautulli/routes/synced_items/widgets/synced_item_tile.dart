@@ -6,8 +6,8 @@ class TautulliSyncedItemTile extends StatelessWidget {
   final TautulliSyncedItem syncedItem;
 
   const TautulliSyncedItemTile({
-    Key key,
-    @required this.syncedItem,
+    Key? key,
+    required this.syncedItem,
   }) : super(key: key);
 
   @override

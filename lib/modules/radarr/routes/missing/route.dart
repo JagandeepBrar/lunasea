@@ -1,10 +1,11 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMissingRoute extends StatefulWidget {
   const RadarrMissingRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -35,7 +36,7 @@ class _State extends State<RadarrMissingRoute>
     _state.fetchMovies();
     _state.fetchQualityProfiles();
     await Future.wait([
-      _state.missing,
+      _state.missing.then((value) => value!),
       _state.qualityProfiles,
     ]);
   }
@@ -46,7 +47,7 @@ class _State extends State<RadarrMissingRoute>
         onRefresh: _refresh,
         child: FutureBuilder(
           future: Future.wait([
-            context.watch<RadarrState>().missing,
+            context.watch<RadarrState>().missing.then((value) => value!),
             context.watch<RadarrState>().qualityProfiles,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
@@ -57,10 +58,10 @@ class _State extends State<RadarrMissingRoute>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData)
-              return _list(snapshot.data[0], snapshot.data[1]);
+              return _list(snapshot.data![0] as List<RadarrMovie>, snapshot.data![1] as List<RadarrQualityProfile>);
             return const LunaLoader();
           },
         ),
@@ -72,7 +73,7 @@ class _State extends State<RadarrMissingRoute>
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: RadarrNavigationBar.scrollControllers[2],
@@ -80,9 +81,8 @@ class _State extends State<RadarrMissingRoute>
       itemExtent: RadarrMissingTile.itemExtent,
       itemBuilder: (context, index) => RadarrMissingTile(
         movie: movies[index],
-        profile: qualityProfiles.firstWhere(
-            (element) => element.id == movies[index].qualityProfileId,
-            orElse: () => null),
+        profile: qualityProfiles.firstWhereOrNull(
+            (element) => element.id == movies[index].qualityProfileId),
       ),
     );
   }

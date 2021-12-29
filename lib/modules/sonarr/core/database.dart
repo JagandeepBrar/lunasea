@@ -56,27 +56,27 @@ class SonarrDatabase extends LunaModuleDatabase {
         // Non-primitive values
         case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data
-                  as SonarrSeriesSorting)
+                  as SonarrSeriesSorting?)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data
-                  as SonarrReleasesSorting)
+                  as SonarrReleasesSorting?)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data
-                  as SonarrSeriesFilter)
+                  as SonarrSeriesFilter?)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
-                  as SonarrReleasesFilter)
+                  as SonarrReleasesFilter?)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data
-                  as LunaListViewOption)
+                  as LunaListViewOption?)!
               .key;
           break;
         // Primitive values
@@ -89,9 +89,9 @@ class SonarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      SonarrDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      SonarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primitive values
@@ -119,7 +119,7 @@ class SonarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SonarrDatabaseValue valueFromKey(String key) {
+  SonarrDatabaseValue? valueFromKey(String key) {
     for (SonarrDatabaseValue value in SonarrDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -149,8 +149,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

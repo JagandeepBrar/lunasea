@@ -6,8 +6,8 @@ class TautulliStatisticsUserTile extends StatefulWidget {
   final Map<String, dynamic> data;
 
   const TautulliStatisticsUserTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override

@@ -56,27 +56,27 @@ class RadarrDatabase extends LunaModuleDatabase {
         // Non-primative values
         case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data
-                  as RadarrMoviesSorting)
+                  as RadarrMoviesSorting?)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data
-                  as RadarrMoviesFilter)
+                  as RadarrMoviesFilter?)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data
-                  as RadarrReleasesSorting)
+                  as RadarrReleasesSorting?)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
-                  as RadarrReleasesFilter)
+                  as RadarrReleasesFilter?)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_VIEW_MOVIES.data
-                  as LunaListViewOption)
+                  as LunaListViewOption?)!
               .key;
           break;
         // Primitive values
@@ -89,9 +89,9 @@ class RadarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      RadarrDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      RadarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primative values
@@ -119,7 +119,7 @@ class RadarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  RadarrDatabaseValue valueFromKey(String key) {
+  RadarrDatabaseValue? valueFromKey(String key) {
     for (RadarrDatabaseValue value in RadarrDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -149,8 +149,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

@@ -4,12 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrReleaseExtension on SonarrRelease {
   IconData get lunaTrailingIcon {
-    if (this.approved) return Icons.download_rounded;
+    if (this.approved!) return Icons.download_rounded;
     return Icons.report_outlined;
   }
 
   Color get lunaTrailingColor {
-    if (this.approved) return Colors.white;
+    if (this.approved!) return Colors.white;
     return LunaColours.red;
   }
 
@@ -21,8 +21,8 @@ extension SonarrReleaseExtension on SonarrRelease {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaIndexer {
-    if (this.indexer != null && this.indexer.isNotEmpty) return this.indexer;
+  String? get lunaIndexer {
+    if (this.indexer != null && this.indexer!.isNotEmpty) return this.indexer;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -31,15 +31,15 @@ extension SonarrReleaseExtension on SonarrRelease {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaQuality {
-    if (this.quality != null && this.quality.quality != null)
-      return this.quality.quality.name;
+  String? get lunaQuality {
+    if (this.quality != null && this.quality!.quality != null)
+      return this.quality!.quality!.name;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaLanguage {
+  String? get lunaLanguage {
     if (this.language != null && this.language != null)
-      return this.language.name;
+      return this.language!.name;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -48,9 +48,9 @@ extension SonarrReleaseExtension on SonarrRelease {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String lunaPreferredWordScore({bool nullOnEmpty = false}) {
+  String? lunaPreferredWordScore({bool nullOnEmpty = false}) {
     if ((this.preferredWordScore ?? 0) != 0) {
-      String _prefix = this.preferredWordScore > 0 ? '+' : '';
+      String _prefix = this.preferredWordScore! > 0 ? '+' : '';
       return '$_prefix${this.preferredWordScore}';
     }
     if (nullOnEmpty) return null;

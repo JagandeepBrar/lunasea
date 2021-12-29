@@ -11,20 +11,20 @@ class SonarrSeriesTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final SonarrSeries series;
-  final SonarrQualityProfile profile;
+  final SonarrQualityProfile? profile;
   final _SonarrSeriesTileType type;
 
   const SonarrSeriesTile({
-    Key key,
-    @required this.series,
-    @required this.profile,
+    Key? key,
+    required this.series,
+    required this.profile,
     this.type = _SonarrSeriesTileType.TILE,
   }) : super(key: key);
 
   const SonarrSeriesTile.grid({
-    Key key,
-    @required this.series,
-    @required this.profile,
+    Key? key,
+    required this.series,
+    required this.profile,
     this.type = _SonarrSeriesTileType.GRID,
   }) : super(key: key);
 
@@ -35,7 +35,7 @@ class SonarrSeriesTile extends StatefulWidget {
 class _State extends State<SonarrSeriesTile> {
   @override
   Widget build(BuildContext context) {
-    return Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
+    return Selector<SonarrState, Future<Map<int?, SonarrSeries>>?>(
       selector: (_, state) => state.series,
       builder: (context, series, _) {
         switch (widget.type) {
@@ -56,7 +56,7 @@ class _State extends State<SonarrSeriesTile> {
       posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
       posterHeaders: context.read<SonarrState>().headers,
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      disabled: !widget.series.monitored,
+      disabled: !widget.series.monitored!,
       title: widget.series.title,
       body: [
         _subtitle1(),
@@ -79,14 +79,14 @@ class _State extends State<SonarrSeriesTile> {
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       title: widget.series.title,
       subtitle: TextSpan(text: _sorting.value(widget.series, widget.profile)),
-      disabled: !widget.series.monitored,
+      disabled: !widget.series.monitored!,
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
   }
 
-  TextSpan _buildChildTextSpan(String text, SonarrSeriesSorting sorting) {
-    TextStyle style;
+  TextSpan _buildChildTextSpan(String? text, SonarrSeriesSorting sorting) {
+    TextStyle? style;
     if (context.read<SonarrState>().seriesSortType == sorting) {
       style = const TextStyle(
         color: LunaColours.accent,
@@ -169,7 +169,7 @@ class _State extends State<SonarrSeriesTile> {
       );
 
   Future<void> _onLongPress() async {
-    Tuple2<bool, SonarrSeriesSettingsType> values =
+    Tuple2<bool, SonarrSeriesSettingsType?> values =
         await SonarrDialogs().seriesSettings(
       context,
       widget.series,

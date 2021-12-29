@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsUseSeasonFoldersTile extends StatelessWidget {
   const SonarrSeriesAddDetailsUseSeasonFoldersTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

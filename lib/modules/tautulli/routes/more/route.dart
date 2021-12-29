@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMoreRoute extends StatefulWidget {
   const TautulliMoreRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

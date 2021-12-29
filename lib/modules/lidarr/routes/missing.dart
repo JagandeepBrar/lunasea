@@ -8,9 +8,9 @@ class LidarrMissing extends StatefulWidget {
   final Function refreshAllPages;
 
   const LidarrMissing({
-    Key key,
-    @required this.refreshIndicatorKey,
-    @required this.refreshAllPages,
+    Key? key,
+    required this.refreshIndicatorKey,
+    required this.refreshAllPages,
   }) : super(key: key);
 
   @override
@@ -19,8 +19,8 @@ class LidarrMissing extends StatefulWidget {
 
 class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<List<LidarrMissingData>> _future;
-  List<LidarrMissingData> _results = [];
+  Future<List<LidarrMissingData>>? _future;
+  List<LidarrMissingData>? _results = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -33,7 +33,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
 
   Future<void> _refresh() async {
     _results = [];
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     if (mounted)
       setState(() {
         _future = _api.getMissing();
@@ -86,11 +86,11 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
     }
     return LunaListViewBuilder(
       controller: LidarrNavigationBar.scrollControllers[1],
-      itemCount: _results.length,
+      itemCount: _results!.length,
       itemExtent: LidarrMissingTile.extent,
       itemBuilder: (context, index) => LidarrMissingTile(
         scaffoldKey: _scaffoldKey,
-        entry: _results[index],
+        entry: _results![index],
         refresh: _refreshAllPages,
       ),
     );

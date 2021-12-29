@@ -6,8 +6,8 @@ class TautulliLibrariesDetailsUserStats extends StatefulWidget {
   final int sectionId;
 
   const TautulliLibrariesDetailsUserStats({
-    Key key,
-    @required this.sectionId,
+    Key? key,
+    required this.sectionId,
   }) : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class _State extends State<TautulliLibrariesDetailsUserStats>
     );
   }
 
-  Widget _list(List<TautulliLibraryUserStats> stats) {
+  Widget _list(List<TautulliLibraryUserStats>? stats) {
     if ((stats?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Users Found',
@@ -73,7 +73,7 @@ class _State extends State<TautulliLibrariesDetailsUserStats>
       );
     return LunaListViewBuilder(
       controller: TautulliLibrariesDetailsNavigationBar.scrollControllers[1],
-      itemCount: stats.length,
+      itemCount: stats!.length,
       itemBuilder: (context, index) =>
           TautulliLibrariesDetailsUserStatsTile(user: stats[index]),
     );

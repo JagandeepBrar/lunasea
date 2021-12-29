@@ -12,7 +12,7 @@ class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required IndexerHiveObject indexer,
+    required IndexerHiveObject indexer,
   }) async {
     LunaRouter.router.navigateTo(
       context,
@@ -30,7 +30,7 @@ class _Arguments {
   final IndexerHiveObject indexer;
 
   _Arguments({
-    @required this.indexer,
+    required this.indexer,
   }) {
     assert(indexer != null);
   }
@@ -43,17 +43,17 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _Arguments _arguments;
+  _Arguments? _arguments;
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context).settings.arguments;
-    if (_arguments == null || _arguments.indexer == null)
+    _arguments = ModalRoute.of(context)!.settings.arguments as _Arguments?;
+    if (_arguments == null || _arguments!.indexer == null)
       return LunaInvalidRoute(
           title: 'Custom Headers', message: 'Indexer Not Found');
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -74,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: Icons.add_rounded,
             onTap: () async {
               await HeaderUtility()
-                  .addHeader(context, headers: _arguments.indexer.headers);
+                  .addHeader(context, headers: _arguments!.indexer.headers);
               if (mounted) setState(() {});
             }),
       ],
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        if ((_arguments.indexer.headers ?? {}).isEmpty)
+        if ((_arguments!.indexer.headers ?? {}).isEmpty)
           LunaMessage.inList(text: 'No Headers Added'),
         ..._list(),
       ],
@@ -94,14 +94,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List<Widget> _list() {
     Map<String, dynamic> headers =
-        (_arguments.indexer.headers ?? {}).cast<String, dynamic>();
+        (_arguments!.indexer.headers ?? {}).cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
         .map<LunaBlock>((key) => _headerTile(key, headers[key]))
         .toList();
   }
 
-  LunaBlock _headerTile(String key, String value) {
+  LunaBlock _headerTile(String key, String? value) {
     return LunaBlock(
       title: key.toString(),
       body: [TextSpan(text: value.toString())],
@@ -111,7 +111,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onPressed: () async {
             await HeaderUtility().deleteHeader(
               context,
-              headers: _arguments.indexer.headers,
+              headers: _arguments!.indexer.headers,
               key: key,
             );
             if (mounted) setState(() {});

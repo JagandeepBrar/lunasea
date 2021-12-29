@@ -6,8 +6,8 @@ class RadarrSystemStatusHealthCheckPage extends StatefulWidget {
   final ScrollController scrollController;
 
   const RadarrSystemStatusHealthCheckPage({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _State extends State<RadarrSystemStatusHealthCheckPage>
             if (snapshot.hasError) {
               LunaLogger().error('Unable to fetch Radarr health check',
                   snapshot.error, snapshot.stackTrace);
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _list(snapshot.data);
             return const LunaLoader();
@@ -52,16 +52,16 @@ class _State extends State<RadarrSystemStatusHealthCheckPage>
     );
   }
 
-  Widget _list(List<RadarrHealthCheck> checks) {
+  Widget _list(List<RadarrHealthCheck>? checks) {
     if ((checks?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Issues Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: widget.scrollController,
-      itemCount: checks.length,
+      itemCount: checks!.length,
       itemBuilder: (context, index) =>
           RadarrHealthCheckTile(healthCheck: checks[index]),
     );

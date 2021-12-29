@@ -1,17 +1,18 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
   final SonarrSeriesSeason season;
-  final int seriesId;
+  final int? seriesId;
 
   const SonarrSeriesDetailsSeasonTile({
-    Key key,
-    @required this.season,
-    @required this.seriesId,
+    Key? key,
+    required this.season,
+    required this.seriesId,
   }) : super(key: key);
 
   @override
@@ -27,12 +28,12 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     return LunaBlock(
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       posterUrl: widget.season?.images
-              ?.firstWhere((e) => e.coverType == 'poster', orElse: () => null)
+              ?.firstWhereOrNull((e) => e.coverType == 'poster')
               ?.url ??
           '',
       posterHeaders: context.read<SonarrState>().headers,
       title: widget.season.lunaTitle,
-      disabled: !widget.season.monitored,
+      disabled: !widget.season.monitored!,
       body: [
         _subtitle1(),
         _subtitle2(),
@@ -51,7 +52,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       );
 
   Future<void> _onLongPress() async {
-    Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
+    Tuple2<bool, SonarrSeasonSettingsType?> result = await SonarrDialogs()
         .seasonSettings(context, widget.season.seasonNumber);
     if (result.item1)
       result.item2.execute(
@@ -103,7 +104,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     }
 
     return LunaIconButton(
-      icon: widget.season.monitored
+      icon: widget.season.monitored!
           ? Icons.turned_in_rounded
           : Icons.turned_in_not_rounded,
       color: LunaColours.white,

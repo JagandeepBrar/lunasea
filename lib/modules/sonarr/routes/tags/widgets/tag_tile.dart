@@ -6,8 +6,8 @@ class SonarrTagsTagTile extends StatefulWidget {
   final SonarrTag tag;
 
   const SonarrTagsTagTile({
-    Key key,
-    @required this.tag,
+    Key? key,
+    required this.tag,
   }) : super(key: key);
 
   @override
@@ -15,14 +15,14 @@ class SonarrTagsTagTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
-  List<String> seriesList;
+  List<String?>? seriesList;
 
   @override
   Future<void> loadCallback() async {
-    await context.read<SonarrState>().series.then((series) {
-      List<String> _series = [];
+    await context.read<SonarrState>().series!.then((series) {
+      List<String?> _series = [];
       series.values.forEach((element) {
-        if (element.tags.contains(widget.tag.id)) _series.add(element.title);
+        if (element.tags!.contains(widget.tag.id)) _series.add(element.title);
       });
       _series.sort();
       if (mounted)
@@ -55,15 +55,15 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
 
   String subtitle() {
     if (seriesList == null) return 'Loading...';
-    if (seriesList.isEmpty) return 'No Series';
-    return '${seriesList.length} Series';
+    if (seriesList!.isEmpty) return 'No Series';
+    return '${seriesList!.length} Series';
   }
 
   Future<void> _handleInfo() async {
     return LunaDialogs().textPreview(
       context,
       'Series List',
-      (seriesList?.isEmpty ?? true) ? 'No Series' : seriesList.join('\n'),
+      (seriesList?.isEmpty ?? true) ? 'No Series' : seriesList!.join('\n'),
     );
   }
 
@@ -76,7 +76,7 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
     } else {
       bool result = await SonarrDialogs().deleteTag(context);
       if (result)
-        context.read<SonarrState>().api.tag.delete(id: widget.tag.id).then((_) {
+        context.read<SonarrState>().api!.tag.delete(id: widget.tag.id!).then((_) {
           showLunaSuccessSnackBar(
             title: 'Deleted Tag',
             message: widget.tag.label,

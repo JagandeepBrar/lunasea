@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class SABnzbdNavigationBar extends StatelessWidget {
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
-  final PageController pageController;
+  final PageController? pageController;
 
   static const List<IconData> icons = [
     Icons.queue_rounded,
@@ -17,8 +17,8 @@ class SABnzbdNavigationBar extends StatelessWidget {
   ];
 
   const SABnzbdNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

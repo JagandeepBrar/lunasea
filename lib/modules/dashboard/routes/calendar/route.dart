@@ -4,7 +4,7 @@ import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardCalendarRoute extends StatefulWidget {
   const DashboardCalendarRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

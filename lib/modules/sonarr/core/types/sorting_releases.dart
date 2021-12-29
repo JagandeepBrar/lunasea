@@ -21,8 +21,8 @@ enum SonarrReleasesSorting {
   WORD_SCORE,
 }
 
-extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
-  String get key {
+extension SonarrReleasesSortingExtension on SonarrReleasesSorting? {
+  String? get key {
     switch (this) {
       case SonarrReleasesSorting.AGE:
         return 'age';
@@ -43,7 +43,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
     }
   }
 
-  String get readable {
+  String? get readable {
     switch (this) {
       case SonarrReleasesSorting.AGE:
         return 'Age';
@@ -64,7 +64,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
     }
   }
 
-  SonarrReleasesSorting fromKey(String key) {
+  SonarrReleasesSorting? fromKey(String? key) {
     switch (key) {
       case 'age':
         return SonarrReleasesSorting.AGE;
@@ -92,7 +92,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
 class _Sorter {
   List<SonarrRelease> byType(
     List<SonarrRelease> releases,
-    SonarrReleasesSorting type,
+    SonarrReleasesSorting? type,
     bool ascending,
   ) {
     switch (type) {
@@ -118,16 +118,16 @@ class _Sorter {
       List<SonarrRelease> releases, bool ascending) {
     ascending
         ? releases.sort(
-            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()))
+            (a, b) => a.title!.toLowerCase().compareTo(b.title!.toLowerCase()))
         : releases.sort(
-            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+            (a, b) => b.title!.toLowerCase().compareTo(a.title!.toLowerCase()));
     return releases;
   }
 
   List<SonarrRelease> _age(List<SonarrRelease> releases, bool ascending) {
     ascending
-        ? releases.sort((a, b) => a.ageHours.compareTo(b.ageHours))
-        : releases.sort((a, b) => b.ageHours.compareTo(a.ageHours));
+        ? releases.sort((a, b) => a.ageHours!.compareTo(b.ageHours!))
+        : releases.sort((a, b) => b.ageHours!.compareTo(a.ageHours!));
     return releases;
   }
 

@@ -7,14 +7,14 @@ class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
 
   @override
   _Widget widget({
-    @required String ipAddress,
+    required String ipAddress,
   }) =>
       _Widget(ipAddress: ipAddress);
 
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required String ipAddress,
+    required String ipAddress,
   }) async =>
       LunaRouter.router.navigateTo(
         context,
@@ -23,7 +23,7 @@ class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
 
   @override
   String route({
-    @required String ipAddress,
+    required String ipAddress,
   }) =>
       fullRoute.replaceFirst(':ipaddress', ipAddress);
 
@@ -31,8 +31,8 @@ class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
   void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
         router,
         (context, params) {
-          String ipAddress = (params['ipaddress']?.isNotEmpty ?? false)
-              ? params['ipaddress'][0]
+          String? ipAddress = (params['ipaddress']?.isNotEmpty ?? false)
+              ? params['ipaddress']![0]
               : null;
           return _Widget(ipAddress: ipAddress);
         },
@@ -40,11 +40,11 @@ class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
 }
 
 class _Widget extends StatefulWidget {
-  final String ipAddress;
+  final String? ipAddress;
 
   const _Widget({
-    Key key,
-    @required this.ipAddress,
+    Key? key,
+    required this.ipAddress,
   }) : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           TautulliIPAddressDetailsState(context, widget.ipAddress),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -84,8 +84,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context.read<TautulliIPAddressDetailsState>().fetchAll(context),
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliIPAddressDetailsState>().geolocation,
-          context.watch<TautulliIPAddressDetailsState>().whois,
+          context.watch<TautulliIPAddressDetailsState>().geolocation.then((value) => value!),
+          context.watch<TautulliIPAddressDetailsState>().whois.then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -98,7 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             return LunaMessage.error(onTap: _refreshKey.currentState?.show);
           }
           if (snapshot.hasData)
-            return _list(snapshot.data[0], snapshot.data[1]);
+            return _list(snapshot.data![0] as TautulliGeolocationInfo, snapshot.data![1] as TautulliWHOISInfo);
           return const LunaLoader();
         },
       ),

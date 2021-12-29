@@ -17,8 +17,8 @@ class LidarrArtistNavigationBar extends StatelessWidget {
   ];
 
   const LidarrArtistNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

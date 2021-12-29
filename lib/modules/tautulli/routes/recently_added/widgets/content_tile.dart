@@ -6,8 +6,8 @@ class TautulliRecentlyAddedContentTile extends StatefulWidget {
   final TautulliRecentlyAdded recentlyAdded;
 
   const TautulliRecentlyAddedContentTile({
-    Key key,
-    @required this.recentlyAdded,
+    Key? key,
+    required this.recentlyAdded,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
     );
   }
 
-  String get _posterLink {
+  String? get _posterLink {
     switch (widget.recentlyAdded.mediaType) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.SHOW:
@@ -51,16 +51,16 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
     }
   }
 
-  String get _title {
-    String title = 'lunasea.Unknown'.tr();
+  String? get _title {
+    String? title = 'lunasea.Unknown'.tr();
     if (widget.recentlyAdded.title != null &&
-        widget.recentlyAdded.title.isNotEmpty)
+        widget.recentlyAdded.title!.isNotEmpty)
       title = widget.recentlyAdded.title;
     if (widget.recentlyAdded.parentTitle != null &&
-        widget.recentlyAdded.parentTitle.isNotEmpty)
+        widget.recentlyAdded.parentTitle!.isNotEmpty)
       title = widget.recentlyAdded.parentTitle;
     if (widget.recentlyAdded.grandparentTitle != null &&
-        widget.recentlyAdded.grandparentTitle.isNotEmpty)
+        widget.recentlyAdded.grandparentTitle!.isNotEmpty)
       title = widget.recentlyAdded.grandparentTitle;
     return title;
   }

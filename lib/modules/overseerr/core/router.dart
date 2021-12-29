@@ -21,7 +21,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context.read<OverseerrState>().enabled) {
+          if (!homeRoute && !context!.read<OverseerrState>().enabled!) {
             return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.name);
           }
           return widget();
@@ -34,14 +34,14 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
   @override
   void withParameterRouteDefinition(
     FluroRouter router,
-    Widget Function(BuildContext, Map<String, List<String>>) handlerFunc, {
+    Widget Function(BuildContext?, Map<String, List<String>>) handlerFunc, {
     bool homeRoute = false,
   }) {
     router.define(
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context.read<OverseerrState>().enabled) {
+          if (!homeRoute && !context!.read<OverseerrState>().enabled!) {
             return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.name);
           }
           return handlerFunc(context, params);

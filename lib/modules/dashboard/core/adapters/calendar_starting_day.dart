@@ -21,7 +21,7 @@ enum CalendarStartingDay {
   SUNDAY,
 }
 
-extension CalendarStartingDayExtension on CalendarStartingDay {
+extension CalendarStartingDayExtension on CalendarStartingDay? {
   StartingDayOfWeek get data {
     switch (this) {
       case CalendarStartingDay.MONDAY:
@@ -82,7 +82,7 @@ extension CalendarStartingDayExtension on CalendarStartingDay {
     throw Exception('Invalid CalendarStartingDay');
   }
 
-  CalendarStartingDay fromKey(String key) {
+  CalendarStartingDay? fromKey(String? key) {
     switch (key) {
       case 'mon':
         return CalendarStartingDay.MONDAY;

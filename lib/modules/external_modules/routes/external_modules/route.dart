@@ -27,7 +27,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.EXTERNAL_MODULES,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       drawer: _drawer(),
       body: _body(),
     );
@@ -53,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       itemExtent: LunaBlock.calculateItemExtent(1),
-      children: _list,
+      children: _list as List<Widget>,
     );
   }
 
@@ -65,9 +65,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
     );
     list.sort(
-      (a, b) => a.module.displayName
+      (a, b) => a.module!.displayName!
           .toLowerCase()
-          .compareTo(b.module.displayName.toLowerCase()),
+          .compareTo(b.module!.displayName!.toLowerCase()),
     );
     return list;
   }

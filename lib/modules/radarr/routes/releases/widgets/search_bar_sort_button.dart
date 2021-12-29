@@ -6,8 +6,8 @@ class RadarrReleasesAppBarSortButton extends StatefulWidget {
   final ScrollController controller;
 
   const RadarrReleasesAppBarSortButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    RadarrReleasesSorting.values[index].readable,
+                    RadarrReleasesSorting.values[index].readable!,
                     style: TextStyle(
                       fontSize: LunaUI.FONT_SIZE_H3,
                       color:

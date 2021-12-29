@@ -27,7 +27,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -40,9 +40,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaIconButton(
           icon: Icons.switch_account_rounded,
           onPressed: () async {
-            Tuple2<bool, String> results =
+            Tuple2<bool, String?> results =
                 await SettingsDialogs().enabledProfile(
-              LunaState.navigatorKey.currentContext,
+              LunaState.navigatorKey.currentContext!,
               LunaProfile().profilesList(),
             );
             if (results.item1 &&
@@ -92,10 +92,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               LunaDatabaseValue _db = LunaDatabaseValue.SELECTED_BROWSER;
               return LunaBlock(
                 title: 'settings.OpenLinksIn'.tr(),
-                body: [TextSpan(text: (_db.data as LunaBrowser).name)],
-                trailing: LunaIconButton(icon: (_db.data as LunaBrowser).icon),
+                body: [TextSpan(text: (_db.data as LunaBrowser?).name)],
+                trailing: LunaIconButton(icon: (_db.data as LunaBrowser?).icon),
                 onTap: () async {
-                  Tuple2<bool, LunaBrowser> result =
+                  Tuple2<bool, LunaBrowser?> result =
                       await SettingsDialogs().changeBrowser(context);
                   if (result.item1) _db.put(result.item2);
                 },
@@ -129,7 +129,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         TextSpan(text: 'settings.ConfigureModule'.tr(args: [module.name]))
       ],
       trailing: LunaIconButton(icon: module.icon),
-      onTap: () async => module.settingsPage.navigateTo(context),
+      onTap: () async => module.settingsPage!.navigateTo(context),
     );
   }
 }

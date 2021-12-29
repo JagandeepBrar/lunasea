@@ -7,7 +7,7 @@ class SABnzbdStatisticsData {
   String version;
   double tempFreespace;
   double finalFreespace;
-  double speedlimit;
+  double? speedlimit;
   int speedlimitPercentage;
   int dailyUsage;
   int weeklyUsage;
@@ -15,16 +15,16 @@ class SABnzbdStatisticsData {
   int totalUsage;
 
   SABnzbdStatisticsData({
-    @required this.servers,
-    @required this.uptime,
-    @required this.version,
-    @required this.speedlimit,
-    @required this.speedlimitPercentage,
-    @required this.tempFreespace,
-    @required this.finalFreespace,
-    @required this.dailyUsage,
-    @required this.weeklyUsage,
-    @required this.monthlyUsage,
-    @required this.totalUsage,
+    required this.servers,
+    required this.uptime,
+    required this.version,
+    required this.speedlimit,
+    required this.speedlimitPercentage,
+    required this.tempFreespace,
+    required this.finalFreespace,
+    required this.dailyUsage,
+    required this.weeklyUsage,
+    required this.monthlyUsage,
+    required this.totalUsage,
   });
 }

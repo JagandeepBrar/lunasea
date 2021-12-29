@@ -6,8 +6,8 @@ class TautulliHistoryTile extends StatelessWidget {
   final TautulliHistoryRecord history;
 
   const TautulliHistoryTile({
-    Key key,
-    @required this.history,
+    Key? key,
+    required this.history,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class TautulliHistoryTile extends StatelessWidget {
             history.grandparentRatingKey ??
                 history.parentRatingKey ??
                 history.ratingKey ??
-                '',
+                '' as int?,
           ),
       onTap: () async => TautulliHistoryDetailsRouter().navigateTo(
         context,

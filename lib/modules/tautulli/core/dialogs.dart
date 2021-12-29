@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliDialogs {
-  Future<Tuple2<bool, TautulliGlobalSettingsType>> globalSettings(
+  Future<Tuple2<bool, TautulliGlobalSettingsType?>> globalSettings(
       BuildContext context) async {
     bool _flag = false;
-    TautulliGlobalSettingsType _value;
+    TautulliGlobalSettingsType? _value;
 
     void _setValues(bool flag, TautulliGlobalSettingsType value) {
       _flag = flag;
@@ -34,8 +34,8 @@ class TautulliDialogs {
 
   static Future<List<dynamic>> setDefaultPage(
     BuildContext context, {
-    @required List<String> titles,
-    @required List<IconData> icons,
+    required List<String> titles,
+    required List<IconData> icons,
   }) async {
     bool _flag = false;
     int _index = 0;
@@ -71,7 +71,7 @@ class TautulliDialogs {
         text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -114,7 +114,7 @@ class TautulliDialogs {
         text: TautulliDatabaseValue.REFRESH_RATE.data.toString());
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -140,7 +140,7 @@ class TautulliDialogs {
             title: 'Refresh Rate',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Second';
             },
@@ -162,7 +162,7 @@ class TautulliDialogs {
         text: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data.toString());
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -188,7 +188,7 @@ class TautulliDialogs {
             title: 'Item Count',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },
@@ -210,7 +210,7 @@ class TautulliDialogs {
         text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }

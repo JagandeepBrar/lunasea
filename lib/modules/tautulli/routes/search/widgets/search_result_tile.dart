@@ -7,9 +7,9 @@ class TautulliSearchResultTile extends StatefulWidget {
   final TautulliMediaType mediaType;
 
   const TautulliSearchResultTile({
-    Key key,
-    @required this.result,
-    @required this.mediaType,
+    Key? key,
+    required this.result,
+    required this.mediaType,
   }) : super(key: key);
 
   @override

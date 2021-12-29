@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaTextSpan extends TextSpan {
   const LunaTextSpan.extended({
-    @required String text,
+    required String? text,
   }) : super(
           text: text,
           style: const TextStyle(

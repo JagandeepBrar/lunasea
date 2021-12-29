@@ -1,11 +1,11 @@
-extension IntegerBytesExtension on int {
+extension IntegerBytesExtension on int? {
   static const _BIT_SIZES = ['b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb'];
   static const _BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
 
   String _bytesToString({int decimals = 2, position = 0, bool bytes = true}) {
-    if (this == null || this <= 0) return '${0.toStringAsFixed(decimals)} B';
+    if (this == null || this! <= 0) return '${0.toStringAsFixed(decimals)} B';
     int chunk = bytes ? 1024 : 1000;
-    double size = this.toDouble();
+    double size = this!.toDouble();
     while (size > chunk) {
       size /= chunk;
       position++;
@@ -30,7 +30,7 @@ extension IntegerBytesExtension on int {
       _bytesToString(decimals: decimals, position: 3, bytes: bytes);
 }
 
-extension IntegerTimeExtension on int {
+extension IntegerTimeExtension on int? {
   static const int _MINUTE_IN_SECONDS = 60;
   static const int _HOUR_IN_SECONDS = 60 * 60;
   static const int _DAY_IN_SECONDS = 60 * 60 * 24;
@@ -40,7 +40,7 @@ extension IntegerTimeExtension on int {
   /// Only contains the highest factor (2.5 Days would return 2 Days).
   String lunaDuration({int divisor = 1, int multiplier = 1}) {
     if (this == null) return '';
-    int duration = ((this * multiplier) / divisor).floor();
+    int duration = ((this! * multiplier) / divisor).floor();
     int days = (duration / _DAY_IN_SECONDS).floor();
     if (days > 0) return '$days ${days == 1 ? 'Day' : 'Days'}';
     int hours = (duration / _HOUR_IN_SECONDS).floor();
@@ -55,7 +55,7 @@ extension IntegerTimeExtension on int {
   /// Format example: 1h 23m
   String lunaRuntime({int divisor = 1, int multiplier = 1}) {
     if (this == null || this == 0) return '';
-    double runtime = ((this * multiplier) / divisor);
+    double runtime = ((this! * multiplier) / divisor);
     if (runtime < 60) return '${runtime.floor()}m';
     return '${(runtime / 60).floor()}h ${(runtime - ((runtime / 60).floor() * 60)).floor()}m';
   }
@@ -65,7 +65,7 @@ extension IntegerTimeExtension on int {
   /// Format example: 1:23:45 (1 hour, 23 minutes, and 45 seconds)
   String lunaTimestamp({int divisor = 1, int multiplier = 1}) {
     if (this == null) return '';
-    int duration = ((this * multiplier) / divisor).floor();
+    int duration = ((this! * multiplier) / divisor).floor();
     int hours = 0, minutes = 0;
     while (duration >= _HOUR_IN_SECONDS) {
       duration -= _HOUR_IN_SECONDS;

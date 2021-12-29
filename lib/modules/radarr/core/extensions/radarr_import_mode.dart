@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-extension LunaRadarrImportMode on RadarrImportMode {
+extension LunaRadarrImportMode on RadarrImportMode? {
   String get lunaReadable {
     switch (this) {
       case RadarrImportMode.COPY:
@@ -13,7 +13,7 @@ extension LunaRadarrImportMode on RadarrImportMode {
     return LunaUI.TEXT_EMDASH;
   }
 
-  IconData get lunaIcon {
+  IconData? get lunaIcon {
     switch (this) {
       case RadarrImportMode.COPY:
         return Icons.copy_rounded;

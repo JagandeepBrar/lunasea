@@ -6,8 +6,8 @@ class SearchResultTile extends StatelessWidget {
   final NewznabResultData data;
 
   const SearchResultTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -80,7 +80,7 @@ class SearchResultTile extends StatelessWidget {
   }
 
   Future<void> _sendToClient(BuildContext context) async {
-    Tuple2<bool, SearchDownloadType> result =
+    Tuple2<bool, SearchDownloadType?> result =
         await SearchDialogs().downloadResult(context);
     if (result.item1) result.item2.execute(context, data);
   }

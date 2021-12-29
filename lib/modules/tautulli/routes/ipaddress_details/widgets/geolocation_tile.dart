@@ -6,8 +6,8 @@ class TautulliIPAddressDetailsGeolocationTile extends StatelessWidget {
   final TautulliGeolocationInfo geolocation;
 
   const TautulliIPAddressDetailsGeolocationTile({
-    Key key,
-    @required this.geolocation,
+    Key? key,
+    required this.geolocation,
   }) : super(key: key);
 
   @override

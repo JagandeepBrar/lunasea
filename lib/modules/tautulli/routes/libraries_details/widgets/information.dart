@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -6,8 +7,8 @@ class TautulliLibrariesDetailsInformation extends StatefulWidget {
   final int sectionId;
 
   const TautulliLibrariesDetailsInformation({
-    Key key,
-    @required this.sectionId,
+    Key? key,
+    required this.sectionId,
   }) : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class _State extends State<TautulliLibrariesDetailsInformation>
     setState(() => _initialLoad = true);
     await Future.wait([
       context.read<TautulliState>().librariesTable,
-      context.read<TautulliState>().libraryWatchTimeStats[widget.sectionId],
+      context.read<TautulliState>().libraryWatchTimeStats[widget.sectionId].then((value) => value!),
     ]);
   }
 
@@ -54,20 +55,19 @@ class _State extends State<TautulliLibrariesDetailsInformation>
           context.watch<TautulliState>().librariesTable,
           context
               .watch<TautulliState>()
-              .libraryWatchTimeStats[widget.sectionId],
+              .libraryWatchTimeStats[widget.sectionId].then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError)
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           if (snapshot.hasData) {
-            TautulliTableLibrary library =
-                (snapshot.data[0] as TautulliLibrariesTable)
-                    .libraries
-                    .firstWhere(
+            TautulliTableLibrary? library =
+                (snapshot.data![0] as TautulliLibrariesTable)
+                    .libraries!
+                    .firstWhereOrNull(
                       (element) => element.sectionId == widget.sectionId,
-                      orElse: () => null,
                     );
-            return _list(library, snapshot.data[1]);
+            return _list(library, snapshot.data![1] as List<TautulliLibraryWatchTimeStats>);
           }
           return const LunaLoader();
         },
@@ -75,7 +75,7 @@ class _State extends State<TautulliLibrariesDetailsInformation>
     );
   }
 
-  Widget _list(TautulliTableLibrary library,
+  Widget _list(TautulliTableLibrary? library,
       List<TautulliLibraryWatchTimeStats> watchTimeStats) {
     if (library == null)
       return LunaMessage(

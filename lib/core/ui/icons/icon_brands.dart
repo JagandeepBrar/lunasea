@@ -4,7 +4,7 @@ class LunaBrandIcons {
   LunaBrandIcons._();
 
   static const _kFontFam = 'LunaBrandIcons';
-  static const String _kFontPkg = null;
+  static const String? _kFontPkg = null;
 
   static const IconData bravebrowser =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

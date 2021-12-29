@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAppBarAddMoviesAction extends StatelessWidget {
   const RadarrAppBarAddMoviesAction({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

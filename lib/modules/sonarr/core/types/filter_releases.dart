@@ -13,8 +13,8 @@ enum SonarrReleasesFilter {
   REJECTED,
 }
 
-extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
-  SonarrReleasesFilter fromKey(String key) {
+extension SonarrReleasesFilterExtension on SonarrReleasesFilter? {
+  SonarrReleasesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return SonarrReleasesFilter.ALL;
@@ -58,7 +58,7 @@ extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
 class _Filterer {
   List<SonarrRelease> byType(
     List<SonarrRelease> releases,
-    SonarrReleasesFilter type,
+    SonarrReleasesFilter? type,
   ) {
     switch (type) {
       case SonarrReleasesFilter.ALL:
@@ -72,7 +72,7 @@ class _Filterer {
   }
 
   List<SonarrRelease> _approved(List<SonarrRelease> releases) =>
-      releases.where((element) => element.approved).toList();
+      releases.where((element) => element.approved!).toList();
   List<SonarrRelease> _rejected(List<SonarrRelease> releases) =>
-      releases.where((element) => !element.approved).toList();
+      releases.where((element) => !element.approved!).toList();
 }

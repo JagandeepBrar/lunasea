@@ -8,8 +8,8 @@ class SABnzbdQueue extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const SABnzbdQueue({
-    Key key,
-    @required this.refreshIndicatorKey,
+    Key? key,
+    required this.refreshIndicatorKey,
   }) : super(key: key);
 
   @override
@@ -19,9 +19,9 @@ class SABnzbdQueue extends StatefulWidget {
 class _State extends State<SABnzbdQueue>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Timer _timer;
-  Future _future;
-  List<SABnzbdQueueData> _queue = [];
+  Timer? _timer;
+  Future? _future;
+  List<SABnzbdQueueData>? _queue = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -65,13 +65,13 @@ class _State extends State<SABnzbdQueue>
   }
 
   Future _fetch() async {
-    SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
+    SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject!);
     return _api.getStatusAndQueue().then((data) {
       try {
         _processStatus(data[0]);
         _queue = data[1];
         _setError(false);
-        if (_timer == null || !_timer.isActive) _createTimer();
+        if (_timer == null || !_timer!.isActive) _createTimer();
         return true;
       } catch (error) {
         return Future.error(error);
@@ -117,7 +117,7 @@ class _State extends State<SABnzbdQueue>
 
   Widget get _list {
     if (_queue == null) return LunaMessage.error(onTap: _refresh);
-    if (_queue.isEmpty) {
+    if (_queue!.isEmpty) {
       return LunaMessage(
         text: 'Empty Queue',
         buttonText: 'Refresh',
@@ -131,15 +131,15 @@ class _State extends State<SABnzbdQueue>
     return LunaReorderableListViewBuilder(
       controller: SABnzbdNavigationBar.scrollControllers[0],
       onReorder: (oIndex, nIndex) async {
-        if (oIndex > _queue.length) oIndex = _queue.length;
+        if (oIndex > _queue!.length) oIndex = _queue!.length;
         if (oIndex < nIndex) nIndex--;
-        SABnzbdQueueData data = _queue[oIndex];
+        SABnzbdQueueData data = _queue![oIndex];
         if (mounted)
           setState(() {
-            _queue.remove(data);
-            _queue.insert(nIndex, data);
+            _queue!.remove(data);
+            _queue!.insert(nIndex, data);
           });
-        await SABnzbdAPI.from(Database.currentProfileObject)
+        await SABnzbdAPI.from(Database.currentProfileObject!)
             .moveQueue(data.nzoId, nIndex)
             .then(
               (_) => showLunaSuccessSnackBar(
@@ -154,10 +154,10 @@ class _State extends State<SABnzbdQueue>
               ),
             );
       },
-      itemCount: _queue.length,
+      itemCount: _queue!.length,
       itemBuilder: (context, index) => SABnzbdQueueTile(
-        key: Key(_queue[index].nzoId),
-        data: _queue[index],
+        key: Key(_queue![index].nzoId),
+        data: _queue![index],
         index: index,
         queueContext: context,
         refresh: _fetchWithoutMessage,

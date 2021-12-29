@@ -9,11 +9,11 @@ enum SonarrSeriesSettingsType {
   MONITORED,
 }
 
-extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
+extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType? {
   IconData icon(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored
+        return series.monitored!
             ? Icons.turned_in_not_rounded
             : Icons.turned_in_rounded;
       case SonarrSeriesSettingsType.EDIT:
@@ -29,7 +29,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   String name(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored
+        return series.monitored!
             ? 'sonarr.UnmonitorSeries'.tr()
             : 'sonarr.MonitorSeries'.tr();
       case SonarrSeriesSettingsType.EDIT:

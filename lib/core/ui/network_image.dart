@@ -3,14 +3,14 @@ import 'package:lunasea/core.dart';
 
 class LunaNetworkImage extends ClipRRect {
   LunaNetworkImage({
-    Key key,
-    @required BuildContext context,
-    @required double height,
-    @required double width,
-    String url,
-    IconData placeholderIcon,
-    @Deprecated('Use placeholderIcon') String placeholderAsset,
-    Map headers,
+    Key? key,
+    required BuildContext context,
+    required double height,
+    required double width,
+    String? url,
+    IconData? placeholderIcon,
+    @Deprecated('Use placeholderIcon') String? placeholderAsset,
+    Map? headers,
   }) : super(
           key: key,
           child: SizedBox(
@@ -48,7 +48,7 @@ class LunaNetworkImage extends ClipRRect {
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
                     image: CachedNetworkImageProvider(
-                      url,
+                      url!,
                       headers: headers?.cast<String, String>(),
                       cacheManager: LunaImageCache.instance,
                       errorListener: () {},

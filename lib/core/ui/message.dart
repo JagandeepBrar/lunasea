@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 class LunaMessage extends StatelessWidget {
   final String text;
   final Color textColor;
-  final String buttonText;
-  final Function onTap;
+  final String? buttonText;
+  final Function? onTap;
   final bool useSafeArea;
 
   LunaMessage({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.textColor = Colors.white,
     this.buttonText,
     this.onTap,
@@ -23,8 +23,8 @@ class LunaMessage extends StatelessWidget {
 
   /// Return a message that is meant to be shown within a [ListView].
   factory LunaMessage.inList({
-    Key key,
-    @required String text,
+    Key? key,
+    required String text,
     bool useSafeArea = false,
   }) {
     assert(text != null);
@@ -37,9 +37,9 @@ class LunaMessage extends StatelessWidget {
 
   /// Returns a centered message with a simple message, with a button to pop out of the route.
   factory LunaMessage.goBack({
-    Key key,
-    @required String text,
-    @required BuildContext context,
+    Key? key,
+    required String text,
+    required BuildContext context,
     bool useSafeArea = true,
   }) {
     assert(context != null);
@@ -54,8 +54,8 @@ class LunaMessage extends StatelessWidget {
 
   /// Return a pre-structured "An Error Has Occurred" message, with a "Try Again" button shown.
   factory LunaMessage.error({
-    Key key,
-    @required Function onTap,
+    Key? key,
+    required Function onTap,
     bool useSafeArea = true,
   }) {
     assert(onTap != null);
@@ -70,9 +70,9 @@ class LunaMessage extends StatelessWidget {
 
   /// Return a pre-structured "<module> Is Not Enabled" message, with a "Return to Dashboard" button shown.
   factory LunaMessage.moduleNotEnabled({
-    Key key,
-    @required BuildContext context,
-    @required String module,
+    Key? key,
+    required BuildContext context,
+    required String module,
     bool useSafeArea = true,
   }) {
     assert(module != null);
@@ -125,7 +125,7 @@ class LunaMessage extends StatelessWidget {
             LunaButtonContainer(
               children: [
                 LunaButton.text(
-                  text: buttonText,
+                  text: buttonText!,
                   icon: null,
                   onTap: onTap,
                   color: Colors.white,

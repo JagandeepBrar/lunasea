@@ -12,13 +12,13 @@ enum SonarrHistoryTileType {
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
   final SonarrHistoryTileType type;
-  final SonarrSeries series;
-  final SonarrEpisode episode;
+  final SonarrSeries? series;
+  final SonarrEpisode? episode;
 
   const SonarrHistoryTile({
-    Key key,
-    @required this.history,
-    @required this.type,
+    Key? key,
+    required this.history,
+    required this.type,
     this.series,
     this.episode,
   }) : super(key: key);
@@ -47,7 +47,7 @@ class SonarrHistoryTile extends StatelessWidget {
         _hasEpisodeInfo() && type != SonarrHistoryTileType.EPISODE;
     return LunaExpandableListTile(
       title: type != SonarrHistoryTileType.ALL
-          ? history.sourceTitle
+          ? history.sourceTitle!
           : series?.title ?? LunaUI.TEXT_EMDASH,
       collapsedSubtitles: [
         if (_isThreeLine) _subtitle1(),
@@ -67,7 +67,7 @@ class SonarrHistoryTile extends StatelessWidget {
         if (history?.episode?.seasonNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.SeasonNumber'.tr(
-              args: [history.episode.seasonNumber.toString()],
+              args: [history.episode!.seasonNumber.toString()],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
@@ -81,7 +81,7 @@ class SonarrHistoryTile extends StatelessWidget {
         if (history?.episode?.episodeNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.EpisodeNumber'.tr(
-              args: [history.episode.episodeNumber.toString()],
+              args: [history.episode!.episodeNumber.toString()],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
@@ -114,7 +114,7 @@ class SonarrHistoryTile extends StatelessWidget {
         if (_hasEpisodeInfo()) {
           return SonarrSeasonDetailsRouter().navigateTo(
             context,
-            seriesId: history?.seriesId ?? history?.series?.id ?? series.id,
+            seriesId: history?.seriesId ?? history?.series?.id ?? series!.id,
             seasonNumber:
                 history?.episode?.seasonNumber ?? episode?.seasonNumber,
           );
@@ -147,7 +147,7 @@ class SonarrHistoryTile extends StatelessWidget {
       text: [
         history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
         history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-      ].join(LunaUI.TEXT_BULLET.lunaPad()),
+      ].join(LunaUI.TEXT_BULLET.lunaPad()!),
     );
   }
 

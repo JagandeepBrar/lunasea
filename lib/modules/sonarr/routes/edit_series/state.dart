@@ -3,9 +3,9 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditState extends ChangeNotifier {
-  SonarrSeries _series;
-  SonarrSeries get series => _series;
-  set series(SonarrSeries series) {
+  SonarrSeries? _series;
+  SonarrSeries? get series => _series;
+  set series(SonarrSeries? series) {
     _series = series;
     initializeMonitored();
     initializeUseSeasonFolders();
@@ -32,7 +32,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
   }
 
   void initializeMonitored() {
-    _monitored = series.monitored ?? false;
+    _monitored = series!.monitored ?? false;
   }
 
   bool _useSeasonFolders = true;
@@ -44,7 +44,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
   }
 
   void initializeUseSeasonFolders() {
-    _useSeasonFolders = series.seasonFolder ?? false;
+    _useSeasonFolders = series!.seasonFolder ?? false;
   }
 
   String _seriesPath = '';
@@ -56,10 +56,10 @@ class SonarrSeriesEditState extends ChangeNotifier {
   }
 
   void initializeSeriesPath() {
-    _seriesPath = series.path ?? '';
+    _seriesPath = series!.path ?? '';
   }
 
-  SonarrSeriesType _seriesType;
+  late SonarrSeriesType _seriesType;
   SonarrSeriesType get seriesType => _seriesType;
   set seriesType(SonarrSeriesType seriesType) {
     assert(seriesType != null);
@@ -68,40 +68,40 @@ class SonarrSeriesEditState extends ChangeNotifier {
   }
 
   void initializeSeriesType() {
-    _seriesType = series.seriesType ?? SonarrSeriesType.STANDARD;
+    _seriesType = series!.seriesType ?? SonarrSeriesType.STANDARD;
   }
 
-  SonarrQualityProfile _qualityProfile;
-  SonarrQualityProfile get qualityProfile => _qualityProfile;
+  SonarrQualityProfile? _qualityProfile;
+  SonarrQualityProfile get qualityProfile => _qualityProfile!;
   set qualityProfile(SonarrQualityProfile qualityProfile) {
     assert(qualityProfile != null);
     _qualityProfile = qualityProfile;
     notifyListeners();
   }
 
-  void initializeQualityProfile(List<SonarrQualityProfile> qualityProfiles) {
+  void initializeQualityProfile(List<SonarrQualityProfile?> qualityProfiles) {
     _qualityProfile = qualityProfiles.firstWhere(
-      (profile) => profile.id == series.qualityProfileId,
+      (profile) => profile!.id == series!.qualityProfileId,
       orElse: () => qualityProfiles.isEmpty ? null : qualityProfiles[0],
     );
   }
 
-  SonarrLanguageProfile _languageProfile;
-  SonarrLanguageProfile get languageProfile => _languageProfile;
+  SonarrLanguageProfile? _languageProfile;
+  SonarrLanguageProfile get languageProfile => _languageProfile!;
   set languageProfile(SonarrLanguageProfile languageProfile) {
     assert(languageProfile != null);
     _languageProfile = languageProfile;
     notifyListeners();
   }
 
-  void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
+  void initializeLanguageProfile(List<SonarrLanguageProfile?> languageProfiles) {
     _languageProfile = languageProfiles.firstWhere(
-      (profile) => profile.id == series.languageProfileId,
+      (profile) => profile!.id == series!.languageProfileId,
       orElse: () => languageProfiles.isEmpty ? null : languageProfiles[0],
     );
   }
 
-  List<SonarrTag> _tags;
+  late List<SonarrTag> _tags;
   List<SonarrTag> get tags => _tags;
   set tags(List<SonarrTag> tags) {
     assert(tags != null);
@@ -111,7 +111,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
 
   void initializeTags(List<SonarrTag> tags) {
     _tags = (tags ?? [])
-        .where((tag) => (series.tags ?? []).contains(tag.id))
+        .where((tag) => (series!.tags ?? []).contains(tag.id))
         .toList();
   }
 }

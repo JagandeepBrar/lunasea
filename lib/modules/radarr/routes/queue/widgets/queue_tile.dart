@@ -1,15 +1,16 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrQueueTile extends StatelessWidget {
   final RadarrQueueRecord record;
-  final RadarrMovie movie;
+  final RadarrMovie? movie;
 
   const RadarrQueueTile({
-    Key key,
-    @required this.record,
-    @required this.movie,
+    Key? key,
+    required this.record,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -17,20 +18,19 @@ class RadarrQueueTile extends StatelessWidget {
     return FutureBuilder(
       future: context.watch<RadarrState>().movies,
       builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
-        RadarrMovie movie;
+        RadarrMovie? movie;
         if (snapshot.hasData)
-          movie = snapshot.data.firstWhere(
+          movie = snapshot.data!.firstWhereOrNull(
             (element) => element.id == record.movieId,
-            orElse: () => null,
           );
         return LunaExpandableListTile(
-          title: record.title,
+          title: record.title!,
           collapsedSubtitles: [
             _subtitle1(),
             _subtitle2(),
           ],
           expandedHighlightedNodes: _highlightedNodes(),
-          expandedTableContent: _tableContent(movie),
+          expandedTableContent: _tableContent(movie!),
           expandedTableButtons: _tableButtons(context),
           collapsedTrailing: LunaIconButton(
             icon: record.lunaStatusIcon,
@@ -44,7 +44,7 @@ class RadarrQueueTile extends StatelessWidget {
   }
 
   TextSpan _subtitle1() {
-    return TextSpan(text: record?.lunaMovieTitle(movie) ?? LunaUI.TEXT_EMDASH);
+    return TextSpan(text: record?.lunaMovieTitle(movie!) ?? LunaUI.TEXT_EMDASH);
   }
 
   TextSpan _subtitle2() {
@@ -73,7 +73,7 @@ class RadarrQueueTile extends StatelessWidget {
       LunaTableContent(title: 'Indexer', body: record.lunaIndexer),
       LunaTableContent(
           title: 'radarr.Size'.tr(),
-          body: record.size.toInt().lunaBytesToString()),
+          body: record.size!.toInt().lunaBytesToString()),
       LunaTableContent(
           title: 'Time Left', body: record.timeLeft ?? LunaUI.TEXT_EMDASH),
     ];
@@ -90,9 +90,9 @@ class RadarrQueueTile extends StatelessWidget {
         backgroundColor: LunaColours.accent,
       ),
       if ((record.customFormats?.length ?? 0) != 0)
-        for (int i = 0; i < record.customFormats.length; i++)
+        for (int i = 0; i < record.customFormats!.length; i++)
           LunaHighlightedNode(
-            text: record.customFormats[i].name,
+            text: record.customFormats![i].name!,
             backgroundColor: LunaColours.orange,
           ),
       LunaHighlightedNode(
@@ -116,8 +116,8 @@ class RadarrQueueTile extends StatelessWidget {
           onTap: () async {
             LunaDialogs().showMessages(
               context,
-              record.statusMessages
-                  .map<String>((status) => status.messages.join('\n'))
+              record.statusMessages!
+                  .map<String>((status) => status.messages!.join('\n'))
                   .toList(),
             );
           },
@@ -130,21 +130,21 @@ class RadarrQueueTile extends StatelessWidget {
             icon: Icons.download_done_rounded,
             text: 'radarr.Import'.tr(),
             onTap: () async => RadarrManualImportDetailsRouter()
-                .navigateTo(context, path: record.outputPath)),
+                .navigateTo(context, path: record.outputPath!)),
       LunaButton.text(
         icon: Icons.delete_rounded,
         color: LunaColours.red,
         text: 'Remove',
         onTap: () async {
-          if (context.read<RadarrState>().enabled) {
+          if (context.read<RadarrState>().enabled!) {
             bool result = await RadarrDialogs().confirmDeleteQueue(context);
             if (result) {
               await context
                   .read<RadarrState>()
-                  .api
+                  .api!
                   .queue
                   .delete(
-                    id: record.id,
+                    id: record.id!,
                     blacklist: RadarrDatabaseValue.QUEUE_BLACKLIST.data,
                     removeFromClient:
                         RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.data,
@@ -156,7 +156,7 @@ class RadarrQueueTile extends StatelessWidget {
                 );
                 context
                     .read<RadarrState>()
-                    .api
+                    .api!
                     .command
                     .refreshMonitoredDownloads()
                     .then((_) => context.read<RadarrState>().fetchQueue());

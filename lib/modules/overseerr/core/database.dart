@@ -25,9 +25,9 @@ class OverseerrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      OverseerrDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      OverseerrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Primitive values
@@ -39,7 +39,7 @@ class OverseerrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  OverseerrDatabaseValue valueFromKey(String key) {
+  OverseerrDatabaseValue? valueFromKey(String key) {
     for (OverseerrDatabaseValue value in OverseerrDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -69,8 +69,8 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

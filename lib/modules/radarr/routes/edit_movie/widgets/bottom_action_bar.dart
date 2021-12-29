@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrEditMovieActionBar extends StatelessWidget {
   const RadarrEditMovieActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class RadarrEditMovieActionBar extends StatelessWidget {
       if (context.read<RadarrMoviesEditState>().movie != null) {
         RadarrMovie movie = context
             .read<RadarrMoviesEditState>()
-            .movie
+            .movie!
             .updateEdits(context.read<RadarrMoviesEditState>());
         bool result = await RadarrAPIHelper().updateMovie(
           context: context,

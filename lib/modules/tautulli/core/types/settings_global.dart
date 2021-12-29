@@ -11,7 +11,7 @@ enum TautulliGlobalSettingsType {
   DELETE_TEMP_SESSIONS,
 }
 
-extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
+extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType? {
   IconData get icon {
     switch (this) {
       case TautulliGlobalSettingsType.WEB_GUI:
@@ -67,7 +67,7 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<TautulliState>().host.lunaOpenGenericLink(
+      context.read<TautulliState>().host!.lunaOpenGenericLink(
             headers: context.read<TautulliState>().headers,
           );
   Future<void> _backupConfig(BuildContext context) async =>

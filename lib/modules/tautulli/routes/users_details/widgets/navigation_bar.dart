@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class TautulliUserDetailsNavigationBar extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
 
@@ -21,8 +21,8 @@ class TautulliUserDetailsNavigationBar extends StatelessWidget {
   ];
 
   const TautulliUserDetailsNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

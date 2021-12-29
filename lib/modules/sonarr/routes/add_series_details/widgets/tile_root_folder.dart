@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
   const SonarrSeriesAddDetailsRootFolderTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,12 +24,12 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
 
   Future<void> _onTap(BuildContext context) async {
     List<SonarrRootFolder> _folders =
-        await context.read<SonarrState>().rootFolders;
-    Tuple2<bool, SonarrRootFolder> result =
+        await context.read<SonarrState>().rootFolders!;
+    Tuple2<bool, SonarrRootFolder?> result =
         await SonarrDialogs().editRootFolder(context, _folders);
     if (result.item1) {
-      context.read<SonarrSeriesAddDetailsState>().rootFolder = result.item2;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.put(result.item2.id);
+      context.read<SonarrSeriesAddDetailsState>().rootFolder = result.item2!;
+      SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.put(result.item2!.id);
     }
   }
 }

@@ -3,17 +3,17 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverviewPage extends StatefulWidget {
-  final SonarrSeries series;
-  final SonarrQualityProfile qualityProfile;
-  final SonarrLanguageProfile languageProfile;
+  final SonarrSeries? series;
+  final SonarrQualityProfile? qualityProfile;
+  final SonarrLanguageProfile? languageProfile;
   final List<SonarrTag> tags;
 
   const SonarrSeriesDetailsOverviewPage({
-    Key key,
-    @required this.series,
-    @required this.qualityProfile,
-    @required this.languageProfile,
-    @required this.tags,
+    Key? key,
+    required this.series,
+    required this.qualityProfile,
+    required this.languageProfile,
+    required this.tags,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class _State extends State<SonarrSeriesDetailsOverviewPage>
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
       hideDrawer: true,
-      body: Selector<SonarrState, Future<Map<int, SonarrSeries>>>(
+      body: Selector<SonarrState, Future<Map<int?, SonarrSeries>>?>(
         selector: (_, state) => state.series,
         builder: (context, movies, _) => LunaListView(
           controller: SonarrSeriesDetailsNavigationBar.scrollControllers[0],

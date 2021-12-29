@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsActionBar extends StatelessWidget {
   const RadarrAddMovieDetailsActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -45,7 +45,7 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
       )
           .then((movie) async {
         context.read<RadarrState>().fetchMovies();
-        context.read<RadarrAddMovieDetailsState>().movie.id = movie.id;
+        context.read<RadarrAddMovieDetailsState>().movie.id = movie!.id;
         Navigator.of(context).popAndPushNamed(
             RadarrMoviesDetailsRouter().route(movieId: movie.id));
       }).catchError((error, stack) {

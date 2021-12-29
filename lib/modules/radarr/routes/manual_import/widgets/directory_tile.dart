@@ -6,8 +6,8 @@ class RadarrManualImportDirectoryTile extends StatefulWidget {
   final RadarrFileSystemDirectory directory;
 
   const RadarrManualImportDirectoryTile({
-    Key key,
-    @required this.directory,
+    Key? key,
+    required this.directory,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _State extends State<RadarrManualImportDirectoryTile> {
   Widget build(BuildContext context) {
     if (widget.directory == null ||
         widget.directory.path == null ||
-        widget.directory.path.isEmpty) return const SizedBox(height: 0.0);
+        widget.directory.path!.isEmpty) return const SizedBox(height: 0.0);
     return LunaBlock(
       title: widget.directory?.name ?? LunaUI.TEXT_EMDASH,
       body: [TextSpan(text: widget.directory.path)],

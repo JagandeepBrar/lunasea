@@ -6,8 +6,8 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
   final LunaModule module;
 
   const SettingsNotificationsModuleTile({
-    Key key,
-    @required this.module,
+    Key? key,
+    required this.module,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
             icon: Icons.person_rounded,
             onTap: () async {
               if (!LunaFirebaseAuth().isSignedIn) return;
-              String userId = LunaFirebaseAuth().uid;
+              String? userId = LunaFirebaseAuth().uid;
               await Clipboard.setData(ClipboardData(
                   text: LunaWebhooks.buildUserTokenURL(userId, module)));
               showLunaInfoSnackBar(
@@ -37,7 +37,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
           text: 'Device',
           icon: Icons.devices_rounded,
           onTap: () async {
-            String deviceId = await LunaFirebaseMessaging().token;
+            String? deviceId = await LunaFirebaseMessaging().token;
             await Clipboard.setData(ClipboardData(
                 text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
             showLunaInfoSnackBar(

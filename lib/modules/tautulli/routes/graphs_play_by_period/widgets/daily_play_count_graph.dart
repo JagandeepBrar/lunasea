@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
   const TautulliGraphsDailyPlayCountGraph({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
               }
               return TautulliGraphHelper().errorContainer(context);
             }
-            if (snapshot.hasData) return _graph(context, snapshot.data);
+            if (snapshot.hasData) return _graph(context, snapshot.data!);
             return TautulliGraphHelper().loadingContainer(context);
           },
         ),
@@ -52,7 +52,7 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
             ),
           ),
-          TautulliGraphHelper().createLegend(data.series),
+          TautulliGraphHelper().createLegend(data.series!),
         ],
       ),
     );

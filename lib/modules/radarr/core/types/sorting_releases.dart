@@ -19,8 +19,8 @@ enum RadarrReleasesSorting {
   WEIGHT,
 }
 
-extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
-  String get key {
+extension RadarrReleasesSortingExtension on RadarrReleasesSorting? {
+  String? get key {
     switch (this) {
       case RadarrReleasesSorting.AGE:
         return 'age';
@@ -39,7 +39,7 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
     }
   }
 
-  String get readable {
+  String? get readable {
     switch (this) {
       case RadarrReleasesSorting.AGE:
         return 'radarr.Age'.tr();
@@ -58,7 +58,7 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
     }
   }
 
-  RadarrReleasesSorting fromKey(String key) {
+  RadarrReleasesSorting? fromKey(String? key) {
     switch (key) {
       case 'age':
         return RadarrReleasesSorting.AGE;
@@ -84,7 +84,7 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
 class _Sorter {
   List<RadarrRelease> byType(
     List<RadarrRelease> releases,
-    RadarrReleasesSorting type,
+    RadarrReleasesSorting? type,
     bool ascending,
   ) {
     switch (type) {
@@ -108,16 +108,16 @@ class _Sorter {
       List<RadarrRelease> releases, bool ascending) {
     ascending
         ? releases.sort(
-            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()))
+            (a, b) => a.title!.toLowerCase().compareTo(b.title!.toLowerCase()))
         : releases.sort(
-            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+            (a, b) => b.title!.toLowerCase().compareTo(a.title!.toLowerCase()));
     return releases;
   }
 
   List<RadarrRelease> _age(List<RadarrRelease> releases, bool ascending) {
     ascending
-        ? releases.sort((a, b) => a.ageHours.compareTo(b.ageHours))
-        : releases.sort((a, b) => b.ageHours.compareTo(a.ageHours));
+        ? releases.sort((a, b) => a.ageHours!.compareTo(b.ageHours!))
+        : releases.sort((a, b) => b.ageHours!.compareTo(a.ageHours!));
     return releases;
   }
 

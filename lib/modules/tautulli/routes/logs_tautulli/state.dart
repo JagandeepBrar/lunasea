@@ -7,11 +7,11 @@ class TautulliLogsTautulliState extends ChangeNotifier {
     fetchLogs(context);
   }
 
-  Future<List<TautulliLog>> _logs;
-  Future<List<TautulliLog>> get logs => _logs;
+  Future<List<TautulliLog>>? _logs;
+  Future<List<TautulliLog>>? get logs => _logs;
   Future<void> fetchLogs(BuildContext context) async {
-    if (context.read<TautulliState>().enabled) {
-      _logs = context.read<TautulliState>().api.miscellaneous.getLogs(
+    if (context.read<TautulliState>().enabled!) {
+      _logs = context.read<TautulliState>().api!.miscellaneous.getLogs(
             start: 0,
             end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
           );

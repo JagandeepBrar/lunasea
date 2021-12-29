@@ -15,10 +15,10 @@ class SonarrSeriesAddSearchResultTile extends StatefulWidget {
   final bool isExcluded;
 
   const SonarrSeriesAddSearchResultTile({
-    Key key,
-    @required this.series,
-    @required this.exists,
-    @required this.isExcluded,
+    Key? key,
+    required this.series,
+    required this.exists,
+    required this.isExcluded,
     this.onTapShowOverview = false,
   }) : super(key: key);
 
@@ -95,6 +95,6 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     }
   }
 
-  Future<void> _onLongPress() async =>
+  Future<void>? _onLongPress() async =>
       widget.series?.tvdbId?.toString()?.lunaOpenTheTVDB();
 }

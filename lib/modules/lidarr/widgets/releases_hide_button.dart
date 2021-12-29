@@ -6,8 +6,8 @@ class LidarrReleasesHideButton extends StatefulWidget {
   final ScrollController controller;
 
   const LidarrReleasesHideButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class _State extends State<LidarrReleasesHideButton> {
         height: LunaTextInputBar.defaultHeight,
         width: LunaTextInputBar.defaultHeight,
         margin: LunaTextInputBar.appBarMargin
-            .subtract(const EdgeInsets.only(left: 12.0)),
+            .subtract(const EdgeInsets.only(left: 12.0)) as EdgeInsets,
         color: Theme.of(context).canvasColor,
       );
 }

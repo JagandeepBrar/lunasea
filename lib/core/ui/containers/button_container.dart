@@ -7,8 +7,8 @@ class LunaButtonContainer extends StatelessWidget {
   final int buttonsPerRow;
 
   LunaButtonContainer({
-    Key key,
-    @required this.children,
+    Key? key,
+    required this.children,
     this.buttonsPerRow = 2,
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
   }) : super(key: key) {

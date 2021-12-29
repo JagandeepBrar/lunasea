@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => RadarrManualImportState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
         bottomNavigationBar: const RadarrManualImportBottomActionBar(),
       ),
@@ -48,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body(BuildContext context) {
     return FutureBuilder(
-      future: context.select<RadarrManualImportState, Future<RadarrFileSystem>>(
+      future: context.select<RadarrManualImportState, Future<RadarrFileSystem>?>(
           (state) => state.directories),
       builder: (context, AsyncSnapshot<RadarrFileSystem> snapshot) {
         if (snapshot.hasError) {
@@ -72,20 +72,20 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(BuildContext context, RadarrFileSystem fileSystem) {
+  Widget _list(BuildContext context, RadarrFileSystem? fileSystem) {
     if ((fileSystem?.directories?.length ?? 0) == 0 &&
-        (fileSystem.parent == null || fileSystem.parent.isEmpty)) {
+        (fileSystem!.parent == null || fileSystem.parent!.isEmpty)) {
       return LunaMessage(
         text: 'radarr.NoSubdirectoriesFound'.tr(),
       );
     }
-    return Selector<RadarrManualImportState, String>(
+    return Selector<RadarrManualImportState, String?>(
       selector: (_, state) => state.currentPath,
       builder: (context, path, _) {
         List<RadarrFileSystemDirectory> directories =
             _filterDirectories(path, fileSystem);
         return LunaListView(
-          key: ObjectKey(fileSystem.directories),
+          key: ObjectKey(fileSystem!.directories),
           controller: scrollController,
           children: [
             RadarrManualImportParentDirectoryTile(fileSystem: fileSystem),
@@ -101,16 +101,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<RadarrFileSystemDirectory> _filterDirectories(
-    String path,
-    RadarrFileSystem fileSystem,
+    String? path,
+    RadarrFileSystem? fileSystem,
   ) {
     if (path == null || path.isEmpty) {
-      return fileSystem.directories ?? [];
+      return fileSystem!.directories ?? [];
     }
-    if (fileSystem?.directories == null || fileSystem.directories.isEmpty) {
+    if (fileSystem?.directories == null || fileSystem!.directories!.isEmpty) {
       return [];
     }
-    return fileSystem.directories
+    return fileSystem.directories!
         .where(
           (element) => (element.path?.toLowerCase() ?? '')
               .contains(path?.toLowerCase() ?? ''),

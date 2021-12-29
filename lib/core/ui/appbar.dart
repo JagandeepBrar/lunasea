@@ -13,28 +13,28 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   static const APPBAR_HEIGHT = kToolbarHeight;
 
   final _APPBAR_TYPE type;
-  final String title;
-  final List<Widget> actions;
-  final PreferredSizeWidget bottom;
+  final String? title;
+  final List<Widget>? actions;
+  final PreferredSizeWidget? bottom;
   final bool hideLeading;
   final bool useDrawer;
-  final Widget child;
-  final double height;
-  final List<String> profiles;
-  final PageController pageController;
-  final List<ScrollController> scrollControllers;
-  final Color backgroundColor;
+  final Widget? child;
+  final double? height;
+  final List<String?>? profiles;
+  final PageController? pageController;
+  final List<ScrollController>? scrollControllers;
+  final Color? backgroundColor;
 
   @override
   Size get preferredSize {
     double _size = (height ?? APPBAR_HEIGHT);
-    if (bottom != null) _size += bottom.preferredSize.height - 0.0;
+    if (bottom != null) _size += bottom!.preferredSize.height - 0.0;
     return Size.fromHeight(_size);
   }
 
   const LunaAppBar._internal({
-    @required this.type,
-    @required this.useDrawer,
+    required this.type,
+    required this.useDrawer,
     this.title,
     this.actions,
     this.bottom,
@@ -55,14 +55,14 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// Passing in all 3 will result in state.scrollBackList taking precedence.
   factory LunaAppBar({
-    @required String title,
-    List<Widget> actions,
-    PreferredSizeWidget bottom,
+    required String title,
+    List<Widget>? actions,
+    PreferredSizeWidget? bottom,
     bool useDrawer = false,
     bool hideLeading = false,
-    PageController pageController,
-    Color backgroundColor,
-    List<ScrollController> scrollControllers,
+    PageController? pageController,
+    Color? backgroundColor,
+    List<ScrollController>? scrollControllers,
   }) {
     assert(title != null);
     if (pageController != null)
@@ -87,11 +87,11 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// The default padding is for a [LunaTextInputBar].
   factory LunaAppBar.empty({
-    @required Widget child,
-    @required double height,
+    required Widget child,
+    required double height,
     EdgeInsets padding = LunaTextInputBar.appBarMargin,
     Alignment alignment = Alignment.topCenter,
-    Color backgroundColor,
+    Color? backgroundColor,
   }) {
     assert(child != null);
     assert(height != null);
@@ -117,15 +117,15 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// Passing in all 3 will result in state.scrollBackList taking precedence.
   factory LunaAppBar.dropdown({
-    @required String title,
-    @required List<String> profiles,
+    required String title,
+    required List<String?> profiles,
     bool useDrawer = true,
     bool hideLeading = false,
-    List<Widget> actions,
-    PageController pageController,
-    List<ScrollController> scrollControllers,
-    PreferredSizeWidget bottom,
-    Color backgroundColor,
+    List<Widget>? actions,
+    PageController? pageController,
+    List<ScrollController>? scrollControllers,
+    PreferredSizeWidget? bottom,
+    Color? backgroundColor,
   }) {
     assert(title != null);
     assert(profiles != null);
@@ -163,7 +163,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _State extends State<LunaAppBar> {
-  int _index;
+  int? _index;
 
   @override
   void initState() {
@@ -180,15 +180,15 @@ class _State extends State<LunaAppBar> {
 
   void _pageControllerListener() {
     if ((widget.pageController?.page?.round() ?? _index) == _index) return;
-    _index = widget.pageController.page.round();
+    _index = widget.pageController!.page!.round();
   }
 
   void _onTap() {
     try {
       if ((widget.scrollControllers?.isNotEmpty ?? false) &&
-          ((widget.scrollControllers.length - 1) >= _index) &&
-          (widget.scrollControllers[_index] != null)) {
-        widget.scrollControllers[_index]?.lunaAnimateToStart();
+          ((widget.scrollControllers!.length - 1) >= _index!) &&
+          (widget.scrollControllers![_index!] != null)) {
+        widget.scrollControllers![_index!]?.lunaAnimateToStart();
       }
     } catch (error, stack) {
       LunaLogger().error(
@@ -220,7 +220,7 @@ class _State extends State<LunaAppBar> {
     );
   }
 
-  Widget _sharedLeading(BuildContext context) {
+  Widget? _sharedLeading(BuildContext context) {
     if (widget.hideLeading ?? false) return null;
     if (kDebugMode && context.breakpoint >= LayoutBreakpoint.md) return null;
 
@@ -293,7 +293,7 @@ class _State extends State<LunaAppBar> {
                   controller: ScrollController(),
                   scrollDirection: Axis.horizontal,
                   child: Text(
-                    widget.title,
+                    widget.title!,
                     style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
                   ),
                 ),
@@ -308,11 +308,11 @@ class _State extends State<LunaAppBar> {
         },
         itemBuilder: (context) {
           return <PopupMenuEntry<String>>[
-            for (String profile in widget.profiles)
+            for (String? profile in widget.profiles!)
               PopupMenuItem<String>(
                 value: profile,
                 child: Text(
-                  profile,
+                  profile!,
                   style: TextStyle(
                     fontSize: LunaUI.FONT_SIZE_H3,
                     color:

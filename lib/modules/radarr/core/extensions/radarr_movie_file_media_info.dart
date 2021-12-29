@@ -13,8 +13,8 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaVideoCodec {
-    if (videoCodec != null && videoCodec.isNotEmpty) return videoCodec;
+  String? get lunaVideoCodec {
+    if (videoCodec != null && videoCodec!.isNotEmpty) return videoCodec;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -23,8 +23,8 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaVideoResolution {
-    if (resolution != null && resolution.isNotEmpty) return resolution;
+  String? get lunaVideoResolution {
+    if (resolution != null && resolution!.isNotEmpty) return resolution;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -39,19 +39,19 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaAudioCodec {
-    if (audioCodec != null && audioCodec.isNotEmpty) return audioCodec;
+  String? get lunaAudioCodec {
+    if (audioCodec != null && audioCodec!.isNotEmpty) return audioCodec;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaAudioAdditionalFeatures {
-    if (audioAdditionalFeatures != null && audioAdditionalFeatures.isNotEmpty)
+  String? get lunaAudioAdditionalFeatures {
+    if (audioAdditionalFeatures != null && audioAdditionalFeatures!.isNotEmpty)
       return audioAdditionalFeatures;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaAudioLanguages {
-    if (audioLanguages != null && audioLanguages.isNotEmpty)
+  String? get lunaAudioLanguages {
+    if (audioLanguages != null && audioLanguages!.isNotEmpty)
       return audioLanguages;
     return LunaUI.TEXT_EMDASH;
   }
@@ -61,13 +61,13 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaRunTime {
-    if (runTime != null && runTime.isNotEmpty) return runTime;
+  String? get lunaRunTime {
+    if (runTime != null && runTime!.isNotEmpty) return runTime;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaSubtitles {
-    if (subtitles != null && subtitles.isNotEmpty) return subtitles;
+  String? get lunaSubtitles {
+    if (subtitles != null && subtitles!.isNotEmpty) return subtitles;
     return LunaUI.TEXT_EMDASH;
   }
 }

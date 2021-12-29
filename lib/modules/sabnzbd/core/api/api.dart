@@ -32,9 +32,9 @@ class SABnzbdAPI {
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('SABnzbd: $text', error, trace);
 
-  bool get enabled => _values['enabled'];
-  String get host => _values['host'];
-  String get key => _values['key'];
+  bool? get enabled => _values['enabled'];
+  String? get host => _values['host'];
+  String? get key => _values['key'];
 
   Future<dynamic> testConnection() async => _dio.get('', queryParameters: {
         'mode': 'fullstatus',
@@ -96,9 +96,9 @@ class SABnzbdAPI {
           'mode': 'pause',
         },
       );
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to pause queue', error, stack);
       return Future.error(error);
@@ -108,16 +108,16 @@ class SABnzbdAPI {
     }
   }
 
-  Future<bool> pauseQueueFor(int minutes) async {
+  Future<bool> pauseQueueFor(int? minutes) async {
     try {
       Response response = await _dio.get('', queryParameters: {
         'mode': 'config',
         'name': 'set_pause',
         'value': minutes,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to pause queue for $minutes minutes', error, stack);
       return Future.error(error);
@@ -132,9 +132,9 @@ class SABnzbdAPI {
       Response response = await _dio.get('', queryParameters: {
         'mode': 'resume',
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to resume queue', error, stack);
       return Future.error(error);
@@ -151,9 +151,9 @@ class SABnzbdAPI {
         'name': 'pause',
         'value': nzoId,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to pause job ($nzoId)', error, stack);
       return Future.error(error);
@@ -170,9 +170,9 @@ class SABnzbdAPI {
         'name': 'resume',
         'value': nzoId,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to resume job ($nzoId)', error, stack);
       return Future.error(error);
@@ -193,9 +193,9 @@ class SABnzbdAPI {
           'del_files': 1,
         },
       );
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to delete job ($nzoId)', error, stack);
       return Future.error(error);
@@ -213,9 +213,9 @@ class SABnzbdAPI {
         'value': nzoId,
         'value2': name,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to rename job ($nzoId, $name)', error, stack);
       return Future.error(error);
@@ -235,9 +235,9 @@ class SABnzbdAPI {
         'value2': name,
         'value3': password,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to set job password ($nzoId, $password)', error, stack);
       return Future.error(error);
@@ -273,9 +273,9 @@ class SABnzbdAPI {
         'del_files': 1,
         'value': nzoId,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to delete history entry ($nzoId)', error, stack);
       return Future.error(error);
@@ -365,10 +365,10 @@ class SABnzbdAPI {
         'value': nzoId,
         'value2': index,
       });
-      return response.data['result'] != null &&
+      return (response.data['result'] != null &&
               response.data['result']['position'] != null
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to move queue entry ($nzoId, $index)', error, stack);
       return Future.error(error);
@@ -386,9 +386,9 @@ class SABnzbdAPI {
         'sort': sort,
         'dir': dir,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to sort queue ($sort, $dir)', error, stack);
       return Future.error(error);
@@ -418,16 +418,16 @@ class SABnzbdAPI {
     }
   }
 
-  Future<bool> setCategory(String nzoId, String category) async {
+  Future<bool> setCategory(String nzoId, String? category) async {
     try {
       Response response = await _dio.get('', queryParameters: {
         'mode': 'change_cat',
         'value': nzoId,
         'value2': category,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to set category ($nzoId, $category)', error, stack);
       return Future.error(error);
@@ -437,16 +437,16 @@ class SABnzbdAPI {
     }
   }
 
-  Future<bool> setSpeedLimit(int limit) async {
+  Future<bool> setSpeedLimit(int? limit) async {
     try {
       Response response = await _dio.get('', queryParameters: {
         'mode': 'config',
         'name': 'speedlimit',
         'value': limit,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to set speed limit ($limit)', error, stack);
       return Future.error(error);
@@ -462,9 +462,9 @@ class SABnzbdAPI {
         'mode': 'addurl',
         'name': url,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to upload NZB by URL ($url)', error, stack);
       return Future.error(error);
@@ -485,9 +485,9 @@ class SABnzbdAPI {
           'name': MultipartFile.fromBytes(data, filename: name),
         }),
       );
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to upload nzb file ($name)', error, stack);
       return Future.error(error);
@@ -507,9 +507,9 @@ class SABnzbdAPI {
           'value': action,
         },
       );
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to set on-complete action ($action)', error, stack);
       return Future.error(error);
@@ -527,9 +527,9 @@ class SABnzbdAPI {
         'value': action,
         if (delete) 'del_files': 1,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to clear history ($action, $delete)', error, stack);
       return Future.error(error);
@@ -548,9 +548,9 @@ class SABnzbdAPI {
           'value': nzoId,
         },
       );
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to retry job ($nzoId)', error, stack);
       return Future.error(error);
@@ -567,9 +567,9 @@ class SABnzbdAPI {
         'value': nzoId,
         'password': password,
       });
-      return response.data['status'] != null && response.data['status']
+      return (response.data['status'] != null && response.data['status']
           ? true
-          : Future.error(null);
+          : Future.error(null)) as FutureOr<bool>;
     } on DioError catch (error, stack) {
       logError('Failed to retry job with new password ($nzoId, $password)',
           error, stack);

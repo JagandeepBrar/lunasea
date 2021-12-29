@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliIPAddressDetailsState extends ChangeNotifier {
-  final String ipAddress;
+  final String? ipAddress;
   TautulliIPAddressDetailsState(BuildContext context, this.ipAddress) {
     fetchAll(context);
   }
@@ -12,33 +12,33 @@ class TautulliIPAddressDetailsState extends ChangeNotifier {
     fetchGeolocation(context);
     fetchWHOIS(context);
     await Future.wait([
-      if (_geolocation != null) _geolocation,
-      if (_whois != null) _whois,
+      if (_geolocation != null) _geolocation.then((value) => value!),
+      if (_whois != null) _whois.then((value) => value!),
     ]);
   }
 
-  Future<TautulliGeolocationInfo> _geolocation;
-  Future<TautulliGeolocationInfo> get geolocation => _geolocation;
+  Future<TautulliGeolocationInfo>? _geolocation;
+  Future<TautulliGeolocationInfo>? get geolocation => _geolocation;
   void fetchGeolocation(BuildContext context) {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       _geolocation = context
           .read<TautulliState>()
-          .api
+          .api!
           .miscellaneous
-          .getGeoIPLookup(ipAddress: ipAddress);
+          .getGeoIPLookup(ipAddress: ipAddress!);
     }
     notifyListeners();
   }
 
-  Future<TautulliWHOISInfo> _whois;
-  Future<TautulliWHOISInfo> get whois => _whois;
+  Future<TautulliWHOISInfo>? _whois;
+  Future<TautulliWHOISInfo>? get whois => _whois;
   void fetchWHOIS(BuildContext context) {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       _whois = context
           .read<TautulliState>()
-          .api
+          .api!
           .miscellaneous
-          .getWHOISLookup(ipAddress: ipAddress);
+          .getWHOISLookup(ipAddress: ipAddress!);
     }
     notifyListeners();
   }

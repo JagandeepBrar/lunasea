@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrManualImportDetailsConfigureMoviesSearchBar extends StatefulWidget
     implements PreferredSizeWidget {
   const RadarrManualImportDetailsConfigureMoviesSearchBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

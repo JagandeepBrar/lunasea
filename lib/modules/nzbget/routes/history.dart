@@ -7,8 +7,8 @@ class NZBGetHistory extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const NZBGetHistory({
-    Key key,
-    @required this.refreshIndicatorKey,
+    Key? key,
+    required this.refreshIndicatorKey,
   }) : super(key: key);
 
   @override
@@ -18,8 +18,8 @@ class NZBGetHistory extends StatefulWidget {
 class _State extends State<NZBGetHistory>
     with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<List<NZBGetHistoryData>> _future;
-  List<NZBGetHistoryData> _results = [];
+  Future<List<NZBGetHistoryData>>? _future;
+  List<NZBGetHistoryData>? _results = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -27,7 +27,7 @@ class _State extends State<NZBGetHistory>
   @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
-    final _api = NZBGetAPI.from(Database.currentProfileObject);
+    final _api = NZBGetAPI.from(Database.currentProfileObject!);
     if (mounted)
       setState(() {
         _future = _api.getHistory();
@@ -40,7 +40,7 @@ class _State extends State<NZBGetHistory>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
     );
   }
 
@@ -66,7 +66,7 @@ class _State extends State<NZBGetHistory>
                 if (snapshot.hasError || snapshot.data == null) {
                   return LunaMessage.error(
                       onTap: () =>
-                          widget.refreshIndicatorKey.currentState.show());
+                          widget.refreshIndicatorKey.currentState!.show());
                 }
                 _results = snapshot.data;
                 return _list;
@@ -121,7 +121,7 @@ class _State extends State<NZBGetHistory>
     );
   }
 
-  List<NZBGetHistoryData> _filter(String filter) => _results
+  List<NZBGetHistoryData> _filter(String filter) => _results!
       .where((entry) => filter == null || filter == ''
           ? entry != null
           : entry.name.toLowerCase().contains(filter.toLowerCase()))

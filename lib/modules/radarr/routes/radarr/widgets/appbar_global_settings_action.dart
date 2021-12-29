@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAppBarGlobalSettingsAction extends StatelessWidget {
   const RadarrAppBarGlobalSettingsAction({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class RadarrAppBarGlobalSettingsAction extends StatelessWidget {
       icon: Icons.more_vert_rounded,
       iconSize: LunaUI.ICON_SIZE,
       onPressed: () async {
-        Tuple2<bool, RadarrGlobalSettingsType> values =
+        Tuple2<bool, RadarrGlobalSettingsType?> values =
             await RadarrDialogs().globalSettings(context);
         if (values.item1) values.item2.execute(context);
       },

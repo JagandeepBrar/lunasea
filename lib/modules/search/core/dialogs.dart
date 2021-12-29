@@ -4,10 +4,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchDialogs {
-  Future<Tuple2<bool, SearchDownloadType>> downloadResult(
+  Future<Tuple2<bool, SearchDownloadType?>> downloadResult(
       BuildContext context) async {
     bool _flag = false;
-    SearchDownloadType _type;
+    SearchDownloadType? _type;
 
     void _setValues(bool flag, SearchDownloadType type) {
       _flag = flag;
@@ -58,11 +58,11 @@ class SearchDialogs {
                 },
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
-                    for (String profile in Database.profilesBox.keys)
+                    for (String? profile in Database.profilesBox.keys as Iterable<String?>)
                       PopupMenuItem<String>(
                         value: profile,
                         child: Text(
-                          profile,
+                          profile!,
                           style: TextStyle(
                             fontSize: LunaUI.FONT_SIZE_H3,
                             color: (LunaDatabaseValue.ENABLED_PROFILE.data ??
@@ -79,14 +79,14 @@ class SearchDialogs {
               padding: LunaDialog.tileContentPadding()
                   .add(const EdgeInsets.only(bottom: 16.0)),
             ),
-            if (Database.currentProfileObject.sabnzbdEnabled)
+            if (Database.currentProfileObject!.sabnzbdEnabled!)
               LunaDialog.tile(
                 icon: SearchDownloadType.SABNZBD.icon,
                 iconColor: LunaColours().byListIndex(0),
                 text: SearchDownloadType.SABNZBD.name,
                 onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
               ),
-            if (Database.currentProfileObject.nzbgetEnabled)
+            if (Database.currentProfileObject!.nzbgetEnabled!)
               LunaDialog.tile(
                 icon: SearchDownloadType.NZBGET.icon,
                 iconColor: LunaColours().byListIndex(1),

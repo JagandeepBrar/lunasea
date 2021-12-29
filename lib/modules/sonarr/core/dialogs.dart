@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
-  Future<Tuple2<bool, SonarrGlobalSettingsType>> globalSettings(
+  Future<Tuple2<bool, SonarrGlobalSettingsType?>> globalSettings(
     BuildContext context,
   ) async {
     bool _flag = false;
-    SonarrGlobalSettingsType _value;
+    SonarrGlobalSettingsType? _value;
 
     void _setValues(bool flag, SonarrGlobalSettingsType value) {
       _flag = flag;
@@ -32,12 +32,12 @@ class SonarrDialogs {
     return Tuple2(_flag, _value);
   }
 
-  Future<Tuple2<bool, SonarrSeriesSettingsType>> seriesSettings(
+  Future<Tuple2<bool, SonarrSeriesSettingsType?>> seriesSettings(
     BuildContext context,
     SonarrSeries series,
   ) async {
     bool _flag = false;
-    SonarrSeriesSettingsType _value;
+    SonarrSeriesSettingsType? _value;
 
     void _setValues(bool flag, SonarrSeriesSettingsType value) {
       _flag = flag;
@@ -62,12 +62,12 @@ class SonarrDialogs {
     return Tuple2(_flag, _value);
   }
 
-  Future<Tuple2<bool, SonarrEpisodeSettingsType>> episodeSettings({
-    @required BuildContext context,
-    @required SonarrEpisode episode,
+  Future<Tuple2<bool, SonarrEpisodeSettingsType?>> episodeSettings({
+    required BuildContext context,
+    required SonarrEpisode episode,
   }) async {
     bool _flag = false;
-    SonarrEpisodeSettingsType _value;
+    SonarrEpisodeSettingsType? _value;
 
     void _setValues(bool flag, SonarrEpisodeSettingsType value) {
       _flag = flag;
@@ -79,7 +79,7 @@ class SonarrDialogs {
       context: context,
       title: episode.title,
       content: List.generate(
-        episode.hasFile
+        episode.hasFile!
             ? SonarrEpisodeSettingsType.values.length
             : SonarrEpisodeSettingsType.values.length - 1,
         (index) => LunaDialog.tile(
@@ -95,12 +95,12 @@ class SonarrDialogs {
     return Tuple2(_flag, _value);
   }
 
-  Future<Tuple2<bool, SonarrSeasonSettingsType>> seasonSettings(
+  Future<Tuple2<bool, SonarrSeasonSettingsType?>> seasonSettings(
     BuildContext context,
-    int seasonNumber,
+    int? seasonNumber,
   ) async {
     bool _flag = false;
-    SonarrSeasonSettingsType _value;
+    SonarrSeasonSettingsType? _value;
 
     void _setValues(bool flag, SonarrSeasonSettingsType value) {
       _flag = flag;
@@ -129,8 +129,8 @@ class SonarrDialogs {
 
   static Future<List<dynamic>> setDefaultPage(
     BuildContext context, {
-    @required List<String> titles,
-    @required List<IconData> icons,
+    required List<String> titles,
+    required List<IconData> icons,
   }) async {
     bool _flag = false;
     int _index = 0;
@@ -189,22 +189,22 @@ class SonarrDialogs {
                       );
                     return LunaDialog.content(
                       children: List.generate(
-                        snapshot.data.length,
+                        snapshot.data!.length,
                         (index) => LunaDialog.checkbox(
-                          title: snapshot.data[index].label,
+                          title: snapshot.data![index].label!,
                           value: context
                               .watch<SonarrSeriesAddDetailsState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .where((tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags = context
                                 .read<SonarrSeriesAddDetailsState>()
                                 .tags;
-                            selected
-                                ? _tags.add(snapshot.data[index])
+                            selected!
+                                ? _tags.add(snapshot.data![index])
                                 : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data[index].id);
+                                    (tag) => tag.id == snapshot.data![index].id);
                             context.read<SonarrSeriesAddDetailsState>().tags =
                                 _tags;
                           },
@@ -255,21 +255,21 @@ class SonarrDialogs {
                       );
                     return LunaDialog.content(
                       children: List.generate(
-                        snapshot.data.length,
+                        snapshot.data!.length,
                         (index) => LunaDialog.checkbox(
-                          title: snapshot.data[index].label,
+                          title: snapshot.data![index].label!,
                           value: context
                               .watch<SonarrSeriesEditState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data[index].id)
+                              .where((tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags =
                                 context.read<SonarrSeriesEditState>().tags;
-                            selected
-                                ? _tags.add(snapshot.data[index])
+                            selected!
+                                ? _tags.add(snapshot.data![index])
                                 : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data[index].id);
+                                    (tag) => tag.id == snapshot.data![index].id);
                             context.read<SonarrSeriesEditState>().tags = _tags;
                           },
                         ),
@@ -295,7 +295,7 @@ class SonarrDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -386,12 +386,12 @@ class SonarrDialogs {
     return _flag;
   }
 
-  Future<Tuple2<bool, SonarrLanguageProfile>> editLanguageProfiles(
-      BuildContext context, List<SonarrLanguageProfile> profiles) async {
+  Future<Tuple2<bool, SonarrLanguageProfile?>> editLanguageProfiles(
+      BuildContext context, List<SonarrLanguageProfile?> profiles) async {
     bool _flag = false;
-    SonarrLanguageProfile profile;
+    SonarrLanguageProfile? profile;
 
-    void _setValues(bool flag, SonarrLanguageProfile value) {
+    void _setValues(bool flag, SonarrLanguageProfile? value) {
       _flag = flag;
       profile = value;
       Navigator.of(context, rootNavigator: true).pop();
@@ -403,7 +403,7 @@ class SonarrDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          text: profiles[index].name,
+          text: profiles[index]!.name!,
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
@@ -414,12 +414,12 @@ class SonarrDialogs {
     return Tuple2(_flag, profile);
   }
 
-  Future<Tuple2<bool, SonarrQualityProfile>> editQualityProfile(
-      BuildContext context, List<SonarrQualityProfile> profiles) async {
+  Future<Tuple2<bool, SonarrQualityProfile?>> editQualityProfile(
+      BuildContext context, List<SonarrQualityProfile?> profiles) async {
     bool _flag = false;
-    SonarrQualityProfile profile;
+    SonarrQualityProfile? profile;
 
-    void _setValues(bool flag, SonarrQualityProfile value) {
+    void _setValues(bool flag, SonarrQualityProfile? value) {
       _flag = flag;
       profile = value;
       Navigator.of(context, rootNavigator: true).pop();
@@ -431,7 +431,7 @@ class SonarrDialogs {
       content: List.generate(
         profiles.length,
         (index) => LunaDialog.tile(
-          text: profiles[index].name,
+          text: profiles[index]!.name!,
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, profiles[index]),
@@ -442,10 +442,10 @@ class SonarrDialogs {
     return Tuple2(_flag, profile);
   }
 
-  Future<Tuple2<bool, SonarrRootFolder>> editRootFolder(
+  Future<Tuple2<bool, SonarrRootFolder?>> editRootFolder(
       BuildContext context, List<SonarrRootFolder> folders) async {
     bool _flag = false;
-    SonarrRootFolder _folder;
+    SonarrRootFolder? _folder;
 
     void _setValues(bool flag, SonarrRootFolder value) {
       _flag = flag;
@@ -459,7 +459,7 @@ class SonarrDialogs {
       content: List.generate(
         folders.length,
         (index) => LunaDialog.tile(
-          text: folders[index].path,
+          text: folders[index].path!,
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
@@ -467,7 +467,7 @@ class SonarrDialogs {
                 fontSize: LunaDialog.BUTTON_SIZE,
               ),
             ],
-          ),
+          ) as RichText?,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),
@@ -478,10 +478,10 @@ class SonarrDialogs {
     return Tuple2(_flag, _folder);
   }
 
-  Future<Tuple2<bool, SonarrSeriesMonitorType>> editMonitorType(
+  Future<Tuple2<bool, SonarrSeriesMonitorType?>> editMonitorType(
       BuildContext context) async {
     bool _flag = false;
-    SonarrSeriesMonitorType _type;
+    SonarrSeriesMonitorType? _type;
 
     void _setValues(bool flag, SonarrSeriesMonitorType type) {
       _flag = flag;
@@ -506,10 +506,10 @@ class SonarrDialogs {
     return Tuple2(_flag, _type);
   }
 
-  Future<Tuple2<bool, SonarrSeriesType>> editSeriesType(
+  Future<Tuple2<bool, SonarrSeriesType?>> editSeriesType(
       BuildContext context) async {
     bool _flag = false;
-    SonarrSeriesType _type;
+    SonarrSeriesType? _type;
 
     void _setValues(bool flag, SonarrSeriesType type) {
       _flag = flag;
@@ -524,7 +524,7 @@ class SonarrDialogs {
         SonarrSeriesType.values.length,
         (index) => LunaDialog.tile(
           text:
-              SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
+              SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters()!,
           icon: Icons.folder_open_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesType.values[index]),
@@ -744,7 +744,7 @@ class SonarrDialogs {
                   ),
                   Expanded(
                     child: Text(
-                      messages[index].title,
+                      messages[index].title!,
                       style: const TextStyle(
                         fontSize: LunaDialog.BODY_SIZE,
                         color: LunaColours.orange,
@@ -761,7 +761,7 @@ class SonarrDialogs {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (messages[index].messages.isNotEmpty)
+                    if (messages[index].messages!.isNotEmpty)
                       Row(
                         children: [
                           Expanded(
@@ -773,7 +773,7 @@ class SonarrDialogs {
                                 children: [
                                   TextSpan(
                                     text: messages[index]
-                                        .messages
+                                        .messages!
                                         .map((s) => '${LunaUI.TEXT_BULLET} $s')
                                         .join('\n'),
                                   ),
@@ -801,7 +801,7 @@ class SonarrDialogs {
     );
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -826,7 +826,7 @@ class SonarrDialogs {
             title: 'Queue Page Size',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },

@@ -8,9 +8,9 @@ class LidarrHistory extends StatefulWidget {
   final Function refreshAllPages;
 
   const LidarrHistory({
-    Key key,
-    @required this.refreshIndicatorKey,
-    @required this.refreshAllPages,
+    Key? key,
+    required this.refreshIndicatorKey,
+    required this.refreshAllPages,
   }) : super(key: key);
 
   @override
@@ -19,8 +19,8 @@ class LidarrHistory extends StatefulWidget {
 
 class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<List<LidarrHistoryData>> _future;
-  List<LidarrHistoryData> _results = [];
+  Future<List<LidarrHistoryData>>? _future;
+  List<LidarrHistoryData>? _results = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -33,7 +33,7 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
 
   Future<void> _refresh() async {
     _results = [];
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     if (mounted)
       setState(() {
         _future = _api.getHistory();
@@ -89,10 +89,10 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
     }
     return LunaListViewBuilder(
       controller: LidarrNavigationBar.scrollControllers[2],
-      itemCount: _results.length,
+      itemCount: _results!.length,
       itemExtent: LidarrHistoryTile.extent,
       itemBuilder: (context, index) => LidarrHistoryTile(
-        entry: _results[index],
+        entry: _results![index],
         scaffoldKey: _scaffoldKey,
         refresh: _refreshAllPages,
       ),

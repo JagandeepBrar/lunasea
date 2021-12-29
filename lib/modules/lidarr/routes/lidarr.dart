@@ -6,7 +6,7 @@ class Lidarr extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr';
 
   const Lidarr({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,9 +15,9 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
   String _profileState = Database.currentProfileObject.toString();
-  LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+  LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -38,7 +38,7 @@ class _State extends State<Lidarr> {
       scaffoldKey: _scaffoldKey,
       body: _body(),
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       onProfileChange: (_) {
         if (_profileState != Database.currentProfileObject.toString())
@@ -49,14 +49,14 @@ class _State extends State<Lidarr> {
 
   Widget _drawer() => LunaDrawer(page: LunaModule.LIDARR.key);
 
-  Widget _bottomNavigationBar() {
-    if (_api.enabled)
+  Widget? _bottomNavigationBar() {
+    if (_api.enabled!)
       return LidarrNavigationBar(pageController: _pageController);
     return null;
   }
 
   Widget _body() {
-    if (!_api.enabled)
+    if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.LIDARR.name,
@@ -81,14 +81,14 @@ class _State extends State<Lidarr> {
   }
 
   Widget _appBar() {
-    List<String> profiles =
+    List<String?> profiles =
         Database.profilesBox.keys.fold([], (value, element) {
       if (Database.profilesBox.get(element)?.lidarrEnabled ?? false)
         value.add(element);
       return value;
     });
-    List<Widget> actions;
-    if (_api.enabled)
+    List<Widget>? actions;
+    if (_api.enabled!)
       actions = [
         LunaIconButton(
           icon: Icons.add_rounded,
@@ -144,7 +144,7 @@ class _State extends State<Lidarr> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject;
+          ProfileHiveObject profile = Database.currentProfileObject!;
           await profile.lidarrHost
               ?.lunaOpenGenericLink(headers: profile.lidarrHeaders);
           break;
@@ -196,7 +196,7 @@ class _State extends State<Lidarr> {
   }
 
   void _refreshProfile() {
-    _api = LidarrAPI.from(Database.currentProfileObject);
+    _api = LidarrAPI.from(Database.currentProfileObject!);
     _profileState = Database.currentProfileObject.toString();
     _refreshAllPages();
   }

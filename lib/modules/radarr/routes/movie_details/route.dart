@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -7,7 +8,7 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
 
   @override
   Widget widget({
-    @required int movieId,
+    required int movieId,
   }) {
     return _Widget(movieId: movieId);
   }
@@ -15,14 +16,14 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required int movieId,
+    required int? movieId,
   }) async {
     LunaRouter.router.navigateTo(context, route(movieId: movieId));
   }
 
   @override
   String route({
-    @required int movieId,
+    required int? movieId,
   }) {
     return fullRoute.replaceFirst(
       ':movieid',
@@ -35,9 +36,9 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
     super.withParameterRouteDefinition(
       router,
       (context, params) {
-        int movieId = params['movieid'] == null || params['movieid'].isEmpty
+        int movieId = params['movieid'] == null || params['movieid']!.isEmpty
             ? -1
-            : (int.tryParse(params['movieid'][0]) ?? -1);
+            : (int.tryParse(params['movieid']![0]) ?? -1);
         return _Widget(movieId: movieId);
       },
     );
@@ -48,8 +49,8 @@ class _Widget extends StatefulWidget {
   final int movieId;
 
   const _Widget({
-    Key key,
-    @required this.movieId,
+    Key? key,
+    required this.movieId,
   }) : super(key: key);
 
   @override
@@ -58,13 +59,13 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  RadarrMovie movie;
-  PageController _pageController;
+  RadarrMovie? movie;
+  PageController? _pageController;
 
   @override
   Future<void> loadCallback() async {
     if (widget.movieId > 0) {
-      RadarrMovie result = _findMovie(await context.read<RadarrState>().movies);
+      RadarrMovie? result = _findMovie(await context.read<RadarrState>().movies!);
       setState(() => movie = result);
       context.read<RadarrState>().fetchQualityProfiles();
       context.read<RadarrState>().fetchTags();
@@ -80,22 +81,20 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     );
   }
 
-  RadarrMovie _findMovie(List<RadarrMovie> movies) {
-    return movies.firstWhere(
+  RadarrMovie? _findMovie(List<RadarrMovie> movies) {
+    return movies.firstWhereOrNull(
       (movie) => movie.id == widget.movieId,
-      orElse: () => null,
     );
   }
 
-  List<RadarrTag> _findTags(List<int> tagIds, List<RadarrTag> tags) {
-    return tags.where((tag) => tagIds.contains(tag.id)).toList();
+  List<RadarrTag> _findTags(List<int?>? tagIds, List<RadarrTag> tags) {
+    return tags.where((tag) => tagIds!.contains(tag.id)).toList();
   }
 
-  RadarrQualityProfile _findQualityProfile(
-      int profileId, List<RadarrQualityProfile> profiles) {
-    return profiles.firstWhere(
+  RadarrQualityProfile? _findQualityProfile(
+      int? profileId, List<RadarrQualityProfile> profiles) {
+    return profiles.firstWhereOrNull(
       (profile) => profile.id == profileId,
-      orElse: () => null,
     );
   }
 
@@ -109,15 +108,15 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.RADARR,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
-          context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
+          context.watch<RadarrState>().enabled! ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }
 
   Widget _appBar() {
-    List<Widget> _actions = movie == null
+    List<Widget>? _actions = movie == null
         ? null
         : [
             LunaIconButton(
@@ -136,7 +135,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     );
   }
 
-  Widget _bottomNavigationBar() {
+  Widget? _bottomNavigationBar() {
     if (movie == null) return null;
     return RadarrMovieDetailsNavigationBar(
       pageController: _pageController,
@@ -150,7 +149,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
         future: Future.wait([
           state.qualityProfiles,
           state.tags,
-          state.movies,
+          state.movies.then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -163,15 +162,15 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
             return LunaMessage.error(onTap: loadCallback);
           }
           if (snapshot.hasData) {
-            movie = _findMovie(snapshot.data[2]);
+            movie = _findMovie(snapshot.data![2] as List<RadarrMovie>);
             if (movie == null)
               return LunaMessage.goBack(
                 text: 'Movie Not Found',
                 context: context,
               );
-            RadarrQualityProfile qualityProfile =
-                _findQualityProfile(movie.qualityProfileId, snapshot.data[0]);
-            List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[1]);
+            RadarrQualityProfile? qualityProfile =
+                _findQualityProfile(movie!.qualityProfileId, snapshot.data![0] as List<RadarrQualityProfile>);
+            List<RadarrTag> tags = _findTags(movie!.tags, snapshot.data![1] as List<RadarrTag>);
             return _pages(qualityProfile, tags);
           }
           return const LunaLoader();
@@ -180,10 +179,10 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     );
   }
 
-  Widget _pages(RadarrQualityProfile qualityProfile, List<RadarrTag> tags) {
+  Widget _pages(RadarrQualityProfile? qualityProfile, List<RadarrTag> tags) {
     return ChangeNotifierProvider(
       create: (context) =>
-          RadarrMovieDetailsState(context: context, movie: movie),
+          RadarrMovieDetailsState(context: context, movie: movie!),
       builder: (context, _) => PageView(
         controller: _pageController,
         children: [

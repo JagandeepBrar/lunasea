@@ -40,7 +40,7 @@ class _State extends State<_Widget>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -73,7 +73,7 @@ class _State extends State<_Widget>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _statistics(snapshot.data);
             return const LunaLoader();
@@ -83,7 +83,7 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _statistics(List<TautulliHomeStats> stats) {
+  Widget _statistics(List<TautulliHomeStats>? stats) {
     if ((stats?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Statistics Found',
@@ -91,7 +91,7 @@ class _State extends State<_Widget>
         onTap: _refreshKey.currentState?.show,
       );
     List<List<Widget>> list = [];
-    stats.forEach((element) => list.add(_builder(element)));
+    stats!.forEach((element) => list.add(_builder(element)));
     return LunaListView(
       controller: scrollController,
       children: list.expand((e) => e).toList(),
@@ -102,35 +102,35 @@ class _State extends State<_Widget>
     if ((stats?.data ?? 0) == 0 || denylist.contains(stats.id)) return [];
     return [
       LunaHeader(text: stats.title),
-      ...List.generate(stats.data.length, (index) {
+      ...List.generate(stats.data!.length, (index) {
         switch (stats.id) {
           case 'top_movies':
           case 'popular_movies':
             return TautulliStatisticsMediaTile(
-              data: stats.data[index],
+              data: stats.data![index],
               mediaType: TautulliMediaType.MOVIE,
             );
           case 'top_tv':
           case 'popular_tv':
             return TautulliStatisticsMediaTile(
-              data: stats.data[index],
+              data: stats.data![index],
               mediaType: TautulliMediaType.SHOW,
             );
           case 'top_music':
           case 'popular_music':
             return TautulliStatisticsMediaTile(
-              data: stats.data[index],
+              data: stats.data![index],
               mediaType: TautulliMediaType.ARTIST,
             );
           case 'last_watched':
             return TautulliStatisticsRecentlyWatchedTile(
-                data: stats.data[index]);
+                data: stats.data![index]);
           case 'top_users':
-            return TautulliStatisticsUserTile(data: stats.data[index]);
+            return TautulliStatisticsUserTile(data: stats.data![index]);
           case 'top_platforms':
-            return TautulliStatisticsPlatformTile(data: stats.data[index]);
+            return TautulliStatisticsPlatformTile(data: stats.data![index]);
           case 'most_concurrent':
-            return TautulliStatisticsStreamTile(data: stats.data[index]);
+            return TautulliStatisticsStreamTile(data: stats.data![index]);
           default:
             return Container();
         }

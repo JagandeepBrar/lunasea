@@ -4,7 +4,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountRestoreConfigurationTile extends StatefulWidget {
   const SettingsAccountRestoreConfigurationTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -37,15 +37,15 @@ class _State extends State<SettingsAccountRestoreConfigurationTile> {
     try {
       List<LunaFirebaseBackupDocument> documents =
           await LunaFirebaseFirestore().getBackupEntries();
-      Tuple2<bool, LunaFirebaseBackupDocument> result =
+      Tuple2<bool, LunaFirebaseBackupDocument?> result =
           await SettingsDialogs().getBackupFromCloud(context, documents);
       if (result.item1) {
-        String encrypted =
-            await LunaFirebaseStorage().downloadBackup(result.item2.id);
+        String? encrypted =
+            await LunaFirebaseStorage().downloadBackup(result.item2!.id);
         Tuple2<bool, String> key =
             await SettingsDialogs().decryptBackup(context);
         if (key.item1) {
-          String decrypted = LunaEncryption().decrypt(key.item2, encrypted);
+          String decrypted = LunaEncryption().decrypt(key.item2, encrypted!);
           if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
             await LunaConfiguration().import(context, decrypted).then((_) {
               updateState(LunaLoadingState.INACTIVE);

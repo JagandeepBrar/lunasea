@@ -9,7 +9,7 @@ abstract class LunaDialog {
   static const BUTTON_SIZE = LunaUI.FONT_SIZE_H4;
 
   static Widget title({
-    @required String text,
+    required String text,
   }) =>
       Text(
         text,
@@ -21,9 +21,9 @@ abstract class LunaDialog {
       );
 
   static TextSpan bolded({
-    @required String text,
+    required String text,
     double fontSize = LunaDialog.BODY_SIZE,
-    Color color,
+    Color? color,
   }) =>
       TextSpan(
         text: text,
@@ -35,7 +35,7 @@ abstract class LunaDialog {
       );
 
   static Widget richText({
-    @required List<TextSpan> children,
+    required List<TextSpan>? children,
     TextAlign alignment = TextAlign.start,
   }) =>
       RichText(
@@ -49,9 +49,9 @@ abstract class LunaDialog {
       );
 
   static Widget button({
-    @required String text,
-    @required void Function() onPressed,
-    Color textColor,
+    required String text,
+    required void Function() onPressed,
+    Color? textColor,
   }) =>
       TextButton(
         child: Text(
@@ -72,7 +72,7 @@ abstract class LunaDialog {
   static Widget cancel(
     BuildContext context, {
     Color textColor = Colors.white,
-    String text,
+    String? text,
   }) =>
       TextButton(
         child: Text(
@@ -89,7 +89,7 @@ abstract class LunaDialog {
       );
 
   static Widget content({
-    @required List<Widget> children,
+    required List<Widget> children,
   }) =>
       SingleChildScrollView(
         child: ListBody(
@@ -99,7 +99,7 @@ abstract class LunaDialog {
       );
 
   static Widget textContent({
-    @required String text,
+    required String text,
     TextAlign textAlign = TextAlign.center,
   }) =>
       Text(
@@ -112,7 +112,7 @@ abstract class LunaDialog {
       );
 
   static TextSpan textSpanContent({
-    @required String text,
+    required String text,
   }) =>
       TextSpan(
         text: text,
@@ -123,9 +123,9 @@ abstract class LunaDialog {
       );
 
   static Widget textInput({
-    @required TextEditingController controller,
-    @required Function(String) onSubmitted,
-    @required String title,
+    required TextEditingController controller,
+    required Function(String) onSubmitted,
+    required String title,
   }) =>
       TextField(
         autofocus: true,
@@ -156,10 +156,10 @@ abstract class LunaDialog {
       );
 
   static Widget textFormInput({
-    @required TextEditingController controller,
-    @required String title,
-    @required Function(String) onSubmitted,
-    @required Function(String) validator,
+    required TextEditingController controller,
+    required String title,
+    required Function(String) onSubmitted,
+    required Function(String) validator,
     bool obscureText = false,
     TextInputType keyboardType = TextInputType.text,
   }) =>
@@ -190,16 +190,16 @@ abstract class LunaDialog {
         ),
         cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
-        validator: validator,
+        validator: validator as String? Function(String?)?,
         onFieldSubmitted: onSubmitted,
       );
 
   static Widget tile({
-    @required IconData icon,
-    Color iconColor,
-    @required String text,
-    RichText subtitle,
-    Function onTap,
+    required IconData? icon,
+    Color? iconColor,
+    required String text,
+    RichText? subtitle,
+    Function? onTap,
   }) =>
       ListTile(
         leading: Column(
@@ -229,9 +229,9 @@ abstract class LunaDialog {
       );
 
   static CheckboxListTile checkbox({
-    @required String title,
-    @required bool value,
-    @required void Function(bool) onChanged,
+    required String title,
+    required bool? value,
+    required void Function(bool?) onChanged,
   }) =>
       CheckboxListTile(
         title: Text(
@@ -258,14 +258,14 @@ abstract class LunaDialog {
       const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
 
   static Future<void> dialog({
-    @required BuildContext context,
-    @required String title,
-    @required EdgeInsets contentPadding,
+    required BuildContext context,
+    required String? title,
+    required EdgeInsets contentPadding,
     bool showCancelButton = true,
-    String cancelButtonText,
-    List<Widget> buttons,
-    List<Widget> content,
-    Widget customContent,
+    String? cancelButtonText,
+    List<Widget>? buttons,
+    List<Widget>? content,
+    Widget? customContent,
   }) async {
     if (customContent == null)
       assert(content != null, 'customContent and content both cannot be null');
@@ -281,8 +281,8 @@ abstract class LunaDialog {
             ),
           if (buttons != null) ...buttons,
         ],
-        title: LunaDialog.title(text: title),
-        content: customContent ?? LunaDialog.content(children: content),
+        title: LunaDialog.title(text: title!),
+        content: customContent ?? LunaDialog.content(children: content!),
         contentPadding: contentPadding,
         shape: LunaUI.shapeBorder,
       ),

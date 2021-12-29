@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -175,11 +175,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'settings.StartingView'.tr(),
         body: [
-          TextSpan(text: (_db.data as CalendarStartingType).name),
+          TextSpan(text: (_db.data as CalendarStartingType?).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          Tuple2<bool, CalendarStartingType> _values =
+          Tuple2<bool, CalendarStartingType?> _values =
               await SettingsDialogs().editCalendarStartingView(context);
           if (_values.item1) _db.put(_values.item2);
         },
@@ -193,11 +193,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'settings.StartingDay'.tr(),
         body: [
-          TextSpan(text: (_db.data as CalendarStartingDay).name),
+          TextSpan(text: (_db.data as CalendarStartingDay?).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          Tuple2<bool, CalendarStartingDay> results =
+          Tuple2<bool, CalendarStartingDay?> results =
               await SettingsDialogs().editCalendarStartingDay(context);
           if (results.item1) _db.put(results.item2);
         },
@@ -211,11 +211,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'Starting Size',
         body: [
-          TextSpan(text: (_db.data as CalendarStartingSize).name),
+          TextSpan(text: (_db.data as CalendarStartingSize?).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          Tuple2<bool, CalendarStartingSize> _values =
+          Tuple2<bool, CalendarStartingSize?> _values =
               await SettingsDialogs().editCalendarStartingSize(context);
           if (_values.item1) _db.put(_values.item2);
         },

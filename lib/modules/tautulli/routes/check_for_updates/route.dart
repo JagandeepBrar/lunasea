@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => TautulliCheckForUpdatesState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -50,8 +50,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context.read<TautulliCheckForUpdatesState>().fetchAllUpdates(context),
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliCheckForUpdatesState>().plexMediaServer,
-          context.watch<TautulliCheckForUpdatesState>().tautulli,
+          context.watch<TautulliCheckForUpdatesState>().plexMediaServer.then((value) => value!),
+          context.watch<TautulliCheckForUpdatesState>().tautulli.then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -61,10 +61,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
-            return _list(snapshot.data[0], snapshot.data[1]);
+            return _list(snapshot.data![0] as TautulliPMSUpdate, snapshot.data![1] as TautulliUpdateCheck);
           return const LunaLoader();
         },
       ),

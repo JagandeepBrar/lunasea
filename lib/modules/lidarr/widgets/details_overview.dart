@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsOverview extends StatefulWidget {
-  final LidarrCatalogueData data;
+  final LidarrCatalogueData? data;
 
   const LidarrDetailsOverview({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -32,13 +32,13 @@ class _State extends State<LidarrDetailsOverview>
               : widget?.data?.overview,
           uri: widget?.data?.posterURI() ?? '',
           squareImage: true,
-          headers: Database.currentProfileObject.getLidarr()['headers'],
+          headers: Database.currentProfileObject!.getLidarr()['headers'],
         ),
         LunaButtonContainer(
           buttonsPerRow: 4,
           children: [
-            if (widget.data.bandsintownURI != null &&
-                widget.data.bandsintownURI.isNotEmpty)
+            if (widget.data!.bandsintownURI != null &&
+                widget.data!.bandsintownURI!.isNotEmpty)
               LunaCard(
                 context: context,
                 child: InkWell(
@@ -54,8 +54,8 @@ class _State extends State<LidarrDetailsOverview>
                 margin:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
-            if (widget.data.discogsURI != null &&
-                widget.data.discogsURI.isNotEmpty)
+            if (widget.data!.discogsURI != null &&
+                widget.data!.discogsURI!.isNotEmpty)
               LunaCard(
                 context: context,
                 child: InkWell(
@@ -71,8 +71,8 @@ class _State extends State<LidarrDetailsOverview>
                 margin:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
-            if (widget.data.lastfmURI != null &&
-                widget.data.lastfmURI.isNotEmpty)
+            if (widget.data!.lastfmURI != null &&
+                widget.data!.lastfmURI!.isNotEmpty)
               LunaCard(
                 context: context,
                 child: InkWell(

@@ -7,9 +7,9 @@ class LidarrDetailsTrackTile extends StatefulWidget {
   final bool monitored;
 
   const LidarrDetailsTrackTile({
-    Key key,
-    @required this.data,
-    @required this.monitored,
+    Key? key,
+    required this.data,
+    required this.monitored,
   }) : super(key: key);
 
   @override

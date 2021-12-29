@@ -4,22 +4,22 @@ import 'package:lunasea/core.dart';
 
 class LunaScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final LunaModule module;
-  final PreferredSizeWidget appBar;
-  final Widget body;
-  final Widget drawer;
-  final Widget bottomNavigationBar;
-  final Widget floatingActionButton;
+  final LunaModule? module;
+  final PreferredSizeWidget? appBar;
+  final Widget? body;
+  final Widget? drawer;
+  final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
   final bool extendBody;
   final bool extendBodyBehindAppBar;
   final bool hideDrawer;
 
   /// Called when [LunaDatabaseValue.ENABLED_PROFILE] has changed. Triggered within the build function.
-  final void Function(BuildContext) onProfileChange;
+  final void Function(BuildContext)? onProfileChange;
 
   const LunaScaffold({
-    Key key,
-    @required this.scaffoldKey,
+    Key? key,
+    required this.scaffoldKey,
     this.module,
     this.appBar,
     this.body,
@@ -47,12 +47,12 @@ class LunaScaffold extends StatelessWidget {
       valueListenable: Database.lunaSeaBox.listenable(
         keys: [LunaDatabaseValue.ENABLED_PROFILE.key],
       ),
-      builder: (context, _, __) {
-        if (onProfileChange != null) onProfileChange(context);
+      builder: (context, dynamic _, __) {
+        if (onProfileChange != null) onProfileChange!(context);
         return AdaptiveBuilder.builder(
           builder: (context, layout, child) {
             if (kDebugMode && layout.breakpoint >= LayoutBreakpoint.md)
-              return _scaffoldMedium(child);
+              return _scaffoldMedium(child!);
             return _scaffoldSmall(child);
           },
           child: body,
@@ -61,7 +61,7 @@ class LunaScaffold extends StatelessWidget {
     );
   }
 
-  Widget _scaffoldSmall(Widget child) {
+  Widget _scaffoldSmall(Widget? child) {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar,
@@ -83,9 +83,9 @@ class LunaScaffold extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  if (appBar != null) appBar,
+                  if (appBar != null) appBar!,
                   Expanded(child: child),
-                  if (bottomNavigationBar != null) bottomNavigationBar,
+                  if (bottomNavigationBar != null) bottomNavigationBar!,
                 ],
               ),
             ),

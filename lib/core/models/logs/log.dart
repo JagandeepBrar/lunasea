@@ -8,20 +8,20 @@ part 'log.g.dart';
 @HiveType(typeId: 23, adapterName: 'LunaLogHiveObjectAdapter')
 class LunaLogHiveObject extends HiveObject {
   LunaLogHiveObject({
-    @required this.timestamp,
-    @required this.type,
+    required this.timestamp,
+    required this.type,
     this.className,
     this.methodName,
-    @required this.message,
+    required this.message,
     this.error,
     this.stackTrace,
   });
 
   factory LunaLogHiveObject.withMessage({
-    @required LunaLogType type,
-    @required String message,
-    String className,
-    String methodName,
+    required LunaLogType type,
+    required String message,
+    String? className,
+    String? methodName,
   }) {
     assert(type != null);
     int timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -33,19 +33,19 @@ class LunaLogHiveObject extends HiveObject {
   }
 
   factory LunaLogHiveObject.withError({
-    @required LunaLogType type,
-    @required String message,
-    @required dynamic error,
-    @required StackTrace stackTrace,
-    String className,
-    String methodName,
+    required LunaLogType type,
+    required String message,
+    required dynamic error,
+    required StackTrace? stackTrace,
+    String? className,
+    String? methodName,
   }) {
     assert(type != null);
     int timestamp = DateTime.now().millisecondsSinceEpoch;
-    Trace trace = stackTrace == null ? null : Trace.from(stackTrace);
-    String _className, _methodName;
+    Trace? trace = stackTrace == null ? null : Trace.from(stackTrace);
+    String? _className, _methodName;
     if ((trace?.frames?.length ?? 0) >= 1) {
-      _className = trace.frames[0]?.uri?.toString();
+      _className = trace!.frames[0]?.uri?.toString();
       _methodName = trace.frames[0]?.member?.toString();
     }
     return LunaLogHiveObject(
@@ -62,10 +62,10 @@ class LunaLogHiveObject extends HiveObject {
   Map<String, dynamic> toMap() {
     return {
       "timestamp":
-          DateTime.fromMillisecondsSinceEpoch(timestamp).toIso8601String(),
+          DateTime.fromMillisecondsSinceEpoch(timestamp!).toIso8601String(),
       "type": type.name,
-      if (className != null && className.isNotEmpty) "class_name": className,
-      if (methodName != null && methodName.isNotEmpty)
+      if (className != null && className!.isNotEmpty) "class_name": className,
+      if (methodName != null && methodName!.isNotEmpty)
         "method_name": methodName,
       "message": message,
       if (error != null && (error?.isNotEmpty ?? false)) "error": error,
@@ -75,17 +75,17 @@ class LunaLogHiveObject extends HiveObject {
   }
 
   @HiveField(0)
-  final int timestamp;
+  final int? timestamp;
   @HiveField(1)
-  final LunaLogType type;
+  final LunaLogType? type;
   @HiveField(2)
-  final String className;
+  final String? className;
   @HiveField(3)
-  final String methodName;
+  final String? methodName;
   @HiveField(4)
-  final String message;
+  final String? message;
   @HiveField(5)
-  final String error;
+  final String? error;
   @HiveField(6)
-  final String stackTrace;
+  final String? stackTrace;
 }

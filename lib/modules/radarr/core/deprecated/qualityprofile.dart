@@ -6,9 +6,9 @@ part 'qualityprofile.g.dart';
 @HiveType(typeId: 6, adapterName: 'DeprecatedRadarrQualityProfileAdapter')
 class DeprecatedRadarrQualityProfile extends HiveObject {
   @HiveField(0)
-  int id;
+  int? id;
   @HiveField(1)
-  String name;
+  String? name;
 
   factory DeprecatedRadarrQualityProfile.empty() =>
       DeprecatedRadarrQualityProfile(
@@ -17,7 +17,7 @@ class DeprecatedRadarrQualityProfile extends HiveObject {
       );
 
   DeprecatedRadarrQualityProfile({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 }

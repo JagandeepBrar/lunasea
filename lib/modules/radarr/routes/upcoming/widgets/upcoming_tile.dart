@@ -6,12 +6,12 @@ class RadarrUpcomingTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final RadarrMovie movie;
-  final RadarrQualityProfile profile;
+  final RadarrQualityProfile? profile;
 
   const RadarrUpcomingTile({
-    Key key,
-    @required this.movie,
-    @required this.profile,
+    Key? key,
+    required this.movie,
+    required this.profile,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class RadarrUpcomingTile extends StatefulWidget {
 class _State extends State<RadarrUpcomingTile> {
   @override
   Widget build(BuildContext context) {
-    return Selector<RadarrState, Future<List<RadarrMovie>>>(
+    return Selector<RadarrState, Future<List<RadarrMovie>>?>(
       selector: (_, state) => state.missing,
       builder: (context, missing, _) {
         return LunaBlock(
@@ -39,7 +39,7 @@ class _State extends State<RadarrUpcomingTile> {
           posterIsSquare: false,
           posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
           onTap: _onTap,
-          disabled: !widget.movie.monitored,
+          disabled: !widget.movie.monitored!,
         );
       },
     );
@@ -60,7 +60,7 @@ class _State extends State<RadarrUpcomingTile> {
   TextSpan _subtitle2() {
     return TextSpan(
       children: [
-        TextSpan(text: widget.profile.lunaName),
+        TextSpan(text: widget.profile!.lunaName),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: widget.movie.lunaMinimumAvailability),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
@@ -75,11 +75,11 @@ class _State extends State<RadarrUpcomingTile> {
     String type;
     if (widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.blue;
-      _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
+      _days = widget.movie.lunaEarlierReleaseDate!.lunaDaysDifference;
       type = 'release';
     } else if (!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.orange;
-      _days = widget.movie.inCinemas.lunaDaysDifference;
+      _days = widget.movie.inCinemas!.lunaDaysDifference;
       type = 'cinema';
     } else {
       color = LunaColours.grey;
@@ -118,8 +118,8 @@ class _State extends State<RadarrUpcomingTile> {
       icon: Icons.search_rounded,
       onPressed: () async => RadarrAPIHelper().automaticSearch(
         context: context,
-        movieId: widget.movie.id,
-        title: widget.movie.title,
+        movieId: widget.movie.id!,
+        title: widget.movie.title!,
       ),
       onLongPress: () async =>
           RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),

@@ -6,8 +6,8 @@ class RadarrMovieDetailsFilesFileBlock extends StatefulWidget {
   final RadarrMovieFile movieFile;
 
   const RadarrMovieDetailsFilesFileBlock({
-    Key key,
-    @required this.movieFile,
+    Key? key,
+    required this.movieFile,
   }) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             widget.movieFile?.mediaInfo?.lunaAudioCodec,
             if (widget.movieFile?.mediaInfo?.audioChannels != null)
               widget.movieFile?.mediaInfo?.audioChannels.toString(),
-          ].join(LunaUI.TEXT_BULLET.lunaPad()),
+          ].join(LunaUI.TEXT_BULLET.lunaPad()!),
         ),
         LunaTableContent(
           title: 'size',

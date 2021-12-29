@@ -7,7 +7,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   bool canExecuteAction = false;
 
   SonarrSeriesAddDetailsState({
-    @required this.series,
+    required this.series,
   });
 
   bool _monitored = true;
@@ -35,7 +35,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
         SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.data ?? true;
   }
 
-  SonarrSeriesType _seriesType;
+  late SonarrSeriesType _seriesType;
   SonarrSeriesType get seriesType => _seriesType;
   set seriesType(SonarrSeriesType seriesType) {
     assert(seriesType != null);
@@ -52,7 +52,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     );
   }
 
-  SonarrSeriesMonitorType _monitorType;
+  late SonarrSeriesMonitorType _monitorType;
   SonarrSeriesMonitorType get monitorType => _monitorType;
   set monitorType(SonarrSeriesMonitorType monitorType) {
     assert(monitorType != null);
@@ -69,7 +69,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     );
   }
 
-  SonarrRootFolder _rootFolder;
+  late SonarrRootFolder _rootFolder;
   SonarrRootFolder get rootFolder => _rootFolder;
   set rootFolder(SonarrRootFolder rootFolder) {
     assert(rootFolder != null);
@@ -87,7 +87,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     );
   }
 
-  SonarrQualityProfile _qualityProfile;
+  late SonarrQualityProfile _qualityProfile;
   SonarrQualityProfile get qualityProfile => _qualityProfile;
   set qualityProfile(SonarrQualityProfile qualityProfile) {
     assert(qualityProfile != null);
@@ -106,7 +106,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     );
   }
 
-  SonarrLanguageProfile _languageProfile;
+  late SonarrLanguageProfile _languageProfile;
   SonarrLanguageProfile get languageProfile => _languageProfile;
   set languageProfile(SonarrLanguageProfile languageProfile) {
     assert(languageProfile != null);
@@ -125,20 +125,20 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     );
   }
 
-  List<SonarrTag> _tags;
+  late List<SonarrTag> _tags;
   List<SonarrTag> get tags => _tags;
   set tags(List<SonarrTag> tags) {
     assert(tags != null);
     _tags = tags;
     SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS
-        .put((tags ?? []).map<int>((tag) => tag.id).toList());
+        .put((tags ?? []).map<int?>((tag) => tag.id).toList());
     notifyListeners();
   }
 
   void initializeTags(List<SonarrTag> tags) {
     _tags = (tags ?? [])
         .where((tag) =>
-            ((SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.data as List) ?? [])
+            ((SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.data as List?) ?? [])
                 .contains(tag.id))
         .toList();
   }

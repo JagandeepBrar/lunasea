@@ -8,8 +8,8 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   bool canExecuteAction = false;
 
   RadarrAddMovieDetailsState({
-    @required this.movie,
-    @required this.isDiscovery,
+    required this.movie,
+    required this.isDiscovery,
   });
 
   bool _monitored = true;
@@ -21,7 +21,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  RadarrAvailability _availability;
+  late RadarrAvailability _availability;
   RadarrAvailability get availability => _availability;
   set availability(RadarrAvailability availability) {
     assert(availability != null);
@@ -40,7 +40,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     );
   }
 
-  RadarrRootFolder _rootFolder;
+  late RadarrRootFolder _rootFolder;
   RadarrRootFolder get rootFolder => _rootFolder;
   set rootFolder(RadarrRootFolder rootFolder) {
     assert(rootFolder != null);
@@ -49,18 +49,18 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initializeRootFolder(List<RadarrRootFolder> rootFolders) {
+  void initializeRootFolder(List<RadarrRootFolder>? rootFolders) {
     _rootFolder = (rootFolders ?? []).firstWhere(
       (element) =>
           element.id ==
           RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
       orElse: () => (rootFolders?.length ?? 0) != 0
-          ? rootFolders[0]
+          ? rootFolders![0]
           : RadarrRootFolder(id: -1, freeSpace: 0, path: LunaUI.TEXT_EMDASH),
     );
   }
 
-  RadarrQualityProfile _qualityProfile;
+  late RadarrQualityProfile _qualityProfile;
   RadarrQualityProfile get qualityProfile => _qualityProfile;
   set qualityProfile(RadarrQualityProfile qualityProfile) {
     assert(qualityProfile != null);
@@ -70,13 +70,13 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
+  void initializeQualityProfile(List<RadarrQualityProfile>? qualityProfiles) {
     _qualityProfile = (qualityProfiles ?? []).firstWhere(
       (element) =>
           element.id ==
           RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.data,
       orElse: () => (qualityProfiles?.length ?? 0) != 0
-          ? qualityProfiles[0]
+          ? qualityProfiles![0]
           : RadarrQualityProfile(id: -1, name: LunaUI.TEXT_EMDASH),
     );
   }
@@ -87,14 +87,14 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     assert(tags != null);
     _tags = tags;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS
-        .put((tags ?? []).map<int>((tag) => tag.id).toList());
+        .put((tags ?? []).map<int?>((tag) => tag.id).toList());
     notifyListeners();
   }
 
-  void initializeTags(List<RadarrTag> tags) {
+  void initializeTags(List<RadarrTag>? tags) {
     _tags = (tags ?? [])
         .where((tag) =>
-            ((RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.data as List) ?? [])
+            ((RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.data as List?) ?? [])
                 .contains(tag.id))
         .toList();
   }

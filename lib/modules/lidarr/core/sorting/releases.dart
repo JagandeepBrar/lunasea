@@ -47,7 +47,7 @@ extension LidarrReleasesSortingExtension on LidarrReleasesSorting {
   }
 
   List<LidarrReleaseData> sort(List data, bool ascending) =>
-      _Sorter().byType(data, this, ascending);
+      _Sorter().byType(data, this, ascending) as List<LidarrReleaseData>;
 }
 
 class _Sorter {

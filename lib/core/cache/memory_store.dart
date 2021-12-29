@@ -9,16 +9,16 @@ class LunaMemoryStore {
 
   /// Returns a cache with the given ID.
   static Cache get({
-    @required String id,
-    @required bool fresh,
-    EvictionPolicy evictionPolicy,
-    ExpiryPolicy expiryPolicy,
-    int maxEntries,
-    KeySampler sampler,
-    EventListenerMode eventListenerMode,
-    Future<dynamic> Function(String) cacheLoader,
+    required String? id,
+    required bool fresh,
+    EvictionPolicy? evictionPolicy,
+    ExpiryPolicy? expiryPolicy,
+    int? maxEntries,
+    KeySampler? sampler,
+    EventListenerMode? eventListenerMode,
+    Future<dynamic> Function(String)? cacheLoader,
   }) {
-    if (fresh) remove(id);
+    if (fresh) remove(id!);
     return _store.cache(
       cacheName: id,
       sampler: sampler,

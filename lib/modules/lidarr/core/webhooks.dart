@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class LidarrWebhooks extends LunaWebhooks {
   @override
   Future<void> handle(Map<dynamic, dynamic> data) async {
-    _EventType event = _EventType.GRAB.fromKey(data['event']);
+    _EventType? event = _EventType.GRAB.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
         'LidarrWebhooks',
@@ -23,8 +23,8 @@ enum _EventType {
   TEST,
 }
 
-extension _EventTypeExtension on _EventType {
-  _EventType fromKey(String key) {
+extension _EventTypeExtension on _EventType? {
+  _EventType? fromKey(String? key) {
     switch (key) {
       case 'Download':
         return _EventType.DOWNLOAD;

@@ -20,7 +20,7 @@ class _DashboardHomeRoute extends StatefulWidget {
 
 class _State extends State<_DashboardHomeRoute> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _State extends State<_DashboardHomeRoute> {
       module: LunaModule.DASHBOARD,
       body: _body(),
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
     );
   }

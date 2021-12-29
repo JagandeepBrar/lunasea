@@ -7,7 +7,7 @@ class RadarrReleasesRouter extends RadarrPageRouter {
 
   @override
   Widget widget({
-    @required int movieId,
+    required int movieId,
   }) {
     return _Widget(movieId: movieId);
   }
@@ -15,13 +15,13 @@ class RadarrReleasesRouter extends RadarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required int movieId,
+    required int? movieId,
   }) async {
     LunaRouter.router.navigateTo(context, route(movieId: movieId));
   }
 
   @override
-  String route({@required int movieId}) {
+  String route({required int? movieId}) {
     return fullRoute.replaceFirst(
       ':movieid',
       movieId.toString(),
@@ -33,9 +33,9 @@ class RadarrReleasesRouter extends RadarrPageRouter {
     super.withParameterRouteDefinition(
       router,
       (context, params) {
-        int movieId = params['movieid'] == null || params['movieid'].isEmpty
+        int movieId = params['movieid'] == null || params['movieid']!.isEmpty
             ? -1
-            : (int.tryParse(params['movieid'][0]) ?? -1);
+            : (int.tryParse(params['movieid']![0]) ?? -1);
         return _Widget(movieId: movieId);
       },
     );
@@ -46,8 +46,8 @@ class _Widget extends StatefulWidget {
   final int movieId;
 
   const _Widget({
-    Key key,
-    @required this.movieId,
+    Key? key,
+    required this.movieId,
   }) : super(key: key);
 
   @override
@@ -71,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => RadarrReleasesState(context, widget.movieId),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(context),
+        appBar: _appBar(context) as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -105,7 +105,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               );
             }
             return LunaMessage.error(
-              onTap: () => _refreshKey.currentState.show,
+              onTap: () => _refreshKey.currentState!.show,
             );
           }
           if (snapshot.hasData) return _list(context, snapshot.data);
@@ -115,14 +115,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(BuildContext context, List<RadarrRelease> releases) {
+  Widget _list(BuildContext context, List<RadarrRelease>? releases) {
     return Consumer<RadarrReleasesState>(
       builder: (context, state, _) {
         if ((releases?.length ?? 0) == 0) {
           return LunaMessage(
             text: 'No Releases Found',
             buttonText: 'Refresh',
-            onTap: _refreshKey.currentState.show,
+            onTap: _refreshKey.currentState!.show,
           );
         }
         List<RadarrRelease> _processed = _filterAndSortReleases(
@@ -152,7 +152,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       (release) {
         String _query = state.searchQuery;
         if (_query != null && _query.isNotEmpty) {
-          return release.title.toLowerCase().contains(_query.toLowerCase());
+          return release.title!.toLowerCase().contains(_query.toLowerCase());
         }
         return release != null;
       },

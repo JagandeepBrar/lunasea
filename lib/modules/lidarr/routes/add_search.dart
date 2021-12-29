@@ -6,7 +6,7 @@ class LidarrAddSearch extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/add/search';
 
   const LidarrAddSearch({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
-  Future<List<LidarrSearchData>> _future;
+  Future<List<LidarrSearchData>>? _future;
   List<String> _availableIDs = [];
 
   @override
@@ -30,19 +30,19 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         body: _body(),
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
       );
 
   Future<void> _refresh() async {
     final _model = Provider.of<LidarrState>(context, listen: false);
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     setState(() {
       _future = _api.searchArtists(_model.addSearchQuery);
     });
   }
 
   Future<void> _fetchAvailableArtists() async {
-    await LidarrAPI.from(Database.currentProfileObject)
+    await LidarrAPI.from(Database.currentProfileObject!)
         .getAllArtistIDs()
         .then((data) => _availableIDs = data)
         .catchError((error) => _availableIDs = []);
@@ -76,7 +76,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) return _list(snapshot.data);
@@ -86,7 +86,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(List<LidarrSearchData> data) {
+  Widget _list(List<LidarrSearchData>? data) {
     if ((data?.length ?? 0) == 0)
       return LunaListView(
         controller: scrollController,
@@ -96,7 +96,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: data.length,
+      itemCount: data!.length,
       itemBuilder: (context, index) => LidarrAddSearchResultTile(
         data: data[index],
         alreadyAdded: _availableIDs.contains(data[index].foreignArtistId),

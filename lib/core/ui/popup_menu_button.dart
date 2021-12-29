@@ -4,12 +4,12 @@ import 'package:lunasea/core.dart';
 
 class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
   LunaPopupMenuButton({
-    Key key,
-    IconData icon,
-    Widget child,
-    @required void Function(T) onSelected,
-    @required List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder,
-    String tooltip,
+    Key? key,
+    IconData? icon,
+    Widget? child,
+    required void Function(T) onSelected,
+    required List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder,
+    String? tooltip,
   }) : super(
           key: key,
           shape: LunaUI.shapeBorder,

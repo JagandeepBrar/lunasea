@@ -7,9 +7,9 @@ class SonarrReleasesRouter extends SonarrPageRouter {
 
   @override
   Widget widget({
-    int episodeId,
-    int seriesId,
-    int seasonNumber,
+    int? episodeId,
+    int? seriesId,
+    int? seasonNumber,
   }) =>
       _Widget(
         episodeId: episodeId,
@@ -20,9 +20,9 @@ class SonarrReleasesRouter extends SonarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    int episodeId,
-    int seriesId,
-    int seasonNumber,
+    int? episodeId,
+    int? seriesId,
+    int? seasonNumber,
   }) async =>
       LunaRouter.router.navigateTo(
         context,
@@ -35,9 +35,9 @@ class SonarrReleasesRouter extends SonarrPageRouter {
 
   @override
   String route({
-    int episodeId,
-    int seriesId,
-    int seasonNumber,
+    int? episodeId,
+    int? seriesId,
+    int? seasonNumber,
   }) {
     if (episodeId != null) {
       return '$fullRoute/episode/$episodeId';
@@ -54,10 +54,10 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       '$fullRoute/episode/:episodeid',
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!context.read<SonarrState>().enabled) {
+          if (!context!.read<SonarrState>().enabled!) {
             return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
           }
-          int episodeId = int.tryParse(params['episodeid'][0]) ?? -1;
+          int episodeId = int.tryParse(params['episodeid']![0]) ?? -1;
           return _Widget(
             episodeId: episodeId,
           );
@@ -69,11 +69,11 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       '$fullRoute/series/:seriesid/season/:seasonnumber',
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!context.read<SonarrState>().enabled) {
+          if (!context!.read<SonarrState>().enabled!) {
             return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
           }
-          int seriesId = int.tryParse(params['seriesid'][0]) ?? -1;
-          int seasonNumber = int.tryParse(params['seasonnumber'][0]) ?? -1;
+          int seriesId = int.tryParse(params['seriesid']![0]) ?? -1;
+          int seasonNumber = int.tryParse(params['seasonnumber']![0]) ?? -1;
           return _Widget(
             seriesId: seriesId,
             seasonNumber: seasonNumber,
@@ -86,12 +86,12 @@ class SonarrReleasesRouter extends SonarrPageRouter {
 }
 
 class _Widget extends StatefulWidget {
-  final int episodeId;
-  final int seriesId;
-  final int seasonNumber;
+  final int? episodeId;
+  final int? seriesId;
+  final int? seasonNumber;
 
   const _Widget({
-    Key key,
+    Key? key,
     this.episodeId,
     this.seriesId,
     this.seasonNumber,
@@ -117,7 +117,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(context),
+        appBar: _appBar(context) as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -151,7 +151,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               );
             }
             return LunaMessage.error(
-              onTap: () => _refreshKey.currentState.show,
+              onTap: () => _refreshKey.currentState!.show,
             );
           }
           if (snapshot.hasData) return _list(context, snapshot.data);
@@ -161,14 +161,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(BuildContext context, List<SonarrRelease> releases) {
+  Widget _list(BuildContext context, List<SonarrRelease>? releases) {
     return Consumer<SonarrReleasesState>(
       builder: (context, state, _) {
         if (releases?.isEmpty ?? true) {
           return LunaMessage(
             text: 'sonarr.NoReleasesFound'.tr(),
             buttonText: 'lunasea.Refresh'.tr(),
-            onTap: _refreshKey.currentState.show,
+            onTap: _refreshKey.currentState!.show,
           );
         }
         List<SonarrRelease> _processed = _filterAndSortReleases(
@@ -198,7 +198,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       (release) {
         String _query = state.searchQuery;
         if (_query != null && _query.isNotEmpty) {
-          return release.title.toLowerCase().contains(_query.toLowerCase());
+          return release.title!.toLowerCase().contains(_query.toLowerCase());
         }
         return release != null;
       },

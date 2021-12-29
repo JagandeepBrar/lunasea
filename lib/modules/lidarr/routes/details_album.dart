@@ -9,9 +9,9 @@ class LidarrDetailsAlbumArguments {
   final bool monitored;
 
   LidarrDetailsAlbumArguments({
-    @required this.title,
-    @required this.albumID,
-    @required this.monitored,
+    required this.title,
+    required this.albumID,
+    required this.monitored,
   });
 }
 
@@ -19,7 +19,7 @@ class LidarrDetailsAlbum extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/details/album';
 
   const LidarrDetailsAlbum({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,15 +31,15 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
 
-  LidarrDetailsAlbumArguments _arguments;
-  Future<List<LidarrTrackData>> _future;
-  List<LidarrTrackData> _results;
+  LidarrDetailsAlbumArguments? _arguments;
+  Future<List<LidarrTrackData>>? _future;
+  List<LidarrTrackData>? _results;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context).settings.arguments;
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      _arguments = ModalRoute.of(context)!.settings.arguments as LidarrDetailsAlbumArguments?;
       _refresh();
     });
   }
@@ -47,7 +47,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   Future<void> _refresh() async {
     _results = [];
     setState(() {
-      _future = LidarrAPI.from(Database.currentProfileObject)
+      _future = LidarrAPI.from(Database.currentProfileObject!)
           .getAlbumTracks(_arguments?.albumID);
     });
   }
@@ -56,11 +56,11 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         body: _body,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
       );
 
   Widget get _appBar => LunaAppBar(
-        title: _arguments == null ? 'Details Album' : _arguments.title,
+        title: _arguments == null ? 'Details Album' : _arguments!.title,
         scrollControllers: [scrollController],
         actions: <Widget>[
           LunaIconButton(
@@ -71,7 +71,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
         ],
       );
 
-  Widget get _body => _arguments == null
+  Widget? get _body => _arguments == null
       ? null
       : LunaRefreshIndicator(
           context: context,
@@ -108,10 +108,10 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
     }
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: _results.length,
+      itemCount: _results!.length,
       itemBuilder: (context, index) {
         return LidarrDetailsTrackTile(
-          data: _results[index],
+          data: _results![index],
           monitored: _arguments?.monitored ?? false,
         );
       },
@@ -119,11 +119,11 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   }
 
   Future<void> _automaticSearch() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-    _api.searchAlbums([_arguments.albumID]).then((_) {
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    _api.searchAlbums([_arguments!.albumID]).then((_) {
       showLunaSuccessSnackBar(
         title: 'Searching...',
-        message: _arguments.title,
+        message: _arguments!.title,
       );
     }).catchError((error, stack) {
       LunaLogger().error('Failed to search for album', error, stack);
@@ -137,8 +137,8 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   Future<void> _manualSearch() async => Navigator.of(context).pushNamed(
         LidarrSearchResults.ROUTE_NAME,
         arguments: LidarrSearchResultsArguments(
-          title: _arguments.title,
-          albumID: _arguments.albumID,
+          title: _arguments!.title,
+          albumID: _arguments!.albumID,
         ),
       );
 }

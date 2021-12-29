@@ -4,12 +4,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsArtistArguments {
-  LidarrCatalogueData data;
-  final int artistID;
+  LidarrCatalogueData? data;
+  final int? artistID;
 
   LidarrDetailsArtistArguments({
-    @required this.data,
-    @required this.artistID,
+    required this.data,
+    required this.artistID,
   });
 }
 
@@ -17,7 +17,7 @@ class LidarrDetailsArtist extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/details/artist';
 
   const LidarrDetailsArtist({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,14 +27,14 @@ class LidarrDetailsArtist extends StatefulWidget {
 class _State extends State<LidarrDetailsArtist> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final LunaPageController _pageController = LunaPageController(initialPage: 1);
-  LidarrDetailsArtistArguments _arguments;
+  LidarrDetailsArtistArguments? _arguments;
   bool _error = false;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context).settings.arguments;
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      _arguments = ModalRoute.of(context)!.settings.arguments as LidarrDetailsArtistArguments?;
       _fetch();
     });
   }
@@ -42,12 +42,12 @@ class _State extends State<LidarrDetailsArtist> {
   Future<void> _fetch() async {
     if (mounted) setState(() => _error = false);
     if (_arguments != null)
-      await LidarrAPI.from(Database.currentProfileObject)
-          .getArtist(_arguments.artistID)
+      await LidarrAPI.from(Database.currentProfileObject!)
+          .getArtist(_arguments!.artistID)
           .then((data) {
         if (mounted)
           setState(() {
-            _arguments.data = data;
+            _arguments!.data = data;
             _error = false;
           });
       }).catchError((error) {
@@ -58,12 +58,12 @@ class _State extends State<LidarrDetailsArtist> {
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar,
-        bottomNavigationBar: _arguments != null && _arguments.data != null
+        appBar: _appBar as PreferredSizeWidget?,
+        bottomNavigationBar: _arguments != null && _arguments!.data != null
             ? _bottomNavigationBar
             : null,
         body: _arguments != null
-            ? _arguments.data != null
+            ? _arguments!.data != null
                 ? _body
                 : _error
                     ? LunaMessage.error(onTap: _fetch)
@@ -72,18 +72,18 @@ class _State extends State<LidarrDetailsArtist> {
       );
 
   Widget get _appBar => LunaAppBar(
-        title: _arguments == null || _arguments.data == null
+        title: _arguments == null || _arguments!.data == null
             ? 'Artist Details'
-            : _arguments.data.title,
+            : _arguments!.data!.title,
         pageController: _pageController,
         scrollControllers: LidarrArtistNavigationBar.scrollControllers,
-        actions: _arguments == null || _arguments.data == null
+        actions: _arguments == null || _arguments!.data == null
             ? null
             : <Widget>[
                 const LidarrDetailsHideButton(),
-                LidarrDetailsEditButton(data: _arguments.data),
+                LidarrDetailsEditButton(data: _arguments!.data),
                 LidarrDetailsSettingsButton(
-                  data: _arguments.data,
+                  data: _arguments!.data,
                   remove: _removeCallback,
                 ),
               ],
@@ -93,8 +93,8 @@ class _State extends State<LidarrDetailsArtist> {
       LidarrArtistNavigationBar(pageController: _pageController);
 
   List<Widget> get _tabs => [
-        LidarrDetailsOverview(data: _arguments.data),
-        LidarrDetailsAlbumList(artistID: _arguments.data.artistID),
+        LidarrDetailsOverview(data: _arguments!.data),
+        LidarrDetailsAlbumList(artistID: _arguments!.data!.artistID),
       ];
 
   Widget get _body => PageView(

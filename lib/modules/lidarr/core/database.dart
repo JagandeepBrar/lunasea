@@ -45,9 +45,9 @@ class LidarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      LidarrDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      LidarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-imported values
@@ -65,7 +65,7 @@ class LidarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  LidarrDatabaseValue valueFromKey(String key) {
+  LidarrDatabaseValue? valueFromKey(String key) {
     for (LidarrDatabaseValue value in LidarrDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -95,8 +95,8 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

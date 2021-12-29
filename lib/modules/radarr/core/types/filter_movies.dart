@@ -19,8 +19,8 @@ enum RadarrMoviesFilter {
   CUTOFF_UNMET,
 }
 
-extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
-  String get key {
+extension RadarrMoviesFilterExtension on RadarrMoviesFilter? {
+  String? get key {
     switch (this) {
       case RadarrMoviesFilter.ALL:
         return 'all';
@@ -39,7 +39,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
     }
   }
 
-  String get readable {
+  String? get readable {
     switch (this) {
       case RadarrMoviesFilter.ALL:
         return 'radarr.All'.tr();
@@ -58,7 +58,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
     }
   }
 
-  RadarrMoviesFilter fromKey(String key) {
+  RadarrMoviesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return RadarrMoviesFilter.ALL;
@@ -84,7 +84,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
 class _Filterer {
   List<RadarrMovie> byType(
     List<RadarrMovie> movies,
-    RadarrMoviesFilter type,
+    RadarrMoviesFilter? type,
   ) {
     switch (type) {
       case RadarrMoviesFilter.ALL:
@@ -104,16 +104,16 @@ class _Filterer {
   }
 
   List<RadarrMovie> _monitored(List<RadarrMovie> movies) =>
-      movies.where((movie) => movie.monitored).toList();
+      movies.where((movie) => movie.monitored!).toList();
   List<RadarrMovie> _unmonitored(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.monitored).toList();
+      movies.where((movie) => !movie.monitored!).toList();
   List<RadarrMovie> _missing(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.hasFile && movie.monitored).toList();
+      movies.where((movie) => !movie.hasFile! && movie.monitored!).toList();
   List<RadarrMovie> _wanted(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.hasFile && movie.monitored).toList();
+      movies.where((movie) => !movie.hasFile! && movie.monitored!).toList();
   List<RadarrMovie> _cutoffUnmet(List<RadarrMovie> movies) => movies
       .where((movie) =>
-          (movie.hasFile && movie.movieFile.qualityCutoffNotMet) &&
-          movie.monitored)
+          (movie.hasFile! && movie.movieFile!.qualityCutoffNotMet!) &&
+          movie.monitored!)
       .toList();
 }

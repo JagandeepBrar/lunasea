@@ -6,11 +6,11 @@ import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
-  final Map<DateTime, List<CalendarData>> events;
+  final Map<DateTime, List<CalendarData>>? events;
 
   const DashboardCalendarWidget({
-    Key key,
-    @required this.events,
+    Key? key,
+    required this.events,
   }) : super(key: key);
 
   @override
@@ -19,9 +19,9 @@ class DashboardCalendarWidget extends StatefulWidget {
 
 class _State extends State<DashboardCalendarWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  DateTime _today;
-  DateTime _selected;
-  CalendarFormat _calendarFormat;
+  late DateTime _today;
+  DateTime? _selected;
+  late CalendarFormat _calendarFormat;
 
   final TextStyle dayTileStyle = const TextStyle(
     color: LunaColours.white,
@@ -45,17 +45,17 @@ class _State extends State<DashboardCalendarWidget> {
   );
 
   final double _calendarBulletSize = 8.0;
-  List<CalendarData> _selectedEvents;
+  List<CalendarData>? _selectedEvents;
 
   @override
   void initState() {
     super.initState();
-    DateTime _floored = context.read<DashboardState>().today.lunaFloor;
+    DateTime _floored = context.read<DashboardState>().today!.lunaFloor;
     _selected = _floored;
     _today = _floored;
-    _selectedEvents = widget.events[_floored] ?? [];
+    _selectedEvents = widget.events![_floored] ?? [];
     _calendarFormat = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-            as CalendarStartingSize)
+            as CalendarStartingSize?)
         .data;
   }
 
@@ -64,7 +64,7 @@ class _State extends State<DashboardCalendarWidget> {
     if (mounted)
       setState(() {
         _selected = selected.lunaFloor;
-        _selectedEvents = widget.events[selected.lunaFloor];
+        _selectedEvents = widget.events![selected.lunaFloor];
       });
   }
 
@@ -141,11 +141,11 @@ class _State extends State<DashboardCalendarWidget> {
         DashboardDatabaseValue.CALENDAR_STARTING_DAY.key,
         DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
       ]),
-      builder: (context, box, _) {
-        DateTime firstDay = context.watch<DashboardState>().today.subtract(
+      builder: (context, dynamic box, _) {
+        DateTime firstDay = context.watch<DashboardState>().today!.subtract(
               Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data),
             );
-        DateTime lastDay = context.watch<DashboardState>().today.add(
+        DateTime lastDay = context.watch<DashboardState>().today!.add(
               Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data),
             );
         return SafeArea(
@@ -161,13 +161,13 @@ class _State extends State<DashboardCalendarWidget> {
                 simpleSwipeConfig: const SimpleSwipeConfig(
                   verticalThreshold: 10.0,
                 ),
-                focusedDay: _selected,
+                focusedDay: _selected!,
                 firstDay: firstDay,
                 lastDay: lastDay,
                 //events: widget.events,
                 headerVisible: false,
                 startingDayOfWeek: (DashboardDatabaseValue
-                        .CALENDAR_STARTING_DAY.data as CalendarStartingDay)
+                        .CALENDAR_STARTING_DAY.data as CalendarStartingDay?)
                     .data,
                 selectedDayPredicate: (date) =>
                     date?.lunaFloor == _selected?.lunaFloor,
@@ -202,7 +202,7 @@ class _State extends State<DashboardCalendarWidget> {
                   weekendStyle: weekdayTitleStyle,
                   weekdayStyle: weekdayTitleStyle,
                 ),
-                eventLoader: (date) => widget.events[date.lunaFloor],
+                eventLoader: (date) => widget.events![date.lunaFloor]!,
                 calendarFormat: _calendarFormat,
                 availableCalendarFormats: const {
                   CalendarFormat.month: 'Month',
@@ -241,7 +241,7 @@ class _State extends State<DashboardCalendarWidget> {
           break;
         case CalendarSonarrData:
           CalendarSonarrData _event = event;
-          DateTime _airTime = _event.airTimeObject?.toLocal();
+          DateTime? _airTime = _event.airTimeObject?.toLocal();
           bool _isAired = _airTime?.isBefore(DateTime.now()) ?? false;
           if (!_event.hasFile && _isAired) counter++;
           break;
@@ -265,7 +265,7 @@ class _State extends State<DashboardCalendarWidget> {
     return Expanded(
       child: LunaListView(
         controller: DashboardNavigationBar.scrollControllers[1],
-        children: _selectedEvents.map(_entry).toList(),
+        children: _selectedEvents!.map(_entry).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
     );
@@ -287,12 +287,12 @@ class _State extends State<DashboardCalendarWidget> {
 
   List<List<Widget>> _buildScheduleDays() {
     List<List<Widget>> days = [];
-    List<DateTime> keys = widget.events.keys.toList();
+    List<DateTime> keys = widget.events!.keys.toList();
     keys.sort();
     for (var key in keys) {
       bool _showPastDays = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data;
       bool _dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
-      bool _dayHasEvents = widget.events[key].isNotEmpty;
+      bool _dayHasEvents = widget.events![key]!.isNotEmpty;
       if ((_showPastDays || _dayInFuture) && _dayHasEvents) {
         days.add(_day(key));
       }
@@ -302,8 +302,8 @@ class _State extends State<DashboardCalendarWidget> {
 
   List<Widget> _day(DateTime day) {
     List<Widget> listCards = [];
-    for (int i = 0; i < widget.events[day].length; i++)
-      listCards.add(_entry(widget.events[day][i]));
+    for (int i = 0; i < widget.events![day]!.length; i++)
+      listCards.add(_entry(widget.events![day]![i]));
     return [
       LunaHeader(text: DateFormat('EEEE / MMMM dd, y').format(day)),
       ...listCards,
@@ -311,16 +311,16 @@ class _State extends State<DashboardCalendarWidget> {
   }
 
   Widget _entry(CalendarData event) {
-    Map headers;
+    Map? headers;
     switch (event.runtimeType) {
       case CalendarLidarrData:
-        headers = Database.currentProfileObject.getLidarr()['headers'];
+        headers = Database.currentProfileObject!.getLidarr()['headers'];
         break;
       case CalendarRadarrData:
-        headers = Database.currentProfileObject.getRadarr()['headers'];
+        headers = Database.currentProfileObject!.getRadarr()['headers'];
         break;
       case CalendarSonarrData:
-        headers = Database.currentProfileObject.getSonarr()['headers'];
+        headers = Database.currentProfileObject!.getSonarr()['headers'];
         break;
       default:
         headers = const {};

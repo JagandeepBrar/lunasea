@@ -25,9 +25,9 @@ class SearchDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      SearchDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      SearchDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Primitive values
@@ -39,7 +39,7 @@ class SearchDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SearchDatabaseValue valueFromKey(String key) {
+  SearchDatabaseValue? valueFromKey(String key) {
     for (SearchDatabaseValue value in SearchDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -69,8 +69,8 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,

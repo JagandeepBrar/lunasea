@@ -6,8 +6,8 @@ class TautulliUserDetailsHistory extends StatefulWidget {
   final TautulliTableUser user;
 
   const TautulliUserDetailsHistory({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -26,13 +26,13 @@ class _State extends State<TautulliUserDetailsHistory>
   @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setUserHistory(
-          widget.user.userId,
-          context.read<TautulliState>().api.history.getHistory(
+          widget.user.userId!,
+          context.read<TautulliState>().api!.history.getHistory(
                 userId: widget.user.userId,
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
               ),
         );
-    await context.read<TautulliState>().userHistory[widget.user.userId];
+    await context.read<TautulliState>().userHistory[widget.user.userId!];
   }
 
   @override
@@ -52,7 +52,7 @@ class _State extends State<TautulliUserDetailsHistory>
         onRefresh: loadCallback,
         child: FutureBuilder(
           future:
-              context.watch<TautulliState>().userHistory[widget.user.userId],
+              context.watch<TautulliState>().userHistory[widget.user.userId!],
           builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting)
@@ -69,7 +69,7 @@ class _State extends State<TautulliUserDetailsHistory>
         ),
       );
 
-  Widget _history(TautulliHistory history) {
+  Widget _history(TautulliHistory? history) {
     if ((history?.records ?? 0) == 0)
       return LunaMessage(
         text: 'No History Found',
@@ -78,9 +78,9 @@ class _State extends State<TautulliUserDetailsHistory>
       );
     return LunaListViewBuilder(
       controller: TautulliUserDetailsNavigationBar.scrollControllers[1],
-      itemCount: history.records.length,
+      itemCount: history!.records!.length,
       itemBuilder: (context, index) => TautulliHistoryTile(
-        history: history.records[index],
+        history: history.records![index],
       ),
     );
   }

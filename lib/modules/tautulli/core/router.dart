@@ -44,7 +44,7 @@ abstract class TautulliPageRouter extends LunaPageRouter {
         fullRoute,
         handler: Handler(
           handlerFunc: (context, params) {
-            if (!homeRoute && !context.read<TautulliState>().enabled) {
+            if (!homeRoute && !context!.read<TautulliState>().enabled!) {
               return LunaNotEnabledRoute(module: 'Tautulli');
             }
             return widget();
@@ -56,14 +56,14 @@ abstract class TautulliPageRouter extends LunaPageRouter {
   @override
   void withParameterRouteDefinition(
     FluroRouter router,
-    Widget Function(BuildContext, Map<String, List<String>>) handlerFunc, {
+    Widget Function(BuildContext?, Map<String, List<String>>) handlerFunc, {
     bool homeRoute = false,
   }) =>
       router.define(
         fullRoute,
         handler: Handler(
           handlerFunc: (context, params) {
-            if (!homeRoute && !context.read<TautulliState>().enabled) {
+            if (!homeRoute && !context!.read<TautulliState>().enabled!) {
               return LunaNotEnabledRoute(module: 'Tautulli');
             }
             return handlerFunc(context, params);

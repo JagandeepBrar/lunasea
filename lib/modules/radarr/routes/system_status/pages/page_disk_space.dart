@@ -6,8 +6,8 @@ class RadarrSystemStatusDiskSpacePage extends StatefulWidget {
   final ScrollController scrollController;
 
   const RadarrSystemStatusDiskSpacePage({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -36,8 +36,8 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
     context.read<RadarrSystemStatusState>().fetchDiskSpace(context);
     context.read<RadarrState>().fetchRootFolders();
     await Future.wait([
-      context.read<RadarrSystemStatusState>().diskSpace,
-      context.read<RadarrState>().rootFolders,
+      context.read<RadarrSystemStatusState>().diskSpace.then((value) => value!),
+      context.read<RadarrState>().rootFolders.then((value) => value!),
     ]);
   }
 
@@ -48,17 +48,17 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
       onRefresh: _refresh,
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<RadarrSystemStatusState>().diskSpace,
-          context.read<RadarrState>().rootFolders,
+          context.watch<RadarrSystemStatusState>().diskSpace.then((value) => value!),
+          context.read<RadarrState>().rootFolders.then((value) => value!),
         ]),
         builder: (context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasError) {
             LunaLogger().error('Unable to fetch Radarr disk space',
                 snapshot.error, snapshot.stackTrace);
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
-            return _list(snapshot.data[0], snapshot.data[1]);
+            return _list(snapshot.data![0], snapshot.data![1]);
           return const LunaLoader();
         },
       ),
@@ -71,7 +71,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
       return LunaMessage(
         text: 'No Disks Found',
         buttonText: 'Try Again',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     // Compile Disks
     List<Widget> _disks = [LunaMessage.inList(text: 'No Disks Found')];

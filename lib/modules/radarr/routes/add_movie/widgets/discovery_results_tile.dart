@@ -7,8 +7,8 @@ class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
   final bool onTapShowOverview;
 
   const RadarrAddMovieDiscoveryResultTile({
-    Key key,
-    @required this.movie,
+    Key? key,
+    required this.movie,
     this.onTapShowOverview = false,
   }) : super(key: key);
 
@@ -46,8 +46,8 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
   }
 
   Widget _subtitle2() {
-    String summary;
-    if (widget.movie.overview == null || widget.movie.overview.isEmpty) {
+    String? summary;
+    if (widget.movie.overview == null || widget.movie.overview!.isEmpty) {
       summary = 'radarr.NoSummaryIsAvailable'.tr();
     } else {
       summary = widget.movie.overview;
@@ -81,6 +81,6 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
     }
   }
 
-  Future<void> _onLongPress() async =>
+  Future<void>? _onLongPress() async =>
       widget.movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie();
 }

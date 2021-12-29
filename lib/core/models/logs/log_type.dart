@@ -16,8 +16,8 @@ enum LunaLogType {
   DEBUG,
 }
 
-extension LunaLogTypeExtension on LunaLogType {
-  LunaLogType fromKey(String key) {
+extension LunaLogTypeExtension on LunaLogType? {
+  LunaLogType? fromKey(String key) {
     switch (key) {
       case 'warning':
         return LunaLogType.WARNING;

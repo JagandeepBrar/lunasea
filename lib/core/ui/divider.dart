@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LunaDivider extends Divider {
   const LunaDivider({
-    Key key,
+    Key? key,
   }) : super(
           key: key,
           thickness: 1.0,

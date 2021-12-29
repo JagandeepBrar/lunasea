@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SonarrNavigationBar extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static List<ScrollController> scrollControllers = List.generate(
     icons.length,
     (_) => ScrollController(),
@@ -23,8 +23,8 @@ class SonarrNavigationBar extends StatelessWidget {
       ];
 
   const SonarrNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

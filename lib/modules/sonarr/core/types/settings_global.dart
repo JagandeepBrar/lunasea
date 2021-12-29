@@ -10,7 +10,7 @@ enum SonarrGlobalSettingsType {
   BACKUP_DATABASE,
 }
 
-extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
+extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType? {
   IconData get icon {
     switch (this) {
       case SonarrGlobalSettingsType.WEB_GUI:
@@ -60,7 +60,7 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<SonarrState>().host.lunaOpenGenericLink(
+      context.read<SonarrState>().host!.lunaOpenGenericLink(
             headers: context.read<SonarrState>().headers,
           );
   Future<void> _backupDatabase(BuildContext context) async =>

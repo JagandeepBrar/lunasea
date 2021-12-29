@@ -3,17 +3,17 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverviewInformationBlock extends StatelessWidget {
-  final SonarrSeries series;
-  final SonarrQualityProfile qualityProfile;
-  final SonarrLanguageProfile languageProfile;
+  final SonarrSeries? series;
+  final SonarrQualityProfile? qualityProfile;
+  final SonarrLanguageProfile? languageProfile;
   final List<SonarrTag> tags;
 
   const SonarrSeriesDetailsOverviewInformationBlock({
-    Key key,
-    @required this.series,
-    @required this.qualityProfile,
-    @required this.languageProfile,
-    @required this.tags,
+    Key? key,
+    required this.series,
+    required this.qualityProfile,
+    required this.languageProfile,
+    required this.tags,
   }) : super(key: key);
 
   @override

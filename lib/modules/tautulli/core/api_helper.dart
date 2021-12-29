@@ -5,13 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliAPIHelper {
   /// Backup Tautulli's configuration.
   Future<bool> backupConfiguration({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .system
           .backupConfig()
           .then((_) {
@@ -36,13 +36,13 @@ class TautulliAPIHelper {
 
   /// Backup Tautulli's database.
   Future<bool> backupDatabase({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .system
           .backupDB()
           .then((_) {
@@ -67,13 +67,13 @@ class TautulliAPIHelper {
 
   /// Delete cache.
   Future<bool> deleteCache({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .system
           .deleteCache()
           .then((_) {
@@ -98,13 +98,13 @@ class TautulliAPIHelper {
 
   /// Delete image cache.
   Future<bool> deleteImageCache({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .system
           .deleteImageCache()
           .then((_) {
@@ -129,13 +129,13 @@ class TautulliAPIHelper {
 
   /// Delete temporary sessions.
   Future<bool> deleteTemporarySessions({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .activity
           .deleteTempSessions()
           .then((_) {
@@ -160,15 +160,15 @@ class TautulliAPIHelper {
 
   /// Terminate an active session.
   Future<bool> terminateSession({
-    @required BuildContext context,
-    @required TautulliSession session,
-    String terminationMessage,
+    required BuildContext context,
+    required TautulliSession session,
+    String? terminationMessage,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled) {
+    if (context.read<TautulliState>().enabled!) {
       return await context
           .read<TautulliState>()
-          .api
+          .api!
           .activity
           .terminateSession(
             sessionId: session.sessionId,
@@ -180,7 +180,7 @@ class TautulliAPIHelper {
           message: [
             session.friendlyName,
             session.title,
-          ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+          ].join(LunaUI.TEXT_EMDASH.lunaPad()!),
         );
         return true;
       }).catchError((error, stack) {

@@ -3,14 +3,14 @@ import 'package:lunasea/core.dart';
 
 class LunaCard extends Card {
   LunaCard({
-    Key key,
-    @required BuildContext context,
-    @required Widget child,
+    Key? key,
+    required BuildContext context,
+    required Widget child,
     EdgeInsets margin = LunaUI.MARGIN_H_DEFAULT_V_HALF,
-    Color color,
-    Decoration decoration,
-    double height,
-    double width,
+    Color? color,
+    Decoration? decoration,
+    double? height,
+    double? width,
   }) : super(
           key: key,
           child: Container(

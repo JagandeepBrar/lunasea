@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 
 class LunaFirebaseResponse {
   final bool state;
-  final UserCredential user;
-  final FirebaseAuthException error;
+  final UserCredential? user;
+  final FirebaseAuthException? error;
 
   LunaFirebaseResponse({
-    @required this.state,
+    required this.state,
     this.user,
     this.error,
   });

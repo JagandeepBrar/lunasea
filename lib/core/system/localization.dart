@@ -39,8 +39,8 @@ enum LunaLanguage {
   TURKISH,
 }
 
-extension LunaLanguageExtension on LunaLanguage {
-  LunaLanguage fromLocale(Locale locale) {
+extension LunaLanguageExtension on LunaLanguage? {
+  LunaLanguage? fromLocale(Locale locale) {
     if (locale.toLanguageTag() == LunaLanguage.CHINESE_SIMPLIFIED.languageTag)
       return LunaLanguage.CHINESE_SIMPLIFIED;
     if (locale.toLanguageTag() == LunaLanguage.DUTCH.languageTag)

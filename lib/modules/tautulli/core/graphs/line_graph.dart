@@ -15,10 +15,10 @@ class TautulliLineGraphHelper {
           margin: 8.0,
           reservedSize: 8.0,
           getTitles: (value) =>
-              DateTime.tryParse((data.categories[value.truncate()])) != null
+              DateTime.tryParse(data.categories![value.truncate()]!) != null
                   ? DateFormat('dd')
                       .format(
-                          DateTime.parse((data.categories[value.truncate()])))
+                          DateTime.parse(data.categories![value.truncate()]!))
                       ?.toString()
                   : '??',
           getTextStyles: (_, __) => const TextStyle(
@@ -30,16 +30,16 @@ class TautulliLineGraphHelper {
 
   static List<LineChartBarData> lineBarsData(TautulliGraphData data) =>
       List<LineChartBarData>.generate(
-        data.series.length,
+        data.series!.length,
         (sIndex) => LineChartBarData(
           isCurved: true,
           isStrokeCapRound: true,
           barWidth: 3.0,
           colors: [LunaColours().byGraphLayer(sIndex)],
           spots: List<FlSpot>.generate(
-            data.series[sIndex].data.length,
+            data.series![sIndex].data!.length,
             (dIndex) => FlSpot(
-                dIndex.toDouble(), data.series[sIndex].data[dIndex].toDouble()),
+                dIndex.toDouble(), data.series![sIndex].data![dIndex]!.toDouble()),
           ),
           belowBarData: BarAreaData(
             show: true,
@@ -70,7 +70,7 @@ class TautulliLineGraphHelper {
       enabled: true,
       touchTooltipData: LineTouchTooltipData(
         tooltipBgColor:
-            LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
+            LunaTheme.isAMOLEDTheme! ? Colors.black : LunaColours.primary,
         tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
         tooltipPadding: const EdgeInsets.all(8.0),
         maxContentWidth: MediaQuery.of(context).size.width / 1.25,
@@ -80,8 +80,8 @@ class TautulliLineGraphHelper {
           return List<LineTooltipItem>.generate(
             spots.length,
             (index) {
-              String name = data.series[index].name;
-              int value = data.series[index].data[spots[index].spotIndex];
+              String? name = data.series![index].name;
+              int? value = data.series![index].data![spots[index].spotIndex];
               return LineTooltipItem(
                 [
                   '$name: ',

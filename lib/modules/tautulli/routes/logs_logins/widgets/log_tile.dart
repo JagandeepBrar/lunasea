@@ -6,8 +6,8 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
   final TautulliUserLoginRecord login;
 
   const TautulliLogsLoginsLogTile({
-    Key key,
-    @required this.login,
+    Key? key,
+    required this.login,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
       TextSpan(text: '${login.os}\n'),
       TextSpan(text: '${login.host}\n'),
       TextSpan(
-        text: login.timestamp.lunaDateTimeReadable(),
+        text: login.timestamp!.lunaDateTimeReadable(),
         style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -39,8 +39,8 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
       children: [
         LunaIconButton(
           icon:
-              login.success ? Icons.check_circle_rounded : Icons.cancel_rounded,
-          color: login.success ? Colors.white : LunaColours.red,
+              login.success! ? Icons.check_circle_rounded : Icons.cancel_rounded,
+          color: login.success! ? Colors.white : LunaColours.red,
         ),
       ],
       crossAxisAlignment: CrossAxisAlignment.center,

@@ -3,15 +3,15 @@ import 'package:lunasea/core.dart';
 
 class LunaListView extends StatelessWidget {
   final List<Widget> children;
-  final double itemExtent;
-  final EdgeInsetsGeometry padding;
+  final double? itemExtent;
+  final EdgeInsetsGeometry? padding;
   final ScrollPhysics physics;
-  final ScrollController controller;
+  final ScrollController? controller;
 
   const LunaListView({
-    Key key,
-    @required this.children,
-    @required this.controller,
+    Key? key,
+    required this.children,
+    required this.controller,
     this.itemExtent,
     this.padding,
     this.physics = const AlwaysScrollableScrollPhysics(),

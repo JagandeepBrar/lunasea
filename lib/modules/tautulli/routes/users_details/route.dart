@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -7,20 +8,20 @@ class TautulliUserDetailsRouter extends TautulliPageRouter {
 
   @override
   _Widget widget({
-    @required int userId,
+    required int userId,
   }) =>
       _Widget(userId: userId);
 
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required int userId,
+    required int? userId,
   }) async =>
       LunaRouter.router.navigateTo(context, route(userId: userId));
 
   @override
   String route({
-    @required int userId,
+    required int? userId,
   }) =>
       fullRoute.replaceFirst(':userid', userId.toString());
 
@@ -29,7 +30,7 @@ class TautulliUserDetailsRouter extends TautulliPageRouter {
         router,
         (context, params) {
           int userId = (params['userid']?.isNotEmpty ?? false)
-              ? int.tryParse(params['userid'][0]) ?? -1
+              ? int.tryParse(params['userid']![0]) ?? -1
               : -1;
           return _Widget(userId: userId);
         },
@@ -40,8 +41,8 @@ class _Widget extends StatefulWidget {
   final int userId;
 
   const _Widget({
-    Key key,
-    @required this.userId,
+    Key? key,
+    required this.userId,
   }) : super(key: key);
 
   @override
@@ -50,7 +51,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -66,10 +67,9 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     await context.read<TautulliState>().users;
   }
 
-  TautulliTableUser _findUser(TautulliUsersTable users) {
-    return users.users.firstWhere(
+  TautulliTableUser? _findUser(TautulliUsersTable users) {
+    return users.users!.firstWhereOrNull(
       (user) => user.userId == widget.userId,
-      orElse: () => null,
     );
   }
 
@@ -78,7 +78,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body,
     );
@@ -110,7 +110,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
               return LunaMessage.error(onTap: loadCallback);
             }
             if (snapshot.hasData) {
-              TautulliTableUser user = _findUser(snapshot.data);
+              TautulliTableUser? user = _findUser(snapshot.data!);
               if (user == null)
                 return LunaMessage.goBack(
                   context: context,

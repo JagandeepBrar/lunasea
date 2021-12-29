@@ -4,17 +4,17 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
 class CalendarAPI {
-  final Map<String, dynamic> lidarr;
-  final Map<String, dynamic> radarr;
-  final Map<String, dynamic> sonarr;
+  final Map<String, dynamic>? lidarr;
+  final Map<String, dynamic>? radarr;
+  final Map<String, dynamic>? sonarr;
 
   CalendarAPI._internal({
-    @required this.lidarr,
-    @required this.radarr,
-    @required this.sonarr,
+    required this.lidarr,
+    required this.radarr,
+    required this.sonarr,
   });
 
-  factory CalendarAPI.from(ProfileHiveObject profile) {
+  factory CalendarAPI.from(ProfileHiveObject? profile) {
     return CalendarAPI._internal(
       lidarr: profile?.getLidarr(),
       radarr: profile?.getRadarr(),
@@ -24,11 +24,11 @@ class CalendarAPI {
 
   Future<Map<DateTime, List<CalendarData>>> getUpcoming(DateTime today) async {
     Map<DateTime, List<CalendarData>> _upcoming = {};
-    if (lidarr['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
+    if (lidarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
       await _getLidarrUpcoming(_upcoming, today);
-    if (radarr['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
+    if (radarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
       await _getRadarrUpcoming(_upcoming, today);
-    if (sonarr['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data)
+    if (sonarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data)
       await _getSonarrUpcoming(_upcoming, today);
     return _upcoming;
   }
@@ -38,12 +38,12 @@ class CalendarAPI {
     DateTime today,
   ) async {
     Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(lidarr['headers']);
+        Map<String, dynamic>.from(lidarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${lidarr['host']}/api/v1/',
+        baseUrl: '${lidarr!['host']}/api/v1/',
         queryParameters: {
-          if (lidarr['key'] != '') 'apikey': lidarr['key'],
+          if (lidarr!['key'] != '') 'apikey': lidarr!['key'],
           'start': _startDate(today),
           'end': _endDate(today),
         },
@@ -55,7 +55,7 @@ class CalendarAPI {
     Response response = await _client.get('calendar');
     if (response.data.length > 0) {
       for (var entry in response.data) {
-        DateTime date =
+        DateTime? date =
             DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];
@@ -83,12 +83,12 @@ class CalendarAPI {
     DateTime today,
   ) async {
     Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(radarr['headers']);
+        Map<String, dynamic>.from(radarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${radarr['host']}/api/v3/',
+        baseUrl: '${radarr!['host']}/api/v3/',
         queryParameters: {
-          if (radarr['key'] != '') 'apikey': radarr['key'],
+          if (radarr!['key'] != '') 'apikey': radarr!['key'],
           'start': _startDate(today),
           'end': _endDate(today),
         },
@@ -100,19 +100,19 @@ class CalendarAPI {
     Response response = await _client.get('calendar');
     if (response.data.length > 0) {
       for (var entry in response.data) {
-        DateTime physicalRelease =
+        DateTime? physicalRelease =
             DateTime.tryParse(entry['physicalRelease'] ?? '')
                 ?.toLocal()
                 ?.lunaFloor;
-        DateTime digitalRelease =
+        DateTime? digitalRelease =
             DateTime.tryParse(entry['digitalRelease'] ?? '')
                 ?.toLocal()
                 ?.lunaFloor;
-        DateTime release;
+        DateTime? release;
         if (physicalRelease != null || digitalRelease != null) {
           if (physicalRelease == null) release = digitalRelease;
           if (digitalRelease == null) release = physicalRelease;
-          release ??= digitalRelease.isBefore(physicalRelease)
+          release ??= digitalRelease!.isBefore(physicalRelease!)
               ? digitalRelease
               : physicalRelease;
           if (release != null && _isDateWithinBounds(release, today)) {
@@ -140,12 +140,12 @@ class CalendarAPI {
     DateTime today,
   ) async {
     Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(sonarr['headers']);
+        Map<String, dynamic>.from(sonarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${sonarr['host']}/api/v3/',
+        baseUrl: '${sonarr!['host']}/api/v3/',
         queryParameters: {
-          if (sonarr['key'] != '') 'apikey': sonarr['key'],
+          if (sonarr!['key'] != '') 'apikey': sonarr!['key'],
           'start': _startDate(today),
           'end': _endDate(today),
         },
@@ -160,7 +160,7 @@ class CalendarAPI {
     });
     if (response.data.length > 0) {
       for (var entry in response.data) {
-        DateTime date =
+        DateTime? date =
             DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];

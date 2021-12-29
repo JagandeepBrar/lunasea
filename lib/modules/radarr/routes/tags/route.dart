@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
   }
 
   Future<void> _refresh() async {
@@ -40,7 +40,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -71,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 snapshot.stackTrace,
               );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -80,17 +80,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(List<RadarrTag> tags) {
+  Widget _list(List<RadarrTag>? tags) {
     if ((tags?.length ?? 0) == 0) {
       return LunaMessage(
         text: 'radarr.NoTagsFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     }
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: tags.length,
+      itemCount: tags!.length,
       itemBuilder: (context, index) => RadarrTagsTagTile(
         key: ObjectKey(tags[index].id),
         tag: tags[index],

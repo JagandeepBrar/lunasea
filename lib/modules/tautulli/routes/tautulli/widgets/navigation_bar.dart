@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliNavigationBar extends StatefulWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
 
@@ -22,8 +22,8 @@ class TautulliNavigationBar extends StatefulWidget {
       ];
 
   const TautulliNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class TautulliNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<TautulliNavigationBar> {
-  int _index;
+  int? _index;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _State extends State<TautulliNavigationBar> {
 
   void _pageControllerListener() {
     if ((widget.pageController?.page?.round() ?? _index) == _index) return;
-    setState(() => _index = widget.pageController.page.round());
+    setState(() => _index = widget.pageController!.page!.round());
   }
 
   @override
@@ -62,15 +62,15 @@ class _State extends State<TautulliNavigationBar> {
         FutureBuilder(
           future: context.watch<TautulliState>().activity,
           builder: (BuildContext context,
-                  AsyncSnapshot<TautulliActivity> snapshot) =>
+                  AsyncSnapshot<TautulliActivity?> snapshot) =>
               LunaNavigationBarBadge(
-            text: snapshot.hasData ? snapshot.data.streamCount.toString() : '?',
+            text: snapshot.hasData ? snapshot.data!.streamCount.toString() : '?',
             icon: TautulliNavigationBar.icons[0],
             isActive: _index == 0,
-            showBadge: context.read<TautulliState>().enabled &&
+            showBadge: context.read<TautulliState>().enabled! &&
                 _index != 0 &&
                 snapshot.hasData &&
-                snapshot.data.streamCount > 0,
+                snapshot.data!.streamCount! > 0,
           ),
         ),
         null,

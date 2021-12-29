@@ -7,7 +7,7 @@ class SABnzbdHistoryStagesArguments {
   SABnzbdHistoryData data;
 
   SABnzbdHistoryStagesArguments({
-    @required this.data,
+    required this.data,
   });
 }
 
@@ -15,7 +15,7 @@ class SABnzbdHistoryStages extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/history/stages';
 
   const SABnzbdHistoryStages({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,20 +25,20 @@ class SABnzbdHistoryStages extends StatefulWidget {
 class _State extends State<SABnzbdHistoryStages>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  SABnzbdHistoryStagesArguments _arguments;
+  SABnzbdHistoryStagesArguments? _arguments;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {
-          _arguments = ModalRoute.of(context).settings.arguments;
+    SchedulerBinding.instance!.addPostFrameCallback((_) => setState(() {
+          _arguments = ModalRoute.of(context)!.settings.arguments as SABnzbdHistoryStagesArguments?;
         }));
   }
 
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
         body: _body,
       );
 
@@ -47,27 +47,27 @@ class _State extends State<SABnzbdHistoryStages>
         scrollControllers: [scrollController],
       );
 
-  Widget get _body => _arguments == null
+  Widget? get _body => _arguments == null
       ? null
       : LunaListView(
           controller: scrollController,
           children: List.generate(
-            _arguments.data.stageLog.length,
+            _arguments!.data.stageLog.length,
             (index) => LunaBlock(
-              title: _arguments.data.stageLog[index]['name'],
+              title: _arguments!.data.stageLog[index]['name'],
               body: [
                 TextSpan(
-                  text: _arguments.data.stageLog[index]['actions'][0]
+                  text: _arguments!.data.stageLog[index]['actions'][0]
                       .replaceAll('<br/>', '.\n'),
                 ),
               ],
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
-                String _data = _arguments.data.stageLog[index]['actions']
+                String _data = _arguments!.data.stageLog[index]['actions']
                     .join(',\n')
                     .replaceAll('<br/>', '.\n');
                 LunaDialogs().textPreview(
-                    context, _arguments.data.stageLog[index]['name'], _data);
+                    context, _arguments!.data.stageLog[index]['name'], _data);
               },
             ),
           ),

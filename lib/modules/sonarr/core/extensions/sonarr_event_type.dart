@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-extension SonarrEventTypeLunaExtension on SonarrEventType {
+extension SonarrEventTypeLunaExtension on SonarrEventType? {
   Color lunaColour() {
     switch (this) {
       case SonarrEventType.EPISODE_FILE_RENAMED:
@@ -66,7 +66,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     }
   }
 
-  String lunaReadable(SonarrHistoryRecord record) {
+  String? lunaReadable(SonarrHistoryRecord record) {
     switch (this) {
       case SonarrEventType.EPISODE_FILE_RENAMED:
         return 'sonarr.EpisodeFileRenamed'.tr();
@@ -80,7 +80,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         return 'sonarr.DownloadFailed'.tr();
       case SonarrEventType.GRABBED:
         return 'sonarr.GrabbedFrom'.tr(
-          args: [record.data['indexer'] ?? 'lunasea.Unknown'.tr()],
+          args: [record.data!['indexer'] ?? 'lunasea.Unknown'.tr()],
         );
       case SonarrEventType.DOWNLOAD_IGNORED:
         return 'sonarr.DownloadIgnored'.tr();
@@ -91,8 +91,8 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
   }
 
   List<LunaTableContent> lunaTableContent({
-    @required SonarrHistoryRecord history,
-    @required bool showSourceTitle,
+    required SonarrHistoryRecord history,
+    required bool showSourceTitle,
   }) {
     switch (this) {
       case SonarrEventType.DOWNLOAD_FAILED:
@@ -125,7 +125,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         ),
       LunaTableContent(
         title: 'sonarr.Message'.tr(),
-        body: history.data['message'],
+        body: history.data!['message'],
       ),
     ];
   }
@@ -150,15 +150,15 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       ),
       LunaTableContent(
         title: 'sonarr.Client'.tr(),
-        body: history.data['downloadClient'] ?? LunaUI.TEXT_EMDASH,
+        body: history.data!['downloadClient'] ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'sonarr.Source'.tr(),
-        body: history.data['droppedPath'],
+        body: history.data!['droppedPath'],
       ),
       LunaTableContent(
         title: 'sonarr.ImportedTo'.tr(),
-        body: history.data['importedPath'],
+        body: history.data!['importedPath'],
       ),
     ];
   }
@@ -175,7 +175,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         ),
       LunaTableContent(
         title: 'sonarr.Message'.tr(),
-        body: history.data['message'],
+        body: history.data!['message'],
       ),
     ];
   }
@@ -184,7 +184,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     SonarrHistoryRecord history,
     bool showSourceTitle,
   ) {
-    String _reasonMapping(String reason) {
+    String _reasonMapping(String? reason) {
       switch (reason) {
         case 'Upgrade':
           return 'sonarr.DeleteReasonUpgrade'.tr();
@@ -205,7 +205,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         ),
       LunaTableContent(
         title: 'sonarr.Reason'.tr(),
-        body: _reasonMapping(history.data['reason']),
+        body: _reasonMapping(history.data!['reason']),
       ),
     ];
   }
@@ -216,19 +216,19 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
     return [
       LunaTableContent(
         title: 'sonarr.Source'.tr(),
-        body: history.data['sourcePath'],
+        body: history.data!['sourcePath'],
       ),
       LunaTableContent(
         title: 'sonarr.SourceRelative'.tr(),
-        body: history.data['sourceRelativePath'],
+        body: history.data!['sourceRelativePath'],
       ),
       LunaTableContent(
         title: 'sonarr.Destination'.tr(),
-        body: history.data['path'],
+        body: history.data!['path'],
       ),
       LunaTableContent(
         title: 'sonarr.DestinationRelative'.tr(),
-        body: history.data['relativePath'],
+        body: history.data!['relativePath'],
       ),
     ];
   }
@@ -253,32 +253,32 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       ),
       LunaTableContent(
         title: 'sonarr.Indexer'.tr(),
-        body: history.data['indexer'],
+        body: history.data!['indexer'],
       ),
       LunaTableContent(
         title: 'sonarr.ReleaseGroup'.tr(),
-        body: history.data['releaseGroup'],
+        body: history.data!['releaseGroup'],
       ),
       LunaTableContent(
         title: 'sonarr.InfoURL'.tr(),
-        body: history.data['nzbInfoUrl'],
-        bodyIsUrl: history.data['nzbInfoUrl'] != null,
+        body: history.data!['nzbInfoUrl'],
+        bodyIsUrl: history.data!['nzbInfoUrl'] != null,
       ),
       LunaTableContent(
         title: 'sonarr.Client'.tr(),
-        body: history.data['downloadClientName'],
+        body: history.data!['downloadClientName'],
       ),
       LunaTableContent(
         title: 'sonarr.DownloadID'.tr(),
-        body: history.data['downloadId'],
+        body: history.data!['downloadId'],
       ),
       LunaTableContent(
         title: 'sonarr.Age'.tr(),
-        body: double.tryParse(history.data['ageHours'])?.lunaHoursToAge(),
+        body: double.tryParse(history.data!['ageHours'])?.lunaHoursToAge(),
       ),
       LunaTableContent(
           title: 'sonarr.PublishedDate'.tr(),
-          body: DateTime.tryParse(history.data['publishedDate'])
+          body: DateTime.tryParse(history.data!['publishedDate'])
               ?.lunaDateTimeReadable(timeOnNewLine: true)),
     ];
   }

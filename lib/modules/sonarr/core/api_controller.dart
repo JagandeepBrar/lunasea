@@ -4,19 +4,19 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
   Future<bool> downloadRelease({
-    @required BuildContext context,
-    @required SonarrRelease release,
+    required BuildContext context,
+    required SonarrRelease release,
     bool showSnackbar = true,
   }) async {
     assert(release != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return context
           .read<SonarrState>()
-          .api
+          .api!
           .release
           .add(
-            indexerId: release.indexerId,
-            guid: release.guid,
+            indexerId: release.indexerId!,
+            guid: release.guid!,
           )
           .then((_) {
         if (showSnackbar) {
@@ -38,28 +38,28 @@ class SonarrAPIController {
           );
         }
         return false;
-      });
+      }) as FutureOr<bool>;
     }
     return false;
   }
 
   Future<bool> toggleEpisodeMonitored({
-    @required BuildContext context,
-    @required SonarrEpisode episode,
+    required BuildContext context,
+    required SonarrEpisode episode,
     bool showSnackbar = true,
   }) async {
     assert(episode != null);
     SonarrEpisode _episode = episode.clone();
-    _episode.monitored = !_episode.monitored;
-    if (context.read<SonarrState>().enabled) {
-      return context.read<SonarrState>().api.episode.setMonitored(
-        episodeIds: [_episode.id],
-        monitored: _episode.monitored,
+    _episode.monitored = !_episode.monitored!;
+    if (context.read<SonarrState>().enabled!) {
+      return context.read<SonarrState>().api!.episode.setMonitored(
+        episodeIds: [_episode.id!],
+        monitored: _episode.monitored!,
       ).then((_) {
         context.read<SonarrSeasonDetailsState>().setSingleEpisode(_episode);
         if (showSnackbar) {
           showLunaSuccessSnackBar(
-            title: _episode.monitored
+            title: _episode.monitored!
                 ? 'sonarr.Monitoring'.tr()
                 : 'sonarr.NoLongerMonitoring'.tr(),
             message: _episode.title,
@@ -73,34 +73,34 @@ class SonarrAPIController {
         );
         if (showSnackbar) {
           showLunaErrorSnackBar(
-            title: _episode.monitored
+            title: _episode.monitored!
                 ? 'sonarr.FailedToMonitorEpisode'.tr()
                 : 'sonarr.FailedToUnmonitorEpisode'.tr(),
             error: error,
           );
         }
         return false;
-      });
+      }) as FutureOr<bool>;
     }
     return false;
   }
 
   Future<bool> deleteEpisode({
-    @required BuildContext context,
-    @required SonarrEpisode episode,
-    @required SonarrEpisodeFile episodeFile,
+    required BuildContext context,
+    required SonarrEpisode episode,
+    required SonarrEpisodeFile episodeFile,
     bool showSnackbar = true,
   }) async {
     assert(episodeFile != null);
     assert(episode != null);
     SonarrEpisode _episode = episode.clone();
     _episode.hasFile = false;
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return context
           .read<SonarrState>()
-          .api
+          .api!
           .episodeFile
-          .delete(episodeFileId: episodeFile.id)
+          .delete(episodeFileId: episodeFile.id!)
           .then((response) {
         context.read<SonarrSeasonDetailsState>().setSingleEpisode(_episode);
         if (showSnackbar) {
@@ -122,23 +122,23 @@ class SonarrAPIController {
           );
         }
         return false;
-      });
+      }) as FutureOr<bool>;
     }
     return false;
   }
 
   Future<bool> episodeSearch({
-    @required BuildContext context,
-    @required SonarrEpisode episode,
+    required BuildContext context,
+    required SonarrEpisode episode,
     bool showSnackbar = true,
   }) async {
     assert(episode != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return context
           .read<SonarrState>()
-          .api
+          .api!
           .command
-          .episodeSearch(episodeIds: [episode.id]).then((response) {
+          .episodeSearch(episodeIds: [episode.id!]).then((response) {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.SearchingForEpisode'.tr(),
@@ -158,38 +158,38 @@ class SonarrAPIController {
           );
         }
         return false;
-      });
+      }) as FutureOr<bool>;
     }
     return false;
   }
 
   Future<bool> toggleSeasonMonitored({
-    @required BuildContext context,
-    @required SonarrSeriesSeason season,
-    @required int seriesId,
+    required BuildContext context,
+    required SonarrSeriesSeason season,
+    required int? seriesId,
     bool showSnackbar = true,
   }) async {
     assert(season != null);
-    if (context.read<SonarrState>().enabled) {
-      return context.read<SonarrState>().series.then((series) {
+    if (context.read<SonarrState>().enabled!) {
+      return context.read<SonarrState>().series!.then((series) {
         if (series[seriesId] == null) {
           throw Exception('Series does not exist in catalogue');
         }
-        return series[seriesId].clone();
+        return series[seriesId]!.clone();
       }).then((series) async {
-        series.seasons.forEach((seriesSeason) {
+        series.seasons!.forEach((seriesSeason) {
           if (seriesSeason.seasonNumber == season.seasonNumber) {
-            seriesSeason.monitored = !seriesSeason.monitored;
+            seriesSeason.monitored = !seriesSeason.monitored!;
           }
         });
-        await context.read<SonarrState>().api.series.update(series: series);
+        await context.read<SonarrState>().api!.series.update(series: series);
         return series;
       }).then((series) {
         return context.read<SonarrState>().setSingleSeries(series);
       }).then((series) {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
-            title: season.monitored
+            title: season.monitored!
                 ? 'sonarr.NoLongerMonitoring'.tr()
                 : 'sonarr.Monitoring'.tr(),
             message: season.seasonNumber == 0
@@ -200,13 +200,13 @@ class SonarrAPIController {
         return true;
       }).catchError((error, stack) {
         LunaLogger().error(
-          'Unable to toggle season monitored state: ${season.monitored.toString()} to ${(!season.monitored).toString()}',
+          'Unable to toggle season monitored state: ${season.monitored.toString()} to ${(!season.monitored!).toString()}',
           error,
           stack,
         );
         if (showSnackbar)
           showLunaErrorSnackBar(
-            title: season.monitored
+            title: season.monitored!
                 ? 'sonarr.FailedToUnmonitorSeason'.tr()
                 : 'sonarr.FailedToMonitorSeason'.tr(),
             error: error,
@@ -218,17 +218,17 @@ class SonarrAPIController {
   }
 
   Future<bool> toggleSeriesMonitored({
-    @required BuildContext context,
-    @required SonarrSeries series,
+    required BuildContext context,
+    required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
     assert(series != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       SonarrSeries seriesCopy = series.clone();
-      seriesCopy.monitored = !series.monitored;
+      seriesCopy.monitored = !series.monitored!;
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .series
           .update(series: seriesCopy)
           .then((data) async {
@@ -238,7 +238,7 @@ class SonarrAPIController {
             .then((_) {
           if (showSnackbar) {
             showLunaSuccessSnackBar(
-              title: seriesCopy.monitored
+              title: seriesCopy.monitored!
                   ? 'sonarr.Monitoring'.tr()
                   : 'sonarr.NoLongerMonitoring'.tr(),
               message: seriesCopy.title,
@@ -254,7 +254,7 @@ class SonarrAPIController {
         );
         if (showSnackbar)
           showLunaErrorSnackBar(
-            title: series.monitored
+            title: series.monitored!
                 ? 'sonarr.FailedToUnmonitorSeries'.tr()
                 : 'sonarr.FailedToMonitorSeries'.tr(),
             error: error,
@@ -266,15 +266,15 @@ class SonarrAPIController {
   }
 
   Future<bool> addTag({
-    @required BuildContext context,
-    @required String label,
+    required BuildContext context,
+    required String label,
     bool showSnackbar = true,
   }) async {
     assert(label != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .tag
           .create(label: label)
           .then((tag) {
@@ -297,15 +297,15 @@ class SonarrAPIController {
   }
 
   Future<bool> updateSeries({
-    @required BuildContext context,
-    @required SonarrSeries series,
+    required BuildContext context,
+    required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
     assert(series != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .series
           .update(series: series)
           .then((_) async {
@@ -338,11 +338,11 @@ class SonarrAPIController {
   }
 
   Future<bool> backupDatabase({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
-      return await context.read<SonarrState>().api.command.backup().then((_) {
+    if (context.read<SonarrState>().enabled!) {
+      return await context.read<SonarrState>().api!.command.backup().then((_) {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.BackingUpDatabase'.tr(args: [LunaUI.TEXT_ELLIPSIS]),
@@ -368,17 +368,17 @@ class SonarrAPIController {
   }
 
   Future<bool> automaticSeasonSearch({
-    @required BuildContext context,
-    @required int seriesId,
-    @required int seasonNumber,
+    required BuildContext context,
+    required int? seriesId,
+    required int? seasonNumber,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .command
-          .seasonSearch(seriesId: seriesId, seasonNumber: seasonNumber)
+          .seasonSearch(seriesId: seriesId!, seasonNumber: seasonNumber!)
           .then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -406,11 +406,11 @@ class SonarrAPIController {
   }
 
   Future<bool> runRSSSync({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
-      return await context.read<SonarrState>().api.command.rssSync().then((_) {
+    if (context.read<SonarrState>().enabled!) {
+      return await context.read<SonarrState>().api!.command.rssSync().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
             title: 'sonarr.RunningRSSSync'.tr(args: [LunaUI.TEXT_ELLIPSIS]),
@@ -435,13 +435,13 @@ class SonarrAPIController {
   }
 
   Future<bool> updateLibrary({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .command
           .refreshSeries()
           .then((_) {
@@ -469,13 +469,13 @@ class SonarrAPIController {
   }
 
   Future<bool> missingEpisodesSearch({
-    @required BuildContext context,
+    required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .command
           .missingEpisodeSearch()
           .then((_) {
@@ -503,15 +503,15 @@ class SonarrAPIController {
   }
 
   Future<bool> refreshSeries({
-    @required BuildContext context,
-    @required SonarrSeries series,
+    required BuildContext context,
+    required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
     assert(series != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .command
           .refreshSeries(seriesId: series.id)
           .then((_) {
@@ -539,18 +539,18 @@ class SonarrAPIController {
   }
 
   Future<bool> removeSeries({
-    @required BuildContext context,
-    @required SonarrSeries series,
+    required BuildContext context,
+    required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
     assert(series != null);
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .series
           .delete(
-            seriesId: series.id,
+            seriesId: series.id!,
             deleteFiles: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data,
             addImportListExclusion:
                 SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.data,
@@ -558,7 +558,7 @@ class SonarrAPIController {
           .then((_) async {
         return await context
             .read<SonarrState>()
-            .removeSingleSeries(series.id)
+            .removeSingleSeries(series.id!)
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
@@ -586,23 +586,23 @@ class SonarrAPIController {
     return false;
   }
 
-  Future<SonarrSeries> addSeries({
-    @required BuildContext context,
-    @required SonarrSeries series,
-    @required SonarrSeriesType seriesType,
-    @required bool seasonFolder,
-    @required SonarrQualityProfile qualityProfile,
-    @required SonarrLanguageProfile languageProfile,
-    @required SonarrRootFolder rootFolder,
-    @required SonarrSeriesMonitorType monitorType,
-    @required List<SonarrTag> tags,
+  Future<SonarrSeries?> addSeries({
+    required BuildContext context,
+    required SonarrSeries series,
+    required SonarrSeriesType seriesType,
+    required bool seasonFolder,
+    required SonarrQualityProfile qualityProfile,
+    required SonarrLanguageProfile languageProfile,
+    required SonarrRootFolder rootFolder,
+    required SonarrSeriesMonitorType monitorType,
+    required List<SonarrTag> tags,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       series.id = 0;
       return await context
           .read<SonarrState>()
-          .api
+          .api!
           .series
           .create(
             series: series,
@@ -644,16 +644,16 @@ class SonarrAPIController {
   }
 
   Future<bool> removeFromQueue({
-    @required BuildContext context,
-    @required SonarrQueueRecord queueRecord,
+    required BuildContext context,
+    required SonarrQueueRecord queueRecord,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled) {
+    if (context.read<SonarrState>().enabled!) {
       return context
           .read<SonarrState>()
-          .api
+          .api!
           .queue
-          .delete(id: queueRecord.id)
+          .delete(id: queueRecord.id!)
           .then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(

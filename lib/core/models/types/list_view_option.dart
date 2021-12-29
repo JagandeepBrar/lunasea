@@ -34,7 +34,7 @@ extension LunaListViewOptionExtension on LunaListViewOption {
     throw Exception('Invalid LunaListViewOption');
   }
 
-  LunaListViewOption fromKey(String key) {
+  LunaListViewOption? fromKey(String? key) {
     switch (key) {
       case 'BLOCK_VIEW':
         return LunaListViewOption.BLOCK_VIEW;

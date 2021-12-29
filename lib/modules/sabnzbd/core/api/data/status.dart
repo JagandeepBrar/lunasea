@@ -9,11 +9,11 @@ class SABnzbdStatusData {
   int speedlimit;
 
   SABnzbdStatusData({
-    @required this.paused,
-    @required this.speed,
-    @required this.sizeLeft,
-    @required this.timeLeft,
-    @required this.speedlimit,
+    required this.paused,
+    required this.speed,
+    required this.sizeLeft,
+    required this.timeLeft,
+    required this.speedlimit,
   });
 
   String get currentSpeed {

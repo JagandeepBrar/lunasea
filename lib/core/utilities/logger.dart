@@ -14,7 +14,7 @@ class LunaLogger {
         (FlutterErrorDetails details, {bool forceReport = false}) async {
       if (kDebugMode)
         FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
-      Zone.current.handleUncaughtError(details.exception, details.stack);
+      Zone.current.handleUncaughtError(details.exception, details.stack!);
     };
     _compactDatabase();
   }
@@ -67,7 +67,7 @@ class LunaLogger {
   }
 
   /// Log a new error-level log.
-  void error(String message, dynamic error, StackTrace stackTrace) {
+  void error(String message, dynamic error, StackTrace? stackTrace) {
     if (error is! NetworkImageLoadException) {
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.ERROR,

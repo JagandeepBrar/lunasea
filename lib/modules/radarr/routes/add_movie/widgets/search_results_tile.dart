@@ -9,10 +9,10 @@ class RadarrAddMovieSearchResultTile extends StatefulWidget {
   final bool isExcluded;
 
   const RadarrAddMovieSearchResultTile({
-    Key key,
-    @required this.movie,
-    @required this.exists,
-    @required this.isExcluded,
+    Key? key,
+    required this.movie,
+    required this.exists,
+    required this.isExcluded,
     this.onTapShowOverview = false,
   }) : super(key: key);
 
@@ -52,8 +52,8 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
   }
 
   Widget _subtitle2() {
-    String summary;
-    if (widget.movie.overview == null || widget.movie.overview.isEmpty) {
+    String? summary;
+    if (widget.movie.overview == null || widget.movie.overview!.isEmpty) {
       summary = 'radarr.NoSummaryIsAvailable'.tr();
     } else {
       summary = widget.movie.overview;
@@ -90,6 +90,6 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
     }
   }
 
-  Future<void> _onLongPress() async =>
+  Future<void>? _onLongPress() async =>
       widget.movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie();
 }

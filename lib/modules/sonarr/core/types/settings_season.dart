@@ -7,7 +7,7 @@ enum SonarrSeasonSettingsType {
   INTERACTIVE_SEARCH,
 }
 
-extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType {
+extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
   IconData get icon {
     switch (this) {
       case SonarrSeasonSettingsType.AUTOMATIC_SEARCH:
@@ -30,8 +30,8 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType {
 
   Future<void> execute(
     BuildContext context,
-    int seriesId,
-    int seasonNumber,
+    int? seriesId,
+    int? seasonNumber,
   ) async {
     switch (this) {
       case SonarrSeasonSettingsType.AUTOMATIC_SEARCH:

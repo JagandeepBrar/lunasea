@@ -6,11 +6,11 @@ part 'rootfolder.g.dart';
 @HiveType(typeId: 5, adapterName: 'DeprecatedRadarrRootFolderAdapter')
 class DeprecatedRadarrRootFolder extends HiveObject {
   @HiveField(0)
-  int id;
+  int? id;
   @HiveField(1)
-  String path;
+  String? path;
   @HiveField(2)
-  int freeSpace;
+  int? freeSpace;
 
   factory DeprecatedRadarrRootFolder.empty() => DeprecatedRadarrRootFolder(
         id: -1,
@@ -19,8 +19,8 @@ class DeprecatedRadarrRootFolder extends HiveObject {
       );
 
   DeprecatedRadarrRootFolder({
-    @required this.id,
-    @required this.path,
-    @required this.freeSpace,
+    required this.id,
+    required this.path,
+    required this.freeSpace,
   });
 }

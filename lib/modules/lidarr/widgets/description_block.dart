@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrDescriptionBlock extends StatefulWidget {
-  final String description;
+  final String? description;
   final String title;
   final String uri;
   final bool squareImage;
-  final Map headers;
-  final Function onLongPress;
+  final Map? headers;
+  final Function? onLongPress;
 
   const LidarrDescriptionBlock({
-    Key key,
-    @required this.description,
-    @required this.title,
-    @required this.uri,
-    @required this.headers,
+    Key? key,
+    required this.description,
+    required this.title,
+    required this.uri,
+    required this.headers,
     this.squareImage = false,
     this.onLongPress,
   }) : super(key: key);
@@ -38,7 +38,7 @@ class _State extends State<LidarrDescriptionBlock> {
       onTap: () async => LunaDialogs().textPreview(
         context,
         widget.title,
-        widget.description.trim() ?? 'No Summary Available',
+        widget.description!.trim() ?? 'No Summary Available',
       ),
       onLongPress: widget.onLongPress,
       customBodyMaxLines: 3,

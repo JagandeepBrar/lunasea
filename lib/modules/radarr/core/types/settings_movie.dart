@@ -9,11 +9,11 @@ enum RadarrMovieSettingsType {
   MONITORED,
 }
 
-extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
+extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType? {
   IconData icon(RadarrMovie movie) {
     switch (this) {
       case RadarrMovieSettingsType.MONITORED:
-        return movie.monitored
+        return movie.monitored!
             ? Icons.turned_in_not_rounded
             : Icons.turned_in_rounded;
       case RadarrMovieSettingsType.EDIT:
@@ -29,7 +29,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
   String name(RadarrMovie movie) {
     switch (this) {
       case RadarrMovieSettingsType.MONITORED:
-        return movie.monitored
+        return movie.monitored!
             ? 'radarr.UnmonitorMovie'.tr()
             : 'radarr.MonitorMovie'.tr();
       case RadarrMovieSettingsType.EDIT:

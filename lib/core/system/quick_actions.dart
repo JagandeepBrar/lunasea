@@ -20,22 +20,22 @@ class LunaQuickActions {
     if (isPlatformCompatible)
       _quickActions.setShortcutItems(<ShortcutItem>[
         if (LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data)
-          LunaModule.TAUTULLI.shortcutItem,
+          LunaModule.TAUTULLI.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_SONARR.data)
-          LunaModule.SONARR.shortcutItem,
+          LunaModule.SONARR.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data)
-          LunaModule.SEARCH.shortcutItem,
+          LunaModule.SEARCH.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data)
-          LunaModule.SABNZBD.shortcutItem,
+          LunaModule.SABNZBD.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_RADARR.data)
-          LunaModule.RADARR.shortcutItem,
+          LunaModule.RADARR.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR.data)
-          LunaModule.OVERSEERR.shortcutItem,
+          LunaModule.OVERSEERR.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data)
-          LunaModule.NZBGET.shortcutItem,
+          LunaModule.NZBGET.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data)
-          LunaModule.LIDARR.shortcutItem,
-        LunaModule.SETTINGS.shortcutItem,
+          LunaModule.LIDARR.shortcutItem!,
+        LunaModule.SETTINGS.shortcutItem!,
       ]);
   }
 

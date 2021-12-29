@@ -9,11 +9,11 @@ class NZBGetStatusData {
   int speedlimit;
 
   NZBGetStatusData({
-    @required this.paused,
-    @required this.speed,
-    @required this.remainingHigh,
-    @required this.remainingLow,
-    @required this.speedlimit,
+    required this.paused,
+    required this.speed,
+    required this.remainingHigh,
+    required this.remainingLow,
+    required this.speedlimit,
   });
 
   int get remaining {

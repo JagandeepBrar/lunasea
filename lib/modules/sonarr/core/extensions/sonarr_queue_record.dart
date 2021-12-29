@@ -6,9 +6,9 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
   Tuple3<String, IconData, Color> lunaStatusParameters({
     bool canBeWhite = true,
   }) {
-    SonarrQueueStatus _status = this.status;
-    SonarrTrackedDownloadStatus _tStatus = this.trackedDownloadStatus;
-    SonarrTrackedDownloadState _tState = this.trackedDownloadState;
+    SonarrQueueStatus? _status = this.status;
+    SonarrTrackedDownloadStatus? _tStatus = this.trackedDownloadStatus;
+    SonarrTrackedDownloadState? _tState = this.trackedDownloadState;
 
     String _title = 'sonarr.Downloading'.tr();
     IconData _icon = Icons.cloud_download_rounded;
@@ -99,8 +99,8 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
   String lunaPercentage() {
     if (this.sizeleft == null || this.size == null || this.size == 0)
       return '0%';
-    double sizeFetched = this.size - this.sizeleft;
-    int percentage = ((sizeFetched / this.size) * 100).round();
+    double sizeFetched = this.size! - this.sizeleft!;
+    int percentage = ((sizeFetched / this.size!) * 100).round();
     return '$percentage%';
   }
 

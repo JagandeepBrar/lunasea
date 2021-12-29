@@ -11,20 +11,20 @@ class RadarrCatalogueTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(2, hasBottom: true);
 
   final RadarrMovie movie;
-  final RadarrQualityProfile profile;
+  final RadarrQualityProfile? profile;
   final _RadarrCatalogueTileType type;
 
   const RadarrCatalogueTile({
-    Key key,
-    @required this.movie,
-    @required this.profile,
+    Key? key,
+    required this.movie,
+    required this.profile,
     this.type = _RadarrCatalogueTileType.TILE,
   }) : super(key: key);
 
   const RadarrCatalogueTile.grid({
-    Key key,
-    @required this.movie,
-    @required this.profile,
+    Key? key,
+    required this.movie,
+    required this.profile,
     this.type = _RadarrCatalogueTileType.GRID,
   }) : super(key: key);
 
@@ -35,7 +35,7 @@ class RadarrCatalogueTile extends StatefulWidget {
 class _State extends State<RadarrCatalogueTile> {
   @override
   Widget build(BuildContext context) {
-    return Selector<RadarrState, Future<List<RadarrMovie>>>(
+    return Selector<RadarrState, Future<List<RadarrMovie>>?>(
       selector: (_, state) => state.movies,
       builder: (context, movies, _) {
         switch (widget.type) {
@@ -58,7 +58,7 @@ class _State extends State<RadarrCatalogueTile> {
       posterHeaders: context.read<RadarrState>().headers,
       backgroundHeaders: context.read<RadarrState>().headers,
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      disabled: !widget.movie.monitored,
+      disabled: !widget.movie.monitored!,
       title: widget.movie.title,
       body: [
         _subtitle1(),
@@ -82,14 +82,14 @@ class _State extends State<RadarrCatalogueTile> {
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       title: widget.movie.title,
       subtitle: TextSpan(text: _sorting.value(widget.movie, widget.profile)),
-      disabled: !widget.movie.monitored,
+      disabled: !widget.movie.monitored!,
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
   }
 
-  TextSpan _buildChildTextSpan(String text, RadarrMoviesSorting sorting) {
-    TextStyle style;
+  TextSpan _buildChildTextSpan(String? text, RadarrMoviesSorting sorting) {
+    TextStyle? style;
     if (context.read<RadarrState>().moviesSortType == sorting)
       style = const TextStyle(
         color: LunaColours.accent,
@@ -187,11 +187,11 @@ class _State extends State<RadarrCatalogueTile> {
           _buildReleaseIcon(
             Icons.check_circle_rounded,
             LunaColours.accent,
-            widget.movie.hasFile,
+            widget.movie.hasFile!,
           ),
           Container(
             height: LunaBlock.SUBTITLE_HEIGHT,
-            child: widget.movie.hasFile
+            child: widget.movie.hasFile!
                 ? widget.movie.lunaHasFileTextObject()
                 : widget.movie.lunaNextReleaseTextObject(),
             alignment: Alignment.center,
@@ -205,7 +205,7 @@ class _State extends State<RadarrCatalogueTile> {
       RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
 
   Future<void> _onLongPress() async {
-    Tuple2<bool, RadarrMovieSettingsType> values =
+    Tuple2<bool, RadarrMovieSettingsType?> values =
         await RadarrDialogs().movieSettings(context, widget.movie);
     if (values.item1) values.item2.execute(context, widget.movie);
   }

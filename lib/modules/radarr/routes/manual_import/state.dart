@@ -7,9 +7,9 @@ class RadarrManualImportState extends ChangeNotifier {
     fetchDirectories(context, null);
   }
 
-  String _currentPath;
-  String get currentPath => _currentPath;
-  set currentPath(String path) {
+  String? _currentPath;
+  String? get currentPath => _currentPath;
+  set currentPath(String? path) {
     _currentPath = path;
     updateTextControllerText();
     notifyListeners();
@@ -17,18 +17,18 @@ class RadarrManualImportState extends ChangeNotifier {
 
   TextEditingController currentPathTextController = TextEditingController();
   void updateTextControllerText() {
-    currentPathTextController.text = _currentPath;
+    currentPathTextController.text = _currentPath!;
     currentPathTextController.selection =
-        TextSelection.fromPosition(TextPosition(offset: _currentPath.length));
+        TextSelection.fromPosition(TextPosition(offset: _currentPath!.length));
   }
 
-  Future<RadarrFileSystem> _directories;
-  Future<RadarrFileSystem> get directories => _directories;
-  void fetchDirectories(BuildContext context, String path) {
-    if (context.read<RadarrState>().enabled) {
+  Future<RadarrFileSystem>? _directories;
+  Future<RadarrFileSystem>? get directories => _directories;
+  void fetchDirectories(BuildContext context, String? path) {
+    if (context.read<RadarrState>().enabled!) {
       _directories = context
           .read<RadarrState>()
-          .api
+          .api!
           .fileSystem
           .get(
             path: path,

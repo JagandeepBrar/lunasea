@@ -7,7 +7,7 @@ class LunaInvalidRoute extends StatelessWidget {
   final String message;
 
   LunaInvalidRoute({
-    Key key,
+    Key? key,
     this.title = 'LunaSea',
     this.message = '404: Not Found',
   }) : super(key: key);

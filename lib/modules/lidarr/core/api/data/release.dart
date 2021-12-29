@@ -17,20 +17,20 @@ class LidarrReleaseData {
   List<dynamic> rejections;
 
   LidarrReleaseData({
-    @required this.title,
-    @required this.guid,
-    @required this.quality,
-    @required this.protocol,
-    @required this.indexer,
-    @required this.infoUrl,
-    @required this.approved,
-    @required this.releaseWeight,
-    @required this.size,
-    @required this.indexerId,
-    @required this.ageHours,
-    @required this.rejections,
-    @required this.seeders,
-    @required this.leechers,
+    required this.title,
+    required this.guid,
+    required this.quality,
+    required this.protocol,
+    required this.indexer,
+    required this.infoUrl,
+    required this.approved,
+    required this.releaseWeight,
+    required this.size,
+    required this.indexerId,
+    required this.ageHours,
+    required this.rejections,
+    required this.seeders,
+    required this.leechers,
   });
 
   bool get isTorrent {

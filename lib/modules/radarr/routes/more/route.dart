@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoreRoute extends StatefulWidget {
   const RadarrMoreRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

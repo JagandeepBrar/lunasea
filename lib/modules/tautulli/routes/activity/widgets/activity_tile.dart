@@ -7,8 +7,8 @@ class TautulliActivityTile extends StatelessWidget {
   final bool disableOnTap;
 
   const TautulliActivityTile({
-    Key key,
-    @required this.session,
+    Key? key,
+    required this.session,
     this.disableOnTap = false,
   }) : super(key: key);
 
@@ -120,6 +120,6 @@ class TautulliActivityTile extends StatelessWidget {
   Future<void> _enterDetails(BuildContext context) async =>
       TautulliActivityDetailsRouter().navigateTo(
         context,
-        sessionId: session.sessionId,
+        sessionId: session.sessionId!,
       );
 }

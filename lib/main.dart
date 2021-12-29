@@ -28,7 +28,7 @@ Future<void> main() async {
       LunaLocalization localization = LunaLocalization();
       return runApp(
         EasyLocalization(
-          supportedLocales: localization.supportedLocales,
+          supportedLocales: localization.supportedLocales as List<Locale>,
           path: localization.fileDirectory,
           fallbackLocale: localization.fallbackLocale,
           startLocale: localization.fallbackLocale,
@@ -43,7 +43,7 @@ Future<void> main() async {
 
 class LunaBIOS extends StatelessWidget {
   const LunaBIOS({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class LunaBIOS extends StatelessWidget {
           LunaDatabaseValue.THEME_AMOLED.key,
           LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
-        builder: (context, box, _) {
+        builder: (context, dynamic box, _) {
           return Layout(
             child: MaterialApp(
               localizationsDelegates: context.localizationDelegates,
@@ -76,7 +76,7 @@ class LunaBIOS extends StatelessWidget {
 
 class LunaOS extends StatefulWidget {
   const LunaOS({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -87,7 +87,7 @@ class _State extends State<LunaOS> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) => _boot());
+    SchedulerBinding.instance!.addPostFrameCallback((_) => _boot());
   }
 
   Future<void> _initNotifications() async {
@@ -104,7 +104,7 @@ class _State extends State<LunaOS> {
   Future<void> _boot() async {
     _initNotifications();
 
-    String tag = LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag;
+    String? tag = LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag;
     tag ??= LunaLanguage.ENGLISH.languageTag;
     Intl.defaultLocale = tag;
 

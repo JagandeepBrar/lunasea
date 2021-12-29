@@ -8,8 +8,8 @@ class NZBGetQueueFAB extends StatefulWidget {
   final ScrollController scrollController;
 
   const NZBGetQueueFAB({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -17,8 +17,8 @@ class NZBGetQueueFAB extends StatefulWidget {
 }
 
 class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
-  AnimationController _iconController;
-  AnimationController _hideController;
+  AnimationController? _iconController;
+  AnimationController? _hideController;
   bool _visible = true;
 
   @override
@@ -83,7 +83,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
             return data.item1
                 ? Container()
                 : ScaleTransition(
-                    scale: _hideController,
+                    scale: _hideController!,
                     child: InkWell(
                       child: LunaFloatingActionButtonAnimated(
                         controller: _iconController,
@@ -98,7 +98,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
 
   Future<void> _toggle(BuildContext context, bool paused) async {
     HapticFeedback.lightImpact();
-    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
+    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject!);
     paused ? _resume(context, _api) : _pause(context, _api);
   }
 
@@ -109,19 +109,19 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
       if (values[1] == -1) {
         List values = await NZBGetDialogs.customPauseFor(context);
         if (values[0])
-          await NZBGetAPI.from(Database.currentProfileObject)
+          await NZBGetAPI.from(Database.currentProfileObject!)
               .pauseQueueFor(values[1])
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message:
-                        'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
+                        'For ${(values[1] as int?).lunaDuration(multiplier: 60)}',
                   ))
               .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
                     error: error,
                   ));
       } else {
-        await NZBGetAPI.from(Database.currentProfileObject)
+        await NZBGetAPI.from(Database.currentProfileObject!)
             .pauseQueueFor(values[1])
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Pausing Queue',
@@ -137,11 +137,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
   }
 
   Future<void> _pause(BuildContext context, NZBGetAPI api) async {
-    _iconController.forward();
+    _iconController!.forward();
     await api.pauseQueue().then((_) {
       Provider.of<NZBGetState>(context, listen: false).paused = true;
     }).catchError((error) {
-      _iconController.reverse();
+      _iconController!.reverse();
       showLunaErrorSnackBar(
         title: 'Failed to Pause Queue',
         error: error,
@@ -150,11 +150,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
   }
 
   Future<void> _resume(BuildContext context, NZBGetAPI api) async {
-    _iconController.reverse();
+    _iconController!.reverse();
     return await api.resumeQueue().then((_) {
       Provider.of<NZBGetState>(context, listen: false).paused = false;
     }).catchError((error) {
-      _iconController.forward();
+      _iconController!.forward();
       showLunaErrorSnackBar(
         title: 'Failed to Resume Queue',
         error: error,

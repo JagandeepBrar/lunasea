@@ -3,19 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaIconButton extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final double iconSize;
-  final String text;
+  final String? text;
   final double textSize;
   final Color color;
-  final Function onPressed;
-  final Function onLongPress;
-  final LunaLoadingState loadingState;
+  final Function? onPressed;
+  final Function? onLongPress;
+  final LunaLoadingState? loadingState;
   final AlignmentGeometry alignment;
-  final MouseCursor mouseCursor;
+  final MouseCursor? mouseCursor;
 
   const LunaIconButton.arrow({
-    Key key,
+    Key? key,
     this.text,
     this.textSize = LunaUI.FONT_SIZE_H5,
     this.icon = LunaIcons.ARROW_RIGHT,
@@ -29,7 +29,7 @@ class LunaIconButton extends StatelessWidget {
   }) : super(key: key);
 
   const LunaIconButton.appBar({
-    Key key,
+    Key? key,
     this.text,
     this.textSize = LunaUI.FONT_SIZE_H5,
     this.icon,
@@ -43,7 +43,7 @@ class LunaIconButton extends StatelessWidget {
   }) : super(key: key);
 
   const LunaIconButton({
-    Key key,
+    Key? key,
     this.text,
     this.textSize = LunaUI.FONT_SIZE_H5,
     this.icon,
@@ -64,32 +64,32 @@ class LunaIconButton extends StatelessWidget {
         iconSize: iconSize,
         alignment: alignment,
         padding: EdgeInsets.zero,
-        onPressed: _onPressed(),
+        onPressed: _onPressed() as void Function()?,
         mouseCursor: mouseCursor ??
             (onPressed != null ? SystemMouseCursors.click : MouseCursor.defer),
       ),
       hoverColor: Colors.transparent,
       mouseCursor: mouseCursor ??
           (onLongPress != null ? SystemMouseCursors.click : MouseCursor.defer),
-      onLongPress: _onLongPress(),
+      onLongPress: _onLongPress() as void Function()?,
     );
   }
 
-  Function _onPressed() {
+  Function? _onPressed() {
     if (onPressed == null) return null;
     if (loadingState == LunaLoadingState.ACTIVE) return null;
     return () async {
       HapticFeedback.lightImpact();
-      onPressed();
+      onPressed!();
     };
   }
 
-  Function _onLongPress() {
+  Function? _onLongPress() {
     if (onLongPress == null) return null;
     if (loadingState == LunaLoadingState.ACTIVE) return null;
     return () async {
       HapticFeedback.heavyImpact();
-      onLongPress();
+      onLongPress!();
     };
   }
 
@@ -115,7 +115,7 @@ class LunaIconButton extends StatelessWidget {
       );
     } else {
       return Text(
-        text,
+        text!,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: color,

@@ -6,8 +6,8 @@ class SettingsAccountSignedOutPage extends StatefulWidget {
   final ScrollController scrollController;
 
   const SettingsAccountSignedOutPage({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -156,7 +156,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
       if (response.state) {
         showLunaSuccessSnackBar(
           title: 'settings.RegisteredSuccess'.tr(),
-          message: response.user.user.email,
+          message: response.user!.user!.email,
         );
       } else {
         showLunaErrorSnackBar(
@@ -183,7 +183,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
       if (response.state) {
         showLunaSuccessSnackBar(
           title: 'settings.SignedInSuccess'.tr(),
-          message: response.user.user.email,
+          message: response.user!.user!.email,
         );
       } else {
         showLunaErrorSnackBar(

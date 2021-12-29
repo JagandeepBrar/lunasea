@@ -6,8 +6,8 @@ class RadarrTagsTagTile extends StatefulWidget {
   final RadarrTag tag;
 
   const RadarrTagsTagTile({
-    Key key,
-    @required this.tag,
+    Key? key,
+    required this.tag,
   }) : super(key: key);
 
   @override
@@ -15,14 +15,14 @@ class RadarrTagsTagTile extends StatefulWidget {
 }
 
 class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
-  List<String> movieList;
+  List<String?>? movieList;
 
   @override
   Future<void> loadCallback() async {
-    await context.read<RadarrState>().movies.then((movies) {
-      List<String> _movies = [];
+    await context.read<RadarrState>().movies!.then((movies) {
+      List<String?> _movies = [];
       movies.forEach((element) {
-        if (element.tags.contains(widget.tag.id)) _movies.add(element.title);
+        if (element.tags!.contains(widget.tag.id)) _movies.add(element.title);
       });
       _movies.sort();
       if (mounted) setState(() => movieList = _movies);
@@ -43,12 +43,12 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
 
   String _subtitle() {
     if (movieList == null) return 'Loading...';
-    if (movieList.isEmpty) return 'No Movies';
-    if (movieList.length == 1) return '1 Movie';
-    return '${movieList.length} Movies';
+    if (movieList!.isEmpty) return 'No Movies';
+    if (movieList!.length == 1) return '1 Movie';
+    return '${movieList!.length} Movies';
   }
 
-  Widget _trailing() {
+  Widget? _trailing() {
     // Default to true, to not try to delete a tag that actually does have movies attached
     if (movieList?.isNotEmpty ?? true) return null;
     return LunaIconButton(
@@ -60,12 +60,12 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
 
   Future<void> _movieDialog() async {
     String data =
-        (movieList?.isEmpty ?? true) ? 'No Movies' : movieList.join('\n');
+        (movieList?.isEmpty ?? true) ? 'No Movies' : movieList!.join('\n');
     LunaDialogs().textPreview(context, 'Movie List', data);
   }
 
   Future<void> _delete() async {
-    if (movieList == null || movieList.isNotEmpty) {
+    if (movieList == null || movieList!.isNotEmpty) {
       showLunaErrorSnackBar(
         title: 'Cannot Delete Tag',
         message: 'The tag must not be attached to any movies',

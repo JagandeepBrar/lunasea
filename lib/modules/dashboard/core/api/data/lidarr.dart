@@ -4,19 +4,19 @@ import 'package:lunasea/modules/lidarr.dart';
 import './abstract.dart';
 
 class CalendarLidarrData extends CalendarData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getLidarr();
   String albumTitle;
   int artistId;
   int totalTrackCount;
   bool hasAllFiles;
 
   CalendarLidarrData({
-    @required int id,
-    @required String title,
-    @required this.albumTitle,
-    @required this.artistId,
-    @required this.hasAllFiles,
-    @required this.totalTrackCount,
+    required int id,
+    required String title,
+    required this.albumTitle,
+    required this.artistId,
+    required this.hasAllFiles,
+    required this.totalTrackCount,
   }) : super(id, title);
 
   @override
@@ -69,7 +69,7 @@ class CalendarLidarrData extends CalendarData {
 
   @override
   Future<void> trailingOnPress(BuildContext context) async {
-    await LidarrAPI.from(Database.currentProfileObject)
+    await LidarrAPI.from(Database.currentProfileObject!)
         .searchAlbums([id])
         .then((_) =>
             showLunaSuccessSnackBar(title: 'Searching...', message: albumTitle))

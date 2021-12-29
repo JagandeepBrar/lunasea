@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
-  final List<SonarrLanguageProfile> profiles;
+  final List<SonarrLanguageProfile?> profiles;
 
   const SonarrSeriesEditLanguageProfileTile({
-    Key key,
-    @required this.profiles,
+    Key? key,
+    required this.profiles,
   }) : super(key: key);
 
   @override
@@ -25,9 +25,9 @@ class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
   }
 
   Future<void> _onTap(BuildContext context) async {
-    Tuple2<bool, SonarrLanguageProfile> result =
+    Tuple2<bool, SonarrLanguageProfile?> result =
         await SonarrDialogs().editLanguageProfiles(context, profiles);
     if (result.item1)
-      context.read<SonarrSeriesEditState>().languageProfile = result.item2;
+      context.read<SonarrSeriesEditState>().languageProfile = result.item2!;
   }
 }

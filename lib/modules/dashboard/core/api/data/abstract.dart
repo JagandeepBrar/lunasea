@@ -5,8 +5,8 @@ abstract class CalendarData {
   String title;
   List<TextSpan> get body;
 
-  String backgroundUrl(BuildContext context);
-  String posterUrl(BuildContext context);
+  String? backgroundUrl(BuildContext context);
+  String? posterUrl(BuildContext context);
 
   Widget trailing(BuildContext context);
   Future<void> enterContent(BuildContext context);

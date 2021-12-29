@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMissingRoute extends StatefulWidget {
   const SonarrMissingRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -44,10 +44,10 @@ class _State extends State<SonarrMissingRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<SonarrState,
-          Tuple2<Future<Map<int, SonarrSeries>>, Future<SonarrMissing>>>(
+          Tuple2<Future<Map<int?, SonarrSeries>>?, Future<SonarrMissing>>>(
         selector: (_, state) => Tuple2(state.series, state.missing),
         builder: (context, tuple, _) => FutureBuilder(
-          future: Future.wait([tuple.item1, tuple.item2]),
+          future: Future.wait([tuple.item1.then((value) => value!), tuple.item2]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
@@ -61,8 +61,8 @@ class _State extends State<SonarrMissingRoute>
             }
             if (snapshot.hasData)
               return _episodes(
-                snapshot.data[0],
-                snapshot.data[1],
+                snapshot.data![0] as Map<int, SonarrSeries>,
+                snapshot.data![1] as SonarrMissing,
               );
             return const LunaLoader();
           },
@@ -80,11 +80,11 @@ class _State extends State<SonarrMissingRoute>
       );
     return LunaListViewBuilder(
       controller: SonarrNavigationBar.scrollControllers[2],
-      itemCount: missing.records.length,
+      itemCount: missing.records!.length,
       itemExtent: SonarrMissingTile.itemExtent,
       itemBuilder: (context, index) => SonarrMissingTile(
-        record: missing.records[index],
-        series: series[missing.records[index].seriesId],
+        record: missing.records![index],
+        series: series[missing.records![index].seriesId!],
       ),
     );
   }

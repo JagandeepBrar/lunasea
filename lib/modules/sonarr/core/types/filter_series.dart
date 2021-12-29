@@ -19,7 +19,7 @@ enum SonarrSeriesFilter {
   MISSING,
 }
 
-extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
+extension SonarrSeriesFilterExtension on SonarrSeriesFilter? {
   String get key {
     switch (this) {
       case SonarrSeriesFilter.ALL:
@@ -38,7 +38,7 @@ extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
     throw Exception('Invalid SonarrSeriesFilter');
   }
 
-  SonarrSeriesFilter fromKey(String key) {
+  SonarrSeriesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return SonarrSeriesFilter.ALL;
@@ -82,7 +82,7 @@ extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
 class _Sorter {
   List<SonarrSeries> byType(
     List<SonarrSeries> series,
-    SonarrSeriesFilter type,
+    SonarrSeriesFilter? type,
   ) {
     switch (type) {
       case SonarrSeriesFilter.ALL:
@@ -102,16 +102,16 @@ class _Sorter {
   }
 
   List<SonarrSeries> _monitored(List<SonarrSeries> series) =>
-      series.where((s) => s.monitored).toList();
+      series.where((s) => s.monitored!).toList();
 
   List<SonarrSeries> _unmonitored(List<SonarrSeries> series) =>
-      series.where((s) => !s.monitored).toList();
+      series.where((s) => !s.monitored!).toList();
 
   List<SonarrSeries> _continuing(List<SonarrSeries> series) =>
-      series.where((s) => !s.ended).toList();
+      series.where((s) => !s.ended!).toList();
 
   List<SonarrSeries> _ended(List<SonarrSeries> series) =>
-      series.where((s) => s.ended).toList();
+      series.where((s) => s.ended!).toList();
 
   List<SonarrSeries> _missing(List<SonarrSeries> series) {
     return series

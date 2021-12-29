@@ -7,8 +7,8 @@ class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;
 
   const LidarrReleasesTile({
-    Key key,
-    @required this.release,
+    Key? key,
+    required this.release,
   }) : super(key: key);
 
   @override
@@ -87,7 +87,7 @@ class _State extends State<LidarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+        text: widget.release.protocol.lunaCapitalizeFirstLetters()!,
         backgroundColor: lunaProtocolColor,
       ),
     ];
@@ -147,7 +147,7 @@ class _State extends State<LidarrReleasesTile> {
 
   Future<void> _startDownload() async {
     setState(() => _downloadState = LunaLoadingState.ACTIVE);
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
     await _api
         .downloadRelease(widget.release.guid, widget.release.indexerId)
         .then((_) {

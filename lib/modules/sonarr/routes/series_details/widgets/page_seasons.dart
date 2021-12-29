@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonsPage extends StatefulWidget {
-  final SonarrSeries series;
+  final SonarrSeries? series;
 
   const SonarrSeriesDetailsSeasonsPage({
-    Key key,
-    @required this.series,
+    Key? key,
+    required this.series,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class _State extends State<SonarrSeriesDetailsSeasonsPage> {
       key: _refreshKey,
       context: context,
       onRefresh: () async => context.read<SonarrState>().fetchSeries(
-            widget.series.id,
+            widget.series!.id!,
           ),
       child: _list(),
     );
@@ -44,11 +44,11 @@ class _State extends State<SonarrSeriesDetailsSeasonsPage> {
       return LunaMessage(
         text: 'sonarr.NoSeasonsFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     }
-    List<SonarrSeriesSeason> _seasons = widget.series.seasons;
-    _seasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
+    List<SonarrSeriesSeason> _seasons = widget.series!.seasons!;
+    _seasons.sort((a, b) => a.seasonNumber!.compareTo(b.seasonNumber!));
     return LunaListView(
       controller: SonarrSeriesDetailsNavigationBar.scrollControllers[1],
       children: [
@@ -57,8 +57,8 @@ class _State extends State<SonarrSeriesDetailsSeasonsPage> {
         ...List.generate(
           _seasons.length,
           (index) => SonarrSeriesDetailsSeasonTile(
-            seriesId: widget.series.id,
-            season: widget.series.seasons[_seasons.length - 1 - index],
+            seriesId: widget.series!.id,
+            season: widget.series!.seasons![_seasons.length - 1 - index],
           ),
         ),
       ],

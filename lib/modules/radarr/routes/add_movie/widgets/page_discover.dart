@@ -1,10 +1,11 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDiscoverPage extends StatefulWidget {
   const RadarrAddMovieDiscoverPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -40,13 +41,13 @@ class _State extends State<RadarrAddMovieDiscoverPage>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<RadarrState, Future<List<RadarrMovie>>>(
+      child: Selector<RadarrState, Future<List<RadarrMovie>>?>(
         selector: (_, state) => state.movies,
         builder: (context, movies, _) => Selector<RadarrAddMovieState,
-            Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrExclusion>>>>(
+            Tuple2<Future<List<RadarrMovie>>?, Future<List<RadarrExclusion>>?>>(
           selector: (_, state) => Tuple2(state.discovery, state.exclusions),
           builder: (context, tuple, _) => FutureBuilder(
-            future: Future.wait([movies, tuple.item1, tuple.item2]),
+            future: Future.wait([movies.then((value) => value!), tuple.item1.then((value) => value!), tuple.item2.then((value) => value!)]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
               if (snapshot.hasError) {
                 if (snapshot.connectionState != ConnectionState.waiting)
@@ -55,11 +56,11 @@ class _State extends State<RadarrAddMovieDiscoverPage>
                     snapshot.error,
                     snapshot.stackTrace,
                   );
-                return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                return LunaMessage.error(onTap: _refreshKey.currentState!.show);
               }
               if (snapshot.hasData)
                 return _list(
-                    snapshot.data[0], snapshot.data[1], snapshot.data[2]);
+                    snapshot.data![0] as List<RadarrMovie>, snapshot.data![1] as List<RadarrMovie>, snapshot.data![2] as List<RadarrExclusion>);
               return const LunaLoader();
             },
           ),
@@ -75,7 +76,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: RadarrAddMovieNavigationBar.scrollControllers[1],
@@ -96,9 +97,8 @@ class _State extends State<RadarrAddMovieDiscoverPage>
     if (exclusions?.isNotEmpty ?? false)
       _filtered = _filtered
           .where((discover) =>
-              exclusions.firstWhere(
+              exclusions.firstWhereOrNull(
                 (exclusion) => exclusion.tmdbId == discover.tmdbId,
-                orElse: () => null,
               ) ==
               null)
           .toList();
@@ -106,15 +106,14 @@ class _State extends State<RadarrAddMovieDiscoverPage>
     if (movies?.isNotEmpty ?? false)
       _filtered = _filtered
           .where((discover) =>
-              movies.firstWhere(
+              movies.firstWhereOrNull(
                 (movie) => movie.tmdbId == discover.tmdbId,
-                orElse: () => null,
               ) ==
               null)
           .toList();
     // Sort by the sort name
     _filtered.sort((a, b) =>
-        a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()));
+        a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase()));
     return _filtered;
   }
 }

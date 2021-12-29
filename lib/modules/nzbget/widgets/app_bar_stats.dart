@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetAppBarStats extends StatelessWidget {
   const NZBGetAppBarStats({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -66,12 +66,12 @@ class NZBGetAppBarStats extends StatelessWidget {
           {
             values = await NZBGetDialogs.customSpeedLimit(context);
             if (values[0])
-              NZBGetAPI.from(Database.currentProfileObject)
+              NZBGetAPI.from(Database.currentProfileObject!)
                   .setSpeedLimit(values[1])
                   .then((_) => showLunaSuccessSnackBar(
                         title: 'Speed Limit Set',
                         message:
-                            'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
+                            'Set to ${(values[1] as int?).lunaKilobytesToString(decimals: 0)}/s',
                       ))
                   .catchError((error) => showLunaErrorSnackBar(
                         title: 'Failed to Set Speed Limit',
@@ -80,12 +80,12 @@ class NZBGetAppBarStats extends StatelessWidget {
             break;
           }
         default:
-          NZBGetAPI.from(Database.currentProfileObject)
+          NZBGetAPI.from(Database.currentProfileObject!)
               .setSpeedLimit(values[1])
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Speed Limit Set',
                     message:
-                        'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
+                        'Set to ${(values[1] as int?).lunaKilobytesToString(decimals: 0)}/s',
                   ))
               .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Set Speed Limit',

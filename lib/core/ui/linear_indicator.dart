@@ -6,12 +6,12 @@ class LunaLinearPercentIndicator extends StatelessWidget {
   static const _LINE_HEIGHT = 4.0;
   static const double height = _LINE_HEIGHT + LunaUI.DEFAULT_MARGIN_SIZE / 2;
 
-  final double percent;
+  final double? percent;
   final Color progressColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   const LunaLinearPercentIndicator({
-    Key key,
+    Key? key,
     this.percent,
     this.progressColor = LunaColours.accent,
     this.backgroundColor,
@@ -23,7 +23,7 @@ class LunaLinearPercentIndicator extends StatelessWidget {
       height: height,
       alignment: Alignment.bottomCenter,
       child: LinearPercentIndicator(
-        percent: percent,
+        percent: percent!,
         padding: const EdgeInsets.symmetric(horizontal: 2.0),
         lineHeight: 4.0,
         progressColor: progressColor,

@@ -66,7 +66,7 @@ extension SettingsBannersExtension on SettingsBanners {
   }
 
   /// Return true if the banner should be shown in the UI
-  bool get shouldShow => Database.alertsBox.get(key, defaultValue: true);
+  bool? get shouldShow => Database.alertsBox.get(key, defaultValue: true);
 
   /// Mark the banner as seen, so it will not appear in the UI anymore
   void markSeen() => Database.alertsBox.put(key, false);
@@ -79,7 +79,7 @@ extension SettingsBannersExtension on SettingsBanners {
       ValueListenableBuilder(
         valueListenable: Database.alertsBox.listenable(keys: [key]),
         builder: (context, box, _) {
-          if (shouldShow)
+          if (shouldShow!)
             return LunaBanner(
               dismissCallback: markSeen,
               headerText: header,

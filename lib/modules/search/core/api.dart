@@ -18,7 +18,7 @@ class NewznabAPI {
         baseUrl: '${indexer.host}/api',
         headers: {
           'User-Agent': _USER_AGENT,
-          if (indexer.headers?.isNotEmpty ?? false) ...indexer.headers,
+          if (indexer.headers?.isNotEmpty ?? false) ...indexer.headers as Map<String, dynamic>,
         },
         queryParameters: {
           if (indexer.apiKey != '') 'apikey': indexer.apiKey,
@@ -40,18 +40,18 @@ class NewznabAPI {
     List<NewznabCategoryData> results = [];
     XmlDocument xml = XmlDocument.parse(response.data);
     xml
-        .getElement('caps')
-        .getElement('categories')
+        .getElement('caps')!
+        .getElement('categories')!
         .findElements('category')
         .forEach((cat) {
-      String catName = cat.getAttribute('name');
-      int catId = int.tryParse(cat.getAttribute('id') ?? 'noid');
+      String? catName = cat.getAttribute('name');
+      int? catId = int.tryParse(cat.getAttribute('id') ?? 'noid');
       if ((catName?.isNotEmpty ?? false) && (catId != null)) {
         NewznabCategoryData data =
             NewznabCategoryData(id: catId, name: catName);
         cat.findElements('subcat').forEach((subcat) {
-          String subcatName = subcat.getAttribute('name');
-          int subcatId = int.tryParse(subcat.getAttribute('id') ?? 'noid');
+          String? subcatName = subcat.getAttribute('name');
+          int? subcatId = int.tryParse(subcat.getAttribute('id') ?? 'noid');
           if ((subcatName?.isNotEmpty ?? false) && (subcatId != null))
             data.subcategories.add(NewznabSubcategoryData(
               id: subcatId,
@@ -65,7 +65,7 @@ class NewznabAPI {
   }
 
   Future<List<NewznabResultData>> getResults(
-      {int categoryId, String query, int offset = 0}) async {
+      {int? categoryId, String? query, int offset = 0}) async {
     if (categoryId == null)
       assert(query != null, 'both categoryId and query cannot be null');
     Response response = await _dio.get(
@@ -86,7 +86,7 @@ class NewznabAPI {
         ?.getElement('channel')
         ?.findElements('item')
         ?.forEach((item) {
-      int size = int.tryParse(
+      int? size = int.tryParse(
           item.getElement('enclosure')?.getAttribute('length') ?? 'nosize');
       NewznabResultData data = NewznabResultData(
         title: item.getElement('title')?.innerText ?? 'Unknown Title',
@@ -101,7 +101,7 @@ class NewznabAPI {
     return results;
   }
 
-  Future<String> downloadRelease(NewznabResultData data) async {
+  Future<String?> downloadRelease(NewznabResultData data) async {
     Response response = await Dio(
       BaseOptions(
         headers: {

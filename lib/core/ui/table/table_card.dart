@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTableCard extends StatelessWidget {
-  final String title;
-  final List<LunaTableContent> content;
-  final List<LunaButton> buttons;
+  final String? title;
+  final List<LunaTableContent>? content;
+  final List<LunaButton>? buttons;
 
   const LunaTableCard({
-    Key key,
+    Key? key,
     this.content,
     this.buttons,
     this.title,
@@ -47,14 +47,14 @@ class LunaTableCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: LunaUI.DEFAULT_MARGIN_SIZE),
-          child: LunaText.title(text: title),
+          child: LunaText.title(text: title!),
         ),
       ],
     );
   }
 
   List<Widget> _content() {
-    return content
+    return content!
         .map((child) => Padding(
               child: child,
               padding: const EdgeInsets.symmetric(
@@ -69,7 +69,7 @@ class LunaTableCard extends StatelessWidget {
     return Padding(
       child: Row(
         children:
-            buttons.map<Widget>((button) => Expanded(child: button)).toList(),
+            buttons!.map<Widget>((button) => Expanded(child: button)).toList(),
       ),
       padding: const EdgeInsets.only(
         top: LunaUI.DEFAULT_MARGIN_SIZE / 2 - LunaUI.DEFAULT_MARGIN_SIZE / 4,

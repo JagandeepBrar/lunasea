@@ -6,7 +6,7 @@ class _SonarrAddSeriesDetailsArguments {
   final SonarrSeries series;
 
   _SonarrAddSeriesDetailsArguments({
-    @required this.series,
+    required this.series,
   }) {
     assert(series != null);
   }
@@ -21,7 +21,7 @@ class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, {
-    @required SonarrSeries series,
+    required SonarrSeries series,
   }) {
     return LunaRouter.router.navigateTo(
       context,
@@ -61,8 +61,8 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _SonarrAddSeriesDetailsArguments arguments =
-        ModalRoute.of(context).settings.arguments;
+    _SonarrAddSeriesDetailsArguments? arguments =
+        ModalRoute.of(context)!.settings.arguments as _SonarrAddSeriesDetailsArguments?;
     if (arguments == null || arguments.series == null)
       return LunaInvalidRoute(
         title: 'sonarr.AddSeries'.tr(),
@@ -74,7 +74,7 @@ class _State extends State<_Widget>
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
         bottomNavigationBar: const SonarrAddSeriesDetailsActionBar(),
       ),
@@ -92,7 +92,7 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait(
         [
-          context.watch<SonarrState>().rootFolders,
+          context.watch<SonarrState>().rootFolders.then((value) => value!),
           context.watch<SonarrState>().tags,
           context.watch<SonarrState>().qualityProfiles,
           context.watch<SonarrState>().languageProfiles,
@@ -114,10 +114,10 @@ class _State extends State<_Widget>
         if (snapshot.hasData) {
           return _content(
             context,
-            rootFolders: snapshot.data[0],
-            tags: snapshot.data[1],
-            qualityProfiles: snapshot.data[2],
-            languageProfiles: snapshot.data[3],
+            rootFolders: snapshot.data![0] as List<SonarrRootFolder>,
+            tags: snapshot.data![1] as List<SonarrTag>,
+            qualityProfiles: snapshot.data![2] as List<SonarrQualityProfile>,
+            languageProfiles: snapshot.data![3] as List<SonarrLanguageProfile>,
           );
         }
         return const LunaLoader();
@@ -127,10 +127,10 @@ class _State extends State<_Widget>
 
   Widget _content(
     BuildContext context, {
-    @required List<SonarrRootFolder> rootFolders,
-    @required List<SonarrQualityProfile> qualityProfiles,
-    @required List<SonarrLanguageProfile> languageProfiles,
-    @required List<SonarrTag> tags,
+    required List<SonarrRootFolder> rootFolders,
+    required List<SonarrQualityProfile> qualityProfiles,
+    required List<SonarrLanguageProfile> languageProfiles,
+    required List<SonarrTag> tags,
   }) {
     context.read<SonarrSeriesAddDetailsState>().initializeMonitored();
     context.read<SonarrSeriesAddDetailsState>().initializeUseSeasonFolders();

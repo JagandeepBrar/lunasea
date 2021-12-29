@@ -9,11 +9,11 @@ enum SonarrEpisodeSettingsType {
   DELETE_FILE,
 }
 
-extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
+extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
   IconData icon(SonarrEpisode episode) {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
-        return episode.monitored
+        return episode.monitored!
             ? Icons.turned_in_not_rounded
             : Icons.turned_in_rounded;
       case SonarrEpisodeSettingsType.AUTOMATIC_SEARCH:
@@ -29,7 +29,7 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
   String name(SonarrEpisode episode) {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
-        return episode.monitored
+        return episode.monitored!
             ? 'sonarr.UnmonitorEpisode'.tr()
             : 'sonarr.MonitorEpisode'.tr();
       case SonarrEpisodeSettingsType.AUTOMATIC_SEARCH:
@@ -43,9 +43,9 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
   }
 
   Future<void> execute({
-    @required BuildContext context,
-    @required SonarrEpisode episode,
-    @required SonarrEpisodeFile episodeFile,
+    required BuildContext context,
+    required SonarrEpisode episode,
+    required SonarrEpisodeFile? episodeFile,
   }) async {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
@@ -70,7 +70,7 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
               .deleteEpisode(
             context: context,
             episode: episode,
-            episodeFile: episodeFile,
+            episodeFile: episodeFile!,
           )
               .then((_) {
             context.read<SonarrSeasonDetailsState>().fetchHistory(context);

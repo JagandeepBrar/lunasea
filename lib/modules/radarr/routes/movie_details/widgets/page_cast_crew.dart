@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsCastCrewPage extends StatefulWidget {
-  final RadarrMovie movie;
+  final RadarrMovie? movie;
 
   const RadarrMovieDetailsCastCrewPage({
-    Key key,
-    @required this.movie,
+    Key? key,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -45,10 +45,10 @@ class _State extends State<RadarrMovieDetailsCastCrewPage>
         builder: (context, AsyncSnapshot<List<RadarrMovieCredits>> snapshot) {
           if (snapshot.hasError) {
             LunaLogger().error(
-                'Unable to fetch Radarr credit/crew list: ${widget.movie.id}',
+                'Unable to fetch Radarr credit/crew list: ${widget.movie!.id}',
                 snapshot.error,
                 snapshot.stackTrace);
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -57,14 +57,14 @@ class _State extends State<RadarrMovieDetailsCastCrewPage>
     );
   }
 
-  Widget _list(List<RadarrMovieCredits> credits) {
+  Widget _list(List<RadarrMovieCredits>? credits) {
     if ((credits?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Credits Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
-    List<RadarrMovieCredits> _cast = credits
+    List<RadarrMovieCredits> _cast = credits!
         .where((credit) => credit.type == RadarrCreditType.CAST)
         .toList();
     List<RadarrMovieCredits> _crew = credits

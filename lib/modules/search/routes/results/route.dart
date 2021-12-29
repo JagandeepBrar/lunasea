@@ -33,8 +33,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    NewznabCategoryData category = context.read<SearchState>().activeCategory;
-    NewznabSubcategoryData subcategory =
+    NewznabCategoryData? category = context.read<SearchState>().activeCategory;
+    NewznabSubcategoryData? subcategory =
         context.read<SearchState>().activeSubcategory;
     await context
         .read<SearchState>()
@@ -60,22 +60,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
 
   Widget _appBar() {
-    String title = 'search.Results'.tr();
-    NewznabCategoryData category = context.read<SearchState>().activeCategory;
-    NewznabSubcategoryData subcategory =
+    String? title = 'search.Results'.tr();
+    NewznabCategoryData? category = context.read<SearchState>().activeCategory;
+    NewznabSubcategoryData? subcategory =
         context.read<SearchState>().activeSubcategory;
     if (category != null) title = category.name;
     if (category != null && subcategory != null) {
       title = '$title > ${subcategory.name ?? 'lunasea.Unknown'.tr()}';
     }
     return LunaAppBar(
-      title: title,
+      title: title!,
       actions: [
         LunaIconButton(
           icon: Icons.search_rounded,

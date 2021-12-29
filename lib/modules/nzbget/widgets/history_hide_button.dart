@@ -6,8 +6,8 @@ class NZBGetHistoryHideButton extends StatefulWidget {
   final ScrollController controller;
 
   const NZBGetHistoryHideButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override

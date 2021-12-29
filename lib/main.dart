@@ -17,7 +17,7 @@ Future<void> main() async {
       await LunaFirebase().initialize();
       LunaLogger().initialize();
       LunaTheme().initialize();
-      LunaDesktopWindow().initialize();
+      await LunaDesktopWindow().initialize();
       LunaNetworking().initialize();
       LunaImageCache().initialize();
       LunaRouter().initialize();

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:window_manager/window_manager.dart';
 
 class LunaDesktopWindow {
   static const double _MINIMUM_WINDOW_SIZE = 400;
@@ -10,22 +10,27 @@ class LunaDesktopWindow {
   static bool get isPlatformCompatible =>
       Platform.isWindows || Platform.isMacOS || Platform.isLinux;
 
-  void initialize() {
+  Future<void> initialize() async {
     if (isPlatformCompatible) {
-      doWhenWindowReady(() {
+      await windowManager.ensureInitialized();
+      windowManager.waitUntilReadyToShow().then((_) async {
         const Size minSize = Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE);
         const Size size = Size(_INITIAL_WINDOW_SIZE, _INITIAL_WINDOW_SIZE);
 
-        final win = appWindow;
-        win.minSize = minSize;
-        win.title = "LunaSea";
-        if (!kDebugMode) {
-          win.size = size;
-          win.alignment = Alignment.center;
-        }
+        if (!kDebugMode) await windowManager.setSize(size);
+        await windowManager.setMinimumSize(minSize);
+        setWindowTitle('LunaSea');
 
-        win.show();
+        windowManager.show();
       });
+    }
+  }
+
+  Future<void> setWindowTitle(String title) async {
+    if (isPlatformCompatible) {
+      windowManager
+          .waitUntilReadyToShow()
+          .then((_) async => await windowManager.setTitle(title));
     }
   }
 }

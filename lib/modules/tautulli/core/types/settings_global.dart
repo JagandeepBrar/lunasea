@@ -11,7 +11,7 @@ enum TautulliGlobalSettingsType {
   DELETE_TEMP_SESSIONS,
 }
 
-extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType? {
+extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
   IconData get icon {
     switch (this) {
       case TautulliGlobalSettingsType.WEB_GUI:
@@ -27,7 +27,6 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType? {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return Icons.delete_sweep_rounded;
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   String get name {
@@ -45,7 +44,6 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType? {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return 'tautulli.DeleteTemporarySessions'.tr();
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   Future<void> execute(BuildContext context) async {
@@ -63,7 +61,6 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType? {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return _deleteTemporarySessions(context);
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   Future<void> _webGUI(BuildContext context) async =>

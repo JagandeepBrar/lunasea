@@ -14,7 +14,7 @@ class TautulliAppBarGlobalSettingsAction extends StatelessWidget {
       onPressed: () async {
         Tuple2<bool, TautulliGlobalSettingsType?> values =
             await TautulliDialogs().globalSettings(context);
-        if (values.item1) values.item2.execute(context);
+        if (values.item1) values.item2!.execute(context);
       },
     );
   }

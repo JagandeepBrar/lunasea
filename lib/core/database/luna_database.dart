@@ -176,7 +176,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return value is bool;
     }
-    throw Exception('Invalid LunaDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -220,6 +219,5 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return false;
     }
-    throw Exception('Invalid LunaDatabaseValue');
   }
 }

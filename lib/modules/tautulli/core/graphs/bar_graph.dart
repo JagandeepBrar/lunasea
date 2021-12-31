@@ -17,8 +17,8 @@ class TautulliBarGraphHelper {
           x: cIndex,
           barRods: [
             BarChartRodData(
-              y: data.series!
-                  .fold<double>(0, (value, data) => value + data.data![cIndex]!),
+              y: data.series!.fold<double>(
+                  0, (value, data) => value + data.data![cIndex]!),
               width: BAR_WIDTH,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(LunaUI.BORDER_RADIUS / 3),
@@ -53,14 +53,13 @@ class TautulliBarGraphHelper {
             String _header = '${data.categories![gIndex]}\n\n';
             String _body = '';
             for (int i = 0; i < rod.rodStackItems.length; i++) {
-              double _number = (rod?.rodStackItems[i]?.toY ?? 0) -
-                  (rod?.rodStackItems[i]?.fromY ?? 0);
-              String _value = data?.series![i]?.name ?? 'Unknown';
+              double _number =
+                  rod.rodStackItems[i].toY - rod.rodStackItems[i].fromY;
+              String _value = data.series![i].name ?? 'Unknown';
               String _text = context.read<TautulliState>().graphYAxis ==
                       TautulliGraphYAxis.PLAYS
-                  ? (_number?.truncate() ?? 0).toString()
-                  : Duration(seconds: _number?.truncate() ?? 0)
-                      .lunaTimestampWords;
+                  ? _number.truncate().toString()
+                  : Duration(seconds: _number.truncate()).lunaTimestampWords;
               _body += '$_value: $_text\n';
             }
             return BarTooltipItem(

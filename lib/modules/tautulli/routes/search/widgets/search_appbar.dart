@@ -48,7 +48,7 @@ class _State extends State<_SearchBar> {
                 child: LunaTextInputBar(
                   controller: _controller,
                   scrollController: widget.scrollController,
-                  autofocus: (state.searchQuery ?? '').isEmpty,
+                  autofocus: state.searchQuery.isEmpty,
                   onChanged: (value) =>
                       context.read<TautulliState>().searchQuery = value,
                   onSubmitted: (value) {

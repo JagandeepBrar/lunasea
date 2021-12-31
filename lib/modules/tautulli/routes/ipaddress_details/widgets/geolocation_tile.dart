@@ -15,23 +15,23 @@ class TautulliIPAddressDetailsGeolocationTile extends StatelessWidget {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'country', body: geolocation?.country ?? LunaUI.TEXT_EMDASH),
+            title: 'country', body: geolocation.country ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
-            title: 'region', body: geolocation?.region ?? LunaUI.TEXT_EMDASH),
+            title: 'region', body: geolocation.region ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
-            title: 'city', body: geolocation?.city ?? LunaUI.TEXT_EMDASH),
+            title: 'city', body: geolocation.city ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
             title: 'postal',
-            body: geolocation?.postalCode ?? LunaUI.TEXT_EMDASH),
+            body: geolocation.postalCode ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
             title: 'timezone',
-            body: geolocation?.timezone ?? LunaUI.TEXT_EMDASH),
+            body: geolocation.timezone ?? LunaUI.TEXT_EMDASH),
         LunaTableContent(
             title: 'latitude',
-            body: '${geolocation?.latitude ?? LunaUI.TEXT_EMDASH}'),
+            body: '${geolocation.latitude ?? LunaUI.TEXT_EMDASH}'),
         LunaTableContent(
             title: 'longitude',
-            body: '${geolocation?.longitude ?? LunaUI.TEXT_EMDASH}'),
+            body: '${geolocation.longitude ?? LunaUI.TEXT_EMDASH}'),
       ],
     );
   }

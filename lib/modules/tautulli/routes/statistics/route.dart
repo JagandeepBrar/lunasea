@@ -99,7 +99,7 @@ class _State extends State<_Widget>
   }
 
   List<Widget> _builder(TautulliHomeStats stats) {
-    if ((stats?.data ?? 0) == 0 || denylist.contains(stats.id)) return [];
+    if ((stats.data ?? 0) == 0 || denylist.contains(stats.id)) return [];
     return [
       LunaHeader(text: stats.title),
       ...List.generate(stats.data!.length, (index) {

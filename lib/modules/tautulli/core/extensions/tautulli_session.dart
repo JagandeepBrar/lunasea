@@ -25,7 +25,8 @@ extension TautulliSessionExtension on TautulliSession {
       if (this.transcodeVideoCodec!.isNotEmpty) ' ${LunaUI.TEXT_ARROW_RIGHT} ',
       if (this.transcodeVideoCodec!.isNotEmpty)
         '${this.transcodeVideoCodec!.toUpperCase()} ',
-      if (this.transcodeVideoCodec!.isNotEmpty && this.transcodeHardwareDecoding!)
+      if (this.transcodeVideoCodec!.isNotEmpty &&
+          this.transcodeHardwareDecoding!)
         '(HW) ',
       if (this.transcodeVideoCodec!.isNotEmpty) this.streamVideoFullResolution,
       ')',
@@ -37,13 +38,14 @@ extension TautulliSessionExtension on TautulliSession {
       this.audioDecision.localizedName,
       ' (',
       this.audioCodec?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
-      if ((this.audioChannelLayout?.split('(')?.length ?? 0) > 0)
+      if (this.audioChannelLayout?.split('(').isNotEmpty ?? false)
         ' ${this.audioChannelLayout?.split('(')[0]}',
-      if (this.transcodeAudioCodec!.isNotEmpty) ' ${LunaUI.TEXT_ARROW_RIGHT} ',
-      if (this.transcodeAudioCodec!.isNotEmpty)
-        this.transcodeAudioCodec?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
-      if (this.transcodeAudioCodec!.isNotEmpty &&
-          (this.streamAudioChannelLayout?.split('(')?.length ?? 0) > 0)
+      if (this.transcodeAudioCodec?.isNotEmpty ?? false)
+        ' ${LunaUI.TEXT_ARROW_RIGHT} ',
+      if (this.transcodeAudioCodec?.isNotEmpty ?? false)
+        this.transcodeAudioCodec!.toUpperCase(),
+      if ((this.transcodeAudioCodec?.isNotEmpty ?? false) &&
+          (this.streamAudioChannelLayout?.split('(').isNotEmpty ?? false))
         ' ${this.streamAudioChannelLayout?.split('(')[0]}',
       ')',
     ].join();
@@ -212,8 +214,8 @@ extension TautulliSessionExtension on TautulliSession {
   String get lunaETA {
     try {
       double _percent = this.progressPercent! / 100;
-      Duration _progress =
-          Duration(seconds: (this.streamDuration!.inSeconds * _percent).floor());
+      Duration _progress = Duration(
+          seconds: (this.streamDuration!.inSeconds * _percent).floor());
       Duration _eta = this.streamDuration! - _progress;
       return DateTime.now().add(_eta).lunaTime;
     } catch (error, stack) {

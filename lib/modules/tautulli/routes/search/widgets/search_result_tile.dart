@@ -51,11 +51,11 @@ class _State extends State<TautulliSearchResultTile> {
       case TautulliMediaType.EPISODE:
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.TRACK:
-        _text = widget.result?.parentTitle ?? '';
+        _text = widget.result.parentTitle ?? '';
         break;
       case TautulliMediaType.COLLECTION:
         _text =
-            '${widget.result?.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${widget.result?.maxYear ?? 0}';
+            '${widget.result.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${widget.result.maxYear ?? 0}';
         break;
       default:
         break;

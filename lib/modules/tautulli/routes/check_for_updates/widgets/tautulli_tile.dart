@@ -35,7 +35,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
 
   List<TextSpan> _subtitle() {
     return [
-      if (!(update?.update ?? false))
+      if (!(update.update ?? false))
         const TextSpan(
           text: 'No Updates Available',
           style: TextStyle(
@@ -43,7 +43,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-      if (update?.update ?? false)
+      if (update.update ?? false)
         const TextSpan(
           text: 'Update Available',
           style: TextStyle(
@@ -51,36 +51,36 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-      if (update?.update ?? false)
+      if (update.update ?? false)
         TextSpan(
           children: [
             const TextSpan(text: 'Current Version: '),
             TextSpan(
-              text: update?.currentRelease ??
-                  update.currentVersion!.substring(
+              text: update.currentRelease ??
+                  update.currentVersion?.substring(
                     0,
-                    min(7, update.currentVersion!.length ?? 0),
+                    min(7, update.currentVersion!.length),
                   ) ??
                   'lunasea.Unknown'.tr(),
             ),
           ],
         ),
-      if (update?.update ?? false)
+      if (update.update ?? false)
         TextSpan(
           children: [
             const TextSpan(text: 'Latest Version: '),
             TextSpan(
-              text: update?.latestRelease ??
-                  update.latestVersion!.substring(
+              text: update.latestRelease ??
+                  update.latestVersion?.substring(
                     0,
-                    min(7, update.latestVersion!.length ?? 0),
+                    min(7, update.latestVersion!.length),
                   ) ??
                   'lunasea.Unknown'.tr(),
             ),
           ],
         ),
       TextSpan(
-          text: 'Install Type: ${update?.installType ?? LunaUI.TEXT_EMDASH}'),
+          text: 'Install Type: ${update.installType ?? LunaUI.TEXT_EMDASH}'),
     ];
   }
 }

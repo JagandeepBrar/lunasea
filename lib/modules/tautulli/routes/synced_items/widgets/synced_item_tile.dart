@@ -21,12 +21,12 @@ class TautulliSyncedItemTile extends StatelessWidget {
       ],
       backgroundHeaders: context.watch<TautulliState>().headers,
       backgroundUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
-            syncedItem?.ratingKey,
+            syncedItem.ratingKey,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
       posterHeaders: context.watch<TautulliState>().headers,
       posterUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
-            syncedItem?.ratingKey,
+            syncedItem.ratingKey,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,

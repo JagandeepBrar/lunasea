@@ -31,7 +31,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
         LunaTableContent(
           title: 'last played',
           body: [
-            library?.lastPlayed ?? LunaUI.TEXT_EMDASH,
+            library.lastPlayed ?? LunaUI.TEXT_EMDASH,
             library.lastAccessed?.lunaAge ?? 'Unknown',
           ].join('\n'),
         ),

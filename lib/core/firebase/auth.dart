@@ -36,7 +36,6 @@ class LunaFirebaseAuth {
   Future<LunaFirebaseResponse> registerUser(
       String email, String password) async {
     try {
-      assert(email != null && password != null);
       UserCredential _user = await instance.createUserWithEmailAndPassword(
           email: email, password: password);
       LunaFirebaseFirestore().addDeviceToken();
@@ -54,7 +53,6 @@ class LunaFirebaseAuth {
   /// Returns a [LunaFirebaseResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
   Future<LunaFirebaseResponse> signInUser(String email, String password) async {
     try {
-      assert(email != null && password != null);
       UserCredential _user = await instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -91,7 +89,6 @@ class LunaFirebaseAuth {
 
   /// Reset a user's password by sending them a password reset email.
   Future<void> resetPassword(String email) async {
-    assert(email != null);
     instance.sendPasswordResetEmail(email: email);
   }
 }

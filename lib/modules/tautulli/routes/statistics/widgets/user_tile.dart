@@ -70,7 +70,7 @@ class _State extends State<TautulliStatisticsUserTile> {
       widget.data['last_play'] != null
           ? TextSpan(
               text:
-                  'Last Streamed ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
+                  'Last Streamed ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000).lunaAge}',
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];

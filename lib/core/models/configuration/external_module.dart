@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 part 'external_module.g.dart';

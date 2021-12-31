@@ -52,6 +52,8 @@ extension _EventTypeExtension on _EventType? {
         return _renameEvent(data);
       case _EventType.TEST:
         return _testEvent(data);
+      default:
+        break;
     }
   }
 
@@ -71,7 +73,7 @@ extension _EventTypeExtension on _EventType? {
     if (movieId != null)
       return RadarrMoviesDetailsRouter().navigateTo(
         LunaState.navigatorKey.currentContext!,
-        movieId: movieId,
+        movieId,
       );
     return LunaModule.RADARR.launch();
   }

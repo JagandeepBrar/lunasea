@@ -38,7 +38,7 @@ class _State extends State<LidarrDescriptionBlock> {
       onTap: () async => LunaDialogs().textPreview(
         context,
         widget.title,
-        widget.description!.trim() ?? 'No Summary Available',
+        widget.description?.trim() ?? 'No Summary Available',
       ),
       onLongPress: widget.onLongPress,
       customBodyMaxLines: 3,

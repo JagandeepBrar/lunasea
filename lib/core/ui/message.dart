@@ -8,18 +8,14 @@ class LunaMessage extends StatelessWidget {
   final Function? onTap;
   final bool useSafeArea;
 
-  LunaMessage({
+  const LunaMessage({
     Key? key,
     required this.text,
     this.textColor = Colors.white,
     this.buttonText,
     this.onTap,
     this.useSafeArea = true,
-  }) : super(key: key) {
-    assert(text != null);
-    if (buttonText != null)
-      assert(onTap != null, 'onTap must be defined if buttonText is defined');
-  }
+  }) : super(key: key);
 
   /// Return a message that is meant to be shown within a [ListView].
   factory LunaMessage.inList({
@@ -27,7 +23,6 @@ class LunaMessage extends StatelessWidget {
     required String text,
     bool useSafeArea = false,
   }) {
-    assert(text != null);
     return LunaMessage(
       key: key,
       text: text,
@@ -42,7 +37,6 @@ class LunaMessage extends StatelessWidget {
     required BuildContext context,
     bool useSafeArea = true,
   }) {
-    assert(context != null);
     return LunaMessage(
       key: key,
       text: text,
@@ -58,7 +52,6 @@ class LunaMessage extends StatelessWidget {
     required Function onTap,
     bool useSafeArea = true,
   }) {
-    assert(onTap != null);
     return LunaMessage(
       key: key,
       text: 'lunasea.AnErrorHasOccurred'.tr(),
@@ -75,8 +68,6 @@ class LunaMessage extends StatelessWidget {
     required String module,
     bool useSafeArea = true,
   }) {
-    assert(module != null);
-    assert(context != null);
     return LunaMessage(
       key: key,
       text: 'lunasea.ModuleIsNotEnabled'.tr(args: [module]),

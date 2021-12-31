@@ -66,7 +66,7 @@ class _State extends State<_Widget>
                 snapshot.stackTrace,
               );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();

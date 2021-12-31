@@ -34,7 +34,8 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   void initState() {
     super.initState();
     SchedulerBinding.instance!.scheduleFrameCallback((_) {
-      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments as LidarrAddDetailsArguments?);
+      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrAddDetailsArguments?);
       _refresh();
     });
   }
@@ -146,7 +147,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
         controller: scrollController,
         children: <Widget>[
           LidarrDescriptionBlock(
-            title: _arguments!.data.title ?? 'Unknown',
+            title: _arguments?.data.title ?? 'lunasea.Unknown'.tr(),
             description: _arguments!.data.overview == ''
                 ? 'No Summary Available'
                 : _arguments!.data.overview,
@@ -198,7 +199,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               onTap: () async {
                 Tuple2<bool, LidarrMonitorStatus?> _result =
                     await LidarrDialogs().selectMonitoringOption(context);
-                if (_result.item1) _db.put(_result.item2.key);
+                if (_result.item1) _db.put(_result.item2!.key);
               },
             );
           }),
@@ -257,7 +258,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           LidarrDatabaseValue.ADD_ROOT_FOLDER.data,
           LidarrDatabaseValue.ADD_METADATA_PROFILE.data,
           LidarrMonitorStatus.ALL
-              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data),
+              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data)!,
           search: search,
         )
         .then((id) => Navigator.of(context)

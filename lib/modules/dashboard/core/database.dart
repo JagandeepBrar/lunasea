@@ -31,17 +31,17 @@ class DashboardDatabase extends LunaModuleDatabase {
         // Non-primitive values
         case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
-                  as CalendarStartingDay?)
+                  as CalendarStartingDay)
               .key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-                  as CalendarStartingSize?)
+                  as CalendarStartingSize)
               .key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
           data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
-                  as CalendarStartingType?)
+                  as CalendarStartingType)
               .key;
           break;
         // Primitive values
@@ -141,7 +141,6 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
       case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
         return value is bool;
     }
-    throw Exception('Invalid DashboardDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -167,6 +166,5 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
       case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
         return false;
     }
-    throw Exception('Invalid DashboardDatabaseValue');
   }
 }

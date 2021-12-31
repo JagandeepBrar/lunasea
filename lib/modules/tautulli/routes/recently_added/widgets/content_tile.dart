@@ -116,7 +116,7 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
 
   Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
         context,
-        ratingKey: widget.recentlyAdded.ratingKey,
-        mediaType: widget.recentlyAdded.mediaType,
+        widget.recentlyAdded.ratingKey!,
+        widget.recentlyAdded.mediaType!,
       );
 }

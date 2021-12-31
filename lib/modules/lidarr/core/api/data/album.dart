@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrAlbumData {
@@ -19,12 +18,7 @@ class LidarrAlbumData {
     required this.releaseDate,
   });
 
-  DateTime? get releaseDateObject {
-    if (releaseDate != null) {
-      return DateTime.tryParse(releaseDate)?.toLocal();
-    }
-    return null;
-  }
+  DateTime? get releaseDateObject => DateTime.tryParse(releaseDate)?.toLocal();
 
   String get releaseDateString {
     if (releaseDateObject != null) {

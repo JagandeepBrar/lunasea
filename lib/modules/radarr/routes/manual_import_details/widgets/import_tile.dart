@@ -78,7 +78,7 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
     return Consumer<RadarrManualImportDetailsState>(
       builder: (context, state, _) => Checkbox(
         value: state.selectedFiles.contains(manualImport.id),
-        onChanged: (value) => state.setSelectedFile(manualImport.id, value),
+        onChanged: (value) => state.setSelectedFile(manualImport.id!, value!),
       ),
     );
   }
@@ -153,8 +153,8 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
             .read<RadarrManualImportDetailsTileState>()
             .manualImport
             .rejections
-            ?.map<String?>((rejection) => rejection.reason)
-            ?.toList(),
+            ?.map<String>((rejection) => rejection.reason!)
+            .toList(),
       ),
     );
   }
@@ -168,7 +168,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
   String _configureMoviesSearchQuery = '';
   String get configureMoviesSearchQuery => _configureMoviesSearchQuery;
   set configureMoviesSearchQuery(String configureMoviesSearchQuery) {
-    _configureMoviesSearchQuery = configureMoviesSearchQuery ?? '';
+    _configureMoviesSearchQuery = configureMoviesSearchQuery;
     notifyListeners();
   }
 
@@ -209,7 +209,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
   }
 
   Future<void> fetchUpdates(BuildContext context, int? movieId) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       RadarrManualImportUpdateData data = RadarrManualImportUpdateData(
         id: manualImport.id,
         path: manualImport.path,
@@ -222,7 +222,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
           .api!
           .manualImport
           .update(data: [data]).then((value) {
-        if ((value?.length ?? 0) > 0) {
+        if (value.isNotEmpty) {
           RadarrManualImport _import = _manualImport;
           _import.movie = value[0].movie;
           _import.id = value[0].id;

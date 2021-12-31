@@ -32,7 +32,7 @@ abstract class RadarrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context!.read<RadarrState>().enabled!) {
+          if (!homeRoute && !context!.read<RadarrState>().enabled) {
             return LunaNotEnabledRoute(module: 'Radarr');
           }
           return widget();
@@ -52,7 +52,7 @@ abstract class RadarrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context!.read<RadarrState>().enabled!) {
+          if (!homeRoute && !context!.read<RadarrState>().enabled) {
             return LunaNotEnabledRoute(module: 'Radarr');
           }
           return handlerFunc(context, params);

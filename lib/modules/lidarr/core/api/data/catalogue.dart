@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
@@ -45,17 +44,14 @@ class LidarrCatalogueData {
   });
 
   String get genre {
-    if (genres?.isNotEmpty ?? false) return genres.join('\n');
-    return 'Unknown';
+    if (genres.isNotEmpty) return genres.join('\n');
+    return 'lunasea.Unknown'.tr();
   }
 
   DateTime? get dateAddedObject => DateTime.tryParse(added)?.toLocal();
 
   String get dateAdded {
-    if (added != null) {
-      return DateFormat('MMMM dd, y').format(dateAddedObject!);
-    }
-    return 'Unknown';
+    return DateFormat('MMMM dd, y').format(dateAddedObject!);
   }
 
   String? subtitle(LidarrCatalogueSorting sorting) => _sortSubtitle(sorting);
@@ -74,9 +70,8 @@ class LidarrCatalogueData {
         return dateAdded;
       case LidarrCatalogueSorting.size:
       case LidarrCatalogueSorting.alphabetical:
-        return sizeOnDisk?.lunaBytesToString();
+        return sizeOnDisk.lunaBytesToString();
     }
-    return '';
   }
 
   String get trackStats {

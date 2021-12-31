@@ -39,7 +39,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie(),
+                  await movie?.tmdbId?.toString().lunaOpenTheMovieDBMovie(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -54,12 +54,13 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await movie?.tmdbId?.toString()?.lunaOpenTraktMovie(),
+                  await movie?.tmdbId?.toString().lunaOpenTraktMovie(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
           ),
-        if (movie!.youTubeTrailerId != null && movie!.youTubeTrailerId!.isNotEmpty)
+        if (movie!.youTubeTrailerId != null &&
+            movie!.youTubeTrailerId!.isNotEmpty)
           LunaCard(
             context: context,
             child: InkWell(

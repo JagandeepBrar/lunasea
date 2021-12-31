@@ -29,7 +29,7 @@ class RadarrAppBarMovieSettingsAction extends StatelessWidget {
                 onPressed: () async {
                   Tuple2<bool, RadarrMovieSettingsType?> values =
                       await RadarrDialogs().movieSettings(context, movie);
-                  if (values.item1) values.item2.execute(context, movie);
+                  if (values.item1) values.item2!.execute(context, movie);
                 },
               );
           }

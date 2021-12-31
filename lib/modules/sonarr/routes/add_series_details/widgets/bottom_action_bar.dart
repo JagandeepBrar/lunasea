@@ -48,8 +48,8 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
           .then((series) async {
         context.read<SonarrState>().fetchAllSeries();
         context.read<SonarrSeriesAddDetailsState>().series.id = series!.id;
-        Navigator.of(context).popAndPushNamed(
-            SonarrSeriesDetailsRouter().route(seriesId: series.id));
+        Navigator.of(context)
+            .popAndPushNamed(SonarrSeriesDetailsRouter().route(series.id!));
       }).catchError((error, stack) {
         context.read<SonarrSeriesAddDetailsState>().state =
             LunaLoadingState.ERROR;

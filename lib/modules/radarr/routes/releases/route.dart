@@ -6,22 +6,24 @@ class RadarrReleasesRouter extends RadarrPageRouter {
   RadarrReleasesRouter() : super('/radarr/releases/:movieid');
 
   @override
-  Widget widget({
-    required int movieId,
-  }) {
+  Widget widget([
+    int movieId = -1,
+  ]) {
     return _Widget(movieId: movieId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? movieId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(movieId: movieId));
+    BuildContext context, [
+    int movieId = -1,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(movieId));
   }
 
   @override
-  String route({required int? movieId}) {
+  String route([
+    int movieId = -1,
+  ]) {
     return fullRoute.replaceFirst(
       ':movieid',
       movieId.toString(),
@@ -133,7 +135,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           controller: scrollController,
           itemCount: _processed.isEmpty ? 1 : _processed.length,
           itemBuilder: (context, index) {
-            if ((_processed?.length ?? 0) == 0) {
+            if (_processed.isEmpty) {
               return LunaMessage.inList(text: 'No Releases Found');
             }
             return RadarrReleasesTile(release: _processed[index]);

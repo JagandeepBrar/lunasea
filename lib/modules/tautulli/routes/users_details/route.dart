@@ -7,22 +7,17 @@ class TautulliUserDetailsRouter extends TautulliPageRouter {
   TautulliUserDetailsRouter() : super('/tautulli/user/:userid');
 
   @override
-  _Widget widget({
-    required int userId,
-  }) =>
-      _Widget(userId: userId);
+  _Widget widget([int userId = -1]) => _Widget(userId: userId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? userId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(userId: userId));
+    BuildContext context, [
+    int userId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(userId));
 
   @override
-  String route({
-    required int? userId,
-  }) =>
+  String route([int userId = -1]) =>
       fullRoute.replaceFirst(':userid', userId.toString());
 
   @override
@@ -96,7 +91,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       TautulliUserDetailsNavigationBar(pageController: _pageController);
 
   Widget get _body => Selector<TautulliState, Future<TautulliUsersTable>>(
-        selector: (_, state) => state.users,
+        selector: (_, state) => state.users!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {

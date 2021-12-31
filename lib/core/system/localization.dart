@@ -39,7 +39,7 @@ enum LunaLanguage {
   TURKISH,
 }
 
-extension LunaLanguageExtension on LunaLanguage? {
+extension LunaLanguageExtension on LunaLanguage {
   LunaLanguage? fromLocale(Locale locale) {
     if (locale.toLanguageTag() == LunaLanguage.CHINESE_SIMPLIFIED.languageTag)
       return LunaLanguage.CHINESE_SIMPLIFIED;
@@ -89,7 +89,6 @@ extension LunaLanguageExtension on LunaLanguage? {
       case LunaLanguage.TURKISH:
         return kDebugMode;
     }
-    throw Exception('Invalid LunaLanguage');
   }
 
   String get name {
@@ -121,7 +120,6 @@ extension LunaLanguageExtension on LunaLanguage? {
       case LunaLanguage.TURKISH:
         return 'Turkish';
     }
-    throw Exception('Invalid LunaLanguage');
   }
 
   String get languageTag {
@@ -153,7 +151,6 @@ extension LunaLanguageExtension on LunaLanguage? {
       case LunaLanguage.TURKISH:
         return 'tr';
     }
-    throw Exception('Invalid LunaLanguage');
   }
 
   Locale get locale {
@@ -185,7 +182,6 @@ extension LunaLanguageExtension on LunaLanguage? {
       case LunaLanguage.TURKISH:
         return const Locale('tr');
     }
-    throw Exception('Invalid LunaLanguage');
   }
 
   Future<void> use(BuildContext context) => context.setLocale(this.locale);

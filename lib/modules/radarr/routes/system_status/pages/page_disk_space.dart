@@ -36,8 +36,8 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
     context.read<RadarrSystemStatusState>().fetchDiskSpace(context);
     context.read<RadarrState>().fetchRootFolders();
     await Future.wait([
-      context.read<RadarrSystemStatusState>().diskSpace.then((value) => value!),
-      context.read<RadarrState>().rootFolders.then((value) => value!),
+      context.read<RadarrSystemStatusState>().diskSpace!,
+      context.read<RadarrState>().rootFolders!,
     ]);
   }
 
@@ -48,8 +48,8 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
       onRefresh: _refresh,
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<RadarrSystemStatusState>().diskSpace.then((value) => value!),
-          context.read<RadarrState>().rootFolders.then((value) => value!),
+          context.watch<RadarrSystemStatusState>().diskSpace!,
+          context.read<RadarrState>().rootFolders!,
         ]),
         builder: (context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasError) {
@@ -67,7 +67,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
 
   Widget _list(
       List<RadarrDiskSpace> diskSpace, List<RadarrRootFolder> rootFolders) {
-    if ((diskSpace?.length ?? 0) == 0 && (rootFolders?.length ?? 0) == 0)
+    if (diskSpace.isEmpty && rootFolders.isEmpty)
       return LunaMessage(
         text: 'No Disks Found',
         buttonText: 'Try Again',
@@ -75,7 +75,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
       );
     // Compile Disks
     List<Widget> _disks = [LunaMessage.inList(text: 'No Disks Found')];
-    if ((diskSpace?.length ?? 0) != 0)
+    if (diskSpace.isEmpty)
       _disks = [
         const LunaHeader(text: 'Disks'),
         ...List.generate(
@@ -87,7 +87,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
     List<Widget> _rootFolders = [
       LunaMessage.inList(text: 'No Root Folders Found')
     ];
-    if ((rootFolders?.length ?? 0) != 0)
+    if (rootFolders.isEmpty)
       _rootFolders = [
         const LunaHeader(text: 'Root Folders'),
         ...List.generate(

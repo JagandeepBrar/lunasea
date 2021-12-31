@@ -43,8 +43,7 @@ extension LunaLinksExtension on LunaLinks {
       case LunaLinks.NOTIFICATIONS_GETTING_STARTED:
         return 'https://docs.lunasea.app/lunasea/notifications';
     }
-    throw Exception('Invalid LunaLinks');
   }
 
-  Future<void> launch() async => this?.url?.lunaOpenGenericLink();
+  Future<void> launch() async => this.url.lunaOpenGenericLink();
 }

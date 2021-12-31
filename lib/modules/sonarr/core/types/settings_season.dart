@@ -7,7 +7,7 @@ enum SonarrSeasonSettingsType {
   INTERACTIVE_SEARCH,
 }
 
-extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
+extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType {
   IconData get icon {
     switch (this) {
       case SonarrSeasonSettingsType.AUTOMATIC_SEARCH:
@@ -15,7 +15,6 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
       case SonarrSeasonSettingsType.INTERACTIVE_SEARCH:
         return Icons.youtube_searched_for_rounded;
     }
-    throw Exception('Invalid SonarrSeasonSettingsType');
   }
 
   String get name {
@@ -25,7 +24,6 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
       case SonarrSeasonSettingsType.INTERACTIVE_SEARCH:
         return 'sonarr.InteractiveSearch'.tr();
     }
-    throw Exception('Invalid SonarrSeasonSettingsType');
   }
 
   Future<void> execute(
@@ -35,11 +33,12 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
   ) async {
     switch (this) {
       case SonarrSeasonSettingsType.AUTOMATIC_SEARCH:
-        return SonarrAPIController().automaticSeasonSearch(
+        await SonarrAPIController().automaticSeasonSearch(
           context: context,
           seriesId: seriesId,
           seasonNumber: seasonNumber,
         );
+        return;
       case SonarrSeasonSettingsType.INTERACTIVE_SEARCH:
         return SonarrReleasesRouter().navigateTo(
           context,
@@ -47,6 +46,5 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType? {
           seasonNumber: seasonNumber,
         );
     }
-    throw Exception('Invalid SonarrSeasonSettingsType');
   }
 }

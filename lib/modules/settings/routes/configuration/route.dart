@@ -47,7 +47,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             );
             if (results.item1 &&
                 results.item2 != LunaDatabaseValue.ENABLED_PROFILE.data)
-              LunaProfile().safelyChangeProfiles(results.item2);
+              LunaProfile().safelyChangeProfiles(results.item2!);
           },
         ),
       ],

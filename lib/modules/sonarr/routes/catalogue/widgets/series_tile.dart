@@ -165,7 +165,7 @@ class _State extends State<SonarrSeriesTile> {
 
   Future<void> _onTap() async => SonarrSeriesDetailsRouter().navigateTo(
         context,
-        seriesId: widget.series.id,
+        widget.series.id!,
       );
 
   Future<void> _onLongPress() async {
@@ -174,6 +174,6 @@ class _State extends State<SonarrSeriesTile> {
       context,
       widget.series,
     );
-    if (values.item1) values.item2.execute(context, widget.series);
+    if (values.item1) values.item2!.execute(context, widget.series);
   }
 }

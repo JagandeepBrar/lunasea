@@ -122,10 +122,10 @@ class _State extends State<RadarrUpcomingTile> {
         title: widget.movie.title!,
       ),
       onLongPress: () async =>
-          RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
+          RadarrReleasesRouter().navigateTo(context, widget.movie.id ?? -1),
     );
   }
 
   Future<void> _onTap() async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
+      RadarrMoviesDetailsRouter().navigateTo(context, widget.movie.id!);
 }

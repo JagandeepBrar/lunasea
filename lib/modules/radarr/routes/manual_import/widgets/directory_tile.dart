@@ -19,19 +19,18 @@ class _State extends State<RadarrManualImportDirectoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.directory == null ||
-        widget.directory.path == null ||
-        widget.directory.path!.isEmpty) return const SizedBox(height: 0.0);
+    RadarrFileSystemDirectory _dir = widget.directory;
+    if (_dir.path?.isEmpty ?? true) return const SizedBox(height: 0.0);
     return LunaBlock(
-      title: widget.directory?.name ?? LunaUI.TEXT_EMDASH,
-      body: [TextSpan(text: widget.directory.path)],
+      title: _dir.name ?? LunaUI.TEXT_EMDASH,
+      body: [TextSpan(text: _dir.path)],
       trailing: LunaIconButton.arrow(loadingState: _loadingState),
       onTap: () async {
         if (_loadingState == LunaLoadingState.INACTIVE) {
           if (mounted) setState(() => _loadingState = LunaLoadingState.ACTIVE);
           context.read<RadarrManualImportState>().fetchDirectories(
                 context,
-                widget.directory.path,
+                _dir.path,
               );
         }
       },

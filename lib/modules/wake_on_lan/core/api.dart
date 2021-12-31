@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
@@ -25,7 +24,6 @@ class WakeOnLANAPI {
   Future<void> wake() async {
     IPv4Address ipv4 = IPv4Address.from(broadcastAddress!);
     MACAddress mac = MACAddress.from(macAddress!);
-    await WakeOnLAN.from(ipv4, mac).wake();
-    return true;
+    return WakeOnLAN.from(ipv4, mac).wake();
   }
 }

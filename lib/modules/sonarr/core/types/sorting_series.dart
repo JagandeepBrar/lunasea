@@ -25,8 +25,8 @@ enum SonarrSeriesSorting {
   TYPE,
 }
 
-extension SonarrSeriesSortingExtension on SonarrSeriesSorting? {
-  String? get key {
+extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
+  String get key {
     switch (this) {
       case SonarrSeriesSorting.ALPHABETICAL:
         return 'abc';
@@ -46,12 +46,10 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting? {
         return 'next_airing';
       case SonarrSeriesSorting.PREVIOUS_AIRING:
         return 'previous_airing';
-      default:
-        return null;
     }
   }
 
-  String? get readable {
+  String get readable {
     switch (this) {
       case SonarrSeriesSorting.ALPHABETICAL:
         return 'Alphabetical';
@@ -71,12 +69,10 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting? {
         return 'Next Airing';
       case SonarrSeriesSorting.PREVIOUS_AIRING:
         return 'Previous Airing';
-      default:
-        return null;
     }
   }
 
-  String? value(SonarrSeries series, SonarrQualityProfile? profile) {
+  String value(SonarrSeries series, SonarrQualityProfile? profile) {
     switch (this) {
       case SonarrSeriesSorting.ALPHABETICAL:
         return series.lunaEpisodeCount;
@@ -97,7 +93,6 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting? {
       case SonarrSeriesSorting.TYPE:
         return series.lunaSeriesType;
     }
-    throw Exception('Invalid SonarrSeriesSorting');
   }
 
   SonarrSeriesSorting? fromKey(String? key) {
@@ -131,7 +126,10 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting? {
 
 class _Sorter {
   List<SonarrSeries> byType(
-      List<SonarrSeries> data, SonarrSeriesSorting? type, bool ascending) {
+    List<SonarrSeries> data,
+    SonarrSeriesSorting type,
+    bool ascending,
+  ) {
     switch (type) {
       case SonarrSeriesSorting.DATE_ADDED:
         return _dateAdded(data, ascending);
@@ -152,7 +150,6 @@ class _Sorter {
       case SonarrSeriesSorting.QUALITY:
         return _quality(data, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<SonarrSeries> _alphabetical(List<SonarrSeries> series, bool ascending) {
@@ -188,10 +185,8 @@ class _Sorter {
   List<SonarrSeries> _episodes(List<SonarrSeries> series, bool ascending) {
     series.sort((a, b) {
       int _comparison = ascending
-          ? (a.lunaPercentageComplete ?? 0)
-              .compareTo(b.lunaPercentageComplete ?? 0)
-          : (b.lunaPercentageComplete ?? 0)
-              .compareTo(a.lunaPercentageComplete ?? 0);
+          ? a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete)
+          : b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete);
       return _comparison == 0
           ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
           : _comparison;

@@ -69,10 +69,7 @@ class LunaFirebaseMessaging {
   /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
   StreamSubscription<RemoteMessage> registerOnMessageListener() {
     return onMessage.listen((message) {
-      if (message == null) return;
-      LunaModule? module = (message.data ?? {}).isNotEmpty
-          ? LunaModule.DASHBOARD.fromKey(message.data['module'])
-          : null;
+      LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
       showLunaSnackBar(
         title: message.notification?.title ?? 'Unknown Content',
         message: message.notification?.body ?? LunaUI.TEXT_EMDASH,
@@ -102,7 +99,7 @@ class LunaFirebaseMessaging {
 
   /// Shared webhook handler.
   Future<void> _handleWebhook(RemoteMessage? message) async {
-    if (message == null || (message.data ?? {}).isEmpty) return;
+    if (message == null || message.data.isEmpty) return;
     // Extract module
     LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
     if (module == null) {
@@ -113,8 +110,8 @@ class LunaFirebaseMessaging {
       );
       return;
     }
-    String? profile = message.data['profile'];
-    if (profile?.isEmpty ?? true) {
+    String profile = message.data['profile'] ?? '';
+    if (profile.isEmpty) {
       LunaLogger().warning(
         'LunaFirebaseMessaging',
         '_handleWebhook',
@@ -127,11 +124,12 @@ class LunaFirebaseMessaging {
       popToFirst: true,
     );
     if (result) {
-      module?.handleWebhook(message.data);
+      module.handleWebhook(message.data);
     } else {
       showLunaErrorSnackBar(
-          title: 'Unknown Profile',
-          message: '"$profile" does not exist in LunaSea');
+        title: 'Unknown Profile',
+        message: '"$profile" does not exist in LunaSea',
+      );
     }
   }
 }

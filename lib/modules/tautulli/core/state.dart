@@ -116,9 +116,8 @@ class TautulliState extends LunaModuleState {
 
   /// Storing activity data
   Future<TautulliActivity?>? _activity;
-  Future<TautulliActivity?> get activity => _activity.then((value) => value!);
-  set activity(Future<TautulliActivity?> activity) {
-    assert(activity != null);
+  Future<TautulliActivity?>? get activity => _activity;
+  set activity(Future<TautulliActivity?>? activity) {
     _activity = activity;
     notifyListeners();
   }
@@ -143,9 +142,8 @@ class TautulliState extends LunaModuleState {
 
   /// Storing the user table
   Future<TautulliUsersTable>? _users;
-  Future<TautulliUsersTable> get users => _users.then((value) => value!);
-  set users(Future<TautulliUsersTable> users) {
-    assert(users != null);
+  Future<TautulliUsersTable>? get users => _users;
+  set users(Future<TautulliUsersTable>? users) {
     _users = users;
     notifyListeners();
   }
@@ -171,9 +169,8 @@ class TautulliState extends LunaModuleState {
 
   /// Storing the history table
   Future<TautulliHistory>? _history;
-  Future<TautulliHistory> get history => _history.then((value) => value!);
-  set history(Future<TautulliHistory> history) {
-    assert(history != null);
+  Future<TautulliHistory>? get history => _history;
+  set history(Future<TautulliHistory>? history) {
     _history = history;
     notifyListeners();
   }
@@ -194,8 +191,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliHistory>> _individualHistory = {};
   Map<int, Future<TautulliHistory>> get individualHistory => _individualHistory;
   void setIndividualHistory(int userId, Future<TautulliHistory> data) {
-    assert(userId != null);
-    assert(data != null);
     _individualHistory[userId] = data;
     notifyListeners();
   }
@@ -209,7 +204,6 @@ class TautulliState extends LunaModuleState {
       TautulliStatisticsTimeRange.ONE_MONTH;
   TautulliStatisticsTimeRange get statisticsTimeRange => _statisticsTimeRange;
   set statisticsTimeRange(TautulliStatisticsTimeRange statisticsTimeRange) {
-    assert(statisticsTimeRange != null);
     _statisticsTimeRange = statisticsTimeRange;
     notifyListeners();
   }
@@ -218,7 +212,6 @@ class TautulliState extends LunaModuleState {
   TautulliStatsType _statisticsType = TautulliStatsType.PLAYS;
   TautulliStatsType get statisticsType => _statisticsType;
   set statisticsType(TautulliStatsType statisticsType) {
-    assert(statisticsType != null);
     _statisticsType = statisticsType;
     notifyListeners();
   }
@@ -230,8 +223,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliUser>> _userProfile = {};
   Map<int, Future<TautulliUser>> get userProfile => _userProfile;
   void setUserProfile(int userId, Future<TautulliUser> data) {
-    assert(userId != null);
-    assert(data != null);
     _userProfile[userId] = data;
     notifyListeners();
   }
@@ -240,8 +231,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<List<TautulliSyncedItem>>> get userSyncedItems =>
       _userSyncedItems;
   void setUserSyncedItems(int userId, Future<List<TautulliSyncedItem>> data) {
-    assert(userId != null);
-    assert(data != null);
     _userSyncedItems[userId] = data;
     notifyListeners();
   }
@@ -249,8 +238,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliUserIPs>> _userIPs = {};
   Map<int, Future<TautulliUserIPs>> get userIPs => _userIPs;
   void setUserIPs(int userId, Future<TautulliUserIPs> data) {
-    assert(userId != null);
-    assert(data != null);
     _userIPs[userId] = data;
     notifyListeners();
   }
@@ -260,8 +247,6 @@ class TautulliState extends LunaModuleState {
       _userWatchStats;
   void setUserWatchStats(
       int userId, Future<List<TautulliUserWatchTimeStats>> data) {
-    assert(userId != null);
-    assert(data != null);
     _userWatchStats[userId] = data;
     notifyListeners();
   }
@@ -271,8 +256,6 @@ class TautulliState extends LunaModuleState {
       _userPlayerStats;
   void setUserPlayerStats(
       int userId, Future<List<TautulliUserPlayerStats>> data) {
-    assert(userId != null);
-    assert(data != null);
     _userPlayerStats[userId] = data;
     notifyListeners();
   }
@@ -280,8 +263,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliHistory>> _userHistory = {};
   Map<int, Future<TautulliHistory>> get userHistory => _userHistory;
   void setUserHistory(int userId, Future<TautulliHistory> data) {
-    assert(userId != null);
-    assert(data != null);
     _userHistory[userId] = data;
     notifyListeners();
   }
@@ -291,9 +272,8 @@ class TautulliState extends LunaModuleState {
   ////////////////////
 
   Future<List<TautulliSyncedItem>>? _syncedItems;
-  Future<List<TautulliSyncedItem>> get syncedItems => _syncedItems.then((value) => value!);
-  set syncedItems(Future<List<TautulliSyncedItem>> syncedItems) {
-    assert(syncedItems != null);
+  Future<List<TautulliSyncedItem>>? get syncedItems => _syncedItems;
+  set syncedItems(Future<List<TautulliSyncedItem>>? syncedItems) {
     _syncedItems = syncedItems;
     notifyListeners();
   }
@@ -308,9 +288,8 @@ class TautulliState extends LunaModuleState {
   //////////////////
 
   Future<List<TautulliHomeStats>>? _statistics;
-  Future<List<TautulliHomeStats>> get statistics => _statistics.then((value) => value!);
-  set statistics(Future<List<TautulliHomeStats>> statistics) {
-    assert(statistics != null);
+  Future<List<TautulliHomeStats>>? get statistics => _statistics;
+  set statistics(Future<List<TautulliHomeStats>>? statistics) {
     _statistics = statistics;
     notifyListeners();
   }
@@ -318,7 +297,7 @@ class TautulliState extends LunaModuleState {
   void resetStatistics() {
     if (_api != null)
       _statistics = _api!.history.getHomeStats(
-        timeRange: _statisticsTimeRange?.value,
+        timeRange: _statisticsTimeRange.value,
         statsType: _statisticsType,
         statsCount: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data,
       );
@@ -330,9 +309,8 @@ class TautulliState extends LunaModuleState {
   //////////////////////
 
   Future<List<TautulliRecentlyAdded>>? _recentlyAdded;
-  Future<List<TautulliRecentlyAdded>> get recentlyAdded => _recentlyAdded.then((value) => value!);
-  set recentlyAdded(Future<List<TautulliRecentlyAdded>> recentlyAdded) {
-    assert(recentlyAdded != null);
+  Future<List<TautulliRecentlyAdded>>? get recentlyAdded => _recentlyAdded;
+  set recentlyAdded(Future<List<TautulliRecentlyAdded>>? recentlyAdded) {
     _recentlyAdded = recentlyAdded;
     notifyListeners();
   }
@@ -353,15 +331,13 @@ class TautulliState extends LunaModuleState {
   TautulliGraphYAxis _graphYAxis = TautulliGraphYAxis.PLAYS;
   TautulliGraphYAxis get graphYAxis => _graphYAxis;
   set graphYAxis(TautulliGraphYAxis graphYAxis) {
-    assert(graphYAxis != null);
     _graphYAxis = graphYAxis;
     notifyListeners();
   }
 
   Future<TautulliGraphData>? _dailyPlayCountGraph;
-  Future<TautulliGraphData> get dailyPlayCountGraph => _dailyPlayCountGraph.then((value) => value!);
-  set dailyPlayCountGraph(Future<TautulliGraphData> dailyPlayCountGraph) {
-    assert(dailyPlayCountGraph != null);
+  Future<TautulliGraphData>? get dailyPlayCountGraph => _dailyPlayCountGraph;
+  set dailyPlayCountGraph(Future<TautulliGraphData>? dailyPlayCountGraph) {
     _dailyPlayCountGraph = dailyPlayCountGraph;
     notifyListeners();
   }
@@ -376,9 +352,8 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playsByMonthGraph;
-  Future<TautulliGraphData> get playsByMonthGraph => _playsByMonthGraph.then((value) => value!);
-  set playsByMonthGraph(Future<TautulliGraphData> playsByMonthGraph) {
-    assert(playsByMonthGraph != null);
+  Future<TautulliGraphData>? get playsByMonthGraph => _playsByMonthGraph;
+  set playsByMonthGraph(Future<TautulliGraphData>? playsByMonthGraph) {
     _playsByMonthGraph = playsByMonthGraph;
     notifyListeners();
   }
@@ -393,11 +368,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByDayOfWeekGraph;
-  Future<TautulliGraphData> get playCountByDayOfWeekGraph =>
-      _playCountByDayOfWeekGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByDayOfWeekGraph =>
+      _playCountByDayOfWeekGraph;
   set playCountByDayOfWeekGraph(
-      Future<TautulliGraphData> playCountByDayOfWeekGraph) {
-    assert(playCountByDayOfWeekGraph != null);
+      Future<TautulliGraphData>? playCountByDayOfWeekGraph) {
     _playCountByDayOfWeekGraph = playCountByDayOfWeekGraph;
     notifyListeners();
   }
@@ -412,11 +386,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByTopPlatformsGraph;
-  Future<TautulliGraphData> get playCountByTopPlatformsGraph =>
-      _playCountByTopPlatformsGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByTopPlatformsGraph =>
+      _playCountByTopPlatformsGraph;
   set playCountByTopPlatformsGraph(
-      Future<TautulliGraphData> playCountByTopPlatformsGraph) {
-    assert(playCountByTopPlatformsGraph != null);
+      Future<TautulliGraphData>? playCountByTopPlatformsGraph) {
     _playCountByTopPlatformsGraph = playCountByTopPlatformsGraph;
     notifyListeners();
   }
@@ -431,11 +404,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByTopUsersGraph;
-  Future<TautulliGraphData> get playCountByTopUsersGraph =>
-      _playCountByTopUsersGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByTopUsersGraph =>
+      _playCountByTopUsersGraph;
   set playCountByTopUsersGraph(
-      Future<TautulliGraphData> playCountByTopUsersGraph) {
-    assert(playCountByTopUsersGraph != null);
+      Future<TautulliGraphData>? playCountByTopUsersGraph) {
     _playCountByTopUsersGraph = playCountByTopUsersGraph;
     notifyListeners();
   }
@@ -458,11 +430,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _dailyStreamTypeBreakdownGraph;
-  Future<TautulliGraphData> get dailyStreamTypeBreakdownGraph =>
-      _dailyStreamTypeBreakdownGraph.then((value) => value!);
+  Future<TautulliGraphData>? get dailyStreamTypeBreakdownGraph =>
+      _dailyStreamTypeBreakdownGraph;
   set dailyStreamTypeBreakdownGraph(
-      Future<TautulliGraphData> dailyStreamTypeBreakdownGraph) {
-    assert(dailyStreamTypeBreakdownGraph != null);
+      Future<TautulliGraphData>? dailyStreamTypeBreakdownGraph) {
     _dailyStreamTypeBreakdownGraph = dailyStreamTypeBreakdownGraph;
     notifyListeners();
   }
@@ -477,10 +448,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountBySourceResolutionGraph;
-  Future<TautulliGraphData> get playCountBySourceResolutionGraph =>
-      _playCountBySourceResolutionGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountBySourceResolutionGraph =>
+      _playCountBySourceResolutionGraph;
   set playCountBySourceResolutionGraph(
-      Future<TautulliGraphData> playCountBySourceResolutionGraph) {
+      Future<TautulliGraphData>? playCountBySourceResolutionGraph) {
     assert(playCountBySourceResolutionGraph != null);
     _playCountBySourceResolutionGraph = playCountBySourceResolutionGraph;
     notifyListeners();
@@ -497,11 +468,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByStreamResolutionGraph;
-  Future<TautulliGraphData> get playCountByStreamResolutionGraph =>
-      _playCountByStreamResolutionGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByStreamResolutionGraph =>
+      _playCountByStreamResolutionGraph;
   set playCountByStreamResolutionGraph(
-      Future<TautulliGraphData> playCountByStreamResolutionGraph) {
-    assert(playCountByStreamResolutionGraph != null);
+      Future<TautulliGraphData>? playCountByStreamResolutionGraph) {
     _playCountByStreamResolutionGraph = playCountByStreamResolutionGraph;
     notifyListeners();
   }
@@ -517,11 +487,10 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByPlatformStreamTypeGraph;
-  Future<TautulliGraphData> get playCountByPlatformStreamTypeGraph =>
-      _playCountByPlatformStreamTypeGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByPlatformStreamTypeGraph =>
+      _playCountByPlatformStreamTypeGraph;
   set playCountByPlatformStreamTypeGraph(
-      Future<TautulliGraphData> playCountByPlatformStreamTypeGraph) {
-    assert(playCountByPlatformStreamTypeGraph != null);
+      Future<TautulliGraphData>? playCountByPlatformStreamTypeGraph) {
     _playCountByPlatformStreamTypeGraph = playCountByPlatformStreamTypeGraph;
     notifyListeners();
   }
@@ -537,18 +506,18 @@ class TautulliState extends LunaModuleState {
   }
 
   Future<TautulliGraphData>? _playCountByUserStreamTypeGraph;
-  Future<TautulliGraphData> get playCountByUserStreamTypeGraph =>
-      _playCountByUserStreamTypeGraph.then((value) => value!);
+  Future<TautulliGraphData>? get playCountByUserStreamTypeGraph =>
+      _playCountByUserStreamTypeGraph;
   set playCountByUserStreamTypeGraph(
-      Future<TautulliGraphData> playCountByUserStreamTypeGraph) {
-    assert(playCountByUserStreamTypeGraph != null);
+      Future<TautulliGraphData>? playCountByUserStreamTypeGraph) {
     _playCountByUserStreamTypeGraph = playCountByUserStreamTypeGraph;
     notifyListeners();
   }
 
   void resetPlayCountByUserStreamTypeGraph() {
     if (_api != null)
-      _playCountByUserStreamTypeGraph = _api!.history.getStreamTypeByTopTenUsers(
+      _playCountByUserStreamTypeGraph =
+          _api!.history.getStreamTypeByTopTenUsers(
         timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
         yAxis: _graphYAxis,
       );
@@ -568,9 +537,8 @@ class TautulliState extends LunaModuleState {
   /////////////////
 
   Future<TautulliLibrariesTable>? _librariesTable;
-  Future<TautulliLibrariesTable> get librariesTable => _librariesTable.then((value) => value!);
-  set librariesTable(Future<TautulliLibrariesTable> librariesTable) {
-    assert(librariesTable != null);
+  Future<TautulliLibrariesTable>? get librariesTable => _librariesTable;
+  set librariesTable(Future<TautulliLibrariesTable>? librariesTable) {
     _librariesTable = librariesTable;
     notifyListeners();
   }

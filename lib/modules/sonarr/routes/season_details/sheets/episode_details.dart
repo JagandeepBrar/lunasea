@@ -56,13 +56,13 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           text: episodeFile!.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
         ),
       if (!episode!.hasFile! &&
-          (episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true))
+          (episode?.airDateUtc?.toLocal().isAfter(DateTime.now()) ?? true))
         LunaHighlightedNode(
           backgroundColor: LunaColours.blue,
           text: 'sonarr.Unaired'.tr(),
         ),
       if (!episode!.hasFile! &&
-          (episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? true))
+          (episode?.airDateUtc?.toLocal().isBefore(DateTime.now()) ?? false))
         LunaHighlightedNode(
           backgroundColor: LunaColours.red,
           text: 'sonarr.Missing'.tr(),
@@ -90,11 +90,11 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               : 'lunasea.UnknownDate'.tr(),
           '\n',
           'sonarr.SeasonNumber'.tr(
-            args: [episode?.seasonNumber.toString()],
+            args: [episode?.seasonNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
           LunaUI.TEXT_BULLET.lunaPad(),
           'sonarr.EpisodeNumber'.tr(
-            args: [episode?.episodeNumber.toString()],
+            args: [episode?.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
           if (episode?.absoluteEpisodeNumber != null)
             ' (${episode!.absoluteEpisodeNumber})',
@@ -295,8 +295,8 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       builder: (context, _) => Consumer<SonarrSeasonDetailsState>(
         builder: (context, state, _) => FutureBuilder(
           future: Future.wait([
-            state.episodes.then((value) => value!),
-            state.files.then((value) => value!),
+            state.episodes!,
+            state.files!,
             state.queue,
             state.getEpisodeHistory(episode!.id),
           ]),

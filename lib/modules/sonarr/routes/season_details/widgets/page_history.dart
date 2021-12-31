@@ -38,9 +38,9 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
       child: FutureBuilder(
         future: Future.wait([
           context.select<SonarrSeasonDetailsState,
-              Future<List<SonarrHistoryRecord>>?>((s) => s.history).then((value) => value!),
+              Future<List<SonarrHistoryRecord>>?>((s) => s.history)!,
           context.select<SonarrSeasonDetailsState,
-              Future<Map<int?, SonarrEpisode>>?>((s) => s.episodes).then((value) => value!),
+              Future<Map<int?, SonarrEpisode>>?>((s) => s.episodes)!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -66,7 +66,7 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
     required List<SonarrHistoryRecord> history,
     required Map<int, SonarrEpisode> episodes,
   }) {
-    if ((history?.length ?? 0) == 0)
+    if (history.isEmpty)
       return LunaMessage(
         text: 'sonarr.NoHistoryFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),

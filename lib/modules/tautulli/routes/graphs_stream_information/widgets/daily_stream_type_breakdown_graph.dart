@@ -11,7 +11,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.dailyStreamTypeBreakdownGraph,
+        selector: (_, state) => state.dailyStreamTypeBreakdownGraph!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {

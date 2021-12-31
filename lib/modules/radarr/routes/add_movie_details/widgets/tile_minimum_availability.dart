@@ -14,7 +14,7 @@ class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
       builder: (context, availability, _) {
         return LunaBlock(
           title: 'radarr.MinimumAvailability'.tr(),
-          body: [TextSpan(text: availability?.readable ?? LunaUI.TEXT_EMDASH)],
+          body: [TextSpan(text: availability.readable)],
           trailing: const LunaIconButton.arrow(),
           onTap: () async {
             Tuple2<bool, RadarrAvailability?> values =

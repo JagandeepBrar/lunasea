@@ -21,7 +21,7 @@ enum CalendarStartingDay {
   SUNDAY,
 }
 
-extension CalendarStartingDayExtension on CalendarStartingDay? {
+extension CalendarStartingDayExtension on CalendarStartingDay {
   StartingDayOfWeek get data {
     switch (this) {
       case CalendarStartingDay.MONDAY:
@@ -39,7 +39,6 @@ extension CalendarStartingDayExtension on CalendarStartingDay? {
       case CalendarStartingDay.SUNDAY:
         return StartingDayOfWeek.sunday;
     }
-    throw Exception('Invalid CalendarStartingDay');
   }
 
   String get name {
@@ -59,7 +58,6 @@ extension CalendarStartingDayExtension on CalendarStartingDay? {
       case CalendarStartingDay.SUNDAY:
         return 'dashboard.Sunday'.tr();
     }
-    throw Exception('Invalid CalendarStartingDay');
   }
 
   String get key {
@@ -79,10 +77,9 @@ extension CalendarStartingDayExtension on CalendarStartingDay? {
       case CalendarStartingDay.SUNDAY:
         return 'sun';
     }
-    throw Exception('Invalid CalendarStartingDay');
   }
 
-  CalendarStartingDay? fromKey(String? key) {
+  CalendarStartingDay? fromKey(String key) {
     switch (key) {
       case 'mon':
         return CalendarStartingDay.MONDAY;

@@ -15,12 +15,12 @@ class TautulliActivityDetailsMetadataAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: context.select<TautulliState, Future<TautulliActivity?>>(
-          (state) => state.activity),
+          (state) => state.activity!),
       builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
         if (snapshot.hasError) return Container();
         if (snapshot.hasData) {
-          TautulliSession? session = snapshot.data!.sessions!.firstWhereOrNull(
-              (element) => element.sessionId == sessionId);
+          TautulliSession? session = snapshot.data!.sessions!
+              .firstWhereOrNull((element) => element.sessionId == sessionId);
           if (session != null)
             return LunaIconButton(
               icon: Icons.info_outline_rounded,
@@ -35,7 +35,7 @@ class TautulliActivityDetailsMetadataAction extends StatelessWidget {
   Future<void> _onPressed(BuildContext context, TautulliSession session) =>
       TautulliMediaDetailsRouter().navigateTo(
         context,
-        ratingKey: session.ratingKey,
-        mediaType: session.mediaType,
+        session.ratingKey!,
+        session.mediaType!,
       );
 }

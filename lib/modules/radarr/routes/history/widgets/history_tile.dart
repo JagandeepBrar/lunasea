@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrHistoryTile extends StatelessWidget {
   final RadarrHistoryRecord history;
   final bool movieHistory;
-  final String? title;
+  final String title;
 
   /// If [movieHistory] is false (default), you must supply a title or else a dash will be shown.
   const RadarrHistoryTile({
@@ -18,25 +18,25 @@ class RadarrHistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: movieHistory ? history?.sourceTitle! : title!,
+      title: movieHistory ? history.sourceTitle! : title,
       collapsedSubtitles: [
         TextSpan(
           text: [
-            history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
-            history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+            history.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
+            history.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
           ].join(LunaUI.TEXT_BULLET.lunaPad()!),
         ),
         TextSpan(
-          text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
+          text: history.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
           style: TextStyle(
-            color: history?.eventType?.lunaColour ?? LunaColours.blueGrey,
+            color: history.eventType?.lunaColour ?? LunaColours.blueGrey,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
       ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
-          text: history.eventType?.readable!,
+          text: history.eventType!.readable!,
           backgroundColor: history.eventType?.lunaColour,
         ),
         ...history.customFormats!
@@ -52,8 +52,10 @@ class RadarrHistoryTile extends StatelessWidget {
           [],
       onLongPress: movieHistory
           ? null
-          : () async => RadarrMoviesDetailsRouter()
-              .navigateTo(context, movieId: history?.movieId ?? -1),
+          : () async => RadarrMoviesDetailsRouter().navigateTo(
+                context,
+                history.movieId ?? -1,
+              ),
     );
   }
 }

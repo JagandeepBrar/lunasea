@@ -47,7 +47,7 @@ class _State extends State<SonarrEpisodeTile> {
     Tuple2<bool, SonarrEpisodeSettingsType?> results = await SonarrDialogs()
         .episodeSettings(context: context, episode: widget.episode);
     if (results.item1) {
-      results.item2.execute(
+      results.item2!.execute(
         context: context,
         episode: widget.episode,
         episodeFile: widget.episodeFile,

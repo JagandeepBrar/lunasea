@@ -19,7 +19,7 @@ class SonarrReleasesState extends ChangeNotifier {
   Future<List<SonarrRelease>>? _releases;
   Future<List<SonarrRelease>>? get releases => _releases;
   void refreshReleases(BuildContext context) {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       if (episodeId != null) {
         _releases =
             context.read<SonarrState>().api!.release.get(episodeId: episodeId!);

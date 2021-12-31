@@ -31,8 +31,8 @@ class _State extends State<TautulliLibrariesDetailsInformation>
     context.read<TautulliState>().fetchLibraryWatchTimeStats(widget.sectionId);
     setState(() => _initialLoad = true);
     await Future.wait([
-      context.read<TautulliState>().librariesTable,
-      context.read<TautulliState>().libraryWatchTimeStats[widget.sectionId].then((value) => value!),
+      context.read<TautulliState>().librariesTable!,
+      context.read<TautulliState>().libraryWatchTimeStats[widget.sectionId]!,
     ]);
   }
 
@@ -52,10 +52,10 @@ class _State extends State<TautulliLibrariesDetailsInformation>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliState>().librariesTable,
+          context.watch<TautulliState>().librariesTable!,
           context
               .watch<TautulliState>()
-              .libraryWatchTimeStats[widget.sectionId].then((value) => value!),
+              .libraryWatchTimeStats[widget.sectionId]!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError)
@@ -67,7 +67,8 @@ class _State extends State<TautulliLibrariesDetailsInformation>
                     .firstWhereOrNull(
                       (element) => element.sectionId == widget.sectionId,
                     );
-            return _list(library, snapshot.data![1] as List<TautulliLibraryWatchTimeStats>);
+            return _list(library,
+                snapshot.data![1] as List<TautulliLibraryWatchTimeStats>);
           }
           return const LunaLoader();
         },

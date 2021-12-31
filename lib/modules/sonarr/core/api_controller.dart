@@ -8,8 +8,7 @@ class SonarrAPIController {
     required SonarrRelease release,
     bool showSnackbar = true,
   }) async {
-    assert(release != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context
           .read<SonarrState>()
           .api!
@@ -22,9 +21,10 @@ class SonarrAPIController {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.DownloadingRelease'.tr(),
-            message: release.title,
+            message: release.title.lunaSafe(),
           );
         }
+        return true;
       }).catchError((error, stack) {
         LunaLogger().error(
           'Failed to set download release (${release.guid})',
@@ -38,7 +38,7 @@ class SonarrAPIController {
           );
         }
         return false;
-      }) as FutureOr<bool>;
+      });
     }
     return false;
   }
@@ -51,7 +51,7 @@ class SonarrAPIController {
     assert(episode != null);
     SonarrEpisode _episode = episode.clone();
     _episode.monitored = !_episode.monitored!;
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context.read<SonarrState>().api!.episode.setMonitored(
         episodeIds: [_episode.id!],
         monitored: _episode.monitored!,
@@ -65,6 +65,7 @@ class SonarrAPIController {
             message: _episode.title,
           );
         }
+        return true;
       }).catchError((error, stack) {
         LunaLogger().error(
           'Failed to set episode monitored state (${_episode.id})',
@@ -80,7 +81,7 @@ class SonarrAPIController {
           );
         }
         return false;
-      }) as FutureOr<bool>;
+      });
     }
     return false;
   }
@@ -91,11 +92,9 @@ class SonarrAPIController {
     required SonarrEpisodeFile episodeFile,
     bool showSnackbar = true,
   }) async {
-    assert(episodeFile != null);
-    assert(episode != null);
     SonarrEpisode _episode = episode.clone();
     _episode.hasFile = false;
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context
           .read<SonarrState>()
           .api!
@@ -109,6 +108,7 @@ class SonarrAPIController {
             message: episodeFile.relativePath,
           );
         }
+        return true;
       }).catchError((error, stack) {
         LunaLogger().error(
           'Failed to delete episode (${episodeFile.id})',
@@ -122,7 +122,7 @@ class SonarrAPIController {
           );
         }
         return false;
-      }) as FutureOr<bool>;
+      });
     }
     return false;
   }
@@ -132,8 +132,7 @@ class SonarrAPIController {
     required SonarrEpisode episode,
     bool showSnackbar = true,
   }) async {
-    assert(episode != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context
           .read<SonarrState>()
           .api!
@@ -145,6 +144,7 @@ class SonarrAPIController {
             message: episode.title,
           );
         }
+        return true;
       }).catchError((error, stack) {
         LunaLogger().error(
           'Failed to search for episode: ${episode.id}',
@@ -158,7 +158,7 @@ class SonarrAPIController {
           );
         }
         return false;
-      }) as FutureOr<bool>;
+      });
     }
     return false;
   }
@@ -169,8 +169,7 @@ class SonarrAPIController {
     required int? seriesId,
     bool showSnackbar = true,
   }) async {
-    assert(season != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context.read<SonarrState>().series!.then((series) {
         if (series[seriesId] == null) {
           throw Exception('Series does not exist in catalogue');
@@ -222,8 +221,7 @@ class SonarrAPIController {
     required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
-    assert(series != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       SonarrSeries seriesCopy = series.clone();
       seriesCopy.monitored = !series.monitored!;
       return await context
@@ -270,8 +268,7 @@ class SonarrAPIController {
     required String label,
     bool showSnackbar = true,
   }) async {
-    assert(label != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -301,8 +298,7 @@ class SonarrAPIController {
     required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
-    assert(series != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -341,7 +337,7 @@ class SonarrAPIController {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context.read<SonarrState>().api!.command.backup().then((_) {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
@@ -373,7 +369,7 @@ class SonarrAPIController {
     required int? seasonNumber,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -409,7 +405,7 @@ class SonarrAPIController {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context.read<SonarrState>().api!.command.rssSync().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -438,7 +434,7 @@ class SonarrAPIController {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -472,7 +468,7 @@ class SonarrAPIController {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -507,8 +503,7 @@ class SonarrAPIController {
     required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
-    assert(series != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -543,8 +538,7 @@ class SonarrAPIController {
     required SonarrSeries series,
     bool showSnackbar = true,
   }) async {
-    assert(series != null);
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return await context
           .read<SonarrState>()
           .api!
@@ -598,7 +592,7 @@ class SonarrAPIController {
     required List<SonarrTag> tags,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       series.id = 0;
       return await context
           .read<SonarrState>()
@@ -632,12 +626,12 @@ class SonarrAPIController {
           error,
           stack,
         );
-        if (showSnackbar)
+        if (showSnackbar) {
           showLunaErrorSnackBar(
             title: 'sonarr.FailedToAddSeries'.tr(),
             error: error,
           );
-        return null;
+        }
       });
     }
     return null;
@@ -648,7 +642,7 @@ class SonarrAPIController {
     required SonarrQueueRecord queueRecord,
     bool showSnackbar = true,
   }) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return context
           .read<SonarrState>()
           .api!

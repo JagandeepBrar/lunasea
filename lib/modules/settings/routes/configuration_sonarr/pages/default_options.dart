@@ -97,7 +97,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrSeriesSorting?).readable)],
+        body: [TextSpan(text: (_db.data as SonarrSeriesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = SonarrSeriesSorting.values
@@ -148,7 +148,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrSeriesFilter?).readable)],
+        body: [TextSpan(text: (_db.data as SonarrSeriesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrSeriesFilter.values
@@ -176,7 +176,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrReleasesSorting?).readable)],
+        body: [TextSpan(text: (_db.data as SonarrReleasesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = SonarrReleasesSorting.values
@@ -224,7 +224,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrReleasesFilter?).readable)],
+        body: [TextSpan(text: (_db.data as SonarrReleasesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrReleasesFilter.values

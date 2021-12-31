@@ -8,23 +8,24 @@ class SettingsConfigurationExternalModulesEditRouter
       : super('/settings/configuration/externalmodules/edit/:moduleid');
 
   @override
-  _Widget widget({
-    required int moduleId,
-  }) =>
+  _Widget widget([
+    int moduleId = -1,
+  ]) =>
       _Widget(moduleId: moduleId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? moduleId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(moduleId: moduleId));
+    BuildContext context, [
+    int moduleId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(moduleId));
 
   @override
-  String route({
-    required int? moduleId,
-  }) =>
-      super.fullRoute.replaceFirst(':moduleid', moduleId?.toString() ?? -1 as String);
+  String route([
+    int moduleId = -1,
+  ]) {
+    return super.fullRoute.replaceFirst(':moduleid', moduleId.toString());
+  }
 
   @override
   void defineRoute(FluroRouter router) {

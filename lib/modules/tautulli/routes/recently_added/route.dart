@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       key: _refreshKey,
       onRefresh: _refresh,
       child: Selector<TautulliState, Future<List<TautulliRecentlyAdded>>>(
-        selector: (_, state) => state.recentlyAdded,
+        selector: (_, state) => state.recentlyAdded!,
         builder: (context, stats, _) => FutureBuilder(
           future: stats,
           builder:

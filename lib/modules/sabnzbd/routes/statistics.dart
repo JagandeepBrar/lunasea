@@ -53,7 +53,7 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
         onRefresh: _refresh,
         child: FutureBuilder(
           future: _future,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<SABnzbdStatisticsData> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
@@ -89,7 +89,8 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
         LunaTableContent(title: 'Uptime', body: _data!.uptime),
         LunaTableContent(title: 'Version', body: _data!.version),
         LunaTableContent(
-            title: 'Temp. Space', body: '${_data!.tempFreespace.toString()} GB'),
+            title: 'Temp. Space',
+            body: '${_data!.tempFreespace.toString()} GB'),
         LunaTableContent(
             title: 'Final Space',
             body: '${_data!.finalFreespace.toString()} GB'),

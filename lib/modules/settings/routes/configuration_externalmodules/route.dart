@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return list;
   }
 
-  Widget _moduleTile(ExternalModuleHiveObject module, int? index) {
+  Widget _moduleTile(ExternalModuleHiveObject module, int index) {
     return LunaBlock(
       title: module.displayName,
       body: [TextSpan(text: module.host)],
@@ -92,7 +92,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         return SettingsConfigurationExternalModulesEditRouter().navigateTo(
           context,
-          moduleId: index,
+          index,
         );
       },
     );

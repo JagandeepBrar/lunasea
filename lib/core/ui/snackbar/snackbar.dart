@@ -39,7 +39,7 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
 Future<void> showLunaSnackBar({
   required String title,
   required LunaSnackbarType type,
-  required String? message,
+  required String message,
   Duration? duration,
   FlashPosition position = FlashPosition.bottom,
   bool showButton = false,
@@ -73,7 +73,7 @@ Future<void> showLunaSnackBar({
             overflow: TextOverflow.ellipsis,
           ),
           content: LunaText.subtitle(
-            text: message!,
+            text: message,
             maxLines: 8,
             overflow: TextOverflow.ellipsis,
           ),

@@ -22,8 +22,8 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
       trailing: const LunaIconButton.arrow(),
       onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
         context,
-        seriesId: series!.id,
-        seasonNumber: -1,
+        series?.id ?? -1,
+        -1,
       ),
     );
   }

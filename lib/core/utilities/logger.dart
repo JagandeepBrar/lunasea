@@ -25,8 +25,7 @@ class LunaLogger {
   Future<void> _compactDatabase([int count = 100]) async {
     if (Database.logsBox.keys.length <= count) return;
     List<LunaLogHiveObject> logs = Database.logsBox.values.toList();
-    logs.sort((a, b) => (b?.timestamp?.toDouble() ?? double.maxFinite)
-        .compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
+    logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
 
@@ -34,9 +33,7 @@ class LunaLogger {
   Future<String> exportLogs() async {
     // Get maps/JSON of all logs
     List<Map<String, dynamic>> logs = [];
-    Database.logsBox.values.forEach((log) {
-      if (log != null) logs.add(log.toMap());
-    });
+    Database.logsBox.values.forEach((log) => logs.add(log.toMap()));
     // Create a string
     JsonEncoder encoder = JsonEncoder.withIndent(' '.repeat(4));
     String data = encoder.convert(logs);

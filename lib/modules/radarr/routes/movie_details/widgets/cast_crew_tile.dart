@@ -28,7 +28,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
           ),
         ),
       ],
-      onTap: credits.personTmdbId?.toString()?.lunaOpenTheMovieDBCredits,
+      onTap: credits.personTmdbId?.toString().lunaOpenTheMovieDBCredits,
     );
   }
 

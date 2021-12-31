@@ -34,8 +34,5 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   }
 
   Future<void> _onTap(BuildContext context) =>
-      TautulliUserDetailsRouter().navigateTo(
-        context,
-        userId: user.userId,
-      );
+      TautulliUserDetailsRouter().navigateTo(context, user.userId!);
 }

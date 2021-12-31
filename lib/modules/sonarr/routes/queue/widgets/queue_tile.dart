@@ -45,7 +45,7 @@ class _State extends State<SonarrQueueTile> {
       case SonarrQueueTileType.ALL:
         SonarrSeriesDetailsRouter().navigateTo(
           context,
-          seriesId: widget.queueRecord.seriesId,
+          widget.queueRecord.seriesId!,
         );
         break;
       case SonarrQueueTileType.EPISODE:
@@ -95,7 +95,7 @@ class _State extends State<SonarrQueueTile> {
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(
-          text: widget.queueRecord.lunaTimeLeft() ?? LunaUI.TEXT_EMDASH,
+          text: widget.queueRecord.lunaTimeLeft(),
         ),
       ],
     );
@@ -122,15 +122,15 @@ class _State extends State<SonarrQueueTile> {
         widget.queueRecord.lunaStatusParameters(canBeWhite: false);
     return [
       LunaHighlightedNode(
-        text: widget.queueRecord.protocol.lunaReadable(),
-        backgroundColor: widget.queueRecord.protocol.lunaProtocolColor(),
+        text: widget.queueRecord.protocol!.lunaReadable(),
+        backgroundColor: widget.queueRecord.protocol!.lunaProtocolColor(),
       ),
       LunaHighlightedNode(
         text: widget.queueRecord.lunaPercentage(),
         backgroundColor: _status.item3,
       ),
       LunaHighlightedNode(
-        text: widget.queueRecord.status.lunaStatus(),
+        text: widget.queueRecord.status!.lunaStatus(),
         backgroundColor: _status.item3,
       ),
     ];
@@ -170,7 +170,7 @@ class _State extends State<SonarrQueueTile> {
       ),
       LunaTableContent(
         title: 'sonarr.Size'.tr(),
-        body: widget.queueRecord.size?.floor()?.lunaBytesToString() ??
+        body: widget.queueRecord.size?.floor().lunaBytesToString() ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
@@ -182,7 +182,7 @@ class _State extends State<SonarrQueueTile> {
 
   List<LunaButton> _tableButtons() {
     return [
-      if ((widget.queueRecord?.statusMessages ?? []).isNotEmpty)
+      if ((widget.queueRecord.statusMessages ?? []).isNotEmpty)
         LunaButton.text(
           icon: Icons.messenger_outline_rounded,
           color: LunaColours.orange,

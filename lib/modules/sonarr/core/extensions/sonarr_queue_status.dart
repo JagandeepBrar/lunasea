@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-extension LunaSonarrQueueStatusExtension on SonarrQueueStatus? {
+extension LunaSonarrQueueStatusExtension on SonarrQueueStatus {
   String lunaStatus() {
     switch (this) {
       case SonarrQueueStatus.DOWNLOADING:
@@ -21,6 +21,5 @@ extension LunaSonarrQueueStatusExtension on SonarrQueueStatus? {
       case SonarrQueueStatus.WARNING:
         return 'sonarr.DownloadWarning'.tr();
     }
-    throw Exception('Invalid SonarrQueueStatus');
   }
 }

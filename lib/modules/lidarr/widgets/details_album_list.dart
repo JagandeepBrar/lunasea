@@ -52,7 +52,7 @@ class _State extends State<LidarrDetailsAlbumList>
         onRefresh: _refresh,
         child: FutureBuilder(
           future: _future,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<List<LidarrAlbumData>> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
@@ -80,7 +80,7 @@ class _State extends State<LidarrDetailsAlbumList>
             controller: LidarrArtistNavigationBar.scrollControllers[1],
             itemCount: _filtered.isEmpty ? 1 : _filtered.length,
             itemBuilder: _filtered.isEmpty
-                ? (context, _) => LunaMessage(text: 'No Albums Found')
+                ? (context, _) => const LunaMessage(text: 'No Albums Found')
                 : (context, index) => LidarrDetailsAlbumTile(
                       data: _filtered[index],
                       refreshState: _refreshState,

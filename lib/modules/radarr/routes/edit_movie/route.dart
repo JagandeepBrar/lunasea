@@ -7,26 +7,24 @@ class RadarrMoviesEditRouter extends RadarrPageRouter {
   RadarrMoviesEditRouter() : super('/radarr/editmovie/:movieid');
 
   @override
-  Widget widget({
-    required int movieId,
-  }) {
-    return _Widget(
-      movieId: movieId,
-    );
+  Widget widget([
+    int movieId = -1,
+  ]) {
+    return _Widget(movieId: movieId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? movieId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(movieId: movieId));
+    BuildContext context, [
+    int movieId = -1,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(movieId));
   }
 
   @override
-  String route({
-    required int? movieId,
-  }) {
+  String route([
+    int movieId = -1,
+  ]) {
     return fullRoute.replaceFirst(':movieid', movieId.toString());
   }
 
@@ -109,14 +107,11 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait([
         context.select<RadarrState, Future<List<RadarrMovie>>?>(
-          (state) => state.movies,
-        ).then((value) => value!),
-        context.select<RadarrState, Future<List<RadarrQualityProfile>>>(
-          (state) => state.qualityProfiles,
-        ),
-        context.select<RadarrState, Future<List<RadarrTag>>>(
-          (state) => state.tags,
-        ),
+            (state) => state.movies)!,
+        context.select<RadarrState, Future<List<RadarrQualityProfile>>?>(
+            (state) => state.qualityProfiles)!,
+        context.select<RadarrState, Future<List<RadarrTag>>?>(
+            (state) => state.tags)!,
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
@@ -125,7 +120,7 @@ class _State extends State<_Widget>
         if (snapshot.hasData) {
           RadarrMovie? movie =
               (snapshot.data![0] as List<RadarrMovie>).firstWhereOrNull(
-            (movie) => movie?.id == widget.movieId,
+            (movie) => movie.id == widget.movieId,
           );
           if (movie == null) return const LunaLoader();
           return _list(

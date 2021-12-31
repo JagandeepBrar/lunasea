@@ -44,10 +44,10 @@ class _State extends State<SonarrMissingRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<SonarrState,
-          Tuple2<Future<Map<int?, SonarrSeries>>?, Future<SonarrMissing>>>(
+          Tuple2<Future<Map<int, SonarrSeries>>?, Future<SonarrMissing>?>>(
         selector: (_, state) => Tuple2(state.series, state.missing),
         builder: (context, tuple, _) => FutureBuilder(
-          future: Future.wait([tuple.item1.then((value) => value!), tuple.item2]),
+          future: Future.wait([tuple.item1!, tuple.item2!]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
@@ -57,7 +57,7 @@ class _State extends State<SonarrMissingRoute>
                   snapshot.stackTrace,
                 );
               }
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData)
               return _episodes(
@@ -72,7 +72,7 @@ class _State extends State<SonarrMissingRoute>
   }
 
   Widget _episodes(Map<int, SonarrSeries> series, SonarrMissing missing) {
-    if ((missing?.records?.length ?? 0) == 0)
+    if ((missing.records?.length ?? 0) == 0)
       return LunaMessage(
         text: 'sonarr.NoEpisodesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),

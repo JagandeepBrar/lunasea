@@ -22,10 +22,7 @@ class LunaCard extends Card {
           margin: margin,
           color: color ?? Theme.of(context).primaryColor,
           shape: LunaUI.shapeBorder,
-          elevation: 0.0 ?? LunaUI.ELEVATION,
+          elevation: 0.0,
           clipBehavior: Clip.antiAlias,
-        ) {
-    assert(context != null);
-    assert(child != null);
-  }
+        );
 }

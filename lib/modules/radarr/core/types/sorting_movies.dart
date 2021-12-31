@@ -29,8 +29,8 @@ enum RadarrMoviesSorting {
   YEAR,
 }
 
-extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
-  String? get key {
+extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
+  String get key {
     switch (this) {
       case RadarrMoviesSorting.ALPHABETICAL:
         return 'abc';
@@ -55,10 +55,9 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
       case RadarrMoviesSorting.DIGITAL_RELEASE:
         return 'digitalrelease';
     }
-    return null;
   }
 
-  RadarrMoviesSorting? fromKey(String? key) {
+  RadarrMoviesSorting? fromKey(String key) {
     switch (key) {
       case 'abc':
         return RadarrMoviesSorting.ALPHABETICAL;
@@ -111,10 +110,9 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
       case RadarrMoviesSorting.PHYSICAL_RELEASE:
         return 'radarr.PhysicalRelease'.tr();
     }
-    throw Exception('Unknown RadarrMoviesSorting');
   }
 
-  String? value(RadarrMovie movie, RadarrQualityProfile? profile) {
+  String value(RadarrMovie movie, RadarrQualityProfile? profile) {
     switch (this) {
       case RadarrMoviesSorting.ALPHABETICAL:
         return movie.lunaYear;
@@ -139,7 +137,6 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
       case RadarrMoviesSorting.YEAR:
         return movie.lunaYear;
     }
-    throw Exception('Invalid RadarrMoviesSorting');
   }
 
   List<RadarrMovie> sort(List<RadarrMovie> data, bool ascending) =>
@@ -148,7 +145,10 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting? {
 
 class _Sorter {
   List<RadarrMovie> byType(
-      List<RadarrMovie> data, RadarrMoviesSorting? type, bool ascending) {
+    List<RadarrMovie> data,
+    RadarrMoviesSorting type,
+    bool ascending,
+  ) {
     switch (type) {
       case RadarrMoviesSorting.DATE_ADDED:
         return _dateAdded(data, ascending);
@@ -173,7 +173,6 @@ class _Sorter {
       case RadarrMoviesSorting.PHYSICAL_RELEASE:
         return _physicalRelease(data, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrMovie> _alphabetical(List<RadarrMovie> series, bool ascending) {
@@ -246,10 +245,10 @@ class _Sorter {
         _comparison = 0;
       if (a.minimumAvailability != null && b.minimumAvailability != null)
         _comparison = ascending
-            ? a.minimumAvailability!.value!
-                .compareTo(b.minimumAvailability!.value!)
-            : b.minimumAvailability!.value!
-                .compareTo(a.minimumAvailability!.value!);
+            ? a.minimumAvailability!.value
+                .compareTo(b.minimumAvailability!.value)
+            : b.minimumAvailability!.value
+                .compareTo(a.minimumAvailability!.value);
       return _comparison == 0
           ? a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase())
           : _comparison!;

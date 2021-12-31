@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsOverview extends StatefulWidget {
-  final LidarrCatalogueData? data;
+  final LidarrCatalogueData data;
 
   const LidarrDetailsOverview({
     Key? key,
@@ -26,19 +26,18 @@ class _State extends State<LidarrDetailsOverview>
       controller: LidarrArtistNavigationBar.scrollControllers[0],
       children: <Widget>[
         LidarrDescriptionBlock(
-          title: widget?.data?.title ?? 'Unknown',
-          description: widget?.data?.overview == ''
+          title: widget.data.title,
+          description: widget.data.overview == ''
               ? 'No Summary Available'
-              : widget?.data?.overview,
-          uri: widget?.data?.posterURI() ?? '',
+              : widget.data.overview,
+          uri: widget.data.posterURI(),
           squareImage: true,
           headers: Database.currentProfileObject!.getLidarr()['headers'],
         ),
         LunaButtonContainer(
           buttonsPerRow: 4,
           children: [
-            if (widget.data!.bandsintownURI != null &&
-                widget.data!.bandsintownURI!.isNotEmpty)
+            if (widget.data.bandsintownURI?.isNotEmpty ?? false)
               LunaCard(
                 context: context,
                 child: InkWell(
@@ -48,14 +47,13 @@ class _State extends State<LidarrDetailsOverview>
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
-                      await widget.data?.bandsintownURI?.lunaOpenGenericLink(),
+                      widget.data.bandsintownURI!.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
                 margin:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
-            if (widget.data!.discogsURI != null &&
-                widget.data!.discogsURI!.isNotEmpty)
+            if (widget.data.discogsURI?.isNotEmpty ?? false)
               LunaCard(
                 context: context,
                 child: InkWell(
@@ -65,14 +63,13 @@ class _State extends State<LidarrDetailsOverview>
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
-                      await widget.data?.discogsURI?.lunaOpenGenericLink(),
+                      widget.data.discogsURI!.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
                 margin:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
               ),
-            if (widget.data!.lastfmURI != null &&
-                widget.data!.lastfmURI!.isNotEmpty)
+            if (widget.data.lastfmURI?.isNotEmpty ?? false)
               LunaCard(
                 context: context,
                 child: InkWell(
@@ -82,7 +79,7 @@ class _State extends State<LidarrDetailsOverview>
                   ),
                   borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                   onTap: () async =>
-                      await widget.data?.lastfmURI?.lunaOpenGenericLink(),
+                      widget.data.lastfmURI!.lunaOpenGenericLink(),
                 ),
                 height: 50.0,
                 margin:
@@ -93,22 +90,29 @@ class _State extends State<LidarrDetailsOverview>
         LunaTableCard(
           content: [
             LunaTableContent(
-                title: 'Path', body: widget?.data?.path ?? LunaUI.TEXT_EMDASH),
+              title: 'Path',
+              body: widget.data.path,
+            ),
             LunaTableContent(
-                title: 'Quality',
-                body: widget?.data?.quality ?? LunaUI.TEXT_EMDASH),
+              title: 'Quality',
+              body: widget.data.quality,
+            ),
             LunaTableContent(
-                title: 'Metadata',
-                body: widget?.data?.metadata ?? LunaUI.TEXT_EMDASH),
+              title: 'Metadata',
+              body: widget.data.metadata,
+            ),
             LunaTableContent(
-                title: 'Albums',
-                body: widget?.data?.albums ?? LunaUI.TEXT_EMDASH),
+              title: 'Albums',
+              body: widget.data.albums,
+            ),
             LunaTableContent(
-                title: 'Tracks',
-                body: widget?.data?.tracks ?? LunaUI.TEXT_EMDASH),
+              title: 'Tracks',
+              body: widget.data.tracks,
+            ),
             LunaTableContent(
-                title: 'Genres',
-                body: widget?.data?.genre ?? LunaUI.TEXT_EMDASH),
+              title: 'Genres',
+              body: widget.data.genre,
+            ),
           ],
         ),
       ],

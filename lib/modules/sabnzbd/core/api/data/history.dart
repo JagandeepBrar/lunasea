@@ -34,11 +34,11 @@ class SABnzbdHistoryData {
   }
 
   String get completeTimeString {
-    return completeTimeObject?.lunaAge ?? 'Unknown Time';
+    return completeTimeObject.lunaAge;
   }
 
   String get sizeReadable {
-    return size?.lunaBytesToString() ?? 'Unknown Size';
+    return size.lunaBytesToString();
   }
 
   bool get failed {
@@ -63,17 +63,13 @@ class SABnzbdHistoryData {
     switch (status.toLowerCase()) {
       case 'completed':
         return 'Completed';
-        break;
       case 'queued':
       case 'extracting':
         return actionLine;
-        break;
       case 'failed':
         return failureMessage;
-        break;
       default:
         return status;
-        break;
     }
   }
 }

@@ -9,7 +9,7 @@ class LunaPageController extends PageController {
   }) : super(
           initialPage: initialPage ?? 0,
         ) {
-    this?.addListener(_focusListener);
+    this.addListener(_focusListener);
   }
 
   void _focusListener() {
@@ -18,7 +18,7 @@ class LunaPageController extends PageController {
 
   @override
   void dispose() {
-    this?.removeListener(_focusListener);
+    this.removeListener(_focusListener);
     super.dispose();
   }
 }

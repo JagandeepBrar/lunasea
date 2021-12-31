@@ -18,7 +18,8 @@ class NewznabAPI {
         baseUrl: '${indexer.host}/api',
         headers: {
           'User-Agent': _USER_AGENT,
-          if (indexer.headers?.isNotEmpty ?? false) ...indexer.headers as Map<String, dynamic>,
+          if (indexer.headers?.isNotEmpty ?? false)
+            ...indexer.headers as Map<String, dynamic>,
         },
         queryParameters: {
           if (indexer.apiKey != '') 'apikey': indexer.apiKey,
@@ -85,7 +86,7 @@ class NewznabAPI {
         .getElement('rss')
         ?.getElement('channel')
         ?.findElements('item')
-        ?.forEach((item) {
+        .forEach((item) {
       int? size = int.tryParse(
           item.getElement('enclosure')?.getAttribute('length') ?? 'nosize');
       NewznabResultData data = NewznabResultData(

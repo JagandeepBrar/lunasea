@@ -13,7 +13,7 @@ class RadarrMoviesEditPathTile extends StatelessWidget {
       selector: (_, state) => state.path,
       builder: (context, path, _) => LunaBlock(
         title: 'radarr.MoviePath'.tr(),
-        body: [TextSpan(text: path ?? LunaUI.TEXT_EMDASH)],
+        body: [TextSpan(text: path)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           Tuple2<bool, String> _values = await LunaDialogs().editText(

@@ -9,14 +9,12 @@ class SonarrSeriesDetailsState extends ChangeNotifier {
     required BuildContext context,
     required this.series,
   }) {
-    assert(context != null);
-    assert(series != null);
     fetchHistory(context);
   }
 
   Future<void> fetchHistory(BuildContext context) async {
     SonarrState state = context.read<SonarrState>();
-    if (state.enabled!) {
+    if (state.enabled) {
       _history = state.api!.history.getBySeries(
         seriesId: series.id!,
         includeEpisode: true,

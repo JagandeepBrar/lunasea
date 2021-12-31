@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieState extends ChangeNotifier {
   RadarrAddMovieState(BuildContext context, String query) {
-    _searchQuery = query ?? '';
+    _searchQuery = query;
     fetchDiscovery(context);
     fetchExclusions(context);
   }
@@ -12,7 +12,6 @@ class RadarrAddMovieState extends ChangeNotifier {
   late String _searchQuery;
   String get searchQuery => _searchQuery;
   set searchQuery(String searchQuery) {
-    assert(searchQuery != null);
     _searchQuery = searchQuery;
     notifyListeners();
   }
@@ -20,7 +19,7 @@ class RadarrAddMovieState extends ChangeNotifier {
   Future<List<RadarrMovie>>? _lookup;
   Future<List<RadarrMovie>>? get lookup => _lookup;
   void fetchLookup(BuildContext context) {
-    if ((context.read<RadarrState>().enabled ?? false)) {
+    if ((context.read<RadarrState>().enabled)) {
       _lookup =
           context.read<RadarrState>().api!.movieLookup.get(term: _searchQuery);
     }
@@ -30,7 +29,7 @@ class RadarrAddMovieState extends ChangeNotifier {
   Future<List<RadarrExclusion>>? _exclusions;
   Future<List<RadarrExclusion>>? get exclusions => _exclusions;
   void fetchExclusions(BuildContext context) {
-    if ((context.read<RadarrState>().enabled ?? false)) {
+    if ((context.read<RadarrState>().enabled)) {
       _exclusions = context.read<RadarrState>().api!.exclusions.getAll();
     }
     notifyListeners();
@@ -39,7 +38,7 @@ class RadarrAddMovieState extends ChangeNotifier {
   Future<List<RadarrMovie>>? _discovery;
   Future<List<RadarrMovie>>? get discovery => _discovery;
   void fetchDiscovery(BuildContext context) {
-    if ((context.read<RadarrState>().enabled ?? false)) {
+    if ((context.read<RadarrState>().enabled)) {
       _discovery = context.read<RadarrState>().api!.importList.getMovies(
           includeRecommendations:
               RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.data);

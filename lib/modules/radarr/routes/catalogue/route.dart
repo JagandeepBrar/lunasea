@@ -28,9 +28,9 @@ class _State extends State<RadarrCatalogueRoute>
     _state.fetchQualityProfiles();
     _state.fetchTags();
     await Future.wait([
-      _state.movies.then((value) => value!),
-      _state.qualityProfiles,
-      _state.tags,
+      _state.movies!,
+      _state.qualityProfiles!,
+      _state.tags!,
     ]);
   }
 
@@ -62,7 +62,7 @@ class _State extends State<RadarrCatalogueRoute>
       child: Selector<
               RadarrState,
               Tuple2<Future<List<RadarrMovie>>?,
-                  Future<List<RadarrQualityProfile>>>>(
+                  Future<List<RadarrQualityProfile>>?>>(
           selector: (_, state) => Tuple2(
                 state.movies,
                 state.qualityProfiles,
@@ -70,8 +70,8 @@ class _State extends State<RadarrCatalogueRoute>
           builder: (context, tuple, _) {
             return FutureBuilder(
               future: Future.wait([
-                tuple.item1.then((value) => value!),
-                tuple.item2,
+                tuple.item1!,
+                tuple.item2!,
               ]),
               builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if (snapshot.hasError) {
@@ -102,15 +102,15 @@ class _State extends State<RadarrCatalogueRoute>
     List<RadarrMovie> movies,
     String query,
   ) {
-    if (movies?.isEmpty ?? true) return movies;
+    if (movies.isEmpty) return movies;
     RadarrMoviesSorting sorting = context.watch<RadarrState>().moviesSortType;
     RadarrMoviesFilter filter = context.watch<RadarrState>().moviesFilterType;
     bool ascending = context.watch<RadarrState>().moviesSortAscending;
     // Filter
     List<RadarrMovie> filtered = movies.where((movie) {
-      if (query != null && query.isNotEmpty && movie.id != null)
+      if (query.isNotEmpty && movie.id != null)
         return movie.title!.toLowerCase().contains(query.toLowerCase());
-      return (movie != null && movie.id != null);
+      return movie.id != null;
     }).toList();
     filtered = filter.filter(filtered);
     // Sort
@@ -122,7 +122,7 @@ class _State extends State<RadarrCatalogueRoute>
     List<RadarrMovie> movies,
     List<RadarrQualityProfile> qualityProfiles,
   ) {
-    if ((movies?.length ?? 0) == 0)
+    if (movies.isEmpty)
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
@@ -132,12 +132,12 @@ class _State extends State<RadarrCatalogueRoute>
       selector: (_, state) => state.moviesSearchQuery,
       builder: (context, query, _) {
         List<RadarrMovie> _filtered = _filterAndSort(movies, query);
-        if ((_filtered?.length ?? 0) == 0)
+        if (_filtered.isEmpty)
           return LunaListView(
             controller: RadarrNavigationBar.scrollControllers[0],
             children: [
               LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
-              if ((query ?? '').isNotEmpty)
+              if (query.isNotEmpty)
                 LunaButtonContainer(
                   children: [
                     LunaButton.text(
@@ -150,7 +150,7 @@ class _State extends State<RadarrCatalogueRoute>
                       backgroundColor: LunaColours.accent,
                       onTap: () async => RadarrAddMovieRouter().navigateTo(
                         context,
-                        query: query ?? '',
+                        query,
                       ),
                     ),
                   ],

@@ -19,8 +19,8 @@ enum RadarrMoviesFilter {
   CUTOFF_UNMET,
 }
 
-extension RadarrMoviesFilterExtension on RadarrMoviesFilter? {
-  String? get key {
+extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
+  String get key {
     switch (this) {
       case RadarrMoviesFilter.ALL:
         return 'all';
@@ -34,12 +34,10 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter? {
         return 'wanted';
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return 'cutoffunmet';
-      default:
-        return null;
     }
   }
 
-  String? get readable {
+  String get readable {
     switch (this) {
       case RadarrMoviesFilter.ALL:
         return 'radarr.All'.tr();
@@ -53,12 +51,10 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter? {
         return 'radarr.Wanted'.tr();
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return 'radarr.CutoffUnmet'.tr();
-      default:
-        return null;
     }
   }
 
-  RadarrMoviesFilter? fromKey(String? key) {
+  RadarrMoviesFilter? fromKey(String key) {
     switch (key) {
       case 'all':
         return RadarrMoviesFilter.ALL;
@@ -84,7 +80,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter? {
 class _Filterer {
   List<RadarrMovie> byType(
     List<RadarrMovie> movies,
-    RadarrMoviesFilter? type,
+    RadarrMoviesFilter type,
   ) {
     switch (type) {
       case RadarrMoviesFilter.ALL:
@@ -100,7 +96,6 @@ class _Filterer {
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return _cutoffUnmet(movies);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrMovie> _monitored(List<RadarrMovie> movies) =>

@@ -164,7 +164,8 @@ class SonarrDialogs {
       context: context,
       builder: (dContext) => ChangeNotifierProvider.value(
         value: context.read<SonarrSeriesAddDetailsState>(),
-        builder: (context, _) => Selector<SonarrState, Future<List<SonarrTag>>>(
+        builder: (context, _) =>
+            Selector<SonarrState, Future<List<SonarrTag>>?>(
           selector: (_, state) => state.tags,
           builder: (context, future, _) => FutureBuilder(
             future: future,
@@ -195,7 +196,8 @@ class SonarrDialogs {
                           value: context
                               .watch<SonarrSeriesAddDetailsState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data![index].id)
+                              .where(
+                                  (tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags = context
@@ -203,8 +205,8 @@ class SonarrDialogs {
                                 .tags;
                             selected!
                                 ? _tags.add(snapshot.data![index])
-                                : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data![index].id);
+                                : _tags.removeWhere((tag) =>
+                                    tag.id == snapshot.data![index].id);
                             context.read<SonarrSeriesAddDetailsState>().tags =
                                 _tags;
                           },
@@ -230,7 +232,8 @@ class SonarrDialogs {
       context: context,
       builder: (dContext) => ChangeNotifierProvider.value(
         value: context.read<SonarrSeriesEditState>(),
-        builder: (context, _) => Selector<SonarrState, Future<List<SonarrTag>>>(
+        builder: (context, _) =>
+            Selector<SonarrState, Future<List<SonarrTag>>?>(
           selector: (_, state) => state.tags,
           builder: (context, future, _) => FutureBuilder(
             future: future,
@@ -261,15 +264,15 @@ class SonarrDialogs {
                           value: context
                               .watch<SonarrSeriesEditState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data![index].id)
+                              ?.where((t) => t.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<SonarrTag> _tags =
-                                context.read<SonarrSeriesEditState>().tags;
+                                context.read<SonarrSeriesEditState>().tags!;
                             selected!
                                 ? _tags.add(snapshot.data![index])
-                                : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data![index].id);
+                                : _tags.removeWhere((tag) =>
+                                    tag.id == snapshot.data![index].id);
                             context.read<SonarrSeriesEditState>().tags = _tags;
                           },
                         ),
@@ -318,8 +321,7 @@ class SonarrDialogs {
             title: 'Tag Label',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Label cannot be empty';
+              if (value?.isEmpty ?? true) return 'Label cannot be empty';
               return null;
             },
           ),
@@ -523,8 +525,8 @@ class SonarrDialogs {
       content: List.generate(
         SonarrSeriesType.values.length,
         (index) => LunaDialog.tile(
-          text:
-              SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters()!,
+          text: SonarrSeriesType.values[index].value
+              .lunaCapitalizeFirstLetters()!,
           icon: Icons.folder_open_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesType.values[index]),
@@ -826,7 +828,7 @@ class SonarrDialogs {
             title: 'Queue Page Size',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },

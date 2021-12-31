@@ -39,7 +39,8 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   void initState() {
     super.initState();
     SchedulerBinding.instance!.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context)!.settings.arguments as LidarrDetailsAlbumArguments?;
+      _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrDetailsAlbumArguments?;
       _refresh();
     });
   }
@@ -79,7 +80,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
           onRefresh: _refresh,
           child: FutureBuilder(
             future: _future,
-            builder: (context, snapshot) {
+            builder: (context, AsyncSnapshot<List<LidarrTrackData>> snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
                   {

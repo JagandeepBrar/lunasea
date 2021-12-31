@@ -21,8 +21,8 @@ enum SonarrReleasesSorting {
   WORD_SCORE,
 }
 
-extension SonarrReleasesSortingExtension on SonarrReleasesSorting? {
-  String? get key {
+extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
+  String get key {
     switch (this) {
       case SonarrReleasesSorting.AGE:
         return 'age';
@@ -38,12 +38,10 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting? {
         return 'size';
       case SonarrReleasesSorting.WORD_SCORE:
         return 'word_score';
-      default:
-        return null;
     }
   }
 
-  String? get readable {
+  String get readable {
     switch (this) {
       case SonarrReleasesSorting.AGE:
         return 'Age';
@@ -59,8 +57,6 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting? {
         return 'Size';
       case SonarrReleasesSorting.WORD_SCORE:
         return 'sonarr.WordScore'.tr();
-      default:
-        return null;
     }
   }
 
@@ -92,7 +88,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting? {
 class _Sorter {
   List<SonarrRelease> byType(
     List<SonarrRelease> releases,
-    SonarrReleasesSorting? type,
+    SonarrReleasesSorting type,
     bool ascending,
   ) {
     switch (type) {
@@ -111,7 +107,6 @@ class _Sorter {
       case SonarrReleasesSorting.WORD_SCORE:
         return _wordScore(releases, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<SonarrRelease> _alphabetical(

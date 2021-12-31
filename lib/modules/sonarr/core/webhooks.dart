@@ -25,7 +25,7 @@ enum _EventType {
   TEST,
 }
 
-extension _EventTypeExtension on _EventType? {
+extension _EventTypeExtension on _EventType {
   _EventType? fromKey(String? key) {
     switch (key) {
       case 'Download':
@@ -83,21 +83,23 @@ extension _EventTypeExtension on _EventType? {
       LunaModule.SONARR.launch();
 
   Future<void> _goToSeriesDetails(int? seriesId) async {
-    if (seriesId != null)
+    if (seriesId != null) {
       return SonarrSeriesDetailsRouter().navigateTo(
         LunaState.navigatorKey.currentContext!,
-        seriesId: seriesId,
+        seriesId,
       );
+    }
     return LunaModule.SONARR.launch();
   }
 
   Future<void> _goToSeasonDetails(int? seriesId, int? seasonNumber) async {
-    if (seriesId != null && seasonNumber != null)
+    if (seriesId != null && seasonNumber != null) {
       return SonarrSeasonDetailsRouter().navigateTo(
         LunaState.navigatorKey.currentContext!,
-        seriesId: seriesId,
-        seasonNumber: seasonNumber,
+        seriesId,
+        seasonNumber,
       );
+    }
     return LunaModule.SONARR.launch();
   }
 }

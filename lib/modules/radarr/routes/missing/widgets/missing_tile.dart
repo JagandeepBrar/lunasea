@@ -88,10 +88,10 @@ class _State extends State<RadarrMissingTile> {
           movieId: widget.movie.id!,
           title: widget.movie.title!),
       onLongPress: () async =>
-          RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
+          RadarrReleasesRouter().navigateTo(context, widget.movie.id!),
     );
   }
 
   Future<void> _onTap() async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
+      RadarrMoviesDetailsRouter().navigateTo(context, widget.movie.id!);
 }

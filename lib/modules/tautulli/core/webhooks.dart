@@ -36,7 +36,7 @@ enum _EventType {
   WATCHED,
 }
 
-extension _EventTypeExtension on _EventType? {
+extension _EventTypeExtension on _EventType {
   _EventType? fromKey(String? key) {
     switch (key) {
       case 'BufferWarning':
@@ -169,7 +169,7 @@ extension _EventTypeExtension on _EventType? {
     if (userId != null)
       return TautulliUserDetailsRouter().navigateTo(
         LunaState.navigatorKey.currentContext!,
-        userId: userId,
+        userId,
       );
     return _goToHome();
   }
@@ -178,7 +178,7 @@ extension _EventTypeExtension on _EventType? {
     if (sessionId != null && sessionId.isNotEmpty)
       return TautulliActivityDetailsRouter().navigateTo(
         LunaState.navigatorKey.currentContext!,
-        sessionId: sessionId,
+        sessionId,
       );
     return _goToHome();
   }

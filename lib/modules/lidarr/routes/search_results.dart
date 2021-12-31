@@ -35,18 +35,20 @@ class _State extends State<LidarrSearchResults>
 
   @override
   Future<void> loadCallback() async {
-    _arguments = ModalRoute.of(context)!.settings.arguments as LidarrSearchResultsArguments?;
+    _arguments = ModalRoute.of(context)!.settings.arguments
+        as LidarrSearchResultsArguments?;
     if (mounted) setState(() => _results = []);
     final _api = LidarrAPI.from(Database.currentProfileObject!);
     setState(() => {_future = _api.getReleases(_arguments!.albumID)});
     //Clear the search filter using a microtask
-    Future.microtask(() => Provider.of<LidarrState>(context, listen: false)
-        ?.searchReleasesFilter = '');
+    Future.microtask(
+        () => context.read<LidarrState>().searchReleasesFilter = '');
   }
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context)!.settings.arguments as LidarrSearchResultsArguments?;
+    _arguments = ModalRoute.of(context)!.settings.arguments
+        as LidarrSearchResultsArguments?;
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
@@ -69,13 +71,13 @@ class _State extends State<LidarrSearchResults>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<LidarrReleaseData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null) {
                   return LunaMessage.error(
-                      onTap: () => _refreshKey.currentState?.show);
+                      onTap: _refreshKey.currentState!.show);
                 }
                 _results = snapshot.data;
                 return _list();

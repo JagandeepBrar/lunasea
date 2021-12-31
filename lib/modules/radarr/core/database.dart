@@ -56,22 +56,22 @@ class RadarrDatabase extends LunaModuleDatabase {
         // Non-primative values
         case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data
-                  as RadarrMoviesSorting?)
+                  as RadarrMoviesSorting)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data
-                  as RadarrMoviesFilter?)
+                  as RadarrMoviesFilter)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data
-                  as RadarrReleasesSorting?)
+                  as RadarrReleasesSorting)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
           data[value.key] = (RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
-                  as RadarrReleasesFilter?)
+                  as RadarrReleasesFilter)
               .key;
           break;
         case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:

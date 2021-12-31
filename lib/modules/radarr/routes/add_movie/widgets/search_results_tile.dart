@@ -82,14 +82,12 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
       LunaDialogs().textPreview(context, widget.movie.title,
           widget.movie.overview ?? 'radarr.NoSummaryIsAvailable'.tr());
     } else if (widget.exists) {
-      RadarrMoviesDetailsRouter()
-          .navigateTo(context, movieId: widget.movie.id ?? -1);
+      RadarrMoviesDetailsRouter().navigateTo(context, widget.movie.id ?? -1);
     } else {
-      RadarrAddMovieDetailsRouter()
-          .navigateTo(context, movie: widget.movie, isDiscovery: false);
+      RadarrAddMovieDetailsRouter().navigateTo(context, widget.movie, false);
     }
   }
 
   Future<void>? _onLongPress() async =>
-      widget.movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie();
+      widget.movie.tmdbId?.toString().lunaOpenTheMovieDBMovie();
 }

@@ -65,7 +65,7 @@ class DashboardDialogs {
             title: 'dashboard.PastDays'.tr(),
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'dashboard.MinimumOfOneDay'.tr();
             },
@@ -113,7 +113,7 @@ class DashboardDialogs {
             title: 'dashboard.FutureDays'.tr(),
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'dashboard.MinimumOfOneDay'.tr();
             },

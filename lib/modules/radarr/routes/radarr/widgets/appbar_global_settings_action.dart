@@ -15,7 +15,7 @@ class RadarrAppBarGlobalSettingsAction extends StatelessWidget {
       onPressed: () async {
         Tuple2<bool, RadarrGlobalSettingsType?> values =
             await RadarrDialogs().globalSettings(context);
-        if (values.item1) values.item2.execute(context);
+        if (values.item1) values.item2!.execute(context);
       },
     );
   }

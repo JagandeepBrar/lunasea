@@ -98,7 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesSorting?).readable)],
+        body: [TextSpan(text: (_db.data as RadarrMoviesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = RadarrMoviesSorting.values
@@ -154,7 +154,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesFilter?).readable)],
+        body: [TextSpan(text: (_db.data as RadarrMoviesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrMoviesFilter.values
@@ -183,7 +183,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesSorting?).readable)],
+        body: [TextSpan(text: (_db.data as RadarrReleasesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrReleasesSorting.values
@@ -231,7 +231,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesFilter?).readable)],
+        body: [TextSpan(text: (_db.data as RadarrReleasesFilter).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrReleasesFilter.values

@@ -133,7 +133,7 @@ class NZBGetDialogs {
             title: 'Job Name',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.isEmpty ? 'Please enter a valid name' : null,
+                (value?.isEmpty ?? true) ? 'Please enter a valid name' : null,
           ),
         ),
       ],
@@ -227,8 +227,9 @@ class NZBGetDialogs {
             controller: _textController,
             title: 'Job Password',
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'Please enter a valid password' : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'Please enter a valid password'
+                : null,
             obscureText: true,
           ),
         ),
@@ -358,10 +359,13 @@ class NZBGetDialogs {
             title: 'NZB URL',
             keyboardType: TextInputType.url,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                !value.startsWith('http://') && !value.startsWith('https://')
-                    ? 'Please enter a valid URL'
-                    : null,
+            validator: (value) {
+              if (!(value?.startsWith('http://') ?? true) &&
+                  !(value?.startsWith('https://') ?? true)) {
+                return 'Please enter a valid URL';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -441,7 +445,7 @@ class NZBGetDialogs {
             onSubmitted: (_) => _setValues(true),
             keyboardType: TextInputType.number,
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value == null || _value < 1) {
                 return 'Must be a number greater than 1';
               }
@@ -563,7 +567,7 @@ class NZBGetDialogs {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _setValues(true),
               validator: (value) {
-                int? _value = int.tryParse(value);
+                int? _value = int.tryParse(value!);
                 if (_value == null || _value < 1) {
                   return 'Must be at least 1';
                 }

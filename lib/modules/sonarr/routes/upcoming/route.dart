@@ -42,11 +42,13 @@ class _State extends State<SonarrUpcomingRoute>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<SonarrState,
-          Tuple2<Future<Map<int?, SonarrSeries>>?, Future<List<SonarrCalendar>>>>(
+      child: Selector<
+          SonarrState,
+          Tuple2<Future<Map<int?, SonarrSeries>>?,
+              Future<List<SonarrCalendar>>?>>(
         selector: (_, state) => Tuple2(state.series, state.upcoming),
         builder: (context, tuple, _) => FutureBuilder(
-          future: Future.wait([tuple.item1.then((value) => value!), tuple.item2]),
+          future: Future.wait([tuple.item1!, tuple.item2!]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
@@ -56,7 +58,7 @@ class _State extends State<SonarrUpcomingRoute>
                   snapshot.stackTrace,
                 );
               }
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData)
               return _episodes(
@@ -74,7 +76,7 @@ class _State extends State<SonarrUpcomingRoute>
     Map<int, SonarrSeries> series,
     List<SonarrCalendar> upcoming,
   ) {
-    if (upcoming?.isEmpty ?? true) {
+    if (upcoming.isEmpty) {
       return LunaMessage(
         text: 'sonarr.NoEpisodesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),

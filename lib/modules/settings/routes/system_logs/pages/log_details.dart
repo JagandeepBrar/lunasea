@@ -6,25 +6,19 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
   SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
 
   @override
-  Widget widget({
-    required String type,
-  }) {
-    return _Widget(type: LunaLogType.ERROR.fromKey((type)));
-  }
+  Widget widget([LunaLogType? type]) => _Widget(type: type);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required String type,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(type: type));
+    BuildContext context, [
+    LunaLogType? type,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(type));
   }
 
   @override
-  String route({
-    required String type,
-  }) {
-    return fullRoute.replaceFirst(':type', type);
+  String route([LunaLogType? type]) {
+    return fullRoute.replaceFirst(':type', type?.key ?? 'all');
   }
 
   @override
@@ -76,11 +70,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         valueListenable: Database.logsBox.listenable(),
         builder: (context, dynamic box, _) {
           List<LunaLogHiveObject> logs = filter(box);
-          if ((logs?.length ?? 0) == 0)
+          if (logs.isEmpty) {
             return LunaMessage.goBack(
               context: context,
               text: 'No Logs Found',
             );
+          }
           return LunaListViewBuilder(
             controller: scrollController,
             itemCount: logs.length,
@@ -115,8 +110,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         logs = box.values.where((log) => log.type.enabled).toList();
         break;
     }
-    logs.sort((a, b) => (b?.timestamp?.toDouble() ?? double.maxFinite)
-        .compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
+    logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     return logs;
   }
 }

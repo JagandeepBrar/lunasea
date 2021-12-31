@@ -55,9 +55,9 @@ class _State extends State<TautulliUserDetailsProfile>
     setState(() => _initialLoad = true);
     // This await keeps the refresh indicator showing until the data is loaded
     await Future.wait([
-      context.read<TautulliState>().userProfile[widget.user.userId!].then((value) => value!),
-      context.read<TautulliState>().userWatchStats[widget.user.userId!].then((value) => value!),
-      context.read<TautulliState>().userPlayerStats[widget.user.userId!].then((value) => value!),
+      context.read<TautulliState>().userProfile[widget.user.userId!]!,
+      context.read<TautulliState>().userWatchStats[widget.user.userId!]!,
+      context.read<TautulliState>().userPlayerStats[widget.user.userId!]!,
     ]);
   }
 
@@ -79,9 +79,9 @@ class _State extends State<TautulliUserDetailsProfile>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliState>().userProfile[widget.user.userId!].then((value) => value!),
-          context.watch<TautulliState>().userWatchStats[widget.user.userId!].then((value) => value!),
-          context.watch<TautulliState>().userPlayerStats[widget.user.userId!].then((value) => value!),
+          context.watch<TautulliState>().userProfile[widget.user.userId!]!,
+          context.watch<TautulliState>().userWatchStats[widget.user.userId!]!,
+          context.watch<TautulliState>().userPlayerStats[widget.user.userId!]!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {

@@ -37,8 +37,12 @@ class _State extends State<_Widget>
 
   @override
   Future<void> loadCallback() async {
-    if (context.read<RadarrState>().enabled!) {
-      await context.read<RadarrState>().api!.command.refreshMonitoredDownloads();
+    if (context.read<RadarrState>().enabled) {
+      await context
+          .read<RadarrState>()
+          .api!
+          .command
+          .refreshMonitoredDownloads();
       context.read<RadarrState>().fetchQueue();
       await context.read<RadarrState>().queue;
     }
@@ -58,8 +62,8 @@ class _State extends State<_Widget>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: Future.wait([
-          context.select((RadarrState state) => state.queue),
-          context.select(((RadarrState state) => state.movies.then((value) => value!)) as Future<_> Function(_)),
+          context.select((RadarrState state) => state.queue!),
+          context.select((RadarrState state) => state.movies!),
         ]),
         builder: (context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasError) {
@@ -70,7 +74,7 @@ class _State extends State<_Widget>
                 snapshot.stackTrace,
               );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) {
             return _list(
@@ -85,7 +89,7 @@ class _State extends State<_Widget>
   }
 
   Widget _list(RadarrQueue queue, List<RadarrMovie> movies) {
-    if ((queue?.records?.length ?? 0) == 0) {
+    if ((queue.records?.length ?? 0) == 0) {
       return LunaMessage(
         text: 'Empty Queue',
         buttonText: 'lunasea.Refresh'.tr(),

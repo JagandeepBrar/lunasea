@@ -16,15 +16,13 @@ class SonarrAddSeriesRouter extends SonarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required String query,
-  }) async {
+    BuildContext context, [
+    String query = '',
+  ]) async {
     LunaRouter.router.navigateTo(
       context,
       route(),
-      routeSettings: RouteSettings(
-        arguments: _SonarrAddSeriesArguments(query),
-      ),
+      routeSettings: RouteSettings(arguments: _SonarrAddSeriesArguments(query)),
     );
   }
 
@@ -45,7 +43,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context)!.settings.arguments as _SonarrAddSeriesArguments?;
+    _arguments = ModalRoute.of(context)!.settings.arguments
+        as _SonarrAddSeriesArguments?;
     return ChangeNotifierProvider(
       create: (context) => SonarrAddSeriesState(
         context,

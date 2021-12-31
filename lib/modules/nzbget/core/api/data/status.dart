@@ -21,11 +21,11 @@ class NZBGetStatusData {
   }
 
   String get currentSpeed {
-    return '${speed?.lunaBytesToString(decimals: 1)}/s';
+    return '${speed.lunaBytesToString(decimals: 1)}/s';
   }
 
   String get remainingString {
-    return remaining?.lunaBytesToString(decimals: 1);
+    return remaining.lunaBytesToString(decimals: 1);
   }
 
   String get timeLeft {
@@ -37,6 +37,6 @@ class NZBGetStatusData {
   String get speedlimitString {
     return speedlimit == 0
         ? 'Unlimited'
-        : speedlimit?.lunaBytesToString(decimals: 0);
+        : speedlimit.lunaBytesToString(decimals: 0);
   }
 }

@@ -49,12 +49,12 @@ class LunaDatabase extends LunaModuleDatabase {
           break;
         case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
           data[value.key] =
-              (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule?).key;
+              (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule).key;
           break;
         case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
           data[value.key] = LunaDrawer.moduleOrderedList()
-              ?.map<String>((module) => module.key)
-              ?.toList();
+              .map<String>((module) => module.key)
+              .toList();
           break;
         // Primitive values
         default:
@@ -82,7 +82,7 @@ class LunaDatabase extends LunaModuleDatabase {
             value.put(
               (config[key] as List?)
                   ?.map((item) => LunaModule.DASHBOARD.fromKey(item))
-                  ?.toList(),
+                  .toList(),
             );
             break;
           // Primitive values

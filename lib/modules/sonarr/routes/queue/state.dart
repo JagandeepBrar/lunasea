@@ -30,7 +30,7 @@ class SonarrQueueState extends ChangeNotifier {
     bool hardCheck = false,
   }) async {
     cancelTimer();
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       if (hardCheck) {
         // "Hard" check by telling Sonarr to refresh the monitored downloads
         // Give it 500 ms to internally check and then continue to fetch queue

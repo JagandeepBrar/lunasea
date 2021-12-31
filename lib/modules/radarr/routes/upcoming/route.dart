@@ -36,8 +36,8 @@ class _State extends State<RadarrUpcomingRoute>
     _state.fetchMovies();
     _state.fetchQualityProfiles();
     await Future.wait([
-      _state.upcoming.then((value) => value!),
-      _state.qualityProfiles,
+      _state.upcoming!,
+      _state.qualityProfiles!,
     ]);
   }
 
@@ -48,10 +48,10 @@ class _State extends State<RadarrUpcomingRoute>
         child: Selector<
             RadarrState,
             Tuple2<Future<List<RadarrMovie>>?,
-                Future<List<RadarrQualityProfile>>>>(
+                Future<List<RadarrQualityProfile>>?>>(
           selector: (_, state) => Tuple2(state.upcoming, state.qualityProfiles),
           builder: (context, tuple, _) => FutureBuilder(
-            future: Future.wait([tuple.item1.then((value) => value!), tuple.item2]),
+            future: Future.wait([tuple.item1!, tuple.item2!]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
               if (snapshot.hasError) {
                 if (snapshot.connectionState != ConnectionState.waiting)
@@ -63,7 +63,8 @@ class _State extends State<RadarrUpcomingRoute>
                 return LunaMessage.error(onTap: _refreshKey.currentState!.show);
               }
               if (snapshot.hasData)
-                return _list(snapshot.data![0] as List<RadarrMovie>, snapshot.data![1] as List<RadarrQualityProfile>);
+                return _list(snapshot.data![0] as List<RadarrMovie>,
+                    snapshot.data![1] as List<RadarrQualityProfile>);
               return const LunaLoader();
             },
           ),
@@ -74,12 +75,13 @@ class _State extends State<RadarrUpcomingRoute>
     List<RadarrMovie> movies,
     List<RadarrQualityProfile> qualityProfiles,
   ) {
-    if ((movies?.length ?? 0) == 0)
+    if (movies.isEmpty) {
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState!.show,
       );
+    }
     return LunaListViewBuilder(
       controller: RadarrNavigationBar.scrollControllers[1],
       itemCount: movies.length,

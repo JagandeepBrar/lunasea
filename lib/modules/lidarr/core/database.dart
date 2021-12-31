@@ -124,7 +124,6 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
       case LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING:
         return value is bool;
     }
-    throw Exception('Invalid LidarrDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -146,6 +145,5 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
       case LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING:
         return false;
     }
-    throw Exception('Invalid LidarrDatabaseValue');
   }
 }

@@ -78,6 +78,6 @@ class _State extends State<TautulliStatisticsUserTile> {
 
   Future<void> _onTap() async => TautulliUserDetailsRouter().navigateTo(
         context,
-        userId: widget.data['user_id'],
+        widget.data['user_id']!,
       );
 }

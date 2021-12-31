@@ -7,14 +7,14 @@ class RadarrReleasesState extends ChangeNotifier {
   final int _movieId;
 
   RadarrReleasesState(BuildContext context, this._movieId) {
-    if (context.read<RadarrState>().enabled!)
+    if (context.read<RadarrState>().enabled)
       _releases =
           context.read<RadarrState>().api!.release.get(movieId: _movieId);
   }
 
   Future<List<RadarrRelease>>? get releases => _releases;
   void refreshReleases(BuildContext context) {
-    if (context.read<RadarrState>().enabled!)
+    if (context.read<RadarrState>().enabled)
       _releases =
           context.read<RadarrState>().api!.release.get(movieId: _movieId);
     notifyListeners();

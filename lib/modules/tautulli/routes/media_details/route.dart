@@ -6,10 +6,10 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
   TautulliMediaDetailsRouter() : super('/tautulli/media/:mediatype/:ratingkey');
 
   @override
-  _Widget widget({
-    required int ratingKey,
-    required TautulliMediaType mediaType,
-  }) =>
+  _Widget widget([
+    int ratingKey = -1,
+    TautulliMediaType mediaType = TautulliMediaType.NULL,
+  ]) =>
       _Widget(
         ratingKey: ratingKey,
         mediaType: mediaType,
@@ -17,25 +17,23 @@ class TautulliMediaDetailsRouter extends TautulliPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? ratingKey,
-    required TautulliMediaType? mediaType,
-  }) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(
-          ratingKey: ratingKey,
-          mediaType: mediaType,
-        ),
-      );
+    BuildContext context, [
+    int ratingKey = -1,
+    TautulliMediaType mediaType = TautulliMediaType.NULL,
+  ]) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(ratingKey, mediaType),
+    );
+  }
 
   @override
-  String route({
-    required int? ratingKey,
-    required TautulliMediaType? mediaType,
-  }) =>
+  String route([
+    int ratingKey = -1,
+    TautulliMediaType mediaType = TautulliMediaType.NULL,
+  ]) =>
       fullRoute
-          .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
+          .replaceFirst(':mediatype', mediaType.value ?? 'mediatype')
           .replaceFirst(':ratingkey', ratingKey.toString());
 
   @override
@@ -103,8 +101,7 @@ class _State extends State<_Widget> {
   Widget? _bottomNavigationBar() {
     if (widget.mediaType != null &&
         widget.mediaType != TautulliMediaType.NULL &&
-        widget.mediaType != TautulliMediaType.COLLECTION &&
-        widget.ratingKey != null)
+        widget.mediaType != TautulliMediaType.COLLECTION)
       return TautulliMediaDetailsNavigationBar(pageController: _pageController);
     return null;
   }

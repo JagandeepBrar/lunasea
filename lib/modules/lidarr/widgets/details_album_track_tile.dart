@@ -21,12 +21,12 @@ class _State extends State<LidarrDetailsTrackTile> {
   Widget build(BuildContext context) => LunaBlock(
         title: widget.data.title,
         body: [
-          TextSpan(text: widget?.data?.duration?.lunaTimestamp(divisor: 1000)),
-          widget?.data?.file(widget.monitored),
+          TextSpan(text: widget.data.duration.lunaTimestamp(divisor: 1000)),
+          widget.data.file(widget.monitored),
         ],
         disabled: !widget.monitored,
         leading: LunaIconButton(
-          text: widget?.data?.trackNumber,
+          text: widget.data.trackNumber,
           textSize: LunaUI.FONT_SIZE_H4,
         ),
       );

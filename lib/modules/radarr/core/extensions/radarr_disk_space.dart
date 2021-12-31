@@ -31,7 +31,7 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
   String get lunaPercentageString => '$lunaPercentage%';
 
   Color get lunaColor {
-    int percentage = this.lunaPercentage ?? 0;
+    int percentage = this.lunaPercentage;
     if (percentage >= 90) return LunaColours.red;
     if (percentage >= 80) return LunaColours.orange;
     return LunaColours.accent;

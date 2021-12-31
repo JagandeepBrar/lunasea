@@ -54,7 +54,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       '$fullRoute/episode/:episodeid',
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!context!.read<SonarrState>().enabled!) {
+          if (!context!.read<SonarrState>().enabled) {
             return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
           }
           int episodeId = int.tryParse(params['episodeid']![0]) ?? -1;
@@ -69,7 +69,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       '$fullRoute/series/:seriesid/season/:seasonnumber',
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!context!.read<SonarrState>().enabled!) {
+          if (!context!.read<SonarrState>().enabled) {
             return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
           }
           int seriesId = int.tryParse(params['seriesid']![0]) ?? -1;
@@ -179,7 +179,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           controller: scrollController,
           itemCount: _processed.isEmpty ? 1 : _processed.length,
           itemBuilder: (context, index) {
-            if ((_processed?.length ?? 0) == 0) {
+            if (_processed.isEmpty) {
               return LunaMessage.inList(text: 'sonarr.NoReleasesFound'.tr());
             }
             return SonarrReleasesTile(release: _processed[index]);

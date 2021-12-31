@@ -42,7 +42,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    SonarrReleasesSorting.values[index].readable!,
+                    SonarrReleasesSorting.values[index].readable,
                     style: TextStyle(
                       fontSize: LunaUI.FONT_SIZE_H3,
                       color:

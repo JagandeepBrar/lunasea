@@ -61,7 +61,7 @@ class _State extends State<TautulliUserDetailsHistory>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _history(snapshot.data);
             return const LunaLoader();

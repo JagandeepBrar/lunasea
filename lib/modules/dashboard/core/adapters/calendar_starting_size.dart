@@ -14,7 +14,7 @@ enum CalendarStartingSize {
   ONE_MONTH,
 }
 
-extension CalendarStartingSizeExtension on CalendarStartingSize? {
+extension CalendarStartingSizeExtension on CalendarStartingSize {
   CalendarFormat get data {
     switch (this) {
       case CalendarStartingSize.ONE_WEEK:
@@ -24,7 +24,6 @@ extension CalendarStartingSizeExtension on CalendarStartingSize? {
       case CalendarStartingSize.ONE_MONTH:
         return CalendarFormat.month;
     }
-    throw Exception('Invalid CalendarStartingSize');
   }
 
   String get name {
@@ -36,7 +35,6 @@ extension CalendarStartingSizeExtension on CalendarStartingSize? {
       case CalendarStartingSize.ONE_MONTH:
         return 'dashboard.OneMonth'.tr();
     }
-    throw Exception('Invalid CalendarStartingSize');
   }
 
   String get key {
@@ -48,7 +46,6 @@ extension CalendarStartingSizeExtension on CalendarStartingSize? {
       case CalendarStartingSize.ONE_MONTH:
         return 'onemonth';
     }
-    throw Exception('Invalid CalendarStartingSize');
   }
 
   IconData get icon {
@@ -60,10 +57,9 @@ extension CalendarStartingSizeExtension on CalendarStartingSize? {
       case CalendarStartingSize.ONE_MONTH:
         return Icons.photo_size_select_actual_rounded;
     }
-    throw Exception('Invalid CalendarStartingSize');
   }
 
-  CalendarStartingSize? fromKey(String? key) {
+  CalendarStartingSize? fromKey(String key) {
     switch (key) {
       case 'oneweek':
         return CalendarStartingSize.ONE_WEEK;

@@ -68,7 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List<Widget> _indexerSection() => [
         if (Database.indexersBox.isEmpty)
-          LunaMessage(text: 'No Indexers Found'),
+          const LunaMessage(text: 'No Indexers Found'),
         ..._indexers,
       ];
 
@@ -78,19 +78,20 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(
       indexers.length,
-      (index) => _indexerTile(indexers[index], indexers[index].key) as LunaBlock,
+      (index) =>
+          _indexerTile(indexers[index], indexers[index].key) as LunaBlock,
     );
     return list;
   }
 
-  Widget _indexerTile(IndexerHiveObject indexer, int? index) {
+  Widget _indexerTile(IndexerHiveObject indexer, int index) {
     return LunaBlock(
       title: indexer.displayName,
       body: [TextSpan(text: indexer.host)],
       trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
         context,
-        indexerId: index,
+        index,
       ),
     );
   }

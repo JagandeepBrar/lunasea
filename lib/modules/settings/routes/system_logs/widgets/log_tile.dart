@@ -11,10 +11,10 @@ class SettingsSystemLogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String dateTime = DateTime.fromMillisecondsSinceEpoch(log.timestamp!)
+    String dateTime = DateTime.fromMillisecondsSinceEpoch(log.timestamp)
         .lunaDateTimeReadable();
     return LunaExpandableListTile(
-      title: log.message!,
+      title: log.message,
       collapsedSubtitles: [
         TextSpan(text: dateTime),
         TextSpan(

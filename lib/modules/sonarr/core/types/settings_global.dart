@@ -10,7 +10,7 @@ enum SonarrGlobalSettingsType {
   BACKUP_DATABASE,
 }
 
-extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType? {
+extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
   IconData get icon {
     switch (this) {
       case SonarrGlobalSettingsType.WEB_GUI:
@@ -24,7 +24,6 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType? {
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
         return Icons.save_rounded;
     }
-    throw Exception('Invalid SonarrGlobalSettingsType');
   }
 
   String get name {
@@ -40,7 +39,6 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType? {
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
         return 'sonarr.BackupDatabase'.tr();
     }
-    throw Exception('Invalid SonarrGlobalSettingsType');
   }
 
   Future<void> execute(BuildContext context) async {
@@ -56,11 +54,10 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType? {
       case SonarrGlobalSettingsType.BACKUP_DATABASE:
         return _backupDatabase(context);
     }
-    throw Exception('Invalid RadarrGlobalSettingsType');
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<SonarrState>().host!.lunaOpenGenericLink(
+      context.read<SonarrState>().host.lunaOpenGenericLink(
             headers: context.read<SonarrState>().headers,
           );
   Future<void> _backupDatabase(BuildContext context) async =>

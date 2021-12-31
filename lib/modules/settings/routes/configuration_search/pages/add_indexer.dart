@@ -143,7 +143,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchAddHeadersRouter()
-          .navigateTo(context, indexer: _indexer),
+          .navigateTo(context, _indexer),
     );
   }
 }

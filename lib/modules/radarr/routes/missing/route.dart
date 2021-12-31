@@ -36,8 +36,8 @@ class _State extends State<RadarrMissingRoute>
     _state.fetchMovies();
     _state.fetchQualityProfiles();
     await Future.wait([
-      _state.missing.then((value) => value!),
-      _state.qualityProfiles,
+      _state.missing!,
+      _state.qualityProfiles!,
     ]);
   }
 
@@ -47,8 +47,8 @@ class _State extends State<RadarrMissingRoute>
         onRefresh: _refresh,
         child: FutureBuilder(
           future: Future.wait([
-            context.watch<RadarrState>().missing.then((value) => value!),
-            context.watch<RadarrState>().qualityProfiles,
+            context.watch<RadarrState>().missing!,
+            context.watch<RadarrState>().qualityProfiles!,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
@@ -61,20 +61,24 @@ class _State extends State<RadarrMissingRoute>
               return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData)
-              return _list(snapshot.data![0] as List<RadarrMovie>, snapshot.data![1] as List<RadarrQualityProfile>);
+              return _list(snapshot.data![0] as List<RadarrMovie>,
+                  snapshot.data![1] as List<RadarrQualityProfile>);
             return const LunaLoader();
           },
         ),
       );
 
   Widget _list(
-      List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
-    if ((movies?.length ?? 0) == 0)
+    List<RadarrMovie> movies,
+    List<RadarrQualityProfile> qualityProfiles,
+  ) {
+    if (movies.isEmpty) {
       return LunaMessage(
         text: 'radarr.NoMoviesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
         onTap: _refreshKey.currentState!.show,
       );
+    }
     return LunaListViewBuilder(
       controller: RadarrNavigationBar.scrollControllers[2],
       itemCount: movies.length,

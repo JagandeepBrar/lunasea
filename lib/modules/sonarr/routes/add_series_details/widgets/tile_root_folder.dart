@@ -13,7 +13,7 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
       title: 'sonarr.RootFolder'.tr(),
       body: [
         TextSpan(
-          text: context.watch<SonarrSeriesAddDetailsState>().rootFolder?.path ??
+          text: context.watch<SonarrSeriesAddDetailsState>().rootFolder.path ??
               LunaUI.TEXT_EMDASH,
         ),
       ],

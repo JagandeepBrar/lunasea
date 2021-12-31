@@ -32,7 +32,7 @@ abstract class SonarrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context!.read<SonarrState>().enabled!) {
+          if (!homeRoute && !context!.read<SonarrState>().enabled) {
             return LunaNotEnabledRoute(module: 'Sonarr');
           }
           return widget();
@@ -52,7 +52,7 @@ abstract class SonarrPageRouter extends LunaPageRouter {
       fullRoute,
       handler: Handler(
         handlerFunc: (context, params) {
-          if (!homeRoute && !context!.read<SonarrState>().enabled!) {
+          if (!homeRoute && !context!.read<SonarrState>().enabled) {
             return LunaNotEnabledRoute(module: 'Sonarr');
           }
           return handlerFunc(context, params);

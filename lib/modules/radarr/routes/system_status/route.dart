@@ -35,14 +35,14 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar:
-          context.watch<RadarrState>().enabled! ? _bottomNavigationBar() : null,
+          context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'System Status',
       pageController: _pageController,

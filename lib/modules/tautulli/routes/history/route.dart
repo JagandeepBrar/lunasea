@@ -43,7 +43,7 @@ class _State extends State<TautulliHistoryRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<TautulliState, Future<TautulliHistory>>(
-        selector: (_, state) => state.history,
+        selector: (_, state) => state.history!,
         builder: (context, history, _) => FutureBuilder(
           future: history,
           builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
@@ -54,7 +54,7 @@ class _State extends State<TautulliHistoryRoute>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _history(snapshot.data);
             return const LunaLoader();

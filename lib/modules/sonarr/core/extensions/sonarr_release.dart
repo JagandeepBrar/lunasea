@@ -14,10 +14,11 @@ extension SonarrReleaseExtension on SonarrRelease {
   }
 
   String get lunaProtocol {
-    if (this.protocol != null)
+    if (this.protocol != null) {
       return this.protocol == SonarrProtocol.TORRENT
-          ? '${this.protocol.lunaReadable()} (${this?.seeders ?? 0}/${this?.leechers ?? 0})'
-          : this.protocol.lunaReadable();
+          ? '${this.protocol!.lunaReadable()} (${this.seeders ?? 0}/${this.leechers ?? 0})'
+          : this.protocol!.lunaReadable();
+    }
     return LunaUI.TEXT_EMDASH;
   }
 

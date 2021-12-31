@@ -146,8 +146,8 @@ class NZBGetAPI {
           downloaded: response.data['result'][i]['DownloadedSizeMB'] ?? 0,
           sizeTotal: response.data['result'][i]['FileSizeMB'] ?? 0,
           category: response.data['result'][i]['Category'] ?? '',
-          speed: speed ?? -1,
-          queueSeconds: queueSeconds ?? 0,
+          speed: speed,
+          queueSeconds: queueSeconds,
         );
         if (_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING')
           queueSeconds += _entry.remainingTime;

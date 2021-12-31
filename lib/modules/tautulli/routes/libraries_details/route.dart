@@ -6,22 +6,17 @@ class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
   TautulliLibrariesDetailsRouter() : super('/tautulli/libraries/:sectionid');
 
   @override
-  _Widget widget({
-    required int sectionId,
-  }) =>
-      _Widget(sectionId: sectionId);
+  _Widget widget([int sectionId = -1]) => _Widget(sectionId: sectionId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? sectionId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(sectionId: sectionId));
+    BuildContext context, [
+    int sectionId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(sectionId));
 
   @override
-  String route({
-    required int? sectionId,
-  }) =>
+  String route([int sectionId = -1]) =>
       fullRoute.replaceFirst(':sectionid', sectionId.toString());
 
   @override

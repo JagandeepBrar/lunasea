@@ -82,9 +82,13 @@ class LunaDialogs {
   }
 
   Future<void> showRejections(
-      BuildContext context, List<String?>? rejections) async {
+      BuildContext context, List<String>? rejections) async {
     if ((rejections ?? []).isEmpty)
-      return textPreview(context, 'Rejection Reasons', 'No rejections found');
+      return textPreview(
+        context,
+        'Rejection Reasons',
+        'No rejections found',
+      );
     await LunaDialog.dialog(
       context: context,
       title: 'Rejection Reasons',
@@ -92,7 +96,7 @@ class LunaDialogs {
       content: List.generate(
         rejections!.length,
         (index) => LunaDialog.tile(
-          text: rejections[index]!,
+          text: rejections[index],
           icon: Icons.report_outlined,
           iconColor: LunaColours.red,
         ),
@@ -102,8 +106,9 @@ class LunaDialogs {
   }
 
   Future<void> showMessages(BuildContext context, List<String> messages) async {
-    if ((messages ?? []).isEmpty)
+    if (messages.isEmpty) {
       return textPreview(context, 'Messages', 'No messages found');
+    }
     await LunaDialog.dialog(
       context: context,
       title: 'Messages',

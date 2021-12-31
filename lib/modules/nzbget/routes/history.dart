@@ -59,14 +59,13 @@ class _State extends State<NZBGetHistory>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<NZBGetHistoryData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null) {
                   return LunaMessage.error(
-                      onTap: () =>
-                          widget.refreshIndicatorKey.currentState!.show());
+                      onTap: widget.refreshIndicatorKey.currentState!.show);
                 }
                 _results = snapshot.data;
                 return _list;
@@ -104,11 +103,12 @@ class _State extends State<NZBGetHistory>
   }
 
   Widget _listBody(List filtered) {
-    if (filtered?.isEmpty ?? true)
+    if (filtered.isEmpty) {
       return LunaListView(
         controller: NZBGetNavigationBar.scrollControllers[1],
         children: [LunaMessage.inList(text: 'No History Found')],
       );
+    }
     return LunaListView(
       controller: NZBGetNavigationBar.scrollControllers[1],
       children: List.generate(
@@ -122,13 +122,13 @@ class _State extends State<NZBGetHistory>
   }
 
   List<NZBGetHistoryData> _filter(String filter) => _results!
-      .where((entry) => filter == null || filter == ''
-          ? entry != null
+      .where((entry) => filter.isEmpty
+          ? true
           : entry.name.toLowerCase().contains(filter.toLowerCase()))
       .toList();
 
   List<NZBGetHistoryData> _hide(List<NZBGetHistoryData> data) {
-    if (data?.isEmpty ?? true) return data;
+    if (data.isEmpty) return data;
     return data.where((entry) => entry.failed).toList();
   }
 }

@@ -16,7 +16,7 @@ class SonarrSeriesAddDetailsSeriesTypeTile extends StatelessWidget {
           text: context
                   .watch<SonarrSeriesAddDetailsState>()
                   .seriesType
-                  ?.value
+                  .value
                   ?.lunaCapitalizeFirstLetters() ??
               LunaUI.TEXT_EMDASH,
         ),

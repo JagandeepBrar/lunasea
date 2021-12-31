@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-extension SonarrEventTypeLunaExtension on SonarrEventType? {
+extension SonarrEventTypeLunaExtension on SonarrEventType {
   Color lunaColour() {
     switch (this) {
       case SonarrEventType.EPISODE_FILE_RENAMED:
@@ -19,8 +19,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType? {
         return LunaColours.orange;
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return LunaColours.accent;
-      default:
-        return LunaColours.blueGrey;
     }
   }
 
@@ -40,8 +38,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType? {
         return Icons.cloud_download_rounded;
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return Icons.download_rounded;
-      default:
-        return Icons.help_rounded;
     }
   }
 
@@ -61,8 +57,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType? {
         return Colors.white;
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return Colors.white;
-      default:
-        return Colors.white;
     }
   }
 
@@ -74,7 +68,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType? {
         return 'sonarr.EpisodeFileDeleted'.tr();
       case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
         return 'sonarr.EpisodeImported'.tr(
-          args: [record?.quality?.quality?.name ?? 'lunasea.Unknown'.tr()],
+          args: [record.quality?.quality?.name ?? 'lunasea.Unknown'.tr()],
         );
       case SonarrEventType.DOWNLOAD_FAILED:
         return 'sonarr.DownloadFailed'.tr();
@@ -87,7 +81,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType? {
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return 'sonarr.SeriesFolderImported'.tr();
     }
-    return null;
   }
 
   List<LunaTableContent> lunaTableContent({

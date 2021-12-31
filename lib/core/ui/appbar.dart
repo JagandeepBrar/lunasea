@@ -163,7 +163,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _State extends State<LunaAppBar> {
-  int? _index;
+  int _index = 0;
 
   @override
   void initState() {
@@ -186,9 +186,8 @@ class _State extends State<LunaAppBar> {
   void _onTap() {
     try {
       if ((widget.scrollControllers?.isNotEmpty ?? false) &&
-          ((widget.scrollControllers!.length - 1) >= _index!) &&
-          (widget.scrollControllers![_index!] != null)) {
-        widget.scrollControllers![_index!]?.lunaAnimateToStart();
+          ((widget.scrollControllers!.length - 1) >= _index)) {
+        widget.scrollControllers![_index].lunaAnimateToStart();
       }
     } catch (error, stack) {
       LunaLogger().error(
@@ -221,7 +220,7 @@ class _State extends State<LunaAppBar> {
   }
 
   Widget? _sharedLeading(BuildContext context) {
-    if (widget.hideLeading ?? false) return null;
+    if (widget.hideLeading) return null;
     if (kDebugMode && context.breakpoint >= LayoutBreakpoint.md) return null;
 
     if (widget.useDrawer)
@@ -257,7 +256,7 @@ class _State extends State<LunaAppBar> {
         style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
       ),
       leading: _sharedLeading(context),
-      automaticallyImplyLeading: !(widget.hideLeading ?? false),
+      automaticallyImplyLeading: !(widget.hideLeading),
       centerTitle: false,
       elevation: 0,
       actions: widget.actions,
@@ -280,7 +279,7 @@ class _State extends State<LunaAppBar> {
   Widget _dropdown(BuildContext context) {
     return AppBar(
       backgroundColor: widget.backgroundColor,
-      automaticallyImplyLeading: !(widget.hideLeading ?? false),
+      automaticallyImplyLeading: !(widget.hideLeading),
       title: LunaPopupMenuButton<String>(
         tooltip: 'Change Profiles',
         child: Row(

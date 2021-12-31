@@ -17,8 +17,8 @@ class NZBGetQueueFAB extends StatefulWidget {
 }
 
 class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
-  AnimationController? _iconController;
-  AnimationController? _hideController;
+  late AnimationController _iconController;
+  late AnimationController _hideController;
   bool _visible = true;
 
   @override
@@ -30,9 +30,9 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _iconController?.dispose();
-    _hideController?.dispose();
-    widget.scrollController?.removeListener(scrollControllerListener);
+    _iconController.dispose();
+    _hideController.dispose();
+    widget.scrollController.removeListener(scrollControllerListener);
     super.dispose();
   }
 
@@ -48,8 +48,8 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
     );
-    _hideController?.forward();
-    widget.scrollController?.addListener(scrollControllerListener);
+    _hideController.forward();
+    widget.scrollController.addListener(scrollControllerListener);
   }
 
   void scrollControllerListener() {
@@ -57,13 +57,13 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     switch (widget.scrollController.position.userScrollDirection) {
       case ScrollDirection.forward:
         if (!_visible) {
-          _hideController?.forward();
+          _hideController.forward();
           _visible = true;
         }
         break;
       case ScrollDirection.reverse:
         if (_visible) {
-          _hideController?.reverse();
+          _hideController.reverse();
           _visible = false;
         }
         break;
@@ -77,13 +77,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
       Selector<NZBGetState, Tuple2<bool, bool>>(
           selector: (_, model) => Tuple2(model.error, model.paused),
           builder: (context, data, _) {
-            data.item2
-                ? _iconController?.forward()
-                : _iconController?.reverse();
+            data.item2 ? _iconController.forward() : _iconController.reverse();
             return data.item1
                 ? Container()
                 : ScaleTransition(
-                    scale: _hideController!,
+                    scale: _hideController,
                     child: InkWell(
                       child: LunaFloatingActionButtonAnimated(
                         controller: _iconController,
@@ -137,11 +135,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
   }
 
   Future<void> _pause(BuildContext context, NZBGetAPI api) async {
-    _iconController!.forward();
+    _iconController.forward();
     await api.pauseQueue().then((_) {
       Provider.of<NZBGetState>(context, listen: false).paused = true;
     }).catchError((error) {
-      _iconController!.reverse();
+      _iconController.reverse();
       showLunaErrorSnackBar(
         title: 'Failed to Pause Queue',
         error: error,
@@ -150,11 +148,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
   }
 
   Future<void> _resume(BuildContext context, NZBGetAPI api) async {
-    _iconController!.reverse();
+    _iconController.reverse();
     return await api.resumeQueue().then((_) {
       Provider.of<NZBGetState>(context, listen: false).paused = false;
     }).catchError((error) {
-      _iconController!.forward();
+      _iconController.forward();
       showLunaErrorSnackBar(
         title: 'Failed to Resume Queue',
         error: error,

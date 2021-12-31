@@ -36,8 +36,8 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
           shouldFetchMostRecentEpisodeHistory: false,
         );
     await Future.wait([
-      context.read<SonarrSeasonDetailsState>().episodes.then((value) => value!),
-      context.read<SonarrSeasonDetailsState>().files.then((value) => value!),
+      context.read<SonarrSeasonDetailsState>().episodes!,
+      context.read<SonarrSeasonDetailsState>().files!,
       context.read<SonarrSeasonDetailsState>().queue,
     ]);
   }
@@ -57,13 +57,13 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
       child: Consumer<SonarrSeasonDetailsState>(
         builder: (context, state, _) => FutureBuilder(
           future: Future.wait([
-            state.episodes.then((value) => value!),
-            state.files.then((value) => value!),
+            state.episodes!,
+            state.files!,
             state.queue,
           ]),
           builder: (
             context,
-            snapshot,
+            AsyncSnapshot<List<Object>> snapshot,
           ) {
             if (snapshot.hasError) {
               LunaLogger().error(
@@ -77,9 +77,9 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
             }
             if (snapshot.hasData)
               return _list(
-                episodes: snapshot.data[0],
-                episodeFiles: snapshot.data[1],
-                queue: snapshot.data[2],
+                episodes: snapshot.data![0] as Map<int, SonarrEpisode>,
+                episodeFiles: snapshot.data![1] as Map<int, SonarrEpisodeFile>,
+                queue: snapshot.data![2] as List<SonarrQueueRecord>,
               );
             return const LunaLoader();
           },
@@ -89,11 +89,11 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
   }
 
   Widget _list({
-    required Map<int, SonarrEpisode>? episodes,
-    required Map<int, SonarrEpisodeFile>? episodeFiles,
-    required List<SonarrQueueRecord>? queue,
+    required Map<int, SonarrEpisode> episodes,
+    required Map<int, SonarrEpisodeFile> episodeFiles,
+    required List<SonarrQueueRecord> queue,
   }) {
-    if (episodes?.isEmpty ?? true) {
+    if (episodes.isEmpty) {
       return LunaMessage(
         text: 'sonarr.NoEpisodesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
@@ -102,7 +102,7 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
     }
 
     List<Widget> _widgets = _buildSeasonWidgets(
-      episodes: episodes!,
+      episodes: episodes,
       episodeFiles: episodeFiles,
       queue: queue,
     );

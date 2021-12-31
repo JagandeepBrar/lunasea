@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   @override
   void dispose() {
-    _pagingController?.dispose();
+    _pagingController.dispose();
     super.dispose();
   }
 

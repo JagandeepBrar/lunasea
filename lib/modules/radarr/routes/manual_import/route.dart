@@ -48,8 +48,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body(BuildContext context) {
     return FutureBuilder(
-      future: context.select<RadarrManualImportState, Future<RadarrFileSystem>?>(
-          (state) => state.directories),
+      future:
+          context.select<RadarrManualImportState, Future<RadarrFileSystem>?>(
+              (state) => state.directories),
       builder: (context, AsyncSnapshot<RadarrFileSystem> snapshot) {
         if (snapshot.hasError) {
           if (snapshot.connectionState != ConnectionState.waiting) {
@@ -112,8 +113,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     }
     return fileSystem.directories!
         .where(
-          (element) => (element.path?.toLowerCase() ?? '')
-              .contains(path?.toLowerCase() ?? ''),
+          (element) =>
+              (element.path?.toLowerCase() ?? '').contains(path.toLowerCase()),
         )
         .toList();
   }

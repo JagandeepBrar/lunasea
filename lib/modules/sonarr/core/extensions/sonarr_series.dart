@@ -9,26 +9,24 @@ extension SonarrSeriesExtension on SonarrSeries {
   }
 
   String get lunaAlternateTitles {
-    if (this?.alternateTitles?.isNotEmpty ?? false) {
+    if (this.alternateTitles?.isNotEmpty ?? false) {
       return this.alternateTitles!.map((title) => title.title).join('\n');
     }
     return LunaUI.TEXT_EMDASH;
   }
 
   String get lunaGenres {
-    if (this?.genres?.isNotEmpty ?? false) return this.genres!.join('\n');
+    if (this.genres?.isNotEmpty ?? false) return this.genres!.join('\n');
     return LunaUI.TEXT_EMDASH;
   }
 
-  String? get lunaNetwork {
-    if (this.network != null && this.network!.isNotEmpty) return this.network;
+  String get lunaNetwork {
+    if (this.network?.isNotEmpty ?? false) return this.network!;
     return LunaUI.TEXT_EMDASH;
   }
 
   String lunaTags(List<SonarrTag> tags) {
-    if (tags?.isNotEmpty ?? false) {
-      return tags.map<String?>((tag) => tag.label).join('\n');
-    }
+    if (tags.isNotEmpty) return tags.map<String>((t) => t.label!).join('\n');
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -90,11 +88,9 @@ extension SonarrSeriesExtension on SonarrSeries {
     return this.airTime;
   }
 
-  String? get lunaSeriesType {
-    if (this.seriesType == null) {
-      return 'lunasea.Unknown'.tr();
-    }
-    return this.seriesType!.value.lunaCapitalizeFirstLetters();
+  String get lunaSeriesType {
+    if (this.seriesType == null) return 'lunasea.Unknown'.tr();
+    return this.seriesType!.value!.lunaCapitalizeFirstLetters()!;
   }
 
   String get lunaSeasonCount {
@@ -142,15 +138,14 @@ extension SonarrSeriesExtension on SonarrSeries {
   /// Copies changes from a [SonarrSeriesEditState] state object back to the [SonarrSeries] object.
   SonarrSeries updateEdits(SonarrSeriesEditState edits) {
     SonarrSeries series = this.clone();
-    series.monitored = edits?.monitored ?? this.monitored;
-    series.seasonFolder = edits?.useSeasonFolders ?? this.seasonFolder;
-    series.path = edits?.seriesPath ?? this.path;
-    series.qualityProfileId =
-        edits?.qualityProfile?.id ?? this.qualityProfileId;
+    series.monitored = edits.monitored;
+    series.seasonFolder = edits.useSeasonFolders;
+    series.path = edits.seriesPath;
+    series.qualityProfileId = edits.qualityProfile?.id ?? this.qualityProfileId;
     series.languageProfileId =
-        edits?.languageProfile?.id ?? this.languageProfileId;
-    series.seriesType = edits?.seriesType ?? this.seriesType;
-    series.tags = edits?.tags?.map((tag) => tag.id)?.toList() as List<int>? ?? [];
+        edits.languageProfile.id ?? this.languageProfileId;
+    series.seriesType = edits.seriesType ?? this.seriesType;
+    series.tags = edits.tags?.map((t) => t.id!).toList() ?? [];
     return series;
   }
 }

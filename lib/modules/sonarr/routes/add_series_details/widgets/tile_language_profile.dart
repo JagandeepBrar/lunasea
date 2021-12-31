@@ -16,7 +16,7 @@ class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
           text: context
                   .watch<SonarrSeriesAddDetailsState>()
                   .languageProfile
-                  ?.name ??
+                  .name ??
               LunaUI.TEXT_EMDASH,
         ),
       ],
@@ -27,7 +27,7 @@ class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
 
   Future<void> _onTap(BuildContext context) async {
     List<SonarrLanguageProfile> _profiles =
-        await context.read<SonarrState>().languageProfiles;
+        await context.read<SonarrState>().languageProfiles!;
     Tuple2<bool, SonarrLanguageProfile?> result =
         await SonarrDialogs().editLanguageProfiles(context, _profiles);
     if (result.item1) {

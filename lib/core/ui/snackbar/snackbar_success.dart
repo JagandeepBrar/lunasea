@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 Future<void> showLunaSuccessSnackBar({
@@ -10,7 +9,7 @@ Future<void> showLunaSuccessSnackBar({
 }) async =>
     showLunaSnackBar(
       title: title,
-      message: message,
+      message: message.lunaSafe(),
       type: LunaSnackbarType.SUCCESS,
       showButton: showButton,
       buttonText: buttonText,

@@ -7,28 +7,25 @@ class RadarrMoviesDetailsRouter extends RadarrPageRouter {
   RadarrMoviesDetailsRouter() : super('/radarr/movie/:movieid');
 
   @override
-  Widget widget({
-    required int movieId,
-  }) {
+  Widget widget([
+    int movieId = -1,
+  ]) {
     return _Widget(movieId: movieId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? movieId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(movieId: movieId));
+    BuildContext context, [
+    int movieId = -1,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(movieId));
   }
 
   @override
-  String route({
-    required int? movieId,
-  }) {
-    return fullRoute.replaceFirst(
-      ':movieid',
-      movieId.toString(),
-    );
+  String route([
+    int movieId = -1,
+  ]) {
+    return fullRoute.replaceFirst(':movieid', movieId.toString());
   }
 
   @override
@@ -65,7 +62,8 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   @override
   Future<void> loadCallback() async {
     if (widget.movieId > 0) {
-      RadarrMovie? result = _findMovie(await context.read<RadarrState>().movies!);
+      RadarrMovie? result =
+          _findMovie(await context.read<RadarrState>().movies!);
       setState(() => movie = result);
       context.read<RadarrState>().fetchQualityProfiles();
       context.read<RadarrState>().fetchTags();
@@ -108,22 +106,22 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.RADARR,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar:
-          context.watch<RadarrState>().enabled! ? _bottomNavigationBar() : null,
+          context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     List<Widget>? _actions = movie == null
         ? null
         : [
             LunaIconButton(
               iconSize: LunaUI.ICON_SIZE,
               icon: Icons.edit_rounded,
-              onPressed: () async => RadarrMoviesEditRouter()
-                  .navigateTo(context, movieId: widget.movieId),
+              onPressed: () async =>
+                  RadarrMoviesEditRouter().navigateTo(context, widget.movieId),
             ),
             RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
           ];
@@ -147,9 +145,9 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     return Consumer<RadarrState>(
       builder: (context, state, _) => FutureBuilder(
         future: Future.wait([
-          state.qualityProfiles,
-          state.tags,
-          state.movies.then((value) => value!),
+          state.qualityProfiles!,
+          state.tags!,
+          state.movies!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -168,9 +166,11 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
                 text: 'Movie Not Found',
                 context: context,
               );
-            RadarrQualityProfile? qualityProfile =
-                _findQualityProfile(movie!.qualityProfileId, snapshot.data![0] as List<RadarrQualityProfile>);
-            List<RadarrTag> tags = _findTags(movie!.tags, snapshot.data![1] as List<RadarrTag>);
+            RadarrQualityProfile? qualityProfile = _findQualityProfile(
+                movie!.qualityProfileId,
+                snapshot.data![0] as List<RadarrQualityProfile>);
+            List<RadarrTag> tags =
+                _findTags(movie!.tags, snapshot.data![1] as List<RadarrTag>);
             return _pages(qualityProfile, tags);
           }
           return const LunaLoader();

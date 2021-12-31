@@ -8,11 +8,6 @@ class SonarrState extends LunaModuleState {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   void reset() {
     _series = null;
     _upcoming = null;
@@ -23,7 +18,7 @@ class SonarrState extends LunaModuleState {
     _tags = null;
 
     resetProfile();
-    if (_enabled!) {
+    if (_enabled) {
       fetchAllSeries();
       fetchUpcoming();
       fetchMissing();
@@ -44,20 +39,20 @@ class SonarrState extends LunaModuleState {
   Sonarr? get api => _api;
 
   /// Is the API enabled?
-  bool? _enabled;
-  bool? get enabled => _enabled;
+  bool _enabled = false;
+  bool get enabled => _enabled;
 
   /// Sonarr host
-  String? _host;
-  String? get host => _host;
+  String _host = '';
+  String get host => _host;
 
   /// Sonarr API key
-  String? _apiKey;
-  String? get apiKey => _apiKey;
+  String _apiKey = '';
+  String get apiKey => _apiKey;
 
   /// Headers to attach to all requests
-  Map<dynamic, dynamic>? _headers;
-  Map<dynamic, dynamic>? get headers => _headers;
+  Map<dynamic, dynamic> _headers = {};
+  Map<dynamic, dynamic> get headers => _headers;
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
@@ -69,11 +64,11 @@ class SonarrState extends LunaModuleState {
     _apiKey = _profile.sonarrKey ?? '';
     _headers = _profile.sonarrHeaders ?? {};
     // Create the API instance if Sonarr is enabled
-    if (_enabled!) {
+    if (_enabled) {
       _api = Sonarr(
-        host: _host!,
-        apiKey: _apiKey!,
-        headers: Map<String, dynamic>.from(_headers!),
+        host: _host,
+        apiKey: _apiKey,
+        headers: Map<String, dynamic>.from(_headers),
       );
     }
   }
@@ -82,11 +77,10 @@ class SonarrState extends LunaModuleState {
   /// CATALOGUE ///
   /////////////////
 
-  LunaListViewOption? _seriesViewType =
+  LunaListViewOption _seriesViewType =
       SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data;
-  LunaListViewOption get seriesViewType => _seriesViewType!;
+  LunaListViewOption get seriesViewType => _seriesViewType;
   set seriesViewType(LunaListViewOption seriesViewType) {
-    assert(seriesViewType != null);
     _seriesViewType = seriesViewType;
     notifyListeners();
   }
@@ -94,34 +88,30 @@ class SonarrState extends LunaModuleState {
   String _seriesSearchQuery = '';
   String get seriesSearchQuery => _seriesSearchQuery;
   set seriesSearchQuery(String seriesSearchQuery) {
-    assert(seriesSearchQuery != null);
     _seriesSearchQuery = seriesSearchQuery;
     notifyListeners();
   }
 
-  SonarrSeriesSorting? _seriesSortType =
+  SonarrSeriesSorting _seriesSortType =
       SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
-  SonarrSeriesSorting get seriesSortType => _seriesSortType!;
+  SonarrSeriesSorting get seriesSortType => _seriesSortType;
   set seriesSortType(SonarrSeriesSorting seriesSortType) {
-    assert(seriesSortType != null);
     _seriesSortType = seriesSortType;
     notifyListeners();
   }
 
-  SonarrSeriesFilter? _seriesFilterType =
+  SonarrSeriesFilter _seriesFilterType =
       SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
-  SonarrSeriesFilter get seriesFilterType => _seriesFilterType!;
+  SonarrSeriesFilter get seriesFilterType => _seriesFilterType;
   set seriesFilterType(SonarrSeriesFilter seriesFilterType) {
-    assert(seriesFilterType != null);
     _seriesFilterType = seriesFilterType;
     notifyListeners();
   }
 
-  bool? _seriesSortAscending =
+  bool _seriesSortAscending =
       SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
-  bool get seriesSortAscending => _seriesSortAscending!;
+  bool get seriesSortAscending => _seriesSortAscending;
   set seriesSortAscending(bool seriesSortAscending) {
-    assert(seriesSortAscending != null);
     _seriesSortAscending = seriesSortAscending;
     notifyListeners();
   }
@@ -130,13 +120,13 @@ class SonarrState extends LunaModuleState {
   /// SERIES ///
   //////////////
 
-  Future<Map<int?, SonarrSeries>>? _series;
-  Future<Map<int?, SonarrSeries>>? get series => _series;
+  Future<Map<int, SonarrSeries>>? _series;
+  Future<Map<int, SonarrSeries>>? get series => _series;
   void fetchAllSeries() {
     if (_api != null) {
       _series = _api!.series.getAll(includeSeasonImages: true).then((series) {
         return {
-          for (SonarrSeries s in series) s.id: s,
+          for (SonarrSeries s in series) s.id!: s,
         };
       });
     }
@@ -144,7 +134,6 @@ class SonarrState extends LunaModuleState {
   }
 
   Future<void> fetchSeries(int seriesId) async {
-    assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series =
           await _api!.series.get(seriesId: seriesId, includeSeasonImages: true);
@@ -154,13 +143,11 @@ class SonarrState extends LunaModuleState {
   }
 
   Future<void> setSingleSeries(SonarrSeries series) async {
-    assert(series != null);
-    (await _series)![series.id] = series;
+    (await _series)![series.id!] = series;
     notifyListeners();
   }
 
   Future<void> removeSingleSeries(int seriesId) async {
-    assert(seriesId != null);
     (await _series)!.remove(seriesId);
     notifyListeners();
   }
@@ -170,9 +157,8 @@ class SonarrState extends LunaModuleState {
   ///////////////
 
   Future<SonarrMissing>? _missing;
-  Future<SonarrMissing> get missing => _missing.then((value) => value!);
-  set missing(Future<SonarrMissing> missing) {
-    assert(missing != null);
+  Future<SonarrMissing>? get missing => _missing;
+  set missing(Future<SonarrMissing>? missing) {
     _missing = missing;
     notifyListeners();
   }
@@ -192,9 +178,8 @@ class SonarrState extends LunaModuleState {
   ////////////////
 
   Future<List<SonarrCalendar>>? _upcoming;
-  Future<List<SonarrCalendar>> get upcoming => _upcoming.then((value) => value!);
-  set upcoming(Future<List<SonarrCalendar>> upcoming) {
-    assert(upcoming != null);
+  Future<List<SonarrCalendar>>? get upcoming => _upcoming;
+  set upcoming(Future<List<SonarrCalendar>>? upcoming) {
     _upcoming = upcoming;
     notifyListeners();
   }
@@ -217,9 +202,8 @@ class SonarrState extends LunaModuleState {
   ////////////////
 
   Future<List<SonarrQualityProfile>>? _qualityProfiles;
-  Future<List<SonarrQualityProfile>> get qualityProfiles => _qualityProfiles.then((value) => value!);
-  set qualityProfiles(Future<List<SonarrQualityProfile>> qualityProfiles) {
-    assert(qualityProfiles != null);
+  Future<List<SonarrQualityProfile>>? get qualityProfiles => _qualityProfiles;
+  set qualityProfiles(Future<List<SonarrQualityProfile>>? qualityProfiles) {
     _qualityProfiles = qualityProfiles;
     notifyListeners();
   }
@@ -230,9 +214,9 @@ class SonarrState extends LunaModuleState {
   }
 
   Future<List<SonarrLanguageProfile>>? _languageProfiles;
-  Future<List<SonarrLanguageProfile>> get languageProfiles => _languageProfiles.then((value) => value!);
-  set languageProfiles(Future<List<SonarrLanguageProfile>> languageProfiles) {
-    assert(languageProfiles != null);
+  Future<List<SonarrLanguageProfile>>? get languageProfiles =>
+      _languageProfiles;
+  set languageProfiles(Future<List<SonarrLanguageProfile>>? languageProfiles) {
     _languageProfiles = languageProfiles;
     notifyListeners();
   }
@@ -258,9 +242,8 @@ class SonarrState extends LunaModuleState {
   ////////////
 
   Future<List<SonarrTag>>? _tags;
-  Future<List<SonarrTag>> get tags => _tags.then((value) => value!);
-  set tags(Future<List<SonarrTag>> tags) {
-    assert(tags != null);
+  Future<List<SonarrTag>>? get tags => _tags;
+  set tags(Future<List<SonarrTag>>? tags) {
     _tags = tags;
     notifyListeners();
   }
@@ -275,20 +258,20 @@ class SonarrState extends LunaModuleState {
   //////////////
 
   String _baseImageURL() {
-    return _host!.endsWith('/')
+    return _host.endsWith('/')
         ? '${_host}api/v3/MediaCover'
         : '$_host/api/v3/MediaCover';
   }
 
   String? getPosterURL(int? seriesId) {
-    if (_enabled!) {
+    if (_enabled) {
       return '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
   String? getFanartURL(int? seriesId, {bool highRes = false}) {
-    if (_enabled!) {
+    if (_enabled) {
       return '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
     }
     return null;

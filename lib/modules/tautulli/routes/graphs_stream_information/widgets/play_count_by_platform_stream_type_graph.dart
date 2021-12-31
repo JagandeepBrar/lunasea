@@ -11,7 +11,7 @@ class TautulliGraphsPlayCountByPlatformStreamTypeGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playCountByPlatformStreamTypeGraph,
+        selector: (_, state) => state.playCountByPlatformStreamTypeGraph!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {

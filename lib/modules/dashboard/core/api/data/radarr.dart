@@ -53,7 +53,7 @@ class CalendarRadarrData extends CalendarData {
 
   @override
   Future<void> enterContent(BuildContext context) async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
+      RadarrMoviesDetailsRouter().navigateTo(context, id);
 
   @override
   Widget trailing(BuildContext context) {
@@ -70,7 +70,7 @@ class CalendarRadarrData extends CalendarData {
 
   @override
   Future<void> trailingOnLongPress(BuildContext context) async =>
-      RadarrReleasesRouter().navigateTo(context, movieId: id);
+      RadarrReleasesRouter().navigateTo(context, id);
 
   @override
   String? backgroundUrl(BuildContext context) {

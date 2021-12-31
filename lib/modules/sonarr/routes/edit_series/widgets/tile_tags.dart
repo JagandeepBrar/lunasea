@@ -18,7 +18,7 @@ class SonarrSeriesEditTagsTile extends StatelessWidget {
               : context
                   .watch<SonarrSeriesEditState>()
                   .tags
-                  .map((e) => e.label)
+                  ?.map((e) => e.label)
                   .join(', '),
         )
       ],

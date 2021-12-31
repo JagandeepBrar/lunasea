@@ -11,7 +11,7 @@ enum SearchDownloadType {
   FILESYSTEM,
 }
 
-extension SearchDownloadTypeExtension on SearchDownloadType? {
+extension SearchDownloadTypeExtension on SearchDownloadType {
   String get name {
     switch (this) {
       case SearchDownloadType.NZBGET:
@@ -21,7 +21,6 @@ extension SearchDownloadTypeExtension on SearchDownloadType? {
       case SearchDownloadType.FILESYSTEM:
         return 'search.DownloadToDevice'.tr();
     }
-    throw Exception('Invalid SearchDownloadType');
   }
 
   IconData get icon {
@@ -33,7 +32,6 @@ extension SearchDownloadTypeExtension on SearchDownloadType? {
       case SearchDownloadType.FILESYSTEM:
         return Icons.download_rounded;
     }
-    throw Exception('Invalid SearchDownloadType');
   }
 
   Future<void> execute(BuildContext context, NewznabResultData data) async {

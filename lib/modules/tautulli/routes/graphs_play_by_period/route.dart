@@ -24,11 +24,11 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetAllPlayPeriodGraphs();
     await Future.wait([
-      context.read<TautulliState>().dailyPlayCountGraph,
-      context.read<TautulliState>().playsByMonthGraph,
-      context.read<TautulliState>().playCountByDayOfWeekGraph,
-      context.read<TautulliState>().playCountByTopPlatformsGraph,
-      context.read<TautulliState>().playCountByTopUsersGraph,
+      context.read<TautulliState>().dailyPlayCountGraph!,
+      context.read<TautulliState>().playsByMonthGraph!,
+      context.read<TautulliState>().playCountByDayOfWeekGraph!,
+      context.read<TautulliState>().playCountByTopPlatformsGraph!,
+      context.read<TautulliState>().playCountByTopUsersGraph!,
     ]);
   }
 

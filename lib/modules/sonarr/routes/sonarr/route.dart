@@ -49,7 +49,7 @@ class _State extends State<_Widget> {
   }
 
   Widget? _bottomNavigationBar() {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       return SonarrNavigationBar(pageController: _pageController);
     }
     return null;
@@ -66,7 +66,7 @@ class _State extends State<_Widget> {
       },
     );
     List<Widget>? actions;
-    if (context.watch<SonarrState>().enabled!) {
+    if (context.watch<SonarrState>().enabled) {
       actions = [
         const SonarrAppBarAddSeriesAction(),
         const SonarrAppBarGlobalSettingsAction(),

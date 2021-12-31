@@ -72,16 +72,15 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late SonarrRootFolder _rootFolder;
   SonarrRootFolder get rootFolder => _rootFolder;
   set rootFolder(SonarrRootFolder rootFolder) {
-    assert(rootFolder != null);
     _rootFolder = rootFolder;
     notifyListeners();
   }
 
   void initializeRootFolder(List<SonarrRootFolder> rootFolders) {
-    _rootFolder = (rootFolders ?? []).firstWhere(
+    _rootFolder = rootFolders.firstWhere(
       (element) =>
           element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
-      orElse: () => (rootFolders?.length ?? 0) != 0
+      orElse: () => rootFolders.isNotEmpty
           ? rootFolders[0]
           : SonarrRootFolder(id: -1, freeSpace: 0, path: LunaUI.TEXT_EMDASH),
     );
@@ -90,17 +89,16 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late SonarrQualityProfile _qualityProfile;
   SonarrQualityProfile get qualityProfile => _qualityProfile;
   set qualityProfile(SonarrQualityProfile qualityProfile) {
-    assert(qualityProfile != null);
     _qualityProfile = qualityProfile;
     notifyListeners();
   }
 
   void initializeQualityProfile(List<SonarrQualityProfile> qualityProfiles) {
-    _qualityProfile = (qualityProfiles ?? []).firstWhere(
+    _qualityProfile = qualityProfiles.firstWhere(
       (element) =>
           element.id ==
           SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
-      orElse: () => (qualityProfiles?.length ?? 0) != 0
+      orElse: () => qualityProfiles.isNotEmpty
           ? qualityProfiles[0]
           : SonarrQualityProfile(id: -1, name: LunaUI.TEXT_EMDASH),
     );
@@ -109,17 +107,16 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late SonarrLanguageProfile _languageProfile;
   SonarrLanguageProfile get languageProfile => _languageProfile;
   set languageProfile(SonarrLanguageProfile languageProfile) {
-    assert(languageProfile != null);
     _languageProfile = languageProfile;
     notifyListeners();
   }
 
   void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
-    _languageProfile = (languageProfiles ?? []).firstWhere(
+    _languageProfile = languageProfiles.firstWhere(
       (element) =>
           element.id ==
           SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
-      orElse: () => (languageProfiles?.length ?? 0) != 0
+      orElse: () => languageProfiles.isNotEmpty
           ? languageProfiles[0]
           : SonarrLanguageProfile(id: -1, name: LunaUI.TEXT_EMDASH),
     );
@@ -128,15 +125,14 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late List<SonarrTag> _tags;
   List<SonarrTag> get tags => _tags;
   set tags(List<SonarrTag> tags) {
-    assert(tags != null);
     _tags = tags;
     SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS
-        .put((tags ?? []).map<int?>((tag) => tag.id).toList());
+        .put(tags.map<int?>((tag) => tag.id).toList());
     notifyListeners();
   }
 
   void initializeTags(List<SonarrTag> tags) {
-    _tags = (tags ?? [])
+    _tags = tags
         .where((tag) =>
             ((SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.data as List?) ?? [])
                 .contains(tag.id))
@@ -146,7 +142,6 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   LunaLoadingState _state = LunaLoadingState.INACTIVE;
   LunaLoadingState get state => _state;
   set state(LunaLoadingState state) {
-    assert(state != null);
     _state = state;
     notifyListeners();
   }

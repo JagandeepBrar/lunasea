@@ -16,15 +16,13 @@ class RadarrAddMovieRouter extends RadarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required String query,
-  }) async {
+    BuildContext context, [
+    String query = '',
+  ]) async {
     LunaRouter.router.navigateTo(
       context,
       route(),
-      routeSettings: RouteSettings(
-        arguments: _RadarrAddMovieArguments(query),
-      ),
+      routeSettings: RouteSettings(arguments: _RadarrAddMovieArguments(query)),
     );
   }
 
@@ -46,7 +44,8 @@ class _State extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context)!.settings.arguments as _RadarrAddMovieArguments?;
+    _arguments =
+        ModalRoute.of(context)!.settings.arguments as _RadarrAddMovieArguments?;
     _pageController = LunaPageController(
       initialPage: (_arguments?.query ?? '').isNotEmpty
           ? 0

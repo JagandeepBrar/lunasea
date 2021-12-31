@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class LidarrReleaseData {
   String title;
   String guid;
@@ -11,8 +9,8 @@ class LidarrReleaseData {
   int releaseWeight;
   int size;
   int indexerId;
-  int seeders;
-  int leechers;
+  int? seeders;
+  int? leechers;
   double ageHours;
   List<dynamic> rejections;
 
@@ -29,8 +27,8 @@ class LidarrReleaseData {
     required this.indexerId,
     required this.ageHours,
     required this.rejections,
-    required this.seeders,
-    required this.leechers,
+    this.seeders,
+    this.leechers,
   });
 
   bool get isTorrent {

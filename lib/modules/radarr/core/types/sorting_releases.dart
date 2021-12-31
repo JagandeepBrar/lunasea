@@ -19,8 +19,8 @@ enum RadarrReleasesSorting {
   WEIGHT,
 }
 
-extension RadarrReleasesSortingExtension on RadarrReleasesSorting? {
-  String? get key {
+extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
+  String get key {
     switch (this) {
       case RadarrReleasesSorting.AGE:
         return 'age';
@@ -34,12 +34,10 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting? {
         return 'type';
       case RadarrReleasesSorting.SIZE:
         return 'size';
-      default:
-        return null;
     }
   }
 
-  String? get readable {
+  String get readable {
     switch (this) {
       case RadarrReleasesSorting.AGE:
         return 'radarr.Age'.tr();
@@ -53,8 +51,6 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting? {
         return 'radarr.Type'.tr();
       case RadarrReleasesSorting.SIZE:
         return 'radarr.Size'.tr();
-      default:
-        return null;
     }
   }
 
@@ -84,7 +80,7 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting? {
 class _Sorter {
   List<RadarrRelease> byType(
     List<RadarrRelease> releases,
-    RadarrReleasesSorting? type,
+    RadarrReleasesSorting type,
     bool ascending,
   ) {
     switch (type) {
@@ -101,7 +97,6 @@ class _Sorter {
       case RadarrReleasesSorting.SIZE:
         return _size(releases, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrRelease> _alphabetical(

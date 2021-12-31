@@ -10,19 +10,19 @@ extension LunaRadarrMovieExtension on RadarrMovie {
   }
 
   String get lunaAlternateTitles {
-    if (this?.alternateTitles?.isNotEmpty ?? false) {
+    if (this.alternateTitles?.isNotEmpty ?? false) {
       return this.alternateTitles!.map((title) => title.title).join('\n');
     }
     return LunaUI.TEXT_EMDASH;
   }
 
   String get lunaGenres {
-    if (this?.genres?.isNotEmpty ?? false) return this.genres!.join('\n');
+    if (this.genres?.isNotEmpty ?? false) return this.genres!.join('\n');
     return LunaUI.TEXT_EMDASH;
   }
 
-  String? get lunaStudio {
-    if (this.studio != null && this.studio!.isNotEmpty) return this.studio;
+  String get lunaStudio {
+    if (this.studio?.isNotEmpty ?? false) return this.studio!;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -31,9 +31,10 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String? get lunaMinimumAvailability {
-    if (this.minimumAvailability != null)
+  String get lunaMinimumAvailability {
+    if (this.minimumAvailability != null) {
       return this.minimumAvailability!.readable;
+    }
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -74,9 +75,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
   }
 
   String lunaTags(List<RadarrTag> tags) {
-    if (tags?.isNotEmpty ?? false) {
-      return tags.map<String?>((tag) => tag.label).join('\n');
-    }
+    if (tags.isNotEmpty) return tags.map<String?>((t) => t.label).join('\n');
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -123,8 +122,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
       );
     // In Cinemas
     if (this.inCinemas != null && this.inCinemas!.toLocal().isAfter(now)) {
-      String _date = this.inCinemas!.lunaDaysDifference?.toUpperCase() ??
-          LunaUI.TEXT_EMDASH;
+      String _date = this.inCinemas!.lunaDaysDifference.toUpperCase();
       return Text(
         _date == 'TODAY' ? _date : 'IN $_date',
         style: const TextStyle(
@@ -137,8 +135,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     DateTime? _release = lunaEarlierReleaseDate;
     // Releases
     if (_release != null) {
-      String _date =
-          _release.lunaDaysDifference?.toUpperCase() ?? LunaUI.TEXT_EMDASH;
+      String _date = _release.lunaDaysDifference.toUpperCase();
       return Text(
         _date == 'TODAY' ? _date : 'IN $_date',
         style: const TextStyle(
@@ -183,8 +180,10 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         : movie.digitalRelease!;
     int comparison = a.compareTo(b);
     if (comparison == 0)
-      comparison =
-          this.sortTitle!.toLowerCase().compareTo(movie.sortTitle!.toLowerCase());
+      comparison = this
+          .sortTitle!
+          .toLowerCase()
+          .compareTo(movie.sortTitle!.toLowerCase());
     return comparison;
   }
 
@@ -199,8 +198,10 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     if (movie.inCinemas == null) return -1;
     int comparison = this.inCinemas!.compareTo(movie.inCinemas!);
     if (comparison == 0)
-      comparison =
-          this.sortTitle!.toLowerCase().compareTo(movie.sortTitle!.toLowerCase());
+      comparison = this
+          .sortTitle!
+          .toLowerCase()
+          .compareTo(movie.sortTitle!.toLowerCase());
     return comparison;
   }
 
@@ -223,11 +224,11 @@ extension LunaRadarrMovieExtension on RadarrMovie {
   /// Copies changes from a [RadarrMoviesEditState] state object into a new [RadarrMovie] object.
   RadarrMovie updateEdits(RadarrMoviesEditState edits) {
     RadarrMovie movie = this.clone();
-    movie.monitored = edits.monitored ?? this.monitored;
-    movie.minimumAvailability = edits.availability ?? this.minimumAvailability;
+    movie.monitored = edits.monitored;
+    movie.minimumAvailability = edits.availability;
     movie.qualityProfileId = edits.qualityProfile.id ?? this.qualityProfileId;
-    movie.path = edits.path ?? this.path;
-    movie.tags = edits.tags?.map((tag) => tag.id)?.toList() ?? this.tags;
+    movie.path = edits.path;
+    movie.tags = edits.tags.map((t) => t.id).toList();
     return movie;
   }
 }

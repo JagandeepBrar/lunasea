@@ -44,7 +44,7 @@ class _State extends State<TautulliActivityRoute>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: context.select<TautulliState, Future<TautulliActivity?>>(
-            (state) => state.activity),
+            (state) => state.activity!),
         builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)

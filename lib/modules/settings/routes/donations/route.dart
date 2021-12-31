@@ -81,11 +81,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     if (!LunaInAppPurchases.isAvailable ||
-        (LunaInAppPurchases.donationIAPs?.length ?? 0) == 0)
+        LunaInAppPurchases.donationIAPs.isEmpty) {
       return LunaMessage.goBack(
         context: context,
         text: 'Not Available',
       );
+    }
     return LunaListViewBuilder(
       controller: scrollController,
       itemCount: LunaInAppPurchases.donationIAPs.length,

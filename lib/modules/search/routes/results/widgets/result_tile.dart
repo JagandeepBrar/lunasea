@@ -26,14 +26,14 @@ class SearchResultTile extends StatelessWidget {
 
   TextSpan _subtitle1() {
     return TextSpan(children: [
-      TextSpan(text: data.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: data.size.lunaBytesToString()),
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-      TextSpan(text: data.category ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: data.category),
     ]);
   }
 
   TextSpan _subtitle2() {
-    return TextSpan(text: data.age ?? LunaUI.TEXT_EMDASH);
+    return TextSpan(text: data.age);
   }
 
   List<LunaTableContent> _tableContent() {
@@ -82,6 +82,6 @@ class SearchResultTile extends StatelessWidget {
   Future<void> _sendToClient(BuildContext context) async {
     Tuple2<bool, SearchDownloadType?> result =
         await SearchDialogs().downloadResult(context);
-    if (result.item1) result.item2.execute(context, data);
+    if (result.item1) result.item2!.execute(context, data);
   }
 }

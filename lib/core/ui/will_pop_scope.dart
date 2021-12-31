@@ -8,9 +8,9 @@ class LunaWillPopScope extends WillPopScope {
   }) : super(
           key: key,
           onWillPop: () async {
-            if (scaffoldKey?.currentState?.hasDrawer ?? false) {
-              if (scaffoldKey?.currentState?.isDrawerOpen ?? false) return true;
-              scaffoldKey?.currentState?.openDrawer();
+            if (scaffoldKey.currentState?.hasDrawer ?? false) {
+              if (scaffoldKey.currentState?.isDrawerOpen ?? false) return true;
+              scaffoldKey.currentState?.openDrawer();
               return false;
             }
             return true;

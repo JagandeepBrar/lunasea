@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrEpisodeExtension on SonarrEpisode {
   bool _hasAired() {
-    return this?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true;
+    return this.airDateUtc?.toLocal().isAfter(DateTime.now()) ?? true;
   }
 
   /// Creates a clone of the [SonarrEpisode] object (deep copy).
@@ -32,8 +32,8 @@ extension SonarrEpisodeExtension on SonarrEpisode {
       return 'sonarr.Missing'.tr();
     }
     if (file == null) return 'lunasea.Unknown'.tr();
-    String quality = file?.quality?.quality?.name ?? 'lunasea.Unknown'.tr();
-    String? size = file?.size?.lunaBytesToString();
+    String quality = file.quality?.quality?.name ?? 'lunasea.Unknown'.tr();
+    String size = file.size?.lunaBytesToString() ?? '0.00 B';
     return '$quality ${LunaUI.TEXT_EMDASH} $size';
   }
 

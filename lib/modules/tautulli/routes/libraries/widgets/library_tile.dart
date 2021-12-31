@@ -37,7 +37,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
       backgroundHeaders: context.watch<TautulliState>().headers,
       onTap: () async => TautulliLibrariesDetailsRouter().navigateTo(
         context,
-        sectionId: library.sectionId,
+        library.sectionId!,
       ),
     );
   }

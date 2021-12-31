@@ -6,25 +6,18 @@ class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
   TautulliIPAddressDetailsRouter() : super('/tautulli/ipaddress/:ipaddress');
 
   @override
-  _Widget widget({
-    required String ipAddress,
-  }) =>
-      _Widget(ipAddress: ipAddress);
+  _Widget widget([String ipAddress = '']) => _Widget(ipAddress: ipAddress);
 
   @override
-  Future<void> navigateTo(
-    BuildContext context, {
-    required String ipAddress,
-  }) async =>
+  Future<void> navigateTo(BuildContext context,
+          [String ipAddress = '']) async =>
       LunaRouter.router.navigateTo(
         context,
-        route(ipAddress: ipAddress),
+        route(ipAddress),
       );
 
   @override
-  String route({
-    required String ipAddress,
-  }) =>
+  String route([String ipAddress = '']) =>
       fullRoute.replaceFirst(':ipaddress', ipAddress);
 
   @override
@@ -84,8 +77,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context.read<TautulliIPAddressDetailsState>().fetchAll(context),
       child: FutureBuilder(
         future: Future.wait([
-          context.watch<TautulliIPAddressDetailsState>().geolocation.then((value) => value!),
-          context.watch<TautulliIPAddressDetailsState>().whois.then((value) => value!),
+          context.watch<TautulliIPAddressDetailsState>().geolocation!,
+          context.watch<TautulliIPAddressDetailsState>().whois!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -95,10 +88,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
-            return _list(snapshot.data![0] as TautulliGeolocationInfo, snapshot.data![1] as TautulliWHOISInfo);
+            return _list(snapshot.data![0] as TautulliGeolocationInfo,
+                snapshot.data![1] as TautulliWHOISInfo);
           return const LunaLoader();
         },
       ),

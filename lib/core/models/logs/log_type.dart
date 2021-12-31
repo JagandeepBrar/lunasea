@@ -16,7 +16,7 @@ enum LunaLogType {
   DEBUG,
 }
 
-extension LunaLogTypeExtension on LunaLogType? {
+extension LunaLogTypeExtension on LunaLogType {
   LunaLogType? fromKey(String key) {
     switch (key) {
       case 'warning':
@@ -42,7 +42,6 @@ extension LunaLogTypeExtension on LunaLogType? {
       case LunaLogType.DEBUG:
         return 'debug';
     }
-    throw Exception('Invalid LunaLogType');
   }
 
   bool get enabled {
@@ -56,7 +55,6 @@ extension LunaLogTypeExtension on LunaLogType? {
       case LunaLogType.DEBUG:
         return kDebugMode;
     }
-    throw Exception('Invalid LunaLogType');
   }
 
   String get name {
@@ -70,7 +68,6 @@ extension LunaLogTypeExtension on LunaLogType? {
       case LunaLogType.DEBUG:
         return 'Debug';
     }
-    throw Exception('Invalid LunaLogType');
   }
 
   String get description => 'View $name Logs';
@@ -86,7 +83,6 @@ extension LunaLogTypeExtension on LunaLogType? {
       case LunaLogType.DEBUG:
         return Icons.bug_report_rounded;
     }
-    throw Exception('Invalid LunaLogType');
   }
 
   Color get color {
@@ -100,6 +96,5 @@ extension LunaLogTypeExtension on LunaLogType? {
       case LunaLogType.DEBUG:
         return LunaColours.blueGrey;
     }
-    throw Exception('Invalid LunaLogType');
   }
 }

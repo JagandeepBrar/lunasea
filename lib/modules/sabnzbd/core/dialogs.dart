@@ -239,10 +239,13 @@ class SABnzbdDialogs {
             title: 'NZB URL',
             keyboardType: TextInputType.url,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                !value.startsWith('http://') && !value.startsWith('https://')
-                    ? 'Please enter a valid URL'
-                    : null,
+            validator: (value) {
+              if (!(value?.startsWith('http://') ?? true) &&
+                  !(value?.startsWith('https://') ?? true)) {
+                return 'Please enter a valid URL';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -281,7 +284,7 @@ class SABnzbdDialogs {
             title: 'Job Name',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.isEmpty ? 'Please enter a valid name' : null,
+                (value?.isEmpty ?? true) ? 'Please enter a valid name' : null,
           ),
         ),
       ],
@@ -318,8 +321,9 @@ class SABnzbdDialogs {
             controller: _textController,
             title: 'Job Password',
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'Please enter a valid password' : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'Please enter a valid password'
+                : null,
             obscureText: true,
           ),
         ),
@@ -439,7 +443,7 @@ class SABnzbdDialogs {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _setValues(true),
               validator: (value) {
-                int? _value = int.tryParse(value);
+                int? _value = int.tryParse(value!);
                 if (_value == null || _value < 1) {
                   return 'Must be at least 1';
                 }
@@ -596,7 +600,7 @@ class SABnzbdDialogs {
             keyboardType: TextInputType.number,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value == null || _value < 1 || _value > 100) {
                 return 'Must be between 1 and 100';
               }

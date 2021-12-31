@@ -76,7 +76,7 @@ class _State extends State<LunaExpandableListTile> {
 
   Widget collapsed() {
     return LunaBlock(
-      title: widget.title ?? LunaUI.TEXT_EMDASH,
+      title: widget.title,
       body: _parseSubtitles(),
       onTap: controller!.toggle,
       onLongPress: widget.onLongPress,
@@ -105,7 +105,7 @@ class _State extends State<LunaExpandableListTile> {
                   children: [
                     Padding(
                       child: LunaText.title(
-                        text: widget.title ?? LunaUI.TEXT_EMDASH,
+                        text: widget.title,
                         softWrap: true,
                         maxLines: 8,
                       ),
@@ -144,7 +144,8 @@ class _State extends State<LunaExpandableListTile> {
                             ...List.generate(
                               widget.expandedTableButtons!.length,
                               (index) {
-                                int bCount = widget.expandedTableButtons!.length;
+                                int bCount =
+                                    widget.expandedTableButtons!.length;
                                 double widthFactor = 0.5;
 
                                 if (index == (bCount - 1) && bCount.isOdd) {

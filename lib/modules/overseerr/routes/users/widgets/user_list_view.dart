@@ -19,7 +19,7 @@ class _State extends State<OverseerrUserListView> {
 
   @override
   void dispose() {
-    _pagingController?.dispose();
+    _pagingController.dispose();
     super.dispose();
   }
 

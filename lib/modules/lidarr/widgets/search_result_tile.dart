@@ -51,22 +51,18 @@ class _State extends State<LidarrReleasesTile> {
           ),
         ),
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-      TextSpan(text: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: widget.release.indexer),
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-      TextSpan(
-          text:
-              widget.release.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: widget.release.ageHours.lunaHoursToAge()),
     ]);
   }
 
   TextSpan _subtitle2() {
     return TextSpan(
       children: [
-        TextSpan(text: widget.release.quality ?? LunaUI.TEXT_EMDASH),
+        TextSpan(text: widget.release.quality),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(
-            text:
-                widget.release.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+        TextSpan(text: widget.release.size.lunaBytesToString()),
       ],
     );
   }
@@ -99,16 +95,11 @@ class _State extends State<LidarrReleasesTile> {
           title: 'source',
           body: widget.release.protocol.lunaCapitalizeFirstLetters()),
       LunaTableContent(
-          title: 'age',
-          body:
-              widget.release.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+          title: 'age', body: widget.release.ageHours.lunaHoursToAge()),
+      LunaTableContent(title: 'indexer', body: widget.release.indexer),
       LunaTableContent(
-          title: 'indexer', body: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
-      LunaTableContent(
-          title: 'size',
-          body: widget.release.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
-      LunaTableContent(
-          title: 'quality', body: widget.release.quality ?? LunaUI.TEXT_EMDASH),
+          title: 'size', body: widget.release.size.lunaBytesToString()),
+      LunaTableContent(title: 'quality', body: widget.release.quality),
       if (widget.release.protocol == 'torrent' &&
           widget.release.seeders != null)
         LunaTableContent(title: 'seeders', body: '${widget.release.seeders}'),
@@ -174,5 +165,7 @@ class _State extends State<LidarrReleasesTile> {
   }
 
   Future<void> _showWarnings() async => await LunaDialogs().showRejections(
-      context, (widget.release.rejections ?? []).cast<String>());
+        context,
+        widget.release.rejections.cast<String>(),
+      );
 }

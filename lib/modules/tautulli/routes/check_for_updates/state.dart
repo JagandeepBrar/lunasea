@@ -11,8 +11,8 @@ class TautulliCheckForUpdatesState extends ChangeNotifier {
     fetchPlexMediaServer(context);
     fetchTautulli(context);
     await Future.wait([
-      if (_plexMediaServer != null) _plexMediaServer.then((value) => value!),
-      if (_tautulli != null) _tautulli.then((value) => value!),
+      if (_plexMediaServer != null) _plexMediaServer!,
+      if (_tautulli != null) _tautulli!,
     ]);
   }
 

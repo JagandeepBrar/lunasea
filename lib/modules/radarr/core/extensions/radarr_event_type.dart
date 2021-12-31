@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-extension LunaRadarrEventType on RadarrEventType? {
+extension LunaRadarrEventType on RadarrEventType {
   // Get LunaSea associated colour of the event type.
   Color get lunaColour {
     switch (this) {
@@ -20,8 +20,6 @@ extension LunaRadarrEventType on RadarrEventType? {
         return LunaColours.blue;
       case RadarrEventType.MOVIE_FOLDER_IMPORTED:
         return LunaColours.accent;
-      default:
-        return LunaColours.blueGrey;
     }
   }
 
@@ -41,8 +39,6 @@ extension LunaRadarrEventType on RadarrEventType? {
         return Icons.cancel_rounded;
       case RadarrEventType.MOVIE_FILE_RENAMED:
         return Icons.drive_file_rename_outline_rounded;
-      default:
-        return Icons.help_rounded;
     }
   }
 
@@ -62,8 +58,6 @@ extension LunaRadarrEventType on RadarrEventType? {
         return Colors.white;
       case RadarrEventType.MOVIE_FOLDER_IMPORTED:
         return Colors.white;
-      default:
-        return Colors.white;
     }
   }
 
@@ -71,12 +65,12 @@ extension LunaRadarrEventType on RadarrEventType? {
     switch (this) {
       case RadarrEventType.GRABBED:
         return 'radarr.GrabbedFrom'
-            .tr(args: [record.data!['indexer'] ?? LunaUI.TEXT_EMDASH]);
+            .tr(args: [(record.data ?? {})['indexer'] ?? LunaUI.TEXT_EMDASH]);
       case RadarrEventType.DOWNLOAD_FAILED:
         return 'radarr.DownloadFailed'.tr();
       case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED:
         return 'radarr.MovieImported'
-            .tr(args: [record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
+            .tr(args: [record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
       case RadarrEventType.DOWNLOAD_IGNORED:
         return 'radarr.DownloadIgnored'.tr();
       case RadarrEventType.MOVIE_FILE_DELETED:
@@ -85,9 +79,8 @@ extension LunaRadarrEventType on RadarrEventType? {
         return 'radarr.MovieFileRenamed'.tr();
       case RadarrEventType.MOVIE_FOLDER_IMPORTED:
         return 'radarr.MovieImported'
-            .tr(args: [record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
+            .tr(args: [record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
     }
-    return null;
   }
 
   List<LunaTableContent> lunaTableContent(
@@ -126,14 +119,13 @@ extension LunaRadarrEventType on RadarrEventType? {
         ),
       LunaTableContent(
         title: 'quality',
-        body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+        body: record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'languages',
-        body: record?.languages
-                ?.map<String?>((language) => language.name)
-                ?.join('\n') ??
-            LunaUI.TEXT_EMDASH,
+        body: record.languages
+            ?.map<String?>((language) => language.name)
+            .join('\n'),
       ),
       LunaTableContent(
         title: 'indexer',
@@ -202,13 +194,13 @@ extension LunaRadarrEventType on RadarrEventType? {
       ),
       LunaTableContent(
         title: 'quality',
-        body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+        body: record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'languages',
-        body: record?.languages
+        body: record.languages
                 ?.map<String?>((language) => language.name)
-                ?.join('\n') ??
+                .join('\n') ??
             LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
@@ -255,7 +247,7 @@ extension LunaRadarrEventType on RadarrEventType? {
         ),
       LunaTableContent(
         title: 'reason',
-        body: record?.lunaFileDeletedReasonMessage ?? LunaUI.TEXT_EMDASH,
+        body: record.lunaFileDeletedReasonMessage,
       ),
     ];
   }
@@ -285,14 +277,13 @@ extension LunaRadarrEventType on RadarrEventType? {
       ),
       LunaTableContent(
         title: 'quality',
-        body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+        body: record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'languages',
-        body: record?.languages
-                ?.map<String?>((language) => language.name)
-                ?.join('\n') ??
-            LunaUI.TEXT_EMDASH,
+        body: ([RadarrLanguage(name: LunaUI.TEXT_EMDASH)])
+            .map<String?>((language) => language.name)
+            .join('\n'),
       ),
       LunaTableContent(
         title: 'client',

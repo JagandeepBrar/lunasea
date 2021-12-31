@@ -40,7 +40,7 @@ class CalendarSonarrData extends CalendarData {
         style: const TextStyle(
           fontStyle: FontStyle.italic,
         ),
-        text: episodeTitle ?? 'lunasea.Unknown'.tr(),
+        text: episodeTitle,
       ),
       if (!hasFile)
         TextSpan(
@@ -68,10 +68,7 @@ class CalendarSonarrData extends CalendarData {
 
   @override
   Future<void> enterContent(BuildContext context) async =>
-      SonarrSeriesDetailsRouter().navigateTo(
-        context,
-        seriesId: seriesID,
-      );
+      SonarrSeriesDetailsRouter().navigateTo(context, seriesID);
 
   @override
   Widget trailing(BuildContext context) => LunaIconButton(

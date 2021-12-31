@@ -12,8 +12,8 @@ class TautulliIPAddressDetailsState extends ChangeNotifier {
     fetchGeolocation(context);
     fetchWHOIS(context);
     await Future.wait([
-      if (_geolocation != null) _geolocation.then((value) => value!),
-      if (_whois != null) _whois.then((value) => value!),
+      if (_geolocation != null) _geolocation!,
+      if (_whois != null) _whois!,
     ]);
   }
 

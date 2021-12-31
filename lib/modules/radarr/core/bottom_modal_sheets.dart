@@ -62,7 +62,7 @@ class RadarrBottomModalSheets {
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
                 List<RadarrLanguage> languages =
-                    await context.read<RadarrState>().languages;
+                    await context.read<RadarrState>().languages!;
                 await RadarrDialogs()
                     .setManualImportLanguages(context, languages);
               },
@@ -94,7 +94,7 @@ class RadarrBottomModalSheets {
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
                 List<RadarrQualityDefinition> profiles =
-                    await context.read<RadarrState>().qualityDefinitions;
+                    await context.read<RadarrState>().qualityDefinitions!;
                 Tuple2<bool, RadarrQualityDefinition?> result =
                     await RadarrDialogs()
                         .selectQualityDefinition(context, profiles);
@@ -201,7 +201,7 @@ class RadarrBottomModalSheets {
                       text: 'radarr.NoMoviesFound'.tr(),
                     );
                   }
-                  String? title = movies[index].title;
+                  String title = movies[index].title ?? LunaUI.TEXT_EMDASH;
                   if (movies[index].year != null && movies[index].year != 0)
                     title += ' (${movies[index].year})';
                   String? overview = movies[index].overview;

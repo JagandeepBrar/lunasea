@@ -19,7 +19,7 @@ class LunaConfiguration {
   /// Given a list of map objects, creates or updates profiles for each object.
   void _setProfiles(List data) {
     Box<dynamic> box = Database.profilesBox;
-    for (Map profile in data as Iterable<Map<dynamic, dynamic>>)
+    for (Map profile in data)
       box.put(profile['key'], ProfileHiveObject.fromMap(profile));
   }
 
@@ -34,7 +34,7 @@ class LunaConfiguration {
   /// Given a list of map objects, creates or updates indexers for each object.
   void _setIndexers(List data) {
     Box<dynamic> box = Database.indexersBox;
-    for (Map indexer in data as Iterable<Map<dynamic, dynamic>>) box.add(IndexerHiveObject.fromMap(indexer));
+    for (Map indexer in data) box.add(IndexerHiveObject.fromMap(indexer));
   }
 
   /// Returns a list of all external modules converted to a map.
@@ -48,7 +48,7 @@ class LunaConfiguration {
   /// Given a list of map objects, creates or updates external modules for each object.
   void _setExternalModules(List data) {
     Box<dynamic> box = Database.externalModulesBox;
-    for (Map module in data as Iterable<Map<dynamic, dynamic>>) box.add(ExternalModuleHiveObject.fromMap(module));
+    for (Map module in data) box.add(ExternalModuleHiveObject.fromMap(module));
   }
 
   /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).

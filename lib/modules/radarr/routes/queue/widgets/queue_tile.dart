@@ -36,15 +36,15 @@ class RadarrQueueTile extends StatelessWidget {
             icon: record.lunaStatusIcon,
             color: record.lunaStatusColor,
           ),
-          onLongPress: () async => RadarrMoviesDetailsRouter()
-              .navigateTo(context, movieId: record.movieId),
+          onLongPress: () async =>
+              RadarrMoviesDetailsRouter().navigateTo(context, record.movieId!),
         );
       },
     );
   }
 
   TextSpan _subtitle1() {
-    return TextSpan(text: record?.lunaMovieTitle(movie!) ?? LunaUI.TEXT_EMDASH);
+    return TextSpan(text: record.lunaMovieTitle(movie!));
   }
 
   TextSpan _subtitle2() {
@@ -58,7 +58,7 @@ class RadarrQueueTile extends StatelessWidget {
           ),
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-        TextSpan(text: record?.timeLeft ?? LunaUI.TEXT_EMDASH),
+        TextSpan(text: record.timeLeft ?? LunaUI.TEXT_EMDASH),
       ],
     );
   }
@@ -66,7 +66,7 @@ class RadarrQueueTile extends StatelessWidget {
   List<LunaTableContent> _tableContent(RadarrMovie movie) {
     return [
       LunaTableContent(
-          title: 'radarr.Movie'.tr(), body: record?.lunaMovieTitle(movie)),
+          title: 'radarr.Movie'.tr(), body: record.lunaMovieTitle(movie)),
       LunaTableContent(
           title: 'radarr.Languages'.tr(), body: record.lunaLanguage),
       LunaTableContent(title: 'Client', body: record.lunaDownloadClient),
@@ -96,11 +96,11 @@ class RadarrQueueTile extends StatelessWidget {
             backgroundColor: LunaColours.orange,
           ),
       LunaHighlightedNode(
-        text: '${record?.lunaPercentageComplete ?? LunaUI.TEXT_EMDASH}%',
+        text: '${record.lunaPercentageComplete}%',
         backgroundColor: LunaColours.blueGrey,
       ),
       LunaHighlightedNode(
-        text: record?.status?.readable ?? LunaUI.TEXT_EMDASH,
+        text: record.status?.readable ?? LunaUI.TEXT_EMDASH,
         backgroundColor: LunaColours.blueGrey,
       ),
     ];
@@ -108,7 +108,7 @@ class RadarrQueueTile extends StatelessWidget {
 
   List<LunaButton> _tableButtons(BuildContext context) {
     return [
-      if ((record?.statusMessages ?? []).isNotEmpty)
+      if ((record.statusMessages ?? []).isNotEmpty)
         LunaButton.text(
           icon: Icons.messenger_outline_rounded,
           color: LunaColours.orange,
@@ -122,21 +122,20 @@ class RadarrQueueTile extends StatelessWidget {
             );
           },
         ),
-      if (record?.status == RadarrQueueRecordStatus.COMPLETED &&
-          record?.trackedDownloadStatus ==
-              RadarrTrackedDownloadStatus.WARNING &&
-          (record?.outputPath ?? '').isNotEmpty)
+      if (record.status == RadarrQueueRecordStatus.COMPLETED &&
+          record.trackedDownloadStatus == RadarrTrackedDownloadStatus.WARNING &&
+          (record.outputPath ?? '').isNotEmpty)
         LunaButton.text(
             icon: Icons.download_done_rounded,
             text: 'radarr.Import'.tr(),
             onTap: () async => RadarrManualImportDetailsRouter()
-                .navigateTo(context, path: record.outputPath!)),
+                .navigateTo(context, record.outputPath!)),
       LunaButton.text(
         icon: Icons.delete_rounded,
         color: LunaColours.red,
         text: 'Remove',
         onTap: () async {
-          if (context.read<RadarrState>().enabled!) {
+          if (context.read<RadarrState>().enabled) {
             bool result = await RadarrDialogs().confirmDeleteQueue(context);
             if (result) {
               await context

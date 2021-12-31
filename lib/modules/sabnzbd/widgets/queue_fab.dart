@@ -32,7 +32,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
   void dispose() {
     _iconController?.dispose();
     _hideController?.dispose();
-    widget.scrollController?.removeListener(scrollControllerListener);
+    widget.scrollController.removeListener(scrollControllerListener);
     super.dispose();
   }
 
@@ -77,7 +77,9 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
       Selector<SABnzbdState, Tuple2<bool, bool>>(
           selector: (_, model) => Tuple2(model.error, model.paused),
           builder: (context, data, _) {
-            data.item2 ? _iconController!.forward() : _iconController!.reverse();
+            data.item2
+                ? _iconController!.forward()
+                : _iconController!.reverse();
             return data.item1
                 ? Container()
                 : ScaleTransition(

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverviewPage extends StatefulWidget {
-  final SonarrSeries? series;
+  final SonarrSeries series;
   final SonarrQualityProfile? qualityProfile;
   final SonarrLanguageProfile? languageProfile;
   final List<SonarrTag> tags;

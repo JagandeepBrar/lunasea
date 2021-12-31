@@ -59,14 +59,13 @@ class _State extends State<SABnzbdHistory>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<SABnzbdHistoryData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null) {
                   return LunaMessage.error(
-                      onTap: () =>
-                          widget.refreshIndicatorKey.currentState!.show());
+                      onTap: widget.refreshIndicatorKey.currentState!.show);
                 }
                 _results = snapshot.data;
                 return _list;
@@ -122,13 +121,13 @@ class _State extends State<SABnzbdHistory>
   }
 
   List<SABnzbdHistoryData> _filter(String filter) => _results!
-      .where((entry) => filter == null || filter == ''
-          ? entry != null
+      .where((entry) => filter.isEmpty
+          ? true
           : entry.name.toLowerCase().contains(filter.toLowerCase()))
       .toList();
 
   List<SABnzbdHistoryData> _hide(List<SABnzbdHistoryData> data) {
-    if (data?.isEmpty ?? true) return data;
+    if (data.isEmpty) return data;
     return data.where((entry) => entry.failed).toList();
   }
 }

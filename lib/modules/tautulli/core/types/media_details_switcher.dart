@@ -40,10 +40,10 @@ extension TautulliMediaDetailsSwitcherTypeExtension
     }
   }
 
-  void goTo(
-          {required BuildContext context,
-          required TautulliMediaType mediaType,
-          required int? ratingKey}) =>
-      TautulliMediaDetailsRouter()
-          .navigateTo(context, ratingKey: ratingKey, mediaType: mediaType);
+  void goTo({
+    required BuildContext context,
+    required TautulliMediaType mediaType,
+    required int ratingKey,
+  }) =>
+      TautulliMediaDetailsRouter().navigateTo(context, ratingKey, mediaType);
 }

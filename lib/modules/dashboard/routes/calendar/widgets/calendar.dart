@@ -20,7 +20,7 @@ class DashboardCalendarWidget extends StatefulWidget {
 class _State extends State<DashboardCalendarWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime _today;
-  DateTime? _selected;
+  late DateTime _selected;
   late CalendarFormat _calendarFormat;
 
   final TextStyle dayTileStyle = const TextStyle(
@@ -55,7 +55,7 @@ class _State extends State<DashboardCalendarWidget> {
     _today = _floored;
     _selectedEvents = widget.events![_floored] ?? [];
     _calendarFormat = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-            as CalendarStartingSize?)
+            as CalendarStartingSize)
         .data;
   }
 
@@ -161,16 +161,16 @@ class _State extends State<DashboardCalendarWidget> {
                 simpleSwipeConfig: const SimpleSwipeConfig(
                   verticalThreshold: 10.0,
                 ),
-                focusedDay: _selected!,
+                focusedDay: _selected,
                 firstDay: firstDay,
                 lastDay: lastDay,
                 //events: widget.events,
                 headerVisible: false,
                 startingDayOfWeek: (DashboardDatabaseValue
-                        .CALENDAR_STARTING_DAY.data as CalendarStartingDay?)
+                        .CALENDAR_STARTING_DAY.data as CalendarStartingDay)
                     .data,
                 selectedDayPredicate: (date) =>
-                    date?.lunaFloor == _selected?.lunaFloor,
+                    date.lunaFloor == _selected.lunaFloor,
                 calendarStyle: CalendarStyle(
                   markersMaxCount: 1,
                   isTodayHighlighted: true,

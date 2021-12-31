@@ -46,8 +46,8 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
           .then((movie) async {
         context.read<RadarrState>().fetchMovies();
         context.read<RadarrAddMovieDetailsState>().movie.id = movie!.id;
-        Navigator.of(context).popAndPushNamed(
-            RadarrMoviesDetailsRouter().route(movieId: movie.id));
+        Navigator.of(context)
+            .popAndPushNamed(RadarrMoviesDetailsRouter().route(movie.id!));
       }).catchError((error, stack) {
         context.read<RadarrAddMovieDetailsState>().state =
             LunaLoadingState.ERROR;

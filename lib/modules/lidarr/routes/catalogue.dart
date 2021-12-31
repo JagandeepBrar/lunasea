@@ -63,7 +63,7 @@ class _State extends State<LidarrCatalogue>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<LidarrCatalogueData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {

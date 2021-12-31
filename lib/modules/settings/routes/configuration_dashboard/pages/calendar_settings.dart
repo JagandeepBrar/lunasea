@@ -175,7 +175,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'settings.StartingView'.tr(),
         body: [
-          TextSpan(text: (_db.data as CalendarStartingType?).name),
+          TextSpan(text: (_db.data as CalendarStartingType).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
@@ -193,7 +193,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'settings.StartingDay'.tr(),
         body: [
-          TextSpan(text: (_db.data as CalendarStartingDay?).name),
+          TextSpan(text: (_db.data as CalendarStartingDay).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
@@ -211,7 +211,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, box, widget) => LunaBlock(
         title: 'Starting Size',
         body: [
-          TextSpan(text: (_db.data as CalendarStartingSize?).name),
+          TextSpan(text: (_db.data as CalendarStartingSize).name),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {

@@ -9,7 +9,7 @@ enum SonarrEpisodeSettingsType {
   DELETE_FILE,
 }
 
-extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
+extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
   IconData icon(SonarrEpisode episode) {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
@@ -23,7 +23,6 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
       case SonarrEpisodeSettingsType.DELETE_FILE:
         return Icons.delete_rounded;
     }
-    throw Exception('Invalid SonarrEpisodeSettingsType');
   }
 
   String name(SonarrEpisode episode) {
@@ -39,7 +38,6 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
       case SonarrEpisodeSettingsType.DELETE_FILE:
         return 'sonarr.DeleteFile'.tr();
     }
-    throw Exception('Invalid SonarrEpisodeSettingsType');
   }
 
   Future<void> execute({
@@ -49,24 +47,27 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
   }) async {
     switch (this) {
       case SonarrEpisodeSettingsType.MONITORED:
-        return SonarrAPIController().toggleEpisodeMonitored(
+        await SonarrAPIController().toggleEpisodeMonitored(
           context: context,
           episode: episode,
         );
+        break;
       case SonarrEpisodeSettingsType.AUTOMATIC_SEARCH:
-        return SonarrAPIController().episodeSearch(
+        await SonarrAPIController().episodeSearch(
           context: context,
           episode: episode,
         );
+        break;
       case SonarrEpisodeSettingsType.INTERACTIVE_SEARCH:
-        return SonarrReleasesRouter().navigateTo(
+        await SonarrReleasesRouter().navigateTo(
           context,
           episodeId: episode.id,
         );
+        break;
       case SonarrEpisodeSettingsType.DELETE_FILE:
         bool result = await SonarrDialogs().deleteEpisode(context);
         if (result) {
-          return SonarrAPIController()
+          await SonarrAPIController()
               .deleteEpisode(
             context: context,
             episode: episode,
@@ -79,7 +80,7 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType? {
                 .fetchEpisodeHistory(context, episode.id);
           });
         }
+        break;
     }
-    throw Exception('Invalid SonarrEpisodeSettingsType');
   }
 }

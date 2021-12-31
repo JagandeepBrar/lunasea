@@ -23,9 +23,9 @@ class LunaTextInputBar extends StatefulWidget {
   final bool autofocus;
   final bool obscureText;
   final bool isFormField;
-  final void Function(String)? onChanged;
-  final void Function(String)? onSubmitted;
-  final String Function(String?)? validator;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final FormFieldValidator<String>? validator;
   final EdgeInsets margin;
 
   const LunaTextInputBar({
@@ -141,10 +141,10 @@ class _State extends State<LunaTextInputBar> {
         obscureText: widget.obscureText,
         autocorrect: false,
         keyboardType: widget.keyboardType,
-        validator: widget?.validator,
+        validator: widget.validator,
         onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged,
-        onFieldSubmitted: widget?.onSubmitted,
+        onFieldSubmitted: widget.onSubmitted,
         focusNode: widget.focusNode,
       );
 
@@ -162,6 +162,6 @@ class _State extends State<LunaTextInputBar> {
         keyboardType: widget.keyboardType,
         onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged,
-        onSubmitted: widget?.onSubmitted,
+        onSubmitted: widget.onSubmitted,
       );
 }

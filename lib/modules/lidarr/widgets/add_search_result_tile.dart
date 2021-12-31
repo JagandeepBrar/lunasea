@@ -37,7 +37,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
       );
 
   String? get _posterUrl {
-    Map<String, dynamic> image = data?.images?.firstWhere(
+    Map<String, dynamic> image = data.images.firstWhere(
       (e) => e['coverType'] == 'poster',
       orElse: () => <String, dynamic>{},
     );

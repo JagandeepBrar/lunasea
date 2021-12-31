@@ -52,7 +52,7 @@ class _State extends State<_Widget>
       onRefresh: loadCallback,
       key: _refreshKey,
       child: Selector<TautulliState, Future<TautulliLibrariesTable>>(
-        selector: (_, state) => state.librariesTable,
+        selector: (_, state) => state.librariesTable!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliLibrariesTable> snapshot) {

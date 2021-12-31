@@ -57,7 +57,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
         onRefresh: _refresh,
         child: FutureBuilder(
           future: _future,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<List<LidarrMissingData>> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
@@ -81,7 +81,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
       return LunaMessage(
         text: 'No Missing Albums',
         buttonText: 'Refresh',
-        onTap: () => widget.refreshIndicatorKey?.currentState?.show(),
+        onTap: widget.refreshIndicatorKey.currentState!.show,
       );
     }
     return LunaListViewBuilder(

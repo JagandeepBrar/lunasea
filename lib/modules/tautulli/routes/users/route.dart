@@ -43,7 +43,7 @@ class _State extends State<TautulliUsersRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<TautulliState, Future<TautulliUsersTable>>(
-        selector: (_, state) => state.users,
+        selector: (_, state) => state.users!,
         builder: (context, users, _) => FutureBuilder(
           future: users,
           builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {

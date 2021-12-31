@@ -24,11 +24,14 @@ class CalendarAPI {
 
   Future<Map<DateTime, List<CalendarData>>> getUpcoming(DateTime today) async {
     Map<DateTime, List<CalendarData>> _upcoming = {};
-    if (lidarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
+    if (lidarr!['enabled'] &&
+        DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
       await _getLidarrUpcoming(_upcoming, today);
-    if (radarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
+    if (radarr!['enabled'] &&
+        DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
       await _getRadarrUpcoming(_upcoming, today);
-    if (sonarr!['enabled'] && DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data)
+    if (sonarr!['enabled'] &&
+        DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data)
       await _getSonarrUpcoming(_upcoming, today);
     return _upcoming;
   }
@@ -56,7 +59,7 @@ class CalendarAPI {
     if (response.data.length > 0) {
       for (var entry in response.data) {
         DateTime? date =
-            DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
+            DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal().lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];
           day.add(CalendarLidarrData(
@@ -103,11 +106,11 @@ class CalendarAPI {
         DateTime? physicalRelease =
             DateTime.tryParse(entry['physicalRelease'] ?? '')
                 ?.toLocal()
-                ?.lunaFloor;
+                .lunaFloor;
         DateTime? digitalRelease =
             DateTime.tryParse(entry['digitalRelease'] ?? '')
                 ?.toLocal()
-                ?.lunaFloor;
+                .lunaFloor;
         DateTime? release;
         if (physicalRelease != null || digitalRelease != null) {
           if (physicalRelease == null) release = digitalRelease;
@@ -115,7 +118,7 @@ class CalendarAPI {
           release ??= digitalRelease!.isBefore(physicalRelease!)
               ? digitalRelease
               : physicalRelease;
-          if (release != null && _isDateWithinBounds(release, today)) {
+          if (_isDateWithinBounds(release, today)) {
             List<CalendarData> day = map[release] ?? [];
             day.add(CalendarRadarrData(
               id: entry['id'] ?? 0,
@@ -161,7 +164,7 @@ class CalendarAPI {
     if (response.data.length > 0) {
       for (var entry in response.data) {
         DateTime? date =
-            DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
+            DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal().lunaFloor;
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];
           day.add(CalendarSonarrData(

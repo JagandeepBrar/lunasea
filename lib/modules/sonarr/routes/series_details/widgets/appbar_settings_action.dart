@@ -25,7 +25,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 onPressed: () async {
                   Tuple2<bool, SonarrSeriesSettingsType?> values =
                       await SonarrDialogs().seriesSettings(context, series);
-                  if (values.item1) values.item2.execute(context, series);
+                  if (values.item1) values.item2!.execute(context, series);
                 },
               );
           }

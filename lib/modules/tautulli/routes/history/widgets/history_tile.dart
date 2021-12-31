@@ -37,9 +37,9 @@ class TautulliHistoryTile extends StatelessWidget {
           ),
       onTap: () async => TautulliHistoryDetailsRouter().navigateTo(
         context,
-        ratingKey: history.ratingKey,
-        sessionKey: history.sessionKey,
-        referenceId: history.referenceId,
+        history.ratingKey!,
+        history.sessionKey,
+        history.referenceId,
       ),
     );
   }

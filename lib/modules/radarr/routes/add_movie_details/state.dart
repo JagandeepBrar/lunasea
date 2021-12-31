@@ -15,7 +15,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   bool _monitored = true;
   bool get monitored => _monitored;
   set monitored(bool monitored) {
-    assert(monitored != null);
     _monitored = monitored;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.put(_monitored);
     notifyListeners();
@@ -24,7 +23,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   late RadarrAvailability _availability;
   RadarrAvailability get availability => _availability;
   set availability(RadarrAvailability availability) {
-    assert(availability != null);
     _availability = availability;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID
         .put(_availability.value);
@@ -43,7 +41,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   late RadarrRootFolder _rootFolder;
   RadarrRootFolder get rootFolder => _rootFolder;
   set rootFolder(RadarrRootFolder rootFolder) {
-    assert(rootFolder != null);
     _rootFolder = rootFolder;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.put(_rootFolder.id);
     notifyListeners();
@@ -63,7 +60,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   late RadarrQualityProfile _qualityProfile;
   RadarrQualityProfile get qualityProfile => _qualityProfile;
   set qualityProfile(RadarrQualityProfile qualityProfile) {
-    assert(qualityProfile != null);
     _qualityProfile = qualityProfile;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID
         .put(_qualityProfile.id);
@@ -84,10 +80,9 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   List<RadarrTag> _tags = [];
   List<RadarrTag> get tags => _tags;
   set tags(List<RadarrTag> tags) {
-    assert(tags != null);
     _tags = tags;
     RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS
-        .put((tags ?? []).map<int?>((tag) => tag.id).toList());
+        .put(tags.map<int?>((tag) => tag.id).toList());
     notifyListeners();
   }
 
@@ -102,7 +97,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   LunaLoadingState _state = LunaLoadingState.INACTIVE;
   LunaLoadingState get state => _state;
   set state(LunaLoadingState state) {
-    assert(state != null);
     _state = state;
     notifyListeners();
   }

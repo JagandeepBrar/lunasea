@@ -77,8 +77,8 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
             ),
           ],
         ),
-        onTap: () async =>
-            LunaDialogs().textPreview(context, widget.metadata!.title, _summary!),
+        onTap: () async => LunaDialogs()
+            .textPreview(context, widget.metadata!.title, _summary!),
       ),
     );
   }
@@ -136,15 +136,15 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
           context: context,
           mediaType: TautulliMediaType.SHOW,
           ratingKey: widget.type == TautulliMediaType.EPISODE
-              ? widget.metadata!.grandparentRatingKey
-              : widget.metadata!.parentRatingKey,
+              ? widget.metadata!.grandparentRatingKey!
+              : widget.metadata!.parentRatingKey!,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_SEASON:
         value.goTo(
           context: context,
           mediaType: TautulliMediaType.SEASON,
-          ratingKey: widget.metadata!.parentRatingKey,
+          ratingKey: widget.metadata!.parentRatingKey!,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_ARTIST:
@@ -152,15 +152,15 @@ class _State extends State<TautulliMediaDetailsMetadataSummary> {
           context: context,
           mediaType: TautulliMediaType.ARTIST,
           ratingKey: widget.type == TautulliMediaType.TRACK
-              ? widget.metadata!.grandparentRatingKey
-              : widget.metadata!.parentRatingKey,
+              ? widget.metadata!.grandparentRatingKey!
+              : widget.metadata!.parentRatingKey!,
         );
         break;
       case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM:
         value.goTo(
           context: context,
           mediaType: TautulliMediaType.ALBUM,
-          ratingKey: widget.metadata!.parentRatingKey,
+          ratingKey: widget.metadata!.parentRatingKey!,
         );
         break;
     }

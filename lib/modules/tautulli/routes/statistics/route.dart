@@ -62,7 +62,7 @@ class _State extends State<_Widget>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<TautulliState, Future<List<TautulliHomeStats>>>(
-        selector: (_, state) => state.statistics,
+        selector: (_, state) => state.statistics!,
         builder: (context, stats, _) => FutureBuilder(
           future: stats,
           builder: (context, AsyncSnapshot<List<TautulliHomeStats>> snapshot) {

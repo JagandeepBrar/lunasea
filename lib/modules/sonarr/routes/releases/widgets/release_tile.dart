@@ -49,7 +49,7 @@ class _State extends State<SonarrReleasesTile> {
         TextSpan(
           text: widget.release.lunaProtocol,
           style: TextStyle(
-            color: widget.release.protocol.lunaProtocolColor(
+            color: widget.release.protocol!.lunaProtocolColor(
               release: widget.release,
             ),
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -90,8 +90,8 @@ class _State extends State<SonarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.lunaReadable(),
-        backgroundColor: widget.release.protocol.lunaProtocolColor(
+        text: widget.release.protocol!.lunaReadable(),
+        backgroundColor: widget.release.protocol!.lunaProtocolColor(
           release: widget.release,
         ),
       ),

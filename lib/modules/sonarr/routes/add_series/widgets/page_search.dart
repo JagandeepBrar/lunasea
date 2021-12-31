@@ -56,7 +56,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: FutureBuilder(
-        future: Future.wait([lookup.then((value) => value!), series.then((value) => value!), exclusions.then((value) => value!)]),
+        future: Future.wait([lookup!, series!, exclusions!]),
         builder: (context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)
@@ -84,7 +84,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
     Map<int, SonarrSeries> series,
     List<SonarrExclusion> exclusions,
   ) {
-    if ((results?.length ?? 0) == 0)
+    if (results.isEmpty)
       return LunaListView(
         controller: widget.scrollController,
         children: [
@@ -96,7 +96,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
       itemExtent: SonarrSeriesAddSearchResultTile.extent,
       itemCount: results.length,
       itemBuilder: (context, index) {
-        SonarrExclusion? exclusion = exclusions?.firstWhereOrNull(
+        SonarrExclusion? exclusion = exclusions.firstWhereOrNull(
           (exclusion) => exclusion.tvdbId == results[index].tvdbId,
         );
         return SonarrSeriesAddSearchResultTile(

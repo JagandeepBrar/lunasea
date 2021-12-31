@@ -43,7 +43,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _drawer() => LunaDrawer(page: LunaModule.SEARCH.key);
 
   Widget _body() {
-    if ((Database.indexersBox.length ?? 0) == 0) {
+    if (Database.indexersBox.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.SEARCH.name,

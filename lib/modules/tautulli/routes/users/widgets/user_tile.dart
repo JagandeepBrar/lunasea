@@ -33,7 +33,7 @@ class TautulliUserTile extends StatelessWidget {
       ],
       onTap: () async => TautulliUserDetailsRouter().navigateTo(
         context,
-        userId: user.userId,
+        user.userId!,
       ),
     );
   }

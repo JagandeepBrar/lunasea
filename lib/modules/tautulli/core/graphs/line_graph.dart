@@ -6,27 +6,28 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLineGraphHelper {
   TautulliLineGraphHelper._();
 
-  static FlTitlesData titlesData(TautulliGraphData data) => FlTitlesData(
-        leftTitles: SideTitles(showTitles: false),
-        rightTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
-        bottomTitles: SideTitles(
-          showTitles: true,
-          margin: 8.0,
-          reservedSize: 8.0,
-          getTitles: (value) =>
-              DateTime.tryParse(data.categories![value.truncate()]!) != null
-                  ? DateFormat('dd')
-                      .format(
-                          DateTime.parse(data.categories![value.truncate()]!))
-                      ?.toString()
-                  : '??',
-          getTextStyles: (_, __) => const TextStyle(
-            color: LunaColours.grey,
-            fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
-          ),
+  static FlTitlesData titlesData(TautulliGraphData data) {
+    String _getTitles(double value) {
+      DateTime? _dt = DateTime.tryParse(data.categories![value.truncate()]!);
+      return _dt != null ? DateFormat('dd').format(_dt).toString() : '??';
+    }
+
+    return FlTitlesData(
+      leftTitles: SideTitles(showTitles: false),
+      rightTitles: SideTitles(showTitles: false),
+      topTitles: SideTitles(showTitles: false),
+      bottomTitles: SideTitles(
+        showTitles: true,
+        margin: 8.0,
+        reservedSize: 8.0,
+        getTitles: _getTitles,
+        getTextStyles: (_, __) => const TextStyle(
+          color: LunaColours.grey,
+          fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
         ),
-      );
+      ),
+    );
+  }
 
   static List<LineChartBarData> lineBarsData(TautulliGraphData data) =>
       List<LineChartBarData>.generate(
@@ -38,8 +39,8 @@ class TautulliLineGraphHelper {
           colors: [LunaColours().byGraphLayer(sIndex)],
           spots: List<FlSpot>.generate(
             data.series![sIndex].data!.length,
-            (dIndex) => FlSpot(
-                dIndex.toDouble(), data.series![sIndex].data![dIndex]!.toDouble()),
+            (dIndex) => FlSpot(dIndex.toDouble(),
+                data.series![sIndex].data![dIndex]!.toDouble()),
           ),
           belowBarData: BarAreaData(
             show: true,

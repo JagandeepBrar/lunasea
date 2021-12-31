@@ -7,20 +7,17 @@ class TautulliActivityDetailsRouter extends TautulliPageRouter {
   TautulliActivityDetailsRouter() : super('/tautulli/activity/:sessionid');
 
   @override
-  _Widget widget({
-    required String sessionId,
-  }) =>
-      _Widget(sessionId: sessionId);
+  _Widget widget([String sessionId = '']) => _Widget(sessionId: sessionId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required String sessionId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(sessionId: sessionId));
+    BuildContext context, [
+    String sessionId = '',
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(sessionId));
 
   @override
-  String route({required String sessionId}) =>
+  String route([String sessionId = '']) =>
       fullRoute.replaceFirst(':sessionid', sessionId);
 
   @override
@@ -87,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onRefresh: _refresh,
       child: FutureBuilder(
         future: context.select<TautulliState, Future<TautulliActivity?>>(
-            (state) => state.activity),
+            (state) => state.activity!),
         builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)
@@ -99,8 +96,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) {
-            TautulliSession? session = snapshot.data!.sessions!.firstWhereOrNull(
-                (element) => element.sessionId == widget.sessionId);
+            TautulliSession? session = snapshot.data!.sessions!
+                .firstWhereOrNull(
+                    (element) => element.sessionId == widget.sessionId);
             return _session(session);
           }
           return const LunaLoader();

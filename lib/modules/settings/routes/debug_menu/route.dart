@@ -26,12 +26,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Debug Menu',
       scrollControllers: [scrollController],
@@ -52,7 +52,45 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             );
           },
         ),
+        const LunaHeader(text: 'Toasts'),
+        LunaBlock(
+          title: 'Info',
+          onTap: () async => showLunaInfoSnackBar(
+            title: 'Info',
+            message: _E1().nested?.nested.lunaSafeTest(),
+          ),
+        ),
+        LunaBlock(
+          title: 'Success',
+          onTap: () async => showLunaSuccessSnackBar(
+            title: 'Success',
+            message: null,
+          ),
+        ),
+        LunaBlock(
+          title: 'Error',
+          onTap: () async => showLunaErrorSnackBar(
+            title: 'Error',
+            message: null,
+          ),
+        ),
       ],
     );
   }
+}
+
+class _E1 {
+  final _E2? nested;
+
+  _E1({
+    this.nested,
+  });
+}
+
+class _E2 {
+  final String? nested;
+
+  _E2({
+    this.nested,
+  });
 }

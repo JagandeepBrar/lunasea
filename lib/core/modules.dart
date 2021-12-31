@@ -47,7 +47,7 @@ enum LunaModule {
   WAKE_ON_LAN,
 }
 
-extension LunaModuleExtension on LunaModule? {
+extension LunaModuleExtension on LunaModule {
   /// Returns true if the module is enabled at a system level.
   bool get _enabled {
     switch (this) {
@@ -76,7 +76,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.WAKE_ON_LAN:
         return true;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Returns a list of all system-enabled modules.
@@ -155,7 +154,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return _EXTERNAL_MODULES_KEY;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Returns true if the module is enabled in the current profile.
@@ -176,7 +174,7 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.SABNZBD:
         return Database.currentProfileObject?.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
-        return Database.indexersBox?.isNotEmpty ?? false;
+        return Database.indexersBox.isNotEmpty;
       case LunaModule.SONARR:
         return Database.currentProfileObject?.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:
@@ -184,9 +182,8 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.WAKE_ON_LAN:
         return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
       case LunaModule.EXTERNAL_MODULES:
-        return Database.externalModulesBox?.isNotEmpty ?? false;
+        return Database.externalModulesBox.isNotEmpty;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Fetch the currently loaded configuration for a module.
@@ -223,7 +220,6 @@ extension LunaModuleExtension on LunaModule? {
             .toMap()
             .map((key, value) => MapEntry(key.toString(), value.toMap()));
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The name of the module.
@@ -254,7 +250,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return 'lunasea.ExternalModules'.tr();
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The full base/home route for the module.
@@ -285,7 +280,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return ExternalModulesHomeRouter().route();
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The module's icon.
@@ -316,7 +310,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return Icons.settings_ethernet_rounded;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The [LunaModuleDatabase] for the module.
@@ -347,7 +340,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return null;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The global provider/state for the module.
@@ -378,7 +370,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return null;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// The module's brand colour.
@@ -409,7 +400,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return LunaColours.accent;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// If available, the module's website.
@@ -440,7 +430,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return null;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// If available, link to the module's GitHub repository.
@@ -471,7 +460,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return null;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Description of the module, to be used in the module list.
@@ -502,7 +490,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return 'Access External Modules';
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Return the description/information for the module.
@@ -535,7 +522,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return 'LunaSea allows you to add links to additional modules that are not currently supported allowing you to open the module\'s web GUI without having to leave LunaSea!';
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Return the [ShortcutItem] for the module.
@@ -566,7 +552,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return ShortcutItem(type: key, localizedTitle: name);
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Returns true if the module has a webhook handler available.
@@ -597,7 +582,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return false;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   Widget informationBanner() {
@@ -663,7 +647,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Execute and handle the webhook for the module.
@@ -694,7 +677,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return;
     }
-    throw Exception('Invalid LunaModule');
   }
 
   /// Return the [SettingsPageRouter] for the module.
@@ -725,7 +707,6 @@ extension LunaModuleExtension on LunaModule? {
       case LunaModule.EXTERNAL_MODULES:
         return SettingsConfigurationExternalModulesRouter();
     }
-    throw Exception('Invalid LunaModule');
   }
 
   Future<void> launch() async {

@@ -14,7 +14,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
       onPressed: () async {
         Tuple2<bool, SonarrGlobalSettingsType?> values =
             await SonarrDialogs().globalSettings(context);
-        if (values.item1) values.item2.execute(context);
+        if (values.item1) values.item2!.execute(context);
       },
     );
   }

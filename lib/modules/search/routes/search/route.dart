@@ -72,17 +72,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _appBar() {
-    String? title = context.read<SearchState>().indexer?.displayName ??
-        'search.Search'.tr();
+    String title =
+        context.read<SearchState>().indexer.displayName ?? 'search.Search'.tr();
     NewznabCategoryData? category = context.read<SearchState>().activeCategory;
     NewznabSubcategoryData? subcategory =
         context.read<SearchState>().activeSubcategory;
-    if (category != null) title = category.name;
+    if (category != null) title = category.name!;
     if (category != null && subcategory != null) {
       title = '$title > ${subcategory.name ?? 'lunasea.Unknown'.tr()}';
     }
     return LunaAppBar(
-      title: title!,
+      title: title,
       scrollControllers: [scrollController],
       bottom: SearchSearchBar(
         submitCallback: _searchCallback,

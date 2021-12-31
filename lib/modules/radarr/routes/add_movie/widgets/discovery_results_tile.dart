@@ -76,11 +76,10 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
       LunaDialogs().textPreview(context, widget.movie.title,
           widget.movie.overview ?? 'radarr.NoSummaryIsAvailable'.tr());
     } else {
-      RadarrAddMovieDetailsRouter()
-          .navigateTo(context, movie: widget.movie, isDiscovery: true);
+      RadarrAddMovieDetailsRouter().navigateTo(context, widget.movie, true);
     }
   }
 
   Future<void>? _onLongPress() async =>
-      widget.movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie();
+      widget.movie.tmdbId.toString().lunaOpenTheMovieDBMovie();
 }

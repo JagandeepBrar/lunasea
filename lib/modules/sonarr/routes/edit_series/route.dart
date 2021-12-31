@@ -6,28 +6,20 @@ class SonarrEditSeriesRouter extends SonarrPageRouter {
   SonarrEditSeriesRouter() : super('/sonarr/editmovie/:seriesid');
 
   @override
-  _Widget widget({
-    required int seriesId,
-  }) {
-    return _Widget(
-      seriesId: seriesId,
-    );
-  }
+  _Widget widget([int seriesId = -1]) => _Widget(seriesId: seriesId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? seriesId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
-  }
+    BuildContext context, [
+    int seriesId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(seriesId));
 
   @override
-  String route({
-    required int? seriesId,
-  }) {
-    return fullRoute.replaceFirst(':seriesid', seriesId.toString());
-  }
+  String route([int seriesId = -1]) => fullRoute.replaceFirst(
+        ':seriesid',
+        seriesId.toString(),
+      );
 
   @override
   void defineRoute(
@@ -111,17 +103,13 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait([
         context.select<SonarrState, Future<Map<int?, SonarrSeries>>?>(
-          (state) => state.series,
-        ).then((value) => value!),
-        context.select<SonarrState, Future<List<SonarrQualityProfile>>>(
-          (state) => state.qualityProfiles,
-        ),
-        context.select<SonarrState, Future<List<SonarrTag>>>(
-          (state) => state.tags,
-        ),
-        context.select<SonarrState, Future<List<SonarrLanguageProfile>>>(
-          (state) => state.languageProfiles,
-        ),
+            (state) => state.series)!,
+        context.select<SonarrState, Future<List<SonarrQualityProfile>>?>(
+            (state) => state.qualityProfiles)!,
+        context.select<SonarrState, Future<List<SonarrTag>>?>(
+            (state) => state.tags)!,
+        context.select<SonarrState, Future<List<SonarrLanguageProfile>>?>(
+            (state) => state.languageProfiles)!,
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
@@ -133,9 +121,9 @@ class _State extends State<_Widget>
           return _list(
             context,
             series: series,
-            qualityProfiles: snapshot.data![1] as List<SonarrQualityProfile?>,
+            qualityProfiles: snapshot.data![1] as List<SonarrQualityProfile>,
             tags: snapshot.data![2] as List<SonarrTag>,
-            languageProfiles: snapshot.data![3] as List<SonarrLanguageProfile?>,
+            languageProfiles: snapshot.data![3] as List<SonarrLanguageProfile>,
           );
         }
         return const LunaLoader();
@@ -146,8 +134,8 @@ class _State extends State<_Widget>
   Widget _list(
     BuildContext context, {
     required SonarrSeries series,
-    required List<SonarrQualityProfile?> qualityProfiles,
-    required List<SonarrLanguageProfile?> languageProfiles,
+    required List<SonarrQualityProfile> qualityProfiles,
+    required List<SonarrLanguageProfile> languageProfiles,
     required List<SonarrTag> tags,
   }) {
     if (context.read<SonarrSeriesEditState>().series == null) {

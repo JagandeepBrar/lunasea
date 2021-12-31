@@ -13,8 +13,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
       title: 'sonarr.SeriesPath'.tr(),
       body: [
         TextSpan(
-          text: context.watch<SonarrSeriesEditState>().seriesPath ??
-              LunaUI.TEXT_EMDASH,
+          text: context.watch<SonarrSeriesEditState>().seriesPath,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

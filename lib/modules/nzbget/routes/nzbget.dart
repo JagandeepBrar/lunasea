@@ -163,7 +163,7 @@ class _State extends State<NZBGet> {
       if (_file != null) {
         List<int> _data = _file.readAsBytesSync();
         String _name = _file.path.substring(_file.path.lastIndexOf('/') + 1);
-        if (_data?.isNotEmpty ?? false)
+        if (_data.isNotEmpty)
           await _api.uploadFile(_data, _name).then((value) {
             _refreshKeys[0]?.currentState?.show();
             showLunaSuccessSnackBar(

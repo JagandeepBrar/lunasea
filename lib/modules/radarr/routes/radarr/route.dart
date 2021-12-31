@@ -49,7 +49,7 @@ class _State extends State<_Widget> {
   }
 
   Widget? _bottomNavigationBar() {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return RadarrNavigationBar(pageController: _pageController);
     }
     return null;
@@ -66,7 +66,7 @@ class _State extends State<_Widget> {
       },
     );
     List<Widget>? actions;
-    if (context.watch<RadarrState>().enabled!) {
+    if (context.watch<RadarrState>().enabled) {
       actions = [
         const RadarrAppBarAddMoviesAction(),
         const RadarrAppBarGlobalSettingsAction(),

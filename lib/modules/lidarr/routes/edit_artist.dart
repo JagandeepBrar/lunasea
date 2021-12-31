@@ -40,7 +40,8 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   void initState() {
     super.initState();
     SchedulerBinding.instance!.addPostFrameCallback((_) {
-      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments as LidarrEditArtistArguments?);
+      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrEditArtistArguments?);
       _refresh();
     });
   }
@@ -67,8 +68,8 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
 
   Future<void> _fetchProfiles(LidarrAPI api) async {
     return await api.getQualityProfiles().then((profiles) {
-      _qualityProfiles = profiles?.values?.toList();
-      if (_qualityProfiles?.isNotEmpty ?? false) {
+      _qualityProfiles = profiles.values.toList();
+      if (_qualityProfiles.isNotEmpty) {
         for (var profile in _qualityProfiles) {
           if (profile.id == _arguments!.entry!.qualityProfile) {
             _qualityProfile = profile;
@@ -80,8 +81,8 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
 
   Future<void> _fetchMetadata(LidarrAPI api) async {
     return await api.getMetadataProfiles().then((metadatas) {
-      _metadataProfiles = metadatas?.values?.toList();
-      if (_metadataProfiles?.isNotEmpty ?? false) {
+      _metadataProfiles = metadatas.values.toList();
+      if (_metadataProfiles.isNotEmpty) {
         for (var profile in _metadataProfiles) {
           if (profile.id == _arguments!.entry!.metadataProfile) {
             _metadataProfile = profile;

@@ -13,7 +13,7 @@ class RadarrAddMovieDetailsRootFolderTile extends StatelessWidget {
       selector: (_, state) => state.rootFolder,
       builder: (context, folder, _) => LunaBlock(
         title: 'radarr.RootFolder'.tr(),
-        body: [TextSpan(text: folder?.path ?? LunaUI.TEXT_EMDASH)],
+        body: [TextSpan(text: folder.path ?? LunaUI.TEXT_EMDASH)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<RadarrRootFolder> folders =

@@ -165,10 +165,12 @@ class _State extends State<SABnzbd> {
           message: values[3],
         );
         _refreshAllPages();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Upload NZB',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Upload NZB',
+          error: error,
+        );
+      });
   }
 
   Future<void> _sort() async {
@@ -182,12 +184,14 @@ class _State extends State<SABnzbd> {
           message: values[3],
         );
         (_refreshKeys[0] as GlobalKey<RefreshIndicatorState>)
-            ?.currentState
+            .currentState
             ?.show();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Sort Queue',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Sort Queue',
+          error: error,
+        );
+      });
   }
 
   Future<void> _addNZB() async {
@@ -213,7 +217,7 @@ class _State extends State<SABnzbd> {
       if (_file != null) {
         List<int> _data = _file.readAsBytesSync();
         String _name = _file.path.substring(_file.path.lastIndexOf('/') + 1);
-        if (_data?.isNotEmpty ?? false)
+        if (_data.isNotEmpty)
           await _api.uploadFile(_data, _name).then((value) {
             _refreshKeys[0]?.currentState?.show();
             showLunaSuccessSnackBar(

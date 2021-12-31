@@ -30,16 +30,13 @@ class TautulliHistoryDetailsUser extends StatelessWidget {
             if (_record != null)
               return LunaIconButton(
                 icon: Icons.person_rounded,
-                onPressed: () async => _onPressed(context, _record.userId),
+                onPressed: () async => _onPressed(context, _record.userId!),
               );
           }
           return Container();
         },
       );
 
-  Future<void> _onPressed(BuildContext context, int? userId) =>
-      TautulliUserDetailsRouter().navigateTo(
-        context,
-        userId: userId,
-      );
+  Future<void> _onPressed(BuildContext context, int userId) =>
+      TautulliUserDetailsRouter().navigateTo(context, userId);
 }

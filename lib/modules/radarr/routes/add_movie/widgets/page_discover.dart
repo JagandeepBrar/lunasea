@@ -47,7 +47,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
             Tuple2<Future<List<RadarrMovie>>?, Future<List<RadarrExclusion>>?>>(
           selector: (_, state) => Tuple2(state.discovery, state.exclusions),
           builder: (context, tuple, _) => FutureBuilder(
-            future: Future.wait([movies.then((value) => value!), tuple.item1.then((value) => value!), tuple.item2.then((value) => value!)]),
+            future: Future.wait([movies!, tuple.item1!, tuple.item2!]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
               if (snapshot.hasError) {
                 if (snapshot.connectionState != ConnectionState.waiting)
@@ -60,7 +60,9 @@ class _State extends State<RadarrAddMovieDiscoverPage>
               }
               if (snapshot.hasData)
                 return _list(
-                    snapshot.data![0] as List<RadarrMovie>, snapshot.data![1] as List<RadarrMovie>, snapshot.data![2] as List<RadarrExclusion>);
+                    snapshot.data![0] as List<RadarrMovie>,
+                    snapshot.data![1] as List<RadarrMovie>,
+                    snapshot.data![2] as List<RadarrExclusion>);
               return const LunaLoader();
             },
           ),
@@ -91,10 +93,10 @@ class _State extends State<RadarrAddMovieDiscoverPage>
     List<RadarrMovie> discovery,
     List<RadarrExclusion> exclusions,
   ) {
-    if (discovery?.isEmpty ?? true) return [];
+    if (discovery.isEmpty) return [];
     List<RadarrMovie> _filtered = discovery;
     // Filter out the excluded movies
-    if (exclusions?.isNotEmpty ?? false)
+    if (exclusions.isNotEmpty)
       _filtered = _filtered
           .where((discover) =>
               exclusions.firstWhereOrNull(
@@ -103,7 +105,7 @@ class _State extends State<RadarrAddMovieDiscoverPage>
               null)
           .toList();
     // Filter out the already added movies
-    if (movies?.isNotEmpty ?? false)
+    if (movies.isNotEmpty)
       _filtered = _filtered
           .where((discover) =>
               movies.firstWhereOrNull(

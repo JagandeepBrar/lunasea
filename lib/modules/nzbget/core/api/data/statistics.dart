@@ -33,11 +33,11 @@ class NZBGetStatisticsData {
   }
 
   String get freeSpaceString {
-    return freeSpace?.lunaBytesToString(decimals: 1);
+    return freeSpace.lunaBytesToString(decimals: 1);
   }
 
   String get downloadedString {
-    return downloaded?.lunaBytesToString(decimals: 1);
+    return downloaded.lunaBytesToString(decimals: 1);
   }
 
   String get uptimeString {
@@ -45,7 +45,7 @@ class NZBGetStatisticsData {
   }
 
   String get speedLimitString {
-    String limit = speedLimit?.lunaBytesToString();
+    String limit = speedLimit.lunaBytesToString();
     return limit == '0.00 B' ? 'No Limit Set' : '$limit/s';
   }
 }

@@ -7,21 +7,17 @@ class SettingsConfigurationSearchEditHeadersRouter extends SettingsPageRouter {
       : super('/settings/configuration/search/edit/:indexerid/headers');
 
   @override
-  _Widget widget({
-    required int indexerId,
-  }) =>
-      _Widget(indexerId: indexerId);
+  _Widget widget([int indexerId = -1]) => _Widget(indexerId: indexerId);
 
   @override
-  Future<void> navigateTo(
-    BuildContext context, {
-    required int indexerId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(indexerId: indexerId));
+  Future<void> navigateTo(BuildContext context, [int indexerId = -1]) async {
+    LunaRouter.router.navigateTo(context, route(indexerId));
+  }
 
   @override
-  String route({required int indexerId}) =>
-      super.fullRoute.replaceFirst(':indexerid', indexerId?.toString() ?? -1 as String);
+  String route([int indexerId = -1]) {
+    return super.fullRoute.replaceFirst(':indexerid', indexerId.toString());
+  }
 
   @override
   void defineRoute(FluroRouter router) {
@@ -82,8 +78,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaButton.text(
           text: 'Add Header',
           icon: Icons.add_rounded,
-          onTap: () async => HeaderUtility()
-              .addHeader(context, headers: _indexer!.headers, indexer: _indexer),
+          onTap: () async => HeaderUtility().addHeader(context,
+              headers: _indexer!.headers, indexer: _indexer),
         ),
       ],
     );

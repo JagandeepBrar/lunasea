@@ -7,9 +7,7 @@ class _SonarrAddSeriesDetailsArguments {
 
   _SonarrAddSeriesDetailsArguments({
     required this.series,
-  }) {
-    assert(series != null);
-  }
+  });
 }
 
 class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
@@ -20,15 +18,16 @@ class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required SonarrSeries series,
-  }) {
+    BuildContext context, [
+    SonarrSeries? series,
+  ]) {
+    assert(series != null);
     return LunaRouter.router.navigateTo(
       context,
       route(),
       routeSettings: RouteSettings(
         arguments: _SonarrAddSeriesDetailsArguments(
-          series: series,
+          series: series!,
         ),
       ),
     );
@@ -61,8 +60,9 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _SonarrAddSeriesDetailsArguments? arguments =
-        ModalRoute.of(context)!.settings.arguments as _SonarrAddSeriesDetailsArguments?;
+    _SonarrAddSeriesDetailsArguments? arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as _SonarrAddSeriesDetailsArguments?;
     if (arguments == null || arguments.series == null)
       return LunaInvalidRoute(
         title: 'sonarr.AddSeries'.tr(),
@@ -92,10 +92,10 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait(
         [
-          context.watch<SonarrState>().rootFolders.then((value) => value!),
-          context.watch<SonarrState>().tags,
-          context.watch<SonarrState>().qualityProfiles,
-          context.watch<SonarrState>().languageProfiles,
+          context.watch<SonarrState>().rootFolders!,
+          context.watch<SonarrState>().tags!,
+          context.watch<SonarrState>().qualityProfiles!,
+          context.watch<SonarrState>().languageProfiles!,
         ],
       ),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
@@ -107,9 +107,7 @@ class _State extends State<_Widget>
               snapshot.stackTrace,
             );
           }
-          return LunaMessage.error(
-            onTap: _refreshKey.currentState?.show,
-          );
+          return LunaMessage.error(onTap: _refreshKey.currentState!.show);
         }
         if (snapshot.hasData) {
           return _content(

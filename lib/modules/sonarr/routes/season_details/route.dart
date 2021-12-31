@@ -7,10 +7,10 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
       : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
 
   @override
-  _SonarrSeasonDetails widget({
-    required int seriesId,
-    required int seasonNumber,
-  }) {
+  _SonarrSeasonDetails widget([
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) {
     return _SonarrSeasonDetails(
       seriesId: seriesId,
       seasonNumber: seasonNumber,
@@ -19,21 +19,21 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? seriesId,
-    required int? seasonNumber,
-  }) async {
+    BuildContext context, [
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) async {
     LunaRouter.router.navigateTo(
       context,
-      route(seriesId: seriesId, seasonNumber: seasonNumber),
+      route(seriesId, seasonNumber),
     );
   }
 
   @override
-  String route({
-    required int? seriesId,
-    required int? seasonNumber,
-  }) =>
+  String route([
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) =>
       fullRoute
           .replaceFirst(':seriesid', seriesId.toString())
           .replaceFirst(':seasonnumber', seasonNumber.toString());
@@ -85,7 +85,7 @@ class _State extends State<_SonarrSeasonDetails>
       scaffoldKey: _scaffoldKey,
       appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
-          context.watch<SonarrState>().enabled! ? _bottomNavigationBar() : null,
+          context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }
@@ -100,8 +100,8 @@ class _State extends State<_SonarrSeasonDetails>
         _season = 'sonarr.Specials'.tr();
         break;
       default:
-        _season = 'sonarr.SeasonNumber'.tr(
-            args: [widget.seasonNumber?.toString() ?? 'lunasea.Unknown'.tr()]);
+        _season =
+            'sonarr.SeasonNumber'.tr(args: [widget.seasonNumber.toString()]);
         break;
     }
     return LunaAppBar(

@@ -14,7 +14,7 @@ class LunaProfile {
   /// - Ensures that the passed in profile isn't already enabled
   /// - Ensures that the profile exists
   Future<bool> safelyChangeProfiles(
-    String? profile, {
+    String profile, {
     bool showSnackbar = true,
     bool popToFirst = false,
   }) async {
@@ -76,7 +76,7 @@ class LunaProfile {
   Future<bool> deleteProfile({bool showSnackbar = true}) async {
     List<String?> profiles = profilesList();
     profiles.remove(LunaDatabaseValue.ENABLED_PROFILE.data);
-    if (profiles?.isNotEmpty ?? false) {
+    if (profiles.isNotEmpty) {
       Tuple2<bool, String?> selectedProfile = await SettingsDialogs()
           .deleteProfile(LunaState.navigatorKey.currentContext!, profiles);
       if (selectedProfile.item1) {

@@ -1,5 +1,4 @@
 import 'package:lunasea/core.dart';
-//import 'package:lunasea/modules/Lidarr.dart';
 
 class LidarrWebhooks extends LunaWebhooks {
   @override
@@ -23,8 +22,8 @@ enum _EventType {
   TEST,
 }
 
-extension _EventTypeExtension on _EventType? {
-  _EventType? fromKey(String? key) {
+extension _EventTypeExtension on _EventType {
+  _EventType? fromKey(String key) {
     switch (key) {
       case 'Download':
         return _EventType.DOWNLOAD;
@@ -36,8 +35,9 @@ extension _EventTypeExtension on _EventType? {
         return _EventType.RETAG;
       case 'Test':
         return _EventType.TEST;
+      default:
+        return null;
     }
-    return null;
   }
 
   Future<void> execute(Map<dynamic, dynamic> data) async {

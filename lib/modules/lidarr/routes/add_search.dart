@@ -66,7 +66,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
       onRefresh: _refresh,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<LidarrSearchData>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.none)
             return Container();
           if (snapshot.hasError) {
@@ -90,9 +90,7 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     if ((data?.length ?? 0) == 0)
       return LunaListView(
         controller: scrollController,
-        children: [
-          LunaMessage(text: 'No Results Found'),
-        ],
+        children: const [LunaMessage(text: 'No Results Found')],
       );
     return LunaListViewBuilder(
       controller: scrollController,

@@ -13,11 +13,8 @@ class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
       title: 'sonarr.Monitor'.tr(),
       body: [
         TextSpan(
-          text: context
-                  .watch<SonarrSeriesAddDetailsState>()
-                  .monitorType
-                  ?.lunaName ??
-              LunaUI.TEXT_EMDASH,
+          text:
+              context.watch<SonarrSeriesAddDetailsState>().monitorType.lunaName,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

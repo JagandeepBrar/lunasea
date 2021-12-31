@@ -267,7 +267,7 @@ class RadarrDialogs {
       content: List.generate(
         _values.length,
         (index) => LunaDialog.tile(
-          text: _values[index].readable!,
+          text: _values[index].readable,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, _values[index]),
@@ -357,13 +357,12 @@ class RadarrDialogs {
                 (index) => LunaDialog.checkbox(
                     title: filteredLanguages[index].name!,
                     value: context
-                                .read<RadarrManualImportDetailsTileState>()
-                                .manualImport
-                                .languages
-                                ?.indexWhere((lang) =>
-                                    lang.id == filteredLanguages[index].id) !=
-                            -1 ??
-                        false,
+                            .read<RadarrManualImportDetailsTileState>()
+                            .manualImport
+                            .languages
+                            ?.indexWhere((lang) =>
+                                lang.id == filteredLanguages[index].id) !=
+                        -1,
                     onChanged: (value) => value!
                         ? context
                             .read<RadarrManualImportDetailsTileState>()
@@ -387,7 +386,7 @@ class RadarrDialogs {
       builder: (_) => ChangeNotifierProvider.value(
         value: context.read<RadarrMoviesEditState>(),
         builder: (context, _) => Selector<RadarrState, Future<List<RadarrTag>>>(
-          selector: (_, state) => state.tags,
+          selector: (_, state) => state.tags!,
           builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
@@ -417,15 +416,16 @@ class RadarrDialogs {
                           value: context
                               .watch<RadarrMoviesEditState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data![index].id)
+                              .where(
+                                  (tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrMoviesEditState>().tags;
                             selected!
                                 ? _tags.add(snapshot.data![index])
-                                : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data![index].id);
+                                : _tags.removeWhere((tag) =>
+                                    tag.id == snapshot.data![index].id);
                             context.read<RadarrMoviesEditState>().tags = _tags;
                           },
                         ),
@@ -492,7 +492,7 @@ class RadarrDialogs {
       builder: (_) => ChangeNotifierProvider.value(
         value: context.read<RadarrAddMovieDetailsState>(),
         builder: (context, _) => Selector<RadarrState, Future<List<RadarrTag>>>(
-          selector: (_, state) => state.tags,
+          selector: (_, state) => state.tags!,
           builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
@@ -522,15 +522,16 @@ class RadarrDialogs {
                           value: context
                               .watch<RadarrAddMovieDetailsState>()
                               .tags
-                              .where((tag) => tag.id == snapshot.data![index].id)
+                              .where(
+                                  (tag) => tag.id == snapshot.data![index].id)
                               .isNotEmpty,
                           onChanged: (selected) {
                             List<RadarrTag> _tags =
                                 context.read<RadarrAddMovieDetailsState>().tags;
                             selected!
                                 ? _tags.add(snapshot.data![index])
-                                : _tags.removeWhere(
-                                    (tag) => tag.id == snapshot.data![index].id);
+                                : _tags.removeWhere((tag) =>
+                                    tag.id == snapshot.data![index].id);
                             context.read<RadarrAddMovieDetailsState>().tags =
                                 _tags;
                           },
@@ -660,7 +661,7 @@ class RadarrDialogs {
             title: 'Queue Page Size',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },

@@ -7,9 +7,7 @@ class _RadarrManualImportDetailsArguments {
 
   _RadarrManualImportDetailsArguments({
     required this.path,
-  }) {
-    assert(path != null);
-  }
+  });
 }
 
 class RadarrManualImportDetailsRouter extends RadarrPageRouter {
@@ -20,14 +18,15 @@ class RadarrManualImportDetailsRouter extends RadarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required String path,
-  }) async {
+    BuildContext context, [
+    String path = '',
+  ]) async {
+    String _path = path.isEmpty ? '/' : path;
     LunaRouter.router.navigateTo(
       context,
       route(),
       routeSettings: RouteSettings(
-        arguments: _RadarrManualImportDetailsArguments(path: path),
+        arguments: _RadarrManualImportDetailsArguments(path: _path),
       ),
     );
   }
@@ -56,9 +55,10 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _RadarrManualImportDetailsArguments? arguments =
-        ModalRoute.of(context)!.settings.arguments as _RadarrManualImportDetailsArguments?;
-    if (arguments == null || arguments.path == null || arguments.path.isEmpty) {
+    _RadarrManualImportDetailsArguments? arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as _RadarrManualImportDetailsArguments?;
+    if (arguments == null || arguments.path.isEmpty) {
       return LunaInvalidRoute(
         title: 'radarr.ManualImport'.tr(),
         message: 'radarr.DirectoryNotFound'.tr(),
@@ -92,14 +92,9 @@ class _State extends State<_Widget>
       future: Future.wait(
         [
           context.select(
-            ((RadarrManualImportDetailsState state) => state.manualImport.then((value) => value!)) as Future<_> Function(_),
-          ),
-          context.select(
-            (RadarrState state) => state.qualityProfiles,
-          ),
-          context.select(
-            (RadarrState state) => state.languages,
-          ),
+              (RadarrManualImportDetailsState state) => state.manualImport!),
+          context.select((RadarrState state) => state.qualityProfiles!),
+          context.select((RadarrState state) => state.languages!),
         ],
       ),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
@@ -133,7 +128,7 @@ class _State extends State<_Widget>
     BuildContext context, {
     required List<RadarrManualImport> manualImport,
   }) {
-    if ((manualImport?.length ?? 0) == 0) {
+    if (manualImport.isEmpty) {
       return LunaMessage(
         text: 'radarr.NoFilesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),

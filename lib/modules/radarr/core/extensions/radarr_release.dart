@@ -16,7 +16,7 @@ extension RadarrReleaseExtension on RadarrRelease {
   String? get lunaProtocol {
     if (this.protocol != null)
       return this.protocol == RadarrProtocol.TORRENT
-          ? '${this.protocol!.readable} (${this?.seeders ?? 0}/${this?.leechers ?? 0})'
+          ? '${this.protocol!.readable} (${this.seeders ?? 0}/${this.leechers ?? 0})'
           : this.protocol!.readable;
     return LunaUI.TEXT_EMDASH;
   }

@@ -44,7 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _drawer() => LunaDrawer(page: LunaModule.EXTERNAL_MODULES.key);
 
   Widget _body() {
-    if ((Database.externalModulesBox.length ?? 0) == 0) {
+    if (Database.externalModulesBox.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.EXTERNAL_MODULES.name,

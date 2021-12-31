@@ -62,7 +62,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   }
 
   Future<void> fetchEpisodeHistory(BuildContext context, int? episodeId) async {
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       episodeHistoryCache.put(
         episodeId.toString(),
         context.read<SonarrState>().api!.history.get(
@@ -80,10 +80,10 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
         .then((data) => data as SonarrHistory);
   }
 
-  Future<Map<int?, SonarrEpisode>>? _episodes;
-  Future<Map<int?, SonarrEpisode>>? get episodes => _episodes;
+  Future<Map<int, SonarrEpisode>>? _episodes;
+  Future<Map<int, SonarrEpisode>>? get episodes => _episodes;
   Future<void> fetchEpisodes(BuildContext context) async {
-    if (context.read<SonarrState>().enabled ?? false) {
+    if (context.read<SonarrState>().enabled) {
       _episodes = context
           .read<SonarrState>()
           .api!
@@ -91,7 +91,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
           .getMulti(seriesId: seriesId, seasonNumber: seasonNumber)
           .then((episodes) {
         return {
-          for (SonarrEpisode e in episodes) e.id: e,
+          for (SonarrEpisode e in episodes) e.id!: e,
         };
       });
     }
@@ -99,8 +99,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   }
 
   Future<void> setSingleEpisode(SonarrEpisode episode) async {
-    assert(episode != null);
-    (await _episodes)![episode.id] = episode;
+    (await _episodes)![episode.id!] = episode;
     notifyListeners();
   }
 
@@ -108,7 +107,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   Future<List<SonarrHistoryRecord>>? get history => _history;
   Future<void> fetchHistory(BuildContext context) async {
     if (this.seasonNumber == null) return;
-    if (context.read<SonarrState>().enabled ?? false) {
+    if (context.read<SonarrState>().enabled) {
       _history = context.read<SonarrState>().api!.history.getBySeries(
             seriesId: seriesId,
             seasonNumber: seasonNumber,
@@ -117,10 +116,10 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Map<int?, SonarrEpisodeFile>>? _files;
-  Future<Map<int?, SonarrEpisodeFile>>? get files => _files;
+  Future<Map<int, SonarrEpisodeFile>>? _files;
+  Future<Map<int, SonarrEpisodeFile>>? get files => _files;
   Future<void> fetchFiles(BuildContext context) async {
-    if (context.read<SonarrState>().enabled ?? false) {
+    if (context.read<SonarrState>().enabled) {
       _files = context
           .read<SonarrState>()
           .api!
@@ -128,7 +127,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
           .getSeries(seriesId: seriesId)
           .then((files) {
         return {
-          for (SonarrEpisodeFile f in files) f.id: f,
+          for (SonarrEpisodeFile f in files) f.id!: f,
         };
       });
     }
@@ -157,7 +156,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     bool hardCheck = false,
   }) async {
     cancelQueueTimer();
-    if (context.read<SonarrState>().enabled!) {
+    if (context.read<SonarrState>().enabled) {
       // "Hard" check by telling Sonarr to refresh the monitored downloads
       // Give it 500 ms to internally check and then continue to fetch queue
       if (hardCheck) {

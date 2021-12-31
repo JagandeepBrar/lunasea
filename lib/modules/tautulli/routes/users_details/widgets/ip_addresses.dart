@@ -62,7 +62,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -106,7 +106,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       backgroundHeaders: context.read<TautulliState>().headers,
       onTap: () async => TautulliIPAddressDetailsRouter().navigateTo(
         context,
-        ipAddress: record.ipAddress!,
+        record.ipAddress!,
       ),
     );
   }

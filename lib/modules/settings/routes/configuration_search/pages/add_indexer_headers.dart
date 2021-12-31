@@ -11,13 +11,14 @@ class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required IndexerHiveObject indexer,
-  }) async {
+    BuildContext context, [
+    IndexerHiveObject? indexer,
+  ]) async {
+    assert(indexer != null);
     LunaRouter.router.navigateTo(
       context,
       route(),
-      routeSettings: RouteSettings(arguments: _Arguments(indexer: indexer)),
+      routeSettings: RouteSettings(arguments: _Arguments(indexer: indexer!)),
     );
   }
 
@@ -31,9 +32,7 @@ class _Arguments {
 
   _Arguments({
     required this.indexer,
-  }) {
-    assert(indexer != null);
-  }
+  });
 }
 
 class _Widget extends StatefulWidget {

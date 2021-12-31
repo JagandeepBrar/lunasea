@@ -7,24 +7,22 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
   SonarrSeriesDetailsRouter() : super('/sonarr/series/:seriesid');
 
   @override
-  _SonarrSeriesDetails widget({
-    required int seriesId,
-  }) {
+  _SonarrSeriesDetails widget([
+    int seriesId = -1,
+  ]) {
     return _SonarrSeriesDetails(seriesId: seriesId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? seriesId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
+    BuildContext context, [
+    int seriesId = -1,
+  ]) async {
+    return LunaRouter.router.navigateTo(context, route(seriesId));
   }
 
   @override
-  String route({
-    required int? seriesId,
-  }) {
+  String route([int seriesId = -1]) {
     return fullRoute.replaceFirst(
       ':seriesid',
       seriesId.toString(),
@@ -121,7 +119,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
       module: LunaModule.SONARR,
       appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
-          context.watch<SonarrState>().enabled! ? _bottomNavigationBar() : null,
+          context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
     );
   }
@@ -134,7 +132,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
               icon: Icons.edit_rounded,
               onPressed: () async => SonarrEditSeriesRouter().navigateTo(
                 context,
-                seriesId: widget.seriesId,
+                widget.seriesId,
               ),
             ),
             SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
@@ -158,10 +156,10 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
     return Consumer<SonarrState>(
       builder: (context, state, _) => FutureBuilder(
         future: Future.wait([
-          state.qualityProfiles,
-          state.languageProfiles,
-          state.tags,
-          state.series.then((value) => value!),
+          state.qualityProfiles!,
+          state.languageProfiles!,
+          state.tags!,
+          state.series!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -191,7 +189,8 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
               series!.languageProfileId,
               snapshot.data![1] as List<SonarrLanguageProfile>,
             );
-            List<SonarrTag> tags = _findTags(series!.tags, snapshot.data![2] as List<SonarrTag>);
+            List<SonarrTag> tags =
+                _findTags(series!.tags, snapshot.data![2] as List<SonarrTag>);
             return _pages(
               qualityProfile: quality,
               languageProfile: language,
@@ -218,7 +217,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
         controller: _pageController,
         children: [
           SonarrSeriesDetailsOverviewPage(
-            series: series,
+            series: series!,
             qualityProfile: qualityProfile,
             languageProfile: languageProfile,
             tags: tags,

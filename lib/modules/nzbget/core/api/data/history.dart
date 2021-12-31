@@ -7,7 +7,7 @@ class NZBGetHistoryData {
   int id;
   String name;
   String status;
-  String category;
+  String? category;
   String storageLocation;
   int timestamp;
   int downloadedLow;
@@ -38,12 +38,12 @@ class NZBGetHistoryData {
       return '0.00 MB/s';
     } else {
       int speed = (downloaded / downloadTime).floor();
-      return '${speed?.lunaBytesToString()}/s';
+      return '${speed.lunaBytesToString()}/s';
     }
   }
 
   String get sizeReadable {
-    return downloaded?.lunaBytesToString();
+    return downloaded.lunaBytesToString();
   }
 
   DateTime? get timestampObject {

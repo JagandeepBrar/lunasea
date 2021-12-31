@@ -22,11 +22,11 @@ class SABnzbdQueueData {
   int get percentageDone {
     return sizeTotal == 0
         ? 0
-        : (((sizeTotal - sizeLeft) / sizeTotal) * 100).round() ?? 0.0 as int;
+        : (((sizeTotal - sizeLeft) / sizeTotal) * 100).round();
   }
 
   String get formattedCategory {
-    if (this.category == null || this.category == '*') return 'Default';
+    if (this.category == '*') return 'Default';
     return category;
   }
 

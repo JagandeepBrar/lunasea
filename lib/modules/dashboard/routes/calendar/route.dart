@@ -43,12 +43,12 @@ class _State extends State<DashboardCalendarRoute>
                 snapshot.stackTrace,
               );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             return DashboardCalendarWidget(
-              events: snapshot.data,
+              events: snapshot.data as Map<DateTime, List<CalendarData>>,
             );
           }
           return const LunaLoader();

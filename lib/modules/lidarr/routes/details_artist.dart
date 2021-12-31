@@ -34,7 +34,8 @@ class _State extends State<LidarrDetailsArtist> {
   void initState() {
     super.initState();
     SchedulerBinding.instance!.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context)!.settings.arguments as LidarrDetailsArtistArguments?;
+      _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrDetailsArtistArguments?;
       _fetch();
     });
   }
@@ -93,7 +94,7 @@ class _State extends State<LidarrDetailsArtist> {
       LidarrArtistNavigationBar(pageController: _pageController);
 
   List<Widget> get _tabs => [
-        LidarrDetailsOverview(data: _arguments!.data),
+        LidarrDetailsOverview(data: _arguments!.data!),
         LidarrDetailsAlbumList(artistID: _arguments!.data!.artistID),
       ];
 

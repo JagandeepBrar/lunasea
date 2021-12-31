@@ -17,11 +17,11 @@ class LunaLogHiveObjectAdapter extends TypeAdapter<LunaLogHiveObject> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LunaLogHiveObject(
-      timestamp: fields[0] as int?,
-      type: fields[1] as LunaLogType?,
+      timestamp: fields[0] as int,
+      type: fields[1] as LunaLogType,
       className: fields[2] as String?,
       methodName: fields[3] as String?,
-      message: fields[4] as String?,
+      message: fields[4] as String,
       error: fields[5] as String?,
       stackTrace: fields[6] as String?,
     );

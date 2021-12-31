@@ -42,7 +42,7 @@ class _State extends State<_Widget>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: context.read<SearchState>().indexer?.displayName ??
+      title: context.read<SearchState>().indexer.displayName ??
           'search.Categories'.tr(),
       scrollControllers: [scrollController],
       actions: <Widget>[
@@ -79,7 +79,7 @@ class _State extends State<_Widget>
   }
 
   Widget _list(List<NewznabCategoryData> categories) {
-    if ((categories.length ?? 0) == 0) {
+    if (categories.isEmpty) {
       return LunaMessage.goBack(
         context: context,
         text: 'search.NoCategoriesFound'.tr(),

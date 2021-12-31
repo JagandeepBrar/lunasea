@@ -85,16 +85,13 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     } else if (widget.exists) {
       SonarrSeriesDetailsRouter().navigateTo(
         context,
-        seriesId: widget.series.id ?? -1,
+        widget.series.id ?? -1,
       );
     } else {
-      SonarrAddSeriesDetailsRouter().navigateTo(
-        context,
-        series: widget.series,
-      );
+      SonarrAddSeriesDetailsRouter().navigateTo(context, widget.series);
     }
   }
 
   Future<void>? _onLongPress() async =>
-      widget.series?.tvdbId?.toString()?.lunaOpenTheTVDB();
+      widget.series.tvdbId?.toString().lunaOpenTheTVDB();
 }

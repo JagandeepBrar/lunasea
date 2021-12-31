@@ -63,7 +63,7 @@ class _State extends State<TautulliUserDetailsSyncedItems>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _syncedItems(snapshot.data);
           return const LunaLoader();

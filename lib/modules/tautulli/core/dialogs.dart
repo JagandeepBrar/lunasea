@@ -140,7 +140,7 @@ class TautulliDialogs {
             title: 'Refresh Rate',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Second';
             },
@@ -188,7 +188,7 @@ class TautulliDialogs {
             title: 'Item Count',
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value != null && _value >= 1) return null;
               return 'Minimum of 1 Item';
             },

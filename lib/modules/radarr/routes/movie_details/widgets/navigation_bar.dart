@@ -73,6 +73,6 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
     });
   }
 
-  Future<void> _manual() async => RadarrReleasesRouter()
-      .navigateTo(context, movieId: widget.movie!.id ?? -1);
+  Future<void> _manual() async =>
+      RadarrReleasesRouter().navigateTo(context, widget.movie?.id ?? -1);
 }

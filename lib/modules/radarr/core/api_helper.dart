@@ -11,8 +11,7 @@ class RadarrAPIHelper {
     required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
-    assert(movie != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       RadarrMovie movieCopy = movie.clone();
       movieCopy.monitored = !movie.monitored!;
       return await context
@@ -27,9 +26,10 @@ class RadarrAPIHelper {
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
-                title:
-                    movieCopy.monitored! ? 'Monitoring' : 'No Longer Monitoring',
-                message: movie.title);
+              title:
+                  movieCopy.monitored! ? 'Monitoring' : 'No Longer Monitoring',
+              message: movie.title.lunaSafe(),
+            );
           return true;
         });
       }).catchError((error, stack) {
@@ -55,15 +55,15 @@ class RadarrAPIHelper {
     required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
-    assert(movie != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
           .command
           .refreshMovie(movieIds: [movie.id!]).then((_) {
         if (showSnackbar)
-          showLunaSuccessSnackBar(title: 'Refreshing...', message: movie.title);
+          showLunaSuccessSnackBar(
+              title: 'Refreshing...', message: movie.title.lunaSafe());
         return true;
       }).catchError((error, stack) {
         LunaLogger()
@@ -90,14 +90,7 @@ class RadarrAPIHelper {
     required bool searchForMovie,
     bool showSnackbar = true,
   }) async {
-    assert(movie != null);
-    assert(rootFolder != null);
-    assert(monitored != null);
-    assert(qualityProfile != null);
-    assert(availability != null);
-    assert(tags != null);
-    assert(searchForMovie != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -118,7 +111,7 @@ class RadarrAPIHelper {
               'Movie Added',
               if (searchForMovie) '(Searching...)',
             ].join(' '),
-            message: movie.title,
+            message: movie.title.lunaSafe(),
           );
         return movie;
       }).catchError((error, stack) {
@@ -126,7 +119,6 @@ class RadarrAPIHelper {
             'Failed to add movie (tmdbId: ${movie.tmdbId})', error, stack);
         if (showSnackbar)
           showLunaErrorSnackBar(title: 'Failed to Add Movie', error: error);
-        return null;
       });
     }
     return null;
@@ -137,7 +129,7 @@ class RadarrAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context.read<RadarrState>().api!.command.backup().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -160,7 +152,7 @@ class RadarrAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -188,7 +180,7 @@ class RadarrAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context.read<RadarrState>().api!.command.rssSync().then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -210,7 +202,7 @@ class RadarrAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -239,8 +231,7 @@ class RadarrAPIHelper {
     required RadarrMovieFile movieFile,
     bool showSnackbar = true,
   }) async {
-    assert(movieFile != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -249,7 +240,8 @@ class RadarrAPIHelper {
           .then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
-              title: 'File Deleted', message: movieFile.relativePath);
+              title: 'File Deleted',
+              message: movieFile.relativePath.lunaSafe());
         return true;
       }).catchError((error, stack) {
         LunaLogger().error(
@@ -268,8 +260,7 @@ class RadarrAPIHelper {
     required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
-    assert(movie != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -283,7 +274,7 @@ class RadarrAPIHelper {
           if (showSnackbar)
             showLunaSuccessSnackBar(
               title: 'Updated Movie',
-              message: movie.title,
+              message: movie.title.lunaSafe(),
             );
           return true;
         });
@@ -302,8 +293,7 @@ class RadarrAPIHelper {
     required RadarrMovie movie,
     bool showSnackbar = true,
   }) async {
-    assert(movie != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -327,7 +317,7 @@ class RadarrAPIHelper {
                 if (RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data)
                   '(With Files)',
               ].join(' '),
-              message: movie.title,
+              message: movie.title.lunaSafe(),
             );
           return true;
         });
@@ -343,16 +333,15 @@ class RadarrAPIHelper {
   /// Execute a quick import.
   Future<bool> quickImport({
     required BuildContext context,
-    required String? path,
+    required String path,
     bool showSnackbar = true,
   }) async {
-    assert(path != null && path.isNotEmpty);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
           .command
-          .downloadedMoviesScan(path: path!)
+          .downloadedMoviesScan(path: path)
           .then((_) async {
         if (showSnackbar)
           showLunaSuccessSnackBar(
@@ -377,9 +366,7 @@ class RadarrAPIHelper {
     required String title,
     bool showSnackbar = true,
   }) async {
-    assert(movieId != null);
-    assert(title != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -408,8 +395,7 @@ class RadarrAPIHelper {
     required RadarrRelease release,
     bool showSnackbar = true,
   }) async {
-    assert(release != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -419,7 +405,7 @@ class RadarrAPIHelper {
         if (showSnackbar)
           showLunaSuccessSnackBar(
             title: 'Downloading Release...',
-            message: release.title,
+            message: release.title.lunaSafe(),
           );
         return true;
       }).catchError((error, stack) {
@@ -440,8 +426,7 @@ class RadarrAPIHelper {
     required String label,
     bool showSnackbar = true,
   }) async {
-    assert(label != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
@@ -450,7 +435,7 @@ class RadarrAPIHelper {
           .then((tag) {
         showLunaSuccessSnackBar(
           title: 'radarr.AddedTag'.tr(),
-          message: tag.label,
+          message: tag.label.lunaSafe(),
         );
         return true;
       }).catchError((error, stack) {
@@ -472,15 +457,15 @@ class RadarrAPIHelper {
     required RadarrTag tag,
     bool showSnackbar = true,
   }) async {
-    assert(tag != null);
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
           .tag
           .delete(id: tag.id!)
           .then((_) {
-        showLunaSuccessSnackBar(title: 'Deleted Tag', message: tag.label);
+        showLunaSuccessSnackBar(
+            title: 'Deleted Tag', message: tag.label.lunaSafe());
         return true;
       }).catchError((error, stack) {
         LunaLogger().error('Failed to add tag: ${tag.id}', error, stack);
@@ -494,26 +479,26 @@ class RadarrAPIHelper {
 
   Future<bool> triggerManualImport({
     required BuildContext context,
-    required List<RadarrManualImportFile?> files,
-    required RadarrImportMode? importMode,
+    required List<RadarrManualImportFile> files,
+    required RadarrImportMode importMode,
     bool showSnackbar = true,
   }) async {
-    if (context.read<RadarrState>().enabled!) {
+    if (context.read<RadarrState>().enabled) {
       return await context
           .read<RadarrState>()
           .api!
           .command
           .manualImport(
-            files: files as List<RadarrManualImportFile>,
-            importMode: importMode!,
+            files: files,
+            importMode: importMode,
           )
           .then((_) {
         String? message = '${files.length} Files';
-        if ((files?.length ?? 0) == 1) message = files[0].path;
+        if (files.length == 1) message = files[0].path;
         showLunaSuccessSnackBar(
           title:
               'Importing... (${importMode.value.lunaCapitalizeFirstLetters()})',
-          message: message,
+          message: message.lunaSafe(),
         );
         return true;
       }).catchError((error, stack) {
@@ -530,11 +515,11 @@ class RadarrAPIHelper {
   Tuple2<RadarrManualImportFile?, String?> buildManualImportFile({
     required RadarrManualImport import,
   }) {
-    if (import?.movie == null || import.movie!.id == null)
+    if (import.movie == null || import.movie!.id == null)
       return const Tuple2(null, 'All selections must have a movie set');
-    if (import?.quality == null || (import.quality?.quality?.id ?? -1) < 0)
+    if (import.quality == null || (import.quality?.quality?.id ?? -1) < 0)
       return const Tuple2(null, 'All selections must have a quality set');
-    if ((import?.languages?.length ?? 0) == 0)
+    if ((import.languages?.length ?? 0) == 0)
       return const Tuple2(null, 'All selections must have a language set');
     return Tuple2(
       RadarrManualImportFile(

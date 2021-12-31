@@ -4,7 +4,6 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSystemStatusState extends ChangeNotifier {
   RadarrSystemStatusState(BuildContext context) {
-    assert(context != null);
     fetchStatus(context);
     fetchDiskSpace(context);
     fetchHealthCheck(context);
@@ -12,21 +11,21 @@ class RadarrSystemStatusState extends ChangeNotifier {
 
   Future<void> fetchStatus(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
-    if (state.enabled!) _status = state.api!.system.status();
+    if (state.enabled) _status = state.api!.system.status();
     notifyListeners();
     await _status;
   }
 
   Future<void> fetchDiskSpace(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
-    if (state.enabled!) _diskSpace = state.api!.fileSystem.getDiskSpace();
+    if (state.enabled) _diskSpace = state.api!.fileSystem.getDiskSpace();
     notifyListeners();
     await _diskSpace;
   }
 
   Future<void> fetchHealthCheck(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
-    if (state.enabled!) _healthCheck = state.api!.healthCheck.get();
+    if (state.enabled) _healthCheck = state.api!.healthCheck.get();
     notifyListeners();
     await _healthCheck;
   }

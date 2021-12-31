@@ -113,8 +113,8 @@ class _Sorter {
     List<LidarrReleaseData> _torrent =
         _data.where((value) => value.isTorrent).toList();
     ascending
-        ? _torrent.sort((a, b) => b.seeders.compareTo(a.seeders))
-        : _torrent.sort((a, b) => a.seeders.compareTo(b.seeders));
+        ? _torrent.sort((a, b) => (b.seeders ?? 0).compareTo(a.seeders ?? 0))
+        : _torrent.sort((a, b) => (a.seeders ?? 0).compareTo(b.seeders ?? 0));
     return [..._torrent, ..._usenet];
   }
 

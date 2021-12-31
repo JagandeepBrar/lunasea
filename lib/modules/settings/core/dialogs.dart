@@ -152,10 +152,10 @@ class SettingsDialogs {
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
               // Allow empty value
-              if (value == '') return null;
+              if (value?.isEmpty ?? true) return null;
               // Test for https:// or http://
               RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
-              if (exp.hasMatch(value)) return null;
+              if (exp.hasMatch(value!)) return null;
               return 'settings.HostValidation'.tr();
             },
           ),
@@ -216,10 +216,10 @@ class SettingsDialogs {
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
               // Allow empty value
-              if (value == '') return null;
+              if (value?.isEmpty ?? true) return null;
               // Test for https:// or http://
               RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
-              if (exp.hasMatch(value)) return null;
+              if (exp.hasMatch(value!)) return null;
               return 'settings.HostValidation'.tr();
             },
           ),
@@ -366,8 +366,8 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _key,
-                validator: (key) {
-                  if (key.isNotEmpty) return null;
+                validator: (value) {
+                  if (value?.isNotEmpty ?? false) return null;
                   return 'settings.HeaderKeyValidation'.tr();
                 },
                 onSubmitted: (_) => _setValues(true),
@@ -376,7 +376,7 @@ class SettingsDialogs {
               LunaDialog.textFormInput(
                 controller: _value,
                 validator: (value) {
-                  if (value.isNotEmpty) return null;
+                  if (value?.isNotEmpty ?? false) return null;
                   return 'settings.HeaderValueValidation'.tr();
                 },
                 onSubmitted: (_) => _setValues(true),
@@ -437,7 +437,7 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _username,
-                validator: (username) => username.isNotEmpty
+                validator: (username) => (username?.isNotEmpty ?? false)
                     ? null
                     : 'settings.UsernameValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
@@ -445,7 +445,7 @@ class SettingsDialogs {
               ),
               LunaDialog.textFormInput(
                 controller: _password,
-                validator: (password) => password.isNotEmpty
+                validator: (password) => (password?.isNotEmpty ?? false)
                     ? null
                     : 'settings.PasswordValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
@@ -537,8 +537,9 @@ class SettingsDialogs {
             title: 'settings.Password'.tr(),
             obscureText: true,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'settings.PasswordValidation'.tr() : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'settings.PasswordValidation'.tr()
+                : null,
           ),
         ),
       ],
@@ -580,7 +581,7 @@ class SettingsDialogs {
               if (profiles.contains(value)) {
                 return 'settings.ProfileAlreadyExists'.tr();
               }
-              if (value.isEmpty) {
+              if (value?.isEmpty ?? true) {
                 return 'settings.ProfileNameRequired'.tr();
               }
               return null;
@@ -658,7 +659,7 @@ class SettingsDialogs {
               if (profiles.contains(value)) {
                 return 'settings.ProfileAlreadyExists'.tr();
               }
-              if (value.isEmpty) {
+              if (value?.isEmpty ?? true) {
                 return 'settings.ProfileNameRequired'.tr();
               }
               return null;
@@ -933,7 +934,7 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (address) {
-              if (address.isEmpty) return null;
+              if (address?.isEmpty ?? true) return null;
               return IPv4Address.validate(address)
                   ? null
                   : 'settings.BroadcastAddressValidation'.tr();
@@ -994,7 +995,7 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (address) {
-              if (address.isEmpty) return null;
+              if (address?.isEmpty ?? true) return null;
               return MACAddress.validate(address)
                   ? null
                   : 'settings.MACAddressValidation'.tr();
@@ -1125,7 +1126,7 @@ class SettingsDialogs {
             title: 'settings.EncryptionKey'.tr(),
             obscureText: true,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) => value.length < 8
+            validator: (value) => (value?.length ?? 0) < 8
                 ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
                 : null,
           ),
@@ -1175,7 +1176,7 @@ class SettingsDialogs {
             obscureText: true,
             controller: _textController,
             title: 'settings.EncryptionKey'.tr(),
-            validator: (value) => value.length < 8
+            validator: (value) => (value?.length ?? 0) < 8
                 ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
                 : null,
             onSubmitted: (_) => _setValues(true),
@@ -1283,7 +1284,7 @@ class SettingsDialogs {
             keyboardType: TextInputType.number,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int? _opacity = int.tryParse(value);
+              int? _opacity = int.tryParse(value!);
               if (_opacity == null || _opacity < 0 || _opacity > 100)
                 return 'settings.MustBeValueBetween'.tr(args: [
                   0.toString(),

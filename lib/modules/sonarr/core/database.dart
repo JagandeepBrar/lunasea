@@ -56,22 +56,22 @@ class SonarrDatabase extends LunaModuleDatabase {
         // Non-primitive values
         case SonarrDatabaseValue.DEFAULT_SORTING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data
-                  as SonarrSeriesSorting?)
+                  as SonarrSeriesSorting)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data
-                  as SonarrReleasesSorting?)
+                  as SonarrReleasesSorting)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_FILTERING_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data
-                  as SonarrSeriesFilter?)
+                  as SonarrSeriesFilter)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data
-                  as SonarrReleasesFilter?)
+                  as SonarrReleasesFilter)
               .key;
           break;
         case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:

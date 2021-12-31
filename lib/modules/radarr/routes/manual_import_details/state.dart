@@ -23,7 +23,7 @@ class RadarrManualImportDetailsState extends ChangeNotifier {
   Future<List<RadarrManualImport>>? _manualImport;
   Future<List<RadarrManualImport>>? get manualImport => _manualImport;
   Future<void> fetchManualImport(BuildContext context) async {
-    if (context.read<RadarrState>().enabled!)
+    if (context.read<RadarrState>().enabled)
       _manualImport = context.read<RadarrState>().api!.manualImport.get(
             folder: path,
             filterExistingFiles: true,
@@ -34,20 +34,17 @@ class RadarrManualImportDetailsState extends ChangeNotifier {
   List<int> _selectedFiles = [];
   List<int> get selectedFiles => _selectedFiles;
   set selectedFiles(List<int> selectedFiles) {
-    assert(selectedFiles != null);
     _selectedFiles = selectedFiles;
     notifyListeners();
   }
 
   void addSelectedFile(int id) {
-    assert(id != null);
     if (_selectedFiles.contains(id)) return;
     _selectedFiles.add(id);
     notifyListeners();
   }
 
   void removeSelectedFile(int id) {
-    assert(id != null);
     if (!_selectedFiles.contains(id)) return;
     _selectedFiles.remove(id);
     notifyListeners();
@@ -57,8 +54,8 @@ class RadarrManualImportDetailsState extends ChangeNotifier {
     _selectedFiles.contains(id) ? removeSelectedFile(id) : addSelectedFile(id);
   }
 
-  void setSelectedFile(int? id, bool? state) {
-    if (!_selectedFiles.contains(id) && state!) addSelectedFile(id!);
-    if (_selectedFiles.contains(id) && !state!) removeSelectedFile(id!);
+  void setSelectedFile(int id, bool state) {
+    if (!_selectedFiles.contains(id) && state) addSelectedFile(id);
+    if (_selectedFiles.contains(id) && !state) removeSelectedFile(id);
   }
 }

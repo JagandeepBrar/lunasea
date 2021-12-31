@@ -134,7 +134,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 host: _profile!.tautulliHost!,
                 apiKey: _profile.tautulliKey!,
                 headers:
-                    Map<String, dynamic>.from(_profile?.tautulliHeaders ?? {}))
+                    Map<String, dynamic>.from(_profile.tautulliHeaders ?? {}))
             .miscellaneous
             .arnold()
             .then((_) => showLunaSuccessSnackBar(

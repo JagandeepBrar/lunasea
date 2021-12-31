@@ -97,8 +97,8 @@ class _State extends State<RadarrReleasesTile> {
           title: 'language',
           body: widget.release.languages
                   ?.map<String>(
-                      (language) => language?.name ?? LunaUI.TEXT_EMDASH)
-                  ?.join('\n') ??
+                      (language) => language.name ?? LunaUI.TEXT_EMDASH)
+                  .join('\n') ??
               LunaUI.TEXT_EMDASH),
       LunaTableContent(title: 'quality', body: widget.release.lunaQuality),
       if (widget.release.seeders != null)

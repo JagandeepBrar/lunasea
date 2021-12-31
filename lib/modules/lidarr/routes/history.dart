@@ -58,7 +58,7 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
       onRefresh: _refresh,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<LidarrHistoryData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {

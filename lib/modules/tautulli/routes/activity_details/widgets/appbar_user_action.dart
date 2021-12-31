@@ -15,16 +15,16 @@ class TautulliActivityDetailsUserAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: context.select<TautulliState, Future<TautulliActivity?>>(
-          (state) => state.activity),
+          (state) => state.activity!),
       builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
         if (snapshot.hasError) return Container();
         if (snapshot.hasData) {
-          TautulliSession? session = snapshot.data!.sessions!.firstWhereOrNull(
-              (element) => element.sessionId == sessionId);
+          TautulliSession? session = snapshot.data!.sessions!
+              .firstWhereOrNull((element) => element.sessionId == sessionId);
           if (session != null)
             return LunaIconButton(
               icon: Icons.person_rounded,
-              onPressed: () async => _onPressed(context, session.userId),
+              onPressed: () async => _onPressed(context, session.userId!),
             );
         }
         return Container();
@@ -32,9 +32,6 @@ class TautulliActivityDetailsUserAction extends StatelessWidget {
     );
   }
 
-  Future<void> _onPressed(BuildContext context, int? userId) =>
-      TautulliUserDetailsRouter().navigateTo(
-        context,
-        userId: userId,
-      );
+  Future<void> _onPressed(BuildContext context, int userId) =>
+      TautulliUserDetailsRouter().navigateTo(context, userId);
 }

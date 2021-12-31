@@ -8,11 +8,11 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
       : super('/tautulli/history/:ratingkey/:key/:value');
 
   @override
-  _Widget widget({
-    required int ratingKey,
+  _Widget widget([
+    int ratingKey = -1,
     int? referenceId,
     int? sessionKey,
-  }) =>
+  ]) =>
       _Widget(
         ratingKey: ratingKey,
         referenceId: referenceId,
@@ -21,26 +21,23 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    required int? ratingKey,
+    BuildContext context, [
+    int ratingKey = -1,
     int? referenceId,
     int? sessionKey,
-  }) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(
-          ratingKey: ratingKey,
-          referenceId: referenceId,
-          sessionKey: sessionKey,
-        ),
-      );
+  ]) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(ratingKey, referenceId, sessionKey),
+    );
+  }
 
   @override
-  String route({
-    required int? ratingKey,
+  String route([
+    int ratingKey = -1,
     int? referenceId,
     int? sessionKey,
-  }) {
+  ]) {
     String _route = TautulliHomeRouter().route();
     if (referenceId != null)
       _route = fullRoute
@@ -62,7 +59,7 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
           int ratingKey = (params['ratingkey']?.isNotEmpty ?? false)
               ? int.tryParse(params['ratingkey']![0]) ?? -1
               : -1;
-          int value = (params['value']!.isNotEmpty ?? false)
+          int value = (params['value']?.isNotEmpty ?? false)
               ? int.tryParse(params['value']![0]) ?? -1
               : -1;
           return _Widget(
@@ -150,7 +147,7 @@ class _State extends State<_Widget>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) {
             TautulliHistoryRecord? _record =

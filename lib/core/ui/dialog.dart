@@ -124,7 +124,7 @@ abstract class LunaDialog {
 
   static Widget textInput({
     required TextEditingController controller,
-    required Function(String) onSubmitted,
+    required void Function(String)? onSubmitted,
     required String title,
   }) =>
       TextField(
@@ -158,8 +158,8 @@ abstract class LunaDialog {
   static Widget textFormInput({
     required TextEditingController controller,
     required String title,
-    required Function(String) onSubmitted,
-    required Function(String) validator,
+    required ValueChanged<String>? onSubmitted,
+    required FormFieldValidator<String>? validator,
     bool obscureText = false,
     TextInputType keyboardType = TextInputType.text,
   }) =>
@@ -190,7 +190,7 @@ abstract class LunaDialog {
         ),
         cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
-        validator: validator as String? Function(String?)?,
+        validator: validator,
         onFieldSubmitted: onSubmitted,
       );
 

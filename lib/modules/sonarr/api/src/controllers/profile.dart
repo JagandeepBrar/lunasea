@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to profiles within Sonarr.
 ///
-/// [SonarrController_Profile] internally handles routing the HTTP client to the API calls.
-class SonarrController_Profile {
+/// [SonarrControllerProfile] internally handles routing the HTTP client to the API calls.
+class SonarrControllerProfile {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Profile(this._client);
+  SonarrControllerProfile(this._client);
 
   /// Handler for [profile](https://github.com/Sonarr/Sonarr/wiki/Profile#get).
   ///

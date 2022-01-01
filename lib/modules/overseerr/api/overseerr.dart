@@ -8,12 +8,6 @@ library overseerr;
 import 'package:dio/dio.dart';
 import 'commands.dart';
 
-// Exports
-export 'commands.dart';
-export 'models.dart';
-export 'types.dart';
-export 'utilities.dart';
-
 /// The core class to handle all connections to Overseerr.
 /// Gives you easy access to all implemented command handlers, initialized and ready to call.
 ///
@@ -60,9 +54,9 @@ class Overseerr {
     );
     return Overseerr._internal(
       httpClient: _dio,
-      requests: OverseerrCommandHandler_Requests(_dio),
-      status: OverseerrCommandHandler_Status(_dio),
-      users: OverseerrCommandHandler_Users(_dio),
+      requests: OverseerrCommandHandlerRequests(_dio),
+      status: OverseerrCommandHandlerStatus(_dio),
+      users: OverseerrCommandHandlerUsers(_dio),
     );
   }
 
@@ -89,9 +83,9 @@ class Overseerr {
   }) {
     return Overseerr._internal(
       httpClient: client,
-      requests: OverseerrCommandHandler_Requests(client),
-      status: OverseerrCommandHandler_Status(client),
-      users: OverseerrCommandHandler_Users(client),
+      requests: OverseerrCommandHandlerRequests(client),
+      status: OverseerrCommandHandlerStatus(client),
+      users: OverseerrCommandHandlerUsers(client),
     );
   }
 
@@ -104,15 +98,15 @@ class Overseerr {
   /// Command handler for all request command-related API calls.
   ///
   /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandler_Requests requests;
+  final OverseerrCommandHandlerRequests requests;
 
   /// Command handler for all status command-related API calls.
   ///
   /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandler_Status status;
+  final OverseerrCommandHandlerStatus status;
 
   /// Command handler for all user command-related API calls.
   ///
   /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandler_Users users;
+  final OverseerrCommandHandlerUsers users;
 }

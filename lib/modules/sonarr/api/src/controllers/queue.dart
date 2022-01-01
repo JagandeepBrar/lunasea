@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to queue within Sonarr.
 ///
-/// [SonarrController_Queue] internally handles routing the HTTP client to the API calls.
-class SonarrController_Queue {
+/// [SonarrControllerQueue] internally handles routing the HTTP client to the API calls.
+class SonarrControllerQueue {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Queue(this._client);
+  SonarrControllerQueue(this._client);
 
   /// Handler for [queue](https://github.com/Sonarr/Sonarr/wiki/Queue#get).
   ///

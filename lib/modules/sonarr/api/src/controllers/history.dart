@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to history within Sonarr.
 ///
-/// [SonarrController_History] internally handles routing the HTTP client to the API calls.
-class SonarrController_History {
+/// [SonarrControllerHistory] internally handles routing the HTTP client to the API calls.
+class SonarrControllerHistory {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_History(this._client);
+  SonarrControllerHistory(this._client);
 
   /// Handler for [history](https://github.com/Sonarr/Sonarr/wiki/History#get).
   ///

@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to commands within Sonarr.
 ///
-/// [SonarrController_Command] internally handles routing the HTTP client to the API calls.
-class SonarrController_Command {
+/// [SonarrControllerCommand] internally handles routing the HTTP client to the API calls.
+class SonarrControllerCommand {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Command(this._client);
+  SonarrControllerCommand(this._client);
 
   /// Handler for [command (Backup)](https://github.com/Sonarr/Sonarr/wiki/Command#backup).
   ///

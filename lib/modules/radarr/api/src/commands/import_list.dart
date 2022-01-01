@@ -2,12 +2,12 @@ part of radarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to import lists within Radarr.
 ///
-/// [RadarrCommandHandler_ImportList] internally handles routing the HTTP client to the API calls.
-class RadarrCommandHandler_ImportList {
+/// [RadarrCommandHandlerImportList] internally handles routing the HTTP client to the API calls.
+class RadarrCommandHandlerImportList {
   final Dio _client;
 
   /// Create a command handler using an initialized [Dio] client.
-  RadarrCommandHandler_ImportList(this._client);
+  RadarrCommandHandlerImportList(this._client);
 
   /// Handler for [importlist/{id}](https://radarr.video/docs/api/#/Import%20Lists/get-importlist-id).
   ///

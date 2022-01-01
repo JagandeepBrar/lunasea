@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to calendar within Sonarr.
 ///
-/// [SonarrController_Calendar] internally handles routing the HTTP client to the API calls.
-class SonarrController_Calendar {
+/// [SonarrControllerCalendar] internally handles routing the HTTP client to the API calls.
+class SonarrControllerCalendar {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Calendar(this._client);
+  SonarrControllerCalendar(this._client);
 
   /// Handler for [calendar](https://github.com/Sonarr/Sonarr/wiki/Calendar#get).
   ///

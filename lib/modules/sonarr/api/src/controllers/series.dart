@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to series within Sonarr.
 ///
-/// [SonarrController_Series] internally handles routing the HTTP client to the API calls.
-class SonarrController_Series {
+/// [SonarrControllerSeries] internally handles routing the HTTP client to the API calls.
+class SonarrControllerSeries {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Series(this._client);
+  SonarrControllerSeries(this._client);
 
   /// Handler for [series](https://github.com/Sonarr/Sonarr/wiki/Series#post).
   ///

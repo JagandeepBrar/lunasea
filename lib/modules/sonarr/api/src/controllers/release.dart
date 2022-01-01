@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to releases within Sonarr.
 ///
-/// [SonarrController_Release] internally handles routing the HTTP client to the API calls.
-class SonarrController_Release {
+/// [SonarrControllerRelease] internally handles routing the HTTP client to the API calls.
+class SonarrControllerRelease {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Release(this._client);
+  SonarrControllerRelease(this._client);
 
   /// Handler for [release](https://github.com/Sonarr/Sonarr/wiki/Release#get).
   ///

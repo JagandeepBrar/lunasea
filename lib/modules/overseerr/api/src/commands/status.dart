@@ -2,12 +2,12 @@ part of overseerr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to statuses within Overseerr.
 ///
-/// [OverseerrCommandHandler_Status] internally handles routing the HTTP client to the API calls.
-class OverseerrCommandHandler_Status {
+/// [OverseerrCommandHandlerStatus] internally handles routing the HTTP client to the API calls.
+class OverseerrCommandHandlerStatus {
   final Dio _client;
 
   /// Create a command handler using an initialized [Dio] client.
-  OverseerrCommandHandler_Status(this._client);
+  OverseerrCommandHandlerStatus(this._client);
 
   /// Handler for [status](https://api-docs.overseerr.dev/#/public/get_status).
   ///

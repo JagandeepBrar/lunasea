@@ -2,13 +2,13 @@ part of overseerr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to requests within Overseerr.
 ///
-/// [OverseerrCommandHandler_Requests] internally handles routing the HTTP client to the API calls.
+/// [OverseerrCommandHandlerRequests] internally handles routing the HTTP client to the API calls.
 // ignore: camel_case_types
-class OverseerrCommandHandler_Requests {
+class OverseerrCommandHandlerRequests {
   final Dio _client;
 
   /// Create a command handler using an initialized [Dio] client.
-  OverseerrCommandHandler_Requests(this._client);
+  OverseerrCommandHandlerRequests(this._client);
 
   /// Handler for [request/count](https://api-docs.overseerr.dev/#/request/get_request_count).
   ///

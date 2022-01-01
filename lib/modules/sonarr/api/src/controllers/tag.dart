@@ -2,12 +2,12 @@ part of sonarr_commands;
 
 /// Facilitates, encapsulates, and manages individual calls related to tags within Sonarr.
 ///
-/// [SonarrController_Tag] internally handles routing the HTTP client to the API calls.
-class SonarrController_Tag {
+/// [SonarrControllerTag] internally handles routing the HTTP client to the API calls.
+class SonarrControllerTag {
   final Dio _client;
 
   /// Create a series command handler using an initialized [Dio] client.
-  SonarrController_Tag(this._client);
+  SonarrControllerTag(this._client);
 
   /// Handler for [tag](https://github.com/Sonarr/Sonarr/wiki/Tag#post).
   ///

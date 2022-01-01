@@ -1,12 +1,7 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
-    - 'vendor/**'
     - 'test/**'
-    # - 'lib/modules/overseerr/api/**'
-    # - 'lib/modules/radarr/api/**'
-    # - 'lib/modules/sonarr/api/**'
-    # - 'lib/modules/tautulli/api/**'
 
 linter:
   rules:
@@ -17,9 +12,9 @@ linter:
     lines_longer_than_80_chars: false
     omit_local_variable_types: false
     one_member_abstracts: false
+    public_member_api_docs: false
     # Will be disabled and required once other linting rules have been fixed
     prefer_relative_imports: false
-    public_member_api_docs: false
     curly_braces_in_flow_control_structures: false
     unnecessary_this: false
     avoid_catches_without_on_clauses: false

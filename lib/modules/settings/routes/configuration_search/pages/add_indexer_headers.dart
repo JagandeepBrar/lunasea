@@ -47,9 +47,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     _arguments = ModalRoute.of(context)!.settings.arguments as _Arguments?;
-    if (_arguments == null || _arguments!.indexer == null)
+    if (_arguments == null) {
       return LunaInvalidRoute(
-          title: 'Custom Headers', message: 'Indexer Not Found');
+        title: 'Custom Headers',
+        message: 'Indexer Not Found',
+      );
+    }
+
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar() as PreferredSizeWidget?,

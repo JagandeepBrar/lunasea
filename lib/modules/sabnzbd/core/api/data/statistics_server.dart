@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class SABnzbdServerStatisticsData {
   String name;
   int? dailyUsage;

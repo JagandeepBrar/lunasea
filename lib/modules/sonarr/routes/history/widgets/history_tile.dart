@@ -57,7 +57,7 @@ class SonarrHistoryTile extends StatelessWidget {
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
-          backgroundColor: history.eventType?.lunaColour(),
+          backgroundColor: history.eventType!.lunaColour(),
         ),
         if (history.lunaHasPreferredWordScore())
           LunaHighlightedNode(

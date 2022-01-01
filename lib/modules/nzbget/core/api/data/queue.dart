@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetQueueData {
@@ -65,7 +64,7 @@ class NZBGetQueueData {
   }
 
   String get formattedCategory {
-    if (category == null || category.isEmpty) return 'No Category';
+    if (category.isEmpty) return 'No Category';
     return category;
   }
 

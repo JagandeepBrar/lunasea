@@ -67,7 +67,7 @@ class _State extends State<RadarrMissingTile> {
   }
 
   TextSpan _subtitle3() {
-    String _days = widget.movie.lunaEarlierReleaseDate!.lunaDaysDifference;
+    String? _days = widget.movie.lunaEarlierReleaseDate?.lunaDaysDifference;
     return TextSpan(
         style: const TextStyle(
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,

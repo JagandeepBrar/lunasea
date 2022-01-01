@@ -59,9 +59,7 @@ class _State extends State<SABnzbdQueue>
       });
 
   Future<void> _fetchWithoutMessage() async {
-    _fetch()
-        .then((_) => {if (mounted) setState(() {})})
-        .catchError((error) => _queue = null);
+    _fetch().then((_) => {if (mounted) setState(() {})});
   }
 
   Future _fetch() async {

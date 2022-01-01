@@ -58,7 +58,7 @@ class _State extends State<NZBGet> {
   }
 
   Widget _appBar() {
-    List<String?> profiles =
+    List<String> profiles =
         Database.profilesBox.keys.fold([], (value, element) {
       if (Database.profilesBox.get(element)?.nzbgetEnabled ?? false)
         value.add(element);
@@ -93,7 +93,7 @@ class _State extends State<NZBGet> {
         context: context,
         module: LunaModule.NZBGET.name,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         NZBGetQueue(
@@ -193,8 +193,9 @@ class _State extends State<NZBGet> {
         _refreshKeys[0]?.currentState?.show();
         showLunaSuccessSnackBar(
             title: 'Sorted Queue', message: (values[1] as NZBGetSort?).name);
-      }).catchError((error) =>
-          showLunaErrorSnackBar(title: 'Failed to Sort Queue', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(title: 'Failed to Sort Queue', error: error);
+      });
   }
 
   Future<void> _serverDetails() async =>

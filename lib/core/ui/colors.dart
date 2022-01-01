@@ -69,4 +69,6 @@ extension LunaColor on Color {
     if (condition) return this;
     return this.withOpacity(LunaUI.OPACITY_DISABLED);
   }
+
+  Color dimmed() => this.withOpacity(LunaUI.OPACITY_DIMMED);
 }

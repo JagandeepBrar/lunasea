@@ -86,7 +86,6 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
       case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
         return value is int;
     }
-    throw Exception('Invalid OverseerrDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -96,6 +95,5 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
       case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
         return 25;
     }
-    throw Exception('Invalid OverseerrDatabaseValue');
   }
 }

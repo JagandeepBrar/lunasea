@@ -83,8 +83,12 @@ class _Helper {
         .then((_) {
       showLunaSuccessSnackBar(title: 'Job Paused', message: data.name);
       refresh();
-    }).catchError((error) =>
-            showLunaErrorSnackBar(title: 'Failed to Pause Job', error: error));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Pause Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _resumeJob() async {
@@ -93,8 +97,12 @@ class _Helper {
         .then((_) {
       showLunaSuccessSnackBar(title: 'Job Resumed', message: data.name);
       refresh();
-    }).catchError((error) =>
-            showLunaErrorSnackBar(title: 'Failed to Resume Job', error: error));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Resume Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _category() async {
@@ -112,8 +120,12 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Category', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Category',
+          error: error,
+        );
+      });
   }
 
   Future<void> _priority() async {
@@ -126,8 +138,12 @@ class _Helper {
             title: 'Priority Set (${(values[1] as NZBGetPriority?).name})',
             message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Priority', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Priority',
+          error: error,
+        );
+      });
   }
 
   Future<void> _rename() async {
@@ -138,8 +154,12 @@ class _Helper {
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Renamed', message: values[1]);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Rename Job', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Rename Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _delete() async {
@@ -150,8 +170,12 @@ class _Helper {
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Deleted', message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Delete Job', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Delete Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _password() async {
@@ -162,7 +186,11 @@ class _Helper {
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Password Set', message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Job Password', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Job Password',
+          error: error,
+        );
+      });
   }
 }

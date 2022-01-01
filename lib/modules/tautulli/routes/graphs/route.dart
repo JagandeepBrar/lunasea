@@ -55,7 +55,7 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: const [
         TautulliGraphsPlayByPeriodRoute(),

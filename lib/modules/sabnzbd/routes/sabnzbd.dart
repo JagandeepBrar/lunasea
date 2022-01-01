@@ -58,7 +58,7 @@ class _State extends State<SABnzbd> {
   }
 
   Widget _appBar() {
-    List<String?> profiles =
+    List<String> profiles =
         Database.profilesBox.keys.fold([], (value, element) {
       if (Database.profilesBox.get(element)?.sabnzbdEnabled ?? false)
         value.add(element);
@@ -93,7 +93,7 @@ class _State extends State<SABnzbd> {
         context: context,
         module: LunaModule.SABNZBD.name,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         SABnzbdQueue(

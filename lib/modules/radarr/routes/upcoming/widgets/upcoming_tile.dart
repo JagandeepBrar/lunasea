@@ -71,15 +71,15 @@ class _State extends State<RadarrUpcomingTile> {
 
   TextSpan _subtitle3() {
     Color color;
-    String _days;
+    String? _days;
     String type;
     if (widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.blue;
-      _days = widget.movie.lunaEarlierReleaseDate!.lunaDaysDifference;
+      _days = widget.movie.lunaEarlierReleaseDate?.lunaDaysDifference;
       type = 'release';
     } else if (!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.orange;
-      _days = widget.movie.inCinemas!.lunaDaysDifference;
+      _days = widget.movie.inCinemas?.lunaDaysDifference;
       type = 'cinema';
     } else {
       color = LunaColours.grey;

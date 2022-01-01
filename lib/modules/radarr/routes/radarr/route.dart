@@ -56,7 +56,7 @@ class _State extends State<_Widget> {
   }
 
   Widget _appBar() {
-    List<String?> profiles = Database.profilesBox.keys.fold(
+    List<String> profiles = Database.profilesBox.keys.fold(
       [],
       (value, element) {
         if (Database.profilesBox.get(element)?.radarrEnabled ?? false) {
@@ -92,7 +92,7 @@ class _State extends State<_Widget> {
             module: 'Radarr',
           );
         }
-        return PageView(
+        return LunaPageView(
           controller: _pageController,
           children: const [
             RadarrCatalogueRoute(),

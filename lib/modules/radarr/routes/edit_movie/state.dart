@@ -17,7 +17,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   LunaLoadingState _state = LunaLoadingState.INACTIVE;
   LunaLoadingState get state => _state;
   set state(LunaLoadingState state) {
-    assert(state != null);
     _state = state;
     notifyListeners();
   }
@@ -25,7 +24,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   bool _monitored = true;
   bool get monitored => _monitored;
   set monitored(bool monitored) {
-    assert(monitored != null);
     _monitored = monitored;
     notifyListeners();
   }
@@ -37,7 +35,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   String _path = '';
   String get path => _path;
   set path(String path) {
-    assert(path != null);
     _path = path;
     notifyListeners();
   }
@@ -49,7 +46,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   RadarrQualityProfile? _qualityProfile;
   RadarrQualityProfile get qualityProfile => _qualityProfile!;
   set qualityProfile(RadarrQualityProfile qualityProfile) {
-    assert(qualityProfile != null);
     _qualityProfile = qualityProfile;
     notifyListeners();
   }
@@ -64,7 +60,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   late RadarrAvailability _availability;
   RadarrAvailability get availability => _availability;
   set availability(RadarrAvailability availability) {
-    assert(availability != null);
     _availability = availability;
     notifyListeners();
   }
@@ -76,7 +71,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   late List<RadarrTag> _tags;
   List<RadarrTag> get tags => _tags;
   set tags(List<RadarrTag> tags) {
-    assert(tags != null);
     _tags = tags;
     notifyListeners();
   }

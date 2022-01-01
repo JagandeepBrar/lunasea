@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class NewznabSubcategoryData {
   int id;
   String? name;

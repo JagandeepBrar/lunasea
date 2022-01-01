@@ -37,7 +37,7 @@ class RadarrHistoryTile extends StatelessWidget {
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType!.readable!,
-          backgroundColor: history.eventType?.lunaColour,
+          backgroundColor: history.eventType!.lunaColour,
         ),
         ...history.customFormats!
             .map<LunaHighlightedNode>((format) => LunaHighlightedNode(

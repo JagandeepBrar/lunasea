@@ -116,7 +116,6 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
       case TautulliDatabaseValue.GRAPHS_MONTHS:
         return 6;
     }
-    throw Exception('Invalid TautulliDatabaseValue');
   }
 
   bool _isTypeValid(dynamic value) {
@@ -146,6 +145,5 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
       case TautulliDatabaseValue.GRAPHS_MONTHS:
         return value is int;
     }
-    throw Exception('Invalid TautulliDatabaseValue');
   }
 }

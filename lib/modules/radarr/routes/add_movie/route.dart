@@ -77,7 +77,7 @@ class _State extends State<_Widget> {
         context,
         _arguments?.query ?? '',
       ),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrAddMovieSearchPage(

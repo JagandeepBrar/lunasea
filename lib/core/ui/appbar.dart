@@ -64,7 +64,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     Color? backgroundColor,
     List<ScrollController>? scrollControllers,
   }) {
-    assert(title != null);
     if (pageController != null)
       assert(scrollControllers != null,
           'pageController is defined, scrollControllers should as well.');
@@ -93,8 +92,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     Alignment alignment = Alignment.topCenter,
     Color? backgroundColor,
   }) {
-    assert(child != null);
-    assert(height != null);
     return LunaAppBar._internal(
       child: Container(
         child: child,
@@ -118,7 +115,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// Passing in all 3 will result in state.scrollBackList taking precedence.
   factory LunaAppBar.dropdown({
     required String title,
-    required List<String?> profiles,
+    required List<String> profiles,
     bool useDrawer = true,
     bool hideLeading = false,
     List<Widget>? actions,
@@ -127,12 +124,10 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     PreferredSizeWidget? bottom,
     Color? backgroundColor,
   }) {
-    assert(title != null);
-    assert(profiles != null);
     if (pageController != null)
       assert(scrollControllers != null,
           'if pageController is defined, scrollControllers should as well.');
-    if (profiles == null || profiles.length < 2)
+    if (profiles.length < 2)
       return LunaAppBar._internal(
         title: title,
         actions: actions,

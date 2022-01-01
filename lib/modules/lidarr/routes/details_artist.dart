@@ -98,7 +98,7 @@ class _State extends State<LidarrDetailsArtist> {
         LidarrDetailsAlbumList(artistID: _arguments!.data!.artistID),
       ];
 
-  Widget get _body => PageView(
+  Widget get _body => LunaPageView(
         controller: _pageController,
         children: _tabs,
       );

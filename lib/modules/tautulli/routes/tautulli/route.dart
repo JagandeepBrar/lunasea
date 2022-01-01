@@ -50,7 +50,7 @@ class _State extends State<_Widget> {
   }
 
   Widget _appBar() {
-    List<String?> profiles =
+    List<String> profiles =
         Database.profilesBox.keys.fold([], (value, element) {
       if (Database.profilesBox.get(element)?.tautulliEnabled ?? false)
         value.add(element);
@@ -78,7 +78,7 @@ class _State extends State<_Widget> {
         if (!enabled!)
           return LunaMessage.moduleNotEnabled(
               context: context, module: 'Tautulli');
-        return PageView(
+        return LunaPageView(
           controller: _pageController,
           children: const [
             TautulliActivityRoute(),

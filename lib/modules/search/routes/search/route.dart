@@ -43,7 +43,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Future<void> _searchCallback(String value) async {
-    if (value == null || value.isEmpty) return;
+    if (value.isEmpty) return;
     _pagingController.refresh();
     if (mounted) setState(() => _firstSearched = true);
   }

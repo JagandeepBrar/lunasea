@@ -131,9 +131,9 @@ class _State extends State<LidarrSearchResults>
     // Filter
     List<LidarrReleaseData> filtered = releases!.where((release) {
       if (shouldHide && !release.approved) return false;
-      if (query != null && query.isNotEmpty)
+      if (query.isNotEmpty)
         return release.title.toLowerCase().contains(query.toLowerCase());
-      return release != null;
+      return true;
     }).toList();
     filtered = sorting.sort(filtered, ascending);
     return filtered;

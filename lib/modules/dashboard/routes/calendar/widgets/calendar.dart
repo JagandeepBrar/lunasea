@@ -227,7 +227,7 @@ class _State extends State<DashboardCalendarWidget> {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
 
-    if (events == null || events.isEmpty) return -100;
+    if (events.isEmpty) return -100;
     if (_date.isAfter(_now)) return -1;
 
     int counter = 0;

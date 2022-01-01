@@ -38,7 +38,6 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
       case SonarrMonitorStatus.FUTURE:
         return 'Future';
     }
-    throw Exception('unknown name');
   }
 
   String? get key {

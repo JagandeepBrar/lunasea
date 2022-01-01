@@ -175,13 +175,11 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
   RadarrManualImport _manualImport;
   RadarrManualImport get manualImport => _manualImport;
   set manualImport(RadarrManualImport manualImport) {
-    assert(manualImport != null);
     _manualImport = manualImport;
     notifyListeners();
   }
 
   void addLanguage(RadarrLanguage language) {
-    assert(language != null);
     if ((_manualImport.languages ?? [])
             .indexWhere((lang) => lang.id == language.id) >=
         0) return;
@@ -190,7 +188,6 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
   }
 
   void removeLanguage(RadarrLanguage language) {
-    assert(language != null);
     int index = (_manualImport.languages ?? [])
         .indexWhere((lang) => lang.id == language.id);
     if (index == -1) return;
@@ -235,7 +232,6 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
   }
 
   void updateQuality(RadarrQuality quality) {
-    assert(quality != null);
     _manualImport.quality!.quality = quality;
     notifyListeners();
   }

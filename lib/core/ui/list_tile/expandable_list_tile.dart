@@ -17,7 +17,7 @@ class LunaExpandableListTile extends StatefulWidget {
   ///
   /// If [expandedWidget] is supplied, that widget is used as the body within the expanded card.
   /// Any
-  LunaExpandableListTile({
+  const LunaExpandableListTile({
     Key? key,
     required this.title,
     required this.collapsedSubtitles,
@@ -29,11 +29,7 @@ class LunaExpandableListTile extends StatefulWidget {
     this.expandedTableButtons,
     this.backgroundColor,
     this.initialExpanded = false,
-  }) : super(key: key) {
-    assert(title != null);
-    assert(collapsedSubtitles != null);
-    assert(expandedTableContent != null);
-  }
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State();

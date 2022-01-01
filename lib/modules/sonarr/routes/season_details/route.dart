@@ -128,7 +128,7 @@ class _State extends State<_SonarrSeasonDetails>
         seasonNumber: widget.seasonNumber != -1 ? widget.seasonNumber : null,
       ),
       builder: (context, _) {
-        return PageView(
+        return LunaPageView(
           controller: _pageController,
           children: [
             const SonarrSeasonDetailsEpisodesPage(),

@@ -61,7 +61,7 @@ class _State extends State<Lidarr> {
         context: context,
         module: LunaModule.LIDARR.name,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         LidarrCatalogue(
@@ -81,7 +81,7 @@ class _State extends State<Lidarr> {
   }
 
   Widget _appBar() {
-    List<String?> profiles =
+    List<String> profiles =
         Database.profilesBox.keys.fold([], (value, element) {
       if (Database.profilesBox.get(element)?.lidarrEnabled ?? false)
         value.add(element);

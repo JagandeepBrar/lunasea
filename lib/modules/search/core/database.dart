@@ -86,7 +86,6 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
       case SearchDatabaseValue.SHOW_LINKS:
         return value is bool;
     }
-    throw Exception('Invalid SearchDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -96,6 +95,5 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
       case SearchDatabaseValue.SHOW_LINKS:
         return true;
     }
-    throw Exception('Invalid SearchDatabaseValue');
   }
 }

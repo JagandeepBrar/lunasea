@@ -21,7 +21,6 @@ extension SettingsBannersExtension on SettingsBanners {
       case SettingsBanners.PROFILES_SUPPORT:
         return 'settings.Profiles'.tr();
     }
-    throw Exception('Invalid SettingsBanners');
   }
 
   String get body {
@@ -40,7 +39,6 @@ extension SettingsBannersExtension on SettingsBanners {
           'Newznab indexer searching and external modules are enabled and shared across all profiles.',
         ].join('\n\n');
     }
-    throw Exception('Invalid SettingsBanners');
   }
 
   Color get iconColor {
@@ -62,7 +60,6 @@ extension SettingsBannersExtension on SettingsBanners {
       case SettingsBanners.PROFILES_SUPPORT:
         return LunaIcons.PROFILES;
     }
-    throw Exception('Invalid SettingsBanners');
   }
 
   /// Return true if the banner should be shown in the UI

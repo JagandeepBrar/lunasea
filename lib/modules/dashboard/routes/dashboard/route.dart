@@ -61,7 +61,7 @@ class _State extends State<_DashboardHomeRoute> {
 
   Widget _body() {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
-      builder: (context, _, __) => PageView(
+      builder: (context, _, __) => LunaPageView(
         controller: _pageController,
         children: _tabs,
       ),

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class LidarrSearchData {
   String title;
   String foreignArtistId;

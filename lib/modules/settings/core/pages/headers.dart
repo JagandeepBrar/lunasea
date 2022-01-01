@@ -19,11 +19,6 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.module == null)
-      return LunaInvalidRoute(
-        title: 'settings.CustomHeaders'.tr(),
-        message: 'lunasea.UnknownModule'.tr(),
-      );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar() as PreferredSizeWidget?,
@@ -122,7 +117,6 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       case LunaModule.TAUTULLI:
         return Database.currentProfileObject!.tautulliHeaders;
     }
-    throw Exception('An unknown LunaModule was passed in.');
   }
 
   Future<void> _resetState() async {
@@ -152,6 +146,5 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       case LunaModule.OVERSEERR:
         return context.read<OverseerrState>().reset();
     }
-    throw Exception('An unknown LunaModule was passed in.');
   }
 }

@@ -43,7 +43,6 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   LunaLoadingState _episodeSearchState = LunaLoadingState.INACTIVE;
   LunaLoadingState get episodeSearchState => _episodeSearchState;
   set episodeSearchState(LunaLoadingState state) {
-    assert(state != null);
     _episodeSearchState = state;
     notifyListeners();
   }
@@ -56,7 +55,6 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
 
   LunaLRUCache get episodeHistoryCache => _episodeHistoryCache;
   set episodeHistoryCache(LunaLRUCache episodeHistoryCache) {
-    assert(episodeHistoryCache != null);
     episodeHistoryCache = episodeHistoryCache;
     notifyListeners();
   }
@@ -146,7 +144,6 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   late Future<List<SonarrQueueRecord>> _queue;
   Future<List<SonarrQueueRecord>> get queue => _queue;
   set queue(Future<List<SonarrQueueRecord>> queue) {
-    assert(queue != null);
     _queue = queue;
     notifyListeners();
   }

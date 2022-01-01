@@ -29,7 +29,7 @@ class _State extends State<LidarrHistoryTile> {
       );
 
   Future<void> _enterArtist() async {
-    if (widget.entry.artistID == null || widget.entry.artistID == -1) {
+    if (widget.entry.artistID == -1) {
       showLunaInfoSnackBar(
         title: 'No Artist Available',
         message: 'There is no artist associated with this history entry',

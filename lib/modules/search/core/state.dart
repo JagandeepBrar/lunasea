@@ -8,14 +8,12 @@ class SearchState extends LunaModuleState {
   NewznabAPI? _api;
   NewznabAPI get api => _api!;
   set api(NewznabAPI api) {
-    assert(api != null);
     _api = api;
   }
 
   late IndexerHiveObject _indexer;
   IndexerHiveObject get indexer => _indexer;
   set indexer(IndexerHiveObject indexer) {
-    assert(indexer != null);
     _indexer = indexer;
     api = NewznabAPI.fromIndexer(_indexer);
     notifyListeners();
@@ -45,7 +43,6 @@ class SearchState extends LunaModuleState {
   String? _searchQuery;
   String get searchQuery => _searchQuery!;
   set searchQuery(String query) {
-    assert(query != null);
     _searchQuery = query;
     notifyListeners();
   }

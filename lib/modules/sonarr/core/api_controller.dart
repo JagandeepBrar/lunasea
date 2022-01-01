@@ -48,7 +48,6 @@ class SonarrAPIController {
     required SonarrEpisode episode,
     bool showSnackbar = true,
   }) async {
-    assert(episode != null);
     SonarrEpisode _episode = episode.clone();
     _episode.monitored = !_episode.monitored!;
     if (context.read<SonarrState>().enabled) {

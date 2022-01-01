@@ -83,7 +83,6 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
       case NZBGetDatabaseValue.NAVIGATION_INDEX:
         return value is int;
     }
-    throw Exception('Invalid NZBGetDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -91,6 +90,5 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
       case NZBGetDatabaseValue.NAVIGATION_INDEX:
         return 0;
     }
-    throw Exception('Invalid NZBGetDatabaseValue');
   }
 }

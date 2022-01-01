@@ -214,7 +214,6 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
       case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
         return LunaListViewOption.BLOCK_VIEW;
     }
-    throw Exception('Invalid RadarrDatabaseValue');
   }
 
   bool _isTypeValid(dynamic value) {
@@ -272,6 +271,5 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
       case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:
         return value is LunaListViewOption;
     }
-    throw Exception('Invalid RadarrDatabaseValue');
   }
 }

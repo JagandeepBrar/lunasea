@@ -23,7 +23,6 @@ class RadarrReleasesState extends ChangeNotifier {
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
   set searchQuery(String searchQuery) {
-    assert(searchQuery != null);
     _searchQuery = searchQuery;
     notifyListeners();
   }
@@ -32,7 +31,6 @@ class RadarrReleasesState extends ChangeNotifier {
       RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
   RadarrReleasesFilter get filterType => _filterType!;
   set filterType(RadarrReleasesFilter filterType) {
-    assert(filterType != null);
     _filterType = filterType;
     notifyListeners();
   }
@@ -41,7 +39,6 @@ class RadarrReleasesState extends ChangeNotifier {
       RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
   RadarrReleasesSorting get sortType => _sortType!;
   set sortType(RadarrReleasesSorting sortType) {
-    assert(sortType != null);
     _sortType = sortType;
     notifyListeners();
   }
@@ -50,7 +47,6 @@ class RadarrReleasesState extends ChangeNotifier {
       RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
   bool get sortAscending => _sortAscending!;
   set sortAscending(bool sortAscending) {
-    assert(sortAscending != null);
     _sortAscending = sortAscending;
     notifyListeners();
   }

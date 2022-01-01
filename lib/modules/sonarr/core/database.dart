@@ -218,7 +218,6 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
         return value is LunaListViewOption;
     }
-    throw Exception('Invalid SonarrDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -280,6 +279,5 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
         return LunaListViewOption.BLOCK_VIEW;
     }
-    throw Exception('Invalid SonarrDatabaseValue');
   }
 }

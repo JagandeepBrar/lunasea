@@ -213,7 +213,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
         context: context,
         series: series!,
       ),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           SonarrSeriesDetailsOverviewPage(

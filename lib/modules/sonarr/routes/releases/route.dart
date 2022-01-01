@@ -193,14 +193,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<SonarrRelease> releases,
     SonarrReleasesState state,
   ) {
-    if (releases == null || releases.isEmpty) return releases;
+    if (releases.isEmpty) return releases;
     List<SonarrRelease> filtered = releases.where(
       (release) {
         String _query = state.searchQuery;
-        if (_query != null && _query.isNotEmpty) {
+        if (_query.isNotEmpty) {
           return release.title!.toLowerCase().contains(_query.toLowerCase());
         }
-        return release != null;
+        return true;
       },
     ).toList();
     filtered = state.filterType.filter(filtered);

@@ -4,11 +4,11 @@ import 'package:lunasea/core.dart';
 
 class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
   LunaPopupMenuButton({
+    required PopupMenuItemSelected<T> onSelected,
+    required PopupMenuItemBuilder<T> itemBuilder,
     Key? key,
     IconData? icon,
     Widget? child,
-    required void Function(T) onSelected,
-    required List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder,
     String? tooltip,
   }) : super(
           key: key,
@@ -16,17 +16,10 @@ class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
           tooltip: tooltip,
           icon: icon == null ? null : Icon(icon),
           child: child,
-          onSelected: onSelected == null
-              ? null
-              : (result) {
-                  HapticFeedback.selectionClick();
-                  onSelected(result);
-                },
+          onSelected: (result) {
+            HapticFeedback.selectionClick();
+            onSelected(result);
+          },
           itemBuilder: itemBuilder,
-        ) {
-    if (icon == null)
-      assert(child != null, 'both icon and child cannot be null');
-    if (child == null)
-      assert(icon != null, 'both icon and child cannot be null');
-  }
+        );
 }

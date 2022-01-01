@@ -77,7 +77,7 @@ class LunaActionBarCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (checkboxState == null && icon != null)
+                if (checkboxState == null)
                   Container(
                     width: 30.0,
                     alignment: Alignment.centerRight,

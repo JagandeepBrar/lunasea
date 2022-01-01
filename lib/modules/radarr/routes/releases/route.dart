@@ -63,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.movieId == null || widget.movieId <= 0) {
+    if (widget.movieId <= 0) {
       return LunaInvalidRoute(
         title: 'Releases',
         message: 'Movie Not Found',
@@ -149,14 +149,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<RadarrRelease> releases,
     RadarrReleasesState state,
   ) {
-    if (releases == null || releases.isEmpty) return releases;
+    if (releases.isEmpty) return releases;
     List<RadarrRelease> filtered = releases.where(
       (release) {
         String _query = state.searchQuery;
-        if (_query != null && _query.isNotEmpty) {
+        if (_query.isNotEmpty) {
           return release.title!.toLowerCase().contains(_query.toLowerCase());
         }
-        return release != null;
+        return true;
       },
     ).toList();
     filtered = state.filterType.filter(filtered);

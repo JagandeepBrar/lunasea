@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class _SonarrAddSeriesDetailsArguments {
+class _Args {
   final SonarrSeries series;
 
-  _SonarrAddSeriesDetailsArguments({
+  _Args({
     required this.series,
   });
 }
@@ -26,7 +26,7 @@ class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
       context,
       route(),
       routeSettings: RouteSettings(
-        arguments: _SonarrAddSeriesDetailsArguments(
+        arguments: _Args(
           series: series!,
         ),
       ),
@@ -60,14 +60,13 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _SonarrAddSeriesDetailsArguments? arguments = ModalRoute.of(context)!
-        .settings
-        .arguments as _SonarrAddSeriesDetailsArguments?;
-    if (arguments == null || arguments.series == null)
+    _Args? arguments = ModalRoute.of(context)!.settings.arguments as _Args?;
+    if (arguments == null) {
       return LunaInvalidRoute(
         title: 'sonarr.AddSeries'.tr(),
         message: 'sonarr.NoSeriesFound'.tr(),
       );
+    }
     return ChangeNotifierProvider(
       create: (_) => SonarrSeriesAddDetailsState(
         series: arguments.series,

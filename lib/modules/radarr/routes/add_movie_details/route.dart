@@ -67,7 +67,7 @@ class _State extends State<_Widget>
     _RadarrAddMovieDetailsArguments? arguments = ModalRoute.of(context)!
         .settings
         .arguments as _RadarrAddMovieDetailsArguments?;
-    if (arguments == null || arguments.movie == null) {
+    if (arguments == null) {
       return LunaInvalidRoute(
         title: 'radarr.AddMovie'.tr(),
         message: 'radarr.MovieNotFound'.tr(),

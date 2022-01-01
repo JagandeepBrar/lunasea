@@ -12,8 +12,13 @@ class NZBGetNavigationBar extends StatelessWidget {
   ];
 
   static const List<IconData> icons = [
-    Icons.queue_rounded,
+    Icons.queue_play_next_rounded,
     Icons.history_rounded,
+  ];
+
+  static const List<IconData> iconsOutlined = [
+    Icons.queue_play_next_outlined,
+    Icons.history_outlined,
   ];
 
   const NZBGetNavigationBar({
@@ -27,6 +32,7 @@ class NZBGetNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

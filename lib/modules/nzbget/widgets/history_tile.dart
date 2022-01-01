@@ -110,10 +110,12 @@ class _State extends State<NZBGetHistoryTile> {
                 title: 'Retrying Job...',
                 message: widget.data.name,
               );
-            }).catchError((error) => showLunaErrorSnackBar(
-                      title: 'Failed to Retry Job',
-                      error: error,
-                    ));
+            }).catchError((error) {
+              showLunaErrorSnackBar(
+                title: 'Failed to Retry Job',
+                error: error,
+              );
+            });
             break;
           }
         case 'hide':

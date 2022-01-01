@@ -107,15 +107,14 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    if (widget.mediaType == null ||
-        widget.mediaType == TautulliMediaType.NULL ||
-        widget.ratingKey == null) return LunaMessage(text: 'No Content Found');
+    if (widget.mediaType == null || widget.mediaType == TautulliMediaType.NULL)
+      return const LunaMessage(text: 'No Content Found');
     if (widget.mediaType == TautulliMediaType.COLLECTION)
       return TautulliMediaDetailsMetadata(
         ratingKey: widget.ratingKey,
         type: widget.mediaType,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         TautulliMediaDetailsMetadata(

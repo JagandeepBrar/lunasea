@@ -7,7 +7,12 @@ class SABnzbdNavigationBar extends StatelessWidget {
   final PageController? pageController;
 
   static const List<IconData> icons = [
-    Icons.queue_rounded,
+    Icons.queue_play_next_rounded,
+    Icons.history_rounded,
+  ];
+
+  static const List<IconData> iconsOutlined = [
+    Icons.queue_play_next_rounded,
     Icons.history_rounded,
   ];
 
@@ -27,6 +32,7 @@ class SABnzbdNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

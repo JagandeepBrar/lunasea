@@ -452,7 +452,6 @@ class TautulliState extends LunaModuleState {
       _playCountBySourceResolutionGraph;
   set playCountBySourceResolutionGraph(
       Future<TautulliGraphData>? playCountBySourceResolutionGraph) {
-    assert(playCountBySourceResolutionGraph != null);
     _playCountBySourceResolutionGraph = playCountBySourceResolutionGraph;
     notifyListeners();
   }
@@ -560,8 +559,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliMetadata>> _metadata = {};
   Map<int, Future<TautulliMetadata>> get metadata => _metadata;
   void setMetadata(int ratingKey, Future<TautulliMetadata> metadata) {
-    assert(ratingKey != null);
-    assert(metadata != null);
     _metadata[ratingKey] = metadata;
     notifyListeners();
   }
@@ -575,7 +572,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<List<TautulliLibraryWatchTimeStats>>>
       get libraryWatchTimeStats => _libraryWatchTimeStats;
   void fetchLibraryWatchTimeStats(int sectionId) {
-    assert(sectionId != null);
     _libraryWatchTimeStats[sectionId] =
         _api!.libraries.getLibraryWatchTimeStats(sectionId: sectionId);
     notifyListeners();
@@ -585,7 +581,6 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<List<TautulliLibraryUserStats>>> get libraryUserStats =>
       _libraryUserStats;
   void fetchLibraryUserStats(int sectionId) {
-    assert(sectionId != null);
     _libraryUserStats[sectionId] =
         _api!.libraries.getLibraryUserStats(sectionId: sectionId);
     notifyListeners();
@@ -598,7 +593,6 @@ class TautulliState extends LunaModuleState {
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
   set searchQuery(String searchQuery) {
-    assert(searchQuery != null);
     _searchQuery = searchQuery;
     notifyListeners();
   }

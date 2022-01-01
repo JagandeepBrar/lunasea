@@ -87,10 +87,12 @@ class _Helper {
         message: data.name,
       );
       refresh();
-    }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Pause Job',
-              error: error,
-            ));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Pause Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _resumeJob() async {
@@ -102,10 +104,12 @@ class _Helper {
         message: data.name,
       );
       refresh();
-    }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Resume Job',
-              error: error,
-            ));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Resume Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _category() async {
@@ -123,10 +127,12 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Set Category',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Category',
+          error: error,
+        );
+      });
   }
 
   Future<void> _priority() async {
@@ -140,10 +146,12 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Set Priority',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Priority',
+          error: error,
+        );
+      });
   }
 
   Future<void> _rename() async {
@@ -157,10 +165,12 @@ class _Helper {
           message: values[1],
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Rename Job',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Rename Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _delete() async {
@@ -174,10 +184,12 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Delete Job',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Delete Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _password() async {
@@ -191,9 +203,11 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Set Job Password',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Job Password',
+          error: error,
+        );
+      });
   }
 }

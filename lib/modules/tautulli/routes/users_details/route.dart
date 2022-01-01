@@ -119,7 +119,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
       );
 
   Widget _page(TautulliTableUser user) {
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         TautulliUserDetailsProfile(user: user),

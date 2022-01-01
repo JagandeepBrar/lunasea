@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdStatisticsData {

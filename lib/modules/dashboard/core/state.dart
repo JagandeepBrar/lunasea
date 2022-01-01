@@ -13,11 +13,10 @@ class DashboardState extends LunaModuleState {
     resetUpcoming();
   }
 
-  CalendarStartingType? _calendarStartingType =
+  CalendarStartingType _calendarStartingType =
       DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data;
-  CalendarStartingType get calendarStartingType => _calendarStartingType!;
+  CalendarStartingType get calendarStartingType => _calendarStartingType;
   set calendarStartingType(CalendarStartingType calendarStartingType) {
-    assert(calendarStartingType != null);
     _calendarStartingType = calendarStartingType;
     notifyListeners();
   }

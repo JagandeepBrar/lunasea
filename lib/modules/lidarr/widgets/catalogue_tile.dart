@@ -48,7 +48,8 @@ class _State extends State<LidarrCatalogueTile> {
         posterUrl: widget.data.posterURI(),
         posterHeaders: Database.currentProfileObject!.getLidarr()['headers'],
         backgroundUrl: widget.data.fanartURI(),
-        backgroundHeaders: Database.currentProfileObject!.getLidarr()['headers'],
+        backgroundHeaders:
+            Database.currentProfileObject!.getLidarr()['headers'],
         posterIsSquare: true,
         onTap: () async => _enterArtist(),
         onLongPress: () async => _handlePopup(),
@@ -158,8 +159,12 @@ class _State extends State<LidarrCatalogueTile> {
             showLunaSuccessSnackBar(
                 title: 'Removed (With Data)', message: widget.data.title);
             widget.refresh();
-          }).catchError((error) => showLunaErrorSnackBar(
-                  title: 'Failed to Remove (With Data)', error: error));
+          }).catchError((error) {
+            showLunaErrorSnackBar(
+              title: 'Failed to Remove (With Data)',
+              error: error,
+            );
+          });
         }
       } else {
         await _api
@@ -167,8 +172,12 @@ class _State extends State<LidarrCatalogueTile> {
             .then((_) {
           showLunaSuccessSnackBar(title: 'Removed', message: widget.data.title);
           widget.refresh();
-        }).catchError((error) =>
-                showLunaErrorSnackBar(title: 'Failed to Remove', error: error));
+        }).catchError((error) {
+          showLunaErrorSnackBar(
+            title: 'Failed to Remove',
+            error: error,
+          );
+        });
       }
     }
   }

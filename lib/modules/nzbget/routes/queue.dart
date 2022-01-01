@@ -60,9 +60,9 @@ class _State extends State<NZBGetQueue>
       });
 
   Future<void> _fetchWithoutMessage() async {
-    _fetch()
-        .then((_) => {if (mounted) setState(() {})})
-        .catchError((error) => _queue = null);
+    _fetch().then((_) => {if (mounted) setState(() {})}).catchError((error) {
+      _queue = null;
+    });
   }
 
   Future _fetch() async {

@@ -13,7 +13,6 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   bool _monitored = true;
   bool get monitored => _monitored;
   set monitored(bool monitored) {
-    assert(monitored != null);
     _monitored = monitored;
     notifyListeners();
   }
@@ -25,7 +24,6 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   bool _useSeasonFolders = true;
   bool get useSeasonFolders => _useSeasonFolders;
   set useSeasonFolders(bool useSeasonFolders) {
-    assert(useSeasonFolders != null);
     _useSeasonFolders = useSeasonFolders;
     notifyListeners();
   }
@@ -38,7 +36,6 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late SonarrSeriesType _seriesType;
   SonarrSeriesType get seriesType => _seriesType;
   set seriesType(SonarrSeriesType seriesType) {
-    assert(seriesType != null);
     _seriesType = seriesType;
     notifyListeners();
   }
@@ -55,7 +52,6 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   late SonarrSeriesMonitorType _monitorType;
   SonarrSeriesMonitorType get monitorType => _monitorType;
   set monitorType(SonarrSeriesMonitorType monitorType) {
-    assert(monitorType != null);
     _monitorType = monitorType;
     notifyListeners();
   }

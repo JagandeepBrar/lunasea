@@ -57,7 +57,7 @@ class _State extends State<_Widget> {
   Widget _body() {
     return ChangeNotifierProvider(
       create: (context) => RadarrSystemStatusState(context),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrSystemStatusAboutPage(

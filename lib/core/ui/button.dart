@@ -55,9 +55,7 @@ class LunaButton extends Card {
               : LunaUI.shapeBorder,
           elevation: LunaUI.ELEVATION,
           clipBehavior: Clip.antiAlias,
-        ) {
-    assert(child != null);
-  }
+        );
 
   /// Create a default button.
   ///
@@ -77,7 +75,6 @@ class LunaButton extends Card {
     Function? onTap,
     Function? onLongPress,
   }) {
-    assert(type != null);
     switch (loadingState) {
       case LunaLoadingState.ACTIVE:
         return LunaButton.loader(
@@ -110,7 +107,6 @@ class LunaButton extends Card {
     }
     switch (type) {
       case LunaButtonType.TEXT:
-        assert(text != null);
         return LunaButton.text(
           text: text!,
           icon: icon,
@@ -153,7 +149,6 @@ class LunaButton extends Card {
           loadingState: loadingState,
         );
     }
-    throw Exception("Attempted to create an invalid LunaButton");
   }
 
   /// Build a button that contains a centered text string.

@@ -11,7 +11,7 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
   final void Function(int, int) onReorder;
   final bool buildDefaultDragHandles;
 
-  LunaReorderableListViewBuilder({
+  const LunaReorderableListViewBuilder({
     Key? key,
     required this.itemCount,
     required this.itemBuilder,
@@ -20,10 +20,7 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
     this.padding,
     this.physics = const AlwaysScrollableScrollPhysics(),
     this.buildDefaultDragHandles = false,
-  }) : super(key: key) {
-    assert(itemCount != null);
-    assert(itemBuilder != null);
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

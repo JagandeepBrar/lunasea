@@ -28,7 +28,6 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
       case LidarrCatalogueSorting.type:
         return 'type';
     }
-    throw Exception('value not found');
   }
 
   String get readable {
@@ -48,7 +47,6 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
       case LidarrCatalogueSorting.type:
         return 'Type';
     }
-    throw Exception('readable not found');
   }
 
   List<LidarrCatalogueData> sort(List data, bool ascending) =>
@@ -77,7 +75,6 @@ class _Sorter {
       case LidarrCatalogueSorting.type:
         return _type(data, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<LidarrCatalogueData> _alphabetical(List data, bool ascending) {
@@ -122,7 +119,8 @@ class _Sorter {
     List<LidarrCatalogueData> _data = _alphabetical(data, true);
     ascending
         ? _data.sort((a, b) => a.metadataProfile!.compareTo(b.metadataProfile!))
-        : _data.sort((a, b) => b.metadataProfile!.compareTo(a.metadataProfile!));
+        : _data
+            .sort((a, b) => b.metadataProfile!.compareTo(a.metadataProfile!));
     return _data;
   }
 

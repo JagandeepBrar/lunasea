@@ -22,7 +22,6 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
               .then((data) => _Changelog.fromJson(json.decode(data)));
 
       PackageInfo _package = await PackageInfo.fromPlatform();
-      if (_package == null) return;
 
       _version = _package.version;
       _buildNumber = _package.buildNumber;
@@ -56,7 +55,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
               _changelog.changesNew!.length,
               (index) {
                 String? _body = _changelog.changesNew![index].changes
-                    .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .fold('',
+                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
                     .trim();
                 return LunaTableContent(
                   title: _changelog.changesNew![index].module,
@@ -73,7 +73,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
               _changelog.changesTweaks!.length,
               (index) {
                 String? _body = _changelog.changesTweaks![index].changes
-                    .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .fold('',
+                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
                     .trim();
                 return LunaTableContent(
                   title: _changelog.changesTweaks![index].module,
@@ -89,7 +90,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
             content: List<LunaTableContent>.generate(
                 _changelog.changesFixes!.length, (index) {
               String? _body = _changelog.changesFixes![index].changes
-                  .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                  .fold(
+                      '', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
                   .trim();
               return LunaTableContent(
                 title: _changelog.changesFixes![index].module,
@@ -105,7 +107,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
               _changelog.changesPlatform!.length,
               (index) {
                 String? _body = _changelog.changesPlatform![index].changes
-                    .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                    .fold('',
+                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
                     .trim();
                 return LunaTableContent(
                   title: _changelog.changesPlatform![index].module,

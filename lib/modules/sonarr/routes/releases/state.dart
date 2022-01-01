@@ -41,7 +41,6 @@ class SonarrReleasesState extends ChangeNotifier {
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
   set searchQuery(String searchQuery) {
-    assert(searchQuery != null);
     _searchQuery = searchQuery;
     notifyListeners();
   }
@@ -50,7 +49,6 @@ class SonarrReleasesState extends ChangeNotifier {
       SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
   SonarrReleasesFilter get filterType => _filterType!;
   set filterType(SonarrReleasesFilter filterType) {
-    assert(filterType != null);
     _filterType = filterType;
     notifyListeners();
   }
@@ -59,7 +57,6 @@ class SonarrReleasesState extends ChangeNotifier {
       SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
   SonarrReleasesSorting get sortType => _sortType!;
   set sortType(SonarrReleasesSorting sortType) {
-    assert(sortType != null);
     _sortType = sortType;
     notifyListeners();
   }
@@ -68,7 +65,6 @@ class SonarrReleasesState extends ChangeNotifier {
       SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
   bool get sortAscending => _sortAscending!;
   set sortAscending(bool sortAscending) {
-    assert(sortAscending != null);
     _sortAscending = sortAscending;
     notifyListeners();
   }

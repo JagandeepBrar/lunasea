@@ -15,6 +15,13 @@ class RadarrNavigationBar extends StatelessWidget {
     Icons.more_horiz_rounded,
   ];
 
+  static const List<IconData> iconsOutlined = [
+    Icons.movie_outlined,
+    Icons.insert_invitation_outlined,
+    Icons.event_busy_outlined,
+    Icons.more_horiz_outlined,
+  ];
+
   static List<String> get titles => [
         'radarr.Movies'.tr(),
         'radarr.Upcoming'.tr(),
@@ -33,6 +40,7 @@ class RadarrNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

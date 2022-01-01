@@ -183,7 +183,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
     return ChangeNotifierProvider(
       create: (context) =>
           RadarrMovieDetailsState(context: context, movie: movie!),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrMovieDetailsOverviewPage(

@@ -61,12 +61,10 @@ abstract class LunaDialog {
             fontSize: LunaDialog.BUTTON_SIZE,
           ),
         ),
-        onPressed: onPressed == null
-            ? null
-            : () async {
-                HapticFeedback.lightImpact();
-                onPressed();
-              },
+        onPressed: () async {
+          HapticFeedback.lightImpact();
+          onPressed();
+        },
       );
 
   static Widget cancel(
@@ -218,7 +216,7 @@ abstract class LunaDialog {
             color: Colors.white,
           ),
         ),
-        subtitle: text == null ? null : subtitle,
+        subtitle: subtitle,
         onTap: onTap == null
             ? null
             : () async {

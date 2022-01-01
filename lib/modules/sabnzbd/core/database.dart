@@ -83,7 +83,6 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
       case SABnzbdDatabaseValue.NAVIGATION_INDEX:
         return value is int;
     }
-    throw Exception('Invalid SABnzbdDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -91,6 +90,5 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
       case SABnzbdDatabaseValue.NAVIGATION_INDEX:
         return 0;
     }
-    throw Exception('Invalid SABnzbdDatabaseValue');
   }
 }

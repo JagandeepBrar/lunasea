@@ -129,9 +129,9 @@ class _State extends State<LidarrCatalogue>
     // Filter
     List<LidarrCatalogueData> filtered = artists!.where((artist) {
       if (shouldHide && !artist.monitored!) return false;
-      if (query != null && query.isNotEmpty && artist.artistID != null)
+      if (query.isNotEmpty)
         return artist.title.toLowerCase().contains(query.toLowerCase());
-      return (artist != null && artist.artistID != null);
+      return true;
     }).toList();
     filtered = sorting.sort(filtered, ascending);
     return filtered;

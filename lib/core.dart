@@ -8,6 +8,7 @@ export 'package:fluro/fluro.dart';
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+export 'package:json_annotation/json_annotation.dart';
 export 'package:layout/layout.dart';
 export 'package:provider/provider.dart';
 export 'package:stash/stash_api.dart';
@@ -15,6 +16,8 @@ export 'package:stash_memory/stash_memory.dart';
 export 'package:supercharged/supercharged.dart';
 export 'package:transparent_image/transparent_image.dart';
 export 'package:tuple/tuple.dart';
+// Dart
+export 'dart:convert';
 // Local
 export 'core/assets.dart';
 export 'core/cache.dart';

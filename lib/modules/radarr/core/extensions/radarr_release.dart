@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:radarr/radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 extension RadarrReleaseExtension on RadarrRelease {
   IconData get lunaTrailingIcon {

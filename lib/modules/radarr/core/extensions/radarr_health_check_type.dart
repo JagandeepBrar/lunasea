@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:radarr/types.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrHealthCheckTypeExtension on RadarrHealthCheckType? {
   Color get lunaColour {

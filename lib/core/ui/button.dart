@@ -13,16 +13,16 @@ class LunaButton extends Card {
   static const DEFAULT_HEIGHT = 46.0;
 
   LunaButton._({
-    Key key,
-    @required Widget child,
+    Key? key,
+    required Widget child,
     EdgeInsets margin = LunaUI.MARGIN_HALF,
-    Color backgroundColor,
+    Color? backgroundColor,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
-    Decoration decoration,
-    Function onTap,
-    Function onLongPress,
-    LunaLoadingState loadingState,
+    Decoration? decoration,
+    Function? onTap,
+    Function? onLongPress,
+    LunaLoadingState? loadingState,
   }) : super(
           key: key,
           child: InkWell(
@@ -47,7 +47,7 @@ class LunaButton extends Card {
           margin: margin,
           color: backgroundColor != null
               ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
-              : LunaTheme.isAMOLEDTheme
+              : LunaTheme.isAMOLEDTheme!
                   ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
                   : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
           shape: backgroundColor != null
@@ -55,29 +55,26 @@ class LunaButton extends Card {
               : LunaUI.shapeBorder,
           elevation: LunaUI.ELEVATION,
           clipBehavior: Clip.antiAlias,
-        ) {
-    assert(child != null);
-  }
+        );
 
   /// Create a default button.
   ///
   /// If [LunaLoadingState] is passed in, will build the correct button based on the type.
   factory LunaButton({
-    @required LunaButtonType type,
+    required LunaButtonType type,
     Color color = LunaColours.accent,
-    Color backgroundColor,
-    String text,
-    IconData icon,
+    Color? backgroundColor,
+    String? text,
+    IconData? icon,
     double iconSize = LunaUI.ICON_SIZE,
-    LunaLoadingState loadingState,
+    LunaLoadingState? loadingState,
     EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
-    Decoration decoration,
-    Function onTap,
-    Function onLongPress,
+    Decoration? decoration,
+    Function? onTap,
+    Function? onLongPress,
   }) {
-    assert(type != null);
     switch (loadingState) {
       case LunaLoadingState.ACTIVE:
         return LunaButton.loader(
@@ -110,9 +107,8 @@ class LunaButton extends Card {
     }
     switch (type) {
       case LunaButtonType.TEXT:
-        assert(text != null);
         return LunaButton.text(
-          text: text,
+          text: text!,
           icon: icon,
           iconSize: iconSize,
           color: color,
@@ -153,23 +149,22 @@ class LunaButton extends Card {
           loadingState: loadingState,
         );
     }
-    throw Exception("Attempted to create an invalid LunaButton");
   }
 
   /// Build a button that contains a centered text string.
   factory LunaButton.text({
-    @required String text,
-    @required IconData icon,
+    required String text,
+    required IconData? icon,
     double iconSize = LunaUI.ICON_SIZE,
     Color color = LunaColours.accent,
-    Color backgroundColor,
+    Color? backgroundColor,
     EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
-    Decoration decoration,
-    LunaLoadingState loadingState,
-    Function onTap,
-    Function onLongPress,
+    Decoration? decoration,
+    LunaLoadingState? loadingState,
+    Function? onTap,
+    Function? onLongPress,
   }) {
     return LunaButton._(
       child: Padding(
@@ -220,13 +215,13 @@ class LunaButton extends Card {
   factory LunaButton.loader({
     EdgeInsets margin = LunaUI.MARGIN_HALF,
     Color color = LunaColours.accent,
-    Color backgroundColor,
+    Color? backgroundColor,
     double height = DEFAULT_HEIGHT,
     Alignment alignment = Alignment.center,
-    Decoration decoration,
-    Function onTap,
-    Function onLongPress,
-    LunaLoadingState loadingState,
+    Decoration? decoration,
+    Function? onTap,
+    Function? onLongPress,
+    LunaLoadingState? loadingState,
   }) {
     return LunaButton._(
       child: LunaLoader(
@@ -247,17 +242,17 @@ class LunaButton extends Card {
 
   /// Build a button that contains a single, centered [Icon].
   factory LunaButton.icon({
-    @required IconData icon,
+    required IconData? icon,
     Color color = LunaColours.accent,
-    Color backgroundColor,
+    Color? backgroundColor,
     EdgeInsets margin = LunaUI.MARGIN_HALF,
     double height = DEFAULT_HEIGHT,
     double iconSize = LunaUI.ICON_SIZE,
     Alignment alignment = Alignment.center,
-    Decoration decoration,
-    Function onTap,
-    Function onLongPress,
-    LunaLoadingState loadingState,
+    Decoration? decoration,
+    Function? onTap,
+    Function? onLongPress,
+    LunaLoadingState? loadingState,
   }) {
     return LunaButton._(
       child: Icon(

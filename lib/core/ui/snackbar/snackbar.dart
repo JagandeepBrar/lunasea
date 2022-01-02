@@ -37,17 +37,17 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
 }
 
 Future<void> showLunaSnackBar({
-  @required String title,
-  @required LunaSnackbarType type,
-  @required String message,
-  Duration duration,
+  required String title,
+  required LunaSnackbarType type,
+  required String message,
+  Duration? duration,
   FlashPosition position = FlashPosition.bottom,
   bool showButton = false,
   String buttonText = 'view',
-  Function buttonOnPressed,
+  Function? buttonOnPressed,
 }) async =>
     showFlash(
-      context: LunaState.navigatorKey.currentContext,
+      context: LunaState.navigatorKey.currentContext!,
       duration: duration ?? Duration(seconds: showButton ? 4 : 2),
       builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
@@ -99,7 +99,7 @@ Future<void> showLunaSnackBar({
                   onPressed: () {
                     HapticFeedback.lightImpact();
                     controller.dismiss();
-                    buttonOnPressed();
+                    buttonOnPressed!();
                   },
                 )
               : null,

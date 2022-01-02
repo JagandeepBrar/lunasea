@@ -54,9 +54,9 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      DashboardDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      DashboardDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primitive values
@@ -78,7 +78,7 @@ class DashboardDatabase extends LunaModuleDatabase {
   }
 
   @override
-  DashboardDatabaseValue valueFromKey(String key) {
+  DashboardDatabaseValue? valueFromKey(String key) {
     for (DashboardDatabaseValue value in DashboardDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -108,8 +108,8 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -141,7 +141,6 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
       case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
         return value is bool;
     }
-    throw Exception('Invalid DashboardDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -167,6 +166,5 @@ extension DashboardDatabaseValueExtension on DashboardDatabaseValue {
       case DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS:
         return false;
     }
-    throw Exception('Invalid DashboardDatabaseValue');
   }
 }

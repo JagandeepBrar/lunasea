@@ -12,13 +12,13 @@ class LunaDialogs {
   /// - 1: Value from the [TextEditingController].
   Future<Tuple2<bool, String>> editText(
       BuildContext context, String dialogTitle,
-      {String prefill = '', List<TextSpan> extraText}) async {
+      {String prefill = '', List<TextSpan>? extraText}) async {
     bool _flag = false;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -57,7 +57,7 @@ class LunaDialogs {
   ///
   /// Can pass in boolean [alignLeft] to left align the text in the dialog (useful for bulleted lists)
   Future<void> textPreview(
-      BuildContext context, String dialogTitle, String text,
+      BuildContext context, String? dialogTitle, String text,
       {bool alignLeft = false}) async {
     await LunaDialog.dialog(
       context: context,
@@ -82,15 +82,19 @@ class LunaDialogs {
   }
 
   Future<void> showRejections(
-      BuildContext context, List<String> rejections) async {
+      BuildContext context, List<String>? rejections) async {
     if ((rejections ?? []).isEmpty)
-      return textPreview(context, 'Rejection Reasons', 'No rejections found');
+      return textPreview(
+        context,
+        'Rejection Reasons',
+        'No rejections found',
+      );
     await LunaDialog.dialog(
       context: context,
       title: 'Rejection Reasons',
       cancelButtonText: 'Close',
       content: List.generate(
-        rejections.length,
+        rejections!.length,
         (index) => LunaDialog.tile(
           text: rejections[index],
           icon: Icons.report_outlined,
@@ -102,8 +106,9 @@ class LunaDialogs {
   }
 
   Future<void> showMessages(BuildContext context, List<String> messages) async {
-    if ((messages ?? []).isEmpty)
+    if (messages.isEmpty) {
       return textPreview(context, 'Messages', 'No messages found');
+    }
     await LunaDialog.dialog(
       context: context,
       title: 'Messages',

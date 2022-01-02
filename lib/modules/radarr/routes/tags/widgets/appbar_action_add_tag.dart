@@ -6,7 +6,7 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
   final bool asDialogButton;
 
   const RadarrTagsAppBarActionAddTag({
-    Key key,
+    Key? key,
     this.asDialogButton = false,
   }) : super(key: key);
 

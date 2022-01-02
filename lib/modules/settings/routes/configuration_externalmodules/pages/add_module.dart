@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
@@ -48,7 +48,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           text: 'settings.AddModule'.tr(),
           icon: Icons.add_rounded,
           onTap: () async {
-            if (_module.displayName.isEmpty || _module.host.isEmpty) {
+            if (_module.displayName!.isEmpty || _module.host!.isEmpty) {
               showLunaErrorSnackBar(
                 title: 'settings.AddModuleFailed'.tr(),
                 message: 'settings.AllFieldsAreRequired'.tr(),

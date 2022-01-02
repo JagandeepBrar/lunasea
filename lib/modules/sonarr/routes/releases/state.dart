@@ -3,12 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrReleasesState extends ChangeNotifier {
-  final int seriesId;
-  final int seasonNumber;
-  final int episodeId;
+  final int? seriesId;
+  final int? seasonNumber;
+  final int? episodeId;
 
   SonarrReleasesState({
-    @required BuildContext context,
+    required BuildContext context,
     this.seriesId,
     this.seasonNumber,
     this.episodeId,
@@ -16,20 +16,20 @@ class SonarrReleasesState extends ChangeNotifier {
     refreshReleases(context);
   }
 
-  Future<List<SonarrRelease>> _releases;
-  Future<List<SonarrRelease>> get releases => _releases;
+  Future<List<SonarrRelease>>? _releases;
+  Future<List<SonarrRelease>>? get releases => _releases;
   void refreshReleases(BuildContext context) {
     if (context.read<SonarrState>().enabled) {
       if (episodeId != null) {
         _releases =
-            context.read<SonarrState>().api.release.get(episodeId: episodeId);
+            context.read<SonarrState>().api!.release.get(episodeId: episodeId!);
       } else if (seriesId != null && seasonNumber != null) {
         _releases = context
             .read<SonarrState>()
-            .api
+            .api!
             .release
-            .getSeasonPack(seriesId: seriesId, seasonNumber: seasonNumber)
-            .then((releases) => releases.where((r) => r.fullSeason).toList());
+            .getSeasonPack(seriesId: seriesId!, seasonNumber: seasonNumber!)
+            .then((releases) => releases.where((r) => r.fullSeason!).toList());
       } else {
         throw Exception(
             'Must supply either episodeId or seriesId and seasonNumber');
@@ -41,34 +41,30 @@ class SonarrReleasesState extends ChangeNotifier {
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
   set searchQuery(String searchQuery) {
-    assert(searchQuery != null);
     _searchQuery = searchQuery;
     notifyListeners();
   }
 
-  SonarrReleasesFilter _filterType =
+  SonarrReleasesFilter? _filterType =
       SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
-  SonarrReleasesFilter get filterType => _filterType;
+  SonarrReleasesFilter get filterType => _filterType!;
   set filterType(SonarrReleasesFilter filterType) {
-    assert(filterType != null);
     _filterType = filterType;
     notifyListeners();
   }
 
-  SonarrReleasesSorting _sortType =
+  SonarrReleasesSorting? _sortType =
       SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-  SonarrReleasesSorting get sortType => _sortType;
+  SonarrReleasesSorting get sortType => _sortType!;
   set sortType(SonarrReleasesSorting sortType) {
-    assert(sortType != null);
     _sortType = sortType;
     notifyListeners();
   }
 
-  bool _sortAscending =
+  bool? _sortAscending =
       SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
-  bool get sortAscending => _sortAscending;
+  bool get sortAscending => _sortAscending!;
   set sortAscending(bool sortAscending) {
-    assert(sortAscending != null);
     _sortAscending = sortAscending;
     notifyListeners();
   }

@@ -8,11 +8,6 @@ class SonarrState extends LunaModuleState {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   void reset() {
     _series = null;
     _upcoming = null;
@@ -40,28 +35,28 @@ class SonarrState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Sonarr _api;
-  Sonarr get api => _api;
+  Sonarr? _api;
+  Sonarr? get api => _api;
 
   /// Is the API enabled?
-  bool _enabled;
+  bool _enabled = false;
   bool get enabled => _enabled;
 
   /// Sonarr host
-  String _host;
+  String _host = '';
   String get host => _host;
 
   /// Sonarr API key
-  String _apiKey;
+  String _apiKey = '';
   String get apiKey => _apiKey;
 
   /// Headers to attach to all requests
-  Map<dynamic, dynamic> _headers;
+  Map<dynamic, dynamic> _headers = {};
   Map<dynamic, dynamic> get headers => _headers;
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = Database.currentProfileObject;
+    ProfileHiveObject _profile = Database.currentProfileObject!;
     // Copy profile into state
     _api = null;
     _enabled = _profile.sonarrEnabled ?? false;
@@ -86,7 +81,6 @@ class SonarrState extends LunaModuleState {
       SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data;
   LunaListViewOption get seriesViewType => _seriesViewType;
   set seriesViewType(LunaListViewOption seriesViewType) {
-    assert(seriesViewType != null);
     _seriesViewType = seriesViewType;
     notifyListeners();
   }
@@ -94,7 +88,6 @@ class SonarrState extends LunaModuleState {
   String _seriesSearchQuery = '';
   String get seriesSearchQuery => _seriesSearchQuery;
   set seriesSearchQuery(String seriesSearchQuery) {
-    assert(seriesSearchQuery != null);
     _seriesSearchQuery = seriesSearchQuery;
     notifyListeners();
   }
@@ -103,7 +96,6 @@ class SonarrState extends LunaModuleState {
       SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
   SonarrSeriesSorting get seriesSortType => _seriesSortType;
   set seriesSortType(SonarrSeriesSorting seriesSortType) {
-    assert(seriesSortType != null);
     _seriesSortType = seriesSortType;
     notifyListeners();
   }
@@ -112,7 +104,6 @@ class SonarrState extends LunaModuleState {
       SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
   SonarrSeriesFilter get seriesFilterType => _seriesFilterType;
   set seriesFilterType(SonarrSeriesFilter seriesFilterType) {
-    assert(seriesFilterType != null);
     _seriesFilterType = seriesFilterType;
     notifyListeners();
   }
@@ -121,7 +112,6 @@ class SonarrState extends LunaModuleState {
       SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
   bool get seriesSortAscending => _seriesSortAscending;
   set seriesSortAscending(bool seriesSortAscending) {
-    assert(seriesSortAscending != null);
     _seriesSortAscending = seriesSortAscending;
     notifyListeners();
   }
@@ -130,13 +120,13 @@ class SonarrState extends LunaModuleState {
   /// SERIES ///
   //////////////
 
-  Future<Map<int, SonarrSeries>> _series;
-  Future<Map<int, SonarrSeries>> get series => _series;
+  Future<Map<int, SonarrSeries>>? _series;
+  Future<Map<int, SonarrSeries>>? get series => _series;
   void fetchAllSeries() {
     if (_api != null) {
-      _series = _api.series.getAll(includeSeasonImages: true).then((series) {
+      _series = _api!.series.getAll(includeSeasonImages: true).then((series) {
         return {
-          for (SonarrSeries s in series) s.id: s,
+          for (SonarrSeries s in series) s.id!: s,
         };
       });
     }
@@ -144,24 +134,21 @@ class SonarrState extends LunaModuleState {
   }
 
   Future<void> fetchSeries(int seriesId) async {
-    assert(seriesId != null);
     if (_api != null) {
       SonarrSeries series =
-          await _api.series.get(seriesId: seriesId, includeSeasonImages: true);
-      (await _series)[seriesId] = series;
+          await _api!.series.get(seriesId: seriesId, includeSeasonImages: true);
+      (await _series)![seriesId] = series;
     }
     notifyListeners();
   }
 
   Future<void> setSingleSeries(SonarrSeries series) async {
-    assert(series != null);
-    (await _series)[series.id] = series;
+    (await _series)![series.id!] = series;
     notifyListeners();
   }
 
   Future<void> removeSingleSeries(int seriesId) async {
-    assert(seriesId != null);
-    (await _series).remove(seriesId);
+    (await _series)!.remove(seriesId);
     notifyListeners();
   }
 
@@ -169,17 +156,16 @@ class SonarrState extends LunaModuleState {
   /// MISSING ///
   ///////////////
 
-  Future<SonarrMissing> _missing;
-  Future<SonarrMissing> get missing => _missing;
-  set missing(Future<SonarrMissing> missing) {
-    assert(missing != null);
+  Future<SonarrMissing>? _missing;
+  Future<SonarrMissing>? get missing => _missing;
+  set missing(Future<SonarrMissing>? missing) {
     _missing = missing;
     notifyListeners();
   }
 
   void fetchMissing() {
     if (_api != null)
-      _missing = _api.wanted.getMissing(
+      _missing = _api!.wanted.getMissing(
         pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
         sortDir: SonarrSortDirection.DESCENDING,
         sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
@@ -191,10 +177,9 @@ class SonarrState extends LunaModuleState {
   /// UPCOMING ///
   ////////////////
 
-  Future<List<SonarrCalendar>> _upcoming;
-  Future<List<SonarrCalendar>> get upcoming => _upcoming;
-  set upcoming(Future<List<SonarrCalendar>> upcoming) {
-    assert(upcoming != null);
+  Future<List<SonarrCalendar>>? _upcoming;
+  Future<List<SonarrCalendar>>? get upcoming => _upcoming;
+  set upcoming(Future<List<SonarrCalendar>>? upcoming) {
     _upcoming = upcoming;
     notifyListeners();
   }
@@ -204,7 +189,7 @@ class SonarrState extends LunaModuleState {
     DateTime end = start
         .add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
     if (_api != null)
-      _upcoming = _api.calendar.get(
+      _upcoming = _api!.calendar.get(
         start: start,
         end: end,
         includeEpisodeFile: true,
@@ -216,29 +201,28 @@ class SonarrState extends LunaModuleState {
   /// PROFILES ///
   ////////////////
 
-  Future<List<SonarrQualityProfile>> _qualityProfiles;
-  Future<List<SonarrQualityProfile>> get qualityProfiles => _qualityProfiles;
-  set qualityProfiles(Future<List<SonarrQualityProfile>> qualityProfiles) {
-    assert(qualityProfiles != null);
+  Future<List<SonarrQualityProfile>>? _qualityProfiles;
+  Future<List<SonarrQualityProfile>>? get qualityProfiles => _qualityProfiles;
+  set qualityProfiles(Future<List<SonarrQualityProfile>>? qualityProfiles) {
     _qualityProfiles = qualityProfiles;
     notifyListeners();
   }
 
   void fetchQualityProfiles() {
-    if (_api != null) _qualityProfiles = _api.profile.getQualityProfiles();
+    if (_api != null) _qualityProfiles = _api!.profile.getQualityProfiles();
     notifyListeners();
   }
 
-  Future<List<SonarrLanguageProfile>> _languageProfiles;
-  Future<List<SonarrLanguageProfile>> get languageProfiles => _languageProfiles;
-  set languageProfiles(Future<List<SonarrLanguageProfile>> languageProfiles) {
-    assert(languageProfiles != null);
+  Future<List<SonarrLanguageProfile>>? _languageProfiles;
+  Future<List<SonarrLanguageProfile>>? get languageProfiles =>
+      _languageProfiles;
+  set languageProfiles(Future<List<SonarrLanguageProfile>>? languageProfiles) {
     _languageProfiles = languageProfiles;
     notifyListeners();
   }
 
   void fetchLanguageProfiles() {
-    if (_api != null) _languageProfiles = _api.profile.getLanguageProfiles();
+    if (_api != null) _languageProfiles = _api!.profile.getLanguageProfiles();
     notifyListeners();
   }
 
@@ -246,10 +230,10 @@ class SonarrState extends LunaModuleState {
   /// ROOT FOLDERS ///
   ////////////////////
 
-  Future<List<SonarrRootFolder>> _rootFolders;
-  Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
+  Future<List<SonarrRootFolder>>? _rootFolders;
+  Future<List<SonarrRootFolder>>? get rootFolders => _rootFolders;
   void fetchRootFolders() {
-    if (_api != null) _rootFolders = _api.rootFolder.get();
+    if (_api != null) _rootFolders = _api!.rootFolder.get();
     notifyListeners();
   }
 
@@ -257,16 +241,15 @@ class SonarrState extends LunaModuleState {
   /// TAGS ///
   ////////////
 
-  Future<List<SonarrTag>> _tags;
-  Future<List<SonarrTag>> get tags => _tags;
-  set tags(Future<List<SonarrTag>> tags) {
-    assert(tags != null);
+  Future<List<SonarrTag>>? _tags;
+  Future<List<SonarrTag>>? get tags => _tags;
+  set tags(Future<List<SonarrTag>>? tags) {
     _tags = tags;
     notifyListeners();
   }
 
   void fetchTags() {
-    if (_api != null) _tags = _api.tag.getAll();
+    if (_api != null) _tags = _api!.tag.getAll();
     notifyListeners();
   }
 
@@ -280,14 +263,14 @@ class SonarrState extends LunaModuleState {
         : '$_host/api/v3/MediaCover';
   }
 
-  String getPosterURL(int seriesId) {
+  String? getPosterURL(int? seriesId) {
     if (_enabled) {
       return '${_baseImageURL()}/$seriesId/poster-500.jpg?apikey=$_apiKey';
     }
     return null;
   }
 
-  String getFanartURL(int seriesId, {bool highRes = false}) {
+  String? getFanartURL(int? seriesId, {bool highRes = false}) {
     if (_enabled) {
       return '${_baseImageURL()}/$seriesId/fanart-360.jpg?apikey=$_apiKey';
     }

@@ -6,16 +6,12 @@ class LunaButtonContainer extends StatelessWidget {
   final EdgeInsets padding;
   final int buttonsPerRow;
 
-  LunaButtonContainer({
-    Key key,
-    @required this.children,
+  const LunaButtonContainer({
+    Key? key,
+    required this.children,
     this.buttonsPerRow = 2,
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0),
-  }) : super(key: key) {
-    assert(children != null);
-    assert(children?.isNotEmpty ?? false);
-    assert(padding != null);
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

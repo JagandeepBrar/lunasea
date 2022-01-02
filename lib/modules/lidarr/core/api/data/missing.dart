@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrMissingData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getLidarr();
   String title;
   String artistTitle;
   String releaseDate;
@@ -11,21 +10,21 @@ class LidarrMissingData {
   bool monitored;
 
   LidarrMissingData({
-    @required this.title,
-    @required this.artistTitle,
-    @required this.artistID,
-    @required this.albumID,
-    @required this.releaseDate,
-    @required this.monitored,
+    required this.title,
+    required this.artistTitle,
+    required this.artistID,
+    required this.albumID,
+    required this.releaseDate,
+    required this.monitored,
   });
 
-  DateTime get releaseDateObject {
+  DateTime? get releaseDateObject {
     return DateTime.tryParse(releaseDate)?.toLocal();
   }
 
   String get releaseDateString {
     if (releaseDateObject != null) {
-      Duration age = DateTime.now().difference(releaseDateObject);
+      Duration age = DateTime.now().difference(releaseDateObject!);
       if (age.inDays >= 1) {
         return age.inDays <= 1
             ? '${age.inDays} Day Ago'

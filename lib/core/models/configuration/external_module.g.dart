@@ -18,8 +18,8 @@ class ExternalModuleHiveObjectAdapter
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExternalModuleHiveObject(
-      displayName: fields[0] as String,
-      host: fields[1] as String,
+      displayName: fields[0] as String?,
+      host: fields[1] as String?,
     );
   }
 

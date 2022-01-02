@@ -26,7 +26,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -56,13 +56,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject.sonarrEnabled ?? false,
+          value: Database.currentProfileObject!.sonarrEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject.sonarrEnabled = value;
-            Database.currentProfileObject.save();
+            Database.currentProfileObject!.sonarrEnabled = value;
+            Database.currentProfileObject!.save();
             context.read<SonarrState>().reset();
           },
         ),
@@ -114,7 +114,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _, __) => LunaBlock(
         title: 'Queue Size',
         body: [TextSpan(text: _db.data == 1 ? '1 Item' : '${_db.data} Items')],
-        trailing: const LunaIconButton(icon: Icons.queue_rounded),
+        trailing: const LunaIconButton(icon: Icons.queue_play_next_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await SonarrDialogs().setQueuePageSize(context);

@@ -16,7 +16,7 @@ class LunaFirebaseMessaging {
       FirebaseMessaging.onMessageOpenedApp;
 
   /// Returns the Firebase Cloud Messaging device token for this device.
-  Future<String> get token async => instance.getToken();
+  Future<String?> get token async => instance.getToken();
 
   /// Request for permission to send a user notifications.
   ///
@@ -51,7 +51,7 @@ class LunaFirebaseMessaging {
   /// Returns true if permissions are allowed at either a full or provisional level.
   /// Returns false on any other status (denied, not determined, null, etc.).
   Future<bool> areNotificationsAllowed() async {
-    return instance?.getNotificationSettings()?.then((settings) {
+    return instance.getNotificationSettings().then((settings) {
       switch (settings.authorizationStatus) {
         case AuthorizationStatus.authorized:
         case AuthorizationStatus.provisional:
@@ -69,10 +69,7 @@ class LunaFirebaseMessaging {
   /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
   StreamSubscription<RemoteMessage> registerOnMessageListener() {
     return onMessage.listen((message) {
-      if (message == null) return;
-      LunaModule module = (message.data ?? {}).isNotEmpty
-          ? LunaModule.DASHBOARD.fromKey(message.data['module'])
-          : null;
+      LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
       showLunaSnackBar(
         title: message.notification?.title ?? 'Unknown Content',
         message: message.notification?.body ?? LunaUI.TEXT_EMDASH,
@@ -95,16 +92,16 @@ class LunaFirebaseMessaging {
   ///
   /// If so, handles the notification webhook.
   Future<void> checkAndHandleInitialMessage() async {
-    RemoteMessage message =
+    RemoteMessage? message =
         await FirebaseMessaging.instance.getInitialMessage();
     _handleWebhook(message);
   }
 
   /// Shared webhook handler.
-  Future<void> _handleWebhook(RemoteMessage message) async {
-    if (message == null || (message.data ?? {}).isEmpty) return;
+  Future<void> _handleWebhook(RemoteMessage? message) async {
+    if (message == null || message.data.isEmpty) return;
     // Extract module
-    LunaModule module = LunaModule.DASHBOARD.fromKey(message.data['module']);
+    LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
     if (module == null) {
       LunaLogger().warning(
         'LunaFirebaseMessaging',
@@ -113,8 +110,8 @@ class LunaFirebaseMessaging {
       );
       return;
     }
-    String profile = message.data['profile'];
-    if (profile?.isEmpty ?? true) {
+    String profile = message.data['profile'] ?? '';
+    if (profile.isEmpty) {
       LunaLogger().warning(
         'LunaFirebaseMessaging',
         '_handleWebhook',
@@ -127,11 +124,12 @@ class LunaFirebaseMessaging {
       popToFirst: true,
     );
     if (result) {
-      module?.handleWebhook(message.data);
+      module.handleWebhook(message.data);
     } else {
       showLunaErrorSnackBar(
-          title: 'Unknown Profile',
-          message: '"$profile" does not exist in LunaSea');
+        title: 'Unknown Profile',
+        message: '"$profile" does not exist in LunaSea',
+      );
     }
   }
 }

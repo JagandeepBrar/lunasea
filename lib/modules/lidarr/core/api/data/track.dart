@@ -10,12 +10,12 @@ class LidarrTrackData {
   int duration;
 
   LidarrTrackData({
-    @required this.trackID,
-    @required this.title,
-    @required this.trackNumber,
-    @required this.duration,
-    @required this.explicit,
-    @required this.hasFile,
+    required this.trackID,
+    required this.title,
+    required this.trackNumber,
+    required this.duration,
+    required this.explicit,
+    required this.hasFile,
   });
 
   TextSpan file(bool monitored) {

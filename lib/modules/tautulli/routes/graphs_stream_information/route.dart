@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsStreamInformationRoute extends StatefulWidget {
   const TautulliGraphsStreamInformationRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,11 +24,11 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
   Future<void> loadCallback() async {
     context.read<TautulliState>().resetAllStreamInformationGraphs();
     await Future.wait([
-      context.read<TautulliState>().dailyStreamTypeBreakdownGraph,
-      context.read<TautulliState>().playCountBySourceResolutionGraph,
-      context.read<TautulliState>().playCountByStreamResolutionGraph,
-      context.read<TautulliState>().playCountByPlatformStreamTypeGraph,
-      context.read<TautulliState>().playCountByUserStreamTypeGraph,
+      context.read<TautulliState>().dailyStreamTypeBreakdownGraph!,
+      context.read<TautulliState>().playCountBySourceResolutionGraph!,
+      context.read<TautulliState>().playCountByStreamResolutionGraph!,
+      context.read<TautulliState>().playCountByPlatformStreamTypeGraph!,
+      context.read<TautulliState>().playCountByUserStreamTypeGraph!,
     ]);
   }
 

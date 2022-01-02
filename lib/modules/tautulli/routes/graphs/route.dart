@@ -20,7 +20,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -55,7 +55,7 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: const [
         TautulliGraphsPlayByPeriodRoute(),

@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsHistoryPage extends StatefulWidget {
-  final RadarrMovie movie;
+  final RadarrMovie? movie;
 
   const RadarrMovieDetailsHistoryPage({
-    Key key,
-    @required this.movie,
+    Key? key,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -45,10 +45,10 @@ class _State extends State<RadarrMovieDetailsHistoryPage>
         builder: (context, AsyncSnapshot<List<RadarrHistoryRecord>> snapshot) {
           if (snapshot.hasError) {
             LunaLogger().error(
-                'Unable to fetch Radarr movie history: ${widget.movie.id}',
+                'Unable to fetch Radarr movie history: ${widget.movie!.id}',
                 snapshot.error,
                 snapshot.stackTrace);
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -57,16 +57,16 @@ class _State extends State<RadarrMovieDetailsHistoryPage>
     );
   }
 
-  Widget _list(List<RadarrHistoryRecord> history) {
+  Widget _list(List<RadarrHistoryRecord>? history) {
     if ((history?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No History Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: RadarrMovieDetailsNavigationBar.scrollControllers[2],
-      itemCount: history.length,
+      itemCount: history!.length,
       itemBuilder: (context, index) =>
           RadarrHistoryTile(history: history[index], movieHistory: true),
     );

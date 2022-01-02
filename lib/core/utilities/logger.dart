@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class LunaLogger {
         (FlutterErrorDetails details, {bool forceReport = false}) async {
       if (kDebugMode)
         FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
-      Zone.current.handleUncaughtError(details.exception, details.stack);
+      Zone.current.handleUncaughtError(details.exception, details.stack!);
     };
     _compactDatabase();
   }
@@ -25,8 +24,7 @@ class LunaLogger {
   Future<void> _compactDatabase([int count = 100]) async {
     if (Database.logsBox.keys.length <= count) return;
     List<LunaLogHiveObject> logs = Database.logsBox.values.toList();
-    logs.sort((a, b) => (b?.timestamp?.toDouble() ?? double.maxFinite)
-        .compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
+    logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
 
@@ -34,9 +32,7 @@ class LunaLogger {
   Future<String> exportLogs() async {
     // Get maps/JSON of all logs
     List<Map<String, dynamic>> logs = [];
-    Database.logsBox.values.forEach((log) {
-      if (log != null) logs.add(log.toMap());
-    });
+    Database.logsBox.values.forEach((log) => logs.add(log.toMap()));
     // Create a string
     JsonEncoder encoder = JsonEncoder.withIndent(' '.repeat(4));
     String data = encoder.convert(logs);
@@ -67,7 +63,7 @@ class LunaLogger {
   }
 
   /// Log a new error-level log.
-  void error(String message, dynamic error, StackTrace stackTrace) {
+  void error(String message, dynamic error, StackTrace? stackTrace) {
     if (error is! NetworkImageLoadException) {
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.ERROR,

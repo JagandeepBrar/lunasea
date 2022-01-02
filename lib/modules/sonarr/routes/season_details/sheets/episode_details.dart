@@ -4,22 +4,22 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   BuildContext context;
-  SonarrEpisode episode;
-  SonarrEpisodeFile episodeFile;
-  List<SonarrQueueRecord> queueRecords;
+  SonarrEpisode? episode;
+  SonarrEpisodeFile? episodeFile;
+  List<SonarrQueueRecord>? queueRecords;
 
   SonarrEpisodeDetailsSheet({
-    @required this.context,
-    @required this.episode,
-    @required this.episodeFile,
-    @required this.queueRecords,
+    required this.context,
+    required this.episode,
+    required this.episodeFile,
+    required this.queueRecords,
   }) {
     _intializeSheet();
   }
 
   Future<void> _intializeSheet() async {
     SonarrSeasonDetailsState _state = context.read<SonarrSeasonDetailsState>();
-    _state.currentEpisodeId = episode.id;
+    _state.currentEpisodeId = episode!.id;
     _state.episodeSearchState = LunaLoadingState.INACTIVE;
     _state.fetchState(
       context,
@@ -31,38 +31,38 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
 
   Widget _highlightedNodes(BuildContext context) {
     List<LunaHighlightedNode> _nodes = [
-      if (!episode.monitored)
+      if (!episode!.monitored!)
         LunaHighlightedNode(
           text: 'sonarr.Unmonitored'.tr(),
           backgroundColor: LunaColours.red,
         ),
-      if (episode.hasFile && episodeFile != null)
+      if (episode!.hasFile! && episodeFile != null)
         LunaHighlightedNode(
-          backgroundColor: episodeFile.qualityCutoffNotMet
+          backgroundColor: episodeFile!.qualityCutoffNotMet!
               ? LunaColours.orange
               : LunaColours.accent,
-          text: episodeFile.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+          text: episodeFile!.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
         ),
-      if (episode.hasFile && episodeFile != null)
+      if (episode!.hasFile! && episodeFile != null)
         LunaHighlightedNode(
-          backgroundColor: episodeFile.languageCutoffNotMet
+          backgroundColor: episodeFile!.languageCutoffNotMet!
               ? LunaColours.orange
               : LunaColours.accent,
-          text: episodeFile.language?.name ?? LunaUI.TEXT_EMDASH,
+          text: episodeFile!.language?.name ?? LunaUI.TEXT_EMDASH,
         ),
-      if (episode.hasFile && episodeFile != null)
+      if (episode!.hasFile! && episodeFile != null)
         LunaHighlightedNode(
           backgroundColor: LunaColours.blueGrey,
-          text: episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+          text: episodeFile!.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
         ),
-      if (!episode.hasFile &&
-          (episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true))
+      if (!episode!.hasFile! &&
+          (episode?.airDateUtc?.toLocal().isAfter(DateTime.now()) ?? true))
         LunaHighlightedNode(
           backgroundColor: LunaColours.blue,
           text: 'sonarr.Unaired'.tr(),
         ),
-      if (!episode.hasFile &&
-          (episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? true))
+      if (!episode!.hasFile! &&
+          (episode?.airDateUtc?.toLocal().isBefore(DateTime.now()) ?? false))
         LunaHighlightedNode(
           backgroundColor: LunaColours.red,
           text: 'sonarr.Missing'.tr(),
@@ -83,28 +83,28 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   List<Widget> _episodeDetails(BuildContext context) {
     return [
       LunaHeader(
-        text: episode.title,
+        text: episode!.title,
         subtitle: [
-          episode.airDateUtc != null
-              ? DateFormat.yMMMMd().format(episode.airDateUtc.toLocal())
+          episode!.airDateUtc != null
+              ? DateFormat.yMMMMd().format(episode!.airDateUtc!.toLocal())
               : 'lunasea.UnknownDate'.tr(),
           '\n',
           'sonarr.SeasonNumber'.tr(
-            args: [episode?.seasonNumber.toString()],
+            args: [episode?.seasonNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
           LunaUI.TEXT_BULLET.lunaPad(),
           'sonarr.EpisodeNumber'.tr(
-            args: [episode?.episodeNumber.toString()],
+            args: [episode?.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
           if (episode?.absoluteEpisodeNumber != null)
-            ' (${episode.absoluteEpisodeNumber})',
+            ' (${episode!.absoluteEpisodeNumber})',
         ].join(),
       ),
       _highlightedNodes(context),
       Padding(
         padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
         child: LunaText.subtitle(
-          text: episode.overview ?? 'sonarr.NoSummaryAvailable'.tr(),
+          text: episode!.overview ?? 'sonarr.NoSummaryAvailable'.tr(),
           maxLines: 0,
           softWrap: true,
         ),
@@ -113,13 +113,13 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   }
 
   List<Widget> _files(BuildContext context) {
-    if (!episode.hasFile || episodeFile == null) return [];
+    if (!episode!.hasFile! || episodeFile == null) return [];
     return [
       LunaTableCard(
         content: [
           LunaTableContent(
             title: 'sonarr.RelativePath'.tr(),
-            body: episodeFile.relativePath ?? LunaUI.TEXT_EMDASH,
+            body: episodeFile!.relativePath ?? LunaUI.TEXT_EMDASH,
           ),
           LunaTableContent(
             title: 'sonarr.Video'.tr(),
@@ -131,11 +131,11 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               episodeFile?.mediaInfo?.audioCodec ?? LunaUI.TEXT_EMDASH,
               if (episodeFile?.mediaInfo?.audioChannels != null)
                 episodeFile?.mediaInfo?.audioChannels?.toString(),
-            ].join(LunaUI.TEXT_BULLET.lunaPad()),
+            ].join(LunaUI.TEXT_BULLET.lunaPad()!),
           ),
           LunaTableContent(
             title: 'sonarr.Size'.tr(),
-            body: episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+            body: episodeFile!.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
           ),
           LunaTableContent(
             title: 'sonarr.AddedOn'.tr(),
@@ -149,7 +149,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               text: 'sonarr.MediaInfo'.tr(),
               icon: Icons.info_outline_rounded,
               onTap: () async =>
-                  SonarrMediaInfoSheet(mediaInfo: episodeFile.mediaInfo)
+                  SonarrMediaInfoSheet(mediaInfo: episodeFile!.mediaInfo)
                       .show(context: context),
             ),
           LunaButton(
@@ -162,16 +162,16 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
                 SonarrAPIController()
                     .deleteEpisode(
                         context: context,
-                        episode: episode,
-                        episodeFile: episodeFile)
+                        episode: episode!,
+                        episodeFile: episodeFile!)
                     .then((_) {
-                  episode.hasFile = false;
+                  episode!.hasFile = false;
                   context
                       .read<SonarrSeasonDetailsState>()
                       .fetchHistory(context);
                   context
                       .read<SonarrSeasonDetailsState>()
-                      .fetchEpisodeHistory(context, episode.id);
+                      .fetchEpisodeHistory(context, episode!.id);
                 });
               }
             },
@@ -184,7 +184,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
 
   List<Widget> _queue(BuildContext context) {
     if (queueRecords?.isNotEmpty ?? false) {
-      return queueRecords
+      return queueRecords!
           .map((r) => SonarrQueueTile(
                 queueRecord: r,
                 type: SonarrQueueTileType.EPISODE,
@@ -198,20 +198,20 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
     return [
       FutureBuilder(
         future: context.select<SonarrSeasonDetailsState, Future<SonarrHistory>>(
-          (s) => s.getEpisodeHistory(episode.id),
+          (s) => s.getEpisodeHistory(episode!.id),
         ),
         builder: (BuildContext context, AsyncSnapshot<SonarrHistory> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {
               LunaLogger().error(
-                'Unable to fetch Sonarr episode history ${episode.id}',
+                'Unable to fetch Sonarr episode history ${episode!.id}',
                 snapshot.error,
                 snapshot.stackTrace,
               );
             }
           }
           if (snapshot.hasData) {
-            if (snapshot.data.records.isEmpty)
+            if (snapshot.data!.records!.isEmpty)
               return Padding(
                 child: LunaMessage.inList(
                   text: 'sonarr.NoHistoryFound'.tr(),
@@ -222,9 +222,9 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
             return Padding(
               child: Column(
                 children: List.generate(
-                  snapshot.data.records.length,
+                  snapshot.data!.records!.length,
                   (index) => SonarrHistoryTile(
-                    history: snapshot.data.records[index],
+                    history: snapshot.data!.records![index],
                     episode: episode,
                     type: SonarrHistoryTileType.EPISODE,
                   ),
@@ -263,7 +263,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
             context.read<SonarrSeasonDetailsState>().episodeSearchState =
                 LunaLoadingState.ACTIVE;
             SonarrAPIController()
-                .episodeSearch(context: context, episode: episode)
+                .episodeSearch(context: context, episode: episode!)
                 .whenComplete(() => context
                     .read<SonarrSeasonDetailsState>()
                     .episodeSearchState = LunaLoadingState.INACTIVE);
@@ -275,7 +275,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           onTap: () async {
             await SonarrReleasesRouter().navigateTo(
               context,
-              episodeId: episode.id,
+              episodeId: episode!.id,
             );
             context.read<SonarrSeasonDetailsState>().fetchState(
                   context,
@@ -295,22 +295,22 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       builder: (context, _) => Consumer<SonarrSeasonDetailsState>(
         builder: (context, state, _) => FutureBuilder(
           future: Future.wait([
-            state.episodes,
-            state.files,
+            state.episodes!,
+            state.files!,
             state.queue,
-            state.getEpisodeHistory(episode.id),
+            state.getEpisodeHistory(episode!.id),
           ]),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              SonarrEpisode _e =
-                  (snapshot.data[0] as Map<int, SonarrEpisode>)[episode.id];
+              SonarrEpisode? _e =
+                  (snapshot.data[0] as Map<int, SonarrEpisode>)[episode!.id!];
               episode = _e;
-              SonarrEpisodeFile _ef = (snapshot.data[1]
-                  as Map<int, SonarrEpisodeFile>)[episode.episodeFileId];
+              SonarrEpisodeFile? _ef = (snapshot.data[1]
+                  as Map<int, SonarrEpisodeFile>)[episode!.episodeFileId!];
               episodeFile = _ef;
               List<SonarrQueueRecord> _qr =
                   (snapshot.data[2] as List<SonarrQueueRecord>)
-                      .where((q) => q.episodeId == episode.id)
+                      .where((q) => q.episodeId == episode!.id)
                       .toList();
               queueRecords = _qr;
             }
@@ -321,7 +321,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
                 ..._files(context),
                 ..._history(context),
               ],
-              actionBar: _actionBar(context),
+              actionBar: _actionBar(context) as LunaBottomActionBar?,
             );
           },
         ),

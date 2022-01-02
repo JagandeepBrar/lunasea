@@ -6,25 +6,19 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
   SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
 
   @override
-  Widget widget({
-    @required String type,
-  }) {
-    return _Widget(type: LunaLogType.ERROR.fromKey((type)));
-  }
+  Widget widget([LunaLogType? type]) => _Widget(type: type);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required String type,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(type: type));
+    BuildContext context, [
+    LunaLogType? type,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(type));
   }
 
   @override
-  String route({
-    @required String type,
-  }) {
-    return fullRoute.replaceFirst(':type', type);
+  String route([LunaLogType? type]) {
+    return fullRoute.replaceFirst(':type', type?.key ?? 'all');
   }
 
   @override
@@ -33,7 +27,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
       router,
       (context, params) {
         String type =
-            (params['type']?.isNotEmpty ?? false) ? params['type'][0] : '';
+            (params['type']?.isNotEmpty ?? false) ? params['type']![0] : '';
         return _Widget(type: LunaLogType.ERROR.fromKey(type));
       },
     );
@@ -41,11 +35,11 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
 }
 
 class _Widget extends StatefulWidget {
-  final LunaLogType type;
+  final LunaLogType? type;
 
   const _Widget({
-    Key key,
-    @required this.type,
+    Key? key,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -59,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -74,13 +68,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
         valueListenable: Database.logsBox.listenable(),
-        builder: (context, box, _) {
+        builder: (context, dynamic box, _) {
           List<LunaLogHiveObject> logs = filter(box);
-          if ((logs?.length ?? 0) == 0)
+          if (logs.isEmpty) {
             return LunaMessage.goBack(
               context: context,
               text: 'No Logs Found',
             );
+          }
           return LunaListViewBuilder(
             controller: scrollController,
             itemCount: logs.length,
@@ -115,8 +110,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         logs = box.values.where((log) => log.type.enabled).toList();
         break;
     }
-    logs.sort((a, b) => (b?.timestamp?.toDouble() ?? double.maxFinite)
-        .compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
+    logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     return logs;
   }
 }

@@ -13,7 +13,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   IconData icon(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored
+        return series.monitored!
             ? Icons.turned_in_not_rounded
             : Icons.turned_in_rounded;
       case SonarrSeriesSettingsType.EDIT:
@@ -23,13 +23,12 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
       case SonarrSeriesSettingsType.DELETE:
         return Icons.delete_rounded;
     }
-    throw Exception('Invalid SonarrSeriesSettingsType');
   }
 
   String name(SonarrSeries series) {
     switch (this) {
       case SonarrSeriesSettingsType.MONITORED:
-        return series.monitored
+        return series.monitored!
             ? 'sonarr.UnmonitorSeries'.tr()
             : 'sonarr.MonitorSeries'.tr();
       case SonarrSeriesSettingsType.EDIT:
@@ -39,31 +38,33 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
       case SonarrSeriesSettingsType.DELETE:
         return 'sonarr.RemoveSeries'.tr();
     }
-    throw Exception('Invalid SonarrSeriesSettingsType');
   }
 
   Future<void> execute(BuildContext context, SonarrSeries series) async {
     switch (this) {
       case SonarrSeriesSettingsType.EDIT:
-        return SonarrEditSeriesRouter()
-            .navigateTo(context, seriesId: series.id);
+        await SonarrEditSeriesRouter().navigateTo(context, series.id!);
+        break;
       case SonarrSeriesSettingsType.REFRESH:
-        return SonarrAPIController()
-            .refreshSeries(context: context, series: series);
-      case SonarrSeriesSettingsType.DELETE:
-        bool result = await SonarrDialogs().removeSeries(context);
-        if (result) {
-          SonarrAPIController()
-              .removeSeries(context: context, series: series)
-              .then((_) => Navigator.of(context).lunaSafetyPop());
-        }
-        return;
-      case SonarrSeriesSettingsType.MONITORED:
-        return SonarrAPIController().toggleSeriesMonitored(
+        await SonarrAPIController().refreshSeries(
           context: context,
           series: series,
         );
+        break;
+      case SonarrSeriesSettingsType.DELETE:
+        bool result = await SonarrDialogs().removeSeries(context);
+        if (result) {
+          await SonarrAPIController()
+              .removeSeries(context: context, series: series)
+              .then((_) => Navigator.of(context).lunaSafetyPop());
+        }
+        break;
+      case SonarrSeriesSettingsType.MONITORED:
+        await SonarrAPIController().toggleSeriesMonitored(
+          context: context,
+          series: series,
+        );
+        break;
     }
-    throw Exception('Invalid SonarrSeriesSettingsType');
   }
 }

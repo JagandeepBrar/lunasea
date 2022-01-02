@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
   const RadarrAddMovieDetailsQualityProfileTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,16 +13,16 @@ class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
       selector: (_, state) => state.qualityProfile,
       builder: (context, profile, _) => LunaBlock(
         title: 'radarr.QualityProfile'.tr(),
-        body: [TextSpan(text: profile?.name ?? LunaUI.TEXT_EMDASH)],
+        body: [TextSpan(text: profile.name ?? LunaUI.TEXT_EMDASH)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<RadarrQualityProfile> qualityProfiles =
-              await context.read<RadarrState>().qualityProfiles;
-          Tuple2<bool, RadarrQualityProfile> values = await RadarrDialogs()
+              await context.read<RadarrState>().qualityProfiles!;
+          Tuple2<bool, RadarrQualityProfile?> values = await RadarrDialogs()
               .editQualityProfile(context, qualityProfiles);
           if (values.item1)
             context.read<RadarrAddMovieDetailsState>().qualityProfile =
-                values.item2;
+                values.item2!;
         },
       ),
     );

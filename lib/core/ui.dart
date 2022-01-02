@@ -25,6 +25,7 @@ export 'ui/list_view.dart';
 export 'ui/loader.dart';
 export 'ui/message.dart';
 export 'ui/network_image.dart';
+export 'ui/page_view.dart';
 export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/scaffold.dart';
@@ -33,6 +34,7 @@ export 'ui/snackbar.dart';
 export 'ui/switch.dart';
 export 'ui/table.dart';
 export 'ui/text_span.dart';
+export 'ui/text_style.dart';
 export 'ui/text.dart';
 export 'ui/theme.dart';
 export 'ui/will_pop_scope.dart';
@@ -103,7 +105,7 @@ class LunaUI {
 
   // <--> Borders
   static bool get shouldUseBorder {
-    return LunaTheme.isAMOLEDTheme && LunaTheme.useAMOLEDBorders;
+    return LunaTheme.isAMOLEDTheme! && LunaTheme.useAMOLEDBorders!;
   }
 
   static ShapeBorder get shapeBorder {

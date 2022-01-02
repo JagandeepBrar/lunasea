@@ -7,8 +7,8 @@ class LidarrReleasesSearchBar extends StatefulWidget
   final ScrollController scrollController;
 
   const LidarrReleasesSearchBar({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

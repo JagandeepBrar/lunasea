@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliStatisticsTimeRangeButton extends StatelessWidget {
   const TautulliStatisticsTimeRangeButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

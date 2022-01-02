@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrNavigationBar extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
 
@@ -12,6 +12,12 @@ class LidarrNavigationBar extends StatelessWidget {
     Icons.history_rounded,
   ];
 
+  static const List<IconData> iconsOutlined = [
+    Icons.people_outline_rounded,
+    Icons.event_busy_outlined,
+    Icons.history_outlined,
+  ];
+
   static List<String> get titles => [
         'Artists',
         'Missing',
@@ -19,8 +25,8 @@ class LidarrNavigationBar extends StatelessWidget {
       ];
 
   const LidarrNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -29,6 +35,7 @@ class LidarrNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

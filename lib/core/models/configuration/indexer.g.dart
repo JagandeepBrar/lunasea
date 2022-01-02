@@ -17,11 +17,11 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return IndexerHiveObject(
-      displayName: fields[0] as String,
-      host: fields[1] as String,
-      apiKey: fields[2] as String,
-      headers: (fields[3] as Map)?.cast<dynamic, dynamic>(),
-      icon: fields[4] as LunaIndexerIcon,
+      displayName: fields[0] as String?,
+      host: fields[1] as String?,
+      apiKey: fields[2] as String?,
+      headers: (fields[3] as Map?)?.cast<dynamic, dynamic>(),
+      icon: fields[4] as LunaIndexerIcon?,
     );
   }
 

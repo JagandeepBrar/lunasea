@@ -8,23 +8,24 @@ class SettingsConfigurationExternalModulesEditRouter
       : super('/settings/configuration/externalmodules/edit/:moduleid');
 
   @override
-  _Widget widget({
-    @required int moduleId,
-  }) =>
+  _Widget widget([
+    int moduleId = -1,
+  ]) =>
       _Widget(moduleId: moduleId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int moduleId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(moduleId: moduleId));
+    BuildContext context, [
+    int moduleId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(moduleId));
 
   @override
-  String route({
-    @required int moduleId,
-  }) =>
-      super.fullRoute.replaceFirst(':moduleid', moduleId?.toString() ?? -1);
+  String route([
+    int moduleId = -1,
+  ]) {
+    return super.fullRoute.replaceFirst(':moduleid', moduleId.toString());
+  }
 
   @override
   void defineRoute(FluroRouter router) {
@@ -32,7 +33,7 @@ class SettingsConfigurationExternalModulesEditRouter
       router,
       (context, params) {
         int moduleId = (params['moduleid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['moduleid'][0]) ?? -1)
+            ? (int.tryParse(params['moduleid']![0]) ?? -1)
             : -1;
         return _Widget(moduleId: moduleId);
       },
@@ -44,8 +45,8 @@ class _Widget extends StatefulWidget {
   final int moduleId;
 
   const _Widget({
-    Key key,
-    @required this.moduleId,
+    Key? key,
+    required this.moduleId,
   }) : super(key: key);
 
   @override
@@ -54,7 +55,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ExternalModuleHiveObject _module;
+  ExternalModuleHiveObject? _module;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     }
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
@@ -92,8 +93,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             if (result) {
               showLunaSuccessSnackBar(
                   title: 'settings.DeleteModuleSuccess'.tr(),
-                  message: _module.displayName);
-              _module.delete();
+                  message: _module!.displayName);
+              _module!.delete();
               Navigator.of(context).pop();
             }
           },
@@ -107,7 +108,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       valueListenable: Database.externalModulesBox.listenable(
         keys: [widget.moduleId],
       ),
-      builder: (context, _, __) {
+      builder: (context, dynamic _, __) {
         if (!Database.externalModulesBox.containsKey(widget.moduleId))
           return Container();
         _module = Database.externalModulesBox.get(widget.moduleId);
@@ -123,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayNameTile() {
-    String _displayName = _module.displayName ?? '';
+    String _displayName = _module!.displayName ?? '';
     return LunaBlock(
       title: 'settings.DisplayName'.tr(),
       body: [
@@ -138,14 +139,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           'settings.DisplayName'.tr(),
           prefill: _displayName,
         );
-        if (values.item1) _module.displayName = values.item2;
-        _module.save();
+        if (values.item1) _module!.displayName = values.item2;
+        _module!.save();
       },
     );
   }
 
   Widget _hostTile() {
-    String _host = _module.host ?? '';
+    String _host = _module!.host ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [
@@ -158,8 +159,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           context,
           prefill: _host,
         );
-        if (values.item1) _module.host = values.item2;
-        _module.save();
+        if (values.item1) _module!.host = values.item2;
+        _module!.save();
       },
     );
   }

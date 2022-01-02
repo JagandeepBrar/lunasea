@@ -4,12 +4,12 @@ import 'package:lunasea/modules/search.dart';
 
 class SearchSubcategoryAllTile extends StatelessWidget {
   const SearchSubcategoryAllTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Selector<SearchState, NewznabCategoryData>(
+    return Selector<SearchState, NewznabCategoryData?>(
       selector: (_, state) => state.activeCategory,
       builder: (context, category, _) => LunaBlock(
         title: 'search.AllSubcategories'.tr(),

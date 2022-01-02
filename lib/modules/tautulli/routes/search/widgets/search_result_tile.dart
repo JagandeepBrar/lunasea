@@ -7,9 +7,9 @@ class TautulliSearchResultTile extends StatefulWidget {
   final TautulliMediaType mediaType;
 
   const TautulliSearchResultTile({
-    Key key,
-    @required this.result,
-    @required this.mediaType,
+    Key? key,
+    required this.result,
+    required this.mediaType,
   }) : super(key: key);
 
   @override
@@ -51,11 +51,11 @@ class _State extends State<TautulliSearchResultTile> {
       case TautulliMediaType.EPISODE:
       case TautulliMediaType.ALBUM:
       case TautulliMediaType.TRACK:
-        _text = widget.result?.parentTitle ?? '';
+        _text = widget.result.parentTitle ?? '';
         break;
       case TautulliMediaType.COLLECTION:
         _text =
-            '${widget.result?.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${widget.result?.maxYear ?? 0}';
+            '${widget.result.minYear ?? 0} ${LunaUI.TEXT_EMDASH} ${widget.result.maxYear ?? 0}';
         break;
       default:
         break;
@@ -75,7 +75,7 @@ class _State extends State<TautulliSearchResultTile> {
 
   Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
         context,
-        ratingKey: widget.result.ratingKey,
-        mediaType: widget.mediaType,
+        widget.result.ratingKey!,
+        widget.mediaType,
       );
 }

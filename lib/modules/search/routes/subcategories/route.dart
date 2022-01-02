@@ -26,7 +26,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -49,7 +49,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return Selector<SearchState, NewznabCategoryData>(
+    return Selector<SearchState, NewznabCategoryData?>(
       selector: (_, state) => state.activeCategory,
       builder: (context, category, child) {
         List<NewznabSubcategoryData> subcategories =

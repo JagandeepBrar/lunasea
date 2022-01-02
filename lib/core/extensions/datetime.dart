@@ -10,7 +10,6 @@ extension DateTimeExtension on DateTime {
   ///
   /// Compares to [DateTime.now().toLocal()] to calculate the age.
   String get lunaAge {
-    if (this == null) return 'lunasea.Unknown'.tr();
     Duration diff = DateTime.now().toLocal().difference(this);
     if (diff.inSeconds < 10) return 'Just Now';
     if (diff.inDays >= 1) return '${this.lunaDaysDifference} Ago';
@@ -25,7 +24,6 @@ extension DateTimeExtension on DateTime {
   ///
   /// Compares to [DateTime.now()] to calculate the difference.
   String get lunaDaysDifference {
-    if (this == null) return null;
     Duration diff = this.difference(DateTime.now());
     int absoluteDays = diff.inDays.abs();
     if (absoluteDays == 0) return 'Today';
@@ -71,7 +69,7 @@ extension DateTimeExtension on DateTime {
     bool shortMonth = false,
   }) {
     String _format = shortMonth ? 'MMM dd, y' : 'MMMM dd, y';
-    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad();
+    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad()!;
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'HH:mm' : 'hh:mm';
     _format += showSeconds ? ':ss' : '';
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? '' : ' a';

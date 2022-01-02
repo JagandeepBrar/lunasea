@@ -32,14 +32,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
   }
 
   @override
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       key: _refreshKey,
       onRefresh: _refresh,
       child: Selector<TautulliState, Future<List<TautulliRecentlyAdded>>>(
-        selector: (_, state) => state.recentlyAdded,
+        selector: (_, state) => state.recentlyAdded!,
         builder: (context, stats, _) => FutureBuilder(
           future: stats,
           builder:
@@ -69,7 +69,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _list(snapshot.data);
             return const LunaLoader();
@@ -79,7 +79,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(List<TautulliRecentlyAdded> added) {
+  Widget _list(List<TautulliRecentlyAdded>? added) {
     if ((added?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Content Found',
@@ -88,7 +88,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: added.length,
+      itemCount: added!.length,
       itemBuilder: (context, index) =>
           TautulliRecentlyAddedContentTile(recentlyAdded: added[index]),
     );

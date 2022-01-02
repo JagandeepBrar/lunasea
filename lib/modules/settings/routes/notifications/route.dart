@@ -25,7 +25,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -44,7 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         FutureBuilder(
           future: LunaFirebaseMessaging().areNotificationsAllowed(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
-            if (snapshot.hasData && !snapshot.data)
+            if (snapshot.hasData && !snapshot.data!)
               return const LunaBanner(
                 headerText: 'Not Authorized',
                 bodyText:

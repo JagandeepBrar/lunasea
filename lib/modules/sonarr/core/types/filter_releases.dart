@@ -14,7 +14,7 @@ enum SonarrReleasesFilter {
 }
 
 extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
-  SonarrReleasesFilter fromKey(String key) {
+  SonarrReleasesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return SonarrReleasesFilter.ALL;
@@ -36,7 +36,6 @@ extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
       case SonarrReleasesFilter.REJECTED:
         return 'rejected';
     }
-    throw Exception('Invalid SonarrReleasesFilter');
   }
 
   String get readable {
@@ -48,7 +47,6 @@ extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
       case SonarrReleasesFilter.REJECTED:
         return 'sonarr.Rejected'.tr();
     }
-    throw Exception('Invalid SonarrReleasesFilter');
   }
 
   List<SonarrRelease> filter(List<SonarrRelease> releases) =>
@@ -68,11 +66,10 @@ class _Filterer {
       case SonarrReleasesFilter.REJECTED:
         return _rejected(releases);
     }
-    throw Exception('sorting type not found');
   }
 
   List<SonarrRelease> _approved(List<SonarrRelease> releases) =>
-      releases.where((element) => element.approved).toList();
+      releases.where((element) => element.approved!).toList();
   List<SonarrRelease> _rejected(List<SonarrRelease> releases) =>
-      releases.where((element) => !element.approved).toList();
+      releases.where((element) => !element.approved!).toList();
 }

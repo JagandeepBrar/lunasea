@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetStatisticsData {
@@ -13,15 +12,15 @@ class NZBGetStatisticsData {
   bool scanPaused;
 
   NZBGetStatisticsData({
-    @required this.freeSpaceHigh,
-    @required this.freeSpaceLow,
-    @required this.downloadedHigh,
-    @required this.downloadedLow,
-    @required this.uptimeSeconds,
-    @required this.speedLimit,
-    @required this.serverPaused,
-    @required this.postPaused,
-    @required this.scanPaused,
+    required this.freeSpaceHigh,
+    required this.freeSpaceLow,
+    required this.downloadedHigh,
+    required this.downloadedLow,
+    required this.uptimeSeconds,
+    required this.speedLimit,
+    required this.serverPaused,
+    required this.postPaused,
+    required this.scanPaused,
   });
 
   int get freeSpace {
@@ -33,11 +32,11 @@ class NZBGetStatisticsData {
   }
 
   String get freeSpaceString {
-    return freeSpace?.lunaBytesToString(decimals: 1);
+    return freeSpace.lunaBytesToString(decimals: 1);
   }
 
   String get downloadedString {
-    return downloaded?.lunaBytesToString(decimals: 1);
+    return downloaded.lunaBytesToString(decimals: 1);
   }
 
   String get uptimeString {
@@ -45,7 +44,7 @@ class NZBGetStatisticsData {
   }
 
   String get speedLimitString {
-    String limit = speedLimit?.lunaBytesToString();
+    String limit = speedLimit.lunaBytesToString();
     return limit == '0.00 B' ? 'No Limit Set' : '$limit/s';
   }
 }

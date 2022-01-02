@@ -38,10 +38,9 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
       case SonarrMonitorStatus.FUTURE:
         return 'Future';
     }
-    throw Exception('unknown name');
   }
 
-  String get key {
+  String? get key {
     switch (this) {
       case SonarrMonitorStatus.ALL:
         return 'all';
@@ -62,7 +61,7 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
     }
   }
 
-  SonarrMonitorStatus fromKey(String key) {
+  SonarrMonitorStatus? fromKey(String key) {
     switch (key) {
       case 'all':
         return SonarrMonitorStatus.ALL;
@@ -84,7 +83,7 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
   }
 
   void process(List<SonarrSeriesSeason> season) {
-    if (season?.isEmpty ?? true) return;
+    if (season.isEmpty) return;
     switch (this) {
       case SonarrMonitorStatus.ALL:
         _all(season);

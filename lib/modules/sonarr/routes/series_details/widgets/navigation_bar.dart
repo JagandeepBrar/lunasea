@@ -17,11 +17,11 @@ class SonarrSeriesDetailsNavigationBar extends StatelessWidget {
     'sonarr.History'.tr(),
   ];
 
-  final PageController pageController;
+  final PageController? pageController;
 
   const SonarrSeriesDetailsNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

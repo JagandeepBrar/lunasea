@@ -7,6 +7,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/gestures.dart';
@@ -72,9 +74,9 @@ class FlutterReorderableListView extends StatefulWidget {
   ///   * [ReorderableListView.builder], which allows you to build a reorderable
   ///     list where the items are built as needed when scrolling the list.
   FlutterReorderableListView({
-    Key key,
-    @required List<Widget> children,
-    @required this.onReorder,
+    Key? key,
+    required List<Widget> children,
+    required this.onReorder,
     this.proxyDecorator,
     this.buildDefaultDragHandles = true,
     this.padding,
@@ -125,10 +127,10 @@ class FlutterReorderableListView extends StatefulWidget {
   ///   * [ReorderableListView], which allows you to build a reorderable
   ///     list with all the items passed into the constructor.
   const FlutterReorderableListView.builder({
-    Key key,
-    @required this.itemBuilder,
-    @required this.itemCount,
-    @required this.onReorder,
+    Key? key,
+    required this.itemBuilder,
+    required this.itemCount,
+    required this.onReorder,
     this.proxyDecorator,
     this.buildDefaultDragHandles = true,
     this.padding,
@@ -161,7 +163,7 @@ class FlutterReorderableListView extends StatefulWidget {
   final ReorderCallback onReorder;
 
   /// {@macro flutter.widgets.reorderable_list.proxyDecorator}
-  final ReorderItemProxyDecorator proxyDecorator;
+  final ReorderItemProxyDecorator? proxyDecorator;
 
   /// If true: on desktop platforms, a drag handle is stacked over the
   /// center of each item's trailing edge; on mobile platforms, a long
@@ -234,12 +236,12 @@ class FlutterReorderableListView extends StatefulWidget {
   final bool buildDefaultDragHandles;
 
   /// {@macro flutter.widgets.reorderable_list.padding}
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   /// A non-reorderable header item to show before the items of the list.
   ///
   /// If null, no header will appear before the list.
-  final Widget header;
+  final Widget? header;
 
   /// {@macro flutter.widgets.scroll_view.scrollDirection}
   final Axis scrollDirection;
@@ -248,16 +250,16 @@ class FlutterReorderableListView extends StatefulWidget {
   final bool reverse;
 
   /// {@macro flutter.widgets.scroll_view.controller}
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   /// {@macro flutter.widgets.scroll_view.primary}
 
   /// Defaults to true when [scrollDirection] is [Axis.vertical] and
   /// [scrollController] is null.
-  final bool primary;
+  final bool? primary;
 
   /// {@macro flutter.widgets.scroll_view.physics}
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// {@macro flutter.widgets.scroll_view.shrinkWrap}
   final bool shrinkWrap;
@@ -266,7 +268,7 @@ class FlutterReorderableListView extends StatefulWidget {
   final double anchor;
 
   /// {@macro flutter.rendering.RenderViewportBase.cacheExtent}
-  final double cacheExtent;
+  final double? cacheExtent;
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
@@ -277,7 +279,7 @@ class FlutterReorderableListView extends StatefulWidget {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   /// {@macro flutter.widgets.scrollable.restorationId}
-  final String restorationId;
+  final String? restorationId;
 
   /// {@macro flutter.material.Material.clipBehavior}
   ///
@@ -367,7 +369,7 @@ class _ReorderableListViewState extends State<FlutterReorderableListView> {
     //   _ReorderableItem so the widget versions can have them as well.
     final Widget itemWithSemantics = _wrapWithSemantics(item, index);
     final Key itemGlobalKey =
-        _ReorderableListViewChildGlobalKey(item.key, this);
+        _ReorderableListViewChildGlobalKey(item.key!, this);
 
     if (widget.buildDefaultDragHandles) {
       switch (Theme.of(context).platform) {
@@ -417,7 +419,6 @@ class _ReorderableListViewState extends State<FlutterReorderableListView> {
                 ],
               );
           }
-          break;
         case TargetPlatform.iOS:
         case TargetPlatform.android:
           return ReorderableDelayedDragStartListener(
@@ -437,9 +438,9 @@ class _ReorderableListViewState extends State<FlutterReorderableListView> {
   Widget _proxyDecorator(Widget child, int index, Animation<double> animation) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         final double animValue = Curves.easeInOut.transform(animation.value);
-        final double elevation = lerpDouble(0, 6, animValue);
+        final double elevation = lerpDouble(0, 6, animValue)!;
         return Material(
           child: child,
           elevation: elevation,
@@ -459,8 +460,8 @@ class _ReorderableListViewState extends State<FlutterReorderableListView> {
     // and add the padding from the bottom and top to the sliver list. If header if present
     // we only padd top of the header and bottom of the sliver list (or the equivalent for other axis directions).
     final EdgeInsets padding = widget.padding ?? EdgeInsets.zero;
-    EdgeInsets outerPadding;
-    EdgeInsets listPadding;
+    late EdgeInsets outerPadding;
+    late EdgeInsets listPadding;
     switch (widget.scrollDirection) {
       case Axis.horizontal:
         if (widget.reverse) {

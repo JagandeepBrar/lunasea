@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 extension LunaSonarrProtocolExtension on SonarrProtocol {
   Color lunaProtocolColor({
-    SonarrRelease release,
+    SonarrRelease? release,
   }) {
     if (this == SonarrProtocol.USENET) return LunaColours.accent;
     if (release == null) return LunaColours.blue;
@@ -22,6 +22,5 @@ extension LunaSonarrProtocolExtension on SonarrProtocol {
       case SonarrProtocol.TORRENT:
         return 'sonarr.Torrent'.tr();
     }
-    throw Exception('Invalid SonarrProtocol');
   }
 }

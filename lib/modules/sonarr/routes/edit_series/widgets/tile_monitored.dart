@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditMonitoredTile extends StatelessWidget {
   const SonarrSeriesEditMonitoredTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

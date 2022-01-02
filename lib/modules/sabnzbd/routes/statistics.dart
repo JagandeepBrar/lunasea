@@ -6,7 +6,7 @@ class SABnzbdStatistics extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd/statistics';
 
   const SABnzbdStatistics({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,8 +16,8 @@ class SABnzbdStatistics extends StatefulWidget {
 class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<SABnzbdStatisticsData> _future;
-  SABnzbdStatisticsData _data;
+  Future<SABnzbdStatisticsData>? _future;
+  SABnzbdStatisticsData? _data;
 
   @override
   void initState() {
@@ -28,12 +28,12 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
         body: _body,
       );
 
   Future<SABnzbdStatisticsData> _fetch() async =>
-      SABnzbdAPI.from(Database.currentProfileObject).getStatistics();
+      SABnzbdAPI.from(Database.currentProfileObject!).getStatistics();
 
   Future<void> _refresh() async {
     if (mounted)
@@ -53,7 +53,7 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
         onRefresh: _refresh,
         child: FutureBuilder(
           future: _future,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<SABnzbdStatisticsData> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
@@ -86,13 +86,14 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
   Widget _status() {
     return LunaTableCard(
       content: [
-        LunaTableContent(title: 'Uptime', body: _data.uptime),
-        LunaTableContent(title: 'Version', body: _data.version),
+        LunaTableContent(title: 'Uptime', body: _data!.uptime),
+        LunaTableContent(title: 'Version', body: _data!.version),
         LunaTableContent(
-            title: 'Temp. Space', body: '${_data.tempFreespace.toString()} GB'),
+            title: 'Temp. Space',
+            body: '${_data!.tempFreespace.toString()} GB'),
         LunaTableContent(
             title: 'Final Space',
-            body: '${_data.finalFreespace.toString()} GB'),
+            body: '${_data!.finalFreespace.toString()} GB'),
       ],
     );
   }
@@ -101,19 +102,19 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'Daily', body: _data.dailyUsage.lunaBytesToString()),
+            title: 'Daily', body: _data!.dailyUsage.lunaBytesToString()),
         LunaTableContent(
-            title: 'Weekly', body: _data.weeklyUsage.lunaBytesToString()),
+            title: 'Weekly', body: _data!.weeklyUsage.lunaBytesToString()),
         LunaTableContent(
-            title: 'Monthly', body: _data.monthlyUsage.lunaBytesToString()),
+            title: 'Monthly', body: _data!.monthlyUsage.lunaBytesToString()),
         LunaTableContent(
-            title: 'Total', body: _data.totalUsage.lunaBytesToString()),
+            title: 'Total', body: _data!.totalUsage.lunaBytesToString()),
       ],
     );
   }
 
   List<Widget> _serverStatistics() {
-    return _data.servers
+    return _data!.servers
         .map((server) => [
               LunaHeader(text: server.name),
               LunaTableCard(

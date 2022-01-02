@@ -35,7 +35,7 @@ class _State extends State<_Widget>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -53,7 +53,7 @@ class _State extends State<_Widget>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<TautulliState, Future<List<TautulliSyncedItem>>>(
-        selector: (_, state) => state.syncedItems,
+        selector: (_, state) => state.syncedItems!,
         builder: (context, synced, _) => FutureBuilder(
           future: synced,
           builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
@@ -64,7 +64,7 @@ class _State extends State<_Widget>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _list(snapshot.data);
             return const LunaLoader();
@@ -74,16 +74,16 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _list(List<TautulliSyncedItem> syncedItems) {
+  Widget _list(List<TautulliSyncedItem>? syncedItems) {
     if ((syncedItems?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Synced Items Found',
         buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: syncedItems.length,
+      itemCount: syncedItems!.length,
       itemBuilder: (context, index) =>
           TautulliSyncedItemTile(syncedItem: syncedItems[index]),
     );

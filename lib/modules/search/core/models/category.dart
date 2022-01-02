@@ -4,12 +4,12 @@ import 'package:lunasea/modules/search.dart';
 
 class NewznabCategoryData {
   int id;
-  String name;
+  String? name;
   List<NewznabSubcategoryData> subcategories = [];
 
   NewznabCategoryData({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 
   @override
@@ -35,6 +35,6 @@ class NewznabCategoryData {
 
   String get subcategoriesTitleList {
     if (subcategories.isEmpty) return 'search.NoSubcategoriesFound'.tr();
-    return subcategories.map<String>((subcat) => subcat.name).join(', ');
+    return subcategories.map<String?>((subcat) => subcat.name).join(', ');
   }
 }

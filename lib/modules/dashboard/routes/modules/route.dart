@@ -5,7 +5,7 @@ import 'package:lunasea/modules/wake_on_lan.dart';
 
 class DashboardModulesRoute extends StatefulWidget {
   const DashboardModulesRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class _State extends State<DashboardModulesRoute>
   }
 
   Widget _list() {
-    if (!(Database.currentProfileObject.anythingEnabled)) {
+    if (!(Database.currentProfileObject!.anythingEnabled)) {
       return LunaMessage(
         text: 'lunasea.NoModulesEnabled'.tr(),
         buttonText: 'lunasea.GoToSettings'.tr(),

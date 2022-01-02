@@ -38,8 +38,6 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         return 'size';
       case SonarrReleasesSorting.WORD_SCORE:
         return 'word_score';
-      default:
-        return null;
     }
   }
 
@@ -59,12 +57,10 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         return 'Size';
       case SonarrReleasesSorting.WORD_SCORE:
         return 'sonarr.WordScore'.tr();
-      default:
-        return null;
     }
   }
 
-  SonarrReleasesSorting fromKey(String key) {
+  SonarrReleasesSorting? fromKey(String? key) {
     switch (key) {
       case 'age':
         return SonarrReleasesSorting.AGE;
@@ -111,23 +107,22 @@ class _Sorter {
       case SonarrReleasesSorting.WORD_SCORE:
         return _wordScore(releases, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<SonarrRelease> _alphabetical(
       List<SonarrRelease> releases, bool ascending) {
     ascending
         ? releases.sort(
-            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()))
+            (a, b) => a.title!.toLowerCase().compareTo(b.title!.toLowerCase()))
         : releases.sort(
-            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+            (a, b) => b.title!.toLowerCase().compareTo(a.title!.toLowerCase()));
     return releases;
   }
 
   List<SonarrRelease> _age(List<SonarrRelease> releases, bool ascending) {
     ascending
-        ? releases.sort((a, b) => a.ageHours.compareTo(b.ageHours))
-        : releases.sort((a, b) => b.ageHours.compareTo(a.ageHours));
+        ? releases.sort((a, b) => a.ageHours!.compareTo(b.ageHours!))
+        : releases.sort((a, b) => b.ageHours!.compareTo(a.ageHours!));
     return releases;
   }
 

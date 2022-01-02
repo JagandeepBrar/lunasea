@@ -33,7 +33,7 @@ abstract class SearchPageRouter extends LunaPageRouter {
   @override
   void withParameterRouteDefinition(
     FluroRouter router,
-    Widget Function(BuildContext, Map<String, List<String>>) handlerFunc, {
+    Widget Function(BuildContext?, Map<String, List<String>>) handlerFunc, {
     bool homeRoute = false,
   }) {
     router.define(

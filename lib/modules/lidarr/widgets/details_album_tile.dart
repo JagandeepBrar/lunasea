@@ -7,9 +7,9 @@ class LidarrDetailsAlbumTile extends StatefulWidget {
   final Function refreshState;
 
   const LidarrDetailsAlbumTile({
-    Key key,
-    @required this.data,
-    @required this.refreshState,
+    Key? key,
+    required this.data,
+    required this.refreshState,
   }) : super(key: key);
 
   @override
@@ -22,7 +22,8 @@ class _State extends State<LidarrDetailsAlbumTile> {
     return LunaBlock(
       title: widget.data.title,
       disabled: !widget.data.monitored,
-      posterHeaders: Database.currentProfileObject.getLidarr()['headers'] ?? {},
+      posterHeaders:
+          Database.currentProfileObject!.getLidarr()['headers'] ?? {},
       posterPlaceholderIcon: LunaIcons.MUSIC,
       posterIsSquare: true,
       posterUrl: widget.data.albumCoverURI(),
@@ -47,7 +48,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
   }
 
   Future<void> _toggleMonitoredStatus() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
     await _api
         .toggleAlbumMonitored(widget.data.albumID, !widget.data.monitored)
         .then((_) {
@@ -57,11 +58,14 @@ class _State extends State<LidarrDetailsAlbumTile> {
       showLunaSuccessSnackBar(
           title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring',
           message: widget.data.title);
-    }).catchError((error) => showLunaErrorSnackBar(
-            title: widget.data.monitored
-                ? 'Failed to Stop Monitoring'
-                : 'Failed to Monitor',
-            error: error));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: widget.data.monitored
+            ? 'Failed to Stop Monitoring'
+            : 'Failed to Monitor',
+        error: error,
+      );
+    });
   }
 
   Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(

@@ -6,8 +6,8 @@ class SonarrReleasesTile extends StatefulWidget {
   final SonarrRelease release;
 
   const SonarrReleasesTile({
-    @required this.release,
-    Key key,
+    required this.release,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _State extends State<SonarrReleasesTile> {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: widget.release.title,
+      title: widget.release.title!,
       collapsedSubtitles: [
         _subtitle1(),
         _subtitle2(),
@@ -37,7 +37,7 @@ class _State extends State<SonarrReleasesTile> {
       icon: widget.release.lunaTrailingIcon,
       color: widget.release.lunaTrailingColor,
       onPressed: () async =>
-          widget.release.rejected ? _showWarnings() : _startDownload(),
+          widget.release.rejected! ? _showWarnings() : _startDownload(),
       onLongPress: _startDownload,
       loadingState: _downloadState,
     );
@@ -49,7 +49,7 @@ class _State extends State<SonarrReleasesTile> {
         TextSpan(
           text: widget.release.lunaProtocol,
           style: TextStyle(
-            color: widget.release.protocol.lunaProtocolColor(
+            color: widget.release.protocol!.lunaProtocolColor(
               release: widget.release,
             ),
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -64,7 +64,7 @@ class _State extends State<SonarrReleasesTile> {
   }
 
   TextSpan _subtitle2() {
-    String _preferredWordScore =
+    String? _preferredWordScore =
         widget.release.lunaPreferredWordScore(nullOnEmpty: true);
     return TextSpan(
       children: [
@@ -90,14 +90,14 @@ class _State extends State<SonarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.lunaReadable(),
-        backgroundColor: widget.release.protocol.lunaProtocolColor(
+        text: widget.release.protocol!.lunaReadable(),
+        backgroundColor: widget.release.protocol!.lunaProtocolColor(
           release: widget.release,
         ),
       ),
       if (widget.release.lunaPreferredWordScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(
-          text: widget.release.lunaPreferredWordScore(),
+          text: widget.release.lunaPreferredWordScore()!,
           backgroundColor: LunaColours.purple,
         ),
     ];
@@ -147,7 +147,7 @@ class _State extends State<SonarrReleasesTile> {
         onTap: _startDownload,
         loadingState: _downloadState,
       ),
-      if (widget.release.rejected)
+      if (widget.release.rejected!)
         LunaButton.text(
           text: 'sonarr.Rejected'.tr(),
           icon: Icons.report_outlined,

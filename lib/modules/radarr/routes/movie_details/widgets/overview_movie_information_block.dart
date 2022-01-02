@@ -3,15 +3,15 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
-  final RadarrMovie movie;
-  final RadarrQualityProfile qualityProfile;
+  final RadarrMovie? movie;
+  final RadarrQualityProfile? qualityProfile;
   final List<RadarrTag> tags;
 
   const RadarrMovieDetailsOverviewInformationBlock({
-    Key key,
-    @required this.movie,
-    @required this.qualityProfile,
-    @required this.tags,
+    Key? key,
+    required this.movie,
+    required this.qualityProfile,
+    required this.tags,
   }) : super(key: key);
 
   @override

@@ -6,8 +6,8 @@ class TautulliUserTile extends StatelessWidget {
   final TautulliTableUser user;
 
   const TautulliUserTile({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class TautulliUserTile extends StatelessWidget {
       ],
       onTap: () async => TautulliUserDetailsRouter().navigateTo(
         context,
-        userId: user.userId,
+        user.userId!,
       ),
     );
   }

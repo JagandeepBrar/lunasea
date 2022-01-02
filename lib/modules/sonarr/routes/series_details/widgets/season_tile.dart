@@ -1,17 +1,18 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
   final SonarrSeriesSeason season;
-  final int seriesId;
+  final int? seriesId;
 
   const SonarrSeriesDetailsSeasonTile({
-    Key key,
-    @required this.season,
-    @required this.seriesId,
+    Key? key,
+    required this.season,
+    required this.seriesId,
   }) : super(key: key);
 
   @override
@@ -23,16 +24,15 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.season == null) return const SizedBox(height: 0.0);
     return LunaBlock(
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      posterUrl: widget.season?.images
-              ?.firstWhere((e) => e.coverType == 'poster', orElse: () => null)
+      posterUrl: widget.season.images
+              ?.firstWhereOrNull((e) => e.coverType == 'poster')
               ?.url ??
           '',
       posterHeaders: context.read<SonarrState>().headers,
       title: widget.season.lunaTitle,
-      disabled: !widget.season.monitored,
+      disabled: !widget.season.monitored!,
       body: [
         _subtitle1(),
         _subtitle2(),
@@ -46,15 +46,15 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
 
   Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
-        seriesId: widget.seriesId,
-        seasonNumber: widget.season.seasonNumber,
+        widget.seriesId ?? -1,
+        widget.season.seasonNumber ?? -1,
       );
 
   Future<void> _onLongPress() async {
-    Tuple2<bool, SonarrSeasonSettingsType> result = await SonarrDialogs()
+    Tuple2<bool, SonarrSeasonSettingsType?> result = await SonarrDialogs()
         .seasonSettings(context, widget.season.seasonNumber);
     if (result.item1)
-      result.item2.execute(
+      result.item2!.execute(
         context,
         widget.seriesId,
         widget.season.seasonNumber,
@@ -74,7 +74,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
 
   TextSpan _subtitle2() {
     return TextSpan(
-      text: widget.season?.statistics?.sizeOnDisk
+      text: widget.season.statistics?.sizeOnDisk
               ?.lunaBytesToString(decimals: 1) ??
           LunaUI.TEXT_EMDASH,
     );
@@ -91,7 +91,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       text: [
         '${widget.season.lunaPercentageComplete}%',
         LunaUI.TEXT_BULLET,
-        '${widget?.season?.statistics?.episodeFileCount ?? 0}/${widget?.season?.statistics?.episodeCount ?? 0}',
+        '${widget.season.statistics?.episodeFileCount ?? 0}/${widget.season.statistics?.episodeCount ?? 0}',
         'sonarr.EpisodesAvailable'.tr(),
       ].join(' '),
     );
@@ -103,7 +103,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     }
 
     return LunaIconButton(
-      icon: widget.season.monitored
+      icon: widget.season.monitored!
           ? Icons.turned_in_rounded
           : Icons.turned_in_not_rounded,
       color: LunaColours.white,

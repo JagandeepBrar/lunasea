@@ -17,9 +17,9 @@ class LidarrRootFolderAdapter extends TypeAdapter<LidarrRootFolder> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LidarrRootFolder(
-      id: fields[0] as int,
-      path: fields[1] as String,
-      freeSpace: fields[2] as int,
+      id: fields[0] as int?,
+      path: fields[1] as String?,
+      freeSpace: fields[2] as int?,
     );
   }
 

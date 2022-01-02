@@ -45,7 +45,7 @@ class LunaDatabase extends LunaModuleDatabase {
         // Non-primitive values
         case LunaDatabaseValue.SELECTED_BROWSER:
           data[value.key] =
-              (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key;
+              (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser?).key;
           break;
         case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
           data[value.key] =
@@ -53,8 +53,8 @@ class LunaDatabase extends LunaModuleDatabase {
           break;
         case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
           data[value.key] = LunaDrawer.moduleOrderedList()
-              ?.map<String>((module) => module.key)
-              ?.toList();
+              .map<String>((module) => module.key)
+              .toList();
           break;
         // Primitive values
         default:
@@ -66,9 +66,9 @@ class LunaDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      LunaDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      LunaDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primitive values
@@ -80,9 +80,9 @@ class LunaDatabase extends LunaModuleDatabase {
             break;
           case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
             value.put(
-              (config[key] as List)
+              (config[key] as List?)
                   ?.map((item) => LunaModule.DASHBOARD.fromKey(item))
-                  ?.toList(),
+                  .toList(),
             );
             break;
           // Primitive values
@@ -94,7 +94,7 @@ class LunaDatabase extends LunaModuleDatabase {
   }
 
   @override
-  LunaDatabaseValue valueFromKey(String key) {
+  LunaDatabaseValue? valueFromKey(String key) {
     for (LunaDatabaseValue value in LunaDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -125,8 +125,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -176,7 +176,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return value is bool;
     }
-    throw Exception('Invalid LunaDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -220,6 +219,5 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return false;
     }
-    throw Exception('Invalid LunaDatabaseValue');
   }
 }

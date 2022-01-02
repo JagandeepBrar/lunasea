@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -100,8 +100,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         body: [TextSpan(text: (_db.data as SonarrSeriesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          List<String> titles = SonarrSeriesSorting.values
-              .map<String>((sorting) => sorting.readable)
+          List<String?> titles = SonarrSeriesSorting.values
+              .map<String?>((sorting) => sorting.readable)
               .toList();
           List<IconData> icons = List.filled(titles.length, LunaIcons.SORT);
 
@@ -179,8 +179,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         body: [TextSpan(text: (_db.data as SonarrReleasesSorting).readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
-          List<String> titles = SonarrReleasesSorting.values
-              .map<String>((sorting) => sorting.readable)
+          List<String?> titles = SonarrReleasesSorting.values
+              .map<String?>((sorting) => sorting.readable)
               .toList();
           List<IconData> icons = List.filled(titles.length, LunaIcons.SORT);
 

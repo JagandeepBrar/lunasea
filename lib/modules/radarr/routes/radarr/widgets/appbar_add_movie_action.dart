@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAppBarAddMoviesAction extends StatelessWidget {
   const RadarrAppBarAddMoviesAction({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -12,10 +12,7 @@ class RadarrAppBarAddMoviesAction extends StatelessWidget {
     return LunaIconButton(
       icon: Icons.add_rounded,
       iconSize: LunaUI.ICON_SIZE,
-      onPressed: () async => RadarrAddMovieRouter().navigateTo(
-        context,
-        query: '',
-      ),
+      onPressed: () async => RadarrAddMovieRouter().navigateTo(context),
     );
   }
 }

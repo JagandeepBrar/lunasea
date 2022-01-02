@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, box, _) => LunaListView(
+      builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
           _host(),
@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.sonarrHost ?? '';
+    String host = Database.currentProfileObject!.sonarrHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -75,8 +75,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: host,
         );
         if (_values.item1) {
-          Database.currentProfileObject.sonarrHost = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.sonarrHost = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<SonarrState>().reset();
         }
       },
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.sonarrKey ?? '';
+    String apiKey = Database.currentProfileObject!.sonarrKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -102,8 +102,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: apiKey,
         );
         if (_values.item1) {
-          Database.currentProfileObject.sonarrKey = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.sonarrKey = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<SonarrState>().reset();
         }
       },
@@ -115,15 +115,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject;
-        if (_profile.sonarrHost == null || _profile.sonarrHost.isEmpty) {
+        ProfileHiveObject _profile = Database.currentProfileObject!;
+        if (_profile.sonarrHost == null || _profile.sonarrHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Sonarr',
           );
           return;
         }
-        if (_profile.sonarrKey == null || _profile.sonarrKey.isEmpty) {
+        if (_profile.sonarrKey == null || _profile.sonarrKey!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Sonarr',
@@ -131,8 +131,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Sonarr(
-          host: _profile.sonarrHost,
-          apiKey: _profile.sonarrKey,
+          host: _profile.sonarrHost!,
+          apiKey: _profile.sonarrKey!,
           headers: Map<String, dynamic>.from(
             _profile.sonarrHeaders ?? {},
           ),

@@ -6,8 +6,8 @@ class TautulliUserDetailsIPAddresses extends StatefulWidget {
   final TautulliTableUser user;
 
   const TautulliUserDetailsIPAddresses({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -26,14 +26,14 @@ class _State extends State<TautulliUserDetailsIPAddresses>
   @override
   Future<void> loadCallback() async {
     context.read<TautulliState>().setUserIPs(
-          widget.user.userId,
+          widget.user.userId!,
           context
               .read<TautulliState>()
-              .api
+              .api!
               .users
-              .getUserIPs(userId: widget.user.userId),
+              .getUserIPs(userId: widget.user.userId!),
         );
-    await context.read<TautulliState>().userIPs[widget.user.userId];
+    await context.read<TautulliState>().userIPs[widget.user.userId!];
   }
 
   @override
@@ -53,7 +53,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: FutureBuilder(
-        future: context.watch<TautulliState>().userIPs[widget.user.userId],
+        future: context.watch<TautulliState>().userIPs[widget.user.userId!],
         builder: (context, AsyncSnapshot<TautulliUserIPs> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting)
@@ -62,7 +62,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -71,7 +71,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
     );
   }
 
-  Widget _list(TautulliUserIPs ips) {
+  Widget _list(TautulliUserIPs? ips) {
     if ((ips?.ips?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No IPs Found',
@@ -80,13 +80,13 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       );
     return LunaListViewBuilder(
       controller: TautulliUserDetailsNavigationBar.scrollControllers[3],
-      itemCount: ips.ips.length,
-      itemBuilder: (context, index) => _tile(ips.ips[index]),
+      itemCount: ips!.ips!.length,
+      itemBuilder: (context, index) => _tile(ips.ips![index]),
     );
   }
 
   Widget _tile(TautulliUserIPRecord record) {
-    int _count = record.playCount;
+    int? _count = record.playCount;
     return LunaBlock(
       title: record.ipAddress,
       body: [
@@ -106,7 +106,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       backgroundHeaders: context.read<TautulliState>().headers,
       onTap: () async => TautulliIPAddressDetailsRouter().navigateTo(
         context,
-        ipAddress: record.ipAddress,
+        record.ipAddress!,
       ),
     );
   }

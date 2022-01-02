@@ -4,7 +4,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountBackupConfigurationTile extends StatefulWidget {
   const SettingsAccountBackupConfigurationTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -21,7 +21,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static StreamSubscription<List<PurchaseDetails>> purchaseStream;
+  static StreamSubscription<List<PurchaseDetails>>? purchaseStream;
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -81,11 +81,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     if (!LunaInAppPurchases.isAvailable ||
-        (LunaInAppPurchases.donationIAPs?.length ?? 0) == 0)
+        LunaInAppPurchases.donationIAPs.isEmpty) {
       return LunaMessage.goBack(
         context: context,
         text: 'Not Available',
       );
+    }
     return LunaListViewBuilder(
       controller: scrollController,
       itemCount: LunaInAppPurchases.donationIAPs.length,

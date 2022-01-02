@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDialogs {
-  Future<Tuple2<bool, LidarrMonitorStatus>> selectMonitoringOption(
+  Future<Tuple2<bool, LidarrMonitorStatus?>> selectMonitoringOption(
     BuildContext context,
   ) async {
     bool _flag = false;
-    LidarrMonitorStatus _value;
+    LidarrMonitorStatus? _value;
 
     void _setValues(bool flag, LidarrMonitorStatus value) {
       _flag = flag;
@@ -35,7 +35,7 @@ class LidarrDialogs {
   static Future<List<dynamic>> editQualityProfile(
       BuildContext context, List<LidarrQualityProfile> qualities) async {
     bool _flag = false;
-    LidarrQualityProfile _quality;
+    LidarrQualityProfile? _quality;
 
     void _setValues(bool flag, LidarrQualityProfile quality) {
       _flag = flag;
@@ -51,7 +51,7 @@ class LidarrDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: qualities[index].name,
+          text: qualities[index].name!,
           onTap: () => _setValues(true, qualities[index]),
         ),
       ),
@@ -63,7 +63,7 @@ class LidarrDialogs {
   static Future<List<dynamic>> editMetadataProfile(
       BuildContext context, List<LidarrMetadataProfile> metadatas) async {
     bool _flag = false;
-    LidarrMetadataProfile _metadata;
+    LidarrMetadataProfile? _metadata;
 
     void _setValues(bool flag, LidarrMetadataProfile metadata) {
       _flag = flag;
@@ -79,7 +79,7 @@ class LidarrDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.portrait_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: metadatas[index].name,
+          text: metadatas[index].name!,
           onTap: () => _setValues(true, metadatas[index]),
         ),
       ),
@@ -211,7 +211,7 @@ class LidarrDialogs {
   static Future<List<dynamic>> editRootFolder(
       BuildContext context, List<LidarrRootFolder> folders) async {
     bool _flag = false;
-    LidarrRootFolder _folder;
+    LidarrRootFolder? _folder;
 
     void _setValues(bool flag, LidarrRootFolder folder) {
       _flag = flag;
@@ -225,7 +225,7 @@ class LidarrDialogs {
       content: List.generate(
         folders.length,
         (index) => LunaDialog.tile(
-          text: folders[index].path,
+          text: folders[index].path!,
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
@@ -233,7 +233,7 @@ class LidarrDialogs {
                 fontSize: LunaDialog.BUTTON_SIZE,
               ),
             ],
-          ),
+          ) as RichText?,
           icon: Icons.folder_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, folders[index]),

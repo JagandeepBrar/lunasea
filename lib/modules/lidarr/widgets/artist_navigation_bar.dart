@@ -16,9 +16,14 @@ class LidarrArtistNavigationBar extends StatelessWidget {
     Icons.my_library_music_rounded,
   ];
 
+  static const List<IconData> iconsOutlined = [
+    Icons.subject_outlined,
+    Icons.my_library_music_outlined,
+  ];
+
   const LidarrArtistNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -27,6 +32,7 @@ class LidarrArtistNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

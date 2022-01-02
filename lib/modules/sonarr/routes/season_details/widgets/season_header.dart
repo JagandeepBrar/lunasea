@@ -5,12 +5,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeasonHeader extends StatelessWidget {
   final int seriesId;
-  final int seasonNumber;
+  final int? seasonNumber;
 
   const SonarrSeasonHeader({
-    Key key,
-    @required this.seriesId,
-    @required this.seasonNumber,
+    Key? key,
+    required this.seriesId,
+    required this.seasonNumber,
   }) : super(key: key);
 
   @override
@@ -25,14 +25,15 @@ class SonarrSeasonHeader extends StatelessWidget {
       ),
       onLongPress: () async {
         HapticFeedback.heavyImpact();
-        Tuple2<bool, SonarrSeasonSettingsType> result =
+        Tuple2<bool, SonarrSeasonSettingsType?> result =
             await SonarrDialogs().seasonSettings(context, seasonNumber);
-        if (result.item1)
-          result.item2.execute(
+        if (result.item1) {
+          result.item2!.execute(
             context,
             seriesId,
             seasonNumber,
           );
+        }
       },
     );
   }

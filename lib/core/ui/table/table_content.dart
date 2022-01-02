@@ -7,8 +7,8 @@ enum _Type {
 }
 
 class LunaTableContent extends StatelessWidget {
-  final String title;
-  final String body;
+  final String? title;
+  final String? body;
   final bool bodyIsUrl;
   final int titleFlex;
   final int bodyFlex;
@@ -18,7 +18,7 @@ class LunaTableContent extends StatelessWidget {
   final _Type type;
 
   const LunaTableContent._({
-    Key key,
+    Key? key,
     this.title,
     this.body,
     this.bodyIsUrl = false,
@@ -27,11 +27,11 @@ class LunaTableContent extends StatelessWidget {
     this.titleFlex = 5,
     this.bodyFlex = 10,
     this.spacerSize = LunaUI.DEFAULT_MARGIN_SIZE,
-    @required this.type,
+    required this.type,
   });
 
   factory LunaTableContent.spacer({
-    Key key,
+    Key? key,
     double spacerSize = LunaUI.DEFAULT_MARGIN_SIZE,
   }) =>
       LunaTableContent._(
@@ -41,9 +41,9 @@ class LunaTableContent extends StatelessWidget {
       );
 
   factory LunaTableContent({
-    Key key,
-    @required String title,
-    @required String body,
+    Key? key,
+    required String? title,
+    required String? body,
     bool bodyIsUrl = false,
     TextAlign titleAlign = TextAlign.end,
     TextAlign bodyAlign = TextAlign.start,
@@ -113,8 +113,8 @@ class LunaTableContent extends StatelessWidget {
             left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
           ),
         ),
-        onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
-        onLongPress: !bodyIsUrl ? null : () => body.copyToClipboard(),
+        onTap: !bodyIsUrl ? null : body!.lunaOpenGenericLink,
+        onLongPress: !bodyIsUrl ? null : () => body!.copyToClipboard(),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
       ),
       flex: bodyFlex,

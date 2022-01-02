@@ -27,7 +27,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -47,9 +47,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           text: 'Add Indexer',
           icon: Icons.add_rounded,
           onTap: () async {
-            if (_indexer.displayName.isEmpty ||
-                _indexer.host.isEmpty ||
-                _indexer.apiKey.isEmpty) {
+            if (_indexer.displayName!.isEmpty ||
+                _indexer.host!.isEmpty ||
+                _indexer.apiKey!.isEmpty) {
               showLunaErrorSnackBar(
                 title: 'Failed to Add Indexer',
                 message: 'All fields are required',
@@ -143,7 +143,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: () async => SettingsConfigurationSearchAddHeadersRouter()
-          .navigateTo(context, indexer: _indexer),
+          .navigateTo(context, _indexer),
     );
   }
 }

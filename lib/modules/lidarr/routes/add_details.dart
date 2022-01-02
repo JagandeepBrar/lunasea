@@ -7,7 +7,7 @@ class LidarrAddDetailsArguments {
   final LidarrSearchData data;
 
   LidarrAddDetailsArguments({
-    @required this.data,
+    required this.data,
   });
 }
 
@@ -15,7 +15,7 @@ class LidarrAddDetails extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/add/details';
 
   const LidarrAddDetails({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,8 +24,8 @@ class LidarrAddDetails extends StatefulWidget {
 
 class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LidarrAddDetailsArguments _arguments;
-  Future<void> _future;
+  LidarrAddDetailsArguments? _arguments;
+  Future<void>? _future;
   List<LidarrRootFolder> _rootFolders = [];
   List<LidarrQualityProfile> _qualityProfiles = [];
   List<LidarrMetadataProfile> _metadataProfiles = [];
@@ -33,8 +33,9 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) {
-      setState(() => _arguments = ModalRoute.of(context).settings.arguments);
+    SchedulerBinding.instance!.scheduleFrameCallback((_) {
+      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrAddDetailsArguments?);
       _refresh();
     });
   }
@@ -44,7 +45,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
       });
 
   Future<void> _fetchParameters() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
     return _fetchRootFolders(_api)
         .then((_) => _fetchQualityProfiles(_api))
         .then((_) => _fetchMetadataProfiles(_api))
@@ -54,7 +55,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
 
   Future<void> _fetchRootFolders(LidarrAPI api) async {
     return await api.getRootFolders().then((values) {
-      LidarrRootFolder _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
+      LidarrRootFolder? _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
       _rootFolders = values;
       int index = _rootFolders.indexWhere((value) =>
           value.id == _rootfolder?.id && value.path == _rootfolder?.path);
@@ -67,7 +68,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
 
   Future<void> _fetchQualityProfiles(LidarrAPI api) async {
     return await api.getQualityProfiles().then((values) {
-      LidarrQualityProfile _profile =
+      LidarrQualityProfile? _profile =
           LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
       _qualityProfiles = values.values.toList();
       int index = _qualityProfiles.indexWhere(
@@ -79,7 +80,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
 
   Future<void> _fetchMetadataProfiles(LidarrAPI api) async {
     return await api.getMetadataProfiles().then((values) {
-      LidarrMetadataProfile _profile =
+      LidarrMetadataProfile? _profile =
           LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
       _metadataProfiles = values.values.toList();
       int index = _metadataProfiles.indexWhere(
@@ -92,7 +93,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
         body: _body,
         bottomNavigationBar: _bottomActionBar(),
       );
@@ -114,14 +115,14 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
     );
   }
 
-  Widget get _appBar => _arguments == null
+  Widget? get _appBar => _arguments == null
       ? null
       : LunaAppBar(
-          title: _arguments.data.title,
+          title: _arguments!.data.title,
           scrollControllers: [scrollController],
         );
 
-  Widget get _body => _arguments == null
+  Widget? get _body => _arguments == null
       ? null
       : FutureBuilder(
           future: _future,
@@ -146,28 +147,28 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
         controller: scrollController,
         children: <Widget>[
           LidarrDescriptionBlock(
-            title: _arguments.data.title ?? 'Unknown',
-            description: _arguments.data.overview == ''
+            title: _arguments?.data.title ?? 'lunasea.Unknown'.tr(),
+            description: _arguments!.data.overview == ''
                 ? 'No Summary Available'
-                : _arguments.data.overview,
-            uri: _arguments.data.posterURI ?? '',
+                : _arguments!.data.overview,
+            uri: _arguments!.data.posterURI ?? '',
             squareImage: true,
-            headers: Database.currentProfileObject.getLidarr()['headers'],
+            headers: Database.currentProfileObject!.getLidarr()['headers'],
             onLongPress: () async {
-              if (_arguments.data.discogsLink == null ||
-                  _arguments.data.discogsLink == '')
+              if (_arguments!.data.discogsLink == null ||
+                  _arguments!.data.discogsLink == '')
                 showLunaInfoSnackBar(
                   title: 'No Discogs Page Available',
                   message: 'No Discogs URL is available',
                 );
-              _arguments.data.discogsLink.lunaOpenGenericLink();
+              _arguments!.data.discogsLink!.lunaOpenGenericLink();
             },
           ),
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox
                 .listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
-            builder: (context, box, widget) {
-              LidarrRootFolder _rootfolder =
+            builder: (context, dynamic box, widget) {
+              LidarrRootFolder? _rootfolder =
                   LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
               return LunaBlock(
                 title: 'Root Folder',
@@ -187,7 +188,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           LidarrDatabaseValue.ADD_MONITORED_STATUS.listen(
               builder: (context, box, _) {
             LidarrDatabaseValue _db = LidarrDatabaseValue.ADD_MONITORED_STATUS;
-            LidarrMonitorStatus _status =
+            LidarrMonitorStatus? _status =
                 LidarrMonitorStatus.ALL.fromKey(_db.data);
             _status ??= LidarrMonitorStatus.ALL;
 
@@ -196,17 +197,17 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               trailing: const LunaIconButton.arrow(),
               body: [TextSpan(text: _status.readable)],
               onTap: () async {
-                Tuple2<bool, LidarrMonitorStatus> _result =
+                Tuple2<bool, LidarrMonitorStatus?> _result =
                     await LidarrDialogs().selectMonitoringOption(context);
-                if (_result.item1) _db.put(_result.item2.key);
+                if (_result.item1) _db.put(_result.item2!.key);
               },
             );
           }),
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(
                 keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
-            builder: (context, box, widget) {
-              LidarrQualityProfile _profile =
+            builder: (context, dynamic box, widget) {
+              LidarrQualityProfile? _profile =
                   LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
               return LunaBlock(
                 title: 'Quality Profile',
@@ -226,8 +227,8 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(
                 keys: [LidarrDatabaseValue.ADD_METADATA_PROFILE.key]),
-            builder: (context, box, widget) {
-              LidarrMetadataProfile _profile =
+            builder: (context, dynamic box, widget) {
+              LidarrMetadataProfile? _profile =
                   LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
               return LunaBlock(
                 title: 'Metadata Profile',
@@ -248,24 +249,24 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
       );
 
   Future<void> _addArtist() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-    bool search = LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data;
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    bool? search = LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data;
     await _api
         .addArtist(
-          _arguments.data,
+          _arguments!.data,
           LidarrDatabaseValue.ADD_QUALITY_PROFILE.data,
           LidarrDatabaseValue.ADD_ROOT_FOLDER.data,
           LidarrDatabaseValue.ADD_METADATA_PROFILE.data,
           LidarrMonitorStatus.ALL
-              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data),
+              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data)!,
           search: search,
         )
         .then((id) => Navigator.of(context)
-            .pop(['artist_added', _arguments.data.title, id]))
+            .pop(['artist_added', _arguments!.data.title, id]))
         .catchError((error, stack) {
       LunaLogger().error('Failed to add artist', error, stack);
       showLunaErrorSnackBar(
-        title: search
+        title: search!
             ? 'Failed to Add Artist (With Search)'
             : 'Failed to Add Artist',
         error: error,

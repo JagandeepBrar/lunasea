@@ -76,7 +76,7 @@ class SonarrDatabase extends LunaModuleDatabase {
           break;
         case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
           data[value.key] = (SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data
-                  as LunaListViewOption)
+                  as LunaListViewOption?)!
               .key;
           break;
         // Primitive values
@@ -89,9 +89,9 @@ class SonarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      SonarrDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      SonarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Non-primitive values
@@ -119,7 +119,7 @@ class SonarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SonarrDatabaseValue valueFromKey(String key) {
+  SonarrDatabaseValue? valueFromKey(String key) {
     for (SonarrDatabaseValue value in SonarrDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -149,8 +149,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -218,7 +218,6 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
         return value is LunaListViewOption;
     }
-    throw Exception('Invalid SonarrDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -280,6 +279,5 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.DEFAULT_VIEW_SERIES:
         return LunaListViewOption.BLOCK_VIEW;
     }
-    throw Exception('Invalid SonarrDatabaseValue');
   }
 }

@@ -6,8 +6,8 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
   final TautulliNotificationLogRecord notification;
 
   const TautulliLogsNotificationLogTile({
-    Key key,
-    @required this.notification,
+    Key? key,
+    required this.notification,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
       TextSpan(text: notification.subjectText),
       TextSpan(text: notification.bodyText),
       TextSpan(
-        text: notification.timestamp.lunaDateTimeReadable(),
+        text: notification.timestamp!.lunaDateTimeReadable(),
         style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -37,10 +37,10 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
   Widget _trailing() => Column(
         children: [
           LunaIconButton(
-            icon: notification.success
+            icon: notification.success!
                 ? Icons.check_circle_rounded
                 : Icons.cancel_rounded,
-            color: notification.success ? LunaColours.white : LunaColours.red,
+            color: notification.success! ? LunaColours.white : LunaColours.red,
           ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

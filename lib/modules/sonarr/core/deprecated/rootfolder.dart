@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'rootfolder.g.dart';
@@ -6,11 +5,11 @@ part 'rootfolder.g.dart';
 @HiveType(typeId: 3, adapterName: 'DeprecatedSonarrRootFolderAdapter')
 class DeprecatedSonarrRootFolder extends HiveObject {
   @HiveField(0)
-  int id;
+  int? id;
   @HiveField(1)
-  String path;
+  String? path;
   @HiveField(2)
-  int freeSpace;
+  int? freeSpace;
 
   factory DeprecatedSonarrRootFolder.empty() => DeprecatedSonarrRootFolder(
         id: -1,
@@ -19,8 +18,8 @@ class DeprecatedSonarrRootFolder extends HiveObject {
       );
 
   DeprecatedSonarrRootFolder({
-    @required this.id,
-    @required this.path,
-    @required this.freeSpace,
+    required this.id,
+    required this.path,
+    required this.freeSpace,
   });
 }

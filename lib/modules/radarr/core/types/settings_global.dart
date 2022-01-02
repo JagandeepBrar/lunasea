@@ -24,7 +24,6 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
       case RadarrGlobalSettingsType.BACKUP_DATABASE:
         return Icons.save_rounded;
     }
-    throw Exception('Invalid RadarrGlobalSettingsType');
   }
 
   String get name {
@@ -40,7 +39,6 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
       case RadarrGlobalSettingsType.BACKUP_DATABASE:
         return 'radarr.BackupDatabase'.tr();
     }
-    throw Exception('Invalid RadarrGlobalSettingsType');
   }
 
   Future<void> execute(BuildContext context) async {
@@ -56,22 +54,29 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
       case RadarrGlobalSettingsType.BACKUP_DATABASE:
         return _backupDatabase(context);
     }
-    throw Exception('Invalid RadarrGlobalSettingsType');
   }
 
-  Future<void> _webGUI(BuildContext context) async =>
-      context.read<RadarrState>().host.lunaOpenGenericLink(
-            headers: context.read<RadarrState>().headers,
-          );
-  Future<void> _backupDatabase(BuildContext context) async =>
-      RadarrAPIHelper().backupDatabase(context: context);
+  Future<void> _webGUI(BuildContext context) async {
+    context
+        .read<RadarrState>()
+        .host
+        .lunaOpenGenericLink(headers: context.read<RadarrState>().headers);
+  }
+
+  Future<void> _backupDatabase(BuildContext context) async {
+    RadarrAPIHelper().backupDatabase(context: context);
+  }
+
   Future<void> _searchAllMissing(BuildContext context) async {
     bool result = await RadarrDialogs().searchAllMissingMovies(context);
     if (result) RadarrAPIHelper().missingMovieSearch(context: context);
   }
 
-  Future<void> _runRssSync(BuildContext context) async =>
-      RadarrAPIHelper().runRSSSync(context: context);
-  Future<void> _updateLibrary(BuildContext context) async =>
-      RadarrAPIHelper().updateLibrary(context: context);
+  Future<void> _runRssSync(BuildContext context) async {
+    RadarrAPIHelper().runRSSSync(context: context);
+  }
+
+  Future<void> _updateLibrary(BuildContext context) async {
+    RadarrAPIHelper().updateLibrary(context: context);
+  }
 }

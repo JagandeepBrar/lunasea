@@ -6,8 +6,8 @@ class TautulliStatisticsUserTile extends StatefulWidget {
   final Map<String, dynamic> data;
 
   const TautulliStatisticsUserTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -70,7 +70,7 @@ class _State extends State<TautulliStatisticsUserTile> {
       widget.data['last_play'] != null
           ? TextSpan(
               text:
-                  'Last Streamed ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
+                  'Last Streamed ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000).lunaAge}',
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];
@@ -78,6 +78,6 @@ class _State extends State<TautulliStatisticsUserTile> {
 
   Future<void> _onTap() async => TautulliUserDetailsRouter().navigateTo(
         context,
-        userId: widget.data['user_id'],
+        widget.data['user_id']!,
       );
 }

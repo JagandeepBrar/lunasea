@@ -7,9 +7,9 @@ import 'package:wake_on_lan/wake_on_lan.dart';
 class SettingsDialogs {
   Future<Tuple2<bool, int>> setDefaultOption(
     BuildContext context, {
-    @required String title,
-    @required List<String> values,
-    @required List<IconData> icons,
+    required String title,
+    required List<String?> values,
+    required List<IconData> icons,
   }) async {
     bool _flag = false;
     int _index = 0;
@@ -26,7 +26,7 @@ class SettingsDialogs {
       content: List.generate(
         values.length,
         (index) => LunaDialog.tile(
-          text: values[index],
+          text: values[index]!,
           icon: icons[index],
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, index),
@@ -64,12 +64,12 @@ class SettingsDialogs {
     return _flag;
   }
 
-  Future<Tuple2<bool, LunaFirebaseBackupDocument>> getBackupFromCloud(
+  Future<Tuple2<bool, LunaFirebaseBackupDocument?>> getBackupFromCloud(
     BuildContext context,
     List<LunaFirebaseBackupDocument> backups,
   ) async {
     bool _flag = false;
-    LunaFirebaseBackupDocument _document;
+    LunaFirebaseBackupDocument? _document;
 
     void _setValues(bool flag, LunaFirebaseBackupDocument document) {
       _flag = flag;
@@ -107,7 +107,7 @@ class SettingsDialogs {
     final _textController = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -152,10 +152,10 @@ class SettingsDialogs {
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
               // Allow empty value
-              if (value == '') return null;
+              if (value?.isEmpty ?? true) return null;
               // Test for https:// or http://
               RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
-              if (exp.hasMatch(value)) return null;
+              if (exp.hasMatch(value!)) return null;
               return 'settings.HostValidation'.tr();
             },
           ),
@@ -175,7 +175,7 @@ class SettingsDialogs {
     final _textController = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -216,10 +216,10 @@ class SettingsDialogs {
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
               // Allow empty value
-              if (value == '') return null;
+              if (value?.isEmpty ?? true) return null;
               // Test for https:// or http://
               RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
-              if (exp.hasMatch(value)) return null;
+              if (exp.hasMatch(value!)) return null;
               return 'settings.HostValidation'.tr();
             },
           ),
@@ -308,9 +308,9 @@ class SettingsDialogs {
     return _flag;
   }
 
-  Future<Tuple2<bool, HeaderType>> addHeader(BuildContext context) async {
+  Future<Tuple2<bool, HeaderType?>> addHeader(BuildContext context) async {
     bool _flag = false;
-    HeaderType _type;
+    HeaderType? _type;
 
     void _setValues(bool flag, HeaderType type) {
       _flag = flag;
@@ -344,7 +344,7 @@ class SettingsDialogs {
     TextEditingController _value = TextEditingController();
 
     void _setValues(bool flag) {
-      if (formKey.currentState.validate()) {
+      if (formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -366,8 +366,8 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _key,
-                validator: (key) {
-                  if (key.isNotEmpty) return null;
+                validator: (value) {
+                  if (value?.isNotEmpty ?? false) return null;
                   return 'settings.HeaderKeyValidation'.tr();
                 },
                 onSubmitted: (_) => _setValues(true),
@@ -376,7 +376,7 @@ class SettingsDialogs {
               LunaDialog.textFormInput(
                 controller: _value,
                 validator: (value) {
-                  if (value.isNotEmpty) return null;
+                  if (value?.isNotEmpty ?? false) return null;
                   return 'settings.HeaderValueValidation'.tr();
                 },
                 onSubmitted: (_) => _setValues(true),
@@ -400,7 +400,7 @@ class SettingsDialogs {
     final _password = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -437,7 +437,7 @@ class SettingsDialogs {
             children: [
               LunaDialog.textFormInput(
                 controller: _username,
-                validator: (username) => username.isNotEmpty
+                validator: (username) => (username?.isNotEmpty ?? false)
                     ? null
                     : 'settings.UsernameValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
@@ -445,7 +445,7 @@ class SettingsDialogs {
               ),
               LunaDialog.textFormInput(
                 controller: _password,
-                validator: (password) => password.isNotEmpty
+                validator: (password) => (password?.isNotEmpty ?? false)
                     ? null
                     : 'settings.PasswordValidation'.tr(),
                 onSubmitted: (_) => _setValues(true),
@@ -495,7 +495,7 @@ class SettingsDialogs {
     bool _flag = false;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -537,8 +537,9 @@ class SettingsDialogs {
             title: 'settings.Password'.tr(),
             obscureText: true,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'settings.PasswordValidation'.tr() : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'settings.PasswordValidation'.tr()
+                : null,
           ),
         ),
       ],
@@ -549,14 +550,14 @@ class SettingsDialogs {
 
   Future<Tuple2<bool, String>> addProfile(
     BuildContext context,
-    List<String> profiles,
+    List<String?> profiles,
   ) async {
     final _formKey = GlobalKey<FormState>();
     final _controller = TextEditingController();
     bool _flag = false;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -580,7 +581,7 @@ class SettingsDialogs {
               if (profiles.contains(value)) {
                 return 'settings.ProfileAlreadyExists'.tr();
               }
-              if (value.isEmpty) {
+              if (value?.isEmpty ?? true) {
                 return 'settings.ProfileNameRequired'.tr();
               }
               return null;
@@ -595,14 +596,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _controller.text);
   }
 
-  Future<Tuple2<bool, String>> renameProfile(
+  Future<Tuple2<bool, String?>> renameProfile(
     BuildContext context,
-    List<String> profiles,
+    List<String?> profiles,
   ) async {
     bool _flag = false;
-    String _profile = '';
+    String? _profile = '';
 
-    void _setValues(bool flag, String profile) {
+    void _setValues(bool flag, String? profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -616,7 +617,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index],
+          text: profiles[index]!,
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),
@@ -627,14 +628,14 @@ class SettingsDialogs {
 
   Future<Tuple2<bool, String>> renameProfileSelected(
     BuildContext context,
-    List<String> profiles,
+    List<String?> profiles,
   ) async {
     final _formKey = GlobalKey<FormState>();
     final _controller = TextEditingController();
     bool _flag = false;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -658,7 +659,7 @@ class SettingsDialogs {
               if (profiles.contains(value)) {
                 return 'settings.ProfileAlreadyExists'.tr();
               }
-              if (value.isEmpty) {
+              if (value?.isEmpty ?? true) {
                 return 'settings.ProfileNameRequired'.tr();
               }
               return null;
@@ -673,14 +674,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _controller.text);
   }
 
-  Future<Tuple2<bool, String>> deleteProfile(
+  Future<Tuple2<bool, String?>> deleteProfile(
     BuildContext context,
-    List<String> profiles,
+    List<String?> profiles,
   ) async {
     bool _flag = false;
-    String _profile = '';
+    String? _profile = '';
 
-    void _setValues(bool flag, String profile) {
+    void _setValues(bool flag, String? profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -694,7 +695,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index],
+          text: profiles[index]!,
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),
@@ -703,14 +704,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  Future<Tuple2<bool, String>> enabledProfile(
+  Future<Tuple2<bool, String?>> enabledProfile(
     BuildContext context,
-    List<String> profiles,
+    List<String?> profiles,
   ) async {
     bool _flag = false;
-    String _profile = '';
+    String? _profile = '';
 
-    void _setValues(bool flag, String profile) {
+    void _setValues(bool flag, String? profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -724,7 +725,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: LunaIcons.USER,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index],
+          text: profiles[index]!,
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),
@@ -733,9 +734,9 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
+  Future<Tuple2<bool, LunaBrowser?>> changeBrowser(BuildContext context) async {
     bool _flag = false;
-    LunaBrowser _browser;
+    LunaBrowser? _browser;
 
     void _setValues(bool flag, LunaBrowser browser) {
       _flag = flag;
@@ -751,7 +752,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: LunaBrowser.values[index].icon,
           iconColor: LunaColours().byListIndex(index),
-          text: LunaBrowser.values[index].name,
+          text: LunaBrowser.values[index].name!,
           onTap: () => _setValues(true, LunaBrowser.values[index]),
         ),
       ),
@@ -760,12 +761,12 @@ class SettingsDialogs {
     return Tuple2(_flag, _browser);
   }
 
-  Future<Tuple2<bool, LunaLanguage>> changeLanguage(
+  Future<Tuple2<bool, LunaLanguage?>> changeLanguage(
     BuildContext context,
   ) async {
     List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
     bool _flag = false;
-    LunaLanguage _language;
+    LunaLanguage? _language;
 
     void _setValues(bool flag, LunaLanguage language) {
       _flag = flag;
@@ -790,11 +791,11 @@ class SettingsDialogs {
     return Tuple2(_flag, _language);
   }
 
-  Future<Tuple2<bool, CalendarStartingDay>> editCalendarStartingDay(
+  Future<Tuple2<bool, CalendarStartingDay?>> editCalendarStartingDay(
     BuildContext context,
   ) async {
     bool _flag = false;
-    CalendarStartingDay _startingDate;
+    CalendarStartingDay? _startingDate;
 
     void _setValues(bool flag, CalendarStartingDay startingDate) {
       _flag = flag;
@@ -819,11 +820,11 @@ class SettingsDialogs {
     return Tuple2(_flag, _startingDate);
   }
 
-  Future<Tuple2<bool, CalendarStartingSize>> editCalendarStartingSize(
+  Future<Tuple2<bool, CalendarStartingSize?>> editCalendarStartingSize(
     BuildContext context,
   ) async {
     bool _flag = false;
-    CalendarStartingSize _startingSize;
+    CalendarStartingSize? _startingSize;
 
     void _setValues(bool flag, CalendarStartingSize startingSize) {
       _flag = flag;
@@ -848,11 +849,11 @@ class SettingsDialogs {
     return Tuple2(_flag, _startingSize);
   }
 
-  Future<Tuple2<bool, CalendarStartingType>> editCalendarStartingView(
+  Future<Tuple2<bool, CalendarStartingType?>> editCalendarStartingView(
     BuildContext context,
   ) async {
     bool _flag = false;
-    CalendarStartingType _startingType;
+    CalendarStartingType? _startingType;
 
     void _setValues(bool flag, CalendarStartingType startingType) {
       _flag = flag;
@@ -897,7 +898,7 @@ class SettingsDialogs {
     final _controller = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -933,7 +934,7 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (address) {
-              if (address.isEmpty) return null;
+              if (address?.isEmpty ?? true) return null;
               return IPv4Address.validate(address)
                   ? null
                   : 'settings.BroadcastAddressValidation'.tr();
@@ -957,7 +958,7 @@ class SettingsDialogs {
     final _controller = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (formKey.currentState.validate()) {
+      if (formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -994,7 +995,7 @@ class SettingsDialogs {
           child: LunaDialog.textFormInput(
             controller: _controller,
             validator: (address) {
-              if (address.isEmpty) return null;
+              if (address?.isEmpty ?? true) return null;
               return MACAddress.validate(address)
                   ? null
                   : 'settings.MACAddressValidation'.tr();
@@ -1101,7 +1102,7 @@ class SettingsDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -1125,7 +1126,7 @@ class SettingsDialogs {
             title: 'settings.EncryptionKey'.tr(),
             obscureText: true,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) => value.length < 8
+            validator: (value) => (value?.length ?? 0) < 8
                 ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
                 : null,
           ),
@@ -1142,7 +1143,7 @@ class SettingsDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -1175,7 +1176,7 @@ class SettingsDialogs {
             obscureText: true,
             controller: _textController,
             title: 'settings.EncryptionKey'.tr(),
-            validator: (value) => value.length < 8
+            validator: (value) => (value?.length ?? 0) < 8
                 ? 'settings.MinimumCharacters'.tr(args: [8.toString()])
                 : null,
             onSubmitted: (_) => _setValues(true),
@@ -1251,7 +1252,7 @@ class SettingsDialogs {
       ..text = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _opacity = int.parse(_textController.text);
         _flag = flag;
         Navigator.of(context).pop();
@@ -1283,7 +1284,7 @@ class SettingsDialogs {
             keyboardType: TextInputType.number,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _opacity = int.tryParse(value);
+              int? _opacity = int.tryParse(value!);
               if (_opacity == null || _opacity < 0 || _opacity > 100)
                 return 'settings.MustBeValueBetween'.tr(args: [
                   0.toString(),

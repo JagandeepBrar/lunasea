@@ -4,7 +4,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliUsersRoute extends StatefulWidget {
   const TautulliUsersRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _State extends State<TautulliUsersRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: Selector<TautulliState, Future<TautulliUsersTable>>(
-        selector: (_, state) => state.users,
+        selector: (_, state) => state.users!,
         builder: (context, users, _) => FutureBuilder(
           future: users,
           builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
@@ -55,7 +55,7 @@ class _State extends State<TautulliUsersRoute>
                   snapshot.stackTrace,
                 );
               }
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _users(snapshot.data);
             return const LunaLoader();
@@ -65,7 +65,7 @@ class _State extends State<TautulliUsersRoute>
     );
   }
 
-  Widget _users(TautulliUsersTable users) {
+  Widget _users(TautulliUsersTable? users) {
     if ((users?.users?.length ?? 0) == 0) {
       return LunaMessage(
         text: 'No Users Found',
@@ -75,9 +75,9 @@ class _State extends State<TautulliUsersRoute>
     }
     return LunaListViewBuilder(
       controller: TautulliNavigationBar.scrollControllers[1],
-      itemCount: users.users.length,
+      itemCount: users!.users!.length,
       itemBuilder: (context, index) => TautulliUserTile(
-        user: users.users[index],
+        user: users.users![index],
       ),
     );
   }

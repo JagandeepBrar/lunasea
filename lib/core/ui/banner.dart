@@ -5,19 +5,19 @@ class LunaBanner extends StatelessWidget {
   // An arbitrarily large number of max lines
   static const _MAX_LINES = 5000000;
   final String headerText;
-  final String bodyText;
+  final String? bodyText;
   final IconData icon;
   final Color iconColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Color headerColor;
   final Color bodyColor;
-  final Function dismissCallback;
-  final List<LunaButton> buttons;
+  final Function? dismissCallback;
+  final List<LunaButton>? buttons;
 
   const LunaBanner({
-    Key key,
+    Key? key,
     this.dismissCallback,
-    @required this.headerText,
+    required this.headerText,
     this.bodyText,
     this.icon = Icons.info_outline_rounded,
     this.iconColor = LunaColours.accent,
@@ -67,7 +67,7 @@ class LunaBanner extends StatelessWidget {
                         color: LunaColours.accent,
                       ),
                       borderRadius: BorderRadius.circular(24.0),
-                      onTap: dismissCallback,
+                      onTap: dismissCallback as void Function()?,
                     ),
                 ],
               ),
@@ -86,7 +86,7 @@ class LunaBanner extends StatelessWidget {
               LunaButtonContainer(
                 padding: EdgeInsets.symmetric(
                     horizontal: LunaUI.MARGIN_H_DEFAULT_V_HALF.left / 2),
-                children: buttons,
+                children: buttons!,
               ),
           ],
         ),

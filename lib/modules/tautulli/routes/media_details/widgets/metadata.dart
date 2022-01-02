@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMediaDetailsMetadata extends StatefulWidget {
-  final TautulliMediaType type;
+  final TautulliMediaType? type;
   final int ratingKey;
 
   const TautulliMediaDetailsMetadata({
-    @required this.type,
-    @required this.ratingKey,
-    Key key,
+    required this.type,
+    required this.ratingKey,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class _State extends State<TautulliMediaDetailsMetadata>
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
   }
 
   Future<void> _refresh() async {
@@ -37,7 +37,7 @@ class _State extends State<TautulliMediaDetailsMetadata>
           widget.ratingKey,
           context
               .read<TautulliState>()
-              .api
+              .api!
               .libraries
               .getMetadata(ratingKey: widget.ratingKey),
         );
@@ -68,7 +68,7 @@ class _State extends State<TautulliMediaDetailsMetadata>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _metadata(snapshot.data);
           return const LunaLoader();
@@ -77,7 +77,7 @@ class _State extends State<TautulliMediaDetailsMetadata>
     );
   }
 
-  Widget _metadata(TautulliMetadata metadata) {
+  Widget _metadata(TautulliMetadata? metadata) {
     return LunaListView(
       controller: TautulliMediaDetailsNavigationBar.scrollControllers[0],
       children: [

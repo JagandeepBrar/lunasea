@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 part 'indexer.g.dart';
@@ -38,11 +37,11 @@ class IndexerHiveObject extends HiveObject {
       );
 
   IndexerHiveObject({
-    @required this.displayName,
-    @required this.host,
-    @required this.apiKey,
-    @required this.headers,
-    @required this.icon,
+    required this.displayName,
+    required this.host,
+    required this.apiKey,
+    required this.headers,
+    required this.icon,
   });
 
   @override
@@ -57,13 +56,13 @@ class IndexerHiveObject extends HiveObject {
       };
 
   @HiveField(0)
-  String displayName;
+  String? displayName;
   @HiveField(1)
-  String host;
+  String? host;
   @HiveField(2)
-  String apiKey;
+  String? apiKey;
   @HiveField(3)
-  Map headers;
+  Map? headers;
   @HiveField(4)
-  LunaIndexerIcon icon;
+  LunaIndexerIcon? icon;
 }

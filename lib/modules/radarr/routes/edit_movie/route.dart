@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -6,26 +7,24 @@ class RadarrMoviesEditRouter extends RadarrPageRouter {
   RadarrMoviesEditRouter() : super('/radarr/editmovie/:movieid');
 
   @override
-  Widget widget({
-    @required int movieId,
-  }) {
-    return _Widget(
-      movieId: movieId,
-    );
+  Widget widget([
+    int movieId = -1,
+  ]) {
+    return _Widget(movieId: movieId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int movieId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(movieId: movieId));
+    BuildContext context, [
+    int movieId = -1,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(movieId));
   }
 
   @override
-  String route({
-    @required int movieId,
-  }) {
+  String route([
+    int movieId = -1,
+  ]) {
     return fullRoute.replaceFirst(':movieid', movieId.toString());
   }
 
@@ -34,9 +33,9 @@ class RadarrMoviesEditRouter extends RadarrPageRouter {
     FluroRouter router,
   ) {
     super.withParameterRouteDefinition(router, (context, params) {
-      int movieId = params['movieid'] == null || params['movieid'].isEmpty
+      int movieId = params['movieid'] == null || params['movieid']!.isEmpty
           ? -1
-          : (int.tryParse(params['movieid'][0]) ?? -1);
+          : (int.tryParse(params['movieid']![0]) ?? -1);
       return _Widget(movieId: movieId);
     });
   }
@@ -46,8 +45,8 @@ class _Widget extends StatefulWidget {
   final int movieId;
 
   const _Widget({
-    Key key,
-    @required this.movieId,
+    Key? key,
+    required this.movieId,
   }) : super(key: key);
 
   @override
@@ -80,7 +79,7 @@ class _State extends State<_Widget>
                   (state) => state.state);
           return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            appBar: _appBar(),
+            appBar: _appBar() as PreferredSizeWidget?,
             body:
                 state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
             bottomNavigationBar: state == LunaLoadingState.ERROR
@@ -107,32 +106,28 @@ class _State extends State<_Widget>
   Widget _body(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        context.select<RadarrState, Future<List<RadarrMovie>>>(
-          (state) => state.movies,
-        ),
-        context.select<RadarrState, Future<List<RadarrQualityProfile>>>(
-          (state) => state.qualityProfiles,
-        ),
-        context.select<RadarrState, Future<List<RadarrTag>>>(
-          (state) => state.tags,
-        ),
+        context.select<RadarrState, Future<List<RadarrMovie>>?>(
+            (state) => state.movies)!,
+        context.select<RadarrState, Future<List<RadarrQualityProfile>>?>(
+            (state) => state.qualityProfiles)!,
+        context.select<RadarrState, Future<List<RadarrTag>>?>(
+            (state) => state.tags)!,
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
           return LunaMessage.error(onTap: loadCallback);
         }
         if (snapshot.hasData) {
-          RadarrMovie movie =
-              (snapshot.data[0] as List<RadarrMovie>).firstWhere(
-            (movie) => movie?.id == widget.movieId,
-            orElse: () => null,
+          RadarrMovie? movie =
+              (snapshot.data![0] as List<RadarrMovie>).firstWhereOrNull(
+            (movie) => movie.id == widget.movieId,
           );
           if (movie == null) return const LunaLoader();
           return _list(
             context,
             movie: movie,
-            qualityProfiles: snapshot.data[1],
-            tags: snapshot.data[2],
+            qualityProfiles: snapshot.data![1] as List<RadarrQualityProfile?>?,
+            tags: snapshot.data![2] as List<RadarrTag>?,
           );
         }
         return const LunaLoader();
@@ -142,15 +137,15 @@ class _State extends State<_Widget>
 
   Widget _list(
     BuildContext context, {
-    RadarrMovie movie,
-    List<RadarrQualityProfile> qualityProfiles,
-    List<RadarrTag> tags,
+    RadarrMovie? movie,
+    List<RadarrQualityProfile?>? qualityProfiles,
+    List<RadarrTag>? tags,
   }) {
     if (context.read<RadarrMoviesEditState>().movie == null) {
       context.read<RadarrMoviesEditState>().movie = movie;
       context
           .read<RadarrMoviesEditState>()
-          .initializeQualityProfile(qualityProfiles);
+          .initializeQualityProfile(qualityProfiles!);
       context.read<RadarrMoviesEditState>().initializeTags(tags);
       context.read<RadarrMoviesEditState>().canExecuteAction = true;
     }

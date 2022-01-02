@@ -18,7 +18,7 @@ class LunaInAppPurchases {
   ];
 
   static InAppPurchase get connection => InAppPurchase.instance;
-  static StreamSubscription<List<PurchaseDetails>> _purchaseStream;
+  static StreamSubscription<List<PurchaseDetails>>? _purchaseStream;
   static List<ProductDetails> donationIAPs = [];
   static bool isAvailable = false;
 
@@ -55,8 +55,8 @@ class LunaInAppPurchases {
         // Load donation IAPs
         ProductDetailsResponse donation =
             await connection.queryProductDetails(Set.from(DONATION_IDS));
-        donationIAPs = donation?.productDetails ?? [];
-        donationIAPs.sort((a, b) => a?.id?.compareTo(b?.id) ?? 0);
+        donationIAPs = donation.productDetails;
+        donationIAPs.sort((a, b) => a.id.compareTo(b.id));
       }
     }
   }
@@ -64,5 +64,5 @@ class LunaInAppPurchases {
   /// Deinitialize the in-app purchases connection.
   ///
   /// - Cleanly cancel/close the [InAppPurchaseConnection.instance.purchaseUpdateStream] listener.
-  Future<void> deinitialize() async => _purchaseStream?.cancel();
+  Future<void>? deinitialize() async => _purchaseStream?.cancel();
 }

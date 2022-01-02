@@ -60,7 +60,6 @@ extension LunaIndexerIconExtension on LunaIndexerIcon {
       case LunaIndexerIcon.NZBSU:
         return 'nzbsu';
     }
-    throw Exception('Unknown LunaIndexerIcon');
   }
 
   String get name {
@@ -80,7 +79,6 @@ extension LunaIndexerIconExtension on LunaIndexerIcon {
       case LunaIndexerIcon.NZBSU:
         return 'NZB.su';
     }
-    throw Exception('Unknown LunaIndexerIcon');
   }
 
   IconData get icon {
@@ -100,6 +98,5 @@ extension LunaIndexerIconExtension on LunaIndexerIcon {
       case LunaIndexerIcon.NZBSU:
         return Icons.rss_feed_rounded;
     }
-    throw Exception('Unknown LunaIndexerIcon');
   }
 }

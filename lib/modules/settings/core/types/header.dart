@@ -14,7 +14,6 @@ extension HeaderTypeExtension on HeaderType {
       case HeaderType.AUTHORIZATION:
         return 'settings.BasicAuthentication'.tr();
     }
-    throw Exception('Invalid HeaderType');
   }
 
   IconData get icon {
@@ -24,6 +23,5 @@ extension HeaderTypeExtension on HeaderType {
       case HeaderType.AUTHORIZATION:
         return Icons.verified_user_rounded;
     }
-    throw Exception('Invalid HeaderType');
   }
 }

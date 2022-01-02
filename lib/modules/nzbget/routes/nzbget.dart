@@ -7,7 +7,7 @@ class NZBGet extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget';
 
   const NZBGet({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,9 +16,9 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
   String _profileState = Database.currentProfileObject.toString();
-  NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
+  NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject!);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -38,7 +38,7 @@ class _State extends State<NZBGet> {
       scaffoldKey: _scaffoldKey,
       body: _body(),
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       extendBodyBehindAppBar: false,
       extendBody: false,
@@ -51,8 +51,8 @@ class _State extends State<NZBGet> {
 
   Widget _drawer() => LunaDrawer(page: LunaModule.NZBGET.key);
 
-  Widget _bottomNavigationBar() {
-    if (_api.enabled)
+  Widget? _bottomNavigationBar() {
+    if (_api.enabled!)
       return NZBGetNavigationBar(pageController: _pageController);
     return null;
   }
@@ -64,8 +64,8 @@ class _State extends State<NZBGet> {
         value.add(element);
       return value;
     });
-    List<Widget> actions;
-    if (_api.enabled)
+    List<Widget>? actions;
+    if (_api.enabled!)
       actions = [
         Selector<NZBGetState, bool>(
           selector: (_, model) => model.error,
@@ -88,12 +88,12 @@ class _State extends State<NZBGet> {
   }
 
   Widget _body() {
-    if (!_api.enabled)
+    if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.NZBGET.name,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         NZBGetQueue(
@@ -111,7 +111,7 @@ class _State extends State<NZBGet> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject;
+          ProfileHiveObject profile = Database.currentProfileObject!;
           await profile.nzbgetHost
               ?.lunaOpenGenericLink(headers: profile.nzbgetHeaders);
           break;
@@ -159,11 +159,11 @@ class _State extends State<NZBGet> {
 
   Future<void> _addByFile() async {
     try {
-      File _file = await LunaFileSystem().import(context, ['nzb']);
+      File? _file = await LunaFileSystem().import(context, ['nzb']);
       if (_file != null) {
         List<int> _data = _file.readAsBytesSync();
         String _name = _file.path.substring(_file.path.lastIndexOf('/') + 1);
-        if (_data?.isNotEmpty ?? false)
+        if (_data.isNotEmpty)
           await _api.uploadFile(_data, _name).then((value) {
             _refreshKeys[0]?.currentState?.show();
             showLunaSuccessSnackBar(
@@ -192,16 +192,17 @@ class _State extends State<NZBGet> {
       await _api.sortQueue(values[1]).then((_) {
         _refreshKeys[0]?.currentState?.show();
         showLunaSuccessSnackBar(
-            title: 'Sorted Queue', message: (values[1] as NZBGetSort).name);
-      }).catchError((error) =>
-          showLunaErrorSnackBar(title: 'Failed to Sort Queue', error: error));
+            title: 'Sorted Queue', message: (values[1] as NZBGetSort?).name);
+      }).catchError((error) {
+        showLunaErrorSnackBar(title: 'Failed to Sort Queue', error: error);
+      });
   }
 
   Future<void> _serverDetails() async =>
       Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
 
   void _refreshProfile() {
-    _api = NZBGetAPI.from(Database.currentProfileObject);
+    _api = NZBGetAPI.from(Database.currentProfileObject!);
     _profileState = Database.currentProfileObject.toString();
     _refreshAllPages();
   }

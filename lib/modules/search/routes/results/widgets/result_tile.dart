@@ -6,8 +6,8 @@ class SearchResultTile extends StatelessWidget {
   final NewznabResultData data;
 
   const SearchResultTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -26,35 +26,30 @@ class SearchResultTile extends StatelessWidget {
 
   TextSpan _subtitle1() {
     return TextSpan(children: [
-      TextSpan(text: data.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: data.size.lunaBytesToString()),
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-      TextSpan(text: data.category ?? LunaUI.TEXT_EMDASH),
+      TextSpan(text: data.category),
     ]);
   }
 
   TextSpan _subtitle2() {
-    return TextSpan(text: data.age ?? LunaUI.TEXT_EMDASH);
+    return TextSpan(text: data.age);
   }
 
   List<LunaTableContent> _tableContent() {
     return [
-      if (data.age != null)
-        LunaTableContent(title: 'search.Age'.tr(), body: data.age),
-      if (data.size != null)
-        LunaTableContent(
-            title: 'search.Size'.tr(), body: data.size.lunaBytesToString()),
-      if (data.category != null)
-        LunaTableContent(title: 'search.Category'.tr(), body: data.category),
-      if (SearchDatabaseValue.SHOW_LINKS.data &&
-          data.linkComments != null &&
-          data.linkDownload != null)
+      LunaTableContent(title: 'search.Age'.tr(), body: data.age),
+      LunaTableContent(
+          title: 'search.Size'.tr(), body: data.size.lunaBytesToString()),
+      LunaTableContent(title: 'search.Category'.tr(), body: data.category),
+      if (SearchDatabaseValue.SHOW_LINKS.data)
         LunaTableContent(title: '', body: ''),
-      if (SearchDatabaseValue.SHOW_LINKS.data && data.linkComments != null)
+      if (SearchDatabaseValue.SHOW_LINKS.data)
         LunaTableContent(
             title: 'search.Comments'.tr(),
             body: data.linkComments,
             bodyIsUrl: true),
-      if (SearchDatabaseValue.SHOW_LINKS.data && data.linkDownload != null)
+      if (SearchDatabaseValue.SHOW_LINKS.data)
         LunaTableContent(
             title: 'search.Download'.tr(),
             body: data.linkDownload,
@@ -80,8 +75,8 @@ class SearchResultTile extends StatelessWidget {
   }
 
   Future<void> _sendToClient(BuildContext context) async {
-    Tuple2<bool, SearchDownloadType> result =
+    Tuple2<bool, SearchDownloadType?> result =
         await SearchDialogs().downloadResult(context);
-    if (result.item1) result.item2.execute(context, data);
+    if (result.item1) result.item2!.execute(context, data);
   }
 }

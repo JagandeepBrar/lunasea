@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrWebhooks extends LunaWebhooks {
   @override
   Future<void> handle(Map<dynamic, dynamic> data) async {
-    _EventType event = _EventType.GRAB.fromKey(data['event']);
+    _EventType? event = _EventType.GRAB.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
         'SonarrWebhooks',
@@ -26,7 +26,7 @@ enum _EventType {
 }
 
 extension _EventTypeExtension on _EventType {
-  _EventType fromKey(String key) {
+  _EventType? fromKey(String? key) {
     switch (key) {
       case 'Download':
         return _EventType.DOWNLOAD;
@@ -72,7 +72,7 @@ extension _EventTypeExtension on _EventType {
       _goToSeasonDetails(
           int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
   Future<void> _grabEvent(Map<dynamic, dynamic> data) async =>
-      SonarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
+      SonarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext!);
   Future<void> _healthEvent(Map<dynamic, dynamic> data) async =>
       LunaModule.SONARR.launch();
   Future<void> _renameEvent(Map<dynamic, dynamic> data) async =>
@@ -82,22 +82,24 @@ extension _EventTypeExtension on _EventType {
   Future<void> _testEvent(Map<dynamic, dynamic> data) async =>
       LunaModule.SONARR.launch();
 
-  Future<void> _goToSeriesDetails(int seriesId) async {
-    if (seriesId != null)
+  Future<void> _goToSeriesDetails(int? seriesId) async {
+    if (seriesId != null) {
       return SonarrSeriesDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext,
-        seriesId: seriesId,
+        LunaState.navigatorKey.currentContext!,
+        seriesId,
       );
+    }
     return LunaModule.SONARR.launch();
   }
 
-  Future<void> _goToSeasonDetails(int seriesId, int seasonNumber) async {
-    if (seriesId != null && seasonNumber != null)
+  Future<void> _goToSeasonDetails(int? seriesId, int? seasonNumber) async {
+    if (seriesId != null && seasonNumber != null) {
       return SonarrSeasonDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext,
-        seriesId: seriesId,
-        seasonNumber: seasonNumber,
+        LunaState.navigatorKey.currentContext!,
+        seriesId,
+        seasonNumber,
       );
+    }
     return LunaModule.SONARR.launch();
   }
 }

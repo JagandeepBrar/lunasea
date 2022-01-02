@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetQueueData {
@@ -13,15 +12,15 @@ class NZBGetQueueData {
   int queueSeconds;
 
   NZBGetQueueData({
-    @required this.id,
-    @required this.name,
-    @required this.status,
-    @required this.remaining,
-    @required this.downloaded,
-    @required this.sizeTotal,
-    @required this.category,
-    @required this.speed,
-    @required this.queueSeconds,
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.remaining,
+    required this.downloaded,
+    required this.sizeTotal,
+    required this.category,
+    required this.speed,
+    required this.queueSeconds,
   });
 
   int get percentageDone {
@@ -65,7 +64,7 @@ class NZBGetQueueData {
   }
 
   String get formattedCategory {
-    if (category == null || category.isEmpty) return 'No Category';
+    if (category.isEmpty) return 'No Category';
     return category;
   }
 

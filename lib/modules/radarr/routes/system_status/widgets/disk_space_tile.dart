@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDiskSpaceTile extends StatelessWidget {
-  final RadarrDiskSpace diskSpace;
-  final RadarrRootFolder rootFolder;
+  final RadarrDiskSpace? diskSpace;
+  final RadarrRootFolder? rootFolder;
 
   RadarrDiskSpaceTile({
-    Key key,
+    Key? key,
     this.diskSpace,
     this.rootFolder,
   }) : super(key: key) {
@@ -21,8 +21,14 @@ class RadarrDiskSpaceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      title: diskSpace?.lunaPath ?? rootFolder?.lunaPath,
-      body: [TextSpan(text: diskSpace?.lunaSpace ?? rootFolder?.lunaSpace)],
+      title: diskSpace?.lunaPath ?? rootFolder?.lunaPath ?? LunaUI.TEXT_EMDASH,
+      body: [
+        TextSpan(
+          text: diskSpace?.lunaSpace ??
+              rootFolder?.lunaSpace ??
+              LunaUI.TEXT_EMDASH,
+        )
+      ],
       bottom: diskSpace != null ? _bottomWidget() : null,
       bottomHeight: LunaLinearPercentIndicator.height,
       trailing: LunaIconButton(
@@ -36,8 +42,8 @@ class RadarrDiskSpaceTile extends StatelessWidget {
 
   Widget _bottomWidget() {
     return LunaLinearPercentIndicator(
-      percent: (diskSpace.lunaPercentage ?? 0) / 100,
-      progressColor: diskSpace.lunaColor ?? LunaColours.accent,
+      percent: (diskSpace?.lunaPercentage ?? 0) / 100,
+      progressColor: diskSpace?.lunaColor ?? LunaColours.accent,
     );
   }
 }

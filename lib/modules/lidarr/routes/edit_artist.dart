@@ -4,10 +4,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrEditArtistArguments {
-  final LidarrCatalogueData entry;
+  final LidarrCatalogueData? entry;
 
   LidarrEditArtistArguments({
-    @required this.entry,
+    required this.entry,
   });
 }
 
@@ -15,7 +15,7 @@ class LidarrEditArtist extends StatefulWidget {
   static const ROUTE_NAME = '/lidarr/edit/artist';
 
   const LidarrEditArtist({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,22 +25,23 @@ class LidarrEditArtist extends StatefulWidget {
 class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  LidarrEditArtistArguments _arguments;
-  Future<void> _future;
+  LidarrEditArtistArguments? _arguments;
+  Future<void>? _future;
 
   List<LidarrQualityProfile> _qualityProfiles = [];
   List<LidarrMetadataProfile> _metadataProfiles = [];
-  LidarrQualityProfile _qualityProfile;
-  LidarrMetadataProfile _metadataProfile;
-  String _path;
-  bool _monitored;
-  bool _albumFolders;
+  LidarrQualityProfile? _qualityProfile;
+  LidarrMetadataProfile? _metadataProfile;
+  String? _path;
+  bool? _monitored;
+  bool? _albumFolders;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      setState(() => _arguments = ModalRoute.of(context).settings.arguments);
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
+          as LidarrEditArtistArguments?);
       _refresh();
     });
   }
@@ -49,28 +50,28 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         body: _body,
-        appBar: _appBar,
+        appBar: _appBar as PreferredSizeWidget?,
         bottomNavigationBar: _bottomActionBar(),
       );
 
   Future<void> _refresh() async => setState(() => {_future = _fetch()});
 
   Future<bool> _fetch() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     return _fetchProfiles(_api).then((_) => _fetchMetadata(_api)).then((_) {
-      _path = _arguments.entry.path;
-      _monitored = _arguments.entry.monitored;
-      _albumFolders = _arguments.entry.albumFolders;
+      _path = _arguments!.entry!.path;
+      _monitored = _arguments!.entry!.monitored;
+      _albumFolders = _arguments!.entry!.albumFolders;
       return true;
     });
   }
 
   Future<void> _fetchProfiles(LidarrAPI api) async {
     return await api.getQualityProfiles().then((profiles) {
-      _qualityProfiles = profiles?.values?.toList();
-      if (_qualityProfiles?.isNotEmpty ?? false) {
+      _qualityProfiles = profiles.values.toList();
+      if (_qualityProfiles.isNotEmpty) {
         for (var profile in _qualityProfiles) {
-          if (profile.id == _arguments.entry.qualityProfile) {
+          if (profile.id == _arguments!.entry!.qualityProfile) {
             _qualityProfile = profile;
           }
         }
@@ -80,10 +81,10 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
 
   Future<void> _fetchMetadata(LidarrAPI api) async {
     return await api.getMetadataProfiles().then((metadatas) {
-      _metadataProfiles = metadatas?.values?.toList();
-      if (_metadataProfiles?.isNotEmpty ?? false) {
+      _metadataProfiles = metadatas.values.toList();
+      if (_metadataProfiles.isNotEmpty) {
         for (var profile in _metadataProfiles) {
-          if (profile.id == _arguments.entry.metadataProfile) {
+          if (profile.id == _arguments!.entry!.metadataProfile) {
             _metadataProfile = profile;
           }
         }
@@ -133,19 +134,19 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
           LunaBlock(
             title: 'Monitored',
             trailing: LunaSwitch(
-              value: _monitored,
+              value: _monitored!,
               onChanged: (value) => setState(() => _monitored = value),
             ),
           ),
           LunaBlock(
             title: 'Quality Profile',
-            body: [TextSpan(text: _qualityProfile.name)],
+            body: [TextSpan(text: _qualityProfile!.name)],
             trailing: const LunaIconButton.arrow(),
             onTap: _changeProfile,
           ),
           LunaBlock(
             title: 'Metadata Profile',
-            body: [TextSpan(text: _metadataProfile.name)],
+            body: [TextSpan(text: _metadataProfile!.name)],
             trailing: const LunaIconButton.arrow(),
             onTap: _changeMetadata,
           ),
@@ -160,7 +161,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
 
   Future<void> _changePath() async {
     Tuple2<bool, String> _values =
-        await LunaDialogs().editText(context, 'Artist Path', prefill: _path);
+        await LunaDialogs().editText(context, 'Artist Path', prefill: _path!);
     if (_values.item1 && mounted) setState(() => _path = _values.item2);
   }
 
@@ -177,24 +178,24 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   }
 
   Future<void> _save() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     await _api
         .editArtist(
-      _arguments.entry.artistID,
-      _qualityProfile,
-      _metadataProfile,
+      _arguments!.entry!.artistID,
+      _qualityProfile!,
+      _metadataProfile!,
       _path,
       _monitored,
       _albumFolders,
     )
         .then((_) {
-      _arguments.entry.qualityProfile = _qualityProfile.id;
-      _arguments.entry.quality = _qualityProfile.name;
-      _arguments.entry.metadataProfile = _metadataProfile.id;
-      _arguments.entry.metadata = _metadataProfile.name;
-      _arguments.entry.path = _path;
-      _arguments.entry.monitored = _monitored;
-      _arguments.entry.albumFolders = _albumFolders;
+      _arguments!.entry!.qualityProfile = _qualityProfile!.id;
+      _arguments!.entry!.quality = _qualityProfile!.name;
+      _arguments!.entry!.metadataProfile = _metadataProfile!.id;
+      _arguments!.entry!.metadata = _metadataProfile!.name;
+      _arguments!.entry!.path = _path;
+      _arguments!.entry!.monitored = _monitored;
+      _arguments!.entry!.albumFolders = _albumFolders;
       Navigator.of(context).pop([true]);
     }).catchError((error, stack) {
       LunaLogger().error('Failed to update artist', error, stack);

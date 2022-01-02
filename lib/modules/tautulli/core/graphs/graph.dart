@@ -32,17 +32,17 @@ class TautulliGraphHelper {
           margin: 8.0,
           reservedSize: 8.0,
           getTitles: (value) =>
-              data.categories[value.truncate()].length > maxTitleLength + 1
+              data.categories![value.truncate()]!.length > maxTitleLength + 1
                   ? [
-                      data.categories[value.truncate()]
+                      data.categories![value.truncate()]!
                           .substring(
                               0,
                               min(maxTitleLength,
-                                  data.categories[value.truncate()].length))
+                                  data.categories![value.truncate()]!.length))
                           .toUpperCase(),
                       if (titleOverFlowShowEllipsis) LunaUI.TEXT_ELLIPSIS,
                     ].join()
-                  : data.categories[value.truncate()].toUpperCase(),
+                  : data.categories![value.truncate()]!.toUpperCase(),
           getTextStyles: (_, __) => const TextStyle(
             color: LunaColours.grey,
             fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
@@ -70,7 +70,7 @@ class TautulliGraphHelper {
                   padding: const EdgeInsets.only(right: 6.0),
                 ),
                 Text(
-                  data[index].name,
+                  data[index].name!,
                   style: TextStyle(
                     fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
                     color: LunaColours().byGraphLayer(index),

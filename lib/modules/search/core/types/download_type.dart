@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
@@ -21,7 +20,6 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
       case SearchDownloadType.FILESYSTEM:
         return 'search.DownloadToDevice'.tr();
     }
-    throw Exception('Invalid SearchDownloadType');
   }
 
   IconData get icon {
@@ -33,7 +31,6 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
       case SearchDownloadType.FILESYSTEM:
         return Icons.download_rounded;
     }
-    throw Exception('Invalid SearchDownloadType');
   }
 
   Future<void> execute(BuildContext context, NewznabResultData data) async {
@@ -49,7 +46,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
 
   Future<void> _executeNZBGet(
       BuildContext context, NewznabResultData data) async {
-    NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);
+    NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject!);
     await api
         .uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(
@@ -68,7 +65,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
 
   Future<void> _executeSABnzbd(
       BuildContext context, NewznabResultData data) async {
-    SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject);
+    SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject!);
     await api
         .uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(
@@ -99,7 +96,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
           .downloadRelease(data)
           .then((download) async {
         bool result = await LunaFileSystem()
-            .export(context, '$cleanTitle.nzb', utf8.encode(download));
+            .export(context, '$cleanTitle.nzb', utf8.encode(download!));
         if (result)
           showLunaSuccessSnackBar(
               title: 'Saved NZB', message: 'NZB has been successfully saved');

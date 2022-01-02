@@ -35,9 +35,9 @@ class TautulliDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      TautulliDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      TautulliDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Primitive values
@@ -49,7 +49,7 @@ class TautulliDatabase extends LunaModuleDatabase {
   }
 
   @override
-  TautulliDatabaseValue valueFromKey(String key) {
+  TautulliDatabaseValue? valueFromKey(String key) {
     for (TautulliDatabaseValue value in TautulliDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -79,8 +79,8 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -116,7 +116,6 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
       case TautulliDatabaseValue.GRAPHS_MONTHS:
         return 6;
     }
-    throw Exception('Invalid TautulliDatabaseValue');
   }
 
   bool _isTypeValid(dynamic value) {
@@ -146,6 +145,5 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
       case TautulliDatabaseValue.GRAPHS_MONTHS:
         return value is int;
     }
-    throw Exception('Invalid TautulliDatabaseValue');
   }
 }

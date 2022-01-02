@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => TautulliLogsNotificationsState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -59,7 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _logs(snapshot.data);
           return const LunaLoader();
@@ -68,7 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _logs(TautulliNotificationLogs logs) {
+  Widget _logs(TautulliNotificationLogs? logs) {
     if ((logs?.logs?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Logs Found',
@@ -77,9 +77,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: logs.logs.length,
+      itemCount: logs!.logs!.length,
       itemBuilder: (context, index) =>
-          TautulliLogsNotificationLogTile(notification: logs.logs[index]),
+          TautulliLogsNotificationLogTile(notification: logs.logs![index]),
     );
   }
 }

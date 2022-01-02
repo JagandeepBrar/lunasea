@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -53,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, box, _) => LunaListView(
+      builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
           _host(),
@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.sabnzbdHost ?? '';
+    String host = Database.currentProfileObject!.sabnzbdHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -76,8 +76,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: host,
         );
         if (_values.item1) {
-          Database.currentProfileObject.sabnzbdHost = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.sabnzbdHost = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<SABnzbdState>().reset();
         }
       },
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.sabnzbdKey ?? '';
+    String apiKey = Database.currentProfileObject!.sabnzbdKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -103,8 +103,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: apiKey,
         );
         if (_values.item1) {
-          Database.currentProfileObject.sabnzbdKey = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.sabnzbdKey = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<SABnzbdState>().reset();
         }
       },
@@ -116,22 +116,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'Test Connection',
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject;
-        if (_profile.sabnzbdHost == null || _profile.sabnzbdHost.isEmpty) {
+        ProfileHiveObject _profile = Database.currentProfileObject!;
+        if (_profile.sabnzbdHost == null || _profile.sabnzbdHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to SABnzbd',
           );
           return;
         }
-        if (_profile.sabnzbdKey == null || _profile.sabnzbdKey.isEmpty) {
+        if (_profile.sabnzbdKey == null || _profile.sabnzbdKey!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to SABnzbd',
           );
           return;
         }
-        SABnzbdAPI.from(Database.currentProfileObject)
+        SABnzbdAPI.from(Database.currentProfileObject!)
             .testConnection()
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Connected Successfully',

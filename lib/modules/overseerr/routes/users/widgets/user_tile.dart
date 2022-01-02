@@ -6,8 +6,8 @@ class OverseerrUserTile extends StatelessWidget {
   final OverseerrUser user;
 
   const OverseerrUserTile({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override

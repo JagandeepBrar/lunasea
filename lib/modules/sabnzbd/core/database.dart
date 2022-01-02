@@ -24,9 +24,9 @@ class SABnzbdDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      SABnzbdDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      SABnzbdDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Primitive values
@@ -38,7 +38,7 @@ class SABnzbdDatabase extends LunaModuleDatabase {
   }
 
   @override
-  SABnzbdDatabaseValue valueFromKey(String key) {
+  SABnzbdDatabaseValue? valueFromKey(String key) {
     for (SABnzbdDatabaseValue value in SABnzbdDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -68,8 +68,8 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -83,7 +83,6 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
       case SABnzbdDatabaseValue.NAVIGATION_INDEX:
         return value is int;
     }
-    throw Exception('Invalid SABnzbdDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -91,6 +90,5 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
       case SABnzbdDatabaseValue.NAVIGATION_INDEX:
         return 0;
     }
-    throw Exception('Invalid SABnzbdDatabaseValue');
   }
 }

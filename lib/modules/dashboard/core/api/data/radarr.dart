@@ -4,21 +4,21 @@ import 'package:lunasea/modules/radarr.dart';
 import './abstract.dart';
 
 class CalendarRadarrData extends CalendarData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getRadarr();
   bool hasFile;
-  String fileQualityProfile;
+  String? fileQualityProfile;
   int year;
   int runtime;
   String studio;
 
   CalendarRadarrData({
-    @required int id,
-    @required String title,
-    @required this.hasFile,
-    @required this.fileQualityProfile,
-    @required this.year,
-    @required this.runtime,
-    @required this.studio,
+    required int id,
+    required String title,
+    required this.hasFile,
+    required this.fileQualityProfile,
+    required this.year,
+    required this.runtime,
+    required this.studio,
   }) : super(id, title);
 
   @override
@@ -53,7 +53,7 @@ class CalendarRadarrData extends CalendarData {
 
   @override
   Future<void> enterContent(BuildContext context) async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
+      RadarrMoviesDetailsRouter().navigateTo(context, id);
 
   @override
   Widget trailing(BuildContext context) {
@@ -70,15 +70,15 @@ class CalendarRadarrData extends CalendarData {
 
   @override
   Future<void> trailingOnLongPress(BuildContext context) async =>
-      RadarrReleasesRouter().navigateTo(context, movieId: id);
+      RadarrReleasesRouter().navigateTo(context, id);
 
   @override
-  String backgroundUrl(BuildContext context) {
+  String? backgroundUrl(BuildContext context) {
     return context.read<RadarrState>().getFanartURL(this.id);
   }
 
   @override
-  String posterUrl(BuildContext context) {
+  String? posterUrl(BuildContext context) {
     return context.read<RadarrState>().getPosterURL(this.id);
   }
 }

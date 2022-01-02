@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -57,13 +57,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledToggle() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.SABNZBD.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject.sabnzbdEnabled ?? false,
+          value: Database.currentProfileObject!.sabnzbdEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject.sabnzbdEnabled = value;
-            Database.currentProfileObject.save();
+            Database.currentProfileObject!.sabnzbdEnabled = value;
+            Database.currentProfileObject!.save();
             context.read<SABnzbdState>().reset();
           },
         ),

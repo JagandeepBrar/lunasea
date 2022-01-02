@@ -9,7 +9,7 @@ enum LidarrMonitorStatus {
 }
 
 extension LidarrMonitorStatusExtension on LidarrMonitorStatus {
-  LidarrMonitorStatus fromKey(String key) {
+  LidarrMonitorStatus? fromKey(String key) {
     switch (key) {
       case 'all':
         return LidarrMonitorStatus.ALL;
@@ -25,8 +25,9 @@ extension LidarrMonitorStatusExtension on LidarrMonitorStatus {
         return LidarrMonitorStatus.ONLY_LAST_ALBUM;
       case 'none':
         return LidarrMonitorStatus.NONE;
+      default:
+        return null;
     }
-    return null;
   }
 
   String get key {
@@ -46,7 +47,6 @@ extension LidarrMonitorStatusExtension on LidarrMonitorStatus {
       case LidarrMonitorStatus.NONE:
         return 'none';
     }
-    throw Exception('Invalid LidarrMonitorStatus');
   }
 
   String get readable {
@@ -66,6 +66,5 @@ extension LidarrMonitorStatusExtension on LidarrMonitorStatus {
       case LidarrMonitorStatus.NONE:
         return 'None';
     }
-    throw Exception('Invalid LidarrMonitorStatus');
   }
 }

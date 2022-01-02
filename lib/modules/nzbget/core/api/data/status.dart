@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetStatusData {
@@ -9,11 +8,11 @@ class NZBGetStatusData {
   int speedlimit;
 
   NZBGetStatusData({
-    @required this.paused,
-    @required this.speed,
-    @required this.remainingHigh,
-    @required this.remainingLow,
-    @required this.speedlimit,
+    required this.paused,
+    required this.speed,
+    required this.remainingHigh,
+    required this.remainingLow,
+    required this.speedlimit,
   });
 
   int get remaining {
@@ -21,11 +20,11 @@ class NZBGetStatusData {
   }
 
   String get currentSpeed {
-    return '${speed?.lunaBytesToString(decimals: 1)}/s';
+    return '${speed.lunaBytesToString(decimals: 1)}/s';
   }
 
   String get remainingString {
-    return remaining?.lunaBytesToString(decimals: 1);
+    return remaining.lunaBytesToString(decimals: 1);
   }
 
   String get timeLeft {
@@ -37,6 +36,6 @@ class NZBGetStatusData {
   String get speedlimitString {
     return speedlimit == 0
         ? 'Unlimited'
-        : speedlimit?.lunaBytesToString(decimals: 0);
+        : speedlimit.lunaBytesToString(decimals: 0);
   }
 }

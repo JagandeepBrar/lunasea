@@ -35,10 +35,9 @@ extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
       case SonarrSeriesFilter.MISSING:
         return 'missing';
     }
-    throw Exception('Invalid SonarrSeriesFilter');
   }
 
-  SonarrSeriesFilter fromKey(String key) {
+  SonarrSeriesFilter? fromKey(String? key) {
     switch (key) {
       case 'all':
         return SonarrSeriesFilter.ALL;
@@ -72,7 +71,6 @@ extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
       case SonarrSeriesFilter.MISSING:
         return 'sonarr.Missing'.tr();
     }
-    throw Exception('Invalid SonarrSeriesFilter');
   }
 
   List<SonarrSeries> filter(List<SonarrSeries> series) =>
@@ -98,26 +96,25 @@ class _Sorter {
       case SonarrSeriesFilter.MISSING:
         return _missing(series);
     }
-    throw Exception('sorting type not found');
   }
 
   List<SonarrSeries> _monitored(List<SonarrSeries> series) =>
-      series.where((s) => s.monitored).toList();
+      series.where((s) => s.monitored!).toList();
 
   List<SonarrSeries> _unmonitored(List<SonarrSeries> series) =>
-      series.where((s) => !s.monitored).toList();
+      series.where((s) => !s.monitored!).toList();
 
   List<SonarrSeries> _continuing(List<SonarrSeries> series) =>
-      series.where((s) => !s.ended).toList();
+      series.where((s) => !s.ended!).toList();
 
   List<SonarrSeries> _ended(List<SonarrSeries> series) =>
-      series.where((s) => s.ended).toList();
+      series.where((s) => s.ended!).toList();
 
   List<SonarrSeries> _missing(List<SonarrSeries> series) {
     return series
         .where((s) =>
-            (s?.statistics?.episodeCount ?? 0) !=
-            (s?.statistics?.episodeFileCount ?? 0))
+            (s.statistics?.episodeCount ?? 0) !=
+            (s.statistics?.episodeFileCount ?? 0))
         .toList();
   }
 }

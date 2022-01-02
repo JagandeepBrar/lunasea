@@ -6,8 +6,8 @@ class LunaNotEnabledRoute extends StatelessWidget {
   final String module;
 
   LunaNotEnabledRoute({
-    Key key,
-    @required this.module,
+    Key? key,
+    required this.module,
   }) : super(key: key);
 
   @override

@@ -5,13 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsPlayCountByUserStreamTypeGraph extends StatelessWidget {
   const TautulliGraphsPlayCountByUserStreamTypeGraph({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playCountByUserStreamTypeGraph,
+        selector: (_, state) => state.playCountByUserStreamTypeGraph!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
@@ -24,7 +24,7 @@ class TautulliGraphsPlayCountByUserStreamTypeGraph extends StatelessWidget {
                 );
               return TautulliGraphHelper().errorContainer(context);
             }
-            if (snapshot.hasData) return _graph(context, snapshot.data);
+            if (snapshot.hasData) return _graph(context, snapshot.data!);
             return TautulliGraphHelper().loadingContainer(context);
           },
         ),
@@ -53,7 +53,7 @@ class TautulliGraphsPlayCountByUserStreamTypeGraph extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
             ),
           ),
-          TautulliGraphHelper().createLegend(data.series),
+          TautulliGraphHelper().createLegend(data.series!),
         ],
       ),
     );

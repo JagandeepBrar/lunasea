@@ -18,8 +18,8 @@ class DeprecatedSonarrQualityProfileAdapter
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DeprecatedSonarrQualityProfile(
-      id: fields[0] as int,
-      name: fields[1] as String,
+      id: fields[0] as int?,
+      name: fields[1] as String?,
     );
   }
 

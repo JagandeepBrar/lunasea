@@ -35,14 +35,14 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
 
   Widget _appBar() {
     return LunaAppBar(
-      title: context.read<SearchState>().indexer?.displayName ??
+      title: context.read<SearchState>().indexer.displayName ??
           'search.Categories'.tr(),
       scrollControllers: [scrollController],
       actions: <Widget>[
@@ -68,10 +68,10 @@ class _State extends State<_Widget>
               snapshot.error,
               snapshot.stackTrace,
             );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) return _list(snapshot.data);
+              snapshot.hasData) return _list(snapshot.data!);
           return const LunaLoader();
         },
       ),
@@ -79,7 +79,7 @@ class _State extends State<_Widget>
   }
 
   Widget _list(List<NewznabCategoryData> categories) {
-    if ((categories.length ?? 0) == 0) {
+    if (categories.isEmpty) {
       return LunaMessage.goBack(
         context: context,
         text: 'search.NoCategoriesFound'.tr(),
@@ -100,7 +100,7 @@ class _State extends State<_Widget>
     return categories.where((category) {
       if (!SearchDatabaseValue.HIDE_XXX.data) return true;
       if (category.id >= 6000 && category.id <= 6999) return false;
-      if (ADULT_CATEGORIES.contains(category.name.toLowerCase().trim())) {
+      if (ADULT_CATEGORIES.contains(category.name!.toLowerCase().trim())) {
         return false;
       }
       return true;

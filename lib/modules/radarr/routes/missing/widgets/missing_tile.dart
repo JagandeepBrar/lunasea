@@ -6,12 +6,12 @@ class RadarrMissingTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final RadarrMovie movie;
-  final RadarrQualityProfile profile;
+  final RadarrQualityProfile? profile;
 
   const RadarrMissingTile({
-    Key key,
-    @required this.movie,
-    @required this.profile,
+    Key? key,
+    required this.movie,
+    required this.profile,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class RadarrMissingTile extends StatefulWidget {
 class _State extends State<RadarrMissingTile> {
   @override
   Widget build(BuildContext context) {
-    return Selector<RadarrState, Future<List<RadarrMovie>>>(
+    return Selector<RadarrState, Future<List<RadarrMovie>>?>(
       selector: (_, state) => state.missing,
       builder: (context, missing, _) => LunaBlock(
         backgroundUrl:
@@ -29,7 +29,7 @@ class _State extends State<RadarrMissingTile> {
         posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
         posterHeaders: context.read<RadarrState>().headers,
         posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-        disabled: !widget.movie.monitored,
+        disabled: !widget.movie.monitored!,
         title: widget.movie.title,
         body: [
           _subtitle1(),
@@ -57,7 +57,7 @@ class _State extends State<RadarrMissingTile> {
   TextSpan _subtitle2() {
     return TextSpan(
       children: [
-        TextSpan(text: widget.profile.lunaName),
+        TextSpan(text: widget.profile!.lunaName),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: widget.movie.lunaMinimumAvailability),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
@@ -67,7 +67,7 @@ class _State extends State<RadarrMissingTile> {
   }
 
   TextSpan _subtitle3() {
-    String _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
+    String? _days = widget.movie.lunaEarlierReleaseDate?.lunaDaysDifference;
     return TextSpan(
         style: const TextStyle(
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -85,13 +85,13 @@ class _State extends State<RadarrMissingTile> {
       icon: Icons.search_rounded,
       onPressed: () async => RadarrAPIHelper().automaticSearch(
           context: context,
-          movieId: widget.movie.id,
-          title: widget.movie.title),
+          movieId: widget.movie.id!,
+          title: widget.movie.title!),
       onLongPress: () async =>
-          RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
+          RadarrReleasesRouter().navigateTo(context, widget.movie.id!),
     );
   }
 
   Future<void> _onTap() async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
+      RadarrMoviesDetailsRouter().navigateTo(context, widget.movie.id!);
 }

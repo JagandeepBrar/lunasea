@@ -7,8 +7,8 @@ class SABnzbdHistory extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const SABnzbdHistory({
-    Key key,
-    @required this.refreshIndicatorKey,
+    Key? key,
+    required this.refreshIndicatorKey,
   }) : super(key: key);
 
   @override
@@ -18,8 +18,8 @@ class SABnzbdHistory extends StatefulWidget {
 class _State extends State<SABnzbdHistory>
     with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<List<SABnzbdHistoryData>> _future;
-  List<SABnzbdHistoryData> _results = [];
+  Future<List<SABnzbdHistoryData>>? _future;
+  List<SABnzbdHistoryData>? _results = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -27,7 +27,7 @@ class _State extends State<SABnzbdHistory>
   @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
-    final _api = SABnzbdAPI.from(Database.currentProfileObject);
+    final _api = SABnzbdAPI.from(Database.currentProfileObject!);
     if (mounted)
       setState(() {
         _future = _api.getHistory();
@@ -40,7 +40,7 @@ class _State extends State<SABnzbdHistory>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
     );
   }
 
@@ -59,14 +59,13 @@ class _State extends State<SABnzbdHistory>
       onRefresh: loadCallback,
       child: FutureBuilder(
         future: _future,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<List<SABnzbdHistoryData>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               {
                 if (snapshot.hasError || snapshot.data == null) {
                   return LunaMessage.error(
-                      onTap: () =>
-                          widget.refreshIndicatorKey.currentState.show());
+                      onTap: widget.refreshIndicatorKey.currentState!.show);
                 }
                 _results = snapshot.data;
                 return _list;
@@ -121,14 +120,14 @@ class _State extends State<SABnzbdHistory>
     );
   }
 
-  List<SABnzbdHistoryData> _filter(String filter) => _results
-      .where((entry) => filter == null || filter == ''
-          ? entry != null
+  List<SABnzbdHistoryData> _filter(String filter) => _results!
+      .where((entry) => filter.isEmpty
+          ? true
           : entry.name.toLowerCase().contains(filter.toLowerCase()))
       .toList();
 
   List<SABnzbdHistoryData> _hide(List<SABnzbdHistoryData> data) {
-    if (data?.isEmpty ?? true) return data;
+    if (data.isEmpty) return data;
     return data.where((entry) => entry.failed).toList();
   }
 }

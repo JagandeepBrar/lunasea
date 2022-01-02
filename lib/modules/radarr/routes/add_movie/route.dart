@@ -16,15 +16,13 @@ class RadarrAddMovieRouter extends RadarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required String query,
-  }) async {
+    BuildContext context, [
+    String query = '',
+  ]) async {
     LunaRouter.router.navigateTo(
       context,
       route(),
-      routeSettings: RouteSettings(
-        arguments: _RadarrAddMovieArguments(query),
-      ),
+      routeSettings: RouteSettings(arguments: _RadarrAddMovieArguments(query)),
     );
   }
 
@@ -41,12 +39,13 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _RadarrAddMovieArguments _arguments;
-  LunaPageController _pageController;
+  _RadarrAddMovieArguments? _arguments;
+  LunaPageController? _pageController;
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context).settings.arguments;
+    _arguments =
+        ModalRoute.of(context)!.settings.arguments as _RadarrAddMovieArguments?;
     _pageController = LunaPageController(
       initialPage: (_arguments?.query ?? '').isNotEmpty
           ? 0
@@ -54,7 +53,7 @@ class _State extends State<_Widget> {
     );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -78,12 +77,12 @@ class _State extends State<_Widget> {
         context,
         _arguments?.query ?? '',
       ),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrAddMovieSearchPage(
             autofocusSearchBar: (_arguments?.query ?? '').isEmpty &&
-                _pageController.initialPage == 0,
+                _pageController!.initialPage == 0,
           ),
           const RadarrAddMovieDiscoverPage(),
         ],

@@ -27,7 +27,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
@@ -56,7 +56,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
       valueListenable: Database.externalModulesBox.listenable(),
-      builder: (context, box, _) => LunaListView(
+      builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
           LunaModule.EXTERNAL_MODULES.informationBanner(),
@@ -76,10 +76,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<ExternalModuleHiveObject> modules =
         Database.externalModulesBox.values.toList();
     modules.sort((a, b) =>
-        a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
+        a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(
       modules.length,
-      (index) => _moduleTile(modules[index], modules[index].key),
+      (index) => _moduleTile(modules[index], modules[index].key) as LunaBlock,
     );
     return list;
   }
@@ -92,7 +92,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         return SettingsConfigurationExternalModulesEditRouter().navigateTo(
           context,
-          moduleId: index,
+          index,
         );
       },
     );

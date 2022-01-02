@@ -21,7 +21,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _State extends State<_Widget> {
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'System Status',
       pageController: _pageController,
@@ -57,7 +57,7 @@ class _State extends State<_Widget> {
   Widget _body() {
     return ChangeNotifierProvider(
       create: (context) => RadarrSystemStatusState(context),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrSystemStatusAboutPage(

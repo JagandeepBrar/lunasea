@@ -17,13 +17,13 @@ class RadarrMovieDetailsNavigationBar extends StatefulWidget {
   ];
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
-  final PageController pageController;
-  final RadarrMovie movie;
+  final PageController? pageController;
+  final RadarrMovie? movie;
 
   const RadarrMovieDetailsNavigationBar({
-    Key key,
-    @required this.pageController,
-    @required this.movie,
+    Key? key,
+    required this.pageController,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -62,8 +62,8 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
     RadarrAPIHelper()
         .automaticSearch(
             context: context,
-            movieId: widget.movie.id,
-            title: widget.movie.title)
+            movieId: widget.movie!.id!,
+            title: widget.movie!.title!)
         .then((value) {
       if (mounted)
         setState(() {
@@ -73,6 +73,6 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
     });
   }
 
-  Future<void> _manual() async => RadarrReleasesRouter()
-      .navigateTo(context, movieId: widget.movie.id ?? -1);
+  Future<void> _manual() async =>
+      RadarrReleasesRouter().navigateTo(context, widget.movie?.id ?? -1);
 }

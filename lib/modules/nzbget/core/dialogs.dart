@@ -110,7 +110,7 @@ class NZBGetDialogs {
     final _textController = TextEditingController()..text = originalName;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -133,7 +133,7 @@ class NZBGetDialogs {
             title: 'Job Name',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.isEmpty ? 'Please enter a valid name' : null,
+                (value?.isEmpty ?? true) ? 'Please enter a valid name' : null,
           ),
         ),
       ],
@@ -144,7 +144,7 @@ class NZBGetDialogs {
 
   static Future<List<dynamic>> changePriority(BuildContext context) async {
     bool _flag = false;
-    NZBGetPriority _priority;
+    NZBGetPriority? _priority;
 
     void _setValues(bool flag, NZBGetPriority priority) {
       _flag = flag;
@@ -172,7 +172,7 @@ class NZBGetDialogs {
   static Future<List<dynamic>> changeCategory(
       BuildContext context, List<NZBGetCategoryData> categories) async {
     bool _flag = false;
-    NZBGetCategoryData _category;
+    NZBGetCategoryData? _category;
 
     void _setValues(bool flag, NZBGetCategoryData category) {
       _flag = flag;
@@ -205,7 +205,7 @@ class NZBGetDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -227,8 +227,9 @@ class NZBGetDialogs {
             controller: _textController,
             title: 'Job Password',
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'Please enter a valid password' : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'Please enter a valid password'
+                : null,
             obscureText: true,
           ),
         ),
@@ -273,7 +274,7 @@ class NZBGetDialogs {
 
   static Future<List<dynamic>> sortQueue(BuildContext context) async {
     bool _flag = false;
-    NZBGetSort _sort;
+    NZBGetSort? _sort;
 
     void _setValues(bool flag, NZBGetSort sort) {
       _flag = flag;
@@ -335,7 +336,7 @@ class NZBGetDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -358,10 +359,13 @@ class NZBGetDialogs {
             title: 'NZB URL',
             keyboardType: TextInputType.url,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                !value.startsWith('http://') && !value.startsWith('https://')
-                    ? 'Please enter a valid URL'
-                    : null,
+            validator: (value) {
+              if (!(value?.startsWith('http://') ?? true) &&
+                  !(value?.startsWith('https://') ?? true)) {
+                return 'Please enter a valid URL';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -416,7 +420,7 @@ class NZBGetDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -441,7 +445,7 @@ class NZBGetDialogs {
             onSubmitted: (_) => _setValues(true),
             keyboardType: TextInputType.number,
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value == null || _value < 1) {
                 return 'Must be a number greater than 1';
               }
@@ -530,7 +534,7 @@ class NZBGetDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -563,7 +567,7 @@ class NZBGetDialogs {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _setValues(true),
               validator: (value) {
-                int _value = int.tryParse(value);
+                int? _value = int.tryParse(value!);
                 if (_value == null || _value < 1) {
                   return 'Must be at least 1';
                 }

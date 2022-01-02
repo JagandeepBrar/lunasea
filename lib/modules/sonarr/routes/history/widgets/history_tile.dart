@@ -12,13 +12,13 @@ enum SonarrHistoryTileType {
 class SonarrHistoryTile extends StatelessWidget {
   final SonarrHistoryRecord history;
   final SonarrHistoryTileType type;
-  final SonarrSeries series;
-  final SonarrEpisode episode;
+  final SonarrSeries? series;
+  final SonarrEpisode? episode;
 
   const SonarrHistoryTile({
-    Key key,
-    @required this.history,
-    @required this.type,
+    Key? key,
+    required this.history,
+    required this.type,
     this.series,
     this.episode,
   }) : super(key: key);
@@ -47,7 +47,7 @@ class SonarrHistoryTile extends StatelessWidget {
         _hasEpisodeInfo() && type != SonarrHistoryTileType.EPISODE;
     return LunaExpandableListTile(
       title: type != SonarrHistoryTileType.ALL
-          ? history.sourceTitle
+          ? history.sourceTitle!
           : series?.title ?? LunaUI.TEXT_EMDASH,
       collapsedSubtitles: [
         if (_isThreeLine) _subtitle1(),
@@ -57,38 +57,38 @@ class SonarrHistoryTile extends StatelessWidget {
       expandedHighlightedNodes: [
         LunaHighlightedNode(
           text: history.eventType?.readable ?? LunaUI.TEXT_EMDASH,
-          backgroundColor: history.eventType?.lunaColour(),
+          backgroundColor: history.eventType!.lunaColour(),
         ),
-        if (history?.lunaHasPreferredWordScore() ?? false)
+        if (history.lunaHasPreferredWordScore())
           LunaHighlightedNode(
-            text: history?.lunaPreferredWordScore(),
+            text: history.lunaPreferredWordScore(),
             backgroundColor: LunaColours.purple,
           ),
-        if (history?.episode?.seasonNumber != null)
+        if (history.episode?.seasonNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.SeasonNumber'.tr(
-              args: [history.episode.seasonNumber.toString()],
+              args: [history.episode!.seasonNumber.toString()],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
         if (episode?.seasonNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.SeasonNumber'.tr(
-              args: [episode?.seasonNumber.toString()],
+              args: [episode?.seasonNumber?.toString() ?? LunaUI.TEXT_EMDASH],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
-        if (history?.episode?.episodeNumber != null)
+        if (history.episode?.episodeNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.EpisodeNumber'.tr(
-              args: [history.episode.episodeNumber.toString()],
+              args: [history.episode!.episodeNumber.toString()],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
         if (episode?.episodeNumber != null)
           LunaHighlightedNode(
             text: 'sonarr.EpisodeNumber'.tr(
-              args: [episode?.episodeNumber.toString()],
+              args: [episode?.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH],
             ),
             backgroundColor: LunaColours.blueGrey,
           ),
@@ -108,15 +108,14 @@ class SonarrHistoryTile extends StatelessWidget {
       case SonarrHistoryTileType.ALL:
         return SonarrSeriesDetailsRouter().navigateTo(
           context,
-          seriesId: history?.series?.id ?? series?.id ?? -1,
+          history.series?.id ?? series?.id ?? -1,
         );
       case SonarrHistoryTileType.SERIES:
         if (_hasEpisodeInfo()) {
           return SonarrSeasonDetailsRouter().navigateTo(
             context,
-            seriesId: history?.seriesId ?? history?.series?.id ?? series.id,
-            seasonNumber:
-                history?.episode?.seasonNumber ?? episode?.seasonNumber,
+            history.seriesId ?? history.series?.id ?? series!.id ?? -1,
+            history.episode?.seasonNumber ?? episode?.seasonNumber ?? -1,
           );
         }
         break;
@@ -128,13 +127,13 @@ class SonarrHistoryTile extends StatelessWidget {
   TextSpan _subtitle1() {
     return TextSpan(children: [
       TextSpan(
-        text: history?.lunaSeasonEpisode() ??
+        text: history.lunaSeasonEpisode() ??
             episode?.lunaSeasonEpisode() ??
             LunaUI.TEXT_EMDASH,
       ),
       const TextSpan(text: ': '),
       TextSpan(
-        text: history?.episode?.title ?? episode?.title ?? LunaUI.TEXT_EMDASH,
+        text: history.episode?.title ?? episode?.title ?? LunaUI.TEXT_EMDASH,
         style: const TextStyle(
           fontStyle: FontStyle.italic,
         ),
@@ -145,17 +144,17 @@ class SonarrHistoryTile extends StatelessWidget {
   TextSpan _subtitle2() {
     return TextSpan(
       text: [
-        history?.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
-        history?.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-      ].join(LunaUI.TEXT_BULLET.lunaPad()),
+        history.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
+        history.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+      ].join(LunaUI.TEXT_BULLET.lunaPad()!),
     );
   }
 
   TextSpan _subtitle3() {
     return TextSpan(
-      text: history?.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
+      text: history.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,
       style: TextStyle(
-        color: history?.eventType?.lunaColour() ?? LunaColours.blueGrey,
+        color: history.eventType?.lunaColour() ?? LunaColours.blueGrey,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
       ),
     );

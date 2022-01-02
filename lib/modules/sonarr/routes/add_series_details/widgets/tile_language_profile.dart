@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
   const SonarrSeriesAddDetailsLanguageProfileTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
           text: context
                   .watch<SonarrSeriesAddDetailsState>()
                   .languageProfile
-                  ?.name ??
+                  .name ??
               LunaUI.TEXT_EMDASH,
         ),
       ],
@@ -27,14 +27,14 @@ class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
 
   Future<void> _onTap(BuildContext context) async {
     List<SonarrLanguageProfile> _profiles =
-        await context.read<SonarrState>().languageProfiles;
-    Tuple2<bool, SonarrLanguageProfile> result =
+        await context.read<SonarrState>().languageProfiles!;
+    Tuple2<bool, SonarrLanguageProfile?> result =
         await SonarrDialogs().editLanguageProfiles(context, _profiles);
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().languageProfile =
-          result.item2;
+          result.item2!;
       SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE
-          .put(result.item2.id);
+          .put(result.item2!.id);
     }
   }
 }

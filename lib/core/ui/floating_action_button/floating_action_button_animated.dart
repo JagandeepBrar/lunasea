@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFloatingActionButtonAnimated extends StatelessWidget {
-  final Object heroTag;
+  final Object? heroTag;
   final AnimatedIconData icon;
-  final AnimationController controller;
+  final AnimationController? controller;
   final Color color;
   final Color backgroundColor;
   final Function onPressed;
 
   const LunaFloatingActionButtonAnimated({
-    Key key,
-    @required this.onPressed,
-    @required this.icon,
-    @required this.controller,
+    Key? key,
+    required this.onPressed,
+    required this.icon,
+    required this.controller,
     this.backgroundColor = LunaColours.accent,
     this.color = Colors.white,
     this.heroTag,
@@ -25,10 +25,10 @@ class LunaFloatingActionButtonAnimated extends StatelessWidget {
       child: AnimatedIcon(
         icon: icon,
         color: color,
-        progress: controller,
+        progress: controller!,
       ),
       heroTag: heroTag,
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       backgroundColor: backgroundColor,
     );
   }

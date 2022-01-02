@@ -21,7 +21,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<LunaModule> _modules;
+  List<LunaModule>? _modules;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -67,14 +67,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             padding: MediaQuery.of(context).padding.copyWith(top: 0).add(
                 EdgeInsets.only(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)),
             controller: scrollController,
-            itemCount: _modules.length,
+            itemCount: _modules!.length,
             itemBuilder: (context, index) => _reorderableModuleTile(index),
             onReorder: (oIndex, nIndex) {
-              if (oIndex > _modules.length) oIndex = _modules.length;
+              if (oIndex > _modules!.length) oIndex = _modules!.length;
               if (oIndex < nIndex) nIndex--;
-              LunaModule module = _modules[oIndex];
-              _modules.remove(module);
-              _modules.insert(nIndex, module);
+              LunaModule module = _modules![oIndex];
+              _modules!.remove(module);
+              _modules!.insert(nIndex, module);
               LunaDatabaseValue.DRAWER_MANUAL_ORDER.put(_modules);
             },
           ),
@@ -85,12 +85,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _reorderableModuleTile(int index) {
     return LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
-      key: ObjectKey(_modules[index]),
+      key: ObjectKey(_modules![index]),
       builder: (context, _, __) => LunaBlock(
         disabled: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
-        title: _modules[index].name,
-        body: [TextSpan(text: _modules[index].description)],
-        leading: LunaIconButton(icon: _modules[index].icon),
+        title: _modules![index].name,
+        body: [TextSpan(text: _modules![index].description)],
+        leading: LunaIconButton(icon: _modules![index].icon),
         trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
             ? null
             : LunaReorderableListViewDragger(index: index),

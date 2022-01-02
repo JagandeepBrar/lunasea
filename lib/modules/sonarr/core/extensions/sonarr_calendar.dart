@@ -5,14 +5,14 @@ extension SonarrCalendarExtension on SonarrCalendar {
   String get lunaAirTime {
     if (this.airDateUtc != null)
       return LunaDatabaseValue.USE_24_HOUR_TIME.data
-          ? DateFormat.Hm().format(this.airDateUtc.toLocal())
-          : DateFormat('hh:mm\na').format(this.airDateUtc.toLocal());
+          ? DateFormat.Hm().format(this.airDateUtc!.toLocal())
+          : DateFormat('hh:mm\na').format(this.airDateUtc!.toLocal());
     return LunaUI.TEXT_EMDASH;
   }
 
   bool get lunaHasAired {
     if (this.airDateUtc != null)
-      return DateTime.now().isAfter(this.airDateUtc.toLocal());
+      return DateTime.now().isAfter(this.airDateUtc!.toLocal());
     return false;
   }
 }

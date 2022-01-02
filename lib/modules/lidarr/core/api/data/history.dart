@@ -17,13 +17,13 @@ abstract class LidarrHistoryData {
     this.albumID,
   );
 
-  DateTime get timestampObject {
+  DateTime? get timestampObject {
     return DateTime.tryParse(timestamp)?.toLocal();
   }
 
   String get timestampString {
     if (timestampObject != null) {
-      Duration age = DateTime.now().difference(timestampObject);
+      Duration age = DateTime.now().difference(timestampObject!);
       if (age.inDays >= 1) {
         return age.inDays == 1
             ? '${age.inDays} Day Ago'
@@ -56,11 +56,11 @@ class LidarrHistoryDataGeneric extends LidarrHistoryData {
   String eventType;
 
   LidarrHistoryDataGeneric({
-    @required String title,
-    @required String timestamp,
-    @required this.eventType,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required this.eventType,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, eventType, artistID, albumID);
 
   @override
@@ -84,11 +84,11 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
   String indexer;
 
   LidarrHistoryDataGrabbed({
-    @required String title,
-    @required String timestamp,
-    @required this.indexer,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required this.indexer,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'grabbed', artistID, albumID);
 
   @override
@@ -112,11 +112,11 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
   String quality;
 
   LidarrHistoryDataTrackFileImported({
-    @required String title,
-    @required String timestamp,
-    @required this.quality,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required this.quality,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'trackFileImported', artistID, albumID);
 
   @override
@@ -138,11 +138,11 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
   String quality;
 
   LidarrHistoryDataDownloadImported({
-    @required String title,
-    @required String timestamp,
-    @required this.quality,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required this.quality,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'downloadImported', artistID, albumID);
 
   @override
@@ -162,10 +162,10 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
 
 class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
   LidarrHistoryDataAlbumImportIncomplete({
-    @required String title,
-    @required String timestamp,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'albumImportIncomplete', artistID, albumID);
 
   @override
@@ -187,11 +187,11 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
   String reason;
 
   LidarrHistoryDataTrackFileDeleted({
-    @required String title,
-    @required String timestamp,
-    @required this.reason,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required this.reason,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'trackFileDeleted', artistID, albumID);
 
   @override
@@ -212,10 +212,10 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
 
 class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
   LidarrHistoryDataTrackFileRenamed({
-    @required String title,
-    @required String timestamp,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'trackFileRenamed', artistID, albumID);
 
   @override
@@ -235,10 +235,10 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
 
 class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
   LidarrHistoryDataTrackFileRetagged({
-    @required String title,
-    @required String timestamp,
-    @required int artistID,
-    @required int albumID,
+    required String title,
+    required String timestamp,
+    required int artistID,
+    required int albumID,
   }) : super(title, timestamp, 'trackFileRetagged', artistID, albumID);
 
   @override

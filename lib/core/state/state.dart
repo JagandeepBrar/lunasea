@@ -10,14 +10,14 @@ class LunaState {
       GlobalKey<NavigatorState>();
 
   /// Calls `.reset()` on all states which extend [LunaModuleState].
-  static void reset(BuildContext context) {
+  static void reset(BuildContext? context) {
     LunaModule.values.forEach((module) => module.state(context)?.reset());
   }
 
   /// Returns a [MultiProvider] with the provided child.
   ///
   /// The [MultiProvider] has a [ChangeNotifierProvider] provider added for each module global state object.
-  static MultiProvider providers({@required Widget child}) => MultiProvider(
+  static MultiProvider providers({required Widget child}) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => DashboardState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),

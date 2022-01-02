@@ -4,17 +4,17 @@ import 'package:lunasea/core.dart';
 class LunaListViewBuilder extends StatelessWidget {
   final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
-  final double itemExtent;
-  final EdgeInsetsGeometry padding;
+  final double? itemExtent;
+  final EdgeInsetsGeometry? padding;
   final ScrollPhysics physics;
   final ScrollController controller;
 
   const LunaListViewBuilder({
-    Key key,
-    @required this.itemCount,
-    @required this.itemBuilder,
+    Key? key,
+    required this.itemCount,
+    required this.itemBuilder,
     this.itemExtent,
-    @required this.controller,
+    required this.controller,
     this.padding,
     this.physics = const AlwaysScrollableScrollPhysics(),
   }) : super(key: key);
@@ -36,6 +36,6 @@ class LunaListViewBuilder extends StatelessWidget {
   }
 
   EdgeInsets _defaultPadding(BuildContext context) {
-    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF_VERTICAL);
+    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF_VERTICAL) as EdgeInsets;
   }
 }

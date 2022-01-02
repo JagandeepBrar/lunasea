@@ -6,8 +6,8 @@ class TautulliSyncedItemTile extends StatelessWidget {
   final TautulliSyncedItem syncedItem;
 
   const TautulliSyncedItemTile({
-    Key key,
-    @required this.syncedItem,
+    Key? key,
+    required this.syncedItem,
   }) : super(key: key);
 
   @override
@@ -21,12 +21,12 @@ class TautulliSyncedItemTile extends StatelessWidget {
       ],
       backgroundHeaders: context.watch<TautulliState>().headers,
       backgroundUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
-            syncedItem?.ratingKey,
+            syncedItem.ratingKey,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
       posterHeaders: context.watch<TautulliState>().headers,
       posterUrl: context.watch<TautulliState>().getImageURLFromRatingKey(
-            syncedItem?.ratingKey,
+            syncedItem.ratingKey,
             width: MediaQuery.of(context).size.width.truncate(),
           ),
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
@@ -76,8 +76,8 @@ class TautulliSyncedItemTile extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     TautulliMediaDetailsRouter().navigateTo(
       context,
-      ratingKey: syncedItem.ratingKey,
-      mediaType: TautulliMediaType.NULL.from(syncedItem.metadataType),
+      syncedItem.ratingKey!,
+      TautulliMediaType.NULL.from(syncedItem.metadataType)!,
     );
   }
 }

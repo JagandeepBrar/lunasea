@@ -7,9 +7,9 @@ class LidarrAddSearchResultTile extends StatelessWidget {
   final LidarrSearchData data;
 
   const LidarrAddSearchResultTile({
-    Key key,
-    @required this.alreadyAdded,
-    @required this.data,
+    Key? key,
+    required this.alreadyAdded,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -17,12 +17,12 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         title: data.title,
         disabled: alreadyAdded,
         body: [
-          LunaTextSpan.extended(text: data.overview.trim()),
+          LunaTextSpan.extended(text: data.overview!.trim()),
         ],
         customBodyMaxLines: 3,
         trailing: alreadyAdded ? null : const LunaIconButton.arrow(),
         posterIsSquare: true,
-        posterHeaders: Database.currentProfileObject.getLidarr()['headers'],
+        posterHeaders: Database.currentProfileObject!.getLidarr()['headers'],
         posterPlaceholderIcon: LunaIcons.USER,
         posterUrl: _posterUrl,
         onTap: () async => _enterDetails(context),
@@ -32,12 +32,12 @@ class LidarrAddSearchResultTile extends StatelessWidget {
               title: 'No Discogs Page Available',
               message: 'No Discogs URL is available',
             );
-          data.discogsLink.lunaOpenGenericLink();
+          data.discogsLink!.lunaOpenGenericLink();
         },
       );
 
-  String get _posterUrl {
-    Map<String, dynamic> image = data?.images?.firstWhere(
+  String? get _posterUrl {
+    Map<String, dynamic> image = data.images.firstWhere(
       (e) => e['coverType'] == 'poster',
       orElse: () => <String, dynamic>{},
     );

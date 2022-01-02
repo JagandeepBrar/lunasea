@@ -10,24 +10,20 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class LunaListViewModalBuilder extends StatelessWidget {
   final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
-  final LunaBottomActionBar actionBar;
-  final LunaAppBar appBar;
-  final double appBarHeight;
-  final double itemExtent;
+  final LunaBottomActionBar? actionBar;
+  final LunaAppBar? appBar;
+  final double? appBarHeight;
+  final double? itemExtent;
 
-  LunaListViewModalBuilder({
-    Key key,
-    @required this.itemCount,
-    @required this.itemBuilder,
+  const LunaListViewModalBuilder({
+    Key? key,
+    required this.itemCount,
+    required this.itemBuilder,
     this.appBar,
     this.appBarHeight,
     this.actionBar,
     this.itemExtent,
-  }) : super(key: key) {
-    assert(itemCount != null);
-    assert(itemBuilder != null);
-    if (appBar != null) assert(appBarHeight != null);
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,7 @@ class LunaListViewModalBuilder extends StatelessWidget {
             ),
           ),
         ),
-        if (actionBar != null) actionBar,
+        if (actionBar != null) actionBar!,
       ],
     );
   }

@@ -13,7 +13,7 @@ enum NZBGetSort {
   left_desc,
 }
 
-extension NZBGetSortExtension on NZBGetSort {
+extension NZBGetSortExtension on NZBGetSort? {
   String get value {
     switch (this) {
       case NZBGetSort.name_asc:

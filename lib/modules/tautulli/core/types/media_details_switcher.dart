@@ -10,7 +10,7 @@ enum TautulliMediaDetailsSwitcherType {
 
 extension TautulliMediaDetailsSwitcherTypeExtension
     on TautulliMediaDetailsSwitcherType {
-  String get value {
+  String? get value {
     switch (this) {
       case TautulliMediaDetailsSwitcherType.GO_TO_SERIES:
         return 'gotoseries';
@@ -25,7 +25,7 @@ extension TautulliMediaDetailsSwitcherTypeExtension
     }
   }
 
-  String get label {
+  String? get label {
     switch (this) {
       case TautulliMediaDetailsSwitcherType.GO_TO_SERIES:
         return 'Series';
@@ -40,10 +40,10 @@ extension TautulliMediaDetailsSwitcherTypeExtension
     }
   }
 
-  void goTo(
-          {@required BuildContext context,
-          @required TautulliMediaType mediaType,
-          @required int ratingKey}) =>
-      TautulliMediaDetailsRouter()
-          .navigateTo(context, ratingKey: ratingKey, mediaType: mediaType);
+  void goTo({
+    required BuildContext context,
+    required TautulliMediaType mediaType,
+    required int ratingKey,
+  }) =>
+      TautulliMediaDetailsRouter().navigateTo(context, ratingKey, mediaType);
 }

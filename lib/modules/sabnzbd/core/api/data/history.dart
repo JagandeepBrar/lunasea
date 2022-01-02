@@ -5,7 +5,7 @@ class SABnzbdHistoryData {
   String nzoId;
   String name;
   String failureMessage;
-  String category;
+  String? category;
   int size;
   int timestamp;
   int downloadTime;
@@ -16,17 +16,17 @@ class SABnzbdHistoryData {
   DateTime now = DateTime.now();
 
   SABnzbdHistoryData({
-    @required this.nzoId,
-    @required this.name,
-    @required this.size,
-    @required this.status,
-    @required this.failureMessage,
-    @required this.timestamp,
-    @required this.actionLine,
-    @required this.category,
-    @required this.downloadTime,
-    @required this.stageLog,
-    @required this.storageLocation,
+    required this.nzoId,
+    required this.name,
+    required this.size,
+    required this.status,
+    required this.failureMessage,
+    required this.timestamp,
+    required this.actionLine,
+    required this.category,
+    required this.downloadTime,
+    required this.stageLog,
+    required this.storageLocation,
   });
 
   DateTime get completeTimeObject {
@@ -34,11 +34,11 @@ class SABnzbdHistoryData {
   }
 
   String get completeTimeString {
-    return completeTimeObject?.lunaAge ?? 'Unknown Time';
+    return completeTimeObject.lunaAge;
   }
 
   String get sizeReadable {
-    return size?.lunaBytesToString() ?? 'Unknown Size';
+    return size.lunaBytesToString();
   }
 
   bool get failed {
@@ -63,17 +63,13 @@ class SABnzbdHistoryData {
     switch (status.toLowerCase()) {
       case 'completed':
         return 'Completed';
-        break;
       case 'queued':
       case 'extracting':
         return actionLine;
-        break;
       case 'failed':
         return failureMessage;
-        break;
       default:
         return status;
-        break;
     }
   }
 }

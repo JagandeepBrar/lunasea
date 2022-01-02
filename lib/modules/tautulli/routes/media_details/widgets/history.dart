@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMediaDetailsHistory extends StatefulWidget {
-  final TautulliMediaType type;
+  final TautulliMediaType? type;
   final int ratingKey;
 
   const TautulliMediaDetailsHistory({
-    @required this.type,
-    @required this.ratingKey,
-    Key key,
+    required this.type,
+    required this.ratingKey,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,13 +29,13 @@ class _State extends State<TautulliMediaDetailsHistory>
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
   }
 
   Future<void> _refresh() async {
     context.read<TautulliState>().setIndividualHistory(
           widget.ratingKey,
-          context.read<TautulliState>().api.history.getHistory(
+          context.read<TautulliState>().api!.history.getHistory(
                 ratingKey: _ratingKey,
                 parentRatingKey: _parentRatingKey,
                 grandparentRatingKey: _grandparentRatingKey,
@@ -45,7 +45,7 @@ class _State extends State<TautulliMediaDetailsHistory>
     await context.read<TautulliState>().individualHistory[widget.ratingKey];
   }
 
-  int get _ratingKey {
+  int? get _ratingKey {
     switch (widget.type) {
       case TautulliMediaType.MOVIE:
       case TautulliMediaType.EPISODE:
@@ -58,7 +58,7 @@ class _State extends State<TautulliMediaDetailsHistory>
     }
   }
 
-  int get _parentRatingKey {
+  int? get _parentRatingKey {
     switch (widget.type) {
       case TautulliMediaType.SEASON:
       case TautulliMediaType.ALBUM:
@@ -69,7 +69,7 @@ class _State extends State<TautulliMediaDetailsHistory>
     }
   }
 
-  int get _grandparentRatingKey {
+  int? get _grandparentRatingKey {
     switch (widget.type) {
       case TautulliMediaType.SHOW:
       case TautulliMediaType.ARTIST:
@@ -105,7 +105,7 @@ class _State extends State<TautulliMediaDetailsHistory>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _history(snapshot.data);
           return const LunaLoader();
@@ -114,7 +114,7 @@ class _State extends State<TautulliMediaDetailsHistory>
     );
   }
 
-  Widget _history(TautulliHistory history) {
+  Widget _history(TautulliHistory? history) {
     if ((history?.records?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No History Found',
@@ -123,9 +123,9 @@ class _State extends State<TautulliMediaDetailsHistory>
       );
     return LunaListViewBuilder(
       controller: TautulliMediaDetailsNavigationBar.scrollControllers[1],
-      itemCount: history.records.length,
+      itemCount: history!.records!.length,
       itemBuilder: (context, index) =>
-          TautulliHistoryTile(history: history.records[index]),
+          TautulliHistoryTile(history: history.records![index]),
     );
   }
 }

@@ -6,7 +6,7 @@ mixin LunaScrollControllerMixin<T extends StatefulWidget> on State<T> {
   @mustCallSuper
   @override
   void dispose() {
-    scrollController?.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 }

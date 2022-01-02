@@ -7,27 +7,21 @@ class LunaPagedListView<T> extends StatefulWidget {
   final ScrollController scrollController;
   final void Function(int) listener;
   final Widget Function(BuildContext, T, int) itemBuilder;
-  final double itemExtent;
-  final EdgeInsetsGeometry padding;
+  final double? itemExtent;
+  final EdgeInsetsGeometry? padding;
   final String noItemsFoundMessage;
 
-  LunaPagedListView({
-    Key key,
-    @required this.refreshKey,
-    @required this.pagingController,
-    @required this.listener,
-    @required this.itemBuilder,
-    @required this.noItemsFoundMessage,
-    @required this.scrollController,
+  const LunaPagedListView({
+    Key? key,
+    required this.refreshKey,
+    required this.pagingController,
+    required this.listener,
+    required this.itemBuilder,
+    required this.noItemsFoundMessage,
+    required this.scrollController,
     this.itemExtent,
     this.padding,
-  }) : super(key: key) {
-    assert(refreshKey != null);
-    assert(pagingController != null);
-    assert(listener != null);
-    assert(itemBuilder != null);
-    assert(noItemsFoundMessage != null);
-  }
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _State<T>();

@@ -3,8 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
-  String get lunaPath {
-    if (this.path != null && this.path.isNotEmpty) return this.path;
+  String? get lunaPath {
+    if (this.path != null && this.path!.isNotEmpty) return this.path;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -17,8 +17,8 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
   }
 
   int get lunaPercentage {
-    int _percentNumerator = this.freeSpace;
-    int _percentDenominator = this.totalSpace;
+    int? _percentNumerator = this.freeSpace;
+    int? _percentDenominator = this.totalSpace;
     if (_percentNumerator != null &&
         _percentDenominator != null &&
         _percentDenominator != 0) {
@@ -31,7 +31,7 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
   String get lunaPercentageString => '$lunaPercentage%';
 
   Color get lunaColor {
-    int percentage = this.lunaPercentage ?? 0;
+    int percentage = this.lunaPercentage;
     if (percentage >= 90) return LunaColours.red;
     if (percentage >= 80) return LunaColours.orange;
     return LunaColours.accent;

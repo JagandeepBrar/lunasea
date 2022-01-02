@@ -34,7 +34,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -52,7 +52,7 @@ class _State extends State<_Widget>
       onRefresh: loadCallback,
       key: _refreshKey,
       child: Selector<TautulliState, Future<TautulliLibrariesTable>>(
-        selector: (_, state) => state.librariesTable,
+        selector: (_, state) => state.librariesTable!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliLibrariesTable> snapshot) {
@@ -63,7 +63,7 @@ class _State extends State<_Widget>
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage.error(onTap: _refreshKey.currentState.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData) return _libraries(snapshot.data);
             return const LunaLoader();
@@ -73,7 +73,7 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _libraries(TautulliLibrariesTable libraries) {
+  Widget _libraries(TautulliLibrariesTable? libraries) {
     if ((libraries?.libraries?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Libraries Found',
@@ -82,9 +82,9 @@ class _State extends State<_Widget>
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: libraries.libraries.length,
+      itemCount: libraries!.libraries!.length,
       itemBuilder: (context, index) =>
-          TautulliLibrariesLibraryTile(library: libraries.libraries[index]),
+          TautulliLibrariesLibraryTile(library: libraries.libraries![index]),
     );
   }
 }

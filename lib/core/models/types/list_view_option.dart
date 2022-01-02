@@ -21,7 +21,6 @@ extension LunaListViewOptionExtension on LunaListViewOption {
       case LunaListViewOption.GRID_VIEW:
         return 'lunasea.GridView'.tr();
     }
-    throw Exception('Invalid LunaListViewOption');
   }
 
   IconData get icon {
@@ -31,10 +30,9 @@ extension LunaListViewOptionExtension on LunaListViewOption {
       case LunaListViewOption.GRID_VIEW:
         return Icons.grid_view_rounded;
     }
-    throw Exception('Invalid LunaListViewOption');
   }
 
-  LunaListViewOption fromKey(String key) {
+  LunaListViewOption? fromKey(String? key) {
     switch (key) {
       case 'BLOCK_VIEW':
         return LunaListViewOption.BLOCK_VIEW;

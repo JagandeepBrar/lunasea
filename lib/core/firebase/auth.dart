@@ -10,7 +10,7 @@ class LunaFirebaseAuth {
   /// Returns the [User] object.
   ///
   /// If the user is not signed in, returns null.
-  User get user => instance.currentUser;
+  User? get user => instance.currentUser;
 
   /// Returns if a user is signed in.
   bool get isSignedIn => instance.currentUser != null;
@@ -18,12 +18,12 @@ class LunaFirebaseAuth {
   /// Returns the user's UID.
   ///
   /// If the user is not signed in, returns null.
-  String get uid => instance.currentUser?.uid;
+  String? get uid => instance.currentUser?.uid;
 
   /// Return the user's email.
   ///
   /// If the user is not signed in, returns null.
-  String get email => instance.currentUser?.email;
+  String? get email => instance.currentUser?.email;
 
   /// Sign out a logged in user.
   ///
@@ -36,7 +36,6 @@ class LunaFirebaseAuth {
   Future<LunaFirebaseResponse> registerUser(
       String email, String password) async {
     try {
-      assert(email != null && password != null);
       UserCredential _user = await instance.createUserWithEmailAndPassword(
           email: email, password: password);
       LunaFirebaseFirestore().addDeviceToken();
@@ -54,7 +53,6 @@ class LunaFirebaseAuth {
   /// Returns a [LunaFirebaseResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
   Future<LunaFirebaseResponse> signInUser(String email, String password) async {
     try {
-      assert(email != null && password != null);
       UserCredential _user = await instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -74,24 +72,23 @@ class LunaFirebaseAuth {
   /// The user's password is required to validate and acquire fresh credentials to process the deletion.
   Future<LunaFirebaseResponse> deleteUser(String password) async {
     try {
-      return await user
+      return await user!
           .reauthenticateWithCredential(EmailAuthProvider.credential(
-            email: email,
+            email: email!,
             password: password,
           ))
-          .then((credentials) => credentials.user.delete())
+          .then((credentials) => credentials.user!.delete())
           .then((_) => LunaFirebaseResponse(state: true));
     } on FirebaseAuthException catch (error) {
       return LunaFirebaseResponse(state: false, error: error);
     } catch (error, stack) {
-      LunaLogger().error('Failed to delete user: ${user.email}', error, stack);
+      LunaLogger().error('Failed to delete user: ${user!.email}', error, stack);
       rethrow;
     }
   }
 
   /// Reset a user's password by sending them a password reset email.
   Future<void> resetPassword(String email) async {
-    assert(email != null);
     instance.sendPasswordResetEmail(email: email);
   }
 }

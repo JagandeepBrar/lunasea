@@ -7,7 +7,7 @@ class NZBGetHistoryData {
   int id;
   String name;
   String status;
-  String category;
+  String? category;
   String storageLocation;
   int timestamp;
   int downloadedLow;
@@ -17,16 +17,16 @@ class NZBGetHistoryData {
   DateTime now = DateTime.now();
 
   NZBGetHistoryData({
-    @required this.id,
-    @required this.name,
-    @required this.status,
-    @required this.timestamp,
-    @required this.downloadedLow,
-    @required this.downloadedHigh,
-    @required this.category,
-    @required this.storageLocation,
-    @required this.downloadTime,
-    @required this.health,
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.timestamp,
+    required this.downloadedLow,
+    required this.downloadedHigh,
+    required this.category,
+    required this.storageLocation,
+    required this.downloadTime,
+    required this.health,
   });
 
   int get downloaded {
@@ -38,15 +38,15 @@ class NZBGetHistoryData {
       return '0.00 MB/s';
     } else {
       int speed = (downloaded / downloadTime).floor();
-      return '${speed?.lunaBytesToString()}/s';
+      return '${speed.lunaBytesToString()}/s';
     }
   }
 
   String get sizeReadable {
-    return downloaded?.lunaBytesToString();
+    return downloaded.lunaBytesToString();
   }
 
-  DateTime get timestampObject {
+  DateTime? get timestampObject {
     return timestamp == -1
         ? null
         : DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -7,11 +8,11 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
       : super('/tautulli/history/:ratingkey/:key/:value');
 
   @override
-  _Widget widget({
-    @required int ratingKey,
-    int referenceId,
-    int sessionKey,
-  }) =>
+  _Widget widget([
+    int ratingKey = -1,
+    int? referenceId,
+    int? sessionKey,
+  ]) =>
       _Widget(
         ratingKey: ratingKey,
         referenceId: referenceId,
@@ -20,26 +21,23 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int ratingKey,
-    int referenceId,
-    int sessionKey,
-  }) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(
-          ratingKey: ratingKey,
-          referenceId: referenceId,
-          sessionKey: sessionKey,
-        ),
-      );
+    BuildContext context, [
+    int ratingKey = -1,
+    int? referenceId,
+    int? sessionKey,
+  ]) async {
+    LunaRouter.router.navigateTo(
+      context,
+      route(ratingKey, referenceId, sessionKey),
+    );
+  }
 
   @override
-  String route({
-    @required int ratingKey,
-    int referenceId,
-    int sessionKey,
-  }) {
+  String route([
+    int ratingKey = -1,
+    int? referenceId,
+    int? sessionKey,
+  ]) {
     String _route = TautulliHomeRouter().route();
     if (referenceId != null)
       _route = fullRoute
@@ -59,15 +57,15 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
         router,
         (context, params) {
           int ratingKey = (params['ratingkey']?.isNotEmpty ?? false)
-              ? int.tryParse(params['ratingkey'][0]) ?? -1
+              ? int.tryParse(params['ratingkey']![0]) ?? -1
               : -1;
-          int value = (params['value'].isNotEmpty ?? false)
-              ? int.tryParse(params['value'][0]) ?? -1
+          int value = (params['value']?.isNotEmpty ?? false)
+              ? int.tryParse(params['value']![0]) ?? -1
               : -1;
           return _Widget(
             ratingKey: ratingKey,
-            referenceId: params['key'][0] == 'referenceid' ? value : null,
-            sessionKey: params['key'][0] == 'sessionkey' ? value : null,
+            referenceId: params['key']![0] == 'referenceid' ? value : null,
+            sessionKey: params['key']![0] == 'sessionkey' ? value : null,
           );
         },
       );
@@ -75,12 +73,12 @@ class TautulliHistoryDetailsRouter extends TautulliPageRouter {
 
 class _Widget extends StatefulWidget {
   final int ratingKey;
-  final int sessionKey;
-  final int referenceId;
+  final int? sessionKey;
+  final int? referenceId;
 
   const _Widget({
-    Key key,
-    @required this.ratingKey,
+    Key? key,
+    required this.ratingKey,
     this.sessionKey,
     this.referenceId,
   }) : super(key: key);
@@ -99,7 +97,7 @@ class _State extends State<_Widget>
   Future<void> loadCallback() async {
     context.read<TautulliState>().setIndividualHistory(
           widget.ratingKey,
-          context.read<TautulliState>().api.history.getHistory(
+          context.read<TautulliState>().api!.history.getHistory(
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
                 ratingKey: widget.ratingKey,
               ),
@@ -111,7 +109,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -149,15 +147,15 @@ class _State extends State<_Widget>
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) {
-            TautulliHistoryRecord _record =
-                snapshot.data.records.firstWhere((record) {
+            TautulliHistoryRecord? _record =
+                snapshot.data!.records!.firstWhereOrNull((record) {
               if (record.referenceId == (widget.referenceId ?? -1) ||
                   record.sessionKey == (widget.sessionKey ?? -1)) return true;
               return false;
-            }, orElse: () => null);
+            });
             if (_record != null)
               return TautulliHistoryDetailsInformation(
                 scrollController: scrollController,

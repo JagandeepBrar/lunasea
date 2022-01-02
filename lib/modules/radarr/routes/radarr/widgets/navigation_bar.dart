@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class RadarrNavigationBar extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static List<ScrollController> scrollControllers = List.generate(
     icons.length,
     (_) => ScrollController(),
@@ -15,6 +15,13 @@ class RadarrNavigationBar extends StatelessWidget {
     Icons.more_horiz_rounded,
   ];
 
+  static const List<IconData> iconsOutlined = [
+    Icons.movie_outlined,
+    Icons.insert_invitation_outlined,
+    Icons.event_busy_outlined,
+    Icons.more_horiz_outlined,
+  ];
+
   static List<String> get titles => [
         'radarr.Movies'.tr(),
         'radarr.Upcoming'.tr(),
@@ -23,8 +30,8 @@ class RadarrNavigationBar extends StatelessWidget {
       ];
 
   const RadarrNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -33,6 +40,7 @@ class RadarrNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

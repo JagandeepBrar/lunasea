@@ -44,28 +44,28 @@ class RadarrState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Radarr _api;
-  Radarr get api => _api;
+  Radarr? _api;
+  Radarr? get api => _api;
 
   /// Is the API enabled?
-  bool _enabled;
+  bool _enabled = false;
   bool get enabled => _enabled;
 
   /// Radarr host
-  String _host;
+  String _host = '';
   String get host => _host;
 
   /// Radarr API key
-  String _apiKey;
+  String _apiKey = '';
   String get apiKey => _apiKey;
 
   /// Headers to attach to all requests
-  Map<dynamic, dynamic> _headers;
+  Map<dynamic, dynamic> _headers = {};
   Map<dynamic, dynamic> get headers => _headers;
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = Database.currentProfileObject;
+    ProfileHiveObject _profile = Database.currentProfileObject!;
     // Copy profile into state
     _enabled = _profile.radarrEnabled ?? false;
     _host = _profile.radarrHost ?? '';
@@ -88,52 +88,47 @@ class RadarrState extends LunaModuleState {
   String _moviesSearchQuery = '';
   String get moviesSearchQuery => _moviesSearchQuery;
   set moviesSearchQuery(String moviesSearchQuery) {
-    assert(moviesSearchQuery != null);
     _moviesSearchQuery = moviesSearchQuery;
     notifyListeners();
   }
 
-  LunaListViewOption _moviesViewType =
+  LunaListViewOption? _moviesViewType =
       RadarrDatabaseValue.DEFAULT_VIEW_MOVIES.data;
-  LunaListViewOption get moviesViewType => _moviesViewType;
+  LunaListViewOption get moviesViewType => _moviesViewType!;
   set moviesViewType(LunaListViewOption moviesViewType) {
-    assert(moviesViewType != null);
     _moviesViewType = moviesViewType;
     notifyListeners();
   }
 
-  RadarrMoviesSorting _moviesSortType =
+  RadarrMoviesSorting? _moviesSortType =
       RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
-  RadarrMoviesSorting get moviesSortType => _moviesSortType;
+  RadarrMoviesSorting get moviesSortType => _moviesSortType!;
   set moviesSortType(RadarrMoviesSorting moviesSortType) {
-    assert(moviesSortType != null);
     _moviesSortType = moviesSortType;
     notifyListeners();
   }
 
-  RadarrMoviesFilter _moviesFilterType =
+  RadarrMoviesFilter? _moviesFilterType =
       RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
-  RadarrMoviesFilter get moviesFilterType => _moviesFilterType;
+  RadarrMoviesFilter get moviesFilterType => _moviesFilterType!;
   set moviesFilterType(RadarrMoviesFilter moviesFilterType) {
-    assert(moviesFilterType != null);
     _moviesFilterType = moviesFilterType;
     notifyListeners();
   }
 
-  bool _moviesSortAscending =
+  bool? _moviesSortAscending =
       RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
-  bool get moviesSortAscending => _moviesSortAscending;
+  bool get moviesSortAscending => _moviesSortAscending!;
   set moviesSortAscending(bool moviesSortAscending) {
-    assert(moviesSortAscending != null);
     _moviesSortAscending = moviesSortAscending;
     notifyListeners();
   }
 
-  Future<List<RadarrMovie>> _movies;
-  Future<List<RadarrMovie>> get movies => _movies;
+  Future<List<RadarrMovie>>? _movies;
+  Future<List<RadarrMovie>>? get movies => _movies;
   void fetchMovies() {
     if (_api != null) {
-      _movies = _api.movie.getAll();
+      _movies = _api!.movie.getAll();
       _fetchUpcoming();
       _fetchMissing();
     }
@@ -141,11 +136,10 @@ class RadarrState extends LunaModuleState {
   }
 
   Future<void> resetSingleMovie(int movieId) async {
-    assert(movieId != null);
     if (_api != null) {
-      RadarrMovie movie = await _api.movie.get(movieId: movieId);
-      List<RadarrMovie> allMovies = await _movies;
-      int index = allMovies?.indexWhere((m) => m.id == movieId) ?? -1;
+      RadarrMovie movie = await _api!.movie.get(movieId: movieId);
+      List<RadarrMovie> allMovies = await _movies!;
+      int index = allMovies.indexWhere((m) => m.id == movieId);
       index >= 0 ? allMovies[index] = movie : allMovies.add(movie);
       _fetchUpcoming();
       _fetchMissing();
@@ -154,19 +148,18 @@ class RadarrState extends LunaModuleState {
   }
 
   Future<void> setSingleMovie(RadarrMovie movie) async {
-    assert(movie != null);
-    List<RadarrMovie> allMovies = await _movies;
-    int index = allMovies?.indexWhere((m) => m.id == movie.id) ?? -1;
+    List<RadarrMovie> allMovies = await _movies!;
+    int index = allMovies.indexWhere((m) => m.id == movie.id);
     index >= 0 ? allMovies[index] = movie : allMovies.add(movie);
     _fetchUpcoming();
     _fetchMissing();
     notifyListeners();
   }
 
-  Future<List<RadarrRootFolder>> _rootFolders;
-  Future<List<RadarrRootFolder>> get rootFolders => _rootFolders;
+  Future<List<RadarrRootFolder>>? _rootFolders;
+  Future<List<RadarrRootFolder>>? get rootFolders => _rootFolders;
   void fetchRootFolders() {
-    if (_enabled ?? false) _rootFolders = _api.rootFolder.get();
+    if (_enabled) _rootFolders = _api!.rootFolder.get();
     notifyListeners();
   }
 
@@ -174,13 +167,14 @@ class RadarrState extends LunaModuleState {
   /// UPCOMING ///
   ////////////////
 
-  Future<List<RadarrMovie>> _upcoming;
-  Future<List<RadarrMovie>> get upcoming => _upcoming;
+  Future<List<RadarrMovie>>? _upcoming;
+  Future<List<RadarrMovie>>? get upcoming => _upcoming;
   void _fetchUpcoming() {
     if (_movies != null)
-      _upcoming = _movies.then((movies) {
-        List<RadarrMovie> _missingOnly =
-            movies.where((movie) => movie.monitored && !movie.hasFile).toList();
+      _upcoming = _movies!.then((movies) {
+        List<RadarrMovie> _missingOnly = movies
+            .where((movie) => movie.monitored! && !movie.hasFile!)
+            .toList();
         // List of movies not yet released, but in cinemas, sorted by date
         List<RadarrMovie> _notYetReleased = [];
         List<RadarrMovie> _notYetInCinemas = [];
@@ -204,19 +198,19 @@ class RadarrState extends LunaModuleState {
   /// MISSING ///
   ///////////////
 
-  Future<List<RadarrMovie>> _missing;
-  Future<List<RadarrMovie>> get missing => _missing;
+  Future<List<RadarrMovie>>? _missing;
+  Future<List<RadarrMovie>>? get missing => _missing;
   void _fetchMissing() {
     if (_movies != null)
-      _missing = _movies.then((movies) {
+      _missing = _movies!.then((movies) {
         List<RadarrMovie> _movies = movies.where((movie) {
-          if (!movie.monitored) return false;
-          if (movie.hasFile || movie.movieFile != null) return false;
+          if (!movie.monitored!) return false;
+          if (movie.hasFile! || movie.movieFile != null) return false;
           if (!movie.lunaIsReleased) return false;
           return true;
         }).toList();
         _movies.sort((a, b) {
-          int _comparison;
+          int? _comparison;
           if (a.lunaEarlierReleaseDate == null &&
               b.lunaEarlierReleaseDate != null) return 1;
           if (b.lunaEarlierReleaseDate == null &&
@@ -224,11 +218,11 @@ class RadarrState extends LunaModuleState {
           if (a.lunaEarlierReleaseDate == null &&
               b.lunaEarlierReleaseDate == null) _comparison = 0;
           _comparison ??=
-              b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
+              b.lunaEarlierReleaseDate!.compareTo(a.lunaEarlierReleaseDate!);
           if (_comparison == 0)
-            return a.sortTitle
+            return a.sortTitle!
                 .toLowerCase()
-                .compareTo(b.sortTitle.toLowerCase());
+                .compareTo(b.sortTitle!.toLowerCase());
           return _comparison;
         });
         return _movies;
@@ -239,45 +233,42 @@ class RadarrState extends LunaModuleState {
   /// PROFILES ///
   ////////////////
 
-  Future<List<RadarrQualityProfile>> _qualityProfiles;
-  Future<List<RadarrQualityProfile>> get qualityProfiles => _qualityProfiles;
-  set qualityProfiles(Future<List<RadarrQualityProfile>> qualityProfiles) {
-    assert(qualityProfiles != null);
+  Future<List<RadarrQualityProfile>>? _qualityProfiles;
+  Future<List<RadarrQualityProfile>>? get qualityProfiles => _qualityProfiles;
+  set qualityProfiles(Future<List<RadarrQualityProfile>>? qualityProfiles) {
     _qualityProfiles = qualityProfiles;
     notifyListeners();
   }
 
   void fetchQualityProfiles() {
-    if (_api != null) _qualityProfiles = _api.qualityProfile.getAll();
+    if (_api != null) _qualityProfiles = _api!.qualityProfile.getAll();
     notifyListeners();
   }
 
-  Future<List<RadarrQualityDefinition>> _qualityDefinitions;
-  Future<List<RadarrQualityDefinition>> get qualityDefinitions =>
+  Future<List<RadarrQualityDefinition>>? _qualityDefinitions;
+  Future<List<RadarrQualityDefinition>>? get qualityDefinitions =>
       _qualityDefinitions;
   set qualityDefinitions(
-      Future<List<RadarrQualityDefinition>> qualityDefinitions) {
-    assert(qualityDefinitions != null);
+      Future<List<RadarrQualityDefinition>>? qualityDefinitions) {
     _qualityDefinitions = qualityDefinitions;
     notifyListeners();
   }
 
   void fetchQualityDefinitions() {
     if (_api != null)
-      _qualityDefinitions = _api.qualityProfile.getDefinitions();
+      _qualityDefinitions = _api!.qualityProfile.getDefinitions();
     notifyListeners();
   }
 
-  Future<List<RadarrLanguage>> _languages;
-  Future<List<RadarrLanguage>> get languages => _languages;
-  set languages(Future<List<RadarrLanguage>> languages) {
-    assert(languages != null);
+  Future<List<RadarrLanguage>>? _languages;
+  Future<List<RadarrLanguage>>? get languages => _languages;
+  set languages(Future<List<RadarrLanguage>>? languages) {
     _languages = languages;
     notifyListeners();
   }
 
   Future<void> fetchLanguages() async {
-    if (_api != null) _languages = _api.language.getAll();
+    if (_api != null) _languages = _api!.language.getAll();
     notifyListeners();
   }
 
@@ -285,16 +276,15 @@ class RadarrState extends LunaModuleState {
   /// TAGS ///
   ////////////
 
-  Future<List<RadarrTag>> _tags;
-  Future<List<RadarrTag>> get tags => _tags;
-  set tags(Future<List<RadarrTag>> tags) {
-    assert(tags != null);
+  Future<List<RadarrTag>>? _tags;
+  Future<List<RadarrTag>>? get tags => _tags;
+  set tags(Future<List<RadarrTag>>? tags) {
     _tags = tags;
     notifyListeners();
   }
 
   void fetchTags() {
-    if (_api != null) _tags = _api.tag.getAll();
+    if (_api != null) _tags = _api!.tag.getAll();
     notifyListeners();
   }
 
@@ -303,7 +293,7 @@ class RadarrState extends LunaModuleState {
   /////////////
 
   /// Timer to handle refreshing queue data
-  Timer _getQueueTimer;
+  Timer? _getQueueTimer;
 
   void createQueueTimer() => _getQueueTimer = Timer.periodic(
         Duration(seconds: RadarrDatabaseValue.QUEUE_REFRESH_RATE.data),
@@ -312,10 +302,9 @@ class RadarrState extends LunaModuleState {
 
   void cancelQueueTimer() => _getQueueTimer?.cancel();
 
-  Future<RadarrQueue> _queue;
-  Future<RadarrQueue> get queue => _queue;
-  set queue(Future<RadarrQueue> queue) {
-    assert(queue != null);
+  Future<RadarrQueue>? _queue;
+  Future<RadarrQueue>? get queue => _queue;
+  set queue(Future<RadarrQueue>? queue) {
     _queue = queue;
     notifyListeners();
   }
@@ -324,7 +313,7 @@ class RadarrState extends LunaModuleState {
     cancelQueueTimer();
     if (_api != null) {
       _queue =
-          _api.queue.get(pageSize: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data);
+          _api!.queue.get(pageSize: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data);
       createQueueTimer();
     }
     notifyListeners();
@@ -334,8 +323,8 @@ class RadarrState extends LunaModuleState {
   /// IMAGES ///
   //////////////
 
-  String getPosterURL(int movieId) {
-    if (_enabled) {
+  String? getPosterURL(int? movieId) {
+    if (_enabled && movieId != null) {
       String _base = _host.endsWith('/')
           ? '${_host}api/v3/MediaCover'
           : '$_host/api/v3/MediaCover';
@@ -344,8 +333,8 @@ class RadarrState extends LunaModuleState {
     return null;
   }
 
-  String getFanartURL(int movieId, {bool highRes = false}) {
-    if (_enabled) {
+  String? getFanartURL(int? movieId, {bool highRes = false}) {
+    if (_enabled && movieId != null) {
       String _base = _host.endsWith('/')
           ? '${_host}api/v3/MediaCover'
           : '$_host/api/v3/MediaCover';

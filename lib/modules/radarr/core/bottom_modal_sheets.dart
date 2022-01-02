@@ -29,11 +29,11 @@ class RadarrBottomModalSheets {
               ],
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
-                Tuple2<bool, RadarrMovie> result = await selectMovie(context);
+                Tuple2<bool, RadarrMovie?> result = await selectMovie(context);
                 if (result.item1)
                   context
                       .read<RadarrManualImportDetailsTileState>()
-                      .fetchUpdates(context, result.item2.id);
+                      .fetchUpdates(context, result.item2!.id);
               },
             ),
             LunaBlock(
@@ -62,7 +62,7 @@ class RadarrBottomModalSheets {
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
                 List<RadarrLanguage> languages =
-                    await context.read<RadarrState>().languages;
+                    await context.read<RadarrState>().languages!;
                 await RadarrDialogs()
                     .setManualImportLanguages(context, languages);
               },
@@ -94,14 +94,14 @@ class RadarrBottomModalSheets {
               trailing: const LunaIconButton.arrow(),
               onTap: () async {
                 List<RadarrQualityDefinition> profiles =
-                    await context.read<RadarrState>().qualityDefinitions;
-                Tuple2<bool, RadarrQualityDefinition> result =
+                    await context.read<RadarrState>().qualityDefinitions!;
+                Tuple2<bool, RadarrQualityDefinition?> result =
                     await RadarrDialogs()
                         .selectQualityDefinition(context, profiles);
                 if (result.item1)
                   context
                       .read<RadarrManualImportDetailsTileState>()
-                      .updateQuality(result.item2.quality);
+                      .updateQuality(result.item2!.quality!);
               },
             ),
             LunaBlock(
@@ -152,9 +152,9 @@ class RadarrBottomModalSheets {
     );
   }
 
-  Future<Tuple2<bool, RadarrMovie>> selectMovie(BuildContext context) async {
+  Future<Tuple2<bool, RadarrMovie?>> selectMovie(BuildContext context) async {
     bool result = false;
-    RadarrMovie movie;
+    RadarrMovie? movie;
     context
         .read<RadarrManualImportDetailsTileState>()
         .configureMoviesSearchQuery = '';
@@ -162,9 +162,9 @@ class RadarrBottomModalSheets {
     List<RadarrMovie> _sortAndFilter(List<RadarrMovie> movies, String query) {
       List<RadarrMovie> _filtered = movies
         ..sort((a, b) =>
-            a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()));
+            a.sortTitle!.toLowerCase().compareTo(b.sortTitle!.toLowerCase()));
       _filtered = _filtered
-          .where((movie) => movie.title.toLowerCase().contains(query))
+          .where((movie) => movie.title!.toLowerCase().contains(query))
           .toList();
       return _filtered;
     }
@@ -191,7 +191,7 @@ class RadarrBottomModalSheets {
               String _query = context
                   .watch<RadarrManualImportDetailsTileState>()
                   .configureMoviesSearchQuery;
-              List<RadarrMovie> movies = _sortAndFilter(snapshot.data, _query);
+              List<RadarrMovie> movies = _sortAndFilter(snapshot.data!, _query);
               // Return the final movie list
               return LunaListViewModalBuilder(
                 itemCount: movies.isEmpty ? 1 : movies.length,
@@ -201,10 +201,10 @@ class RadarrBottomModalSheets {
                       text: 'radarr.NoMoviesFound'.tr(),
                     );
                   }
-                  String title = movies[index].title;
+                  String title = movies[index].title ?? LunaUI.TEXT_EMDASH;
                   if (movies[index].year != null && movies[index].year != 0)
                     title += ' (${movies[index].year})';
-                  String overview = movies[index].overview;
+                  String? overview = movies[index].overview;
                   if (overview?.isEmpty ?? true)
                     overview = 'radarr.NoSummaryIsAvailable'.tr();
                   return LunaBlock(

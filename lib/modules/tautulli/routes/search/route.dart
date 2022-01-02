@@ -25,7 +25,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
         module: LunaModule.TAUTULLI,
-        appBar: TautulliSearchAppBar(scrollController: scrollController),
+        appBar: TautulliSearchAppBar(scrollController: scrollController) as PreferredSizeWidget?,
         body: TautulliSearchSearchResults(scrollController: scrollController),
       );
 }

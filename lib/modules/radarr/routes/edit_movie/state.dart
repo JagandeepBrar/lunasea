@@ -3,9 +3,9 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditState extends ChangeNotifier {
-  RadarrMovie _movie;
-  RadarrMovie get movie => _movie;
-  set movie(RadarrMovie movie) {
+  RadarrMovie? _movie;
+  RadarrMovie? get movie => _movie;
+  set movie(RadarrMovie? movie) {
     _movie = movie;
     initializeMonitored();
     initializeAvailability();
@@ -17,7 +17,6 @@ class RadarrMoviesEditState extends ChangeNotifier {
   LunaLoadingState _state = LunaLoadingState.INACTIVE;
   LunaLoadingState get state => _state;
   set state(LunaLoadingState state) {
-    assert(state != null);
     _state = state;
     notifyListeners();
   }
@@ -25,65 +24,60 @@ class RadarrMoviesEditState extends ChangeNotifier {
   bool _monitored = true;
   bool get monitored => _monitored;
   set monitored(bool monitored) {
-    assert(monitored != null);
     _monitored = monitored;
     notifyListeners();
   }
 
   void initializeMonitored() {
-    _monitored = movie.monitored ?? false;
+    _monitored = movie!.monitored ?? false;
   }
 
   String _path = '';
   String get path => _path;
   set path(String path) {
-    assert(path != null);
     _path = path;
     notifyListeners();
   }
 
   void initializePath() {
-    _path = movie.path ?? '';
+    _path = movie!.path ?? '';
   }
 
-  RadarrQualityProfile _qualityProfile;
-  RadarrQualityProfile get qualityProfile => _qualityProfile;
+  RadarrQualityProfile? _qualityProfile;
+  RadarrQualityProfile get qualityProfile => _qualityProfile!;
   set qualityProfile(RadarrQualityProfile qualityProfile) {
-    assert(qualityProfile != null);
     _qualityProfile = qualityProfile;
     notifyListeners();
   }
 
-  void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
+  void initializeQualityProfile(List<RadarrQualityProfile?> qualityProfiles) {
     _qualityProfile = qualityProfiles.firstWhere(
-      (profile) => profile.id == movie.qualityProfileId,
+      (profile) => profile!.id == movie!.qualityProfileId,
       orElse: () => qualityProfiles.isEmpty ? null : qualityProfiles[0],
     );
   }
 
-  RadarrAvailability _availability;
+  late RadarrAvailability _availability;
   RadarrAvailability get availability => _availability;
   set availability(RadarrAvailability availability) {
-    assert(availability != null);
     _availability = availability;
     notifyListeners();
   }
 
   void initializeAvailability() {
-    _availability = movie.minimumAvailability ?? RadarrAvailability.ANNOUNCED;
+    _availability = movie!.minimumAvailability ?? RadarrAvailability.ANNOUNCED;
   }
 
-  List<RadarrTag> _tags;
+  late List<RadarrTag> _tags;
   List<RadarrTag> get tags => _tags;
   set tags(List<RadarrTag> tags) {
-    assert(tags != null);
     _tags = tags;
     notifyListeners();
   }
 
-  void initializeTags(List<RadarrTag> tags) {
+  void initializeTags(List<RadarrTag>? tags) {
     _tags = (tags ?? [])
-        .where((tag) => (movie.tags ?? []).contains(tag.id))
+        .where((tag) => (movie!.tags ?? []).contains(tag.id))
         .toList();
   }
 }

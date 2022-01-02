@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
@@ -34,16 +33,16 @@ class LidarrAPI {
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('Lidarr: $text', error, trace);
 
-  bool get enabled => _values['enabled'];
-  String get host => _values['host'];
-  String get key => _values['key'];
+  bool? get enabled => _values['enabled'];
+  String? get host => _values['host'];
+  String? get key => _values['key'];
 
   Future<dynamic> testConnection() async => await _dio.get('system/status');
 
   Future<List<LidarrCatalogueData>> getAllArtists() async {
     try {
-      Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-      Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
+      Map<int?, LidarrQualityProfile> _qualities = await getQualityProfiles();
+      Map<int?, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
       Response response = await _dio.get('artist');
       List<LidarrCatalogueData> entries = [];
       for (var entry in response.data) {
@@ -122,10 +121,10 @@ class LidarrAPI {
     }
   }
 
-  Future<LidarrCatalogueData> getArtist(int artistID) async {
+  Future<LidarrCatalogueData> getArtist(int? artistID) async {
     try {
-      Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-      Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
+      Map<int?, LidarrQualityProfile> _qualities = await getQualityProfiles();
+      Map<int?, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
       Response response = await _dio.get('artist/$artistID');
       return LidarrCatalogueData(
         title: response.data['artistName'] ?? 'Unknown Artist',
@@ -186,9 +185,9 @@ class LidarrAPI {
       int artistID,
       LidarrQualityProfile qualityProfile,
       LidarrMetadataProfile metadataProfile,
-      String path,
-      bool monitored,
-      bool albumFolders) async {
+      String? path,
+      bool? monitored,
+      bool? albumFolders) async {
     try {
       Response response = await _dio.get('artist/$artistID');
       Map artist = response.data;
@@ -228,9 +227,7 @@ class LidarrAPI {
               : entry['statistics']['totalTrackCount'] ?? 0,
           percentageTracks: entry['statistics'] == null
               ? 0
-              : entry['statistics']['percentOfTracks']
-                      ?.toString()
-                      ?.toDouble() ??
+              : entry['statistics']['percentOfTracks']?.toString().toDouble() ??
                   0,
           releaseDate: entry['releaseDate'] ?? '',
         ));
@@ -238,7 +235,7 @@ class LidarrAPI {
       entries.sort((a, b) {
         if (a.releaseDateObject == null) return 1;
         if (b.releaseDateObject == null) return -1;
-        return b.releaseDateObject.compareTo(a.releaseDateObject);
+        return b.releaseDateObject!.compareTo(a.releaseDateObject!);
       });
       return entries;
     } on DioError catch (error, stack) {
@@ -279,7 +276,7 @@ class LidarrAPI {
     }
   }
 
-  Future<List<LidarrTrackData>> getAlbumTracks(int albumID) async {
+  Future<List<LidarrTrackData>> getAlbumTracks(int? albumID) async {
     try {
       Response response = await _dio.get(
         'track',
@@ -308,10 +305,10 @@ class LidarrAPI {
     }
   }
 
-  Future<Map<int, LidarrQualityProfile>> getQualityProfiles() async {
+  Future<Map<int?, LidarrQualityProfile>> getQualityProfiles() async {
     try {
       Response response = await _dio.get('qualityprofile');
-      var _entries = <int, LidarrQualityProfile>{};
+      var _entries = <int?, LidarrQualityProfile>{};
       for (var entry in response.data) {
         _entries[entry['id']] = LidarrQualityProfile(
           id: entry['id'] ?? -1,
@@ -328,10 +325,10 @@ class LidarrAPI {
     }
   }
 
-  Future<Map<int, LidarrMetadataProfile>> getMetadataProfiles() async {
+  Future<Map<int?, LidarrMetadataProfile>> getMetadataProfiles() async {
     try {
       Response response = await _dio.get('metadataprofile');
-      var _entries = <int, LidarrMetadataProfile>{};
+      var _entries = <int?, LidarrMetadataProfile>{};
       for (var entry in response.data) {
         _entries[entry['id']] = LidarrMetadataProfile(
           id: entry['id'] ?? -1,
@@ -683,13 +680,13 @@ class LidarrAPI {
     }
   }
 
-  Future<int> addArtist(
+  Future<int?> addArtist(
       LidarrSearchData entry,
       LidarrQualityProfile quality,
       LidarrRootFolder rootFolder,
       LidarrMetadataProfile metadata,
       LidarrMonitorStatus monitorStatus,
-      {bool search = false}) async {
+      {bool? search = false}) async {
     try {
       Response response = await _dio.post(
         'artist',

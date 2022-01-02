@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingRoute extends StatefulWidget {
   const SonarrUpcomingRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -42,11 +42,13 @@ class _State extends State<SonarrUpcomingRoute>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<SonarrState,
-          Tuple2<Future<Map<int, SonarrSeries>>, Future<List<SonarrCalendar>>>>(
+      child: Selector<
+          SonarrState,
+          Tuple2<Future<Map<int?, SonarrSeries>>?,
+              Future<List<SonarrCalendar>>?>>(
         selector: (_, state) => Tuple2(state.series, state.upcoming),
         builder: (context, tuple, _) => FutureBuilder(
-          future: Future.wait([tuple.item1, tuple.item2]),
+          future: Future.wait([tuple.item1!, tuple.item2!]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
               if (snapshot.connectionState != ConnectionState.waiting) {
@@ -56,12 +58,12 @@ class _State extends State<SonarrUpcomingRoute>
                   snapshot.stackTrace,
                 );
               }
-              return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+              return LunaMessage.error(onTap: _refreshKey.currentState!.show);
             }
             if (snapshot.hasData)
               return _episodes(
-                snapshot.data[0],
-                snapshot.data[1],
+                snapshot.data![0] as Map<int, SonarrSeries>,
+                snapshot.data![1] as List<SonarrCalendar>,
               );
             return const LunaLoader();
           },
@@ -74,7 +76,7 @@ class _State extends State<SonarrUpcomingRoute>
     Map<int, SonarrSeries> series,
     List<SonarrCalendar> upcoming,
   ) {
-    if (upcoming?.isEmpty ?? true) {
+    if (upcoming.isEmpty) {
       return LunaMessage(
         text: 'sonarr.NoEpisodesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
@@ -85,14 +87,14 @@ class _State extends State<SonarrUpcomingRoute>
     Map<String, Map<String, dynamic>> _episodeMap =
         upcoming.fold({}, (map, entry) {
       if (entry.airDateUtc == null) return map;
-      String _date = DateFormat('y-MM-dd').format(entry.airDateUtc.toLocal());
+      String _date = DateFormat('y-MM-dd').format(entry.airDateUtc!.toLocal());
       if (!map.containsKey(_date))
         map[_date] = {
           'date': DateFormat('EEEE / MMMM dd, y')
-              .format(entry.airDateUtc.toLocal()),
+              .format(entry.airDateUtc!.toLocal()),
           'entries': [],
         };
-      (map[_date]['entries'] as List).add(entry);
+      (map[_date]!['entries'] as List).add(entry);
       return map;
     });
     // Build the widgets
@@ -101,8 +103,8 @@ class _State extends State<SonarrUpcomingRoute>
       ..sort()
       ..forEach((key) => {
             _episodeWidgets.add(_buildDay(
-              (_episodeMap[key]['date'] as String),
-              (_episodeMap[key]['entries'] as List).cast<SonarrCalendar>(),
+              (_episodeMap[key]!['date'] as String?),
+              (_episodeMap[key]!['entries'] as List).cast<SonarrCalendar>(),
               series,
             )),
           });
@@ -114,7 +116,7 @@ class _State extends State<SonarrUpcomingRoute>
   }
 
   List<Widget> _buildDay(
-    String date,
+    String? date,
     List<SonarrCalendar> upcoming,
     Map<int, SonarrSeries> series,
   ) =>
@@ -127,7 +129,7 @@ class _State extends State<SonarrUpcomingRoute>
           upcoming.length,
           (index) => SonarrUpcomingTile(
             record: upcoming[index],
-            series: series[upcoming[index].seriesId],
+            series: series[upcoming[index].seriesId!],
           ),
         ),
       ];

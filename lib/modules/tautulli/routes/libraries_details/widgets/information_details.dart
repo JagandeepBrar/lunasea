@@ -6,8 +6,8 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
   final TautulliTableLibrary library;
 
   const TautulliLibrariesDetailsInformationDetails({
-    Key key,
-    @required this.library,
+    Key? key,
+    required this.library,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
         LunaTableContent(
           title: 'last played',
           body: [
-            library?.lastPlayed ?? LunaUI.TEXT_EMDASH,
+            library.lastPlayed ?? LunaUI.TEXT_EMDASH,
             library.lastAccessed?.lunaAge ?? 'Unknown',
           ].join('\n'),
         ),
@@ -39,7 +39,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
     );
   }
 
-  String _count(int value) {
+  String _count(int? value) {
     switch (library.sectionType) {
       case TautulliSectionType.MOVIE:
         return value == 1 ? 'Movie' : 'Movies';
@@ -55,7 +55,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
     }
   }
 
-  String _childCount(int value) {
+  String? _childCount(int? value) {
     switch (library.sectionType) {
       case TautulliSectionType.MOVIE:
         return null;
@@ -71,7 +71,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
     }
   }
 
-  String _parentCount(int value) {
+  String? _parentCount(int? value) {
     switch (library.sectionType) {
       case TautulliSectionType.MOVIE:
         return null;

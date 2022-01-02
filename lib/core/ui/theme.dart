@@ -22,11 +22,11 @@ class LunaTheme {
 
   /// Returns the active [ThemeData] by checking the theme database value.
   ThemeData activeTheme() {
-    return isAMOLEDTheme ? _pureBlackTheme() : _midnightTheme();
+    return isAMOLEDTheme! ? _pureBlackTheme() : _midnightTheme();
   }
 
-  static bool get isAMOLEDTheme => LunaDatabaseValue.THEME_AMOLED.data;
-  static bool get useAMOLEDBorders =>
+  static bool? get isAMOLEDTheme => LunaDatabaseValue.THEME_AMOLED.data;
+  static bool? get useAMOLEDBorders =>
       LunaDatabaseValue.THEME_AMOLED_BORDER.data;
 
   /// Midnight theme (Default)
@@ -84,7 +84,7 @@ class LunaTheme {
             Radius.circular(LunaUI.BORDER_RADIUS),
           ),
           border:
-              useAMOLEDBorders ? Border.all(color: LunaColours.white10) : null,
+              useAMOLEDBorders! ? Border.all(color: LunaColours.white10) : null,
         ),
         textStyle: const TextStyle(
           color: LunaColours.grey,

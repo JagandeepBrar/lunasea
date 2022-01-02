@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => TautulliLogsPlexMediaServerState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -59,7 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 snapshot.error,
                 snapshot.stackTrace,
               );
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _logs(snapshot.data);
           return const LunaLoader();
@@ -68,14 +68,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _logs(List<TautulliPlexLog> logs) {
+  Widget _logs(List<TautulliPlexLog>? logs) {
     if ((logs?.length ?? 0) == 0)
       return LunaMessage(
         text: 'No Logs Found',
         buttonText: 'Refresh',
         onTap: _refreshKey.currentState?.show,
       );
-    List<TautulliPlexLog> _reversed = logs.reversed.toList();
+    List<TautulliPlexLog> _reversed = logs!.reversed.toList();
     return LunaListViewBuilder(
       controller: scrollController,
       itemCount: _reversed.length,

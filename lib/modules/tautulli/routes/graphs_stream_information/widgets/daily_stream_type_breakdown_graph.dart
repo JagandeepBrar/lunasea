@@ -5,13 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
   const TautulliGraphsDailyStreamTypeBreakdownGraph({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.dailyStreamTypeBreakdownGraph,
+        selector: (_, state) => state.dailyStreamTypeBreakdownGraph!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
@@ -24,7 +24,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
               }
               return TautulliGraphHelper().errorContainer(context);
             }
-            if (snapshot.hasData) return _graph(context, snapshot.data);
+            if (snapshot.hasData) return _graph(context, snapshot.data!);
             return TautulliGraphHelper().loadingContainer(context);
           },
         ),
@@ -52,7 +52,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
             ),
           ),
-          TautulliGraphHelper().createLegend(data.series),
+          TautulliGraphHelper().createLegend(data.series!),
         ],
       ),
     );

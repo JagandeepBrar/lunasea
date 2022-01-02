@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
   const SonarrSeriesEditSeriesPathTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,8 +13,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
       title: 'sonarr.SeriesPath'.tr(),
       body: [
         TextSpan(
-          text: context.watch<SonarrSeriesEditState>().seriesPath ??
-              LunaUI.TEXT_EMDASH,
+          text: context.watch<SonarrSeriesEditState>().seriesPath,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

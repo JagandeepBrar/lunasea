@@ -7,9 +7,9 @@ class TautulliStatisticsMediaTile extends StatefulWidget {
   final TautulliMediaType mediaType;
 
   const TautulliStatisticsMediaTile({
-    Key key,
-    @required this.data,
-    @required this.mediaType,
+    Key? key,
+    required this.data,
+    required this.mediaType,
   }) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ class _State extends State<TautulliStatisticsMediaTile> {
       widget.data['last_play'] != null
           ? TextSpan(
               text:
-                  'Last Played ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000)?.lunaAge ?? 'Unknown'}',
+                  'Last Played ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000).lunaAge}',
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];
@@ -77,7 +77,7 @@ class _State extends State<TautulliStatisticsMediaTile> {
 
   Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
         context,
-        ratingKey: widget.data['rating_key'],
-        mediaType: widget.mediaType,
+        widget.data['rating_key'],
+        widget.mediaType,
       );
 }

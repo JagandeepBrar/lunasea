@@ -6,13 +6,13 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
   final TautulliTableLibrary library;
 
   const TautulliLibrariesLibraryTile({
-    Key key,
-    @required this.library,
+    Key? key,
+    required this.library,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int _plays = library.plays;
+    int? _plays = library.plays;
     return LunaBlock(
       title: library.sectionName,
       body: [
@@ -21,7 +21,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
           children: [
             TextSpan(text: _plays == 1 ? '1 Play' : '$_plays Plays'),
             TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-            TextSpan(text: library.duration.lunaTimestampWords),
+            TextSpan(text: library.duration!.lunaTimestampWords),
           ],
         ),
         TextSpan(
@@ -37,7 +37,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
       backgroundHeaders: context.watch<TautulliState>().headers,
       onTap: () async => TautulliLibrariesDetailsRouter().navigateTo(
         context,
-        sectionId: library.sectionId,
+        library.sectionId!,
       ),
     );
   }

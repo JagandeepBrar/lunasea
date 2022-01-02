@@ -21,6 +21,5 @@ extension LunaSonarrQueueStatusExtension on SonarrQueueStatus {
       case SonarrQueueStatus.WARNING:
         return 'sonarr.DownloadWarning'.tr();
     }
-    throw Exception('Invalid SonarrQueueStatus');
   }
 }

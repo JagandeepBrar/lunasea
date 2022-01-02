@@ -6,11 +6,11 @@ class SonarrMissingTile extends StatefulWidget {
   static final itemExtent = LunaBlock.calculateItemExtent(3);
 
   final SonarrMissingRecord record;
-  final SonarrSeries series;
+  final SonarrSeries? series;
 
   const SonarrMissingTile({
-    Key key,
-    @required this.record,
+    Key? key,
+    required this.record,
     this.series,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class _State extends State<SonarrMissingTile> {
           context.read<SonarrState>().getPosterURL(widget.record.seriesId),
       posterHeaders: context.read<SonarrState>().headers,
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      title: widget.record?.series?.title ??
+      title: widget.record.series?.title ??
           widget.series?.title ??
           LunaUI.TEXT_EMDASH,
       body: [
@@ -36,7 +36,7 @@ class _State extends State<SonarrMissingTile> {
         _subtitle2(),
         _subtitle3(),
       ],
-      disabled: !widget.record.monitored,
+      disabled: !widget.record.monitored!,
       onTap: _onTap,
       onLongPress: _onLongPress,
       trailing: _trailing(),
@@ -84,27 +84,27 @@ class _State extends State<SonarrMissingTile> {
         TextSpan(
             text: widget.record.airDateUtc == null
                 ? 'Aired'
-                : 'Aired ${widget.record.airDateUtc?.toLocal()?.lunaAge}'),
+                : 'Aired ${widget.record.airDateUtc!.toLocal().lunaAge}'),
       ],
     );
   }
 
   Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
-        seriesId: widget.record.seriesId,
-        seasonNumber: widget.record.seasonNumber,
+        widget.record.seriesId ?? -1,
+        widget.record.seasonNumber ?? -1,
       );
 
   Future<void> _onLongPress() async => SonarrSeriesDetailsRouter().navigateTo(
         context,
-        seriesId: widget.record.seriesId,
+        widget.record.seriesId!,
       );
 
   Future<void> _trailingOnTap() async {
     Provider.of<SonarrState>(context, listen: false)
-        .api
+        .api!
         .command
-        .episodeSearch(episodeIds: [widget.record.id])
+        .episodeSearch(episodeIds: [widget.record.id!])
         .then((_) => showLunaSuccessSnackBar(
               title: 'Searching for Episode...',
               message: widget.record.title,

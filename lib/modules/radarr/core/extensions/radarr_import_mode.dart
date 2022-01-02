@@ -10,7 +10,6 @@ extension LunaRadarrImportMode on RadarrImportMode {
       case RadarrImportMode.MOVE:
         return 'radarr.MoveFull'.tr();
     }
-    return LunaUI.TEXT_EMDASH;
   }
 
   IconData get lunaIcon {
@@ -20,6 +19,5 @@ extension LunaRadarrImportMode on RadarrImportMode {
       case RadarrImportMode.MOVE:
         return Icons.drive_file_move_outline;
     }
-    return null;
   }
 }

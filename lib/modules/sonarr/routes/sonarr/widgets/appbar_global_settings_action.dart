@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
   const SonarrAppBarGlobalSettingsAction({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -12,9 +12,9 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
     return LunaIconButton(
       icon: Icons.more_vert_rounded,
       onPressed: () async {
-        Tuple2<bool, SonarrGlobalSettingsType> values =
+        Tuple2<bool, SonarrGlobalSettingsType?> values =
             await SonarrDialogs().globalSettings(context);
-        if (values.item1) values.item2.execute(context);
+        if (values.item1) values.item2!.execute(context);
       },
     );
   }

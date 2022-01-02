@@ -6,22 +6,24 @@ class RadarrReleasesRouter extends RadarrPageRouter {
   RadarrReleasesRouter() : super('/radarr/releases/:movieid');
 
   @override
-  Widget widget({
-    @required int movieId,
-  }) {
+  Widget widget([
+    int movieId = -1,
+  ]) {
     return _Widget(movieId: movieId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int movieId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(movieId: movieId));
+    BuildContext context, [
+    int movieId = -1,
+  ]) async {
+    LunaRouter.router.navigateTo(context, route(movieId));
   }
 
   @override
-  String route({@required int movieId}) {
+  String route([
+    int movieId = -1,
+  ]) {
     return fullRoute.replaceFirst(
       ':movieid',
       movieId.toString(),
@@ -33,9 +35,9 @@ class RadarrReleasesRouter extends RadarrPageRouter {
     super.withParameterRouteDefinition(
       router,
       (context, params) {
-        int movieId = params['movieid'] == null || params['movieid'].isEmpty
+        int movieId = params['movieid'] == null || params['movieid']!.isEmpty
             ? -1
-            : (int.tryParse(params['movieid'][0]) ?? -1);
+            : (int.tryParse(params['movieid']![0]) ?? -1);
         return _Widget(movieId: movieId);
       },
     );
@@ -46,8 +48,8 @@ class _Widget extends StatefulWidget {
   final int movieId;
 
   const _Widget({
-    Key key,
-    @required this.movieId,
+    Key? key,
+    required this.movieId,
   }) : super(key: key);
 
   @override
@@ -61,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.movieId == null || widget.movieId <= 0) {
+    if (widget.movieId <= 0) {
       return LunaInvalidRoute(
         title: 'Releases',
         message: 'Movie Not Found',
@@ -71,7 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => RadarrReleasesState(context, widget.movieId),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(context),
+        appBar: _appBar(context) as PreferredSizeWidget?,
         body: _body(context),
       ),
     );
@@ -105,7 +107,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               );
             }
             return LunaMessage.error(
-              onTap: () => _refreshKey.currentState.show,
+              onTap: () => _refreshKey.currentState!.show,
             );
           }
           if (snapshot.hasData) return _list(context, snapshot.data);
@@ -115,14 +117,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(BuildContext context, List<RadarrRelease> releases) {
+  Widget _list(BuildContext context, List<RadarrRelease>? releases) {
     return Consumer<RadarrReleasesState>(
       builder: (context, state, _) {
         if ((releases?.length ?? 0) == 0) {
           return LunaMessage(
             text: 'No Releases Found',
             buttonText: 'Refresh',
-            onTap: _refreshKey.currentState.show,
+            onTap: _refreshKey.currentState!.show,
           );
         }
         List<RadarrRelease> _processed = _filterAndSortReleases(
@@ -133,7 +135,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           controller: scrollController,
           itemCount: _processed.isEmpty ? 1 : _processed.length,
           itemBuilder: (context, index) {
-            if ((_processed?.length ?? 0) == 0) {
+            if (_processed.isEmpty) {
               return LunaMessage.inList(text: 'No Releases Found');
             }
             return RadarrReleasesTile(release: _processed[index]);
@@ -147,14 +149,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     List<RadarrRelease> releases,
     RadarrReleasesState state,
   ) {
-    if (releases == null || releases.isEmpty) return releases;
+    if (releases.isEmpty) return releases;
     List<RadarrRelease> filtered = releases.where(
       (release) {
         String _query = state.searchQuery;
-        if (_query != null && _query.isNotEmpty) {
-          return release.title.toLowerCase().contains(_query.toLowerCase());
+        if (_query.isNotEmpty) {
+          return release.title!.toLowerCase().contains(_query.toLowerCase());
         }
-        return release != null;
+        return true;
       },
     ).toList();
     filtered = state.filterType.filter(filtered);

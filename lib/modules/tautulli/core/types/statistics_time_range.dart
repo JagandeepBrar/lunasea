@@ -23,7 +23,6 @@ extension TautulliStatisticsTimeRangeExtension on TautulliStatisticsTimeRange {
       case TautulliStatisticsTimeRange.TWO_YEAR:
         return '2 Years';
     }
-    throw Exception('Invalid TautulliStatisticsTimeRange');
   }
 
   int get value {
@@ -41,6 +40,5 @@ extension TautulliStatisticsTimeRangeExtension on TautulliStatisticsTimeRange {
       case TautulliStatisticsTimeRange.TWO_YEAR:
         return 730;
     }
-    throw Exception('Invalid TautulliStatisticsTimeRange');
   }
 }

@@ -19,7 +19,6 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
       case CalendarStartingType.CALENDAR:
         return 'dashboard.Calendar'.tr();
     }
-    throw Exception('Invalid CalendarStartingType');
   }
 
   String get key {
@@ -29,7 +28,6 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
       case CalendarStartingType.CALENDAR:
         return 'calendar';
     }
-    throw Exception('Invalid CalendarStartingType');
   }
 
   IconData get icon {
@@ -39,10 +37,9 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
       case CalendarStartingType.CALENDAR:
         return Icons.calendar_view_day_rounded;
     }
-    throw Exception('Invalid CalendarStartingType');
   }
 
-  CalendarStartingType fromKey(String key) {
+  CalendarStartingType? fromKey(String? key) {
     switch (key) {
       case 'schedule':
         return CalendarStartingType.SCHEDULE;

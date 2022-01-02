@@ -1,22 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getLidarr();
   String title;
   String sortTitle;
   String overview;
-  String path;
+  String? path;
   String artistType;
   String added;
   int artistID;
-  int qualityProfile;
-  int metadataProfile;
-  String quality;
-  String metadata;
-  bool monitored;
-  bool albumFolders;
+  int? qualityProfile;
+  int? metadataProfile;
+  String? quality;
+  String? metadata;
+  bool? monitored;
+  bool? albumFolders;
   Map statistics;
   List genres;
   List links;
@@ -24,43 +23,40 @@ class LidarrCatalogueData {
   int sizeOnDisk;
 
   LidarrCatalogueData({
-    @required this.title,
-    @required this.sortTitle,
-    @required this.overview,
-    @required this.path,
-    @required this.artistID,
-    @required this.monitored,
-    @required this.statistics,
-    @required this.qualityProfile,
-    @required this.metadataProfile,
-    @required this.quality,
-    @required this.metadata,
-    @required this.genres,
-    @required this.links,
-    @required this.albumFolders,
-    @required this.foreignArtistID,
-    @required this.sizeOnDisk,
-    @required this.artistType,
-    @required this.added,
+    required this.title,
+    required this.sortTitle,
+    required this.overview,
+    required this.path,
+    required this.artistID,
+    required this.monitored,
+    required this.statistics,
+    required this.qualityProfile,
+    required this.metadataProfile,
+    required this.quality,
+    required this.metadata,
+    required this.genres,
+    required this.links,
+    required this.albumFolders,
+    required this.foreignArtistID,
+    required this.sizeOnDisk,
+    required this.artistType,
+    required this.added,
   });
 
   String get genre {
-    if (genres?.isNotEmpty ?? false) return genres.join('\n');
-    return 'Unknown';
+    if (genres.isNotEmpty) return genres.join('\n');
+    return 'lunasea.Unknown'.tr();
   }
 
-  DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();
+  DateTime? get dateAddedObject => DateTime.tryParse(added)?.toLocal();
 
   String get dateAdded {
-    if (added != null) {
-      return DateFormat('MMMM dd, y').format(dateAddedObject);
-    }
-    return 'Unknown';
+    return DateFormat('MMMM dd, y').format(dateAddedObject!);
   }
 
-  String subtitle(LidarrCatalogueSorting sorting) => _sortSubtitle(sorting);
+  String? subtitle(LidarrCatalogueSorting sorting) => _sortSubtitle(sorting);
 
-  String _sortSubtitle(LidarrCatalogueSorting sorting) {
+  String? _sortSubtitle(LidarrCatalogueSorting sorting) {
     switch (sorting) {
       case LidarrCatalogueSorting.metadata:
         return metadata;
@@ -74,9 +70,8 @@ class LidarrCatalogueData {
         return dateAdded;
       case LidarrCatalogueSorting.size:
       case LidarrCatalogueSorting.alphabetical:
-        return sizeOnDisk?.lunaBytesToString();
+        return sizeOnDisk.lunaBytesToString();
     }
-    return '';
   }
 
   String get trackStats {
@@ -97,7 +92,7 @@ class LidarrCatalogueData {
         : '${statistics['albumCount']} Albums';
   }
 
-  String get bandsintownURI {
+  String? get bandsintownURI {
     for (var link in links) {
       if (link['name'] == 'bandsintown') {
         return link['url'];
@@ -106,7 +101,7 @@ class LidarrCatalogueData {
     return '';
   }
 
-  String get discogsURI {
+  String? get discogsURI {
     for (var link in links) {
       if (link['name'] == 'discogs') {
         return link['url'];
@@ -115,7 +110,7 @@ class LidarrCatalogueData {
     return '';
   }
 
-  String get lastfmURI {
+  String? get lastfmURI {
     for (var link in links) {
       if (link['name'] == 'last') {
         return link['url'];

@@ -7,8 +7,8 @@ class RadarrManualImportPathBar extends StatefulWidget
   final ScrollController scrollController;
 
   const RadarrManualImportPathBar({
-    Key key,
-    @required this.scrollController,
+    Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

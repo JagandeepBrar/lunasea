@@ -6,8 +6,8 @@ class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
   final RadarrExtraFile extraFile;
 
   const RadarrMovieDetailsFilesExtraFileBlock({
-    Key key,
-    @required this.extraFile,
+    Key? key,
+    required this.extraFile,
   }) : super(key: key);
 
   @override
@@ -15,9 +15,9 @@ class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'relative path', body: extraFile?.lunaRelativePath),
-        LunaTableContent(title: 'type', body: extraFile?.lunaType),
-        LunaTableContent(title: 'extension', body: extraFile?.lunaExtension),
+            title: 'relative path', body: extraFile.lunaRelativePath),
+        LunaTableContent(title: 'type', body: extraFile.lunaType),
+        LunaTableContent(title: 'extension', body: extraFile.lunaExtension),
       ],
     );
   }

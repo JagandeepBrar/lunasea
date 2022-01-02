@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEditSeriesActionBar extends StatelessWidget {
   const SonarrEditSeriesActionBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class SonarrEditSeriesActionBar extends StatelessWidget {
       if (context.read<SonarrSeriesEditState>().series != null) {
         SonarrSeries series = context
             .read<SonarrSeriesEditState>()
-            .series
+            .series!
             .updateEdits(context.read<SonarrSeriesEditState>());
         bool result = await SonarrAPIController().updateSeries(
           context: context,

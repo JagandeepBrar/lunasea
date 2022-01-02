@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -12,7 +11,7 @@ class LunaConfiguration {
   List<Map<String, dynamic>> _getProfiles() {
     List<Map<String, dynamic>> _data = [];
     for (var key in Database.profilesBox.keys)
-      _data.add(Database.profilesBox.get(key).toMap());
+      _data.add(Database.profilesBox.get(key)!.toMap());
     return _data;
   }
 
@@ -27,7 +26,7 @@ class LunaConfiguration {
   List<Map<String, dynamic>> _getIndexers() {
     List<Map<String, dynamic>> _data = [];
     for (var key in Database.indexersBox.keys)
-      _data.add(Database.indexersBox.get(key).toMap());
+      _data.add(Database.indexersBox.get(key)!.toMap());
     return _data;
   }
 
@@ -41,7 +40,7 @@ class LunaConfiguration {
   List<Map<String, dynamic>> _getExternalModules() {
     List<Map<String, dynamic>> _data = [];
     for (var key in Database.externalModulesBox.keys)
-      _data.add(Database.externalModulesBox.get(key).toMap());
+      _data.add(Database.externalModulesBox.get(key)!.toMap());
     return _data;
   }
 
@@ -98,7 +97,7 @@ class LunaConfiguration {
     };
     LunaModule.values.forEach((module) {
       if (module.database != null)
-        config[module.key] = module.database.export();
+        config[module.key] = module.database!.export();
     });
     return json.encode(config);
   }

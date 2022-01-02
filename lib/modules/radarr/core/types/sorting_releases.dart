@@ -34,8 +34,6 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
         return 'type';
       case RadarrReleasesSorting.SIZE:
         return 'size';
-      default:
-        return null;
     }
   }
 
@@ -53,12 +51,10 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
         return 'radarr.Type'.tr();
       case RadarrReleasesSorting.SIZE:
         return 'radarr.Size'.tr();
-      default:
-        return null;
     }
   }
 
-  RadarrReleasesSorting fromKey(String key) {
+  RadarrReleasesSorting? fromKey(String? key) {
     switch (key) {
       case 'age':
         return RadarrReleasesSorting.AGE;
@@ -101,23 +97,22 @@ class _Sorter {
       case RadarrReleasesSorting.SIZE:
         return _size(releases, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrRelease> _alphabetical(
       List<RadarrRelease> releases, bool ascending) {
     ascending
         ? releases.sort(
-            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()))
+            (a, b) => a.title!.toLowerCase().compareTo(b.title!.toLowerCase()))
         : releases.sort(
-            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+            (a, b) => b.title!.toLowerCase().compareTo(a.title!.toLowerCase()));
     return releases;
   }
 
   List<RadarrRelease> _age(List<RadarrRelease> releases, bool ascending) {
     ascending
-        ? releases.sort((a, b) => a.ageHours.compareTo(b.ageHours))
-        : releases.sort((a, b) => b.ageHours.compareTo(a.ageHours));
+        ? releases.sort((a, b) => a.ageHours!.compareTo(b.ageHours!))
+        : releases.sort((a, b) => b.ageHours!.compareTo(a.ageHours!));
     return releases;
   }
 

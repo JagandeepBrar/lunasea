@@ -4,11 +4,11 @@ import 'package:lunasea/core.dart';
 
 class LunaLoader extends StatelessWidget {
   final double size;
-  final Color color;
+  final Color? color;
   final bool useSafeArea;
 
   const LunaLoader({
-    Key key,
+    Key? key,
     this.size = 25.0,
     this.color,
     this.useSafeArea = true,

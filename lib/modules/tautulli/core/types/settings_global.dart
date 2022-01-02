@@ -27,7 +27,6 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return Icons.delete_sweep_rounded;
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   String get name {
@@ -45,7 +44,6 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return 'tautulli.DeleteTemporarySessions'.tr();
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   Future<void> execute(BuildContext context) async {
@@ -63,11 +61,10 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
       case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS:
         return _deleteTemporarySessions(context);
     }
-    throw Exception('Invalid TautulliGlobalSettingsType');
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<TautulliState>().host.lunaOpenGenericLink(
+      context.read<TautulliState>().host!.lunaOpenGenericLink(
             headers: context.read<TautulliState>().headers,
           );
   Future<void> _backupConfig(BuildContext context) async =>

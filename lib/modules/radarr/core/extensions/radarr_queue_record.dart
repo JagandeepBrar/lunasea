@@ -8,25 +8,25 @@ extension LunaRadarrQueueRecord on RadarrQueueRecord {
   }
 
   String get lunaLanguage {
-    if ((this?.languages?.length ?? 0) == 0) return LunaUI.TEXT_EMDASH;
-    if (this.languages.length == 1)
-      return this.languages[0].name ?? LunaUI.TEXT_EMDASH;
+    if ((this.languages?.length ?? 0) == 0) return LunaUI.TEXT_EMDASH;
+    if (this.languages!.length == 1)
+      return this.languages![0].name ?? LunaUI.TEXT_EMDASH;
     return 'Multi-Language';
   }
 
   String lunaMovieTitle(RadarrMovie movie) {
-    String title = movie?.title ?? LunaUI.TEXT_EMDASH;
-    String year = movie?.lunaYear;
+    String title = movie.title ?? LunaUI.TEXT_EMDASH;
+    String year = movie.lunaYear;
     return '$title ($year)';
   }
 
-  String get lunaDownloadClient {
-    if ((this?.downloadClient ?? '').isNotEmpty) return this.downloadClient;
+  String? get lunaDownloadClient {
+    if ((this.downloadClient ?? '').isNotEmpty) return this.downloadClient;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaIndexer {
-    if ((this?.indexer ?? '').isNotEmpty) return this.indexer;
+  String? get lunaIndexer {
+    if ((this.indexer ?? '').isNotEmpty) return this.indexer;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -37,8 +37,8 @@ extension LunaRadarrQueueRecord on RadarrQueueRecord {
 
   int get lunaPercentageComplete {
     if (this.sizeLeft == null || this.size == null || this.size == 0) return 0;
-    double sizeFetched = this.size - this.sizeLeft;
-    return ((sizeFetched / this.size) * 100).round();
+    double sizeFetched = this.size! - this.sizeLeft!;
+    return ((sizeFetched / this.size!) * 100).round();
   }
 
   IconData get lunaStatusIcon {

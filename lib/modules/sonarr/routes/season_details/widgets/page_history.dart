@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeasonDetailsHistoryPage extends StatefulWidget {
   const SonarrSeasonDetailsHistoryPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -38,9 +38,9 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
       child: FutureBuilder(
         future: Future.wait([
           context.select<SonarrSeasonDetailsState,
-              Future<List<SonarrHistoryRecord>>>((s) => s.history),
+              Future<List<SonarrHistoryRecord>>?>((s) => s.history)!,
           context.select<SonarrSeasonDetailsState,
-              Future<Map<int, SonarrEpisode>>>((s) => s.episodes),
+              Future<Map<int?, SonarrEpisode>>?>((s) => s.episodes)!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -49,12 +49,12 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
               snapshot.error,
               snapshot.stackTrace,
             );
-            return LunaMessage.error(onTap: _refreshKey.currentState.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData)
             return _list(
-              history: snapshot.data[0],
-              episodes: snapshot.data[1],
+              history: snapshot.data![0] as List<SonarrHistoryRecord>,
+              episodes: snapshot.data![1] as Map<int, SonarrEpisode>,
             );
           return const LunaLoader();
         },
@@ -63,21 +63,21 @@ class _State extends State<SonarrSeasonDetailsHistoryPage>
   }
 
   Widget _list({
-    @required List<SonarrHistoryRecord> history,
-    @required Map<int, SonarrEpisode> episodes,
+    required List<SonarrHistoryRecord> history,
+    required Map<int, SonarrEpisode> episodes,
   }) {
-    if ((history?.length ?? 0) == 0)
+    if (history.isEmpty)
       return LunaMessage(
         text: 'sonarr.NoHistoryFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return LunaListViewBuilder(
       controller: SonarrSeasonDetailsNavigationBar.scrollControllers[1],
       itemCount: history.length,
       itemBuilder: (context, index) => SonarrHistoryTile(
         history: history[index],
-        episode: episodes[history[index].episodeId],
+        episode: episodes[history[index].episodeId!],
         type: SonarrHistoryTileType.SEASON,
       ),
     );

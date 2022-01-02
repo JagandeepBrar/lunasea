@@ -6,8 +6,8 @@ class RadarrReleasesTile extends StatefulWidget {
   final RadarrRelease release;
 
   const RadarrReleasesTile({
-    @required this.release,
-    Key key,
+    required this.release,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _State extends State<RadarrReleasesTile> {
   @override
   Widget build(BuildContext context) {
     return LunaExpandableListTile(
-      title: widget.release.title,
+      title: widget.release.title!,
       collapsedSubtitles: [
         _subtitle1(),
         _subtitle2(),
@@ -37,7 +37,7 @@ class _State extends State<RadarrReleasesTile> {
       icon: widget.release.lunaTrailingIcon,
       color: widget.release.lunaTrailingColor,
       onPressed: () async =>
-          widget.release.rejected ? _showWarnings() : _startDownload(),
+          widget.release.rejected! ? _showWarnings() : _startDownload(),
       onLongPress: _startDownload,
       loadingState: _downloadState,
     );
@@ -74,17 +74,17 @@ class _State extends State<RadarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.readable,
+        text: widget.release.protocol!.readable!,
         backgroundColor: widget.release.lunaProtocolColor,
       ),
       if (widget.release.lunaCustomFormatScore(nullOnEmpty: true) != null)
         LunaHighlightedNode(
-          text: widget.release.lunaCustomFormatScore(),
+          text: widget.release.lunaCustomFormatScore()!,
           backgroundColor: LunaColours.purple,
         ),
-      ...widget.release.customFormats.map<LunaHighlightedNode>((custom) =>
+      ...widget.release.customFormats!.map<LunaHighlightedNode>((custom) =>
           LunaHighlightedNode(
-              text: custom.name, backgroundColor: LunaColours.blueGrey)),
+              text: custom.name!, backgroundColor: LunaColours.blueGrey)),
     ];
   }
 
@@ -97,8 +97,8 @@ class _State extends State<RadarrReleasesTile> {
           title: 'language',
           body: widget.release.languages
                   ?.map<String>(
-                      (language) => language?.name ?? LunaUI.TEXT_EMDASH)
-                  ?.join('\n') ??
+                      (language) => language.name ?? LunaUI.TEXT_EMDASH)
+                  .join('\n') ??
               LunaUI.TEXT_EMDASH),
       LunaTableContent(title: 'quality', body: widget.release.lunaQuality),
       if (widget.release.seeders != null)
@@ -117,7 +117,7 @@ class _State extends State<RadarrReleasesTile> {
         onTap: _startDownload,
         loadingState: _downloadState,
       ),
-      if (widget.release.rejected)
+      if (widget.release.rejected!)
         LunaButton.text(
           text: 'Rejected',
           icon: Icons.report_outlined,

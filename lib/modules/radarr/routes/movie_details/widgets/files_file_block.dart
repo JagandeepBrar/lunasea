@@ -6,8 +6,8 @@ class RadarrMovieDetailsFilesFileBlock extends StatefulWidget {
   final RadarrMovieFile movieFile;
 
   const RadarrMovieDetailsFilesFileBlock({
-    Key key,
-    @required this.movieFile,
+    Key? key,
+    required this.movieFile,
   }) : super(key: key);
 
   @override
@@ -32,34 +32,34 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
         LunaTableContent(
           title: 'audio',
           body: [
-            widget.movieFile?.mediaInfo?.lunaAudioCodec,
-            if (widget.movieFile?.mediaInfo?.audioChannels != null)
-              widget.movieFile?.mediaInfo?.audioChannels.toString(),
-          ].join(LunaUI.TEXT_BULLET.lunaPad()),
+            widget.movieFile.mediaInfo?.lunaAudioCodec,
+            if (widget.movieFile.mediaInfo?.audioChannels != null)
+              widget.movieFile.mediaInfo?.audioChannels.toString(),
+          ].join(LunaUI.TEXT_BULLET.lunaPad()!),
         ),
         LunaTableContent(
           title: 'size',
-          body: widget.movieFile?.lunaSize,
+          body: widget.movieFile.lunaSize,
         ),
         LunaTableContent(
           title: 'languages',
-          body: widget.movieFile?.lunaLanguage,
+          body: widget.movieFile.lunaLanguage,
         ),
         LunaTableContent(
           title: 'quality',
-          body: widget.movieFile?.lunaQuality,
+          body: widget.movieFile.lunaQuality,
         ),
         LunaTableContent(
           title: 'formats',
-          body: widget.movieFile?.lunaCustomFormats,
+          body: widget.movieFile.lunaCustomFormats,
         ),
         LunaTableContent(
           title: 'added on',
-          body: widget.movieFile?.lunaDateAdded,
+          body: widget.movieFile.lunaDateAdded,
         ),
       ],
       buttons: [
-        if (widget.movieFile?.mediaInfo != null)
+        if (widget.movieFile.mediaInfo != null)
           LunaButton.text(
             text: 'Media Info',
             icon: Icons.info_outline_rounded,
@@ -98,23 +98,23 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             content: [
               LunaTableContent(
                 title: 'bit depth',
-                body: widget.movieFile?.mediaInfo?.lunaVideoBitDepth,
+                body: widget.movieFile.mediaInfo?.lunaVideoBitDepth,
               ),
               LunaTableContent(
                 title: 'bitrate',
-                body: widget.movieFile?.mediaInfo?.lunaVideoBitrate,
+                body: widget.movieFile.mediaInfo?.lunaVideoBitrate,
               ),
               LunaTableContent(
                 title: 'codec',
-                body: widget.movieFile?.mediaInfo?.lunaVideoCodec,
+                body: widget.movieFile.mediaInfo?.lunaVideoCodec,
               ),
               LunaTableContent(
                 title: 'fps',
-                body: widget.movieFile?.mediaInfo?.lunaVideoFps,
+                body: widget.movieFile.mediaInfo?.lunaVideoFps,
               ),
               LunaTableContent(
                 title: 'resolution',
-                body: widget.movieFile?.mediaInfo?.lunaVideoResolution,
+                body: widget.movieFile.mediaInfo?.lunaVideoResolution,
               ),
             ],
           ),
@@ -123,27 +123,27 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             content: [
               LunaTableContent(
                 title: 'bitrate',
-                body: widget.movieFile?.mediaInfo?.lunaAudioBitrate,
+                body: widget.movieFile.mediaInfo?.lunaAudioBitrate,
               ),
               LunaTableContent(
                 title: 'channels',
-                body: widget.movieFile?.mediaInfo?.lunaAudioChannels,
+                body: widget.movieFile.mediaInfo?.lunaAudioChannels,
               ),
               LunaTableContent(
                 title: 'codec',
-                body: widget.movieFile?.mediaInfo?.lunaAudioCodec,
+                body: widget.movieFile.mediaInfo?.lunaAudioCodec,
               ),
               LunaTableContent(
                 title: 'features',
-                body: widget.movieFile?.mediaInfo?.lunaAudioAdditionalFeatures,
+                body: widget.movieFile.mediaInfo?.lunaAudioAdditionalFeatures,
               ),
               LunaTableContent(
                 title: 'languages',
-                body: widget.movieFile?.mediaInfo?.lunaAudioLanguages,
+                body: widget.movieFile.mediaInfo?.lunaAudioLanguages,
               ),
               LunaTableContent(
                 title: 'streams',
-                body: widget.movieFile?.mediaInfo?.lunaAudioStreamCount,
+                body: widget.movieFile.mediaInfo?.lunaAudioStreamCount,
               ),
             ],
           ),
@@ -152,11 +152,11 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             content: [
               LunaTableContent(
                 title: 'runtime',
-                body: widget.movieFile?.mediaInfo?.lunaRunTime,
+                body: widget.movieFile.mediaInfo?.lunaRunTime,
               ),
               LunaTableContent(
                 title: 'subtitles',
-                body: widget.movieFile?.mediaInfo?.lunaSubtitles,
+                body: widget.movieFile.mediaInfo?.lunaSubtitles,
               ),
             ],
           ),

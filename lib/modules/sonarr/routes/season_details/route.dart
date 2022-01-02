@@ -7,10 +7,10 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
       : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
 
   @override
-  _SonarrSeasonDetails widget({
-    @required int seriesId,
-    @required int seasonNumber,
-  }) {
+  _SonarrSeasonDetails widget([
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) {
     return _SonarrSeasonDetails(
       seriesId: seriesId,
       seasonNumber: seasonNumber,
@@ -19,21 +19,21 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int seriesId,
-    @required int seasonNumber,
-  }) async {
+    BuildContext context, [
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) async {
     LunaRouter.router.navigateTo(
       context,
-      route(seriesId: seriesId, seasonNumber: seasonNumber),
+      route(seriesId, seasonNumber),
     );
   }
 
   @override
-  String route({
-    @required int seriesId,
-    @required int seasonNumber,
-  }) =>
+  String route([
+    int seriesId = -1,
+    int seasonNumber = -1,
+  ]) =>
       fullRoute
           .replaceFirst(':seriesid', seriesId.toString())
           .replaceFirst(':seasonnumber', seasonNumber.toString());
@@ -42,10 +42,10 @@ class SonarrSeasonDetailsRouter extends SonarrPageRouter {
   void defineRoute(FluroRouter router) =>
       super.withParameterRouteDefinition(router, (context, params) {
         int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seriesid'][0]) ?? -1)
+            ? (int.tryParse(params['seriesid']![0]) ?? -1)
             : -1;
         int seasonNumber = (params['seasonnumber']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seasonnumber'][0]) ?? -1)
+            ? (int.tryParse(params['seasonnumber']![0]) ?? -1)
             : -1;
         return _SonarrSeasonDetails(
             seriesId: seriesId, seasonNumber: seasonNumber);
@@ -57,9 +57,9 @@ class _SonarrSeasonDetails extends StatefulWidget {
   final int seasonNumber;
 
   const _SonarrSeasonDetails({
-    Key key,
-    @required this.seriesId,
-    @required this.seasonNumber,
+    Key? key,
+    required this.seriesId,
+    required this.seasonNumber,
   }) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ class _SonarrSeasonDetails extends StatefulWidget {
 class _State extends State<_SonarrSeasonDetails>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  PageController _pageController;
+  PageController? _pageController;
 
   @override
   void initState() {
@@ -83,7 +83,7 @@ class _State extends State<_SonarrSeasonDetails>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
           context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
@@ -100,8 +100,8 @@ class _State extends State<_SonarrSeasonDetails>
         _season = 'sonarr.Specials'.tr();
         break;
       default:
-        _season = 'sonarr.SeasonNumber'.tr(
-            args: [widget.seasonNumber?.toString() ?? 'lunasea.Unknown'.tr()]);
+        _season =
+            'sonarr.SeasonNumber'.tr(args: [widget.seasonNumber.toString()]);
         break;
     }
     return LunaAppBar(
@@ -111,7 +111,7 @@ class _State extends State<_SonarrSeasonDetails>
     );
   }
 
-  Widget _bottomNavigationBar() {
+  Widget? _bottomNavigationBar() {
     if (widget.seasonNumber < 0) return null;
     return SonarrSeasonDetailsNavigationBar(
       pageController: _pageController,
@@ -128,7 +128,7 @@ class _State extends State<_SonarrSeasonDetails>
         seasonNumber: widget.seasonNumber != -1 ? widget.seasonNumber : null,
       ),
       builder: (context, _) {
-        return PageView(
+        return LunaPageView(
           controller: _pageController,
           children: [
             const SonarrSeasonDetailsEpisodesPage(),

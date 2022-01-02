@@ -15,15 +15,15 @@ class SonarrSeasonDetailsNavigationBar extends StatefulWidget {
 
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
-  final PageController pageController;
+  final PageController? pageController;
   final int seriesId;
   final int seasonNumber;
 
   const SonarrSeasonDetailsNavigationBar({
-    Key key,
-    @required this.pageController,
-    @required this.seriesId,
-    @required this.seasonNumber,
+    Key? key,
+    required this.pageController,
+    required this.seriesId,
+    required this.seasonNumber,
   }) : super(key: key);
 
   @override

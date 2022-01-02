@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -53,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, box, _) => LunaListView(
+      builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
           _host(),
@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.radarrHost ?? '';
+    String host = Database.currentProfileObject!.radarrHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -76,8 +76,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: host,
         );
         if (_values.item1) {
-          Database.currentProfileObject.radarrHost = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.radarrHost = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<RadarrState>().reset();
         }
       },
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject.radarrKey ?? '';
+    String apiKey = Database.currentProfileObject!.radarrKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -103,8 +103,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: apiKey,
         );
         if (_values.item1) {
-          Database.currentProfileObject.radarrKey = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.radarrKey = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<RadarrState>().reset();
         }
       },
@@ -116,15 +116,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject;
-        if (_profile.radarrHost == null || _profile.radarrHost.isEmpty) {
+        ProfileHiveObject _profile = Database.currentProfileObject!;
+        if (_profile.radarrHost == null || _profile.radarrHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Radarr',
           );
           return;
         }
-        if (_profile.radarrKey == null || _profile.radarrKey.isEmpty) {
+        if (_profile.radarrKey == null || _profile.radarrKey!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Radarr',
@@ -132,8 +132,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Radarr(
-          host: _profile.radarrHost,
-          apiKey: _profile.radarrKey,
+          host: _profile.radarrHost!,
+          apiKey: _profile.radarrKey!,
           headers: Map<String, dynamic>.from(_profile.radarrHeaders ?? {}),
         )
             .system

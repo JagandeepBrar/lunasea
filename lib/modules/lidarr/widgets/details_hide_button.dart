@@ -4,7 +4,7 @@ import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsHideButton extends StatelessWidget {
   const LidarrDetailsHideButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

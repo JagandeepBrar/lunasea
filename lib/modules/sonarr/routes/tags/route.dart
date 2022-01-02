@@ -35,7 +35,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -66,7 +66,7 @@ class _State extends State<_Widget>
                 snapshot.stackTrace,
               );
             }
-            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+            return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
           if (snapshot.hasData) return _list(snapshot.data);
           return const LunaLoader();
@@ -75,7 +75,7 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _list(List<SonarrTag> tags) {
+  Widget _list(List<SonarrTag>? tags) {
     if ((tags?.length ?? 0) == 0)
       return LunaMessage(
         text: 'sonarr.NoTagsFound'.tr(),
@@ -84,7 +84,7 @@ class _State extends State<_Widget>
       );
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: tags.length,
+      itemCount: tags!.length,
       itemBuilder: (context, index) => SonarrTagsTagTile(
         key: ObjectKey(tags[index].id),
         tag: tags[index],

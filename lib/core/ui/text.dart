@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 class LunaText extends Text {
   /// Create a new [Text] widget.
   const LunaText({
-    @required String text,
-    Key key,
-    int maxLines,
-    TextOverflow overflow,
-    bool softWrap,
-    TextStyle style,
-    TextAlign textAlign,
+    required String text,
+    Key? key,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool? softWrap,
+    TextStyle? style,
+    TextAlign? textAlign,
   }) : super(
           text,
           key: key,
@@ -23,11 +23,11 @@ class LunaText extends Text {
 
   /// Create a [LunaText] widget with the styling pre-assigned to be a LunaSea title.
   factory LunaText.title({
-    Key key,
-    @required String text,
+    Key? key,
+    required String text,
     int maxLines = 1,
     bool softWrap = false,
-    @Deprecated('Dead property') bool darken,
+    @Deprecated('Dead property') bool? darken,
     TextAlign textAlign = TextAlign.start,
     TextOverflow overflow = TextOverflow.fade,
     Color color = Colors.white,
@@ -48,11 +48,11 @@ class LunaText extends Text {
 
   /// Create a [LunaText] widget with the styling pre-assigned to be a LunaSea subtitle.
   factory LunaText.subtitle({
-    Key key,
-    @required String text,
+    Key? key,
+    required String text,
     int maxLines = 1,
     bool softWrap = false,
-    @Deprecated('Dead property') bool darken,
+    @Deprecated('Dead property') bool? darken,
     TextAlign textAlign = TextAlign.start,
     TextOverflow overflow = TextOverflow.fade,
     Color color = LunaColours.grey,

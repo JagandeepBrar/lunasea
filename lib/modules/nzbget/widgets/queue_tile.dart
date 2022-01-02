@@ -10,11 +10,11 @@ class NZBGetQueueTile extends StatefulWidget {
   final BuildContext queueContext;
 
   const NZBGetQueueTile({
-    @required this.data,
-    @required this.index,
-    @required this.queueContext,
-    @required this.refresh,
-    Key key,
+    required this.data,
+    required this.index,
+    required this.queueContext,
+    required this.refresh,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -78,31 +78,39 @@ class _Helper {
   );
 
   Future<void> _pauseJob() async {
-    await NZBGetAPI.from(Database.currentProfileObject)
+    await NZBGetAPI.from(Database.currentProfileObject!)
         .pauseSingleJob(data.id)
         .then((_) {
       showLunaSuccessSnackBar(title: 'Job Paused', message: data.name);
       refresh();
-    }).catchError((error) =>
-            showLunaErrorSnackBar(title: 'Failed to Pause Job', error: error));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Pause Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _resumeJob() async {
-    await NZBGetAPI.from(Database.currentProfileObject)
+    await NZBGetAPI.from(Database.currentProfileObject!)
         .resumeSingleJob(data.id)
         .then((_) {
       showLunaSuccessSnackBar(title: 'Job Resumed', message: data.name);
       refresh();
-    }).catchError((error) =>
-            showLunaErrorSnackBar(title: 'Failed to Resume Job', error: error));
+    }).catchError((error) {
+      showLunaErrorSnackBar(
+        title: 'Failed to Resume Job',
+        error: error,
+      );
+    });
   }
 
   Future<void> _category() async {
     List<NZBGetCategoryData> categories =
-        await NZBGetAPI.from(Database.currentProfileObject).getCategories();
+        await NZBGetAPI.from(Database.currentProfileObject!).getCategories();
     List values = await NZBGetDialogs.changeCategory(context, categories);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject)
+      await NZBGetAPI.from(Database.currentProfileObject!)
           .setJobCategory(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -112,57 +120,77 @@ class _Helper {
           message: data.name,
         );
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Category', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Category',
+          error: error,
+        );
+      });
   }
 
   Future<void> _priority() async {
     List values = await NZBGetDialogs.changePriority(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject)
+      await NZBGetAPI.from(Database.currentProfileObject!)
           .setJobPriority(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
-            title: 'Priority Set (${(values[1] as NZBGetPriority).name})',
+            title: 'Priority Set (${(values[1] as NZBGetPriority?).name})',
             message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Priority', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Priority',
+          error: error,
+        );
+      });
   }
 
   Future<void> _rename() async {
     List values = await NZBGetDialogs.renameJob(context, data.name);
     if (values[0])
-      NZBGetAPI.from(Database.currentProfileObject)
+      NZBGetAPI.from(Database.currentProfileObject!)
           .renameJob(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Renamed', message: values[1]);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Rename Job', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Rename Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _delete() async {
     List values = await NZBGetDialogs.deleteJob(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject)
+      await NZBGetAPI.from(Database.currentProfileObject!)
           .deleteJob(data.id)
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Deleted', message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Delete Job', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Delete Job',
+          error: error,
+        );
+      });
   }
 
   Future<void> _password() async {
     List values = await NZBGetDialogs.setPassword(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject)
+      await NZBGetAPI.from(Database.currentProfileObject!)
           .setJobPassword(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Password Set', message: data.name);
         refresh();
-      }).catchError((error) => showLunaErrorSnackBar(
-              title: 'Failed to Set Job Password', error: error));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Set Job Password',
+          error: error,
+        );
+      });
   }
 }

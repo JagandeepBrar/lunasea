@@ -7,7 +7,7 @@ class SABnzbd extends StatefulWidget {
   static const ROUTE_NAME = '/sabnzbd';
 
   const SABnzbd({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,9 +16,9 @@ class SABnzbd extends StatefulWidget {
 
 class _State extends State<SABnzbd> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
   String _profileState = Database.currentProfileObject.toString();
-  SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
+  SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject!);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -38,7 +38,7 @@ class _State extends State<SABnzbd> {
       scaffoldKey: _scaffoldKey,
       body: _body(),
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       extendBodyBehindAppBar: false,
       extendBody: false,
@@ -51,8 +51,8 @@ class _State extends State<SABnzbd> {
 
   Widget _drawer() => LunaDrawer(page: LunaModule.SABNZBD.key);
 
-  Widget _bottomNavigationBar() {
-    if (_api.enabled)
+  Widget? _bottomNavigationBar() {
+    if (_api.enabled!)
       return SABnzbdNavigationBar(pageController: _pageController);
     return null;
   }
@@ -64,8 +64,8 @@ class _State extends State<SABnzbd> {
         value.add(element);
       return value;
     });
-    List<Widget> actions;
-    if (_api.enabled)
+    List<Widget>? actions;
+    if (_api.enabled!)
       actions = [
         Selector<SABnzbdState, bool>(
           selector: (_, model) => model.error,
@@ -88,12 +88,12 @@ class _State extends State<SABnzbd> {
   }
 
   Widget _body() {
-    if (!_api.enabled)
+    if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.SABNZBD.name,
       );
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         SABnzbdQueue(
@@ -111,7 +111,7 @@ class _State extends State<SABnzbd> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject;
+          ProfileHiveObject profile = Database.currentProfileObject!;
           await profile.sabnzbdHost
               ?.lunaOpenGenericLink(headers: profile.sabnzbdHeaders);
           break;
@@ -142,7 +142,7 @@ class _State extends State<SABnzbd> {
   Future<void> _completeAction() async {
     List values = await SABnzbdDialogs.changeOnCompleteAction(context);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject)
+      SABnzbdAPI.from(Database.currentProfileObject!)
           .setOnCompleteAction(values[1])
           .then((_) => showLunaSuccessSnackBar(
                 title: 'On Complete Action Set',
@@ -157,7 +157,7 @@ class _State extends State<SABnzbd> {
   Future<void> _clearHistory() async {
     List values = await SABnzbdDialogs.clearAllHistory(context);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject)
+      SABnzbdAPI.from(Database.currentProfileObject!)
           .clearHistory(values[1], values[2])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -165,16 +165,18 @@ class _State extends State<SABnzbd> {
           message: values[3],
         );
         _refreshAllPages();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Upload NZB',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Upload NZB',
+          error: error,
+        );
+      });
   }
 
   Future<void> _sort() async {
     List values = await SABnzbdDialogs.sortQueue(context);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject)
+      await SABnzbdAPI.from(Database.currentProfileObject!)
           .sortQueue(values[1], values[2])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -182,12 +184,14 @@ class _State extends State<SABnzbd> {
           message: values[3],
         );
         (_refreshKeys[0] as GlobalKey<RefreshIndicatorState>)
-            ?.currentState
+            .currentState
             ?.show();
-      }).catchError((error) => showLunaErrorSnackBar(
-                title: 'Failed to Sort Queue',
-                error: error,
-              ));
+      }).catchError((error) {
+        showLunaErrorSnackBar(
+          title: 'Failed to Sort Queue',
+          error: error,
+        );
+      });
   }
 
   Future<void> _addNZB() async {
@@ -208,12 +212,12 @@ class _State extends State<SABnzbd> {
 
   Future<void> _addByFile() async {
     try {
-      File _file =
+      File? _file =
           await LunaFileSystem().import(context, ['nzb', 'zip', 'rar', 'gz']);
       if (_file != null) {
         List<int> _data = _file.readAsBytesSync();
         String _name = _file.path.substring(_file.path.lastIndexOf('/') + 1);
-        if (_data?.isNotEmpty ?? false)
+        if (_data.isNotEmpty)
           await _api.uploadFile(_data, _name).then((value) {
             _refreshKeys[0]?.currentState?.show();
             showLunaSuccessSnackBar(
@@ -252,7 +256,7 @@ class _State extends State<SABnzbd> {
   }
 
   void _refreshProfile() {
-    _api = SABnzbdAPI.from(Database.currentProfileObject);
+    _api = SABnzbdAPI.from(Database.currentProfileObject!);
     _profileState = Database.currentProfileObject.toString();
     _refreshAllPages();
   }

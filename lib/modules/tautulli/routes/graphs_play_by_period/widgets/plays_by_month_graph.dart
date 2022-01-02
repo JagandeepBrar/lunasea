@@ -5,13 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
   const TautulliGraphsPlaysByMonthGraph({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph,
+        selector: (_, state) => state.playsByMonthGraph!,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
@@ -24,7 +24,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
               }
               return TautulliGraphHelper().errorContainer(context);
             }
-            if (snapshot.hasData) return _graph(context, snapshot.data);
+            if (snapshot.hasData) return _graph(context, snapshot.data!);
             return TautulliGraphHelper().loadingContainer(context);
           },
         ),
@@ -54,7 +54,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
             ),
           ),
-          TautulliGraphHelper().createLegend(data.series),
+          TautulliGraphHelper().createLegend(data.series!),
         ],
       ),
     );

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -27,7 +26,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -55,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         title: 'All Logs',
         body: const [TextSpan(text: 'View Logs of All Types')],
         trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
-        onTap: () async => _viewLogs('all'),
+        onTap: () async => _viewLogs(null),
       ),
       ...List.generate(
         LunaLogType.values.length,
@@ -65,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               title: LunaLogType.values[index].name,
               body: [TextSpan(text: LunaLogType.values[index].description)],
               trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
-              onTap: () async => _viewLogs(LunaLogType.values[index].key),
+              onTap: () async => _viewLogs(LunaLogType.values[index]),
             );
           return Container(height: 0.0);
         },
@@ -73,8 +72,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     ]);
   }
 
-  Future<void> _viewLogs(String type) async =>
-      SettingsSystemLogsDetailsRouter().navigateTo(context, type: type);
+  Future<void> _viewLogs(LunaLogType? type) async =>
+      SettingsSystemLogsDetailsRouter().navigateTo(context, type);
 
   Widget _clearLogs() {
     return LunaButton.text(

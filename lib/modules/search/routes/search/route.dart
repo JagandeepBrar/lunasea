@@ -37,21 +37,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
 
   Future<void> _searchCallback(String value) async {
-    if (value == null || value.isEmpty) return;
+    if (value.isEmpty) return;
     _pagingController.refresh();
     if (mounted) setState(() => _firstSearched = true);
   }
 
   Future<void> _fetchPage(int pageKey) async {
     SearchState state = context.read<SearchState>();
-    NewznabCategoryData category = state.activeCategory;
-    NewznabSubcategoryData subcategory = state.activeSubcategory;
+    NewznabCategoryData? category = state.activeCategory;
+    NewznabSubcategoryData? subcategory = state.activeSubcategory;
     await state.api
         .getResults(
       categoryId: subcategory?.id ?? category?.id,
@@ -72,12 +72,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _appBar() {
-    String title = context.read<SearchState>().indexer?.displayName ??
-        'search.Search'.tr();
-    NewznabCategoryData category = context.read<SearchState>().activeCategory;
-    NewznabSubcategoryData subcategory =
+    String title =
+        context.read<SearchState>().indexer.displayName ?? 'search.Search'.tr();
+    NewznabCategoryData? category = context.read<SearchState>().activeCategory;
+    NewznabSubcategoryData? subcategory =
         context.read<SearchState>().activeSubcategory;
-    if (category != null) title = category.name;
+    if (category != null) title = category.name!;
     if (category != null && subcategory != null) {
       title = '$title > ${subcategory.name ?? 'lunasea.Unknown'.tr()}';
     }

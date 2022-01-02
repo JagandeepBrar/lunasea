@@ -20,7 +20,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  PageController _pageController;
+  PageController? _pageController;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
       drawer: _drawer(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -43,8 +43,8 @@ class _State extends State<_Widget> {
 
   Widget _drawer() => LunaDrawer(page: LunaModule.TAUTULLI.key);
 
-  Widget _bottomNavigationBar() {
-    if (context.read<TautulliState>().enabled)
+  Widget? _bottomNavigationBar() {
+    if (context.read<TautulliState>().enabled!)
       return TautulliNavigationBar(pageController: _pageController);
     return null;
   }
@@ -56,8 +56,8 @@ class _State extends State<_Widget> {
         value.add(element);
       return value;
     });
-    List<Widget> actions;
-    if (context.watch<TautulliState>().enabled)
+    List<Widget>? actions;
+    if (context.watch<TautulliState>().enabled!)
       actions = [
         const TautulliAppBarGlobalSettingsAction(),
       ];
@@ -72,13 +72,13 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return Selector<TautulliState, bool>(
+    return Selector<TautulliState, bool?>(
       selector: (_, state) => state.enabled,
       builder: (context, enabled, _) {
-        if (!enabled)
+        if (!enabled!)
           return LunaMessage.moduleNotEnabled(
               context: context, module: 'Tautulli');
-        return PageView(
+        return LunaPageView(
           controller: _pageController,
           children: const [
             TautulliActivityRoute(),

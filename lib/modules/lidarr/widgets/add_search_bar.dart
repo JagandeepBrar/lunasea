@@ -7,9 +7,9 @@ class LidarrAddSearchBar extends StatefulWidget implements PreferredSizeWidget {
   final Function callback;
 
   const LidarrAddSearchBar({
-    Key key,
-    @required this.scrollController,
-    @required this.callback,
+    Key? key,
+    required this.scrollController,
+    required this.callback,
   }) : super(key: key);
 
   @override

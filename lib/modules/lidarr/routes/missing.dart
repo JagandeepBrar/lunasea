@@ -8,9 +8,9 @@ class LidarrMissing extends StatefulWidget {
   final Function refreshAllPages;
 
   const LidarrMissing({
-    Key key,
-    @required this.refreshIndicatorKey,
-    @required this.refreshAllPages,
+    Key? key,
+    required this.refreshIndicatorKey,
+    required this.refreshAllPages,
   }) : super(key: key);
 
   @override
@@ -19,8 +19,8 @@ class LidarrMissing extends StatefulWidget {
 
 class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<List<LidarrMissingData>> _future;
-  List<LidarrMissingData> _results = [];
+  Future<List<LidarrMissingData>>? _future;
+  List<LidarrMissingData>? _results = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -33,7 +33,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
 
   Future<void> _refresh() async {
     _results = [];
-    final _api = LidarrAPI.from(Database.currentProfileObject);
+    final _api = LidarrAPI.from(Database.currentProfileObject!);
     if (mounted)
       setState(() {
         _future = _api.getMissing();
@@ -57,7 +57,7 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
         onRefresh: _refresh,
         child: FutureBuilder(
           future: _future,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<List<LidarrMissingData>> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
                 {
@@ -81,16 +81,16 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
       return LunaMessage(
         text: 'No Missing Albums',
         buttonText: 'Refresh',
-        onTap: () => widget.refreshIndicatorKey?.currentState?.show(),
+        onTap: widget.refreshIndicatorKey.currentState!.show,
       );
     }
     return LunaListViewBuilder(
       controller: LidarrNavigationBar.scrollControllers[1],
-      itemCount: _results.length,
+      itemCount: _results!.length,
       itemExtent: LidarrMissingTile.extent,
       itemBuilder: (context, index) => LidarrMissingTile(
         scaffoldKey: _scaffoldKey,
-        entry: _results[index],
+        entry: _results![index],
         refresh: _refreshAllPages,
       ),
     );

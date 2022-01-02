@@ -6,22 +6,17 @@ class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
   TautulliLibrariesDetailsRouter() : super('/tautulli/libraries/:sectionid');
 
   @override
-  _Widget widget({
-    @required int sectionId,
-  }) =>
-      _Widget(sectionId: sectionId);
+  _Widget widget([int sectionId = -1]) => _Widget(sectionId: sectionId);
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int sectionId,
-  }) async =>
-      LunaRouter.router.navigateTo(context, route(sectionId: sectionId));
+    BuildContext context, [
+    int sectionId = -1,
+  ]) async =>
+      LunaRouter.router.navigateTo(context, route(sectionId));
 
   @override
-  String route({
-    @required int sectionId,
-  }) =>
+  String route([int sectionId = -1]) =>
       fullRoute.replaceFirst(':sectionid', sectionId.toString());
 
   @override
@@ -29,7 +24,7 @@ class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
         router,
         (context, params) {
           int sectionId = (params['sectionid']?.isNotEmpty ?? false)
-              ? int.tryParse(params['sectionid'][0]) ?? -1
+              ? int.tryParse(params['sectionid']![0]) ?? -1
               : -1;
           return _Widget(sectionId: sectionId);
         },
@@ -40,8 +35,8 @@ class _Widget extends StatefulWidget {
   final int sectionId;
 
   const _Widget({
-    Key key,
-    @required this.sectionId,
+    Key? key,
+    required this.sectionId,
   }) : super(key: key);
 
   @override
@@ -50,7 +45,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController _pageController;
+  LunaPageController? _pageController;
 
   @override
   void initState() {
@@ -64,7 +59,7 @@ class _State extends State<_Widget> {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: TautulliLibrariesDetailsNavigationBar(
           pageController: _pageController),
@@ -81,7 +76,7 @@ class _State extends State<_Widget> {
   }
 
   Widget _body() {
-    return PageView(
+    return LunaPageView(
       controller: _pageController,
       children: [
         TautulliLibrariesDetailsInformation(sectionId: widget.sectionId),

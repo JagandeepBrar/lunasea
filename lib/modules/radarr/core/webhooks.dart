@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrWebhooks extends LunaWebhooks {
   @override
   Future<void> handle(Map<dynamic, dynamic> data) async {
-    _EventType event = _EventType.GRAB.fromKey(data['event']);
+    _EventType? event = _EventType.GRAB.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
         'RadarrWebhooks',
@@ -23,8 +23,8 @@ enum _EventType {
   TEST,
 }
 
-extension _EventTypeExtension on _EventType {
-  _EventType fromKey(String key) {
+extension _EventTypeExtension on _EventType? {
+  _EventType? fromKey(String? key) {
     switch (key) {
       case 'Download':
         return _EventType.DOWNLOAD;
@@ -52,26 +52,28 @@ extension _EventTypeExtension on _EventType {
         return _renameEvent(data);
       case _EventType.TEST:
         return _testEvent(data);
+      default:
+        break;
     }
   }
 
   Future<void> _downloadEvent(Map<dynamic, dynamic> data) async =>
       _goToMovieDetails(int.tryParse(data['id']));
   Future<void> _grabEvent(Map<dynamic, dynamic> data) async =>
-      RadarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext);
+      RadarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext!);
   Future<void> _healthEvent(Map<dynamic, dynamic> data) async =>
       RadarrSystemStatusRouter()
-          .navigateTo(LunaState.navigatorKey.currentContext);
+          .navigateTo(LunaState.navigatorKey.currentContext!);
   Future<void> _renameEvent(Map<dynamic, dynamic> data) async =>
       _goToMovieDetails(int.tryParse(data['id']));
   Future<void> _testEvent(Map<dynamic, dynamic> data) async =>
       LunaModule.RADARR.launch();
 
-  Future<void> _goToMovieDetails(int movieId) async {
+  Future<void> _goToMovieDetails(int? movieId) async {
     if (movieId != null)
       return RadarrMoviesDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext,
-        movieId: movieId,
+        LunaState.navigatorKey.currentContext!,
+        movieId,
       );
     return LunaModule.RADARR.launch();
   }

@@ -24,9 +24,9 @@ class NZBGetDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic> config) {
-    for (String key in config.keys) {
-      NZBGetDatabaseValue value = valueFromKey(key);
+  void import(Map<String, dynamic>? config) {
+    for (String key in config!.keys) {
+      NZBGetDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {
           // Primitive values
@@ -38,7 +38,7 @@ class NZBGetDatabase extends LunaModuleDatabase {
   }
 
   @override
-  NZBGetDatabaseValue valueFromKey(String key) {
+  NZBGetDatabaseValue? valueFromKey(String key) {
     for (NZBGetDatabaseValue value in NZBGetDatabaseValue.values) {
       if (value.key == key) return value;
     }
@@ -68,8 +68,8 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
   }
 
   ValueListenableBuilder listen({
-    Key key,
-    @required Widget Function(BuildContext, dynamic, Widget) builder,
+    Key? key,
+    required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) {
     return ValueListenableBuilder(
       key: key,
@@ -83,7 +83,6 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
       case NZBGetDatabaseValue.NAVIGATION_INDEX:
         return value is int;
     }
-    throw Exception('Invalid NZBGetDatabaseValue');
   }
 
   dynamic get _defaultValue {
@@ -91,6 +90,5 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
       case NZBGetDatabaseValue.NAVIGATION_INDEX:
         return 0;
     }
-    throw Exception('Invalid NZBGetDatabaseValue');
   }
 }

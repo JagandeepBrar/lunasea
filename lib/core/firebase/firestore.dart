@@ -37,7 +37,7 @@ class LunaFirebaseFirestore {
   /// Delete a backup entry from Firestore. Returns true if successful, and false on any error.
   ///
   /// If the user is not signed in, returns false.
-  Future<bool> deleteBackupEntry(String id) async {
+  Future<bool> deleteBackupEntry(String? id) async {
     if (!LunaFirebaseAuth().isSignedIn) return false;
     try {
       await instance
@@ -62,7 +62,7 @@ class LunaFirebaseFirestore {
           .get();
       return snapshot.docs
           .map<LunaFirebaseBackupDocument>((document) =>
-              LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(document))
+              LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(document as QueryDocumentSnapshot<Map<String, dynamic>>))
           .toList();
     } catch (error, stack) {
       LunaLogger().error('Failed to get backup list', error, stack);
@@ -74,7 +74,7 @@ class LunaFirebaseFirestore {
   Future<bool> addDeviceToken() async {
     if (!LunaFirebaseAuth().isSignedIn) return false;
     try {
-      String token = await LunaFirebaseMessaging.instance.getToken();
+      String? token = await LunaFirebaseMessaging.instance.getToken();
       instance.doc('users/${LunaFirebaseAuth().uid}').set({
         'devices': FieldValue.arrayUnion([token]),
       }, SetOptions(merge: true));

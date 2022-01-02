@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class _SonarrAddSeriesDetailsArguments {
+class _Args {
   final SonarrSeries series;
 
-  _SonarrAddSeriesDetailsArguments({
-    @required this.series,
-  }) {
-    assert(series != null);
-  }
+  _Args({
+    required this.series,
+  });
 }
 
 class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
@@ -20,15 +18,16 @@ class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required SonarrSeries series,
-  }) {
+    BuildContext context, [
+    SonarrSeries? series,
+  ]) {
+    assert(series != null);
     return LunaRouter.router.navigateTo(
       context,
       route(),
       routeSettings: RouteSettings(
-        arguments: _SonarrAddSeriesDetailsArguments(
-          series: series,
+        arguments: _Args(
+          series: series!,
         ),
       ),
     );
@@ -61,20 +60,20 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _SonarrAddSeriesDetailsArguments arguments =
-        ModalRoute.of(context).settings.arguments;
-    if (arguments == null || arguments.series == null)
+    _Args? arguments = ModalRoute.of(context)!.settings.arguments as _Args?;
+    if (arguments == null) {
       return LunaInvalidRoute(
         title: 'sonarr.AddSeries'.tr(),
         message: 'sonarr.NoSeriesFound'.tr(),
       );
+    }
     return ChangeNotifierProvider(
       create: (_) => SonarrSeriesAddDetailsState(
         series: arguments.series,
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(context),
         bottomNavigationBar: const SonarrAddSeriesDetailsActionBar(),
       ),
@@ -92,10 +91,10 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait(
         [
-          context.watch<SonarrState>().rootFolders,
-          context.watch<SonarrState>().tags,
-          context.watch<SonarrState>().qualityProfiles,
-          context.watch<SonarrState>().languageProfiles,
+          context.watch<SonarrState>().rootFolders!,
+          context.watch<SonarrState>().tags!,
+          context.watch<SonarrState>().qualityProfiles!,
+          context.watch<SonarrState>().languageProfiles!,
         ],
       ),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
@@ -107,17 +106,15 @@ class _State extends State<_Widget>
               snapshot.stackTrace,
             );
           }
-          return LunaMessage.error(
-            onTap: _refreshKey.currentState?.show,
-          );
+          return LunaMessage.error(onTap: _refreshKey.currentState!.show);
         }
         if (snapshot.hasData) {
           return _content(
             context,
-            rootFolders: snapshot.data[0],
-            tags: snapshot.data[1],
-            qualityProfiles: snapshot.data[2],
-            languageProfiles: snapshot.data[3],
+            rootFolders: snapshot.data![0] as List<SonarrRootFolder>,
+            tags: snapshot.data![1] as List<SonarrTag>,
+            qualityProfiles: snapshot.data![2] as List<SonarrQualityProfile>,
+            languageProfiles: snapshot.data![3] as List<SonarrLanguageProfile>,
           );
         }
         return const LunaLoader();
@@ -127,10 +124,10 @@ class _State extends State<_Widget>
 
   Widget _content(
     BuildContext context, {
-    @required List<SonarrRootFolder> rootFolders,
-    @required List<SonarrQualityProfile> qualityProfiles,
-    @required List<SonarrLanguageProfile> languageProfiles,
-    @required List<SonarrTag> tags,
+    required List<SonarrRootFolder> rootFolders,
+    required List<SonarrQualityProfile> qualityProfiles,
+    required List<SonarrLanguageProfile> languageProfiles,
+    required List<SonarrTag> tags,
   }) {
     context.read<SonarrSeriesAddDetailsState>().initializeMonitored();
     context.read<SonarrSeriesAddDetailsState>().initializeUseSeasonFolders();

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -6,24 +7,22 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
   SonarrSeriesDetailsRouter() : super('/sonarr/series/:seriesid');
 
   @override
-  _SonarrSeriesDetails widget({
-    @required int seriesId,
-  }) {
+  _SonarrSeriesDetails widget([
+    int seriesId = -1,
+  ]) {
     return _SonarrSeriesDetails(seriesId: seriesId);
   }
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required int seriesId,
-  }) async {
-    LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
+    BuildContext context, [
+    int seriesId = -1,
+  ]) async {
+    return LunaRouter.router.navigateTo(context, route(seriesId));
   }
 
   @override
-  String route({
-    @required int seriesId,
-  }) {
+  String route([int seriesId = -1]) {
     return fullRoute.replaceFirst(
       ':seriesid',
       seriesId.toString(),
@@ -36,7 +35,7 @@ class SonarrSeriesDetailsRouter extends SonarrPageRouter {
       router,
       (context, params) {
         int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seriesid'][0]) ?? -1)
+            ? (int.tryParse(params['seriesid']![0]) ?? -1)
             : -1;
         return _SonarrSeriesDetails(seriesId: seriesId);
       },
@@ -48,8 +47,8 @@ class _SonarrSeriesDetails extends StatefulWidget {
   final int seriesId;
 
   const _SonarrSeriesDetails({
-    Key key,
-    @required this.seriesId,
+    Key? key,
+    required this.seriesId,
   }) : super(key: key);
 
   @override
@@ -58,14 +57,14 @@ class _SonarrSeriesDetails extends StatefulWidget {
 
 class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  SonarrSeries series;
-  PageController _pageController;
+  SonarrSeries? series;
+  PageController? _pageController;
 
   @override
   Future<void> loadCallback() async {
     if (widget.seriesId > 0) {
-      SonarrSeries result =
-          (await context.read<SonarrState>().series)[widget.seriesId];
+      SonarrSeries? result =
+          (await context.read<SonarrState>().series)![widget.seriesId];
       setState(() => series = result);
       context.read<SonarrState>().fetchQualityProfiles();
       context.read<SonarrState>().fetchLanguageProfiles();
@@ -83,29 +82,27 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   }
 
   List<SonarrTag> _findTags(
-    List<int> tagIds,
+    List<int>? tagIds,
     List<SonarrTag> tags,
   ) {
-    return tags.where((tag) => tagIds.contains(tag.id)).toList();
+    return tags.where((tag) => tagIds!.contains(tag.id)).toList();
   }
 
-  SonarrQualityProfile _findQualityProfile(
-    int qualityProfileId,
+  SonarrQualityProfile? _findQualityProfile(
+    int? qualityProfileId,
     List<SonarrQualityProfile> profiles,
   ) {
-    return profiles.firstWhere(
+    return profiles.firstWhereOrNull(
       (profile) => profile.id == qualityProfileId,
-      orElse: () => null,
     );
   }
 
-  SonarrLanguageProfile _findLanguageProfile(
-    int languageProfileId,
+  SonarrLanguageProfile? _findLanguageProfile(
+    int? languageProfileId,
     List<SonarrLanguageProfile> profiles,
   ) {
-    return profiles.firstWhere(
+    return profiles.firstWhereOrNull(
       (profile) => profile.id == languageProfileId,
-      orElse: () => null,
     );
   }
 
@@ -120,7 +117,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar:
           context.watch<SonarrState>().enabled ? _bottomNavigationBar() : null,
       body: _body(),
@@ -128,14 +125,14 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   }
 
   Widget _appBar() {
-    List<Widget> _actions = series == null
+    List<Widget>? _actions = series == null
         ? null
         : [
             LunaIconButton(
               icon: Icons.edit_rounded,
               onPressed: () async => SonarrEditSeriesRouter().navigateTo(
                 context,
-                seriesId: widget.seriesId,
+                widget.seriesId,
               ),
             ),
             SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
@@ -148,7 +145,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
     );
   }
 
-  Widget _bottomNavigationBar() {
+  Widget? _bottomNavigationBar() {
     if (series == null) return null;
     return SonarrSeriesDetailsNavigationBar(
       pageController: _pageController,
@@ -159,10 +156,10 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
     return Consumer<SonarrState>(
       builder: (context, state, _) => FutureBuilder(
         future: Future.wait([
-          state.qualityProfiles,
-          state.languageProfiles,
-          state.tags,
-          state.series,
+          state.qualityProfiles!,
+          state.languageProfiles!,
+          state.tags!,
+          state.series!,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
           if (snapshot.hasError) {
@@ -177,22 +174,23 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
           }
           if (snapshot.hasData) {
             series =
-                (snapshot.data[3] as Map<int, SonarrSeries>)[widget.seriesId];
+                (snapshot.data![3] as Map<int, SonarrSeries>)[widget.seriesId];
             if (series == null) {
               return LunaMessage.goBack(
                 text: 'sonarr.SeriesNotFound'.tr(),
                 context: context,
               );
             }
-            SonarrQualityProfile quality = _findQualityProfile(
-              series.qualityProfileId,
-              snapshot.data[0],
+            SonarrQualityProfile? quality = _findQualityProfile(
+              series!.qualityProfileId,
+              snapshot.data![0] as List<SonarrQualityProfile>,
             );
-            SonarrLanguageProfile language = _findLanguageProfile(
-              series.languageProfileId,
-              snapshot.data[1],
+            SonarrLanguageProfile? language = _findLanguageProfile(
+              series!.languageProfileId,
+              snapshot.data![1] as List<SonarrLanguageProfile>,
             );
-            List<SonarrTag> tags = _findTags(series.tags, snapshot.data[2]);
+            List<SonarrTag> tags =
+                _findTags(series!.tags, snapshot.data![2] as List<SonarrTag>);
             return _pages(
               qualityProfile: quality,
               languageProfile: language,
@@ -206,20 +204,20 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   }
 
   Widget _pages({
-    @required SonarrQualityProfile qualityProfile,
-    @required SonarrLanguageProfile languageProfile,
-    @required List<SonarrTag> tags,
+    required SonarrQualityProfile? qualityProfile,
+    required SonarrLanguageProfile? languageProfile,
+    required List<SonarrTag> tags,
   }) {
     return ChangeNotifierProvider(
       create: (context) => SonarrSeriesDetailsState(
         context: context,
-        series: series,
+        series: series!,
       ),
-      builder: (context, _) => PageView(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           SonarrSeriesDetailsOverviewPage(
-            series: series,
+            series: series!,
             qualityProfile: qualityProfile,
             languageProfile: languageProfile,
             tags: tags,

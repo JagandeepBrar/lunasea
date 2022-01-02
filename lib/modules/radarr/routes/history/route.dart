@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -28,14 +29,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   @override
   void dispose() {
-    _pagingController?.dispose();
+    _pagingController.dispose();
     super.dispose();
   }
 
   Future<void> _fetchPage(int pageKey) async {
     await context
         .read<RadarrState>()
-        .api
+        .api!
         .history
         .get(
           page: pageKey,
@@ -44,10 +45,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           sortDirection: RadarrSortDirection.DESCENDING,
         )
         .then((data) {
-      if (data.totalRecords > (data.page * data.pageSize)) {
-        return _pagingController.appendPage(data.records, pageKey + 1);
+      if (data.totalRecords! > (data.page! * data.pageSize!)) {
+        return _pagingController.appendPage(data.records!, pageKey + 1);
       }
-      return _pagingController.appendLastPage(data.records);
+      return _pagingController.appendLastPage(data.records!);
     }).catchError((error, stack) {
       LunaLogger().error(
         'Unable to fetch Radarr history page: $pageKey',
@@ -62,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -96,7 +97,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _paginatedList(List<RadarrMovie> movies) {
+  Widget _paginatedList(List<RadarrMovie>? movies) {
     return LunaPagedListView<RadarrHistoryRecord>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
@@ -104,13 +105,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       listener: _fetchPage,
       noItemsFoundMessage: 'radarr.NoHistoryFound'.tr(),
       itemBuilder: (context, history, index) {
-        RadarrMovie _movie = movies.firstWhere(
+        RadarrMovie? _movie = movies!.firstWhereOrNull(
           (movie) => movie.id == history.movieId,
-          orElse: () => null,
         );
         return RadarrHistoryTile(
           history: history,
-          title: _movie?.title,
+          title: _movie!.title!,
         );
       },
     );

@@ -3,15 +3,15 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsOverviewPage extends StatefulWidget {
-  final RadarrMovie movie;
-  final RadarrQualityProfile qualityProfile;
+  final RadarrMovie? movie;
+  final RadarrQualityProfile? qualityProfile;
   final List<RadarrTag> tags;
 
   const RadarrMovieDetailsOverviewPage({
-    Key key,
-    @required this.movie,
-    @required this.qualityProfile,
-    @required this.tags,
+    Key? key,
+    required this.movie,
+    required this.qualityProfile,
+    required this.tags,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _State extends State<RadarrMovieDetailsOverviewPage>
       module: LunaModule.RADARR,
       hideDrawer: true,
       scaffoldKey: _scaffoldKey,
-      body: Selector<RadarrState, Future<List<RadarrMovie>>>(
+      body: Selector<RadarrState, Future<List<RadarrMovie>>?>(
         selector: (_, state) => state.movies,
         builder: (context, movies, _) => LunaListView(
           controller: RadarrMovieDetailsNavigationBar.scrollControllers[0],

@@ -22,8 +22,6 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
         return 'approved';
       case RadarrReleasesFilter.REJECTED:
         return 'rejected';
-      default:
-        return null;
     }
   }
 
@@ -35,12 +33,10 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
         return 'radarr.Approved'.tr();
       case RadarrReleasesFilter.REJECTED:
         return 'radarr.Rejected'.tr();
-      default:
-        return null;
     }
   }
 
-  RadarrReleasesFilter fromKey(String key) {
+  RadarrReleasesFilter? fromKey(String key) {
     switch (key) {
       case 'all':
         return RadarrReleasesFilter.ALL;
@@ -70,11 +66,10 @@ class _Filterer {
       case RadarrReleasesFilter.REJECTED:
         return _rejected(releases);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrRelease> _approved(List<RadarrRelease> releases) =>
-      releases.where((element) => element.approved).toList();
+      releases.where((element) => element.approved!).toList();
   List<RadarrRelease> _rejected(List<RadarrRelease> releases) =>
-      releases.where((element) => !element.approved).toList();
+      releases.where((element) => !element.approved!).toList();
 }

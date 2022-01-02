@@ -15,26 +15,26 @@ class LunaGridBlock extends StatelessWidget {
     );
   }
 
-  final IconData posterPlaceholderIcon;
-  final String posterUrl;
-  final Map posterHeaders;
+  final IconData? posterPlaceholderIcon;
+  final String? posterUrl;
+  final Map? posterHeaders;
   final bool posterIsSquare;
-  final String backgroundUrl;
-  final Map backgroundHeaders;
+  final String? backgroundUrl;
+  final Map? backgroundHeaders;
 
   final bool disabled;
-  final String title;
+  final String? title;
   final TextSpan subtitle;
   final Color titleColor;
 
-  final Function onTap;
-  final Function onLongPress;
+  final Function? onTap;
+  final Function? onLongPress;
 
   const LunaGridBlock({
-    Key key,
+    Key? key,
     this.disabled = false,
-    @required this.title,
-    @required this.subtitle,
+    required this.title,
+    required this.subtitle,
     this.titleColor = Colors.white,
     this.posterPlaceholderIcon,
     this.posterUrl,
@@ -75,17 +75,17 @@ class LunaGridBlock extends StatelessWidget {
         mouseCursor: onTap != null || onLongPress != null
             ? SystemMouseCursors.click
             : MouseCursor.defer,
-        onTap: onTap,
-        onLongPress: onLongPress,
+        onTap: onTap as void Function()?,
+        onLongPress: onLongPress as void Function()?,
       ),
     );
   }
 
   Widget _fadeInBackground(BuildContext context) {
-    int _percent = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int;
+    int? _percent = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int?;
     if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
-    double _opacity = _percent / 100;
+    double _opacity = _percent! / 100;
     if (disabled) _opacity *= LunaUI.OPACITY_DISABLED;
 
     return Opacity(
@@ -99,7 +99,7 @@ class LunaGridBlock extends StatelessWidget {
         ),
         fit: BoxFit.cover,
         image: CachedNetworkImageProvider(
-          backgroundUrl,
+          backgroundUrl!,
           headers: backgroundHeaders?.cast<String, String>(),
           cacheManager: LunaImageCache.instance,
           errorListener: () {},

@@ -116,9 +116,9 @@ class SABnzbdDialogs {
   static Future<List<dynamic>> changeCategory(
       BuildContext context, List<SABnzbdCategoryData> categories) async {
     bool _flag = false;
-    String _value = '';
+    String? _value = '';
 
-    void _setValues(bool flag, String value) {
+    void _setValues(bool flag, String? value) {
       _flag = flag;
       _value = value;
       Navigator.of(context).pop();
@@ -130,7 +130,7 @@ class SABnzbdDialogs {
       content: List.generate(
         categories.length,
         (index) => LunaDialog.tile(
-          text: categories[index].category,
+          text: categories[index].category!,
           icon: Icons.category_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, categories[index].category),
@@ -216,7 +216,7 @@ class SABnzbdDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -239,10 +239,13 @@ class SABnzbdDialogs {
             title: 'NZB URL',
             keyboardType: TextInputType.url,
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                !value.startsWith('http://') && !value.startsWith('https://')
-                    ? 'Please enter a valid URL'
-                    : null,
+            validator: (value) {
+              if (!(value?.startsWith('http://') ?? true) &&
+                  !(value?.startsWith('https://') ?? true)) {
+                return 'Please enter a valid URL';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -258,7 +261,7 @@ class SABnzbdDialogs {
     final _textController = TextEditingController()..text = originalName;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -281,7 +284,7 @@ class SABnzbdDialogs {
             title: 'Job Name',
             onSubmitted: (_) => _setValues(true),
             validator: (value) =>
-                value.isEmpty ? 'Please enter a valid name' : null,
+                (value?.isEmpty ?? true) ? 'Please enter a valid name' : null,
           ),
         ),
       ],
@@ -296,7 +299,7 @@ class SABnzbdDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -318,8 +321,9 @@ class SABnzbdDialogs {
             controller: _textController,
             title: 'Job Password',
             onSubmitted: (_) => _setValues(true),
-            validator: (value) =>
-                value.isEmpty ? 'Please enter a valid password' : null,
+            validator: (value) => (value?.isEmpty ?? true)
+                ? 'Please enter a valid password'
+                : null,
             obscureText: true,
           ),
         ),
@@ -406,7 +410,7 @@ class SABnzbdDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -439,7 +443,7 @@ class SABnzbdDialogs {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _setValues(true),
               validator: (value) {
-                int _value = int.tryParse(value);
+                int? _value = int.tryParse(value!);
                 if (_value == null || _value < 1) {
                   return 'Must be at least 1';
                 }
@@ -570,7 +574,7 @@ class SABnzbdDialogs {
     final _textController = TextEditingController();
 
     void _setValues(bool flag) {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         _flag = flag;
         Navigator.of(context).pop();
       }
@@ -596,7 +600,7 @@ class SABnzbdDialogs {
             keyboardType: TextInputType.number,
             onSubmitted: (_) => _setValues(true),
             validator: (value) {
-              int _value = int.tryParse(value);
+              int? _value = int.tryParse(value!);
               if (_value == null || _value < 1 || _value > 100) {
                 return 'Must be between 1 and 100';
               }

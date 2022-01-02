@@ -19,8 +19,8 @@ enum LunaBrowser {
   MOZILLA_FIREFOX,
 }
 
-extension LunaBrowserExtension on LunaBrowser {
-  String get name {
+extension LunaBrowserExtension on LunaBrowser? {
+  String? get name {
     switch (this) {
       case LunaBrowser.APPLE_SAFARI:
         return 'Apple Safari';
@@ -37,7 +37,7 @@ extension LunaBrowserExtension on LunaBrowser {
     }
   }
 
-  String get key {
+  String? get key {
     switch (this) {
       case LunaBrowser.APPLE_SAFARI:
         return 'applesafari';
@@ -54,7 +54,7 @@ extension LunaBrowserExtension on LunaBrowser {
     }
   }
 
-  LunaBrowser fromKey(String key) {
+  LunaBrowser? fromKey(String? key) {
     switch (key) {
       case 'applesafari':
         return LunaBrowser.APPLE_SAFARI;
@@ -71,7 +71,7 @@ extension LunaBrowserExtension on LunaBrowser {
     }
   }
 
-  IconData get icon {
+  IconData? get icon {
     switch (this) {
       case LunaBrowser.APPLE_SAFARI:
         return LunaBrandIcons.safari;

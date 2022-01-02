@@ -29,7 +29,7 @@ class LunaFileSystem {
   /// Depending on the platform, uses different methods to import the data:
   /// - iOS/Android: Utilizes `file_picker` to use mobile-OS file picker
   /// - macOS: Uses standard OS file picker
-  Future<File> import(
+  Future<File?> import(
       BuildContext context, List<String> acceptedExtensions) async {
     if (Platform.isAndroid || Platform.isIOS) {
       return _importMobile(context, acceptedExtensions);
@@ -45,10 +45,10 @@ class LunaFileSystem {
   ///
   /// Allows selection of any filetype, but will check the extension of the selected file against [acceptedExtensions].
   /// If not found in the array, or if any error occurs, will return null.
-  Future<File> _importMobile(
+  Future<File?> _importMobile(
       BuildContext context, List<String> acceptedExtensions) async {
     try {
-      FilePickerResult _file = await FilePicker.platform.pickFiles(
+      FilePickerResult? _file = await FilePicker.platform.pickFiles(
         type: FileType.any,
         allowMultiple: false,
         allowCompression: false,
@@ -56,7 +56,7 @@ class LunaFileSystem {
       );
       if (_file != null &&
           acceptedExtensions.contains(_file.files[0].extension ?? '')) {
-        return File(_file.files[0].path);
+        return File(_file.files[0].path!);
       }
     } catch (error, stack) {
       LunaLogger().error('Failed to import data from filesystem', error, stack);
@@ -72,11 +72,11 @@ class LunaFileSystem {
   Future<bool> _exportMobile(
       BuildContext context, String name, List<int> data) async {
     try {
-      final RenderBox box = context.findRenderObject();
+      final RenderBox box = context.findRenderObject() as RenderBox;
       Directory tempDirectory = await getTemporaryDirectory();
       String path = '${tempDirectory.path}/$name';
       File file = File(path);
-      await file?.writeAsBytes(data);
+      await file.writeAsBytes(data);
       await Share.shareFiles(
         [path],
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
@@ -93,11 +93,11 @@ class LunaFileSystem {
   /// Prompts the user with a save dialog prompt with the supplied name as the recommended name.
   Future<bool> _exportDesktop(String name, List<int> data) async {
     try {
-      String path =
-          await FileSelectorPlatform.instance?.getSavePath(suggestedName: name);
+      String? path =
+          await FileSelectorPlatform.instance.getSavePath(suggestedName: name);
       if (path?.isNotEmpty ?? false) {
-        File file = File(path);
-        await file?.writeAsBytes(data);
+        File file = File(path!);
+        await file.writeAsBytes(data);
         return true;
       }
     } catch (error, stack) {
@@ -110,15 +110,15 @@ class LunaFileSystem {
   ///
   /// Locks selection to the given [acceptedExtensions].
   /// If any error occurs, will return null.
-  Future<File> _importDesktop(List<String> acceptedExtensions) async {
+  Future<File?> _importDesktop(List<String> acceptedExtensions) async {
     try {
       final typeGroup = XTypeGroup(
         label: 'types',
         extensions: acceptedExtensions,
       );
-      XFile file = await FileSelectorPlatform.instance
-          ?.openFile(acceptedTypeGroups: [typeGroup]);
-      return File(file.path);
+      XFile? file = await FileSelectorPlatform.instance
+          .openFile(acceptedTypeGroups: [typeGroup]);
+      return File(file!.path);
     } catch (error, stack) {
       LunaLogger().error('Failed to import data from filesystem', error, stack);
     }

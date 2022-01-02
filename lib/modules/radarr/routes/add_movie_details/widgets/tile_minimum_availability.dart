@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
   const RadarrAddMovieDetailsMinimumAvailabilityTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -14,14 +14,14 @@ class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
       builder: (context, availability, _) {
         return LunaBlock(
           title: 'radarr.MinimumAvailability'.tr(),
-          body: [TextSpan(text: availability?.readable ?? LunaUI.TEXT_EMDASH)],
+          body: [TextSpan(text: availability.readable)],
           trailing: const LunaIconButton.arrow(),
           onTap: () async {
-            Tuple2<bool, RadarrAvailability> values =
+            Tuple2<bool, RadarrAvailability?> values =
                 await RadarrDialogs().editMinimumAvailability(context);
             if (values.item1)
               context.read<RadarrAddMovieDetailsState>().availability =
-                  values.item2;
+                  values.item2!;
           },
         );
       },

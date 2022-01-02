@@ -34,8 +34,6 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
         return 'wanted';
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return 'cutoffunmet';
-      default:
-        return null;
     }
   }
 
@@ -53,12 +51,10 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
         return 'radarr.Wanted'.tr();
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return 'radarr.CutoffUnmet'.tr();
-      default:
-        return null;
     }
   }
 
-  RadarrMoviesFilter fromKey(String key) {
+  RadarrMoviesFilter? fromKey(String key) {
     switch (key) {
       case 'all':
         return RadarrMoviesFilter.ALL;
@@ -100,20 +96,19 @@ class _Filterer {
       case RadarrMoviesFilter.CUTOFF_UNMET:
         return _cutoffUnmet(movies);
     }
-    throw Exception('sorting type not found');
   }
 
   List<RadarrMovie> _monitored(List<RadarrMovie> movies) =>
-      movies.where((movie) => movie.monitored).toList();
+      movies.where((movie) => movie.monitored!).toList();
   List<RadarrMovie> _unmonitored(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.monitored).toList();
+      movies.where((movie) => !movie.monitored!).toList();
   List<RadarrMovie> _missing(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.hasFile && movie.monitored).toList();
+      movies.where((movie) => !movie.hasFile! && movie.monitored!).toList();
   List<RadarrMovie> _wanted(List<RadarrMovie> movies) =>
-      movies.where((movie) => !movie.hasFile && movie.monitored).toList();
+      movies.where((movie) => !movie.hasFile! && movie.monitored!).toList();
   List<RadarrMovie> _cutoffUnmet(List<RadarrMovie> movies) => movies
       .where((movie) =>
-          (movie.hasFile && movie.movieFile.qualityCutoffNotMet) &&
-          movie.monitored)
+          (movie.hasFile! && movie.movieFile!.qualityCutoffNotMet!) &&
+          movie.monitored!)
       .toList();
 }

@@ -4,25 +4,25 @@ import 'package:lunasea/modules/sonarr.dart';
 import './abstract.dart';
 
 class CalendarSonarrData extends CalendarData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getSonarr();
   String episodeTitle;
   int seasonNumber;
   int episodeNumber;
   int seriesID;
   String airTime;
   bool hasFile;
-  String fileQualityProfile;
+  String? fileQualityProfile;
 
   CalendarSonarrData({
-    @required int id,
-    @required String title,
-    @required this.episodeTitle,
-    @required this.seasonNumber,
-    @required this.episodeNumber,
-    @required this.seriesID,
-    @required this.airTime,
-    @required this.hasFile,
-    @required this.fileQualityProfile,
+    required int id,
+    required String title,
+    required this.episodeTitle,
+    required this.seasonNumber,
+    required this.episodeNumber,
+    required this.seriesID,
+    required this.airTime,
+    required this.hasFile,
+    required this.fileQualityProfile,
   }) : super(id, title);
 
   @override
@@ -40,7 +40,7 @@ class CalendarSonarrData extends CalendarData {
         style: const TextStyle(
           fontStyle: FontStyle.italic,
         ),
-        text: episodeTitle ?? 'lunasea.Unknown'.tr(),
+        text: episodeTitle,
       ),
       if (!hasFile)
         TextSpan(
@@ -62,16 +62,13 @@ class CalendarSonarrData extends CalendarData {
   }
 
   bool get hasAired {
-    if (airTimeObject != null) return DateTime.now().isAfter(airTimeObject);
+    if (airTimeObject != null) return DateTime.now().isAfter(airTimeObject!);
     return false;
   }
 
   @override
   Future<void> enterContent(BuildContext context) async =>
-      SonarrSeriesDetailsRouter().navigateTo(
-        context,
-        seriesId: seriesID,
-      );
+      SonarrSeriesDetailsRouter().navigateTo(context, seriesID);
 
   @override
   Widget trailing(BuildContext context) => LunaIconButton(
@@ -80,15 +77,15 @@ class CalendarSonarrData extends CalendarData {
         onLongPress: () => trailingOnLongPress(context),
       );
 
-  DateTime get airTimeObject {
+  DateTime? get airTimeObject {
     return DateTime.tryParse(airTime)?.toLocal();
   }
 
   String get airTimeString {
     if (airTimeObject != null) {
       return LunaDatabaseValue.USE_24_HOUR_TIME.data
-          ? DateFormat.Hm().format(airTimeObject)
-          : DateFormat('hh:mm\na').format(airTimeObject);
+          ? DateFormat.Hm().format(airTimeObject!)
+          : DateFormat('hh:mm\na').format(airTimeObject!);
     }
     return 'Unknown';
   }
@@ -98,7 +95,7 @@ class CalendarSonarrData extends CalendarData {
     if (context.read<SonarrState>().api != null)
       context
           .read<SonarrState>()
-          .api
+          .api!
           .command
           .episodeSearch(episodeIds: [id])
           .then((_) => showLunaSuccessSnackBar(
@@ -126,12 +123,12 @@ class CalendarSonarrData extends CalendarData {
       );
 
   @override
-  String backgroundUrl(BuildContext context) {
+  String? backgroundUrl(BuildContext context) {
     return context.read<SonarrState>().getFanartURL(this.seriesID);
   }
 
   @override
-  String posterUrl(BuildContext context) {
+  String? posterUrl(BuildContext context) {
     return context.read<SonarrState>().getPosterURL(this.seriesID);
   }
 }

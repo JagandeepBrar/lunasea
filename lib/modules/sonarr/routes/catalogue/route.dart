@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrCatalogueRoute extends StatefulWidget {
   const SonarrCatalogueRoute({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,11 +29,12 @@ class _State extends State<SonarrCatalogueRoute>
     _state.fetchQualityProfiles();
     _state.fetchLanguageProfiles();
     _state.fetchTags();
+
     await Future.wait([
-      _state.series,
-      _state.qualityProfiles,
-      _state.tags,
-      _state.languageProfiles,
+      _state.series!,
+      _state.qualityProfiles!,
+      _state.tags!,
+      _state.languageProfiles!,
     ]);
   }
 
@@ -44,7 +46,7 @@ class _State extends State<SonarrCatalogueRoute>
       module: LunaModule.SONARR,
       hideDrawer: true,
       body: _body(),
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
     );
   }
 
@@ -64,16 +66,16 @@ class _State extends State<SonarrCatalogueRoute>
       onRefresh: _refresh,
       child: Selector<
           SonarrState,
-          Tuple2<Future<Map<int, SonarrSeries>>,
-              Future<List<SonarrQualityProfile>>>>(
+          Tuple2<Future<Map<int?, SonarrSeries>>?,
+              Future<List<SonarrQualityProfile>>?>>(
         selector: (_, state) => Tuple2(
           state.series,
           state.qualityProfiles,
         ),
         builder: (context, tuple, _) => FutureBuilder(
           future: Future.wait([
-            tuple.item1,
-            tuple.item2,
+            tuple.item1!,
+            tuple.item2!,
           ]),
           builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if (snapshot.hasError) {
@@ -85,13 +87,13 @@ class _State extends State<SonarrCatalogueRoute>
                 );
               }
               return LunaMessage.error(
-                onTap: _refreshKey.currentState.show,
+                onTap: _refreshKey.currentState!.show,
               );
             }
             if (snapshot.hasData) {
               return _series(
-                snapshot.data[0],
-                snapshot.data[1],
+                snapshot.data![0] as Map<int, SonarrSeries>,
+                snapshot.data![1] as List<SonarrQualityProfile>,
               );
             }
             return const LunaLoader();
@@ -106,15 +108,15 @@ class _State extends State<SonarrCatalogueRoute>
     List<SonarrQualityProfile> profiles,
     String query,
   ) {
-    if (series?.isEmpty ?? true) return [];
+    if (series.isEmpty) return [];
     SonarrSeriesSorting sorting = context.watch<SonarrState>().seriesSortType;
     SonarrSeriesFilter filter = context.watch<SonarrState>().seriesFilterType;
     bool ascending = context.watch<SonarrState>().seriesSortAscending;
     // Filter
     List<SonarrSeries> filtered = series.values.where((show) {
-      if (query != null && query.isNotEmpty && show.id != null)
-        return show.title.toLowerCase().contains(query.toLowerCase());
-      return (show != null && show.id != null);
+      if (query.isNotEmpty && show.id != null)
+        return show.title!.toLowerCase().contains(query.toLowerCase());
+      return show.id != null;
     }).toList();
     filtered = filter.filter(filtered);
     // Sort
@@ -126,22 +128,22 @@ class _State extends State<SonarrCatalogueRoute>
     Map<int, SonarrSeries> series,
     List<SonarrQualityProfile> qualities,
   ) {
-    if ((series?.length ?? 0) == 0)
+    if (series.isEmpty)
       return LunaMessage(
         text: 'sonarr.NoSeriesFound'.tr(),
         buttonText: 'lunasea.Refresh'.tr(),
-        onTap: _refreshKey.currentState.show,
+        onTap: _refreshKey.currentState!.show,
       );
     return Selector<SonarrState, String>(
       selector: (_, state) => state.seriesSearchQuery,
       builder: (context, query, _) {
         List<SonarrSeries> _filtered = _filterAndSort(series, qualities, query);
-        if ((_filtered?.length ?? 0) == 0)
+        if (_filtered.isEmpty)
           return LunaListView(
             controller: SonarrNavigationBar.scrollControllers[0],
             children: [
               LunaMessage.inList(text: 'sonarr.NoSeriesFound'.tr()),
-              if ((query ?? '').isNotEmpty)
+              if (query.isNotEmpty)
                 LunaButtonContainer(
                   children: [
                     LunaButton.text(
@@ -154,7 +156,7 @@ class _State extends State<SonarrCatalogueRoute>
                       backgroundColor: LunaColours.accent,
                       onTap: () async => SonarrAddSeriesRouter().navigateTo(
                         context,
-                        query: query ?? '',
+                        query,
                       ),
                     ),
                   ],
@@ -183,9 +185,8 @@ class _State extends State<SonarrCatalogueRoute>
       itemExtent: SonarrSeriesTile.itemExtent,
       itemBuilder: (context, index) => SonarrSeriesTile(
         series: series[index],
-        profile: qualities.firstWhere(
+        profile: qualities.firstWhereOrNull(
           (element) => element.id == series[index].qualityProfileId,
-          orElse: () => null,
         ),
       ),
     );
@@ -201,9 +202,8 @@ class _State extends State<SonarrCatalogueRoute>
       itemCount: series.length,
       itemBuilder: (context, index) => SonarrSeriesTile.grid(
         series: series[index],
-        profile: qualities.firstWhere(
+        profile: qualities.firstWhereOrNull(
           (element) => element.id == series[index].qualityProfileId,
-          orElse: () => null,
         ),
       ),
     );

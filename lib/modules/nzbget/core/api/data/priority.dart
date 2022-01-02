@@ -7,7 +7,7 @@ enum NZBGetPriority {
   veryLow,
 }
 
-extension NZBGetPriorityExtension on NZBGetPriority {
+extension NZBGetPriorityExtension on NZBGetPriority? {
   int get value {
     switch (this) {
       case NZBGetPriority.veryLow:

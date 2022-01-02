@@ -3,19 +3,21 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lunasea/core.dart';
 
 class LunaBottomNavigationBar extends StatefulWidget {
-  final PageController pageController;
+  final PageController? pageController;
   final List<IconData> icons;
+  final List<IconData>? iconsOutlined;
   final List<String> titles;
-  final List<ScrollController> scrollControllers;
-  final List<Widget> topActions;
-  final Function(int) onTabChange;
-  final List<Widget> leadingOnTab;
+  final List<ScrollController>? scrollControllers;
+  final List<Widget>? topActions;
+  final ValueChanged<int>? onTabChange;
+  final List<Widget?>? leadingOnTab;
 
   LunaBottomNavigationBar({
-    Key key,
-    @required this.pageController,
-    @required this.icons,
-    @required this.titles,
+    Key? key,
+    required this.pageController,
+    required this.icons,
+    this.iconsOutlined,
+    required this.titles,
     this.topActions,
     this.onTabChange,
     this.leadingOnTab,
@@ -27,13 +29,13 @@ class LunaBottomNavigationBar extends StatefulWidget {
     );
     if (leadingOnTab != null) {
       assert(
-        icons.length == leadingOnTab.length,
+        icons.length == leadingOnTab!.length,
         'An unequal amount of icons and leadingOnTab were passed to LunaNavigationBar.',
       );
     }
     if (scrollControllers != null) {
       assert(
-        icons.length == scrollControllers.length,
+        icons.length == scrollControllers!.length,
         'An unequal amount of icons and scrollControllers were passed to LunaNavigationBar.',
       );
     }
@@ -44,7 +46,7 @@ class LunaBottomNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<LunaBottomNavigationBar> {
-  int _index;
+  late int _index;
 
   @override
   void initState() {
@@ -60,12 +62,49 @@ class _State extends State<LunaBottomNavigationBar> {
   }
 
   void _pageControllerListener() {
-    if ((widget.pageController?.page?.round() ?? _index) == _index) return;
-    setState(() => _index = widget.pageController.page.round());
+    if ((widget.pageController!.page?.round() ?? _index) == _index) return;
+    setState(() => _index = widget.pageController!.page!.round());
   }
 
   @override
   Widget build(BuildContext context) {
+    // return Theme(
+    //   // https://m3.material.io/components/navigation-bar/specs
+    //   data: ThemeData(
+    //     useMaterial3: true,
+    //     navigationBarTheme: NavigationBarThemeData(
+    //       backgroundColor: Theme.of(context).primaryColor,
+    //       indicatorColor: Theme.of(context).canvasColor.dimmed(),
+    //       iconTheme: MaterialStateProperty.all(const IconThemeData(
+    //         color: LunaColours.white,
+    //       )),
+    //       // Label medium
+    //       labelTextStyle: MaterialStateProperty.all(
+    //         const LunaTextStyle.labelMedium().copyWith(
+    //           color: LunaColours.white,
+    //         ),
+    //       ),
+    //       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+    //     ),
+    //     splashColor: Theme.of(context).splashColor,
+    //     tooltipTheme: Theme.of(context).tooltipTheme,
+    //   ),
+    //   child: NavigationBar(
+    //     selectedIndex: _index,
+    //     onDestinationSelected: (idx) => _onDestinationSelected(idx),
+    //     destinations: List.generate(
+    //       widget.titles.length,
+    //       (idx) => NavigationDestination(
+    //         label: widget.titles[idx],
+    //         icon: Icon((widget.iconsOutlined ?? widget.icons)[idx]),
+    //         selectedIcon: Icon(
+    //           widget.icons[idx],
+    //           color: LunaColours.accent,
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -105,7 +144,7 @@ class _State extends State<LunaBottomNavigationBar> {
                           iconActiveColor: LunaColours.accent,
                           leading: widget.leadingOnTab == null
                               ? null
-                              : widget.leadingOnTab[index],
+                              : widget.leadingOnTab![index],
                         )).toList(),
                 tabActiveBorder: LunaUI.shouldUseBorder
                     ? Border.all(color: LunaColours.white10)
@@ -115,8 +154,8 @@ class _State extends State<LunaBottomNavigationBar> {
                     : null,
                 selectedIndex: _index,
                 onTabChange: (index) {
-                  _onTabChange(index);
-                  if (widget.onTabChange != null) widget.onTabChange(index);
+                  _onDestinationSelected(index);
+                  if (widget.onTabChange != null) widget.onTabChange!(index);
                 },
               ),
               padding: (widget.topActions?.isNotEmpty ?? false)
@@ -131,13 +170,13 @@ class _State extends State<LunaBottomNavigationBar> {
     );
   }
 
-  void _onTabChange(int index) {
-    if (index == _index) {
-      if (widget.scrollControllers != null &&
-          widget.scrollControllers[index] != null)
-        widget.scrollControllers[index].lunaAnimateToStart();
-    } else {
-      widget.pageController.lunaJumpToPage(index);
+  void _onDestinationSelected(int idx) {
+    if (idx == _index && widget.scrollControllers != null) {
+      widget.scrollControllers![idx].lunaAnimateToStart();
+    } else if (widget.pageController != null) {
+      widget.pageController!.lunaJumpToPage(idx);
     }
+    if (widget.onTabChange != null) widget.onTabChange!(idx);
+    setState(() => _index = idx);
   }
 }

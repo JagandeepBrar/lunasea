@@ -25,7 +25,6 @@ extension LidarrReleasesSortingExtension on LidarrReleasesSorting {
       case LidarrReleasesSorting.size:
         return 'size';
     }
-    throw Exception('value not found');
   }
 
   String get readable {
@@ -43,11 +42,10 @@ extension LidarrReleasesSortingExtension on LidarrReleasesSorting {
       case LidarrReleasesSorting.size:
         return 'Size';
     }
-    throw Exception('readable not found');
   }
 
   List<LidarrReleaseData> sort(List data, bool ascending) =>
-      _Sorter().byType(data, this, ascending);
+      _Sorter().byType(data, this, ascending) as List<LidarrReleaseData>;
 }
 
 class _Sorter {
@@ -70,7 +68,6 @@ class _Sorter {
       case LidarrReleasesSorting.size:
         return _size(data, ascending);
     }
-    throw Exception('sorting type not found');
   }
 
   List<LidarrReleaseData> _alphabetical(List data, bool ascending) {
@@ -113,8 +110,8 @@ class _Sorter {
     List<LidarrReleaseData> _torrent =
         _data.where((value) => value.isTorrent).toList();
     ascending
-        ? _torrent.sort((a, b) => b.seeders.compareTo(a.seeders))
-        : _torrent.sort((a, b) => a.seeders.compareTo(b.seeders));
+        ? _torrent.sort((a, b) => (b.seeders ?? 0).compareTo(a.seeders ?? 0))
+        : _torrent.sort((a, b) => (a.seeders ?? 0).compareTo(b.seeders ?? 0));
     return [..._torrent, ..._usenet];
   }
 

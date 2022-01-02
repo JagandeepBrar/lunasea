@@ -14,7 +14,7 @@ extension DurationExtension on Duration {
   ///
   /// Format example: 1 Day, 23 Hours, 10 Minutes
   String get lunaTimestampWords {
-    String days, hours, minutes;
+    String? days, hours, minutes;
     if (this.inDays == 1) days = '1 Day';
     if (this.inDays > 1) days = '${this.inDays.toString()} Days';
     if (this.inHours == 1) hours = '1 Hour';

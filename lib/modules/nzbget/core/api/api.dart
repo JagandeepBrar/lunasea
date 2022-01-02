@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
@@ -34,12 +33,12 @@ class NZBGetAPI {
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('NZBGet: $text', error, trace);
 
-  bool get enabled => _values['enabled'];
-  String get host => _values['host'];
-  String get user => _values['user'];
-  String get pass => _values['pass'];
+  bool? get enabled => _values['enabled'];
+  String? get host => _values['host'];
+  String? get user => _values['user'];
+  String? get pass => _values['pass'];
 
-  String getBody(String method, {List<dynamic> params}) {
+  String getBody(String method, {List<dynamic>? params}) {
     return json.encode({
       "jsonrpc": "2.0",
       "method": method,
@@ -146,8 +145,8 @@ class NZBGetAPI {
           downloaded: response.data['result'][i]['DownloadedSizeMB'] ?? 0,
           sizeTotal: response.data['result'][i]['FileSizeMB'] ?? 0,
           category: response.data['result'][i]['Category'] ?? '',
-          speed: speed ?? -1,
-          queueSeconds: queueSeconds ?? 0,
+          speed: speed,
+          queueSeconds: queueSeconds,
         );
         if (_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING')
           queueSeconds += _entry.remainingTime;
@@ -365,7 +364,7 @@ class NZBGetAPI {
     }
   }
 
-  Future<bool> setJobPriority(int id, NZBGetPriority priority) async {
+  Future<bool> setJobPriority(int id, NZBGetPriority? priority) async {
     try {
       Response response = await _dio.post(
         '',
@@ -505,7 +504,7 @@ class NZBGetAPI {
     }
   }
 
-  Future<bool> sortQueue(NZBGetSort sort) async {
+  Future<bool> sortQueue(NZBGetSort? sort) async {
     try {
       Response response = await _dio.post(
         '',
@@ -592,7 +591,7 @@ class NZBGetAPI {
     }
   }
 
-  Future<bool> setSpeedLimit(int limit) async {
+  Future<bool> setSpeedLimit(int? limit) async {
     try {
       Response response = await _dio.post(
         '',

@@ -6,8 +6,8 @@ class SonarrReleasesAppBarFilterButton extends StatefulWidget {
   final ScrollController controller;
 
   const SonarrReleasesAppBarFilterButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override

@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditSeriesTypeTile extends StatelessWidget {
   const SonarrSeriesEditSeriesTypeTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class SonarrSeriesEditSeriesTypeTile extends StatelessWidget {
             text: context
                     .watch<SonarrSeriesEditState>()
                     .seriesType
-                    .value
+                    ?.value
                     ?.lunaCapitalizeFirstLetters() ??
                 LunaUI.TEXT_EMDASH),
       ],
@@ -26,9 +26,9 @@ class SonarrSeriesEditSeriesTypeTile extends StatelessWidget {
   }
 
   Future<void> _onTap(BuildContext context) async {
-    Tuple2<bool, SonarrSeriesType> result =
+    Tuple2<bool, SonarrSeriesType?> result =
         await SonarrDialogs().editSeriesType(context);
     if (result.item1)
-      context.read<SonarrSeriesEditState>().seriesType = result.item2;
+      context.read<SonarrSeriesEditState>().seriesType = result.item2!;
   }
 }

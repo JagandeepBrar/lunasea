@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class RadarrSystemStatusNavigationBar extends StatelessWidget {
-  final PageController pageController;
+  final PageController? pageController;
   static const List<IconData> icons = [
     Icons.subject_rounded,
     Icons.health_and_safety,
@@ -13,8 +13,8 @@ class RadarrSystemStatusNavigationBar extends StatelessWidget {
       List.generate(icons.length, (_) => ScrollController());
 
   const RadarrSystemStatusNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override

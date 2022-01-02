@@ -1,12 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 class NewznabSubcategoryData {
   int id;
-  String name;
+  String? name;
 
   NewznabSubcategoryData({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 
   @override

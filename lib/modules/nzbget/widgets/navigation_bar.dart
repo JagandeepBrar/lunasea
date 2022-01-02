@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class NZBGetNavigationBar extends StatelessWidget {
   static List<ScrollController> scrollControllers =
       List.generate(icons.length, (_) => ScrollController());
-  final PageController pageController;
+  final PageController? pageController;
 
   static const List<String> titles = [
     'Queue',
@@ -12,13 +12,18 @@ class NZBGetNavigationBar extends StatelessWidget {
   ];
 
   static const List<IconData> icons = [
-    Icons.queue_rounded,
+    Icons.queue_play_next_rounded,
     Icons.history_rounded,
   ];
 
+  static const List<IconData> iconsOutlined = [
+    Icons.queue_play_next_outlined,
+    Icons.history_outlined,
+  ];
+
   const NZBGetNavigationBar({
-    Key key,
-    @required this.pageController,
+    Key? key,
+    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -27,6 +32,7 @@ class NZBGetNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
+      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

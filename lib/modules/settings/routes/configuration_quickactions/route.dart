@@ -28,7 +28,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
     );
   }
@@ -87,7 +87,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: title,
       trailing: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),
-        builder: (context, _, __) => LunaSwitch(
+        builder: (context, dynamic _, __) => LunaSwitch(
             value: action.data,
             onChanged: (value) {
               action.put(value);

@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
   const SonarrSeriesAddDetailsMonitorTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,11 +13,8 @@ class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
       title: 'sonarr.Monitor'.tr(),
       body: [
         TextSpan(
-          text: context
-                  .watch<SonarrSeriesAddDetailsState>()
-                  .monitorType
-                  ?.lunaName ??
-              LunaUI.TEXT_EMDASH,
+          text:
+              context.watch<SonarrSeriesAddDetailsState>().monitorType.lunaName,
         ),
       ],
       trailing: const LunaIconButton.arrow(),
@@ -26,12 +23,12 @@ class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
   }
 
   Future<void> _onTap(BuildContext context) async {
-    Tuple2<bool, SonarrSeriesMonitorType> result =
+    Tuple2<bool, SonarrSeriesMonitorType?> result =
         await SonarrDialogs().editMonitorType(context);
     if (result.item1) {
-      context.read<SonarrSeriesAddDetailsState>().monitorType = result.item2;
+      context.read<SonarrSeriesAddDetailsState>().monitorType = result.item2!;
       SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE
-          .put(result.item2.value);
+          .put(result.item2!.value);
     }
   }
 }

@@ -29,7 +29,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar(),
+      appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
@@ -53,7 +53,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
       valueListenable: Database.profilesBox.listenable(),
-      builder: (context, box, _) => LunaListView(
+      builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
           _host(),
@@ -66,7 +66,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject.nzbgetHost ?? '';
+    String host = Database.currentProfileObject!.nzbgetHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -77,8 +77,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: host,
         );
         if (_values.item1) {
-          Database.currentProfileObject.nzbgetHost = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.nzbgetHost = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<NZBGetState>().reset();
         }
       },
@@ -86,7 +86,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _username() {
-    String username = Database.currentProfileObject.nzbgetUser ?? '';
+    String username = Database.currentProfileObject!.nzbgetUser ?? '';
     return LunaBlock(
       title: 'settings.Username'.tr(),
       body: [
@@ -100,8 +100,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: username,
         );
         if (_values.item1) {
-          Database.currentProfileObject.nzbgetUser = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.nzbgetUser = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<NZBGetState>().reset();
         }
       },
@@ -109,7 +109,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _password() {
-    String password = Database.currentProfileObject.nzbgetPass ?? '';
+    String password = Database.currentProfileObject!.nzbgetPass ?? '';
     return LunaBlock(
       title: 'settings.Password'.tr(),
       body: [
@@ -137,8 +137,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           ],
         );
         if (_values.item1) {
-          Database.currentProfileObject.nzbgetPass = _values.item2;
-          Database.currentProfileObject.save();
+          Database.currentProfileObject!.nzbgetPass = _values.item2;
+          Database.currentProfileObject!.save();
           context.read<NZBGetState>().reset();
         }
       },
@@ -150,15 +150,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject;
-        if (_profile.nzbgetHost == null || _profile.nzbgetHost.isEmpty) {
+        ProfileHiveObject _profile = Database.currentProfileObject!;
+        if (_profile.nzbgetHost == null || _profile.nzbgetHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to NZBGet',
           );
           return;
         }
-        NZBGetAPI.from(Database.currentProfileObject)
+        NZBGetAPI.from(Database.currentProfileObject!)
             .testConnection()
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Connected Successfully',

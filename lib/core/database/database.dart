@@ -14,7 +14,7 @@ class Database {
     await Hive.initFlutter(_DATABASE_PATH);
     _registerAdapters();
     await _openBoxes();
-    if (profilesBox.keys?.isEmpty ?? true) setDefaults(clearEverything: true);
+    if (profilesBox.keys.isEmpty) setDefaults(clearEverything: true);
   }
 
   /// Deinitialize the database by closing all open hive boxes.
@@ -24,7 +24,7 @@ class Database {
   void _registerAdapters() {
     LunaDatabase().registerAdapters();
     LunaModule.values.forEach((module) {
-      if (module.database != null) module.database.registerAdapters();
+      if (module.database != null) module.database!.registerAdapters();
     });
   }
 
@@ -82,8 +82,8 @@ class Database {
   }
 
   //Profile values
-  static String get currentProfile =>
+  static String? get currentProfile =>
       lunaSeaBox.get(LunaDatabaseValue.ENABLED_PROFILE.key);
-  static ProfileHiveObject get currentProfileObject =>
+  static ProfileHiveObject? get currentProfileObject =>
       profilesBox.get(currentProfile);
 }

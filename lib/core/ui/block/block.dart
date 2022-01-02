@@ -5,40 +5,40 @@ class LunaBlock extends StatelessWidget {
   static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 4.0;
   static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 4.0;
 
-  final bool disabled;
-  final String title;
+  final bool? disabled;
+  final String? title;
   final Color titleColor;
 
   /// If defined, only takes the first body subtitle from the [body] array
   /// And allows that single [TextSpan] to overflow to this many lines
-  final int customBodyMaxLines;
-  final List<TextSpan> body;
+  final int? customBodyMaxLines;
+  final List<TextSpan>? body;
 
   /// Icons that lead the body lines. If defined, then the length of this list
   /// must match the length of [body]. If a specific line does not need a
   /// leading icon, pass in null.
-  final List<IconData> bodyLeadingIcons;
+  final List<IconData?>? bodyLeadingIcons;
   final Color bodyLeadingIconsColor;
 
-  final Widget leading;
-  final Widget trailing;
-  final Widget bottom;
+  final Widget? leading;
+  final Widget? trailing;
+  final Widget? bottom;
   final double bottomHeight;
 
-  final Function onTap;
-  final Function onLongPress;
+  final Function? onTap;
+  final Function? onLongPress;
 
-  final IconData posterPlaceholderIcon;
-  final String posterUrl;
-  final Map posterHeaders;
+  final IconData? posterPlaceholderIcon;
+  final String? posterUrl;
+  final Map? posterHeaders;
   final bool posterIsSquare;
-  final String backgroundUrl;
-  final Map backgroundHeaders;
+  final String? backgroundUrl;
+  final Map? backgroundHeaders;
 
   const LunaBlock({
-    Key key,
+    Key? key,
     this.disabled = false,
-    @required this.title,
+    required this.title,
     this.titleColor = Colors.white,
     this.body,
     this.bodyLeadingIcons,
@@ -83,7 +83,7 @@ class LunaBlock extends StatelessWidget {
   }
 
   double _calculateHeight() {
-    int _scalar = customBodyMaxLines;
+    int? _scalar = customBodyMaxLines;
     _scalar ??= body?.length ?? 0;
     return calculateItemHeight(
       _scalar,
@@ -103,7 +103,7 @@ class LunaBlock extends StatelessWidget {
             if (backgroundUrl?.isNotEmpty ?? false)
               _fadeInBackground(context, _height),
             Opacity(
-              opacity: disabled ? LunaUI.OPACITY_DISABLED : 1.0,
+              opacity: disabled! ? LunaUI.OPACITY_DISABLED : 1.0,
               child: Row(
                 children: [
                   _poster(context, _height),
@@ -116,19 +116,19 @@ class LunaBlock extends StatelessWidget {
         mouseCursor: onTap != null || onLongPress != null
             ? SystemMouseCursors.click
             : MouseCursor.defer,
-        onTap: onTap,
-        onLongPress: onLongPress,
+        onTap: onTap as void Function()?,
+        onLongPress: onLongPress as void Function()?,
       ),
       height: _height,
     );
   }
 
   Widget _fadeInBackground(BuildContext context, double _height) {
-    int _percent = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int;
+    int? _percent = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int?;
     if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
-    double _opacity = _percent / 100;
-    if (disabled) _opacity *= LunaUI.OPACITY_DISABLED;
+    double _opacity = _percent! / 100;
+    if (disabled!) _opacity *= LunaUI.OPACITY_DISABLED;
 
     return Opacity(
       opacity: _opacity,
@@ -141,7 +141,7 @@ class LunaBlock extends StatelessWidget {
         ),
         fit: BoxFit.cover,
         image: CachedNetworkImageProvider(
-          backgroundUrl,
+          backgroundUrl!,
           headers: backgroundHeaders?.cast<String, String>(),
           cacheManager: LunaImageCache.instance,
           errorListener: () {},
@@ -180,7 +180,7 @@ class LunaBlock extends StatelessWidget {
         context: context,
         title: _scrollableText(
           child: LunaText.title(
-            text: title,
+            text: title!,
             color: titleColor,
             overflow: TextOverflow.visible,
             maxLines: 1,
@@ -197,13 +197,13 @@ class LunaBlock extends StatelessWidget {
     );
   }
 
-  Widget _subtitle() {
+  Widget? _subtitle() {
     int maxLines = customBodyMaxLines ?? 1;
     double height = SUBTITLE_HEIGHT * maxLines;
 
     if (bodyLeadingIcons != null) {
       assert(
-        bodyLeadingIcons.length == body?.length,
+        bodyLeadingIcons!.length == body?.length,
         'bodyLeadingIcons and body should be the same size',
       );
     }
@@ -219,7 +219,7 @@ class LunaBlock extends StatelessWidget {
       );
     }
 
-    Widget _entry(TextSpan textSpan, IconData icon) {
+    Widget _entry(TextSpan textSpan, IconData? icon) {
       return SizedBox(
         height: height,
         child: Row(
@@ -270,10 +270,10 @@ class LunaBlock extends StatelessWidget {
 
     if (body?.isNotEmpty ?? false) {
       if (customBodyMaxLines != null) {
-        _children.add(_entry(body[0], bodyLeadingIcons?.elementAtOrNull(0)));
+        _children.add(_entry(body![0], bodyLeadingIcons?.elementAtOrNull(0)));
       } else {
-        for (int i = 0; i < body.length; i++) {
-          _children.add(_entry(body[i], bodyLeadingIcons?.elementAtOrNull(i)));
+        for (int i = 0; i < body!.length; i++) {
+          _children.add(_entry(body![i], bodyLeadingIcons?.elementAtOrNull(i)));
         }
       }
     }
@@ -289,7 +289,7 @@ class LunaBlock extends StatelessWidget {
   }
 
   Widget _scrollableText({
-    @required Widget child,
+    required Widget child,
     Axis scrollDirection = Axis.horizontal,
   }) {
     return FadingEdgeScrollView.fromSingleChildScrollView(

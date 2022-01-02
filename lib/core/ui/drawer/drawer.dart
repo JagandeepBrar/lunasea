@@ -6,18 +6,18 @@ class LunaDrawer extends StatelessWidget {
   final String page;
 
   const LunaDrawer({
-    Key key,
-    @required this.page,
+    Key? key,
+    required this.page,
   }) : super(key: key);
 
   static List<LunaModule> moduleOrderedList() {
     LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
-    List<LunaModule> _modules = (dbValue.data as List)?.cast<LunaModule>();
+    List<LunaModule>? _modules = (dbValue.data as List?)?.cast<LunaModule>();
     // Add any modules that were added after the user set their drawer order preference
     _modules?.addAll(
       LunaModule.DASHBOARD.allModules()
         ..retainWhere(
-          (module) => !_modules.contains(module),
+          (module) => !_modules!.contains(module),
         ),
     );
     _modules ??= LunaModule.DASHBOARD.allModules();
@@ -29,7 +29,7 @@ class LunaDrawer extends StatelessWidget {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
       builder: (context, lunaBox, widget) => ValueListenableBuilder(
         valueListenable: Database.indexersBox.listenable(),
-        builder: (context, indexerBox, widget) => Drawer(
+        builder: (context, dynamic indexerBox, widget) => Drawer(
           elevation: LunaUI.ELEVATION,
           backgroundColor: Theme.of(context).primaryColor,
           child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
@@ -103,9 +103,9 @@ class LunaDrawer extends StatelessWidget {
   }
 
   Widget _buildEntry({
-    @required BuildContext context,
-    @required LunaModule module,
-    Function onTap,
+    required BuildContext context,
+    required LunaModule module,
+    Function? onTap,
   }) {
     bool currentPage = page == module.key.toLowerCase();
     return SizedBox(
@@ -130,7 +130,7 @@ class LunaDrawer extends StatelessWidget {
             ),
           ],
         ),
-        onTap: onTap ??
+        onTap: onTap as void Function()? ??
             () async {
               LayoutBreakpoint _bp = context.breakpoint;
               if (_bp < LayoutBreakpoint.md) Navigator.of(context).pop();

@@ -12,25 +12,25 @@ class LunaTextInputBar extends StatefulWidget {
     LunaUI.DEFAULT_MARGIN_SIZE,
   );
 
-  final TextEditingController controller;
-  final ScrollController scrollController;
+  final TextEditingController? controller;
+  final ScrollController? scrollController;
   final TextInputAction action;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final TextInputType keyboardType;
-  final Iterable<String> autofillHints;
-  final String labelText;
+  final Iterable<String>? autofillHints;
+  final String? labelText;
   final IconData labelIcon;
   final bool autofocus;
   final bool obscureText;
   final bool isFormField;
-  final void Function(String) onChanged;
-  final void Function(String) onSubmitted;
-  final String Function(String) validator;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final FormFieldValidator<String>? validator;
   final EdgeInsets margin;
 
   const LunaTextInputBar({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.scrollController,
     this.onChanged,
     this.onSubmitted,
@@ -103,20 +103,20 @@ class _State extends State<LunaTextInputBar> {
               color: LunaColours.accent,
               size: 24.0,
             ),
-            onTap: !_isFocused || widget.controller.text == ''
+            onTap: !_isFocused || widget.controller!.text == ''
                 ? null
                 : () {
                     widget.scrollController?.lunaAnimateToStart();
-                    widget.controller.text = '';
-                    if (widget.onChanged != null) widget.onChanged('');
+                    widget.controller!.text = '';
+                    if (widget.onChanged != null) widget.onChanged!('');
                   },
-            mouseCursor: !_isFocused || widget.controller.text == ''
+            mouseCursor: !_isFocused || widget.controller!.text == ''
                 ? SystemMouseCursors.text
                 : SystemMouseCursors.click,
             borderRadius: BorderRadius.circular(24.0),
             hoverColor: Colors.transparent,
           ),
-          opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
+          opacity: !_isFocused || widget.controller!.text == '' ? 0.0 : 1.0,
           duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         ),
         icon: Padding(
@@ -141,10 +141,10 @@ class _State extends State<LunaTextInputBar> {
         obscureText: widget.obscureText,
         autocorrect: false,
         keyboardType: widget.keyboardType,
-        validator: widget?.validator,
+        validator: widget.validator,
         onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged,
-        onFieldSubmitted: widget?.onSubmitted,
+        onFieldSubmitted: widget.onSubmitted,
         focusNode: widget.focusNode,
       );
 
@@ -162,6 +162,6 @@ class _State extends State<LunaTextInputBar> {
         keyboardType: widget.keyboardType,
         onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged,
-        onSubmitted: widget?.onSubmitted,
+        onSubmitted: widget.onSubmitted,
       );
 }

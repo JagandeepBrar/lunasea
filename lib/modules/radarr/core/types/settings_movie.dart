@@ -13,7 +13,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
   IconData icon(RadarrMovie movie) {
     switch (this) {
       case RadarrMovieSettingsType.MONITORED:
-        return movie.monitored
+        return movie.monitored!
             ? Icons.turned_in_not_rounded
             : Icons.turned_in_rounded;
       case RadarrMovieSettingsType.EDIT:
@@ -23,13 +23,12 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
       case RadarrMovieSettingsType.DELETE:
         return Icons.delete_rounded;
     }
-    throw Exception('Invalid RadarrMovieSettingsType');
   }
 
   String name(RadarrMovie movie) {
     switch (this) {
       case RadarrMovieSettingsType.MONITORED:
-        return movie.monitored
+        return movie.monitored!
             ? 'radarr.UnmonitorMovie'.tr()
             : 'radarr.MonitorMovie'.tr();
       case RadarrMovieSettingsType.EDIT:
@@ -39,7 +38,6 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
       case RadarrMovieSettingsType.DELETE:
         return 'radarr.RemoveMovie'.tr();
     }
-    throw Exception('Invalid RadarrMovieSettingsType');
   }
 
   Future<void> execute(BuildContext context, RadarrMovie movie) async {
@@ -53,11 +51,10 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
       case RadarrMovieSettingsType.MONITORED:
         return _monitored(context, movie);
     }
-    throw Exception('Invalid RadarrMovieSettingsType');
   }
 
   Future<void> _edit(BuildContext context, RadarrMovie movie) async =>
-      RadarrMoviesEditRouter().navigateTo(context, movieId: movie.id);
+      RadarrMoviesEditRouter().navigateTo(context, movie.id!);
   Future<void> _monitored(BuildContext context, RadarrMovie movie) =>
       RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
   Future<void> _refresh(BuildContext context, RadarrMovie movie) async =>

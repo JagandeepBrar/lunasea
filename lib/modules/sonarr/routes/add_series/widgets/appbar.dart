@@ -4,9 +4,9 @@ import 'package:lunasea/modules/sonarr.dart';
 
 // ignore: non_constant_identifier_names
 Widget SonarrSeriesAddAppBar({
-  @required ScrollController scrollController,
-  @required String query,
-  @required bool autofocus,
+  required ScrollController scrollController,
+  required String? query,
+  required bool autofocus,
 }) =>
     LunaAppBar(
       title: 'sonarr.AddSeries'.tr(),
@@ -24,10 +24,10 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final ScrollController scrollController;
 
   const _SearchBar({
-    Key key,
-    @required this.query,
-    @required this.autofocus,
-    @required this.scrollController,
+    Key? key,
+    required this.query,
+    required this.autofocus,
+    required this.scrollController,
   }) : super(key: key);
 
   @override

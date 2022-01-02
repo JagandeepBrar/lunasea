@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsEditButton extends StatefulWidget {
-  final LidarrCatalogueData data;
+  final LidarrCatalogueData? data;
 
   const LidarrDetailsEditButton({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class _State extends State<LidarrDetailsEditButton> {
     if (result != null && result[0])
       showLunaSuccessSnackBar(
         title: 'Updated',
-        message: widget.data.title,
+        message: widget.data!.title,
       );
   }
 }

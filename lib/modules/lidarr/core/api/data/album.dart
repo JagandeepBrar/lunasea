@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrAlbumData {
-  final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
+  final Map<String, dynamic> api = Database.currentProfileObject!.getLidarr();
   String title;
   String releaseDate;
   int albumID;
@@ -11,24 +10,19 @@ class LidarrAlbumData {
   bool monitored;
 
   LidarrAlbumData({
-    @required this.albumID,
-    @required this.title,
-    @required this.monitored,
-    @required this.trackCount,
-    @required this.percentageTracks,
-    @required this.releaseDate,
+    required this.albumID,
+    required this.title,
+    required this.monitored,
+    required this.trackCount,
+    required this.percentageTracks,
+    required this.releaseDate,
   });
 
-  DateTime get releaseDateObject {
-    if (releaseDate != null) {
-      return DateTime.tryParse(releaseDate)?.toLocal();
-    }
-    return null;
-  }
+  DateTime? get releaseDateObject => DateTime.tryParse(releaseDate)?.toLocal();
 
   String get releaseDateString {
     if (releaseDateObject != null) {
-      return DateFormat('MMMM dd, y').format(releaseDateObject);
+      return DateFormat('MMMM dd, y').format(releaseDateObject!);
     }
     return 'Unknown Release Date';
   }

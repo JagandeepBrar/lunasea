@@ -7,12 +7,9 @@ class _RadarrAddMovieDetailsArguments {
   final bool isDiscovery;
 
   _RadarrAddMovieDetailsArguments({
-    @required this.movie,
-    @required this.isDiscovery,
-  }) {
-    assert(movie != null);
-    assert(isDiscovery != null);
-  }
+    required this.movie,
+    required this.isDiscovery,
+  });
 }
 
 class RadarrAddMovieDetailsRouter extends RadarrPageRouter {
@@ -23,20 +20,23 @@ class RadarrAddMovieDetailsRouter extends RadarrPageRouter {
 
   @override
   Future<void> navigateTo(
-    BuildContext context, {
-    @required RadarrMovie movie,
-    @required bool isDiscovery,
-  }) =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(),
-        routeSettings: RouteSettings(
-          arguments: _RadarrAddMovieDetailsArguments(
-            movie: movie,
-            isDiscovery: isDiscovery,
-          ),
+    BuildContext context, [
+    RadarrMovie? movie,
+    bool? isDiscovery,
+  ]) async {
+    assert(movie != null);
+    assert(isDiscovery != null);
+    LunaRouter.router.navigateTo(
+      context,
+      route(),
+      routeSettings: RouteSettings(
+        arguments: _RadarrAddMovieDetailsArguments(
+          movie: movie!,
+          isDiscovery: isDiscovery!,
         ),
-      );
+      ),
+    );
+  }
 
   @override
   void defineRoute(FluroRouter router) {
@@ -64,9 +64,10 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _RadarrAddMovieDetailsArguments arguments =
-        ModalRoute.of(context).settings.arguments;
-    if (arguments == null || arguments.movie == null) {
+    _RadarrAddMovieDetailsArguments? arguments = ModalRoute.of(context)!
+        .settings
+        .arguments as _RadarrAddMovieDetailsArguments?;
+    if (arguments == null) {
       return LunaInvalidRoute(
         title: 'radarr.AddMovie'.tr(),
         message: 'radarr.MovieNotFound'.tr(),
@@ -79,7 +80,7 @@ class _State extends State<_Widget>
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar(),
+        appBar: _appBar() as PreferredSizeWidget?,
         body: _body(),
         bottomNavigationBar: const RadarrAddMovieDetailsActionBar(),
       ),
@@ -97,9 +98,9 @@ class _State extends State<_Widget>
     return FutureBuilder(
       future: Future.wait(
         [
-          context.watch<RadarrState>().rootFolders,
-          context.watch<RadarrState>().qualityProfiles,
-          context.watch<RadarrState>().tags,
+          context.watch<RadarrState>().rootFolders!,
+          context.watch<RadarrState>().qualityProfiles!,
+          context.watch<RadarrState>().tags!,
         ],
       ),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
@@ -111,16 +112,14 @@ class _State extends State<_Widget>
               snapshot.stackTrace,
             );
           }
-          return LunaMessage.error(
-            onTap: _refreshKey.currentState?.show,
-          );
+          return LunaMessage.error(onTap: _refreshKey.currentState!.show);
         }
         if (snapshot.hasData) {
           return _content(
             context,
-            rootFolders: snapshot.data[0],
-            qualityProfiles: snapshot.data[1],
-            tags: snapshot.data[2],
+            rootFolders: snapshot.data![0] as List<RadarrRootFolder>?,
+            qualityProfiles: snapshot.data![1] as List<RadarrQualityProfile>?,
+            tags: snapshot.data![2] as List<RadarrTag>?,
           );
         }
         return const LunaLoader();
@@ -130,9 +129,9 @@ class _State extends State<_Widget>
 
   Widget _content(
     BuildContext context, {
-    List<RadarrRootFolder> rootFolders,
-    List<RadarrQualityProfile> qualityProfiles,
-    List<RadarrTag> tags,
+    List<RadarrRootFolder>? rootFolders,
+    List<RadarrQualityProfile>? qualityProfiles,
+    List<RadarrTag>? tags,
   }) {
     context.read<RadarrAddMovieDetailsState>().initializeAvailability();
     context

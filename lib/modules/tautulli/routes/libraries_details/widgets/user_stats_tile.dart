@@ -6,8 +6,8 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   final TautulliLibraryUserStats user;
 
   const TautulliLibrariesDetailsUserStatsTile({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
       posterUrl:
           context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
       posterHeaders:
-          context.watch<TautulliState>().headers.cast<String, String>(),
+          context.watch<TautulliState>().headers!.cast<String, String>(),
       posterPlaceholderIcon: LunaIcons.USER,
       title: user.friendlyName,
       body: [
@@ -34,8 +34,5 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   }
 
   Future<void> _onTap(BuildContext context) =>
-      TautulliUserDetailsRouter().navigateTo(
-        context,
-        userId: user.userId,
-      );
+      TautulliUserDetailsRouter().navigateTo(context, user.userId!);
 }

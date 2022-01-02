@@ -6,8 +6,8 @@ class RadarrReleasesAppBarFilterButton extends StatefulWidget {
   final ScrollController controller;
 
   const RadarrReleasesAppBarFilterButton({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override

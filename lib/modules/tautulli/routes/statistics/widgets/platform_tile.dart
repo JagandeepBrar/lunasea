@@ -6,8 +6,8 @@ class TautulliStatisticsPlatformTile extends StatefulWidget {
   final Map<String, dynamic> data;
 
   const TautulliStatisticsPlatformTile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override

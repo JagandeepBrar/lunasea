@@ -200,5 +200,9 @@
     "settings.DefaultOptions": "Öntanımlı Seçenekler",
     "settings.SortDirection": "Sıralama Yönü",
     "settings.FilterCategory": "Süzme Kategorisi",
-    "settings.SortCategory": "Sıralama Kategorisi"
+    "settings.SortCategory": "Sıralama Kategorisi",
+    "settings.Network": "Ağ",
+    "settings.TLSCertificateValidation": "TLS Sertifika Doğrulaması",
+    "settings.NetworkDescription": "Ağ Özelliklerini Özelleştirin",
+    "settings.TLSCertificateValidationDescription": "TLS Bağlantılarında Sertifikaları Doğrulayın"
 }

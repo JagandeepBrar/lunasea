@@ -9,20 +9,18 @@ class RadarrMoviesEditTagsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<RadarrMoviesEditState, List<RadarrTag>>(
-      selector: (_, state) => state.tags,
-      builder: (context, tags, _) => LunaBlock(
-        title: 'radarr.Tags'.tr(),
-        body: [
-          TextSpan(
-            text: tags.isEmpty
-                ? LunaUI.TEXT_EMDASH
-                : tags.map((e) => e.label).join(', '),
-          ),
-        ],
-        trailing: const LunaIconButton.arrow(),
-        onTap: () async => await RadarrDialogs().setEditTags(context),
-      ),
+    List<RadarrTag> _tags = context.watch<RadarrMoviesEditState>().tags;
+    return LunaBlock(
+      title: 'radarr.Tags'.tr(),
+      body: [
+        TextSpan(
+          text: _tags.isEmpty
+              ? LunaUI.TEXT_EMDASH
+              : _tags.map((e) => e.label).join(', '),
+        ),
+      ],
+      trailing: const LunaIconButton.arrow(),
+      onTap: () async => await RadarrDialogs().setEditTags(context),
     );
   }
 }

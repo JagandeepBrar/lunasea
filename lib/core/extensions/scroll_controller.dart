@@ -7,8 +7,9 @@ extension ScrollControllerExtension on ScrollController {
     if (this.hasClients)
       this.animateTo(
         0.00,
-        duration:
-            const Duration(milliseconds: LunaUI.ANIMATION_SPEED_SCROLLING),
+        duration: const Duration(
+          milliseconds: LunaUI.ANIMATION_SPEED_SCROLLING,
+        ),
         curve: Curves.easeInOutQuart,
       );
   }

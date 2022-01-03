@@ -80,18 +80,16 @@ class SonarrSeriesEditState extends ChangeNotifier {
     );
   }
 
-  SonarrLanguageProfile? _languageProfile;
-  SonarrLanguageProfile get languageProfile => _languageProfile!;
+  late SonarrLanguageProfile _languageProfile;
+  SonarrLanguageProfile get languageProfile => _languageProfile;
   set languageProfile(SonarrLanguageProfile languageProfile) {
     _languageProfile = languageProfile;
     notifyListeners();
   }
 
-  void initializeLanguageProfile(
-      List<SonarrLanguageProfile?> languageProfiles) {
+  void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
     _languageProfile = languageProfiles.firstWhere(
-      (profile) => profile!.id == series!.languageProfileId,
-      orElse: () => languageProfiles.isEmpty ? null : languageProfiles[0],
+      (p) => p.id == series!.languageProfileId,
     );
   }
 

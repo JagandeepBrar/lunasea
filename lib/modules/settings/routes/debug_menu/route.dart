@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'Info',
           onTap: () async => showLunaInfoSnackBar(
             title: 'Info',
-            message: _E1().nested?.nested.lunaSafeTest(),
+            message: null,
           ),
         ),
         LunaBlock(
@@ -77,20 +77,4 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ],
     );
   }
-}
-
-class _E1 {
-  final _E2? nested;
-
-  _E1({
-    this.nested,
-  });
-}
-
-class _E2 {
-  final String? nested;
-
-  _E2({
-    this.nested,
-  });
 }

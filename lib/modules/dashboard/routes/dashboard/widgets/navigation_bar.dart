@@ -18,11 +18,6 @@ class DashboardNavigationBar extends StatelessWidget {
     Icons.calendar_today_rounded,
   ];
 
-  static const List<IconData> iconsOutlined = [
-    Icons.workspaces_outline,
-    Icons.calendar_today_outlined,
-  ];
-
   const DashboardNavigationBar({
     Key? key,
     required this.pageController,
@@ -34,7 +29,6 @@ class DashboardNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
-      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

@@ -12,14 +12,14 @@ class LunaNavigationBarBadge extends Badge {
   }) : super(
           key: key,
           badgeColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_DIMMED),
-          elevation: 0,
+          elevation: LunaUI.ELEVATION,
           animationDuration:
               const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
           animationType: BadgeAnimationType.scale,
           shape: BadgeShape.circle,
           position: BadgePosition.topEnd(
-            top: -15,
-            end: -15,
+            top: -LunaUI.DEFAULT_MARGIN_SIZE,
+            end: -LunaUI.DEFAULT_MARGIN_SIZE,
           ),
           badgeContent: Text(
             text,
@@ -27,9 +27,7 @@ class LunaNavigationBarBadge extends Badge {
           ),
           child: Icon(
             icon,
-            color: isActive
-                ? LunaColours.accent.withOpacity(LunaUI.OPACITY_DIMMED)
-                : Colors.white,
+            color: isActive ? LunaColours.splash : Colors.white,
           ),
           showBadge: showBadge,
         );

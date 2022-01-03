@@ -3,28 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 extension StringExtension on String? {
-  /// Returns a "Safe" version.
-  ///
-  /// If the value is null, returns an emdash.
-  ///
-  /// Optionally can set [isEmptySafe] to true if an empty string should
-  /// be considered a "safe" string.
-  String lunaSafe([bool isEmptySafe = false]) {
-    if (this == null) return LunaUI.TEXT_EMDASH;
-    if (!isEmptySafe && this!.isEmpty) return LunaUI.TEXT_EMDASH;
-    return this!;
-  }
-
-  String lunaSafeTest([bool isEmptySafe = false]) {
-    if (this == null) return LunaUI.TEXT_BULLET;
-    if (!isEmptySafe && this!.isEmpty) return LunaUI.TEXT_BULLET;
-    return this!;
-  }
-
   /// Returns a string with all first letters of each word capitalized
   ///
   /// Default word splitting pattern is by a space.
-  String? lunaCapitalizeFirstLetters({Pattern pattern = ' '}) {
+  String? lunaCapitalizeFirstLetters([String pattern = ' ']) {
     if (this == null) return null;
     List<String> split = this!.split(pattern);
     for (var i = 0; i < split.length; i++) {
@@ -33,8 +15,9 @@ extension StringExtension on String? {
         s = s.toUpperCase();
       else
         s = s.substring(0, 1).toUpperCase() + s.substring(1);
+      split[i] = s;
     }
-    return split.join(pattern as String);
+    return split.join(pattern);
   }
 
   /// Convert a string into a slug format.

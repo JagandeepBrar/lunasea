@@ -50,11 +50,9 @@ class RadarrMoviesEditState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initializeQualityProfile(List<RadarrQualityProfile?> qualityProfiles) {
-    _qualityProfile = qualityProfiles.firstWhere(
-      (profile) => profile!.id == movie!.qualityProfileId,
-      orElse: () => qualityProfiles.isEmpty ? null : qualityProfiles[0],
-    );
+  void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
+    _qualityProfile = qualityProfiles
+        .firstWhere((profile) => profile.id == movie?.qualityProfileId);
   }
 
   late RadarrAvailability _availability;

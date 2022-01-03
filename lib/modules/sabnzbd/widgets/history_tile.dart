@@ -125,7 +125,7 @@ class _State extends State<SABnzbdHistoryTile> {
   Future<void> _delete() async {
     List values = await SABnzbdDialogs.deleteHistory(context);
     if (values[0]) {
-      SABnzbdAPI.from(Database.currentProfileObject!)
+      SABnzbdAPI.from(LunaProfile.current)
           .deleteHistory(widget.data.nzoId)
           .then((_) => _handleRefresh('History Deleted'))
           .catchError((error) => showLunaErrorSnackBar(
@@ -138,7 +138,7 @@ class _State extends State<SABnzbdHistoryTile> {
   Future<void> _password() async {
     List values = await SABnzbdDialogs.setPassword(context);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject!)
+      SABnzbdAPI.from(LunaProfile.current)
           .retryFailedJobPassword(widget.data.nzoId, values[1])
           .then((_) => _handleRefresh('Password Set / Retrying...'))
           .catchError((error) => showLunaErrorSnackBar(
@@ -148,7 +148,7 @@ class _State extends State<SABnzbdHistoryTile> {
   }
 
   Future<void> _retry() async {
-    SABnzbdAPI.from(Database.currentProfileObject!)
+    SABnzbdAPI.from(LunaProfile.current)
         .retryFailedJob(widget.data.nzoId)
         .then((_) => _handleRefresh('Retrying Job'))
         .catchError((error) => showLunaErrorSnackBar(

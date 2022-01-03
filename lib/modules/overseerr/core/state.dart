@@ -37,7 +37,7 @@ class OverseerrState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = Database.currentProfileObject!;
+    ProfileHiveObject _profile = LunaProfile.current;
     // Copy profile into state
     _enabled = _profile.overseerrEnabled ?? false;
     _host = _profile.overseerrHost ?? '';

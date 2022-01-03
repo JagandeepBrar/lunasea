@@ -63,7 +63,7 @@ class _State extends State<SABnzbdQueue>
   }
 
   Future _fetch() async {
-    SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject!);
+    SABnzbdAPI _api = SABnzbdAPI.from(LunaProfile.current);
     return _api.getStatusAndQueue().then((data) {
       try {
         _processStatus(data[0]);
@@ -137,7 +137,7 @@ class _State extends State<SABnzbdQueue>
             _queue!.remove(data);
             _queue!.insert(nIndex, data);
           });
-        await SABnzbdAPI.from(Database.currentProfileObject!)
+        await SABnzbdAPI.from(LunaProfile.current)
             .moveQueue(data.nzoId, nIndex)
             .then(
               (_) => showLunaSuccessSnackBar(

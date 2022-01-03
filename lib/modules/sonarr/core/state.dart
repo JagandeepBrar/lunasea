@@ -56,7 +56,7 @@ class SonarrState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = Database.currentProfileObject!;
+    ProfileHiveObject _profile = LunaProfile.current;
     // Copy profile into state
     _api = null;
     _enabled = _profile.sonarrEnabled ?? false;

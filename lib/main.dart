@@ -50,7 +50,7 @@ class LunaBIOS extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaState.providers(
       child: ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [
+        valueListenable: Database.lunasea.box.listenable(keys: [
           LunaDatabaseValue.THEME_AMOLED.key,
           LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),

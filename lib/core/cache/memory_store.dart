@@ -4,7 +4,6 @@ class LunaMemoryStore {
   LunaMemoryStore._();
 
   static final MemoryStore _store = newMemoryStore();
-  static Future<void> clear() async => _store.deleteAll();
 
   /// Returns a cache with the given ID.
   static Cache get({
@@ -17,7 +16,7 @@ class LunaMemoryStore {
     EventListenerMode? eventListenerMode,
     Future<dynamic> Function(String)? cacheLoader,
   }) {
-    if (fresh) remove(id!);
+    if (fresh) delete(id!);
     return _store.cache(
       cacheName: id,
       sampler: sampler,
@@ -29,11 +28,14 @@ class LunaMemoryStore {
     );
   }
 
-  /// Remove a cache from the store.
-  static Future<void> remove(String id) async => _store.delete(id);
+  /// Delete the cache from the store.
+  /// If no cache ID is supplied, deletes all caches in the store.
+  static Future<void> delete([String? id]) async {
+    if (id?.isEmpty ?? true) return _store.deleteAll();
+    return _store.delete(id!);
+  }
 
   /// Does a cache with the given ID exist?
-  ///
   /// A cache "exists" if it has at least 1 key.
   static Future<bool> exists(String id) async {
     int size = await _store.size(id);

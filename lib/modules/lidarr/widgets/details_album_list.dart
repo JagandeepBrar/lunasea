@@ -32,7 +32,7 @@ class _State extends State<LidarrDetailsAlbumList>
 
   Future<void> _refresh() async {
     _results = [];
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     setState(() {
       _future = _api.getArtistAlbums(widget.artistID);
     });

@@ -66,7 +66,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
           {
             values = await SABnzbdDialogs.customSpeedLimit(context);
             if (values[0])
-              SABnzbdAPI.from(Database.currentProfileObject!)
+              SABnzbdAPI.from(LunaProfile.current)
                   .setSpeedLimit(values[1])
                   .then((_) => showLunaSuccessSnackBar(
                         title: 'Speed Limit Set',
@@ -79,7 +79,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
             break;
           }
         default:
-          SABnzbdAPI.from(Database.currentProfileObject!)
+          SABnzbdAPI.from(LunaProfile.current)
               .setSpeedLimit(values[1])
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Speed Limit Set',

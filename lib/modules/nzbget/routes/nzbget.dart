@@ -17,8 +17,8 @@ class NZBGet extends StatefulWidget {
 class _State extends State<NZBGet> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
-  String _profileState = Database.currentProfileObject.toString();
-  NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject!);
+  String _profileState = LunaProfile.current.toString();
+  NZBGetAPI _api = NZBGetAPI.from(LunaProfile.current);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -43,8 +43,7 @@ class _State extends State<NZBGet> {
       extendBodyBehindAppBar: false,
       extendBody: false,
       onProfileChange: (_) {
-        if (_profileState != Database.currentProfileObject.toString())
-          _refreshProfile();
+        if (_profileState != LunaProfile.current.toString()) _refreshProfile();
       },
     );
   }
@@ -59,8 +58,8 @@ class _State extends State<NZBGet> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profilesBox.keys.fold([], (value, element) {
-      if (Database.profilesBox.get(element)?.nzbgetEnabled ?? false)
+        Database.profiles.box.keys.fold([], (value, element) {
+      if (Database.profiles.box.get(element)?.nzbgetEnabled ?? false)
         value.add(element);
       return value;
     });
@@ -111,7 +110,7 @@ class _State extends State<NZBGet> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject!;
+          ProfileHiveObject profile = LunaProfile.current;
           await profile.nzbgetHost
               ?.lunaOpenGenericLink(headers: profile.nzbgetHeaders);
           break;
@@ -202,8 +201,8 @@ class _State extends State<NZBGet> {
       Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
 
   void _refreshProfile() {
-    _api = NZBGetAPI.from(Database.currentProfileObject!);
-    _profileState = Database.currentProfileObject.toString();
+    _api = NZBGetAPI.from(LunaProfile.current);
+    _profileState = LunaProfile.current.toString();
     _refreshAllPages();
   }
 

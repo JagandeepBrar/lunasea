@@ -50,7 +50,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic profile, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -97,15 +97,15 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       case LunaModule.EXTERNAL_MODULES:
         throw Exception('External modules do not have a headers page');
       case LunaModule.LIDARR:
-        return Database.currentProfileObject!.lidarrHeaders;
+        return LunaProfile.current.lidarrHeaders;
       case LunaModule.RADARR:
-        return Database.currentProfileObject!.radarrHeaders;
+        return LunaProfile.current.radarrHeaders;
       case LunaModule.SONARR:
-        return Database.currentProfileObject!.sonarrHeaders;
+        return LunaProfile.current.sonarrHeaders;
       case LunaModule.SABNZBD:
-        return Database.currentProfileObject!.sabnzbdHeaders;
+        return LunaProfile.current.sabnzbdHeaders;
       case LunaModule.NZBGET:
-        return Database.currentProfileObject!.nzbgetHeaders;
+        return LunaProfile.current.nzbgetHeaders;
       case LunaModule.SEARCH:
         throw Exception('Search does not have a headers page');
       case LunaModule.SETTINGS:
@@ -113,9 +113,9 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       case LunaModule.WAKE_ON_LAN:
         throw Exception('Wake on LAN does not have a headers page');
       case LunaModule.OVERSEERR:
-        return Database.currentProfileObject!.overseerrHeaders;
+        return LunaProfile.current.overseerrHeaders;
       case LunaModule.TAUTULLI:
-        return Database.currentProfileObject!.tautulliHeaders;
+        return LunaProfile.current.tautulliHeaders;
     }
   }
 

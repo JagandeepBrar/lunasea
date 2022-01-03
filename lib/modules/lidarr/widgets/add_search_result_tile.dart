@@ -22,7 +22,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         customBodyMaxLines: 3,
         trailing: alreadyAdded ? null : const LunaIconButton.arrow(),
         posterIsSquare: true,
-        posterHeaders: Database.currentProfileObject!.getLidarr()['headers'],
+        posterHeaders: LunaProfile.current.getLidarr()['headers'],
         posterPlaceholderIcon: LunaIcons.USER,
         posterUrl: _posterUrl,
         onTap: () async => _enterDetails(context),

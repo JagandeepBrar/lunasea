@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.indexersBox.listenable(),
+      valueListenable: Database.indexers.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -67,13 +67,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _indexerSection() => [
-        if (Database.indexersBox.isEmpty)
+        if (Database.indexers.box.isEmpty)
           const LunaMessage(text: 'No Indexers Found'),
         ..._indexers,
       ];
 
   List<Widget> get _indexers {
-    List<IndexerHiveObject> indexers = Database.indexersBox.values.toList();
+    List<IndexerHiveObject> indexers = Database.indexers.box.values.toList();
     indexers.sort((a, b) =>
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(

@@ -43,7 +43,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _drawer() => LunaDrawer(page: LunaModule.SEARCH.key);
 
   Widget _body() {
-    if (Database.indexersBox.isEmpty) {
+    if (Database.indexers.box.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.SEARCH.name,
@@ -57,9 +57,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   List get _list {
     List<SearchIndexerTile> list = List.generate(
-      Database.indexersBox.length,
+      Database.indexers.box.length,
       (index) => SearchIndexerTile(
-        indexer: Database.indexersBox.getAt(index),
+        indexer: Database.indexers.box.getAt(index),
       ),
     );
     list.sort(

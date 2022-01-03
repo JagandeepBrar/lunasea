@@ -46,7 +46,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
 
   Future<void> _executeNZBGet(
       BuildContext context, NewznabResultData data) async {
-    NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject!);
+    NZBGetAPI api = NZBGetAPI.from(LunaProfile.current);
     await api
         .uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(
@@ -65,7 +65,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
 
   Future<void> _executeSABnzbd(
       BuildContext context, NewznabResultData data) async {
-    SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject!);
+    SABnzbdAPI api = SABnzbdAPI.from(LunaProfile.current);
     await api
         .uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(

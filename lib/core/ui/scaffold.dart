@@ -44,7 +44,7 @@ class LunaScaffold extends StatelessWidget {
 
   Widget get scaffold {
     return ValueListenableBuilder(
-      valueListenable: Database.lunaSeaBox.listenable(
+      valueListenable: Database.lunasea.box.listenable(
         keys: [LunaDatabaseValue.ENABLED_PROFILE.key],
       ),
       builder: (context, dynamic _, __) {

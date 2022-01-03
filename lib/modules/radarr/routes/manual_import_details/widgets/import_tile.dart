@@ -150,11 +150,12 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
       onTap: () async => LunaDialogs().showRejections(
         context,
         context
-            .read<RadarrManualImportDetailsTileState>()
-            .manualImport
-            .rejections
-            ?.map<String>((rejection) => rejection.reason!)
-            .toList(),
+                .read<RadarrManualImportDetailsTileState>()
+                .manualImport
+                .rejections
+                ?.map<String>((rejection) => rejection.reason!)
+                .toList() ??
+            [],
       ),
     );
   }

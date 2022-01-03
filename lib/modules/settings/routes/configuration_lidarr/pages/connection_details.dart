@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject!.lidarrHost ?? '';
+    String host = LunaProfile.current.lidarrHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -76,8 +76,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: host,
         );
         if (_values.item1) {
-          Database.currentProfileObject!.lidarrHost = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.lidarrHost = _values.item2;
+          LunaProfile.current.save();
           context.read<LidarrState>().reset();
         }
       },
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject!.lidarrKey ?? '';
+    String apiKey = LunaProfile.current.lidarrKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -103,8 +103,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: apiKey,
         );
         if (_values.item1) {
-          Database.currentProfileObject!.lidarrKey = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.lidarrKey = _values.item2;
+          LunaProfile.current.save();
           context.read<LidarrState>().reset();
         }
       },
@@ -116,7 +116,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject!;
+        ProfileHiveObject _profile = LunaProfile.current;
         if (_profile.lidarrHost == null || _profile.lidarrHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
@@ -135,7 +135,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        LidarrAPI.from(Database.currentProfileObject!)
+        LidarrAPI.from(LunaProfile.current)
             .testConnection()
             .then(
               (_) => showLunaSuccessSnackBar(

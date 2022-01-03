@@ -13,7 +13,7 @@ class WakeOnLANAPI {
   });
 
   factory WakeOnLANAPI.fromProfile() {
-    ProfileHiveObject profile = Database.currentProfileObject!;
+    ProfileHiveObject profile = LunaProfile.current;
     return WakeOnLANAPI._internal(
       enabled: profile.wakeOnLANEnabled,
       broadcastAddress: profile.wakeOnLANBroadcastAddress,

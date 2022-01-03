@@ -18,7 +18,7 @@ class HeaderUtility {
       Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
       _headers.remove(key);
       headers = _headers;
-      Database.currentProfileObject!.save();
+      LunaProfile.current.save();
       indexer?.save();
       showLunaSuccessSnackBar(
         title: 'settings.HeaderDeleted'.tr(),
@@ -67,7 +67,7 @@ class HeaderUtility {
       Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
       _headers[results.item2] = results.item3;
       headers = _headers;
-      Database.currentProfileObject!.save();
+      LunaProfile.current.save();
       indexer?.save();
       showLunaSuccessSnackBar(
         title: 'settings.HeaderAdded'.tr(),
@@ -91,7 +91,7 @@ class HeaderUtility {
       );
       _headers['Authorization'] = 'Basic $_auth';
       headers = _headers;
-      Database.currentProfileObject!.save();
+      LunaProfile.current.save();
       indexer?.save();
       showLunaSuccessSnackBar(
         title: 'settings.HeaderAdded'.tr(),

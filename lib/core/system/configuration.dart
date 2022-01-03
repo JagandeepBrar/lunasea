@@ -10,14 +10,14 @@ class LunaConfiguration {
   /// Returns a list of all profiles converted to a map.
   List<Map<String, dynamic>> _getProfiles() {
     List<Map<String, dynamic>> _data = [];
-    for (var key in Database.profilesBox.keys)
-      _data.add(Database.profilesBox.get(key)!.toMap());
+    for (var key in Database.profiles.box.keys)
+      _data.add(Database.profiles.box.get(key)!.toMap());
     return _data;
   }
 
   /// Given a list of map objects, creates or updates profiles for each object.
   void _setProfiles(List data) {
-    Box<dynamic> box = Database.profilesBox;
+    Box<dynamic> box = Database.profiles.box;
     for (Map profile in data)
       box.put(profile['key'], ProfileHiveObject.fromMap(profile));
   }
@@ -25,28 +25,28 @@ class LunaConfiguration {
   /// Returns a list of all indexers converted to a map.
   List<Map<String, dynamic>> _getIndexers() {
     List<Map<String, dynamic>> _data = [];
-    for (var key in Database.indexersBox.keys)
-      _data.add(Database.indexersBox.get(key)!.toMap());
+    for (var key in Database.indexers.box.keys)
+      _data.add(Database.indexers.box.get(key)!.toMap());
     return _data;
   }
 
   /// Given a list of map objects, creates or updates indexers for each object.
   void _setIndexers(List data) {
-    Box<dynamic> box = Database.indexersBox;
+    Box<dynamic> box = Database.indexers.box;
     for (Map indexer in data) box.add(IndexerHiveObject.fromMap(indexer));
   }
 
   /// Returns a list of all external modules converted to a map.
   List<Map<String, dynamic>> _getExternalModules() {
     List<Map<String, dynamic>> _data = [];
-    for (var key in Database.externalModulesBox.keys)
-      _data.add(Database.externalModulesBox.get(key)!.toMap());
+    for (var key in Database.externalModules.box.keys)
+      _data.add(Database.externalModules.box.get(key)!.toMap());
     return _data;
   }
 
   /// Given a list of map objects, creates or updates external modules for each object.
   void _setExternalModules(List data) {
-    Box<dynamic> box = Database.externalModulesBox;
+    Box<dynamic> box = Database.externalModules.box;
     for (Map module in data) box.add(ExternalModuleHiveObject.fromMap(module));
   }
 
@@ -60,7 +60,7 @@ class LunaConfiguration {
   /// On a failed import, resets LunaSea back to the default/base state
   Future<void> import(BuildContext context, String data) async {
     Map config = json.decode(data);
-    Database().clearAllBoxes();
+    Database().clearAll();
     try {
       if (config[_PROFILES_KEY] != null) _setProfiles(config[_PROFILES_KEY]);
       if (config[_INDEXERS_KEY] != null) _setIndexers(config[_INDEXERS_KEY]);
@@ -78,7 +78,7 @@ class LunaConfiguration {
         error,
         stack,
       );
-      Database().setDefaults();
+      Database().bootstrap();
     }
     // Reset the entire app's state
     LunaState.reset(context);

@@ -14,7 +14,7 @@ extension AlertsDatabaseValueExtension on AlertsDatabaseValue {
   }
 
   dynamic get data {
-    final box = Database.alertsBox;
+    final box = Database.alerts.box;
     switch (this) {
       case AlertsDatabaseValue.CHANGELOG:
         return box.get(this.key, defaultValue: '');
@@ -22,7 +22,7 @@ extension AlertsDatabaseValueExtension on AlertsDatabaseValue {
   }
 
   void put(dynamic value) {
-    final box = Database.alertsBox;
+    final box = Database.alerts.box;
     switch (this) {
       case AlertsDatabaseValue.CHANGELOG:
         if (value.runtimeType == String) box.put(this.key, value);
@@ -34,7 +34,7 @@ extension AlertsDatabaseValueExtension on AlertsDatabaseValue {
     required Widget Function(BuildContext, dynamic, Widget?) builder,
   }) =>
       ValueListenableBuilder(
-        valueListenable: Database.alertsBox.listenable(keys: [this.key]),
+        valueListenable: Database.alerts.box.listenable(keys: [this.key]),
         builder: builder,
       );
 }

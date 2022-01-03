@@ -49,16 +49,16 @@ class _State extends State<LidarrMissingTile> {
       onTap: () async => _enterAlbum(),
       onLongPress: () async => _enterArtist(),
       posterUrl: widget.entry.albumCoverURI(),
-      posterHeaders: Database.currentProfileObject!.getLidarr()['headers'],
+      posterHeaders: LunaProfile.current.getLidarr()['headers'],
       posterIsSquare: true,
       posterPlaceholderIcon: LunaIcons.MUSIC,
       backgroundUrl: widget.entry.fanartURI(),
-      backgroundHeaders: Database.currentProfileObject!.getLidarr()['headers'],
+      backgroundHeaders: LunaProfile.current.getLidarr()['headers'],
     );
   }
 
   Future<void> _search() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .searchAlbums([widget.entry.albumID])
         .then((_) => showLunaSuccessSnackBar(

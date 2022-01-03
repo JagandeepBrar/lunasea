@@ -31,7 +31,7 @@ class _State extends State<DashboardModulesRoute>
   }
 
   Widget _list() {
-    if (!(Database.currentProfileObject!.anythingEnabled)) {
+    if (!(LunaProfile.current.anythingEnabled)) {
       return LunaMessage(
         text: 'lunasea.NoModulesEnabled'.tr(),
         buttonText: 'lunasea.GoToSettings'.tr(),

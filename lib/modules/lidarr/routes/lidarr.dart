@@ -16,8 +16,8 @@ class Lidarr extends StatefulWidget {
 class _State extends State<Lidarr> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
-  String _profileState = Database.currentProfileObject.toString();
-  LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+  String _profileState = LunaProfile.current.toString();
+  LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -41,8 +41,7 @@ class _State extends State<Lidarr> {
       appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       onProfileChange: (_) {
-        if (_profileState != Database.currentProfileObject.toString())
-          _refreshProfile();
+        if (_profileState != LunaProfile.current.toString()) _refreshProfile();
       },
     );
   }
@@ -82,8 +81,8 @@ class _State extends State<Lidarr> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profilesBox.keys.fold([], (value, element) {
-      if (Database.profilesBox.get(element)?.lidarrEnabled ?? false)
+        Database.profiles.box.keys.fold([], (value, element) {
+      if (Database.profiles.box.get(element)?.lidarrEnabled ?? false)
         value.add(element);
       return value;
     });
@@ -144,7 +143,7 @@ class _State extends State<Lidarr> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject!;
+          ProfileHiveObject profile = LunaProfile.current;
           await profile.lidarrHost
               ?.lunaOpenGenericLink(headers: profile.lidarrHeaders);
           break;
@@ -196,8 +195,8 @@ class _State extends State<Lidarr> {
   }
 
   void _refreshProfile() {
-    _api = LidarrAPI.from(Database.currentProfileObject!);
-    _profileState = Database.currentProfileObject.toString();
+    _api = LidarrAPI.from(LunaProfile.current);
+    _profileState = LunaProfile.current.toString();
     _refreshAllPages();
   }
 

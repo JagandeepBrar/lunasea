@@ -24,7 +24,7 @@ class DashboardState extends LunaModuleState {
   CalendarAPI? _api;
   CalendarAPI? get api => _api;
   void resetAPI() {
-    ProfileHiveObject? _profile = Database.currentProfileObject;
+    ProfileHiveObject? _profile = LunaProfile.current;
     _api = CalendarAPI.from(_profile);
     notifyListeners();
   }

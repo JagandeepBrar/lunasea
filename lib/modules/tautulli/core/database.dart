@@ -63,12 +63,12 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
   }
 
   dynamic get data {
-    return Database.lunaSeaBox.get(this.key, defaultValue: this._defaultValue);
+    return Database.lunasea.box.get(this.key, defaultValue: this._defaultValue);
   }
 
   void put(dynamic value) {
     if (this._isTypeValid(value)) {
-      Database.lunaSeaBox.put(this.key, value);
+      Database.lunasea.box.put(this.key, value);
     } else {
       LunaLogger().warning(
         this.runtimeType.toString(),
@@ -84,7 +84,7 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
   }) {
     return ValueListenableBuilder(
       key: key,
-      valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+      valueListenable: Database.lunasea.box.listenable(keys: [this.key]),
       builder: builder,
     );
   }

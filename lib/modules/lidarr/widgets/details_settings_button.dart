@@ -26,7 +26,8 @@ class _State extends State<LidarrDetailsSettingsButton> {
       );
 
   Future<void> _handlePopup(BuildContext context) async {
-    List<dynamic> values = await LidarrDialogs.editArtist(context, widget.data!);
+    List<dynamic> values =
+        await LidarrDialogs.editArtist(context, widget.data!);
     if (values[0])
       switch (values[1]) {
         case 'refresh_artist':
@@ -57,7 +58,7 @@ class _State extends State<LidarrDetailsSettingsButton> {
   }
 
   Future<void> _refreshArtist(BuildContext context) async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .refreshArtist(widget.data!.artistID)
         .then((_) => showLunaSuccessSnackBar(
@@ -67,7 +68,7 @@ class _State extends State<LidarrDetailsSettingsButton> {
   }
 
   Future<void> _removeArtist(BuildContext context) async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     List values = await LidarrDialogs.deleteArtist(context);
     if (values[0]) {
       if (values[1]) {

@@ -33,7 +33,7 @@ class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
       );
 
   Future<SABnzbdStatisticsData> _fetch() async =>
-      SABnzbdAPI.from(Database.currentProfileObject!).getStatistics();
+      SABnzbdAPI.from(LunaProfile.current).getStatistics();
 
   Future<void> _refresh() async {
     if (mounted)

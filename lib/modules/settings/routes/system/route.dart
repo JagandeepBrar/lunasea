@@ -61,7 +61,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           String version = 'Loading${LunaUI.TEXT_ELLIPSIS}';
           if (snapshot.hasError) version = 'Unknown';
           if (snapshot.hasData)
-            version = '${snapshot.data!.version} (${snapshot.data!.buildNumber})';
+            version =
+                '${snapshot.data!.version} (${snapshot.data!.buildNumber})';
           return LunaBlock(
             title: 'Version: $version',
             body: const [TextSpan(text: 'View Recent Changes')],
@@ -106,7 +107,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         bool result = await SettingsDialogs().clearConfiguration(context);
         if (result) {
-          Database().setDefaults(clearEverything: true);
+          Database().bootstrap();
           LunaFirebaseAuth().signOut();
           LunaState.reset(context);
           showLunaSuccessSnackBar(

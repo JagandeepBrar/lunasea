@@ -55,14 +55,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.NZBGET.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject!.nzbgetEnabled ?? false,
+          value: LunaProfile.current.nzbgetEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject!.nzbgetEnabled = value;
-            Database.currentProfileObject!.save();
+            LunaProfile.current.nzbgetEnabled = value;
+            LunaProfile.current.save();
             context.read<NZBGetState>().reset();
           },
         ),

@@ -27,7 +27,7 @@ class _State extends State<SABnzbdHistory>
   @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
-    final _api = SABnzbdAPI.from(Database.currentProfileObject!);
+    final _api = SABnzbdAPI.from(LunaProfile.current);
     if (mounted)
       setState(() {
         _future = _api.getHistory();

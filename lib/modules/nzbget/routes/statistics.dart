@@ -35,7 +35,7 @@ class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
   }
 
   Future<bool> _fetch() async {
-    final _api = NZBGetAPI.from(Database.currentProfileObject!);
+    final _api = NZBGetAPI.from(LunaProfile.current);
     return _fetchStatistics(_api)
         .then((_) => _fetchLogs(_api))
         .then((_) => true);

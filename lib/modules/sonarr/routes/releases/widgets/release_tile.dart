@@ -171,6 +171,6 @@ class _State extends State<SonarrReleasesTile> {
         .whenComplete(() async => setDownloadState(LunaLoadingState.INACTIVE));
   }
 
-  Future<void> _showWarnings() async =>
-      await LunaDialogs().showRejections(context, widget.release.rejections);
+  Future<void> _showWarnings() async => await LunaDialogs()
+      .showRejections(context, widget.release.rejections ?? []);
 }

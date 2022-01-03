@@ -9,11 +9,12 @@ class LunaLogger {
 
   /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
   void initialize() {
-    FlutterError.onError =
-        (FlutterErrorDetails details, {bool forceReport = false}) async {
-      if (kDebugMode)
-        FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
-      Zone.current.handleUncaughtError(details.exception, details.stack!);
+    FlutterError.onError = (details) async {
+      if (kDebugMode) FlutterError.dumpErrorToConsole(details);
+      Zone.current.handleUncaughtError(
+        details.exception,
+        details.stack ?? StackTrace.current,
+      );
     };
     _compactDatabase();
   }
@@ -22,8 +23,8 @@ class LunaLogger {
   ///
   /// If the logs box has over [count] entries, will only store the latest 100.
   Future<void> _compactDatabase([int count = 100]) async {
-    if (Database.logsBox.keys.length <= count) return;
-    List<LunaLogHiveObject> logs = Database.logsBox.values.toList();
+    if (Database.logs.box.keys.length <= count) return;
+    List<LunaLogHiveObject> logs = Database.logs.box.values.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
@@ -32,7 +33,7 @@ class LunaLogger {
   Future<String> exportLogs() async {
     // Get maps/JSON of all logs
     List<Map<String, dynamic>> logs = [];
-    Database.logsBox.values.forEach((log) => logs.add(log.toMap()));
+    Database.logs.box.values.forEach((log) => logs.add(log.toMap()));
     // Create a string
     JsonEncoder encoder = JsonEncoder.withIndent(' '.repeat(4));
     String data = encoder.convert(logs);
@@ -40,7 +41,7 @@ class LunaLogger {
   }
 
   /// Clear all logs currently saved to the database.
-  Future<void> clearLogs() async => Database().clearLogsBox();
+  Future<void> clearLogs() async => Database.logs.clear();
 
   /// Log a new debug-level log.
   void debug(String message) {
@@ -48,7 +49,7 @@ class LunaLogger {
       type: LunaLogType.WARNING,
       message: message,
     );
-    Database.logsBox.add(log);
+    Database.logs.box.add(log);
   }
 
   /// Log a new warning-level log.
@@ -59,7 +60,7 @@ class LunaLogger {
       methodName: methodName,
       message: message,
     );
-    Database.logsBox.add(log);
+    Database.logs.box.add(log);
   }
 
   /// Log a new error-level log.
@@ -76,7 +77,7 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      Database.logsBox.add(log);
+      Database.logs.box.add(log);
     }
   }
 
@@ -93,7 +94,7 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      Database.logsBox.add(log);
+      Database.logs.box.add(log);
     }
   }
 }

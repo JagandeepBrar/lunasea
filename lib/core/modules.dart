@@ -164,25 +164,25 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SETTINGS:
         return true;
       case LunaModule.LIDARR:
-        return Database.currentProfileObject?.lidarrEnabled ?? false;
+        return LunaProfile.current.lidarrEnabled ?? false;
       case LunaModule.NZBGET:
-        return Database.currentProfileObject?.nzbgetEnabled ?? false;
+        return LunaProfile.current.nzbgetEnabled ?? false;
       case LunaModule.OVERSEERR:
-        return Database.currentProfileObject?.overseerrEnabled ?? false;
+        return LunaProfile.current.overseerrEnabled ?? false;
       case LunaModule.RADARR:
-        return Database.currentProfileObject?.radarrEnabled ?? false;
+        return LunaProfile.current.radarrEnabled ?? false;
       case LunaModule.SABNZBD:
-        return Database.currentProfileObject?.sabnzbdEnabled ?? false;
+        return LunaProfile.current.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
-        return Database.indexersBox.isNotEmpty;
+        return Database.indexers.box.isNotEmpty;
       case LunaModule.SONARR:
-        return Database.currentProfileObject?.sonarrEnabled ?? false;
+        return LunaProfile.current.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:
-        return Database.currentProfileObject?.tautulliEnabled ?? false;
+        return LunaProfile.current.tautulliEnabled ?? false;
       case LunaModule.WAKE_ON_LAN:
-        return Database.currentProfileObject?.wakeOnLANEnabled ?? false;
+        return LunaProfile.current.wakeOnLANEnabled ?? false;
       case LunaModule.EXTERNAL_MODULES:
-        return Database.externalModulesBox.isNotEmpty;
+        return Database.externalModules.box.isNotEmpty;
     }
   }
 
@@ -194,29 +194,29 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.DASHBOARD:
         return {};
       case LunaModule.LIDARR:
-        return Database.currentProfileObject!.getLidarr();
+        return LunaProfile.current.getLidarr();
       case LunaModule.NZBGET:
-        return Database.currentProfileObject!.getNZBGet();
+        return LunaProfile.current.getNZBGet();
       case LunaModule.OVERSEERR:
-        return Database.currentProfileObject!.getOverseerr();
+        return LunaProfile.current.getOverseerr();
       case LunaModule.RADARR:
-        return Database.currentProfileObject!.getRadarr();
+        return LunaProfile.current.getRadarr();
       case LunaModule.SABNZBD:
-        return Database.currentProfileObject!.getSABnzbd();
+        return LunaProfile.current.getSABnzbd();
       case LunaModule.SEARCH:
-        return Database.indexersBox
+        return Database.indexers.box
             .toMap()
             .map((key, value) => MapEntry(key.toString(), value.toMap()));
       case LunaModule.SETTINGS:
         return {};
       case LunaModule.SONARR:
-        return Database.currentProfileObject!.getSonarr();
+        return LunaProfile.current.getSonarr();
       case LunaModule.TAUTULLI:
-        return Database.currentProfileObject!.getTautulli();
+        return LunaProfile.current.getTautulli();
       case LunaModule.WAKE_ON_LAN:
-        return Database.currentProfileObject!.getWakeOnLAN();
+        return LunaProfile.current.getWakeOnLAN();
       case LunaModule.EXTERNAL_MODULES:
-        return Database.externalModulesBox
+        return Database.externalModules.box
             .toMap()
             .map((key, value) => MapEntry(key.toString(), value.toMap()));
     }
@@ -343,30 +343,30 @@ extension LunaModuleExtension on LunaModule {
   }
 
   /// The global provider/state for the module.
-  LunaModuleState? state(BuildContext? context) {
+  LunaModuleState? state(BuildContext context) {
     switch (this) {
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.DASHBOARD:
-        return context!.read<DashboardState>();
+        return context.read<DashboardState>();
       case LunaModule.SETTINGS:
-        return context!.read<SettingsState>();
+        return context.read<SettingsState>();
       case LunaModule.SEARCH:
-        return context!.read<SearchState>();
+        return context.read<SearchState>();
       case LunaModule.LIDARR:
-        return context!.read<LidarrState>();
+        return context.read<LidarrState>();
       case LunaModule.RADARR:
-        return context!.read<RadarrState>();
+        return context.read<RadarrState>();
       case LunaModule.SONARR:
-        return context!.read<SonarrState>();
+        return context.read<SonarrState>();
       case LunaModule.NZBGET:
-        return context!.read<NZBGetState>();
+        return context.read<NZBGetState>();
       case LunaModule.SABNZBD:
-        return context!.read<SABnzbdState>();
+        return context.read<SABnzbdState>();
       case LunaModule.OVERSEERR:
-        return context!.read<OverseerrState>();
+        return context.read<OverseerrState>();
       case LunaModule.TAUTULLI:
-        return context!.read<TautulliState>();
+        return context.read<TautulliState>();
       case LunaModule.EXTERNAL_MODULES:
         return null;
     }
@@ -586,12 +586,12 @@ extension LunaModuleExtension on LunaModule {
 
   Widget informationBanner() {
     String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
-    void markSeen() => Database.alertsBox.put(key, false);
+    void markSeen() => Database.alerts.box.put(key, false);
 
     return ValueListenableBuilder(
-      valueListenable: Database.alertsBox.listenable(keys: [key]),
+      valueListenable: Database.alerts.box.listenable(keys: [key]),
       builder: (context, dynamic box, _) {
-        if (Database.alertsBox.get(key, defaultValue: true)) {
+        if (Database.alerts.box.get(key, defaultValue: true)) {
           return LunaBanner(
             dismissCallback: markSeen,
             headerText: this.name,

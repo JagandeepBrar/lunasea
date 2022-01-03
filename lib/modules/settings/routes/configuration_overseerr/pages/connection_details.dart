@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject!.overseerrHost ?? '';
+    String host = LunaProfile.current.overseerrHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -73,11 +73,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject!.overseerrHost ?? '',
+          prefill: LunaProfile.current.overseerrHost ?? '',
         );
         if (_values.item1) {
-          Database.currentProfileObject!.overseerrHost = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.overseerrHost = _values.item2;
+          LunaProfile.current.save();
           context.read<OverseerrState>().reset();
         }
       },
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject!.overseerrKey ?? '';
+    String apiKey = LunaProfile.current.overseerrKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -103,8 +103,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: apiKey,
         );
         if (_values.item1) {
-          Database.currentProfileObject!.overseerrKey = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.overseerrKey = _values.item2;
+          LunaProfile.current.save();
           context.read<OverseerrState>().reset();
         }
       },
@@ -116,7 +116,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = Database.currentProfileObject!;
+        ProfileHiveObject _profile = LunaProfile.current;
         if (_profile.overseerrHost == null || _profile.overseerrHost!.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',

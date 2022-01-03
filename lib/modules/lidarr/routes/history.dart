@@ -33,7 +33,7 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
 
   Future<void> _refresh() async {
     _results = [];
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     if (mounted)
       setState(() {
         _future = _api.getHistory();

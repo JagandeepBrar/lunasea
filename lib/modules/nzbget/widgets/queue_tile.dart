@@ -78,9 +78,7 @@ class _Helper {
   );
 
   Future<void> _pauseJob() async {
-    await NZBGetAPI.from(Database.currentProfileObject!)
-        .pauseSingleJob(data.id)
-        .then((_) {
+    await NZBGetAPI.from(LunaProfile.current).pauseSingleJob(data.id).then((_) {
       showLunaSuccessSnackBar(title: 'Job Paused', message: data.name);
       refresh();
     }).catchError((error) {
@@ -92,7 +90,7 @@ class _Helper {
   }
 
   Future<void> _resumeJob() async {
-    await NZBGetAPI.from(Database.currentProfileObject!)
+    await NZBGetAPI.from(LunaProfile.current)
         .resumeSingleJob(data.id)
         .then((_) {
       showLunaSuccessSnackBar(title: 'Job Resumed', message: data.name);
@@ -107,10 +105,10 @@ class _Helper {
 
   Future<void> _category() async {
     List<NZBGetCategoryData> categories =
-        await NZBGetAPI.from(Database.currentProfileObject!).getCategories();
+        await NZBGetAPI.from(LunaProfile.current).getCategories();
     List values = await NZBGetDialogs.changeCategory(context, categories);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject!)
+      await NZBGetAPI.from(LunaProfile.current)
           .setJobCategory(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -131,7 +129,7 @@ class _Helper {
   Future<void> _priority() async {
     List values = await NZBGetDialogs.changePriority(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject!)
+      await NZBGetAPI.from(LunaProfile.current)
           .setJobPriority(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -149,7 +147,7 @@ class _Helper {
   Future<void> _rename() async {
     List values = await NZBGetDialogs.renameJob(context, data.name);
     if (values[0])
-      NZBGetAPI.from(Database.currentProfileObject!)
+      NZBGetAPI.from(LunaProfile.current)
           .renameJob(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Renamed', message: values[1]);
@@ -165,9 +163,7 @@ class _Helper {
   Future<void> _delete() async {
     List values = await NZBGetDialogs.deleteJob(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject!)
-          .deleteJob(data.id)
-          .then((_) {
+      await NZBGetAPI.from(LunaProfile.current).deleteJob(data.id).then((_) {
         showLunaSuccessSnackBar(title: 'Job Deleted', message: data.name);
         refresh();
       }).catchError((error) {
@@ -181,7 +177,7 @@ class _Helper {
   Future<void> _password() async {
     List values = await NZBGetDialogs.setPassword(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject!)
+      await NZBGetAPI.from(LunaProfile.current)
           .setJobPassword(data.id, values[1])
           .then((_) {
         showLunaSuccessSnackBar(title: 'Job Password Set', message: data.name);

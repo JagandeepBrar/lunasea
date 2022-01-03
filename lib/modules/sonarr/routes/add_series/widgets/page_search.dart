@@ -101,7 +101,7 @@ class _State extends State<SonarrAddSeriesSearchPage>
         );
         return SonarrSeriesAddSearchResultTile(
           series: results[index],
-          exists: series[results[index].id!] != null,
+          exists: series[results[index].id] != null,
           isExcluded: exclusion != null,
         );
       },

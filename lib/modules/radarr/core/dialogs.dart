@@ -399,13 +399,15 @@ class RadarrDialogs {
                         Navigator.of(context, rootNavigator: true).pop(),
                   ),
                 ],
-                title: LunaDialog.title(text: 'Tags'),
+                title: LunaDialog.title(text: 'radarr.Tags'.tr()),
                 content: Builder(
                   builder: (context) {
-                    if ((snapshot.data?.length ?? 0) == 0)
+                    if (snapshot.data?.isEmpty ?? true)
                       return LunaDialog.content(
                         children: [
-                          LunaDialog.textContent(text: 'No Tags Found'),
+                          LunaDialog.textContent(
+                            text: 'radarr.NoTagsFound'.tr(),
+                          ),
                         ],
                       );
                     return LunaDialog.content(

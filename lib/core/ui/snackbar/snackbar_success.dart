@@ -9,7 +9,7 @@ Future<void> showLunaSuccessSnackBar({
 }) async =>
     showLunaSnackBar(
       title: title,
-      message: message.lunaSafe(),
+      message: lunaSafeString(message),
       type: LunaSnackbarType.SUCCESS,
       showButton: showButton,
       buttonText: buttonText,

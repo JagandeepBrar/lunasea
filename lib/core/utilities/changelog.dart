@@ -5,8 +5,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
-  String? _version;
-  String? _buildNumber;
+  String _version = '';
+  String _buildNumber = '';
 
   @override
   Future<dynamic> show({
@@ -41,87 +41,32 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
   Widget builder(BuildContext context) {
     return LunaListViewModal(
       children: [
-        if (_version != null && _buildNumber != null)
-          LunaHeader(
-              text: '$_version ($_buildNumber)', subtitle: _changelog.motd),
-        if (_version == null || _buildNumber == null)
-          LunaHeader(text: 'LunaSea', subtitle: _changelog.motd),
-        if ((_changelog.changesNew?.length ?? 0) != 0)
-          const LunaHeader(text: 'New'),
-        if ((_changelog.changesNew?.length ?? 0) != 0)
-          LunaTableCard(
-            content: List<LunaTableContent>.generate(
-              _changelog.changesNew!.length,
-              (index) {
-                String? _body = _changelog.changesNew![index].changes
-                    .fold('',
-                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
-                    .trim();
-                return LunaTableContent(
-                  title: _changelog.changesNew![index].module,
-                  body: _body,
-                );
-              },
-            ),
-          ),
-        if ((_changelog.changesTweaks?.length ?? 0) != 0)
-          const LunaHeader(text: 'Tweaks'),
-        if ((_changelog.changesTweaks?.length ?? 0) != 0)
-          LunaTableCard(
-            content: List<LunaTableContent>.generate(
-              _changelog.changesTweaks!.length,
-              (index) {
-                String? _body = _changelog.changesTweaks![index].changes
-                    .fold('',
-                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
-                    .trim();
-                return LunaTableContent(
-                  title: _changelog.changesTweaks![index].module,
-                  body: _body,
-                );
-              },
-            ),
-          ),
-        if ((_changelog.changesFixes?.length ?? 0) != 0)
-          const LunaHeader(text: 'Fixes'),
-        if ((_changelog.changesFixes?.length ?? 0) != 0)
-          LunaTableCard(
-            content: List<LunaTableContent>.generate(
-                _changelog.changesFixes!.length, (index) {
-              String? _body = _changelog.changesFixes![index].changes
-                  .fold(
-                      '', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
-                  .trim();
-              return LunaTableContent(
-                title: _changelog.changesFixes![index].module,
-                body: _body,
-              );
-            }),
-          ),
-        if ((_changelog.changesPlatform?.length ?? 0) != 0)
-          const LunaHeader(text: 'Platform-Specific'),
-        if ((_changelog.changesPlatform?.length ?? 0) != 0)
-          LunaTableCard(
-            content: List<LunaTableContent>.generate(
-              _changelog.changesPlatform!.length,
-              (index) {
-                String? _body = _changelog.changesPlatform![index].changes
-                    .fold('',
-                        (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
-                    .trim();
-                return LunaTableContent(
-                  title: _changelog.changesPlatform![index].module,
-                  body: _body,
-                );
-              },
-            ),
-          ),
+        LunaHeader(
+          text: '$_version ($_buildNumber)',
+          subtitle: _changelog.motd,
+        ),
+        ..._buildChangeBlock(
+          'lunasea.New'.tr(),
+          _changelog.changesNew,
+        ),
+        ..._buildChangeBlock(
+          'lunasea.Tweaks'.tr(),
+          _changelog.changesTweaks,
+        ),
+        ..._buildChangeBlock(
+          'lunasea.Fixes'.tr(),
+          _changelog.changesFixes,
+        ),
+        ..._buildChangeBlock(
+          'lunasea.PlatformSpecific'.tr(),
+          _changelog.changesPlatform,
+        ),
         const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       ],
       actionBar: LunaBottomActionBar(
         actions: [
           LunaButton.text(
-            text: 'Full Changelog',
+            text: 'lunasea.FullChangelog'.tr(),
             icon: Icons.track_changes_rounded,
             onTap: LunaLinks.CHANGELOG.launch,
           ),
@@ -129,70 +74,93 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
       ),
     );
   }
+
+  List<Widget> _buildChangeBlock(String header, List<_Change> changes) {
+    if (changes.isEmpty) return [];
+    return [
+      LunaHeader(text: header),
+      LunaTableCard(
+        content: List<LunaTableContent>.generate(
+          changes.length,
+          (index) {
+            String? _body = changes[index]
+                .changes
+                .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                .trim();
+            return LunaTableContent(
+              title: changes[index].module,
+              body: _body,
+            );
+          },
+        ),
+      ),
+    ];
+  }
 }
 
 class _Changelog {
   String? motd;
-  List<_Change>? changesNew;
-  List<_Change>? changesTweaks;
-  List<_Change>? changesFixes;
-  List<_Change>? changesPlatform;
+  List<_Change> changesNew = [];
+  List<_Change> changesTweaks = [];
+  List<_Change> changesFixes = [];
+  List<_Change> changesPlatform = [];
 
   static _Changelog fromJson(Map<String, dynamic> json) {
     _Changelog changelog = _Changelog();
-    changelog.motd = json['motd'] ?? '';
-    changelog.changesNew = [];
-    if (json['new'] != null) {
-      (json['new'] as List).forEach(
-        (change) => changelog.changesNew!.add(_Change.fromJson(change)),
-      );
-    }
-    changelog.changesTweaks = [];
-    if (json['tweaks'] != null) {
-      (json['tweaks'] as List).forEach(
-        (change) => changelog.changesTweaks!.add(_Change.fromJson(change)),
-      );
-    }
-    changelog.changesFixes = [];
-    if (json['fixes'] != null) {
-      (json['fixes'] as List).forEach(
-        (change) => changelog.changesFixes!.add(_Change.fromJson(change)),
-      );
-    }
-    // macOS
-    changelog.changesPlatform = [];
     int _index = -1;
-    _index = (json['platform'] as List)
-        .indexWhere((element) => element['module'] == 'macOS');
-    if (Platform.isMacOS && json['platform'] != null && _index >= 0)
-      changelog.changesPlatform = [
-        _Change.fromJson(json['platform'][_index]),
-      ];
-    // Android
-    _index = (json['platform'] as List)
-        .indexWhere((element) => element['module'] == 'Android');
-    if (Platform.isAndroid && json['platform'] != null && _index >= 0)
-      changelog.changesPlatform = [
-        _Change.fromJson(json['platform'][_index]),
-      ];
-    // iOS
-    _index = (json['platform'] as List)
-        .indexWhere((element) => element['module'] == 'iOS');
-    if (Platform.isIOS && json['platform'] != null && _index >= 0)
-      changelog.changesPlatform = [
-        _Change.fromJson(json['platform'][_index]),
-      ];
+    List<dynamic>? data;
+
+    changelog.motd = json['motd'] ?? '';
+
+    data = json['new'];
+    data?.forEach((change) {
+      _Change _change = _Change.fromJson(change);
+      changelog.changesNew.add(_change);
+    });
+
+    data = json['tweaks'];
+    data?.forEach((change) {
+      _Change _change = _Change.fromJson(change);
+      changelog.changesTweaks.add(_change);
+    });
+
+    data = json['fixes'];
+    data?.forEach((change) {
+      _Change _change = _Change.fromJson(change);
+      changelog.changesFixes.add(_change);
+    });
+
+    _index = data?.indexWhere((e) => e['module'] == 'macOS') ?? -1;
+    if (Platform.isMacOS && _index >= 0) {
+      _Change _change = _Change.fromJson(data![_index]);
+      changelog.changesFixes.add(_change);
+    }
+
+    _index = data?.indexWhere((e) => e['module'] == 'Android') ?? -1;
+    if (Platform.isAndroid && _index >= 0) {
+      _Change _change = _Change.fromJson(data![_index]);
+      changelog.changesFixes.add(_change);
+    }
+
+    _index = data?.indexWhere((e) => e['module'] == 'iOS') ?? -1;
+    if (Platform.isIOS && _index >= 0) {
+      _Change _change = _Change.fromJson(data![_index]);
+      changelog.changesFixes.add(_change);
+    }
+
     return changelog;
   }
 }
 
 class _Change {
-  String? module;
+  late String module;
   late List<String> changes;
 
+  _Change._();
+
   static _Change fromJson(Map<String, dynamic> json) {
-    _Change change = _Change();
-    change.module = json['module'] ?? '';
+    _Change change = _Change._();
+    change.module = json['module']!;
     change.changes = (json['changes'] as List?)?.cast<String>() ?? [];
     return change;
   }

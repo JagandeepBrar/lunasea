@@ -21,7 +21,8 @@ class RadarrMoviesEditPathTile extends StatelessWidget {
             'radarr.MoviePath'.tr(),
             prefill: path,
           );
-          if (_values.item1) path = _values.item2;
+          if (_values.item1)
+            context.read<RadarrMoviesEditState>().path = _values.item2;
         },
       ),
     );

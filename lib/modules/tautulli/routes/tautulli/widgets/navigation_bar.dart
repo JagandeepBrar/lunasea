@@ -64,7 +64,8 @@ class _State extends State<TautulliNavigationBar> {
           builder: (BuildContext context,
                   AsyncSnapshot<TautulliActivity?> snapshot) =>
               LunaNavigationBarBadge(
-            text: snapshot.hasData ? snapshot.data!.streamCount.toString() : '?',
+            text:
+                snapshot.hasData ? snapshot.data!.streamCount.toString() : '?',
             icon: TautulliNavigationBar.icons[0],
             isActive: _index == 0,
             showBadge: context.read<TautulliState>().enabled! &&

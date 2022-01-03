@@ -72,7 +72,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SONARR:
         return true;
       case LunaModule.TAUTULLI:
-        return false;
+        return true;
       case LunaModule.WAKE_ON_LAN:
         return true;
     }

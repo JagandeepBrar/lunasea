@@ -21,7 +21,7 @@ class SonarrAPIController {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.DownloadingRelease'.tr(),
-            message: release.title.lunaSafe(),
+            message: lunaSafeString(release.title),
           );
         }
         return true;

@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -106,28 +105,29 @@ class _State extends State<_Widget>
   Widget _body(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        context.select<RadarrState, Future<List<RadarrMovie>>?>(
-            (state) => state.movies)!,
-        context.select<RadarrState, Future<List<RadarrQualityProfile>>?>(
-            (state) => state.qualityProfiles)!,
-        context.select<RadarrState, Future<List<RadarrTag>>?>(
-            (state) => state.tags)!,
+        context.select<RadarrState, Future<List<RadarrMovie>>>(
+          (state) => state.movies!,
+        ),
+        context.select<RadarrState, Future<List<RadarrQualityProfile>>>(
+          (state) => state.qualityProfiles!,
+        ),
+        context.select<RadarrState, Future<List<RadarrTag>>>(
+          (state) => state.tags!,
+        ),
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-        if (snapshot.hasError) {
-          return LunaMessage.error(onTap: loadCallback);
-        }
+        if (snapshot.hasError) return LunaMessage.error(onTap: loadCallback);
         if (snapshot.hasData) {
-          RadarrMovie? movie =
-              (snapshot.data![0] as List<RadarrMovie>).firstWhereOrNull(
-            (movie) => movie.id == widget.movieId,
-          );
-          if (movie == null) return const LunaLoader();
+          final movies = snapshot.data![0] as List<RadarrMovie>;
+          final profiles = snapshot.data![1] as List<RadarrQualityProfile>;
+          final tags = snapshot.data![2] as List<RadarrTag>;
+          RadarrMovie movie = movies.firstWhere((m) => m.id == widget.movieId);
+
           return _list(
             context,
             movie: movie,
-            qualityProfiles: snapshot.data![1] as List<RadarrQualityProfile?>?,
-            tags: snapshot.data![2] as List<RadarrTag>?,
+            profiles: profiles,
+            tags: tags,
           );
         }
         return const LunaLoader();
@@ -137,15 +137,13 @@ class _State extends State<_Widget>
 
   Widget _list(
     BuildContext context, {
-    RadarrMovie? movie,
-    List<RadarrQualityProfile?>? qualityProfiles,
-    List<RadarrTag>? tags,
+    required RadarrMovie movie,
+    required List<RadarrQualityProfile> profiles,
+    required List<RadarrTag> tags,
   }) {
     if (context.read<RadarrMoviesEditState>().movie == null) {
       context.read<RadarrMoviesEditState>().movie = movie;
-      context
-          .read<RadarrMoviesEditState>()
-          .initializeQualityProfile(qualityProfiles!);
+      context.read<RadarrMoviesEditState>().initializeQualityProfile(profiles);
       context.read<RadarrMoviesEditState>().initializeTags(tags);
       context.read<RadarrMoviesEditState>().canExecuteAction = true;
     }
@@ -154,7 +152,7 @@ class _State extends State<_Widget>
       children: [
         const RadarrMoviesEditMonitoredTile(),
         const RadarrMoviesEditMinimumAvailabilityTile(),
-        RadarrMoviesEditQualityProfileTile(profiles: qualityProfiles),
+        RadarrMoviesEditQualityProfileTile(profiles: profiles),
         const RadarrMoviesEditPathTile(),
         const RadarrMoviesEditTagsTile(),
       ],

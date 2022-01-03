@@ -12,12 +12,6 @@ class LidarrNavigationBar extends StatelessWidget {
     Icons.history_rounded,
   ];
 
-  static const List<IconData> iconsOutlined = [
-    Icons.people_outline_rounded,
-    Icons.event_busy_outlined,
-    Icons.history_outlined,
-  ];
-
   static List<String> get titles => [
         'Artists',
         'Missing',
@@ -35,7 +29,6 @@ class LidarrNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
-      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

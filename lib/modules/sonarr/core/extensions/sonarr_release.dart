@@ -28,7 +28,7 @@ extension SonarrReleaseExtension on SonarrRelease {
   }
 
   String get lunaAge {
-    if (this.ageHours != null) return this.ageHours.lunaHoursToAge();
+    if (this.ageHours != null) return this.ageHours!.lunaHoursToAge();
     return LunaUI.TEXT_EMDASH;
   }
 

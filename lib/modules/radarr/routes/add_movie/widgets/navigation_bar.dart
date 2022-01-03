@@ -11,11 +11,6 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
     Icons.whatshot_rounded,
   ];
 
-  static const List<IconData> iconsOutlined = [
-    Icons.search_outlined,
-    Icons.whatshot_outlined,
-  ];
-
   static List<String> get titles => [
         'radarr.Search'.tr(),
         'radarr.Discover'.tr(),
@@ -32,7 +27,6 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       icons: icons,
-      iconsOutlined: iconsOutlined,
       titles: titles,
     );
   }

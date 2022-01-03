@@ -51,7 +51,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = Database.currentProfileObject!.tautulliHost ?? '';
+    String host = LunaProfile.current.tautulliHost ?? '';
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -72,11 +72,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: Database.currentProfileObject!.tautulliHost ?? '',
+          prefill: LunaProfile.current.tautulliHost ?? '',
         );
         if (_values.item1) {
-          Database.currentProfileObject!.tautulliHost = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.tautulliHost = _values.item2;
+          LunaProfile.current.save();
           context.read<TautulliState>().reset();
         }
       },
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = Database.currentProfileObject!.tautulliKey ?? '';
+    String apiKey = LunaProfile.current.tautulliKey ?? '';
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -99,11 +99,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
           'settings.ApiKey'.tr(),
-          prefill: Database.currentProfileObject!.tautulliKey ?? '',
+          prefill: LunaProfile.current.tautulliKey ?? '',
         );
         if (_values.item1) {
-          Database.currentProfileObject!.tautulliKey = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.tautulliKey = _values.item2;
+          LunaProfile.current.save();
           context.read<TautulliState>().reset();
         }
       },
@@ -115,15 +115,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject? _profile = Database.currentProfileObject;
-        if (_profile?.tautulliHost?.isEmpty ?? true) {
+        ProfileHiveObject _profile = LunaProfile.current;
+        if (_profile.tautulliHost?.isEmpty ?? true) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Tautulli',
           );
           return;
         }
-        if (_profile?.tautulliKey?.isEmpty ?? true) {
+        if (_profile.tautulliKey?.isEmpty ?? true) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Tautulli',
@@ -131,7 +131,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Tautulli(
-                host: _profile!.tautulliHost!,
+                host: _profile.tautulliHost!,
                 apiKey: _profile.tautulliKey!,
                 headers:
                     Map<String, dynamic>.from(_profile.tautulliHeaders ?? {}))

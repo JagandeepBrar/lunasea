@@ -58,7 +58,8 @@ class SearchDialogs {
                 },
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
-                    for (String? profile in Database.profilesBox.keys as Iterable<String?>)
+                    for (String? profile
+                        in Database.profiles.box.keys as Iterable<String?>)
                       PopupMenuItem<String>(
                         value: profile,
                         child: Text(
@@ -79,14 +80,14 @@ class SearchDialogs {
               padding: LunaDialog.tileContentPadding()
                   .add(const EdgeInsets.only(bottom: 16.0)),
             ),
-            if (Database.currentProfileObject!.sabnzbdEnabled!)
+            if (LunaProfile.current.sabnzbdEnabled!)
               LunaDialog.tile(
                 icon: SearchDownloadType.SABNZBD.icon,
                 iconColor: LunaColours().byListIndex(0),
                 text: SearchDownloadType.SABNZBD.name,
                 onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
               ),
-            if (Database.currentProfileObject!.nzbgetEnabled!)
+            if (LunaProfile.current.nzbgetEnabled!)
               LunaDialog.tile(
                 icon: SearchDownloadType.NZBGET.icon,
                 iconColor: LunaColours().byListIndex(1),

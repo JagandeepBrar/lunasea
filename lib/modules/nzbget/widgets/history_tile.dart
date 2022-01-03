@@ -102,7 +102,7 @@ class _State extends State<NZBGetHistoryTile> {
       switch (values[1]) {
         case 'retry':
           {
-            await NZBGetAPI.from(Database.currentProfileObject!)
+            await NZBGetAPI.from(LunaProfile.current)
                 .retryHistoryEntry(widget.data.id)
                 .then((_) {
               widget.refresh();
@@ -119,7 +119,7 @@ class _State extends State<NZBGetHistoryTile> {
             break;
           }
         case 'hide':
-          await NZBGetAPI.from(Database.currentProfileObject!)
+          await NZBGetAPI.from(LunaProfile.current)
               .deleteHistoryEntry(widget.data.id, hide: true)
               .then((_) => _handleDelete('History Hidden'))
               .catchError((error) => showLunaErrorSnackBar(
@@ -128,7 +128,7 @@ class _State extends State<NZBGetHistoryTile> {
                   ));
           break;
         case 'delete':
-          await NZBGetAPI.from(Database.currentProfileObject!)
+          await NZBGetAPI.from(LunaProfile.current)
               .deleteHistoryEntry(widget.data.id, hide: true)
               .then((_) => _handleDelete('History Deleted'))
               .catchError((error) => showLunaErrorSnackBar(
@@ -141,7 +141,7 @@ class _State extends State<NZBGetHistoryTile> {
   Future<void> _deleteButton() async {
     List<dynamic> values = await NZBGetDialogs.deleteHistory(context);
     if (values[0])
-      await NZBGetAPI.from(Database.currentProfileObject!)
+      await NZBGetAPI.from(LunaProfile.current)
           .deleteHistoryEntry(
             widget.data.id,
             hide: values[1],

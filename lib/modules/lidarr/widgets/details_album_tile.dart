@@ -22,8 +22,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
     return LunaBlock(
       title: widget.data.title,
       disabled: !widget.data.monitored,
-      posterHeaders:
-          Database.currentProfileObject!.getLidarr()['headers'] ?? {},
+      posterHeaders: LunaProfile.current.getLidarr()['headers'] ?? {},
       posterPlaceholderIcon: LunaIcons.MUSIC,
       posterIsSquare: true,
       posterUrl: widget.data.albumCoverURI(),
@@ -48,7 +47,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
   }
 
   Future<void> _toggleMonitoredStatus() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .toggleAlbumMonitored(widget.data.albumID, !widget.data.monitored)
         .then((_) {

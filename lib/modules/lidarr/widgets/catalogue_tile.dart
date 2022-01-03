@@ -46,10 +46,9 @@ class _State extends State<LidarrCatalogueTile> {
         ),
         posterPlaceholderIcon: LunaIcons.USER,
         posterUrl: widget.data.posterURI(),
-        posterHeaders: Database.currentProfileObject!.getLidarr()['headers'],
+        posterHeaders: LunaProfile.current.getLidarr()['headers'],
         backgroundUrl: widget.data.fanartURI(),
-        backgroundHeaders:
-            Database.currentProfileObject!.getLidarr()['headers'],
+        backgroundHeaders: LunaProfile.current.getLidarr()['headers'],
         posterIsSquare: true,
         onTap: () async => _enterArtist(),
         onLongPress: () async => _handlePopup(),
@@ -58,7 +57,7 @@ class _State extends State<LidarrCatalogueTile> {
   }
 
   Future<void> _toggleMonitoredStatus() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .toggleArtistMonitored(widget.data.artistID, !widget.data.monitored!)
         .then((_) {
@@ -136,7 +135,7 @@ class _State extends State<LidarrCatalogueTile> {
   }
 
   Future<void> _refreshArtist() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .refreshArtist(widget.data.artistID)
         .then((_) => showLunaSuccessSnackBar(
@@ -146,7 +145,7 @@ class _State extends State<LidarrCatalogueTile> {
   }
 
   Future<void> _removeArtist() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     List values = await LidarrDialogs.deleteArtist(context);
     if (values[0]) {
       if (values[1]) {

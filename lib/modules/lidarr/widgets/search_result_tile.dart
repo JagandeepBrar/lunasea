@@ -138,7 +138,7 @@ class _State extends State<LidarrReleasesTile> {
 
   Future<void> _startDownload() async {
     setState(() => _downloadState = LunaLoadingState.ACTIVE);
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .downloadRelease(widget.release.guid, widget.release.indexerId)
         .then((_) {

@@ -53,14 +53,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.OVERSEERR.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject!.overseerrEnabled ?? false,
+          value: LunaProfile.current.overseerrEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject!.overseerrEnabled = value;
-            Database.currentProfileObject!.save();
+            LunaProfile.current.overseerrEnabled = value;
+            LunaProfile.current.save();
             context.read<OverseerrState>().reset();
           },
         ),

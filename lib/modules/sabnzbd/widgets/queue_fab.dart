@@ -98,7 +98,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
 
   Future<void> _toggle(BuildContext context, bool paused) async {
     HapticFeedback.lightImpact();
-    SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject!);
+    SABnzbdAPI _api = SABnzbdAPI.from(LunaProfile.current);
     paused ? _resume(context, _api) : _pause(context, _api);
   }
 
@@ -109,7 +109,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
       if (values[1] == -1) {
         List values = await SABnzbdDialogs.customPauseFor(context);
         if (values[0])
-          await SABnzbdAPI.from(Database.currentProfileObject!)
+          await SABnzbdAPI.from(LunaProfile.current)
               .pauseQueueFor(values[1])
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
@@ -121,7 +121,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
                     error: error,
                   ));
       } else {
-        await SABnzbdAPI.from(Database.currentProfileObject!)
+        await SABnzbdAPI.from(LunaProfile.current)
             .pauseQueueFor(values[1])
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Pausing Queue',

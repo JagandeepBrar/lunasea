@@ -18,7 +18,7 @@ class LunaDialogs {
     final _textController = TextEditingController()..text = prefill;
 
     void _setValues(bool flag) {
-      if (_formKey.currentState!.validate()) {
+      if (_formKey.currentState?.validate() ?? false) {
         _flag = flag;
         Navigator.of(context, rootNavigator: true).pop();
       }
@@ -34,7 +34,7 @@ class LunaDialogs {
         ),
       ],
       content: [
-        if ((extraText?.length ?? 0) != 0)
+        if (extraText?.isNotEmpty ?? false)
           LunaDialog.richText(children: extraText),
         Form(
           key: _formKey,
@@ -82,19 +82,20 @@ class LunaDialogs {
   }
 
   Future<void> showRejections(
-      BuildContext context, List<String>? rejections) async {
-    if ((rejections ?? []).isEmpty)
+      BuildContext context, List<String> rejections) async {
+    if (rejections.isEmpty)
       return textPreview(
         context,
         'Rejection Reasons',
         'No rejections found',
       );
+
     await LunaDialog.dialog(
       context: context,
       title: 'Rejection Reasons',
       cancelButtonText: 'Close',
       content: List.generate(
-        rejections!.length,
+        rejections.length,
         (index) => LunaDialog.tile(
           text: rejections[index],
           icon: Icons.report_outlined,

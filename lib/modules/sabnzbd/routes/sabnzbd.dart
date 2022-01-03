@@ -17,8 +17,8 @@ class SABnzbd extends StatefulWidget {
 class _State extends State<SABnzbd> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
-  String _profileState = Database.currentProfileObject.toString();
-  SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject!);
+  String _profileState = LunaProfile.current.toString();
+  SABnzbdAPI _api = SABnzbdAPI.from(LunaProfile.current);
 
   final List _refreshKeys = [
     GlobalKey<RefreshIndicatorState>(),
@@ -43,8 +43,7 @@ class _State extends State<SABnzbd> {
       extendBodyBehindAppBar: false,
       extendBody: false,
       onProfileChange: (_) {
-        if (_profileState != Database.currentProfileObject.toString())
-          _refreshProfile();
+        if (_profileState != LunaProfile.current.toString()) _refreshProfile();
       },
     );
   }
@@ -59,8 +58,8 @@ class _State extends State<SABnzbd> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profilesBox.keys.fold([], (value, element) {
-      if (Database.profilesBox.get(element)?.sabnzbdEnabled ?? false)
+        Database.profiles.box.keys.fold([], (value, element) {
+      if (Database.profiles.box.get(element)?.sabnzbdEnabled ?? false)
         value.add(element);
       return value;
     });
@@ -111,7 +110,7 @@ class _State extends State<SABnzbd> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = Database.currentProfileObject!;
+          ProfileHiveObject profile = LunaProfile.current;
           await profile.sabnzbdHost
               ?.lunaOpenGenericLink(headers: profile.sabnzbdHeaders);
           break;
@@ -142,7 +141,7 @@ class _State extends State<SABnzbd> {
   Future<void> _completeAction() async {
     List values = await SABnzbdDialogs.changeOnCompleteAction(context);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject!)
+      SABnzbdAPI.from(LunaProfile.current)
           .setOnCompleteAction(values[1])
           .then((_) => showLunaSuccessSnackBar(
                 title: 'On Complete Action Set',
@@ -157,7 +156,7 @@ class _State extends State<SABnzbd> {
   Future<void> _clearHistory() async {
     List values = await SABnzbdDialogs.clearAllHistory(context);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject!)
+      SABnzbdAPI.from(LunaProfile.current)
           .clearHistory(values[1], values[2])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -176,7 +175,7 @@ class _State extends State<SABnzbd> {
   Future<void> _sort() async {
     List values = await SABnzbdDialogs.sortQueue(context);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject!)
+      await SABnzbdAPI.from(LunaProfile.current)
           .sortQueue(values[1], values[2])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -256,8 +255,8 @@ class _State extends State<SABnzbd> {
   }
 
   void _refreshProfile() {
-    _api = SABnzbdAPI.from(Database.currentProfileObject!);
-    _profileState = Database.currentProfileObject.toString();
+    _api = SABnzbdAPI.from(LunaProfile.current);
+    _profileState = LunaProfile.current.toString();
     _refreshAllPages();
   }
 

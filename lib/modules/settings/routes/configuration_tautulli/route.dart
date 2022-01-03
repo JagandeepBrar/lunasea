@@ -57,14 +57,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject!.tautulliEnabled ?? false,
+          value: LunaProfile.current.tautulliEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject!.tautulliEnabled = value;
-            Database.currentProfileObject!.save();
+            LunaProfile.current.tautulliEnabled = value;
+            LunaProfile.current.save();
             context.read<TautulliState>().reset();
           },
         ),

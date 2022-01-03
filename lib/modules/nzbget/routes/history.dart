@@ -27,7 +27,7 @@ class _State extends State<NZBGetHistory>
   @override
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
-    final _api = NZBGetAPI.from(Database.currentProfileObject!);
+    final _api = NZBGetAPI.from(LunaProfile.current);
     if (mounted)
       setState(() {
         _future = _api.getHistory();

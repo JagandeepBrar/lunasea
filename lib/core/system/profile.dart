@@ -3,7 +3,7 @@ import 'package:lunasea/modules/settings.dart';
 
 class LunaProfile {
   /// Returns a list of the profiles, sorted by their lowercase key/display name.
-  List<String?> profilesList() => Database.profilesBox.keys
+  List<String?> profilesList() => Database.profiles.box.keys
       .map<String?>((profile) => profile as String?)
       .toList()
     ..sort((a, b) => a!.toLowerCase().compareTo(b!.toLowerCase()));
@@ -19,9 +19,9 @@ class LunaProfile {
     bool popToFirst = false,
   }) async {
     if (LunaDatabaseValue.ENABLED_PROFILE.data == profile) return true;
-    if (Database.profilesBox.containsKey(profile)) {
+    if (Database.profiles.box.containsKey(profile)) {
       LunaDatabaseValue.ENABLED_PROFILE.put(profile);
-      LunaState.reset(LunaState.navigatorKey.currentContext);
+      LunaState.reset(LunaState.navigatorKey.currentContext!);
       if (showSnackbar)
         showLunaSuccessSnackBar(
           title: 'Changed Profile',
@@ -51,8 +51,8 @@ class LunaProfile {
               LunaState.navigatorKey.currentContext!, profiles);
       if (newProfile.item1) {
         ProfileHiveObject oldProfileObject =
-            Database.profilesBox.get(selectedProfile.item2)!;
-        Database.profilesBox.put(newProfile.item2,
+            Database.profiles.box.get(selectedProfile.item2)!;
+        Database.profiles.box.put(newProfile.item2,
             ProfileHiveObject.fromProfileHiveObject(oldProfileObject));
         if (LunaDatabaseValue.ENABLED_PROFILE.data == selectedProfile.item2)
           LunaProfile()
@@ -81,7 +81,7 @@ class LunaProfile {
           .deleteProfile(LunaState.navigatorKey.currentContext!, profiles);
       if (selectedProfile.item1) {
         if (selectedProfile.item2 != LunaDatabaseValue.ENABLED_PROFILE.data) {
-          Database.profilesBox.delete(selectedProfile.item2);
+          Database.profiles.box.delete(selectedProfile.item2);
           if (showSnackbar)
             showLunaSuccessSnackBar(
                 title: 'Deleted Profile',
@@ -106,7 +106,7 @@ class LunaProfile {
     Tuple2<bool, String> result = await SettingsDialogs()
         .addProfile(LunaState.navigatorKey.currentContext!, profiles);
     if (result.item1) {
-      Database.profilesBox.put(result.item2, ProfileHiveObject.empty());
+      Database.profiles.box.put(result.item2, ProfileHiveObject.empty());
       safelyChangeProfiles(result.item2);
       if (showSnackbar)
         showLunaSuccessSnackBar(
@@ -115,5 +115,11 @@ class LunaProfile {
         );
     }
     return false;
+  }
+
+  static ProfileHiveObject get current {
+    LunaDatabaseValue _db = LunaDatabaseValue.ENABLED_PROFILE;
+    String _name = Database.lunasea.box.get(_db.key)!;
+    return Database.profiles.box.get(_name)!;
   }
 }

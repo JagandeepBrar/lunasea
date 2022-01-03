@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 message: 'settings.AllFieldsAreRequired'.tr(),
               );
             } else {
-              Database.externalModulesBox.add(_module);
+              Database.externalModules.box.add(_module);
               showLunaSuccessSnackBar(
                 title: 'settings.AddModuleSuccess'.tr(),
                 message: _module.displayName,

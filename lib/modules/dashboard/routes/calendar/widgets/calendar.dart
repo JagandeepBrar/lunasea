@@ -137,7 +137,7 @@ class _State extends State<DashboardCalendarWidget> {
 
   Widget _calendar() {
     return ValueListenableBuilder(
-      valueListenable: Database.lunaSeaBox.listenable(keys: [
+      valueListenable: Database.lunasea.box.listenable(keys: [
         DashboardDatabaseValue.CALENDAR_STARTING_DAY.key,
         DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
       ]),
@@ -314,13 +314,13 @@ class _State extends State<DashboardCalendarWidget> {
     Map? headers;
     switch (event.runtimeType) {
       case CalendarLidarrData:
-        headers = Database.currentProfileObject!.getLidarr()['headers'];
+        headers = LunaProfile.current.getLidarr()['headers'];
         break;
       case CalendarRadarrData:
-        headers = Database.currentProfileObject!.getRadarr()['headers'];
+        headers = LunaProfile.current.getRadarr()['headers'];
         break;
       case CalendarSonarrData:
-        headers = Database.currentProfileObject!.getSonarr()['headers'];
+        headers = LunaProfile.current.getSonarr()['headers'];
         break;
       default:
         headers = const {};

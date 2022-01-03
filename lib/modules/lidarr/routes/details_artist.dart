@@ -43,7 +43,7 @@ class _State extends State<LidarrDetailsArtist> {
   Future<void> _fetch() async {
     if (mounted) setState(() => _error = false);
     if (_arguments != null)
-      await LidarrAPI.from(Database.currentProfileObject!)
+      await LidarrAPI.from(LunaProfile.current)
           .getArtist(_arguments!.artistID)
           .then((data) {
         if (mounted)

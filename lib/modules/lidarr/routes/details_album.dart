@@ -48,7 +48,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   Future<void> _refresh() async {
     _results = [];
     setState(() {
-      _future = LidarrAPI.from(Database.currentProfileObject!)
+      _future = LidarrAPI.from(LunaProfile.current)
           .getAlbumTracks(_arguments?.albumID);
     });
   }
@@ -120,7 +120,7 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
   }
 
   Future<void> _automaticSearch() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     _api.searchAlbums([_arguments!.albumID]).then((_) {
       showLunaSuccessSnackBar(
         title: 'Searching...',

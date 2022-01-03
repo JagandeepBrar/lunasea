@@ -28,7 +28,7 @@ class LunaDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
       builder: (context, lunaBox, widget) => ValueListenableBuilder(
-        valueListenable: Database.indexersBox.listenable(),
+        valueListenable: Database.indexers.box.listenable(),
         builder: (context, dynamic indexerBox, widget) => Drawer(
           elevation: LunaUI.ELEVATION,
           backgroundColor: Theme.of(context).primaryColor,

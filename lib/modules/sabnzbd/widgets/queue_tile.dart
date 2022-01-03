@@ -79,7 +79,7 @@ class _Helper {
   );
 
   Future<void> _pauseJob() async {
-    await SABnzbdAPI.from(Database.currentProfileObject!)
+    await SABnzbdAPI.from(LunaProfile.current)
         .pauseSingleJob(data.nzoId)
         .then((_) {
       showLunaSuccessSnackBar(
@@ -96,7 +96,7 @@ class _Helper {
   }
 
   Future<void> _resumeJob() async {
-    await SABnzbdAPI.from(Database.currentProfileObject!)
+    await SABnzbdAPI.from(LunaProfile.current)
         .resumeSingleJob(data.nzoId)
         .then((_) {
       showLunaSuccessSnackBar(
@@ -114,10 +114,10 @@ class _Helper {
 
   Future<void> _category() async {
     List<SABnzbdCategoryData> categories =
-        await SABnzbdAPI.from(Database.currentProfileObject!).getCategories();
+        await SABnzbdAPI.from(LunaProfile.current).getCategories();
     List values = await SABnzbdDialogs.changeCategory(context, categories);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject!)
+      await SABnzbdAPI.from(LunaProfile.current)
           .setCategory(data.nzoId, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -138,7 +138,7 @@ class _Helper {
   Future<void> _priority() async {
     List values = await SABnzbdDialogs.changePriority(context);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject!)
+      await SABnzbdAPI.from(LunaProfile.current)
           .setJobPriority(data.nzoId, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -157,7 +157,7 @@ class _Helper {
   Future<void> _rename() async {
     List values = await SABnzbdDialogs.renameJob(context, data.name);
     if (values[0])
-      SABnzbdAPI.from(Database.currentProfileObject!)
+      SABnzbdAPI.from(LunaProfile.current)
           .renameJob(data.nzoId, values[1])
           .then((_) {
         showLunaSuccessSnackBar(
@@ -176,7 +176,7 @@ class _Helper {
   Future<void> _delete() async {
     List values = await SABnzbdDialogs.deleteJob(context);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject!)
+      await SABnzbdAPI.from(LunaProfile.current)
           .deleteJob(data.nzoId)
           .then((_) {
         showLunaSuccessSnackBar(
@@ -195,7 +195,7 @@ class _Helper {
   Future<void> _password() async {
     List values = await SABnzbdDialogs.setPassword(context);
     if (values[0])
-      await SABnzbdAPI.from(Database.currentProfileObject!)
+      await SABnzbdAPI.from(LunaProfile.current)
           .setJobPassword(data.nzoId, data.name, values[1])
           .then((_) {
         showLunaSuccessSnackBar(

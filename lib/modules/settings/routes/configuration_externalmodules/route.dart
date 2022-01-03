@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.externalModulesBox.listenable(),
+      valueListenable: Database.externalModules.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -67,14 +67,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _moduleSection() => [
-        if (Database.externalModulesBox.isEmpty)
+        if (Database.externalModules.box.isEmpty)
           LunaMessage(text: 'settings.NoExternalModulesFound'.tr()),
         ..._modules,
       ];
 
   List<Widget> get _modules {
     List<ExternalModuleHiveObject> modules =
-        Database.externalModulesBox.values.toList();
+        Database.externalModules.box.values.toList();
     modules.sort((a, b) =>
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(

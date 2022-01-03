@@ -57,7 +57,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   Future<void> _refresh() async => setState(() => {_future = _fetch()});
 
   Future<bool> _fetch() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     return _fetchProfiles(_api).then((_) => _fetchMetadata(_api)).then((_) {
       _path = _arguments!.entry!.path;
       _monitored = _arguments!.entry!.monitored;
@@ -178,7 +178,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   }
 
   Future<void> _save() async {
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     await _api
         .editArtist(
       _arguments!.entry!.artistID,

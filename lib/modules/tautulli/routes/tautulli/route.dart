@@ -51,8 +51,8 @@ class _State extends State<_Widget> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profilesBox.keys.fold([], (value, element) {
-      if (Database.profilesBox.get(element)?.tautulliEnabled ?? false)
+        Database.profiles.box.keys.fold([], (value, element) {
+      if (Database.profiles.box.get(element)?.tautulliEnabled ?? false)
         value.add(element);
       return value;
     });

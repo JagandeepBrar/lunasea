@@ -41,7 +41,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -58,18 +58,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaBlock(
       title: 'Enable Wake on LAN',
       trailing: LunaSwitch(
-        value: Database.currentProfileObject!.wakeOnLANEnabled ?? false,
+        value: LunaProfile.current.wakeOnLANEnabled ?? false,
         onChanged: (value) {
-          Database.currentProfileObject!.wakeOnLANEnabled = value;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.wakeOnLANEnabled = value;
+          LunaProfile.current.save();
         },
       ),
     );
   }
 
   Widget _broadcastAddress() {
-    String? broadcastAddress =
-        Database.currentProfileObject!.wakeOnLANBroadcastAddress;
+    String? broadcastAddress = LunaProfile.current.wakeOnLANBroadcastAddress;
     return LunaBlock(
       title: 'settings.BroadcastAddress'.tr(),
       body: [
@@ -87,16 +86,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           broadcastAddress ?? '',
         );
         if (_values.item1) {
-          Database.currentProfileObject!.wakeOnLANBroadcastAddress =
-              _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.wakeOnLANBroadcastAddress = _values.item2;
+          LunaProfile.current.save();
         }
       },
     );
   }
 
   Widget _macAddress() {
-    String? macAddress = Database.currentProfileObject!.wakeOnLANMACAddress;
+    String? macAddress = LunaProfile.current.wakeOnLANMACAddress;
     return LunaBlock(
       title: 'settings.MACAddress'.tr(),
       body: [
@@ -111,8 +109,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           macAddress ?? '',
         );
         if (_values.item1) {
-          Database.currentProfileObject!.wakeOnLANMACAddress = _values.item2;
-          Database.currentProfileObject!.save();
+          LunaProfile.current.wakeOnLANMACAddress = _values.item2;
+          LunaProfile.current.save();
         }
       },
     );

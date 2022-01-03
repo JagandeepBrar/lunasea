@@ -66,7 +66,7 @@ class _State extends State<NZBGetQueue>
   }
 
   Future _fetch() async {
-    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject!);
+    NZBGetAPI _api = NZBGetAPI.from(LunaProfile.current);
     return _fetchStatus(_api).then((_) => _fetchQueue(_api)).then((_) {
       try {
         if (_timer == null || !_timer!.isActive) _createTimer();
@@ -148,7 +148,7 @@ class _State extends State<NZBGetQueue>
             _queue!.remove(data);
             _queue!.insert(nIndex, data);
           });
-        await NZBGetAPI.from(Database.currentProfileObject!)
+        await NZBGetAPI.from(LunaProfile.current)
             .moveQueue(data.id, (nIndex - oIndex))
             .then((_) => showLunaSuccessSnackBar(
                 title: 'Moved Job in Queue', message: data.name))

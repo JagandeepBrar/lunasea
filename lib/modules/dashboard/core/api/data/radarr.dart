@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 import './abstract.dart';
 
 class CalendarRadarrData extends CalendarData {
-  final Map<String, dynamic> api = Database.currentProfileObject!.getRadarr();
+  final Map<String, dynamic> api = LunaProfile.current.getRadarr();
   bool hasFile;
   String? fileQualityProfile;
   int year;

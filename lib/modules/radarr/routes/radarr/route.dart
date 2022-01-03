@@ -56,10 +56,10 @@ class _State extends State<_Widget> {
   }
 
   Widget _appBar() {
-    List<String> profiles = Database.profilesBox.keys.fold(
+    List<String> profiles = Database.profiles.box.keys.fold(
       [],
       (value, element) {
-        if (Database.profilesBox.get(element)?.radarrEnabled ?? false) {
+        if (Database.profiles.box.get(element)?.radarrEnabled ?? false) {
           value.add(element);
         }
         return value;

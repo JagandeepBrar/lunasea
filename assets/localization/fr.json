@@ -456,6 +456,8 @@
     "tautulli.Audio": "Audio",
     "tautulli.ActivityDetails": "Détails de l'activité",
     "tautulli.Activity": "Activité",
+    "lidarr.StartSearchFor": "Démarrer la recherche de…",
+    "lidarr.StartSearchForMissingAlbums": "Lancez la recherche des albums manquants",
     "overseerr.Users": "Utilisateurs",
     "overseerr.UnknownUser": "Utilisateur inconnu",
     "overseerr.NoUsersFound": "Aucun utilisateur trouvé",

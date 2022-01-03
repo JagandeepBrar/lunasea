@@ -35,14 +35,14 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
 
   Future<void> _refresh() async {
     final _model = Provider.of<LidarrState>(context, listen: false);
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     setState(() {
       _future = _api.searchArtists(_model.addSearchQuery);
     });
   }
 
   Future<void> _fetchAvailableArtists() async {
-    await LidarrAPI.from(Database.currentProfileObject!)
+    await LidarrAPI.from(LunaProfile.current)
         .getAllArtistIDs()
         .then((data) => _availableIDs = data)
         .catchError((error) => _availableIDs = []);

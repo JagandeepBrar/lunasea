@@ -138,6 +138,6 @@ class _State extends State<RadarrReleasesTile> {
     });
   }
 
-  Future<void> _showWarnings() async =>
-      await LunaDialogs().showRejections(context, widget.release.rejections);
+  Future<void> _showWarnings() async => await LunaDialogs()
+      .showRejections(context, widget.release.rejections ?? []);
 }

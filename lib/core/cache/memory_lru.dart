@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class LunaLRUCache {
-  String? _key;
+  late String _key;
   late Cache _cache;
 
   LunaLRUCache({

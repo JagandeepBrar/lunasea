@@ -2,7 +2,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueData {
-  final Map<String, dynamic> api = Database.currentProfileObject!.getLidarr();
+  final Map<String, dynamic> api = LunaProfile.current.getLidarr();
   String title;
   String sortTitle;
   String overview;

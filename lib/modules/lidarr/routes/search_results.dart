@@ -38,7 +38,7 @@ class _State extends State<LidarrSearchResults>
     _arguments = ModalRoute.of(context)!.settings.arguments
         as LidarrSearchResultsArguments?;
     if (mounted) setState(() => _results = []);
-    final _api = LidarrAPI.from(Database.currentProfileObject!);
+    final _api = LidarrAPI.from(LunaProfile.current);
     setState(() => {_future = _api.getReleases(_arguments!.albumID)});
     //Clear the search filter using a microtask
     Future.microtask(

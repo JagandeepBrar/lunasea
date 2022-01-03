@@ -55,14 +55,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profilesBox.listenable(),
+      valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.name}',
         trailing: LunaSwitch(
-          value: Database.currentProfileObject!.sonarrEnabled ?? false,
+          value: LunaProfile.current.sonarrEnabled ?? false,
           onChanged: (value) {
-            Database.currentProfileObject!.sonarrEnabled = value;
-            Database.currentProfileObject!.save();
+            LunaProfile.current.sonarrEnabled = value;
+            LunaProfile.current.save();
             context.read<SonarrState>().reset();
           },
         ),

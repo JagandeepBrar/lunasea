@@ -45,7 +45,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
       });
 
   Future<void> _fetchParameters() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     return _fetchRootFolders(_api)
         .then((_) => _fetchQualityProfiles(_api))
         .then((_) => _fetchMetadataProfiles(_api))
@@ -153,7 +153,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
                 : _arguments!.data.overview,
             uri: _arguments!.data.posterURI ?? '',
             squareImage: true,
-            headers: Database.currentProfileObject!.getLidarr()['headers'],
+            headers: LunaProfile.current.getLidarr()['headers'],
             onLongPress: () async {
               if (_arguments!.data.discogsLink == null ||
                   _arguments!.data.discogsLink == '')
@@ -165,7 +165,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             },
           ),
           ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox
+            valueListenable: Database.lunasea.box
                 .listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
             builder: (context, dynamic box, widget) {
               LidarrRootFolder? _rootfolder =
@@ -204,7 +204,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             );
           }),
           ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(
+            valueListenable: Database.lunasea.box.listenable(
                 keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
             builder: (context, dynamic box, widget) {
               LidarrQualityProfile? _profile =
@@ -225,7 +225,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             },
           ),
           ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(
+            valueListenable: Database.lunasea.box.listenable(
                 keys: [LidarrDatabaseValue.ADD_METADATA_PROFILE.key]),
             builder: (context, dynamic box, widget) {
               LidarrMetadataProfile? _profile =
@@ -249,7 +249,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
       );
 
   Future<void> _addArtist() async {
-    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject!);
+    LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
     bool? search = LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data;
     await _api
         .addArtist(

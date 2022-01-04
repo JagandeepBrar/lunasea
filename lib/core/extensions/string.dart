@@ -2,13 +2,22 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-extension StringExtension on String? {
-  /// Returns a string with all first letters of each word capitalized
+extension StringExtension on String {
+  /// Pad a string on both sides with the spacer value [count] amount of times.
+  /// Count is the amount of times to add the [padding] on each time, and not the maximum total width of the string unlike padLeft and padRight.
   ///
-  /// Default word splitting pattern is by a space.
-  String? lunaCapitalizeFirstLetters([String pattern = ' ']) {
-    if (this == null) return null;
-    List<String> split = this!.split(pattern);
+  /// Example "LunaSea" with count 2 and padding "1" would return "11LunaSea11".
+  String lunaPad([int count = 1, String padding = ' ']) {
+    return this
+        .padLeft((this.length + count), padding)
+        .padRight((this.length + (count * 2)), padding);
+  }
+
+  /// Returns a string with all first letters of each word capitalized.
+  String toTitleCase() {
+    String _wordDelimiter = ' ';
+    List<String> split = this.split(_wordDelimiter);
+
     for (var i = 0; i < split.length; i++) {
       String s = split[i];
       if (s.length == 1)
@@ -17,31 +26,8 @@ extension StringExtension on String? {
         s = s.substring(0, 1).toUpperCase() + s.substring(1);
       split[i] = s;
     }
-    return split.join(pattern);
-  }
 
-  /// Convert a string into a slug format.
-  ///
-  /// Example "LunaSea Flutter" => 'lunasea-flutter';
-  String? lunaConvertToSlug() {
-    if (this == null) return null;
-    return this!
-        .toLowerCase()
-        .replaceAll(RegExp(r'[\ \.]'), '-')
-        .replaceAll(RegExp(r'[^a-zA-Z0-9\-]'), '')
-        .trim();
-  }
-
-  /// Pad a string on both sides with the spacer value [count] amount of times.
-  /// Count is the amount of times to add the [padding] on each time, and not the maximum total width of the string unlike padLeft and padRight.
-  ///
-  /// Example "LunaSea" with count 2 and padding "1" would return "11LunaSea11".
-  String? lunaPad([int count = 1, String padding = ' ']) {
-    if (this == null) return null;
-    String _value = this!
-        .padLeft((this!.length + count), padding)
-        .padRight((this!.length + (count * 2)), padding);
-    return _value;
+    return split.join(_wordDelimiter);
   }
 }
 

@@ -525,8 +525,7 @@ class SonarrDialogs {
       content: List.generate(
         SonarrSeriesType.values.length,
         (index) => LunaDialog.tile(
-          text: SonarrSeriesType.values[index].value
-              .lunaCapitalizeFirstLetters()!,
+          text: SonarrSeriesType.values[index].value!.toTitleCase(),
           icon: Icons.folder_open_rounded,
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, SonarrSeriesType.values[index]),

@@ -4,6 +4,10 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsState extends ChangeNotifier {
   final RadarrMovie movie;
+  late Future<List<RadarrHistoryRecord>> history;
+  late Future<List<RadarrMovieCredits>> credits;
+  late Future<List<RadarrExtraFile>> extraFiles;
+  late Future<List<RadarrMovieFile>> movieFiles;
 
   RadarrMovieDetailsState({
     required BuildContext context,
@@ -16,41 +20,32 @@ class RadarrMovieDetailsState extends ChangeNotifier {
 
   Future<void> fetchHistory(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
-    if (state.enabled)
-      _history = state.api!.history.getForMovie(movieId: movie.id!);
+    if (state.enabled) {
+      history = state.api!.history.getForMovie(movieId: movie.id!);
+    }
     notifyListeners();
-    await _history;
+    await history;
   }
 
   Future<void> fetchCredits(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
-    if (state.enabled) _credits = state.api!.credits.get(movieId: movie.id!);
+    if (state.enabled) {
+      credits = state.api!.credits.get(movieId: movie.id!);
+    }
     notifyListeners();
-    await _credits;
+    await credits;
   }
 
   Future<void> fetchFiles(BuildContext context) async {
     RadarrState state = context.read<RadarrState>();
     if (state.enabled) {
-      _extraFiles = state.api!.extraFile.get(movieId: movie.id!);
-      _movieFiles = state.api!.movieFile.get(movieId: movie.id!);
+      extraFiles = state.api!.extraFile.get(movieId: movie.id!);
+      movieFiles = state.api!.movieFile.get(movieId: movie.id!);
     }
     notifyListeners();
     await Future.wait([
-      _extraFiles!,
-      _movieFiles!,
+      extraFiles,
+      movieFiles,
     ]);
   }
-
-  Future<List<RadarrHistoryRecord>>? _history;
-  Future<List<RadarrHistoryRecord>>? get history => _history;
-
-  Future<List<RadarrMovieCredits>>? _credits;
-  Future<List<RadarrMovieCredits>>? get credits => _credits;
-
-  Future<List<RadarrExtraFile>>? _extraFiles;
-  Future<List<RadarrExtraFile>>? get extraFiles => _extraFiles;
-
-  Future<List<RadarrMovieFile>>? _movieFiles;
-  Future<List<RadarrMovieFile>>? get movieFiles => _movieFiles;
 }

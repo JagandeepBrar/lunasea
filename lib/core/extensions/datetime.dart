@@ -69,7 +69,7 @@ extension DateTimeExtension on DateTime {
     bool shortMonth = false,
   }) {
     String _format = shortMonth ? 'MMM dd, y' : 'MMMM dd, y';
-    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad()!;
+    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad();
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'HH:mm' : 'hh:mm';
     _format += showSeconds ? ':ss' : '';
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? '' : ' a';

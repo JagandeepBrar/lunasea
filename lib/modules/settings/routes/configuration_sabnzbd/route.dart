@@ -47,7 +47,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaModule.SABNZBD.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
-        const LunaDivider(),
+        LunaDivider(),
         _defaultPagesPage(),
         //_defaultPagesPage(),
       ],

@@ -12,7 +12,7 @@ class LunaBottomModalSheet {
       context: context,
       expand: false,
       backgroundColor:
-          LunaTheme.isAMOLEDTheme! ? Colors.black : LunaColours.secondary,
+          LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
       shape: LunaUI.shapeBorder,
       builder: builder ?? this.builder as Widget Function(BuildContext),
       closeProgressThreshold: 0.90,

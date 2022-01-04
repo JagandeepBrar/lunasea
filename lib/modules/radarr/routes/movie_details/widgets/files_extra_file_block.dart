@@ -3,21 +3,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
-  final RadarrExtraFile extraFile;
+  final RadarrExtraFile file;
 
   const RadarrMovieDetailsFilesExtraFileBlock({
     Key? key,
-    required this.extraFile,
+    required this.file,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LunaTableCard(
       content: [
-        LunaTableContent(
-            title: 'relative path', body: extraFile.lunaRelativePath),
-        LunaTableContent(title: 'type', body: extraFile.lunaType),
-        LunaTableContent(title: 'extension', body: extraFile.lunaExtension),
+        LunaTableContent(title: 'relative path', body: file.lunaRelativePath),
+        LunaTableContent(title: 'type', body: file.lunaType),
+        LunaTableContent(title: 'extension', body: file.lunaExtension),
       ],
     );
   }

@@ -267,7 +267,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       ),
       LunaTableContent(
         title: 'sonarr.Age'.tr(),
-        body: double.tryParse(history.data!['ageHours'])?.lunaHoursToAge(),
+        body: double.tryParse(history.data!['ageHours'])?.asTimeAgo,
       ),
       LunaTableContent(
           title: 'sonarr.PublishedDate'.tr(),

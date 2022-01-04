@@ -35,7 +35,7 @@ extension RadarrReleaseExtension on RadarrRelease {
   }
 
   String get lunaAge {
-    if (this.ageHours != null) return this.ageHours!.lunaHoursToAge();
+    if (this.ageHours != null) return this.ageHours!.asTimeAgo;
     return LunaUI.TEXT_EMDASH;
   }
 

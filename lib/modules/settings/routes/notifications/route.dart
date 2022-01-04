@@ -63,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap:
               LunaLinks.NOTIFICATIONS_GETTING_STARTED.url.lunaOpenGenericLink,
         ),
-        const LunaDivider(),
+        LunaDivider(),
         ..._modules(),
       ],
     );

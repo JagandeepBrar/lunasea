@@ -131,7 +131,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               episodeFile?.mediaInfo?.audioCodec ?? LunaUI.TEXT_EMDASH,
               if (episodeFile?.mediaInfo?.audioChannels != null)
                 episodeFile?.mediaInfo?.audioChannels?.toString(),
-            ].join(LunaUI.TEXT_BULLET.lunaPad()!),
+            ].join(LunaUI.TEXT_BULLET.lunaPad()),
           ),
           LunaTableContent(
             title: 'sonarr.Size'.tr(),

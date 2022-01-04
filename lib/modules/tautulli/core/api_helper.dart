@@ -180,7 +180,7 @@ class TautulliAPIHelper {
           message: [
             session.friendlyName,
             session.title,
-          ].join(LunaUI.TEXT_EMDASH.lunaPad()!),
+          ].join(LunaUI.TEXT_EMDASH.lunaPad()),
         );
         return true;
       }).catchError((error, stack) {

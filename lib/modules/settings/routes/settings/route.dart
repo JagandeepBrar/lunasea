@@ -70,7 +70,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.switch_account_rounded),
           onTap: () async => SettingsProfilesRouter().navigateTo(context),
         ),
-        const LunaDivider(),
+        LunaDivider(),
         if (LunaInAppPurchases.isPlatformCompatible)
           LunaBlock(
             title: 'settings.Donations'.tr(),

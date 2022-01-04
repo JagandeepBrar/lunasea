@@ -1,8 +1,41 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-export 'package:in_app_purchase/in_app_purchase.dart';
+
+extension ProductDetailsExtension on ProductDetails {
+  IconData get icon {
+    switch (this.id) {
+      case LunaInAppPurchases.DONATION_01:
+        return Icons.local_drink_rounded;
+      case LunaInAppPurchases.DONATION_03:
+        return Icons.local_cafe_rounded;
+      case LunaInAppPurchases.DONATION_05:
+        return Icons.local_bar_rounded;
+      case LunaInAppPurchases.DONATION_10:
+        return Icons.fastfood_rounded;
+      default:
+        return Icons.attach_money_rounded;
+    }
+  }
+
+  String get name {
+    switch (this.id) {
+      case LunaInAppPurchases.DONATION_01:
+        return 'lunasea.BuyMeASoda'.tr();
+      case LunaInAppPurchases.DONATION_03:
+        return 'lunasea.BuyMeACoffee'.tr();
+      case LunaInAppPurchases.DONATION_05:
+        return 'lunasea.BuyMeABeer'.tr();
+      case LunaInAppPurchases.DONATION_10:
+        return 'lunasea.BuyMeABurger'.tr();
+      default:
+        return 'lunasea.Unknown'.tr();
+    }
+  }
+}
 
 class LunaInAppPurchases {
   // Donation IAP IDs

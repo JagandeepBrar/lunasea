@@ -82,7 +82,7 @@ class _State extends State<DashboardCalendarWidget> {
                 child: Column(
                   children: [
                     _calendar(),
-                    const LunaDivider(),
+                    LunaDivider(),
                     _calendarList(),
                   ],
                 ),

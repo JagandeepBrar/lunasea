@@ -143,7 +143,7 @@ extension LunaRadarrEventType on RadarrEventType {
         title: 'age',
         body: record.data!['ageHours'] != null
             ? double.tryParse((record.data!['ageHours'] as String))
-                    ?.lunaHoursToAge() ??
+                    ?.asTimeAgo ??
                 LunaUI.TEXT_EMDASH
             : LunaUI.TEXT_EMDASH,
       ),

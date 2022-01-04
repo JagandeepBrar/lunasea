@@ -46,7 +46,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaModule.RADARR.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
-        const LunaDivider(),
+        LunaDivider(),
         _defaultOptionsPage(),
         _defaultPagesPage(),
         _discoverUseRadarrSuggestionsToggle(),

@@ -200,5 +200,9 @@
     "settings.SortDirection": "Direction du tri",
     "settings.ClearImageCache": "Effacer le cache d'image",
     "settings.ClearImageCacheHint1": "Êtes-vous sûr(e) de vouloir effacer toutes les images du cache ?",
-    "settings.ClearImageCacheHint2": "Le retéléchargement d'images pour une grande bibliothèque peut consommer une grande quantité de données."
+    "settings.ClearImageCacheHint2": "Le retéléchargement d'images pour une grande bibliothèque peut consommer une grande quantité de données.",
+    "settings.Network": "Réseau",
+    "settings.NetworkDescription": "Personnaliser les fonctionnalités du réseau",
+    "settings.TLSCertificateValidation": "Validation du certificat TLS",
+    "settings.TLSCertificateValidationDescription": "Valider les certificats dans les connexions TLS"
 }

@@ -105,7 +105,7 @@ class LunaUI {
 
   // <--> Borders
   static bool get shouldUseBorder {
-    return LunaTheme.isAMOLEDTheme! && LunaTheme.useAMOLEDBorders!;
+    return LunaTheme.isAMOLEDTheme && LunaTheme.useBorders;
   }
 
   static ShapeBorder get shapeBorder {

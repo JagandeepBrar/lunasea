@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -97,9 +98,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _iapTile(ProductDetails product) {
     return LunaBlock(
-      title: product.lunaName,
+      title: product.name,
       body: [TextSpan(text: product.price)],
-      trailing: LunaIconButton(icon: product.lunaIcon),
+      trailing: LunaIconButton(icon: product.icon),
       onTap: () async {
         final PurchaseParam _parameters = PurchaseParam(
           productDetails: product,

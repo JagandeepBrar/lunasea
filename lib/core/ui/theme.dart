@@ -22,12 +22,11 @@ class LunaTheme {
 
   /// Returns the active [ThemeData] by checking the theme database value.
   ThemeData activeTheme() {
-    return isAMOLEDTheme! ? _pureBlackTheme() : _midnightTheme();
+    return isAMOLEDTheme ? _pureBlackTheme() : _midnightTheme();
   }
 
-  static bool? get isAMOLEDTheme => LunaDatabaseValue.THEME_AMOLED.data;
-  static bool? get useAMOLEDBorders =>
-      LunaDatabaseValue.THEME_AMOLED_BORDER.data;
+  static bool get isAMOLEDTheme => LunaDatabaseValue.THEME_AMOLED.data;
+  static bool get useBorders => LunaDatabaseValue.THEME_AMOLED_BORDER.data;
 
   /// Midnight theme (Default)
   ThemeData _midnightTheme() {
@@ -35,7 +34,7 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: LunaColours.primary,
       primaryColor: LunaColours.secondary,
-      highlightColor: LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      highlightColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       cardColor: LunaColours.secondary,
       hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
@@ -68,7 +67,7 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: Colors.black,
       primaryColor: Colors.black,
-      highlightColor: LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      highlightColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       cardColor: Colors.black,
       hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
@@ -83,8 +82,7 @@ class LunaTheme {
           borderRadius: const BorderRadius.all(
             Radius.circular(LunaUI.BORDER_RADIUS),
           ),
-          border:
-              useAMOLEDBorders! ? Border.all(color: LunaColours.white10) : null,
+          border: useBorders ? Border.all(color: LunaColours.white10) : null,
         ),
         textStyle: const TextStyle(
           color: LunaColours.grey,
@@ -122,7 +120,7 @@ class LunaTheme {
     return TextButtonThemeData(
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all<Color>(
-          LunaColours.splash.withOpacity(LunaUI.OPACITY_SPLASH),
+          LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
         ),
       ),
     );

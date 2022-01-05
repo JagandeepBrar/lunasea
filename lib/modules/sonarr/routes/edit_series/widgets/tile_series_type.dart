@@ -17,7 +17,7 @@ class SonarrSeriesEditSeriesTypeTile extends StatelessWidget {
                     .watch<SonarrSeriesEditState>()
                     .seriesType
                     ?.value
-                    ?.lunaCapitalizeFirstLetters() ??
+                    ?.toTitleCase() ??
                 LunaUI.TEXT_EMDASH),
       ],
       trailing: const LunaIconButton.arrow(),

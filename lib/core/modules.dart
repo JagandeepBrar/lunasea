@@ -710,10 +710,11 @@ extension LunaModuleExtension on LunaModule {
   }
 
   Future<void> launch() async {
-    if (route != null)
-      LunaState.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+    if (route != null) {
+      LunaState.navigatorKey.currentState?.pushNamedAndRemoveUntil(
         route!,
         (Route<dynamic> route) => false,
       );
+    }
   }
 }

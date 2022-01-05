@@ -24,7 +24,7 @@ class RadarrHistoryTile extends StatelessWidget {
           text: [
             history.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
             history.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-          ].join(LunaUI.TEXT_BULLET.lunaPad()!),
+          ].join(LunaUI.TEXT_BULLET.lunaPad()),
         ),
         TextSpan(
           text: history.eventType?.lunaReadable(history) ?? LunaUI.TEXT_EMDASH,

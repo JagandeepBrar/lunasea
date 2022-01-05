@@ -44,10 +44,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: <Widget>[
         _versionInformation(),
         _logs(),
-        const LunaDivider(),
+        LunaDivider(),
         const SettingsSystemBackupRestoreBackupTile(),
         const SettingsSystemBackupRestoreRestoreTile(),
-        const LunaDivider(),
+        LunaDivider(),
         _clearImageCache(),
         _clearConfiguration(),
       ],

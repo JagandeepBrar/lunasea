@@ -17,9 +17,6 @@ class LunaColours {
   /// Core accent colour
   static const Color accent = Color(0xFF4ECCA3);
 
-  /// Core splash colour
-  static const Color splash = Color(0xFF2EA07B);
-
   /// Core primary colour (background)
   static const Color primary = Color(0xFF32323E);
 

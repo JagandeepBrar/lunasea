@@ -6,7 +6,7 @@ abstract class LunaModuleDatabase {
   Map<String, dynamic> export();
 
   /// Receiving a map object, import a configuration
-  void import(Map<String, dynamic>? config);
+  void import(Map<String, dynamic> config);
 
   /// Return the Database enumerator value given the key
   dynamic valueFromKey(String key);

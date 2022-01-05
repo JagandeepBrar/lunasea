@@ -61,7 +61,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             ),
           ),
         ),
-        const LunaDivider(),
+        LunaDivider(),
         Expanded(
           child: LunaReorderableListViewBuilder(
             padding: MediaQuery.of(context).padding.copyWith(top: 0).add(

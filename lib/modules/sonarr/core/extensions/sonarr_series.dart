@@ -90,7 +90,7 @@ extension SonarrSeriesExtension on SonarrSeries {
 
   String get lunaSeriesType {
     if (this.seriesType == null) return 'lunasea.Unknown'.tr();
-    return this.seriesType!.value!.lunaCapitalizeFirstLetters()!;
+    return this.seriesType!.value!.toTitleCase();
   }
 
   String get lunaSeasonCount {

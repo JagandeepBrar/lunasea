@@ -2,13 +2,14 @@ import 'package:lunasea/core.dart';
 
 extension DurationExtension on Duration {
   /// Return a string representation of the timestamp.
-  ///
-  /// Format example: HH:MM:SS or MM:SS if the duration is less than one hour
-  String get lunaTimestamp => [
-        if (this.inHours != 0) this.inHours.toString().padLeft(2, '0'),
-        (this.inMinutes % 60).toString().padLeft(2, '0'),
-        (this.inSeconds % 60).toString().padLeft(2, '0'),
-      ].join(':');
+  /// `HH:MM:SS` or `MM:SS` if the duration is less than one hour.
+  String get lunaTimestamp {
+    return [
+      if (this.inHours != 0) this.inHours.toString().padLeft(2, '0'),
+      (this.inMinutes % 60).toString().padLeft(2, '0'),
+      (this.inSeconds % 60).toString().padLeft(2, '0'),
+    ].join(':');
+  }
 
   /// Returns a string representation of the timestamp as words.
   ///

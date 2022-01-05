@@ -13,8 +13,7 @@ extension LunaRadarrExtraFileExtension on RadarrExtraFile {
   }
 
   String get lunaType {
-    if (this.type?.isNotEmpty ?? false)
-      return this.type.lunaCapitalizeFirstLetters()!;
+    if (this.type?.isNotEmpty ?? false) return this.type!.toTitleCase();
     return LunaUI.TEXT_EMDASH;
   }
 }

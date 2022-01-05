@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class LunaBottomNavigationBar extends StatefulWidget {
   final PageController? pageController;
@@ -69,54 +70,67 @@ class _State extends State<LunaBottomNavigationBar> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.topActions?.isNotEmpty ?? false)
-          LunaBottomActionBar(
-            actions: widget.topActions,
-            useSafeArea: false,
-            padding: LunaUI.MARGIN_HALF.copyWith(bottom: 0.0),
-          ),
-        Container(
-          child: Theme(
-            // https://m3.material.io/components/navigation-bar/specs
-            data: ThemeData(
-              useMaterial3: true,
-              navigationBarTheme: NavigationBarThemeData(
-                backgroundColor: Colors.transparent,
-                indicatorColor: Theme.of(context).canvasColor,
-                iconTheme: MaterialStateProperty.all(const IconThemeData(
-                  color: LunaColours.white,
-                )),
-                // Label medium
-                labelTextStyle: MaterialStateProperty.all(
-                  const LunaTextStyle.labelMedium().copyWith(
-                    color: LunaColours.white,
-                  ),
-                ),
-                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              ),
-              splashColor: Theme.of(context).splashColor,
-              tooltipTheme: Theme.of(context).tooltipTheme,
-            ),
-            child: NavigationBar(
-              selectedIndex: _index,
-              onDestinationSelected: (idx) => _onDestinationSelected(idx),
-              destinations: List.generate(
-                widget.titles.length,
-                (idx) => NavigationDestination(
-                  label: widget.titles[idx],
-                  icon: widget.leadingOnTab?.elementAtOrNull(idx) ??
-                      Icon(widget.icons[idx]),
-                  selectedIcon: Icon(
-                    widget.icons[idx],
-                    color: LunaColours.accent,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-        )
+        if (widget.topActions?.isNotEmpty ?? false) _actionBar,
+        _navigationBar,
       ],
+    );
+  }
+
+  Widget get _actionBar {
+    return LunaBottomActionBar(
+      actions: widget.topActions,
+      useSafeArea: false,
+      padding: LunaUI.MARGIN_HALF,
+    );
+  }
+
+  Widget get _navigationBar {
+    return Container(
+      child: SafeArea(
+        child: Padding(
+          child: GNav(
+            gap: LunaUI.MARGIN_SIZE_HALF,
+            duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+            tabBackgroundColor: Theme.of(context).canvasColor.dimmed(),
+            activeColor: LunaColours.accent,
+            tabs: List.generate(
+                widget.icons.length,
+                (index) => GButton(
+                      icon: widget.icons[index],
+                      text: widget.titles[index],
+                      active: _index == index,
+                      iconSize: LunaUI.ICON_SIZE,
+                      haptic: true,
+                      padding: const EdgeInsets.all(10.0).add(EdgeInsets.only(
+                        left: _index == index ? LunaUI.MARGIN_SIZE_HALF : 0.0,
+                      )),
+                      iconColor: Colors.white,
+                      textStyle: const TextStyle(
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        fontSize: LunaUI.FONT_SIZE_H3,
+                        color: Colors.white,
+                      ),
+                      iconActiveColor: LunaColours.accent,
+                      leading: widget.leadingOnTab == null
+                          ? null
+                          : widget.leadingOnTab![index],
+                    )).toList(),
+            tabActiveBorder: LunaUI.shouldUseBorder
+                ? Border.all(color: LunaColours.white10)
+                : null,
+            tabBorder: LunaUI.shouldUseBorder
+                ? Border.all(color: Colors.transparent)
+                : null,
+            selectedIndex: _index,
+            onTabChange: _onDestinationSelected,
+          ),
+          padding: (widget.topActions?.isNotEmpty ?? false)
+              ? LunaUI.MARGIN_DEFAULT.copyWith(top: 0.0)
+              : LunaUI.MARGIN_DEFAULT,
+        ),
+        top: false,
+      ),
+      color: Theme.of(context).primaryColor,
     );
   }
 

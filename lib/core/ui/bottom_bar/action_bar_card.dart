@@ -102,7 +102,7 @@ class LunaActionBarCard extends StatelessWidget {
       margin: LunaUI.MARGIN_HALF,
       color: backgroundColor != null
           ? backgroundColor!.withOpacity(LunaUI.OPACITY_DIMMED)
-          : LunaTheme.isAMOLEDTheme!
+          : LunaTheme.isAMOLEDTheme
               ? Colors.black.withOpacity(LunaUI.OPACITY_DIMMED)
               : LunaColours.primary.withOpacity(LunaUI.OPACITY_DIMMED),
     );

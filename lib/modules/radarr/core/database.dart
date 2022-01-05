@@ -89,8 +89,8 @@ class RadarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic>? config) {
-    for (String key in config!.keys) {
+  void import(Map<String, dynamic> config) {
+    for (String key in config.keys) {
       RadarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {

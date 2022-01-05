@@ -497,8 +497,7 @@ class RadarrAPIHelper {
         String? message = '${files.length} Files';
         if (files.length == 1) message = files[0].path;
         showLunaSuccessSnackBar(
-          title:
-              'Importing... (${importMode.value.lunaCapitalizeFirstLetters()})',
+          title: 'Importing... (${importMode.value.toTitleCase()})',
           message: lunaSafeString(message),
         );
         return true;

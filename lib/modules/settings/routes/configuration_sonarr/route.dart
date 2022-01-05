@@ -45,7 +45,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaModule.SONARR.informationBanner(),
         _enabledToggle(),
         _connectionDetailsPage(),
-        const LunaDivider(),
+        LunaDivider(),
         _defaultOptionsPage(),
         _defaultPagesPage(),
         _queueSize(),

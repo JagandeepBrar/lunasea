@@ -40,7 +40,7 @@ class _State extends State<LidarrReleasesTile> {
           color: lunaProtocolColor,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
-        text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+        text: widget.release.protocol.toTitleCase(),
       ),
       if (widget.release.isTorrent)
         TextSpan(
@@ -53,7 +53,7 @@ class _State extends State<LidarrReleasesTile> {
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
       TextSpan(text: widget.release.indexer),
       TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-      TextSpan(text: widget.release.ageHours.lunaHoursToAge()),
+      TextSpan(text: widget.release.ageHours.asTimeAgo),
     ]);
   }
 
@@ -83,7 +83,7 @@ class _State extends State<LidarrReleasesTile> {
   List<LunaHighlightedNode> _highlightedNodes() {
     return [
       LunaHighlightedNode(
-        text: widget.release.protocol.lunaCapitalizeFirstLetters()!,
+        text: widget.release.protocol.toTitleCase(),
         backgroundColor: lunaProtocolColor,
       ),
     ];
@@ -92,10 +92,8 @@ class _State extends State<LidarrReleasesTile> {
   List<LunaTableContent> _tableContent() {
     return [
       LunaTableContent(
-          title: 'source',
-          body: widget.release.protocol.lunaCapitalizeFirstLetters()),
-      LunaTableContent(
-          title: 'age', body: widget.release.ageHours.lunaHoursToAge()),
+          title: 'source', body: widget.release.protocol.toTitleCase()),
+      LunaTableContent(title: 'age', body: widget.release.ageHours.asTimeAgo),
       LunaTableContent(title: 'indexer', body: widget.release.indexer),
       LunaTableContent(
           title: 'size', body: widget.release.size.lunaBytesToString()),

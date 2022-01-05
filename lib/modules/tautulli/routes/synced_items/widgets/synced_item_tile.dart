@@ -41,7 +41,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
 
     return TextSpan(
       children: [
-        TextSpan(text: _type.lunaCapitalizeFirstLetters()),
+        TextSpan(text: _type.toTitleCase()),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
         TextSpan(text: _count == 1 ? '1 Item' : '$_count Items'),
         TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
@@ -65,7 +65,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
   TextSpan _subtitle3() {
     String _state = syncedItem.state ?? 'lunasea.Unknown'.tr();
     return TextSpan(
-      text: _state.lunaCapitalizeFirstLetters(),
+      text: _state.toTitleCase(),
       style: const TextStyle(
         color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,

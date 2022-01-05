@@ -45,8 +45,8 @@ class LidarrDatabase extends LunaModuleDatabase {
   }
 
   @override
-  void import(Map<String, dynamic>? config) {
-    for (String key in config!.keys) {
+  void import(Map<String, dynamic> config) {
+    for (String key in config.keys) {
       LidarrDatabaseValue? value = valueFromKey(key);
       if (value != null)
         switch (value) {

@@ -67,10 +67,10 @@ class LunaConfiguration {
       if (config[_EXTERNAL_MODULES_KEY] != null)
         _setExternalModules(config[_EXTERNAL_MODULES_KEY]);
       if (config[_LUNASEA_KEY] != null)
-        LunaDatabase().import(config[_LUNASEA_KEY]);
+        LunaDatabase().import(config[_LUNASEA_KEY] ?? {});
       LunaModule.values.forEach((module) {
         if (config[module.key] != null)
-          module.database?.import(config[module.key]);
+          module.database?.import(config[module.key] ?? {});
       });
     } catch (error, stack) {
       LunaLogger().error(

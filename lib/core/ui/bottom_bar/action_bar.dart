@@ -9,12 +9,14 @@ class LunaBottomActionBar extends StatelessWidget {
   final List<Widget>? actions;
   final int actionsPerRow;
   final bool useSafeArea;
+  final Color? backgroundColor;
 
   LunaBottomActionBar({
     required this.actions,
     this.padding = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
     this.actionsPerRow = 2,
     this.useSafeArea = true,
+    this.backgroundColor,
     Key? key,
   }) : super(key: key) {
     assert(actions?.isNotEmpty ?? false);
@@ -37,7 +39,9 @@ class LunaBottomActionBar extends StatelessWidget {
           padding: padding,
         ),
       ),
-      decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Theme.of(context).primaryColor,
+      ),
     );
   }
 }

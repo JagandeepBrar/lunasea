@@ -44,11 +44,15 @@ output/
 *.apk
 ios/build/
 coverage/
+ios/Runner.ipa
+ios/Runner.app.dSYM.zip
 
 # Fastlane
 
 /android/fastlane/README.md
 /android/fastlane/report.xml
+/ios/fastlane/README.md
+/ios/fastlane/report.xml
 
 # Blackbox
 /.blackbox/pubring.gpg~

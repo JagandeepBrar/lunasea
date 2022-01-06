@@ -4,3 +4,4 @@ android/key.properties
 ios/GoogleService-Info.plist
 ios/fastlane/Auth.p8
 macos/GoogleService-Info.plist
+macos/fastlane/Auth.p8

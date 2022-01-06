@@ -3,4 +3,5 @@ android/fastlane/Appfile
 android/key.jks
 android/key.properties
 ios/GoogleService-Info.plist
+ios/fastlane/Appfile
 macos/GoogleService-Info.plist

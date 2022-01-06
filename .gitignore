@@ -63,12 +63,12 @@ macos/LunaSea.pkg
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
-/android/key.properties
+
+/android/fastlane/Auth.json
 /android/app/google-services.json
 /android/key.jks
+/android/key.properties
 /ios/GoogleService-Info.plist
-/macos/GoogleService-Info.plist
-/vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf
 /ios/fastlane/Auth.p8
+/macos/GoogleService-Info.plist
 /macos/fastlane/Auth.p8
-/Android/fastlane/Auth.json

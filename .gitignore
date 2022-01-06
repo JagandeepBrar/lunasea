@@ -39,19 +39,36 @@ ios/Flutter/.last_build_id
 
 # LunaSea
 output/
-*.ipa
-*.aab
-*.apk
-ios/build/
+*.packages
 coverage/
+
+# XCode Build Artifacts
+ios/build/
+ios/Runner.app.dSYM.zip
+ios/Runner.ipa
+
+macos/LunaSea.app
+macos/LunaSea.app.dSYM.zip
+macos/LunaSea.pkg
+
+# Fastlane
+/android/fastlane/README.md
+/android/fastlane/report.xml
+/ios/fastlane/README.md
+/ios/fastlane/report.xml
+/macos/fastlane/README.md
+/macos/fastlane/report.xml
 
 # Blackbox
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
-/android/key.properties
+
+/android/fastlane/Auth.json
 /android/app/google-services.json
 /android/key.jks
+/android/key.properties
 /ios/GoogleService-Info.plist
+/ios/fastlane/Auth.p8
 /macos/GoogleService-Info.plist
-/vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf
+/macos/fastlane/Auth.p8

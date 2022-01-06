@@ -1,0 +1,14 @@
+default_platform(:android)
+build_number = 1000000000 + number_of_commits()
+
+platform :android do
+  desc "Deploy a new alpha build to Google Play"
+  lane :alpha do
+    Dir.chdir "../.." do
+      sh("flutter", "clean")
+      sh("flutter", "packages", "get")
+      sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{build_number}")
+    end
+    upload_to_play_store(track: "alpha", aab: "../build/app/outputs/bundle/release/app.aab")
+  end
+end

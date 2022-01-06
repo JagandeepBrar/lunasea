@@ -9,7 +9,12 @@ platform :ios do
       sh("flutter", "packages", "get")
       sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
     end
-    build_ios_app(scheme: "Runner")
-    # upload_to_testflight(distribute_external: true, groups: 'Alpha')
+    api_key = app_store_connect_api_key(
+      key_id: "3Z55GTHMWY",
+      issuer_id: "057b0968-cbc8-4025-99da-84fb326bed70",
+      key_filepath: "./Auth.p8",
+    )
+    build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+    upload_to_testflight(distribute_external: true, groups: "Alpha")
   end
 end

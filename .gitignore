@@ -55,3 +55,4 @@ coverage/
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
 /vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf
+/android/fastlane/Appfile

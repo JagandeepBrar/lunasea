@@ -1,4 +1,5 @@
 android/app/google-services.json
+android/fastlane/Appfile
 android/key.jks
 android/key.properties
 ios/GoogleService-Info.plist

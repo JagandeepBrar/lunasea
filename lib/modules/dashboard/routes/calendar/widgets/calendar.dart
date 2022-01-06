@@ -95,10 +95,10 @@ class _State extends State<DashboardCalendarWidget> {
         ));
   }
 
-  Widget _markerBuilder(
+  Widget? _markerBuilder(
     BuildContext context,
     DateTime date,
-    List<CalendarData> events,
+    List<dynamic> events,
   ) {
     Color color;
     int missingCount = _countMissingContent(date, events);
@@ -202,7 +202,10 @@ class _State extends State<DashboardCalendarWidget> {
                   weekendStyle: weekdayTitleStyle,
                   weekdayStyle: weekdayTitleStyle,
                 ),
-                eventLoader: (date) => widget.events![date.lunaFloor]!,
+                eventLoader: (date) {
+                  if (widget.events?.isEmpty ?? true) return [];
+                  return widget.events![date.lunaFloor] ?? [];
+                },
                 calendarFormat: _calendarFormat,
                 availableCalendarFormats: const {
                   CalendarFormat.month: 'Month',
@@ -223,7 +226,7 @@ class _State extends State<DashboardCalendarWidget> {
 
   /// -1: Date is after today (with content)
   /// -100: Event list was empty or null
-  int _countMissingContent(DateTime date, List<CalendarData> events) {
+  int _countMissingContent(DateTime date, List<dynamic> events) {
     DateTime _date = date.lunaFloor;
     DateTime _now = DateTime.now().lunaFloor;
 

@@ -1,3 +1,4 @@
+Android/fastlane/Auth.json
 android/app/google-services.json
 android/key.jks
 android/key.properties

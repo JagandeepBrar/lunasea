@@ -71,3 +71,4 @@ macos/LunaSea.pkg
 /vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf
 /ios/fastlane/Auth.p8
 /macos/fastlane/Auth.p8
+/Android/fastlane/Auth.json

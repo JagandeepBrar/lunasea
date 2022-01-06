@@ -69,3 +69,4 @@ macos/LunaSea.pkg
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
 /vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf
+/ios/fastlane/Auth.p8

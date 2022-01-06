@@ -39,20 +39,25 @@ ios/Flutter/.last_build_id
 
 # LunaSea
 output/
-*.ipa
-*.aab
-*.apk
-ios/build/
+*.packages
 coverage/
-ios/Runner.ipa
+
+# XCode Build Artifacts
+ios/build/
 ios/Runner.app.dSYM.zip
+ios/Runner.ipa
+
+macos/LunaSea.app
+macos/LunaSea.app.dSYM.zip
+macos/LunaSea.pkg
 
 # Fastlane
-
 /android/fastlane/README.md
 /android/fastlane/report.xml
 /ios/fastlane/README.md
 /ios/fastlane/report.xml
+/macos/fastlane/README.md
+/macos/fastlane/report.xml
 
 # Blackbox
 /.blackbox/pubring.gpg~

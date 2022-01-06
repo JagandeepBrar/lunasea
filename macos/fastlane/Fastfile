@@ -7,7 +7,7 @@ platform :ios do
     Dir.chdir "../.." do
       sh("flutter", "clean")
       sh("flutter", "packages", "get")
-      sh("flutter", "build", "ios", "--release", "--bundle-sksl-path=shaders/ios_sksl.json", "--no-codesign", "--build-number=#{build_number}")
+      sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
     end
     build_ios_app(scheme: "Runner")
     # upload_to_testflight(distribute_external: true, groups: 'Alpha')

@@ -45,6 +45,11 @@ output/
 ios/build/
 coverage/
 
+# Fastlane
+
+/android/fastlane/README.md
+/android/fastlane/report.xml
+
 # Blackbox
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~

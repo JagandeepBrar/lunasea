@@ -64,11 +64,7 @@ macos/LunaSea.pkg
 /macos/fastlane/screenshots
 /macos/fastlane/metadata/review_information
 
-# Blackbox
-/.blackbox/pubring.gpg~
-/.blackbox/pubring.kbx~
-/.blackbox/secring.gpg
-
+# Keys & Service Accounts
 android/app/google-services.json
 android/key.jks
 android/key.properties

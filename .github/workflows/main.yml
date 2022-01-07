@@ -40,6 +40,8 @@ jobs:
 
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
           bundle exec fastlane alpha

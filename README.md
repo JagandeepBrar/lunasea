@@ -61,7 +61,7 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -93,6 +93,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://xxzj990.top"><img src="https://avatars.githubusercontent.com/u/5134154?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xxzj990</b></sub></a><br /><a href="#translation-xxzj990" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/Qstick"><img src="https://avatars.githubusercontent.com/u/376117?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qstick</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=Qstick" title="Code">💻</a></td>
     <td align="center"><a href="https://www.openflixr.com"><img src="https://avatars.githubusercontent.com/u/3245077?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mark Frelink</b></sub></a><br /><a href="#translation-mfrelink" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/diemade"><img src="https://avatars.githubusercontent.com/u/174809?v=4?s=100" width="100px;" alt=""/><br /><sub><b>diemade</b></sub></a><br /><a href="#translation-diemade" title="Translation">🌍</a></td>
   </tr>
 </table>
 

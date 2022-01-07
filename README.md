@@ -26,6 +26,16 @@ LunaSea even comes with support for multiple instances of applications using pro
   - [(Android) Play Store](https://www.lunasea.app/playstore)
   - [(iOS) App Store](https://www.lunasea.app/appstore)
   - [(macOS) GitHub](https://github.com/CometTools/LunaSea/releases)
+  - [(macOS) Homebrew]:
+     ```sh
+	 brew update
+	 brew install lunasea
+      ```
+	  If you want to update Lunasea:
+	  ```sh
+	  brew update
+	  brew upgrade lunasea
+	  ```
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
   - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
   - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)

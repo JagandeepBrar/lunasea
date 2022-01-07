@@ -16,13 +16,6 @@ platform :mac do
     end
 
     match(
-      type: "mac_installer_distribution",
-      readonly: is_ci,
-      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
-    )
-
-    match(
       type: "appstore",
       readonly: is_ci,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],

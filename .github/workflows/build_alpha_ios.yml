@@ -19,6 +19,13 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
+      - name: Setup Private Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
+          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > ios/fastlane/3Z55GTHMWY.p8
+
+
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -37,10 +44,9 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2.0.3
         with:
-          flutter-version: '2.9.0-0.1.pre'
           channel: 'beta'
 
-      - name: Install Flutter Packages
+      - name: Setup Flutter
         working-directory: ${{ github.workspace }}
         run: |
           flutter pub get
@@ -49,12 +55,6 @@ jobs:
         working-directory: ${{ github.workspace }}/ios
         run: |
           pod install --repo-update
-      
-      - name: Setup Keys & Firebase
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
-          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > ios/fastlane/3Z55GTHMWY.p8
 
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/ios

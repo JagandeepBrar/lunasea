@@ -13,7 +13,13 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0
-      
+
+      - name: Setup Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
+          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > macos/fastlane/3Z55GTHMWY.p8
+
       - name: Setup SSH Keys
         uses: webfactory/ssh-agent@v0.5.4
         with:
@@ -37,24 +43,18 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2.0.3
         with:
-          flutter-version: '2.9.0-0.1.pre'
           channel: 'beta'
 
-      - name: Install Flutter Packages
+      - name: Setup Flutter
         working-directory: ${{ github.workspace }}
         run: |
+          flutter config --enable-macos-desktop
           flutter pub get
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos
         run: |
           pod install --repo-update
-      
-      - name: Setup Keys & Firebase
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
-          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > macos/fastlane/3Z55GTHMWY.p8
 
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/macos

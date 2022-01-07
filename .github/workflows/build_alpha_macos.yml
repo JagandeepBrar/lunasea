@@ -45,23 +45,20 @@ jobs:
         with:
           channel: 'beta'
 
-      - name: Prepare Package Cache
+      - name: Prepare Cache
         uses: actions/cache@v2
         with:
-          path: ${{ env.PUB_CACHE }}
           key: pub-${{ hashFiles('pubspec.yaml') }}
+          path: |
+            ${{ env.PUB_CACHE }}
+            ${{ github.workspace }}/ios/Pods
+            ${{ github.workspace }}/macos/Pods
 
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
-
-      - name: Prepare Pods Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/macos/Pods
-          key: pub-${{ hashFiles('pubspec.yaml') }}
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos

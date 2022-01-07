@@ -1,183 +1,26 @@
 {
-  "motd": "Welcome to LunaSea v6.0.0!\n\nThis update introduces some major new and reworked features. Sonarr has been fully revamped to take full advantage of the features available in v3, Radarr and Sonarr have a new grid view, and the UI has had many big and small changes to make it faster, more consistent, and more performant!",
+  "motd": "Welcome to LunaSea!",
   "new": [
     {
-      "module": "Dashboard",
+      "module": "",
       "changes": [
-        "(Calendar) Display content poster and additional information",
-        "(Calendar) Add option to show past days in schedule view",
-        "(Calendar) Use different marker colours depending on how much content is missing"
-      ]
-    },
-    {
-      "module": "Lidarr",
-      "changes": [
-        "(Add Artist) Long-press result tile to view Discogs page",
-        "(Add Artist) Show artist poster in result list",
-        "(Add Artist) Allow user to select monitoring options",
-        "(Add Artist) Removed toggle to use album folders",
-        "(Catalogue) Show artist poster in catalogue list",
-        "(Missing) Display album covers"
-      ]
-    },
-    {
-      "module": "Notifications",
-      "changes": [
-        "(Priority) Support time-sensitive notifications"
-      ]
-    },
-    {
-      "module": "Settings",
-      "changes": [
-        "(Account) Ability to delete your LunaSea account and all cloud data",
-        "(Configuration) Show dismissable blocks with information and links",
-        "(Network) Ability to enable TLS certificate validation",
-        "(Radarr) Ability to set default catalogue view",
-        "(Sonarr) Removed toggle to enable v3 features",
-        "(Sonarr) Ability to set default catalogue view",
-        "(Sonarr) Ability to set default filtering method",
-        "(Sonarr) Ability to set queue fetch size",
-        "(System) Ability to clear image cache"
-      ]
-    },
-    {
-      "module": "Radarr",
-      "changes": [
-        "(Catalogue) Grid view support",
-        "(Catalogue) Expand search bar on focus"
-      ]
-    },
-    {
-      "module": "Sonarr",
-      "changes": [
-        "(Catalogue) Grid view support",
-        "(Catalogue) Expand search bar on focus",
-        "(Catalogue) Many additional sorting and filtering options",
-        "(Episodes) Entirely revamped details view",
-        "(Episodes) View media info for downloaded episodes",
-        "(Episodes) View history for a single episode",
-        "(Episodes) View active queued releases for a single episode",
-        "(Season Details) View history for a single season",
-        "(Series Details) View history for a single series",
-        "(History) Now an infinite scrolling list",
-        "(History) Tiles are now expandable tiles with much more detail",
-        "(Home) \"History\" tab has been replaced with a \"More\" tab",
-        "(Season List) Display season posters",
-        "(Queue) Option to set queue page size",
-        "(Releases) Ability to set default filtering method",
-        "(Releases) Now shows preferred word score"
-      ]
-    },
-    {
-      "module": "System",
-      "changes": [
-        "(Analytics) Completely removed Firebase Analytics",
-        "(Analytics) Completely removed Firebase Crashlytics",
-        "(Images) Cache fetched images to disk"
-      ]
-    },
-    {
-      "module": "UI/UX",
-      "changes": [
-        "(Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr",
-        "(Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled"
+        ""
       ]
     }
   ],
   "tweaks": [
     {
-      "module": "Dashboard",
+      "module": "",
       "changes": [
-        "(Modules) Always use module's brand colour for module list"
-      ]
-    },
-    {
-      "module": "UI/UX",
-      "changes": [
-        "(Drawer) Use module's brand colour for highlighted colour",
-        "(Drawer) Heavily reduced the size of the header area",
-        "(Drawer) Use the primary colour as the background colour",
-        "(Fonts) Normalized font sizes across the UI",
-        "(Icons) Ensure all icons are of the \"rounded\" family",
-        "(Icons) Replace custom icons (except branding icons) with Flutter defaults",
-        "(Images) Set the default image opacity to 20% (custom set values are uneffected)",
-        "(Tile Blocks) Heavily improved build and memory performance of tiles",
-        "(Tile Blocks) Improved consistency in trailing icon/text size",
-        "(Tile Blocks) Improved consistency of tile height, content spacing, and padding",
-        "(Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.",
-        "(Tile Blocks) Fade-in background image loads",
-        "(Tooltips) Added styling to match LunaSea theme"
+        ""
       ]
     }
   ],
   "fixes": [
     {
-      "module": "Dashboard",
+      "module": "",
       "changes": [
-        "(Calendar) Only show type switcher icon when on the calendar page"
-      ]
-    },
-    {
-      "module": "Flutter",
-      "changes": []
-    },
-    {
-      "module": "Lidarr",
-      "changes": [
-        "(Artists) Safe-guard fetching of artist quality profiles"
-      ]
-    },
-    {
-      "module": "Radarr",
-      "changes": [
-        "(Add Movie) Removed ability to set PreDB or TBA minimum availability",
-        "(Edit Movie) Removed ability to set PreDB or TBA minimum availability",
-        "(Files) Failed to load when files have no media information",
-        "(Releases) Negative custom word scores would be incorrectly displayed"
-      ]
-    },
-    {
-      "module": "Settings",
-      "changes": [
-        "(Calendar) Starting type would have incorrect icons",
-        "(Notifications) Overseerr would not be displayed"
-      ]
-    },
-    {
-      "module": "Sonarr",
-      "changes": [
-        "(API) Now only utilizes v3 API routes",
-        "(Catalogue) Missing filter would fail to load when using Sonarr v4",
-        "(Edit Series) Vastly speed up response time on submitting updates",
-        "(Missing) Air date would show in days for very old content",
-        "(Queue) Check monitored download status on pull to refresh",
-        "(Season List) Correctly calculate the available episode count"
-      ]
-    },
-    {
-      "module": "System",
-      "changes": [
-        "(Flutter) Update packages",
-        "(Flutter) Upgrade to Firebase SDK v8.9.0",
-        "(Network) TLS v1.3 is now fully supported"
-      ]
-    },
-    {
-      "module": "Tautulli",
-      "changes": [
-        "(Activity) Activity counter badge would not completely fade away",
-        "(Check for Updates) Checking for updates could fail in some cases"
-      ]
-    },
-    {
-      "module": "UI/UX",
-      "changes": [
-        "(Bottom Sheet) Tightly size all bottom sheets to the content",
-        "(List View) Make padding around the end of infinite list loaders and icons more consistent",
-        "(Popup Menu) Positioning could get unaligned or broken if opened in specific views",
-        "(Router) Slide transitions between pages could not occur on some devices",
-        "(Snackbar) Snackbars would not be shown in some cases",
-        "(Theme) Removed deprecated theme values"
+        ""
       ]
     }
   ],

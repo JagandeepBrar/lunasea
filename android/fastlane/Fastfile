@@ -9,6 +9,6 @@ platform :android do
       sh("flutter", "packages", "get")
       sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{build_number}")
     end
-    upload_to_play_store(track: "alpha", aab: "../build/app/outputs/bundle/release/app.aab")
+    upload_to_play_store(track: "alpha", aab: "../build/app/outputs/bundle/release/app-release.aab")
   end
 end

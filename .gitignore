@@ -64,11 +64,10 @@ macos/LunaSea.pkg
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
 
-/android/fastlane/Auth.json
-/android/app/google-services.json
-/android/key.jks
-/android/key.properties
-/ios/GoogleService-Info.plist
-/ios/fastlane/Auth.p8
-/macos/GoogleService-Info.plist
-/macos/fastlane/Auth.p8
+android/app/google-services.json
+android/key.jks
+android/key.properties
+ios/GoogleService-Info.plist
+ios/fastlane/3Z55GTHMWY.p8
+macos/GoogleService-Info.plist
+macos/fastlane/3Z55GTHMWY.p8

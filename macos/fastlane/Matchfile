@@ -1,0 +1,5 @@
+git_url("git@github.com:CometTools/LunaSea-Fastlane-Storage.git")
+storage_mode("git")
+type("appstore")
+app_identifier(["app.lunasea.lunasea", "app.lunasea.lunasea.ImageNotification"])
+username("me@jagandeepbrar.io")

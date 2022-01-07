@@ -1,7 +1,7 @@
-default_platform(:ios)
+default_platform(:macos)
 build_number = 1000000000 + number_of_commits()
 
-platform :ios do
+platform :macos do
   desc "Deploy a new alpha build to TestFlight"
   lane :alpha do
     Dir.chdir "../.." do
@@ -18,6 +18,7 @@ platform :ios do
     upload_to_testflight(
       distribute_external: false,
       notify_external_testers: false,
+      reject_build_waiting_for_review: true,
       groups: "Alpha",
       changelog: "The changelog is available within the application!",
     )

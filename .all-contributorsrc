@@ -169,6 +169,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "diemade",
+      "name": "diemade",
+      "avatar_url": "https://avatars.githubusercontent.com/u/174809?v=4",
+      "profile": "https://github.com/diemade",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

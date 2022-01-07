@@ -1,20 +1,47 @@
-default_platform(:macos)
+default_platform(:mac)
 build_number = 1000000000 + number_of_commits()
 
-platform :macos do
+platform :mac do
   desc "Deploy a new alpha build to TestFlight"
   lane :alpha do
-    Dir.chdir "../.." do
-      sh("flutter", "clean")
-      sh("flutter", "packages", "get")
-      sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
+    if is_ci
+      create_keychain(
+        name: ENV["MATCH_KEYCHAIN_NAME"],
+        password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+      )
     end
+
+    match(
+      type: "mac_installer_distribution",
+      readonly: is_ci,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+    )
+
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+    )
+
     api_key = app_store_connect_api_key(
       key_id: "3Z55GTHMWY",
       issuer_id: "057b0968-cbc8-4025-99da-84fb326bed70",
       key_filepath: "fastlane/3Z55GTHMWY.p8",
     )
-    build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+
+    Dir.chdir "../.." do
+      sh("flutter", "clean")
+      sh("flutter", "packages", "get")
+      sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
+    end
+    build_mac_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+
     upload_to_testflight(
       distribute_external: false,
       notify_external_testers: false,

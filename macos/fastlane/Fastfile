@@ -1,7 +1,7 @@
-default_platform(:ios)
+default_platform(:macos)
 build_number = 1000000000 + number_of_commits()
 
-platform :ios do
+platform :macos do
   desc "Deploy a new alpha build to TestFlight"
   lane :alpha do
     Dir.chdir "../.." do

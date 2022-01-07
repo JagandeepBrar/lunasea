@@ -1,4 +1,4 @@
-name: Android Alpha Build
+name: iOS Alpha Build
 
 on:
   workflow_dispatch:
@@ -13,6 +13,9 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0
+
+      - name: Select Xcode Version
+        run: sudo xcode-select -s '/Applications/Xcode_11.3.app/Contents/Developer'
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
@@ -29,23 +32,20 @@ jobs:
         with:
           flutter-version: '2.9.0-0.1.pre'
           channel: 'beta'
+
+      - name: Install Pods
+        working-directory: ${{ github.workspace }}/ios
+        run: |
+          pod install --repo-update
       
       - name: Setup Keystore & Firebase
+        working-directory: ${{ github.workspace }}
         run: |
-          echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
-          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
-          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
           echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
           echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > ios/fastlane/3Z55GTHMWY.p8
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
-          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > macos/fastlane/3Z55GTHMWY.p8
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
 
       - name: Run Fastlane
-        working-directory: ${{ github.workspace }}/android
-        env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        working-directory: ${{ github.workspace }}/ios
         run: |
           bundle install
           bundle exec fastlane alpha
-  

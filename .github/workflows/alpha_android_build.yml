@@ -1,0 +1,46 @@
+name: Android Alpha Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 0
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7.5'
+
+      - name: Install Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2.0.3
+        with:
+          flutter-version: '2.9.0-0.1.pre'
+          channel: 'beta'
+      
+      - name: Setup Keystore & Firebase
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane alpha

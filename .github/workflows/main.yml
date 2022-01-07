@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 0
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1

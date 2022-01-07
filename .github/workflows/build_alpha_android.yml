@@ -35,6 +35,12 @@ jobs:
         uses: subosito/flutter-action@v2.0.3
         with:
           channel: 'beta'
+      
+      - name: Prepare Package Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PUB_CACHE }}
+          key: pub-${{ hashFiles('pubspec.yaml') }}
 
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}

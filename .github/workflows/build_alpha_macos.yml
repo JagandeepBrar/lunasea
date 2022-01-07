@@ -18,7 +18,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
-          echo ${{ secrets.P8_3Z55GTHMWY }} | base64 --decode > macos/fastlane/3Z55GTHMWY.p8
+          echo ${{ secrets.APPLE_STORE_CONNECT_APIKEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
 
       - name: Setup SSH Keys
         uses: webfactory/ssh-agent@v0.5.4
@@ -45,11 +45,23 @@ jobs:
         with:
           channel: 'beta'
 
+      - name: Prepare Package Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PUB_CACHE }}
+          key: pub-${{ hashFiles('pubspec.yaml') }}
+
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
+
+      - name: Prepare Pods Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/macos/Pods
+          key: pub-${{ hashFiles('pubspec.yaml') }}
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos
@@ -62,6 +74,9 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
         run: |
           bundle install
           bundle exec fastlane alpha

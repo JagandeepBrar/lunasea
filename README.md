@@ -62,7 +62,7 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -97,6 +97,9 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/diemade"><img src="https://avatars.githubusercontent.com/u/174809?v=4?s=100" width="100px;" alt=""/><br /><sub><b>diemade</b></sub></a><br /><a href="#translation-diemade" title="Translation">🌍</a></td>
     <td align="center"><a href="https://feikojoosten.com"><img src="https://avatars.githubusercontent.com/u/10920052?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Feiko Joosten</b></sub></a><br /><a href="#translation-FeikoJoosten" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/TheMaxul"><img src="https://avatars.githubusercontent.com/u/2436527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TheMaxul</b></sub></a><br /><a href="#translation-TheMaxul" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://www.xrths.fr"><img src="https://avatars.githubusercontent.com/u/40337934?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xrths</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=xrths" title="Documentation">📖</a></td>
   </tr>
 </table>
 

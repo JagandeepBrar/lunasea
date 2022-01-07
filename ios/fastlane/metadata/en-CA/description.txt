@@ -1,0 +1,16 @@
+LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
+
+- Lidarr
+- Radarr
+- Sonarr
+- NZBGet
+- SABnzbd
+- Newznab Indexer Searching
+- NZBHydra2
+- Tautulli
+- Wake on LAN
+
+LunaSea even comes with support for multiple instances of applications using profiles, backing up and restoring your configuration to your filesystem, an AMOLED black theme, and more!
+
+
+> Please note that LunaSea is purely a remote control application, it does not offer any functionality without software installed on a server/computer.

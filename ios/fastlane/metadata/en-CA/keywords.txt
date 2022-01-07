@@ -1,0 +1,1 @@
+usenet,sonarr,radarr,lidarr,sabnzbd,nzbget,tautulli,torrent,plex,server,wakeonlan,nzbhydra,deluge

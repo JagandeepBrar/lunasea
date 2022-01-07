@@ -52,12 +52,17 @@ macos/LunaSea.app.dSYM.zip
 macos/LunaSea.pkg
 
 # Fastlane
-/android/fastlane/README.md
 /android/fastlane/report.xml
-/ios/fastlane/README.md
 /ios/fastlane/report.xml
-/macos/fastlane/README.md
 /macos/fastlane/report.xml
+/android/fastlane/Preview.html
+/ios/fastlane/Preview.html
+/macos/fastlane/Preview.html
+/android/fastlane/metadata/android/en-CA/images
+/ios/fastlane/screenshots
+/ios/fastlane/metadata/review_information
+/macos/fastlane/screenshots
+/macos/fastlane/metadata/review_information
 
 # Blackbox
 /.blackbox/pubring.gpg~

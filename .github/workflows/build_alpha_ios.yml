@@ -36,12 +36,9 @@ jobs:
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2.0.3
-        with:
-          flutter-version: '2.9.0-0.1.pre'
-          channel: 'beta'
-
-      - name: Install Flutter Packages
         working-directory: ${{ github.workspace }}
+        with:
+          channel: 'beta'
         run: |
           flutter pub get
 
@@ -50,7 +47,7 @@ jobs:
         run: |
           pod install --repo-update
       
-      - name: Setup Keys & Firebase
+      - name: Setup Keys
         working-directory: ${{ github.workspace }}
         run: |
           echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist

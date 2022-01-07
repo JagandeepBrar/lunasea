@@ -16,7 +16,8 @@ platform :ios do
     )
     build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
     upload_to_testflight(
-      distribute_external: true,
+      distribute_external: false,
+      notify_external_testers: false,
       groups: "Alpha",
       changelog: "The changelog is available within the application!",
     )

@@ -13,18 +13,17 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0
+
+      - name: Setup Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
       
       - name: Setup SSH Keys
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-      - name: Setup Private Keys
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
-          echo ${{ secrets.APPLE_STORE_CONNECT_APIKEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
@@ -45,15 +44,6 @@ jobs:
         uses: subosito/flutter-action@v2.0.3
         with:
           channel: 'beta'
-
-      - name: Prepare Cache
-        uses: actions/cache@v2
-        with:
-          key: pub-${{ hashFiles('pubspec.yaml') }}
-          path: |
-            ${{ env.PUB_CACHE }}
-            ${{ github.workspace }}/ios/Pods
-            ${{ github.workspace }}/macos/Pods
 
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}

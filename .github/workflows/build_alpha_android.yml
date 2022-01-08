@@ -36,15 +36,6 @@ jobs:
         with:
           channel: 'beta'
 
-      - name: Prepare Cache
-        uses: actions/cache@v2
-        with:
-          key: pub-${{ hashFiles('pubspec.yaml') }}
-          path: |
-            ${{ env.PUB_CACHE }}
-            ${{ github.workspace }}/ios/Pods
-            ${{ github.workspace }}/macos/Pods
-
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}
         run: |

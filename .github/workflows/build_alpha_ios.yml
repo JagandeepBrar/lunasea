@@ -51,6 +51,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           flutter pub get
+          flutter packages pub run build_runner build
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/ios

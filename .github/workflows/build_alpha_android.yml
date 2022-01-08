@@ -42,6 +42,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           flutter pub get
+          flutter packages pub run build_runner build
 
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/android

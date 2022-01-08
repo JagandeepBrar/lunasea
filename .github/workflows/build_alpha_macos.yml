@@ -52,6 +52,7 @@ jobs:
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
+          flutter packages pub run build_runner build
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos

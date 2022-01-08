@@ -15,6 +15,7 @@ platform :mac do
 
     match(
       type: "appstore",
+      additional_cert_types: "mac_installer_distribution",
       readonly: is_ci,
       keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],

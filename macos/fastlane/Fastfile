@@ -28,15 +28,15 @@ platform :mac do
       key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
     )
 
-    sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
-    build_mac_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+    # sh("flutter", "build", "macos", "--release", "--build-number=#{build_number}")
+    # build_mac_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
 
-    upload_to_testflight(
-      distribute_external: false,
-      notify_external_testers: false,
-      reject_build_waiting_for_review: true,
-      groups: "Alpha",
-      changelog: "The changelog is available within the application!",
-    )
+    # upload_to_testflight(
+    #   distribute_external: false,
+    #   notify_external_testers: false,
+    #   reject_build_waiting_for_review: true,
+    #   groups: "Alpha",
+    #   changelog: "The changelog is available within the application!",
+    # )
   end
 end

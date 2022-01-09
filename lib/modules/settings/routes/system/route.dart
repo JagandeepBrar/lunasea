@@ -55,6 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _versionInformation() {
+    Environment _env = LunaFlavor().environment;
     return FutureBuilder(
         future: PackageInfo.fromPlatform(),
         builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
@@ -65,7 +66,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 '${snapshot.data!.version} (${snapshot.data!.buildNumber})';
           return LunaBlock(
             title: 'Version: $version',
-            body: const [TextSpan(text: 'View Recent Changes')],
+            body: [
+              const TextSpan(text: 'View Recent Changes'),
+              TextSpan(
+                text: _env.name,
+                style: TextStyle(
+                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                  color: _env.color,
+                ),
+              ),
+            ],
             trailing: const LunaIconButton(icon: Icons.system_update_rounded),
             onTap: () async => LunaChangelogSheet().show(context: context),
           );

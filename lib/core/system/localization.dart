@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -87,7 +85,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
-        return kDebugMode;
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.ALPHA);
     }
   }
 

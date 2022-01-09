@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -53,7 +52,7 @@ extension LunaLogTypeExtension on LunaLogType {
       case LunaLogType.CRITICAL:
         return true;
       case LunaLogType.DEBUG:
-        return kDebugMode;
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA);
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -53,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           LunaModule.NZBGET.name,
           LunaDatabaseValue.QUICK_ACTIONS_NZBGET,
         ),
-        if (kDebugMode)
+        if (LunaModule.OVERSEERR.featureFlag)
           _actionTile(
             LunaModule.OVERSEERR.name,
             LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR,

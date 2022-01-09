@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _versionInformation() {
-    Environment _env = LunaFlavor().environment;
+    LunaEnvironment _env = LunaFlavor().environment;
     return FutureBuilder(
         future: PackageInfo.fromPlatform(),
         builder: (context, AsyncSnapshot<PackageInfo> snapshot) {

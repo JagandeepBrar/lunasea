@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:envify/envify.dart';
@@ -16,6 +17,7 @@ class LunaFlavor {
 
 extension FlavorExtension on LunaFlavor {
   Environment get environment {
+    if (kDebugMode) return Environment.DEVELOP;
     switch (LunaFlavor.flavor) {
       case 'develop':
         return Environment.DEVELOP;

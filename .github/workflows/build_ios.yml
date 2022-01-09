@@ -8,7 +8,6 @@ on:
         required: true
         description: 'Build Flavor?'
         options: 
-        - 'develop'
         - 'alpha'
         - 'beta'
         - 'production'

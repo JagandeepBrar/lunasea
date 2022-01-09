@@ -67,7 +67,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return LunaBlock(
             title: 'Version: $version',
             body: [
-              const TextSpan(text: 'View Recent Changes'),
               TextSpan(
                 text: _env.name,
                 style: TextStyle(

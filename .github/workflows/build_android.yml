@@ -6,6 +6,15 @@ on:
       flavor:
         required: true
         type: string
+    secrets:
+      GOOGLE_SERVICES_JSON:
+        required: true
+      KEY_JKS:
+        required: true
+      KEY_PROPERTIES:
+        required: true
+      GOOGLE_PLAY_API:
+        required: true
 
 jobs:
   build:

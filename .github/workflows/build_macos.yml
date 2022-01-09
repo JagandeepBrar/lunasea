@@ -6,6 +6,25 @@ on:
       flavor:
         required: true
         type: string
+    secrets:
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      GOOGLE_SERVICE_INFO_PLIST:
+        required: true
+      MATCH_SSH_PRIVATE_KEY:
+        required: true
+      MATCH_PASSWORD:
+        required: true
+      MATCH_KEYCHAIN_NAME:
+        required: true
+      MATCH_KEYCHAIN_PASSWORD:
+        required: true
 
 jobs:
   build:

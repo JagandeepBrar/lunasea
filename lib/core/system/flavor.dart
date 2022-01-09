@@ -13,22 +13,30 @@ const _PRODUCTION = 'production';
 @Envify(path: '.flavor')
 class LunaFlavor {
   static const flavor = _LunaFlavor.flavor;
+  static const commit = _LunaFlavor.commit;
 }
 
 extension FlavorExtension on LunaFlavor {
   LunaEnvironment get environment {
     if (kDebugMode) return LunaEnvironment.DEVELOP;
     switch (LunaFlavor.flavor) {
-      case 'develop':
+      case _DEVELOP:
         return LunaEnvironment.DEVELOP;
-      case 'alpha':
+      case _ALPHA:
         return LunaEnvironment.ALPHA;
-      case 'beta':
+      case _BETA:
         return LunaEnvironment.BETA;
-      case 'production':
+      case _PRODUCTION:
         return LunaEnvironment.PRODUCTION;
     }
     throw Exception('Invalid LunaEnvironment');
+  }
+
+  String get shortCommit => LunaFlavor.commit.substring(0, 7);
+
+  Future<void> openCommitHistory() async {
+    String _base = 'https://github.com/CometTools/LunaSea/commits';
+    return '$_base/${LunaFlavor.commit}'.lunaOpenGenericLink();
   }
 
   /// Returns if the given flavor is "lower" than the given environment.

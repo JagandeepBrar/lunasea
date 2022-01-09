@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:envify/envify.dart';
 
 part 'flavor.g.dart';
@@ -8,13 +10,13 @@ const _BETA = 'beta';
 const _PRODUCTION = 'production';
 
 @Envify(path: '.flavor')
-abstract class Flavor {
-  static const flavor = _Flavor.flavor;
+class LunaFlavor {
+  static const flavor = _LunaFlavor.flavor;
 }
 
-extension FlavorExtension on Flavor {
+extension FlavorExtension on LunaFlavor {
   Environment get environment {
-    switch (Flavor.flavor) {
+    switch (LunaFlavor.flavor) {
       case 'develop':
         return Environment.DEVELOP;
       case 'alpha':
@@ -46,6 +48,32 @@ extension EnvironmentExtension on Environment {
         return _BETA;
       case Environment.PRODUCTION:
         return _PRODUCTION;
+    }
+  }
+
+  String get name {
+    switch (this) {
+      case Environment.DEVELOP:
+        return 'lunasea.Develop'.tr();
+      case Environment.ALPHA:
+        return 'lunasea.Alpha'.tr();
+      case Environment.BETA:
+        return 'lunasea.Beta'.tr();
+      case Environment.PRODUCTION:
+        return 'lunasea.Production'.tr();
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case Environment.DEVELOP:
+        return LunaColours.red;
+      case Environment.ALPHA:
+        return LunaColours.orange;
+      case Environment.BETA:
+        return LunaColours.blue;
+      case Environment.PRODUCTION:
+        return LunaColours.accent;
     }
   }
 

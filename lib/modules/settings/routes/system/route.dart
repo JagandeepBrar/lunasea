@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _versionInformation() {
-    LunaEnvironment _env = LunaFlavor().environment;
+    LunaFlavor _flavor = LunaFlavor();
     return FutureBuilder(
         future: PackageInfo.fromPlatform(),
         builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
@@ -68,15 +68,19 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: 'Version: $version',
             body: [
               TextSpan(
-                text: _env.name,
+                text: _flavor.isLowerOrEqualTo(LunaEnvironment.BETA)
+                    ? '${_flavor.environment.name} (${_flavor.shortCommit})'
+                    : 'settings.ViewRecentChanges'.tr(),
                 style: TextStyle(
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                  color: _env.color,
+                  color: _flavor.environment.color,
                 ),
               ),
             ],
             trailing: const LunaIconButton(icon: Icons.system_update_rounded),
-            onTap: () async => LunaChangelogSheet().show(context: context),
+            onTap: () async => _flavor.isLowerOrEqualTo(LunaEnvironment.BETA)
+                ? _flavor.openCommitHistory()
+                : LunaChangelogSheet().show(context: context),
           );
         });
   }

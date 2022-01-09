@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -48,8 +47,8 @@ enum LunaModule {
 }
 
 extension LunaModuleExtension on LunaModule {
-  /// Returns true if the module is enabled at a system level.
-  bool get _enabled {
+  /// Returns true if the module is enabled at a system/environment level.
+  bool get featureFlag {
     switch (this) {
       case LunaModule.DASHBOARD:
         return true;
@@ -60,7 +59,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return true;
       case LunaModule.OVERSEERR:
-        return kDebugMode;
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.ALPHA);
       case LunaModule.RADARR:
         return true;
       case LunaModule.SABNZBD:
@@ -85,7 +84,7 @@ extension LunaModuleExtension on LunaModule {
     bool removeInternalModules = true,
   }) {
     List<LunaModule> _modules =
-        LunaModule.values.filter((module) => module._enabled).toList();
+        LunaModule.values.filter((module) => module.featureFlag).toList();
     if (removeInternalModules) {
       _modules.remove(LunaModule.DASHBOARD);
       _modules.remove(LunaModule.SETTINGS);

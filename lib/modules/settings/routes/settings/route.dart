@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -90,7 +89,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.settings_rounded),
           onTap: () async => SettingsSystemRouter().navigateTo(context),
         ),
-        if (kDebugMode)
+        if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.DEVELOP))
           LunaBlock(
             title: 'settings.DebugMenu'.tr(),
             body: [TextSpan(text: 'settings.DebugMenuDescription'.tr())],

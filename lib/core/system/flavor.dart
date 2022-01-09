@@ -16,79 +16,96 @@ class LunaFlavor {
 }
 
 extension FlavorExtension on LunaFlavor {
-  Environment get environment {
-    if (kDebugMode) return Environment.DEVELOP;
+  LunaEnvironment get environment {
+    if (kDebugMode) return LunaEnvironment.DEVELOP;
     switch (LunaFlavor.flavor) {
       case 'develop':
-        return Environment.DEVELOP;
+        return LunaEnvironment.DEVELOP;
       case 'alpha':
-        return Environment.ALPHA;
+        return LunaEnvironment.ALPHA;
       case 'beta':
-        return Environment.BETA;
+        return LunaEnvironment.BETA;
       case 'production':
-        return Environment.PRODUCTION;
+        return LunaEnvironment.PRODUCTION;
     }
-    throw Exception('Invalid Environment');
+    throw Exception('Invalid LunaEnvironment');
+  }
+
+  /// Returns if the given flavor is "lower" than the given environment.
+  /// For example, `alpha` is lower than `beta` but is not lower than `develop`.
+  bool isLowerOrEqualTo(LunaEnvironment env) {
+    if (this.environment == env) return true;
+    switch (env) {
+      case LunaEnvironment.DEVELOP:
+        return false;
+      case LunaEnvironment.ALPHA:
+        return this.environment == LunaEnvironment.DEVELOP;
+      case LunaEnvironment.BETA:
+        return this.environment == LunaEnvironment.DEVELOP ||
+            this.environment == LunaEnvironment.ALPHA;
+      case LunaEnvironment.PRODUCTION:
+        return true;
+    }
   }
 }
 
-enum Environment {
+enum LunaEnvironment {
   DEVELOP,
   ALPHA,
   BETA,
   PRODUCTION,
 }
 
-extension EnvironmentExtension on Environment {
+extension LunaEnvironmentExtension on LunaEnvironment {
   String get key {
     switch (this) {
-      case Environment.DEVELOP:
+      case LunaEnvironment.DEVELOP:
         return _DEVELOP;
-      case Environment.ALPHA:
+      case LunaEnvironment.ALPHA:
         return _ALPHA;
-      case Environment.BETA:
+      case LunaEnvironment.BETA:
         return _BETA;
-      case Environment.PRODUCTION:
+      case LunaEnvironment.PRODUCTION:
         return _PRODUCTION;
     }
   }
 
   String get name {
     switch (this) {
-      case Environment.DEVELOP:
+      case LunaEnvironment.DEVELOP:
         return 'lunasea.Develop'.tr();
-      case Environment.ALPHA:
+      case LunaEnvironment.ALPHA:
         return 'lunasea.Alpha'.tr();
-      case Environment.BETA:
+      case LunaEnvironment.BETA:
         return 'lunasea.Beta'.tr();
-      case Environment.PRODUCTION:
+      case LunaEnvironment.PRODUCTION:
         return 'lunasea.Production'.tr();
     }
   }
 
   Color get color {
     switch (this) {
-      case Environment.DEVELOP:
+      case LunaEnvironment.DEVELOP:
         return LunaColours.red;
-      case Environment.ALPHA:
+      case LunaEnvironment.ALPHA:
         return LunaColours.orange;
-      case Environment.BETA:
+      case LunaEnvironment.BETA:
         return LunaColours.blue;
-      case Environment.PRODUCTION:
+      case LunaEnvironment.PRODUCTION:
         return LunaColours.accent;
     }
   }
 
-  Environment from(String key) {
+  LunaEnvironment from(String key) {
     switch (key) {
       case _DEVELOP:
-        return Environment.DEVELOP;
+        return LunaEnvironment.DEVELOP;
       case _ALPHA:
-        return Environment.ALPHA;
+        return LunaEnvironment.ALPHA;
       case _BETA:
-        return Environment.BETA;
+        return LunaEnvironment.BETA;
       case _PRODUCTION:
-        return Environment.PRODUCTION;
+        return LunaEnvironment.PRODUCTION;
     }
     throw Exception('Unknown Flavor');
   }

@@ -1,0 +1,27 @@
+name: 'Build & Deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        type: choice
+        required: true
+        description: 'Build Flavor?'
+        options: 
+        - 'alpha'
+        - 'beta'
+        - 'production'
+
+jobs:
+  android:
+    uses: CometTools/LunaSea/.github/workflows/build_android.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor }}
+  ios:
+    uses: CometTools/LunaSea/.github/workflows/build_ios.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor }}
+  macos:
+    uses: CometTools/LunaSea/.github/workflows/build_macos.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor }}

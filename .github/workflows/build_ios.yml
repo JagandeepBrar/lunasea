@@ -1,16 +1,11 @@
 name: '[Build] iOS'
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       flavor:
-        type: choice
         required: true
-        description: 'Build Flavor?'
-        options: 
-        - 'alpha'
-        - 'beta'
-        - 'production'
+        type: string
 
 jobs:
   build:
@@ -26,7 +21,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo "FLAVOR=${{ github.event.inputs.flavor }}" > .flavor
+          echo "FLAVOR=${{ inputs.flavor }}" > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1

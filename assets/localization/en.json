@@ -533,7 +533,7 @@
     "sonarr.Downloading": "Downloading",
     "sonarr.DownloadingWithMessage": "Downloading: {}",
     "sonarr.DownloadingRelease": "Downloading Release…",
-    "sonarr.DownloadClientUnavailable": "Download Client is navailable",
+    "sonarr.DownloadClientUnavailable": "Download Client is Unavailable",
     "sonarr.DownloadFailed": "Download Failed",
     "sonarr.DownloadID": "Download ID",
     "sonarr.DownloadIgnored": "Download Ignored",

@@ -1,9 +1,17 @@
-name: '[Build] Alpha - Android'
+name: '[Build] Android'
 
 on:
   workflow_dispatch:
-  push:
-    tags: ['alpha']
+    inputs:
+      flavor:
+        type: choice
+        required: true
+        description: 'Build Flavor?'
+        options: 
+        - 'develop'
+        - 'alpha'
+        - 'beta'
+        - 'production'
 
 jobs:
   build:
@@ -15,8 +23,13 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0
-      
-      - name: Setup Private Keys
+
+      - name: Set Flavor
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo "FLAVOR=${{ github.event.inputs.flavor }}" > .flavor
+  
+      - name: Install Secret Keys
         run: |
           echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
           echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks

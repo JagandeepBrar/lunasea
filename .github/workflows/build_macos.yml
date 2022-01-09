@@ -1,9 +1,17 @@
-name: '[Build] Alpha - macOS'
+name: '[Build] macOS'
 
 on:
   workflow_dispatch:
-  push:
-    tags: ['alpha']
+    inputs:
+      flavor:
+        type: choice
+        required: true
+        description: 'Build Flavor?'
+        options: 
+        - 'develop'
+        - 'alpha'
+        - 'beta'
+        - 'production'
 
 jobs:
   build:
@@ -16,21 +24,26 @@ jobs:
           ref: 'master'
           fetch-depth: 0
 
-      - name: Setup Keys
+      - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-
-      - name: Setup SSH Keys
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+          echo "FLAVOR=${{ github.event.inputs.flavor }}" > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1

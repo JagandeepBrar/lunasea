@@ -197,5 +197,9 @@
     "settings.ClearImageCacheHint1": "Bist du sicher dass du alle Bilder aus dem Zwischenspeicher entfernen möchtest?",
     "settings.DeleteProfileDescription": "Lösche ein existierendes Profil",
     "settings.DefaultOptions": "Standardeinstellungen",
-    "settings.DefaultOptionsDescription": "Sortierung, Filterung und Ansichtsoptionen bearbeiten"
+    "settings.DefaultOptionsDescription": "Sortierung, Filterung und Ansichtsoptionen bearbeiten",
+    "settings.Network": "Netzwerk",
+    "settings.NetworkDescription": "Netzwerkeinstellungen vornehmen",
+    "settings.TLSCertificateValidation": "SSL-Zertifikate überprüfen",
+    "settings.TLSCertificateValidationDescription": "Einstellen, ob bei SSL-Verbindungen die Zertifikate überprüft werden"
 }

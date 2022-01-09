@@ -41,7 +41,7 @@ extension StringLinksExtension on String {
       if (_browser != LunaBrowser.APPLE_SAFARI &&
           await _launchCustomBrowser(_browser.formatted(url))) return;
       //If all else fails, just launch it in Safari/stock browser
-      await _launch(url, headers: headers!);
+      await _launch(url, headers: headers ?? {});
     } catch (error, stack) {
       LunaLogger().error('Unable to open link: $url', error, stack);
     }

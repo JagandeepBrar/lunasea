@@ -70,6 +70,17 @@ coverage:
     (execution): once
     (scripts):
       - bash <(curl -s https://codecov.io/bash)
+flavor:
+  ignore:
+    (description): Flavor - Git ignore .flavor
+    (execution): once
+    (scripts):
+      - git update-index --skip-worktree .flavor
+  unignore:
+    (description): Flavor - Reverse Git ignore .flavor
+    (execution): once
+    (scripts):
+      - git update-index --no-skip-worktree .flavor
 generate:
   assets:
     (description): Generator - Asset Tree

@@ -1,29 +1,3 @@
-blackbox:
-  admins:
-    (description): Blackbox - List Admins
-    (execution): once
-    (scripts):
-      - blackbox_list_admins
-  decrypt:
-    (description): Blackbox - Decrypt Encrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_postdeploy
-  files:
-    (description): Blackbox - List Encrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_list_files
-  shred:
-    (description): Blackbox - Safely Delete Decrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_shred_all_files
-  update:
-    (description): Blackbox - Decrypt & Re-Encrypt Tracked Files
-    (execution): once
-    (scripts):
-      - blackbox_update_all_files
 build:
   android:
     apk:

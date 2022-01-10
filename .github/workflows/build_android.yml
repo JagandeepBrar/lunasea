@@ -30,7 +30,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo "FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}" > .flavor
+          echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Install Secret Keys
         run: |

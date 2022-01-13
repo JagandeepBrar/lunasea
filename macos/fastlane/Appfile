@@ -1,4 +1,4 @@
 app_identifier("app.lunasea.lunasea")
-apple_id("me@jagandeepbrar.io")
-itc_team_id("119555173")
-team_id("VPH33JQH4R")
+apple_id(ENV["APPLE_ID"])
+itc_team_id(ENV["APPLE_ITC_TEAM_ID"])
+team_id(ENV["APPLE_TEAM_ID"])

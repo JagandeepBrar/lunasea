@@ -7,6 +7,10 @@ on:
         required: true
         type: string
     secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
       APPLE_STORE_CONNECT_KEY:
         required: true
       APPLE_STORE_CONNECT_KEY_FILEPATH:
@@ -14,6 +18,8 @@ on:
       APPLE_STORE_CONNECT_KEY_ID:
         required: true
       APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_TEAM_ID:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
         required: true
@@ -87,6 +93,9 @@ jobs:
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/ios
         env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
@@ -95,4 +104,4 @@ jobs:
           APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
         run: |
           bundle install
-          bundle exec fastlane alpha
+          bundle exec fastlane build_and_deploy

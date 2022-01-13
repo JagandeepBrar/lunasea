@@ -2,8 +2,8 @@ default_platform(:android)
 build_number = 1000000000 + number_of_commits()
 
 platform :android do
-  desc "Deploy a new alpha build to Google Play"
-  lane :alpha do
+  desc "Build and deploy a new build of LunaSea"
+  lane :build_and_deploy do
     sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{build_number}")
     upload_to_play_store(
       track: "alpha",

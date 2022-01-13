@@ -2,8 +2,8 @@ default_platform(:ios)
 build_number = 1000000000 + number_of_commits()
 
 platform :ios do
-  desc "Deploy a new alpha build to TestFlight"
-  lane :alpha do
+  desc "Build and deploy a new build of LunaSea"
+  lane :build_and_deploy do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
       password: ENV["MATCH_KEYCHAIN_PASSWORD"],

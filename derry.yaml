@@ -1,29 +1,3 @@
-blackbox:
-  admins:
-    (description): Blackbox - List Admins
-    (execution): once
-    (scripts):
-      - blackbox_list_admins
-  decrypt:
-    (description): Blackbox - Decrypt Encrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_postdeploy
-  files:
-    (description): Blackbox - List Encrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_list_files
-  shred:
-    (description): Blackbox - Safely Delete Decrypted Files
-    (execution): once
-    (scripts):
-      - blackbox_shred_all_files
-  update:
-    (description): Blackbox - Decrypt & Re-Encrypt Tracked Files
-    (execution): once
-    (scripts):
-      - blackbox_update_all_files
 build:
   android:
     apk:
@@ -96,6 +70,17 @@ coverage:
     (execution): once
     (scripts):
       - bash <(curl -s https://codecov.io/bash)
+flavor:
+  ignore:
+    (description): Flavor - Git ignore .flavor
+    (execution): once
+    (scripts):
+      - git update-index --skip-worktree .flavor
+  unignore:
+    (description): Flavor - Reverse Git ignore .flavor
+    (execution): once
+    (scripts):
+      - git update-index --no-skip-worktree .flavor
 generate:
   assets:
     (description): Generator - Asset Tree

@@ -66,4 +66,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane alpha
+          bundle exec fastlane build_and_deploy

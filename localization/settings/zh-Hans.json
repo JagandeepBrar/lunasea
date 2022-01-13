@@ -204,5 +204,6 @@
     "settings.Network": "网络",
     "settings.TLSCertificateValidationDescription": "验证 TLS 连接中的证书",
     "settings.NetworkDescription": "自定义网络功能",
-    "settings.TLSCertificateValidation": "TLS 证书验证"
+    "settings.TLSCertificateValidation": "TLS 证书验证",
+    "settings.ViewRecentChanges": "查看最近的更改"
 }

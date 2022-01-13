@@ -204,5 +204,6 @@
     "settings.Network": "Ağ",
     "settings.TLSCertificateValidation": "TLS Sertifika Doğrulaması",
     "settings.NetworkDescription": "Ağ Özelliklerini Özelleştirin",
-    "settings.TLSCertificateValidationDescription": "TLS Bağlantılarında Sertifikaları Doğrulayın"
+    "settings.TLSCertificateValidationDescription": "TLS Bağlantılarında Sertifikaları Doğrulayın",
+    "settings.ViewRecentChanges": "Son Değişiklikleri Görüntüle"
 }

@@ -15,13 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios alpha
+### ios build_and_deploy
 
 ```sh
-[bundle exec] fastlane ios alpha
+[bundle exec] fastlane ios build_and_deploy
 ```
 
-Deploy a new alpha build to TestFlight
+Build and deploy a new build of LunaSea
 
 ----
 

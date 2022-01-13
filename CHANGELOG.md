@@ -15,7 +15,7 @@
 - `[Lidarr]` (Missing) Display album covers
 - `[Notifications]` (Priority) Support time-sensitive notifications
 - `[Settings]` (Account) Ability to delete your LunaSea account and all cloud data
-- `[Settings]` (Configuration) Show dismissable blocks with information and links
+- `[Settings]` (Configuration) Show dismissible blocks with information and links
 - `[Settings]` (Network) Ability to enable TLS certificate validation
 - `[Settings]` (Radarr) Ability to set default catalogue view
 - `[Settings]` (Sonarr) Removed toggle to enable v3 features
@@ -56,7 +56,7 @@
 - `[UI/UX]` (Fonts) Normalized font sizes across the UI
 - `[UI/UX]` (Icons) Ensure all icons are of the "rounded" family
 - `[UI/UX]` (Icons) Replace custom icons (except branding icons) with Flutter defaults
-- `[UI/UX]` (Images) Set the default image opacity to 20% (custom set values are uneffected)
+- `[UI/UX]` (Images) Set the default image opacity to 20% (custom set values are unaffected)
 - `[UI/UX]` (Tile Blocks) Heavily improved build and memory performance of tiles
 - `[UI/UX]` (Tile Blocks) Improved consistency in trailing icon/text size
 - `[UI/UX]` (Tile Blocks) Improved consistency of tile height, content spacing, and padding
@@ -89,7 +89,7 @@
 - `[UI/UX]` (List View) Make padding around the end of infinite list loaders and icons more consistent
 - `[UI/UX]` (Popup Menu) Positioning could get unaligned or broken if opened in specific views
 - `[UI/UX]` (Router) Slide transitions between pages could not occur on some devices
-- `[UI/UX]` (Snackbar) Snackbars would not be shown in some cases
+- `[UI/UX]` (Snackbar) Snackbar would not be shown in some cases
 - `[UI/UX]` (Theme) Removed deprecated theme values
 
 ---
@@ -101,7 +101,7 @@
 - `[Dashboard]` (Modules) Show Wake on LAN tile
 - `[Drawer]` Ability to customize the order of modules
 - `[External Modules]` Ability to add and view external modules
-- `[Performance]` Build LunaSea with precompiled SkSL shaders
+- `[Performance]` Build LunaSea with pre-compiled SkSL shaders
 
 #### TWEAKS
 
@@ -250,7 +250,7 @@
 - `[UI/UX]` (Images) Normalize size of all branded logos to have the same widths for consistency
 - `[UI/UX]` (Images) Prevent attempting to load background images that are passed an empty URL
 - `[UI/UX]` (Snackbar) Remove all uses of the deprecated snackbar
-- `[UI/UX]` (Snackbar) All error snackbars will now have a button to view the error
+- `[UI/UX]` (Snackbar) All error snackbar will now have a button to view the error
 - `[URLs]` Safe-guard launching specific invalid URLs
 
 #### PLATFORM-SPECIFIC
@@ -258,7 +258,7 @@
 - `[Android]` (new) Attach module headers to requests when viewing the web GUI
 - `[Android]` (new) Set status and navigation bar colours to match LunaSea
 - `[Android]` (fix) Remove legacy external storage permission
-- `[iOS]` (fix) Sharesheet would not appear on iPadOS devices
+- `[iOS]` (fix) Share sheet would not appear on iPadOS devices
 
 ---
 
@@ -335,13 +335,13 @@
 
 #### NEW
 
-- `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
+- `[Backup & Restore]` Backup files now use the .LunaSea extension (older .json backups are still supported)
 - `[Filesystem]` Any saves to the filesystem now uses the system share sheet
 - `[Images]` Ability to set (or entirely disable) the opacity of the background image for cards
 - `[Networking]` Strict TLS/SSL validation is now disabled globally
 - `[Routing]` Hold the AppBar back button to pop back to the home page of the module
 - `[Settings/Sonarr]` Toggle to enable Sonarr v3 features
-- `[Sonarr]` A ground-up reimplementation of Sonarr
+- `[Sonarr]` A ground-up re-implementation of Sonarr
 - `[Sonarr]` State is now held across module switches
 - `[Sonarr/Add]` (v3 only) Tapping an already-added series will take you to the series page
 - `[Sonarr/Add]` Automatically navigate to a newly added series
@@ -394,7 +394,7 @@
 - `[Drawer]` Categorical folders are now optional
 - `[Drawer]` If using folders, ability to set the initial expanded state
 - `[Locale]` Ability to use 24 hour timestamps
-- `[Quick Actions]` Ability to set upto four homescreen quick actions
+- `[Quick Actions]` Ability to set up to four home screen quick actions
 - `[Search]` Ability to set custom headers for individual indexers
 - `[Settings]` Complete overhaul of the settings
 - `[Settings/Resources]` (iOS) Added link to join TestFlight
@@ -542,7 +542,7 @@
 - `[-rr/Details]` Removed sliver AppBar and fanart as it caused unwanted scrolling interference (A revamped overview page in the future will bring back the fanart images)
 - `[-rr/Details]` Switched from AppBar tabs to bottom navigation bar
 - `[-rr/Release]` Do not show warning message when triggering a release download from details page on rejected release
-- `[Dialogs]` Reimplemented all dialogs
+- `[Dialogs]` Re-implemented all dialogs
 - `[Dialogs]` Keyboard type is now set for all inputs
 - `[Dialogs]` All inputs are now validated (to some extent) and can be submitted via the Keyboard
 
@@ -585,13 +585,13 @@
 - `[Home/Calendar]` Ability to set starting calendar size
 - `[Home/Calendar]` Ability to enable and disable specific modules that show up in the calendar
 - `[Appearance/Theme]` Option to enable AMOLED black theme
-- `[Platform]` LunaSea is now buildable & available for Android
+- `[Platform]` LunaSea is now build-able & available for Android
 
 #### TWEAKS
 
 - `[Settings]` Redesign of settings page
 - `[General]` Use the term "Modules" instead of "Services"
-- `[-rr/Details]` Background image header/appbar is now collapsed by default
+- `[-rr/Details]` Background image header/app bar is now collapsed by default
 - `[-rr/Details]` Left align title to match the rest of LunaSea
 
 #### FIXES
@@ -655,7 +655,7 @@
 
 #### TWEAKS
 
-- `[Everything]` Reimplemented... everything
+- `[Everything]` Re-implemented... everything
 - `[Everything]` Moved away from FABs (where possible) to buttons
 - `[Navigation]` Ability to swipe left and right between bottom navigation tabs (except Settings)
 - `[Navigation Bar]` Slightly redesigned

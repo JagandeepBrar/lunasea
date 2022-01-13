@@ -1,0 +1,44 @@
+{
+  "ignorePaths": [
+    "*.json",
+    "*.lock",
+    "*.yaml",
+    /** Directories */
+    ".dart_tool",
+    ".git",
+    "build",
+    "shaders",
+    /** Files */
+    ".all-contributorsrc",
+    ".packages"
+  ],
+  "useGitignore": true,
+  "words": [
+    "AMOLED",
+    "appbundle",
+    "autofocused",
+    "cocoapods",
+    "codecov",
+    "deintegrate",
+    "Discogs",
+    "fanart",
+    "fastlane",
+    "keychain",
+    "Lidarr",
+    "Newznab",
+    "NZBGet",
+    "Overseerr",
+    "Plex",
+    "podfile",
+    "Radarr",
+    "SABnzbd",
+    "sksl",
+    "Sonarr",
+    "stickied",
+    "subheaders",
+    "Tautulli",
+    "unignore",
+    "Weblate",
+    "worktree"
+  ]
+}

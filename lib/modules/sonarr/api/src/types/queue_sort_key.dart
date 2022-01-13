@@ -45,6 +45,8 @@ extension SonarrQueueSortKeyExtension on SonarrQueueSortKey {
         return SonarrQueueSortKey.EPISODE_AIRDATE_UTC;
       case 'episode.title':
         return SonarrQueueSortKey.EPISODE_TITLE;
+      default:
+        return null;
     }
   }
 

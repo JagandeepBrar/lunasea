@@ -204,5 +204,6 @@
     "settings.Network": "Réseau",
     "settings.NetworkDescription": "Personnaliser les fonctionnalités du réseau",
     "settings.TLSCertificateValidation": "Validation du certificat TLS",
-    "settings.TLSCertificateValidationDescription": "Valider les certificats dans les connexions TLS"
+    "settings.TLSCertificateValidationDescription": "Valider les certificats dans les connexions TLS",
+    "settings.ViewRecentChanges": "Afficher les changements récents"
 }

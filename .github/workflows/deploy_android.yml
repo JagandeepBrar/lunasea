@@ -1,0 +1,45 @@
+name: '[Android] Deploy'
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        required: true
+        type: string
+    secrets:
+      GOOGLE_PLAY_API:
+        required: true
+
+jobs:
+  deploy:
+    name: 'Deploy to Google Play Store'
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 0
+
+      - name: Download App Bundle Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-android
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+  
+      - name: Deploy to Google Play Store
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane deploy flavor:${{ (github.event.inputs || inputs).flavor }} aab:${{ github.workspace }}/app-release.aab

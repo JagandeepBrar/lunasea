@@ -2,8 +2,8 @@ default_platform(:ios)
 build_number = 1000000000 + number_of_commits()
 
 platform :ios do
-  desc "Build and deploy a new build of LunaSea"
-  lane :build_and_deploy do
+  desc "Setup the LunaSea Keychain"
+  lane :prepare_keychain do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
       password: ENV["MATCH_KEYCHAIN_PASSWORD"],
@@ -19,24 +19,36 @@ platform :ios do
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
+  end
 
+  desc "Destroy the LunaSea Keychain"
+  lane :destroy_keychain do
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  end
+
+  desc "Build App Package"
+  lane :build do
+    prepare_keychain
+    sh("flutter", "build", "ios", "--release", "--bundle-sksl-path=shaders/ios_sksl.json", "--no-codesign", "--build-number=#{build_number}")
+    build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+    destroy_keychain
+  end
+
+  desc "Deploy to App Store Connect"
+  lane :deploy do |options|
     api_key = app_store_connect_api_key(
       key_id: ENV["APPLE_STORE_CONNECT_KEY_ID"],
       issuer_id: ENV["APPLE_STORE_CONNECT_ISSUER_ID"],
       key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
     )
 
-    sh("flutter", "build", "ios", "--release", "--bundle-sksl-path=shaders/ios_sksl.json", "--no-codesign", "--build-number=#{build_number}")
-    build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
-
     upload_to_testflight(
-      distribute_external: false,
-      notify_external_testers: false,
-      reject_build_waiting_for_review: true,
-      groups: "Alpha",
       changelog: "The changelog is available within the application!",
+      distribute_external: true,
+      groups: options[:flavor] || "internal",
+      ipa: options[:ipa] || "../ios/Runner.ipa",
+      notify_external_testers: true,
+      reject_build_waiting_for_review: true,
     )
-
-    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
 end

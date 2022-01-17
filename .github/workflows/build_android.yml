@@ -1,6 +1,17 @@
-name: '[Build] Android'
+name: '[Android] Build'
 
 on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        type: choice
+        required: true
+        description: 'Build Flavor'
+        options: 
+        - 'internal'
+        - 'alpha'
+        - 'beta'
+
   workflow_call:
     inputs:
       flavor:
@@ -13,11 +24,10 @@ on:
         required: true
       KEY_PROPERTIES:
         required: true
-      GOOGLE_PLAY_API:
-        required: true
 
 jobs:
   build:
+    name: 'Build Signed Android App Bundle'
     runs-on: macos-latest
 
     steps:
@@ -30,27 +40,26 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ (github.event.inputs || inputs).flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
         run: |
           echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
           echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
           echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.7.5'
 
       - name: Install Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
-          java-version: '12.x'
+          distribution: 'zulu'
+          java-version: '11'
 
       - name: Install Flutter
-        uses: subosito/flutter-action@v2.0.3
+        uses: subosito/flutter-action@v2
         with:
           channel: 'beta'
 
@@ -66,4 +75,10 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane build_and_deploy
+          bundle exec fastlane build
+      
+      - name: Upload App Bundle Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-android
+          path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab

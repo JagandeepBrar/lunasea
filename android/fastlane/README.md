@@ -15,13 +15,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android build_and_deploy
+### android build
 
 ```sh
-[bundle exec] fastlane android build_and_deploy
+[bundle exec] fastlane android build
 ```
 
-Build and deploy a new build of LunaSea
+Build App Bundle
+
+### android deploy
+
+```sh
+[bundle exec] fastlane android deploy
+```
+
+Deploy to Google Play Store
 
 ### android metadata
 

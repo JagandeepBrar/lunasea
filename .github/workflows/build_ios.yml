@@ -1,6 +1,17 @@
-name: '[Build] iOS'
+name: '[iOS] Build'
 
 on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        type: choice
+        required: true
+        description: 'Build Flavor'
+        options: 
+        - 'internal'
+        - 'alpha'
+        - 'beta'
+
   workflow_call:
     inputs:
       flavor:
@@ -11,29 +22,22 @@ on:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
-      APPLE_STORE_CONNECT_KEY:
-        required: true
-      APPLE_STORE_CONNECT_KEY_FILEPATH:
-        required: true
-      APPLE_STORE_CONNECT_KEY_ID:
-        required: true
-      APPLE_STORE_CONNECT_ISSUER_ID:
-        required: true
       APPLE_TEAM_ID:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
-        required: true
-      MATCH_SSH_PRIVATE_KEY:
-        required: true
-      MATCH_PASSWORD:
         required: true
       MATCH_KEYCHAIN_NAME:
         required: true
       MATCH_KEYCHAIN_PASSWORD:
         required: true
+      MATCH_PASSWORD:
+        required: true
+      MATCH_SSH_PRIVATE_KEY:
+        required: true
 
 jobs:
   build:
+    name: 'Build Signed iOS App Package'
     runs-on: macos-latest
 
     steps:
@@ -46,7 +50,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ (github.event.inputs || inputs).flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
@@ -57,8 +61,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-      
+
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
         with:
@@ -66,16 +69,9 @@ jobs:
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.7.5'
-
-      - name: Install Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
 
       - name: Install Flutter
-        uses: subosito/flutter-action@v2.0.3
+        uses: subosito/flutter-action@v2
         with:
           channel: 'beta'
 
@@ -99,9 +95,12 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
-          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
         run: |
           bundle install
-          bundle exec fastlane build_and_deploy
+          bundle exec fastlane build
+      
+      - name: Upload App Package Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-ios
+          path: ${{ github.workspace }}/ios/Runner.ipa

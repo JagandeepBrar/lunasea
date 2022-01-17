@@ -15,13 +15,37 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Mac
 
-### mac build_and_deploy
+### mac prepare_keychain
 
 ```sh
-[bundle exec] fastlane mac build_and_deploy
+[bundle exec] fastlane mac prepare_keychain
 ```
 
-Build and deploy a new build of LunaSea
+Setup the LunaSea Keychain
+
+### mac destroy_keychain
+
+```sh
+[bundle exec] fastlane mac destroy_keychain
+```
+
+Destroy the LunaSea Keychain
+
+### mac build
+
+```sh
+[bundle exec] fastlane mac build
+```
+
+Build App Package
+
+### mac deploy
+
+```sh
+[bundle exec] fastlane mac deploy
+```
+
+Deploy LunaSea to TestFlight
 
 ----
 

@@ -26,7 +26,7 @@ on:
 
 jobs:
   build:
-    name: 'Build Signed macOS App Package'
+    name: 'Build App Package'
     runs-on: macos-latest
 
     steps:
@@ -92,5 +92,5 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-macos
+          name: macos-${{ (github.event.inputs || inputs).flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/macos/LunaSea.pkg

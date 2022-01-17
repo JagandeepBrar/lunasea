@@ -1,4 +1,4 @@
-name: 'Build & Deploy All Platforms'
+name: 'All Platforms'
 
 on:
   push:

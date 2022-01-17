@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    name: 'Build Signed Android App Bundle'
+    name: 'Build App Bundle'
     runs-on: macos-latest
 
     steps:
@@ -69,5 +69,5 @@ jobs:
       - name: Upload App Bundle Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-android
+          name: android-${{ (github.event.inputs || inputs).flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab

@@ -24,7 +24,7 @@ on:
 
 jobs:
   deploy:
-    name: 'Deploy to App Store Connect'
+    name: 'Deploy to App Store'
     runs-on: macos-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-macos
+          name: macos-${{ (github.event.inputs || inputs).flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys

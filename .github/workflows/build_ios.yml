@@ -26,7 +26,7 @@ on:
 
 jobs:
   build:
-    name: 'Build Signed iOS App Package'
+    name: 'Build App Package'
     runs-on: macos-latest
 
     steps:
@@ -91,5 +91,5 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-ios
+          name: ios-${{ (github.event.inputs || inputs).flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/ios/Runner.ipa

@@ -10,11 +10,11 @@ platform :android do
   desc "Deploy to Google Play Store"
   lane :deploy do |options|
     upload_to_play_store(
-      track: options[:flavor] || "internal",
       aab: options[:aab] || "../build/app/outputs/bundle/release/app-release.aab",
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
+      track: options[:flavor] || "internal",
     )
   end
 
@@ -24,6 +24,7 @@ platform :android do
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_changelogs: true,
+      version_name: "#{build_number}"
     )
   end
 end

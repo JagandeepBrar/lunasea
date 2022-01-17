@@ -1,4 +1,4 @@
-name: '[Issues] Support'
+name: '[GitHub] Issues - Support'
 
 on:
   issues:

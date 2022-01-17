@@ -1,4 +1,4 @@
-name: '[Issues] Feature Requests'
+name: '[GitHub] Issues - Feature Requests'
 
 on:
   issues:

@@ -1,0 +1,62 @@
+name: '[macOS] Deploy'
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        required: true
+        type: string
+    secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+
+jobs:
+  deploy:
+    name: 'Deploy to App Store Connect'
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 0
+
+      - name: Download App Package Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ (github.event.inputs || inputs).flavor }}-macos
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+  
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy flavor:${{ (github.event.inputs || inputs).flavor }} pkg:${{ github.workspace }}/LunaSea.pkg

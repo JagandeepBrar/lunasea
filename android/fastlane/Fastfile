@@ -15,6 +15,7 @@ platform :android do
       skip_upload_images: true,
       skip_upload_screenshots: true,
       track: options[:flavor] || "internal",
+      version_name: "#{build_number}",
     )
   end
 
@@ -24,7 +25,6 @@ platform :android do
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_changelogs: true,
-      version_name: "#{build_number}"
     )
   end
 end

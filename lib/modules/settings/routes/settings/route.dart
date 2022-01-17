@@ -89,7 +89,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.settings_rounded),
           onTap: () async => SettingsSystemRouter().navigateTo(context),
         ),
-        if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.DEVELOP))
+        if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.INTERNAL))
           LunaBlock(
             title: 'settings.DebugMenu'.tr(),
             body: [TextSpan(text: 'settings.DebugMenuDescription'.tr())],

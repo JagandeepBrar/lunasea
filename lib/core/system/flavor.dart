@@ -5,7 +5,7 @@ import 'package:envify/envify.dart';
 
 part 'flavor.g.dart';
 
-const _DEVELOP = 'develop';
+const _INTERNAL = 'internal';
 const _ALPHA = 'alpha';
 const _BETA = 'beta';
 const _PRODUCTION = 'production';
@@ -18,10 +18,10 @@ class LunaFlavor {
 
 extension FlavorExtension on LunaFlavor {
   LunaEnvironment get environment {
-    if (kDebugMode) return LunaEnvironment.DEVELOP;
+    if (kDebugMode) return LunaEnvironment.INTERNAL;
     switch (LunaFlavor.flavor) {
-      case _DEVELOP:
-        return LunaEnvironment.DEVELOP;
+      case _INTERNAL:
+        return LunaEnvironment.INTERNAL;
       case _ALPHA:
         return LunaEnvironment.ALPHA;
       case _BETA:
@@ -44,12 +44,12 @@ extension FlavorExtension on LunaFlavor {
   bool isLowerOrEqualTo(LunaEnvironment env) {
     if (this.environment == env) return true;
     switch (env) {
-      case LunaEnvironment.DEVELOP:
+      case LunaEnvironment.INTERNAL:
         return false;
       case LunaEnvironment.ALPHA:
-        return this.environment == LunaEnvironment.DEVELOP;
+        return this.environment == LunaEnvironment.INTERNAL;
       case LunaEnvironment.BETA:
-        return this.environment == LunaEnvironment.DEVELOP ||
+        return this.environment == LunaEnvironment.INTERNAL ||
             this.environment == LunaEnvironment.ALPHA;
       case LunaEnvironment.PRODUCTION:
         return true;
@@ -58,7 +58,7 @@ extension FlavorExtension on LunaFlavor {
 }
 
 enum LunaEnvironment {
-  DEVELOP,
+  INTERNAL,
   ALPHA,
   BETA,
   PRODUCTION,
@@ -67,8 +67,8 @@ enum LunaEnvironment {
 extension LunaEnvironmentExtension on LunaEnvironment {
   String get key {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
-        return _DEVELOP;
+      case LunaEnvironment.INTERNAL:
+        return _INTERNAL;
       case LunaEnvironment.ALPHA:
         return _ALPHA;
       case LunaEnvironment.BETA:
@@ -80,8 +80,8 @@ extension LunaEnvironmentExtension on LunaEnvironment {
 
   String get name {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
-        return 'lunasea.Develop'.tr();
+      case LunaEnvironment.INTERNAL:
+        return 'lunasea.Internal'.tr();
       case LunaEnvironment.ALPHA:
         return 'lunasea.Alpha'.tr();
       case LunaEnvironment.BETA:
@@ -93,7 +93,7 @@ extension LunaEnvironmentExtension on LunaEnvironment {
 
   Color get color {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
+      case LunaEnvironment.INTERNAL:
         return LunaColours.red;
       case LunaEnvironment.ALPHA:
         return LunaColours.orange;
@@ -106,8 +106,8 @@ extension LunaEnvironmentExtension on LunaEnvironment {
 
   LunaEnvironment from(String key) {
     switch (key) {
-      case _DEVELOP:
-        return LunaEnvironment.DEVELOP;
+      case _INTERNAL:
+        return LunaEnvironment.INTERNAL;
       case _ALPHA:
         return LunaEnvironment.ALPHA;
       case _BETA:

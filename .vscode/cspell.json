@@ -3,6 +3,7 @@
     "*.json",
     "*.lock",
     "*.yaml",
+    "*.yml",
     /** Directories */
     ".dart_tool",
     ".git",

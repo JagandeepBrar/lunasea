@@ -13,7 +13,6 @@ platform :android do
       track: options[:flavor] || "internal",
       aab: options[:aab] || "../build/app/outputs/bundle/release/app-release.aab",
       skip_upload_metadata: true,
-      skip_upload_changelogs: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
     )

@@ -119,7 +119,7 @@ class LunaProfile {
 
   static ProfileHiveObject get current {
     LunaDatabaseValue _db = LunaDatabaseValue.ENABLED_PROFILE;
-    String _name = Database.lunasea.box.get(_db.key)!;
-    return Database.profiles.box.get(_name)!;
+    String _name = Database.lunasea.box.get(_db.key) ?? 'default';
+    return Database.profiles.box.get(_name) ?? ProfileHiveObject.empty();
   }
 }

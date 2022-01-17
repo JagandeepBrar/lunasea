@@ -59,7 +59,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return true;
       case LunaModule.OVERSEERR:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.ALPHA);
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.INTERNAL);
       case LunaModule.RADARR:
         return true;
       case LunaModule.SABNZBD:

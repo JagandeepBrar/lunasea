@@ -1,12 +1,17 @@
 name: 'Build & Deploy All Platforms'
 
 on:
+  push:
+    branches:
+      - 'master'
+
   workflow_dispatch:
     inputs:
       flavor:
         type: choice
         required: true
         description: 'Build Flavor'
+        default: 'internal'
         options: 
         - 'internal'
         - 'alpha'
@@ -32,20 +37,20 @@ on:
 
 jobs:
   build_android:
-    if: ${{ github.event.inputs.android == 'true' }}
+    if: ${{ (github.event.inputs.android || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_android.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
       KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
 
   build_ios:
-    if: ${{ github.event.inputs.ios == 'true' }}
+    if: ${{ (github.event.inputs.ios || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_ios.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -57,10 +62,10 @@ jobs:
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
   build_macos:
-    if: ${{ github.event.inputs.macos == 'true' }}
+    if: ${{ (github.event.inputs.macos || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_macos.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -75,7 +80,7 @@ jobs:
     needs: build_android
     uses: CometTools/LunaSea/.github/workflows/deploy_android.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
 
@@ -83,7 +88,7 @@ jobs:
     needs: build_ios
     uses: CometTools/LunaSea/.github/workflows/deploy_ios.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -97,7 +102,7 @@ jobs:
     needs: build_macos
     uses: CometTools/LunaSea/.github/workflows/deploy_macos.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor }}
+      flavor: ${{ github.event.inputs.flavor || 'internal' }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

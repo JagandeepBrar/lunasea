@@ -1,17 +1,6 @@
 name: '[Android] Build'
 
 on:
-  workflow_dispatch:
-    inputs:
-      flavor:
-        type: choice
-        required: true
-        description: 'Build Flavor'
-        options: 
-        - 'internal'
-        - 'alpha'
-        - 'beta'
-
   workflow_call:
     inputs:
       flavor:

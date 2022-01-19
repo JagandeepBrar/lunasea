@@ -205,6 +205,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Lisapple",
+      "name": "Maxime Leroy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6952213?v=4",
+      "profile": "https://lisacintosh.itch.io",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

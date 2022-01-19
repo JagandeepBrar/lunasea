@@ -26,8 +26,6 @@ jobs:
   deploy:
     name: 'Deploy to App Store'
     runs-on: macos-latest
-    env:
-      VERSION_NAME: macos-${{ secrets.VERSION }}
 
     steps:
       - name: Checkout Repository
@@ -39,7 +37,7 @@ jobs:
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ env.VERSION_NAME }}
+          name: macos-${{ secrets.VERSION }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys

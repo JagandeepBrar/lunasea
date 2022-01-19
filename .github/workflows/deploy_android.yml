@@ -14,8 +14,6 @@ jobs:
   deploy:
     name: 'Deploy to Play Store'
     runs-on: macos-latest
-    env:
-      VERSION_NAME: android-${{ secrets.VERSION }}
 
     steps:
       - name: Checkout Repository
@@ -27,7 +25,7 @@ jobs:
       - name: Download App Bundle Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ env.VERSION_NAME }}
+          name: android-${{ secrets.VERSION }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys
@@ -44,4 +42,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ secrets.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:${{ env.VERSION_NAME }}
+          bundle exec fastlane deploy track:${{ secrets.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:android-${{ secrets.VERSION }}

@@ -2,14 +2,20 @@ name: '[Build] macOS'
 
 on:
   workflow_call:
+    inputs:
+      FLAVOR:
+        required: true
+        type: string
+      VERSION:
+        required: true
+        type: string
+
     secrets:
       APPLE_ID:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
       APPLE_TEAM_ID:
-        required: true
-      FLAVOR:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
         required: true
@@ -20,8 +26,6 @@ on:
       MATCH_PASSWORD:
         required: true
       MATCH_SSH_PRIVATE_KEY:
-        required: true
-      VERSION:
         required: true
 
 jobs:

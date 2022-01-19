@@ -48,7 +48,6 @@ platform :ios do
       groups: options[:groups] || "internal",
       ipa: options[:ipa] || "../ios/Runner.ipa",
       notify_external_testers: true,
-      reject_build_waiting_for_review: true,
     )
   end
 end

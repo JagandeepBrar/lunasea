@@ -124,7 +124,7 @@
     "sonarr.MonitorEpisode": "Suivre l'épisode",
     "sonarr.MonitorSeries": "Suivre les séries",
     "sonarr.Monitored": "Est suivi",
-    "sonarr.Monitoring": "En train de suivre",
+    "sonarr.Monitoring": "Suivie",
     "sonarr.NoHistoryFound": "Aucun historique trouvé",
     "sonarr.NoReleasesFound": "Aucune version trouvée",
     "sonarr.NoResultsFound": "Aucun résultat trouvé",

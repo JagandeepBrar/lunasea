@@ -14,8 +14,8 @@ platform :android do
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      track: options[:flavor] || "internal",
-      version_name: "#{build_number}",
+      track: options[:track] || "internal",
+      version_name: options[:version_name] || "#{build_number}",
     )
   end
 

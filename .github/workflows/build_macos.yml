@@ -1,17 +1,15 @@
-name: '[macOS] Build'
+name: '[Build] macOS'
 
 on:
   workflow_call:
-    inputs:
-      flavor:
-        required: true
-        type: string
     secrets:
       APPLE_ID:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
       APPLE_TEAM_ID:
+        required: true
+      FLAVOR:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
         required: true
@@ -22,6 +20,8 @@ on:
       MATCH_PASSWORD:
         required: true
       MATCH_SSH_PRIVATE_KEY:
+        required: true
+      VERSION:
         required: true
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ (github.event.inputs || inputs).flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ secrets.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
@@ -92,5 +92,5 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: macos-${{ (github.event.inputs || inputs).flavor }}-${{ github.sha }}
+          name: macos-${{ secrets.VERSION }}
           path: ${{ github.workspace }}/macos/LunaSea.pkg

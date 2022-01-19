@@ -205,5 +205,6 @@
     "sonarr.UseSeasonFolders": "Utiliser les dossiers des saisons",
     "sonarr.Leechers": "Receveurs",
     "sonarr.Seeders": "Envoyeurs",
-    "sonarr.NoLongerMonitoring": "Plus de suivi"
+    "sonarr.NoLongerMonitoring": "Plus de suivi",
+    "sonarr.StartSearchForCutoffUnmetEpisodes": "Démarrer la recherche d'épisodes ne correspondant pas"
 }

@@ -45,56 +45,63 @@ jobs:
   build_android:
     if: ${{ (github.event.inputs.android || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_android.yml@master
-    secrets:
+    with:
       FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
+      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
+    secrets:
       GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
       KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
-      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
 
   build_ios:
     if: ${{ (github.event.inputs.ios || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_ios.yml@master
+    with:
+      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
+      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
       GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
 
   build_macos:
     if: ${{ (github.event.inputs.macos || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/build_macos.yml@master
+    with:
+      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
+      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
       GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
 
   deploy_android:
     needs: build_android
     if: ${{ (github.event.inputs.deploy || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/deploy_android.yml@master
-    secrets:
+    with:
       FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
-      GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
       VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
+    secrets:
+      GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
 
   deploy_ios:
     needs: build_ios
     if: ${{ (github.event.inputs.deploy || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/deploy_ios.yml@master
+    with:
+      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
+      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -103,13 +110,14 @@ jobs:
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
-      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
 
   deploy_macos:
     needs: build_macos
     if: ${{ (github.event.inputs.deploy || 'true') == 'true' }}
     uses: CometTools/LunaSea/.github/workflows/deploy_macos.yml@master
+    with:
+      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
+      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -118,5 +126,3 @@ jobs:
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FLAVOR: ${{ github.event.inputs.flavor || 'internal' }}
-      VERSION: ${{ github.event.inputs.flavor || 'internal' }}-${{ github.sha }}

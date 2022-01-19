@@ -2,16 +2,20 @@ name: '[Build] Android'
 
 on:
   workflow_call:
-    secrets:
+    inputs:
       FLAVOR:
         required: true
+        type: string
+      VERSION:
+        required: true
+        type: string
+
+    secrets:
       GOOGLE_SERVICES_JSON:
         required: true
       KEY_JKS:
         required: true
       KEY_PROPERTIES:
-        required: true
-      VERSION:
         required: true
 
 jobs:
@@ -29,7 +33,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ secrets.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Install Secret Keys
         working-directory: ${{ github.workspace }}
@@ -69,5 +73,5 @@ jobs:
       - name: Upload App Bundle Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: android-${{ secrets.VERSION }}
+          name: android-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab

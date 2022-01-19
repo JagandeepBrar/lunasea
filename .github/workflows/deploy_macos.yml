@@ -2,6 +2,14 @@ name: '[Deploy] macOS'
 
 on:
   workflow_call:
+    inputs:
+      FLAVOR:
+        required: true
+        type: string
+      VERSION:
+        required: true
+        type: string
+
     secrets:
       APPLE_ID:
         required: true
@@ -16,10 +24,6 @@ on:
       APPLE_STORE_CONNECT_KEY_ID:
         required: true
       APPLE_TEAM_ID:
-        required: true
-      FLAVOR:
-        required: true
-      VERSION:
         required: true
 
 jobs:
@@ -37,7 +41,7 @@ jobs:
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
-          name: macos-${{ secrets.VERSION }}
+          name: macos-${{ inputs.VERSION }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys
@@ -59,4 +63,4 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ secrets.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg
+          bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg

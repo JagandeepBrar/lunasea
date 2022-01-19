@@ -2,12 +2,16 @@ name: '[Deploy] Android'
 
 on:
   workflow_call:
-    secrets:
+    inputs:
       FLAVOR:
         required: true
-      GOOGLE_PLAY_API:
-        required: true
+        type: string
       VERSION:
+        required: true
+        type: string
+
+    secrets:
+      GOOGLE_PLAY_API:
         required: true
 
 jobs:
@@ -25,7 +29,7 @@ jobs:
       - name: Download App Bundle Artifact
         uses: actions/download-artifact@v2
         with:
-          name: android-${{ secrets.VERSION }}
+          name: android-${{ inputs.VERSION }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys
@@ -42,4 +46,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ secrets.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:android-${{ secrets.VERSION }}
+          bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:android-${{ inputs.VERSION }}

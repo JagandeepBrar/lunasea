@@ -2,14 +2,20 @@ name: '[Build] iOS'
 
 on:
   workflow_call:
+    inputs:
+      FLAVOR:
+        required: true
+        type: string
+      VERSION:
+        required: true
+        type: string
+
     secrets:
       APPLE_ID:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
       APPLE_TEAM_ID:
-        required: true
-      FLAVOR:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
         required: true
@@ -20,8 +26,6 @@ on:
       MATCH_PASSWORD:
         required: true
       MATCH_SSH_PRIVATE_KEY:
-        required: true
-      VERSION:
         required: true
 
 jobs:
@@ -39,7 +43,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ secrets.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
@@ -91,5 +95,5 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ios-${{ secrets.VERSION }}
+          name: ios-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/ios/Runner.ipa

@@ -39,7 +39,7 @@ jobs:
       - name: Set Flavor
         working-directory: ${{ github.workspace }}
         run: |
-          echo $'FLAVOR=${{ secrets.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
@@ -92,5 +92,5 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: macos-${{ secrets.VERSION }}
+          name: macos-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/macos/LunaSea.pkg

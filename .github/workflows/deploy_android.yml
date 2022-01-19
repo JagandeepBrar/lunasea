@@ -39,6 +39,8 @@ jobs:
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
   
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android

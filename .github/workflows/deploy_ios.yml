@@ -51,6 +51,8 @@ jobs:
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
   
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/ios

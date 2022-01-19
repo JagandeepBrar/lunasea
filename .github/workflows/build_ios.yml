@@ -62,11 +62,14 @@ jobs:
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'beta'
+          channel: beta
+          cache: true
 
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}

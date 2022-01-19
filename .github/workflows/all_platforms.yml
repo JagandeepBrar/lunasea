@@ -38,7 +38,7 @@ on:
       deploy:
         type: boolean
         required: true
-        description: 'Deploy to Store Fronts?'
+        description: 'Deploy'
         default: "true"
 
 jobs:    

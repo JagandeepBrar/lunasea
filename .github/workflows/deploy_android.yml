@@ -46,4 +46,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:android-${{ inputs.VERSION }}
+          bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}

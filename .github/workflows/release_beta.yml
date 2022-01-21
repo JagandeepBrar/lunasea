@@ -1,4 +1,4 @@
-name: '[Release] Alpha'
+name: '[Release] Beta'
 
 on:
   push:

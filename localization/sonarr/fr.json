@@ -123,7 +123,7 @@
     "sonarr.Monitor": "Moniteur",
     "sonarr.MonitorEpisode": "Suivre l'épisode",
     "sonarr.MonitorSeries": "Suivre les séries",
-    "sonarr.Monitored": "Suivie",
+    "sonarr.Monitored": "Est suivi",
     "sonarr.Monitoring": "Suivie",
     "sonarr.NoHistoryFound": "Aucun historique trouvé",
     "sonarr.NoReleasesFound": "Aucune version trouvée",
@@ -202,5 +202,9 @@
     "sonarr.Usenet": "Usenet",
     "sonarr.RemoveFromDownloadClient": "Retirer du client de téléchargement",
     "sonarr.UseSeasonFoldersDescription": "Trier les épisodes dans les dossiers des saisons",
-    "sonarr.UseSeasonFolders": "Utiliser les dossiers des saisons"
+    "sonarr.UseSeasonFolders": "Utiliser les dossiers des saisons",
+    "sonarr.Leechers": "Receveurs",
+    "sonarr.Seeders": "Envoyeurs",
+    "sonarr.NoLongerMonitoring": "Plus de suivi",
+    "sonarr.StartSearchForCutoffUnmetEpisodes": "Démarrer la recherche d'épisodes ne correspondant pas"
 }

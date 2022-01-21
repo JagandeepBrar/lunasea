@@ -1,4 +1,4 @@
-name: Internal
+name: '[Release] Internal'
 
 on:
   push:
@@ -6,28 +6,9 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build Internal Release
+  run:
+    name: Build and Deploy Internal Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
-    with:
-      FLAVOR: internal
-      VERSION: internal-${{ github.sha }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-      GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      KEY_JKS: ${{ secrets.KEY_JKS }}
-      KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
-      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-  deploy:
-    name: Deploy Internal Release
-    uses: CometTools/LunaSea/.github/workflows/deploy_all_platforms.yml@master
     with:
       FLAVOR: internal
       VERSION: internal-${{ github.sha }}
@@ -40,3 +21,11 @@ jobs:
       APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
+      GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+      GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      KEY_JKS: ${{ secrets.KEY_JKS }}
+      KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}

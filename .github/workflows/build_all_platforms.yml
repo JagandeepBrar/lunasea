@@ -15,7 +15,17 @@ on:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
       APPLE_TEAM_ID:
+        required: true
+      GOOGLE_PLAY_API:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
         required: true
@@ -34,46 +44,326 @@ on:
       MATCH_SSH_PRIVATE_KEY:
         required: true
 
-jobs:    
+jobs:
   build_android:
     name: Build Android
-    uses: CometTools/LunaSea/.github/workflows/build_android.yml@master
-    with:
-      FLAVOR: ${{ inputs.FLAVOR }}
-      VERSION: ${{ inputs.VERSION }}
-    secrets:
-      GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      KEY_JKS: ${{ secrets.KEY_JKS }}
-      KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set Flavor
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+          flutter packages pub run build_runner build
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane build
+      
+      - name: Upload App Bundle Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
 
   build_ios:
     name: Build iOS
-    uses: CometTools/LunaSea/.github/workflows/build_ios.yml@master
-    with:
-      FLAVOR: ${{ inputs.FLAVOR }}
-      VERSION: ${{ inputs.VERSION }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set Flavor
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+
+      - name: Select Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+          flutter packages pub run build_runner build
+
+      - name: Install Pods
+        working-directory: ${{ github.workspace }}/ios
+        run: |
+          pod install --repo-update
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+        run: |
+          bundle install
+          bundle exec fastlane build
+      
+      - name: Upload App Package Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}/ios/Runner.ipa
 
   build_macos:
     name: Build macOS
-    uses: CometTools/LunaSea/.github/workflows/build_macos.yml@master
-    with:
-      FLAVOR: ${{ inputs.FLAVOR }}
-      VERSION: ${{ inputs.VERSION }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set Flavor
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo $'FLAVOR=${{ inputs.FLAVOR }}\nCOMMIT=${{ github.sha }}' > .flavor
+
+      - name: Select Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter packages pub run build_runner build
+
+      - name: Install Pods
+        working-directory: ${{ github.workspace }}/macos
+        run: |
+          pod install --repo-update
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: |
+          bundle install
+          bundle exec fastlane build
+      
+      - name: Upload App Package Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}/macos/LunaSea.pkg
+
+  deploy_android:
+    name: Deploy Android
+    needs: build_android
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Download App Bundle Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: android-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+  
+      - name: Deploy to Google Play Store
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+
+  deploy_ios:
+    name: Deploy iOS
+    needs: build_ios
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Download App Package Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ios-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+  
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} ipa:${{ github.workspace }}/Runner.ipa
+
+  deploy_macos:
+    name: Deploy macOS
+    needs: build_macos
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Download App Package Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: macos-${{ inputs.VERSION }}
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+  
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg

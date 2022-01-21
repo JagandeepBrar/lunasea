@@ -1,0 +1,42 @@
+name: Alpha
+
+on:
+  push:
+    tags:
+      - alpha
+
+jobs:
+  build:
+    name: Build Alpha Release
+    uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
+    with:
+      FLAVOR: alpha
+      VERSION: alpha-${{ github.sha }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+      GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      KEY_JKS: ${{ secrets.KEY_JKS }}
+      KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+  deploy:
+    name: Deploy Alpha Release
+    uses: CometTools/LunaSea/.github/workflows/deploy_all_platforms.yml@master
+    with:
+      FLAVOR: alpha
+      VERSION: alpha-${{ github.sha }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+      APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}

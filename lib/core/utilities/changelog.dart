@@ -13,7 +13,14 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     required BuildContext? context,
     Widget Function(BuildContext context)? builder,
     bool checkBuildNumber = false,
+    bool showCommitHistory = false,
   }) async {
+    // Do not show unless it is a prod release
+    if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA)) {
+      if (showCommitHistory) LunaFlavor().openCommitHistory();
+      return;
+    }
+
     try {
       _changelog =
           await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext!)

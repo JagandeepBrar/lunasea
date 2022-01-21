@@ -78,9 +78,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               ),
             ],
             trailing: const LunaIconButton(icon: Icons.system_update_rounded),
-            onTap: () async => _flavor.isLowerOrEqualTo(LunaEnvironment.BETA)
-                ? _flavor.openCommitHistory()
-                : LunaChangelogSheet().show(context: context),
+            onTap: () async => LunaChangelogSheet().show(
+              context: context,
+              showCommitHistory: true,
+            ),
           );
         });
   }

@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    name: Build and Deploy Beta Release
+    name: Beta Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
     with:
       FLAVOR: beta

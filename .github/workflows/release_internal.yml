@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    name: Build and Deploy Internal Release
+    name: Internal Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
     with:
       FLAVOR: internal

@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    name: Build and Deploy Alpha Release
+    name: Alpha Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
     with:
       FLAVOR: alpha

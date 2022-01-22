@@ -22,9 +22,10 @@ class LunaEncryption {
       return _encrypted;
     } catch (error, stack) {
       LunaLogger().error(
-          'Failed to decrypted "$data" using the key "$encryptionKey"',
-          error,
-          stack);
+        'Failed to decrypted "$data" using the key "$encryptionKey"',
+        error,
+        stack,
+      );
     }
     return ENCRYPTION_FAILURE;
   }
@@ -41,9 +42,12 @@ class LunaEncryption {
       IV iv = IV.fromLength(_IV_LENGTH);
       final _encrypter = Encrypter(AES(key));
       return _encrypter.decrypt64(data, iv: iv);
-    } catch (error) {
-      LunaLogger().warning('LunaEncryption', 'decrypt',
-          'Failed to decrypted "$data" using the key "$decryptionKey"');
+    } catch (error, stack) {
+      LunaLogger().error(
+        'Failed to decrypted "$data" using the key "$decryptionKey"',
+        error,
+        stack,
+      );
     }
     return ENCRYPTION_FAILURE;
   }

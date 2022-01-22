@@ -3,10 +3,10 @@ import 'package:lunasea/modules/settings.dart';
 
 class LunaProfile {
   /// Returns a list of the profiles, sorted by their lowercase key/display name.
-  List<String?> profilesList() => Database.profiles.box.keys
-      .map<String?>((profile) => profile as String?)
+  List<String> profilesList() => Database.profiles.box.keys
+      .map<String>((profile) => profile as String)
       .toList()
-    ..sort((a, b) => a!.toLowerCase().compareTo(b!.toLowerCase()));
+    ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
 
   /// Safely change profiles.
   ///

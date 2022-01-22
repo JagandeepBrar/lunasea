@@ -27,7 +27,7 @@ class Database {
 
   void bootstrap() {
     clearAll();
-    for (_BoxInstance instance in _BoxInstance.values) instance.setDefaults();
+    for (_BoxInstance instance in _BoxInstance.values) instance.bootstrap();
   }
 
   void clearAll() {
@@ -96,7 +96,7 @@ extension _BoxInstanceExtension on _BoxInstance {
     }
   }
 
-  void setDefaults() {
+  void bootstrap() {
     switch (this) {
       case _BoxInstance.ALERTS:
         break;
@@ -122,6 +122,6 @@ class _BoxManager<E> {
   _BoxManager(this._instance);
 
   Box<E> get box => Hive.box<E>(_instance.key);
-  Future<int> clear() async => box.clear();
+  Future<void> clear() async => box.keys.forEach((k) => box.delete(k));
   Future<int> size() async => box.length;
 }

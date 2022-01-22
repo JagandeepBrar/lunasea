@@ -2,7 +2,26 @@ default_platform(:ios)
 build_number = 1000000000 + number_of_commits()
 
 platform :ios do
-  desc "Setup the LunaSea Keychain"
+  desc "Setup the LunaSea Keychain [Dev]"
+  lane :prepare_keychain_dev do
+    create_keychain(
+      name: ENV["MATCH_KEYCHAIN_NAME"],
+      password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+      default_keychain: false,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: false
+    )
+
+    match(
+      type: "development",
+      readonly: false,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+    )
+  end
+
+  desc "Setup the LunaSea Keychain [Prod]"
   lane :prepare_keychain do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],

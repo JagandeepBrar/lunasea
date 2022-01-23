@@ -32,9 +32,9 @@ jobs:
 
   discord:
     name: Update Discord Channel
+    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
     needs: build
     if: always()
-    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
     with:
       FLAVOR: beta
       STATUS: ${{ job.status }}

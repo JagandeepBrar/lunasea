@@ -6,7 +6,7 @@ on:
       - beta
 
 jobs:
-  run:
+  build:
     name: Beta Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
     with:
@@ -29,3 +29,14 @@ jobs:
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+  discord:
+    name: Update Discord Channel
+    needs: build
+    if: always()
+    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
+    with:
+      FLAVOR: beta
+      STATUS: ${{ job.status }}
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

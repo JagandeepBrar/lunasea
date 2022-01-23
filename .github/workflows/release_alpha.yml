@@ -29,14 +29,3 @@ jobs:
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-  discord:
-    name: Update Discord Channel
-    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
-    needs: build
-    if: always()
-    with:
-      FLAVOR: alpha
-      STATUS: ${{ job.status }}
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

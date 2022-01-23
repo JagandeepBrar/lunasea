@@ -367,3 +367,39 @@ jobs:
         run: |
           bundle install
           bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg
+
+  discord_android:
+    name: Update Discord about Android Deployment
+    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
+    needs: deploy_android
+    if: always()
+    with:
+      FLAVOR: internal
+      STATUS: ${{ job.status }}
+      PLATFORM: Android
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+  discord_ios:
+    name: Update Discord about iOS Deployment
+    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
+    needs: deploy_ios
+    if: always()
+    with:
+      FLAVOR: internal
+      STATUS: ${{ job.status }}
+      PLATFORM: iOS
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+  discord_macos:
+    name: Update Discord about macOS Deployment
+    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
+    needs: deploy_macos
+    if: always()
+    with:
+      FLAVOR: internal
+      STATUS: ${{ job.status }}
+      PLATFORM: macOS
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

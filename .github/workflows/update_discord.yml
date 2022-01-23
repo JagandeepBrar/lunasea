@@ -9,6 +9,9 @@ on:
       FLAVOR:
         required: true
         type: string
+      PLATFORM:
+        required: true
+        type: string
 
     secrets:
       DISCORD_WEBHOOK:
@@ -16,14 +19,13 @@ on:
 
 jobs:
   run:
-    name: Update Discord Channel
+    name: Send Discord Update
     runs-on: ubuntu-latest
 
     steps:
-      - name: Discord Message
-        uses: sarisia/actions-status-discord@v1
+      - uses: sarisia/actions-status-discord@v1
         with:
-          description: "Build and deploy `${{ inputs.FLAVOR }}` build"
+          description: "[${{ inputs.PLATFORM }}] Build and deploy `${{ inputs.FLAVOR }}` build"
           status: ${{ inputs.STATUS }}
-          title: '[Release] ${{ inputs.FLAVOR }}'
+          title: '[${{inputs.PLATFORM }}/release] ${{ inputs.FLAVOR }}'
           webhook: ${{ secrets.DISCORD_WEBHOOK }}

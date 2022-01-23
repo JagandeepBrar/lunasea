@@ -1,1 +1,21 @@
-{}
+{
+    "dashboard.NoNewContent": "Inget nytt innhold",
+    "dashboard.OneMonth": "Én måned",
+    "dashboard.OneWeek": "Én uke",
+    "dashboard.PastDays": "Tidligere dager",
+    "dashboard.PastDaysDescription": "Sett antall dager i fortiden å hente kalenderoppføringer for.",
+    "dashboard.Saturday": "Lørdag",
+    "dashboard.Sunday": "Søndag",
+    "dashboard.Schedule": "Program",
+    "dashboard.Tuesday": "Tirsdag",
+    "dashboard.TwoWeeks": "To uker",
+    "dashboard.Calendar": "Kalender",
+    "dashboard.Friday": "Fredag",
+    "dashboard.FutureDays": "Fremtidige dager",
+    "dashboard.MinimumOfOneDay": "Maks. én dag",
+    "dashboard.FutureDaysDescription": "Sett antall dager i fremtiden å hente kalenderoppføringer for.",
+    "dashboard.Modules": "Moduler",
+    "dashboard.Monday": "Mandag",
+    "dashboard.Wednesday": "Onsdag",
+    "dashboard.Thursday": "Torsdag"
+}

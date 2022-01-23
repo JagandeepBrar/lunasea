@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-
-import 'modules/dashboard.dart';
+import 'package:lunasea/modules/dashboard.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 ///
@@ -23,19 +25,8 @@ Future<void> main() async {
       LunaRouter().initialize();
       await LunaInAppPurchases().initialize();
       await LunaLocalization().initialize();
-
-      // Launch application
-      LunaLocalization localization = LunaLocalization();
-      return runApp(
-        EasyLocalization(
-          supportedLocales: localization.supportedLocales as List<Locale>,
-          path: localization.fileDirectory,
-          fallbackLocale: localization.fallbackLocale,
-          startLocale: localization.fallbackLocale,
-          useFallbackTranslations: true,
-          child: const LunaBIOS(),
-        ),
-      );
+      // Run application
+      return runApp(const LunaBIOS());
     },
     (error, stack) => LunaLogger().critical(error, stack),
   );
@@ -48,27 +39,43 @@ class LunaBIOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaState.providers(
-      child: ValueListenableBuilder(
-        valueListenable: Database.lunasea.box.listenable(keys: [
-          LunaDatabaseValue.THEME_AMOLED.key,
-          LunaDatabaseValue.THEME_AMOLED_BORDER.key,
-        ]),
-        builder: (context, dynamic box, _) {
-          return Layout(
-            child: MaterialApp(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              routes: LunaRouter().routes,
-              onGenerateRoute: LunaRouter.router.generator,
-              navigatorKey: LunaState.navigatorKey,
-              darkTheme: LunaTheme().activeTheme(),
-              theme: LunaTheme().activeTheme(),
-              title: 'LunaSea',
-            ),
-          );
-        },
+    LunaLocalization localization = LunaLocalization();
+    LunaTheme theme = LunaTheme();
+    LunaRouter router = LunaRouter();
+
+    return DevicePreview(
+      enabled: kDebugMode && Platform.isMacOS,
+      builder: (context) => EasyLocalization(
+        supportedLocales: localization.supportedLocales as List<Locale>,
+        path: localization.fileDirectory,
+        fallbackLocale: localization.fallbackLocale,
+        startLocale: localization.fallbackLocale,
+        useFallbackTranslations: true,
+        child: LunaState.providers(
+          child: ValueListenableBuilder(
+            valueListenable: Database.lunasea.box.listenable(keys: [
+              LunaDatabaseValue.THEME_AMOLED.key,
+              LunaDatabaseValue.THEME_AMOLED_BORDER.key,
+            ]),
+            builder: (context, dynamic box, _) {
+              return Layout(
+                child: MaterialApp(
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  builder: DevicePreview.appBuilder,
+                  routes: router.routes,
+                  useInheritedMediaQuery: true,
+                  onGenerateRoute: LunaRouter.router.generator,
+                  navigatorKey: LunaState.navigatorKey,
+                  darkTheme: theme.activeTheme(),
+                  theme: theme.activeTheme(),
+                  title: 'LunaSea',
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

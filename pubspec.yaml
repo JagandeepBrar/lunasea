@@ -13,6 +13,7 @@ dependencies:
   cloud_firestore: ^3.1.5
   collection: ^1.15.0
   convert: ^3.0.1
+  device_preview: ^1.0.0
   dio: ^4.0.4
   easy_localization: ^3.0.0
   encrypt: ^5.0.1

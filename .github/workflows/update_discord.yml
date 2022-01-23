@@ -15,11 +15,13 @@ on:
         required: true
 
 jobs:
-  run:  
+  run:
     name: Update Discord Channel
     runs-on: ubuntu-latest
+
     steps:
       - name: Discord Message
+        uses: sarisia/actions-status-discord@v1
         with:
           description: "Build and deploy `${{ inputs.FLAVOR }}` build"
           status: ${{ inputs.STATUS }}

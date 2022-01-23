@@ -105,6 +105,14 @@ jobs:
           name: android-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
 
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: android-${{ inputs.VERSION }}
+          title: '[Android] `${{ inputs.FLAVOR}}` Build'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
   build_ios:
     name: Build iOS
     runs-on: macos-latest
@@ -176,6 +184,14 @@ jobs:
         with:
           name: ios-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/ios/Runner.ipa
+
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: ios-${{ inputs.VERSION }}
+          title: '[iOS] `${{ inputs.FLAVOR}}` Build'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   build_macos:
     name: Build macOS
@@ -250,6 +266,14 @@ jobs:
           name: macos-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/macos/LunaSea.pkg
 
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: macos-${{ inputs.VERSION }}
+          title: '[macOS] `${{ inputs.FLAVOR}}` Build'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
   deploy_android:
     name: Deploy Android
     needs: build_android
@@ -285,6 +309,14 @@ jobs:
         run: |
           bundle install
           bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: android-${{ inputs.VERSION }}
+          title: '[Android] `${{ inputs.FLAVOR}}` Deployment'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   deploy_ios:
     name: Deploy iOS
@@ -327,6 +359,14 @@ jobs:
           bundle install
           bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} ipa:${{ github.workspace }}/Runner.ipa
 
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: ios-${{ inputs.VERSION }}
+          title: '[iOS] `${{ inputs.FLAVOR}}` Deployment'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
   deploy_macos:
     name: Deploy macOS
     needs: build_macos
@@ -368,38 +408,10 @@ jobs:
           bundle install
           bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg
 
-  discord_android:
-    name: Update Discord about Android Deployment
-    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
-    needs: deploy_android
-    if: always()
-    with:
-      FLAVOR: internal
-      STATUS: ${{ job.status }}
-      PLATFORM: Android
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-
-  discord_ios:
-    name: Update Discord about iOS Deployment
-    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
-    needs: deploy_ios
-    if: always()
-    with:
-      FLAVOR: internal
-      STATUS: ${{ job.status }}
-      PLATFORM: iOS
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-
-  discord_macos:
-    name: Update Discord about macOS Deployment
-    uses: CometTools/LunaSea/.github/workflows/update_discord.yml@master
-    needs: deploy_macos
-    if: always()
-    with:
-      FLAVOR: internal
-      STATUS: ${{ job.status }}
-      PLATFORM: macOS
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Discord Update
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          description: macos-${{ inputs.VERSION }}
+          title: '[macOS] `${{ inputs.FLAVOR}}` Deployment'
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}

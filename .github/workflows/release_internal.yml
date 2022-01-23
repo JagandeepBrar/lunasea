@@ -6,10 +6,19 @@ on:
       - master
 
 jobs:
+  cancel:
+    name: Cancel Previous Runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Workflow Action
+        uses: styfle/cancel-workflow-action
+        with:
+          access_token: ${{ github.token }}
+
   build:
-  
     name: Internal Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
+    needs: cancel
     with:
       FLAVOR: internal
       VERSION: internal-${{ github.sha }}

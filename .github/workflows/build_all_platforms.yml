@@ -25,6 +25,8 @@ on:
         required: true
       APPLE_TEAM_ID:
         required: true
+      DISCORD_WEBHOOK:
+        required: true
       GOOGLE_PLAY_API:
         required: true
       GOOGLE_SERVICE_INFO_PLIST:
@@ -108,10 +110,11 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: android-${{ inputs.VERSION }}
           title: '[Android] `${{ inputs.FLAVOR}}` Build'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   build_ios:
     name: Build iOS
@@ -188,10 +191,11 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: ios-${{ inputs.VERSION }}
           title: '[iOS] `${{ inputs.FLAVOR}}` Build'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   build_macos:
     name: Build macOS
@@ -269,10 +273,11 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: macos-${{ inputs.VERSION }}
           title: '[macOS] `${{ inputs.FLAVOR}}` Build'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   deploy_android:
     name: Deploy Android
@@ -313,10 +318,11 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: android-${{ inputs.VERSION }}
           title: '[Android] `${{ inputs.FLAVOR}}` Deployment'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   deploy_ios:
     name: Deploy iOS
@@ -362,10 +368,11 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: ios-${{ inputs.VERSION }}
           title: '[iOS] `${{ inputs.FLAVOR}}` Deployment'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   deploy_macos:
     name: Deploy macOS
@@ -411,7 +418,8 @@ jobs:
       - name: Discord Update
         uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: macos-${{ inputs.VERSION }}
           title: '[macOS] `${{ inputs.FLAVOR}}` Deployment'
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}

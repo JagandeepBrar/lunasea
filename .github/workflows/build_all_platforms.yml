@@ -107,14 +107,14 @@ jobs:
           name: android-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: android-${{ inputs.VERSION }}
-          title: '[Android] `${{ inputs.FLAVOR}}` Build'
+          title: '`[${{ inputs.FLAVOR}}]` Android Build'
 
   build_ios:
     name: Build iOS
@@ -188,14 +188,14 @@ jobs:
           name: ios-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/ios/Runner.ipa
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: ios-${{ inputs.VERSION }}
-          title: '[iOS] `${{ inputs.FLAVOR}}` Build'
+          title: '`[${{ inputs.FLAVOR}}]` iOS Build'
 
   build_macos:
     name: Build macOS
@@ -270,14 +270,14 @@ jobs:
           name: macos-${{ inputs.VERSION }}
           path: ${{ github.workspace }}/macos/LunaSea.pkg
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: macos-${{ inputs.VERSION }}
-          title: '[macOS] `${{ inputs.FLAVOR}}` Build'
+          title: '`[${{ inputs.FLAVOR}}]` macOS Build'
 
   deploy_android:
     name: Deploy Android
@@ -315,14 +315,14 @@ jobs:
           bundle install
           bundle exec fastlane deploy track:${{ inputs.FLAVOR }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: android-${{ inputs.VERSION }}
-          title: '[Android] `${{ inputs.FLAVOR}}` Deployment'
+          title: '`[${{ inputs.FLAVOR}}]` Android Deployment'
 
   deploy_ios:
     name: Deploy iOS
@@ -365,14 +365,14 @@ jobs:
           bundle install
           bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} ipa:${{ github.workspace }}/Runner.ipa
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: ios-${{ inputs.VERSION }}
-          title: '[iOS] `${{ inputs.FLAVOR}}` Deployment'
+          title: '`[${{ inputs.FLAVOR}}]` iOS Deployment'
 
   deploy_macos:
     name: Deploy macOS
@@ -415,11 +415,11 @@ jobs:
           bundle install
           bundle exec fastlane deploy groups:${{ inputs.FLAVOR }} pkg:${{ github.workspace }}/LunaSea.pkg
 
-      - name: Discord Update
+      - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           description: macos-${{ inputs.VERSION }}
-          title: '[macOS] `${{ inputs.FLAVOR}}` Deployment'
+          title: '`[${{ inputs.FLAVOR}}]` macOS Deployment'

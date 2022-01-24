@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 class LunaMemoryStore {
   LunaMemoryStore._();
 
-  static final MemoryStore _store = newMemoryStore();
+  static final MemoryCacheStore _store = newMemoryCacheStore();
 
   /// Returns a cache with the given ID.
   static Cache get({
@@ -18,7 +18,7 @@ class LunaMemoryStore {
   }) {
     if (fresh) delete(id!);
     return _store.cache(
-      cacheName: id,
+      name: id,
       sampler: sampler,
       evictionPolicy: evictionPolicy,
       maxEntries: maxEntries,

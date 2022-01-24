@@ -1,0 +1,25 @@
+{
+  "path": "cz-conventional-changelog",
+  "types": {
+    "chore": {
+      "description": "Any other change that doesn't modify source files",
+      "title": "Chore"
+    },
+    "docs": {
+      "description": "Documentation only changes",
+      "title": "Documentation"
+    },
+    "feat": {
+      "description": "A new feature",
+      "title": "Feature"
+    },
+    "fix": {
+      "description": "A bug fix",
+      "title": "Fix"
+    },
+    "refactor": {
+      "description": "A code change that neither fixes a bug nor adds a feature",
+      "title": "Refactor"
+    }
+  }
+}

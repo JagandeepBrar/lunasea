@@ -73,3 +73,7 @@ ios/GoogleService-Info.plist
 ios/fastlane/3Z55GTHMWY.p8
 macos/GoogleService-Info.plist
 macos/fastlane/3Z55GTHMWY.p8
+
+# Node Dependency directories
+node_modules/
+jspm_packages/

@@ -11,6 +11,8 @@
     "shaders",
     /** Files */
     ".all-contributorsrc",
+    ".commitlintrc",
+    ".czrc",
     ".packages"
   ],
   "useGitignore": true,

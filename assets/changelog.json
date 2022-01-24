@@ -1,27 +1,7 @@
 {
   "motd": "Welcome to LunaSea!",
-  "new": [
-    {
-      "module": "",
-      "changes": []
-    }
-  ],
-  "tweaks": [
-    {
-      "module": "",
-      "changes": []
-    }
-  ],
-  "fixes": [
-    {
-      "module": "",
-      "changes": []
-    }
-  ],
-  "platform": [
-    {
-      "module": "",
-      "changes": []
-    }
-  ]
+  "new": [],
+  "tweaks": [],
+  "fixes": [],
+  "platform": []
 }

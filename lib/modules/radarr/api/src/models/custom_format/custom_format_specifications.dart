@@ -6,43 +6,47 @@ part 'custom_format_specifications.g.dart';
 /// Model for a custom format from Radarr.
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RadarrCustomFormatSpecifications {
-    @JsonKey(name: 'name')
-    String? name;
-    
-    @JsonKey(name: 'implementation')
-    String? implementation;
+  @JsonKey(name: 'name')
+  String? name;
 
-    @JsonKey(name: 'implementationName')
-    String? implementationName;
+  @JsonKey(name: 'implementation')
+  String? implementation;
 
-    @JsonKey(name: 'infoLink')
-    String? infoLink;
+  @JsonKey(name: 'implementationName')
+  String? implementationName;
 
-    @JsonKey(name: 'negate')
-    bool? negate;
+  @JsonKey(name: 'infoLink')
+  String? infoLink;
 
-    @JsonKey(name: 'required')
-    bool? required;
+  @JsonKey(name: 'negate')
+  bool? negate;
 
-    @JsonKey(name: 'fields')
-    List<Map<dynamic, dynamic>>? fields;
+  @JsonKey(name: 'required')
+  bool? required;
 
-    RadarrCustomFormatSpecifications({
-        this.name,
-        this.implementation,
-        this.implementationName,
-        this.infoLink,
-        this.negate,
-        this.required,
-        this.fields,
-    });
+  @JsonKey(name: 'fields')
+  List<Map<dynamic, dynamic>>? fields;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  RadarrCustomFormatSpecifications({
+    this.name,
+    this.implementation,
+    this.implementationName,
+    this.infoLink,
+    this.negate,
+    this.required,
+    this.fields,
+  });
 
-    /// Deserialize a JSON map to a [RadarrCustomFormatSpecifications] object.
-    factory RadarrCustomFormatSpecifications.fromJson(Map<String, dynamic> json) => _$RadarrCustomFormatSpecificationsFromJson(json);
-    /// Serialize a [RadarrCustomFormatSpecifications] object to a JSON map.
-    Map<String, dynamic> toJson() => _$RadarrCustomFormatSpecificationsToJson(this);
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
+
+  /// Deserialize a JSON map to a [RadarrCustomFormatSpecifications] object.
+  factory RadarrCustomFormatSpecifications.fromJson(
+          Map<String, dynamic> json) =>
+      _$RadarrCustomFormatSpecificationsFromJson(json);
+
+  /// Serialize a [RadarrCustomFormatSpecifications] object to a JSON map.
+  Map<String, dynamic> toJson() =>
+      _$RadarrCustomFormatSpecificationsToJson(this);
 }

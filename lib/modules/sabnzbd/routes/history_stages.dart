@@ -31,7 +31,8 @@ class _State extends State<SABnzbdHistoryStages>
   void initState() {
     super.initState();
     SchedulerBinding.instance!.addPostFrameCallback((_) => setState(() {
-          _arguments = ModalRoute.of(context)!.settings.arguments as SABnzbdHistoryStagesArguments?;
+          _arguments = ModalRoute.of(context)!.settings.arguments
+              as SABnzbdHistoryStagesArguments?;
         }));
   }
 

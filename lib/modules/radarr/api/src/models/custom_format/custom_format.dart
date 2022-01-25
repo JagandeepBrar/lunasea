@@ -7,31 +7,33 @@ part 'custom_format.g.dart';
 /// Model for a custom format from Radarr.
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RadarrCustomFormat {
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'id')
+  int? id;
 
-    @JsonKey(name: 'name')
-    String? name;
-    
-    @JsonKey(name: 'includeCustomFormatWhenRenaming')
-    bool? includeCustomFormatWhenRenaming;
+  @JsonKey(name: 'name')
+  String? name;
 
-    @JsonKey(name: 'specifications')
-    List<RadarrCustomFormatSpecifications>? specifications;
+  @JsonKey(name: 'includeCustomFormatWhenRenaming')
+  bool? includeCustomFormatWhenRenaming;
 
-    RadarrCustomFormat({
-        this.id,
-        this.name,
-        this.includeCustomFormatWhenRenaming,
-        this.specifications,
-    });
+  @JsonKey(name: 'specifications')
+  List<RadarrCustomFormatSpecifications>? specifications;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  RadarrCustomFormat({
+    this.id,
+    this.name,
+    this.includeCustomFormatWhenRenaming,
+    this.specifications,
+  });
 
-    /// Deserialize a JSON map to a [RadarrCustomFormat] object.
-    factory RadarrCustomFormat.fromJson(Map<String, dynamic> json) => _$RadarrCustomFormatFromJson(json);
-    /// Serialize a [RadarrCustomFormat] object to a JSON map.
-    Map<String, dynamic> toJson() => _$RadarrCustomFormatToJson(this);
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
+
+  /// Deserialize a JSON map to a [RadarrCustomFormat] object.
+  factory RadarrCustomFormat.fromJson(Map<String, dynamic> json) =>
+      _$RadarrCustomFormatFromJson(json);
+
+  /// Serialize a [RadarrCustomFormat] object to a JSON map.
+  Map<String, dynamic> toJson() => _$RadarrCustomFormatToJson(this);
 }

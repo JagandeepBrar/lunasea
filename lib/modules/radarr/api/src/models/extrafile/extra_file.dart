@@ -6,39 +6,41 @@ part 'extra_file.g.dart';
 /// Model for a movies' extra file information from Radarr.
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RadarrExtraFile {
-    @JsonKey(name: 'movieId')
-    int? movieId;
+  @JsonKey(name: 'movieId')
+  int? movieId;
 
-    @JsonKey(name: 'movieFileId')
-    int? movieFileId;
-    
-    @JsonKey(name: 'relativePath')
-    String? relativePath;
+  @JsonKey(name: 'movieFileId')
+  int? movieFileId;
 
-    @JsonKey(name: 'extension')
-    String? extension;
+  @JsonKey(name: 'relativePath')
+  String? relativePath;
 
-    @JsonKey(name: 'type')
-    String? type;
+  @JsonKey(name: 'extension')
+  String? extension;
 
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'type')
+  String? type;
 
-    RadarrExtraFile({
-        this.movieId,
-        this.movieFileId,
-        this.relativePath,
-        this.extension,
-        this.type,
-        this.id,
-    });
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  RadarrExtraFile({
+    this.movieId,
+    this.movieFileId,
+    this.relativePath,
+    this.extension,
+    this.type,
+    this.id,
+  });
 
-    /// Deserialize a JSON map to a [RadarrExtraFile] object.
-    factory RadarrExtraFile.fromJson(Map<String, dynamic> json) => _$RadarrExtraFileFromJson(json);
-    /// Serialize a [RadarrExtraFile] object to a JSON map.
-    Map<String, dynamic> toJson() => _$RadarrExtraFileToJson(this);
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
+
+  /// Deserialize a JSON map to a [RadarrExtraFile] object.
+  factory RadarrExtraFile.fromJson(Map<String, dynamic> json) =>
+      _$RadarrExtraFileFromJson(json);
+
+  /// Serialize a [RadarrExtraFile] object to a JSON map.
+  Map<String, dynamic> toJson() => _$RadarrExtraFileToJson(this);
 }

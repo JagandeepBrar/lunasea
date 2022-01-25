@@ -44,7 +44,8 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
       content: [
         LunaTableContent(title: 'state', body: history.lsState),
         LunaTableContent(
-            title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date!)),
+            title: 'date',
+            body: DateFormat('yyyy-MM-dd').format(history.date!)),
         LunaTableContent(title: 'started', body: history.date!.lunaTime),
         LunaTableContent(
             title: 'stopped',

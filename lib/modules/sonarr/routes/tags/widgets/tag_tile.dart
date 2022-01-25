@@ -76,7 +76,12 @@ class _State extends State<SonarrTagsTagTile> with LunaLoadCallbackMixin {
     } else {
       bool result = await SonarrDialogs().deleteTag(context);
       if (result)
-        context.read<SonarrState>().api!.tag.delete(id: widget.tag.id!).then((_) {
+        context
+            .read<SonarrState>()
+            .api!
+            .tag
+            .delete(id: widget.tag.id!)
+            .then((_) {
           showLunaSuccessSnackBar(
             title: 'Deleted Tag',
             message: widget.tag.label,

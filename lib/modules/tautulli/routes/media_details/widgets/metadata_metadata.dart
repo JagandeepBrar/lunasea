@@ -33,7 +33,8 @@ class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
         if (metadata?.mediaInfo?.isNotEmpty ?? false)
           LunaTableContent(
             title: 'bitrate',
-            body: '${metadata!.mediaInfo![0].bitrate ?? LunaUI.TEXT_EMDASH} kbps',
+            body:
+                '${metadata!.mediaInfo![0].bitrate ?? LunaUI.TEXT_EMDASH} kbps',
           ),
         if (metadata!.rating != null)
           LunaTableContent(

@@ -36,6 +36,7 @@ class LunaListViewBuilder extends StatelessWidget {
   }
 
   EdgeInsets _defaultPadding(BuildContext context) {
-    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF_VERTICAL) as EdgeInsets;
+    return MediaQuery.of(context).padding.add(LunaUI.MARGIN_HALF_VERTICAL)
+        as EdgeInsets;
   }
 }

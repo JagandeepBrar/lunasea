@@ -8,63 +8,68 @@ part 'movie_file.g.dart';
 /// Model for a movies' file information
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RadarrMovieFile {
-    @JsonKey(name: 'movieId')
-    int? movieId;
+  @JsonKey(name: 'movieId')
+  int? movieId;
 
-    @JsonKey(name: 'relativePath')
-    String? relativePath;
-    
-    @JsonKey(name: 'path')
-    String? path;
+  @JsonKey(name: 'relativePath')
+  String? relativePath;
 
-    @JsonKey(name: 'size')
-    int? size;
+  @JsonKey(name: 'path')
+  String? path;
 
-    @JsonKey(name: 'dateAdded', toJson: RadarrUtilities.dateTimeToJson, fromJson: RadarrUtilities.dateTimeFromJson)
-    DateTime? dateAdded;
+  @JsonKey(name: 'size')
+  int? size;
 
-    @JsonKey(name: 'quality')
-    RadarrMovieFileQuality? quality;
+  @JsonKey(
+      name: 'dateAdded',
+      toJson: RadarrUtilities.dateTimeToJson,
+      fromJson: RadarrUtilities.dateTimeFromJson)
+  DateTime? dateAdded;
 
-    @JsonKey(name: 'customFormats')
-    List<RadarrCustomFormat>? customFormats;
+  @JsonKey(name: 'quality')
+  RadarrMovieFileQuality? quality;
 
-    @JsonKey(name: 'mediaInfo')
-    RadarrMovieFileMediaInfo? mediaInfo;
+  @JsonKey(name: 'customFormats')
+  List<RadarrCustomFormat>? customFormats;
 
-    @JsonKey(name: 'qualityCutoffNotMet')
-    bool? qualityCutoffNotMet;
+  @JsonKey(name: 'mediaInfo')
+  RadarrMovieFileMediaInfo? mediaInfo;
 
-    @JsonKey(name: 'languages')
-    List<RadarrLanguage>? languages;
+  @JsonKey(name: 'qualityCutoffNotMet')
+  bool? qualityCutoffNotMet;
 
-    @JsonKey(name: 'edition')
-    String? edition;
+  @JsonKey(name: 'languages')
+  List<RadarrLanguage>? languages;
 
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'edition')
+  String? edition;
 
-    RadarrMovieFile({
-        this.movieId,
-        this.relativePath,
-        this.path,
-        this.size,
-        this.dateAdded,
-        this.quality,
-        this.customFormats,
-        this.mediaInfo,
-        this.qualityCutoffNotMet,
-        this.languages,
-        this.edition,
-        this.id,
-    });
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  RadarrMovieFile({
+    this.movieId,
+    this.relativePath,
+    this.path,
+    this.size,
+    this.dateAdded,
+    this.quality,
+    this.customFormats,
+    this.mediaInfo,
+    this.qualityCutoffNotMet,
+    this.languages,
+    this.edition,
+    this.id,
+  });
 
-    /// Deserialize a JSON map to a [RadarrMovieFile] object.
-    factory RadarrMovieFile.fromJson(Map<String, dynamic> json) => _$RadarrMovieFileFromJson(json);
-    /// Serialize a [RadarrMovieFile] object to a JSON map.
-    Map<String, dynamic> toJson() => _$RadarrMovieFileToJson(this);
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
+
+  /// Deserialize a JSON map to a [RadarrMovieFile] object.
+  factory RadarrMovieFile.fromJson(Map<String, dynamic> json) =>
+      _$RadarrMovieFileFromJson(json);
+
+  /// Serialize a [RadarrMovieFile] object to a JSON map.
+  Map<String, dynamic> toJson() => _$RadarrMovieFileToJson(this);
 }

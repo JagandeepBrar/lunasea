@@ -48,8 +48,8 @@ class _State extends State<SettingsAccountDeleteConfigurationTile> {
           updateState(LunaLoadingState.INACTIVE);
           showLunaSuccessSnackBar(
             title: 'settings.DeleteCloudBackupSuccess'.tr(),
-            message:
-                result.item2!.title!.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
+            message: result.item2!.title!
+                .replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
           );
         }).catchError((error, stack) {
           LunaLogger().error('Firebase Backup Deletion Failed', error, stack);

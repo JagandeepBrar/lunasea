@@ -62,7 +62,8 @@ class LunaFirebaseFirestore {
           .get();
       return snapshot.docs
           .map<LunaFirebaseBackupDocument>((document) =>
-              LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(document as QueryDocumentSnapshot<Map<String, dynamic>>))
+              LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(
+                  document as QueryDocumentSnapshot<Map<String, dynamic>>))
           .toList();
     } catch (error, stack) {
       LunaLogger().error('Failed to get backup list', error, stack);

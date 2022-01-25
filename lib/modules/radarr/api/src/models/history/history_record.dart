@@ -9,59 +9,67 @@ part 'history_record.g.dart';
 /// Model for a history record from Radarr.
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RadarrHistoryRecord {
-    @JsonKey(name: 'movieId')
-    int? movieId;
+  @JsonKey(name: 'movieId')
+  int? movieId;
 
-    @JsonKey(name: 'sourceTitle')
-    String? sourceTitle;
-    
-    @JsonKey(name: 'languages')
-    List<RadarrLanguage>? languages;
+  @JsonKey(name: 'sourceTitle')
+  String? sourceTitle;
 
-    @JsonKey(name: 'quality')
-    RadarrMovieFileQuality? quality;
+  @JsonKey(name: 'languages')
+  List<RadarrLanguage>? languages;
 
-    @JsonKey(name: 'customFormats')
-    List<RadarrCustomFormat>? customFormats;
+  @JsonKey(name: 'quality')
+  RadarrMovieFileQuality? quality;
 
-    @JsonKey(name: 'qualityCutoffNotMet')
-    bool? qualityCutoffNotMet;
+  @JsonKey(name: 'customFormats')
+  List<RadarrCustomFormat>? customFormats;
 
-    @JsonKey(name: 'date', toJson: RadarrUtilities.dateTimeToJson, fromJson: RadarrUtilities.dateTimeFromJson)
-    DateTime? date;
+  @JsonKey(name: 'qualityCutoffNotMet')
+  bool? qualityCutoffNotMet;
 
-    @JsonKey(name: 'downloadId')
-    String? downloadId;
+  @JsonKey(
+      name: 'date',
+      toJson: RadarrUtilities.dateTimeToJson,
+      fromJson: RadarrUtilities.dateTimeFromJson)
+  DateTime? date;
 
-    @JsonKey(name: 'eventType', toJson: RadarrUtilities.eventTypeToJson, fromJson: RadarrUtilities.eventTypeFromJson)
-    RadarrEventType? eventType;
+  @JsonKey(name: 'downloadId')
+  String? downloadId;
 
-    @JsonKey(name: 'data')
-    Map<String, dynamic>? data;
+  @JsonKey(
+      name: 'eventType',
+      toJson: RadarrUtilities.eventTypeToJson,
+      fromJson: RadarrUtilities.eventTypeFromJson)
+  RadarrEventType? eventType;
 
-    @JsonKey(name: 'id')
-    int? id;
+  @JsonKey(name: 'data')
+  Map<String, dynamic>? data;
 
-    RadarrHistoryRecord({
-        this.movieId,
-        this.sourceTitle,
-        this.languages,
-        this.quality,
-        this.customFormats,
-        this.qualityCutoffNotMet,
-        this.date,
-        this.downloadId,
-        this.eventType,
-        this.data,
-        this.id,
-    });
+  @JsonKey(name: 'id')
+  int? id;
 
-    /// Returns a JSON-encoded string version of this object.
-    @override
-    String toString() => json.encode(this.toJson());
+  RadarrHistoryRecord({
+    this.movieId,
+    this.sourceTitle,
+    this.languages,
+    this.quality,
+    this.customFormats,
+    this.qualityCutoffNotMet,
+    this.date,
+    this.downloadId,
+    this.eventType,
+    this.data,
+    this.id,
+  });
 
-    /// Deserialize a JSON map to a [RadarrHistoryRecord] object.
-    factory RadarrHistoryRecord.fromJson(Map<String, dynamic> json) => _$RadarrHistoryRecordFromJson(json);
-    /// Serialize a [RadarrHistoryRecord] object to a JSON map.
-    Map<String, dynamic> toJson() => _$RadarrHistoryRecordToJson(this);
+  /// Returns a JSON-encoded string version of this object.
+  @override
+  String toString() => json.encode(this.toJson());
+
+  /// Deserialize a JSON map to a [RadarrHistoryRecord] object.
+  factory RadarrHistoryRecord.fromJson(Map<String, dynamic> json) =>
+      _$RadarrHistoryRecordFromJson(json);
+
+  /// Serialize a [RadarrHistoryRecord] object to a JSON map.
+  Map<String, dynamic> toJson() => _$RadarrHistoryRecordToJson(this);
 }

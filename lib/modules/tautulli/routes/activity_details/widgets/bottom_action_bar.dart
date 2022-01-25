@@ -18,8 +18,8 @@ class TautulliActivityDetailsBottomActionBar extends StatelessWidget {
       builder: (context, AsyncSnapshot<TautulliActivity?> snapshot) {
         if (snapshot.hasError) return Container(height: 0.0);
         if (snapshot.hasData) {
-          TautulliSession? session = snapshot.data!.sessions!.firstWhereOrNull(
-              (element) => element.sessionId == sessionId);
+          TautulliSession? session = snapshot.data!.sessions!
+              .firstWhereOrNull((element) => element.sessionId == sessionId);
           if (session != null)
             return LunaBottomActionBar(
               actions: [

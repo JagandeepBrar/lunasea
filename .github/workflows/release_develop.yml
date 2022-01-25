@@ -1,4 +1,4 @@
-name: '[Release] Internal'
+name: '[Release] Develop'
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
           access_token: ${{ github.token }}
 
   build:
-    name: Internal Release
+    name: Develop Release
     uses: CometTools/LunaSea/.github/workflows/build_all_platforms.yml@master
     needs: cancel
     with:

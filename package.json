@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git add . && cz",
-    "changelog": "standard-version"
+    "release": "standard-version --no-verify --commit-all"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",

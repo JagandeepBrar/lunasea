@@ -1,9 +1,6 @@
 {
   "skip": {
-    "bump": true,
-    "commit": true,
-    "tag": true,
-    "changelog": false
+    "bump": true
   },
   "types": [
     {

@@ -2,7 +2,6 @@ import 'package:lunasea/core.dart';
 
 enum LunaLinks {
   CHANGELOG,
-  CRASHLYTICS,
   DISCORD,
   DOCUMENTATION,
   FEEDBACK_BOARD,
@@ -20,8 +19,6 @@ extension LunaLinksExtension on LunaLinks {
     switch (this) {
       case LunaLinks.CHANGELOG:
         return 'https://www.lunasea.app/changelog';
-      case LunaLinks.CRASHLYTICS:
-        return 'https://firebase.google.com/products/crashlytics';
       case LunaLinks.DISCORD:
         return 'https://www.lunasea.app/discord';
       case LunaLinks.DOCUMENTATION:
@@ -35,7 +32,7 @@ extension LunaLinksExtension on LunaLinks {
       case LunaLinks.SYSTEM_STATUS:
         return 'https://www.lunasea.app/status';
       case LunaLinks.TESTFLIGHT:
-        return 'https://www.lunasea.app/testflight';
+        return 'https://www.lunasea.app/testflight/beta';
       case LunaLinks.WEBLATE:
         return 'https:/www.lunasea.app/translate';
       case LunaLinks.WEBSITE:

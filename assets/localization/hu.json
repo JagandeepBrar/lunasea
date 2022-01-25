@@ -1,10 +1,5 @@
 {
     "settings.ApiKeyRequiredMessage": "API-kulcs szükséges a {} való csatlakozáshoz",
-    "settings.FirebaseCrashlyticsHint4": "Az alábbiakban a Firebase webhelyére mutató link található, amely további információkkal szolgál a megalapozott döntéshozatalhoz.",
-    "settings.FirebaseCrashlyticsHint3": "A magánélethez való jog fenntartása érdekében lehetősége van kikapcsolni a hibák és az összeomlások nyomon követését, de kérjük, vegye figyelembe, hogy ez hihetetlenül hasznos a hibák pontos meghatározásában!",
-    "settings.FirebaseCrashlytics": "Firebase Crashlytics",
-    "settings.FirebaseCrashlyticsHint2": "A Firebase Crashlytics olyan eszköz, amelyet összeomlások és hibák rögzítésére használnak.",
-    "settings.FirebaseCrashlyticsHint1": "A hibák egyáltalán nem tartalmaznak azonosító információkat a felhasználókról.",
     "settings.MustBeValueBetween": "Az értéknek {} és {} között kell lennie",
     "settings.UsernameValidation": "Felhasználónév kötelező",
     "settings.Username": "Felhasználónév",
@@ -84,7 +79,6 @@
     "settings.HeaderDeleted": "Fejléc törölve",
     "settings.HeaderAdded": "Fejléc hozzáadva",
     "settings.ForgotYourPassword": "Elfelejtette a jelszavát?",
-    "settings.FirebaseCrashlyticsHint5": "A módosítások életbe lépéséhez a LunaSea újraindítása szükséges.",
     "settings.EncryptionKey": "Titkosítási kulcs",
     "settings.EnabledProfile": "Engedélyezett profilok",
     "settings.EmailSentSuccessMessage": "A jelszó visszaállítására e-mailt küldtünk!",

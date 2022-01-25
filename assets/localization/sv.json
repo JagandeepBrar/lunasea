@@ -61,7 +61,6 @@
     "settings.HostHint1": "Detta är webbadressen där du får åtkomst till webbgränssnittet för tjänsten",
     "settings.Host": "Värd",
     "settings.ForgotYourPassword": "Glömt ditt lösenord?",
-    "settings.FirebaseCrashlyticsHint5": "En omstart av LunaSea krävs för att ändringarna ska träda i kraft.",
     "settings.EncryptionKey": "Krypteringsnyckel",
     "settings.EnabledProfile": "Aktiverad profil",
     "settings.EmailSentSuccessMessage": "Ett email för att återställa ditt lösenord har skickats!",

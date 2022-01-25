@@ -2,59 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [6.0.1](https://github.com/CometTools/LunaSea/compare/v6.0.0...v6.0.1) (2022-01-25)
-
+## [6.0.1](https://github.com/CometTools/LunaSea/compare/v6.0.0...v6.0.1) (2022-01-25)
 
 ### Features
 
-* **dev:** adopt standard-version for changelog generation ([#602](https://github.com/CometTools/LunaSea/issues/602)) ([c189fb3](https://github.com/CometTools/LunaSea/commit/c189fb3632aaa84ce51b3f86cd3308e9b67fce74))
-* **development:** integrate Husky, Commitizen, and Conventional Changelog ([fd8e061](https://github.com/CometTools/LunaSea/commit/fd8e061a81ee93a2bb3476a293f116dd69e472be))
-* **env:** Load environment at build-time ([#578](https://github.com/CometTools/LunaSea/issues/578)) ([1d0f2ab](https://github.com/CometTools/LunaSea/commit/1d0f2ab3873380d178b17fce8c1854d88d179384))
-
+- **dev:** adopt standard-version for changelog generation ([#602](https://github.com/CometTools/LunaSea/issues/602)) ([c189fb3](https://github.com/CometTools/LunaSea/commit/c189fb3632aaa84ce51b3f86cd3308e9b67fce74))
+- **development:** integrate Husky, Commitizen, and Conventional Changelog ([fd8e061](https://github.com/CometTools/LunaSea/commit/fd8e061a81ee93a2bb3476a293f116dd69e472be))
+- **env:** Load environment at build-time ([#578](https://github.com/CometTools/LunaSea/issues/578)) ([1d0f2ab](https://github.com/CometTools/LunaSea/commit/1d0f2ab3873380d178b17fce8c1854d88d179384))
 
 ### Bug Fixes
 
-* **cache:** support stash_memory 4.0.0 typings ([63572f1](https://github.com/CometTools/LunaSea/commit/63572f18b052a30487fea697f3283d3ffbdc73ce))
-* **changelog:** Do not show the changelog unless it is a production release ([5f9d590](https://github.com/CometTools/LunaSea/commit/5f9d59087ea2ed120afc4a398ba9a4754d5d8f2b))
-* **ci:** [Android] Do not send metadata on alpha build, new lane for metadata ([#562](https://github.com/CometTools/LunaSea/issues/562)) ([5093b10](https://github.com/CometTools/LunaSea/commit/5093b10d0cd3bffc1cdbed2481b1791dd1088d65))
-* **ci:** [Android] Set version name to build number ([836a5a5](https://github.com/CometTools/LunaSea/commit/836a5a5b32842bd1510f85f339d15fc79942ba42))
-* **ci:** [Android] Use commit hash for version naming ([8ada02b](https://github.com/CometTools/LunaSea/commit/8ada02bf83f2e15207c35100dd93b5eff47d7a9d))
-* **ci:** [macOS] Remove app.lunasea.lunasea.ImageNotification identifier ([95695b5](https://github.com/CometTools/LunaSea/commit/95695b53d1dd91e7be5d06c84e05fd15e7053141))
-* **ci:** [macOS] Set additional signing certificates ([3f1f727](https://github.com/CometTools/LunaSea/commit/3f1f727c8cb2865f929ad9b4557f66f1ee9a6357))
-* **ci:** [macOS] Set FLAVOR and VERSION as inputs to workflow call ([3717ba0](https://github.com/CometTools/LunaSea/commit/3717ba097490fa588cb2ced3644433647bd8a44c))
-* **ci:** Correctly cache iOS pods ([03c9a32](https://github.com/CometTools/LunaSea/commit/03c9a3254a378bfc8ac9d34c7eaafca4266bdd6c))
-* **ci:** Correctly pass secrets to worker workflows ([9fd52b2](https://github.com/CometTools/LunaSea/commit/9fd52b236f5e86061e0d1506356463561e864002))
-* **ci:** Correctly pull and set Git commit hash ([ad190b1](https://github.com/CometTools/LunaSea/commit/ad190b153ed86a2da06f8f39353d74dda06517f4))
-* **ci:** Do not pass values via environment to prevent leakage ([388cefa](https://github.com/CometTools/LunaSea/commit/388cefab0420f87dcc097db970d6b7cd76ef16f8))
-* **ci:** Fix CI instabilities ([#561](https://github.com/CometTools/LunaSea/issues/561)) ([7969f56](https://github.com/CometTools/LunaSea/commit/7969f56bf9469d217daa0c109daf07fb263906c4))
-* **ci:** Improve artifact naming legibility ([ea5e6d1](https://github.com/CometTools/LunaSea/commit/ea5e6d16aca0a1fa414e315874c8e4fd89356d5b))
-* **ci:** Lock cancel-workflow-action to v0.9.1 ([5993446](https://github.com/CometTools/LunaSea/commit/5993446c4ebf670e671cf5ef371ea0dcff93a124))
-* **ci:** Move Discord update workflow into jobs to prevent depth errors ([8ac4e38](https://github.com/CometTools/LunaSea/commit/8ac4e388a4aefcd92f2518510c76dc579fe7741d))
-* **ci:** Pass DISCORD_WEBHOOK secret to action ([0300f27](https://github.com/CometTools/LunaSea/commit/0300f277c94e877a34947fcb4f72bea7cae4c304))
-* **ci:** Pass FLAVOR and VERSION parameters as inputs instead of secrets ([851bace](https://github.com/CometTools/LunaSea/commit/851baceb9ee4cb56a167d6eb807dab4604e45f70))
-* **ci:** Remove asset caching from workflows ([9c36c43](https://github.com/CometTools/LunaSea/commit/9c36c43ba36bbc8d0035cf8a4a33474c92105b7c))
-* **ci:** Remove Blackbox ([#571](https://github.com/CometTools/LunaSea/issues/571)) ([b326730](https://github.com/CometTools/LunaSea/commit/b32673091a3c306f1791fee4dc261b842a8ea8bc))
-* **ci:** Remove option to build "develop" flavor ([d42d729](https://github.com/CometTools/LunaSea/commit/d42d729aa7095ea3bb39e7f4926cc463d6060fc7))
-* **ci:** Set as default keychain when using CI ([3834169](https://github.com/CometTools/LunaSea/commit/38341691a5c1554460bf20fba63a84fa60e7b205))
-* **ci:** Set correct Discord action ([75e26d8](https://github.com/CometTools/LunaSea/commit/75e26d8e493aba2c9c5451caa2ff6161a78e64cc))
-* **ci:** Set uses key before needs/if ([be5f6d1](https://github.com/CometTools/LunaSea/commit/be5f6d18db09e4dd8db1aad2fce078af8e4080a2))
-* **ci:** Shorten job titles ([cccfc82](https://github.com/CometTools/LunaSea/commit/cccfc82bb5f9eb70fee4d45605c1278b8ba1c519))
-* **ci:** Typo in beta workflow title ([4be37c7](https://github.com/CometTools/LunaSea/commit/4be37c71eb920e6c1056d0bf51c8f9236320b054))
-* **ci:** Use ANSI C quoting for flavor set ([7906cd7](https://github.com/CometTools/LunaSea/commit/7906cd716ce5de24db1047a4a40f90360005b561))
-* **config:** Prevent database from being unloaded from memory on clear ([cff45fc](https://github.com/CometTools/LunaSea/commit/cff45fcf461dee39168832bc9d2f71cf7a19e6c7))
-* **dart:** Delete all .g.dart generated files ([d3c8110](https://github.com/CometTools/LunaSea/commit/d3c8110c2f8df220d55dc3c7149d6a22edfd0844))
-* **dashboard:** [Calendar] Correctly type check in marker builder ([#559](https://github.com/CometTools/LunaSea/issues/559)) ([a31a70c](https://github.com/CometTools/LunaSea/commit/a31a70c58a1aec029d1e285063e2ae44bab9021e))
-* **fastlane:** Lane to prepare keychain for development ([a4c26f8](https://github.com/CometTools/LunaSea/commit/a4c26f80387177e9396aa7e846c4028e04b4271c))
-* **flavor:** Change "develop" to "internal" ([b9032cb](https://github.com/CometTools/LunaSea/commit/b9032cb486325d3f7b0f02781f37e3b4d8cb25f8))
-* **flavor:** Set default flavor to "internal" ([5fd49be](https://github.com/CometTools/LunaSea/commit/5fd49be1ff13abf24aef3898458e019a5eb795b0))
-* **macos:** Re-enable quit-on-hide ([72cbfb7](https://github.com/CometTools/LunaSea/commit/72cbfb759af034538c232a1d607ba720574cbcac))
-* **navbar:** Revert Navigation Bar to Original ([#558](https://github.com/CometTools/LunaSea/issues/558)) ([8ecc7e4](https://github.com/CometTools/LunaSea/commit/8ecc7e469bebc865026747a3744825600525c344))
-* **shaders:** Rebuild SkSL shaders ([87b0a0e](https://github.com/CometTools/LunaSea/commit/87b0a0ef8ff2eef0dbd09d1726003795f973ab6f))
-* **tautulli:** [History] Correctly pass session or reference id ([#598](https://github.com/CometTools/LunaSea/issues/598)) ([e243bf5](https://github.com/CometTools/LunaSea/commit/e243bf564f5247bea37b7c56082ff2f6694b11e2))
-* **window:** Correctly set window minimum and default window size ([#549](https://github.com/CometTools/LunaSea/issues/549)) ([8abffca](https://github.com/CometTools/LunaSea/commit/8abffca0a0cf7f43cf8089efab20065fb1c1992a))
-* **workflows:** Improve quality of alpha build workflows ([3778189](https://github.com/CometTools/LunaSea/commit/3778189eadf4318c59ea6938164d1eec85933fcc))
+- **cache:** support stash_memory 4.0.0 typings ([63572f1](https://github.com/CometTools/LunaSea/commit/63572f18b052a30487fea697f3283d3ffbdc73ce))
+- **changelog:** Do not show the changelog unless it is a production release ([5f9d590](https://github.com/CometTools/LunaSea/commit/5f9d59087ea2ed120afc4a398ba9a4754d5d8f2b))
+- **ci:** [Android] Do not send metadata on alpha build, new lane for metadata ([#562](https://github.com/CometTools/LunaSea/issues/562)) ([5093b10](https://github.com/CometTools/LunaSea/commit/5093b10d0cd3bffc1cdbed2481b1791dd1088d65))
+- **ci:** [Android] Set version name to build number ([836a5a5](https://github.com/CometTools/LunaSea/commit/836a5a5b32842bd1510f85f339d15fc79942ba42))
+- **ci:** [Android] Use commit hash for version naming ([8ada02b](https://github.com/CometTools/LunaSea/commit/8ada02bf83f2e15207c35100dd93b5eff47d7a9d))
+- **ci:** [macOS] Remove app.lunasea.lunasea.ImageNotification identifier ([95695b5](https://github.com/CometTools/LunaSea/commit/95695b53d1dd91e7be5d06c84e05fd15e7053141))
+- **ci:** [macOS] Set additional signing certificates ([3f1f727](https://github.com/CometTools/LunaSea/commit/3f1f727c8cb2865f929ad9b4557f66f1ee9a6357))
+- **ci:** [macOS] Set FLAVOR and VERSION as inputs to workflow call ([3717ba0](https://github.com/CometTools/LunaSea/commit/3717ba097490fa588cb2ced3644433647bd8a44c))
+- **ci:** Correctly cache iOS pods ([03c9a32](https://github.com/CometTools/LunaSea/commit/03c9a3254a378bfc8ac9d34c7eaafca4266bdd6c))
+- **ci:** Correctly pass secrets to worker workflows ([9fd52b2](https://github.com/CometTools/LunaSea/commit/9fd52b236f5e86061e0d1506356463561e864002))
+- **ci:** Correctly pull and set Git commit hash ([ad190b1](https://github.com/CometTools/LunaSea/commit/ad190b153ed86a2da06f8f39353d74dda06517f4))
+- **ci:** Do not pass values via environment to prevent leakage ([388cefa](https://github.com/CometTools/LunaSea/commit/388cefab0420f87dcc097db970d6b7cd76ef16f8))
+- **ci:** Fix CI instabilities ([#561](https://github.com/CometTools/LunaSea/issues/561)) ([7969f56](https://github.com/CometTools/LunaSea/commit/7969f56bf9469d217daa0c109daf07fb263906c4))
+- **ci:** Improve artifact naming legibility ([ea5e6d1](https://github.com/CometTools/LunaSea/commit/ea5e6d16aca0a1fa414e315874c8e4fd89356d5b))
+- **ci:** Lock cancel-workflow-action to v0.9.1 ([5993446](https://github.com/CometTools/LunaSea/commit/5993446c4ebf670e671cf5ef371ea0dcff93a124))
+- **ci:** Move Discord update workflow into jobs to prevent depth errors ([8ac4e38](https://github.com/CometTools/LunaSea/commit/8ac4e388a4aefcd92f2518510c76dc579fe7741d))
+- **ci:** Pass DISCORD_WEBHOOK secret to action ([0300f27](https://github.com/CometTools/LunaSea/commit/0300f277c94e877a34947fcb4f72bea7cae4c304))
+- **ci:** Pass FLAVOR and VERSION parameters as inputs instead of secrets ([851bace](https://github.com/CometTools/LunaSea/commit/851baceb9ee4cb56a167d6eb807dab4604e45f70))
+- **ci:** Remove asset caching from workflows ([9c36c43](https://github.com/CometTools/LunaSea/commit/9c36c43ba36bbc8d0035cf8a4a33474c92105b7c))
+- **ci:** Remove Blackbox ([#571](https://github.com/CometTools/LunaSea/issues/571)) ([b326730](https://github.com/CometTools/LunaSea/commit/b32673091a3c306f1791fee4dc261b842a8ea8bc))
+- **ci:** Remove option to build "develop" flavor ([d42d729](https://github.com/CometTools/LunaSea/commit/d42d729aa7095ea3bb39e7f4926cc463d6060fc7))
+- **ci:** Set as default keychain when using CI ([3834169](https://github.com/CometTools/LunaSea/commit/38341691a5c1554460bf20fba63a84fa60e7b205))
+- **ci:** Set correct Discord action ([75e26d8](https://github.com/CometTools/LunaSea/commit/75e26d8e493aba2c9c5451caa2ff6161a78e64cc))
+- **ci:** Set uses key before needs/if ([be5f6d1](https://github.com/CometTools/LunaSea/commit/be5f6d18db09e4dd8db1aad2fce078af8e4080a2))
+- **ci:** Shorten job titles ([cccfc82](https://github.com/CometTools/LunaSea/commit/cccfc82bb5f9eb70fee4d45605c1278b8ba1c519))
+- **ci:** Typo in beta workflow title ([4be37c7](https://github.com/CometTools/LunaSea/commit/4be37c71eb920e6c1056d0bf51c8f9236320b054))
+- **ci:** Use ANSI C quoting for flavor set ([7906cd7](https://github.com/CometTools/LunaSea/commit/7906cd716ce5de24db1047a4a40f90360005b561))
+- **config:** Prevent database from being unloaded from memory on clear ([cff45fc](https://github.com/CometTools/LunaSea/commit/cff45fcf461dee39168832bc9d2f71cf7a19e6c7))
+- **dart:** Delete all .g.dart generated files ([d3c8110](https://github.com/CometTools/LunaSea/commit/d3c8110c2f8df220d55dc3c7149d6a22edfd0844))
+- **dashboard:** [Calendar] Correctly type check in marker builder ([#559](https://github.com/CometTools/LunaSea/issues/559)) ([a31a70c](https://github.com/CometTools/LunaSea/commit/a31a70c58a1aec029d1e285063e2ae44bab9021e))
+- **fastlane:** Lane to prepare keychain for development ([a4c26f8](https://github.com/CometTools/LunaSea/commit/a4c26f80387177e9396aa7e846c4028e04b4271c))
+- **flavor:** Change "develop" to "internal" ([b9032cb](https://github.com/CometTools/LunaSea/commit/b9032cb486325d3f7b0f02781f37e3b4d8cb25f8))
+- **flavor:** Set default flavor to "internal" ([5fd49be](https://github.com/CometTools/LunaSea/commit/5fd49be1ff13abf24aef3898458e019a5eb795b0))
+- **macos:** Re-enable quit-on-hide ([72cbfb7](https://github.com/CometTools/LunaSea/commit/72cbfb759af034538c232a1d607ba720574cbcac))
+- **navbar:** Revert Navigation Bar to Original ([#558](https://github.com/CometTools/LunaSea/issues/558)) ([8ecc7e4](https://github.com/CometTools/LunaSea/commit/8ecc7e469bebc865026747a3744825600525c344))
+- **shaders:** Rebuild SkSL shaders ([87b0a0e](https://github.com/CometTools/LunaSea/commit/87b0a0ef8ff2eef0dbd09d1726003795f973ab6f))
+- **tautulli:** [History] Correctly pass session or reference id ([#598](https://github.com/CometTools/LunaSea/issues/598)) ([e243bf5](https://github.com/CometTools/LunaSea/commit/e243bf564f5247bea37b7c56082ff2f6694b11e2))
+- **window:** Correctly set window minimum and default window size ([#549](https://github.com/CometTools/LunaSea/issues/549)) ([8abffca](https://github.com/CometTools/LunaSea/commit/8abffca0a0cf7f43cf8089efab20065fb1c1992a))
+- **workflows:** Improve quality of alpha build workflows ([3778189](https://github.com/CometTools/LunaSea/commit/3778189eadf4318c59ea6938164d1eec85933fcc))
 
-### 6.0.0
+## 6.0.0
 
 ### Features
 
@@ -146,7 +144,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **UI/UX:** (Snackbar) Snackbar would not be shown in some cases
 - **UI/UX:** (Theme) Removed deprecated theme values
 
-### 5.1.0
+## 5.1.0
 
 ### Features
 
@@ -178,13 +176,13 @@ All notable changes to this project will be documented in this file. See [standa
 - **UI/UX:** (Buttons) Border would incorrectly be applied to buttons with a background colour set
 - **UI/UX:** (ListView) Vertical padding did not match horizontal padding
 
-### 5.0.1
+## 5.0.1
 
 ### Bug Fixes
 
 - **iOS:** LunaSea would hard crash on startup on iOS 12 or lower devices
 
-### 5.0.0
+## 5.0.0
 
 ### Features
 
@@ -305,7 +303,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **UI/UX:** (Snackbar) All error snackbar will now have a button to view the error
 - **URLs:** Safe-guard launching specific invalid URLs
 
-### 4.2.1
+## 4.2.1
 
 ### Features
 
@@ -321,7 +319,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Alerts/Changelog:** Changelog would be shown again when restoring a backup from a previous version
 - **Sonarr/Add:** Fixed error log showing series ID as null
 
-### 4.2.0
+## 4.2.0
 
 ### Features
 
@@ -355,14 +353,14 @@ All notable changes to this project will be documented in this file. See [standa
 - **Tautulli/Activity:** Fixed consistency of hardware transcoding indicator compared to the web UI
 - **UI/Divider:** Fixed consistency of divider width across regular and AMOLED dark theme
 
-### 4.1.1
+## 4.1.1
 
 ### Bug Fixes
 
 - **Sonarr/v2:** Fix inability to interactively search for releases
 - **Routing:** Fix black screen when popping back from nested calendar routes
 
-### 4.1.0
+## 4.1.0
 
 ### Features
 
@@ -414,7 +412,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **UI/Checkbox:** Fix overly vibrant checkbox selected background
 - Tons of additional minor bugs were fixed
 
-### 4.0.0
+## 4.0.0
 
 ### Features
 
@@ -449,7 +447,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Settings/Logs:** Logs could be shown in reverse order
 - **Text:** Fixed "squished" text on iOS 14 and higher devices
 
-### 3.3.0
+## 3.3.0
 
 ### Features
 
@@ -464,7 +462,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Sonarr:** Fixed multiple errors related to parsing fetched episode data
 - **Everything:** Multiple smaller crash/error fixes
 
-### 3.2.0
+## 3.2.0
 
 ### Features
 
@@ -483,7 +481,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **-arr/Details:** Fixed crash related to state management
 - **radarr/Add:** Fixed crash when a searched movie does not have a minimum availability value available
 
-### 3.1.0
+## 3.1.0
 
 ### Features
 
@@ -504,7 +502,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - **API/Host:** Correctly handle cases where host ends with a forward slash
 
-### 3.0.0
+## 3.0.0
 
 ### Features
 
@@ -542,7 +540,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Snackbar:** Snackbar wouldn't adopt AMOLED styling when enabled
 - **State:** Fixed crashes caused by setting the state of an unmounted widget
 
-### 2.3.0
+## 2.3.0
 
 ### Features
 
@@ -565,7 +563,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - **SnackBar:** SnackBar could cause UI locking when doing swipe-back gestures
 
-### 2.2.0
+## 2.2.0
 
 ### Features
 
@@ -586,7 +584,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - **Database:** Cleanly exit on clean application exit to prevent corruption
 
-### 2.1.0
+## 2.1.0
 
 ### Features
 
@@ -611,7 +609,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Settings/Backup:** Backing up your configuration would always fail
 - **Search:** Would show an empty screen if you deleted all indexers while search is open
 
-### 2.0.1
+## 2.0.1
 
 ### Features
 
@@ -641,7 +639,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **UI:** Fixed uneven font sizing in some prompts
 - **NZBGet/SABnzbd:** Failure on uploading an NZB would show no error message
 
-### 2.0.0
+## 2.0.0
 
 ### Features
 
@@ -692,7 +690,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Radarr/Search:** Now correctly retains search state to prevent needless researching & API hits
 - **Configuration:** Deleting or renaming "default" profile could cause a new "default" profile to be created on next launch
 
-### 1.1.0
+## 1.1.0
 
 ### Features
 
@@ -717,7 +715,7 @@ All notable changes to this project will be documented in this file. See [standa
 - **Navigation:** Added custom icons to navigation bars
 - **Releases:** Easier to differentiate the release's protocol
 
-### 1.0.0
+## 1.0.0
 
 ### Features
 

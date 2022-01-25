@@ -1188,60 +1188,6 @@ class SettingsDialogs {
     return Tuple2(_flag, _textController.text);
   }
 
-  Future<bool> disableCrashlyticsWarning(BuildContext context) async {
-    bool _flag = false;
-
-    void _setValues(bool flag) {
-      _flag = flag;
-      Navigator.of(context).pop();
-    }
-
-    await LunaDialog.dialog(
-      context: context,
-      title: 'settings.FirebaseCrashlytics'.tr(),
-      buttons: [
-        LunaDialog.button(
-          text: 'lunasea.Website'.tr(),
-          onPressed: LunaLinks.CRASHLYTICS.launch,
-          textColor: LunaColours.accent,
-        ),
-        LunaDialog.button(
-          text: 'lunasea.Disable'.tr(),
-          onPressed: () => _setValues(true),
-          textColor: LunaColours.red,
-        ),
-      ],
-      content: [
-        LunaDialog.richText(
-          children: [
-            LunaDialog.bolded(
-              text: '${'settings.FirebaseCrashlyticsHint1'.tr()}\n\n',
-              color: LunaColours.red,
-              fontSize: LunaDialog.BUTTON_SIZE,
-            ),
-            LunaDialog.textSpanContent(
-              text: '${'settings.FirebaseCrashlyticsHint2'.tr()}\n\n',
-            ),
-            LunaDialog.textSpanContent(
-              text: '${'settings.FirebaseCrashlyticsHint3'.tr()}\n\n',
-            ),
-            LunaDialog.textSpanContent(
-              text: '${'settings.FirebaseCrashlyticsHint4'.tr()}\n\n',
-            ),
-            LunaDialog.bolded(
-              text: 'settings.FirebaseCrashlyticsHint5'.tr(),
-              color: LunaColours.accent,
-              fontSize: LunaDialog.BUTTON_SIZE,
-            ),
-          ],
-          alignment: TextAlign.center,
-        ),
-      ],
-      contentPadding: LunaDialog.textDialogContentPadding(),
-    );
-    return _flag;
-  }
-
   Future<Tuple2<bool, int>> changeBackgroundImageOpacity(
     BuildContext context,
   ) async {

@@ -1,0 +1,30 @@
+name: Prepare
+
+on:
+  workflow_call:
+    outputs:
+      flavor:
+        description: "Build flavor"
+        value: ${{ jobs.flavor.outputs.output1 }}
+
+jobs:
+  flavor:
+    name: Flavor
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.flavor.outputs.flavor }}
+    steps:
+      - name: Set Flavor Output
+        id: flavor
+        run: echo "::set-output name=flavor::internal"
+
+      - name: Create Flavor Configuration
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo $'FLAVOR=${{ steps.flavor.outputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+
+      - name: Upload Flavor Configuration
+        uses: actions/upload-artifact@v2
+        with:
+          name: flavor-${{ github.sha }}
+          path: ${{ github.workspace }}/.flavor

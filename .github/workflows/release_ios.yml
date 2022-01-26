@@ -1,0 +1,168 @@
+name: '[Release] iOS'
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        required: true
+        type: string
+
+    secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+      DISCORD_WEBHOOK:
+        required: true
+      GOOGLE_SERVICE_INFO_PLIST:
+        required: true
+      MATCH_KEYCHAIN_NAME:
+        required: true
+      MATCH_KEYCHAIN_PASSWORD:
+        required: true
+      MATCH_PASSWORD:
+        required: true
+      MATCH_SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Source Files
+        uses: actions/download-artifact@v2
+        with:
+          name: lib-${{ github.sha }}
+          path: ${{ github.workspace }}/lib
+
+      - name: Download Localization Files
+        uses: actions/download-artifact@v2
+        with:
+          name: localization-${{ github.sha }}
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Select Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+
+      - name: Install Pods
+        working-directory: ${{ github.workspace }}/ios
+        run: |
+          pod install --repo-update
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+        run: |
+          bundle install
+          bundle exec fastlane build
+      
+      - name: Upload App Package Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}/ios/Runner.ipa
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.flavor }}]` iOS Build'
+          description: ios-${{ inputs.flavor }}-${{ github.sha }}
+
+  deploy:
+    name: Deploy
+    runs-on: macos-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download App Package Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ios-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/Runner.ipa
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.flavor }}]` Android Deployment'
+          description: android-${{ inputs.flavor }}-${{ github.sha }}

@@ -10,11 +10,11 @@
       "title": "Documentation"
     },
     "feat": {
-      "description": "A new feature",
+      "description": "A code change that implements a new feature",
       "title": "Feature"
     },
     "fix": {
-      "description": "A bug fix",
+      "description": "A code change that implements a bug fix",
       "title": "Fix"
     },
     "refactor": {

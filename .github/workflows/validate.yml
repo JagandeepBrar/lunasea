@@ -1,0 +1,34 @@
+name: Validate
+
+on:
+  workflow_call
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Download Source Files
+        uses: actions/download-artifact@v2
+        with:
+          name: lib-${{ github.sha }}
+          path: ${{ github.workspace }}/lib
+    
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+    
+      - name: Analyze
+        uses: zgosalvez/github-actions-analyze-dart@v1
+        with:
+          fail-on-warnings: true

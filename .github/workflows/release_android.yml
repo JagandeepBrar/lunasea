@@ -1,0 +1,135 @@
+name: '[Release] Android'
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        required: true
+        type: string
+
+    secrets:
+      DISCORD_WEBHOOK:
+        required: true
+      GOOGLE_PLAY_API:
+        required: true
+      GOOGLE_SERVICES_JSON:
+        required: true
+      KEY_JKS:
+        required: true
+      KEY_PROPERTIES:
+        required: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Source Files
+        uses: actions/download-artifact@v2
+        with:
+          name: lib-${{ github.sha }}
+          path: ${{ github.workspace }}/lib
+
+      - name: Download Localization Files
+        uses: actions/download-artifact@v2
+        with:
+          name: localization-${{ github.sha }}
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_SERVICES_JSON }} | base64 --decode > android/app/google-services.json
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane build
+      
+      - name: Upload App Bundle Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.flavor }}]` Android Build'
+          description: android-${{ inputs.flavor }}-${{ github.sha }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download App Package Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: android-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}
+
+      - name: Install Secret Keys
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Deploy to Google Play Store
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane deploy track:${{ inputs.flavor }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.flavor }}]` Android Deployment'
+          description: android-${{ inputs.flavor }}-${{ github.sha }}

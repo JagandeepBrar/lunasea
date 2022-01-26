@@ -6,6 +6,9 @@ on:
       flavor:
         required: true
         type: string
+      track:
+        required: true
+        type: string
 
     secrets:
       DISCORD_WEBHOOK:
@@ -131,5 +134,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` Android Deployment'
+          title: '`[${{ inputs.track }}]` Android Deployment'
           description: android-${{ inputs.flavor }}-${{ github.sha }}

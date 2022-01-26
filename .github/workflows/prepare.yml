@@ -4,19 +4,25 @@ on:
   workflow_call:
     outputs:
       flavor:
-        description: "Build flavor"
+        description: "Build Flavor Environment (internal, alpha, beta, production)"
         value: ${{ jobs.flavor.outputs.output1 }}
+      track:
+        description: "Track Name (Develop, Alpha, Beta, Production)"
+        value: ${{ jobs.flavor.outputs.output2 }}
 
 jobs:
   flavor:
     name: Flavor
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.flavor.outputs.flavor }}
+      output1: ${{ steps.output.outputs.flavor }}
+      output2: ${{ steps.output.outputs.track }}
     steps:
       - name: Set Flavor Output
-        id: flavor
-        run: echo "::set-output name=flavor::internal"
+        id: output
+        run: |
+          echo "::set-output name=flavor::internal"
+          echo "::set-output name=track::Develop"
 
       - name: Create Flavor Configuration
         working-directory: ${{ github.workspace }}

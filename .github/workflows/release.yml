@@ -36,6 +36,7 @@ jobs:
     uses: CometTools/LunaSea/.github/workflows/release_android.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
+      track: ${{ needs.prepare.outputs.track }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
@@ -49,6 +50,7 @@ jobs:
     uses: CometTools/LunaSea/.github/workflows/release_ios.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
+      track: ${{ needs.prepare.outputs.track }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -70,6 +72,7 @@ jobs:
     uses: CometTools/LunaSea/.github/workflows/release_macos.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
+      track: ${{ needs.prepare.outputs.track }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

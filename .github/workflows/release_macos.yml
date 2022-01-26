@@ -6,6 +6,9 @@ on:
       flavor:
         required: true
         type: string
+      track:
+        required: true
+        type: string
 
     secrets:
       APPLE_ID:
@@ -165,5 +168,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` macOS Deployment'
+          title: '`[${{ inputs.track }}]` macOS Deployment'
           description: macos-${{ inputs.flavor }}-${{ github.sha }}

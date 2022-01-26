@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    tags:
+      - alpha
+      - beta
 
 jobs:
   cancel:
@@ -19,6 +22,8 @@ jobs:
     name: Prepare
     needs: [ cancel ]
     uses: CometTools/LunaSea/.github/workflows/prepare.yml@master
+    with:
+      ref: ${{ github.ref_name }}
 
   generate_files:
     name: Generate

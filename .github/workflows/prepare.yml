@@ -2,6 +2,10 @@ name: Prepare
 
 on:
   workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: true
     outputs:
       flavor:
         description: "Build Flavor Environment (internal, alpha, beta, production)"
@@ -18,15 +22,44 @@ jobs:
       output1: ${{ steps.output.outputs.flavor }}
       output2: ${{ steps.output.outputs.track }}
     steps:
+      - name: Determine Flavor
+        id: determine_flavor
+        uses: actions/github-script@v5
+        with:
+          result-encoding: string
+          script: |
+            const refName = context.ref.split("/").pop();
+            switch (refName) {
+              case "alpha": return "alpha";
+              case "beta": return "beta";
+              default: return "internal";
+            }
+
+      - name: Determine Track
+        id: determine_track
+        uses: actions/github-script@v5
+        with:
+          result-encoding: string
+          script: |
+            const refName = context.ref.split("/").pop();
+            switch (refName) {
+              case "alpha": return "Alpha";
+              case "beta": return "Beta";
+              default: return "Internal";
+            }
+
       - name: Set Flavor Output
         id: output
         run: |
-          echo "::set-output name=flavor::internal"
-          echo "::set-output name=track::Develop"
+          echo "::set-output name=flavor::${{ steps.determine_flavor.outputs.result }}"
+          echo "::set-output name=track::${{ steps.determine_track.outputs.result }}"
 
       - name: Create Flavor Configuration
         working-directory: ${{ github.workspace }}
         run: |
+          echo FLAVOR=${{ steps.flavor.outputs.flavor }}
+          echo TRACK=${{ steps.flavor.outputs.track }}
+          echo COMMIT=${{ github.sha }}
           echo $'FLAVOR=${{ steps.flavor.outputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Upload Flavor Configuration

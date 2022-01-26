@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: lib-${{ github.sha }}
-          path: ${{ github.workspace }}/lib
+          path: ${{ github.workspace }}/lib/**/*.g.dart
 
   localization:
     name: Localization

@@ -164,5 +164,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` Android Deployment'
-          description: android-${{ inputs.flavor }}-${{ github.sha }}
+          title: '`[${{ inputs.flavor }}]` iOS Deployment'
+          description: ios-${{ inputs.flavor }}-${{ github.sha }}

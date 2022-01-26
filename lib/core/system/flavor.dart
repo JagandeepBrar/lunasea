@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -33,7 +34,9 @@ extension FlavorExtension on LunaFlavor {
     throw Exception('Invalid LunaEnvironment');
   }
 
-  String get shortCommit => LunaFlavor.commit.substring(0, 7);
+  String get shortCommit {
+    return LunaFlavor.commit.substring(0, min(7, LunaFlavor.commit.length));
+  }
 
   Future<void> openCommitHistory() async {
     String _base = 'https://github.com/CometTools/LunaSea/commits';

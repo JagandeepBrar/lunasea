@@ -121,7 +121,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` iOS Build'
+          title: '`[${{ inputs.track }}]` iOS Build'
           description: ios-${{ inputs.flavor }}-${{ github.sha }}
 
   deploy:

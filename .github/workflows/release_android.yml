@@ -93,7 +93,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` Android Build'
+          title: '`[${{ inputs.track }}]` Android Build'
           description: android-${{ inputs.flavor }}-${{ github.sha }}
 
   deploy:

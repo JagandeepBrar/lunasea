@@ -122,7 +122,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.flavor }}]` macOS Build'
+          title: '`[${{ inputs.track }}]` macOS Build'
           description: macos-${{ inputs.flavor }}-${{ github.sha }}
 
   deploy:

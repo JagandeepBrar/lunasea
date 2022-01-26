@@ -32,11 +32,11 @@ jobs:
 
   android:
     name: Android
-    needs: [ prepare, validate ]
+    needs: [ validate ]
     uses: CometTools/LunaSea/.github/workflows/release_android.yml@master
     with:
-      flavor: ${{ needs.prepare.outputs.flavor }}
-      track: ${{ needs.prepare.outputs.track }}
+      flavor: ${{ jobs.prepare.outputs.flavor }}
+      track: ${{ jobs.prepare.outputs.track }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
@@ -46,11 +46,11 @@ jobs:
 
   ios:
     name: iOS
-    needs: [ prepare, validate ]
+    needs: [ validate ]
     uses: CometTools/LunaSea/.github/workflows/release_ios.yml@master
     with:
-      flavor: ${{ needs.prepare.outputs.flavor }}
-      track: ${{ needs.prepare.outputs.track }}
+      flavor: ${{ jobs.prepare.outputs.flavor }}
+      track: ${{ jobs.prepare.outputs.track }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -68,11 +68,11 @@ jobs:
 
   macos:
     name: macOS
-    needs: [ prepare, validate ]
+    needs: [ validate ]
     uses: CometTools/LunaSea/.github/workflows/release_macos.yml@master
     with:
-      flavor: ${{ needs.prepare.outputs.flavor }}
-      track: ${{ needs.prepare.outputs.track }}
+      flavor: ${{ jobs.prepare.outputs.flavor }}
+      track: ${{ jobs.prepare.outputs.track }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

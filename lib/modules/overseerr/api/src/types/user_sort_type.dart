@@ -1,5 +1,3 @@
-part of overseerr_types;
-
 enum OverseerrUserSortType {
   CREATED,
   DISPLAY_NAME,

@@ -1,112 +1,67 @@
-/// Dart library package to facilitate the communication to and from [Overseerr](https://overseerr.dev)'s API:
-/// A request management and media discovery tool for the Plex ecosystem
-///
-/// This library gives access to [overseerr_commands], and is needed as the only entrypoint.
-library overseerr;
-
-// Imports
 import 'package:dio/dio.dart';
-import 'commands.dart';
+import 'package:retrofit/retrofit.dart';
+import 'models.dart';
 
-/// The core class to handle all connections to Overseerr.
-/// Gives you easy access to all implemented command handlers, initialized and ready to call.
-///
-/// [Overseerr] handles the creation of the initial [Dio] HTTP client & command handlers.
-/// You can optionally use the factory `.from()` to define your own [Dio] HTTP client.
-class Overseerr {
-  /// Internal constructor
-  Overseerr._internal({
-    required this.httpClient,
-    required this.requests,
-    required this.status,
-    required this.users,
-  });
+part 'overseerr.g.dart';
 
-  /// Create a new Overseerr API connection manager to connection to your instance.
-  /// This default factory/constructor will create the [Dio] HTTP client for you given the parameters.
-  ///
-  /// Required Parameters:
-  /// - `host`: String that contains the protocol (http:// or https://), the host itself, and the base URL (if applicable)
-  /// - `apiKey`: The API key fetched from Overseerr's web interface
-  ///
-  /// Optional Parameters:
-  /// - `headers`: Map that contains additional headers that should be attached to all requests
-  /// - `followRedirects`: If the HTTP client should follow URL redirects
-  /// - `maxRedirects`: The maximum amount of redirects the client should follow (does nothing if `followRedirects` is false)
+@RestApi()
+abstract class Overseerr {
   factory Overseerr({
     required String host,
     required String apiKey,
-    Map<String, dynamic>? headers,
-    bool followRedirects = true,
-    int maxRedirects = 5,
+    Map<String, dynamic> headers = const {},
   }) {
-    // Build the HTTP client
+    String _baseUrl = host.endsWith('/') ? '${host}api/v1/' : '$host/api/v1/';
     Dio _dio = Dio(
       BaseOptions(
-        baseUrl: host.endsWith('/') ? '${host}api/v1/' : '$host/api/v1/',
         headers: {
           'X-Api-Key': apiKey,
-          if (headers != null) ...headers,
+          ...headers,
         },
-        followRedirects: followRedirects,
-        maxRedirects: maxRedirects,
+        followRedirects: true,
+        maxRedirects: 5,
       ),
     );
-    return Overseerr._internal(
-      httpClient: _dio,
-      requests: OverseerrCommandHandlerRequests(_dio),
-      status: OverseerrCommandHandlerStatus(_dio),
-      users: OverseerrCommandHandlerUsers(_dio),
-    );
+    return _Overseerr(_dio, baseUrl: _baseUrl);
   }
 
-  /// Create a new Overseerr API connection manager to connection to your instance.
-  ///
-  /// This factory allows you to define your own [Dio] HTTP client.
-  /// Please ensure you set [BaseOptions] to include:
-  /// - `baseUrl`: The URL to your Overseerr instance
-  /// - `queryParameters`: The key `apikey` with the value of your API key.
-  ///
-  /// Without these you will not be able to achieve a successful connection. See example below for bare minimum [Dio] configuration:
-  /// ```dart
-  /// Dio(
-  ///     BaseOptions(
-  ///         baseUrl: '<your instance URL>',
-  ///         queryParameters: {
-  ///             'apikey': '<your API key>',
-  ///         },
-  ///     ),
-  /// );
-  /// ```
-  factory Overseerr.from({
-    required Dio client,
-  }) {
-    return Overseerr._internal(
-      httpClient: client,
-      requests: OverseerrCommandHandlerRequests(client),
-      status: OverseerrCommandHandlerStatus(client),
-      users: OverseerrCommandHandlerUsers(client),
-    );
-  }
+  @GET('request')
+  Future<OverseerrRequestPage> getRequests({
+    @Query('take') int? take,
+    @Query('skip') int? skip,
+    @Query('filter') String? filter,
+    @Query('sort') String? sort,
+    @Query('requestedBy') int? requestedBy,
+  });
 
-  /// The [Dio] HTTP client built during initialization.
-  ///
-  /// Making changes to the [Dio] client should propogate to the command handlers, but is not recommended.
-  /// The recommended way to make changes to the HTTP client is to use the `.from()` factory to build your own [Dio] HTTP client.
-  final Dio httpClient;
+  @GET('request/{id}')
+  Future<OverseerrRequest> getRequest({
+    @Path('id') required String id,
+  });
 
-  /// Command handler for all request command-related API calls.
-  ///
-  /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandlerRequests requests;
+  @GET('request/count')
+  Future<OverseerrRequestCount> getRequestCount();
 
-  /// Command handler for all status command-related API calls.
-  ///
-  /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandlerStatus status;
+  @GET('status')
+  Future<OverseerrStatus> getStatus();
 
-  /// Command handler for all user command-related API calls.
-  ///
-  /// _Check the documentation to see all API calls that fall under this category._
-  final OverseerrCommandHandlerUsers users;
+  @GET('status/appdata')
+  Future<OverseerrStatusAppData> getStatusAppData();
+
+  @GET('user')
+  Future<OverseerrUserPage> getUsers({
+    @Query('take') int? take,
+    @Query('skip') int? skip,
+    @Query('sort') String? sort,
+  });
+
+  @GET('user/{id}')
+  Future<OverseerrUserPage> getUser({
+    @Path('id') required String id,
+  });
+
+  @GET('user/{id}/quota')
+  Future<OverseerrUserQuota> getUserQuota({
+    @Path('id') required String id,
+  });
 }

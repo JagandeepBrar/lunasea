@@ -1,5 +1,3 @@
-part of overseerr_types;
-
 enum OverseerrMediaType {
   MOVIE,
   TV,

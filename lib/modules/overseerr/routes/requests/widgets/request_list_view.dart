@@ -28,8 +28,7 @@ class _State extends State<OverseerrRequestsListView> {
     await context
         .read<OverseerrState>()
         .api
-        ?.requests
-        .getRequests(
+        ?.getRequests(
           take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
           skip: pageKey * pageSize,
         )

@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:lunasea/core.dart';
 
 part 'request_count.g.dart';
 

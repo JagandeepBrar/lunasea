@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'package:json_annotation/json_annotation.dart';
-import '../../../types.dart';
-import '../../../utilities.dart';
-import '../media/media.dart';
-import '../users/user.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/overseerr.dart';
 
 part 'request.g.dart';
 

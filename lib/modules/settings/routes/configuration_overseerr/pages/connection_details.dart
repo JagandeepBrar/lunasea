@@ -132,11 +132,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Overseerr(
-          host: _profile.overseerrHost!,
-          apiKey: _profile.overseerrKey!,
+          host: _profile.overseerrHost ?? '',
+          apiKey: _profile.overseerrKey ?? '',
           headers: Map<String, dynamic>.from(_profile.overseerrHeaders ?? {}),
         )
-            .status
             .getStatus()
             .then(
               (_) => showLunaSuccessSnackBar(

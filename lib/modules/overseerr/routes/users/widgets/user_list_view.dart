@@ -27,9 +27,8 @@ class _State extends State<OverseerrUserListView> {
     final int pageSize = OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data;
     await context
         .read<OverseerrState>()
-        .api!
-        .users
-        .getUsers(
+        .api
+        ?.getUsers(
           take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
           skip: pageKey * pageSize,
         )

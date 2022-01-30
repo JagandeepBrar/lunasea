@@ -6,24 +6,12 @@ build:
       (scripts):
         - flutter clean
         - flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release
-    aab:
-      (description): Build (Android) - Build Appbundle
-      (execution): once
-      (scripts):
-        - flutter clean
-        - flutter build appbundle --bundle-sksl-path shaders/android_sksl.json --release
   ios:
     ipa:
       (description): Build (iOS) - Build IPA
       (execution): once
       (scripts):
         - flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release
-    archive:
-      (description): Build (iOS) - Build Xcode Archive
-      (execution): once
-      (scripts):
-        - flutter clean
-        - flutter build ios --bundle-sksl-path shaders/ios_sksl.json --release
   macos:
     archive:
       (description): Build (iOS) - Build Xcode Archive
@@ -31,6 +19,7 @@ build:
       (scripts):
         - flutter clean
         - flutter build macos --release
+
 cocoapods:
   clear_cache:
     (description): Cocoapods - Delete Cache & Derived Data
@@ -59,6 +48,7 @@ cocoapods:
         - pod deintegrate
         - pod setup
         - pod install --repo-update
+
 coverage:
   create:
     (description): Coverage - Create Coverage Report
@@ -70,6 +60,7 @@ coverage:
     (execution): once
     (scripts):
       - bash <(curl -s https://codecov.io/bash)
+
 fastlane:
   update:
     (description): Fastlane - Update Bundled Version
@@ -81,6 +72,7 @@ fastlane:
       - bundle update fastlane
       - cd ../android/
       - bundle update fastlane
+
 flavor:
   ignore:
     (description): Flavor - Git ignore .flavor
@@ -92,6 +84,7 @@ flavor:
     (execution): once
     (scripts):
       - git update-index --no-skip-worktree .flavor
+
 generate:
   assets:
     (description): Generator - Asset Tree
@@ -108,8 +101,21 @@ generate:
     (execution): once
     (scripts):
       - dart ./scripts/generate_localization.dart
+
 profile:
   (description): Run in Profile Mode
   (execution): once
   (scripts):
     - flutter run --profile --cache-sksl --purge-persistent-cache
+
+release:
+  (description): Prepare for a new release
+  (execution): once
+  (scripts):
+    - derry cocoapods clear_cache
+    - derry cocoapods nuke ios
+    - derry cocoapods nuke macos
+    - derry generate runner
+    - derry generate assets
+    - derry generate localization
+    - derry fastlane update

@@ -22,6 +22,7 @@ jobs:
         with:
           channel: beta
           cache: true
+          cache-key: ${{ github.sha }}
 
       - name: Generate
         working-directory: ${{ github.workspace }}

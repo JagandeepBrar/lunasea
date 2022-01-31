@@ -67,6 +67,7 @@ jobs:
         with:
           channel: beta
           cache: true
+          cache-key: ${{ github.sha }}
 
       - name: Setup Flutter
         working-directory: ${{ github.workspace }}

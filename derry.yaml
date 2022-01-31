@@ -109,13 +109,31 @@ profile:
     - flutter run --profile --cache-sksl --purge-persistent-cache
 
 release:
-  (description): Prepare for a new release
-  (execution): once
-  (scripts):
-    - derry cocoapods clear_cache
-    - derry cocoapods nuke ios
-    - derry cocoapods nuke macos
-    - derry generate runner
-    - derry generate assets
-    - derry generate localization
-    - derry fastlane update
+  prepare:
+    (description): Prepare for a new release
+    (execution): once
+    (scripts):
+      - derry cocoapods clear_cache
+      - derry cocoapods nuke ios
+      - derry cocoapods nuke macos
+      - derry generate runner
+      - derry generate assets
+      - derry generate localization
+      - derry fastlane update
+  alpha:
+    (description): Alpha release
+    (execution): once
+    (scripts):
+      - git tag -d alpha
+      - git push origin --delete alpha
+      - git tag -s alpha -m alpha
+      - git push origin alpha
+  beta:
+    (description): Beta release
+    (execution): once
+    (scripts):
+      - git tag -d beta
+      - git push origin --delete beta
+      - git tag -s beta -m beta
+      - git push origin beta
+  

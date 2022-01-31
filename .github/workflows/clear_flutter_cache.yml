@@ -1,0 +1,23 @@
+name: Clear Flutter Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clear:
+    name: Clear Cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: generate Unique Key
+        run: echo CACHE_KEY=key-$(date +%s) >> $GITHUB_ENV
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+          cache: true
+          cache-key: ${{ env.CACHE_KEY }}
+
+      - name: Flutter Doctor
+        working-directory: ${{ github.workspace }}
+        run: flutter doctor -v

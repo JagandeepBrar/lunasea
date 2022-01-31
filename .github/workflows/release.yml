@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - master
+  create:
     tags:
-      - '*alpha*'
-      - '*beta*'
+      - alpha
+      - beta
 
 jobs:
   cancel:

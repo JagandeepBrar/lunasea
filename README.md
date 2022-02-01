@@ -43,7 +43,7 @@ LunaSea even comes with support for multiple instances of applications using pro
 **Please only post bugs and issues to GitHub**. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
 
 - [Discord](https://www.lunasea.app/discord)
-- [Email](mailto:hello@comet.tools)
+- [Email](mailto:hello@lunasea.app)
 - [GitHub (Issues & Bug Reports Only)](https://github.com/CometTools/LunaSea/issues)
 - [Reddit](https://www.lunasea.app/reddit)
 - [Website](https://www.lunasea.app)
@@ -61,9 +61,13 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 
 ## Contributors
 
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
 

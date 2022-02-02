@@ -62,7 +62,7 @@ platform :ios do
     )
 
     upload_to_testflight(
-      changelog: "The changelog is available within the application!",
+      changelog: "Thank you for testing pre-release builds of LunaSea! Please consider joining the Discord to give feedback to the developer.\n\nChanges can be found on GitHub or by going to settings/system and tapping on the version tile!",
       distribute_external: true,
       groups: options[:groups] || "internal",
       ipa: options[:ipa] || "../ios/Runner.ipa",

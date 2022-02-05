@@ -10,8 +10,6 @@ This is the store version and will remain the most stable version. The current r
 
 For users on macOS who want to download releases via TestFlight but do not want to use pre-release builds, you can now join the TestFlight (link below) for production-level builds while the application is not actually published to the Mac App Store.
 
-> _The release cadence for this track is expected to be once every 2-3 months_
-
 ### Links
 
 * [Android](https://www.lunasea.app/playstore)
@@ -22,8 +20,6 @@ For users on macOS who want to download releases via TestFlight but do not want 
 ## Beta
 
 This is the current "test" version, and will be shifted to focus around **final testing of completed new features** leading up to the release to production. This track is intended to help catch any remaining bugs from alpha builds and overall should remain relatively stable.
-
-> _The release cadence for this track is expected to be once every few weeks_
 
 ### Android
 
@@ -42,8 +38,6 @@ _NOTE: It may take a few hours to start receiving the updated builds_
 ## Alpha
 
 This track's purpose is to allow **early previews and testing of work-in-progress features**. An example is the current localization efforts, so all users who have graciously helped translate pieces of LunaSea over the past few months can start to see their changes in the app! This is just a single example of a work in progress feature, and the feature list will constantly be changing.
-
-> _The release cadence for this track is expected to be once every few days to one week_
 
 ### Android
 
@@ -67,8 +61,6 @@ This track's purpose is to ensure that every commit made to `master` is building
 There are no restrictions on features in these builds (barring a very specific subset used for debugging/testing) so it gives full access to everything that is work in progress.
 
 **Do not expect a fully stable experience if you use these builds**, as it is entirely possible that a single build could cause problems including but not limited to database corruption. _If you are running these builds, please ensure you have either a cloud or offline backup available for easy restoration._
-
-> _A new release is built and deployed every single time a new commit is pushed to the_ `master` _branch_
 
 ### Android
 

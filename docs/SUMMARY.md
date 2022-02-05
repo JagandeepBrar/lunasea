@@ -5,6 +5,7 @@
 ## Getting Started
 
 * [Frequently Asked Questions](getting-started/frequently-asked-questions.md)
+* [Test Builds](getting-started/test-builds.md)
 * [Donations](getting-started/donations.md)
 
 ## LunaSea
@@ -47,4 +48,3 @@
 * [System Status](https://www.lunasea.app/status)
 * [Translate](https://www.lunasea.app/translate)
 * [Website](https://www.lunasea.app)
-

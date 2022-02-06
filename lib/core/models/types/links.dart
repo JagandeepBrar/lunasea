@@ -9,7 +9,7 @@ enum LunaLinks {
   NOTIFICATIONS_GETTING_STARTED,
   REDDIT,
   SYSTEM_STATUS,
-  TESTFLIGHT,
+  TEST_BUILDS,
   WEBLATE,
   WEBSITE,
 }
@@ -31,8 +31,8 @@ extension LunaLinksExtension on LunaLinks {
         return 'https://www.lunasea.app/reddit';
       case LunaLinks.SYSTEM_STATUS:
         return 'https://www.lunasea.app/status';
-      case LunaLinks.TESTFLIGHT:
-        return 'https://www.lunasea.app/testflight/beta';
+      case LunaLinks.TEST_BUILDS:
+        return 'https://docs.lunasea.app/getting-started/test-builds';
       case LunaLinks.WEBLATE:
         return 'https:/www.lunasea.app/translate';
       case LunaLinks.WEBSITE:

@@ -30,12 +30,17 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
   }
 
   void initializeAvailability() {
-    _availability = RadarrAvailability.values.firstWhere(
-      (element) =>
-          element.value ==
-          RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.data,
-      orElse: () => RadarrAvailability.ANNOUNCED,
-    );
+    const _db = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID;
+    RadarrAvailability? _ra = RadarrAvailability.TBA.from(_db.data);
+
+    if (_ra == RadarrAvailability.TBA || _ra == RadarrAvailability.PREDB) {
+      _availability = RadarrAvailability.ANNOUNCED;
+    } else {
+      _availability = RadarrAvailability.values.firstWhere(
+        (avail) => avail == _ra,
+        orElse: () => RadarrAvailability.ANNOUNCED,
+      );
+    }
   }
 
   late RadarrRootFolder _rootFolder;

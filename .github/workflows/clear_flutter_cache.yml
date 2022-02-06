@@ -1,7 +1,7 @@
 name: Clear Flutter Cache
 
 on:
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
   clear:

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -33,7 +32,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Resources',
+      title: 'settings.Resources'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -44,56 +43,55 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         LunaBlock(
           title: 'Discord',
-          body: const [TextSpan(text: 'Chat & Discussions')],
+          body: [TextSpan(text: 'settings.DiscordDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaBrandIcons.discord),
           onTap: LunaLinks.DISCORD.launch,
         ),
         LunaBlock(
-          title: 'Documentation',
-          body: const [TextSpan(text: 'View the Documentation')],
+          title: 'settings.Documentation'.tr(),
+          body: [TextSpan(text: 'settings.DocumentationDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.auto_stories_rounded),
           onTap: LunaLinks.DOCUMENTATION.launch,
         ),
         LunaBlock(
-          title: 'Feedback Board',
-          body: const [TextSpan(text: 'Request New Features')],
+          title: 'settings.FeedbackBoard'.tr(),
+          body: [TextSpan(text: 'settings.FeedbackBoardDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.speaker_notes_rounded),
           onTap: LunaLinks.FEEDBACK_BOARD.launch,
         ),
         LunaBlock(
           title: 'GitHub',
-          body: const [TextSpan(text: 'View the Source Code')],
+          body: [TextSpan(text: 'settings.GitHubDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaBrandIcons.github),
           onTap: LunaLinks.GITHUB.launch,
         ),
         LunaBlock(
           title: 'Reddit',
-          body: const [TextSpan(text: 'Ask Questions & Get Support')],
+          body: [TextSpan(text: 'settings.RedditDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaBrandIcons.reddit),
           onTap: LunaLinks.REDDIT.launch,
         ),
-        if (Platform.isIOS)
-          LunaBlock(
-            title: 'TestFlight',
-            body: const [TextSpan(text: 'Join the TestFlight Beta')],
-            trailing: const LunaIconButton(icon: Icons.developer_board_rounded),
-            onTap: LunaLinks.TESTFLIGHT.launch,
-          ),
         LunaBlock(
-          title: 'System Status',
-          body: const [TextSpan(text: 'Status Page for Hosted Services')],
+          title: 'settings.TestBuilds'.tr(),
+          body: [TextSpan(text: 'settings.TestBuildsDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.developer_board_rounded),
+          onTap: LunaLinks.TEST_BUILDS.launch,
+        ),
+        LunaBlock(
+          title: 'settings.SystemStatus'.tr(),
+          body: [TextSpan(text: 'settings.SystemStatusDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.health_and_safety),
           onTap: LunaLinks.SYSTEM_STATUS.launch,
         ),
         LunaBlock(
           title: 'Weblate',
-          body: const [TextSpan(text: 'Help Localize LunaSea')],
+          body: [TextSpan(text: 'settings.WeblateDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.TRANSLATE),
           onTap: LunaLinks.WEBLATE.launch,
         ),
         LunaBlock(
-          title: 'Website',
-          body: const [TextSpan(text: 'Visit LunaSea\'s Website')],
+          title: 'settings.Website'.tr(),
+          body: [TextSpan(text: 'settings.WebsiteDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.HOME),
           onTap: LunaLinks.WEBSITE.launch,
         ),

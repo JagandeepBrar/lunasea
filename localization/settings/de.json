@@ -201,5 +201,17 @@
     "settings.SortDirection": "Sortierrichtung",
     "settings.ViewRecentChanges": "Letzte Änderungen anzeigen",
     "settings.DiscordDescription": "Chat & Diskussionen",
-    "settings.Documentation": "Dokumentation"
+    "settings.Documentation": "Dokumentation",
+    "settings.FeedbackBoard": "Feedback-Seite",
+    "settings.GitHubDescription": "Sieh dir den Source Code an",
+    "settings.SystemStatus": "Systemstatus",
+    "settings.SystemStatusDescription": "Statusseite für gehostete Dienste",
+    "settings.TestBuilds": "Testversionen",
+    "settings.WebsiteDescription": "Besuche LunaSea's Webseite",
+    "settings.RedditDescription": "Stelle Fragen & erhalte Unterstützung",
+    "settings.TestBuildsDescription": "Installiere Vor-Veröffentlichungsversionen von LunaSea",
+    "settings.DocumentationDescription": "Sieh dir die Dokumentation an",
+    "settings.FeedbackBoardDescription": "Neue Funktionen anfragen",
+    "settings.WeblateDescription": "Hilf LunaSea zu lokalisieren",
+    "settings.Website": "Webseite"
 }

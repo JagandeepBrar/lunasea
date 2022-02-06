@@ -199,5 +199,7 @@
     "settings.FilterCategory": "Kategorie filtern",
     "settings.SortCategory": "Kategorie sortieren",
     "settings.SortDirection": "Sortierrichtung",
-    "settings.ViewRecentChanges": "Letzte Änderungen anzeigen"
+    "settings.ViewRecentChanges": "Letzte Änderungen anzeigen",
+    "settings.DiscordDescription": "Chat & Diskussionen",
+    "settings.Documentation": "Dokumentation"
 }

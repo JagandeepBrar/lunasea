@@ -4,7 +4,7 @@ import 'package:lunasea/modules/overseerr.dart';
 part 'season.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class OverseerrSeason {
+class OverseerrMediaSeason {
   @JsonKey(name: 'id')
   int? id;
 
@@ -17,6 +17,13 @@ class OverseerrSeason {
     toJson: OverseerrUtilities.requestStatusToJson,
   )
   OverseerrRequestStatus? status;
+
+  @JsonKey(
+    name: 'status4k',
+    fromJson: OverseerrUtilities.requestStatusFromJson,
+    toJson: OverseerrUtilities.requestStatusToJson,
+  )
+  OverseerrRequestStatus? status4k;
 
   @JsonKey(
     name: 'createdAt',
@@ -32,10 +39,11 @@ class OverseerrSeason {
   )
   DateTime? updatedAt;
 
-  OverseerrSeason({
+  OverseerrMediaSeason({
     this.id,
     this.seasonNumber,
     this.status,
+    this.status4k,
     this.createdAt,
     this.updatedAt,
   });
@@ -44,10 +52,10 @@ class OverseerrSeason {
   @override
   String toString() => json.encode(this.toJson());
 
-  /// Deserialize a JSON map to a [OverseerrSeason] object.
-  factory OverseerrSeason.fromJson(Map<String, dynamic> json) =>
-      _$OverseerrSeasonFromJson(json);
+  /// Deserialize a JSON map to a [OverseerrMediaSeason] object.
+  factory OverseerrMediaSeason.fromJson(Map<String, dynamic> json) =>
+      _$OverseerrMediaSeasonFromJson(json);
 
-  /// Serialize a [OverseerrSeason] object to a JSON map.
-  Map<String, dynamic> toJson() => _$OverseerrSeasonToJson(this);
+  /// Serialize a [OverseerrMediaSeason] object to a JSON map.
+  Map<String, dynamic> toJson() => _$OverseerrMediaSeasonToJson(this);
 }

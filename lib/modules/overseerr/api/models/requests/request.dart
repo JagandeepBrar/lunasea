@@ -63,6 +63,9 @@ class OverseerrRequest {
   @JsonKey(name: 'modifiedBy')
   OverseerrUser? modifiedBy;
 
+  @JsonKey(name: 'seasons')
+  List<OverseerrSeason>? seasons;
+
   @JsonKey(name: 'seasonCount')
   int? seasonCount;
 
@@ -81,6 +84,7 @@ class OverseerrRequest {
     this.media,
     this.requestedBy,
     this.modifiedBy,
+    this.seasons,
     this.seasonCount,
   });
 

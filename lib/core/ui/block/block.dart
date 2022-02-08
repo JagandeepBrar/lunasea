@@ -94,6 +94,10 @@ class LunaBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _buildBlock(context);
+  }
+
+  Widget _buildBlock(BuildContext context) {
     double _height = _calculateHeight();
     return LunaCard(
       context: context,

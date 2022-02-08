@@ -204,7 +204,7 @@
   "settings.SystemStatus": "System Status",
   "settings.SystemStatusDescription": "Status Page for Hosted Services",
   "settings.TestBuilds": "Test Builds",
-  "settings.TestBuildsDescription": "Install Pre-Release Builds of LunaSea",
+  "settings.TestBuildsDescription": "Install Prerelease Builds of LunaSea",
   "settings.TestConnection": "Test Connection",
   "settings.TLSCertificateValidation": "TLS Certificate Validation",
   "settings.TLSCertificateValidationDescription": "Validate Certificates in TLS Connections",

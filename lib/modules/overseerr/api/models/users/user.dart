@@ -14,6 +14,9 @@ class OverseerrUser {
   @JsonKey(name: 'email')
   String? email;
 
+  @JsonKey(name: 'plexId')
+  int? plexId;
+
   @JsonKey(name: 'plexUsername')
   String? plexUsername;
 
@@ -65,6 +68,7 @@ class OverseerrUser {
     this.permissions,
     this.id,
     this.email,
+    this.plexId,
     this.plexUsername,
     this.username,
     this.recoveryLinkExpirationDate,

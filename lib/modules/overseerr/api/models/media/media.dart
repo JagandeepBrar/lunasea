@@ -5,95 +5,91 @@ part 'media.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class OverseerrMedia {
-  @JsonKey(name: 'id')
+  @JsonKey()
   int? id;
 
   @JsonKey(
-    name: 'mediaType',
     fromJson: OverseerrUtilities.mediaTypeFromJson,
     toJson: OverseerrUtilities.mediaTypeToJson,
   )
   OverseerrMediaType? mediaType;
 
-  @JsonKey(name: 'tmdbId')
+  @JsonKey()
   int? tmdbId;
 
-  @JsonKey(name: 'tvdbId')
+  @JsonKey()
   int? tvdbId;
 
-  @JsonKey(name: 'imdbId')
+  @JsonKey()
   String? imdbId;
 
   @JsonKey(
-    name: 'status',
-    fromJson: OverseerrUtilities.requestStatusFromJson,
-    toJson: OverseerrUtilities.requestStatusToJson,
+    fromJson: OverseerrUtilities.mediaStatusFromJson,
+    toJson: OverseerrUtilities.mediaStatusToJson,
   )
-  OverseerrRequestStatus? status;
+  OverseerrMediaStatus? status;
 
   @JsonKey(
-    name: 'status4k',
-    fromJson: OverseerrUtilities.requestStatusFromJson,
-    toJson: OverseerrUtilities.requestStatusToJson,
+    fromJson: OverseerrUtilities.mediaStatusFromJson,
+    toJson: OverseerrUtilities.mediaStatusToJson,
   )
-  OverseerrRequestStatus? status4k;
+  OverseerrMediaStatus? status4k;
 
   @JsonKey(
-    name: 'createdAt',
     fromJson: OverseerrUtilities.dateTimeFromJson,
     toJson: OverseerrUtilities.dateTimeToJson,
   )
   DateTime? createdAt;
 
   @JsonKey(
-    name: 'updatedAt',
     fromJson: OverseerrUtilities.dateTimeFromJson,
     toJson: OverseerrUtilities.dateTimeToJson,
   )
   DateTime? updatedAt;
 
   @JsonKey(
-    name: 'lastSeasonChange',
     fromJson: OverseerrUtilities.dateTimeFromJson,
     toJson: OverseerrUtilities.dateTimeToJson,
   )
   DateTime? lastSeasonChange;
 
   @JsonKey(
-    name: 'mediaAddedAt',
     fromJson: OverseerrUtilities.dateTimeFromJson,
     toJson: OverseerrUtilities.dateTimeToJson,
   )
   DateTime? mediaAddedAt;
 
-  @JsonKey(name: 'serviceId')
+  @JsonKey()
   int? serviceId;
 
-  @JsonKey(name: 'serviceId4k')
+  @JsonKey()
   int? serviceId4k;
 
-  @JsonKey(name: 'externalServiceId')
+  @JsonKey()
   int? externalServiceId;
 
-  @JsonKey(name: 'externalServiceId4k')
+  @JsonKey()
   int? externalServiceId4k;
 
-  @JsonKey(name: 'externalServiceSlug')
+  @JsonKey()
   String? externalServiceSlug;
 
-  @JsonKey(name: 'externalServiceSlug4k')
+  @JsonKey()
   String? externalServiceSlug4k;
 
-  @JsonKey(name: 'ratingKey')
+  @JsonKey()
   String? ratingKey;
 
-  @JsonKey(name: 'ratingKey4k')
+  @JsonKey()
   String? ratingKey4k;
 
-  @JsonKey(name: 'plexUrl')
+  @JsonKey()
+  List<OverseerrSeason>? seasons;
+
+  @JsonKey()
   String? plexUrl;
 
-  @JsonKey(name: 'serviceUrl')
+  @JsonKey()
   String? serviceUrl;
 
   OverseerrMedia({
@@ -116,6 +112,7 @@ class OverseerrMedia {
     this.externalServiceSlug4k,
     this.ratingKey,
     this.ratingKey4k,
+    this.seasons,
     this.plexUrl,
     this.serviceUrl,
   });

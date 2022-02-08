@@ -25,6 +25,12 @@ abstract class Overseerr {
     return _Overseerr(_dio, baseUrl: _baseUrl);
   }
 
+  @GET('movie/{id}')
+  Future<OverseerrMovie> getMovie({
+    @Path('id') required int id,
+    @Query('language') String? language,
+  });
+
   @GET('request')
   Future<OverseerrRequestPage> getRequests({
     @Query('take') int? take,
@@ -47,6 +53,12 @@ abstract class Overseerr {
 
   @GET('status/appdata')
   Future<OverseerrStatusAppData> getStatusAppData();
+
+  @GET('tv/{id}')
+  Future<OverseerrSeries> getSeries({
+    @Path('id') required int id,
+    @Query('language') String? language,
+  });
 
   @GET('user')
   Future<OverseerrUserPage> getUsers({

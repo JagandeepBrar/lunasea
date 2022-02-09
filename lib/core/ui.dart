@@ -30,6 +30,7 @@ export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/scaffold.dart';
 export 'ui/shape.dart';
+export 'ui/shimmer.dart';
 export 'ui/snackbar.dart';
 export 'ui/switch.dart';
 export 'ui/table.dart';
@@ -70,8 +71,9 @@ class LunaUI {
 
   // <--> Animations
   static const int ANIMATION_SPEED = 250;
-  static const int ANIMATION_SPEED_IMAGES = 125;
+  static const int ANIMATION_SPEED_IMAGES = ANIMATION_SPEED ~/ 2;
   static const int ANIMATION_SPEED_SCROLLING = ANIMATION_SPEED * 2;
+  static const int ANIMATION_SPEED_SHIMMER = ANIMATION_SPEED * 4;
 
   // <--> Other
   static const double BORDER_RADIUS = 10.0;

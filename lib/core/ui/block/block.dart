@@ -5,6 +5,11 @@ class LunaBlock extends StatelessWidget {
   static const TITLE_HEIGHT = LunaUI.FONT_SIZE_H2 + 4.0;
   static const SUBTITLE_HEIGHT = LunaUI.FONT_SIZE_H3 + 4.0;
 
+  // If true, will load a skeleton-form version of the block.
+  final bool skeletonEnabled;
+  final bool skeletonPoster;
+  final int skeletonSubtitles;
+
   final bool? disabled;
   final String? title;
   final Color titleColor;
@@ -37,8 +42,11 @@ class LunaBlock extends StatelessWidget {
 
   const LunaBlock({
     Key? key,
+    this.skeletonEnabled = false,
+    this.skeletonPoster = true,
+    this.skeletonSubtitles = 2,
     this.disabled = false,
-    required this.title,
+    this.title,
     this.titleColor = Colors.white,
     this.body,
     this.bodyLeadingIcons,
@@ -92,9 +100,34 @@ class LunaBlock extends StatelessWidget {
     );
   }
 
+  double _calculateSkeletonHeight() {
+    return calculateItemHeight(
+      skeletonSubtitles,
+      hasBottom: bottom != null,
+      bottomHeight: bottomHeight,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (skeletonEnabled) return _buildSkeletonBlock(context);
     return _buildBlock(context);
+  }
+
+  Widget _buildSkeletonBlock(BuildContext context) {
+    double _height = _calculateSkeletonHeight();
+    return LunaCard(
+      context: context,
+      child: LunaShimmer(
+        child: Row(
+          children: [
+            if (skeletonPoster) _poster(context, _height),
+            _tile(context, _height),
+          ],
+        ),
+      ),
+      height: _height,
+    );
   }
 
   Widget _buildBlock(BuildContext context) {
@@ -160,11 +193,29 @@ class LunaBlock extends StatelessWidget {
   }
 
   Widget _poster(BuildContext context, double height) {
+    double _dimension = height - LunaUI.DEFAULT_MARGIN_SIZE;
+
+    if (skeletonEnabled) {
+      return Padding(
+        padding: const EdgeInsets.only(left: LunaUI.MARGIN_SIZE_HALF),
+        child: Container(
+          height: _dimension,
+          width: _dimension / (posterIsSquare ? 1.0 : 1.5),
+          decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+            border: LunaUI.shouldUseBorder
+                ? Border.all(color: LunaColours.white10)
+                : null,
+          ),
+        ),
+      );
+    }
+
     if (posterUrl == null && posterPlaceholderIcon == null) {
       return const SizedBox(width: 0.0, height: 0.0);
     }
 
-    double _dimension = height - LunaUI.DEFAULT_MARGIN_SIZE;
     return Padding(
       padding: const EdgeInsets.only(left: LunaUI.MARGIN_SIZE_HALF),
       child: LunaNetworkImage(
@@ -179,6 +230,44 @@ class LunaBlock extends StatelessWidget {
   }
 
   Widget _tile(BuildContext context, double height) {
+    if (skeletonEnabled) {
+      return Expanded(
+        child: Padding(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: LunaBlock.TITLE_HEIGHT - 4.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                  border: LunaUI.shouldUseBorder
+                      ? Border.all(color: LunaColours.white10)
+                      : null,
+                ),
+              ),
+              ...List.generate(skeletonSubtitles, (_) {
+                return Container(
+                  height: LunaBlock.SUBTITLE_HEIGHT - 6.0,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                    border: LunaUI.shouldUseBorder
+                        ? Border.all(color: LunaColours.white10)
+                        : null,
+                  ),
+                );
+              }),
+            ],
+          ),
+          padding: LunaUI.MARGIN_DEFAULT,
+        ),
+      );
+    }
+
     return Expanded(
       // ignore: deprecated_member_use_from_same_package
       child: LunaListTile(

@@ -49,6 +49,7 @@ dependencies:
   quick_actions: ^0.6.0+9
   retrofit: ^3.0.1
   share_plus: ^3.0.4
+  shimmer: ^2.0.0
   stack_trace: ^1.10.0
   stash_memory: ^4.0.1
   supercharged: ^2.1.1

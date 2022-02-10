@@ -100,6 +100,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
         return LunaProfile.current.lidarrHeaders;
       case LunaModule.RADARR:
         return LunaProfile.current.radarrHeaders;
+      case LunaModule.READARR:
+        return LunaProfile.current.readarrHeaders;
       case LunaModule.SONARR:
         return LunaProfile.current.sonarrHeaders;
       case LunaModule.SABNZBD:
@@ -129,6 +131,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
         return;
       case LunaModule.RADARR:
         return context.read<RadarrState>().reset();
+      case LunaModule.READARR:
+        return context.read<ReadarrState>().reset();
       case LunaModule.SONARR:
         return context.read<SonarrState>().reset();
       case LunaModule.SABNZBD:

@@ -4,6 +4,7 @@ class LunaIcons {
   static const IconData ADD = Icons.add_rounded;
   static const IconData ARROW_RIGHT = Icons.arrow_forward_ios_rounded;
   static const IconData ARROW_DROPDOWN = Icons.arrow_drop_down_rounded;
+  static const IconData BOOK = Icons.menu_book_rounded;
   static const IconData CLOUD_DELETE = Icons.cloud_off_rounded;
   static const IconData CLOUD_DOWNLOAD = Icons.cloud_download_rounded;
   static const IconData CLOUD_UPLOAD = Icons.cloud_upload_rounded;

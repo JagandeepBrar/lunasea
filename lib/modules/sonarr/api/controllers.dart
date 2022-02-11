@@ -21,6 +21,7 @@ part 'src/controllers/command/refresh_series.dart';
 part 'src/controllers/command/rescan_series.dart';
 part 'src/controllers/command/rss_sync.dart';
 part 'src/controllers/command/season_search.dart';
+part 'src/controllers/command/series_search.dart';
 
 // Episode File
 part 'src/controllers/episode_file.dart';

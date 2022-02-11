@@ -400,6 +400,41 @@ class SonarrAPIController {
     return false;
   }
 
+  Future<bool> seriesSearch({
+    required BuildContext context,
+    required SonarrSeries series,
+    bool showSnackbar = true,
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return await context
+          .read<SonarrState>()
+          .api!
+          .command
+          .seriesSearch(seriesId: series.id!)
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'sonarr.SearchingForMonitoredEpisodes'.tr(),
+            message: series.title!,
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to search for monitored episodes (${series.id})',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToSearchForMonitoredEpisodes'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> runRSSSync({
     required BuildContext context,
     bool showSnackbar = true,

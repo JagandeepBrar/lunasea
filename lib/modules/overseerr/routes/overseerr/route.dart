@@ -48,7 +48,7 @@ class _State extends State<_Widget> {
   }
 
   Widget? _bottomNavigationBar() {
-    if (context.read<OverseerrState>().enabled!) {
+    if (context.read<OverseerrState>().enabled) {
       return OverseerrNavigationBar(pageController: _pageController);
     }
     return null;
@@ -65,7 +65,7 @@ class _State extends State<_Widget> {
       },
     );
     List<Widget>? actions;
-    if (context.watch<OverseerrState>().enabled!) actions = [];
+    if (context.watch<OverseerrState>().enabled) actions = [];
     return LunaAppBar.dropdown(
       title: LunaModule.OVERSEERR.name,
       useDrawer: true,

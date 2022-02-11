@@ -29,7 +29,7 @@ class LunaLRUCache {
   Cache _getCache({
     EvictionPolicy evictionPolicy = const LruEvictionPolicy(),
     ExpiryPolicy expiryPolicy = const EternalExpiryPolicy(),
-    int maxEntries = 50,
+    int maxEntries = 25,
     KeySampler sampler = const FullSampler(),
     EventListenerMode eventListenerMode = EventListenerMode.disabled,
   }) {

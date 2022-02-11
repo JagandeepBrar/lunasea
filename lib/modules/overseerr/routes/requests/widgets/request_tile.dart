@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 
-class OverseerrRequestTile extends StatefulWidget {
+class OverseerrRequestTile extends StatelessWidget {
   final OverseerrRequest request;
 
   const OverseerrRequestTile({
@@ -11,80 +11,71 @@ class OverseerrRequestTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<OverseerrRequestTile> with LunaLoadCallbackMixin {
-  OverseerrMovie? _movie;
-  OverseerrSeries? _series;
-
-  @override
-  Future<void> loadCallback() async {
-    // Temporary, for testing purposes
-    if (widget.request.type == OverseerrMediaType.MOVIE) {
-      OverseerrMovie movie = await context
-          .read<OverseerrState>()
-          .api!
-          .getMovie(id: widget.request.media!.tmdbId!);
-      if (mounted) setState(() => _movie = movie);
-    }
-
-    if (widget.request.type == OverseerrMediaType.TV) {
-      OverseerrSeries series = await context
-          .read<OverseerrState>()
-          .api!
-          .getSeries(id: widget.request.media!.tmdbId!);
-      if (mounted) setState(() => _series = series);
-    }
+  Widget build(BuildContext context) {
+    return Selector<OverseerrState,
+        Tuple2<Future<OverseerrMovie?>, Future<OverseerrSeries?>>>(
+      selector: (_, state) => Tuple2(
+        state.getMovie(request.media!.tmdbId!),
+        state.getSeries(request.media!.tmdbId!),
+      ),
+      builder: (context, data, _) => FutureBuilder(
+        future: Future.wait([data.item1, data.item2]),
+        builder: (context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            switch (request.type!) {
+              case OverseerrMediaType.MOVIE:
+                return _movieBlock(context, snapshot.data![0]);
+              case OverseerrMediaType.TV:
+                return _seriesBlock(context, snapshot.data![1]);
+            }
+          }
+          return const LunaBlock(skeletonEnabled: true, skeletonSubtitles: 3);
+        },
+      ),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Temporary, for testing purposes
-    if (_movie != null) {
-      return LunaBlock(
-        title: _movie!.title ?? 'lunasea.Unknown'.tr(),
-        body: [
-          const TextSpan(text: 'Placeholder 1'),
-          TextSpan(
-              text: 'Requested by ${widget.request.requestedBy?.displayName}',
-              style: const TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              )),
-        ],
-        posterHeaders: context.read<OverseerrState>().headers,
-        posterUrl: TheMovieDB.getImageURL(_movie!.posterPath),
-        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      );
-    } else if (_series != null) {
-      return LunaBlock(
-        title: _series!.name ?? 'lunasea.Unknown'.tr(),
-        body: [
-          const TextSpan(text: 'Placeholder 1'),
-          TextSpan(
-              text: 'Requested by ${widget.request.requestedBy?.displayName}',
-              style: const TextStyle(
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                color: LunaColours.accent,
-              )),
-        ],
-        posterHeaders: context.read<OverseerrState>().headers,
-        posterUrl: TheMovieDB.getImageURL(_series!.posterPath),
-        posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      );
-    } else {
-      return LunaBlock(
-        title: widget.request.requestedBy!.displayName ??
-            'overseerr.UnknownUser'.tr(),
-        body: const [
-          TextSpan(text: 'Placeholder 1'),
-          TextSpan(text: 'Placeholder 2'),
-        ],
-        posterPlaceholderIcon: LunaIcons.USER,
-        posterHeaders: context.read<OverseerrState>().headers,
-        posterUrl: widget.request.requestedBy!.avatar,
-      );
-    }
+  Widget _movieBlock(BuildContext context, OverseerrMovie movie) {
+    return LunaBlock(
+      title: movie.lunaTitle(),
+      body: [
+        TextSpan(text: movie.lunaYear()),
+        TextSpan(text: request.lunaRequestedBy()),
+        TextSpan(
+          text: request.lunaRequestStatus(),
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: request.status.lunaColour(request.lunaMediaStatus()),
+          ),
+        ),
+      ],
+      posterHeaders: context.read<OverseerrState>().headers,
+      posterUrl: TheMovieDB.getPosterURL(movie.posterPath),
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      backgroundHeaders: context.read<OverseerrState>().headers,
+      backgroundUrl: TheMovieDB.getBackdropURL(movie.backdropPath),
+    );
+  }
+
+  Widget _seriesBlock(BuildContext context, OverseerrSeries series) {
+    return LunaBlock(
+      title: series.lunaTitle(),
+      body: [
+        TextSpan(text: series.lunaYear()),
+        TextSpan(text: request.lunaRequestedBy()),
+        TextSpan(
+          text: request.lunaRequestStatus(),
+          style: TextStyle(
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            color: request.status.lunaColour(request.lunaMediaStatus()),
+          ),
+        ),
+      ],
+      posterHeaders: context.read<OverseerrState>().headers,
+      posterUrl: TheMovieDB.getPosterURL(series.posterPath),
+      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
+      backgroundHeaders: context.read<OverseerrState>().headers,
+      backgroundUrl: TheMovieDB.getBackdropURL(series.backdropPath),
+    );
   }
 }

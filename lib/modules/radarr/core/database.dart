@@ -208,7 +208,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
       case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES:
         return false;
       case RadarrDatabaseValue.CONTENT_PAGE_SIZE:
-        return 25;
+        return 10;
       case RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING:
         return false;
       case RadarrDatabaseValue.DEFAULT_VIEW_MOVIES:

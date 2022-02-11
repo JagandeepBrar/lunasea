@@ -32,12 +32,8 @@ class _State extends State<OverseerrRequestsListView> {
           take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
           skip: pageKey * pageSize,
         )
-        .then((data) {
-      if ((data.results?.length ?? 0) < pageSize) {
-        return _pagingController.appendLastPage(data.results ?? []);
-      }
-      return _pagingController.appendPage(data.results ?? [], pageKey + 1);
-    }).catchError((error, stack) {
+        .then((data) => _processPage(data, pageKey, pageSize))
+        .catchError((error, stack) {
       LunaLogger().error(
         'Unable to fetch Overseerr requests page / take: $pageSize / skip: ${pageKey * pageSize}',
         error,
@@ -45,6 +41,29 @@ class _State extends State<OverseerrRequestsListView> {
       );
       _pagingController.error = error;
     });
+  }
+
+  void _processPage(OverseerrRequestPage page, int key, int size) {
+    List<OverseerrRequest> _requests = page.results ?? [];
+
+    if (_requests.isNotEmpty) {
+      _requests.forEach((request) {
+        int id = request.media!.tmdbId!;
+        switch (request.type!) {
+          case OverseerrMediaType.MOVIE:
+            context.read<OverseerrState>().fetchMovie(id);
+            break;
+          case OverseerrMediaType.TV:
+            context.read<OverseerrState>().fetchSeries(id);
+            break;
+        }
+      });
+    }
+
+    if (_requests.length < size) {
+      return _pagingController.appendLastPage(_requests);
+    }
+    return _pagingController.appendPage(_requests, key + 1);
   }
 
   @override
@@ -55,7 +74,8 @@ class _State extends State<OverseerrRequestsListView> {
       scrollController: OverseerrNavigationBar.scrollControllers[0],
       listener: _fetchPage,
       noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
-      itemBuilder: (context, request, index) => OverseerrRequestTile(
+      // itemExtent: LunaBlock.calculateItemExtent(3),
+      itemBuilder: (context, request, _) => OverseerrRequestTile(
         request: request,
       ),
     );

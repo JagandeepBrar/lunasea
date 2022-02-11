@@ -93,7 +93,7 @@ extension OverseerrDatabaseValueExtension on OverseerrDatabaseValue {
       case OverseerrDatabaseValue.NAVIGATION_INDEX:
         return 0;
       case OverseerrDatabaseValue.CONTENT_PAGE_SIZE:
-        return 25;
+        return 10;
     }
   }
 }

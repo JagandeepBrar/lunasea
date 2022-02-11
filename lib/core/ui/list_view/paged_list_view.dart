@@ -10,6 +10,7 @@ class LunaPagedListView<T> extends StatefulWidget {
   final double? itemExtent;
   final EdgeInsetsGeometry? padding;
   final String noItemsFoundMessage;
+  final Function? onRefresh;
 
   const LunaPagedListView({
     Key? key,
@@ -19,6 +20,7 @@ class LunaPagedListView<T> extends StatefulWidget {
     required this.itemBuilder,
     required this.noItemsFoundMessage,
     required this.scrollController,
+    this.onRefresh,
     this.itemExtent,
     this.padding,
   }) : super(key: key);
@@ -40,7 +42,10 @@ class _State<T> extends State<LunaPagedListView<T>> {
     return LunaRefreshIndicator(
       key: widget.refreshKey,
       context: context,
-      onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
+      onRefresh: () => Future.sync(() {
+        widget.onRefresh?.call();
+        widget.pagingController.refresh();
+      }),
       child: Scrollbar(
         controller: widget.scrollController,
         child: PagedListView<int, T>(

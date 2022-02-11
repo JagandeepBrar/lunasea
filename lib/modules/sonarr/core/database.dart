@@ -235,7 +235,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
       case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
         return 15;
       case SonarrDatabaseValue.CONTENT_PAGE_SIZE:
-        return 25;
+        return 10;
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
         return true;
       case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:

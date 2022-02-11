@@ -1,6 +1,5 @@
 {
   "ignorePaths": [
-    "*.json",
     "*.lock",
     "*.yaml",
     "*.yml",
@@ -27,6 +26,7 @@
     "Discogs",
     "fanart",
     "fastlane",
+    "hardlink",
     "keychain",
     "Lidarr",
     "lunasea",

@@ -24,6 +24,7 @@ class LunaState {
           ChangeNotifierProvider(create: (_) => SearchState()),
           ChangeNotifierProvider(create: (_) => LidarrState()),
           ChangeNotifierProvider(create: (_) => RadarrState()),
+          ChangeNotifierProvider(create: (_) => ReadarrState()),
           ChangeNotifierProvider(create: (_) => SonarrState()),
           ChangeNotifierProvider(create: (_) => NZBGetState()),
           ChangeNotifierProvider(create: (_) => SABnzbdState()),

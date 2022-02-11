@@ -4,6 +4,7 @@ export 'modules/lidarr.dart';
 export 'modules/nzbget.dart';
 export 'modules/overseerr.dart';
 export 'modules/radarr.dart';
+export 'modules/readarr.dart';
 export 'modules/sabnzbd.dart';
 export 'modules/search.dart';
 export 'modules/settings.dart';

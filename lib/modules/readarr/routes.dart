@@ -1,0 +1,14 @@
+export 'routes/add_author.dart';
+export 'routes/add_author_details.dart';
+export 'routes/book_details.dart';
+export 'routes/catalogue.dart';
+export 'routes/edit_author.dart';
+export 'routes/history.dart';
+export 'routes/missing.dart';
+export 'routes/more.dart';
+export 'routes/queue.dart';
+export 'routes/releases.dart';
+export 'routes/author_details.dart';
+export 'routes/readarr.dart';
+export 'routes/tags.dart';
+export 'routes/upcoming.dart';

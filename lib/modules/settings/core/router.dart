@@ -41,6 +41,12 @@ class SettingsRouter extends LunaModuleRouter {
     SettingsConfigurationRadarrDefaultOptionsRouter().defineRoute(router);
     SettingsConfigurationRadarrDefaultPagesRouter().defineRoute(router);
     SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
+    // Configuration/Readarr
+    SettingsConfigurationReadarrRouter().defineRoute(router);
+    SettingsConfigurationReadarrConnectionDetailsRouter().defineRoute(router);
+    SettingsConfigurationReadarrDefaultOptionsRouter().defineRoute(router);
+    SettingsConfigurationReadarrDefaultPagesRouter().defineRoute(router);
+    SettingsConfigurationReadarrHeadersRouter().defineRoute(router);
     // Configuration/SABnzbd
     SettingsConfigurationSABnzbdRouter().defineRoute(router);
     SettingsConfigurationSABnzbdConnectionDetailsRouter().defineRoute(router);

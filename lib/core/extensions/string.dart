@@ -91,6 +91,14 @@ extension StringLinksExtension on String {
   Future<void> lunaOpenTVMaze() async =>
       await _openLink('https://www.tvmaze.com/shows/$this');
 
+  /// Attach this string as a author ID to Goodreads and attempt to launch it as a URL.
+  Future<void> lunaOpenGoodreadsAuthor() async =>
+      await _openLink('https://www.goodreads.com/author/show/$this');
+
+  /// Attach this string as a author ID to Goodreads and attempt to launch it as a URL.
+  Future<void> lunaOpenGoodreadsBook() async =>
+      await _openLink('https://www.goodreads.com/book/show/$this');
+
   Future<void> copyToClipboard({
     bool showSnackBar = true,
   }) async {

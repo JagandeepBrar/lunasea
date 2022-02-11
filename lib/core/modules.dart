@@ -11,6 +11,7 @@ const _LIDARR_KEY = 'lidarr';
 const _NZBGET_KEY = 'nzbget';
 const _OVERSEERR_KEY = 'overseerr';
 const _RADARR_KEY = 'radarr';
+const _READARR_KEY = 'readarr';
 const _SABNZBD_KEY = 'sabnzbd';
 const _SEARCH_KEY = 'search';
 const _SETTINGS_KEY = 'settings';
@@ -22,7 +23,7 @@ const _WAKE_ON_LAN_KEY = 'wake_on_lan';
 enum LunaModule {
   @HiveField(0)
   DASHBOARD,
-  @HiveField(11)
+  @HiveField(12)
   EXTERNAL_MODULES,
   @HiveField(1)
   LIDARR,
@@ -33,6 +34,8 @@ enum LunaModule {
   @HiveField(4)
   RADARR,
   @HiveField(5)
+  READARR,
+  @HiveField(13)
   SABNZBD,
   @HiveField(6)
   SEARCH,
@@ -61,6 +64,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.DEVELOP);
       case LunaModule.RADARR:
+        return true;
+      case LunaModule.READARR:
         return true;
       case LunaModule.SABNZBD:
         return true;
@@ -105,6 +110,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaModule.NZBGET;
       case _RADARR_KEY:
         return LunaModule.RADARR;
+      case _READARR_KEY:
+        return LunaModule.READARR;
       case _SABNZBD_KEY:
         return LunaModule.SABNZBD;
       case _SEARCH_KEY:
@@ -136,6 +143,8 @@ extension LunaModuleExtension on LunaModule {
         return _NZBGET_KEY;
       case LunaModule.RADARR:
         return _RADARR_KEY;
+      case LunaModule.READARR:
+        return _READARR_KEY;
       case LunaModule.SABNZBD:
         return _SABNZBD_KEY;
       case LunaModule.SEARCH:
@@ -170,6 +179,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaProfile.current.overseerrEnabled ?? false;
       case LunaModule.RADARR:
         return LunaProfile.current.radarrEnabled ?? false;
+      case LunaModule.READARR:
+        return LunaProfile.current.readarrEnabled ?? false;
       case LunaModule.SABNZBD:
         return LunaProfile.current.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
@@ -200,6 +211,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaProfile.current.getOverseerr();
       case LunaModule.RADARR:
         return LunaProfile.current.getRadarr();
+      case LunaModule.READARR:
+        return LunaProfile.current.getReadarr();
       case LunaModule.SABNZBD:
         return LunaProfile.current.getSABnzbd();
       case LunaModule.SEARCH:
@@ -232,6 +245,8 @@ extension LunaModuleExtension on LunaModule {
         return 'NZBGet';
       case LunaModule.RADARR:
         return 'Radarr';
+      case LunaModule.READARR:
+        return 'Readarr';
       case LunaModule.SABNZBD:
         return 'SABnzbd';
       case LunaModule.SEARCH:
@@ -262,6 +277,8 @@ extension LunaModuleExtension on LunaModule {
         return NZBGet.ROUTE_NAME;
       case LunaModule.RADARR:
         return RadarrHomeRouter().route();
+      case LunaModule.READARR:
+        return ReadarrHomeRouter().route();
       case LunaModule.SABNZBD:
         return SABnzbd.ROUTE_NAME;
       case LunaModule.SEARCH:
@@ -292,6 +309,8 @@ extension LunaModuleExtension on LunaModule {
         return LunaBrandIcons.nzbget;
       case LunaModule.RADARR:
         return LunaBrandIcons.radarr;
+      case LunaModule.READARR:
+        return LunaBrandIcons.readarr;
       case LunaModule.SABNZBD:
         return LunaBrandIcons.sabnzbd;
       case LunaModule.SEARCH:
@@ -326,6 +345,8 @@ extension LunaModuleExtension on LunaModule {
         return LidarrDatabase();
       case LunaModule.RADARR:
         return RadarrDatabase();
+      case LunaModule.READARR:
+        return ReadarrDatabase();
       case LunaModule.SONARR:
         return SonarrDatabase();
       case LunaModule.NZBGET:
@@ -356,6 +377,8 @@ extension LunaModuleExtension on LunaModule {
         return context.read<LidarrState>();
       case LunaModule.RADARR:
         return context.read<RadarrState>();
+      case LunaModule.READARR:
+        return context.read<ReadarrState>();
       case LunaModule.SONARR:
         return context.read<SonarrState>();
       case LunaModule.NZBGET:
@@ -382,6 +405,8 @@ extension LunaModuleExtension on LunaModule {
         return const Color(0xFF42D535);
       case LunaModule.RADARR:
         return const Color(0xFFFEC333);
+      case LunaModule.READARR:
+        return const Color(0x00CA302D);
       case LunaModule.SABNZBD:
         return const Color(0xFFFECC2B);
       case LunaModule.SEARCH:
@@ -412,6 +437,8 @@ extension LunaModuleExtension on LunaModule {
         return 'https://nzbget.net';
       case LunaModule.RADARR:
         return 'https://radarr.video';
+      case LunaModule.READARR:
+        return 'https://readarr.com';
       case LunaModule.SABNZBD:
         return 'https://sabnzbd.org';
       case LunaModule.SEARCH:
@@ -442,6 +469,8 @@ extension LunaModuleExtension on LunaModule {
         return 'https://github.com/nzbget/nzbget';
       case LunaModule.RADARR:
         return 'https://github.com/Radarr/Radarr';
+      case LunaModule.READARR:
+        return 'https://github.com/Readarr/Readarr';
       case LunaModule.SABNZBD:
         return 'https://github.com/sabnzbd/sabnzbd';
       case LunaModule.SEARCH:
@@ -472,6 +501,8 @@ extension LunaModuleExtension on LunaModule {
         return 'Manage Usenet Downloads';
       case LunaModule.RADARR:
         return 'Manage Movies';
+      case LunaModule.READARR:
+        return 'Manage Books';
       case LunaModule.SABNZBD:
         return 'Manage Usenet Downloads';
       case LunaModule.SEARCH:
@@ -504,6 +535,8 @@ extension LunaModuleExtension on LunaModule {
         return 'NZBGet is a binary downloader, which downloads files from Usenet based on information given in nzb-files.';
       case LunaModule.RADARR:
         return 'Radarr is a movie collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new movies and will interface with clients and indexers to grab, sort, and rename them. It can also be configured to automatically upgrade the quality of existing files in the library when a better quality format becomes available.';
+      case LunaModule.READARR:
+        return 'Readarr is an ebook and audiobook collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new books from your favorite authors and will grab, sort, and rename them.';
       case LunaModule.SABNZBD:
         return 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet.';
       case LunaModule.SEARCH:
@@ -534,6 +567,8 @@ extension LunaModuleExtension on LunaModule {
         return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.RADARR:
         return ShortcutItem(type: key, localizedTitle: name);
+      case LunaModule.READARR:
+        return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.SABNZBD:
         return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.SEARCH:
@@ -563,6 +598,8 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return false;
       case LunaModule.RADARR:
+        return true;
+      case LunaModule.READARR:
         return true;
       case LunaModule.SABNZBD:
         return false;
@@ -629,6 +666,8 @@ extension LunaModuleExtension on LunaModule {
         return;
       case LunaModule.RADARR:
         return;
+      case LunaModule.READARR:
+        return;
       case LunaModule.SABNZBD:
         return;
       case LunaModule.SEARCH:
@@ -659,6 +698,8 @@ extension LunaModuleExtension on LunaModule {
         return;
       case LunaModule.RADARR:
         return RadarrWebhooks().handle(data);
+      case LunaModule.READARR:
+        return ReadarrWebhooks().handle(data);
       case LunaModule.SABNZBD:
         return;
       case LunaModule.SEARCH:
@@ -691,6 +732,8 @@ extension LunaModuleExtension on LunaModule {
         return SettingsConfigurationOverseerrRouter();
       case LunaModule.RADARR:
         return SettingsConfigurationRadarrRouter();
+      case LunaModule.READARR:
+        return SettingsConfigurationReadarrRouter();
       case LunaModule.SABNZBD:
         return SettingsConfigurationSABnzbdRouter();
       case LunaModule.SEARCH:

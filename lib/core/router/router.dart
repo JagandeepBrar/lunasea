@@ -27,6 +27,7 @@ class LunaRouter {
     ExternalModulesRouter().defineAllRoutes(router);
     OverseerrRouter().defineAllRoutes(router);
     RadarrRouter().defineAllRoutes(router);
+    ReadarrRouter().defineAllRoutes(router);
     SearchRouter().defineAllRoutes(router);
     SettingsRouter().defineAllRoutes(router);
     SonarrRouter().defineAllRoutes(router);

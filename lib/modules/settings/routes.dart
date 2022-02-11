@@ -11,6 +11,7 @@ export 'routes/configuration_nzbget.dart';
 export 'routes/configuration_overseerr.dart';
 export 'routes/configuration_quickactions.dart';
 export 'routes/configuration_radarr.dart';
+export 'routes/configuration_readarr.dart';
 export 'routes/configuration_sabnzbd.dart';
 export 'routes/configuration_search.dart';
 export 'routes/configuration_sonarr.dart';

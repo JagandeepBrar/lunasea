@@ -52,6 +52,11 @@ class ProfileHiveObject extends HiveObject {
         overseerrHost: '',
         overseerrKey: '',
         overseerrHeaders: {},
+        //Readarr
+        readarrEnabled: false,
+        readarrHost: '',
+        readarrKey: '',
+        readarrHeaders: {},
       );
 
   /// Create a new [ProfileHiveObject] from another [ProfileHiveObject] (deep-copy).
@@ -102,6 +107,11 @@ class ProfileHiveObject extends HiveObject {
         overseerrHost: profile.overseerrHost,
         overseerrKey: profile.overseerrKey,
         overseerrHeaders: profile.overseerrHeaders,
+        //Readarr
+        readarrEnabled: profile.readarrEnabled,
+        readarrHost: profile.readarrHost,
+        readarrKey: profile.readarrKey,
+        readarrHeaders: profile.readarrHeaders,
       );
 
   /// Create a new [ProfileHiveObject] from a map where the keys map 1-to-1.
@@ -154,6 +164,11 @@ class ProfileHiveObject extends HiveObject {
         overseerrHost: profile['overseerrHost'] ?? '',
         overseerrKey: profile['overseerrKey'] ?? '',
         overseerrHeaders: profile['overseerrHeaders'] ?? {},
+        //Readarr
+        readarrEnabled: profile['readarrEnabled'] ?? false,
+        readarrHost: profile['readarrHost'] ?? '',
+        readarrKey: profile['readarrKey'] ?? '',
+        readarrHeaders: profile['readarrHeaders'] ?? {},
       );
 
   ProfileHiveObject({
@@ -202,6 +217,11 @@ class ProfileHiveObject extends HiveObject {
     required this.overseerrHost,
     required this.overseerrKey,
     required this.overseerrHeaders,
+    //Readarr
+    required this.readarrEnabled,
+    required this.readarrHost,
+    required this.readarrKey,
+    required this.readarrHeaders,
   });
 
   @override
@@ -254,6 +274,11 @@ class ProfileHiveObject extends HiveObject {
         "overseerrHost": overseerrHost,
         "overseerrKey": overseerrKey,
         "overseerrHeaders": overseerrHeaders,
+        //Readarr
+        "readarrEnabled": readarrEnabled,
+        "readarrHost": readarrHost,
+        "readarrKey": readarrKey,
+        "readarrHeaders": readarrHeaders,
       };
 
   //Lidarr
@@ -411,6 +436,23 @@ class ProfileHiveObject extends HiveObject {
         'host': overseerrHost ?? '',
         'key': overseerrKey ?? '',
         'headers': overseerrHeaders ?? {},
+      };
+
+  //Readarr
+  @HiveField(44)
+  bool? readarrEnabled;
+  @HiveField(45)
+  String? readarrHost;
+  @HiveField(46)
+  String? readarrKey;
+  @HiveField(47)
+  Map? readarrHeaders;
+
+  Map<String, dynamic> getReadarr() => {
+        'enabled': readarrEnabled ?? false,
+        'host': readarrHost ?? '',
+        'key': readarrKey ?? '',
+        'headers': readarrHeaders ?? {},
       };
 
   bool get anythingEnabled {

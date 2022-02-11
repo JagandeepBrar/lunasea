@@ -14,4 +14,5 @@ class LunaAssets {
   static const String serviceLastfm = 'assets/images/service_lastfm.png';
   static const String serviceYoutube = 'assets/images/service_youtube.png';
   static const String serviceImdb = 'assets/images/service_imdb.png';
+  static const String serviceGoodreads = 'assets/images/service_goodreads.png';
 }

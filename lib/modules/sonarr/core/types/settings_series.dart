@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
+  SEARCH,
   EDIT,
   REFRESH,
   DELETE,
@@ -22,6 +23,8 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         return Icons.refresh_rounded;
       case SonarrSeriesSettingsType.DELETE:
         return Icons.delete_rounded;
+      case SonarrSeriesSettingsType.SEARCH:
+        return LunaIcons.SEARCH;
     }
   }
 
@@ -37,6 +40,8 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         return 'sonarr.RefreshSeries'.tr();
       case SonarrSeriesSettingsType.DELETE:
         return 'sonarr.RemoveSeries'.tr();
+      case SonarrSeriesSettingsType.SEARCH:
+        return 'sonarr.SearchMonitored'.tr();
     }
   }
 
@@ -64,6 +69,10 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
           context: context,
           series: series,
         );
+        break;
+      case SonarrSeriesSettingsType.SEARCH:
+        await SonarrAPIController()
+            .seriesSearch(context: context, series: series);
         break;
     }
   }

@@ -36,7 +36,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Calendar Settings',
+      title: 'settings.CalendarSettings'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS;
     return _db.listen(
       builder: (context, box, widget) => LunaBlock(
-        title: 'Past Days In Schedule View',
+        title: 'settings.PastDaysInScheduleView'.tr(),
         trailing: LunaSwitch(
           value: _db.data,
           onChanged: _db.put,
@@ -77,9 +77,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_DAYS_PAST;
     return _db.listen(
       builder: (context, box, widget) => LunaBlock(
-        title: 'Past Days',
+        title: 'settings.PastDays'.tr(),
         body: [
-          TextSpan(text: _db.data == 1 ? '1 Day' : '${_db.data} Days'),
+          TextSpan(
+            text: _db.data == 1
+                ? 'settings.DaysOne'.tr()
+                : 'settings.DaysCount'.tr(args: [_db.data.toString()]),
+          ),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
@@ -95,9 +99,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_DAYS_FUTURE;
     return _db.listen(
       builder: (context, box, widget) => LunaBlock(
-        title: 'Future Days',
+        title: 'settings.FutureDays'.tr(),
         body: [
-          TextSpan(text: _db.data == 1 ? '1 Day' : '${_db.data} Days'),
+          TextSpan(
+            text: _db.data == 1
+                ? 'settings.DaysOne'.tr()
+                : 'settings.DaysCount'.tr(args: [_db.data.toString()]),
+          ),
         ],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
@@ -209,7 +217,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     DashboardDatabaseValue _db = DashboardDatabaseValue.CALENDAR_STARTING_SIZE;
     return _db.listen(
       builder: (context, box, widget) => LunaBlock(
-        title: 'Starting Size',
+        title: 'settings.StartingSize'.tr(),
         body: [
           TextSpan(text: (_db.data as CalendarStartingSize).name),
         ],

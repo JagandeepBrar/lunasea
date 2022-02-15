@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'Enable ${LunaModule.LIDARR.name}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.LIDARR.name]),
         trailing: LunaSwitch(
           value: LunaProfile.current.lidarrEnabled ?? false,
           onChanged: (value) {

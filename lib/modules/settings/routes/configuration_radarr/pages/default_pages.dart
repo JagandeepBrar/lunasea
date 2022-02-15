@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Pages',
+      title: 'settings.DefaultPages'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -56,7 +56,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     RadarrDatabaseValue _db = RadarrDatabaseValue.NAVIGATION_INDEX;
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
-        title: 'Home',
+        title: 'settings.Home'.tr(),
         body: [TextSpan(text: RadarrNavigationBar.titles[_db.data])],
         trailing: LunaIconButton(icon: RadarrNavigationBar.icons[_db.data]),
         onTap: () async {

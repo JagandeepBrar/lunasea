@@ -37,7 +37,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -119,15 +119,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         ProfileHiveObject _profile = LunaProfile.current;
         if (_profile.overseerrHost == null || _profile.overseerrHost!.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to Overseerr',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.OVERSEERR.name]),
           );
           return;
         }
         if (_profile.overseerrKey == null || _profile.overseerrKey!.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to Overseerr',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'
+                .tr(args: [LunaModule.OVERSEERR.name]),
           );
           return;
         }
@@ -139,19 +141,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             .getStatus()
             .then(
               (_) => showLunaSuccessSnackBar(
-                title: 'Connected Successfully',
-                message: 'Overseerr is ready to use with LunaSea',
+                title: 'settings.ConnectedSuccessfully'.tr(),
+                message: 'settings.ConnectedSuccessfullyMessage'
+                    .tr(args: [LunaModule.OVERSEERR.name]),
               ),
             )
             .catchError(
           (error, trace) {
-            LunaLogger().error(
-              'Connection Test Failed',
-              error,
-              trace,
-            );
+            LunaLogger().error('Connection Test Failed', error, trace);
             showLunaErrorSnackBar(
-              title: 'Connection Test Failed',
+              title: 'settings.ConnectionTestFailed'.tr(),
               error: error,
             );
           },

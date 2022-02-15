@@ -32,7 +32,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Profiles',
+      title: 'settings.Profiles'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -68,7 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _enabledProfile() {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
       builder: (context, _, __) => LunaBlock(
-        title: 'Enabled Profile',
+        title: 'settings.EnabledProfile'.tr(),
         body: [TextSpan(text: LunaDatabaseValue.ENABLED_PROFILE.data)],
         trailing: const LunaIconButton(icon: LunaIcons.USER),
         onTap: () async {

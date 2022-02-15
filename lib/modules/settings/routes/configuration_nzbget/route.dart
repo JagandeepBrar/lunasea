@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: Database.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'Enable ${LunaModule.NZBGET.name}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.NZBGET.name]),
         trailing: LunaSwitch(
           value: LunaProfile.current.nzbgetEnabled ?? false,
           onChanged: (value) {
@@ -72,8 +72,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _connectionDetailsPage() {
     return LunaBlock(
-      title: 'Connection Details',
-      body: const [TextSpan(text: 'Connection Details for NZBGet')],
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'
+              .tr(args: [LunaModule.NZBGET.name]),
+        ),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         SettingsConfigurationNZBGetConnectionDetailsRouter()

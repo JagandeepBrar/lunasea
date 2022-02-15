@@ -29,14 +29,14 @@ extension SettingsBannersExtension on SettingsBanners {
         return 'settings.BannersNotificationModuleSupportBody'.tr();
       case SettingsBanners.QUICK_ACTIONS_SUPPORT:
         return [
-          'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing LunaSea\'s icon.',
-          'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
+          'settings.QuickActionsBannerLine1'.tr(),
+          'settings.QuickActionsBannerLine2'.tr(),
         ].join('\n\n');
 
       case SettingsBanners.PROFILES_SUPPORT:
         return [
-          'Profiles allow you to add multiple instances of modules into LunaSea. You can switch between profiles in the main navigation drawer.',
-          'Newznab indexer searching and external modules are enabled and shared across all profiles.',
+          'settings.ProfilesBannerLine1'.tr(),
+          'settings.ProfilesBannerLine2'.tr(),
         ].join('\n\n');
     }
   }

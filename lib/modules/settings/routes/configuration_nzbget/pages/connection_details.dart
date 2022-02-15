@@ -37,7 +37,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -127,13 +127,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: password,
           extraText: [
             LunaDialog.textSpanContent(
-              text:
-                  '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a ',
+              text: [
+                LunaUI.TEXT_BULLET,
+                'settings.PasswordHint1'.tr(),
+              ].join('\t'),
             ),
-            LunaDialog.bolded(text: 'basic authentication'),
-            LunaDialog.textSpanContent(
-                text:
-                    ' header with your username and password instead for better support'),
           ],
         );
         if (_values.item1) {
@@ -153,21 +151,23 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         ProfileHiveObject _profile = LunaProfile.current;
         if (_profile.nzbgetHost == null || _profile.nzbgetHost!.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to NZBGet',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.NZBGET.name]),
           );
           return;
         }
         NZBGetAPI.from(LunaProfile.current)
             .testConnection()
             .then((_) => showLunaSuccessSnackBar(
-                  title: 'Connected Successfully',
-                  message: 'NZBGet is ready to use with LunaSea',
+                  title: 'settings.ConnectedSuccessfully'.tr(),
+                  message: 'settings.ConnectedSuccessfullyMessage'
+                      .tr(args: [LunaModule.NZBGET.name]),
                 ))
             .catchError((error, trace) {
           LunaLogger().error('Connection Test Failed', error, trace);
           showLunaErrorSnackBar(
-            title: 'Connection Test Failed',
+            title: 'settings.ConnectionTestFailed'.tr(),
             error: error,
           );
         });

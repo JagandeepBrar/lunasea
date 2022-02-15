@@ -37,7 +37,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -119,15 +119,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         ProfileHiveObject _profile = LunaProfile.current;
         if (_profile.radarrHost == null || _profile.radarrHost!.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to Radarr',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.RADARR.name]),
           );
           return;
         }
         if (_profile.radarrKey == null || _profile.radarrKey!.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to Radarr',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'
+                .tr(args: [LunaModule.RADARR.name]),
           );
           return;
         }
@@ -140,8 +142,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             .status()
             .then(
               (_) => showLunaSuccessSnackBar(
-                title: 'Connected Successfully',
-                message: 'Radarr is ready to use with LunaSea',
+                title: 'settings.ConnectedSuccessfully'.tr(),
+                message: 'settings.ConnectedSuccessfullyMessage'
+                    .tr(args: [LunaModule.RADARR.name]),
               ),
             )
             .catchError(
@@ -152,7 +155,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               trace,
             );
             showLunaErrorSnackBar(
-              title: 'Connection Test Failed',
+              title: 'settings.ConnectionTestFailed'.tr(),
               error: error,
             );
           },

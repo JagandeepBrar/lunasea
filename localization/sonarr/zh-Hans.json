@@ -206,5 +206,8 @@
     "sonarr.TimeLeft": "剩余时间",
     "sonarr.Title": "标题",
     "sonarr.Torrent": "种子",
-    "sonarr.Usenet": "用户网络"
+    "sonarr.Usenet": "用户网络",
+    "sonarr.SearchMonitored": "监视搜索",
+    "sonarr.FailedToSearchForMonitoredEpisodes": "搜索监控剧集失败",
+    "sonarr.SearchingForMonitoredEpisodes": "正在搜索受监控的剧集…"
 }

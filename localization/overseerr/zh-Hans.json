@@ -6,5 +6,13 @@
     "overseerr.NoRequestsFound": "未找到请求",
     "overseerr.NoUsersFound": "未找到相应的用户",
     "overseerr.UnknownUser": "未知用户",
-    "overseerr.Users": "用户"
+    "overseerr.Users": "用户",
+    "overseerr.Approved": "正式许可",
+    "overseerr.Available": "可用的",
+    "overseerr.Declined": "拒绝",
+    "overseerr.PartiallyAvailable": "部分可用",
+    "overseerr.Pending": "待办的",
+    "overseerr.Processing": "数据处理",
+    "overseerr.Requested": "已请求",
+    "overseerr.RequestedBy": "{} 的请求"
 }

@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.7):
+  - cloud_firestore (3.1.8):
     - Firebase/Firestore (= 8.11.0)
     - firebase_core
     - Flutter
@@ -51,7 +51,7 @@ PODS:
   - Firebase/Storage (8.11.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.11.0)
-  - firebase_auth (3.3.6):
+  - firebase_auth (3.3.7):
     - Firebase/Auth (= 8.11.0)
     - firebase_core
     - Flutter
@@ -62,7 +62,7 @@ PODS:
     - Firebase/Messaging (= 8.11.0)
     - firebase_core
     - Flutter
-  - firebase_storage (10.2.6):
+  - firebase_storage (10.2.7):
     - Firebase/Storage (= 8.11.0)
     - firebase_core
     - Flutter
@@ -75,7 +75,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.11.0):
+  - FirebaseCoreDiagnostics (8.12.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
@@ -88,7 +88,7 @@ PODS:
   - FirebaseFirestore/Base (8.11.0)
   - FirebaseFirestore/WithLeveldb (8.11.0):
     - FirebaseFirestore/Base
-  - FirebaseInstallations (8.11.0):
+  - FirebaseInstallations (8.12.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
@@ -171,7 +171,7 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
-  - SwiftyGif (5.4.2)
+  - SwiftyGif (5.4.3)
   - url_launcher_ios (0.0.1):
     - Flutter
 
@@ -256,20 +256,20 @@ CHECKOUT OPTIONS:
     :tag: 8.11.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 86f87680a19c805cb0c80b75ecb17ca2d18085f9
+  cloud_firestore: 8bd22e19f6ccf3a0d1976ea298e0ce37c9ad5839
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
-  firebase_auth: ccdb84a0d52a2d7897898ae8121689da6e13d71f
+  firebase_auth: 20bf788012988ef04ce608fada5b8d8cd1069302
   firebase_core: 443bccfd6aa6b42f07be365b500773dc69db2d87
   firebase_messaging: 8dc3a6f069774a0bf4dac04dd79fdaffcb62e145
-  firebase_storage: e1ac35b46a4ead41de4d8d6dd44728c476fb87b3
+  firebase_storage: 627bc138c31654fc1320b262e16e3fad770dea6f
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
-  FirebaseCoreDiagnostics: 64d9709d804a6c25bd77841371c1fcfd909d5601
+  FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
   FirebaseFirestore: 8a0c6a06219bbaad86c72bcb66688c28995dde84
-  FirebaseInstallations: 044eede8a049bce71c4541ee68d6e4364fcbe774
+  FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
   FirebaseMessaging: 02e248e8997f71fa8cc9d78e9d49ec1a701ba14a
   FirebaseStorage: 4d05cb1112ff8822a0f9f5090da8bd6d550602ec
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
@@ -287,7 +287,7 @@ SPEC CHECKSUMS:
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
-  SwiftyGif: dec758a9dd3d278e5a855dbf279bf062c923c387
+  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
   url_launcher_ios: 02f1989d4e14e998335b02b67a7590fa34f971af
 
 PODFILE CHECKSUM: 5179e4adeaa16c0621b9753ffede1d38f2744414

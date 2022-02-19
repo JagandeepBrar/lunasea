@@ -25,26 +25,32 @@ jobs:
       - name: Determine Flavor
         id: determine_flavor
         uses: actions/github-script@v5
+        env:
+          FLAVOR: ${{ inputs.ref }}
         with:
           result-encoding: string
           script: |
-            const refName = context.ref.split("/").pop();
-            switch (refName) {
+            const ref = process.env.FLAVOR || 'internal';
+            switch (ref) {
               case "alpha": return "alpha";
               case "beta": return "beta";
+              case "production": return "production";
               default: return "internal";
             }
 
       - name: Determine Track
         id: determine_track
         uses: actions/github-script@v5
+        env:
+          FLAVOR: ${{ inputs.ref }}
         with:
           result-encoding: string
           script: |
-            const refName = context.ref.split("/").pop();
-            switch (refName) {
+            const ref = process.env.FLAVOR || 'internal';
+            switch (ref) {
               case "alpha": return "Alpha";
               case "beta": return "Beta";
+              case "production": return "Production";
               default: return "Develop";
             }
 

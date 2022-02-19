@@ -45,13 +45,6 @@ class _State extends State<OverseerrRequestsListView> {
 
   void _processPage(OverseerrRequestPage page, int key, int size) {
     List<OverseerrRequest> _requests = page.results ?? [];
-
-    if (_requests.isNotEmpty) {
-      _requests.forEach((request) {
-        int id = request.media!.tmdbId!;
-      });
-    }
-
     if (_requests.length < size) {
       return _pagingController.appendLastPage(_requests);
     }

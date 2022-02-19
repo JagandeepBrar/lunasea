@@ -132,7 +132,7 @@ jobs:
       - name: Tag Deployment
         uses: richardsimko/update-tag@v1
         with:
-          tag_name: '${{ inputs.flavor }}-android'
+          tag_name: 'android-${{ inputs.flavor }}'
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

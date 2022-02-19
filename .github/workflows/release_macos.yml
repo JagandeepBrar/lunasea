@@ -166,7 +166,7 @@ jobs:
       - name: Tag Deployment
         uses: richardsimko/update-tag@v1
         with:
-          tag_name: '${{ inputs.flavor }}-macos'
+          tag_name: 'macos-${{ inputs.flavor }}'
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

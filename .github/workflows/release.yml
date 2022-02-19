@@ -4,9 +4,16 @@ on:
   push:
     branches:
       - master
-    tags:
-      - alpha
-      - beta
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: Build Flavour
+        required: true
+        default: alpha
+        type: choice
+        options:
+          - alpha
+          - beta
 
 jobs:
   cancel:
@@ -23,7 +30,7 @@ jobs:
     needs: [ cancel ]
     uses: CometTools/LunaSea/.github/workflows/prepare.yml@master
     with:
-      ref: ${{ github.ref_name }}
+      ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.flavor || github.ref_name }}
 
   generate_files:
     name: Generate

@@ -49,14 +49,6 @@ class _State extends State<OverseerrRequestsListView> {
     if (_requests.isNotEmpty) {
       _requests.forEach((request) {
         int id = request.media!.tmdbId!;
-        switch (request.type!) {
-          case OverseerrMediaType.MOVIE:
-            context.read<OverseerrState>().fetchMovie(id);
-            break;
-          case OverseerrMediaType.TV:
-            context.read<OverseerrState>().fetchSeries(id);
-            break;
-        }
       });
     }
 

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsDebugMenuRouter extends SettingsPageRouter {
-  SettingsDebugMenuRouter() : super('/settings/debugmenu');
+  SettingsDebugMenuRouter() : super('/settings/debug_menu');
 
   @override
   Widget widget() => _Widget();
@@ -33,7 +33,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Debug Menu',
+      title: 'settings.DebugMenu'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -42,6 +42,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
+        LunaBlock(
+          title: 'UI',
+          trailing: const LunaIconButton(icon: LunaIcons.ARROW_RIGHT),
+          onTap: () async =>
+              SettingsSystemDebugMenuUIRouter().navigateTo(context),
+        ),
+        const LunaHeader(text: 'Boxes'),
         LunaBlock(
           title: 'Clear Alerts Box',
           onTap: () async {

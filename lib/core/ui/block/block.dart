@@ -274,7 +274,7 @@ class LunaBlock extends StatelessWidget {
         context: context,
         title: _scrollableText(
           child: LunaText.title(
-            text: title!,
+            text: title ?? LunaUI.TEXT_EMDASH,
             color: titleColor,
             overflow: TextOverflow.visible,
             maxLines: 1,

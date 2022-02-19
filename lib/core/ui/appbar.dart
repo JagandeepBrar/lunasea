@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-enum _APPBAR_TYPE {
+enum _AppBarType {
   DEFAULT,
   EMPTY,
   DROPDOWN,
@@ -12,7 +12,7 @@ enum _APPBAR_TYPE {
 class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
   static const APPBAR_HEIGHT = kToolbarHeight;
 
-  final _APPBAR_TYPE type;
+  final _AppBarType type;
   final String? title;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
@@ -76,7 +76,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
       scrollControllers: scrollControllers,
       hideLeading: hideLeading,
       backgroundColor: backgroundColor,
-      type: _APPBAR_TYPE.DEFAULT,
+      type: _AppBarType.DEFAULT,
     );
   }
 
@@ -102,7 +102,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
       height: height,
       useDrawer: false,
       backgroundColor: backgroundColor,
-      type: _APPBAR_TYPE.EMPTY,
+      type: _AppBarType.EMPTY,
     );
   }
 
@@ -137,7 +137,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         pageController: pageController,
         scrollControllers: scrollControllers,
         backgroundColor: backgroundColor,
-        type: _APPBAR_TYPE.DEFAULT,
+        type: _AppBarType.DEFAULT,
       );
     return LunaAppBar._internal(
       title: title,
@@ -149,7 +149,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
       pageController: pageController,
       scrollControllers: scrollControllers,
       backgroundColor: backgroundColor,
-      type: _APPBAR_TYPE.DROPDOWN,
+      type: _AppBarType.DROPDOWN,
     );
   }
 
@@ -196,13 +196,13 @@ class _State extends State<LunaAppBar> {
   Widget build(BuildContext context) {
     Widget child;
     switch (widget.type) {
-      case _APPBAR_TYPE.DEFAULT:
+      case _AppBarType.DEFAULT:
         child = _default(context);
         break;
-      case _APPBAR_TYPE.EMPTY:
+      case _AppBarType.EMPTY:
         child = _empty(context);
         break;
-      case _APPBAR_TYPE.DROPDOWN:
+      case _AppBarType.DROPDOWN:
         child = _dropdown(context);
         break;
       default:

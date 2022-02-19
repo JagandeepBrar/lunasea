@@ -10,8 +10,8 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playCountByDayOfWeekGraph!,
+      Selector<TautulliState, Future<TautulliGraphData>?>(
+        selector: (_, state) => state.playCountByDayOfWeekGraph,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
@@ -51,7 +51,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
                       TautulliBarGraphHelper.barTouchData(context, data),
                 ),
               ),
-              padding: const EdgeInsets.all(14.0),
+              padding: LunaUI.MARGIN_DEFAULT,
             ),
           ),
           TautulliGraphHelper().createLegend(data.series!),

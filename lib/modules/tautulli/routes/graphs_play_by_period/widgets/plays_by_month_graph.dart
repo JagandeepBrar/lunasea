@@ -10,8 +10,8 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Selector<TautulliState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph!,
+      Selector<TautulliState, Future<TautulliGraphData>?>(
+        selector: (_, state) => state.playsByMonthGraph,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
@@ -51,7 +51,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                       TautulliBarGraphHelper.barTouchData(context, data),
                 ),
               ),
-              padding: const EdgeInsets.all(14.0),
+              padding: LunaUI.MARGIN_DEFAULT,
             ),
           ),
           TautulliGraphHelper().createLegend(data.series!),

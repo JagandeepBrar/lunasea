@@ -738,7 +738,7 @@ class SonarrDialogs {
                   const Padding(
                     padding: EdgeInsets.only(right: 32.0),
                     child: Icon(
-                      Icons.warning_amber_rounded,
+                      LunaIcons.WARNING,
                       color: LunaColours.orange,
                       size: 24.0,
                     ),

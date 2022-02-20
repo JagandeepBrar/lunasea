@@ -13,6 +13,7 @@ class LunaIcons {
   static const IconData DOWNLOAD = Icons.file_download_rounded;
   static const IconData ERROR = Icons.error_rounded;
   static const IconData FILTER = Icons.filter_list_rounded;
+  static const IconData HISTORY = Icons.history_rounded;
   static const IconData HOME = Icons.home_rounded;
   static const IconData MONITOR_OFF = Icons.turned_in_not_rounded;
   static const IconData MONITOR_ON = Icons.turned_in_rounded;
@@ -21,13 +22,16 @@ class LunaIcons {
   static const IconData PROFILES = Icons.switch_account_rounded;
   static const IconData REFRESH = Icons.refresh_rounded;
   static const IconData RENAME = Icons.text_format_rounded;
+  static const IconData REQUESTS = Icons.access_time_rounded;
   static const IconData SEARCH = Icons.search_rounded;
   static const IconData SETTINGS = Icons.settings_rounded;
   static const IconData SHUFFLE = Icons.shuffle_rounded;
   static const IconData SORT = Icons.sort_rounded;
   static const IconData TRANSLATE = Icons.translate_rounded;
   static const IconData USER = Icons.person_rounded;
+  static const IconData USERS = Icons.people_rounded;
   static const IconData VIDEO_CAM = Icons.videocam_rounded;
   static const IconData VIEW = Icons.grid_view_rounded;
+  static const IconData WARNING = Icons.warning_amber_rounded;
   static const IconData WATCHED = Icons.visibility_rounded;
 }

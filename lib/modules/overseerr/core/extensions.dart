@@ -1,3 +1,4 @@
+export 'extensions/overseerr_issue.dart';
 export 'extensions/overseerr_movie.dart';
 export 'extensions/overseerr_request_status.dart';
 export 'extensions/overseerr_request.dart';

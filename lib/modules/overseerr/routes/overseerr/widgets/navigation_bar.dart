@@ -9,13 +9,15 @@ class OverseerrNavigationBar extends StatelessWidget {
   );
 
   static const List<IconData> icons = [
-    Icons.movie_rounded,
-    Icons.person_rounded,
+    LunaIcons.REQUESTS,
+    LunaIcons.WARNING,
+    LunaIcons.USERS,
   ];
 
   static List<String> get titles => [
-        'Requests',
-        'Users',
+        'overseerr.Requests'.tr(),
+        'overseerr.Issues'.tr(),
+        'overseerr.Users'.tr(),
       ];
 
   const OverseerrNavigationBar({

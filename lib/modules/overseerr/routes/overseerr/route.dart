@@ -83,13 +83,14 @@ class _State extends State<_Widget> {
         if (!enabled!) {
           return LunaMessage.moduleNotEnabled(
             context: context,
-            module: 'Overseerr',
+            module: LunaModule.OVERSEERR.name,
           );
         }
         return LunaPageView(
           controller: _pageController,
           children: const [
             OverseerrRequestsRoute(),
+            OverseerrIssuesRoute(),
             OverseerrUserRoute(),
           ],
         );

@@ -74,7 +74,7 @@ extension LunaLogTypeExtension on LunaLogType {
   IconData get icon {
     switch (this) {
       case LunaLogType.WARNING:
-        return Icons.warning_rounded;
+        return LunaIcons.WARNING;
       case LunaLogType.ERROR:
         return Icons.report_rounded;
       case LunaLogType.CRITICAL:

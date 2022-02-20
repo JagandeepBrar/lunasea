@@ -36,26 +36,26 @@ class OverseerrMedia {
   OverseerrMediaStatus? status4k;
 
   @JsonKey(
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? createdAt;
 
   @JsonKey(
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? updatedAt;
 
   @JsonKey(
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? lastSeasonChange;
 
   @JsonKey(
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? mediaAddedAt;
 

@@ -25,6 +25,14 @@ abstract class Overseerr {
     return _Overseerr(_dio, baseUrl: _baseUrl);
   }
 
+  @GET('issue')
+  Future<OverseerrIssuePage> getIssues({
+    @Query('take') int? take,
+    @Query('skip') int? skip,
+    @Query('filter') String? filter,
+    @Query('sort') String? sort,
+  });
+
   @GET('movie/{id}')
   Future<OverseerrMovie> getMovie({
     @Path('id') required int id,

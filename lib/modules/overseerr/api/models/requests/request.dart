@@ -17,15 +17,15 @@ class OverseerrRequest {
 
   @JsonKey(
     name: 'createdAt',
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? createdAt;
 
   @JsonKey(
     name: 'updatedAt',
-    fromJson: OverseerrUtilities.dateTimeFromJson,
-    toJson: OverseerrUtilities.dateTimeToJson,
+    fromJson: LunaParser.dateTimeFromString,
+    toJson: LunaParser.dateTimeToISO8601,
   )
   DateTime? updatedAt;
 

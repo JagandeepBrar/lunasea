@@ -14,11 +14,10 @@ Because all encryption and decryption occurs on-device, it is fully end-to-end e
 
 Creating a backup in LunaSea is simple and painless! Simply head to the Settings and enter the "System" menu. Simply hit "Backup to Device" to start the backup process.
 
-The backup will use the system-level sharesheet to allow you to save the backup \(a `.lunasea` file\). Please ensure to keep the `.lunasea` extension when saving the file, as backups without a .lunasea extension will not be selectable.
+The backup will use the system-level sharesheet to allow you to save the backup (a `.lunasea` file). Please ensure to keep the `.lunasea` extension when saving the file, as backups without a `.lunasea` extension will not be selectable.
 
 ## Restoring a Backup
 
 Restoring a backup in LunaSea is as simple as creating the backup! Simply head to the Settings and enter the "System" menu. Simply hit "Restore from Device" to start the restore process.
 
 The restoration process will request the password used to encrypt the original backup.
-

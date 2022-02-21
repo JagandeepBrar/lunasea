@@ -43,8 +43,7 @@
 ## Resources
 
 * [Discord](https://www.lunasea.app/discord)
-* [Feedback Board](http://www.lunasea.app/feedback)
+* [Feedback Board](https://www.lunasea.app/feedback)
 * [Reddit](https://www.lunasea.app/reddit)
-* [System Status](https://www.lunasea.app/status)
 * [Translate](https://www.lunasea.app/translate)
 * [Website](https://www.lunasea.app)

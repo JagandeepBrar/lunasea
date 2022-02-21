@@ -11,18 +11,10 @@ class OverseerrMediaSeason {
   @JsonKey(name: 'seasonNumber')
   int? seasonNumber;
 
-  @JsonKey(
-    name: 'status',
-    fromJson: OverseerrUtilities.requestStatusFromJson,
-    toJson: OverseerrUtilities.requestStatusToJson,
-  )
+  @JsonKey(name: 'status')
   OverseerrRequestStatus? status;
 
-  @JsonKey(
-    name: 'status4k',
-    fromJson: OverseerrUtilities.requestStatusFromJson,
-    toJson: OverseerrUtilities.requestStatusToJson,
-  )
+  @JsonKey(name: 'status4k')
   OverseerrRequestStatus? status4k;
 
   @JsonKey(

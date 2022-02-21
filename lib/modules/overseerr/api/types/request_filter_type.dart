@@ -1,47 +1,44 @@
+import 'package:lunasea/core.dart';
+
+const _ALL = 'all';
+const _APPROVED = 'approved';
+const _AVAILABLE = 'available';
+const _PENDING = 'pending';
+const _PROCESSING = 'processing';
+const _UNAVAILABLE = 'unavailable';
+
+@JsonEnum()
 enum OverseerrRequestFilterType {
+  @JsonValue(_ALL)
   ALL,
+  @JsonValue(_APPROVED)
   APPROVED,
+  @JsonValue(_AVAILABLE)
   AVAILABLE,
+  @JsonValue(_PENDING)
   PENDING,
+  @JsonValue(_PROCESSING)
   PROCESSING,
+  @JsonValue(_UNAVAILABLE)
   UNAVAILABLE,
 }
 
 /// Extension on [OverseerrRequestFilterType] to implement extended functionality.
 extension OverseerrRequestFilterTypeExtension on OverseerrRequestFilterType {
-  OverseerrRequestFilterType? from(String? type) {
-    switch (type) {
-      case 'all':
-        return OverseerrRequestFilterType.ALL;
-      case 'approved':
-        return OverseerrRequestFilterType.APPROVED;
-      case 'available':
-        return OverseerrRequestFilterType.AVAILABLE;
-      case 'pending':
-        return OverseerrRequestFilterType.PENDING;
-      case 'processing':
-        return OverseerrRequestFilterType.PROCESSING;
-      case 'unavailable':
-        return OverseerrRequestFilterType.UNAVAILABLE;
-      default:
-        return null;
-    }
-  }
-
-  String get value {
+  String get key {
     switch (this) {
       case OverseerrRequestFilterType.ALL:
-        return 'all';
+        return _ALL;
       case OverseerrRequestFilterType.APPROVED:
-        return 'approved';
+        return _APPROVED;
       case OverseerrRequestFilterType.AVAILABLE:
-        return 'available';
+        return _AVAILABLE;
       case OverseerrRequestFilterType.PENDING:
-        return 'pending';
+        return _PENDING;
       case OverseerrRequestFilterType.PROCESSING:
-        return 'processing';
+        return _PROCESSING;
       case OverseerrRequestFilterType.UNAVAILABLE:
-        return 'unavailable';
+        return _UNAVAILABLE;
     }
   }
 }

@@ -8,11 +8,7 @@ class OverseerrRequest {
   @JsonKey(name: 'id')
   int? id;
 
-  @JsonKey(
-    name: 'status',
-    fromJson: OverseerrUtilities.requestStatusFromJson,
-    toJson: OverseerrUtilities.requestStatusToJson,
-  )
+  @JsonKey(name: 'status')
   OverseerrRequestStatus? status;
 
   @JsonKey(
@@ -29,11 +25,7 @@ class OverseerrRequest {
   )
   DateTime? updatedAt;
 
-  @JsonKey(
-    name: 'type',
-    fromJson: OverseerrUtilities.mediaTypeFromJson,
-    toJson: OverseerrUtilities.mediaTypeToJson,
-  )
+  @JsonKey(name: 'type')
   OverseerrMediaType? type;
 
   @JsonKey(name: 'is4k')

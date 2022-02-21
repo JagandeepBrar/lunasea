@@ -1,32 +1,29 @@
+import 'package:lunasea/core.dart';
+
+const _PENDING = 1;
+const _APPROVED = 2;
+const _DECLINED = 3;
+
+@JsonEnum()
 enum OverseerrRequestStatus {
+  @JsonValue(_PENDING)
   PENDING,
+  @JsonValue(_APPROVED)
   APPROVED,
+  @JsonValue(_DECLINED)
   DECLINED,
 }
 
 /// Extension on [OverseerrRequestStatus] to implement extended functionality.
 extension OverseerrRequestStatusExtension on OverseerrRequestStatus {
-  OverseerrRequestStatus? from(int? type) {
-    switch (type) {
-      case 1:
-        return OverseerrRequestStatus.PENDING;
-      case 2:
-        return OverseerrRequestStatus.APPROVED;
-      case 3:
-        return OverseerrRequestStatus.DECLINED;
-      default:
-        return null;
-    }
-  }
-
   int get value {
     switch (this) {
       case OverseerrRequestStatus.PENDING:
-        return 1;
+        return _PENDING;
       case OverseerrRequestStatus.APPROVED:
-        return 2;
+        return _APPROVED;
       case OverseerrRequestStatus.DECLINED:
-        return 3;
+        return _DECLINED;
     }
   }
 }

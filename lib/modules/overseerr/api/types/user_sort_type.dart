@@ -1,37 +1,33 @@
+import 'package:lunasea/core.dart';
+
+const _CREATED = 'created';
+const _DISPLAY_NAME = 'displayname';
+const _REQUESTS = 'requests';
+const _UPDATED = 'updated';
+
+@JsonEnum()
 enum OverseerrUserSortType {
+  @JsonValue(_CREATED)
   CREATED,
+  @JsonValue(_DISPLAY_NAME)
   DISPLAY_NAME,
+  @JsonValue(_REQUESTS)
   REQUESTS,
+  @JsonValue(_UPDATED)
   UPDATED,
 }
 
-/// Extension on [OverseerrUserSortType] to implement extended functionality.
 extension OverseerrUserSortTypeExtension on OverseerrUserSortType {
-  OverseerrUserSortType? from(String? type) {
-    switch (type) {
-      case 'created':
-        return OverseerrUserSortType.CREATED;
-      case 'displayname':
-        return OverseerrUserSortType.DISPLAY_NAME;
-      case 'requests':
-        return OverseerrUserSortType.REQUESTS;
-      case 'updated':
-        return OverseerrUserSortType.UPDATED;
-      default:
-        return null;
-    }
-  }
-
-  String get value {
+  String get key {
     switch (this) {
       case OverseerrUserSortType.CREATED:
-        return 'created';
+        return _CREATED;
       case OverseerrUserSortType.DISPLAY_NAME:
-        return 'displayname';
+        return _DISPLAY_NAME;
       case OverseerrUserSortType.REQUESTS:
-        return 'requests';
+        return _REQUESTS;
       case OverseerrUserSortType.UPDATED:
-        return 'updated';
+        return _UPDATED;
     }
   }
 }

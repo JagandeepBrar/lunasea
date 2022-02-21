@@ -1,27 +1,23 @@
+import 'package:lunasea/core.dart';
+
+const _ADDED = 'added';
+const _MODIFIED = 'modified';
+
+@JsonEnum()
 enum OverseerrRequestSortType {
+  @JsonValue(_ADDED)
   ADDED,
+  @JsonValue(_MODIFIED)
   MODIFIED,
 }
 
-/// Extension on [OverseerrRequestSortType] to implement extended functionality.
 extension OverseerrRequestSortTypeExtension on OverseerrRequestSortType {
-  OverseerrRequestSortType? from(String? type) {
-    switch (type) {
-      case 'added':
-        return OverseerrRequestSortType.ADDED;
-      case 'modified':
-        return OverseerrRequestSortType.MODIFIED;
-      default:
-        return null;
-    }
-  }
-
-  String get value {
+  String get key {
     switch (this) {
       case OverseerrRequestSortType.ADDED:
-        return 'added';
+        return _ADDED;
       case OverseerrRequestSortType.MODIFIED:
-        return 'modified';
+        return _MODIFIED;
     }
   }
 }

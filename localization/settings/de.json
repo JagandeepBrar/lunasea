@@ -213,5 +213,8 @@
     "settings.DocumentationDescription": "Sieh dir die Dokumentation an",
     "settings.FeedbackBoardDescription": "Neue Funktionen anfragen",
     "settings.WeblateDescription": "Hilf LunaSea zu lokalisieren",
-    "settings.Website": "Webseite"
+    "settings.Website": "Webseite",
+    "settings.CalendarSettings": "Kalendereinstellungen",
+    "settings.DaysOne": "1 Tag",
+    "settings.DaysCount": "{} Tage"
 }

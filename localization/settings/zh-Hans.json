@@ -213,5 +213,20 @@
     "settings.DiscordDescription": "聊天和讨论",
     "settings.Documentation": "文档",
     "settings.SystemStatus": "系统状况",
-    "settings.SystemStatusDescription": "托管服务的状态页面"
+    "settings.SystemStatusDescription": "托管服务的状态页面",
+    "settings.CalendarSettings": "日历设置",
+    "settings.DaysOne": "1天",
+    "settings.DaysCount": "{} 天",
+    "settings.EnableModule": "使能够 {}",
+    "settings.FutureDays": "未来的日子",
+    "settings.Home": "首页",
+    "settings.PasswordHint1": "如果您的密码包含特殊字符，请考虑使用您的用户名和密码添加基本身份验证标头以获得更好的支持",
+    "settings.PastDays": "过去的日子",
+    "settings.PastDaysInScheduleView": "计划视图中的过去天数",
+    "settings.ProfilesBannerLine1": "配置文件允许您将多个模块实例添加到 LunaSea。您可以在主导航抽屉中的配置文件之间切换。",
+    "settings.ProfilesBannerLine2": "Newznab 索引器搜索和外部模块已启用并在所有配置文件中共享。",
+    "settings.QuickActionsBannerLine1": "快速操作允许您通过长按 LunaSea 的图标直接从主屏幕或设备上的启动器快速跳转到模块。",
+    "settings.QuickActionsBannerLine2": "一次可以设置有限数量的快速操作，并且启用超过您的启动器可以支持的操作将无效。",
+    "settings.Use24HourTime": "使用 24 小时制",
+    "settings.Use24HourTimeDescription": "以 24 小时格式显示时间戳"
 }

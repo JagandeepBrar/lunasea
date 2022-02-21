@@ -206,5 +206,8 @@
     "sonarr.Leechers": "Receveurs",
     "sonarr.Seeders": "Envoyeurs",
     "sonarr.NoLongerMonitoring": "Plus de suivi",
-    "sonarr.StartSearchForCutoffUnmetEpisodes": "Démarrer la recherche d'épisodes ne correspondant pas"
+    "sonarr.StartSearchForCutoffUnmetEpisodes": "Démarrer la recherche d'épisodes ne correspondant pas",
+    "sonarr.SearchingForMonitoredEpisodes": "Recherche d'épisodes suivis…",
+    "sonarr.SearchMonitored": "Rechercher des suivis",
+    "sonarr.FailedToSearchForMonitoredEpisodes": "Échec de la recherche des épisodes suivis"
 }

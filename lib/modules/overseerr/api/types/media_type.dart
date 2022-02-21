@@ -1,27 +1,23 @@
+import 'package:lunasea/core.dart';
+
+const _MOVIE = 'movie';
+const _TV = 'tv';
+
+@JsonEnum()
 enum OverseerrMediaType {
+  @JsonValue(_MOVIE)
   MOVIE,
+  @JsonValue(_TV)
   TV,
 }
 
-/// Extension on [OverseerrMediaType] to implement extended functionality.
 extension OverseerrMediaTypeExtension on OverseerrMediaType {
-  OverseerrMediaType? from(String? type) {
-    switch (type) {
-      case 'movie':
-        return OverseerrMediaType.MOVIE;
-      case 'tv':
-        return OverseerrMediaType.TV;
-      default:
-        return null;
-    }
-  }
-
-  String get value {
+  String get key {
     switch (this) {
       case OverseerrMediaType.MOVIE:
-        return 'movie';
+        return _MOVIE;
       case OverseerrMediaType.TV:
-        return 'tv';
+        return _TV;
     }
   }
 }

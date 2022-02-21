@@ -1,42 +1,39 @@
+import 'package:lunasea/core.dart';
+
+const _UNKNOWN = 1;
+const _PENDING = 2;
+const _PROCESSING = 3;
+const _PARTIALLY_AVAILABLE = 4;
+const _AVAILABLE = 5;
+
+@JsonEnum()
 enum OverseerrMediaStatus {
+  @JsonValue(_UNKNOWN)
   UNKNOWN,
+  @JsonValue(_PENDING)
   PENDING,
+  @JsonValue(_PROCESSING)
   PROCESSING,
+  @JsonValue(_PARTIALLY_AVAILABLE)
   PARTIALLY_AVAILABLE,
+  @JsonValue(_AVAILABLE)
   AVAILABLE,
 }
 
 /// Extension on [OverseerrMediaStatus] to implement extended functionality.
 extension OverseerrMediaStatusExtension on OverseerrMediaStatus {
-  OverseerrMediaStatus? from(int? type) {
-    switch (type) {
-      case 1:
-        return OverseerrMediaStatus.UNKNOWN;
-      case 2:
-        return OverseerrMediaStatus.PENDING;
-      case 3:
-        return OverseerrMediaStatus.PROCESSING;
-      case 4:
-        return OverseerrMediaStatus.PARTIALLY_AVAILABLE;
-      case 5:
-        return OverseerrMediaStatus.AVAILABLE;
-      default:
-        return null;
-    }
-  }
-
-  int get value {
+  int get key {
     switch (this) {
       case OverseerrMediaStatus.UNKNOWN:
-        return 1;
+        return _UNKNOWN;
       case OverseerrMediaStatus.PENDING:
-        return 2;
+        return _PENDING;
       case OverseerrMediaStatus.PROCESSING:
-        return 3;
+        return _PROCESSING;
       case OverseerrMediaStatus.PARTIALLY_AVAILABLE:
-        return 4;
+        return _PARTIALLY_AVAILABLE;
       case OverseerrMediaStatus.AVAILABLE:
-        return 5;
+        return _AVAILABLE;
     }
   }
 }

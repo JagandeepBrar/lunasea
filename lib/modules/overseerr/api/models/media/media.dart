@@ -8,10 +8,7 @@ class OverseerrMedia {
   @JsonKey()
   int? id;
 
-  @JsonKey(
-    fromJson: OverseerrUtilities.mediaTypeFromJson,
-    toJson: OverseerrUtilities.mediaTypeToJson,
-  )
+  @JsonKey()
   OverseerrMediaType? mediaType;
 
   @JsonKey()
@@ -23,16 +20,10 @@ class OverseerrMedia {
   @JsonKey()
   String? imdbId;
 
-  @JsonKey(
-    fromJson: OverseerrUtilities.mediaStatusFromJson,
-    toJson: OverseerrUtilities.mediaStatusToJson,
-  )
+  @JsonKey()
   OverseerrMediaStatus? status;
 
-  @JsonKey(
-    fromJson: OverseerrUtilities.mediaStatusFromJson,
-    toJson: OverseerrUtilities.mediaStatusToJson,
-  )
+  @JsonKey()
   OverseerrMediaStatus? status4k;
 
   @JsonKey(

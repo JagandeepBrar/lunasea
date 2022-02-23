@@ -2,7 +2,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/main.dart';
-import 'package:lunasea/modules.dart';
+
+import 'package:lunasea/modules/dashboard.dart';
+import 'package:lunasea/modules/external_modules.dart';
+import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/modules/settings.dart';
+
+import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/overseerr.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
+import 'package:lunasea/modules/nzbget.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class LunaRouter {
   static FluroRouter router = FluroRouter();

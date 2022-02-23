@@ -58,7 +58,7 @@ class _State extends State<OverseerrIssuesListView> {
     return LunaPagedListView<OverseerrIssue>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
-      scrollController: OverseerrNavigationBar.scrollControllers[0],
+      scrollController: OverseerrNavigationBar.scrollControllers[1],
       listener: _fetchPage,
       noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
       // itemExtent: LunaBlock.calculateItemExtent(3),

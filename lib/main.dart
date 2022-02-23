@@ -70,6 +70,7 @@ class LunaBIOS extends StatelessWidget {
                   navigatorKey: LunaState.navigatorKey,
                   darkTheme: theme.activeTheme(),
                   theme: theme.activeTheme(),
+                  scrollBehavior: LunaScrollBehavior(),
                   title: 'LunaSea',
                 ),
               );

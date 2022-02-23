@@ -29,6 +29,7 @@ export 'ui/page_view.dart';
 export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/scaffold.dart';
+export 'ui/scroll_behaviour.dart';
 export 'ui/shape.dart';
 export 'ui/shimmer.dart';
 export 'ui/snackbar.dart';

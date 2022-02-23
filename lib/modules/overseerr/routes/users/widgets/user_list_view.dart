@@ -52,7 +52,7 @@ class _State extends State<OverseerrUserListView> {
     return LunaPagedListView<OverseerrUser>(
       refreshKey: _refreshKey,
       pagingController: _pagingController,
-      scrollController: OverseerrNavigationBar.scrollControllers[1],
+      scrollController: OverseerrNavigationBar.scrollControllers[2],
       listener: _fetchPage,
       noItemsFoundMessage: 'overseerr.NoUsersFound'.tr(),
       itemBuilder: (context, user, index) => OverseerrUserTile(user: user),

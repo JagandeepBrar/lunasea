@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:envify/envify.dart';
@@ -20,7 +19,6 @@ class LunaFlavor {
 
 extension FlavorExtension on LunaFlavor {
   LunaEnvironment get environment {
-    if (kDebugMode) return LunaEnvironment.DEVELOP;
     switch (LunaFlavor.flavor) {
       case _DEVELOP:
         return LunaEnvironment.DEVELOP;

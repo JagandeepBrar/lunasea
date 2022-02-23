@@ -33,6 +33,11 @@ abstract class Overseerr {
     @Query('sort') String? sort,
   });
 
+  @GET('issue/{id}')
+  Future<OverseerrIssue> getIssue({
+    @Path('id') required int id,
+  });
+
   @GET('movie/{id}')
   Future<OverseerrMovie> getMovie({
     @Path('id') required int id,

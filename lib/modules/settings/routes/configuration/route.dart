@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationRouter extends SettingsPageRouter {
   SettingsConfigurationRouter() : super('/settings/configuration');

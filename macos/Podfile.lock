@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.8):
+  - cloud_firestore (3.1.9):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Firestore (~> 8.11.0)
     - firebase_core
@@ -20,20 +20,20 @@ PODS:
   - Firebase/Storage (8.11.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.11.0)
-  - firebase_auth (3.3.7):
+  - firebase_auth (3.3.8):
     - Firebase/Auth (~> 8.11.0)
     - Firebase/CoreOnly (~> 8.11.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (1.12.0):
+  - firebase_core (1.13.0):
     - Firebase/CoreOnly (~> 8.11.0)
     - FlutterMacOS
-  - firebase_messaging (11.2.6):
+  - firebase_messaging (11.2.7):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Messaging (~> 8.11.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_storage (10.2.7):
+  - firebase_storage (10.2.8):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Storage (~> 8.11.0)
     - firebase_core
@@ -197,13 +197,13 @@ CHECKOUT OPTIONS:
     :tag: 8.11.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: b06c819c840a148bc51c8cc5719d5cf981ebc9ba
+  cloud_firestore: a951cc98653f7df307bb8e87b3abec6cc6ed2cfb
   file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
-  firebase_auth: ae95c9dac06919282c6a5e86fb07b4921d6fa6dc
-  firebase_core: 76a7538b389ae1231102dbbdd4f3772eec9abbf8
-  firebase_messaging: 5661e6d32b41d9539163b227945fcfc5819f8bf1
-  firebase_storage: 4f16b268dc297f9096b29209a0a1191ebf07d4ba
+  firebase_auth: badb88b57b1fcc6b61931d045b1936b7eab84d24
+  firebase_core: 1396d9ee2435371af71e58492b44436f64bdc132
+  firebase_messaging: 652f750dea6f6afd115a06b95d266d84ced8e569
+  firebase_storage: 0307bc94ebcf94f1e84e69931ad3ddbffd705a6c
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
   FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
@@ -221,11 +221,11 @@ SPEC CHECKSUMS:
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   share_plus_macos: 853ee48e7dce06b633998ca0735d482dd671ade4
-  shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
+  shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
-  url_launcher_macos: 45af3d61de06997666568a7149c1be98b41c95d4
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
   window_manager: 02776e5a599084cd4576e27a42dd5ec6f49132cf
 
-PODFILE CHECKSUM: e75946f908e7f9fa648bd53e61c1c8290e38ea89
+PODFILE CHECKSUM: f4517543c26c98f326cf6d7fa224b06b48149f33
 
 COCOAPODS: 1.11.2

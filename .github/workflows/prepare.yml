@@ -6,6 +6,7 @@ on:
       ref:
         type: string
         required: true
+
     outputs:
       flavor:
         description: "Build Flavor Environment (internal, alpha, beta, production)"

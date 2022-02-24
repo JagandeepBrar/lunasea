@@ -66,13 +66,11 @@ macos/LunaSea.pkg
 /macos/fastlane/metadata/review_information
 
 # Keys & Service Accounts
-android/app/google-services.json
 android/key.jks
 android/key.properties
-ios/GoogleService-Info.plist
 ios/fastlane/3Z55GTHMWY.p8
-macos/GoogleService-Info.plist
 macos/fastlane/3Z55GTHMWY.p8
+lib/firebase_options.dart
 
 # Node Dependency directories
 node_modules/

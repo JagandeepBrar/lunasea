@@ -29,6 +29,8 @@ on:
         required: true
       FIREBASE_OPTIONS:
         required: true
+      GOOGLE_SERVICE_INFO_PLIST:
+        required: true
       MATCH_KEYCHAIN_NAME:
         required: true
       MATCH_KEYCHAIN_PASSWORD:
@@ -68,6 +70,7 @@ jobs:
       - name: Install Secrets
         working-directory: ${{ github.workspace }}
         run: |
+          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > ios/GoogleService-Info.plist
           echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
       - name: Setup SSH Agent

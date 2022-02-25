@@ -68,6 +68,7 @@ macos/LunaSea.pkg
 # Keys & Service Accounts
 android/key.jks
 android/key.properties
+ios/GoogleService-Info.plist
 lib/firebase_options.dart
 
 # Node Dependency directories

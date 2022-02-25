@@ -4,7 +4,7 @@
 [![Play Store](https://img.shields.io/badge/%20Download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
 [![License](https://img.shields.io/github/license/CometTools/LunaSea?style=flat)](https://github.com/CometTools/LunaSea/blob/production/LICENSE)
 
-LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
+LunaSea is a fully featured, open source self-hosted controller focused on giving you a seamless experience between all of your self-hosted media software remotely on your devices. LunaSea currently supports:
 
 - [Lidarr](https://github.com/lidarr/lidarr)
 - [Radarr](https://github.com/radarr/radarr)

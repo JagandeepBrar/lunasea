@@ -27,7 +27,7 @@ on:
         required: true
       DISCORD_WEBHOOK:
         required: true
-      GOOGLE_SERVICE_INFO_PLIST:
+      FIREBASE_OPTIONS:
         required: true
       MATCH_KEYCHAIN_NAME:
         required: true
@@ -65,10 +65,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Install Secret Keys
+      - name: Install Secrets
         working-directory: ${{ github.workspace }}
         run: |
-          echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 --decode > macos/GoogleService-Info.plist
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.4

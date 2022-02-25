@@ -1,7 +1,10 @@
 name: Validate
 
 on:
-  workflow_call
+  workflow_call:
+    secrets:
+      FIREBASE_OPTIONS:
+        required: true
 
 jobs:
   analyze:
@@ -16,6 +19,11 @@ jobs:
         with:
           name: lib-${{ github.sha }}
           path: ${{ github.workspace }}/lib
+      
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
     
       - name: Install Flutter
         uses: subosito/flutter-action@v2

@@ -14,5 +14,15 @@
     "overseerr.Pending": "待办的",
     "overseerr.Processing": "数据处理",
     "overseerr.Requested": "已请求",
-    "overseerr.RequestedBy": "{} 的请求"
+    "overseerr.RequestedBy": "{} 的请求",
+    "overseerr.Audio": "音频",
+    "overseerr.Issues": "问题",
+    "overseerr.NoIssuesFound": "未发现问题",
+    "overseerr.Open": "打开",
+    "overseerr.OpenedBy": "由 {} 打开",
+    "overseerr.Other": "其它",
+    "overseerr.Resolved": "解决",
+    "overseerr.Subtitle": "字幕",
+    "overseerr.Video": "视频",
+    "overseerr.NoIssues": "没有问题"
 }

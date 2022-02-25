@@ -1,7 +1,28 @@
 targets:
   $default:
+    sources:
+      - lib/**
+      - pubspec.*
+      - $package$
     builders:
+      # Envify
+      envify_generator|envify:
+        enabled: true
+        generate_for:
+          exclude:
+            - lib
+          include:
+            - lib/core/system/flavor.dart
+      # Hive
+      hive_generator:
+        enabled: true
+      # JSON Serializable
       json_serializable:
+        enabled: true
         options:
           explicit_to_json: true
           include_if_null: false
+
+      # Retrofit
+      retrofit_generator|retrofit:
+        enabled: true

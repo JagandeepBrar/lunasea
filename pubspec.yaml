@@ -74,8 +74,6 @@ dev_dependencies:
   flutter_lints: ^1.0.4
   flutter_native_splash: ^2.0.5
   # Testing
-  coverage: ^1.1.0
-  mockito: ^5.1.0
   test: ^1.20.1
 
 dependency_overrides:

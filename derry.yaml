@@ -49,18 +49,6 @@ cocoapods:
         - pod setup
         - pod install --repo-update
 
-coverage:
-  create:
-    (description): Coverage - Create Coverage Report
-    (execution): once
-    (scripts):
-      - flutter test --coverage
-  upload:
-    (description): Coverage - Upload to codecov
-    (execution): once
-    (scripts):
-      - bash <(curl -s https://codecov.io/bash)
-
 fastlane:
   update:
     (description): Fastlane - Update Bundled Version

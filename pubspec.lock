@@ -205,7 +205,7 @@ packages:
     source: hosted
     version: "3.0.1"
   coverage:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: coverage
       url: "https://pub.dartlang.org"
@@ -744,13 +744,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  mockito:
-    dependency: "direct dev"
-    description:
-      name: mockito
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.1.0"
   modal_bottom_sheet:
     dependency: "direct main"
     description:

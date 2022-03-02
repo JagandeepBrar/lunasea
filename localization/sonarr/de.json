@@ -206,5 +206,8 @@
     "sonarr.RemoveFromQueue": "Aus Warteschlange entfernen",
     "sonarr.Queued": "Eingereiht",
     "sonarr.Usenet": "Usenet",
-    "sonarr.Title": "Titel"
+    "sonarr.Title": "Titel",
+    "sonarr.SearchingForMonitoredEpisodes": "Suche nach beobachteten Episoden…",
+    "sonarr.SearchMonitored": "Suche Beobachtet",
+    "sonarr.FailedToSearchForMonitoredEpisodes": "Suche nach beobachteten Episoden fehlgeschlagen"
 }

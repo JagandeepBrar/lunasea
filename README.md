@@ -2,7 +2,7 @@
 
 [![App Store](https://img.shields.io/badge/%20Download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
-[![License](https://img.shields.io/github/license/CometTools/LunaSea?style=flat)](https://github.com/CometTools/LunaSea/blob/production/LICENSE)
+[![License](https://img.shields.io/github/license/JagandeepBrar/LunaSea?style=flat)](https://github.com/JagandeepBrar/LunaSea/blob/production/LICENSE)
 
 LunaSea is a fully featured, open source self-hosted controller focused on giving you a seamless experience between all of your self-hosted media software remotely on your devices. LunaSea currently supports:
 
@@ -22,14 +22,14 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Getting Started
 
-- [Releases](https://github.com/CometTools/LunaSea/releases)
+- [Releases](https://github.com/JagandeepBrar/LunaSea/releases)
   - [(Android) Play Store](https://www.lunasea.app/playstore)
   - [(iOS) App Store](https://www.lunasea.app/appstore)
-  - [(macOS) GitHub](https://github.com/CometTools/LunaSea/releases)
+  - [(macOS) GitHub](https://github.com/JagandeepBrar/LunaSea/releases)
   - [(macOS) Homebrew](https://formulae.brew.sh/cask/lunasea)
-- [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
-  - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
-  - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
+- [Build Guide](https://github.com/JagandeepBrar/LunaSea/wiki/Build-Guide)
+  - [(Android) Keystore Setup](https://github.com/JagandeepBrar/LunaSea/wiki/Configure-Keystore)
+  - [(iOS) Development Certificate Setup](https://github.com/JagandeepBrar/LunaSea/wiki/Setup-of-Development-Certificate)
 - [Documentation](https://www.lunasea.app/docs)
 - [Feedback & Feature Requests Board](https://www.lunasea.app/feedback)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)
@@ -44,7 +44,7 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 - [Discord](https://www.lunasea.app/discord)
 - [Email](mailto:hello@lunasea.app)
-- [GitHub (Issues & Bug Reports Only)](https://github.com/CometTools/LunaSea/issues)
+- [GitHub (Issues & Bug Reports Only)](https://github.com/JagandeepBrar/LunaSea/issues)
 - [Reddit](https://www.lunasea.app/reddit)
 - [Website](https://www.lunasea.app)
 
@@ -75,8 +75,8 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a> <a href="#design-JagandeepBrar" title="Design">🎨</a> <a href="#ideas-JagandeepBrar" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/lightglitch"><img src="https://avatars.githubusercontent.com/u/196953?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mário Franco</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=lightglitch" title="Code">💻</a> <a href="#translation-lightglitch" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a> <a href="#design-JagandeepBrar" title="Design">🎨</a> <a href="#ideas-JagandeepBrar" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/lightglitch"><img src="https://avatars.githubusercontent.com/u/196953?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mário Franco</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=lightglitch" title="Code">💻</a> <a href="#translation-lightglitch" title="Translation">🌍</a></td>
     <td align="center"><a href="https://pythonexplainedto.me/"><img src="https://avatars.githubusercontent.com/u/41962737?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrik Hauguth</b></sub></a><br /><a href="#translation-Phaugt" title="Translation">🌍</a></td>
     <td align="center"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/cpt-kuesel"><img src="https://avatars.githubusercontent.com/u/79487102?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cpt-kuesel</b></sub></a><br /><a href="#translation-cpt-kuesel" title="Translation">🌍</a></td>
@@ -84,7 +84,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/iFelix18"><img src="https://avatars.githubusercontent.com/u/19800006?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Davide</b></sub></a><br /><a href="#translation-iFelix18" title="Translation">🌍</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/AliMickey"><img src="https://avatars.githubusercontent.com/u/60691199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micky</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=AliMickey" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/AliMickey"><img src="https://avatars.githubusercontent.com/u/60691199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micky</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=AliMickey" title="Documentation">📖</a></td>
     <td align="center"><a href="https://ersen.srht.site/"><img src="https://avatars.githubusercontent.com/u/88676873?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oğuz Ersen</b></sub></a><br /><a href="#translation-ersen0" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/bittin"><img src="https://avatars.githubusercontent.com/u/43197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bittin</b></sub></a><br /><a href="#translation-bittin" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/almontegil"><img src="https://avatars.githubusercontent.com/u/68232356?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gil</b></sub></a><br /><a href="#translation-almontegil" title="Translation">🌍</a></td>
@@ -95,14 +95,14 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
   <tr>
     <td align="center"><a href="https://github.com/Sytom"><img src="https://avatars.githubusercontent.com/u/30535521?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sytom</b></sub></a><br /><a href="#translation-Sytom" title="Translation">🌍</a></td>
     <td align="center"><a href="https://xxzj990.top"><img src="https://avatars.githubusercontent.com/u/5134154?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xxzj990</b></sub></a><br /><a href="#translation-xxzj990" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/Qstick"><img src="https://avatars.githubusercontent.com/u/376117?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qstick</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=Qstick" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Qstick"><img src="https://avatars.githubusercontent.com/u/376117?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qstick</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=Qstick" title="Code">💻</a></td>
     <td align="center"><a href="https://www.openflixr.com"><img src="https://avatars.githubusercontent.com/u/3245077?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mark Frelink</b></sub></a><br /><a href="#translation-mfrelink" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/diemade"><img src="https://avatars.githubusercontent.com/u/174809?v=4?s=100" width="100px;" alt=""/><br /><sub><b>diemade</b></sub></a><br /><a href="#translation-diemade" title="Translation">🌍</a></td>
     <td align="center"><a href="https://feikojoosten.com"><img src="https://avatars.githubusercontent.com/u/10920052?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Feiko Joosten</b></sub></a><br /><a href="#translation-FeikoJoosten" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/TheMaxul"><img src="https://avatars.githubusercontent.com/u/2436527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TheMaxul</b></sub></a><br /><a href="#translation-TheMaxul" title="Translation">🌍</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://www.xrths.fr"><img src="https://avatars.githubusercontent.com/u/40337934?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xrths</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=xrths" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.xrths.fr"><img src="https://avatars.githubusercontent.com/u/40337934?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xrths</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=xrths" title="Documentation">📖</a></td>
     <td align="center"><a href="https://lisacintosh.itch.io"><img src="https://avatars.githubusercontent.com/u/6952213?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxime Leroy</b></sub></a><br /><a href="#translation-Lisapple" title="Translation">🌍</a></td>
   </tr>
 </table>

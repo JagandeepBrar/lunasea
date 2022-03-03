@@ -16,7 +16,7 @@ I take all requests into consideration! If you would like to request a feature t
 
 * **(Preferred)** [**Feedback Board**](https://www.lunasea.app/feedback): The feedback board allows users to create, comment on, and vote on new features and general requests! This is the ideal way to request a new feature, as it allows other users to see active requests, it allows discussions to stay per-request, and the voting system gives me a good indication on the active demand for a feature.
 * [**Discord**](https://www.lunasea.app/discord)
-* [**Email**](mailto:hello@comet.tools)
+* [**Email**](mailto:hello@lunasea.app)
 * [**Reddit**](https://www.lunasea.app/reddit)
 
 {% hint style="info" %}
@@ -71,9 +71,9 @@ However, since LunaSea is open-source there are prebuilt IPAs available through 
 
 I tried to make it as stable as possible, but bugs obviously will always be there (when you fix a bug, you make 5 more...). If you do run into a bug (especially a fatal/crashing bug), **please also attach the logs from the application into the report - logs can be exported from the settings.**
 
-* **(Preferred)** [**GitHub Issues**](https://github.com/CometTools/LunaSea/issues): The best place to alert me of new issues is directly on the GitHub page. Please try to follow the template for bug reports, but again I am not overly strict and a good explanation of the issue will suffice (this may change in the future if it gets increasingly hard to manage).
+* **(Preferred)** [**GitHub Issues**](https://github.com/JagandeepBrar/LunaSea/issues): The best place to alert me of new issues is directly on the GitHub page. Please try to follow the template for bug reports, but again I am not overly strict and a good explanation of the issue will suffice (this may change in the future if it gets increasingly hard to manage).
 * [**Discord**](https://www.lunasea.app/discord)
-* [**Email**](mailto:hello@comet.tools)
+* [**Email**](mailto:hello@lunasea.app)
 * [**Reddit**](https://www.lunasea.app/reddit)
 
 ### How Can I Request a New Feature?
@@ -97,7 +97,7 @@ LunaSea took quite a runaround to initially get on the App Store because of its 
 The initial setup can either be incredibly easy or make you want to pull your hair out, I get that and that's what the community is here for! Please feel free to send a message to any of the listed methods to get support where either I or an awesome user in the community will surely come to help you out:
 
 * [**Discord**](https://www.lunasea.app/discord)
-* [**Email**](mailto:hello@comet.tools)
+* [**Email**](mailto:hello@lunasea.app)
 * [**Reddit**](https://www.lunasea.app/reddit)
 
 A few quick tips on common problems:
@@ -120,6 +120,6 @@ While this is outside of the scope of this project, I can try to point you in th
 
 ### I Want to Complain! Where Can I Complain?
 
-Sorry that LunaSea is not meeting your expectations, feel free to post criticisms or complaints to any of the social platforms or directly [email me](mailto:hello@comet.tools). I hope that I can remedy your complaints, all I ask is that you do not be abusive or disrespectful to myself or others in the community.
+Sorry that LunaSea is not meeting your expectations, feel free to post criticisms or complaints to any of the social platforms or directly [email me](mailto:hello@lunasea.app). I hope that I can remedy your complaints, all I ask is that you do not be abusive or disrespectful to myself or others in the community.
 
 I also kindly request that before you submit a 1-star App Store/Play Store review that you consider contacting me directly with your complaints. 1-star reviews can really hurt a smaller application's rating since we do not typically get lots of reviews.

@@ -38,7 +38,7 @@
 
 * [App Store](https://www.lunasea.app/appstore)
 * [Play Store](https://www.lunasea.app/playstore)
-* [GitHub](https://github.com/CometTools/LunaSea)
+* [GitHub](https://github.com/JagandeepBrar/LunaSea)
 
 ## Resources
 

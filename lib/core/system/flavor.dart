@@ -37,7 +37,7 @@ extension FlavorExtension on LunaFlavor {
   }
 
   Future<void> openCommitHistory() async {
-    String _base = 'https://github.com/CometTools/LunaSea/commits';
+    String _base = 'https://github.com/JagandeepBrar/LunaSea/commits';
     return '$_base/${LunaFlavor.commit}'.lunaOpenGenericLink();
   }
 

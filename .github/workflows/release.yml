@@ -29,28 +29,28 @@ jobs:
   prepare:
     name: Prepare
     needs: [ cancel ]
-    uses: CometTools/LunaSea/.github/workflows/prepare.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
       ref: ${{ github.event.inputs.flavor }}
 
   generate_files:
     name: Generate
     needs: [ prepare ]
-    uses: CometTools/LunaSea/.github/workflows/generate_files.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/generate_files.yml@master
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
   validate:
     name: Validate
     needs: [ generate_files ]
-    uses: CometTools/LunaSea/.github/workflows/validate.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/validate.yml@master
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
   android:
     name: Android
     needs: [ prepare, validate ]
-    uses: CometTools/LunaSea/.github/workflows/release_android.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/release_android.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
       track: ${{ needs.prepare.outputs.track }}
@@ -64,7 +64,7 @@ jobs:
   ios:
     name: iOS
     needs: [ prepare, validate ]
-    uses: CometTools/LunaSea/.github/workflows/release_ios.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/release_ios.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
       track: ${{ needs.prepare.outputs.track }}
@@ -87,7 +87,7 @@ jobs:
   macos:
     name: macOS
     needs: [ prepare, validate ]
-    uses: CometTools/LunaSea/.github/workflows/release_macos.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/release_macos.yml@master
     with:
       flavor: ${{ needs.prepare.outputs.flavor }}
       track: ${{ needs.prepare.outputs.track }}

@@ -3,53 +3,51 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'movie_file_media_info.g.dart';
 
-/// Store details about the language of the movie.
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
+@JsonSerializable()
 class RadarrMovieFileMediaInfo {
-  @JsonKey(name: 'audioAdditionalFeatures')
-  String? audioAdditionalFeatures;
-
-  @JsonKey(name: 'audioBitrate')
+  @JsonKey()
   int? audioBitrate;
 
-  @JsonKey(name: 'audioChannels')
+  @JsonKey()
   double? audioChannels;
 
-  @JsonKey(name: 'audioCodec')
+  @JsonKey()
   String? audioCodec;
 
-  @JsonKey(name: 'audioLanguages')
+  @JsonKey()
   String? audioLanguages;
 
-  @JsonKey(name: 'audioStreamCount')
+  @JsonKey()
   int? audioStreamCount;
 
-  @JsonKey(name: 'videoBitDepth')
+  @JsonKey()
   int? videoBitDepth;
 
-  @JsonKey(name: 'videoBitrate')
+  @JsonKey()
   int? videoBitrate;
 
-  @JsonKey(name: 'videoCodec')
+  @JsonKey()
   String? videoCodec;
 
-  @JsonKey(name: 'videoFps')
+  @JsonKey()
+  String? videoDynamicRangeType;
+
+  @JsonKey()
   double? videoFps;
 
-  @JsonKey(name: 'resolution')
+  @JsonKey()
   String? resolution;
 
-  @JsonKey(name: 'runTime')
+  @JsonKey()
   String? runTime;
 
-  @JsonKey(name: 'scanType')
+  @JsonKey()
   String? scanType;
 
-  @JsonKey(name: 'subtitles')
+  @JsonKey()
   String? subtitles;
 
   RadarrMovieFileMediaInfo({
-    this.audioAdditionalFeatures,
     this.audioBitrate,
     this.audioChannels,
     this.audioCodec,
@@ -58,6 +56,7 @@ class RadarrMovieFileMediaInfo {
     this.videoBitDepth,
     this.videoBitrate,
     this.videoCodec,
+    this.videoDynamicRangeType,
     this.videoFps,
     this.resolution,
     this.runTime,

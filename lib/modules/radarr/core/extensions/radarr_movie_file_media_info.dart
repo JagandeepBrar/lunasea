@@ -7,14 +7,13 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaVideoBitrate {
-    if (videoBitrate != null)
-      return '${videoBitrate.lunaBytesToString(bytes: false)}/s';
+  String? get lunaVideoCodec {
+    if (videoCodec != null && videoCodec!.isNotEmpty) return videoCodec;
     return LunaUI.TEXT_EMDASH;
   }
 
-  String? get lunaVideoCodec {
-    if (videoCodec != null && videoCodec!.isNotEmpty) return videoCodec;
+  String get lunaVideoDynamicRange {
+    if (videoDynamicRangeType != null) return videoDynamicRangeType!;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -28,12 +27,6 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
     return LunaUI.TEXT_EMDASH;
   }
 
-  String get lunaAudioBitrate {
-    if (audioBitrate != null)
-      return '${audioBitrate.lunaBytesToString(bytes: false)}/s';
-    return LunaUI.TEXT_EMDASH;
-  }
-
   String get lunaAudioChannels {
     if (audioChannels != null) return audioChannels.toString();
     return LunaUI.TEXT_EMDASH;
@@ -41,12 +34,6 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
 
   String? get lunaAudioCodec {
     if (audioCodec != null && audioCodec!.isNotEmpty) return audioCodec;
-    return LunaUI.TEXT_EMDASH;
-  }
-
-  String? get lunaAudioAdditionalFeatures {
-    if (audioAdditionalFeatures != null && audioAdditionalFeatures!.isNotEmpty)
-      return audioAdditionalFeatures;
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -63,6 +50,11 @@ extension LunaRadarrMovieFileMediaInfo on RadarrMovieFileMediaInfo {
 
   String? get lunaRunTime {
     if (runTime != null && runTime!.isNotEmpty) return runTime;
+    return LunaUI.TEXT_EMDASH;
+  }
+
+  String? get lunaScanType {
+    if (scanType != null) return scanType;
     return LunaUI.TEXT_EMDASH;
   }
 

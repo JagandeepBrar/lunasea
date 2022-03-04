@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.9):
+  - cloud_firestore (3.1.10):
     - Firebase/Firestore (= 8.11.0)
     - firebase_core
     - Flutter
@@ -51,18 +51,18 @@ PODS:
   - Firebase/Storage (8.11.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.11.0)
-  - firebase_auth (3.3.8):
+  - firebase_auth (3.3.9):
     - Firebase/Auth (= 8.11.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.13.0):
+  - firebase_core (1.13.1):
     - Firebase/CoreOnly (= 8.11.0)
     - Flutter
-  - firebase_messaging (11.2.7):
+  - firebase_messaging (11.2.8):
     - Firebase/Messaging (= 8.11.0)
     - firebase_core
     - Flutter
-  - firebase_storage (10.2.8):
+  - firebase_storage (10.2.9):
     - Firebase/Storage (= 8.11.0)
     - firebase_core
     - Flutter
@@ -244,15 +244,15 @@ CHECKOUT OPTIONS:
     :tag: 8.11.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: c4fe921497494112ca9de681464ddd44d51b17bb
+  cloud_firestore: c6c42fe62809b7417aa3c45a6ef0c2812f7fb0d6
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
-  firebase_auth: 386760cb543983c9f00ed148cd83e2c8443c94a2
-  firebase_core: 80a05c91b091a4eca8a6fb98c2c8b1391974c99c
-  firebase_messaging: ad581310adcd3c9ab493d6f394c935af45a8f07b
-  firebase_storage: 6f63ea75fb2e9a329f7fd4e1ef0f149787abd675
+  firebase_auth: 99c9cdc8cc2e59f6fd4960b6e183f5430d237838
+  firebase_core: 08f6a85f62060111de5e98d6a214810d11365de9
+  firebase_messaging: 36238f3d0b933af8c919aef608408aae06ba22e8
+  firebase_storage: 5b964cad5f351e9c35f8b0e0b878cdd095f30d09
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
   FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
@@ -269,7 +269,7 @@ SPEC CHECKSUMS:
   in_app_purchase_ios: 04ed55fdd1012db54095d6801335b5f5de0a475f
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   quick_actions: cd83314083fa994182e6cd9e7516167a215a4f83
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f

@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.9):
+  - cloud_firestore (3.1.10):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Firestore (~> 8.11.0)
     - firebase_core
@@ -20,20 +20,20 @@ PODS:
   - Firebase/Storage (8.11.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.11.0)
-  - firebase_auth (3.3.8):
+  - firebase_auth (3.3.9):
     - Firebase/Auth (~> 8.11.0)
     - Firebase/CoreOnly (~> 8.11.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (1.13.0):
+  - firebase_core (1.13.1):
     - Firebase/CoreOnly (~> 8.11.0)
     - FlutterMacOS
-  - firebase_messaging (11.2.7):
+  - firebase_messaging (11.2.8):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Messaging (~> 8.11.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_storage (10.2.8):
+  - firebase_storage (10.2.9):
     - Firebase/CoreOnly (~> 8.11.0)
     - Firebase/Storage (~> 8.11.0)
     - firebase_core
@@ -197,13 +197,13 @@ CHECKOUT OPTIONS:
     :tag: 8.11.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: a951cc98653f7df307bb8e87b3abec6cc6ed2cfb
+  cloud_firestore: aaecbaa2643ca4de74935d30d0eab5201268c44f
   file_selector_macos: ff6dc948d4ddd34e8602a1f60b7d0b4cc6051a47
   Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
-  firebase_auth: badb88b57b1fcc6b61931d045b1936b7eab84d24
-  firebase_core: 1396d9ee2435371af71e58492b44436f64bdc132
-  firebase_messaging: 652f750dea6f6afd115a06b95d266d84ced8e569
-  firebase_storage: 0307bc94ebcf94f1e84e69931ad3ddbffd705a6c
+  firebase_auth: 91f5623266bd972f962686486b23d22d833d6634
+  firebase_core: 11d0b4e9fa6120706c015fbfe5f4b409758dae5d
+  firebase_messaging: ee30d33c6e20231b0ad2901998882e22bf21a077
+  firebase_storage: 81f9079d181bebf1cb405da85ada3b4cce961ff3
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
   FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa

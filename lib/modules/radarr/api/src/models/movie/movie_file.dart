@@ -5,46 +5,45 @@ import '../../../utilities.dart';
 
 part 'movie_file.g.dart';
 
-/// Model for a movies' file information
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
+@JsonSerializable()
 class RadarrMovieFile {
-  @JsonKey(name: 'movieId')
+  @JsonKey()
   int? movieId;
 
-  @JsonKey(name: 'relativePath')
+  @JsonKey()
   String? relativePath;
 
-  @JsonKey(name: 'path')
+  @JsonKey()
   String? path;
 
-  @JsonKey(name: 'size')
+  @JsonKey()
   int? size;
 
   @JsonKey(
-      name: 'dateAdded',
-      toJson: RadarrUtilities.dateTimeToJson,
-      fromJson: RadarrUtilities.dateTimeFromJson)
+    toJson: RadarrUtilities.dateTimeToJson,
+    fromJson: RadarrUtilities.dateTimeFromJson,
+  )
   DateTime? dateAdded;
 
-  @JsonKey(name: 'quality')
+  @JsonKey()
   RadarrMovieFileQuality? quality;
 
-  @JsonKey(name: 'customFormats')
+  @JsonKey()
   List<RadarrCustomFormat>? customFormats;
 
-  @JsonKey(name: 'mediaInfo')
+  @JsonKey()
   RadarrMovieFileMediaInfo? mediaInfo;
 
-  @JsonKey(name: 'qualityCutoffNotMet')
+  @JsonKey()
   bool? qualityCutoffNotMet;
 
-  @JsonKey(name: 'languages')
+  @JsonKey()
   List<RadarrLanguage>? languages;
 
-  @JsonKey(name: 'edition')
+  @JsonKey()
   String? edition;
 
-  @JsonKey(name: 'id')
+  @JsonKey()
   int? id;
 
   RadarrMovieFile({

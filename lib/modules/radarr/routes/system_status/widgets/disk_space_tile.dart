@@ -3,47 +3,28 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDiskSpaceTile extends StatelessWidget {
-  final RadarrDiskSpace? diskSpace;
-  final RadarrRootFolder? rootFolder;
+  final RadarrDiskSpace diskSpace;
 
-  RadarrDiskSpaceTile({
+  const RadarrDiskSpaceTile({
     Key? key,
-    this.diskSpace,
-    this.rootFolder,
-  }) : super(key: key) {
-    if (diskSpace == null)
-      assert(
-          rootFolder != null, 'diskSpace and rootFolder cannot both be null');
-    if (rootFolder == null)
-      assert(diskSpace != null, 'diskSpace and rootFolder cannot both be null');
-  }
+    required this.diskSpace,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      title: diskSpace?.lunaPath ?? rootFolder?.lunaPath ?? LunaUI.TEXT_EMDASH,
-      body: [
-        TextSpan(
-          text: diskSpace?.lunaSpace ??
-              rootFolder?.lunaSpace ??
-              LunaUI.TEXT_EMDASH,
-        )
-      ],
-      bottom: diskSpace != null ? _bottomWidget() : null,
+      title: diskSpace.lunaPath,
+      body: [TextSpan(text: diskSpace.lunaSpace)],
+      bottom: LunaLinearPercentIndicator(
+        percent: diskSpace.lunaPercentage / 100,
+        progressColor: diskSpace.lunaColor,
+      ),
       bottomHeight: LunaLinearPercentIndicator.height,
       trailing: LunaIconButton(
-        text: diskSpace?.lunaPercentageString ??
-            (rootFolder?.unmappedFolders?.length ?? 0).toString(),
+        text: diskSpace.lunaPercentageString,
         textSize: LunaUI.FONT_SIZE_H4,
-        color: diskSpace?.lunaColor ?? LunaColours.accent,
+        color: diskSpace.lunaColor,
       ),
-    );
-  }
-
-  Widget _bottomWidget() {
-    return LunaLinearPercentIndicator(
-      percent: (diskSpace?.lunaPercentage ?? 0) / 100,
-      progressColor: diskSpace?.lunaColor ?? LunaColours.accent,
     );
   }
 }

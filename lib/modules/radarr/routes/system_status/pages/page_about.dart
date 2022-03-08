@@ -60,9 +60,12 @@ class _State extends State<RadarrSystemStatusAboutPage>
         LunaTableCard(
           content: [
             LunaTableContent(title: 'Version', body: status.lunaVersion),
-            LunaTableContent(title: 'Package', body: status.lunaPackageVersion),
+            if (status.lunaIsDocker)
+              LunaTableContent(
+                title: 'Package',
+                body: status.lunaPackageVersion,
+              ),
             LunaTableContent(title: '.NET Core', body: status.lunaNetCore),
-            LunaTableContent(title: 'Docker', body: status.lunaDocker),
             LunaTableContent(title: 'Migration', body: status.lunaDBMigration),
             LunaTableContent(
                 title: 'AppData', body: status.lunaAppDataDirectory),

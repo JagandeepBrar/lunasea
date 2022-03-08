@@ -66,18 +66,16 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
   }
 
   Widget _list(
-      List<RadarrDiskSpace> diskSpace, List<RadarrRootFolder> rootFolders) {
-    if (diskSpace.isEmpty && rootFolders.isEmpty)
-      return LunaMessage(
-        text: 'No Disks Found',
-        buttonText: 'Try Again',
-        onTap: _refreshKey.currentState!.show,
-      );
+    List<RadarrDiskSpace> diskSpace,
+    List<RadarrRootFolder> rootFolders,
+  ) {
     // Compile Disks
-    List<Widget> _disks = [LunaMessage.inList(text: 'No Disks Found')];
-    if (diskSpace.isEmpty)
+    List<Widget> _disks = [
+      LunaMessage.inList(text: 'radarr.NoDisksFound'.tr())
+    ];
+    if (diskSpace.isNotEmpty)
       _disks = [
-        const LunaHeader(text: 'Disks'),
+        LunaHeader(text: 'radarr.Disks'.tr()),
         ...List.generate(
           diskSpace.length,
           (index) => RadarrDiskSpaceTile(diskSpace: diskSpace[index]),
@@ -85,14 +83,14 @@ class _State extends State<RadarrSystemStatusDiskSpacePage>
       ];
     // Compile root folders
     List<Widget> _rootFolders = [
-      LunaMessage.inList(text: 'No Root Folders Found')
+      LunaMessage.inList(text: 'radarr.NoRootFoldersFound'.tr())
     ];
-    if (rootFolders.isEmpty)
+    if (rootFolders.isNotEmpty)
       _rootFolders = [
-        const LunaHeader(text: 'Root Folders'),
+        LunaHeader(text: 'radarr.RootFolders'.tr()),
         ...List.generate(
           rootFolders.length,
-          (index) => RadarrDiskSpaceTile(rootFolder: rootFolders[index]),
+          (index) => RadarrRootFolderTile(rootFolder: rootFolders[index]),
         ),
       ];
     return LunaListView(

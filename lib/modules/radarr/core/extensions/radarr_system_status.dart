@@ -22,9 +22,8 @@ extension RadarrSystemStatusExtension on RadarrSystemStatus {
     return 'No';
   }
 
-  String get lunaDocker {
-    if (this.isDocker ?? false) return 'Yes';
-    return 'No';
+  bool get lunaIsDocker {
+    return this.isDocker ?? false;
   }
 
   String get lunaDBMigration {

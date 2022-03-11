@@ -214,6 +214,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "vc5",
+      "name": "Vincent",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13097192?v=4",
+      "profile": "https://github.com/vc5",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

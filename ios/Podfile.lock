@@ -75,7 +75,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.12.0):
+  - FirebaseCoreDiagnostics (8.13.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
@@ -88,7 +88,7 @@ PODS:
   - FirebaseFirestore/Base (8.11.0)
   - FirebaseFirestore/WithLeveldb (8.11.0):
     - FirebaseFirestore/Base
-  - FirebaseInstallations (8.12.0):
+  - FirebaseInstallations (8.13.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
@@ -147,9 +147,9 @@ PODS:
   - PromisesObjC (2.0.0)
   - quick_actions (0.0.1):
     - Flutter
-  - SDWebImage (5.12.3):
-    - SDWebImage/Core (= 5.12.3)
-  - SDWebImage/Core (5.12.3)
+  - SDWebImage (5.12.4):
+    - SDWebImage/Core (= 5.12.4)
+  - SDWebImage/Core (5.12.4)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_ios (0.0.1):
@@ -255,9 +255,9 @@ SPEC CHECKSUMS:
   firebase_storage: 5b964cad5f351e9c35f8b0e0b878cdd095f30d09
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
-  FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
+  FirebaseCoreDiagnostics: c2836d254a8f0bbb4121ff18f2c2ea39d118fd08
   FirebaseFirestore: 8a0c6a06219bbaad86c72bcb66688c28995dde84
-  FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
+  FirebaseInstallations: 60edbf7e11d91ae4c751d26c200dfd037099abe0
   FirebaseMessaging: 02e248e8997f71fa8cc9d78e9d49ec1a701ba14a
   FirebaseStorage: 4d05cb1112ff8822a0f9f5090da8bd6d550602ec
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
@@ -272,7 +272,7 @@ SPEC CHECKSUMS:
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   quick_actions: cd83314083fa994182e6cd9e7516167a215a4f83
-  SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
+  SDWebImage: 631cf572cc93dfdfe54162e556410a61f1141928
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904

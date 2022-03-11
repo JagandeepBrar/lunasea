@@ -47,7 +47,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.12.0):
+  - FirebaseCoreDiagnostics (8.13.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
@@ -60,7 +60,7 @@ PODS:
   - FirebaseFirestore/Base (8.11.0)
   - FirebaseFirestore/WithLeveldb (8.11.0):
     - FirebaseFirestore/Base
-  - FirebaseInstallations (8.12.0):
+  - FirebaseInstallations (8.13.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
@@ -206,9 +206,9 @@ SPEC CHECKSUMS:
   firebase_storage: 81f9079d181bebf1cb405da85ada3b4cce961ff3
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
-  FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
+  FirebaseCoreDiagnostics: c2836d254a8f0bbb4121ff18f2c2ea39d118fd08
   FirebaseFirestore: 8a0c6a06219bbaad86c72bcb66688c28995dde84
-  FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
+  FirebaseInstallations: 60edbf7e11d91ae4c751d26c200dfd037099abe0
   FirebaseMessaging: 02e248e8997f71fa8cc9d78e9d49ec1a701ba14a
   FirebaseStorage: 4d05cb1112ff8822a0f9f5090da8bd6d550602ec
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424

@@ -1,7 +1,59 @@
 {
-  "motd": "Welcome to LunaSea!",
-  "new": [],
+  "motd": "Welcome to LunaSea v10.0.0!\n\nThis update does not have a lot of user-facing changes but introduces substantial reworkings of core integrations and processes that will help make new releases of LunaSea more stable and easier to deploy in the future.",
+  "new": [
+    {
+      "module": "Networking",
+      "changes": [
+        "(HTTP) Set user-agent to \"LunaSea/{version} {build}\""
+      ]
+    },
+    {
+      "module": "Radarr",
+      "changes": [
+        "(Files) Show additional media metadata"
+      ]
+    },
+    {
+      "module": "Settings",
+      "changes": [
+        "(Resources) Add test build information"
+      ]
+    },
+    {
+      "module": "Sonarr",
+      "changes": [
+        "(Series) Support for searching entire series for monitored episodes"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(Block) Support skeleton-state loading"
+      ]
+    }
+  ],
   "tweaks": [],
-  "fixes": [],
+  "fixes": [
+    {
+      "module": "Database",
+      "changes": [
+        "Database entries could be unloaded from memory in some cases"
+      ]
+    },
+    {
+      "module": "Radarr",
+      "changes": [
+        "(Availability) Prevent using preDB availability for movies",
+        "(System Status) Hide irrelevant lines on about page for some installations"
+      ]
+    },
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(ListView) Correctly handle pull-to-refresh drag action on all platforms",
+        "(Input Bar) Saving inputs would not actually update the underlying value in some cases"
+      ]
+    }
+  ],
   "platform": []
 }

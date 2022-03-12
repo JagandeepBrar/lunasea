@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/JagandeepBrar/LunaSea/compare/v6.0.1...v10.0.0) (2022-03-12)
+
+
+### Features
+
+* **debug:** debug page for multiple UI elements ([80c5d21](https://github.com/JagandeepBrar/LunaSea/commit/80c5d2118a68129690cde5acbf70a23746d30acf))
+* **http:** set User-Agent to "LunaSea/{version} {build}" ([420d11c](https://github.com/JagandeepBrar/LunaSea/commit/420d11c37188fe1d56d76b51b98325b384a45cff))
+* **overseerr:** integrate request list and request tiles ([b7fc3c0](https://github.com/JagandeepBrar/LunaSea/commit/b7fc3c0a0fe917ca13513be74159af022c956465))
+* **overseerr:** issues (de)serialization & list integration ([db4dfda](https://github.com/JagandeepBrar/LunaSea/commit/db4dfdaf9ca1976d1a6e4b0ebc451b2e0f08b19e))
+* **overseerr:** serialized movie & tv objects ([2b778dc](https://github.com/JagandeepBrar/LunaSea/commit/2b778dc437559549df7404fa5266719979c3cce3))
+* **settings:** add test build information to resources ([be2d3e6](https://github.com/JagandeepBrar/LunaSea/commit/be2d3e63c27dc8eb5f2f01740df02d23b75eec8e))
+* **sonarr:** support for searching entire series for monitored episodes [skip ci] ([ba958b5](https://github.com/JagandeepBrar/LunaSea/commit/ba958b59a6445d422ae1ea9533f9a6ada188962b))
+* **ui:** support skeleton-state loading on LunaBlock ([8ab5f80](https://github.com/JagandeepBrar/LunaSea/commit/8ab5f80d004ead52a40a69f33482f371fe0f8c8b))
+
+
+### Bug Fixes
+
+* **desktop:** handle pull-to-refresh drag action ([d38fc77](https://github.com/JagandeepBrar/LunaSea/commit/d38fc770d2de4c2e2471aa4b61f8c4eb231ee134))
+* **firebase:** remove remaining references to crashlytics and analytics [skip ci] ([67afaa0](https://github.com/JagandeepBrar/LunaSea/commit/67afaa05f22163b95faff7be526c7a7ddbd5ac5e))
+* **overseerr:** rehydrate missing cached media content when required after cache ejection ([b09353b](https://github.com/JagandeepBrar/LunaSea/commit/b09353ba6e35992ce90613a198f7eb39759522a1))
+* **radarr:** localized strings and correctly display disk/root folder tiles ([490ecf6](https://github.com/JagandeepBrar/LunaSea/commit/490ecf60d1d2267a1e2a6677db8e58c0dea9e096))
+* **radarr:** match file details to web GUI ([a42aa41](https://github.com/JagandeepBrar/LunaSea/commit/a42aa4109ecde42dd2226ee13d398ca09c66a4b3))
+* **radarr:** prevent using preDB availability when adding movie ([9d71c1a](https://github.com/JagandeepBrar/LunaSea/commit/9d71c1ac9ae5505692c24c425be2ce22ae292a25))
+* **tautulli:** set graph padding to theme-default padding ([1229e5e](https://github.com/JagandeepBrar/LunaSea/commit/1229e5ee5ba1534d3e694fb85657b79b7dfcbf78))
+
+
+### Tweaks
+
+* **flavor:** rename "internal" to "develop" ([5652cb0](https://github.com/JagandeepBrar/LunaSea/commit/5652cb04bc7a23292d0ea9d65d6e919218975905))
+* **modules:** remove canonical module import file [skip ci] ([0cbd61e](https://github.com/JagandeepBrar/LunaSea/commit/0cbd61eac5c8e8675b3dd5702977c99e06ca81d5))
+* **overseerr:** utilize JsonEnum generators in enum types [skip ci] ([76d530e](https://github.com/JagandeepBrar/LunaSea/commit/76d530ed0810724d9b61bb73b689d6afb23d4ebd))
+
 ## [6.0.1](https://github.com/JagandeepBrar/LunaSea/compare/v6.0.0...v6.0.1) (2022-01-25)
 
 

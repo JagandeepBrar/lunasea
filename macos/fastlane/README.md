@@ -15,21 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Mac
 
-### mac prepare_keychain_dev
-
-```sh
-[bundle exec] fastlane mac prepare_keychain_dev
-```
-
-Setup the LunaSea Keychain [Dev]
-
 ### mac prepare_keychain
 
 ```sh
 [bundle exec] fastlane mac prepare_keychain
 ```
 
-Setup the LunaSea Keychain [Prod]
+Setup the LunaSea Keychain
 
 ### mac destroy_keychain
 

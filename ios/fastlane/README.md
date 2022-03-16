@@ -15,21 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios prepare_keychain_dev
-
-```sh
-[bundle exec] fastlane ios prepare_keychain_dev
-```
-
-Setup the LunaSea Keychain [Dev]
-
 ### ios prepare_keychain
 
 ```sh
 [bundle exec] fastlane ios prepare_keychain
 ```
 
-Setup the LunaSea Keychain [Prod]
+Setup the LunaSea Keychain
 
 ### ios destroy_keychain
 

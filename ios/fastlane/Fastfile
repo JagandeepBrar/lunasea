@@ -12,19 +12,19 @@ platform :ios do
       timeout: 3600,
       lock_when_sleeps: false
     )
+
+    # Development
+    match(
+      type: "development",
+      readonly: is_ci,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+    )
     
     # App Store Connect
     match(
       type: "appstore",
       readonly: is_ci,
-      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
-    )
-
-    # Development
-    match(
-      type: "development",
-      readonly: false,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
@@ -38,8 +38,24 @@ platform :ios do
   desc "Build App Package"
   lane :build do
     prepare_keychain
-    sh("flutter", "build", "ios", "--release", "--bundle-sksl-path=shaders/ios_sksl.json", "--no-codesign", "--build-number=#{build_number}")
-    build_ios_app(scheme: "Runner", workspace: "Runner.xcworkspace", export_method: "app-store")
+
+    sh(
+      "flutter", "build", "ios",
+      "--release",
+      "--bundle-sksl-path=shaders/ios_sksl.json",
+      "--no-codesign",
+      "--build-number=#{build_number}",
+    )
+    build_ios_app(
+      scheme: "Runner",
+      workspace: "Runner.xcworkspace",
+      export_method: "app-store",
+      export_options: {
+        "app.lunasea.lunasea" => "Provisioning Profile Name",
+        "app.lunasea.lunasea.ImageNotification" => "Provisioning Profile Name 2"
+      },
+    )
+
     destroy_keychain
   end
 

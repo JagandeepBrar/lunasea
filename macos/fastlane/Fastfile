@@ -15,7 +15,7 @@ platform :mac do
 
     match(
       type: "development",
-      additional_cert_types: "mac_installer_distribution",
+      additional_cert_types: "mac_installer_distribution,developer_id_installer",
       readonly: false,
       keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
@@ -35,7 +35,7 @@ platform :mac do
 
     match(
       type: "appstore",
-      additional_cert_types: "mac_installer_distribution",
+      additional_cert_types: "mac_installer_distribution,developer_id_installer",
       readonly: is_ci,
       keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],

@@ -22,8 +22,8 @@ class WakeOnLANAPI {
   }
 
   Future<void> wake() async {
-    IPv4Address ipv4 = IPv4Address.from(broadcastAddress!);
-    MACAddress mac = MACAddress.from(macAddress!);
-    return WakeOnLAN.from(ipv4, mac).wake();
+    IPv4Address ipv4 = IPv4Address(broadcastAddress!);
+    MACAddress mac = MACAddress(macAddress!);
+    return WakeOnLAN(ipv4, mac).wake();
   }
 }

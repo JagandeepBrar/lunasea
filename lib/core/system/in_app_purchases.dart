@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 extension ProductDetailsExtension on ProductDetails {
   IconData get icon {
@@ -76,9 +75,6 @@ class LunaInAppPurchases {
   /// - Fetch and store donation IAPs
   Future<void> initialize() async {
     if (isPlatformCompatible) {
-      if (Platform.isAndroid) {
-        InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
-      }
       isAvailable = await connection.isAvailable();
       if (isAvailable) {
         // Open listener

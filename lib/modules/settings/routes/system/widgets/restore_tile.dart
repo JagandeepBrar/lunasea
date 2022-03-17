@@ -10,8 +10,8 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      title: 'Restore from Device',
-      body: const [TextSpan(text: 'Restore Configuration Data')],
+      title: 'settings.RestoreFromDevice'.tr(),
+      body: [TextSpan(text: 'settings.RestoreFromDeviceDescription'.tr())],
       trailing: const LunaIconButton(icon: Icons.download_rounded),
       onTap: () async => _restore(context),
     );
@@ -20,35 +20,36 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   Future<void> _restore(BuildContext context) async {
     try {
       LunaFile? file = await LunaFileSystem().read(context, ['lunasea']);
-      if (file != null) {
-        Tuple2<bool, String> _key =
-            await SettingsDialogs().decryptBackup(context);
-        if (_key.item1) {
-          String _decrypted = LunaEncryption().decrypt(
-            _key.item2,
-            String.fromCharCodes(file.data),
-          );
-          if (_decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-            LunaConfiguration().import(context, _decrypted).then(
-                  (_) => showLunaSuccessSnackBar(
-                    title: 'Restored',
-                    message: 'Your configuration has been restored',
-                  ),
-                );
-          } else {
-            showLunaErrorSnackBar(
-              title: 'Failed to Restore',
-              message: 'An incorrect encryption key was supplied',
-            );
-          }
-        }
-      }
+      if (file != null) await _decryptBackup(context, file);
     } catch (error, stack) {
-      LunaLogger().error('Restore Failed', error, stack);
+      LunaLogger().error('Failed to restore device backup', error, stack);
       showLunaErrorSnackBar(
-        title: 'Failed to Restore',
+        title: 'settings.RestoreFromCloudFailure'.tr(),
         error: error,
       );
+    }
+  }
+
+  Future<void> _decryptBackup(BuildContext context, LunaFile file) async {
+    Tuple2<bool, String> _key = await SettingsDialogs().decryptBackup(context);
+    if (_key.item1) {
+      String encrypted = String.fromCharCodes(file.data);
+      String decrypted = LunaEncryption().decrypt(_key.item2, encrypted);
+      if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
+        await LunaConfiguration().import(context, decrypted);
+        showLunaSuccessSnackBar(
+          title: 'settings.RestoreFromCloudSuccess'.tr(),
+          message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
+        );
+      } else {
+        showLunaErrorSnackBar(
+          title: 'settings.RestoreFromCloudFailure'.tr(),
+          message: 'settings.IncorrectEncryptionKey'.tr(),
+          showButton: true,
+          buttonText: 'lunasea.Retry'.tr(),
+          buttonOnPressed: () async => _decryptBackup(context, file),
+        );
+      }
     }
   }
 }

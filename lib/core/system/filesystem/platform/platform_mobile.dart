@@ -53,7 +53,7 @@ class Mobile implements LunaFileSystem {
             data: result.files[0].bytes!,
           );
         } else {
-          showLunaInfoSnackBar(
+          showLunaErrorSnackBar(
             title: 'lunasea.InvalidFileTypeSelected'.tr(),
             message: 'lunasea.PleaseTryAgain'.tr(),
           );

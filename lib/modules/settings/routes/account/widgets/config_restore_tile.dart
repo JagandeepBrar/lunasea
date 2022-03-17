@@ -35,40 +35,43 @@ class _State extends State<SettingsAccountRestoreConfigurationTile> {
     if (_loadingState == LunaLoadingState.ACTIVE) return;
     updateState(LunaLoadingState.ACTIVE);
     try {
-      List<LunaFirebaseBackupDocument> documents =
-          await LunaFirebaseFirestore().getBackupEntries();
-      Tuple2<bool, LunaFirebaseBackupDocument?> result =
-          await SettingsDialogs().getBackupFromCloud(context, documents);
+      final docs = await LunaFirebaseFirestore().getBackupEntries();
+      final result = await SettingsDialogs().getBackupFromCloud(context, docs);
+
       if (result.item1) {
-        String? encrypted =
-            await LunaFirebaseStorage().downloadBackup(result.item2!.id);
-        Tuple2<bool, String> key =
-            await SettingsDialogs().decryptBackup(context);
-        if (key.item1) {
-          String decrypted = LunaEncryption().decrypt(key.item2, encrypted!);
-          if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-            await LunaConfiguration().import(context, decrypted).then((_) {
-              updateState(LunaLoadingState.INACTIVE);
-              showLunaSuccessSnackBar(
-                title: 'settings.RestoreFromCloudSuccess'.tr(),
-                message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
-              );
-            });
-          } else {
-            showLunaErrorSnackBar(
-              title: 'settings.RestoreFromCloudFailure'.tr(),
-              message: 'lunasea.IncorrectEncryptionKey'.tr(),
-            );
-          }
-        }
+        String? id = result.item2!.id;
+        String? encrypted = await LunaFirebaseStorage().downloadBackup(id);
+        if (encrypted != null) _decryptBackup(context, encrypted);
       }
     } catch (error, stack) {
-      LunaLogger().error('Restore Failed', error, stack);
+      LunaLogger().error('Failed to restore cloud backup', error, stack);
       showLunaErrorSnackBar(
         title: 'settings.RestoreFromCloudFailure'.tr(),
         error: error,
       );
     }
     updateState(LunaLoadingState.INACTIVE);
+  }
+
+  Future<void> _decryptBackup(BuildContext context, String encrypted) async {
+    Tuple2<bool, String> _key = await SettingsDialogs().decryptBackup(context);
+    if (_key.item1) {
+      String decrypted = LunaEncryption().decrypt(_key.item2, encrypted);
+      if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
+        await LunaConfiguration().import(context, decrypted);
+        showLunaSuccessSnackBar(
+          title: 'settings.RestoreFromCloudSuccess'.tr(),
+          message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
+        );
+      } else {
+        showLunaErrorSnackBar(
+          title: 'settings.RestoreFromCloudFailure'.tr(),
+          message: 'settings.IncorrectEncryptionKey'.tr(),
+          showButton: true,
+          buttonText: 'lunasea.Retry'.tr(),
+          buttonOnPressed: () async => _decryptBackup(context, encrypted),
+        );
+      }
+    }
   }
 }

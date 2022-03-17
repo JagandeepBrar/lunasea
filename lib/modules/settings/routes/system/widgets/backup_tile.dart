@@ -10,8 +10,8 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      title: 'Backup to Device',
-      body: const [TextSpan(text: 'Backup Configuration Data')],
+      title: 'settings.BackupToDevice'.tr(),
+      body: [TextSpan(text: 'settings.BackupToDeviceDescription'.tr())],
       trailing: const LunaIconButton(icon: Icons.upload_rounded),
       onTap: () async => _backup(context),
     );
@@ -31,16 +31,18 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
             '$name.lunasea',
             utf8.encode(encrypted),
           );
-          if (result)
+          if (result) {
             showLunaSuccessSnackBar(
-                title: 'Saved Backup',
-                message: 'Backup has been successfully saved');
+              title: 'settings.BackupToCloudSuccess'.tr(),
+              message: '$name.lunasea',
+            );
+          }
         }
       }
     } catch (error, stack) {
-      LunaLogger().error('Backup Failed', error, stack);
+      LunaLogger().error('Failed to create device backup', error, stack);
       showLunaErrorSnackBar(
-        title: 'Failed to Backup',
+        title: 'settings.BackupToCloudFailure'.tr(),
         error: error,
       );
     }

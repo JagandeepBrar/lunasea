@@ -22,7 +22,7 @@ class LunaEncryption {
       return _encrypted;
     } catch (error, stack) {
       LunaLogger().error(
-        'Failed to decrypted "$data" using the key "$encryptionKey"',
+        'Failed to encrypt "${data.substring(0, 10)}..."',
         error,
         stack,
       );
@@ -44,7 +44,7 @@ class LunaEncryption {
       return _encrypter.decrypt64(data, iv: iv);
     } catch (error, stack) {
       LunaLogger().error(
-        'Failed to decrypted "$data" using the key "$decryptionKey"',
+        'Failed to decrypt "${data.substring(0, 10)}..."',
         error,
         stack,
       );

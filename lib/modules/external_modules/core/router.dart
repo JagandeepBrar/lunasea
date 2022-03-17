@@ -7,6 +7,11 @@ class ExternalModulesRouter extends LunaModuleRouter {
   void defineAllRoutes(FluroRouter router) {
     ExternalModulesHomeRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/external_modules');
+  }
 }
 
 abstract class ExternalModulesPageRouter extends LunaPageRouter {

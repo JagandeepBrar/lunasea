@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+
+import '../../../core/ui.dart';
+import '../../../vendor.dart';
+import '../routes/dashboard/widgets/navigation_bar.dart';
+import 'database.dart';
 
 class DashboardDialogs {
   Future<Tuple2<bool, int>> defaultPage(BuildContext context) async {

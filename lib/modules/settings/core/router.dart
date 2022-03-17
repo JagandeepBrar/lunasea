@@ -82,6 +82,11 @@ class SettingsRouter extends LunaModuleRouter {
     SettingsSystemLogsRouter().defineRoute(router);
     SettingsSystemLogsDetailsRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/settings');
+  }
 }
 
 abstract class SettingsPageRouter extends LunaPageRouter {

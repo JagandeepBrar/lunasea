@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../core/mixins/load_callback.dart';
+import '../../../../../core/ui.dart';
+import '../../../core/adapters/calendar_starting_type.dart';
+import '../../../core/state.dart';
 
 class DashboardAppBarSwitchViewAction extends StatefulWidget {
   final PageController? pageController;
@@ -44,7 +48,7 @@ class _State extends State<DashboardAppBarSwitchViewAction>
 
   @override
   Widget build(BuildContext context) {
-    return Selector<DashboardState, CalendarStartingType>(
+    return Selector<ModuleState, CalendarStartingType>(
       selector: (_, state) => state.calendarStartingType,
       builder: (context, view, _) {
         if (_showButton) {
@@ -52,10 +56,10 @@ class _State extends State<DashboardAppBarSwitchViewAction>
             icon: view.icon,
             onPressed: () {
               if (view == CalendarStartingType.CALENDAR) {
-                context.read<DashboardState>().calendarStartingType =
+                context.read<ModuleState>().calendarStartingType =
                     CalendarStartingType.SCHEDULE;
               } else {
-                context.read<DashboardState>().calendarStartingType =
+                context.read<ModuleState>().calendarStartingType =
                     CalendarStartingType.CALENDAR;
               }
             },

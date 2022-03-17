@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
-import 'package:simple_gesture_detector/simple_gesture_detector.dart';
-import 'package:table_calendar/table_calendar.dart';
+
+import '../../../../../core/database/database.dart';
+import '../../../../../core/modules.dart';
+import '../../../../../core/system/profile.dart';
+import '../../../../../core/extensions.dart';
+import '../../../../../core/ui.dart';
+import '../../../../../vendor.dart';
+import '../../../core/adapters/calendar_starting_day.dart';
+import '../../../core/adapters/calendar_starting_size.dart';
+import '../../../core/adapters/calendar_starting_type.dart';
+import '../../../core/api/data/abstract.dart';
+import '../../../core/api/data/lidarr.dart';
+import '../../../core/api/data/radarr.dart';
+import '../../../core/api/data/sonarr.dart';
+import '../../../core/database.dart';
+import '../../../core/state.dart';
+import '../../dashboard/widgets/navigation_bar.dart';
 
 class DashboardCalendarWidget extends StatefulWidget {
   final Map<DateTime, List<CalendarData>>? events;
@@ -50,7 +63,7 @@ class _State extends State<DashboardCalendarWidget> {
   @override
   void initState() {
     super.initState();
-    DateTime _floored = context.read<DashboardState>().today!.lunaFloor;
+    DateTime _floored = context.read<ModuleState>().today!.lunaFloor;
     _selected = _floored;
     _today = _floored;
     _selectedEvents = widget.events![_floored] ?? [];
@@ -74,7 +87,7 @@ class _State extends State<DashboardCalendarWidget> {
         scaffoldKey: _scaffoldKey,
         module: LunaModule.DASHBOARD,
         hideDrawer: true,
-        body: Selector<DashboardState, CalendarStartingType>(
+        body: Selector<ModuleState, CalendarStartingType>(
           selector: (_, state) => state.calendarStartingType,
           builder: (context, startingType, _) {
             if (startingType == CalendarStartingType.CALENDAR) {
@@ -142,10 +155,10 @@ class _State extends State<DashboardCalendarWidget> {
         DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
       ]),
       builder: (context, dynamic box, _) {
-        DateTime firstDay = context.watch<DashboardState>().today!.subtract(
+        DateTime firstDay = context.watch<ModuleState>().today!.subtract(
               Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data),
             );
-        DateTime lastDay = context.watch<DashboardState>().today!.add(
+        DateTime lastDay = context.watch<ModuleState>().today!.add(
               Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data),
             );
         return SafeArea(

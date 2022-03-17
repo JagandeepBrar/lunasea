@@ -18,6 +18,11 @@ class SonarrRouter extends LunaModuleRouter {
     SonarrReleasesRouter().defineRoute(router);
     SonarrTagsRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/sonarr');
+  }
 }
 
 abstract class SonarrPageRouter extends LunaPageRouter {

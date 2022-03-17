@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
+
+import '../../../../../core/system/profile.dart';
+import '../../../../../core/extensions.dart';
+import '../../../../../core/ui.dart';
+import '../../../../../vendor.dart';
+import '../../../../radarr/core/api_helper.dart';
+import '../../../../radarr/core/state.dart';
+import '../../../../radarr/routes/movie_details/route.dart';
+import '../../../../radarr/routes/releases/route.dart';
 import './abstract.dart';
 
 class CalendarRadarrData extends CalendarData {

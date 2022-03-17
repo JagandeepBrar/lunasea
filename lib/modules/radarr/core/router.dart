@@ -18,6 +18,11 @@ class RadarrRouter extends LunaModuleRouter {
     RadarrSystemStatusRouter().defineRoute(router);
     RadarrTagsRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/radarr');
+  }
 }
 
 abstract class RadarrPageRouter extends LunaPageRouter {

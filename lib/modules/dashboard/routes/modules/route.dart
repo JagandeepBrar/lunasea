@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
+
+import '../../../../core/database/luna_database.dart';
+import '../../../../core/modules.dart';
+import '../../../../core/system/profile.dart';
+import '../../../../core/ui.dart';
+import '../../../../core/utilities/logger.dart';
+import '../dashboard/widgets/navigation_bar.dart';
 
 class DashboardModulesRoute extends StatefulWidget {
   const DashboardModulesRoute({

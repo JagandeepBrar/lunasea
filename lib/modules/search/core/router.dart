@@ -11,6 +11,11 @@ class SearchRouter extends LunaModuleRouter {
     SearchResultsRouter().defineRoute(router);
     SearchSearchRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/search');
+  }
 }
 
 abstract class SearchPageRouter extends LunaPageRouter {

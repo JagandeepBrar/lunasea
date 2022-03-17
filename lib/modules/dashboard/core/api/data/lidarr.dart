@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr.dart';
+
+import '../../../../../core/system/profile.dart';
+import '../../../../../core/ui.dart';
+import '../../../../lidarr/core/api/api.dart';
+import '../../../../lidarr/routes/details_artist.dart';
+import '../../../../lidarr/routes/search_results.dart';
 import './abstract.dart';
 
 class CalendarLidarrData extends CalendarData {

@@ -105,7 +105,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           String data = await LunaLogger().exportLogs();
           bool result = await LunaFileSystem()
-              .export(context, 'logs.json', utf8.encode(data));
+              .save(context, 'logs.json', utf8.encode(data));
           if (result)
             showLunaSuccessSnackBar(
                 title: 'Saved Logs',

@@ -1,6 +1,5 @@
 // Packages
 export 'package:cached_network_image/cached_network_image.dart';
-export 'package:easy_localization/easy_localization.dart';
 export 'package:expandable/expandable.dart';
 export 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 export 'package:flash/flash.dart';

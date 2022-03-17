@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -20,13 +19,15 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
 
   Future<void> _restore(BuildContext context) async {
     try {
-      File? file = await LunaFileSystem().import(context, ['lunasea']);
+      LunaFile? file = await LunaFileSystem().read(context, ['lunasea']);
       if (file != null) {
-        String _data = file.readAsStringSync();
         Tuple2<bool, String> _key =
             await SettingsDialogs().decryptBackup(context);
         if (_key.item1) {
-          String _decrypted = LunaEncryption().decrypt(_key.item2, _data);
+          String _decrypted = LunaEncryption().decrypt(
+            _key.item2,
+            String.fromCharCodes(file.data),
+          );
           if (_decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
             LunaConfiguration().import(context, _decrypted).then(
                   (_) => showLunaSuccessSnackBar(
@@ -41,11 +42,6 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
             );
           }
         }
-      } else {
-        showLunaErrorSnackBar(
-          title: 'Failed to Restore',
-          message: 'Please select a valid file type',
-        );
       }
     } catch (error, stack) {
       LunaLogger().error('Restore Failed', error, stack);

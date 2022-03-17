@@ -26,7 +26,7 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
         String encrypted = LunaEncryption().encrypt(_values.item2, data);
         String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
         if (encrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-          bool result = await LunaFileSystem().export(
+          bool result = await LunaFileSystem().save(
             context,
             '$name.lunasea',
             utf8.encode(encrypted),

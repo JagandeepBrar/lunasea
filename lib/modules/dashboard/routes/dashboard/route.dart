@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
 
-class DashboardHomeRouter extends DashboardPageRouter {
-  DashboardHomeRouter() : super('/dashboard');
+import '../../core/database.dart';
+import '../../core/router.dart';
+import '../calendar/route.dart';
+import '../modules/route.dart';
+import 'widgets/appbar_switch_view_action.dart';
+import 'widgets/navigation_bar.dart';
+
+class HomeRouter extends DashboardPageRouter {
+  HomeRouter() : super('/dashboard');
 
   @override
-  _DashboardHomeRoute widget() => _DashboardHomeRoute();
+  Home widget() => const Home();
 
   @override
   void defineRoute(FluroRouter router) =>
       super.noParameterRouteDefinition(router);
 }
 
-class _DashboardHomeRoute extends StatefulWidget {
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
-  State<_DashboardHomeRoute> createState() => _State();
+  State<Home> createState() => _State();
 }
 
-class _State extends State<_DashboardHomeRoute> {
+class _State extends State<Home> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
 

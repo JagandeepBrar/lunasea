@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/lidarr.dart';
+
+import '../../dashboard/routes/dashboard/route.dart' as dashboard_home;
 
 class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;
@@ -150,7 +151,7 @@ class _State extends State<LidarrReleasesTile> {
           return !route.willHandlePopInternally &&
               route is ModalRoute &&
               (route.settings.name == Lidarr.ROUTE_NAME ||
-                  route.settings.name == DashboardHomeRouter().fullRoute);
+                  route.settings.name == dashboard_home.HomeRouter().fullRoute);
         }),
       );
     }).catchError((error, stack) {

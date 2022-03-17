@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/core/types/header.dart';
+import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
+
+import '../../../core/database/luna_database.dart';
+import '../../../core/firebase/types/backup_document.dart';
+import '../../../core/models/types/browser.dart';
+import '../../../core/system/localization.dart';
+import '../../../core/ui.dart';
+import '../../dashboard/core/adapters/calendar_starting_day.dart';
+import '../../dashboard/core/adapters/calendar_starting_size.dart';
+import '../../dashboard/core/adapters/calendar_starting_type.dart';
 
 class SettingsDialogs {
   Future<Tuple2<bool, int>> setDefaultOption(

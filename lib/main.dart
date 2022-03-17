@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+
+import 'modules/dashboard/routes/dashboard/route.dart' show HomeRouter;
 
 /// LunaSea Entry Point: Initialize & Run Application
 ///
@@ -124,5 +125,5 @@ class _State extends State<LunaOS> {
   }
 
   @override
-  Widget build(BuildContext context) => DashboardHomeRouter().widget();
+  Widget build(BuildContext context) => HomeRouter().widget();
 }

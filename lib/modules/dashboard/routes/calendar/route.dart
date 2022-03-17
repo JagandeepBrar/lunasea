@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+
+import '../../../../core/mixins/load_callback.dart';
+import '../../../../core/ui.dart';
+import '../../../../core/utilities/logger.dart';
+import '../../../../vendor.dart';
+import '../../core/api/data/abstract.dart';
+import '../../core/state.dart';
+import 'widgets/calendar.dart';
 
 class DashboardCalendarRoute extends StatefulWidget {
   const DashboardCalendarRoute({
@@ -21,8 +27,8 @@ class _State extends State<DashboardCalendarRoute>
 
   @override
   Future<void> loadCallback() async {
-    context.read<DashboardState>().resetToday();
-    context.read<DashboardState>().resetUpcoming();
+    context.read<ModuleState>().resetToday();
+    context.read<ModuleState>().resetUpcoming();
   }
 
   @override
@@ -33,7 +39,7 @@ class _State extends State<DashboardCalendarRoute>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: FutureBuilder(
-        future: context.watch<DashboardState>().upcoming,
+        future: context.watch<ModuleState>().upcoming,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {

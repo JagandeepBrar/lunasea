@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/core.dart';
 
-import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/external_modules.dart';
 import 'package:lunasea/modules/search.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -14,6 +13,10 @@ import 'package:lunasea/modules/overseerr.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
+
+import '../modules/dashboard/core/database.dart';
+import '../modules/dashboard/core/state.dart' as dashboard_state;
+import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
 
 part 'modules.g.dart';
 
@@ -267,7 +270,7 @@ extension LunaModuleExtension on LunaModule {
   String? get route {
     switch (this) {
       case LunaModule.DASHBOARD:
-        return DashboardHomeRouter().route();
+        return dashboard_home.HomeRouter().route();
       case LunaModule.LIDARR:
         return Lidarr.ROUTE_NAME;
       case LunaModule.NZBGET:
@@ -359,7 +362,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.DASHBOARD:
-        return context.read<DashboardState>();
+        return context.read<dashboard_state.ModuleState>();
       case LunaModule.SETTINGS:
         return context.read<SettingsState>();
       case LunaModule.SEARCH:

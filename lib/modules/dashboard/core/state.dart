@@ -1,8 +1,13 @@
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+import '../../../core/models/configuration/profile.dart';
+import '../../../core/state/module_state.dart';
+import '../../../core/system/profile.dart';
+import 'adapters/calendar_starting_type.dart';
+import 'api/api.dart';
+import 'api/data/abstract.dart';
+import 'database.dart';
 
-class DashboardState extends LunaModuleState {
-  DashboardState() {
+class ModuleState extends LunaModuleState {
+  ModuleState() {
     reset();
   }
 
@@ -21,11 +26,11 @@ class DashboardState extends LunaModuleState {
     notifyListeners();
   }
 
-  CalendarAPI? _api;
-  CalendarAPI? get api => _api;
+  API? _api;
+  API? get api => _api;
   void resetAPI() {
     ProfileHiveObject? _profile = LunaProfile.current;
-    _api = CalendarAPI.from(_profile);
+    _api = API.from(_profile);
     notifyListeners();
   }
 

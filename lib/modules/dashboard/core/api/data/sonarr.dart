@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
+
+import '../../../../../core/database/luna_database.dart';
+import '../../../../../core/system/profile.dart';
+import '../../../../../core/extensions.dart';
+import '../../../../../core/ui.dart';
+import '../../../../../core/utilities/logger.dart';
+import '../../../../../vendor.dart';
+import '../../../../sonarr/core/state.dart';
+import '../../../../sonarr/routes/releases/route.dart';
+import '../../../../sonarr/routes/series_details/route.dart';
 import './abstract.dart';
 
 class CalendarSonarrData extends CalendarData {

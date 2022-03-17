@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
-import 'package:xml/xml.dart';
 
 class NewznabAPI {
   static const _USER_AGENT =

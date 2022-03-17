@@ -30,6 +30,11 @@ class TautulliRouter extends LunaModuleRouter {
     TautulliLogsPlexMediaServerRouter().defineRoute(router);
     TautulliLogsTautulliRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/tautulli');
+  }
 }
 
 abstract class TautulliPageRouter extends LunaPageRouter {

@@ -7,6 +7,11 @@ class OverseerrRouter extends LunaModuleRouter {
   void defineAllRoutes(FluroRouter router) {
     OverseerrHomeRouter().defineRoute(router);
   }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(path: '/overseerr');
+  }
 }
 
 abstract class OverseerrPageRouter extends LunaPageRouter {

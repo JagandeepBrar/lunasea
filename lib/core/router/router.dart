@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/main.dart';
 
-import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/external_modules.dart';
 import 'package:lunasea/modules/search.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -15,6 +14,8 @@ import 'package:lunasea/modules/overseerr.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
+
+import '../../modules/dashboard/core/router.dart' as dashboard;
 
 class LunaRouter {
   static FluroRouter router = FluroRouter();
@@ -35,7 +36,7 @@ class LunaRouter {
       transitionType: transitionType,
     );
     // Module routers
-    DashboardRouter().defineAllRoutes(router);
+    dashboard.Router().defineAllRoutes(router);
     ExternalModulesRouter().defineAllRoutes(router);
     OverseerrRouter().defineAllRoutes(router);
     RadarrRouter().defineAllRoutes(router);

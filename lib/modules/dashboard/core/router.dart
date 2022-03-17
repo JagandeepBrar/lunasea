@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
 
-class DashboardRouter extends LunaModuleRouter {
+import '../../../core/router/module_router.dart';
+import '../../../core/router/page_router.dart';
+import '../../../core/router/router.dart';
+import '../../../vendor.dart';
+import '../routes/dashboard/route.dart';
+
+enum Routes {
+  HOME,
+}
+
+extension RoutesExtension on Routes {
+  String get path {
+    switch (this) {
+      case Routes.HOME:
+        return '/dashboard';
+    }
+  }
+
+  DashboardPageRouter get router {
+    switch (this) {
+      case Routes.HOME:
+        return HomeRouter();
+    }
+  }
+}
+
+class Router extends LunaModuleRouter {
   @override
   void defineAllRoutes(FluroRouter router) {
-    DashboardHomeRouter().defineRoute(router);
+    Routes.values.forEach((r) => r.router.defineRoute(router));
+  }
+
+  @override
+  GoRoute getRoutes() {
+    return GoRoute(
+      path: Routes.HOME.path,
+      name: Routes.HOME.name,
+      builder: (context, state) => const Home(),
+    );
   }
 }
 

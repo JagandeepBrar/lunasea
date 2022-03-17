@@ -1,20 +1,26 @@
-import 'package:dio/dio.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/dashboard.dart';
+import '../../../../core/models/configuration/profile.dart';
+import '../../../../core/extensions.dart';
+import '../../../../core/ui.dart';
+import '../../../../vendor.dart';
+import '../database.dart';
+import 'data/abstract.dart';
+import 'data/lidarr.dart';
+import 'data/radarr.dart';
+import 'data/sonarr.dart';
 
-class CalendarAPI {
+class API {
   final Map<String, dynamic>? lidarr;
   final Map<String, dynamic>? radarr;
   final Map<String, dynamic>? sonarr;
 
-  CalendarAPI._internal({
+  API._internal({
     required this.lidarr,
     required this.radarr,
     required this.sonarr,
   });
 
-  factory CalendarAPI.from(ProfileHiveObject? profile) {
-    return CalendarAPI._internal(
+  factory API.from(ProfileHiveObject? profile) {
+    return API._internal(
       lidarr: profile?.getLidarr(),
       radarr: profile?.getRadarr(),
       sonarr: profile?.getSonarr(),

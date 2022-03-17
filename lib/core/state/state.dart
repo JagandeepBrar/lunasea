@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:provider/provider.dart';
 
-import 'package:lunasea/modules/dashboard.dart';
-import 'package:lunasea/modules/search.dart';
-import 'package:lunasea/modules/settings.dart';
-
-import 'package:lunasea/modules/lidarr.dart';
-import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/sonarr.dart';
-import 'package:lunasea/modules/overseerr.dart';
-import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:lunasea/modules/nzbget.dart';
-import 'package:lunasea/modules/tautulli.dart';
+import '../../modules/dashboard/core/state.dart' as dashboard;
+import '../../modules/lidarr/core/state.dart';
+import '../../modules/radarr/core/state.dart';
+import '../../modules/search/core/state.dart';
+import '../../modules/settings/core/state.dart';
+import '../../modules/sonarr/core/state.dart';
+import '../../modules/overseerr/core/state.dart';
+import '../../modules/sabnzbd/core/state.dart';
+import '../../modules/nzbget/core/state.dart';
+import '../../modules/tautulli/core/state.dart';
+import '../modules.dart';
 
 class LunaState {
   LunaState._();
@@ -30,7 +30,7 @@ class LunaState {
   /// The [MultiProvider] has a [ChangeNotifierProvider] provider added for each module global state object.
   static MultiProvider providers({required Widget child}) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => DashboardState()),
+          ChangeNotifierProvider(create: (_) => dashboard.ModuleState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),
           ChangeNotifierProvider(create: (_) => SearchState()),
           ChangeNotifierProvider(create: (_) => LidarrState()),

@@ -21,8 +21,6 @@ dependencies:
   expandable: ^5.0.1
   fading_edge_scrollview: ^2.0.1
   file_picker: ^4.5.1
-  file_selector_macos: ^0.8.2
-  file_selector_platform_interface: ^2.0.4
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
   firebase_messaging: ^11.2.11

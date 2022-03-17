@@ -42,7 +42,7 @@ class Desktop implements LunaFileSystem {
         } else {
           showLunaErrorSnackBar(
             title: 'lunasea.InvalidFileTypeSelected'.tr(),
-            message: 'lunasea.PleaseTryAgain'.tr(),
+            message: extensions.map((s) => '.$s').join(', '),
           );
         }
       }

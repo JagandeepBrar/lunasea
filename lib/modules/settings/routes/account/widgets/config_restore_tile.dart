@@ -66,7 +66,7 @@ class _State extends State<SettingsAccountRestoreConfigurationTile> {
       } else {
         showLunaErrorSnackBar(
           title: 'settings.RestoreFromCloudFailure'.tr(),
-          message: 'settings.IncorrectEncryptionKey'.tr(),
+          message: 'lunasea.IncorrectEncryptionKey'.tr(),
           showButton: true,
           buttonText: 'lunasea.Retry'.tr(),
           buttonOnPressed: () async => _decryptBackup(context, encrypted),

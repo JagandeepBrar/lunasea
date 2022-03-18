@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/wake_on_lan.dart' as wake_on_lan;
+
+import '../../../modules/wake_on_lan/api/api.dart';
 
 class LunaDrawer extends StatelessWidget {
   final String page;
@@ -11,17 +12,17 @@ class LunaDrawer extends StatelessWidget {
   }) : super(key: key);
 
   static List<LunaModule> moduleOrderedList() {
-    LunaDatabaseValue dbValue = LunaDatabaseValue.DRAWER_MANUAL_ORDER;
-    List<LunaModule>? _modules = (dbValue.data as List?)?.cast<LunaModule>();
+    final db = LunaDatabaseValue.DRAWER_MANUAL_ORDER.data as List?;
+    final modules = db?.cast<LunaModule>() ?? LunaModule.DASHBOARD.allModules();
+
     // Add any modules that were added after the user set their drawer order preference
-    _modules?.addAll(
-      LunaModule.DASHBOARD.allModules()
-        ..retainWhere(
-          (module) => !_modules!.contains(module),
-        ),
-    );
-    _modules ??= LunaModule.DASHBOARD.allModules();
-    return _modules;
+    List<LunaModule> _missing = LunaModule.DASHBOARD.allModules()
+      ..retainWhere((module) => !modules.contains(module));
+    modules
+      ..addAll(_missing)
+      ..retainWhere((module) => module.featureFlag);
+
+    return modules;
   }
 
   @override
@@ -67,9 +68,7 @@ class LunaDrawer extends StatelessWidget {
 
   List<Widget> _getAlphabeticalOrder(BuildContext context) {
     List<LunaModule> _modules = LunaModule.DASHBOARD.allModules()
-      ..sort((a, b) => a.name.toLowerCase().compareTo(
-            b.name.toLowerCase(),
-          ));
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     return <Widget>[
       ..._sharedHeader(context),
       ..._modules.map((module) {
@@ -140,20 +139,5 @@ class LunaDrawer extends StatelessWidget {
     );
   }
 
-  Future<void> _wakeOnLAN() async {
-    wake_on_lan.API api = wake_on_lan.API.fromProfile();
-    await api
-        .wake()
-        .then((_) => showLunaSuccessSnackBar(
-              title: 'Machine is Waking Up...',
-              message: 'Magic packet successfully sent',
-            ))
-        .catchError((error, stack) {
-      LunaLogger().error('Failed to wake machine', error, stack);
-      return showLunaErrorSnackBar(
-        title: 'Failed to Wake Machine',
-        error: error,
-      );
-    });
-  }
+  Future<void> _wakeOnLAN() async => LunaWakeOnLAN().wake();
 }

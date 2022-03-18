@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 
+import '../../../../core/database/luna_database.dart';
+import '../../../../core/modules.dart';
+import '../../../../core/ui.dart';
+import '../../../../vendor.dart';
 import '../../core/database.dart';
-import '../../core/router.dart';
-import '../calendar/route.dart';
-import '../modules/route.dart';
-import 'widgets/appbar_switch_view_action.dart';
+import '../routes.dart';
+import 'pages/calendar.dart';
+import 'pages/modules.dart';
+import 'widgets/switch_view_action.dart';
 import 'widgets/navigation_bar.dart';
 
 class HomeRouter extends DashboardPageRouter {
@@ -33,9 +36,9 @@ class _State extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _pageController = LunaPageController(
-      initialPage: DashboardDatabaseValue.NAVIGATION_INDEX.data,
-    );
+
+    int page = DashboardDatabaseValue.NAVIGATION_INDEX.data;
+    _pageController = LunaPageController(initialPage: page);
   }
 
   @override
@@ -44,26 +47,19 @@ class _State extends State<Home> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.DASHBOARD,
       body: _body(),
-      drawer: _drawer(),
-      appBar: _appBar() as PreferredSizeWidget?,
-      bottomNavigationBar: _bottomNavigationBar(),
+      appBar: _appBar(),
+      drawer: LunaDrawer(page: LunaModule.DASHBOARD.key),
+      bottomNavigationBar: HomeNavigationBar(pageController: _pageController),
     );
   }
 
-  Widget _drawer() => LunaDrawer(page: LunaModule.DASHBOARD.key);
-
-  Widget _bottomNavigationBar() =>
-      DashboardNavigationBar(pageController: _pageController);
-
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'LunaSea',
       useDrawer: true,
-      scrollControllers: DashboardNavigationBar.scrollControllers,
+      scrollControllers: HomeNavigationBar.scrollControllers,
       pageController: _pageController,
-      actions: [
-        DashboardAppBarSwitchViewAction(pageController: _pageController)
-      ],
+      actions: [SwitchViewAction(pageController: _pageController)],
     );
   }
 
@@ -71,13 +67,11 @@ class _State extends State<Home> {
     return LunaDatabaseValue.ENABLED_PROFILE.listen(
       builder: (context, _, __) => LunaPageView(
         controller: _pageController,
-        children: _tabs,
+        children: [
+          ModulesPage(key: ValueKey(LunaDatabaseValue.ENABLED_PROFILE.data)),
+          CalendarPage(key: ValueKey(LunaDatabaseValue.ENABLED_PROFILE.data)),
+        ],
       ),
     );
   }
-
-  List<Widget> get _tabs => [
-        const DashboardModulesRoute(),
-        const DashboardCalendarRoute(),
-      ];
 }

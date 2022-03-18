@@ -33,23 +33,18 @@ class DashboardDatabase extends LunaModuleDatabase {
     Map<String, dynamic> data = {};
     for (DashboardDatabaseValue value in DashboardDatabaseValue.values) {
       switch (value) {
-        // Non-primitive values
         case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
-          data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data
-                  as CalendarStartingDay)
-              .key;
+          final db = DashboardDatabaseValue.CALENDAR_STARTING_DAY.data;
+          data[value.key] = (db as CalendarStartingDay).key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_SIZE:
-          data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-                  as CalendarStartingSize)
-              .key;
+          final db = DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data;
+          data[value.key] = (db as CalendarStartingSize).key;
           break;
         case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
-          data[value.key] = (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data
-                  as CalendarStartingType)
-              .key;
+          final db = DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data;
+          data[value.key] = (db as CalendarStartingType).key;
           break;
-        // Primitive values
         default:
           data[value.key] = value.data;
           break;
@@ -62,9 +57,8 @@ class DashboardDatabase extends LunaModuleDatabase {
   void import(Map<String, dynamic> config) {
     for (String key in config.keys) {
       DashboardDatabaseValue? value = valueFromKey(key);
-      if (value != null)
+      if (value != null) {
         switch (value) {
-          // Non-primitive values
           case DashboardDatabaseValue.CALENDAR_STARTING_DAY:
             value.put(CalendarStartingDay.MONDAY.fromKey(config[key]));
             break;
@@ -74,11 +68,11 @@ class DashboardDatabase extends LunaModuleDatabase {
           case DashboardDatabaseValue.CALENDAR_STARTING_TYPE:
             value.put(CalendarStartingType.CALENDAR.fromKey(config[key]));
             break;
-          // Primitive values
           default:
             value.put(config[key]);
             break;
         }
+      }
     }
   }
 

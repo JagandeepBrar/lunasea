@@ -1,3 +1,4 @@
+export 'extensions/async_snapshot.dart';
 export 'extensions/datetime.dart';
 export 'extensions/double.dart';
 export 'extensions/duration.dart';

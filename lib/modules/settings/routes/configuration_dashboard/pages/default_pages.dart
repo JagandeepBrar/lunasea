@@ -58,8 +58,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return _db.listen(
       builder: (context, box, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
-        body: [TextSpan(text: DashboardNavigationBar.titles[_db.data])],
-        trailing: LunaIconButton(icon: DashboardNavigationBar.icons[_db.data]),
+        body: [TextSpan(text: HomeNavigationBar.titles[_db.data])],
+        trailing: LunaIconButton(icon: HomeNavigationBar.icons[_db.data]),
         onTap: () async {
           Tuple2<bool, int> values =
               await DashboardDialogs().defaultPage(context);

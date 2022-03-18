@@ -1,7 +1,7 @@
 {
   "name": "lunasea",
   "description": "Self-Hosted Controller",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "private": true,
   "scripts": {
     "prepare": "husky install",

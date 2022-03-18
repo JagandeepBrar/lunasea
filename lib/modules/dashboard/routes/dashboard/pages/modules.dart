@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules/wake_on_lan.dart' as wake_on_lan;
 
 import '../../../../../../core/database/luna_database.dart';
 import '../../../../../../core/modules.dart';
 import '../../../../../../core/system/profile.dart';
 import '../../../../../../core/ui.dart';
-import '../../../../../../core/utilities/logger.dart';
+import '../../../../wake_on_lan/api/api.dart';
 import '../widgets/navigation_bar.dart';
 
 class ModulesPage extends StatefulWidget {
@@ -99,22 +98,7 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
         icon: LunaModule.WAKE_ON_LAN.icon,
         color: LunaModule.WAKE_ON_LAN.color,
       ),
-      onTap: () async {
-        wake_on_lan.API api = wake_on_lan.API.fromProfile();
-        await api
-            .wake()
-            .then((_) => showLunaSuccessSnackBar(
-                  title: 'Machine is Waking Up...',
-                  message: 'Magic packet successfully sent',
-                ))
-            .catchError((error, stack) {
-          LunaLogger().error('Failed to wake machine', error, stack);
-          return showLunaErrorSnackBar(
-            title: 'Failed to Wake Machine',
-            error: error,
-          );
-        });
-      },
+      onTap: () async => LunaWakeOnLAN().wake(),
     );
   }
 }

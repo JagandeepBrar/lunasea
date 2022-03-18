@@ -1,1 +1,5 @@
-{}
+{
+  "wake_on_lan.MagicPacketSent": "Magic Packet Sent",
+  "wake_on_lan.MagicPacketSentMessage": "Your machine should be waking up!",
+  "wake_on_lan.MagicPacketFailedToSend": "Failed to Send Magic Packet"
+}

@@ -17,6 +17,7 @@ import 'package:lunasea/modules/tautulli.dart';
 import '../modules/dashboard/core/database.dart';
 import '../modules/dashboard/core/state.dart' as dashboard_state;
 import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
+import '../modules/wake_on_lan/api/api.dart';
 
 part 'modules.g.dart';
 
@@ -88,7 +89,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.TAUTULLI:
         return true;
       case LunaModule.WAKE_ON_LAN:
-        return true;
+        return LunaWakeOnLAN.isSupported;
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "files": [
-    "README.md"
+    "CONTRIBUTORS.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -24,6 +24,33 @@
       "contributions": [
         "code",
         "translation"
+      ]
+    },
+    {
+      "login": "Qstick",
+      "name": "Qstick",
+      "avatar_url": "https://avatars.githubusercontent.com/u/376117?v=4",
+      "profile": "https://github.com/Qstick",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AliMickey",
+      "name": "Micky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60691199?v=4",
+      "profile": "https://github.com/AliMickey",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "xrths",
+      "name": "xrths",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40337934?v=4",
+      "profile": "http://www.xrths.fr",
+      "contributions": [
+        "doc"
       ]
     },
     {
@@ -69,15 +96,6 @@
       "profile": "https://github.com/iFelix18",
       "contributions": [
         "translation"
-      ]
-    },
-    {
-      "login": "AliMickey",
-      "name": "Micky",
-      "avatar_url": "https://avatars.githubusercontent.com/u/60691199?v=4",
-      "profile": "https://github.com/AliMickey",
-      "contributions": [
-        "doc"
       ]
     },
     {
@@ -153,15 +171,6 @@
       ]
     },
     {
-      "login": "Qstick",
-      "name": "Qstick",
-      "avatar_url": "https://avatars.githubusercontent.com/u/376117?v=4",
-      "profile": "https://github.com/Qstick",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
       "login": "mfrelink",
       "name": "Mark Frelink",
       "avatar_url": "https://avatars.githubusercontent.com/u/3245077?v=4",
@@ -198,15 +207,6 @@
       ]
     },
     {
-      "login": "xrths",
-      "name": "xrths",
-      "avatar_url": "https://avatars.githubusercontent.com/u/40337934?v=4",
-      "profile": "http://www.xrths.fr",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
       "login": "Lisapple",
       "name": "Maxime Leroy",
       "avatar_url": "https://avatars.githubusercontent.com/u/6952213?v=4",
@@ -225,7 +225,7 @@
       ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 8,
   "projectName": "LunaSea",
   "projectOwner": "JagandeepBrar",
   "repoType": "github",

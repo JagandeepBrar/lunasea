@@ -20,10 +20,10 @@ class DashboardDialogs {
       context: context,
       title: 'lunasea.Page'.tr(),
       content: List.generate(
-        DashboardNavigationBar.titles.length,
+        HomeNavigationBar.titles.length,
         (index) => LunaDialog.tile(
-          text: DashboardNavigationBar.titles[index],
-          icon: DashboardNavigationBar.icons[index],
+          text: HomeNavigationBar.titles[index],
+          icon: HomeNavigationBar.icons[index],
           iconColor: LunaColours().byListIndex(index),
           onTap: () => _setValues(true, index),
         ),

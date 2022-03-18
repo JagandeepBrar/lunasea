@@ -2,74 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../core/database/database.dart';
-import '../../../../../core/modules.dart';
-import '../../../../../core/system/profile.dart';
 import '../../../../../core/extensions.dart';
 import '../../../../../core/ui.dart';
 import '../../../../../vendor.dart';
 import '../../../core/adapters/calendar_starting_day.dart';
 import '../../../core/adapters/calendar_starting_size.dart';
-import '../../../core/adapters/calendar_starting_type.dart';
 import '../../../core/api/data/abstract.dart';
 import '../../../core/api/data/lidarr.dart';
 import '../../../core/api/data/radarr.dart';
 import '../../../core/api/data/sonarr.dart';
 import '../../../core/database.dart';
 import '../../../core/state.dart';
-import '../../dashboard/widgets/navigation_bar.dart';
+import 'content_block.dart';
+import 'navigation_bar.dart';
 
-class DashboardCalendarWidget extends StatefulWidget {
-  final Map<DateTime, List<CalendarData>>? events;
+class CalendarView extends StatefulWidget {
+  final Map<DateTime, List<CalendarData>> events;
 
-  const DashboardCalendarWidget({
+  const CalendarView({
     Key? key,
     required this.events,
   }) : super(key: key);
 
   @override
-  State<DashboardCalendarWidget> createState() => _State();
+  State<CalendarView> createState() => _State();
 }
 
-class _State extends State<DashboardCalendarWidget> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late DateTime _today;
+class _State extends State<CalendarView> {
+  final double _calendarBulletSize = 8.0;
+  List<CalendarData> _selectedEvents = [];
+
   late DateTime _selected;
   late CalendarFormat _calendarFormat;
 
-  final TextStyle dayTileStyle = const TextStyle(
-    color: LunaColours.white,
-    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_H3,
-  );
-  final TextStyle outsideDayTileStyle = const TextStyle(
-    color: LunaColours.white70,
-    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_H3,
-  );
-  final TextStyle unavailableTitleStyle = const TextStyle(
-    color: LunaColours.white10,
-    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_H3,
-  );
-  final TextStyle weekdayTitleStyle = const TextStyle(
-    color: LunaColours.accent,
-    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-    fontSize: LunaUI.FONT_SIZE_H3,
-  );
-
-  final double _calendarBulletSize = 8.0;
-  List<CalendarData>? _selectedEvents;
+  late final TextStyle dayStyle = _getTextStyle(LunaColours.white);
+  late final TextStyle outsideStyle = _getTextStyle(LunaColours.white70);
+  late final TextStyle unavailableStyle = _getTextStyle(LunaColours.white10);
+  late final TextStyle weekdayStyle = _getTextStyle(LunaColours.accent);
 
   @override
   void initState() {
     super.initState();
-    DateTime _floored = context.read<ModuleState>().today!.lunaFloor;
-    _selected = _floored;
-    _today = _floored;
-    _selectedEvents = widget.events![_floored] ?? [];
-    _calendarFormat = (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data
-            as CalendarStartingSize)
-        .data;
+
+    final size = DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data;
+    _selected = context.read<ModuleState>().today!.lunaFloor;
+    _selectedEvents = widget.events[_selected] ?? [];
+    _calendarFormat = (size as CalendarStartingSize).data;
+  }
+
+  TextStyle _getTextStyle(Color color) {
+    return TextStyle(
+      color: color,
+      fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+      fontSize: LunaUI.FONT_SIZE_H3,
+    );
   }
 
   void _onDaySelected(DateTime selected, DateTime focused) {
@@ -77,35 +63,22 @@ class _State extends State<DashboardCalendarWidget> {
     if (mounted)
       setState(() {
         _selected = selected.lunaFloor;
-        _selectedEvents = widget.events![selected.lunaFloor];
+        _selectedEvents = widget.events[selected.lunaFloor] ?? [];
       });
   }
 
   @override
   Widget build(BuildContext context) {
-    return LunaScaffold(
-        scaffoldKey: _scaffoldKey,
-        module: LunaModule.DASHBOARD,
-        hideDrawer: true,
-        body: Selector<ModuleState, CalendarStartingType>(
-          selector: (_, state) => state.calendarStartingType,
-          builder: (context, startingType, _) {
-            if (startingType == CalendarStartingType.CALENDAR) {
-              return Padding(
-                child: Column(
-                  children: [
-                    _calendar(),
-                    LunaDivider(),
-                    _calendarList(),
-                  ],
-                ),
-                padding:
-                    EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top),
-              );
-            }
-            return _schedule();
-          },
-        ));
+    return Padding(
+      child: Column(
+        children: [
+          _calendar(),
+          LunaDivider(),
+          _calendarList(),
+        ],
+      ),
+      padding: EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top),
+    );
   }
 
   Widget? _markerBuilder(
@@ -198,26 +171,26 @@ class _State extends State<DashboardCalendarWidget> {
                         .withOpacity(LunaUI.OPACITY_DISABLED),
                     shape: BoxShape.circle,
                   ),
-                  weekendTextStyle: dayTileStyle,
-                  defaultTextStyle: dayTileStyle,
-                  disabledTextStyle: unavailableTitleStyle,
-                  outsideTextStyle: outsideDayTileStyle,
+                  weekendTextStyle: dayStyle,
+                  defaultTextStyle: dayStyle,
+                  disabledTextStyle: unavailableStyle,
+                  outsideTextStyle: outsideStyle,
                   selectedTextStyle: const TextStyle(
                     color: LunaColours.accent,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                   ),
                   markersAlignment: Alignment.bottomCenter,
-                  todayTextStyle: dayTileStyle,
+                  todayTextStyle: dayStyle,
                 ),
                 onFormatChanged: (format) =>
                     setState(() => _calendarFormat = format),
                 daysOfWeekStyle: DaysOfWeekStyle(
-                  weekendStyle: weekdayTitleStyle,
-                  weekdayStyle: weekdayTitleStyle,
+                  weekendStyle: weekdayStyle,
+                  weekdayStyle: weekdayStyle,
                 ),
                 eventLoader: (date) {
-                  if (widget.events?.isEmpty ?? true) return [];
-                  return widget.events![date.lunaFloor] ?? [];
+                  if (widget.events.isEmpty) return [];
+                  return widget.events[date.lunaFloor] ?? [];
                 },
                 calendarFormat: _calendarFormat,
                 availableCalendarFormats: const {
@@ -267,10 +240,10 @@ class _State extends State<DashboardCalendarWidget> {
   }
 
   Widget _calendarList() {
-    if ((_selectedEvents?.length ?? 0) == 0)
+    if (_selectedEvents.isEmpty) {
       return Expanded(
         child: LunaListView(
-          controller: DashboardNavigationBar.scrollControllers[1],
+          controller: HomeNavigationBar.scrollControllers[1],
           children: [
             LunaMessage.inList(text: 'dashboard.NoNewContent'.tr()),
           ],
@@ -278,80 +251,14 @@ class _State extends State<DashboardCalendarWidget> {
               MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
         ),
       );
+    }
+
     return Expanded(
       child: LunaListView(
-        controller: DashboardNavigationBar.scrollControllers[1],
-        children: _selectedEvents!.map(_entry).toList(),
+        controller: HomeNavigationBar.scrollControllers[1],
+        children: _selectedEvents.map(ContentBlock.new).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
-    );
-  }
-
-  Widget _schedule() {
-    if ((widget.events?.length ?? 0) == 0)
-      return LunaListView(
-        controller: DashboardNavigationBar.scrollControllers[1],
-        children: [
-          LunaMessage.inList(text: 'dashboard.NoNewContent'.tr()),
-        ],
-      );
-    return LunaListView(
-      controller: DashboardNavigationBar.scrollControllers[1],
-      children: _buildScheduleDays().expand((element) => element).toList(),
-    );
-  }
-
-  List<List<Widget>> _buildScheduleDays() {
-    List<List<Widget>> days = [];
-    List<DateTime> keys = widget.events!.keys.toList();
-    keys.sort();
-    for (var key in keys) {
-      bool _showPastDays = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data;
-      bool _dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
-      bool _dayHasEvents = widget.events![key]!.isNotEmpty;
-      if ((_showPastDays || _dayInFuture) && _dayHasEvents) {
-        days.add(_day(key));
-      }
-    }
-    return days;
-  }
-
-  List<Widget> _day(DateTime day) {
-    List<Widget> listCards = [];
-    for (int i = 0; i < widget.events![day]!.length; i++)
-      listCards.add(_entry(widget.events![day]![i]));
-    return [
-      LunaHeader(text: DateFormat('EEEE / MMMM dd, y').format(day)),
-      ...listCards,
-    ];
-  }
-
-  Widget _entry(CalendarData event) {
-    Map? headers;
-    switch (event.runtimeType) {
-      case CalendarLidarrData:
-        headers = LunaProfile.current.getLidarr()['headers'];
-        break;
-      case CalendarRadarrData:
-        headers = LunaProfile.current.getRadarr()['headers'];
-        break;
-      case CalendarSonarrData:
-        headers = LunaProfile.current.getSonarr()['headers'];
-        break;
-      default:
-        headers = const {};
-        break;
-    }
-    return LunaBlock(
-      title: event.title,
-      body: event.body,
-      posterHeaders: headers,
-      backgroundHeaders: headers,
-      posterUrl: event.posterUrl(context),
-      posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      backgroundUrl: event.backgroundUrl(context),
-      trailing: event.trailing(context),
-      onTap: () async => event.enterContent(context),
     );
   }
 }

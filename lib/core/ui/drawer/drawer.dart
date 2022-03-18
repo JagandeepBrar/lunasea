@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/wake_on_lan.dart';
+import 'package:lunasea/modules/wake_on_lan.dart' as wake_on_lan;
 
 class LunaDrawer extends StatelessWidget {
   final String page;
@@ -141,7 +141,7 @@ class LunaDrawer extends StatelessWidget {
   }
 
   Future<void> _wakeOnLAN() async {
-    WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
+    wake_on_lan.API api = wake_on_lan.API.fromProfile();
     await api
         .wake()
         .then((_) => showLunaSuccessSnackBar(

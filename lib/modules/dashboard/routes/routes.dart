@@ -4,7 +4,7 @@ import '../../../core/router/module_router.dart';
 import '../../../core/router/page_router.dart';
 import '../../../core/router/router.dart';
 import '../../../vendor.dart';
-import '../routes/dashboard/route.dart';
+import 'dashboard/route.dart';
 
 enum Routes {
   HOME,

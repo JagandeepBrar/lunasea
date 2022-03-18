@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules/wake_on_lan.dart';
+import 'package:lunasea/modules/wake_on_lan.dart' as wake_on_lan;
 
-import '../../../../core/database/luna_database.dart';
-import '../../../../core/modules.dart';
-import '../../../../core/system/profile.dart';
-import '../../../../core/ui.dart';
-import '../../../../core/utilities/logger.dart';
-import '../dashboard/widgets/navigation_bar.dart';
+import '../../../../../../core/database/luna_database.dart';
+import '../../../../../../core/modules.dart';
+import '../../../../../../core/system/profile.dart';
+import '../../../../../../core/ui.dart';
+import '../../../../../../core/utilities/logger.dart';
+import '../widgets/navigation_bar.dart';
 
-class DashboardModulesRoute extends StatefulWidget {
-  const DashboardModulesRoute({
+class ModulesPage extends StatefulWidget {
+  const ModulesPage({
     Key? key,
   }) : super(key: key);
 
@@ -17,22 +17,14 @@ class DashboardModulesRoute extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<DashboardModulesRoute>
-    with AutomaticKeepAliveClientMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return LunaScaffold(
-      scaffoldKey: _scaffoldKey,
-      module: LunaModule.DASHBOARD,
-      hideDrawer: true,
-      body: _list(),
-    );
+    return _list();
   }
 
   Widget _list() {
@@ -44,7 +36,7 @@ class _State extends State<DashboardModulesRoute>
       );
     }
     return LunaListView(
-      controller: DashboardNavigationBar.scrollControllers[0],
+      controller: HomeNavigationBar.scrollControllers[0],
       itemExtent: LunaBlock.calculateItemExtent(1),
       children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
           ? _buildAlphabeticalList()
@@ -108,7 +100,7 @@ class _State extends State<DashboardModulesRoute>
         color: LunaModule.WAKE_ON_LAN.color,
       ),
       onTap: () async {
-        WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
+        wake_on_lan.API api = wake_on_lan.API.fromProfile();
         await api
             .wake()
             .then((_) => showLunaSuccessSnackBar(

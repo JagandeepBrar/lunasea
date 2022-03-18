@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../core/mixins/load_callback.dart';
 import '../../../../../core/ui.dart';
+import '../../../../../vendor.dart';
 import '../../../core/adapters/calendar_starting_type.dart';
 import '../../../core/state.dart';
 
-class DashboardAppBarSwitchViewAction extends StatefulWidget {
+class SwitchViewAction extends StatefulWidget {
   final PageController? pageController;
-  const DashboardAppBarSwitchViewAction({
+  const SwitchViewAction({
     Key? key,
     required this.pageController,
   }) : super(key: key);
@@ -17,8 +17,7 @@ class DashboardAppBarSwitchViewAction extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<DashboardAppBarSwitchViewAction>
-    with LunaLoadCallbackMixin {
+class _State extends State<SwitchViewAction> with LunaLoadCallbackMixin {
   bool _showButton = false;
 
   @override
@@ -28,8 +27,8 @@ class _State extends State<DashboardAppBarSwitchViewAction>
 
   @override
   void initState() {
-    widget.pageController?.addListener(_pageControllerListener);
     super.initState();
+    widget.pageController?.addListener(_pageControllerListener);
   }
 
   @override
@@ -39,11 +38,8 @@ class _State extends State<DashboardAppBarSwitchViewAction>
   }
 
   void _pageControllerListener() {
-    if ((widget.pageController?.page?.round() == 1)) {
-      setState(() => _showButton = true);
-    } else {
-      setState(() => _showButton = false);
-    }
+    int? page = widget.pageController?.page?.round();
+    setState(() => _showButton = page == 1);
   }
 
   @override
@@ -55,13 +51,11 @@ class _State extends State<DashboardAppBarSwitchViewAction>
           return LunaIconButton.appBar(
             icon: view.icon,
             onPressed: () {
-              if (view == CalendarStartingType.CALENDAR) {
-                context.read<ModuleState>().calendarStartingType =
-                    CalendarStartingType.SCHEDULE;
-              } else {
-                context.read<ModuleState>().calendarStartingType =
-                    CalendarStartingType.CALENDAR;
-              }
+              final state = context.read<ModuleState>();
+              if (view == CalendarStartingType.CALENDAR)
+                state.calendarStartingType = CalendarStartingType.SCHEDULE;
+              else
+                state.calendarStartingType = CalendarStartingType.CALENDAR;
             },
           );
         }

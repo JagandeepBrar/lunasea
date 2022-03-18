@@ -1,7 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+
+import '../../../../core/system/networking/networking.dart';
+import '../../../../core/system/platform.dart';
 
 class SettingsConfigurationRouter extends SettingsPageRouter {
   SettingsConfigurationRouter() : super('/settings/configuration');
@@ -79,14 +81,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               SettingsConfigurationLocalizationRouter().navigateTo(context),
         ),
-        LunaBlock(
-          title: 'settings.Network'.tr(),
-          body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.network_check_rounded),
-          onTap: () async =>
-              SettingsConfigurationNetworkRouter().navigateTo(context),
-        ),
-        if (Platform.isIOS)
+        if (LunaNetworking.isSupported)
+          LunaBlock(
+            title: 'settings.Network'.tr(),
+            body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.network_check_rounded),
+            onTap: () async =>
+                SettingsConfigurationNetworkRouter().navigateTo(context),
+          ),
+        if (LunaPlatform().isIOS)
           LunaDatabaseValue.SELECTED_BROWSER.listen(
             builder: (context, box, widget) {
               LunaDatabaseValue _db = LunaDatabaseValue.SELECTED_BROWSER;

@@ -70,7 +70,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async => SettingsProfilesRouter().navigateTo(context),
         ),
         LunaDivider(),
-        if (LunaInAppPurchases.isPlatformCompatible)
+        if (LunaInAppPurchases.isSupported)
           LunaBlock(
             title: 'settings.Donations'.tr(),
             body: [TextSpan(text: 'settings.DonationsDescription'.tr())],

@@ -17,7 +17,7 @@ import 'package:lunasea/modules/tautulli.dart';
 import '../modules/dashboard/core/database.dart';
 import '../modules/dashboard/core/state.dart' as dashboard_state;
 import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
-import '../modules/wake_on_lan/api/api.dart';
+import '../modules/wake_on_lan/api/wake_on_lan.dart';
 
 part 'modules.g.dart';
 

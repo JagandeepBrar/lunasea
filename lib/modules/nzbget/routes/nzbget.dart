@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
+import '../../../core/system/filesystem/file.dart';
+import '../../../core/system/filesystem/filesystem.dart';
+
 class NZBGet extends StatefulWidget {
   static const ROUTE_NAME = '/nzbget';
 

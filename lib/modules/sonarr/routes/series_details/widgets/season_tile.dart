@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';

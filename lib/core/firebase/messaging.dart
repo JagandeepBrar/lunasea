@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
 

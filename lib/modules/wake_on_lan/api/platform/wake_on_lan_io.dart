@@ -4,12 +4,12 @@ import '../../../../core/models/configuration/profile.dart';
 import '../../../../core/system/profile.dart';
 import '../../../../core/ui.dart';
 import '../../../../core/utilities/logger.dart';
-import '../api.dart';
+import '../wake_on_lan.dart';
 
 bool isPlatformSupported() => true;
-LunaWakeOnLAN getWakeOnLAN() => API();
+LunaWakeOnLAN getWakeOnLAN() => IO();
 
-class API implements LunaWakeOnLAN {
+class IO implements LunaWakeOnLAN {
   @override
   Future<void> wake() async {
     ProfileHiveObject profile = LunaProfile.current;

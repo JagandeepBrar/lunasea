@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
+import '../../../../core/system/networking/networking.dart';
+
 class SettingsConfigurationNetworkRouter extends SettingsPageRouter {
   SettingsConfigurationNetworkRouter()
       : super('/settings/configuration/network');
@@ -58,7 +60,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         ],
         trailing: LunaSwitch(
           value: _db.data,
-          onChanged: _db.put,
+          onChanged: (data) {
+            _db.put(data);
+            if (LunaNetworking.isSupported) LunaNetworking().initialize();
+          },
         ),
       ),
     );

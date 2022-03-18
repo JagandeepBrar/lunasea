@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
@@ -64,10 +62,6 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
           'lunasea.Fixes'.tr(),
           _changelog.changesFixes,
         ),
-        ..._buildChangeBlock(
-          'lunasea.PlatformSpecific'.tr(),
-          _changelog.changesPlatform,
-        ),
         const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       ],
       actionBar: LunaBottomActionBar(
@@ -110,50 +104,21 @@ class _Changelog {
   List<_Change> changesNew = [];
   List<_Change> changesTweaks = [];
   List<_Change> changesFixes = [];
-  List<_Change> changesPlatform = [];
 
   static _Changelog fromJson(Map<String, dynamic> json) {
     _Changelog changelog = _Changelog();
-    int _index = -1;
     List<dynamic>? data;
 
-    changelog.motd = json['motd'] ?? '';
+    changelog.motd = json['motd'] ?? 'Welcome to LunaSea!';
 
     data = json['new'];
-    data?.forEach((change) {
-      _Change _change = _Change.fromJson(change);
-      changelog.changesNew.add(_change);
-    });
+    data?.forEach((c) => changelog.changesNew.add(_Change.fromJson(c)));
 
     data = json['tweaks'];
-    data?.forEach((change) {
-      _Change _change = _Change.fromJson(change);
-      changelog.changesTweaks.add(_change);
-    });
+    data?.forEach((c) => changelog.changesTweaks.add(_Change.fromJson(c)));
 
     data = json['fixes'];
-    data?.forEach((change) {
-      _Change _change = _Change.fromJson(change);
-      changelog.changesFixes.add(_change);
-    });
-
-    _index = data?.indexWhere((e) => e['module'] == 'macOS') ?? -1;
-    if (Platform.isMacOS && _index >= 0) {
-      _Change _change = _Change.fromJson(data![_index]);
-      changelog.changesFixes.add(_change);
-    }
-
-    _index = data?.indexWhere((e) => e['module'] == 'Android') ?? -1;
-    if (Platform.isAndroid && _index >= 0) {
-      _Change _change = _Change.fromJson(data![_index]);
-      changelog.changesFixes.add(_change);
-    }
-
-    _index = data?.indexWhere((e) => e['module'] == 'iOS') ?? -1;
-    if (Platform.isIOS && _index >= 0) {
-      _Change _change = _Change.fromJson(data![_index]);
-      changelog.changesFixes.add(_change);
-    }
+    data?.forEach((c) => changelog.changesFixes.add(_Change.fromJson(c)));
 
     return changelog;
   }
@@ -167,8 +132,8 @@ class _Change {
 
   static _Change fromJson(Map<String, dynamic> json) {
     _Change change = _Change._();
-    change.module = json['module']!;
-    change.changes = (json['changes'] as List?)?.cast<String>() ?? [];
+    change.module = json['module'] as String;
+    change.changes = (json['changes'] as List).cast<String>();
     return change;
   }
 }

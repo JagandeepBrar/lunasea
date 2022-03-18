@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/main.dart';
@@ -19,11 +18,7 @@ import '../../modules/dashboard/routes/routes.dart' as dashboard;
 
 class LunaRouter {
   static FluroRouter router = FluroRouter();
-  static TransitionType get transitionType {
-    // Required otherwise no transition is executed
-    if (Platform.isMacOS) return TransitionType.cupertino;
-    return TransitionType.native;
-  }
+  static TransitionType get transitionType => TransitionType.native;
 
   /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
   void initialize() {

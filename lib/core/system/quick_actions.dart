@@ -1,11 +1,12 @@
-import 'dart:io';
 import 'package:lunasea/core.dart';
 import 'package:quick_actions/quick_actions.dart';
+
+import 'platform.dart';
 
 class LunaQuickActions {
   static const QuickActions _quickActions = QuickActions();
 
-  static bool get isPlatformCompatible => Platform.isAndroid || Platform.isIOS;
+  static bool get isPlatformCompatible => LunaPlatform().isMobile;
 
   /// Initialize the quick actions by setting the action handler.
   ///

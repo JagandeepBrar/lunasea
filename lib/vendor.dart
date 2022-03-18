@@ -1,8 +1,9 @@
 // Dart
+export 'dart:async';
 export 'dart:convert';
 export 'dart:math';
+export 'dart:typed_data';
 // Packages
-export 'package:cached_network_image/cached_network_image.dart';
 export 'package:dio/dio.dart';
 export 'package:easy_localization/easy_localization.dart';
 export 'package:expandable/expandable.dart';
@@ -15,6 +16,7 @@ export 'package:hive_flutter/hive_flutter.dart';
 export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:layout/layout.dart';
+export 'package:package_info_plus/package_info_plus.dart';
 export 'package:provider/provider.dart';
 export 'package:simple_gesture_detector/simple_gesture_detector.dart';
 export 'package:stash/stash_api.dart';

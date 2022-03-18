@@ -1,11 +1,11 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 
+import 'core/system/networking/networking.dart';
+import 'core/system/platform.dart';
 import 'modules/dashboard/routes/dashboard/route.dart' show HomeRouter;
 
 /// LunaSea Entry Point: Initialize & Run Application
@@ -21,7 +21,7 @@ Future<void> main() async {
       LunaLogger().initialize();
       LunaTheme().initialize();
       await LunaDesktopWindow().initialize();
-      LunaNetworking().initialize();
+      if (LunaNetworking.isSupported) LunaNetworking().initialize();
       LunaImageCache().initialize();
       LunaRouter().initialize();
       await LunaInAppPurchases().initialize();
@@ -45,7 +45,7 @@ class LunaBIOS extends StatelessWidget {
     LunaRouter router = LunaRouter();
 
     return DevicePreview(
-      enabled: kDebugMode && Platform.isMacOS,
+      enabled: kDebugMode && LunaPlatform().isDesktop,
       builder: (context) => EasyLocalization(
         supportedLocales: localization.supportedLocales as List<Locale>,
         path: localization.fileDirectory,

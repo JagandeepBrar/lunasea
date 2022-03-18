@@ -1,8 +1,8 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:lunasea/core.dart';
+
+import 'platform.dart';
 
 extension ProductDetailsExtension on ProductDetails {
   IconData get icon {
@@ -54,7 +54,7 @@ class LunaInAppPurchases {
   static List<ProductDetails> donationIAPs = [];
   static bool isAvailable = false;
 
-  static bool get isPlatformCompatible => Platform.isAndroid || Platform.isIOS;
+  static bool get isSupported => LunaPlatform().isMobile;
 
   /// Callback function for [purchaseStream].
   static Future<void> _purchasedCallback(
@@ -74,7 +74,7 @@ class LunaInAppPurchases {
   /// - Attach [InAppPurchaseConnection.instance.purchaseUpdateStream] listener for automatically completing IAP purchases
   /// - Fetch and store donation IAPs
   Future<void> initialize() async {
-    if (isPlatformCompatible) {
+    if (isSupported) {
       isAvailable = await connection.isAvailable();
       if (isAvailable) {
         // Open listener

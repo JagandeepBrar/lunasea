@@ -1,17 +1,17 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+
+import 'platform.dart';
 
 class LunaDesktopWindow {
   static const double _MINIMUM_WINDOW_SIZE = 400;
   static const double _INITIAL_WINDOW_SIZE = 700;
 
-  static bool get isPlatformCompatible =>
-      Platform.isWindows || Platform.isMacOS || Platform.isLinux;
+  static bool get isSupported => LunaPlatform().isDesktop;
 
   Future<void> initialize() async {
-    if (isPlatformCompatible) {
+    if (isSupported) {
       await windowManager.ensureInitialized();
       windowManager.waitUntilReadyToShow().then((_) async {
         const Size minSize = Size(_MINIMUM_WINDOW_SIZE, _MINIMUM_WINDOW_SIZE);
@@ -27,7 +27,7 @@ class LunaDesktopWindow {
   }
 
   Future<void> setWindowTitle(String title) async {
-    if (isPlatformCompatible) {
+    if (isSupported) {
       windowManager
           .waitUntilReadyToShow()
           .then((_) async => await windowManager.setTitle(title));

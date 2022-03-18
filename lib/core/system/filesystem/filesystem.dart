@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'file.dart';
-import './platform/filesystem_stub.dart'
-    if (dart.library.io) './platform/filesystem_io.dart'
-    if (dart.library.html) './platform/filesystem_web.dart';
+import 'platform/filesystem_stub.dart'
+    if (dart.library.io) 'platform/filesystem_io.dart'
+    if (dart.library.html) 'platform/filesystem_html.dart';
 
 abstract class LunaFileSystem {
   static bool get isSupported => isPlatformSupported();

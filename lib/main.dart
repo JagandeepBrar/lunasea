@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 
+import 'core/cache/image_cache/image_cache.dart';
 import 'core/system/networking/networking.dart';
 import 'core/system/platform.dart';
 import 'modules/dashboard/routes/dashboard/route.dart' show HomeRouter;
@@ -22,7 +23,7 @@ Future<void> main() async {
       LunaTheme().initialize();
       await LunaDesktopWindow().initialize();
       if (LunaNetworking.isSupported) LunaNetworking().initialize();
-      LunaImageCache().initialize();
+      if (LunaImageCache.isSupported) LunaImageCache().initialize();
       LunaRouter().initialize();
       await LunaInAppPurchases().initialize();
       await LunaLocalization().initialize();

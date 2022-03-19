@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -48,12 +47,10 @@ class LunaNetworkImage extends ClipRRect {
                     fadeOutDuration: const Duration(milliseconds: 1),
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(
-                      url!,
+                    image: LunaNetworkImageProvider(
+                      url: url!,
                       headers: headers?.cast<String, String>(),
-                      cacheManager: LunaImageCache.instance,
-                      errorListener: () {},
-                    ),
+                    ).imageProvider,
                     imageErrorBuilder: (context, error, stack) => SizedBox(
                       height: height,
                       width: width,

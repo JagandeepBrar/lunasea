@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -179,12 +178,10 @@ class LunaBlock extends StatelessWidget {
           milliseconds: LunaUI.ANIMATION_SPEED_IMAGES,
         ),
         fit: BoxFit.cover,
-        image: CachedNetworkImageProvider(
-          backgroundUrl!,
+        image: LunaNetworkImageProvider(
+          url: backgroundUrl!,
           headers: backgroundHeaders?.cast<String, String>(),
-          cacheManager: LunaImageCache.instance,
-          errorListener: () {},
-        ),
+        ).imageProvider,
         imageErrorBuilder: (context, error, stack) => SizedBox(
           height: _height,
           width: MediaQuery.of(context).size.width,

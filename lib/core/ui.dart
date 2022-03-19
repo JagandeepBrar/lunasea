@@ -27,7 +27,7 @@ export 'ui/list_tile.dart';
 export 'ui/list_view.dart';
 export 'ui/loader.dart';
 export 'ui/message.dart';
-export 'ui/network_image.dart';
+export 'ui/images.dart';
 export 'ui/page_view.dart';
 export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';

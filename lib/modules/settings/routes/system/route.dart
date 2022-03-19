@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
+import '../../../../core/cache/image_cache/image_cache.dart';
+
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');
 
@@ -47,7 +49,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         const SettingsSystemBackupRestoreBackupTile(),
         const SettingsSystemBackupRestoreRestoreTile(),
         LunaDivider(),
-        _clearImageCache(),
+        if (LunaImageCache.isSupported) _clearImageCache(),
         _clearConfiguration(),
       ],
     );

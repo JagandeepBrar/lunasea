@@ -44,9 +44,7 @@ class LunaDrawer extends StatelessWidget {
                         ? _getAlphabeticalOrder(context)
                         : _getManualOrder(context),
                     physics: const ClampingScrollPhysics(),
-                    padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom,
-                    ),
+                    padding: MediaQuery.of(context).padding.copyWith(top: 0),
                   ),
                 ),
               ],

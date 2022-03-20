@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -591,7 +591,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea 1647811215";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -729,7 +729,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea 1647811215";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -762,7 +762,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea 1647811233";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -791,7 +791,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea.ImageNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea.ImageNotification";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea.ImageNotification 1647811221";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -818,7 +818,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea.ImageNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea.ImageNotification";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea.ImageNotification 1647811238";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -845,7 +845,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea.ImageNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea.ImageNotification";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea.ImageNotification 1647811221";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

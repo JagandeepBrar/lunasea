@@ -21,15 +21,6 @@ platform :mac do
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
 
-    # Developer ID
-    # match(
-    #   type: "developer_id",
-    #   additional_cert_types: "developer_id_installer",
-    #   readonly: is_ci,
-    #   keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
-    #   keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
-    # )
-
     # App Store Connect
     match(
       type: "appstore",

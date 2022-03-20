@@ -2,6 +2,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFirebaseMessaging {
+  static const _VAPID_KEY =
+      'BGCP2BO8JOTuvagaYl41btXiiC_XszsGCDduq6C-escc4xb2UMglX3RDojCY1YuGMAx2lXGVF-VYmTN3LQGvhYc';
+
   /// Returns an instance of [FirebaseMessaging].
   ///
   /// Throws an error if [LunaFirebase.initialize] has not been called.
@@ -15,7 +18,7 @@ class LunaFirebaseMessaging {
       FirebaseMessaging.onMessageOpenedApp;
 
   /// Returns the Firebase Cloud Messaging device token for this device.
-  Future<String?> get token async => instance.getToken();
+  Future<String?> get token async => instance.getToken(vapidKey: _VAPID_KEY);
 
   /// Request for permission to send a user notifications.
   ///

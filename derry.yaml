@@ -1,24 +1,27 @@
 build:
   android:
-    apk:
-      (description): Build (Android) - Build Split APKs
-      (execution): once
-      (scripts):
-        - flutter clean
-        - flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release
+    (description): Build (Android) - Split APKs
+    (execution): once
+    (scripts):
+      - flutter clean
+      - flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release
   ios:
-    ipa:
-      (description): Build (iOS) - Build IPA
-      (execution): once
-      (scripts):
-        - flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release
+    (description): Build (iOS) - IPA
+    (execution): once
+    (scripts):
+      - flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release
   macos:
-    archive:
-      (description): Build (iOS) - Build Xcode Archive
-      (execution): once
-      (scripts):
-        - flutter clean
-        - flutter build macos --release
+    (description): Build (macOS) - Xcode Archive
+    (execution): once
+    (scripts):
+      - flutter clean
+      - flutter build macos --release
+  web:
+    (description): Build (Web) - CanvasKit
+    (execution): once
+    (scripts):
+      - flutter clean
+      - flutter build web --web-renderer canvaskit --release
 
 cocoapods:
   clear_cache:

@@ -9,6 +9,7 @@ build:
     (description): Build (iOS) - IPA
     (execution): once
     (scripts):
+      - flutter clean
       - flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release
   macos:
     (description): Build (macOS) - Xcode Archive

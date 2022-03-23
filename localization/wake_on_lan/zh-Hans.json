@@ -1,1 +1,5 @@
-{}
+{
+    "wake_on_lan.MagicPacketSent": "已发送幻包",
+    "wake_on_lan.MagicPacketSentMessage": "您的机器正在唤醒！",
+    "wake_on_lan.MagicPacketFailedToSend": "幻包发送失败"
+}

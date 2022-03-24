@@ -87,7 +87,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: web-${{ inputs.flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/build/web
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.2.5

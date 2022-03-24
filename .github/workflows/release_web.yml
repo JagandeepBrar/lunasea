@@ -1,0 +1,116 @@
+name: '[Release] Web'
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        required: true
+        type: string
+      track:
+        required: true
+        type: string
+
+    secrets:
+      DISCORD_WEBHOOK:
+        required: true
+      FIREBASE_OPTIONS:
+        required: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Source Files
+        uses: actions/download-artifact@v2
+        with:
+          name: lib-${{ github.sha }}
+          path: ${{ github.workspace }}/lib
+
+      - name: Download Localization Files
+        uses: actions/download-artifact@v2
+        with:
+          name: localization-${{ github.sha }}
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: ${{ github.sha }}
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+      
+      - name: Build LunaSea
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter build web --web-renderer canvaskit --release
+
+      - name: Upload Web Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}/build/web
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.track }}]` Web Build'
+          description: web-${{ inputs.flavor }}-${{ github.sha }}
+  
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download Web Build Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: web-${{ inputs.flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: web-deployment
+          folder: ${{ github.workspace}}/build/web
+          git-config-name: ${{ github.sha }}
+          clean: true
+          clean-exclude: |
+            CNAME
+      
+      - name: Tag Deployment
+        uses: richardsimko/update-tag@v1
+        with:
+          tag_name: 'web-${{ inputs.flavor }}'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          title: '`[${{ inputs.track }}]` Web Deployment'
+          description: web-${{ inputs.flavor }}-${{ github.sha }}

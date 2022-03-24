@@ -104,3 +104,15 @@ jobs:
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+  web:
+    name: Web
+    needs: [ prepare, validate ]
+    if: ${{ needs.prepare.outputs.flavor == 'internal' }}
+    uses: JagandeepBrar/LunaSea/.github/workflows/release_web.yml@master
+    with:
+      flavor: ${{ needs.prepare.outputs.flavor }}
+      track: ${{ needs.prepare.outputs.track }}
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}

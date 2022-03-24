@@ -129,13 +129,6 @@ jobs:
           bundle install
           bundle exec fastlane deploy track:${{ inputs.flavor }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
 
-      - name: Tag Deployment
-        uses: richardsimko/update-tag@v1
-        with:
-          tag_name: 'android-${{ inputs.flavor }}'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
       - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         if: always()

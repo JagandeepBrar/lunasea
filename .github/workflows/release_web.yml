@@ -98,13 +98,6 @@ jobs:
           clean: true
           clean-exclude: |
             CNAME
-      
-      - name: Tag Deployment
-        uses: richardsimko/update-tag@v1
-        with:
-          tag_name: 'web-${{ inputs.flavor }}'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1

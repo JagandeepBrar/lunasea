@@ -19,7 +19,7 @@ Future<void> main() async {
     () async {
       //LunaSea initialization
       await Database().initialize();
-      await LunaFirebase().initialize();
+      if (LunaFirebase.isSupported) await LunaFirebase().initialize();
       LunaLogger().initialize();
       LunaTheme().initialize();
       if (LunaWindowManager.isSupported) await LunaWindowManager().initialize();
@@ -113,7 +113,7 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _boot() async {
-    _initNotifications();
+    if (LunaFirebase.isSupported) _initNotifications();
 
     String? tag = LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag;
     tag ??= LunaLanguage.ENGLISH.languageTag;

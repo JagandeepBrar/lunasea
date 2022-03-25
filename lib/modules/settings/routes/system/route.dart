@@ -123,7 +123,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         bool result = await SettingsDialogs().clearConfiguration(context);
         if (result) {
           Database().bootstrap();
-          LunaFirebaseAuth().signOut();
+          if (LunaFirebase.isSupported) LunaFirebaseAuth().signOut();
           LunaState.reset(context);
           showLunaSuccessSnackBar(
             title: 'Configuration Cleared',

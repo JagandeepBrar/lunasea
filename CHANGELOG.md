@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.0.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.0...v10.0.1) (2022-03-25)
+
+
+### Features
+
+* **config:** support retrying entering encryption password on failure ([cd9a3d2](https://github.com/JagandeepBrar/LunaSea/commit/cd9a3d295e87b7d8987e508e6c77b02c1c5290f8))
+* **filesystem:** rewrite filesystem interface for better compatability ([4c60df5](https://github.com/JagandeepBrar/LunaSea/commit/4c60df5523b98da3a7f135bb26fa20b36ed653e9))
+* **ios:** enable landscape support on iOS devices ([f8e6760](https://github.com/JagandeepBrar/LunaSea/commit/f8e676015c26f1e33f8680043663ea4f25dbc872))
+* **web:** initial web support ([91e1fa0](https://github.com/JagandeepBrar/LunaSea/commit/91e1fa03d9fae7cf82d158f00587075b29c610ea))
+* **window_manager:** rewrite window manager to be platform-safe ([d6aed6c](https://github.com/JagandeepBrar/LunaSea/commit/d6aed6c707ad75c0a02c3a4fa496ee6d8adeb55e))
+
+
+### Bug Fixes
+
+* **android:** prevent multiple splash screens from appearing on Android 12 ([26523e5](https://github.com/JagandeepBrar/LunaSea/commit/26523e58ed12c8789c5c2c0df8d9f6e75e719f11))
+* **web:** set notification vapid key ([1ddcc27](https://github.com/JagandeepBrar/LunaSea/commit/1ddcc279dd6adf629a2f99939a567481e3675bd2))
+
+
+### Tweaks
+
+* **images:** guard and fallback image cache implementation ([601d82c](https://github.com/JagandeepBrar/LunaSea/commit/601d82cf89a22890d4197d10e1b74dbe110b0755))
+* **platform:** guard usages of dart:io and dart:html for future compatability ([c7bd62d](https://github.com/JagandeepBrar/LunaSea/commit/c7bd62de2ee5669b41e6ccbc5e706ecb237cbcac))
+* **wake_on_lan:** refactor wake on LAN support, support loading API with dart:html ([403edc1](https://github.com/JagandeepBrar/LunaSea/commit/403edc16fb8188bba9bb6dd5b60a128dc8c2b0d4))
+
 ## [10.0.0](https://github.com/JagandeepBrar/LunaSea/compare/v6.0.1...v10.0.0) (2022-03-12)
 
 

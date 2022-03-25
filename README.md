@@ -2,7 +2,7 @@
 
 [![App Store](https://img.shields.io/badge/%20download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
-[![License](https://img.shields.io/github/license/JagandeepBrar/LunaSea?style=flat)](https://github.com/JagandeepBrar/LunaSea/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/JagandeepBrar/LunaSea?style=flat)](https://github.com/JagandeepBrar/LunaSea/blob/master/LICENSE.md)
 
 LunaSea is a fully featured, open source self-hosted controller focused on giving you a seamless experience between all of your self-hosted media software remotely on your devices. LunaSea currently supports:
 

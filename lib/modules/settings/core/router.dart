@@ -7,9 +7,17 @@ class SettingsRouter extends LunaModuleRouter {
   void defineAllRoutes(FluroRouter router) {
     SettingsHomeRouter().defineRoute(router);
     // Account
-    SettingsAccountRouter().defineRoute(router);
-    SettingsAccountPasswordResetRouter().defineRoute(router);
-    SettingsAccountSettingsRouter().defineRoute(router);
+    if (LunaFirebase.isSupported) {
+      SettingsAccountRouter().defineRoute(router);
+      SettingsAccountPasswordResetRouter().defineRoute(router);
+      SettingsAccountSettingsRouter().defineRoute(router);
+      SettingsNotificationsRouter().defineRoute(router);
+    }
+    // Donations
+    if (LunaInAppPurchases.isSupported) {
+      SettingsDonationsRouter().defineRoute(router);
+      SettingsDonationsThankYouRouter().defineRoute(router);
+    }
     // Configuration
     SettingsConfigurationRouter().defineRoute(router);
     SettingsConfigurationAppearanceRouter().defineRoute(router);
@@ -73,9 +81,6 @@ class SettingsRouter extends LunaModuleRouter {
     SettingsDebugMenuRouter().defineRoute(router);
     SettingsSystemDebugMenuUIRouter().defineRoute(router);
     // Other
-    SettingsDonationsRouter().defineRoute(router);
-    SettingsDonationsThankYouRouter().defineRoute(router);
-    SettingsNotificationsRouter().defineRoute(router);
     SettingsProfilesRouter().defineRoute(router);
     SettingsResourcesRouter().defineRoute(router);
     SettingsSystemRouter().defineRoute(router);

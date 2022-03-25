@@ -45,24 +45,27 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        LunaBlock(
-          title: 'settings.Account'.tr(),
-          body: [TextSpan(text: 'settings.AccountDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.person_rounded),
-          onTap: () async => SettingsAccountRouter().navigateTo(context),
-        ),
+        if (LunaFirebase.isSupported)
+          LunaBlock(
+            title: 'settings.Account'.tr(),
+            body: [TextSpan(text: 'settings.AccountDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.person_rounded),
+            onTap: () async => SettingsAccountRouter().navigateTo(context),
+          ),
         LunaBlock(
           title: 'settings.Configuration'.tr(),
           body: [TextSpan(text: 'settings.ConfigurationDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.device_hub_rounded),
           onTap: () async => SettingsConfigurationRouter().navigateTo(context),
         ),
-        LunaBlock(
-          title: 'settings.Notifications'.tr(),
-          body: [TextSpan(text: 'settings.NotificationsDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.notifications_rounded),
-          onTap: () async => SettingsNotificationsRouter().navigateTo(context),
-        ),
+        if (LunaFirebase.isSupported)
+          LunaBlock(
+            title: 'settings.Notifications'.tr(),
+            body: [TextSpan(text: 'settings.NotificationsDescription'.tr())],
+            trailing: const LunaIconButton(icon: Icons.notifications_rounded),
+            onTap: () async =>
+                SettingsNotificationsRouter().navigateTo(context),
+          ),
         LunaBlock(
           title: 'settings.Profiles'.tr(),
           body: [TextSpan(text: 'settings.ProfilesDescription'.tr())],

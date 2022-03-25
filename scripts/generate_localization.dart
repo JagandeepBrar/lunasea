@@ -5,7 +5,7 @@ import 'dart:io';
 
 /// Simple dart script to concat all module's localization files into a single file for loading into LunaSea.
 ///
-/// This script is designed to be run from the root of the project, using derry: `derry run build_localizations`.
+/// This script is designed to be run from the root of the project.
 void main() {
   // Check and delete any found prepared localizations
   Directory _assets = Directory('assets/localization');

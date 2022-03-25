@@ -57,8 +57,7 @@ jobs:
       - name: Generate
         working-directory: ${{ github.workspace }}
         run: |
-          dart pub global activate derry
-          derry generate localization
+          dart ./scripts/generate_localization.dart
       
       - name: Upload Localization Files
         uses: actions/upload-artifact@v2

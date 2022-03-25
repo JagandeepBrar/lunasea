@@ -97,5 +97,3 @@ flutter_icons:
 flutter_native_splash:
   image: "assets/images/branding_full.png"
   color: "#32323E"
-
-scripts: derry.yaml

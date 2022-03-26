@@ -62,9 +62,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
           String version = 'Loading${LunaUI.TEXT_ELLIPSIS}';
           if (snapshot.hasError) version = 'Unknown';
-          if (snapshot.hasData)
-            version =
-                '${snapshot.data!.version} (${snapshot.data!.buildNumber})';
+          if (snapshot.hasData) version = snapshot.data!.version;
           return LunaBlock(
             title: 'Version: $version',
             body: [

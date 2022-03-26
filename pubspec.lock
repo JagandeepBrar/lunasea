@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "36.0.0"
+    version: "38.0.0"
   analyzer:
     dependency: "direct overridden"
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.1"
+    version: "3.4.1"
   archive:
     dependency: transitive
     description:
@@ -745,11 +745,13 @@ packages:
     source: hosted
     version: "1.4.0"
   package_info_plus_linux:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: package_info_plus_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/package_info_plus/package_info_plus_linux"
+      ref: main
+      resolved-ref: "5f15844aa4531a9de13c1659883f247938833f19"
+      url: "https://github.com/fluttercommunity/plus_plugins.git"
+    source: git
     version: "1.0.3"
   package_info_plus_macos:
     dependency: transitive
@@ -773,11 +775,13 @@ packages:
     source: hosted
     version: "1.0.4"
   package_info_plus_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: package_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/package_info_plus/package_info_plus_windows"
+      ref: main
+      resolved-ref: "5f15844aa4531a9de13c1659883f247938833f19"
+      url: "https://github.com/fluttercommunity/plus_plugins.git"
+    source: git
     version: "1.0.4"
   path:
     dependency: transitive

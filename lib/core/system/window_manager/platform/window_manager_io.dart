@@ -26,12 +26,7 @@ class IO implements LunaWindowManager {
         LunaWindowManager.MINIMUM_WINDOW_SIZE,
         LunaWindowManager.MINIMUM_WINDOW_SIZE,
       );
-      const Size size = Size(
-        LunaWindowManager.INITIAL_WINDOW_SIZE,
-        LunaWindowManager.INITIAL_WINDOW_SIZE,
-      );
 
-      if (!kDebugMode) await windowManager.setSize(size);
       await windowManager.setMinimumSize(minSize);
       setWindowTitle('LunaSea');
 

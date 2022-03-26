@@ -58,7 +58,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **modules:** remove canonical module import file [skip ci] ([0cbd61e](https://github.com/JagandeepBrar/LunaSea/commit/0cbd61eac5c8e8675b3dd5702977c99e06ca81d5))
 * **overseerr:** utilize JsonEnum generators in enum types [skip ci] ([76d530e](https://github.com/JagandeepBrar/LunaSea/commit/76d530ed0810724d9b61bb73b689d6afb23d4ebd))
 
-## [6.0.1](https://github.com/JagandeepBrar/LunaSea/compare/v6.0.0...v6.0.1) (2022-01-25)
+### [6.0.1](https://github.com/JagandeepBrar/LunaSea/compare/v6.0.0...v6.0.1) (2022-01-25)
 
 
 ### Features
@@ -66,6 +66,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **dev:** adopt standard-version for changelog generation ([#602](https://github.com/JagandeepBrar/LunaSea/issues/602)) ([c189fb3](https://github.com/JagandeepBrar/LunaSea/commit/c189fb3632aaa84ce51b3f86cd3308e9b67fce74))
 * **development:** integrate Husky, Commitizen, and Conventional Changelog ([fd8e061](https://github.com/JagandeepBrar/LunaSea/commit/fd8e061a81ee93a2bb3476a293f116dd69e472be))
 * **env:** Load environment at build-time ([#578](https://github.com/JagandeepBrar/LunaSea/issues/578)) ([1d0f2ab](https://github.com/JagandeepBrar/LunaSea/commit/1d0f2ab3873380d178b17fce8c1854d88d179384))
+
 
 ### Bug Fixes
 
@@ -110,6 +111,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **workflows:** Improve quality of alpha build workflows ([3778189](https://github.com/JagandeepBrar/LunaSea/commit/3778189eadf4318c59ea6938164d1eec85933fcc))
 
 ## 6.0.0
+
 
 ### Features
 
@@ -156,22 +158,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/UX:** (Icons) Added/updated brand icons for Lidarr, Sonarr, and Overseerr
 * **UI/UX:** (Tile Blocks) Allow overflowing title or body lines to be horizontally scrolled
 
-### Tweaks
-
-* **Dashboard:** (Modules) Always use module's brand colour for module list
-* **UI/UX:** (Drawer) Use module's brand colour for highlighted colour
-* **UI/UX:** (Drawer) Heavily reduced the size of the header area
-* **UI/UX:** (Drawer) Use the primary colour as the background colour
-* **UI/UX:** (Fonts) Normalized font sizes across the UI
-* **UI/UX:** (Icons) Ensure all icons are of the "rounded" family
-* **UI/UX:** (Icons) Replace custom icons (except branding icons) with Flutter defaults
-* **UI/UX:** (Images) Set the default image opacity to 20% (custom set values are unaffected)
-* **UI/UX:** (Tile Blocks) Heavily improved build and memory performance of tiles
-* **UI/UX:** (Tile Blocks) Improved consistency in trailing icon/text size
-* **UI/UX:** (Tile Blocks) Improved consistency of tile height, content spacing, and padding
-* **UI/UX:** (Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.
-* **UI/UX:** (Tile Blocks) Fade-in background image loads
-* **UI/UX:** (Tooltips) Added styling to match LunaSea theme
 
 ### Bug Fixes
 
@@ -201,7 +187,26 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/UX:** (Snackbar) Snackbar would not be shown in some cases
 * **UI/UX:** (Theme) Removed deprecated theme values
 
+
+### Tweaks
+
+* **Dashboard:** (Modules) Always use module's brand colour for module list
+* **UI/UX:** (Drawer) Use module's brand colour for highlighted colour
+* **UI/UX:** (Drawer) Heavily reduced the size of the header area
+* **UI/UX:** (Drawer) Use the primary colour as the background colour
+* **UI/UX:** (Fonts) Normalized font sizes across the UI
+* **UI/UX:** (Icons) Ensure all icons are of the "rounded" family
+* **UI/UX:** (Icons) Replace custom icons (except branding icons) with Flutter defaults
+* **UI/UX:** (Images) Set the default image opacity to 20% (custom set values are unaffected)
+* **UI/UX:** (Tile Blocks) Heavily improved build and memory performance of tiles
+* **UI/UX:** (Tile Blocks) Improved consistency in trailing icon/text size
+* **UI/UX:** (Tile Blocks) Improved consistency of tile height, content spacing, and padding
+* **UI/UX:** (Tile Blocks) Natively draw placeholder posters for movies, series, albums, etc.
+* **UI/UX:** (Tile Blocks) Fade-in background image loads
+* **UI/UX:** (Tooltips) Added styling to match LunaSea theme
+
 ## 5.1.0
+
 
 ### Features
 
@@ -210,12 +215,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **External Modules:** Ability to add and view external modules
 * **Performance:** Build LunaSea with pre-compiled SkSL shaders
 
-### Tweaks
-
-* **Dashboard:** (Calendar) Add divider between calendar and calendar entries
-* **Dashboard:** (Modules) Synchronize module ordering with drawer ordering
-* **Drawer:** Default to sorting modules alphabetically
-* **Settings:** (Configuration) Alphabetically sort the modules
 
 ### Bug Fixes
 
@@ -233,13 +232,23 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/UX:** (Buttons) Border would incorrectly be applied to buttons with a background colour set
 * **UI/UX:** (ListView) Vertical padding did not match horizontal padding
 
-## 5.0.1
+
+### Tweaks
+
+* **Dashboard:** (Calendar) Add divider between calendar and calendar entries
+* **Dashboard:** (Modules) Synchronize module ordering with drawer ordering
+* **Drawer:** Default to sorting modules alphabetically
+* **Settings:** (Configuration) Alphabetically sort the modules
+
+### 5.0.1
+
 
 ### Bug Fixes
 
 * **iOS:** LunaSea would hard crash on startup on iOS 12 or lower devices
 
 ## 5.0.0
+
 
 ### Features
 
@@ -286,6 +295,40 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/UX:** (Experience) If the keyboard is open, scrolling the list, swiping between pages, or opening the drawer will dismiss the keyboard
 * **UI/UX:** (Experience) Added haptic feedback to all buttons, toggles, and dropdowns
 
+
+### Bug Fixes
+
+* **Android:** Remove legacy external storage permission
+* **Dashboard:** (Calendar) Stored current date would not update on date change
+* **Flutter:** Fully upgrade to Flutter v2
+* **Flutter:** Update packages
+* **iOS:** Share sheet would not appear on iPadOS devices
+* **Networking:** Headers would not get attached in some networking configurations
+* **NZBGet:** (Queue) Would not refresh in some cases when switching profiles
+* **Quick Actions:** Improve package internal native channel
+* **SABnzbd:** (Queue) Would not refresh in some cases when switching profiles
+* **Settings:** (Configuration) Newly set headers would sometimes not be passed to the connection test
+* **Sonarr:** (Add) Series type would not be set correctly when adding a new series
+* **Sonarr:** (Edit) Series path prompt would show an incorrect title
+* **Sonarr:** (Queue) Ensure the trailing icon on queue entries is centered vertically
+* **Sonarr:** (Releases) Default sorting direction was using catalogue default value
+* **Strings:** Safe-guard many substring operations
+* **Tautulli:** (Activity) Play/paused/buffering icon was not properly left aligned to the text
+* **Tautulli:** (Graphs) Description of some graphs were not correct (Thanks @ZuluWhiskey!)
+* **Tautulli:** (IPs) Fix location showing as null for local addresses
+* **Tautulli:** (Users) User images would not be fetched on newer versions of Tautulli
+* **UI/UX:** (Bottom Sheet) Reduce swipe down to dismiss threshold to 10% of height
+* **UI/UX:** (Design) Margin/size of sort/filter buttons were off by a few pixels
+* **UI/UX:** (Design) InkWell splash now clips correctly to the rounded borders of popup menu buttons
+* **UI/UX:** (Design) Vertical padding around title when the profile dropdown is visible was incorrect
+* **UI/UX:** (Design) Some elements were using the system colours instead of the LunaSea colours
+* **UI/UX:** (Images) Normalize size of all branded logos to have the same widths for consistency
+* **UI/UX:** (Images) Prevent attempting to load background images that are passed an empty URL
+* **UI/UX:** (Snackbar) Remove all uses of the deprecated snackbar
+* **UI/UX:** (Snackbar) All error snackbar will now have a button to view the error
+* **URLs:** Safe-guard launching specific invalid URLs
+
+
 ### Tweaks
 
 * **-arr:** (Releases) Improve the layout of the rejection reasons dialog
@@ -328,55 +371,27 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/UX:** (Navigation) Jump instead of animate to page when tapping a navbar item
 * **UI/UX:** (Profiles) Highlight active profile in profile switcher popup menus
 
-### Bug Fixes
+### 4.2.1
 
-* **Android:** Remove legacy external storage permission
-* **Dashboard:** (Calendar) Stored current date would not update on date change
-* **Flutter:** Fully upgrade to Flutter v2
-* **Flutter:** Update packages
-* **iOS:** Share sheet would not appear on iPadOS devices
-* **Networking:** Headers would not get attached in some networking configurations
-* **NZBGet:** (Queue) Would not refresh in some cases when switching profiles
-* **Quick Actions:** Improve package internal native channel
-* **SABnzbd:** (Queue) Would not refresh in some cases when switching profiles
-* **Settings:** (Configuration) Newly set headers would sometimes not be passed to the connection test
-* **Sonarr:** (Add) Series type would not be set correctly when adding a new series
-* **Sonarr:** (Edit) Series path prompt would show an incorrect title
-* **Sonarr:** (Queue) Ensure the trailing icon on queue entries is centered vertically
-* **Sonarr:** (Releases) Default sorting direction was using catalogue default value
-* **Strings:** Safe-guard many substring operations
-* **Tautulli:** (Activity) Play/paused/buffering icon was not properly left aligned to the text
-* **Tautulli:** (Graphs) Description of some graphs were not correct (Thanks @ZuluWhiskey!)
-* **Tautulli:** (IPs) Fix location showing as null for local addresses
-* **Tautulli:** (Users) User images would not be fetched on newer versions of Tautulli
-* **UI/UX:** (Bottom Sheet) Reduce swipe down to dismiss threshold to 10% of height
-* **UI/UX:** (Design) Margin/size of sort/filter buttons were off by a few pixels
-* **UI/UX:** (Design) InkWell splash now clips correctly to the rounded borders of popup menu buttons
-* **UI/UX:** (Design) Vertical padding around title when the profile dropdown is visible was incorrect
-* **UI/UX:** (Design) Some elements were using the system colours instead of the LunaSea colours
-* **UI/UX:** (Images) Normalize size of all branded logos to have the same widths for consistency
-* **UI/UX:** (Images) Prevent attempting to load background images that are passed an empty URL
-* **UI/UX:** (Snackbar) Remove all uses of the deprecated snackbar
-* **UI/UX:** (Snackbar) All error snackbar will now have a button to view the error
-* **URLs:** Safe-guard launching specific invalid URLs
-
-## 4.2.1
 
 ### Features
 
 * **Accounts:** Ability to send a password reset email
 * **Accounts:** Associate the LunaSea website domain for better autofill support
 
-### Tweaks
-
-* **Sonarr/Upcoming:** Change "Not Downloaded" to "Missing"
 
 ### Bug Fixes
 
 * **Alerts/Changelog:** Changelog would be shown again when restoring a backup from a previous version
 * **Sonarr/Add:** Fixed error log showing series ID as null
 
+
+### Tweaks
+
+* **Sonarr/Upcoming:** Change "Not Downloaded" to "Missing"
+
 ## 4.2.0
+
 
 ### Features
 
@@ -389,13 +404,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings/Modules:** Add an information/help button with module descriptions and links
 * **Sonarr/Releases:** Added loading state to download buttons to prevent triggering multiple downloads of the same release
 
-### Tweaks
-
-* **Radarr:** Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
-* **Settings:** Moved "Backup & Restore" and "Logs" to "System" section
-* **Settings:** Merged "Customization" and "Modules" sections into "Configuration"
-* **Settings/Sonarr:** Removed the need to enable Sonarr to test the connection
-* **Settings/Tautulli:** Removed the need to enable Tautulli to test the connection
 
 ### Bug Fixes
 
@@ -410,7 +418,17 @@ All notable changes to this project will be documented in this file. See [standa
 * **Tautulli/Activity:** Fixed consistency of hardware transcoding indicator compared to the web UI
 * **UI/Divider:** Fixed consistency of divider width across regular and AMOLED dark theme
 
-## 4.1.1
+
+### Tweaks
+
+* **Radarr:** Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
+* **Settings:** Moved "Backup & Restore" and "Logs" to "System" section
+* **Settings:** Merged "Customization" and "Modules" sections into "Configuration"
+* **Settings/Sonarr:** Removed the need to enable Sonarr to test the connection
+* **Settings/Tautulli:** Removed the need to enable Tautulli to test the connection
+
+### 4.1.1
+
 
 ### Bug Fixes
 
@@ -418,6 +436,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **Routing:** Fix black screen when popping back from nested calendar routes
 
 ## 4.1.0
+
 
 ### Features
 
@@ -445,14 +464,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **Tautulli/Activity:** Show the ETA for when the session will be completed
 * **Tautulli/Activity:** Show if hardware transcoding is being used on the stream
 
-### Tweaks
-
-* **Radarr:** Use Radarr v3 icon across the UI
-* **Settings/Dialogs:** Small tweaks and additional notes for entering hosts and passwords
-* **Settings/Host Dialog:** Add validator on host to ensure user adds http:// or https://
-* **Settings/Resources:** Hide link to documentation until I actually finish it
-* **Sonarr:** Many changes to Sonarr's design
-* **Sonarr/Series:** Toggling monitored state of series has now been moved to the edit prompt and edit screen
 
 ### Bug Fixes
 
@@ -469,7 +480,18 @@ All notable changes to this project will be documented in this file. See [standa
 * **UI/Checkbox:** Fix overly vibrant checkbox selected background
 - Tons of additional minor bugs were fixed
 
+
+### Tweaks
+
+* **Radarr:** Use Radarr v3 icon across the UI
+* **Settings/Dialogs:** Small tweaks and additional notes for entering hosts and passwords
+* **Settings/Host Dialog:** Add validator on host to ensure user adds http:// or https://
+* **Settings/Resources:** Hide link to documentation until I actually finish it
+* **Sonarr:** Many changes to Sonarr's design
+* **Sonarr/Series:** Toggling monitored state of series has now been moved to the edit prompt and edit screen
+
 ## 4.0.0
+
 
 ### Features
 
@@ -483,6 +505,17 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings:** Complete overhaul of the settings
 * **Settings/Resources:** (iOS) Added link to join TestFlight
 
+
+### Bug Fixes
+
+* **Flutter:** Updated packages & Flutter
+* **General:** Many small bug fixes
+* **LunaSea:** Many behind the scenes changes to reduce memory pressure
+* **LunaSea:** Heavy improvements and fixes to the navigation routing
+* **Settings/Logs:** Logs could be shown in reverse order
+* **Text:** Fixed "squished" text on iOS 14 and higher devices
+
+
 ### Tweaks
 
 * **Home/Calendar:** Separate calendar view type into its own preference
@@ -495,16 +528,8 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings/System:** Removed clear image cache tile
 * **UI:** Added new loading animation design
 
-### Bug Fixes
-
-* **Flutter:** Updated packages & Flutter
-* **General:** Many small bug fixes
-* **LunaSea:** Many behind the scenes changes to reduce memory pressure
-* **LunaSea:** Heavy improvements and fixes to the navigation routing
-* **Settings/Logs:** Logs could be shown in reverse order
-* **Text:** Fixed "squished" text on iOS 14 and higher devices
-
 ## 3.3.0
+
 
 ### Features
 
@@ -514,6 +539,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **-arr/Catalogue:** Ability to sort by date added
 * **-arr/Search:** Show the indexer/tracker on the collapsed tile
 
+
 ### Bug Fixes
 
 * **Sonarr:** Fixed multiple errors related to parsing fetched episode data
@@ -521,11 +547,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 3.2.0
 
+
 ### Features
 
 * **Drawer:** Add the LunaSea logo to the header
 * **Logging:** Integrated Sentry, an open-source exception/crash log aggregation tool
 * **Settings/System:** Added toggle (under system -> advanced) to disable Sentry logging
+
+
+### Bug Fixes
+
+* **-arr/Details:** Fixed crash related to state management
+* **radarr/Add:** Fixed crash when a searched movie does not have a minimum availability value available
+
 
 ### Tweaks
 
@@ -533,12 +567,8 @@ All notable changes to this project will be documented in this file. See [standa
 * **APIs:** Improved exception logging
 * **Logging:** Improved on-device logger to have more useful stack traces
 
-### Bug Fixes
-
-* **-arr/Details:** Fixed crash related to state management
-* **radarr/Add:** Fixed crash when a searched movie does not have a minimum availability value available
-
 ## 3.1.0
+
 
 ### Features
 
@@ -551,15 +581,18 @@ All notable changes to this project will be documented in this file. See [standa
 * **SABnzbd/Statistics:** Show both temporary and final storage space
 * **Calendar:** Ability to search/enter interactive search directly from calendar tiles
 
-### Tweaks
-
-* **Development:** Updated Flutter packages
 
 ### Bug Fixes
 
 * **API/Host:** Correctly handle cases where host ends with a forward slash
 
+
+### Tweaks
+
+* **Development:** Updated Flutter packages
+
 ## 3.0.0
+
 
 ### Features
 
@@ -576,16 +609,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **Images:** Ability to clear network image cache
 * **UI/AMOLED Theme:** Optional setting to add subtle border
 
-### Tweaks
-
-* **Changelog:** Removed integrated changelog, redirects to documentation changelog
-* **-rr:** Use the term "Interactive" instead of "Manual" for search
-* **-rr/Links:** Normalize size of images
-* **Sonarr/Upcoming:** Now shows dates in-line as a styled header
-* **Sonarr/Season View:** Now shows season number in-line as a styled header
-* **UI/Font:** Adjusted font size across entire application
-* **UI/Dropdowns:** Change dropdowns to popup menus
-* **UI:** Rounder radius around tiles, popups, etc.
 
 ### Bug Fixes
 
@@ -597,7 +620,20 @@ All notable changes to this project will be documented in this file. See [standa
 * **Snackbar:** Snackbar wouldn't adopt AMOLED styling when enabled
 * **State:** Fixed crashes caused by setting the state of an unmounted widget
 
+
+### Tweaks
+
+* **Changelog:** Removed integrated changelog, redirects to documentation changelog
+* **-rr:** Use the term "Interactive" instead of "Manual" for search
+* **-rr/Links:** Normalize size of images
+* **Sonarr/Upcoming:** Now shows dates in-line as a styled header
+* **Sonarr/Season View:** Now shows season number in-line as a styled header
+* **UI/Font:** Adjusted font size across entire application
+* **UI/Dropdowns:** Change dropdowns to popup menus
+* **UI:** Rounder radius around tiles, popups, etc.
+
 ## 2.3.0
+
 
 ### Features
 
@@ -606,6 +642,12 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings/Changelog:** Changelog is now displayed as a route, not a dialog
 * **UX:** Hitting the back button on apex/primary routes will now open the drawer instead of closing the application
 * **UX:** Enable landscape mode for iPhones
+
+
+### Bug Fixes
+
+* **SnackBar:** SnackBar could cause UI locking when doing swipe-back gestures
+
 
 ### Tweaks
 
@@ -616,11 +658,8 @@ All notable changes to this project will be documented in this file. See [standa
 * **Dialogs:** Keyboard type is now set for all inputs
 * **Dialogs:** All inputs are now validated (to some extent) and can be submitted via the Keyboard
 
-### Bug Fixes
-
-* **SnackBar:** SnackBar could cause UI locking when doing swipe-back gestures
-
 ## 2.2.0
+
 
 ### Features
 
@@ -632,16 +671,19 @@ All notable changes to this project will be documented in this file. See [standa
 * **SABnzbd:** Added statistics for individual servers
 * **NZBGet:** Option to use basic authentication instead of URL-encoded authentication
 
-### Tweaks
-
-* **UI:** Removed custom letter spacing
-* **Settings:** Added subheaders
 
 ### Bug Fixes
 
 * **Database:** Cleanly exit on clean application exit to prevent corruption
 
+
+### Tweaks
+
+* **UI:** Removed custom letter spacing
+* **Settings:** Added subheaders
+
 ## 2.1.0
+
 
 ### Features
 
@@ -653,12 +695,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **Appearance/Theme:** Option to enable AMOLED black theme
 * **Platform:** LunaSea is now build-able & available for Android
 
-### Tweaks
-
-* **Settings:** Redesign of settings page
-* **General:** Use the term "Modules" instead of "Services"
-* **-rr/Details:** Background image header/app bar is now collapsed by default
-* **-rr/Details:** Left align title to match the rest of LunaSea
 
 ### Bug Fixes
 
@@ -666,7 +702,16 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings/Backup:** Backing up your configuration would always fail
 * **Search:** Would show an empty screen if you deleted all indexers while search is open
 
-## 2.0.1
+
+### Tweaks
+
+* **Settings:** Redesign of settings page
+* **General:** Use the term "Modules" instead of "Services"
+* **-rr/Details:** Background image header/app bar is now collapsed by default
+* **-rr/Details:** Left align title to match the rest of LunaSea
+
+### 2.0.1
+
 
 ### Features
 
@@ -678,14 +723,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **Settings:** Ability to disable SSL/TLS validation for all services
 * **HTTP:** With the above, support for self-signed SSL certificates
 
-### Tweaks
-
-* **Descriptions:** Adjusted alignment and consistency when no summary is available
-* **Search:** Removed redundant “Sending” toast since it very quickly gets covered by the follow-up toast
-* **Automation:** Edit content prompt now shows full title of the content
-* **Clients:** Opening the edit menu now shows the full title of the job
-* **UI:** Tweaked design of content headers
-* **Settings:** Added headers to automation and client pages to separate regular and advanced configuration options
 
 ### Bug Fixes
 
@@ -695,6 +732,16 @@ All notable changes to this project will be documented in this file. See [standa
 * **Restore Configuration:** Error message had typos
 * **UI:** Fixed uneven font sizing in some prompts
 * **NZBGet/SABnzbd:** Failure on uploading an NZB would show no error message
+
+
+### Tweaks
+
+* **Descriptions:** Adjusted alignment and consistency when no summary is available
+* **Search:** Removed redundant “Sending” toast since it very quickly gets covered by the follow-up toast
+* **Automation:** Edit content prompt now shows full title of the content
+* **Clients:** Opening the edit menu now shows the full title of the job
+* **UI:** Tweaked design of content headers
+* **Settings:** Added headers to automation and client pages to separate regular and advanced configuration options
 
 ## 2.0.0
 
@@ -714,6 +761,15 @@ All notable changes to this project will be documented in this file. See [standa
 * **Drawer:** Ability to switch profiles in navigation Drawer
 * **Snackbar:** New snackbar style, design, and formatting
 * **Everything:** All services now dynamically reload on profile changes
+
+
+### Bug Fixes
+
+* **Sonarr/Search:** Searching for an entire season now executes a season search instead of individual episode searches
+* **Logs:** Fixed bug where logs could not load in some cases and always show "Logs Not Found"
+* **Radarr/Search:** Now correctly retains search state to prevent needless researching & API hits
+* **Configuration:** Deleting or renaming "default" profile could cause a new "default" profile to be created on next launch
+
 
 ### Tweaks
 
@@ -740,14 +796,8 @@ All notable changes to this project will be documented in this file. See [standa
 * **NZBGet:** Lowered refresh rate to 2 seconds from 1 second
 * **UI:** Reduced elevation of UI in general
 
-### Bug Fixes
-
-* **Sonarr/Search:** Searching for an entire season now executes a season search instead of individual episode searches
-* **Logs:** Fixed bug where logs could not load in some cases and always show "Logs Not Found"
-* **Radarr/Search:** Now correctly retains search state to prevent needless researching & API hits
-* **Configuration:** Deleting or renaming "default" profile could cause a new "default" profile to be created on next launch
-
 ## 1.1.0
+
 
 ### Features
 
@@ -759,10 +809,12 @@ All notable changes to this project will be documented in this file. See [standa
 * **-rr:** Ability to delete files when deleting catalogue entries
 * **Documentation:** Added a link to WIP documentation
 
+
 ### Bug Fixes
 
 * **Prompts:** All prompts now use the correct colour ordering
 * **NZBGet:** Adjusted authentication method to interfere less with custom auth setups
+
 
 ### Tweaks
 
@@ -774,6 +826,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.0.0
 
+
 ### Features
 
 * **-rr:** When adding new content, checks if content is already in your library
@@ -782,11 +835,13 @@ All notable changes to this project will be documented in this file. See [standa
 * **SAB/NZBGet:** Ability to pause the queue for some amount of time
 * **NZBGet:** Ability to filter out successful history entries
 
+
 ### Bug Fixes
 
 * **Radarr:** Fetching quality profiles could fail
 * **SAB/NZBGet:** Percentage calculation could fail causing a grey screen
 * **SAB/NZBGet:** Connection error now cancels timer until manual refresh (cleaner logs)
+
 
 ### Tweaks
 

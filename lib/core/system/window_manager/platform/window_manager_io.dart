@@ -22,12 +22,7 @@ class IO implements LunaWindowManager {
   Future<void> initialize() async {
     await windowManager.ensureInitialized();
     windowManager.waitUntilReadyToShow().then((_) async {
-      const Size minSize = Size(
-        LunaWindowManager.MINIMUM_WINDOW_SIZE,
-        LunaWindowManager.MINIMUM_WINDOW_SIZE,
-      );
-
-      await windowManager.setMinimumSize(minSize);
+      setWindowSize();
       setWindowTitle('LunaSea');
 
       windowManager.show();
@@ -39,5 +34,18 @@ class IO implements LunaWindowManager {
     return windowManager
         .waitUntilReadyToShow()
         .then((_) async => await windowManager.setTitle(title));
+  }
+
+  Future<void> setWindowSize() async {
+    const min = LunaWindowManager.MINIMUM_WINDOW_SIZE;
+    const init = LunaWindowManager.INITIAL_WINDOW_SIZE;
+    const minSize = Size(min, min);
+    const initSize = Size(init, init);
+
+    await windowManager.setSize(initSize);
+    // Currently broken on Linux
+    if (!LunaPlatform().isLinux) {
+      await windowManager.setMinimumSize(minSize);
+    }
   }
 }

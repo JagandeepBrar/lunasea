@@ -3,7 +3,9 @@ import 'platform/window_manager_stub.dart'
     if (dart.library.html) 'platform/window_manager_html.dart';
 
 abstract class LunaWindowManager {
-  static const double MINIMUM_WINDOW_SIZE = 400;
+  // Need to change `windows/runner/main.cpp` and `linux/my_application.cc` manually if this wants to be changed
+  static const double INITIAL_WINDOW_SIZE = 700;
+  static const double MINIMUM_WINDOW_SIZE = 500;
 
   static bool get isSupported => isPlatformSupported();
   factory LunaWindowManager() => getWindowManager();

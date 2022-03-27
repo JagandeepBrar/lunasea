@@ -7,6 +7,7 @@
     "build:android": "flutter clean && flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release",
     "build:ios": "flutter clean && flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release",
     "build:linux": "flutter clean && flutter build linux --release",
+    "build:linux:snap": "flutter clean && snapcraft --use-lxd",
     "build:macos": "flutter clean && flutter build macos --release",
     "build:windows": "flutter clean && flutter build windows --release",
     "build:web": "flutter clean && flutter build web --web-renderer canvaskit --release",

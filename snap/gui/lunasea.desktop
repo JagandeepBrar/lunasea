@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LunaSea
+Comment=Self-hosted software controller built using Flutter
+Exec=lunasea
+Icon=${SNAP}/meta/gui/lunasea.png
+Terminal=false
+Type=Application
+Categories=Utilities;Entertainment;

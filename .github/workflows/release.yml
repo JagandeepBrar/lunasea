@@ -60,8 +60,8 @@ jobs:
     needs: [ prepare_build, prepare_channels, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_android.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.build_flavor }}
-      build_number: ${{ needs.prepare_build.outputs.build_number }}
+      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
+      build_number: ${{ needs.prepare_build.outputs.number }}
       channel: ${{ needs.prepare_channels.outputs.android }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -75,8 +75,8 @@ jobs:
     needs: [ prepare_build, prepare_channels, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_ios.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.build_flavor }}
-      build_number: ${{ needs.prepare_build.outputs.build_number }}
+      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
+      build_number: ${{ needs.prepare_build.outputs.number }}
       channel: ${{ needs.prepare_channels.outputs.ios }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -98,8 +98,8 @@ jobs:
     needs: [ prepare_build, prepare_channels, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_macos.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.build_flavor }}
-      build_number: ${{ needs.prepare_build.outputs.build_number }}
+      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
+      build_number: ${{ needs.prepare_build.outputs.number }}
       channel: ${{ needs.prepare_channels.outputs.macos }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -119,11 +119,12 @@ jobs:
   web:
     name: Web
     needs: [ prepare_build, prepare_channels, validate ]
-    if: ${{ needs.prepare.outputs.build_flavor == 'edge' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/release_web.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.build_flavor }}
-      build_number: ${{ needs.prepare_build.outputs.build_number }}
+      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
+      build_number: ${{ needs.prepare_build.outputs.number }}
+      channel: ${{ needs.prepare_channels.outputs.web }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

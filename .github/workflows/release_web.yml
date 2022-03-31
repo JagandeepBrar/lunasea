@@ -9,11 +9,16 @@ on:
       build_number:
         required: true
         type: string
+      channel:
+        required: true
+        type: string
 
     secrets:
       DISCORD_WEBHOOK:
         required: true
       FIREBASE_OPTIONS:
+        required: true
+      NETLIFY_AUTH_TOKEN:
         required: true
 
 jobs:
@@ -89,12 +94,11 @@ jobs:
           name: web-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/build/web
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ inputs.channel }}
         with:
-          branch: web-deployment
-          folder: ${{ github.workspace}}/build/web
-          git-config-name: ${{ github.sha }}
-          clean: true
-          clean-exclude: |
-            CNAME
+          publish-dir: ${{ github.workspace}}/build/web
+          deploy-message: ${{ github.sha }}

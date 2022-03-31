@@ -223,6 +223,24 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "gmcinalli",
+      "name": "Gian Marco Cinalli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9024983?v=4",
+      "profile": "https://github.com/gmcinalli",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "issaccv",
+      "name": "八月的蠢",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17275050?v=4",
+      "profile": "https://www.issacc.top/",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,
@@ -230,5 +248,6 @@
   "projectOwner": "JagandeepBrar",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }

@@ -3,7 +3,7 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -43,6 +43,10 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/TheMaxul"><img src="https://avatars.githubusercontent.com/u/2436527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TheMaxul</b></sub></a><br /><a href="#translation-TheMaxul" title="Translation">🌍</a></td>
     <td align="center"><a href="https://lisacintosh.itch.io"><img src="https://avatars.githubusercontent.com/u/6952213?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxime Leroy</b></sub></a><br /><a href="#translation-Lisapple" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/vc5"><img src="https://avatars.githubusercontent.com/u/13097192?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vincent</b></sub></a><br /><a href="#translation-vc5" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/gmcinalli"><img src="https://avatars.githubusercontent.com/u/9024983?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gian Marco Cinalli</b></sub></a><br /><a href="#translation-gmcinalli" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.issacc.top/"><img src="https://avatars.githubusercontent.com/u/17275050?v=4?s=100" width="100px;" alt=""/><br /><sub><b>八月的蠢</b></sub></a><br /><a href="#translation-issaccv" title="Translation">🌍</a></td>
   </tr>
 </table>
 

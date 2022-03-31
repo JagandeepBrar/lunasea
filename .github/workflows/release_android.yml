@@ -3,10 +3,13 @@ name: '[Release] Android'
 on:
   workflow_call:
     inputs:
-      flavor:
+      build_flavor:
         required: true
         type: string
-      track:
+      build_number:
+        required: true
+        type: string
+      channel:
         required: true
         type: string
 
@@ -85,7 +88,7 @@ jobs:
       - name: Upload App Bundle Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: android-${{ inputs.flavor }}-${{ github.sha }}
+          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
 
       - name: Send Discord Message
@@ -94,8 +97,8 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.track }}]` Android Build'
-          description: android-${{ inputs.flavor }}-${{ github.sha }}
+          title: '`[${{ inputs.build_flavor }}]` Android Build'
+          description: android-${{ inputs.build_flavor }}-${{ github.sha }}
 
   deploy:
     name: Deploy
@@ -108,7 +111,7 @@ jobs:
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
-          name: android-${{ inputs.flavor }}-${{ github.sha }}
+          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys
@@ -127,13 +130,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ inputs.flavor }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
-
-      - name: Send Discord Message
-        uses: sarisia/actions-status-discord@v1
-        if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          title: '`[${{ inputs.track }}]` Android Deployment'
-          description: android-${{ inputs.flavor }}-${{ github.sha }}
+          bundle exec fastlane deploy track:${{ inputs.channel }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }} build_number:${{ inputs.build_number }}

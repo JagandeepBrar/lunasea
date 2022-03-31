@@ -1,10 +1,9 @@
 default_platform(:android)
-build_number = 1000000000 + number_of_commits()
 
 platform :android do
   desc "Build App Bundle"
-  lane :build do
-    sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{build_number}")
+  lane :build do |options|
+    sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{options[:build_number]}")
   end
 
   desc "Deploy to Google Play Store"
@@ -15,7 +14,7 @@ platform :android do
       skip_upload_images: true,
       skip_upload_screenshots: true,
       track: options[:track] || "internal",
-      version_name: options[:version_name] || "#{build_number}",
+      version_name: options[:version_name] || "Unknown Version",
     )
   end
 

@@ -3,10 +3,10 @@ name: '[Release] Web'
 on:
   workflow_call:
     inputs:
-      flavor:
+      build_flavor:
         required: true
         type: string
-      track:
+      build_number:
         required: true
         type: string
 
@@ -58,12 +58,12 @@ jobs:
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}
         run: |
-          flutter build web --web-renderer canvaskit --release
+          flutter build web --web-renderer canvaskit --release --build-number=${{ inputs.build_number }}
 
       - name: Upload Web Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: web-${{ inputs.flavor }}-${{ github.sha }}
+          name: web-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/build/web
 
       - name: Send Discord Message
@@ -72,8 +72,8 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.track }}]` Web Build'
-          description: web-${{ inputs.flavor }}-${{ github.sha }}
+          title: '`[${{ inputs.build_flavor }}]` Web Build'
+          description: web-${{ inputs.build_flavor }}-${{ github.sha }}
   
   deploy:
     name: Deploy
@@ -86,7 +86,7 @@ jobs:
       - name: Download Web Build Artifact
         uses: actions/download-artifact@v2
         with:
-          name: web-${{ inputs.flavor }}-${{ github.sha }}
+          name: web-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/build/web
 
       - name: Deploy to GitHub Pages
@@ -98,12 +98,3 @@ jobs:
           clean: true
           clean-exclude: |
             CNAME
-
-      - name: Send Discord Message
-        uses: sarisia/actions-status-discord@v1
-        if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          title: '`[${{ inputs.track }}]` Web Deployment'
-          description: web-${{ inputs.flavor }}-${{ github.sha }}

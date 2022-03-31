@@ -3,10 +3,13 @@ name: '[Release] iOS'
 on:
   workflow_call:
     inputs:
-      flavor:
+      build_flavor:
         required: true
         type: string
-      track:
+      build_number:
+        required: true
+        type: string
+      channel:
         required: true
         type: string
 
@@ -113,7 +116,7 @@ jobs:
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ios-${{ inputs.flavor }}-${{ github.sha }}
+          name: ios-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}/ios/Runner.ipa
 
       - name: Send Discord Message
@@ -122,8 +125,8 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.track }}]` iOS Build'
-          description: ios-${{ inputs.flavor }}-${{ github.sha }}
+          title: '`[${{ inputs.build_flavor }}]` iOS Build'
+          description: ios-${{ inputs.build_flavor }}-${{ github.sha }}
 
   deploy:
     name: Deploy
@@ -136,7 +139,7 @@ jobs:
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ios-${{ inputs.flavor }}-${{ github.sha }}
+          name: ios-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}
 
       - name: Install Secret Keys
@@ -160,13 +163,4 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/Runner.ipa
-
-      - name: Send Discord Message
-        uses: sarisia/actions-status-discord@v1
-        if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          title: '`[${{ inputs.track }}]` iOS Deployment'
-          description: ios-${{ inputs.flavor }}-${{ github.sha }}
+          bundle exec fastlane deploy groups:${{ inputs.channel }} ipa:${{ github.workspace }}/Runner.ipa build_number:${{ inputs.build_number }}

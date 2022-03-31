@@ -228,5 +228,9 @@
     "settings.QuickActionsBannerLine1": "快速操作允许您通过长按 LunaSea 的图标直接从主屏幕或设备上的启动器快速跳转到模块。",
     "settings.QuickActionsBannerLine2": "一次可以设置有限数量的快速操作，并且启用超过您的启动器可以支持的操作将无效。",
     "settings.Use24HourTime": "使用 24 小时制",
-    "settings.Use24HourTimeDescription": "以 24 小时格式显示时间戳"
+    "settings.Use24HourTimeDescription": "以 24 小时格式显示时间戳",
+    "settings.BackupToDevice": "备份到设备",
+    "settings.BackupToDeviceDescription": "备份配置",
+    "settings.RestoreFromDevice": "从设备恢复",
+    "settings.RestoreFromDeviceDescription": "恢复配置数据"
 }

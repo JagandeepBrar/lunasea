@@ -65,5 +65,6 @@
     "tautulli.BackingUpDatabaseFailed": "Impossibile eseguire il backup della base di dati",
     "tautulli.BackingUpDatabaseDescription": "Backup della base di dati in sfondo",
     "tautulli.BackingUpConfigurationFailed": "Impossibile eseguire il backup della configurazione",
-    "tautulli.BackingUpConfigurationDescription": "Backup della configurazione in sfondo"
+    "tautulli.BackingUpConfigurationDescription": "Backup della configurazione in sfondo",
+    "tautulli.Throttled": "Strozzato"
 }

@@ -1,6 +1,6 @@
 name: lunasea
 version: 10.0.2
-confinement: devmode
+confinement: strict
 base: core18
 
 # Required but managed manually via Snapcraft dashboard
@@ -16,13 +16,20 @@ slots:
 apps:
   lunasea:
     command: lunasea
-    extensions: [flutter-stable]
+    extensions:
+    - flutter-stable
     plugs:
+    - home
     - network
     slots:
     - dbus-lunasea
 
 parts:
+  zenity:
+    plugin: nil
+    stage-packages:
+    - zenity
+
   lunasea:
     source: .
     plugin: flutter

@@ -52,7 +52,7 @@ extension LunaLogTypeExtension on LunaLogType {
       case LunaLogType.CRITICAL:
         return true;
       case LunaLogType.DEBUG:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA);
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.CANDIDATE);
     }
   }
 

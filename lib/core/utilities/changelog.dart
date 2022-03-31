@@ -14,7 +14,7 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     bool showCommitHistory = false,
   }) async {
     // Do not show unless it is a prod release
-    if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA)) {
+    if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.CANDIDATE)) {
       if (showCommitHistory) LunaFlavor().openCommitHistory();
       return;
     }

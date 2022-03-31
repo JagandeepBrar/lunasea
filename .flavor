@@ -1,2 +1,2 @@
-FLAVOR=internal
+FLAVOR=edge
 COMMIT=master

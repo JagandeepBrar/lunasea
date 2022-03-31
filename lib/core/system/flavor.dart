@@ -4,11 +4,10 @@ import 'package:envify/envify.dart';
 
 part 'flavor.g.dart';
 
-/// Keep it as `internal` for easier flavor pushing to Play Store and App Store Connect test groups
-const _DEVELOP = 'internal';
-const _ALPHA = 'alpha';
+const _EDGE = 'edge';
 const _BETA = 'beta';
-const _PRODUCTION = 'production';
+const _CANDIDATE = 'candidate';
+const _STABLE = 'stable';
 
 @Envify(path: '.flavor')
 class LunaFlavor {
@@ -19,14 +18,14 @@ class LunaFlavor {
 extension FlavorExtension on LunaFlavor {
   LunaEnvironment get environment {
     switch (LunaFlavor.flavor) {
-      case _DEVELOP:
-        return LunaEnvironment.DEVELOP;
-      case _ALPHA:
-        return LunaEnvironment.ALPHA;
+      case _EDGE:
+        return LunaEnvironment.EDGE;
       case _BETA:
         return LunaEnvironment.BETA;
-      case _PRODUCTION:
-        return LunaEnvironment.PRODUCTION;
+      case _CANDIDATE:
+        return LunaEnvironment.CANDIDATE;
+      case _STABLE:
+        return LunaEnvironment.STABLE;
     }
     throw Exception('Invalid LunaEnvironment');
   }
@@ -45,76 +44,76 @@ extension FlavorExtension on LunaFlavor {
   bool isLowerOrEqualTo(LunaEnvironment env) {
     if (this.environment == env) return true;
     switch (env) {
-      case LunaEnvironment.DEVELOP:
+      case LunaEnvironment.EDGE:
         return false;
-      case LunaEnvironment.ALPHA:
-        return this.environment == LunaEnvironment.DEVELOP;
       case LunaEnvironment.BETA:
-        return this.environment == LunaEnvironment.DEVELOP ||
-            this.environment == LunaEnvironment.ALPHA;
-      case LunaEnvironment.PRODUCTION:
+        return this.environment == LunaEnvironment.EDGE;
+      case LunaEnvironment.CANDIDATE:
+        return this.environment == LunaEnvironment.EDGE ||
+            this.environment == LunaEnvironment.BETA;
+      case LunaEnvironment.STABLE:
         return true;
     }
   }
 }
 
 enum LunaEnvironment {
-  DEVELOP,
-  ALPHA,
+  EDGE,
   BETA,
-  PRODUCTION,
+  CANDIDATE,
+  STABLE,
 }
 
 extension LunaEnvironmentExtension on LunaEnvironment {
   String get key {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
-        return _DEVELOP;
-      case LunaEnvironment.ALPHA:
-        return _ALPHA;
+      case LunaEnvironment.EDGE:
+        return _EDGE;
       case LunaEnvironment.BETA:
         return _BETA;
-      case LunaEnvironment.PRODUCTION:
-        return _PRODUCTION;
+      case LunaEnvironment.CANDIDATE:
+        return _CANDIDATE;
+      case LunaEnvironment.STABLE:
+        return _STABLE;
     }
   }
 
   String get name {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
-        return 'lunasea.Develop'.tr();
-      case LunaEnvironment.ALPHA:
-        return 'lunasea.Alpha'.tr();
+      case LunaEnvironment.EDGE:
+        return 'lunasea.Edge'.tr();
       case LunaEnvironment.BETA:
         return 'lunasea.Beta'.tr();
-      case LunaEnvironment.PRODUCTION:
-        return 'lunasea.Production'.tr();
+      case LunaEnvironment.CANDIDATE:
+        return 'lunasea.Candidate'.tr();
+      case LunaEnvironment.STABLE:
+        return 'lunasea.Stable'.tr();
     }
   }
 
   Color get color {
     switch (this) {
-      case LunaEnvironment.DEVELOP:
+      case LunaEnvironment.EDGE:
         return LunaColours.red;
-      case LunaEnvironment.ALPHA:
-        return LunaColours.orange;
       case LunaEnvironment.BETA:
+        return LunaColours.orange;
+      case LunaEnvironment.CANDIDATE:
         return LunaColours.blue;
-      case LunaEnvironment.PRODUCTION:
+      case LunaEnvironment.STABLE:
         return LunaColours.accent;
     }
   }
 
   LunaEnvironment from(String key) {
     switch (key) {
-      case _DEVELOP:
-        return LunaEnvironment.DEVELOP;
-      case _ALPHA:
-        return LunaEnvironment.ALPHA;
+      case _EDGE:
+        return LunaEnvironment.EDGE;
       case _BETA:
         return LunaEnvironment.BETA;
-      case _PRODUCTION:
-        return LunaEnvironment.PRODUCTION;
+      case _CANDIDATE:
+        return LunaEnvironment.CANDIDATE;
+      case _STABLE:
+        return LunaEnvironment.STABLE;
     }
     throw Exception('Unknown Flavor');
   }

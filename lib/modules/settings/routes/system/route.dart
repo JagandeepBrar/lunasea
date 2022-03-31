@@ -67,7 +67,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: 'Version: $version',
             body: [
               TextSpan(
-                text: _flavor.isLowerOrEqualTo(LunaEnvironment.BETA)
+                text: _flavor.isLowerOrEqualTo(LunaEnvironment.CANDIDATE)
                     ? '${_flavor.environment.name} (${_flavor.shortCommit})'
                     : 'settings.ViewRecentChanges'.tr(),
                 style: TextStyle(

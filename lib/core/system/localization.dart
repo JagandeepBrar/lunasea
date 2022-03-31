@@ -85,7 +85,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.ALPHA);
+        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA);
     }
   }
 

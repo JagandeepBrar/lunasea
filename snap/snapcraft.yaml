@@ -1,36 +1,11 @@
 name: lunasea
 version: 10.0.2
-
-title: LunaSea
-summary: Self-hosted software controller built using Flutter
-description: >
-  LunaSea is a fully featured, open source self-hosted controller focused on giving you a seamless experience between all of your self-hosted media software remotely on your devices. LunaSea currently supports:
-
-  * Lidarr
-  * Radarr
-  * Sonarr
-  * NZBGet
-  * SABnzbd
-  * Newznab Indexer Searching
-  * NZBHydra2
-  * Tautulli
-  * Wake on LAN
-
-  LunaSea even comes with support for webhook-based push notifications, multiple instances of applications using profiles, backup and restore functionality for your configuration, an AMOLED black theme, and more!
-
-  ---
-
-  Please note that LunaSea is purely a remote control application, it does not offer any functionality without software installed on a server/computer.
-
-icon: snap/gui/lunasea.png
-license: GPL-3.0
-contact: hello@lunasea.app
-donation: https://www.lunasea.app/donate
-source-code: https://www.lunasea.app/github
-website: https://www.lunasea.app
-
 confinement: devmode
 base: core18
+
+# Required but managed manually via Snapcraft dashboard
+summary: summary
+description: description
 
 slots:
   dbus-lunasea:

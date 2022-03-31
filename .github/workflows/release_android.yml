@@ -9,9 +9,6 @@ on:
       build_number:
         required: true
         type: string
-      channel:
-        required: true
-        type: string
 
     secrets:
       DISCORD_WEBHOOK:
@@ -107,6 +104,23 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.ref }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "alpha";
+              case "candidate": return "beta";
+              case "stable": return "production";
+              case "edge":
+              default: return "internal";
+            }
 
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
@@ -130,4 +144,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ inputs.channel }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}

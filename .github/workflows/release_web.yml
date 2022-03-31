@@ -9,9 +9,6 @@ on:
       build_number:
         required: true
         type: string
-      channel:
-        required: true
-        type: string
 
     secrets:
       DISCORD_WEBHOOK:
@@ -88,6 +85,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.ref }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "11ef2676-fc31-41b5-897b-fd21273d87ed";
+              case "candidate": return "4636e6a1-17ef-45a2-a2b6-3d1c166fd1df";
+              case "stable": return "6634f0b1-323c-4a2f-bd0b-8f1f388673a9";
+              case "edge":
+              default: return "325e197e-55f4-449a-b2bb-6831fe47bf2a";
+            }
+
       - name: Download Web Build Artifact
         uses: actions/download-artifact@v2
         with:
@@ -98,7 +112,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ inputs.channel }}
+          NETLIFY_SITE_ID: ${{ steps.channel.outputs.result }}
         with:
           publish-dir: ${{ github.workspace}}/build/web
           deploy-message: ${{ github.sha }}

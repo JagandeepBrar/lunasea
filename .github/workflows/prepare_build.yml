@@ -81,9 +81,9 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const count = process.env.COUNT || 0;
+            const count = process.env.COUNT || "0";
             const base = 1000000000;
-            return base + count;
+            return base + Number(count);
 
       - name: Set Output
         id: output

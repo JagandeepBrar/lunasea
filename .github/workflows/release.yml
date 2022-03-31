@@ -34,13 +34,6 @@ jobs:
     with:
       ref: ${{ github.event.inputs.flavor }}
 
-  prepare_channels:
-    name: Prepare Channels
-    needs: [ cancel ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/prepare_channels.yml@master
-    with:
-      ref: ${{ github.event.inputs.flavor }}
-
   generate_files:
     name: Generate
     needs: [ prepare_build ]
@@ -57,12 +50,11 @@ jobs:
 
   android:
     name: Android
-    needs: [ prepare_build, prepare_channels, validate ]
+    needs: [ prepare_build, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_android.yml@master
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
-      channel: ${{ needs.prepare_channels.outputs.android }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
@@ -72,12 +64,11 @@ jobs:
 
   ios:
     name: iOS
-    needs: [ prepare_build, prepare_channels, validate ]
+    needs: [ prepare_build, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_ios.yml@master
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
-      channel: ${{ needs.prepare_channels.outputs.ios }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -95,12 +86,11 @@ jobs:
 
   macos:
     name: macOS
-    needs: [ prepare_build, prepare_channels, validate ]
+    needs: [ prepare_build, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_macos.yml@master
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
-      channel: ${{ needs.prepare_channels.outputs.macos }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -118,12 +108,11 @@ jobs:
 
   web:
     name: Web
-    needs: [ prepare_build, prepare_channels, validate ]
+    needs: [ prepare_build, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/release_web.yml@master
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
-      channel: ${{ needs.prepare_channels.outputs.web }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}

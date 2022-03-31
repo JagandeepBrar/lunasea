@@ -9,9 +9,6 @@ on:
       build_number:
         required: true
         type: string
-      channel:
-        required: true
-        type: string
 
     secrets:
       APPLE_ID:
@@ -137,6 +134,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.ref }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
+              case "edge":
+              default: return "edge";
+            }
+
       - name: Download App Package Artifact
         uses: actions/download-artifact@v2
         with:
@@ -164,4 +178,4 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ inputs.channel }} pkg:${{ github.workspace }}/LunaSea.pkg
+          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/LunaSea.pkg

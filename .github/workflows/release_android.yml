@@ -83,7 +83,7 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane build
+          bundle exec fastlane build build_number:${{ inputs.build_number }}
       
       - name: Upload App Bundle Artifact
         uses: actions/upload-artifact@v2
@@ -130,4 +130,4 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ inputs.channel }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }} build_number:${{ inputs.build_number }}
+          bundle exec fastlane deploy track:${{ inputs.channel }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}

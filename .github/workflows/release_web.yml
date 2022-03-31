@@ -63,7 +63,7 @@ jobs:
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}
         run: |
-          flutter build web --web-renderer canvaskit --release --build-number=${{ inputs.build_number }}
+          flutter build web --web-renderer canvaskit --release
 
       - name: Upload Web Build Artifact
         uses: actions/upload-artifact@v2

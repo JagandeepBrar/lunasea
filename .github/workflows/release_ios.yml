@@ -111,7 +111,7 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
         run: |
           bundle install
-          bundle exec fastlane build
+          bundle exec fastlane build build_number:${{ inputs.build_number }}
       
       - name: Upload App Package Artifact
         uses: actions/upload-artifact@v2
@@ -163,4 +163,4 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ inputs.channel }} ipa:${{ github.workspace }}/Runner.ipa build_number:${{ inputs.build_number }}
+          bundle exec fastlane deploy groups:${{ inputs.channel }} ipa:${{ github.workspace }}/Runner.ipa

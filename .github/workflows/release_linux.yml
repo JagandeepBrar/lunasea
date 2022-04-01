@@ -50,8 +50,6 @@ jobs:
 
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
-        with:
-          use_lxd: true
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -68,8 +66,6 @@ jobs:
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}
         run: |
-          sudo apt remove lxd-client -y
-          hash -r
           sg lxd -c 'snapcraft --use-lxd'
 
       - name: Upload Snap Build Artifact

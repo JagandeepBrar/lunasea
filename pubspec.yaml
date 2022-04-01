@@ -25,7 +25,7 @@ dependencies:
   firebase_core: ^1.14.0
   firebase_messaging: ^11.2.12
   firebase_storage: ^10.2.10
-  fl_chart: ^0.50.0
+  fl_chart: ^0.46.0
   flash: ^2.0.3+2
   fluro: ^2.0.3
   flutter_cache_manager: ^3.3.0

@@ -2,28 +2,47 @@ default_platform(:android)
 
 platform :android do
   desc "Build App Bundle"
-  lane :build do |options|
-    sh("flutter", "build", "appbundle", "--release", "--bundle-sksl-path=shaders/android_sksl.json", "--build-number=#{options[:build_number]}")
+  lane :build_aab do |options|
+    sh(
+      "flutter",
+      "build",
+      "appbundle",
+      "--release",
+      "--bundle-sksl-path=shaders/android_sksl.json",
+      "--build-number=#{options[:build_number]}",
+    )
+
+    sh("mkdir", "-p", "../../output")
+    sh("mv", "../../build/app/outputs/bundle/release/app-release.aab", "../../output/LunaSea-Android.aab")
+  end
+
+  desc "Build APKs"
+  lane :build_apk do |options|
+    sh(
+      "flutter",
+      "build",
+      "apk",
+      "--release",
+      "--split-per-abi",
+      "--bundle-sksl-path=shaders/android_sksl.json",
+      "--build-number=#{options[:build_number]}",
+    )
+
+    sh("mkdir", "-p", "../../output")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk", "../../output/LunaSea-Android-arm.apk")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk", "../../output/LunaSea-Android-arm64.apk")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-x86_64-release.apk", "../../output/LunaSea-Android-x86.apk")
   end
 
   desc "Deploy to Google Play Store"
   lane :deploy do |options|
     upload_to_play_store(
-      aab: options[:aab] || "../build/app/outputs/bundle/release/app-release.aab",
+      aab: options[:aab],
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      track: options[:track] || "internal",
-      version_name: options[:version_name] || "Unknown Version",
-    )
-  end
-
-  desc "Deploy metadata changes to Google Play"
-  lane :metadata do
-    upload_to_play_store(
-      skip_upload_apk: true,
-      skip_upload_aab: true,
-      skip_upload_changelogs: true,
+      track: options[:track],
+      version_name: options[:version_name],
     )
   end
 end

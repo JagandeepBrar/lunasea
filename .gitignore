@@ -73,4 +73,11 @@ lib/firebase_options.dart
 # Node Dependency directories
 node_modules/
 jspm_packages/
+
+# Artifacts
+output/
+*.apk
+*.aab
+*.ipa
+*.pkg
 *.snap

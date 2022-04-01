@@ -1,0 +1,109 @@
+name: '[Release] macOS'
+
+on:
+  workflow_call:
+    inputs:
+      build_number:
+        required: true
+        type: string
+
+    secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+      FIREBASE_OPTIONS:
+        required: true
+      MATCH_KEYCHAIN_NAME:
+        required: true
+      MATCH_KEYCHAIN_PASSWORD:
+        required: true
+      MATCH_PASSWORD:
+        required: true
+      MATCH_SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  build_app_package:
+    name: App Package
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Source Files
+        uses: actions/download-artifact@v3
+        with:
+          name: lib
+          path: ${{ github.workspace }}/lib
+
+      - name: Download Localization Files
+        uses: actions/download-artifact@v3
+        with:
+          name: localization
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Select Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: ${{ github.sha }}
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+
+      - name: Setup Fastlane
+        working-directory: ${{ github.workspace }}/macos
+        run: |
+
+      - name: Install Pods
+        working-directory: ${{ github.workspace }}/macos
+        run: |
+          pod install --repo-update
+
+      - name: Run Fastlane
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: |
+          bundle install
+          bundle exec fastlane build build_number:${{ inputs.build_number }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-app-package
+          path: ${{ github.workspace }}/output

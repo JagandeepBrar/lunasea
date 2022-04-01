@@ -17,6 +17,9 @@ on:
       version:
         description: "Build Version"
         value: ${{ jobs.version.outputs.output1 }}
+      title:
+        description: "Build Title"
+        value: ${{ jobs.title.outputs.output1 }}
 
 jobs:
   flavor:
@@ -53,9 +56,9 @@ jobs:
           echo $'FLAVOR=${{ steps.script.outputs.result }}\nCOMMIT=${{ github.sha }}' > .flavor
 
       - name: Upload Flavor Configuration
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: flavor-${{ github.sha }}
+          name: flavor
           path: ${{ github.workspace }}/.flavor
 
   number:
@@ -72,8 +75,8 @@ jobs:
       - name: Count Commits
         id: commit_count
         run: |
-          count=`git rev-list HEAD --count`
-          echo "::set-output name=commit_count::$count"
+          COUNT=`git rev-list HEAD --count`
+          echo "::set-output name=commit_count::$COUNT"
 
       - name: Run Script
         id: script
@@ -114,3 +117,26 @@ jobs:
         run: |
           echo ${{ steps.version.outputs.current-version }}
           echo "::set-output name=number::${{ steps.version.outputs.current-version }}"
+
+  title:
+    name: Title
+    needs: [ flavor, number, version ]
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.output.outputs.title }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Determine Short Hash
+        id: hash
+        run: |
+          HASH=`git rev-parse --short ${{ github.sha }}`
+          echo "::set-output name=hash::$HASH"
+      
+      - name: Set Output
+        id: output
+        run: |
+          TITLE="v${{ needs.version.outputs.output1 }}-${{ needs.flavor.outputs.output1 }}-${{ needs.number.outputs.output1 }}-${{ steps.hash.outputs.hash }}"
+          echo $TITLE
+          echo "::set-output name=title::$TITLE"

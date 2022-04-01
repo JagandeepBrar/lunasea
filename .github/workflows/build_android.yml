@@ -3,22 +3,12 @@ name: '[Release] Android'
 on:
   workflow_call:
     inputs:
-      build_flavor:
-        required: true
-        type: string
       build_number:
-        required: true
-        type: string
-      build_version:
         required: true
         type: string
 
     secrets:
-      DISCORD_WEBHOOK:
-        required: true
       FIREBASE_OPTIONS:
-        required: true
-      GOOGLE_PLAY_API:
         required: true
       KEY_JKS:
         required: true
@@ -26,8 +16,8 @@ on:
         required: true
 
 jobs:
-  build:
-    name: Build
+  build_app_bundle:
+    name: App Bundle
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -36,15 +26,15 @@ jobs:
           fetch-depth: 0
 
       - name: Download Source Files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: lib-${{ github.sha }}
+          name: lib
           path: ${{ github.workspace }}/lib
 
       - name: Download Localization Files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: localization-${{ github.sha }}
+          name: localization
           path: ${{ github.workspace }}/assets/localization
 
       - name: Install Secrets
@@ -83,68 +73,79 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane build build_number:${{ inputs.build_number }}
-      
-      - name: Upload App Bundle Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
+          bundle exec fastlane build_aab build_number:${{ inputs.build_number }}
 
-      - name: Send Discord Message
-        uses: sarisia/actions-status-discord@v1
-        if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
-          title: '`[${{ inputs.build_flavor }}]` Android Build'
-          description: android-${{ inputs.build_flavor }}-${{ github.sha }}
+          name: android-app-bundle
+          path: ${{ github.workspace }}/output
 
-  deploy:
-    name: Deploy
+  build_app_package:
+    name: App Package
     runs-on: ubuntu-latest
-    needs: [ build ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name: Determine Release Channel
-        id: channel
-        uses: actions/github-script@v6
-        env:
-          FLAVOR: ${{ inputs.ref }}
         with:
-          result-encoding: string
-          script: |
-            const ref = process.env.FLAVOR || "edge";
-            switch (ref) {
-              case "beta": return "alpha";
-              case "candidate": return "beta";
-              case "stable": return "production";
-              case "edge":
-              default: return "internal";
-            }
+          fetch-depth: 0
 
-      - name: Download App Package Artifact
-        uses: actions/download-artifact@v2
+      - name: Download Source Files
+        uses: actions/download-artifact@v3
         with:
-          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}
+          name: lib
+          path: ${{ github.workspace }}/lib
 
-      - name: Install Secret Keys
+      - name: Download Localization Files
+        uses: actions/download-artifact@v3
+        with:
+          name: localization
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Install Secrets
         working-directory: ${{ github.workspace }}
         run: |
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Deploy to Google Play Store
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: ${{ github.sha }}
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+      
+      - name: Setup Fastlane
+        working-directory: ${{ github.workspace }}/android
+        run: |
+          bundle install
+
+      - name: Run Fastlane
         working-directory: ${{ github.workspace }}/android
         env:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
-          bundle install
-          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+          bundle exec fastlane build_apk build_number:${{ inputs.build_number }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-app-package
+          path: ${{ github.workspace }}/output

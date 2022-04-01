@@ -1,0 +1,70 @@
+name: '[Release] Linux'
+
+on:
+  workflow_call:
+    inputs:
+      build_number:
+        required: true
+        type: string
+
+    secrets:
+      FIREBASE_OPTIONS:
+        required: true
+      
+jobs:
+  build_snap:
+    name: Snap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Source Files
+        uses: actions/download-artifact@v3
+        with:
+          name: lib
+          path: ${{ github.workspace }}/lib
+
+      - name: Download Localization Files
+        uses: actions/download-artifact@v3
+        with:
+          name: localization
+          path: ${{ github.workspace }}/assets/localization
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: ${{ github.sha }}
+
+      - name: Setup Flutter
+        working-directory: ${{ github.workspace }}
+        run: |
+          flutter pub get
+      
+      - name: Build LunaSea
+        uses: snapcore/action-build@v1
+        id: build
+
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Move Snap
+        working-directory: ${{ github.workspace }}
+        run: |
+          mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-snap
+          path: ${{ github.workspace }}/output

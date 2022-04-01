@@ -445,7 +445,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea macos 1647811089";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea macos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Profile;
@@ -574,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea macos 1647811089";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development app.lunasea.lunasea macos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -597,7 +597,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea macos 1647811108";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore app.lunasea.lunasea macos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

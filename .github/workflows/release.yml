@@ -27,50 +27,101 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-  prepare_build:
+  prepare:
     name: Prepare Build
     needs: [ cancel ]
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare_build.yml@master
     with:
       ref: ${{ github.event.inputs.flavor }}
 
-  generate_files:
-    name: Generate
-    needs: [ prepare_build ]
+  generate:
+    name: Generate Files
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/generate_files.yml@master
+    with:
+      build_flavor: ${{ needs.prepare.outputs.flavor }}
+      build_number: ${{ needs.prepare.outputs.number }}
+      build_version: ${{ needs.prepare.outputs.version }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
   validate:
     name: Validate
-    needs: [ generate_files ]
+    needs: [ generate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/validate.yml@master
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
-  android:
-    name: Android
-    needs: [ prepare_build, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/release_android.yml@master
+  build_android:
+    name: Build Android
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
-      build_number: ${{ needs.prepare_build.outputs.number }}
-      build_version: ${{ needs.prepare_build.outputs.version }}
+      build_number: ${{ needs.prepare.outputs.number }}
     secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
-      GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
       KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
 
-  ios:
-    name: iOS
-    needs: [ prepare_build, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/release_ios.yml@master
+  build_ios:
+    name: Build iOS
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
     with:
-      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
-      build_number: ${{ needs.prepare_build.outputs.number }}
-      build_version: ${{ needs.prepare_build.outputs.version }}
+      build_number: ${{ needs.prepare.outputs.number }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+  build_linux:
+    name: Build Linux
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
+    with:
+      build_number: ${{ needs.prepare.outputs.number }}
+    secrets:
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+
+  build_macos:
+    name: Build macOS
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
+    with:
+      build_number: ${{ needs.prepare.outputs.number }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+  build_web:
+    name: Build Web
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
+    with:
+      build_number: ${{ needs.prepare.outputs.number }}
+    secrets:
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+
+  publish:
+    name: Publish
+    needs: [ prepare, build_android, build_ios, build_linux, build_macos, build_web ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish.yml@master
+    with:
+      build_flavor: ${{ needs.prepare.outputs.flavor }}
+      build_number: ${{ needs.prepare.outputs.number }}
+      build_title: ${{ needs.prepare.outputs.title }}
+      build_version: ${{ needs.prepare.outputs.version }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -79,58 +130,11 @@ jobs:
       APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
-      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-  linux:
-    name: Linux
-    needs: [ prepare_build, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/release_linux.yml@master
-    with:
-      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
-      build_number: ${{ needs.prepare_build.outputs.number }}
-      build_version: ${{ needs.prepare_build.outputs.version }}
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
-      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
-
-  macos:
-    name: macOS
-    needs: [ prepare_build, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/release_macos.yml@master
-    with:
-      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
-      build_number: ${{ needs.prepare_build.outputs.number }}
-      build_version: ${{ needs.prepare_build.outputs.version }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-      APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
-      MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-      MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-  web:
-    name: Web
-    needs: [ prepare_build, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/release_web.yml@master
-    with:
-      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
-      build_number: ${{ needs.prepare_build.outputs.number }}
-      build_version: ${{ needs.prepare_build.outputs.version }}
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}

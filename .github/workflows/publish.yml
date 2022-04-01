@@ -1,0 +1,347 @@
+name: 'Publish Releases'
+
+on:
+  workflow_call:
+    inputs:
+      build_flavor:
+        required: true
+        type: string
+      build_number:
+        required: true
+        type: string
+      build_title:
+        required: true
+        type: string
+      build_version:
+        required: true
+        type: string
+
+    secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+      GOOGLE_PLAY_API:
+        required: true
+      NETLIFY_AUTH_TOKEN:
+        required: true
+      SNAPCRAFT_TOKEN:
+        required: true
+      S3_ACCESS_KEY:
+        required: true
+      S3_BUCKET:
+        required: true
+      S3_ENDPOINT:
+        required: true
+      S3_KEY_ID:
+        required: true
+      S3_REGION:
+        required: true
+
+jobs:
+  android_play_store:
+    name: Play Store
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download Android App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: android-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "alpha";
+              case "candidate": return "beta";
+              case "stable": return "production";
+              case "edge":
+              default: return "internal";
+            }
+      
+      - name: Deploy to Google Play Store
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+        run: |
+          bundle install
+          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ github.sha }}
+
+  ios_app_store:
+    name: App Store (iOS)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download macOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+      
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
+              case "edge":
+              default: return "edge";
+            }
+
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
+
+  macos_app_store:
+    name: App Store (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download iOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: ios-app-package
+          path: ${{ github.workspace }}/output
+      
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
+              case "edge":
+              default: return "edge";
+            }
+
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
+
+  linux_snapcraft:
+    name: Snapcraft
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Download Linux Snap
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-snap
+          path: ${{ github.workspace }}/output
+
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
+              case "edge":
+              default: return "edge";
+            }
+
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+        with:
+          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+
+      - name: Deploy to Snapcraft
+        run: |
+          snapcraft upload --release=${{ inputs.build_flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
+
+  web_netlify:
+    name: Netlify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Download Android App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: web-canvaskit
+          path: ${{ github.workspace }}/output
+
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "11ef2676-fc31-41b5-897b-fd21273d87ed";
+              case "candidate": return "4636e6a1-17ef-45a2-a2b6-3d1c166fd1df";
+              case "stable": return "6634f0b1-323c-4a2f-bd0b-8f1f388673a9";
+              case "edge":
+              default: return "325e197e-55f4-449a-b2bb-6831fe47bf2a";
+            }
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ steps.channel.outputs.result }}
+        with:
+          publish-dir: ${{ github.workspace}}/output
+          production-deploy: true
+          deploy-message: ${{ inputs.build_title }}
+
+  s3:
+    name: S3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Download Android App Bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: android-app-bundle
+          path: ${{ github.workspace }}/output
+
+      - name: Download Android App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: android-app-package
+          path: ${{ github.workspace }}/output
+      
+      - name: Download iOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: ios-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download Linux Snap
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-snap
+          path: ${{ github.workspace }}/output
+
+      - name: Download macOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Upload to S3 Bucket
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --acl public-read --follow-symlinks 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          AWS_REGION: ${{ secrets.S3_REGION }}
+          SOURCE_DIR: ${{ github.workspace }}/output
+          DEST_DIR: ${{ inputs.build_title }}

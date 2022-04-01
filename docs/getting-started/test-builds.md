@@ -4,7 +4,7 @@ description: How to get develop, alpha, and beta builds of LunaSea
 
 # Test Builds
 
-## Production
+## Stable
 
 This is the store version and will remain the most stable version. The current release cadence will stay the same, and no in-progress features will be deployed to this track.
 
@@ -14,12 +14,12 @@ For users on macOS who want to download releases via TestFlight but do not want 
 
 * [Android](https://www.lunasea.app/playstore)
 * [iOS](https://www.lunasea.app/appstore)
-* [macOS](https://www.lunasea.app/testflight/production)
+* [macOS](https://www.lunasea.app/testflight/stable)
 * [GitHub](https://www.lunasea.app/github)
 
-## Beta
+## Candidate
 
-This is the current "test" version, and will be shifted to focus around **final testing of completed new features** leading up to the release to production. This track is intended to help catch any remaining bugs from alpha builds and overall should remain relatively stable.
+This is the current "test" version, and will be shifted to focus around **final release candidate testing of completed new features** leading up to the release to production. This track is intended to help catch any remaining bugs from alpha builds and overall should remain relatively stable.
 
 ### Android
 
@@ -32,10 +32,10 @@ _NOTE: It may take a few hours to start receiving the updated builds_
 ### iOS/macOS
 
 1. Download [TestFlight](https://apps.apple.com/app/testflight/id899247664)
-2. [Join the TestFlight](https://www.lunasea.app/testflight/beta)
-3. Download LunaSea via the TestFlight application&#x20;
+2. [Join the TestFlight](https://www.lunasea.app/testflight/candidate)
+3. Download LunaSea via the TestFlight application
 
-## Alpha
+## Beta
 
 This track's purpose is to allow **early previews and testing of work-in-progress features**. An example is the current localization efforts, so all users who have graciously helped translate pieces of LunaSea over the past few months can start to see their changes in the app! This is just a single example of a work in progress feature, and the feature list will constantly be changing.
 
@@ -51,10 +51,10 @@ _NOTE: It may take a few hours to start receiving the updated builds_
 ### iOS/macOS
 
 1. Download [TestFlight](https://apps.apple.com/app/testflight/id899247664)
-2. [Join the TestFlight](https://www.lunasea.app/testflight/alpha)
+2. [Join the TestFlight](https://www.lunasea.app/testflight/beta)
 3. Download LunaSea via the TestFlight application
 
-## Develop
+## Edge
 
 This track's purpose is to ensure that every commit made to `master` is building across all platforms and allows for easier access to a build for each commit. **This is not intended to be used by the average user**, but is for community developers or users who need to test a recently added fix that has not yet reached the alpha channel.
 
@@ -71,5 +71,5 @@ Reach out via [email](mailto:hello@lunasea.app) for more information.
 ### iOS/macOS
 
 1. Download [TestFlight](https://apps.apple.com/app/testflight/id899247664)
-2. [Join the TestFlight](https://www.lunasea.app/testflight/develop)
+2. [Join the TestFlight](https://www.lunasea.app/testflight/edge)
 3. Download LunaSea via the TestFlight application

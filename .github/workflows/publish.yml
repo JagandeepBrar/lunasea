@@ -31,6 +31,8 @@ on:
         required: true
       APPLE_TEAM_ID:
         required: true
+      DISCORD_WEBHOOK:
+        required: true
       GOOGLE_PLAY_API:
         required: true
       NETLIFY_AUTH_TOKEN:
@@ -70,10 +72,10 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Download Android App Package
+      - name: Download Android App Bundle
         uses: actions/download-artifact@v3
         with:
-          name: android-app-package
+          name: android-app-bundle
           path: ${{ github.workspace }}/output
 
       - name: Determine Release Channel
@@ -155,6 +157,7 @@ jobs:
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
+          bundle install
           bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
 
   macos_app_store:
@@ -345,3 +348,13 @@ jobs:
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
           DEST_DIR: ${{ inputs.build_title }}
+
+      - name: Send Discord Message
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: 'LunaSea Support'
+          DISCORD_AVATAR: 'https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png'
+          DISCORD_EMBEDS: '[{"title": "New Build Available","description": "${{ inputs.build_title }}","color": "4ECCA3","url": "https://builds.lunasea.app/#${{ inputs.build_title }}","fields": [{"name": "Flavor","value": "${{ inputs.build_flavor }}"},{"name": "Commit","value": "${{ github.sha }}"}]}]'
+        with:
+          args: ''

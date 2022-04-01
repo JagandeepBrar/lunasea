@@ -54,13 +54,10 @@ jobs:
         uses: snapcore/action-build@v1
         id: build
 
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
-
       - name: Move Snap
         working-directory: ${{ github.workspace }}
         run: |
+          mkdir -p ${{ github.workspace }}/output
           mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
 
       - name: Upload Artifact

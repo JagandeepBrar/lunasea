@@ -1,4 +1,4 @@
-name: '[Release] Android'
+name: '[Release] Linux'
 
 on:
   workflow_call:
@@ -18,11 +18,7 @@ on:
         required: true
       FIREBASE_OPTIONS:
         required: true
-      GOOGLE_PLAY_API:
-        required: true
-      KEY_JKS:
-        required: true
-      KEY_PROPERTIES:
+      SNAPCRAFT_TOKEN:
         required: true
 
 jobs:
@@ -51,19 +47,11 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
-          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
-          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
 
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
         with:
-          bundler-cache: true
-
-      - name: Install Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: zulu
-          java-version: 11
+          use_lxd: true
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -76,20 +64,17 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           flutter pub get
-
-      - name: Run Fastlane
-        working-directory: ${{ github.workspace }}/android
-        env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
-        run: |
-          bundle install
-          bundle exec fastlane build build_number:${{ inputs.build_number }}
       
-      - name: Upload App Bundle Artifact
+      - name: Build LunaSea
+        working-directory: ${{ github.workspace }}
+        run: |
+          sg lxd -c 'snapcraft --use-lxd'
+
+      - name: Upload Snap Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab
+          name: linux-${{ inputs.build_flavor }}-${{ github.sha }}
+          path: ${{ github.workspace }}/lunasea_${{ inputs.build_version }}_amd64.snap
 
       - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
@@ -97,9 +82,9 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          title: '`[${{ inputs.build_flavor }}]` Android Build'
-          description: android-${{ inputs.build_flavor }}-${{ github.sha }}
-
+          title: '`[${{ inputs.build_flavor }}]` Linux Build'
+          description: linux-${{ inputs.build_flavor }}-${{ github.sha }}
+  
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -107,7 +92,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
+
       - name: Determine Release Channel
         id: channel
         uses: actions/github-script@v6
@@ -118,33 +103,24 @@ jobs:
           script: |
             const ref = process.env.FLAVOR || "edge";
             switch (ref) {
-              case "beta": return "alpha";
-              case "candidate": return "beta";
-              case "stable": return "production";
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
               case "edge":
-              default: return "internal";
+              default: return "edge";
             }
 
-      - name: Download App Package Artifact
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+        with:
+          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+
+      - name: Download Snap Build Artifact
         uses: actions/download-artifact@v2
         with:
-          name: android-${{ inputs.build_flavor }}-${{ github.sha }}
+          name: linux-${{ inputs.build_flavor }}-${{ github.sha }}
           path: ${{ github.workspace }}
 
-      - name: Install Secret Keys
-        working-directory: ${{ github.workspace }}
+      - name: Deploy to Snapcraft
         run: |
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Deploy to Google Play Store
-        working-directory: ${{ github.workspace }}/android
-        env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
-        run: |
-          bundle install
-          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/app-release.aab version_name:${{ github.sha }}
+          snapcraft upload --release=${{ inputs.build_flavor }} lunasea_${{ inputs.build_version }}_amd64.snap 

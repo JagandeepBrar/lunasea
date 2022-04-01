@@ -9,6 +9,9 @@ on:
       build_number:
         required: true
         type: string
+      build_version:
+        required: true
+        type: string
 
     secrets:
       APPLE_ID:

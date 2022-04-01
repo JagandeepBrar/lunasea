@@ -14,6 +14,9 @@ on:
       number:
         description: "Build Number"
         value: ${{ jobs.number.outputs.output1 }}
+      version:
+        description: "Build Version"
+        value: ${{ jobs.version.outputs.output1 }}
 
 jobs:
   flavor:
@@ -90,3 +93,24 @@ jobs:
         run: |
           echo ${{ steps.script.outputs.result }}
           echo "::set-output name=number::${{ steps.script.outputs.result }}"
+
+  version:
+    name: Version
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.output.outputs.number }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Get Version
+        id: version
+        uses: martinbeentjes/npm-get-version-action@v1.1.0
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.version.outputs.current-version }}
+          echo "::set-output name=number::${{ steps.version.outputs.current-version }}"

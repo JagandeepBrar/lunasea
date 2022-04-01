@@ -9,6 +9,9 @@ on:
       build_number:
         required: true
         type: string
+      build_version:
+        required: true
+        type: string
 
     secrets:
       DISCORD_WEBHOOK:
@@ -115,4 +118,5 @@ jobs:
           NETLIFY_SITE_ID: ${{ steps.channel.outputs.result }}
         with:
           publish-dir: ${{ github.workspace}}/build/web
+          production-deploy: true
           deploy-message: ${{ github.sha }}

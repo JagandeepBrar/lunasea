@@ -55,6 +55,7 @@ jobs:
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
+      build_version: ${{ needs.prepare_build.outputs.version }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
@@ -69,6 +70,7 @@ jobs:
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
+      build_version: ${{ needs.prepare_build.outputs.version }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -84,6 +86,19 @@ jobs:
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
+  linux:
+    name: Linux
+    needs: [ prepare_build, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/release_linux.yml@master
+    with:
+      build_flavor: ${{ needs.prepare_build.outputs.flavor }}
+      build_number: ${{ needs.prepare_build.outputs.number }}
+      build_version: ${{ needs.prepare_build.outputs.version }}
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+
   macos:
     name: macOS
     needs: [ prepare_build, validate ]
@@ -91,6 +106,7 @@ jobs:
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
+      build_version: ${{ needs.prepare_build.outputs.version }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -113,6 +129,7 @@ jobs:
     with:
       build_flavor: ${{ needs.prepare_build.outputs.flavor }}
       build_number: ${{ needs.prepare_build.outputs.number }}
+      build_version: ${{ needs.prepare_build.outputs.version }}
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}

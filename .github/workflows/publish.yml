@@ -124,63 +124,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Download macOS App Package
-        uses: actions/download-artifact@v3
-        with:
-          name: macos-app-package
-          path: ${{ github.workspace }}/output
-      
-      - name: Determine Release Channel
-        id: channel
-        uses: actions/github-script@v6
-        env:
-          FLAVOR: ${{ inputs.build_flavor }}
-        with:
-          result-encoding: string
-          script: |
-            const ref = process.env.FLAVOR || "edge";
-            switch (ref) {
-              case "beta": return "beta";
-              case "candidate": return "candidate";
-              case "stable": return "stable";
-              case "edge":
-              default: return "edge";
-            }
-
-      - name: Deploy to App Store Connect
-        working-directory: ${{ github.workspace }}/macos
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: |
-          bundle install
-          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
-
-  macos_app_store:
-    name: App Store (macOS)
-    runs-on: macos-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
       - name: Download iOS App Package
         uses: actions/download-artifact@v3
         with:
@@ -256,6 +199,63 @@ jobs:
       - name: Deploy to Snapcraft
         run: |
           snapcraft upload --release=${{ inputs.build_flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
+
+  macos_app_store:
+    name: App Store (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Prepare Folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+
+      - name: Install Secrets
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download macOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+      
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.build_flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || "edge";
+            switch (ref) {
+              case "beta": return "beta";
+              case "candidate": return "candidate";
+              case "stable": return "stable";
+              case "edge":
+              default: return "edge";
+            }
+
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          bundle install
+          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
 
   web_netlify:
     name: Netlify
@@ -348,13 +348,3 @@ jobs:
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
           DEST_DIR: ${{ inputs.build_title }}
-
-      - name: Send Discord Message
-        uses: Ilshidur/action-discord@0.3.2
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: 'LunaSea Support'
-          DISCORD_AVATAR: 'https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png'
-          DISCORD_EMBEDS: '[{"title": "New Build Available","description": "${{ inputs.build_title }}","color": "4ECCA3","url": "https://builds.lunasea.app/#${{ inputs.build_title }}","fields": [{"name": "Flavor","value": "${{ inputs.build_flavor }}"},{"name": "Commit","value": "${{ github.sha }}"}]}]'
-        with:
-          args: ''

@@ -25,6 +25,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.build.outputs.snap }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -48,9 +50,6 @@ jobs:
         run: |
           echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -64,15 +63,14 @@ jobs:
           flutter pub get
       
       - name: Build LunaSea
-        working-directory: ${{ github.workspace }}
-        run: |
-          sg lxd -c 'snapcraft --use-lxd'
+        uses: snapcore/action-build@v1
+        id: build
 
       - name: Upload Snap Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: linux-${{ inputs.build_flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}/lunasea_${{ inputs.build_version }}_amd64.snap
+          path: ${{ steps.build.outputs.snap }}
 
       - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
@@ -117,8 +115,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: linux-${{ inputs.build_flavor }}-${{ github.sha }}
-          path: ${{ github.workspace }}
 
       - name: Deploy to Snapcraft
         run: |
-          snapcraft upload --release=${{ inputs.build_flavor }} lunasea_${{ inputs.build_version }}_amd64.snap 
+          snapcraft upload --release=${{ inputs.build_flavor }} ${{ needs.build.outputs.output1 }}

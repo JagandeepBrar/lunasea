@@ -12,6 +12,14 @@ on:
         required: true
       APPLE_ITC_TEAM_ID:
         required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_FILEPATH:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
       APPLE_TEAM_ID:
         required: true
       FIREBASE_OPTIONS:
@@ -133,6 +141,7 @@ jobs:
       - name: Install Secrets
         working-directory: ${{ github.workspace }}
         run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
           echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
       - name: Setup SSH Agent
@@ -168,6 +177,9 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}

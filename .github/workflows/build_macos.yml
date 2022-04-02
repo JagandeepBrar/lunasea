@@ -80,10 +80,6 @@ jobs:
           flutter config --enable-macos-desktop
           flutter pub get
 
-      - name: Setup Fastlane
-        working-directory: ${{ github.workspace }}/macos
-        run: |
-
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos
         run: |
@@ -161,10 +157,6 @@ jobs:
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
-
-      - name: Setup Fastlane
-        working-directory: ${{ github.workspace }}/macos
-        run: |
 
       - name: Install Pods
         working-directory: ${{ github.workspace }}/macos

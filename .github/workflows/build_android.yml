@@ -132,16 +132,12 @@ jobs:
         run: |
           flutter pub get
       
-      - name: Setup Fastlane
-        working-directory: ${{ github.workspace }}/android
-        run: |
-          bundle install
-
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/android
         env:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
+          bundle install
           bundle exec fastlane build_apk build_number:${{ inputs.build_number }}
 
       - name: Upload Artifact

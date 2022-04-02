@@ -357,8 +357,5 @@ jobs:
           avatar_url: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
           noprefix: true
           color: 0x4ECCA3
-          title: '`[${{ inputs.build_flavor }}]` New Build Available'
-          description: |
-            ${{ inputs.build_title }}
-
-            [Download](https://builds.lunasea.app/#${{ inputs.build_title }})
+          title: ${{ inputs.build_title }}
+          description: '[Download](https://builds.lunasea.app/#${{ inputs.build_title }}/)'

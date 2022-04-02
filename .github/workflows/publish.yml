@@ -348,3 +348,17 @@ jobs:
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
           DEST_DIR: ${{ inputs.build_title }}
+      
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          username: LunaSea Support
+          avatar_url: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
+          noprefix: true
+          color: 0x4ECCA3
+          title: '`[${{ inputs.build_flavor }}]` New Build Available'
+          description: |
+            ${{ inputs.build_title }}
+
+            [Download](https://builds.lunasea.app/#${{ inputs.build_title }})

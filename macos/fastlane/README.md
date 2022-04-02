@@ -31,29 +31,13 @@ Create the LunaSea Keychain
 
 Delete the LunaSea Keychain
 
-### mac keychain_development
+### mac keychain_setup
 
 ```sh
-[bundle exec] fastlane mac keychain_development
+[bundle exec] fastlane mac keychain_setup
 ```
 
-Setup the Keychain for Development
-
-### mac keychain_appstore
-
-```sh
-[bundle exec] fastlane mac keychain_appstore
-```
-
-Setup the Keychain for App Store Deployment
-
-### mac keychain_direct
-
-```sh
-[bundle exec] fastlane mac keychain_direct
-```
-
-Setup the LunaSea Keychain for Direct Deployment
+Setup the Keychain
 
 ### mac connect_appstore_connect
 

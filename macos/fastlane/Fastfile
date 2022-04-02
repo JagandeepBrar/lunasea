@@ -18,20 +18,17 @@ platform :mac do
     delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
   
-  desc "Setup the Keychain for Development"
-  lane :keychain_development do
-    keychain_create
+  desc "Setup the Keychain"
+  lane :keychain_setup do
+    # Development
     match(
       type: "development",
       readonly: is_ci,
       keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
-  end
 
-  desc "Setup the Keychain for App Store Deployment"
-  lane :keychain_appstore do
-    keychain_create
+    # App Store
     match(
       type: "appstore",
       additional_cert_types: "mac_installer_distribution",
@@ -39,11 +36,8 @@ platform :mac do
       keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
-  end
 
-  desc "Setup the LunaSea Keychain for Direct Deployment"
-  lane :keychain_direct do
-    keychain_create
+    # Direct
     match(
       type: "developer_id",
       additional_cert_types: "developer_id_installer",
@@ -64,8 +58,8 @@ platform :mac do
 
   desc "Build App Package for App Store"
   lane :build_appstore do |options|
-    keychain_development
-    keychain_appstore
+    keychain_create
+    keychain_setup
 
     sh(
       "flutter", "build", "macos",
@@ -85,8 +79,8 @@ platform :mac do
 
   desc "Build App Package for Direct Deployment"
   lane :build_direct do |options|
-    keychain_development
-    keychain_direct
+    keychain_create
+    keychain_setup
     connect_appstore_connect
 
     sh(

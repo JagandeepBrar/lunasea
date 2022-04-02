@@ -18,20 +18,17 @@ platform :ios do
     delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
 
-  desc "Setup the Keychain for Development"
-  lane :keychain_development do
-    keychain_create
+  desc "Setup the Keychain"
+  lane :keychain_setup do
+    # Development
     match(
       type: "development",
       readonly: is_ci,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
-  end
 
-  desc "Setup the Keychain for App Store Deployment"
-  lane :keychain_appstore do
-    keychain_create
+    # App Store
     match(
       type: "appstore",
       readonly: is_ci,
@@ -51,8 +48,8 @@ platform :ios do
 
   desc "Build App Package for App Store"
   lane :build_appstore do |options|
-    keychain_development
-    keychain_appstore
+    keychain_create
+    keychain_setup
 
     sh(
       "flutter", "build", "ios",

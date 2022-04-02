@@ -1,4 +1,4 @@
-name: '[Release] macOS'
+name: 'Build macOS'
 
 on:
   workflow_call:

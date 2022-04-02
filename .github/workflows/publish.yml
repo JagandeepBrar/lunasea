@@ -6,13 +6,7 @@ on:
       build_flavor:
         required: true
         type: string
-      build_number:
-        required: true
-        type: string
       build_title:
-        required: true
-        type: string
-      build_version:
         required: true
         type: string
 
@@ -101,7 +95,7 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ github.sha }}
+          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build_title }}
 
   ios_app_store:
     name: App Store (iOS)

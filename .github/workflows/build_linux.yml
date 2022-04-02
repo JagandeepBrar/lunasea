@@ -1,4 +1,4 @@
-name: '[Release] Linux'
+name: 'Build Linux'
 
 on:
   workflow_call:

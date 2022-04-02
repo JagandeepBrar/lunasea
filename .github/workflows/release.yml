@@ -35,13 +35,9 @@ jobs:
       ref: ${{ github.event.inputs.flavor }}
 
   generate:
-    name: Generate Files
+    name: Generate
     needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/generate_files.yml@master
-    with:
-      build_flavor: ${{ needs.prepare.outputs.flavor }}
-      build_number: ${{ needs.prepare.outputs.number }}
-      build_version: ${{ needs.prepare.outputs.version }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
@@ -119,9 +115,7 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/publish.yml@master
     with:
       build_flavor: ${{ needs.prepare.outputs.flavor }}
-      build_number: ${{ needs.prepare.outputs.number }}
       build_title: ${{ needs.prepare.outputs.title }}
-      build_version: ${{ needs.prepare.outputs.version }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

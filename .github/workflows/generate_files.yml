@@ -2,17 +2,6 @@ name: Generate Files
 
 on:
   workflow_call:
-    inputs:
-      build_flavor:
-        required: true
-        type: string
-      build_number:
-        required: true
-        type: string
-      build_version:
-        required: true
-        type: string
-
     secrets:
       FIREBASE_OPTIONS:
         required: true

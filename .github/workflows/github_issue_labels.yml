@@ -1,4 +1,4 @@
-name: '[GitHub] Issues'
+name: 'GitHub Issue Labels'
 
 on:
   issues:

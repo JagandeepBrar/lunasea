@@ -95,7 +95,7 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
           bundle install
-          bundle exec fastlane deploy track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build_title }}
+          bundle exec fastlane deploy_playstore track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build_title }}
 
   ios_app_store:
     name: App Store (iOS)
@@ -152,7 +152,7 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
+          bundle exec fastlane deploy_appstore groups:${{ steps.channel.outputs.result }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
 
   linux_snapcraft:
     name: Snapcraft
@@ -215,10 +215,10 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Download macOS App Package
+      - name: Download macOS App Store Package
         uses: actions/download-artifact@v3
         with:
-          name: macos-app-package
+          name: macos-appstore-package
           path: ${{ github.workspace }}/output
       
       - name: Determine Release Channel
@@ -249,7 +249,7 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           bundle install
-          bundle exec fastlane deploy groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
+          bundle exec fastlane deploy_appstore groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
 
   web_netlify:
     name: Netlify
@@ -300,12 +300,6 @@ jobs:
         run: |
           mkdir -p ${{ github.workspace }}/output
 
-      - name: Download Android App Bundle
-        uses: actions/download-artifact@v3
-        with:
-          name: android-app-bundle
-          path: ${{ github.workspace }}/output
-
       - name: Download Android App Package
         uses: actions/download-artifact@v3
         with:
@@ -324,10 +318,10 @@ jobs:
           name: linux-snap
           path: ${{ github.workspace }}/output
 
-      - name: Download macOS App Package
+      - name: Download macOS Notarized Package
         uses: actions/download-artifact@v3
         with:
-          name: macos-app-package
+          name: macos-notarized-package
           path: ${{ github.workspace }}/output
 
       - name: Upload to S3 Bucket

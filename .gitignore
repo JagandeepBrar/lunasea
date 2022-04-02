@@ -76,6 +76,8 @@ jspm_packages/
 
 # Artifacts
 output/
+macos/LunaSea.app.dSYM.zip
+macos/LunaSea.app.zip
 *.apk
 *.aab
 *.ipa

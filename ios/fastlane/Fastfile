@@ -1,8 +1,8 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Setup the LunaSea Keychain"
-  lane :prepare_keychain do
+  desc "Create the LunaSea Keychain"
+  lane :keychain_create do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
       password: ENV["MATCH_KEYCHAIN_PASSWORD"],
@@ -11,16 +11,27 @@ platform :ios do
       timeout: 3600,
       lock_when_sleeps: false
     )
+  end
 
-    # Development
+  desc "Delete the LunaSea Keychain"
+  lane :keychain_delete do
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  end
+
+  desc "Setup the Keychain for Development"
+  lane :keychain_development do
+    keychain_create
     match(
       type: "development",
       readonly: is_ci,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
     )
-    
-    # App Store Connect
+  end
+
+  desc "Setup the Keychain for App Store Deployment"
+  lane :keychain_appstore do
+    keychain_create
     match(
       type: "appstore",
       readonly: is_ci,
@@ -29,14 +40,19 @@ platform :ios do
     )
   end
 
-  desc "Destroy the LunaSea Keychain"
-  lane :destroy_keychain do
-    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  desc "Connect to App Store Connect"
+  lane :connect_appstore_connect do
+    app_store_connect_api_key(
+      key_id: ENV["APPLE_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["APPLE_STORE_CONNECT_ISSUER_ID"],
+      key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
+    )
   end
 
-  desc "Build App Package"
-  lane :build do |options|
-    prepare_keychain
+  desc "Build App Package for App Store"
+  lane :build_appstore do |options|
+    keychain_development
+    keychain_appstore
 
     sh(
       "flutter", "build", "ios",
@@ -53,16 +69,12 @@ platform :ios do
     sh("mkdir", "-p", "../../output")
     sh("mv", "../../ios/Runner.ipa", "../../output/LunaSea-iOS.ipa")
 
-    destroy_keychain
+    keychain_delete
   end
 
   desc "Deploy to App Store Connect"
-  lane :deploy do |options|
-    api_key = app_store_connect_api_key(
-      key_id: ENV["APPLE_STORE_CONNECT_KEY_ID"],
-      issuer_id: ENV["APPLE_STORE_CONNECT_ISSUER_ID"],
-      key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
-    )
+  lane :deploy_appstore do |options|
+    connect_appstore_connect
 
     upload_to_testflight(
       changelog: "Thank you for testing pre-release builds of LunaSea! Please consider joining the Discord to give feedback to the developer.\n\nChanges can be found on GitHub or by going to settings/system and tapping on the version tile!",

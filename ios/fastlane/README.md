@@ -15,34 +15,58 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios prepare_keychain
+### ios keychain_create
 
 ```sh
-[bundle exec] fastlane ios prepare_keychain
+[bundle exec] fastlane ios keychain_create
 ```
 
-Setup the LunaSea Keychain
+Create the LunaSea Keychain
 
-### ios destroy_keychain
+### ios keychain_delete
 
 ```sh
-[bundle exec] fastlane ios destroy_keychain
+[bundle exec] fastlane ios keychain_delete
 ```
 
-Destroy the LunaSea Keychain
+Delete the LunaSea Keychain
 
-### ios build
+### ios keychain_development
 
 ```sh
-[bundle exec] fastlane ios build
+[bundle exec] fastlane ios keychain_development
 ```
 
-Build App Package
+Setup the Keychain for Development
 
-### ios deploy
+### ios keychain_appstore
 
 ```sh
-[bundle exec] fastlane ios deploy
+[bundle exec] fastlane ios keychain_appstore
+```
+
+Setup the Keychain for App Store Deployment
+
+### ios connect_appstore_connect
+
+```sh
+[bundle exec] fastlane ios connect_appstore_connect
+```
+
+Connect to App Store Connect
+
+### ios build_appstore
+
+```sh
+[bundle exec] fastlane ios build_appstore
+```
+
+Build App Package for App Store
+
+### ios deploy_appstore
+
+```sh
+[bundle exec] fastlane ios deploy_appstore
 ```
 
 Deploy to App Store Connect

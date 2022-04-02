@@ -31,10 +31,10 @@ Build App Bundle
 
 Build APKs
 
-### android deploy
+### android deploy_playstore
 
 ```sh
-[bundle exec] fastlane android deploy
+[bundle exec] fastlane android deploy_playstore
 ```
 
 Deploy to Google Play Store

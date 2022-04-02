@@ -35,7 +35,7 @@ platform :android do
   end
 
   desc "Deploy to Google Play Store"
-  lane :deploy do |options|
+  lane :deploy_playstore do |options|
     upload_to_play_store(
       aab: options[:aab],
       skip_upload_metadata: true,

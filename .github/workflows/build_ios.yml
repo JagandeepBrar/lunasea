@@ -27,7 +27,7 @@ on:
 
 jobs:
   build_app_package:
-    name: App Package
+    name: App Store Package
     runs-on: macos-latest
     steps:
       - name: Checkout Repository
@@ -95,7 +95,7 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
         run: |
           bundle install
-          bundle exec fastlane build build_number:${{ inputs.build_number }}
+          bundle exec fastlane build_appstore build_number:${{ inputs.build_number }}
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

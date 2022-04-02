@@ -15,34 +15,74 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Mac
 
-### mac prepare_keychain
+### mac keychain_create
 
 ```sh
-[bundle exec] fastlane mac prepare_keychain
+[bundle exec] fastlane mac keychain_create
 ```
 
-Setup the LunaSea Keychain
+Create the LunaSea Keychain
 
-### mac destroy_keychain
+### mac keychain_delete
 
 ```sh
-[bundle exec] fastlane mac destroy_keychain
+[bundle exec] fastlane mac keychain_delete
 ```
 
-Destroy the LunaSea Keychain
+Delete the LunaSea Keychain
 
-### mac build
+### mac keychain_development
 
 ```sh
-[bundle exec] fastlane mac build
+[bundle exec] fastlane mac keychain_development
 ```
 
-Build App Package
+Setup the Keychain for Development
 
-### mac deploy
+### mac keychain_appstore
 
 ```sh
-[bundle exec] fastlane mac deploy
+[bundle exec] fastlane mac keychain_appstore
+```
+
+Setup the Keychain for App Store Deployment
+
+### mac keychain_direct
+
+```sh
+[bundle exec] fastlane mac keychain_direct
+```
+
+Setup the LunaSea Keychain for Direct Deployment
+
+### mac connect_appstore_connect
+
+```sh
+[bundle exec] fastlane mac connect_appstore_connect
+```
+
+Connect to App Store Connect
+
+### mac build_appstore
+
+```sh
+[bundle exec] fastlane mac build_appstore
+```
+
+Build App Package for App Store
+
+### mac build_direct
+
+```sh
+[bundle exec] fastlane mac build_direct
+```
+
+Build App Package for Direct Deployment
+
+### mac deploy_appstore
+
+```sh
+[bundle exec] fastlane mac deploy_appstore
 ```
 
 Deploy to App Store Connect

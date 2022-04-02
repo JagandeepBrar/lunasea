@@ -40,9 +40,7 @@ platform :mac do
     prepare_keychain
 
     sh(
-      "flutter",
-      "build",
-      "macos",
+      "flutter", "build", "macos",
       "--release",
       "--build-number=#{options[:build_number]}",
     )

@@ -49,10 +49,6 @@ platform :ios do
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
       export_method: "app-store",
-      export_options: {
-        "app.lunasea.lunasea" => "Provisioning Profile Name",
-        "app.lunasea.lunasea.ImageNotification" => "Provisioning Profile Name 2"
-      },
     )
     sh("mkdir", "-p", "../../output")
     sh("mv", "../../ios/Runner.ipa", "../../output/LunaSea-iOS.ipa")

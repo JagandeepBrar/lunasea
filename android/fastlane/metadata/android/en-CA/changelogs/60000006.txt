@@ -1,3 +1,0 @@
-Welcome to LunaSea v6.0.0!
-
-This update introduces some major new and reworked features. Sonarr has been fully revamped to take full advantage of the features available in v3, Radarr and Sonarr have a new grid view, and the UI has had many big and small changes to make it faster, more consistent, and more performant! The full changelog is available within the application!

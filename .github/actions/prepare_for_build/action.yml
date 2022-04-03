@@ -1,0 +1,140 @@
+name: 'Prepare for Build'
+description: 'Setup all required dependencies and secrets for building the given platform'
+
+inputs:
+  platform:
+    description: 'Platform to be Built'
+    required: true
+  skip-core:
+    description: 'Skip Installing Core Files'
+    required: false
+    default: 'false'
+
+  # Secret Keys
+  android-key-jks:
+    description: 'Android Signing Key'
+    required: false
+    default: ''
+  android-key-properties:
+    description: 'Android Signing Key Properties'
+    required: false
+    default: ''
+  appstore-connect-key:
+    description: 'App Store Connect API Key'
+    required: false
+    default: ''
+  firebase-options:
+    description: 'Firebase Configuration'
+    required: false
+    default: ''
+  google-play-key:
+    description: 'Google Play Store API Key'
+    required: false
+    default: ''
+  match-ssh-private-key:
+    description: 'Fastlane Match SSH Key'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        
+    - name: Prepare Core
+      if: ${{ inputs.skip-core == 'false' }}
+      uses: actions/download-artifact@v3
+      with:
+        name: core-files
+
+    - name: Prepare Folders
+      shell: bash
+      run: |
+        mkdir -p output
+        mkdir -p keys
+
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Install Java
+      if: ${{ inputs.platform == 'android' }}
+      uses: actions/setup-java@v2
+      with:
+        distribution: zulu
+        java-version: 11
+
+    - name: Install Ruby
+      if: ${{ inputs.platform == 'android' || inputs.platform == 'ios' || inputs.platform == 'macos' }}
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Install XCode
+      if: ${{ inputs.platform == 'ios' || inputs.platform == 'macos' }}
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Setup Match SSH Keys 
+      if: ${{ inputs.platform == 'ios' || inputs.platform == 'macos' }}
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ inputs.match-ssh-private-key }}
+
+    - name: Setup Secret Keys
+      shell: bash
+      run: |
+        echo ${{ inputs.appstore-connect-key }} | base64 --decode > keys/appstore.p8
+        echo ${{ inputs.google-play-key }} | base64 --decode > keys/googleplay.json
+        echo ${{ inputs.android-key-jks }} | base64 --decode > android/key.jks
+        echo ${{ inputs.android-key-properties }} | base64 --decode > android/key.properties
+        echo ${{ inputs.firebase-options }} | base64 --decode > lib/firebase_options.dart
+
+    - name: Setup Android Platform
+      if: ${{ inputs.platform == 'android' }}
+      shell: bash
+      run: |
+        flutter pub get
+        (cd android && bundle install)
+
+    - name: Setup iOS Platform
+      if: ${{ inputs.platform == 'ios' }}
+      shell: bash
+      run: |
+       flutter pub get
+       (cd ios && pod install --repo-update)
+       (cd ios && bundle install)
+      
+    - name: Setup Linux Platform
+      if: ${{ inputs.platform == 'linux' }}
+      shell: bash
+      run: |
+        flutter config --enable-linux-desktop
+        flutter pub get
+
+    - name: Setup macOS Platform
+      if: ${{ inputs.platform == 'macos' }}
+      shell: bash
+      run: |
+        flutter config --enable-macos-desktop
+        flutter pub get
+        (cd macos && pod install --repo-update)
+        (cd macos && bundle install)
+
+    - name: Setup Web Platform
+      if: ${{ inputs.platform == 'web' }}
+      shell: bash
+      run: |
+        flutter pub get
+
+    - name: Setup Test Platform
+      if: ${{ inputs.platform == 'test' }}
+      shell: bash
+      run: |
+        flutter pub get

@@ -1,0 +1,77 @@
+name: 'Prepare for Deployment'
+description: 'Setup all required dependencies and secrets for the given release channel'
+
+inputs:
+  channel:
+    description: 'Release Channel'
+    required: true
+
+  # Secret Keys
+  appstore-connect-key:
+    description: 'App Store Connect API Key'
+    required: false
+    default: ''
+  google-play-key:
+    description: 'Google Play Store API Key'
+    required: false
+    default: ''
+  snapcraft-token:
+    description: 'Snapcraft API Key'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Prepare Folders
+      shell: bash
+      run: |
+        mkdir -p output
+        mkdir -p keys
+
+    - name: Install Ruby
+      if: ${{ inputs.channel == 'play-store' || inputs.channel == 'app-store' }}
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+    
+    - name: Install Snapcraft
+      if: ${{ inputs.channel == 'snapcraft' }}
+      uses: samuelmeuli/action-snapcraft@v1
+      with:
+        snapcraft_token: ${{ inputs.snapcraft-token }}
+
+    - name: Install XCode
+      if: ${{ inputs.channel == 'app-store' }}
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Setup Secret Keys
+      shell: bash
+      run: |
+        echo ${{ inputs.appstore-connect-key }} | base64 --decode > keys/appstore.p8
+        echo ${{ inputs.google-play-key }} | base64 --decode > keys/googleplay.json
+
+    - name: Setup Android Platform
+      if: ${{ inputs.channel == 'play-store' }}
+      shell: bash
+      run: |
+        cd android && bundle install
+
+    - name: Setup iOS Platform
+      if: ${{ inputs.channel == 'app-store' }}
+      shell: bash
+      run: |
+        cd ios && bundle install
+      
+    - name: Setup macOS Platform
+      if: ${{ inputs.channel == 'app-store' }}
+      shell: bash
+      run: |
+        cd macos && bundle install

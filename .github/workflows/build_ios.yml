@@ -3,7 +3,7 @@ name: 'Build iOS'
 on:
   workflow_call:
     inputs:
-      build_number:
+      build-number:
         required: true
         type: string
 
@@ -26,41 +26,16 @@ on:
         required: true
 
 jobs:
-  build_appstore_package:
+  build-appstore-package:
     name: App Store Package
     runs-on: macos-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
-          fetch-depth: 0
-
-      - name: Install Core Files
-        uses: actions/download-artifact@v3
-        with:
-          name: core_files
-
-      - name: Select Xcode Version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-          cache-key: ${{ github.sha }}
+          platform: ios
+          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/ios
@@ -71,12 +46,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
-          flutter pub get
-          pod install --repo-update
-          bundle install
-          bundle exec fastlane build_appstore build_number:${{ inputs.build_number }}
+        run: bundle exec fastlane build_appstore build_number:${{ inputs.build-number }}
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

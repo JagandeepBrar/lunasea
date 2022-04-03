@@ -6,7 +6,7 @@ on:
       flavor:
         required: true
         type: string
-      build_title:
+      build-title:
         required: true
         type: string
 
@@ -18,8 +18,6 @@ on:
       APPLE_STORE_CONNECT_ISSUER_ID:
         required: true
       APPLE_STORE_CONNECT_KEY:
-        required: true
-      APPLE_STORE_CONNECT_KEY_FILEPATH:
         required: true
       APPLE_STORE_CONNECT_KEY_ID:
         required: true
@@ -51,20 +49,15 @@ on:
         required: true
 
 jobs:
-  android_play_store:
+  android-play-store:
     name: Play Store
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
         with:
-          bundler-cache: true
-
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
+          channel: play-store
+          google-play-key: ${{ secrets.GOOGLE_PLAY_API }}
 
       - name: Download Play Store Package
         uses: actions/download-artifact@v3
@@ -80,38 +73,30 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const ref = process.env.FLAVOR || "edge";
+            const ref = process.env.FLAVOR || 'edge';
             switch (ref) {
-              case "beta": return "alpha";
-              case "candidate": return "beta";
-              case "stable": return "production";
-              case "edge":
-              default: return "internal";
+              case 'beta': return 'alpha';
+              case 'candidate': return 'beta';
+              case 'stable': return 'production';
+              case 'edge':
+              default: return 'internal';
             }
       
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android
         env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/.fastlane-android-auth.json
-        run: |
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
-          bundle install
-          bundle exec fastlane deploy_playstore track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build_title }}
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/keys/googleplay.json
+        run: bundle exec fastlane deploy_playstore track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build-title }}
 
-  ios_app_store:
+  ios-app-store:
     name: App Store (iOS)
     runs-on: macos-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
         with:
-          bundler-cache: true
-
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
+          channel: app-store
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
 
       - name: Download App Store Package
         uses: actions/download-artifact@v3
@@ -125,20 +110,20 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
           APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-          bundle install
-          bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
 
-  linux_snapcraft:
+  linux-snapcraft:
     name: Snapcraft
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: snapcraft
+          snapcraft-token: ${{ secrets.SNAPCRAFT_TOKEN }}
 
       - name: Download Snap
         uses: actions/download-artifact@v3
@@ -146,28 +131,18 @@ jobs:
           name: linux-snap
           path: ${{ github.workspace }}/output
 
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
-
       - name: Deploy to Snapcraft
         run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
 
-  macos_app_store:
+  macos-app-store:
     name: App Store (macOS)
     runs-on: macos-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
         with:
-          bundler-cache: true
+          channel: app-store
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
 
       - name: Download App Store Package
         uses: actions/download-artifact@v3
@@ -181,20 +156,19 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
           APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-          bundle install
-          bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
 
-  web_netlify:
+  web-netlify:
     name: Netlify
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: netlify
 
       - name: Download Web Package
         uses: actions/download-artifact@v3
@@ -210,13 +184,13 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const ref = process.env.FLAVOR || "edge";
+            const ref = process.env.FLAVOR || 'edge';
             switch (ref) {
-              case "beta": return "11ef2676-fc31-41b5-897b-fd21273d87ed";
-              case "candidate": return "4636e6a1-17ef-45a2-a2b6-3d1c166fd1df";
-              case "stable": return "6634f0b1-323c-4a2f-bd0b-8f1f388673a9";
-              case "edge":
-              default: return "325e197e-55f4-449a-b2bb-6831fe47bf2a";
+              case 'beta': return '11ef2676-fc31-41b5-897b-fd21273d87ed';
+              case 'candidate': return '4636e6a1-17ef-45a2-a2b6-3d1c166fd1df';
+              case 'stable': return '6634f0b1-323c-4a2f-bd0b-8f1f388673a9';
+              case 'edge':
+              default: return '325e197e-55f4-449a-b2bb-6831fe47bf2a';
             }
 
       - name: Deploy to Netlify
@@ -227,14 +201,16 @@ jobs:
         with:
           publish-dir: ${{ github.workspace}}/output
           production-deploy: true
-          deploy-message: ${{ inputs.build_title }}
+          deploy-message: ${{ inputs.build-title }}
 
   s3:
     name: S3
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Download
-        run: mkdir -p ${{ github.workspace }}/output
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: s3
 
       - name: Download Android App Package
         uses: actions/download-artifact@v3
@@ -271,7 +247,7 @@ jobs:
           AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
-          DEST_DIR: ${{ inputs.build_title }}
+          DEST_DIR: ${{ inputs.build-title }}
 
       - name: Determine Webhook Channel
         id: webhook
@@ -282,16 +258,15 @@ jobs:
           DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
           DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
           FLAVOR: ${{ inputs.flavor }}
-
         with:
           result-encoding: string
           script: |
-            const ref = process.env.FLAVOR || "edge";
+            const ref = process.env.FLAVOR || 'edge';
             switch (ref) {
-              case "beta": return process.env.DISCORD_WEBHOOK_BETA;
-              case "candidate": return process.env.DISCORD_WEBHOOK_CANDIDATE;
-              case "stable": return process.env.DISCORD_WEBHOOK_STABLE;
-              case "edge":
+              case 'beta': return process.env.DISCORD_WEBHOOK_BETA;
+              case 'candidate': return process.env.DISCORD_WEBHOOK_CANDIDATE;
+              case 'stable': return process.env.DISCORD_WEBHOOK_STABLE;
+              case 'edge':
               default: return process.env.DISCORD_WEBHOOK_EDGE;
             }
       
@@ -303,5 +278,5 @@ jobs:
           avatar_url: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
           noprefix: true
           color: 0x4ECCA3
-          title: ${{ inputs.build_title }}
-          description: '[Download](https://builds.lunasea.app/#${{ inputs.build_title }}/)'
+          title: ${{ inputs.build-title }}
+          description: '[Download](https://builds.lunasea.app/#${{ inputs.build-title }}/)'

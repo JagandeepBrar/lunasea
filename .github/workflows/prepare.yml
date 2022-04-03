@@ -8,26 +8,26 @@ on:
         required: true
 
     outputs:
-      build_number:
+      build-number:
         description: "Build Number"
-        value: ${{ jobs.build_number.outputs.build_number }}
-      build_title:
+        value: ${{ jobs.build-number.outputs.build-number }}
+      build-title:
         description: "Build Title"
-        value: ${{ jobs.build_title.outputs.build_title }}
-      build_version:
+        value: ${{ jobs.build-title.outputs.build-title }}
+      build-version:
         description: "Build Version"
-        value: ${{ jobs.build_version.outputs.build_version }}
+        value: ${{ jobs.build-version.outputs.build-version }}
 
     secrets:
       FIREBASE_OPTIONS:
         required: true
 
 jobs:
-  build_number:
+  build-number:
     name: Build Number
     runs-on: ubuntu-latest
     outputs:
-      build_number: ${{ steps.output.outputs.build_number }}
+      build-number: ${{ steps.output.outputs.build-number }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -56,18 +56,16 @@ jobs:
         id: output
         run: |
           echo ${{ steps.script.outputs.result }}
-          echo "::set-output name=build_number::${{ steps.script.outputs.result }}"
+          echo "::set-output name=build-number::${{ steps.script.outputs.result }}"
 
-  build_version:
+  build-version:
     name: Build Version
     runs-on: ubuntu-latest
     outputs:
-      build_version: ${{ steps.output.outputs.build_version }}
+      build-version: ${{ steps.output.outputs.build-version }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       
       - name: Get Version
         id: version
@@ -77,14 +75,14 @@ jobs:
         id: output
         run: |
           echo ${{ steps.version.outputs.current-version }}
-          echo "::set-output name=build_version::${{ steps.version.outputs.current-version }}"
+          echo "::set-output name=build-version::${{ steps.version.outputs.current-version }}"
 
-  build_title:
+  build-title:
     name: Build Title
-    needs: [ build_number, build_version ]
+    needs: [ build-number, build-version ]
     runs-on: ubuntu-latest
     outputs:
-      build_title: ${{ steps.output.outputs.build_title }}
+      build-title: ${{ steps.output.outputs.build-title }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -98,28 +96,20 @@ jobs:
       - name: Set Output
         id: output
         run: |
-          TITLE="v${{ needs.build_version.outputs.build_version }}-${{ inputs.flavor }}-${{ needs.build_number.outputs.build_number }}-${{ steps.hash.outputs.hash }}"
+          TITLE="v${{ needs.build-version.outputs.build-version }}-${{ inputs.flavor }}-${{ needs.build-number.outputs.build-number }}-${{ steps.hash.outputs.hash }}"
           echo $TITLE
-          echo "::set-output name=build_title::$TITLE"
+          echo "::set-output name=build-title::$TITLE"
 
-  generate_files:
+  generate-files:
     name: Generate Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
-          channel: stable
-          cache: true
-          cache-key: ${{ github.sha }}
-
-      - name: Prepare Generation
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
-          flutter pub get
+          platform: test
+          skip-core: true
+          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
 
       - name: Generate Flavor Configuration
         run: echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
@@ -133,7 +123,7 @@ jobs:
       - name: Upload Core Files
         uses: actions/upload-artifact@v3
         with:
-          name: core_files
+          name: core-files
           path: |
             ${{ github.workspace }}/.flavor
             ${{ github.workspace }}/assets/localization

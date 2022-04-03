@@ -3,7 +3,7 @@ name: 'Build macOS'
 on:
   workflow_call:
     inputs:
-      build_number:
+      build-number:
         required: true
         type: string
 
@@ -15,8 +15,6 @@ on:
       APPLE_STORE_CONNECT_ISSUER_ID:
         required: true
       APPLE_STORE_CONNECT_KEY:
-        required: true
-      APPLE_STORE_CONNECT_KEY_FILEPATH:
         required: true
       APPLE_STORE_CONNECT_KEY_ID:
         required: true
@@ -34,41 +32,16 @@ on:
         required: true
 
 jobs:
-  build_appstore_package:
+  build-appstore-package:
     name: App Store Package
     runs-on: macos-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
-          fetch-depth: 0
-
-      - name: Install Core Files
-        uses: actions/download-artifact@v3
-        with:
-          name: core_files
-
-      - name: Select Xcode Version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-          cache-key: ${{ github.sha }}
+          platform: macos
+          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos
@@ -79,13 +52,7 @@ jobs:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
-          flutter config --enable-macos-desktop
-          flutter pub get
-          pod install --repo-update
-          bundle install
-          bundle exec fastlane build_appstore build_number:${{ inputs.build_number }}
+        run: bundle exec fastlane build_appstore build_number:${{ inputs.build-number }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -93,41 +60,17 @@ jobs:
           name: macos-appstore-package
           path: ${{ github.workspace }}/output
 
-  build_noatized_package:
+  build-noatized-package:
     name: Notarized Package
     runs-on: macos-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
-          fetch-depth: 0
-
-      - name: Install Core Files
-        uses: actions/download-artifact@v3
-        with:
-          name: core_files
-
-      - name: Select Xcode Version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-          cache-key: ${{ github.sha }}
+          platform: macos
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos
@@ -135,20 +78,13 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
           APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-          flutter config --enable-macos-desktop
-          flutter pub get
-          pod install --repo-update
-          bundle install
-          bundle exec fastlane build_direct build_number:${{ inputs.build_number }}
+        run: bundle exec fastlane build_direct build_number:${{ inputs.build-number }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

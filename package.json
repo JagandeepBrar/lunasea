@@ -30,10 +30,15 @@
     "generate:firebase": "rm -rf lib/firebase_options.dart && npm install -g firebase-tools && firebase login && dart pub global activate flutterfire_cli && flutterfire configure",
     "generate:localization": "dart ./scripts/generate_localization.dart",
     "prepare": "husky install && flutter pub get",
+    "prepare:keychain": "npm run prepare:keychain:ios && npm run prepare:keychain:macos",
+    "prepare:keychain:ios": "cd ios && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
+    "prepare:keychain:macos": "cd macos && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
     "profile": "flutter run --profile --cache-sksl --purge-persistent-cache",
-    "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update",
-    "release:changelog": "standard-version --no-verify --commit-all",
-    "release:changelog:dry": "npm run release:changelog -- --dry-run"
+    "release": "HUSKY=0 standard-version --no-verify --commit-all",
+    "release:changelog": "npm run release:changelog -- --dry-run",
+    "release:flavor:beta": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release [skip ci]\"",
+    "release:flavor:candidate": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release [skip ci]\"",
+    "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",

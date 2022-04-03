@@ -78,7 +78,7 @@ platform :mac do
       },
     )
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../../macos/LunaSea.pkg", "../../output/LunaSea-macOS.pkg")
+    sh("mv", "../LunaSea.pkg", "../../output/LunaSea-macOS.pkg")
 
     keychain_delete
   end
@@ -106,12 +106,12 @@ platform :mac do
       }
     )
     notarize(
-      package: "../macos/LunaSea.app",
+      package: "LunaSea.app",
       use_notarytool: true,
     )
 
     sh("mkdir", "-p", "../../output")
-    sh("cp", "-R", "../../macos/LunaSea.app", "../../output/LunaSea.app")
+    sh("cp", "-R", "../LunaSea.app", "../../output/LunaSea.app")
     Dir.chdir("../../output") do
       sh("zip", "-r", "-y", "LunaSea-macOS.zip", "LunaSea.app")
       sh("rm", "-rf", "LunaSea.app")

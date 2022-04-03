@@ -48,7 +48,7 @@ jobs:
           cache: true
           cache-key: ${{ github.sha }}
 
-      - name: Run Fastlane
+      - name: Build LunaSea
         working-directory: ${{ github.workspace }}/android
         env:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json

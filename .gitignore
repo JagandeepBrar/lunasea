@@ -46,11 +46,9 @@ coverage/
 # XCode Build Artifacts
 ios/build/
 ios/Runner.app.dSYM.zip
-ios/Runner.ipa
-
 macos/LunaSea.app
 macos/LunaSea.app.dSYM.zip
-macos/LunaSea.pkg
+macos/LunaSea.app.zip
 
 # Fastlane
 /android/fastlane/report.xml
@@ -59,15 +57,15 @@ macos/LunaSea.pkg
 /android/fastlane/Preview.html
 /ios/fastlane/Preview.html
 /macos/fastlane/Preview.html
-/android/fastlane/metadata/android/en-CA/images
-/ios/fastlane/screenshots
-/ios/fastlane/metadata/review_information
-/macos/fastlane/screenshots
-/macos/fastlane/metadata/review_information
 
 # Keys & Service Accounts
 android/key.jks
 android/key.properties
+
+# Firebase
+android/firebase_app_id_file.json
+ios/firebase_app_id_file.json
+macos/firebase_app_id_file.json
 
 # Node Dependency directories
 node_modules/
@@ -75,8 +73,6 @@ jspm_packages/
 
 # Artifacts
 output/
-macos/LunaSea.app.dSYM.zip
-macos/LunaSea.app.zip
 *.apk
 *.aab
 *.ipa

@@ -69,7 +69,7 @@ platform :mac do
     build_mac_app(
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
-      installer_cert_name: "3rd Party Mac Developer Installer: Jagandeep Brar (VPH33JQH4R)",
+      installer_cert_name: ENV["MACOS_INSTALLER_CERT_APP_STORE"],
       export_method: "app-store",
       export_options: {
         provisioningProfiles: {
@@ -97,7 +97,7 @@ platform :mac do
     build_mac_app(
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
-      installer_cert_name: "Developer ID Installer: Jagandeep Brar (VPH33JQH4R)",
+      installer_cert_name: ENV["MACOS_INSTALLER_CERT_DIRECT"],
       export_method: "developer-id",
       export_options: {
         provisioningProfiles: {

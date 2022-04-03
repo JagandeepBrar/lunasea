@@ -34,14 +34,14 @@ jobs:
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
     secrets:
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   validate:
     name: Validate
     needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/validate.yml@master
     secrets:
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build-android:
     name: Build Android
@@ -50,7 +50,7 @@ jobs:
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
       KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
 
@@ -64,7 +64,8 @@ jobs:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      IOS_CODESIGNING_IDENTITY: ${{ secrets.IOS_CODESIGNING_IDENTITY }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -77,7 +78,7 @@ jobs:
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build-macos:
     name: Build macOS
@@ -92,7 +93,9 @@ jobs:
       APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      MACOS_INSTALLER_CERT_APP_STORE: ${{ secrets.MACOS_INSTALLER_CERT_APP_STORE }}
+      MACOS_INSTALLER_CERT_DIRECT: ${{ secrets.MACOS_INSTALLER_CERT_DIRECT }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -105,7 +108,7 @@ jobs:
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
-      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   publish:
     name: Publish

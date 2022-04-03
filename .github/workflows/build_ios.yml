@@ -14,7 +14,9 @@ on:
         required: true
       APPLE_TEAM_ID:
         required: true
-      FIREBASE_OPTIONS:
+      FIREBASE_TOKEN:
+        required: true
+      IOS_CODESIGNING_IDENTITY:
         required: true
       MATCH_KEYCHAIN_NAME:
         required: true
@@ -33,8 +35,8 @@ jobs:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: ios
-          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
@@ -43,6 +45,7 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          IOS_CODESIGNING_IDENTITY: ${{ secrets.IOS_CODESIGNING_IDENTITY }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}

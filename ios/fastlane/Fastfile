@@ -62,7 +62,7 @@ platform :ios do
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
       export_method: "app-store",
-      codesigning_identity: "Apple Distribution: Jagandeep Brar (VPH33JQH4R)",
+      codesigning_identity: ENV["IOS_CODESIGNING_IDENTITY"],
       export_options: {
         provisioningProfiles: {
           "app.lunasea.lunasea" => "match AppStore app.lunasea.lunasea",

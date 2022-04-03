@@ -2,6 +2,9 @@ name: 'Prepare for Build'
 description: 'Setup all required dependencies and secrets for building the given platform'
 
 inputs:
+  firebase-token:
+    description: 'Firebase Token'
+    required: true
   platform:
     description: 'Platform to be Built'
     required: true
@@ -21,10 +24,6 @@ inputs:
     default: ''
   appstore-connect-key:
     description: 'App Store Connect API Key'
-    required: false
-    default: ''
-  firebase-options:
-    description: 'Firebase Configuration'
     required: false
     default: ''
   google-play-key:
@@ -69,6 +68,11 @@ runs:
         distribution: zulu
         java-version: 11
 
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
     - name: Install Ruby
       if: ${{ inputs.platform == 'android' || inputs.platform == 'ios' || inputs.platform == 'macos' }}
       uses: ruby/setup-ruby@v1
@@ -94,7 +98,15 @@ runs:
         echo ${{ inputs.google-play-key }} | base64 --decode > keys/googleplay.json
         echo ${{ inputs.android-key-jks }} | base64 --decode > android/key.jks
         echo ${{ inputs.android-key-properties }} | base64 --decode > android/key.properties
-        echo ${{ inputs.firebase-options }} | base64 --decode > lib/firebase_options.dart
+
+    - name: Setup Firebase Configuration
+      shell: bash
+      env:
+        FIREBASE_TOKEN: ${{ inputs.firebase-token }}
+      run: |
+        npm install -g firebase-tools
+        dart pub global activate flutterfire_cli
+        flutterfire configure -y
 
     - name: Setup Android Platform
       if: ${{ inputs.platform == 'android' }}
@@ -130,11 +142,9 @@ runs:
     - name: Setup Web Platform
       if: ${{ inputs.platform == 'web' }}
       shell: bash
-      run: |
-        flutter pub get
+      run: flutter pub get
 
     - name: Setup Test Platform
       if: ${{ inputs.platform == 'test' }}
       shell: bash
-      run: |
-        flutter pub get
+      run: flutter pub get

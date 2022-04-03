@@ -20,7 +20,11 @@ on:
         required: true
       APPLE_TEAM_ID:
         required: true
-      FIREBASE_OPTIONS:
+      FIREBASE_TOKEN:
+        required: true
+      MACOS_INSTALLER_CERT_APP_STORE:
+        required: true
+      MACOS_INSTALLER_CERT_DIRECT:
         required: true
       MATCH_KEYCHAIN_NAME:
         required: true
@@ -39,8 +43,8 @@ jobs:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
-          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
@@ -49,6 +53,7 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MACOS_INSTALLER_CERT_APP_STORE: ${{ secrets.MACOS_INSTALLER_CERT_APP_STORE }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -67,9 +72,9 @@ jobs:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
           appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
@@ -81,6 +86,7 @@ jobs:
           APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MACOS_INSTALLER_CERT_DIRECT: ${{ secrets.MACOS_INSTALLER_CERT_DIRECT }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

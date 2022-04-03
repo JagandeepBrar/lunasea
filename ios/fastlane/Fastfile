@@ -62,6 +62,13 @@ platform :ios do
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
       export_method: "app-store",
+      codesigning_identity: "Apple Distribution: Jagandeep Brar (VPH33JQH4R)",
+      export_options: {
+        provisioningProfiles: {
+          "app.lunasea.lunasea" => "match AppStore app.lunasea.lunasea",
+          "app.lunasea.lunasea.ImageNotification" => "match AppStore app.lunasea.lunasea.ImageNotification",
+        }
+      }
     )
     sh("mkdir", "-p", "../../output")
     sh("mv", "../../ios/Runner.ipa", "../../output/LunaSea-iOS.ipa")

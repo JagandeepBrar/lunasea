@@ -69,7 +69,13 @@ platform :mac do
     build_mac_app(
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
+      installer_cert_name: "3rd Party Mac Developer Installer: Jagandeep Brar (VPH33JQH4R)",
       export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "app.lunasea.lunasea" => "match AppStore app.lunasea.lunasea macos"
+        }
+      },
     )
     sh("mkdir", "-p", "../../output")
     sh("mv", "../../macos/LunaSea.pkg", "../../output/LunaSea-macOS.pkg")
@@ -91,7 +97,13 @@ platform :mac do
     build_mac_app(
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
+      installer_cert_name: "Developer ID Installer: Jagandeep Brar (VPH33JQH4R)",
       export_method: "developer-id",
+      export_options: {
+        provisioningProfiles: {
+          "app.lunasea.lunasea" => "match Direct app.lunasea.lunasea macos",
+        }
+      }
     )
     notarize(
       package: "../macos/LunaSea.app",

@@ -43,27 +43,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
-
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
+          name: core_files
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
@@ -82,18 +70,7 @@ jobs:
           cache: true
           cache-key: ${{ github.sha }}
 
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter config --enable-macos-desktop
-          flutter pub get
-
-      - name: Install Pods
-        working-directory: ${{ github.workspace }}/macos
-        run: |
-          pod install --repo-update
-
-      - name: Run Fastlane
+      - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -103,6 +80,10 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
+          flutter config --enable-macos-desktop
+          flutter pub get
+          pod install --repo-update
           bundle install
           bundle exec fastlane build_appstore build_number:${{ inputs.build_number }}
 
@@ -121,28 +102,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
-
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
+          name: core_files
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
 
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
@@ -161,18 +129,7 @@ jobs:
           cache: true
           cache-key: ${{ github.sha }}
 
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter config --enable-macos-desktop
-          flutter pub get
-
-      - name: Install Pods
-        working-directory: ${{ github.workspace }}/macos
-        run: |
-          pod install --repo-update
-
-      - name: Run Fastlane
+      - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -185,6 +142,11 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+          flutter config --enable-macos-desktop
+          flutter pub get
+          pod install --repo-update
           bundle install
           bundle exec fastlane build_direct build_number:${{ inputs.build_number }}
 

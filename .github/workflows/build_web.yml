@@ -21,22 +21,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
-
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+          name: core_files
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -45,14 +33,10 @@ jobs:
           cache: true
           cache-key: ${{ github.sha }}
 
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter pub get
-
       - name: Build LunaSea
-        working-directory: ${{ github.workspace }}
         run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+          flutter pub get
           flutter build web --web-renderer canvaskit --release
 
       - name: Upload Artifact

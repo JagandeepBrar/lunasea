@@ -3,7 +3,7 @@ name: 'Publish Releases'
 on:
   workflow_call:
     inputs:
-      build_flavor:
+      flavor:
         required: true
         type: string
       build_title:
@@ -58,31 +58,25 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
-
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Download Android App Bundle
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
+
+      - name: Download Play Store Package
         uses: actions/download-artifact@v3
         with:
-          name: android-app-bundle
+          name: android-playstore-package
           path: ${{ github.workspace }}/output
 
       - name: Determine Release Channel
         id: channel
         uses: actions/github-script@v6
         env:
-          FLAVOR: ${{ inputs.build_flavor }}
+          FLAVOR: ${{ inputs.flavor }}
         with:
           result-encoding: string
           script: |
@@ -98,8 +92,9 @@ jobs:
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android
         env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/.fastlane-android-auth.json
         run: |
+          echo ${{ secrets.GOOGLE_PLAY_API }} | base64 --decode > .fastlane-android-auth.json
           bundle install
           bundle exec fastlane deploy_playstore track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/LunaSea-Android.aab version_name:${{ inputs.build_title }}
 
@@ -110,43 +105,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ios/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
-
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Download iOS App Package
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
+
+      - name: Download App Store Package
         uses: actions/download-artifact@v3
         with:
-          name: ios-app-package
+          name: ios-appstore-package
           path: ${{ github.workspace }}/output
       
-      - name: Determine Release Channel
-        id: channel
-        uses: actions/github-script@v6
-        env:
-          FLAVOR: ${{ inputs.build_flavor }}
-        with:
-          result-encoding: string
-          script: |
-            const ref = process.env.FLAVOR || "edge";
-            switch (ref) {
-              case "beta": return "beta";
-              case "candidate": return "candidate";
-              case "stable": return "stable";
-              case "edge":
-              default: return "edge";
-            }
-
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/ios
         env:
@@ -157,39 +129,22 @@ jobs:
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
           bundle install
-          bundle exec fastlane deploy_appstore groups:${{ steps.channel.outputs.result }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
+          bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
 
   linux_snapcraft:
     name: Snapcraft
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
 
-      - name: Download Linux Snap
+      - name: Download Snap
         uses: actions/download-artifact@v3
         with:
           name: linux-snap
           path: ${{ github.workspace }}/output
-
-      - name: Determine Release Channel
-        id: channel
-        uses: actions/github-script@v6
-        env:
-          FLAVOR: ${{ inputs.build_flavor }}
-        with:
-          result-encoding: string
-          script: |
-            const ref = process.env.FLAVOR || "edge";
-            switch (ref) {
-              case "beta": return "beta";
-              case "candidate": return "candidate";
-              case "stable": return "stable";
-              case "edge":
-              default: return "edge";
-            }
 
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
@@ -197,8 +152,7 @@ jobs:
           snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
 
       - name: Deploy to Snapcraft
-        run: |
-          snapcraft upload --release=${{ inputs.build_flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
+        run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
 
   macos_app_store:
     name: App Store (macOS)
@@ -207,43 +161,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > macos/${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Download macOS App Store Package
+      - name: Download App Store Package
         uses: actions/download-artifact@v3
         with:
           name: macos-appstore-package
           path: ${{ github.workspace }}/output
       
-      - name: Determine Release Channel
-        id: channel
-        uses: actions/github-script@v6
-        env:
-          FLAVOR: ${{ inputs.build_flavor }}
-        with:
-          result-encoding: string
-          script: |
-            const ref = process.env.FLAVOR || "edge";
-            switch (ref) {
-              case "beta": return "beta";
-              case "candidate": return "candidate";
-              case "stable": return "stable";
-              case "edge":
-              default: return "edge";
-            }
-
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/macos
         env:
@@ -254,18 +185,18 @@ jobs:
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
+          echo ${{ secrets.APPLE_STORE_CONNECT_KEY }} | base64 --decode > ${{ secrets.APPLE_STORE_CONNECT_KEY_FILEPATH }}
           bundle install
-          bundle exec fastlane deploy_appstore groups:${{ steps.channel.outputs.result }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
+          bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
 
   web_netlify:
     name: Netlify
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
 
-      - name: Download Android App Package
+      - name: Download Web Package
         uses: actions/download-artifact@v3
         with:
           name: web-canvaskit
@@ -275,7 +206,7 @@ jobs:
         id: channel
         uses: actions/github-script@v6
         env:
-          FLAVOR: ${{ inputs.build_flavor }}
+          FLAVOR: ${{ inputs.flavor }}
         with:
           result-encoding: string
           script: |
@@ -302,9 +233,8 @@ jobs:
     name: S3
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare Folder
-        run: |
-          mkdir -p ${{ github.workspace }}/output
+      - name: Prepare Download
+        run: mkdir -p ${{ github.workspace }}/output
 
       - name: Download Android App Package
         uses: actions/download-artifact@v3
@@ -315,7 +245,7 @@ jobs:
       - name: Download iOS App Package
         uses: actions/download-artifact@v3
         with:
-          name: ios-app-package
+          name: ios-appstore-package
           path: ${{ github.workspace }}/output
 
       - name: Download Linux Snap
@@ -351,7 +281,7 @@ jobs:
           DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
           DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
           DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
-          FLAVOR: ${{ inputs.build_flavor }}
+          FLAVOR: ${{ inputs.flavor }}
 
         with:
           result-encoding: string

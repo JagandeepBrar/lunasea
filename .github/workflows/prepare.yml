@@ -1,0 +1,140 @@
+name: Prepare
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+        type: string
+        required: true
+
+    outputs:
+      build_number:
+        description: "Build Number"
+        value: ${{ jobs.build_number.outputs.build_number }}
+      build_title:
+        description: "Build Title"
+        value: ${{ jobs.build_title.outputs.build_title }}
+      build_version:
+        description: "Build Version"
+        value: ${{ jobs.build_version.outputs.build_version }}
+
+    secrets:
+      FIREBASE_OPTIONS:
+        required: true
+
+jobs:
+  build_number:
+    name: Build Number
+    runs-on: ubuntu-latest
+    outputs:
+      build_number: ${{ steps.output.outputs.build_number }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Count Commits
+        id: commit_count
+        run: |
+          COUNT=`git rev-list HEAD --count`
+          echo "::set-output name=commit_count::$COUNT"
+
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          COUNT: ${{ steps.commit_count.outputs.commit_count }}
+        with:
+          result-encoding: string
+          script: |
+            const count = process.env.COUNT || "0";
+            const base = 1000000000;
+            return base + Number(count);
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=build_number::${{ steps.script.outputs.result }}"
+
+  build_version:
+    name: Build Version
+    runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.output.outputs.build_version }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Get Version
+        id: version
+        uses: martinbeentjes/npm-get-version-action@v1.1.0
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.version.outputs.current-version }}
+          echo "::set-output name=build_version::${{ steps.version.outputs.current-version }}"
+
+  build_title:
+    name: Build Title
+    needs: [ build_number, build_version ]
+    runs-on: ubuntu-latest
+    outputs:
+      build_title: ${{ steps.output.outputs.build_title }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Determine Short Hash
+        id: hash
+        run: |
+          HASH=`git rev-parse --short ${{ github.sha }}`
+          echo "::set-output name=hash::$HASH"
+      
+      - name: Set Output
+        id: output
+        run: |
+          TITLE="v${{ needs.build_version.outputs.build_version }}-${{ inputs.flavor }}-${{ needs.build_number.outputs.build_number }}-${{ steps.hash.outputs.hash }}"
+          echo $TITLE
+          echo "::set-output name=build_title::$TITLE"
+
+  generate_files:
+    name: Generate Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: ${{ github.sha }}
+
+      - name: Prepare Generation
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
+          flutter pub get
+
+      - name: Generate Flavor Configuration
+        run: echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+     
+      - name: Generate Localization
+        run: dart ./scripts/generate_localization.dart
+
+      - name: Generate Build Runner Files
+        run: flutter packages pub run build_runner build
+      
+      - name: Upload Core Files
+        uses: actions/upload-artifact@v3
+        with:
+          name: core_files
+          path: |
+            ${{ github.workspace }}/.flavor
+            ${{ github.workspace }}/assets/localization
+            ${{ github.workspace }}/lib/**/*.g.dart

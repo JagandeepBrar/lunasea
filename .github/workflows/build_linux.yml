@@ -21,43 +21,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
+          name: core_files
 
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-          cache-key: ${{ github.sha }}
-
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter pub get
+      - name: Prepare Build
+        run: echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
       
       - name: Build LunaSea
         uses: snapcore/action-build@v1
         id: build
-
-      - name: Move Snap
-        working-directory: ${{ github.workspace }}
+      
+      - name: Prepare Artifact
         run: |
-          mkdir -p ${{ github.workspace }}/output
+          mkdir -p output
           mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
 
       - name: Upload Artifact

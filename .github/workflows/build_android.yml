@@ -16,8 +16,8 @@ on:
         required: true
 
 jobs:
-  build_app_bundle:
-    name: App Bundle
+  build_playstore_package:
+    name: Play Store Package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -25,24 +25,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
-
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
-          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
-          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
+          name: core_files
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
@@ -62,23 +48,22 @@ jobs:
           cache: true
           cache-key: ${{ github.sha }}
 
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter pub get
-
       - name: Run Fastlane
         working-directory: ${{ github.workspace }}/android
         env:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > ../android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > ../android/key.properties
+          flutter pub get
           bundle install
           bundle exec fastlane build_aab build_number:${{ inputs.build_number }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: android-app-bundle
+          name: android-playstore-package
           path: ${{ github.workspace }}/output
 
   build_app_package:
@@ -90,25 +75,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Source Files
+      - name: Install Core Files
         uses: actions/download-artifact@v3
         with:
-          name: lib
-          path: ${{ github.workspace }}/lib
-
-      - name: Download Localization Files
-        uses: actions/download-artifact@v3
-        with:
-          name: localization
-          path: ${{ github.workspace }}/assets/localization
-
-      - name: Install Secrets
-        working-directory: ${{ github.workspace }}
-        run: |
-          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > lib/firebase_options.dart
-          echo ${{ secrets.KEY_JKS }} | base64 --decode > android/key.jks
-          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > android/key.properties
-
+          name: core_files
+          
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -126,17 +97,16 @@ jobs:
           channel: stable
           cache: true
           cache-key: ${{ github.sha }}
-
-      - name: Setup Flutter
-        working-directory: ${{ github.workspace }}
-        run: |
-          flutter pub get
       
-      - name: Run Fastlane
+      - name: Build LunaSea
         working-directory: ${{ github.workspace }}/android
         env:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/.fastlane-android-auth.json
         run: |
+          echo ${{ secrets.FIREBASE_OPTIONS }} | base64 --decode > ../lib/firebase_options.dart
+          echo ${{ secrets.KEY_JKS }} | base64 --decode > ../android/key.jks
+          echo ${{ secrets.KEY_PROPERTIES }} | base64 --decode > ../android/key.properties
+          flutter pub get
           bundle install
           bundle exec fastlane build_apk build_number:${{ inputs.build_number }}
 

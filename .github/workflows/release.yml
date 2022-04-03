@@ -28,22 +28,17 @@ jobs:
           access_token: ${{ github.token }}
 
   prepare:
-    name: Prepare Build
+    name: Prepare
     needs: [ cancel ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/prepare_build.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
-      ref: ${{ github.event.inputs.flavor }}
-
-  generate:
-    name: Generate
-    needs: [ prepare ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/generate_files.yml@master
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
   validate:
     name: Validate
-    needs: [ generate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/validate.yml@master
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
@@ -53,7 +48,7 @@ jobs:
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
     with:
-      build_number: ${{ needs.prepare.outputs.number }}
+      build_number: ${{ needs.prepare.outputs.build_number }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
@@ -64,7 +59,7 @@ jobs:
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
     with:
-      build_number: ${{ needs.prepare.outputs.number }}
+      build_number: ${{ needs.prepare.outputs.build_number }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -80,7 +75,7 @@ jobs:
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
     with:
-      build_number: ${{ needs.prepare.outputs.number }}
+      build_number: ${{ needs.prepare.outputs.build_number }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
@@ -89,7 +84,7 @@ jobs:
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
     with:
-      build_number: ${{ needs.prepare.outputs.number }}
+      build_number: ${{ needs.prepare.outputs.build_number }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -109,7 +104,7 @@ jobs:
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
     with:
-      build_number: ${{ needs.prepare.outputs.number }}
+      build_number: ${{ needs.prepare.outputs.build_number }}
     secrets:
       FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
 
@@ -118,8 +113,8 @@ jobs:
     needs: [ prepare, build_android, build_ios, build_linux, build_macos, build_web ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish.yml@master
     with:
-      build_flavor: ${{ needs.prepare.outputs.flavor }}
-      build_title: ${{ needs.prepare.outputs.title }}
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build_title: ${{ needs.prepare.outputs.build_title }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

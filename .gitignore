@@ -76,5 +76,6 @@ output/
 *.apk
 *.aab
 *.ipa
+*.dmg
 *.pkg
 *.snap

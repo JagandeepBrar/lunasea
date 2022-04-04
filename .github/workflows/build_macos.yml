@@ -6,6 +6,9 @@ on:
       build-number:
         required: true
         type: string
+      build-version:
+        required: true
+        type: string
 
     secrets:
       APPLE_ID:
@@ -36,8 +39,8 @@ on:
         required: true
 
 jobs:
-  build-appstore-package:
-    name: App Store Package
+  build-app-store:
+    name: App Store
     runs-on: macos-latest
     steps:
       - name: Setup Environment
@@ -45,6 +48,7 @@ jobs:
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 
       - name: Build LunaSea
@@ -52,12 +56,15 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MACOS_INSTALLER_CERT_APP_STORE: ${{ secrets.MACOS_INSTALLER_CERT_APP_STORE }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: bundle exec fastlane build_appstore build_number:${{ inputs.build-number }}
+        run: bundle exec fastlane build_app_store build_number:${{ inputs.build-number }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -65,8 +72,8 @@ jobs:
           name: macos-appstore-package
           path: ${{ github.workspace }}/output
 
-  build-noatized-package:
-    name: Notarized Package
+  build-app-package:
+    name: App Package
     runs-on: macos-latest
     steps:
       - name: Setup Environment
@@ -90,10 +97,48 @@ jobs:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: bundle exec fastlane build_direct build_number:${{ inputs.build-number }}
+        run: bundle exec fastlane build_app_package build_number:${{ inputs.build-number }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: macos-notarized-package
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+
+  build-disk-image:
+    name: Disk Image
+    runs-on: macos-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        with:
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
+          platform: macos
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Setup Disk Image Creator
+        run: |
+          npm install -g create-dmg
+          brew install graphicsmagick imagemagick
+
+      - name: Build LunaSea
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MACOS_INSTALLER_CERT_DIRECT: ${{ secrets.MACOS_INSTALLER_CERT_DIRECT }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane build_disk_image build_number:${{ inputs.build-number }} build_version:${{ inputs.build-version }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-disk-image
           path: ${{ github.workspace }}/output

@@ -12,8 +12,8 @@ on:
         required: true
       
 jobs:
-  build-snap:
-    name: Snap
+  build-snapcraft:
+    name: Snapcraft
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -32,5 +32,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: linux-snap
+          name: linux-snapcraft
           path: ${{ github.workspace }}/output

@@ -17,7 +17,7 @@ on:
 
 jobs:
   build-playstore-package:
-    name: Play Store Package
+    name: Play Store
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment

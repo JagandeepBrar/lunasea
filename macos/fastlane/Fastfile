@@ -56,10 +56,48 @@ platform :mac do
     )
   end
 
-  desc "Build App Package for App Store"
-  lane :build_appstore do |options|
+  desc "Build App Package for Direct Deployment"
+  lane :build_app_package do |options|
     keychain_create
     keychain_setup
+    connect_appstore_connect
+
+    sh(
+      "flutter", "build", "macos",
+      "--release",
+      "--build-number=#{options[:build_number]}",
+    )
+    build_mac_app(
+      scheme: "Runner",
+      workspace: "Runner.xcworkspace",
+      installer_cert_name: ENV["MACOS_INSTALLER_CERT_DIRECT"],
+      export_method: "developer-id",
+      export_options: {
+        provisioningProfiles: {
+          "app.lunasea.lunasea" => "match Direct app.lunasea.lunasea macos",
+        }
+      }
+    )
+
+    notarize(
+      package: "LunaSea.app",
+      use_notarytool: true,
+    )
+    sh("mkdir", "-p", "../../output")
+    sh("mv", "../LunaSea.app", "../../output/LunaSea.app")
+    Dir.chdir("../../output") do
+      sh("zip", "-r", "-y", "LunaSea-macOS.zip", "LunaSea.app")
+      sh("rm", "-rf", "LunaSea.app")
+    end
+
+    keychain_delete
+  end
+
+  desc "Build App Package for App Store"
+  lane :build_app_store do |options|
+    keychain_create
+    keychain_setup
+    connect_appstore_connect
 
     sh(
       "flutter", "build", "macos",
@@ -83,8 +121,8 @@ platform :mac do
     keychain_delete
   end
 
-  desc "Build App Package for Direct Deployment"
-  lane :build_direct do |options|
+  desc "Build Disk Image for Direct Deployment"
+  lane :build_disk_image do |options|
     keychain_create
     keychain_setup
     connect_appstore_connect
@@ -105,17 +143,16 @@ platform :mac do
         }
       }
     )
+    
+    Dir.chdir("../") do
+      sh("create-dmg", "LunaSea.app", "--overwrite")
+    end
     notarize(
-      package: "LunaSea.app",
+      package: "LunaSea #{options[:build_version]}.dmg",
+      bundle_id: "app.lunasea.lunasea.DiskImage",
       use_notarytool: true,
     )
-
-    sh("mkdir", "-p", "../../output")
-    sh("cp", "-R", "../LunaSea.app", "../../output/LunaSea.app")
-    Dir.chdir("../../output") do
-      sh("zip", "-r", "-y", "LunaSea-macOS.zip", "LunaSea.app")
-      sh("rm", "-rf", "LunaSea.app")
-    end
+    sh("mv", "../LunaSea #{options[:build_version]}.dmg", "../../output/LunaSea-macOS.dmg")
 
     keychain_delete
   end

@@ -86,6 +86,7 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
+      build-version: ${{ needs.prepare.outputs.build-version }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

@@ -106,7 +106,12 @@ runs:
       run: |
         npm install -g firebase-tools
         dart pub global activate flutterfire_cli
-        flutterfire configure -y
+
+        flutterfire configure \
+        --android-app-id=app.lunasea.lunasea \
+        --ios-bundle-id=app.lunasea.lunasea \
+        --macos-bundle-id=app.lunasea.lunasea \
+        --yes
 
     - name: Setup Android Platform
       if: ${{ inputs.platform == 'android' }}

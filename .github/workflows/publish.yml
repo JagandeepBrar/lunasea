@@ -128,13 +128,13 @@ jobs:
       - name: Download Snap
         uses: actions/download-artifact@v3
         with:
-          name: linux-snap
+          name: linux-snapcraft
           path: ${{ github.workspace }}/output
 
       - name: Deploy to Snapcraft
         run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
 
-  macos-app-store:
+  macos-appstore:
     name: App Store (macOS)
     runs-on: macos-latest
     steps:
@@ -227,13 +227,19 @@ jobs:
       - name: Download Linux Snap
         uses: actions/download-artifact@v3
         with:
-          name: linux-snap
+          name: linux-snapcraft
           path: ${{ github.workspace }}/output
 
-      - name: Download macOS Notarized Package
+      - name: Download macOS App Package
         uses: actions/download-artifact@v3
         with:
-          name: macos-notarized-package
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download macOS Disk Image
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-disk-image
           path: ${{ github.workspace }}/output
 
       - name: Upload to S3 Bucket

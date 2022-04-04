@@ -28,8 +28,8 @@ on:
         required: true
 
 jobs:
-  build-appstore-package:
-    name: App Store Package
+  build-app-store:
+    name: App Store
     runs-on: macos-latest
     steps:
       - name: Setup Environment

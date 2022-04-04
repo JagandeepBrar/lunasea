@@ -1,8 +1,10 @@
 import 'package:lunasea/core.dart';
-export 'package:hive_flutter/hive_flutter.dart';
+
+import '../system/platform.dart';
 
 class Database {
-  static const String _DATABASE_PATH = 'database';
+  static const String _DATABASE_LEGACY_PATH = 'database';
+  static const String _DATABASE_PATH = 'LunaSea/database';
 
   static late _BoxManager alerts;
   static late _BoxManager<ExternalModuleHiveObject> externalModules;
@@ -11,8 +13,16 @@ class Database {
   static late _BoxManager lunasea;
   static late _BoxManager<ProfileHiveObject> profiles;
 
+  String get _databasePath {
+    final platform = LunaPlatform();
+    if (platform.isWindows || platform.isLinux)
+      return _DATABASE_PATH;
+    else
+      return _DATABASE_LEGACY_PATH;
+  }
+
   Future<void> initialize() async {
-    await Hive.initFlutter(_DATABASE_PATH);
+    await Hive.initFlutter(_databasePath);
 
     LunaDatabase().registerAdapters();
     LunaModule.values.forEach((module) => module.database?.registerAdapters());

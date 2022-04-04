@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/database/database.dart';
 import '../../../core/database/module_database.dart';
 import '../../../core/utilities/logger.dart';
+import '../../../vendor.dart';
 import 'adapters/calendar_starting_day.dart';
 import 'adapters/calendar_starting_size.dart';
 import 'adapters/calendar_starting_type.dart';

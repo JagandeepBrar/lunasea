@@ -214,7 +214,7 @@
     "settings.Website": "Site web",
     "settings.GitHubDescription": "Afficher le code source",
     "settings.WebsiteDescription": "Visitez le site web de LunaSea",
-    "settings.PastDaysInScheduleView": "Les jours précédents dans l'aperçu",
+    "settings.PastDaysInScheduleView": "Jours précédents dans le planning",
     "settings.ProfilesBannerLine1": "Les profils vous permettent d'ajouter plusieurs instances de modules dans LunaSea. Vous pouvez changer de profil depuis le tiroir de la navigation principale.",
     "settings.QuickActionsBannerLine2": "Un nombre limité d'actions rapides peuvent être spécifiées à la fois, et une fois cette limite atteinte, les nouvelles actions ajoutées n'apparaitront pas.",
     "settings.CalendarSettings": "Préférences du calendrier",
@@ -224,9 +224,13 @@
     "settings.FutureDays": "Prochains jours",
     "settings.Home": "Accueil",
     "settings.PastDays": "Précédents jours",
-    "settings.PasswordHint1": "Si votre mot de passe utilise des caractères spéciaux, vous devriez ajouter un en-tête authentification basique avec votre nom d'utilisateur et votre mot de passe",
+    "settings.PasswordHint1": "Si votre mot de passe utilise des caractères spéciaux, vous devriez ajouter une en-tête d'authentification basique avec votre nom d'utilisateur et votre mot de passe",
     "settings.Use24HourTime": "Utiliser le format 24h",
     "settings.Use24HourTimeDescription": "Affiche l'horodatage au format 24h",
     "settings.ProfilesBannerLine2": "L'index de recherche Newznab et les modules externes sont activés et partagés entre tous les profils.",
-    "settings.QuickActionsBannerLine1": "Les actions rapides vous permettent d'accéder directement au modules depuis l'écran d'accueil de votre appareil grâce à un appui long sur l'icône de LunaSea."
+    "settings.QuickActionsBannerLine1": "Les actions rapides vous permettent d'accéder directement au modules depuis l'écran d'accueil de votre appareil grâce à un appui long sur l'icône de LunaSea.",
+    "settings.BackupToDevice": "Sauvegarder vers l'appareil",
+    "settings.BackupToDeviceDescription": "Sauvegarder les données de configuration",
+    "settings.RestoreFromDevice": "Restaurer depuis l'appareil",
+    "settings.RestoreFromDeviceDescription": "Restaurer les données de configuration"
 }

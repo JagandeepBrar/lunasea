@@ -67,6 +67,10 @@ class SettingsRouter extends LunaModuleRouter {
     SettingsConfigurationTautulliConnectionDetailsRouter().defineRoute(router);
     SettingsConfigurationTautulliDefaultPagesRouter().defineRoute(router);
     SettingsConfigurationTautulliHeadersRouter().defineRoute(router);
+    // Configuration/Rss
+    SettingsConfigurationRssRouter().defineRoute(router);
+    SettingsConfigurationRssAddRouter().defineRoute(router);
+    SettingsConfigurationRssEditRouter().defineRoute(router);
     // Configuration/Wake-on-LAN
     SettingsConfigurationWakeOnLANRouter().defineRoute(router);
     // Debug Menu

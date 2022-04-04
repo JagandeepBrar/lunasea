@@ -19,6 +19,7 @@ enum LunaDatabaseValue {
   QUICK_ACTIONS_OVERSEERR,
   QUICK_ACTIONS_TAUTULLI,
   QUICK_ACTIONS_SEARCH,
+  QUICK_ACTIONS_RSS,
   USE_24_HOUR_TIME,
   DEFAULT_LAUNCH_MODULE,
 }
@@ -35,6 +36,7 @@ class LunaDatabase extends LunaModuleDatabase {
     Hive.registerAdapter(LunaLogTypeAdapter());
     Hive.registerAdapter(LunaModuleAdapter());
     Hive.registerAdapter(LunaListViewOptionAdapter());
+    Hive.registerAdapter(FeedHiveObjectAdapter());
   }
 
   @override
@@ -175,6 +177,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is LunaModule;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return value is bool;
+      case LunaDatabaseValue.QUICK_ACTIONS_RSS:
+        return value is bool;
     }
   }
 
@@ -217,6 +221,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
       case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
         return LunaModule.DASHBOARD;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
+        return false;
+      case LunaDatabaseValue.QUICK_ACTIONS_RSS:
         return false;
     }
   }

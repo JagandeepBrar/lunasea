@@ -11,6 +11,7 @@ import '../../modules/overseerr/core/state.dart';
 import '../../modules/sabnzbd/core/state.dart';
 import '../../modules/nzbget/core/state.dart';
 import '../../modules/tautulli/core/state.dart';
+import '../../modules/rss/core/state.dart';
 import '../modules.dart';
 
 class LunaState {
@@ -40,6 +41,7 @@ class LunaState {
           ChangeNotifierProvider(create: (_) => SABnzbdState()),
           ChangeNotifierProvider(create: (_) => OverseerrState()),
           ChangeNotifierProvider(create: (_) => TautulliState()),
+          ChangeNotifierProvider(create: (_) => RssState()),
         ],
         child: child,
       );

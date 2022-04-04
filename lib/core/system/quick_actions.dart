@@ -36,6 +36,8 @@ class LunaQuickActions {
           LunaModule.NZBGET.shortcutItem!,
         if (LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data)
           LunaModule.LIDARR.shortcutItem!,
+        if (LunaDatabaseValue.QUICK_ACTIONS_RSS.data)
+          LunaModule.RSS.shortcutItem!,
         LunaModule.SETTINGS.shortcutItem!,
       ]);
   }

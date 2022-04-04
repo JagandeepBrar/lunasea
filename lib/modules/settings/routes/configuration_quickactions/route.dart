@@ -77,6 +77,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           LunaModule.TAUTULLI.name,
           LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI,
         ),
+        _actionTile(
+          LunaModule.RSS.name,
+          LunaDatabaseValue.QUICK_ACTIONS_RSS,
+        ),
       ],
     );
   }

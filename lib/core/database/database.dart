@@ -10,6 +10,7 @@ class Database {
   static late _BoxManager<LunaLogHiveObject> logs;
   static late _BoxManager lunasea;
   static late _BoxManager<ProfileHiveObject> profiles;
+  static late _BoxManager<FeedHiveObject> feeds;
 
   Future<void> initialize() async {
     await Hive.initFlutter(_DATABASE_PATH);
@@ -37,6 +38,7 @@ class Database {
     logs.clear();
     lunasea.clear();
     profiles.clear();
+    feeds.clear();
   }
 }
 
@@ -47,6 +49,7 @@ enum _BoxInstance {
   LOGS,
   LUNASEA,
   PROFILES,
+  FEEDS
 }
 
 extension _BoxInstanceExtension on _BoxInstance {
@@ -64,6 +67,8 @@ extension _BoxInstanceExtension on _BoxInstance {
         return 'lunasea';
       case _BoxInstance.PROFILES:
         return 'profiles';
+      case _BoxInstance.FEEDS:
+        return 'feeds';
     }
   }
 
@@ -93,6 +98,10 @@ extension _BoxInstanceExtension on _BoxInstance {
         await Hive.openBox<ProfileHiveObject>('profiles');
         Database.profiles = _BoxManager(this);
         break;
+      case _BoxInstance.FEEDS:
+        await Hive.openBox<FeedHiveObject>('feeds');
+        Database.feeds = _BoxManager(this);
+        break;
     }
   }
 
@@ -111,6 +120,8 @@ extension _BoxInstanceExtension on _BoxInstance {
         break;
       case _BoxInstance.PROFILES:
         Database.profiles.box.put('default', ProfileHiveObject.empty());
+        break;
+      case _BoxInstance.FEEDS:
         break;
     }
   }

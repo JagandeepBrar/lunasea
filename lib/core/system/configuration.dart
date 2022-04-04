@@ -6,6 +6,7 @@ class LunaConfiguration {
   static const String _INDEXERS_KEY = 'indexers';
   static const String _LUNASEA_KEY = 'lunasea';
   static const String _PROFILES_KEY = 'profiles';
+  static const String _FEEDS_KEY = 'feeds';
 
   /// Returns a list of all profiles converted to a map.
   List<Map<String, dynamic>> _getProfiles() {
@@ -50,6 +51,20 @@ class LunaConfiguration {
     for (Map module in data) box.add(ExternalModuleHiveObject.fromMap(module));
   }
 
+  /// Returns a list of all feeds converted to a map.
+  List<Map<String, dynamic>> _getFeeds() {
+    List<Map<String, dynamic>> _data = [];
+    for (var key in Database.feeds.box.keys)
+      _data.add(Database.feeds.box.get(key)!.toMap());
+    return _data;
+  }
+
+  /// Given a list of map objects, creates or updates indexers for each object.
+  void _setFeeds(List data) {
+    Box<dynamic> box = Database.feeds.box;
+    for (Map feed in data) box.add(FeedHiveObject.fromMap(feed));
+  }
+
   /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).
   ///
   /// - Clears all boxes
@@ -64,6 +79,7 @@ class LunaConfiguration {
     try {
       if (config[_PROFILES_KEY] != null) _setProfiles(config[_PROFILES_KEY]);
       if (config[_INDEXERS_KEY] != null) _setIndexers(config[_INDEXERS_KEY]);
+      if (config[_FEEDS_KEY] != null) _setFeeds(config[_FEEDS_KEY]);
       if (config[_EXTERNAL_MODULES_KEY] != null)
         _setExternalModules(config[_EXTERNAL_MODULES_KEY]);
       if (config[_LUNASEA_KEY] != null)
@@ -92,6 +108,7 @@ class LunaConfiguration {
     Map<String, dynamic> config = {
       _EXTERNAL_MODULES_KEY: _getExternalModules(),
       _INDEXERS_KEY: _getIndexers(),
+      _FEEDS_KEY: _getFeeds(),
       _PROFILES_KEY: _getProfiles(),
       _LUNASEA_KEY: LunaDatabase().export(),
     };

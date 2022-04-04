@@ -14,7 +14,9 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
+
 import '../../modules/dashboard/routes/routes.dart' as dashboard;
+import '../../modules/rss/routes/routes.dart';
 
 class LunaRouter {
   static FluroRouter router = FluroRouter();
@@ -39,6 +41,7 @@ class LunaRouter {
     SettingsRouter().defineAllRoutes(router);
     SonarrRouter().defineAllRoutes(router);
     TautulliRouter().defineAllRoutes(router);
+    RssRouter().defineAllRoutes(router);
   }
 
   /// **Will be removed when all module routers are integrated.**

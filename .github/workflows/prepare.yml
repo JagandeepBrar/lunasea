@@ -112,10 +112,12 @@ jobs:
           skip-core: true
 
       - name: Generate Flavor Configuration
-        run: echo $'FLAVOR=${{ inputs.flavor }}\nCOMMIT=${{ github.sha }}' > .flavor
+        run: |
+          echo FLAVOR=${{ inputs.flavor }} >> .flavor
+          echo COMMIT=${{ github.sha }} >> .flavor
      
       - name: Generate Localization
-        run: dart ./scripts/generate_localization.dart
+        run: dart ${{github.workspace }}/scripts/generate_localization.dart
 
       - name: Generate Build Runner Files
         run: flutter packages pub run build_runner build

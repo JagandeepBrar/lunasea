@@ -10,6 +10,7 @@
     "build:linux:snap": "flutter clean && snapcraft --use-lxd",
     "build:macos": "flutter clean && flutter build macos --release",
     "build:windows": "flutter clean && flutter build windows --release",
+    "build:windows:msix": "flutter clean && flutter pub get && flutter pub run msix:create",
     "build:web": "flutter clean && flutter build web --web-renderer canvaskit --release",
     "cocoapods:clear_cache": "rm -rf ~/Library/Caches/CocoaPods && rm -rf ~/Library/Developer/Xcode/DerivedData/*",
     "cocoapods:nuke": "npm run cocoapods:nuke:ios && npm run cocoapods:nuke:macos",

@@ -144,6 +144,11 @@ runs:
         (cd macos && pod install --repo-update)
         (cd macos && bundle install)
 
+    - name: Setup Windows Platform
+      if: ${{ inputs.platform == 'windows' }}
+      shell: powershell
+      run: flutter pub get
+
     - name: Setup Web Platform
       if: ${{ inputs.platform == 'web' }}
       shell: bash

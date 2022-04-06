@@ -87,6 +87,46 @@ class LunaFirebaseAuth {
     }
   }
 
+  Future<LunaFirebaseResponse> updateEmail(
+    String newEmail,
+    String password,
+  ) async {
+    try {
+      return await user!
+          .reauthenticateWithCredential(EmailAuthProvider.credential(
+            email: email!,
+            password: password,
+          ))
+          .then((credentials) => credentials.user!.updateEmail(newEmail))
+          .then((_) => LunaFirebaseResponse(state: true));
+    } on FirebaseAuthException catch (error) {
+      return LunaFirebaseResponse(state: false, error: error);
+    } catch (error, stack) {
+      LunaLogger().error('Failed to set email: ${user!.email}', error, stack);
+      rethrow;
+    }
+  }
+
+  Future<LunaFirebaseResponse> updatePassword(
+    String newPassword,
+    String password,
+  ) async {
+    try {
+      return await user!
+          .reauthenticateWithCredential(EmailAuthProvider.credential(
+            email: email!,
+            password: password,
+          ))
+          .then((credentials) => credentials.user!.updatePassword(newPassword))
+          .then((_) => LunaFirebaseResponse(state: true));
+    } on FirebaseAuthException catch (error) {
+      return LunaFirebaseResponse(state: false, error: error);
+    } catch (error, stack) {
+      LunaLogger().error('Failed to set pass: ${user!.email}', error, stack);
+      rethrow;
+    }
+  }
+
   /// Reset a user's password by sending them a password reset email.
   Future<void> resetPassword(String email) async {
     instance.sendPasswordResetEmail(email: email);

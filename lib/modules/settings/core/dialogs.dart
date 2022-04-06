@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
 import 'package:tuple/tuple.dart';
@@ -554,6 +555,125 @@ class SettingsDialogs {
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
     return Tuple2(_flag, _textController.text);
+  }
+
+  Future<Tuple3<bool, String, String>> updateAccountEmail(
+    BuildContext context,
+  ) async {
+    final _formKey = GlobalKey<FormState>();
+    final _emailController = TextEditingController();
+    final _passwordController = TextEditingController();
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      if (_formKey.currentState!.validate()) {
+        _flag = flag;
+        Navigator.of(context).pop();
+      }
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.UpdateEmail'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Update'.tr(),
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              LunaDialog.textFormInput(
+                controller: _emailController,
+                title: 'settings.Email'.tr(),
+                onSubmitted: (_) => _setValues(true),
+                validator: (value) {
+                  return EmailValidator.validate(value ?? '')
+                      ? null
+                      : 'settings.EmailValidation'.tr();
+                },
+              ),
+              LunaDialog.textFormInput(
+                controller: _passwordController,
+                title: 'settings.CurrentPassword'.tr(),
+                obscureText: true,
+                onSubmitted: (_) => _setValues(true),
+                validator: (value) {
+                  return value?.isEmpty ?? true
+                      ? 'settings.PasswordValidation'.tr()
+                      : null;
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return Tuple3(_flag, _emailController.text, _passwordController.text);
+  }
+
+  Future<Tuple3<bool, String, String>> updateAccountPassword(
+    BuildContext context,
+  ) async {
+    final _formKey = GlobalKey<FormState>();
+    final _currentPassController = TextEditingController();
+    final _newPassController = TextEditingController();
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      if (_formKey.currentState!.validate()) {
+        _flag = flag;
+        Navigator.of(context).pop();
+      }
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.UpdatePassword'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Update'.tr(),
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              LunaDialog.textFormInput(
+                controller: _currentPassController,
+                title: 'settings.CurrentPassword'.tr(),
+                obscureText: true,
+                onSubmitted: (_) => _setValues(true),
+                validator: (value) {
+                  return value?.isEmpty ?? true
+                      ? 'settings.PasswordValidation'.tr()
+                      : null;
+                },
+              ),
+              LunaDialog.textFormInput(
+                controller: _newPassController,
+                title: 'settings.NewPassword'.tr(),
+                obscureText: true,
+                onSubmitted: (_) => _setValues(true),
+                validator: (value) {
+                  return value?.isEmpty ?? true
+                      ? 'settings.PasswordValidation'.tr()
+                      : null;
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+      contentPadding: LunaDialog.textDialogContentPadding(),
+    );
+    return Tuple3(_flag, _newPassController.text, _currentPassController.text);
   }
 
   Future<Tuple2<bool, String>> addProfile(

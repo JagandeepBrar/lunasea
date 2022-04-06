@@ -11,6 +11,7 @@ class LunaIcons {
   static const IconData DELETE = Icons.delete_rounded;
   static const IconData DEVICES = Icons.devices_rounded;
   static const IconData DOWNLOAD = Icons.file_download_rounded;
+  static const IconData EMAIL = Icons.email_rounded;
   static const IconData ERROR = Icons.error_rounded;
   static const IconData FILTER = Icons.filter_list_rounded;
   static const IconData HISTORY = Icons.history_rounded;
@@ -18,6 +19,7 @@ class LunaIcons {
   static const IconData MONITOR_OFF = Icons.turned_in_not_rounded;
   static const IconData MONITOR_ON = Icons.turned_in_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
+  static const IconData PASSWORD = Icons.vpn_key_rounded;
   static const IconData PLAY = Icons.play_arrow_rounded;
   static const IconData PROFILES = Icons.switch_account_rounded;
   static const IconData REFRESH = Icons.refresh_rounded;

@@ -113,7 +113,7 @@ jobs:
           APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/LunaSea-iOS.ipa
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/LunaSea-iOS-arm64-v8a.ipa
 
   linux-snapcraft:
     name: Snapcraft
@@ -132,7 +132,7 @@ jobs:
           path: ${{ github.workspace }}/output
 
       - name: Deploy to Snapcraft
-        run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/LunaSea-Linux-amd64.snap
+        run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/LunaSea-Linux-x86_64.snap
 
   macos-appstore:
     name: App Store (macOS)
@@ -159,7 +159,7 @@ jobs:
           APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/LunaSea-macOS.pkg
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/LunaSea-macOS-x86_64.pkg
 
   web-netlify:
     name: Netlify

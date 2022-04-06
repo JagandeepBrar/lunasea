@@ -71,7 +71,7 @@ platform :ios do
       }
     )
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../../ios/Runner.ipa", "../../output/LunaSea-iOS.ipa")
+    sh("mv", "../../ios/Runner.ipa", "../../output/LunaSea-iOS-arm64-v8a.ipa")
 
     keychain_delete
   end

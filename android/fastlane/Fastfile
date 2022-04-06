@@ -29,9 +29,9 @@ platform :android do
     )
 
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../../build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk", "../../output/LunaSea-Android-arm.apk")
-    sh("mv", "../../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk", "../../output/LunaSea-Android-arm64.apk")
-    sh("mv", "../../build/app/outputs/flutter-apk/app-x86_64-release.apk", "../../output/LunaSea-Android-x86.apk")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk", "../../output/LunaSea-Android-armeabi-v7a.apk")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk", "../../output/LunaSea-Android-arm64-v8a.apk")
+    sh("mv", "../../build/app/outputs/flutter-apk/app-x86_64-release.apk", "../../output/LunaSea-Android-x86_64.apk")
   end
 
   desc "Deploy to Google Play Store"

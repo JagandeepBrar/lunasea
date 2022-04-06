@@ -86,7 +86,7 @@ platform :mac do
     sh("mkdir", "-p", "../../output")
     sh("mv", "../LunaSea.app", "../../output/LunaSea.app")
     Dir.chdir("../../output") do
-      sh("zip", "-r", "-y", "LunaSea-macOS.zip", "LunaSea.app")
+      sh("zip", "-r", "-y", "LunaSea-macOS-x86_64.zip", "LunaSea.app")
       sh("rm", "-rf", "LunaSea.app")
     end
 
@@ -116,7 +116,7 @@ platform :mac do
       },
     )
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../LunaSea.pkg", "../../output/LunaSea-macOS.pkg")
+    sh("mv", "../LunaSea.pkg", "../../output/LunaSea-macOS-x86_64.pkg")
 
     keychain_delete
   end
@@ -152,7 +152,7 @@ platform :mac do
       bundle_id: "app.lunasea.lunasea.DiskImage",
       use_notarytool: true,
     )
-    sh("mv", "../LunaSea #{options[:build_version]}.dmg", "../../output/LunaSea-macOS.dmg")
+    sh("mv", "../LunaSea #{options[:build_version]}.dmg", "../../output/LunaSea-macOS-x86_64.dmg")
 
     keychain_delete
   end

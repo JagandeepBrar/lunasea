@@ -116,7 +116,7 @@ msix_config:
   capabilities: internetClientServer,privateNetworkClientServer
   logo_path: assets\icon\icon_windows.png
   architecture: x64
-  output_name: LunaSea-Windows-x64
+  output_name: lunasea-windows-amd64
   execution_alias: lunasea
   install_certificate: false
   enable_at_startup: false

@@ -27,7 +27,7 @@ jobs:
         id: build
       
       - name: Prepare Artifact
-        run: mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/LunaSea-Linux-x86_64.snap
+        run: mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/lunasea-linux-amd64.snap
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

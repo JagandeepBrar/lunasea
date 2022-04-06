@@ -16,6 +16,7 @@ dependencies:
   device_preview: ^1.0.0
   dio: ^4.0.6
   easy_localization: ^3.0.0
+  email_validator: ^2.0.1
   encrypt: ^5.0.1
   envify: ^2.0.2
   expandable: ^5.0.1

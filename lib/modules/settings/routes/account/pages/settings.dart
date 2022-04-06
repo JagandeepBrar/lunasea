@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
+import '../widgets/change_email_tile.dart';
+import '../widgets/change_password_tile.dart';
+import '../widgets/delete_account_tile.dart';
+
 class SettingsAccountSettingsRouter extends SettingsPageRouter {
   SettingsAccountSettingsRouter() : super('/settings/account/settings');
 
@@ -27,12 +31,12 @@ class _State extends State<_SettingsAccountSettingsRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'settings.AccountSettings'.tr(),
       scrollControllers: [scrollController],
@@ -43,7 +47,9 @@ class _State extends State<_SettingsAccountSettingsRoute>
     return LunaListView(
       controller: scrollController,
       children: const [
-        SettingsAccountDeleteAccountTile(),
+        ChangeEmailTile(),
+        ChangePasswordTile(),
+        DeleteAccountTile(),
       ],
     );
   }

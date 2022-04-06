@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class DeleteAccountTile extends StatefulWidget {
-  const DeleteAccountTile({
+class ChangeEmailTile extends StatefulWidget {
+  const ChangeEmailTile({
     Key? key,
   }) : super(key: key);
 
@@ -11,7 +11,7 @@ class DeleteAccountTile extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<DeleteAccountTile> {
+class _State extends State<ChangeEmailTile> {
   LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
 
   void updateState(LunaLoadingState state) {
@@ -21,37 +21,34 @@ class _State extends State<DeleteAccountTile> {
   @override
   Widget build(BuildContext context) {
     return LunaBlock(
-      title: 'settings.DeleteAccount'.tr(),
-      body: [
-        TextSpan(text: 'settings.DeleteAccountDescription'.tr()),
-      ],
+      title: 'settings.UpdateEmail'.tr(),
       trailing: LunaIconButton(
-        icon: LunaIcons.DELETE,
-        color: LunaColours.red,
+        icon: LunaIcons.EMAIL,
         loadingState: _loadingState,
       ),
-      onTap: _delete,
+      onTap: _update,
     );
   }
 
-  Future<void> _delete() async {
+  Future<void> _update() async {
     if (_loadingState == LunaLoadingState.ACTIVE) return;
     updateState(LunaLoadingState.ACTIVE);
 
-    Tuple2<bool, String> _result =
-        await SettingsDialogs().confirmDeleteAccount(context);
+    Tuple3<bool, String, String> _result =
+        await SettingsDialogs().updateAccountEmail(context);
     if (_result.item1) {
-      await LunaFirebaseAuth().deleteUser(_result.item2).then((res) {
+      await LunaFirebaseAuth()
+          .updateEmail(_result.item2, _result.item3)
+          .then((res) {
         if (res.state) {
           showLunaSuccessSnackBar(
-            title: 'settings.AccountDeleted'.tr(),
-            message: 'settings.AccountDeletedMessage'.tr(),
+            title: 'settings.EmailUpdated'.tr(),
+            message: _result.item2,
           );
-          Navigator.of(context).lunaSafetyPop();
         } else {
           updateState(LunaLoadingState.INACTIVE);
           showLunaErrorSnackBar(
-            title: 'settings.FailedToDeleteAccount'.tr(),
+            title: 'settings.FailedToUpdateEmail'.tr(),
             message: res.error?.message ?? 'lunasea.UnknownError'.tr(),
           );
         }

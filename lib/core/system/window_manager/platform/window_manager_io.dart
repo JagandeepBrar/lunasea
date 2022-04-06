@@ -41,7 +41,7 @@ class IO implements LunaWindowManager {
     const minSize = Size(min, min);
     const initSize = Size(init, init);
 
-    await windowManager.setSize(initSize);
+    if (!kDebugMode) await windowManager.setSize(initSize);
     // Currently broken on Linux
     if (!LunaPlatform().isLinux) {
       await windowManager.setMinimumSize(minSize);

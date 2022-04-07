@@ -232,5 +232,15 @@
     "settings.BackupToDevice": "备份到设备",
     "settings.BackupToDeviceDescription": "备份配置",
     "settings.RestoreFromDevice": "从设备恢复",
-    "settings.RestoreFromDeviceDescription": "恢复配置数据"
+    "settings.RestoreFromDeviceDescription": "恢复配置数据",
+    "settings.EmailUpdated": "电子邮件更新",
+    "settings.EmailValidation": "无效的邮件地址",
+    "settings.FailedToUpdateEmail": "无法更新电子邮件",
+    "settings.FailedToUpdatePassword": "无法更新密码",
+    "settings.NewPassword": "新密码",
+    "settings.PasswordUpdated": "更新密码",
+    "settings.PleaseSignInAgain": "请再次登录",
+    "settings.UpdateEmail": "更新电子邮件",
+    "settings.UpdatePassword": "更新密码",
+    "settings.CurrentPassword": "当前密码"
 }

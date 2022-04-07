@@ -102,6 +102,11 @@ jobs:
     name: Build Windows
     needs: [ prepare, validate ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
+    secrets:
+      CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
+      CODE_SIGNING_PASSWORD: ${{ secrets.CODE_SIGNING_PASSWORD }}
+      CODE_SIGNING_PUBLISHER: ${{ secrets.CODE_SIGNING_PUBLISHER }}
+      CODE_SIGNING_PUBLISHER_NAME: ${{ secrets.CODE_SIGNING_PUBLISHER_NAME }}
 
   build-web:
     name: Build Web

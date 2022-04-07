@@ -111,14 +111,13 @@ flutter_native_splash:
   color: "#32323E"
 
 msix_config:
-  display_name: LunaSea
-  publisher_display_name: Jagandeep Brar
-  identity_name: app.lunasea.lunasea
-  capabilities: internetClientServer,privateNetworkClientServer
-  logo_path: assets\icon\icon_windows.png
   architecture: x64
-  output_name: lunasea-windows-amd64
-  execution_alias: lunasea
-  install_certificate: false
+  capabilities: internetClientServer,privateNetworkClientServer
+  display_name: LunaSea
   enable_at_startup: false
+  execution_alias: lunasea
+  identity_name: app.lunasea.lunasea
+  install_certificate: false
+  logo_path: assets\icon\icon_windows.png
+  output_name: lunasea-windows-amd64
   store: false

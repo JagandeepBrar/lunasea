@@ -59,6 +59,7 @@ macos/LunaSea.app.zip
 /macos/fastlane/Preview.html
 
 # Keys & Service Accounts
+keys/
 android/key.jks
 android/key.properties
 

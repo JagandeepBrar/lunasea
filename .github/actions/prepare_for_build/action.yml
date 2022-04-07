@@ -29,6 +29,10 @@ inputs:
     description: 'App Store Connect API Key'
     required: false
     default: ''
+  code-signing-certificate:
+    description: 'Code Signing Certificate'
+    required: false
+    default: ''
   google-play-key:
     description: 'Google Play Store API Key'
     required: false
@@ -98,6 +102,7 @@ runs:
       shell: bash
       run: |
         echo ${{ inputs.appstore-connect-key }} | base64 --decode > keys/appstore.p8
+        echo ${{ inputs.code-signing-certificate }} | base64 --decode > keys/codesigning.pfx
         echo ${{ inputs.google-play-key }} | base64 --decode > keys/googleplay.json
         echo ${{ inputs.android-key-jks }} | base64 --decode > android/key.jks
         echo ${{ inputs.android-key-properties }} | base64 --decode > android/key.properties

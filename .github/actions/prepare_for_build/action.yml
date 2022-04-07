@@ -2,12 +2,15 @@ name: 'Prepare for Build'
 description: 'Setup all required dependencies and secrets for building the given platform'
 
 inputs:
-  firebase-token:
-    description: 'Firebase Token'
-    required: true
   platform:
     description: 'Platform to be Built'
     required: true
+
+  # Config
+  firebase-token:
+    description: 'Firebase Token'
+    required: false
+    default: ''
   skip-core:
     description: 'Skip Installing Core Files'
     required: false
@@ -100,6 +103,7 @@ runs:
         echo ${{ inputs.android-key-properties }} | base64 --decode > android/key.properties
 
     - name: Setup Firebase Configuration
+      if: ${{ inputs.firebase-token != '' }}
       shell: bash
       env:
         FIREBASE_TOKEN: ${{ inputs.firebase-token }}

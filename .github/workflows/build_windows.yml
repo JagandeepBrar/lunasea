@@ -1,4 +1,4 @@
-name: 'Build Web'
+name: 'Build Windows'
 
 on:
   workflow_call:
@@ -12,21 +12,24 @@ on:
         required: true
 
 jobs:
-  build-canvaskit:
-    name: CanvasKit
-    runs-on: ubuntu-latest
+  build-app-package:
+    name: App Package
+    runs-on: windows-latest
     steps:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
-          platform: web
+          platform: windows
 
       - name: Build LunaSea
-        run: npm run build:web
+        run: npm run build:windows
 
+      - name: Prepare Artifact
+        run: Compress-Archive -path ${{ github.workspace }}\build\windows\runner\Release\* ${{github.workspace}}\output\lunasea-windows-amd64.zip
+      
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: web-canvaskit
-          path: ${{ github.workspace }}/build/web
+          name: windows-app-package
+          path: ${{ github.workspace }}/output

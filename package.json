@@ -4,7 +4,7 @@
   "version": "10.0.2",
   "private": true,
   "scripts": {
-    "build:android": "flutter clean && flutter build apk --split-per-abi --bundle-sksl-path shaders/android_sksl.json --release",
+    "build:android": "flutter clean && flutter build apk --bundle-sksl-path shaders/android_sksl.json --release",
     "build:ios": "flutter clean && flutter build ipa --bundle-sksl-path shaders/ios_sksl.json --release",
     "build:linux": "flutter clean && flutter build linux --release",
     "build:linux:snap": "flutter clean && snapcraft --use-lxd",

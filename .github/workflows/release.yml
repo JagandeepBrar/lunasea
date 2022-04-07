@@ -102,6 +102,15 @@ jobs:
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
+  build-windows:
+    name: Build Windows
+    needs: [ prepare, validate ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
+    with:
+      build-number: ${{ needs.prepare.outputs.build-number }}
+    secrets:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
   build-web:
     name: Build Web
     needs: [ prepare, validate ]
@@ -113,7 +122,7 @@ jobs:
 
   publish:
     name: Publish
-    needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-web ]
+    needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-windows, build-web ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}

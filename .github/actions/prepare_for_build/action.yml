@@ -117,44 +117,28 @@ runs:
       if: ${{ inputs.platform == 'android' }}
       shell: bash
       run: |
-        flutter pub get
         (cd android && bundle install)
 
     - name: Setup iOS Platform
       if: ${{ inputs.platform == 'ios' }}
       shell: bash
       run: |
-       flutter pub get
-       (cd ios && pod install --repo-update)
-       (cd ios && bundle install)
+        (cd ios && bundle install)
       
     - name: Setup Linux Platform
       if: ${{ inputs.platform == 'linux' }}
       shell: bash
       run: |
         flutter config --enable-linux-desktop
-        flutter pub get
 
     - name: Setup macOS Platform
       if: ${{ inputs.platform == 'macos' }}
       shell: bash
       run: |
         flutter config --enable-macos-desktop
-        flutter pub get
-        (cd macos && pod install --repo-update)
         (cd macos && bundle install)
 
-    - name: Setup Windows Platform
-      if: ${{ inputs.platform == 'windows' }}
-      shell: powershell
-      run: flutter pub get
-
-    - name: Setup Web Platform
-      if: ${{ inputs.platform == 'web' }}
+    - name: Setup All Platforms
       shell: bash
-      run: flutter pub get
-
-    - name: Setup Test Platform
-      if: ${{ inputs.platform == 'test' }}
-      shell: bash
-      run: flutter pub get
+      run: |
+        flutter pub get

@@ -242,6 +242,12 @@ jobs:
           name: macos-disk-image
           path: ${{ github.workspace }}/output
 
+      - name: Download Windows App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: windows-app-package
+          path: ${{ github.workspace }}/output
+
       - name: Upload to S3 Bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:

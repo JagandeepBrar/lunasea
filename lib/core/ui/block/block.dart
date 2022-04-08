@@ -13,6 +13,7 @@ class LunaBlock extends StatelessWidget {
   final bool? disabled;
   final String? title;
   final Color titleColor;
+  final Color? backgroundColor;
 
   /// If defined, only takes the first body subtitle from the [body] array
   /// And allows that single [TextSpan] to overflow to this many lines
@@ -48,6 +49,7 @@ class LunaBlock extends StatelessWidget {
     this.disabled = false,
     this.title,
     this.titleColor = Colors.white,
+    this.backgroundColor,
     this.body,
     this.bodyLeadingIcons,
     this.bodyLeadingIconsColor = LunaColours.accent,
@@ -157,6 +159,7 @@ class LunaBlock extends StatelessWidget {
         onLongPress: onLongPress as void Function()?,
       ),
       height: _height,
+      color: backgroundColor,
     );
   }
 

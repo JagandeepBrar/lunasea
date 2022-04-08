@@ -21,6 +21,7 @@ class LunaGridBlock extends StatelessWidget {
   final bool posterIsSquare;
   final String? backgroundUrl;
   final Map? backgroundHeaders;
+  final Color? backgroundColor;
 
   final bool disabled;
   final String? title;
@@ -36,6 +37,7 @@ class LunaGridBlock extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.titleColor = Colors.white,
+    this.backgroundColor,
     this.posterPlaceholderIcon,
     this.posterUrl,
     this.posterHeaders = const {},
@@ -51,6 +53,7 @@ class LunaGridBlock extends StatelessWidget {
     return LunaCard(
       context: context,
       margin: LunaUI.MARGIN_HALF,
+      color: backgroundColor,
       child: InkWell(
         child: Stack(
           children: [

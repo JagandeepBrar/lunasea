@@ -18,18 +18,8 @@ on:
           - stable
 
 jobs:
-  cancel:
-    name: Cancel Previous Runs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Workflow Action
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
   prepare:
     name: Prepare
-    needs: [ cancel ]
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}

@@ -133,23 +133,23 @@ class SettingsDialogs {
       ],
       content: [
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint1'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint2'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint3'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint3'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint4'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint4'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint5'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint5'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(
@@ -201,19 +201,19 @@ class SettingsDialogs {
       ],
       content: [
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint1'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint2'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint3'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint3'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.HostHint4'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.HostHint4'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(
@@ -427,17 +427,17 @@ class SettingsDialogs {
       content: [
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint1'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BasicAuthenticationHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint2'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BasicAuthenticationHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BasicAuthenticationHint3'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BasicAuthenticationHint3'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(
@@ -1044,17 +1044,17 @@ class SettingsDialogs {
       content: [
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint1'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BroadcastAddressHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint2'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BroadcastAddressHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BroadcastAddressHint3'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BroadcastAddressHint3'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(
@@ -1103,19 +1103,19 @@ class SettingsDialogs {
       ],
       content: [
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint1'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.MACAddressHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint2'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.MACAddressHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint3'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.MACAddressHint3'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
-          text: '${LunaUI.TEXT_BULLET}\t${'settings.MACAddressHint4'.tr()}',
+          text: '${LunaUI.TEXT_BULLET} ${'settings.MACAddressHint4'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(
@@ -1290,12 +1290,12 @@ class SettingsDialogs {
       content: [
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint1'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BackupConfigurationHint1'.tr()}',
           textAlign: TextAlign.left,
         ),
         LunaDialog.textContent(
           text:
-              '${LunaUI.TEXT_BULLET}\t${'settings.BackupConfigurationHint2'.tr()}',
+              '${LunaUI.TEXT_BULLET} ${'settings.BackupConfigurationHint2'.tr()}',
           textAlign: TextAlign.left,
         ),
         Form(

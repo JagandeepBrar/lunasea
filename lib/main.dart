@@ -121,8 +121,8 @@ class _State extends State<LunaOS> {
 
     LunaQuickActions().initialize();
     LunaChangelogSheet().show(
-      context: LunaState.navigatorKey.currentContext,
-      checkBuildNumber: true,
+      context: LunaState.navigatorKey.currentContext!,
+      checkBuildVersion: true,
     );
   }
 

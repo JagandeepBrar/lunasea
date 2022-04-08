@@ -1,3 +1,5 @@
+import '../../../../../core.dart';
+
 class SABnzbdQueueData {
   String name;
   String nzoId;
@@ -35,7 +37,8 @@ class SABnzbdQueueData {
             ? '―'
             : timeLeft;
     String size = '${sizeTotal - sizeLeft}/$sizeTotal MB';
-    return '$time\t•\t$size\t•\t$percentageDone%\t•\t$formattedCategory';
+    String paddedBullet = LunaUI.TEXT_BULLET.lunaPad();
+    return '$time$paddedBullet$size$paddedBullet$percentageDone%$paddedBullet$formattedCategory';
   }
 
   bool get isPaused {

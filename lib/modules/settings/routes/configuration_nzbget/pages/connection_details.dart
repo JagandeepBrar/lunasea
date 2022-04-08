@@ -127,10 +127,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           prefill: password,
           extraText: [
             LunaDialog.textSpanContent(
-              text: [
-                LunaUI.TEXT_BULLET,
-                'settings.PasswordHint1'.tr(),
-              ].join('\t'),
+              text: '${LunaUI.TEXT_BULLET} ${'settings.PasswordHint1'.tr()}',
             ),
           ],
         );

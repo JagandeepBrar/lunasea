@@ -4,13 +4,24 @@ import 'package:lunasea/core.dart';
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
   String _version = '';
-  String _buildNumber = '';
+
+  bool _isBuildDifferent() {
+    final db = AlertsDatabaseValue.PREVIOUS_BUILD.data;
+    final current = _version.split('.').map((s) => int.parse(s)).toList();
+    final stored = (db as String).split('.').map((s) => int.parse(s)).toList();
+
+    if (current[0] != stored[0]) return true;
+    if (current[1] != stored[1]) return true;
+    if (current[2] != stored[2]) return true;
+
+    return false;
+  }
 
   @override
   Future<dynamic> show({
-    required BuildContext? context,
+    required BuildContext context,
     Widget Function(BuildContext context)? builder,
-    bool checkBuildNumber = false,
+    bool checkBuildVersion = false,
     bool showCommitHistory = false,
   }) async {
     // Do not show unless it is a prod release
@@ -20,23 +31,20 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     }
 
     try {
-      _changelog =
-          await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext!)
-              .loadString('assets/changelog.json')
-              .then((data) => _Changelog.fromJson(json.decode(data)));
+      _changelog = await DefaultAssetBundle.of(context)
+          .loadString('assets/changelog.json')
+          .then((data) => _Changelog.fromJson(json.decode(data)));
 
       PackageInfo _package = await PackageInfo.fromPlatform();
 
       _version = _package.version;
-      _buildNumber = _package.buildNumber;
 
-      if (checkBuildNumber) {
-        AlertsDatabaseValue _db = AlertsDatabaseValue.CHANGELOG;
-        if (_db.data == _package.buildNumber) return;
-        _db.put(_package.buildNumber);
+      if (checkBuildVersion) {
+        if (!_isBuildDifferent()) return;
+        AlertsDatabaseValue.PREVIOUS_BUILD.put(_version);
       }
 
-      return this.showModal(context: context!, builder: builder);
+      return this.showModal(context: context, builder: builder);
     } catch (error, stack) {
       LunaLogger().error('Failed to show changelog sheet', error, stack);
     }
@@ -47,7 +55,7 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     return LunaListViewModal(
       children: [
         LunaHeader(
-          text: '$_version ($_buildNumber)',
+          text: _version,
           subtitle: _changelog.motd,
         ),
         ..._buildChangeBlock(
@@ -86,7 +94,10 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
           (index) {
             String? _body = changes[index]
                 .changes
-                .fold('', (dynamic d, o) => d += '${LunaUI.TEXT_BULLET}\t$o\n')
+                .fold(
+                  '',
+                  (dynamic d, o) => d += '${LunaUI.TEXT_BULLET.lunaPad()}$o\n',
+                )
                 .trim();
             return LunaTableContent(
               title: changes[index].module,

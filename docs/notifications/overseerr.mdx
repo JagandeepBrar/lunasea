@@ -1,0 +1,59 @@
+---
+title: Overseerr Notifications
+description: Setting up Overseerr for webhook-based push notifications
+---
+
+# Overseerr Notifications
+
+## Preparation
+
+1. Read through the main [Notifications](/lunasea/notifications) page
+2. Copy your device-based or user-based webhook URL from LunaSea
+
+## Setup the Webhook
+
+In Overseerr's web GUI, head to Settings -> Notifications -> LunaSea. Ensure that the agent is enabled, then follow each section below to setup the webhook:
+
+#### Webhook URL
+
+Paste the full device-based or user-based URL that was copied from LunaSea.
+
+Overseerr currently only supports 1 LunaSea notification agent, which means you can only setup a single user-based or device-based notification.
+
+#### Profile Name
+
+The profile name field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
+
+> This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+>
+> Correctly setting up this field is critically important to get full deep-linking support.
+
+#### Notification Types
+
+Select which events should trigger a push notification. The following triggers are supported:
+
+|            Trigger             | Supported? |
+| :----------------------------: | :--------: |
+|    Request Pending Approval    |   Yes ✅   |
+| Request Automatically Approved |   Yes ✅   |
+|        Request Approved        |   Yes ✅   |
+|        Request Declined        |   Yes ✅   |
+|       Request Available        |   Yes ✅   |
+|   Request Processing Failed    |   Yes ✅   |
+|         Issue Reported         |   Yes ✅   |
+|         Issue Comment          |   Yes ✅   |
+|         Issue Resolved         |   Yes ✅   |
+|         Issue Reopened         |   Yes ✅   |
+
+---
+
+Once setup, close LunaSea and run the webhook test in Overseerr. You should receive a new notification letting you know that LunaSea is ready to receive Overseerr notifications!
+
+## Example
+
+An example Overseerr webhook can be seen below:
+
+- This is a user-based notification webhook, meaning it will be sent to all devices that are linked to the user ID `1234567890`
+- The webhook is associated with the profile named `My Profile`
+
+![Overseerr Notification Example](/assets/notification-overseerr-example.png)

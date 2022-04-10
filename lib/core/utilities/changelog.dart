@@ -92,13 +92,10 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
         content: List<LunaTableContent>.generate(
           changes.length,
           (index) {
-            String? _body = changes[index]
+            String _body = changes[index]
                 .changes
-                .fold(
-                  '',
-                  (dynamic d, o) => d += '${LunaUI.TEXT_BULLET.lunaPad()}$o\n',
-                )
-                .trim();
+                .map((s) => '${LunaUI.TEXT_BULLET.lunaPad()}$s')
+                .join('\n');
             return LunaTableContent(
               title: changes[index].module,
               body: _body,

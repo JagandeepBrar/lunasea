@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 enum LunaLinks {
+  BUILDS,
   CHANGELOG,
   DISCORD,
   DOCUMENTATION,
@@ -16,6 +17,8 @@ enum LunaLinks {
 extension LunaLinksExtension on LunaLinks {
   String get url {
     switch (this) {
+      case LunaLinks.BUILDS:
+        return 'https://www.lunasea.app/builds';
       case LunaLinks.CHANGELOG:
         return 'https://www.lunasea.app/changelog';
       case LunaLinks.DISCORD:

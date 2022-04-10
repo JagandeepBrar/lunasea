@@ -42,6 +42,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       controller: scrollController,
       children: [
         LunaBlock(
+          title: 'settings.Builds'.tr(),
+          body: [TextSpan(text: 'settings.BuildsDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.BUILDS),
+          onTap: LunaLinks.BUILDS.launch,
+        ),
+        LunaBlock(
           title: 'Discord',
           body: [TextSpan(text: 'settings.DiscordDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaBrandIcons.discord),

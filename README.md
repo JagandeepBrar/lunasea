@@ -22,13 +22,16 @@ LunaSea even comes with support for webhook-based push notifications, multiple i
 
 ## Releases
 
-Production releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all production releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
 
 - [Android](https://www.lunasea.app/playstore)
 - [iOS](https://www.lunasea.app/appstore)
+- [Linux](https://www.lunasea.app/snapcraft)
 - [macOS](https://formulae.brew.sh/cask/lunasea)
+- [Web](https://web.lunasea.app)
+- [Windows](https://builds.lunasea.app/#latest/stable/)
 
-> Interested in using prerelease builds of LunaSea? Learn the differences between all the build tracks and how to join one [here](https://www.lunasea.app/testflight)!
+> Interested in using prerelease build channels of LunaSea? Learn the differences between all the channels and how to join one [here](https://www.lunasea.app/testflight)!
 
 ## Getting Started
 
@@ -55,6 +58,6 @@ Production releases for all platforms are also available on [GitHub](https://git
 
 Thank you to all tools and services for offering free subscriptions for open-source projects!
 
-- [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
+- [docs.page](https://docs.page/): docs.page is used to host LunaSea's documentation
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback board
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea

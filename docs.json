@@ -1,0 +1,125 @@
+{
+  "name": "LunaSea",
+  "favicon": "/assets/logo.png",
+  "logo": "/assets/logo.png",
+  "logoDark": "/assets/logo.png",
+  "theme": "#4ECCA3",
+  "sidebar": [
+    [
+      "Overview",
+      "/"
+    ],
+    [
+      "Getting Started",
+      [
+        [
+          "Build Channels",
+          "/getting-started/build-channels"
+        ],
+        [
+          "Donations",
+          "/getting-started/donations"
+        ],
+        [
+          "FAQs",
+          "/getting-started/frequently-asked-questions"
+        ]
+      ]
+    ],
+    [
+      "LunaSea",
+      [
+        [
+          "Account",
+          "/lunasea/account"
+        ],
+        [
+          "Local Backup & Restore",
+          "/lunasea/local-backup-restore"
+        ],
+        [
+          "Logs",
+          "/lunasea/logs"
+        ],
+        [
+          "Notifications",
+          "/lunasea/notifications"
+        ],
+        [
+          "Profiles",
+          "/lunasea/profiles"
+        ]
+      ]
+    ],
+    [
+      "Modules",
+      [
+        [
+          "Lidarr",
+          "/modules/lidarr"
+        ],
+        [
+          "Newznab Search",
+          "/modules/newznab-search"
+        ],
+        [
+          "NZBGet",
+          "/modules/nzbget"
+        ],
+        [
+          "Overseerr",
+          "/modules/overseerr"
+        ],
+        [
+          "Radarr",
+          "/modules/radarr"
+        ],
+        [
+          "SABnzbd",
+          "/modules/sabnzbd"
+        ],
+        [
+          "Sonarr",
+          "/modules/sonarr"
+        ],
+        [
+          "Tautulli",
+          "/modules/tautulli"
+        ],
+        [
+          "Wake on LAN",
+          "/modules/wake-on-lan"
+        ]
+      ]
+    ],
+    [
+      "Notifications",
+      [
+        [
+          "Custom",
+          "/notifications/custom"
+        ],
+        [
+          "Lidarr",
+          "/notifications/lidarr"
+        ],
+        [
+          "Overseerr",
+          "/notifications/overseerr"
+        ],
+        [
+          "Radarr",
+          "/notifications/radarr"
+        ],
+        [
+          "Sonarr",
+          "/notifications/sonarr"
+        ],
+        [
+          "Tautulli",
+          "/notifications/tautulli"
+        ]
+      ]
+    ]
+  ]
+}

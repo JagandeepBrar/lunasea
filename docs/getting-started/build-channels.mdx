@@ -1,0 +1,116 @@
+---
+title: Build Channels
+description: How to use different builds of LunaSea
+---
+
+# Build Channels
+
+LunaSea offers four different build channels, each of which supply signed and notarized copies of LunaSea.
+
+Please do not download any releases of LunaSea from any location other than those listed below, from the [build bucket](https://builds.lunasea.app), or from [GitHub](https://www.lunasea.app/github).
+
+## Stable
+
+This is the store version and will remain the most stable version. No in-progress features will be deployed to this channel.
+
+- [Android](https://www.lunasea.app/playstore)
+- [iOS](https://www.lunasea.app/appstore)
+- [Linux](https://www.lunasea.app/snapcraft)
+- [macOS](https://www.lunasea.app/testflight/stable)
+- [Windows](https://builds.lunasea.app/#/latest/stable/)
+- [Web](https://web.lunasea.app)
+
+## Candidate
+
+This channel is focused around _final release candidate testing of completed new features_ leading up to the release to stable. This channel is intended to help catch any remaining bugs from beta builds and overall should remain relatively stable.
+
+#### Android
+
+1. Head to the [Google Play Store](https://www.lunasea.app/playstore)
+2. Register for the test directly on the store listing
+3. Download LunaSea via the Google Play Store
+
+#### iOS/macOS
+
+1. [Download TestFlight](https://apps.apple.com/app/testflight/id899247664)
+2. Join the [TestFlight channel](https://www.lunasea.app/testflight/candidate)
+3. Download LunaSea via the TestFlight application
+
+#### Linux
+
+```bash
+sudo snap install lunasea --candidate
+```
+
+#### Windows
+
+Download the latest candidate release from the [build bucket](https://builds.lunasea.app/#/latest/candidate/).
+
+#### Web
+
+[Available here](https://candidate.web.lunasea.app).
+
+## Beta
+
+This channel's purpose is to allow _early previews and testing of work-in-progress features_. An example is the current localization efforts, so all users who have graciously helped translate pieces of LunaSea over the past few months can start to see their changes in the app! This is just a single example of a work in progress feature, and the feature list will constantly be changing.
+
+#### Android
+
+1. Join the [LunaSea: Beta Testing](https://groups.google.com/g/lunasea-beta-test) Google Group
+2. Head to the [Google Play Store](https://www.lunasea.app/playstore)
+3. Register for the test directly on the store listing
+4. Download LunaSea via the Google Play Store
+
+#### iOS/macOS
+
+1. [Download TestFlight](https://apps.apple.com/app/testflight/id899247664)
+2. Join the [TestFlight channel](https://www.lunasea.app/testflight/beta)
+3. Download LunaSea via the TestFlight application
+
+#### Linux
+
+```bash
+sudo snap install lunasea --beta
+```
+
+#### Windows
+
+Download the latest beta release from the [build bucket](https://builds.lunasea.app/#/latest/beta/).
+
+#### Web
+
+[Available here](https://beta.web.lunasea.app).
+
+## Edge
+
+This channel's purpose is to _ensure that every commit made to master is building across all platforms_ and allows for easier access to a build for each commit. This is not intended to be used by the average user, but is for community developers or users who need to test a recently added fix that has not yet reached the beta channel.
+
+There are no restrictions on features in these builds (barring a very specific subset used for debugging/testing) so it gives full access to everything that is work in progress.
+
+**Do not expect a fully stable experience if you use these builds**, as it is entirely possible that a single build could cause problems including but not limited to database corruption. If you are running these builds, please ensure you have either a cloud or offline backup available for easy restoration.
+
+#### Android
+
+Because of the limitations on internal testing set by the Google Play Store, develop builds on Android are only available upon request to a very limited amount of users.
+
+Reach out via [email](mailto:hello@lunasea.app) for more information.
+
+#### iOS/macOS
+
+1. [Download TestFlight](https://apps.apple.com/app/testflight/id899247664)
+2. Join the [TestFlight channel](https://www.lunasea.app/testflight/edge)
+3. Download LunaSea via the TestFlight application
+
+#### Linux
+
+```bash
+sudo snap install lunasea --edge
+```
+
+#### Windows
+
+Download the latest edge release from the [build bucket](https://builds.lunasea.app/#/latest/edge/).
+
+#### Web
+
+[Available here](https://edge.web.lunasea.app).

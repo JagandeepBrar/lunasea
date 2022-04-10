@@ -1,1 +1,34 @@
-{}
+{
+  "motd": "This release introduces an exciting new feature, support for additional platforms!\n\nVisit the subreddit or Discord server to learn more. Links to both and the page containing builds are available within the resources page in the settings!",
+  "new": [
+    {
+      "module": "LunaSea",
+      "changes": [
+        "(account) Ability to update your email address",
+        "(account) Ability to update your password",
+        "(platform) Support and build LunaSea for web",
+        "(platform) Support and build LunaSea for Linux",
+        "(platform) Support and build LunaSea for Windows"
+      ]
+    }
+  ],
+  "tweaks": [
+    {
+      "module": "Settings",
+      "changes": [
+        "(resources) Add link to LunaSea builds",
+        "(system) Hide build number on version tile"
+      ]
+    }
+  ],
+  "fixes": [
+    {
+      "module": "UI/UX",
+      "changes": [
+        "(desktop) Prevent flickering by waiting for window settings to apply",
+        "(desktop) Set the initial and minimum window sizes",
+        "(text) Remove usages of tab indentations"
+      ]
+    }
+  ]
+}

@@ -34,7 +34,7 @@
     "prepare:keychain:macos": "cd macos && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
     "profile": "flutter run --profile --cache-sksl --purge-persistent-cache",
     "release": "HUSKY=0 standard-version --no-verify --commit-all",
-    "release:changelog": "npm run release:changelog -- --dry-run",
+    "release:changelog": "npm run release -- --dry-run",
     "release:flavor:beta": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release [skip ci]\"",
     "release:flavor:candidate": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release [skip ci]\"",
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"

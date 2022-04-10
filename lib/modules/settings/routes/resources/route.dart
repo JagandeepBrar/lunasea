@@ -81,7 +81,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'settings.TestBuilds'.tr(),
           body: [TextSpan(text: 'settings.TestBuildsDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.developer_board_rounded),
-          onTap: LunaLinks.TEST_BUILDS.launch,
+          onTap: LunaLinks.BUILD_CHANNELS.launch,
         ),
         LunaBlock(
           title: 'Weblate',

@@ -135,7 +135,7 @@
     "sonarr.RelativePath": "Chemin relatif",
     "sonarr.Releases": "Versions",
     "sonarr.QueueDescription": "Afficher les contenus actifs et en attente",
-    "sonarr.ReleaseGroup": "Groupe de la version",
+    "sonarr.ReleaseGroup": "Groupe de publication",
     "sonarr.RootFolder": "Dossier racine",
     "sonarr.RunRSSSync": "Lancer la synchronisation RSS",
     "sonarr.RunningRSSSync": "Lancement de la synchronisation RSS {}",

@@ -31,7 +31,7 @@ All releases for every build channel can be downloaded from the [build bucket](h
 - [Web](https://web.lunasea.app)
 - [Windows](https://builds.lunasea.app/#latest/stable/)
 
-> Interested in using prerelease build channels of LunaSea? Learn the differences between all the channels and how to join one [here](https://www.lunasea.app/testflight)!
+> Interested in using prerelease build channels of LunaSea? Learn the differences between all the channels and how to join one [here](https://www.lunasea.app/build-channels)!
 
 ## Getting Started
 

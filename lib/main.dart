@@ -113,7 +113,7 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _boot() async {
-    if (LunaFirebase.isSupported) _initNotifications();
+    if (LunaFirebaseMessaging.isSupported) _initNotifications();
 
     String? tag = LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag;
     tag ??= LunaLanguage.ENGLISH.languageTag;

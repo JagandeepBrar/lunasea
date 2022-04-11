@@ -10,13 +10,19 @@
         "(platform) Support and build LunaSea for Linux",
         "(platform) Support and build LunaSea for Windows"
       ]
+    },
+    {
+      "module": "Settings",
+      "changes": [
+        "(resources) Add link to information about LunaSea build channels"
+      ]
     }
   ],
   "tweaks": [
     {
       "module": "Settings",
       "changes": [
-        "(resources) Add link to LunaSea builds",
+        "(resources) Reorder and group resource links",
         "(system) Hide build number on version tile"
       ]
     }

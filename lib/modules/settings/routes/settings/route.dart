@@ -58,7 +58,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.device_hub_rounded),
           onTap: () async => SettingsConfigurationRouter().navigateTo(context),
         ),
-        if (LunaFirebase.isSupported)
+        if (LunaFirebaseMessaging.isSupported)
           LunaBlock(
             title: 'settings.Notifications'.tr(),
             body: [TextSpan(text: 'settings.NotificationsDescription'.tr())],

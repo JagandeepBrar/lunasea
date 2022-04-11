@@ -1,9 +1,17 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
 
+import '../system/platform.dart';
+
 class LunaFirebaseMessaging {
   static const _VAPID_KEY =
       'BGCP2BO8JOTuvagaYl41btXiiC_XszsGCDduq6C-escc4xb2UMglX3RDojCY1YuGMAx2lXGVF-VYmTN3LQGvhYc';
+
+  static bool get isSupported {
+    final platform = LunaPlatform();
+    if (LunaFirebase.isSupported && !platform.isWeb) return true;
+    return false;
+  }
 
   /// Returns an instance of [FirebaseMessaging].
   ///

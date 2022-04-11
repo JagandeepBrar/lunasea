@@ -11,6 +11,8 @@ class SettingsRouter extends LunaModuleRouter {
       SettingsAccountRouter().defineRoute(router);
       SettingsAccountPasswordResetRouter().defineRoute(router);
       SettingsAccountSettingsRouter().defineRoute(router);
+    }
+    if (LunaFirebaseMessaging.isSupported) {
       SettingsNotificationsRouter().defineRoute(router);
     }
     // Donations

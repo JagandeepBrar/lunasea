@@ -42,11 +42,24 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       controller: scrollController,
       children: [
         LunaBlock(
-          title: 'settings.Builds'.tr(),
-          body: [TextSpan(text: 'settings.BuildsDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.BUILDS),
-          onTap: LunaLinks.BUILDS.launch,
+          title: 'settings.BuildChannels'.tr(),
+          body: [TextSpan(text: 'settings.BuildChannelsDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.BUILD_CHANNELS),
+          onTap: LunaLinks.BUILD_CHANNELS.launch,
         ),
+        LunaBlock(
+          title: 'settings.Documentation'.tr(),
+          body: [TextSpan(text: 'settings.DocumentationDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.DOCUMENTATION),
+          onTap: LunaLinks.DOCUMENTATION.launch,
+        ),
+        LunaBlock(
+          title: 'settings.Localization'.tr(),
+          body: [TextSpan(text: 'settings.WeblateDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaIcons.TRANSLATE),
+          onTap: LunaLinks.WEBLATE.launch,
+        ),
+        LunaDivider(),
         LunaBlock(
           title: 'Discord',
           body: [TextSpan(text: 'settings.DiscordDescription'.tr())],
@@ -54,22 +67,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: LunaLinks.DISCORD.launch,
         ),
         LunaBlock(
-          title: 'settings.Documentation'.tr(),
-          body: [TextSpan(text: 'settings.DocumentationDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.auto_stories_rounded),
-          onTap: LunaLinks.DOCUMENTATION.launch,
-        ),
-        LunaBlock(
           title: 'settings.FeedbackBoard'.tr(),
           body: [TextSpan(text: 'settings.FeedbackBoardDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.speaker_notes_rounded),
+          trailing: const LunaIconButton(icon: LunaIcons.FEEDBACK),
           onTap: LunaLinks.FEEDBACK_BOARD.launch,
-        ),
-        LunaBlock(
-          title: 'GitHub',
-          body: [TextSpan(text: 'settings.GitHubDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaBrandIcons.github),
-          onTap: LunaLinks.GITHUB.launch,
         ),
         LunaBlock(
           title: 'Reddit',
@@ -77,17 +78,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: LunaBrandIcons.reddit),
           onTap: LunaLinks.REDDIT.launch,
         ),
+        LunaDivider(),
         LunaBlock(
-          title: 'settings.TestBuilds'.tr(),
-          body: [TextSpan(text: 'settings.TestBuildsDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.developer_board_rounded),
-          onTap: LunaLinks.BUILD_CHANNELS.launch,
-        ),
-        LunaBlock(
-          title: 'Weblate',
-          body: [TextSpan(text: 'settings.WeblateDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.TRANSLATE),
-          onTap: LunaLinks.WEBLATE.launch,
+          title: 'GitHub',
+          body: [TextSpan(text: 'settings.GitHubDescription'.tr())],
+          trailing: const LunaIconButton(icon: LunaBrandIcons.github),
+          onTap: LunaLinks.GITHUB.launch,
         ),
         LunaBlock(
           title: 'settings.Website'.tr(),

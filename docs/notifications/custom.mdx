@@ -20,77 +20,93 @@ Alternatively, you can copy the content of the URL after the last slash (after `
 
 Send a custom notification using a device token to a single device running LunaSea.
 
-#### Endpoint
+<Tabs
+  defaultValue="endpoint"
+  values={[
+    { label: "Endpoint", value: "endpoint" },
+    { label: "JSON Body Schema", value: "json_body_schema" },
+  ]}
+>
+<TabItem value="endpoint">
+  ```bash
+  POST https://notify.lunasea.app/v1/custom/device/:device_id
+  ```
 
-```bash
-POST https://notify.lunasea.app/v1/custom/device/:device_id
-```
+  `device_id`: Firebase device identifier
+</TabItem>
 
-`device_id`: Firebase device identifier
-
-#### JSON Body Schema
-
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Device-Based Custom Notification",
-  "type": "object",
-  "properties": {
-    "title": {
-      "type": "string",
-      "description": "The notification title"
+<TabItem value="json_body_schema">
+  ```json
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Device-Based Custom Notification",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "The notification title"
+      },
+      "body": {
+        "type": "string",
+        "description": "The notification body content"
+      },
+      "image": {
+        "type": "string",
+        "description": "A publicly accessible image to be attached to the notification"
+      }
     },
-    "body": {
-      "type": "string",
-      "description": "The notification body content"
-    },
-    "image": {
-      "type": "string",
-      "description": "A publicly accessible image to be attached to the notification"
-    }
-  },
-  "required": ["title", "body"]
-}
-```
+    "required": ["title", "body"]
+  }
+  ```
 
-If `title` or `body` are missing in the request, a notification will still be sent but with a default title or body respectively.
+  If `title` or `body` are missing in the request, a notification will still be sent but with a default title or body respectively.
+</TabItem>
+</Tabs>
 
 ## User-Based
 
-#### Endpoint
+<Tabs
+  defaultValue="endpoint"
+  values={[
+    { label: "Endpoint", value: "endpoint" },
+    { label: "JSON Body Schema", value: "json_body_schema" },
+  ]}
+>
+<TabItem value="endpoint">
+  ```bash
+  POST https://notify.lunasea.app/v1/custom/user/:user_id
+  ```
 
-```bash
-POST https://notify.lunasea.app/v1/custom/user/:user_id
-```
+  `user_id`: Firebase user identifier
+</TabItem>
 
-`user_id`: Firebase user identifier
-
-#### JSON Body Schema
-
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "User-Based Custom Notification",
-  "type": "object",
-  "properties": {
-    "title": {
-      "type": "string",
-      "description": "The notification title"
+<TabItem value="json_body_schema">
+  ```json
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "User-Based Custom Notification",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "The notification title"
+      },
+      "body": {
+        "type": "string",
+        "description": "The notification body content"
+      },
+      "image": {
+        "type": "string",
+        "description": "A publicly accessible image to be attached to the notification"
+      }
     },
-    "body": {
-      "type": "string",
-      "description": "The notification body content"
-    },
-    "image": {
-      "type": "string",
-      "description": "A publicly accessible image to be attached to the notification"
-    }
-  },
-  "required": ["title", "body"]
-}
-```
+    "required": ["title", "body"]
+  }
+  ```
 
-If `title` or `body` are missing in the request, a notification will still be sent but with a default title or body respectively.
+  If `title` or `body` are missing in the request, a notification will still be sent but with a default title or body respectively.
+</TabItem>
+</Tabs>
 
 ## Troubleshooting
 

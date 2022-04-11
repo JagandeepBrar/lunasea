@@ -5,12 +5,32 @@ description: Breaking down LunaSea's built-in on-device logger
 
 # Logs
 
-LunaSea includes an on-device logging system that helps debug crashes, issues, and support requests. LunaSea stores 3 different levels of logs:
+LunaSea includes an on-device logging system that helps debug crashes, issues, and support requests. LunaSea stores 4 different levels of logs: **Debug**, **Warning**, **Error**, and **Critical**.
 
-1. **Debug** (_Prerelease Builds Only_): Debug logs are informational logs and messages that are intended to help debug processes.
-2. **Warning**: Warning logs are non-crashing and non-critical errors that have occurred on the device. Warning logs would occur when failing to load an image, passing an incorrect encryption key when trying to restore a backup, etc.
-3. **Error**: Error logs are non-crashing but critical errors that have occurred on the device. Error logs would occur on network errors, connection issues, errors returned from the module, etc.
-4. **Critical**: Fatal logs are crashing errors or unhandled errors that have occurred on the device. Fatal logs would occur when LunaSea fails to complete the boot process, fails to render the UI, etc.
+<Tabs
+  defaultValue="debug"
+  values={[
+    { label: "Debug", value: "debug" },
+    { label: "Warning", value: "warning" },
+    { label: "Error", value: "error" },
+    { label: "Critical", value: "critical" },
+  ]}
+>
+  <TabItem value="debug">
+    _Debug logs are visible/available on prerelease builds only_
+    
+    Debug logs are informational logs and messages that are intended to help debug processes.
+  </TabItem>
+  <TabItem value="warning">
+    Warning logs are non-crashing and non-critical errors that have occurred on the device. Warning logs would occur when failing to load an image, passing an incorrect encryption key when trying to restore a backup, etc.
+  </TabItem>
+  <TabItem value="error">
+    Error logs are non-crashing but critical errors that have occurred on the device. Error logs would occur on network errors, connection issues, errors returned from the module, etc.
+  </TabItem>
+  <TabItem value="critical">
+    Fatal logs are crashing errors or unhandled errors that have occurred on the device. Fatal logs would occur when LunaSea fails to complete the boot process, fails to render the UI, etc.
+  </TabItem>
+</Tabs>
 
 ## Viewing Log History
 

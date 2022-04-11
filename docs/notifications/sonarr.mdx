@@ -14,58 +14,70 @@ description: Setting up Sonarr for webhook-based push notifications
 
 In Sonarr's web GUI, head to Settings -> Connect, hit the "+" button to add a new connection and select "Webhook". Please follow each section below to setup the webhook:
 
-#### Name
-
-Select any name, for example "LunaSea".
-
-#### Triggers
-
-Select which events should trigger a push notification. The following triggers are supported:
-
-|              Trigger               | Supported? |
-| :--------------------------------: | :--------: |
-|              On Grab               |   Yes ✅   |
-|             On Import              |   Yes ✅   |
-|             On Upgrade             |   Yes ✅   |
-|             On Rename              |   Yes ✅   |
-|          On Series Delete          |   No ❌    |
-|       On Episode File Delete       |   No ❌    |
-| On Episode File Delete For Upgrade |   No ❌    |
-|          On Health Issue           |   Yes ✅   |
-|      Include Health Warnings       |   Yes ✅   |
-|       On Application Update        |   No ❌    |
-
-#### Tags
-
-You can **optionally** select a tag that must be attached to a series for the webhook to get triggered.
-
-This can be useful when working with a large media collection to only receive notifications for content you are actively monitoring.
-
-If you want to receive notifications for all series, leave the tags area empty.
-
-#### URL
-
-Paste the full device-based or user-based URL that was copied from LunaSea.
-
-Each webhook can support a single user-based or device-based webhook URL. Attaching multiple device-based or user-based webhooks to a single Sonarr instance requires setting up multiple webhooks.
-
-#### Method
-
-Keep the method on "**POST**". Changing the method to "**PUT**" will cause the webhooks to fail.
-
-#### Username
-
-The username field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
-
-> This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+<Tabs
+  defaultValue="name"
+  values={[
+    { label: "Name", value: "name" },
+    { label: "Triggers", value: "triggers" },
+    { label: "Tags", value: "tags" },
+    { label: "URL", value: "url" },
+    { label: "Method", value: "method" },
+    { label: "Username", value: "username" },
+    { label: "Password", value: "password" },
+  ]}
 >
-> Correctly setting up this field is critically important to get full deep-linking support.
 
-#### Password
+<TabItem value="name">
+  Select any name, for example "LunaSea".
+</TabItem>
 
-Leave the password field empty. Setting this field will currently have no effect.
+<TabItem value="triggers">
+  Select which events should trigger a push notification. The following triggers are supported:
 
----
+  |              Trigger               | Supported? |
+  | :--------------------------------: | :--------: |
+  |              On Grab               |   Yes ✅   |
+  |             On Import              |   Yes ✅   |
+  |             On Upgrade             |   Yes ✅   |
+  |             On Rename              |   Yes ✅   |
+  |          On Series Delete          |   No ❌    |
+  |       On Episode File Delete       |   No ❌    |
+  | On Episode File Delete For Upgrade |   No ❌    |
+  |          On Health Issue           |   Yes ✅   |
+  |      Include Health Warnings       |   Yes ✅   |
+  |       On Application Update        |   No ❌    |
+</TabItem>
+
+<TabItem value="tags">
+  You can _optionally_ select a tag that must be attached to a series for the webhook to get triggered.
+
+  This can be useful when working with a large media collection to only receive notifications for content you are actively monitoring.
+
+  If you want to receive notifications for all series, leave the tags area empty.
+</TabItem>
+
+<TabItem value="url">
+  Paste the full device-based or user-based URL that was copied from LunaSea.
+
+  Each webhook can support a single user-based or device-based webhook URL. Attaching multiple device-based or user-based webhooks to a single Sonarr instance requires setting up multiple webhooks.
+</TabItem>
+
+<TabItem value="method">
+  Keep the method on `POST`. Changing the method to `PUT` will cause the webhooks to fail.
+</TabItem>
+
+<TabItem value="username">
+  The username field should be an _exact match_ to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
+
+  > This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+  >
+  > Correctly setting up this field is critically important to get full deep-linking support.
+</TabItem>
+
+<TabItem value="password">
+  Leave the password field empty. Setting this field will currently have no effect.
+</TabItem>
+</Tabs>
 
 Once setup, close LunaSea and run the webhook test in Sonarr. You should receive a new notification letting you know that LunaSea is ready to receive Sonarr notifications!
 

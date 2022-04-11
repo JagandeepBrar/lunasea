@@ -38,13 +38,20 @@ Not all modules are currently supported, below is a list of all supported module
 
 LunaSea supports two different types of notifications: **User-Based** and **Device-Based**.
 
-#### User-Based Notifications
-
-User-based notifications send notifications to all devices that are linked to your LunaSea account. Your device is automatically linked when you register or sign in to your account. This means that any current and future devices that are signed-in to your account will receive notifications automatically.
-
-#### Device-Based Notifications
-
-Device-based notifications send notifications to a single, specific device. Device-based notifications do not require a LunaSea account, but require you to register every device as a new webhook in the module.
+<Tabs
+  defaultValue="user"
+  values={[
+    { label: "User-Based", value: "user" },
+    { label: "Device-Based", value: "device" },
+  ]}
+>
+  <TabItem value="user">
+    User-based notifications send notifications to all devices that are linked to your LunaSea account. Your device is automatically linked when you register or sign in to your account. This means that any current and future devices that are signed-in to your account will receive notifications automatically.
+  </TabItem>
+  <TabItem value="device">
+    Device-based notifications send notifications to a single, specific device. Device-based notifications do not require a LunaSea account, but require you to register every device as a new webhook in the module.
+  </TabItem>
+</Tabs>
 
 ## Getting Your Webhook URLs
 

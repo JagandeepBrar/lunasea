@@ -14,58 +14,66 @@ description: Setting up Tautulli for webhook-based push notifications
 
 In Tautulli's web GUI, head to Settings -> Notification Agents, hit the "Add a new notification agent" button and select "LunaSea". Please follow each section below to setup the webhook:
 
-#### Configuration
-
-**LunaSea Webhook URL**
-
-Paste the full device-based or user-based URL that was copied from LunaSea.
-
-**LunaSea Profile**
-
-Enter in the name of the profile which should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
-
-> This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+<Tabs
+  defaultValue="configuration"
+  values={[
+    { label: "Configuration", value: "configuration" },
+    { label: "Triggers", value: "triggers" },
+    { label: "Conditions", value: "conditions" },
+    { label: "Text", value: "text" },
+  ]}
 >
-> Correctly setting up this field is critically important to get full deep-linking support.
+<TabItem value="configuration">
+  **LunaSea Webhook URL**
 
-#### Triggers
+  Paste the full device-based or user-based URL that was copied from LunaSea.
 
-Select which events should trigger a push notification. The following triggers are supported:
+  **LunaSea Profile**
 
-|           Trigger            | Supported? |
-| :--------------------------: | :--------: |
-|        Playback Start        |   Yes ✅   |
-|        Playback Stop         |   Yes ✅   |
-|        Playback Pause        |   Yes ✅   |
-|       Playback Resume        |   Yes ✅   |
-|        Playback Error        |   Yes ✅   |
-|  Transcode Decision Change   |   Yes ✅   |
-|           Watched            |   Yes ✅   |
-|        Buffer Warning        |   Yes ✅   |
-|   User Concurrent Streams    |   Yes ✅   |
-|       User New Device        |   Yes ✅   |
-|        Recently Added        |   Yes ✅   |
-|       Plex Server Down       |   Yes ✅   |
-|     Plex Server Back Up      |   Yes ✅   |
-|   Plex Remote Access Down    |   Yes ✅   |
-|  Plex Remote Access Back Up  |   Yes ✅   |
-|    Plex Update Available     |   Yes ✅   |
-|  Tautulli Update Available   |   Yes ✅   |
-| Tautulli Database Corruption |   Yes ✅   |
+  Enter in the name of the profile which should be an _exact match_ to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
 
-#### Conditions
+  > This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+  >
+  > Correctly setting up this field is critically important to get full deep-linking support.
+</TabItem>
 
-You can _optionally_ add conditions that must be met for the webhook notifications to trigger.
+<TabItem value="triggers">
+  Select which events should trigger a push notification. The following triggers are supported:
 
-You can set as many conditions as you like, and can combine different conditions for different triggers by adding separate webhooks to Tautulli.
+  |           Trigger            | Supported? |
+  | :--------------------------: | :--------: |
+  |        Playback Start        |   Yes ✅   |
+  |        Playback Stop         |   Yes ✅   |
+  |        Playback Pause        |   Yes ✅   |
+  |       Playback Resume        |   Yes ✅   |
+  |        Playback Error        |   Yes ✅   |
+  |  Transcode Decision Change   |   Yes ✅   |
+  |           Watched            |   Yes ✅   |
+  |        Buffer Warning        |   Yes ✅   |
+  |   User Concurrent Streams    |   Yes ✅   |
+  |       User New Device        |   Yes ✅   |
+  |        Recently Added        |   Yes ✅   |
+  |       Plex Server Down       |   Yes ✅   |
+  |     Plex Server Back Up      |   Yes ✅   |
+  |   Plex Remote Access Down    |   Yes ✅   |
+  |  Plex Remote Access Back Up  |   Yes ✅   |
+  |    Plex Update Available     |   Yes ✅   |
+  |  Tautulli Update Available   |   Yes ✅   |
+  | Tautulli Database Corruption |   Yes ✅   |
+</TabItem>
 
-#### Text
+<TabItem value="conditions">
+  You can _optionally_ add conditions that must be met for the webhook notifications to trigger.
 
-A default message is set for all trigger types, but on this page you can alter the exact text that would appear in the message.
+  You can set as many conditions as you like, and can combine different conditions for different triggers by adding separate webhooks to Tautulli.
+</TabItem>
 
-Please read the top of this tab in Tautulli about how to utilize the different modifiers.
+<TabItem value="text">
+  A default message is set for all trigger types, but on this page you can alter the exact text that would appear in the message.
 
----
+  Please read the top of this tab in Tautulli about how to utilize the different modifiers.
+</TabItem>
+</Tabs>
 
 Once setup, close LunaSea and run the webhook test in Tautulli. You should receive a new notification letting you know that LunaSea is ready to receive Tautulli notifications!
 

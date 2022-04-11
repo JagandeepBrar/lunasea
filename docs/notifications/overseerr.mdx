@@ -14,38 +14,46 @@ description: Setting up Overseerr for webhook-based push notifications
 
 In Overseerr's web GUI, head to Settings -> Notifications -> LunaSea. Ensure that the agent is enabled, then follow each section below to setup the webhook:
 
-#### Webhook URL
-
-Paste the full device-based or user-based URL that was copied from LunaSea.
-
-Overseerr currently only supports 1 LunaSea notification agent, which means you can only setup a single user-based or device-based notification.
-
-#### Profile Name
-
-The profile name field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
-
-> This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+<Tabs
+  defaultValue="webhook_url"
+  values={[
+    { label: "Webhook URL", value: "webhook_url" },
+    { label: "Profile Name", value: "profile_name" },
+    { label: "Notification Types", value: "notification_types" },
+  ]}
 >
-> Correctly setting up this field is critically important to get full deep-linking support.
 
-#### Notification Types
+<TabItem value="webhook_url">
+  Paste the full device-based or user-based URL that was copied from LunaSea.
 
-Select which events should trigger a push notification. The following triggers are supported:
+  Overseerr currently only supports 1 LunaSea notification agent, which means you can only setup a single user-based or device-based notification.
+</TabItem>
 
-|            Trigger             | Supported? |
-| :----------------------------: | :--------: |
-|    Request Pending Approval    |   Yes ✅   |
-| Request Automatically Approved |   Yes ✅   |
-|        Request Approved        |   Yes ✅   |
-|        Request Declined        |   Yes ✅   |
-|       Request Available        |   Yes ✅   |
-|   Request Processing Failed    |   Yes ✅   |
-|         Issue Reported         |   Yes ✅   |
-|         Issue Comment          |   Yes ✅   |
-|         Issue Resolved         |   Yes ✅   |
-|         Issue Reopened         |   Yes ✅   |
+<TabItem value="profile_name">
+  The profile name field should be an _exact match_ to the profile that this module instance was added to within LunaSea. Capitalization and punctuation does matter.
 
----
+  > This step is only required if you are not using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+  >
+  > Correctly setting up this field is critically important to get full deep-linking support.
+</TabItem>
+
+<TabItem value="notification_types">
+  Select which events should trigger a push notification. The following triggers are supported:
+
+  |            Trigger             | Supported? |
+  | :----------------------------: | :--------: |
+  |    Request Pending Approval    |   Yes ✅   |
+  | Request Automatically Approved |   Yes ✅   |
+  |        Request Approved        |   Yes ✅   |
+  |        Request Declined        |   Yes ✅   |
+  |       Request Available        |   Yes ✅   |
+  |   Request Processing Failed    |   Yes ✅   |
+  |         Issue Reported         |   Yes ✅   |
+  |         Issue Comment          |   Yes ✅   |
+  |         Issue Resolved         |   Yes ✅   |
+  |         Issue Reopened         |   Yes ✅   |
+</TabItem>
+</Tabs>
 
 Once setup, close LunaSea and run the webhook test in Overseerr. You should receive a new notification letting you know that LunaSea is ready to receive Overseerr notifications!
 

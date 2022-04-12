@@ -211,5 +211,6 @@
     "settings.CalendarSettings": "Takvim Ayarları",
     "settings.DiscordDescription": "Sohbet & Tartışma",
     "settings.DaysOne": "1 Gün",
-    "settings.DaysCount": "{} Gün"
+    "settings.DaysCount": "{} Gün",
+    "settings.EmailValidation": "Geçersiz E-posta Adresi"
 }

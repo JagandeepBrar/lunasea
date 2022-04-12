@@ -3,10 +3,28 @@ name: 'Publish Releases'
 on:
   workflow_call:
     inputs:
+      build-title:
+        required: true
+        type: string
       flavor:
         required: true
         type: string
-      build-title:
+      enable-android:
+        required: true
+        type: string
+      enable-ios:
+        required: true
+        type: string
+      enable-linux:
+        required: true
+        type: string
+      enable-macos:
+        required: true
+        type: string
+      enable-web:
+        required: true
+        type: string
+      enable-windows:
         required: true
         type: string
 
@@ -51,6 +69,7 @@ on:
 jobs:
   android-play-store:
     name: Play Store
+    if: ${{ inputs.enable-android == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -90,6 +109,7 @@ jobs:
 
   ios-app-store:
     name: App Store (iOS)
+    if: ${{ inputs.enable-ios == 'true' }}
     runs-on: macos-latest
     steps:
       - name: Setup Environment
@@ -117,6 +137,7 @@ jobs:
 
   linux-snapcraft:
     name: Snapcraft
+    if: ${{ inputs.enable-linux == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -136,6 +157,7 @@ jobs:
 
   macos-appstore:
     name: App Store (macOS)
+    if: ${{ inputs.enable-macos == 'true' }}
     runs-on: macos-latest
     steps:
       - name: Setup Environment
@@ -163,6 +185,7 @@ jobs:
 
   web-netlify:
     name: Netlify
+    if: ${{ inputs.enable-web == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -205,6 +228,7 @@ jobs:
 
   s3:
     name: S3
+    if: ${{ inputs.enable-android == 'true' || inputs.enable-ios == 'true' || inputs.enable-linux == 'true' || inputs.enable-macos == 'true' || inputs.enable-windows == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -213,42 +237,49 @@ jobs:
           channel: s3
 
       - name: Download Android App Package
+        if: ${{ inputs.enable-android == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: android-app-package
           path: ${{ github.workspace }}/output
       
       - name: Download iOS App Package
+        if: ${{ inputs.enable-ios == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: ios-appstore-package
           path: ${{ github.workspace }}/output
 
       - name: Download Linux Snap
+        if: ${{ inputs.enable-linux == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: linux-snapcraft
           path: ${{ github.workspace }}/output
 
       - name: Download macOS App Package
+        if: ${{ inputs.enable-macos == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: macos-app-package
           path: ${{ github.workspace }}/output
 
       - name: Download macOS Disk Image
+        if: ${{ inputs.enable-macos == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: macos-disk-image
           path: ${{ github.workspace }}/output
 
       - name: Download Windows App Package
+        if: ${{ inputs.enable-windows == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: windows-app-package
           path: ${{ github.workspace }}/output
 
       - name: Download Windows MSIX Installer
+        if: ${{ inputs.enable-windows == 'true' }}
         uses: actions/download-artifact@v3
         with:
           name: windows-msix-installer
@@ -300,7 +331,7 @@ jobs:
               case 'edge':
               default: return process.env.DISCORD_WEBHOOK_EDGE;
             }
-      
+
       - name: Send Discord Message
         uses: sarisia/actions-status-discord@v1
         with:

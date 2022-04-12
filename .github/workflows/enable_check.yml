@@ -1,0 +1,168 @@
+name: Enable Check
+
+on:
+  workflow_call:
+    outputs:
+      android:
+        description: "Is Android Enabled?"
+        value: ${{ jobs.android.outputs.android }}
+      ios:
+        description: "Is iOS Enabled?"
+        value: ${{ jobs.ios.outputs.ios }}
+      linux:
+        description: "Is Linux Enabled?"
+        value: ${{ jobs.linux.outputs.linux }}
+      macos:
+        description: "Is macOS Enabled?"
+        value: ${{ jobs.macos.outputs.macos }}
+      windows:
+        description: "Is Windows Enabled?"
+        value: ${{ jobs.windows.outputs.windows }}
+      web:
+        description: "Is Web Enabled?"
+        value: ${{ jobs.web.outputs.web }}
+
+jobs:
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    outputs:
+      android: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const android = process.env.MESSAGE.includes("[platform:android]");
+            return all || android;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"
+
+  ios:
+    name: iOS
+    runs-on: ubuntu-latest
+    outputs:
+      ios: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const ios = process.env.MESSAGE.includes("[platform:ios]");
+            return all || ios;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"
+
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    outputs:
+      linux: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const linux = process.env.MESSAGE.includes("[platform:linux]");
+            return all || linux;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"
+
+  macos:
+    name: macOS
+    runs-on: ubuntu-latest
+    outputs:
+      macos: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const macos = process.env.MESSAGE.includes("[platform:macos]");
+            return all || macos;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"
+
+  windows:
+    name: Windows
+    runs-on: ubuntu-latest
+    outputs:
+      windows: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const windows = process.env.MESSAGE.includes("[platform:windows]");
+            return all || windows;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"
+
+  web:
+    name: Web
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.output.outputs.enable }}
+    steps:
+      - name: Run Script
+        id: script
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '[platform:all]' }}
+        with:
+          result-encoding: string
+          script: |
+            const all = process.env.MESSAGE.includes("[platform:all]");
+            const web = process.env.MESSAGE.includes("[platform:web]");
+            return all || web;
+
+      - name: Set Output
+        id: output
+        run: |
+          echo ${{ steps.script.outputs.result }}
+          echo "::set-output name=enable::${{ steps.script.outputs.result }}"

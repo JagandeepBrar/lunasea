@@ -18,8 +18,13 @@ on:
           - stable
 
 jobs:
+  enable:
+    name: Enable
+    uses: JagandeepBrar/LunaSea/.github/workflows/enable_check.yml@master
+
   prepare:
     name: Prepare
+    needs: [ enable ]
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
@@ -35,7 +40,8 @@ jobs:
 
   build-android:
     name: Build Android
-    needs: [ prepare, validate ]
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.android == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -46,7 +52,8 @@ jobs:
 
   build-ios:
     name: Build iOS
-    needs: [ prepare, validate ]
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.ios == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -63,12 +70,14 @@ jobs:
 
   build-linux:
     name: Build Linux
-    needs: [ prepare, validate ]
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.linux == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
 
   build-macos:
     name: Build macOS
-    needs: [ prepare, validate ]
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.macos == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -88,9 +97,20 @@ jobs:
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       MATCH_SSH_PRIVATE_KEY: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
+  build-web:
+    name: Build Web
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.web == 'true' }}
+    uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
+    with:
+      build-number: ${{ needs.prepare.outputs.build-number }}
+    secrets:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
   build-windows:
     name: Build Windows
-    needs: [ prepare, validate ]
+    needs: [ enable, prepare, validate ]
+    if: ${{ needs.enable.outputs.windows == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
     secrets:
       CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
@@ -98,22 +118,21 @@ jobs:
       CODE_SIGNING_PUBLISHER: ${{ secrets.CODE_SIGNING_PUBLISHER }}
       CODE_SIGNING_PUBLISHER_NAME: ${{ secrets.CODE_SIGNING_PUBLISHER_NAME }}
 
-  build-web:
-    name: Build Web
-    needs: [ prepare, validate ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
-    with:
-      build-number: ${{ needs.prepare.outputs.build-number }}
-    secrets:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
   publish:
     name: Publish
-    needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-windows, build-web ]
+    needs: [ enable, prepare, build-android, build-ios, build-linux, build-macos, build-web, build-windows ]
+    if: ${{ always() }}
     uses: JagandeepBrar/LunaSea/.github/workflows/publish.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
       build-title: ${{ needs.prepare.outputs.build-title }}
+      enable-android: ${{ needs.enable.outputs.android }}
+      enable-ios: ${{ needs.enable.outputs.ios }}
+      enable-linux: ${{ needs.enable.outputs.linux }}
+      enable-macos: ${{ needs.enable.outputs.macos }}
+      enable-web: ${{ needs.enable.outputs.web }}
+      enable-windows: ${{ needs.enable.outputs.windows }}
+
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}

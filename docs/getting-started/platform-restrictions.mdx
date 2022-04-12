@@ -1,0 +1,41 @@
+---
+title: Platform Restrictions
+description: Breaking down what is and isn't supported on different platforms
+---
+
+# Platform Restrictions
+
+The tables below showcases which modules or features may not be supported on each platform. If a module or feature is not listed, you can assume that every platform has full support for said module or feature!
+
+> Work will continuously be down to try to achieve 100% feature parity between all platforms when possible!
+
+## Module Support
+
+|   Module    | Android | iOS | Linux | macOS | Windows | Web |
+| :---------: | :-----: | :-: | :---: | :---: | :-----: | :-: |
+|   NZBGet    |   ✅    | ✅  |  ✅   |  ✅   |   ✅    | ❌  |
+|  Overseerr  |   ✅    | ✅  |  ✅   |  ✅   |   ✅    | ❌  |
+|  Tautulli   |   ✅    | ✅  |  ✅   |  ✅   |   ✅    | ❌  |
+| Wake on LAN |   ✅    | ✅  |  ✅   |  ✅   |   ✅    | ❌  |
+
+## Feature Support
+
+|        Feature         | Android | iOS | Linux | macOS | Windows | Web |
+| :--------------------: | :-----: | :-: | :---: | :---: | :-----: | :-: |
+| Local Backup & Restore |   ✅    | ✅  |  ✅   |  ✅   |   ✅    | ❌  |
+|    LunaSea Accounts    |   ✅    | ✅  |  ❌   |  ✅   |   ❌    | ✅  |
+|     Notifications      |   ✅    | ✅  |  ❌   |  ✅   |   ❌    | ❌  |
+
+## Web-Specific Restrictions
+
+#### HTTPS Requirement
+
+LunaSea's web instances are hosted on [Netlify](https://www.netlify.com) and use [LetsEncrypt](https://letsencrypt.org/) TLS certificates to ensure that an encrypted connection is utilized when loading the LunaSea web application package.
+
+One limitation this incurs is that most modern web browsers no longer support [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content), so it is required when using these browsers to utilize a reverse proxy (or something similar) to expose a secure (`HTTPS`) connection to your instances even when hosted on the same machine.
+
+**All network communication occurs directly between your web browser and host machine**, but this is a limitation put forward by the web browsers.
+
+#### Wake on LAN Support
+
+Wake on LAN support will **never** be supported when using LunaSea on the web, because the Wake on LAN protocol relies on the [User Datagram Protocol (UDP)](https://en.wikipedia.org/wiki/User_Datagram_Protocol). UDP connections are not supported in the web browser because of underlying security constraints, and so it will not be possible to utilize wake on LAN now or at any point in the future when using LunaSea on the web.

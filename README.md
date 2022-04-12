@@ -1,9 +1,5 @@
 # <img width="40px" src="./assets/images/branding_logo.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
 
-[![App Store](https://img.shields.io/badge/%20download-iOS-red?logo=app-store&color=%232196F3&logoColor=white&style=flat)](https://www.lunasea.app/appstore)
-[![Play Store](https://img.shields.io/badge/%20download-Android-red?logo=google-play&color=%234CAF50&logoColor=white&style=flat)](https://www.lunasea.app/playstore)
-[![License](https://img.shields.io/github/license/JagandeepBrar/LunaSea?style=flat)](https://github.com/JagandeepBrar/LunaSea/blob/master/LICENSE.md)
-
 LunaSea is a fully featured, open source self-hosted controller focused on giving you a seamless experience between all of your self-hosted media software remotely on your devices. LunaSea currently supports:
 
 - [Lidarr](https://github.com/lidarr/lidarr)
@@ -22,7 +18,7 @@ LunaSea even comes with support for webhook-based push notifications, multiple i
 
 ## Releases
 
-All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all production releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
 
 - [Android](https://www.lunasea.app/playstore)
 - [iOS](https://www.lunasea.app/appstore)
@@ -31,7 +27,7 @@ All releases for every build channel can be downloaded from the [build bucket](h
 - [Web](https://web.lunasea.app)
 - [Windows](https://builds.lunasea.app/#latest/stable/)
 
-> Interested in using prerelease build channels of LunaSea? Learn the differences between all the channels and how to join one [here](https://www.lunasea.app/build-channels)!
+Interested in using prerelease build channels of LunaSea? Learn the differences between all the build channels and how to join one [here](https://www.lunasea.app/build-channels)!
 
 ## Getting Started
 

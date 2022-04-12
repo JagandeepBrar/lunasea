@@ -17,12 +17,12 @@
           "/getting-started/build-channels"
         ],
         [
-          "Donations",
-          "/getting-started/donations"
+          "Frequently Asked Questions",
+          "/getting-started/frequently-asked-questions"
         ],
         [
-          "FAQs",
-          "/getting-started/frequently-asked-questions"
+          "Platform Restrictions",
+          "/getting-started/platform-restrictions"
         ]
       ]
     ],
@@ -120,6 +120,10 @@
           "/notifications/tautulli"
         ]
       ]
+    ],
+    [
+      "Donations",
+      "/donations"
     ]
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "motd": "This release introduces an exciting new feature, support for additional platforms!\n\nVisit the subreddit or Discord server to learn more. Links to both and the page containing builds are available within the resources page in the settings!",
+  "motd": "This release introduces an exciting new feature, support for additional platforms!\n\nHead to the resources section in the settings to find direct links to the documentation about releases and build channels!",
   "new": [
     {
       "module": "LunaSea",

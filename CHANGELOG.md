@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.0.2](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.1...v10.0.2) (2022-04-12)
+
+
+### Features
+
+* **account:** ability to update account email and password ([5ea6269](https://github.com/JagandeepBrar/LunaSea/commit/5ea6269bca9cc21f9a3ec34ff9840ea22384b717))
+* **firebase:** allow building LunaSea without setting up Firebase [skip ci] ([d7431b1](https://github.com/JagandeepBrar/LunaSea/commit/d7431b110217ff868e662be4a34af656ca1d6515))
+* **firebase:** conditionally load Firebase depending on the platform ([91f556d](https://github.com/JagandeepBrar/LunaSea/commit/91f556d07833c9be6a4d176d663e7889361b8ec2))
+* **linux:** initial linux support ([12fab1d](https://github.com/JagandeepBrar/LunaSea/commit/12fab1d6c22104cbf18ff695b1c636cc48236126))
+* **resources:** add link to build bucket [skip ci] ([64db574](https://github.com/JagandeepBrar/LunaSea/commit/64db574155182942dabbaffba5dbf43e0cca950c))
+* **resources:** add link to information about build channels ([fb31aba](https://github.com/JagandeepBrar/LunaSea/commit/fb31aba7f9b2678736f2d9abacdbf244edd1048a))
+* **ui:** ability to set background color on LunaBlock tiles [skip ci] ([e108cfb](https://github.com/JagandeepBrar/LunaSea/commit/e108cfbac5f5bb2a1cd7404af0a331fadba85612))
+* **windows:** initial windows support ([313e05c](https://github.com/JagandeepBrar/LunaSea/commit/313e05c8f519ca0c17efbec3d0587418e712cb81))
+
+
+### Bug Fixes
+
+* **charts:** rollback to fl_charts@0.46.0 ([cc81ee7](https://github.com/JagandeepBrar/LunaSea/commit/cc81ee7f14adc49b84556224dfef54c735c54758))
+* **database:** write to LunaSea parent folder on Linux and Windows ([6e89796](https://github.com/JagandeepBrar/LunaSea/commit/6e89796a15622f82759a6f8f02a82b1494ea1f8d))
+* **desktop:** prevent flickering by waiting for window settings to apply ([5a2a9b7](https://github.com/JagandeepBrar/LunaSea/commit/5a2a9b780b94d27aa2005823e1a18e225970967f))
+* **desktop:** set initial and minimum window sizes ([dd30c3a](https://github.com/JagandeepBrar/LunaSea/commit/dd30c3a0a32201a6503c81685dfdbc928a4aee90))
+
+
+### Tweaks
+
+* **flavor:** rename build flavors [skip ci] ([26cc258](https://github.com/JagandeepBrar/LunaSea/commit/26cc2585b28f17342caf034ef9ef76dad06eb474))
+* **settings:** do not show version code [skip ci] ([ac807a8](https://github.com/JagandeepBrar/LunaSea/commit/ac807a8a01993939b86baad2dcb11e7d2a73e509))
+* **ui:** remove usages of tab indentations [skip ci] ([d9e7009](https://github.com/JagandeepBrar/LunaSea/commit/d9e70090007b402d2596e09195da5324ac1aafd0))
+
 ### [10.0.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.0...v10.0.1) (2022-03-25)
 
 

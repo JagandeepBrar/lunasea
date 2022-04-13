@@ -51,7 +51,7 @@ PODS:
   - Firebase/Storage (8.14.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.14.0)
-  - firebase_auth (3.3.12):
+  - firebase_auth (3.3.13):
     - Firebase/Auth (= 8.14.0)
     - firebase_core
     - Flutter
@@ -62,7 +62,7 @@ PODS:
     - Firebase/Messaging (= 8.14.0)
     - firebase_core
     - Flutter
-  - firebase_storage (10.2.10):
+  - firebase_storage (10.2.11):
     - Firebase/Storage (= 8.14.0)
     - firebase_core
     - Flutter
@@ -75,7 +75,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.14.0):
+  - FirebaseCoreDiagnostics (8.15.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
@@ -88,7 +88,7 @@ PODS:
   - FirebaseFirestore/Base (8.14.0)
   - FirebaseFirestore/WithLeveldb (8.14.0):
     - FirebaseFirestore/Base
-  - FirebaseInstallations (8.14.0):
+  - FirebaseInstallations (8.15.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
@@ -144,7 +144,7 @@ PODS:
     - Flutter
   - path_provider_ios (0.0.1):
     - Flutter
-  - PromisesObjC (2.0.0)
+  - PromisesObjC (2.1.0)
   - quick_actions_ios (0.0.1):
     - Flutter
   - SDWebImage (5.12.5):
@@ -249,15 +249,15 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 7e8fe528c161b9271d365217a74c16aaf834578e
-  firebase_auth: 363370737d33bad09a838cd109f7589bc48533cd
+  firebase_auth: e720e83a58c9efe4f3b8a96b4afe2fbf84fdb28e
   firebase_core: b0b382f1497ab407aceb25e41e3036c8798c1609
   firebase_messaging: 34dd10d1aa6d8f40d03660eeacd0452d62eec7aa
-  firebase_storage: aa68bef4cb41e2acd3bc6abccfe86ec0607470d1
+  firebase_storage: f8843a3d37aafd048659f2cb523107bb54e36f69
   FirebaseAuth: c5fde343630090253d3af7e2d35697b414b40202
   FirebaseCore: b84a44ee7ba999e0f9f76d198a9c7f60a797b848
-  FirebaseCoreDiagnostics: fd0c8490f34287229c1d6c103d3a55f81ec85712
+  FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
   FirebaseFirestore: 44356395b75c6528f2aec5ca26acc85dcc83c4e0
-  FirebaseInstallations: 7d1d967a307c12f1aadd76844fc321cef699b1ce
+  FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
   FirebaseMessaging: 5ebc42d281567658a2cb72b9ef3506e4a1a1a6e4
   FirebaseStorage: 32ab036ce11eb7e94c279a238a65efa24f81593d
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
@@ -270,7 +270,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   quick_actions_ios: 622e9076602c57f1f937f1c13e5c59c3379347e9
   SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68

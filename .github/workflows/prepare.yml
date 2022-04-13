@@ -10,24 +10,153 @@ on:
     outputs:
       build-number:
         description: "Build Number"
-        value: ${{ jobs.build-number.outputs.build-number }}
+        value: ${{ jobs.build-details.outputs.build-number }}
       build-title:
         description: "Build Title"
-        value: ${{ jobs.build-title.outputs.build-title }}
+        value: ${{ jobs.build-details.outputs.build-title }}
       build-version:
         description: "Build Version"
-        value: ${{ jobs.build-version.outputs.build-version }}
+        value: ${{ jobs.build-details.outputs.build-version }}
+      enable-android:
+        description: "Is Android Enabled?"
+        value: ${{ jobs.platform-list.outputs.android }}
+      enable-ios:
+        description: "Is iOS Enabled?"
+        value: ${{ jobs.platform-list.outputs.ios }}
+      enable-linux:
+        description: "Is Linux Enabled?"
+        value: ${{ jobs.platform-list.outputs.linux }}
+      enable-macos:
+        description: "Is macOS Enabled?"
+        value: ${{ jobs.platform-list.outputs.macos }}
+      enable-windows:
+        description: "Is Windows Enabled?"
+        value: ${{ jobs.platform-list.outputs.windows }}
+      enable-web:
+        description: "Is Web Enabled?"
+        value: ${{ jobs.platform-list.outputs.web }}
 
     secrets:
       FIREBASE_TOKEN:
         required: true
 
 jobs:
-  build-number:
-    name: Build Number
+  platform-list:
+    name: Platform List
     runs-on: ubuntu-latest
     outputs:
-      build-number: ${{ steps.output.outputs.build-number }}
+      android: ${{ steps.android.outputs.result }}
+      ios: ${{ steps.ios.outputs.result }}
+      linux: ${{ steps.linux.outputs.result }}
+      macos: ${{ steps.macos.outputs.result }}
+      windows: ${{ steps.windows.outputs.result }}
+      web: ${{ steps.web.outputs.result }}
+    steps:
+      - name: Check Message for Any Keywords
+        id: exists
+        uses: actions/github-script@v6
+        env:
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            return process.env.MESSAGE.includes("platform:");
+
+      - name: Android
+        id: android
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:android");
+      
+      - name: iOS
+        id: ios
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:ios");
+      
+      - name: Linux
+        id: linux
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:linux");
+      
+      - name: macOS
+        id: macos
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:macos");
+      
+      - name: Web
+        id: web
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:web");
+      
+      - name: Windows
+        id: windows
+        uses: actions/github-script@v6
+        env:
+          EXISTS: ${{ steps.exists.outputs.result }}
+          MESSAGE: ${{ github.event.head_commit.message || '' }}
+        with:
+          result-encoding: string
+          script: |
+            if (process.env.EXISTS == "false") return true;
+            return process.env.MESSAGE.includes("platform:windows");
+
+      - name: Log Platform List
+        env:
+          android: ${{ steps.android.outputs.result }}
+          ios: ${{ steps.ios.outputs.result }}
+          linux: ${{ steps.linux.outputs.result }}
+          macos: ${{ steps.macos.outputs.result }}
+          windows: ${{ steps.windows.outputs.result }}
+          web: ${{ steps.web.outputs.result }}
+        run: |
+          echo "Android: $android"
+          echo "iOS: $ios"
+          echo "Linux: $linux"
+          echo "macOS: $macos"
+          echo "Web: $web"
+          echo "Windows: $windows"
+
+  build-details:
+    name: Build Details
+    runs-on: ubuntu-latest
+    outputs:
+      build-number: ${{ steps.build-number.outputs.result }}
+      build-title: ${{ steps.build-title.outputs.output }}
+      build-version: ${{ steps.build-version.outputs.current-version }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -40,8 +169,8 @@ jobs:
           COUNT=`git rev-list HEAD --count`
           echo "::set-output name=commit_count::$COUNT"
 
-      - name: Run Script
-        id: script
+      - name: Build Number
+        id: build-number
         uses: actions/github-script@v6
         env:
           COUNT: ${{ steps.commit_count.outputs.commit_count }}
@@ -52,53 +181,26 @@ jobs:
             const base = 1000000000;
             return base + Number(count);
 
-      - name: Set Output
-        id: output
-        run: |
-          echo ${{ steps.script.outputs.result }}
-          echo "::set-output name=build-number::${{ steps.script.outputs.result }}"
-
-  build-version:
-    name: Build Version
-    runs-on: ubuntu-latest
-    outputs:
-      build-version: ${{ steps.output.outputs.build-version }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Get Version
-        id: version
+      - name: Build Version
+        id: build-version
         uses: martinbeentjes/npm-get-version-action@v1.1.0
 
-      - name: Set Output
-        id: output
-        run: |
-          echo ${{ steps.version.outputs.current-version }}
-          echo "::set-output name=build-version::${{ steps.version.outputs.current-version }}"
-
-  build-title:
-    name: Build Title
-    needs: [ build-number, build-version ]
-    runs-on: ubuntu-latest
-    outputs:
-      build-title: ${{ steps.output.outputs.build-title }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Determine Short Hash
-        id: hash
+      - name: Build Title
+        id: build-title
         run: |
           HASH=`git rev-parse --short ${{ github.sha }}`
-          echo "::set-output name=hash::$HASH"
-      
-      - name: Set Output
-        id: output
+          TITLE="v${{ steps.build-version.outputs.current-version }}-${{ inputs.flavor }}-${{ steps.build-number.outputs.result }}-$HASH"
+          echo "::set-output name=output::$TITLE"
+
+      - name: Log Build Details
+        env:
+          number: ${{ steps.build-number.outputs.result }}
+          title: ${{ steps.build-title.outputs.output }}
+          version: ${{ steps.build-version.outputs.current-version }}
         run: |
-          TITLE="v${{ needs.build-version.outputs.build-version }}-${{ inputs.flavor }}-${{ needs.build-number.outputs.build-number }}-${{ steps.hash.outputs.hash }}"
-          echo $TITLE
-          echo "::set-output name=build-title::$TITLE"
+          echo "Build Number: $number"
+          echo "Build Title: $title"
+          echo "Build Version: $version"
 
   generate-files:
     name: Generate Files

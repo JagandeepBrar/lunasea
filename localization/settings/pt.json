@@ -226,5 +226,6 @@
     "settings.DeleteAccount": "Deletar conta",
     "settings.DeleteAccountDescription": "Excluir permanentemente sua conta",
     "settings.Documentation": "Documentação",
-    "settings.AccountDeletedMessage": "Deletar sua Conta LunaSea"
+    "settings.AccountDeletedMessage": "Deletar sua Conta LunaSea",
+    "settings.ConfigurationDescription": "Ajustar e Configurar LunaSea"
 }

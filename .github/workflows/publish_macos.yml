@@ -1,0 +1,53 @@
+name: Publish macOS
+
+on:
+  workflow_call:
+    inputs:
+      build-title:
+        required: true
+        type: string
+      flavor:
+        required: true
+        type: string
+
+    secrets:
+      APPLE_ID:
+        required: true
+      APPLE_ITC_TEAM_ID:
+        required: true
+      APPLE_STORE_CONNECT_ISSUER_ID:
+        required: true
+      APPLE_STORE_CONNECT_KEY:
+        required: true
+      APPLE_STORE_CONNECT_KEY_ID:
+        required: true
+      APPLE_TEAM_ID:
+        required: true
+
+jobs:
+  app-store:
+    name: App Store (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: app-store
+          appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+
+      - name: Download App Store Package
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-appstore-package
+          path: ${{ github.workspace }}/output
+      
+      - name: Deploy to App Store Connect
+        working-directory: ${{ github.workspace }}/macos
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/lunasea-macos-amd64.pkg

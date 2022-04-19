@@ -1,0 +1,55 @@
+name: Publish Android
+
+on:
+  workflow_call:
+    inputs:
+      build-title:
+        required: true
+        type: string
+      flavor:
+        required: true
+        type: string
+
+    secrets:
+      GOOGLE_PLAY_API:
+        required: true
+
+jobs:
+  play-store:
+    name: Play Store
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: play-store
+          google-play-key: ${{ secrets.GOOGLE_PLAY_API }}
+
+      - name: Download Play Store Package
+        uses: actions/download-artifact@v3
+        with:
+          name: android-playstore-package
+          path: ${{ github.workspace }}/output
+
+      - name: Determine Release Channel
+        id: channel
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || 'edge';
+            switch (ref) {
+              case 'beta': return 'alpha';
+              case 'candidate': return 'beta';
+              case 'stable': return 'production';
+              case 'edge':
+              default: return 'internal';
+            }
+      
+      - name: Deploy to Google Play Store
+        working-directory: ${{ github.workspace }}/android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/keys/googleplay.json
+        run: bundle exec fastlane deploy_playstore track:${{ steps.channel.outputs.result }} aab:${{ github.workspace }}/output/lunasea-android.aab version_name:${{ inputs.build-title }}

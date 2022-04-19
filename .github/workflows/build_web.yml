@@ -51,7 +51,7 @@ jobs:
         with:
           type: zip
           filename: output/lunasea-web-canvaskit.zip
-          directory: ${{ github.workspace }}/build/web
+          path: build/web
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

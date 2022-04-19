@@ -92,6 +92,10 @@ runs:
       with:
         xcode-version: latest-stable
 
+    - name: Setup Docker
+      if: ${{ inputs.platform == 'web' }}
+      uses: docker/setup-buildx-action@v1
+
     - name: Setup Match SSH Keys 
       if: ${{ inputs.platform == 'ios' || inputs.platform == 'macos' }}
       uses: webfactory/ssh-agent@v0.5.4

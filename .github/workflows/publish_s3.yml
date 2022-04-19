@@ -60,59 +60,59 @@ jobs:
 
       - name: Download Android App Package
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: android-app-package
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
       
       - name: Download iOS App Package
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: ios-appstore-package
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download Linux Snap
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: linux-snapcraft
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download macOS App Package
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: macos-app-package
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download macOS Disk Image
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: macos-disk-image
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download Windows App Package
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: windows-app-package
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download Web Archive
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: web-archive
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Download Windows MSIX Installer
         uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: windows-msix-installer
           path: ${{ github.workspace }}/output
-          if-no-files-found: warn
 
       - name: Upload to S3 Bucket (Build Title)
         uses: jakejarvis/s3-sync-action@v0.5.1

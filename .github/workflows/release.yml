@@ -98,7 +98,7 @@ jobs:
     if: ${{ needs.prepare.outputs.enable-web == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
     with:
-      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

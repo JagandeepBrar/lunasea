@@ -3,7 +3,7 @@ name: 'Build Web'
 on:
   workflow_call:
     inputs:
-      build-number:
+      build-title:
         required: true
         type: string
       flavor:
@@ -74,8 +74,8 @@ jobs:
           context: .
           outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar
           tags: |
+            ghcr.io/jagandeepbrar/lunasea:${{ inputs.build-title }}
             ghcr.io/jagandeepbrar/lunasea:${{ inputs.flavor }}
-            ghcr.io/jagandeepbrar/lunasea:${{ github.sha }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

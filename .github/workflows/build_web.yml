@@ -6,14 +6,17 @@ on:
       build-number:
         required: true
         type: string
+      flavor:
+        required: true
+        type: string
 
     secrets:
       FIREBASE_TOKEN:
         required: true
 
 jobs:
-  build-canvaskit:
-    name: CanvasKit
+  build-hosted:
+    name: Hosted
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -28,5 +31,55 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: web-canvaskit
+          name: web-hosted
           path: ${{ github.workspace }}/build/web
+
+  build-archive:
+    name: Archive
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        with:
+          platform: web
+
+      - name: Build LunaSea
+        run: npm run build:web
+
+      - name: Create Archive
+        uses: thedoctor0/zip-release@0.6.2
+        with:
+          type: zip
+          filename: output/lunasea-web-canvaskit.zip
+          directory: ${{ github.workspace }}/build/web
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-archive
+          path: ${{ github.workspace }}/output
+
+  build-docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        with:
+          platform: web
+
+      - name: Build LunaSea
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar
+          tags: |
+            ghcr.io/jagandeepbrar/lunasea:latest
+            ghcr.io/jagandeepbrar/lunasea:${{ inputs.flavor }}
+            ghcr.io/jagandeepbrar/lunasea:${{ github.sha }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-docker
+          path: ${{ github.workspace }}/output

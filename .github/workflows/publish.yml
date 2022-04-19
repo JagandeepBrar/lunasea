@@ -183,6 +183,32 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} pkg:${{ github.workspace }}/output/lunasea-macos-amd64.pkg
 
+  web-docker:
+    name: Docker
+    if: ${{ inputs.enable-web == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
+        with:
+          channel: docker
+          ghcr-actor: ${{ github.actor }}
+          ghcr-token: ${{ github.token }}
+
+      - name: Download Docker Image
+        uses: actions/download-artifact@v3
+        with:
+          name: web-docker
+          path: ${{ github.workspace }}/output
+
+      - name: Load Docker Image
+        run: |
+          docker load --input ${{ github.workspace}}/output/lunasea-web-docker.tar
+          docker image ls -a
+
+      - name: Deploy to GitHub Container Registry
+        run: docker image push --all-tags ghcr.io/jagandeepbrar/lunasea
+
   web-netlify:
     name: Netlify
     if: ${{ inputs.enable-web == 'true' }}
@@ -196,7 +222,7 @@ jobs:
       - name: Download Web Package
         uses: actions/download-artifact@v3
         with:
-          name: web-canvaskit
+          name: web-hosted
           path: ${{ github.workspace }}/output
 
       - name: Determine Release Channel
@@ -276,6 +302,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: windows-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download Web Archive
+        if: ${{ inputs.enable-web == 'true' }}
+        uses: actions/download-artifact@v3
+        with:
+          name: web-archive
           path: ${{ github.workspace }}/output
 
       - name: Download Windows MSIX Installer

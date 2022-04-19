@@ -1,0 +1,13 @@
+.git/
+.dart_tool/
+android/
+build/
+docs/
+ios/
+linux/
+localization/
+macos/
+node_modules/
+shaders/
+snap/
+windows/

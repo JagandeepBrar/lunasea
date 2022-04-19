@@ -74,7 +74,6 @@ jobs:
           context: .
           outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar
           tags: |
-            ghcr.io/jagandeepbrar/lunasea:latest
             ghcr.io/jagandeepbrar/lunasea:${{ inputs.flavor }}
             ghcr.io/jagandeepbrar/lunasea:${{ github.sha }}
 

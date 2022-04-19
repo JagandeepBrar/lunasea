@@ -50,8 +50,8 @@ jobs:
         uses: thedoctor0/zip-release@0.6.2
         with:
           type: zip
-          filename: output/lunasea-web-canvaskit.zip
-          path: build/web
+          directory: ${{ github.workspace }}/build/web
+          filename: ../../output/lunasea-web-canvaskit.zip
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

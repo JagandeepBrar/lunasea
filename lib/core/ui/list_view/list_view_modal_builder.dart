@@ -38,6 +38,7 @@ class LunaListViewModalBuilder extends StatelessWidget {
         Flexible(
           child: Scrollbar(
             controller: ModalScrollController.of(context),
+            interactive: true,
             child: ListView.builder(
               controller: ModalScrollController.of(context),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

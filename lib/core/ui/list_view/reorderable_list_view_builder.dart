@@ -26,6 +26,7 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: controller,
+      interactive: true,
       child: FlutterReorderableListView.builder(
         scrollController: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

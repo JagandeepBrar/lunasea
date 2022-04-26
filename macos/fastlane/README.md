@@ -47,14 +47,6 @@ Setup the Keychain
 
 Connect to App Store Connect
 
-### mac build_app_installer
-
-```sh
-[bundle exec] fastlane mac build_app_installer
-```
-
-Build App Installer for Direct Deployment
-
 ### mac build_app_package
 
 ```sh

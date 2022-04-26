@@ -23,6 +23,7 @@ class LunaListViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: controller,
+      interactive: true,
       child: ListView.builder(
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

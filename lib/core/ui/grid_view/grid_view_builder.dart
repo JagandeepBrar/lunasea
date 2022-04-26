@@ -25,6 +25,7 @@ class LunaGridViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: controller,
+      interactive: true,
       child: GridView.builder(
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

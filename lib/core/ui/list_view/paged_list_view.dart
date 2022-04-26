@@ -48,6 +48,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
       }),
       child: Scrollbar(
         controller: widget.scrollController,
+        interactive: true,
         child: PagedListView<int, T>(
           pagingController: widget.pagingController,
           scrollController: widget.scrollController,

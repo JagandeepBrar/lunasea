@@ -1,4 +1,6 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -46,38 +48,40 @@ class LunaBIOS extends StatelessWidget {
     LunaTheme theme = LunaTheme();
     LunaRouter router = LunaRouter();
 
-    return DevicePreview(
-      enabled: kDebugMode && LunaPlatform().isDesktop,
-      builder: (context) => EasyLocalization(
-        supportedLocales: localization.supportedLocales as List<Locale>,
-        path: localization.fileDirectory,
-        fallbackLocale: localization.fallbackLocale,
-        startLocale: localization.fallbackLocale,
-        useFallbackTranslations: true,
-        child: LunaState.providers(
-          child: ValueListenableBuilder(
-            valueListenable: Database.lunasea.box.listenable(keys: [
-              LunaDatabaseValue.THEME_AMOLED.key,
-              LunaDatabaseValue.THEME_AMOLED_BORDER.key,
-            ]),
-            builder: (context, dynamic box, _) {
-              return Layout(
-                child: MaterialApp(
-                  localizationsDelegates: context.localizationDelegates,
-                  supportedLocales: context.supportedLocales,
-                  locale: context.locale,
-                  builder: DevicePreview.appBuilder,
-                  routes: router.routes,
-                  useInheritedMediaQuery: true,
-                  onGenerateRoute: LunaRouter.router.generator,
-                  navigatorKey: LunaState.navigatorKey,
-                  darkTheme: theme.activeTheme(),
-                  theme: theme.activeTheme(),
-                  scrollBehavior: LunaScrollBehavior(),
-                  title: 'LunaSea',
-                ),
-              );
-            },
+    return ProviderScope(
+      child: DevicePreview(
+        enabled: kDebugMode && LunaPlatform().isDesktop,
+        builder: (context) => EasyLocalization(
+          supportedLocales: localization.supportedLocales as List<Locale>,
+          path: localization.fileDirectory,
+          fallbackLocale: localization.fallbackLocale,
+          startLocale: localization.fallbackLocale,
+          useFallbackTranslations: true,
+          child: LunaState.providers(
+            child: ValueListenableBuilder(
+              valueListenable: Database.lunasea.box.listenable(keys: [
+                LunaDatabaseValue.THEME_AMOLED.key,
+                LunaDatabaseValue.THEME_AMOLED_BORDER.key,
+              ]),
+              builder: (context, dynamic box, _) {
+                return Layout(
+                  child: MaterialApp(
+                    localizationsDelegates: context.localizationDelegates,
+                    supportedLocales: context.supportedLocales,
+                    locale: context.locale,
+                    builder: DevicePreview.appBuilder,
+                    routes: router.routes,
+                    useInheritedMediaQuery: true,
+                    onGenerateRoute: LunaRouter.router.generator,
+                    navigatorKey: LunaState.navigatorKey,
+                    darkTheme: theme.activeTheme(),
+                    theme: theme.activeTheme(),
+                    scrollBehavior: LunaScrollBehavior(),
+                    title: 'LunaSea',
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

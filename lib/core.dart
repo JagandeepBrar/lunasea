@@ -1,4 +1,3 @@
-export 'vendor.dart';
 export 'core/assets.dart';
 export 'core/cache.dart';
 export 'core/database.dart';
@@ -15,3 +14,14 @@ export 'core/state.dart';
 export 'core/system.dart';
 export 'core/ui.dart';
 export 'core/utilities.dart';
+
+export 'vendor.dart'
+    hide
+        StreamProvider,
+        Provider,
+        FutureProvider,
+        ChangeNotifierProvider,
+        Consumer,
+        Locator,
+        Create;
+export 'package:provider/provider.dart';

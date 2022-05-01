@@ -9,6 +9,8 @@ export 'package:easy_localization/easy_localization.dart';
 export 'package:expandable/expandable.dart';
 export 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 export 'package:flash/flash.dart';
+export 'package:fluro/fluro.dart';
+export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:go_router/go_router.dart';
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
@@ -24,6 +26,3 @@ export 'package:table_calendar/table_calendar.dart';
 export 'package:transparent_image/transparent_image.dart';
 export 'package:tuple/tuple.dart';
 export 'package:xml/xml.dart';
-// Deprecated - Should eventually be removed
-export 'package:fluro/fluro.dart';
-export 'package:provider/provider.dart';

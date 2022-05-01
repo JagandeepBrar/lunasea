@@ -309,8 +309,6 @@
     "settings.BroadcastAddressHint2": "Typically this is the IP address of your machine with the last octet set to 255",
     "settings.BroadcastAddressHint3": "Given an example machine IP address of 192.168.1.111, the resulting broadcast IP address is 192.168.1.255",
     "settings.BroadcastAddressValidation": "Invalid Broadcast Address",
-    "settings.BuildBucket": "Build Bucket",
-    "settings.BuildBucketDescription": "View and Download Builds",
     "settings.BuildChannels": "Build Channels",
     "settings.BuildChannelsDescription": "Learn About Additional Build Channels",
     "settings.CalendarSettings": "Calendar Settings",

@@ -242,5 +242,7 @@
     "settings.PleaseSignInAgain": "请再次登录",
     "settings.UpdateEmail": "更新电子邮件",
     "settings.UpdatePassword": "更新密码",
-    "settings.CurrentPassword": "当前密码"
+    "settings.CurrentPassword": "当前密码",
+    "settings.BuildChannelsDescription": "了解其他构建渠道",
+    "settings.BuildChannels": "构建渠道"
 }

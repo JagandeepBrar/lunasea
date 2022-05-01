@@ -242,5 +242,7 @@
     "settings.EmailValidation": "Courriel invalide",
     "settings.NewPassword": "Nouveau mot de passe",
     "settings.FailedToUpdateEmail": "Échec de la mise à jour du courriel",
-    "settings.UpdateEmail": "Modifier le courriel"
+    "settings.UpdateEmail": "Modifier le courriel",
+    "settings.BuildChannels": "Canal de compilation",
+    "settings.BuildChannelsDescription": "En savoir plus sur les canaux de compilation"
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui.dart';
+import '../../../ui/ui.dart';
 import '../../../vendor.dart';
 import '../routes/dashboard/widgets/navigation_bar.dart';
 import 'database.dart';

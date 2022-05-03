@@ -18,8 +18,8 @@ import '../modules/dashboard/core/database.dart';
 import '../modules/dashboard/core/state.dart' as dashboard_state;
 import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
 import '../modules/wake_on_lan/api/wake_on_lan.dart';
-import '../system/build/environment.dart';
-import '../system/build/flavor.dart';
+import '../system/environment.dart';
+import '../system/flavor.dart';
 
 part 'modules.g.dart';
 
@@ -542,7 +542,7 @@ extension LunaModuleExtension on LunaModule {
   }
 
   /// Return the [ShortcutItem] for the module.
-  ShortcutItem? get shortcutItem {
+  ShortcutItem get shortcutItem {
     switch (this) {
       case LunaModule.DASHBOARD:
         return ShortcutItem(type: key, localizedTitle: name);
@@ -565,7 +565,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.WAKE_ON_LAN:
-        return null;
+        throw Exception('WAKE_ON_LAN does not have a shortcut item');
       case LunaModule.EXTERNAL_MODULES:
         return ShortcutItem(type: key, localizedTitle: name);
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/system/profile.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../core/api/data/abstract.dart';
 import '../../../core/api/data/lidarr.dart';
 import '../../../core/api/data/radarr.dart';

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/system/profile.dart';
 import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../../../vendor.dart';
 import '../../../../radarr/core/api_helper.dart';
 import '../../../../radarr/core/state.dart';

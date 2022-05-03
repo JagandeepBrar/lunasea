@@ -1,6 +1,6 @@
 import '../../../../core/models/configuration/profile.dart';
 import '../../../../core/extensions.dart';
-import '../../../../core/ui.dart';
+import '../../../../ui/ui.dart';
 import '../../../../vendor.dart';
 import '../database.dart';
 import 'data/abstract.dart';

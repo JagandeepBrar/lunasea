@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-import '../../../../system/build/environment.dart';
-import '../../../../system/build/flavor.dart';
+import '../../../../system/environment.dart';
+import '../../../../system/flavor.dart';
 
 class SettingsHomeRouter extends SettingsPageRouter {
   SettingsHomeRouter() : super('/settings');

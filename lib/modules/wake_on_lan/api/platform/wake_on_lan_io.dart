@@ -2,7 +2,7 @@ import 'package:wake_on_lan/wake_on_lan.dart';
 
 import '../../../../core/models/configuration/profile.dart';
 import '../../../../core/system/profile.dart';
-import '../../../../core/ui.dart';
+import '../../../../ui/ui.dart';
 import '../../../../core/utilities/logger.dart';
 import '../wake_on_lan.dart';
 

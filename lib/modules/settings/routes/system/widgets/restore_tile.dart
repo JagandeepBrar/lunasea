@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-import '../../../../../core/system/filesystem/file.dart';
-import '../../../../../core/system/filesystem/filesystem.dart';
+import '../../../../../system/filesystem/file.dart';
+import '../../../../../system/filesystem/filesystem.dart';
 
 class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   const SettingsSystemBackupRestoreRestoreTile({

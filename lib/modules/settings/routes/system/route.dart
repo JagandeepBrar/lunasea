@@ -3,8 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 import '../../../../core/cache/image_cache/image_cache.dart';
-import '../../../../system/build/environment.dart';
-import '../../../../system/build/flavor.dart';
+import '../../../../system/environment.dart';
+import '../../../../system/flavor.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');

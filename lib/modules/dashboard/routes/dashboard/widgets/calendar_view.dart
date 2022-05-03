@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/database/database.dart';
 import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../../../vendor.dart';
 import '../../../core/adapters/calendar_starting_day.dart';
 import '../../../core/adapters/calendar_starting_size.dart';

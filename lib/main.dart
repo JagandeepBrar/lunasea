@@ -6,9 +6,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 
 import 'core/cache/image_cache/image_cache.dart';
-import 'core/system/networking/networking.dart';
-import 'core/system/window_manager/window_manager.dart';
-import 'core/system/platform.dart';
+import 'system/localization.dart';
+import 'system/network/network.dart';
+import 'system/quick_actions/quick_actions.dart';
+import 'system/window_manager/window_manager.dart';
+import 'system/platform.dart';
 import 'modules/dashboard/routes/dashboard/route.dart' show HomeRouter;
 
 /// LunaSea Entry Point: Initialize & Run Application
@@ -24,7 +26,7 @@ Future<void> main() async {
       LunaLogger().initialize();
       LunaTheme().initialize();
       if (LunaWindowManager.isSupported) await LunaWindowManager().initialize();
-      if (LunaNetworking.isSupported) LunaNetworking().initialize();
+      if (LunaNetwork.isSupported) LunaNetwork().initialize();
       if (LunaImageCache.isSupported) LunaImageCache().initialize();
       LunaRouter().initialize();
       await LunaInAppPurchases().initialize();
@@ -43,7 +45,6 @@ class LunaBIOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LunaLocalization localization = LunaLocalization();
     LunaTheme theme = LunaTheme();
     LunaRouter router = LunaRouter();
 
@@ -51,10 +52,10 @@ class LunaBIOS extends StatelessWidget {
       child: DevicePreview(
         enabled: kDebugMode && LunaPlatform().isDesktop,
         builder: (context) => EasyLocalization(
-          supportedLocales: localization.supportedLocales as List<Locale>,
-          path: localization.fileDirectory,
-          fallbackLocale: localization.fallbackLocale,
-          startLocale: localization.fallbackLocale,
+          supportedLocales: LunaLocalization().supportedLocales(),
+          path: LunaLocalization.fileDirectory,
+          fallbackLocale: LunaLocalization.fallbackLocale,
+          startLocale: LunaLocalization.fallbackLocale,
           useFallbackTranslations: true,
           child: LunaState.providers(
             child: ValueListenableBuilder(
@@ -122,7 +123,7 @@ class _State extends State<LunaOS> {
     tag ??= LunaLanguage.ENGLISH.languageTag;
     Intl.defaultLocale = tag;
 
-    LunaQuickActions().initialize();
+    if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
     LunaChangelogSheet().show(
       context: LunaState.navigatorKey.currentContext!,
       checkBuildVersion: true,

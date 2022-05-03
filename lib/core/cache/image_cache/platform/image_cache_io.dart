@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-import '../../../system/platform.dart';
+import '../../../../system/platform.dart';
 import '../image_cache.dart';
 
 bool isPlatformSupported() {

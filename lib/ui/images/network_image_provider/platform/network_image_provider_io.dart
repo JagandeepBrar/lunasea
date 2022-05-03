@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../cache/image_cache/image_cache.dart';
+import '../../../../core/cache/image_cache/image_cache.dart';
 import '../network_image_provider.dart';
 
 LunaNetworkImageProvider getNetworkImageProvider({

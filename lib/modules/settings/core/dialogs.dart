@@ -7,8 +7,8 @@ import 'package:wake_on_lan/wake_on_lan.dart';
 import '../../../core/database/luna_database.dart';
 import '../../../core/firebase/types/backup_document.dart';
 import '../../../core/models/types/browser.dart';
-import '../../../core/system/localization.dart';
-import '../../../core/ui.dart';
+import '../../../system/localization.dart';
+import '../../../ui/ui.dart';
 import '../../dashboard/core/adapters/calendar_starting_day.dart';
 import '../../dashboard/core/adapters/calendar_starting_size.dart';
 import '../../dashboard/core/adapters/calendar_starting_type.dart';
@@ -892,7 +892,7 @@ class SettingsDialogs {
   Future<Tuple2<bool, LunaLanguage?>> changeLanguage(
     BuildContext context,
   ) async {
-    List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
+    List<LunaLanguage> languages = LunaLocalization().supportedLanguages();
     bool _flag = false;
     LunaLanguage? _language;
 

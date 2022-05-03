@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
+import '../../system/build/environment.dart';
+import '../../system/build/flavor.dart';
+
 class LunaLocalization {
   /// List of [LunaLanguage] values with all currently supported languages
   List<LunaLanguage> get supportedLanguages =>
@@ -85,7 +88,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.BETA);
+        return LunaEnvironment().isFlavorSupported(LunaFlavor.BETA);
     }
   }
 

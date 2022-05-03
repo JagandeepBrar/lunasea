@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
+import '../../../system/build/environment.dart';
+import '../../../system/build/flavor.dart';
+
 part 'log_type.g.dart';
 
 @HiveType(typeId: 24, adapterName: 'LunaLogTypeAdapter')
@@ -52,7 +55,7 @@ extension LunaLogTypeExtension on LunaLogType {
       case LunaLogType.CRITICAL:
         return true;
       case LunaLogType.DEBUG:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.CANDIDATE);
+        return LunaEnvironment().isFlavorSupported(LunaFlavor.CANDIDATE);
     }
   }
 

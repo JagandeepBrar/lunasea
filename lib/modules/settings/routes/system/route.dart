@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 import '../../../../core/cache/image_cache/image_cache.dart';
+import '../../../../system/build/environment.dart';
+import '../../../../system/build/flavor.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');
@@ -56,7 +58,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _versionInformation() {
-    LunaFlavor _flavor = LunaFlavor();
+    LunaEnvironment _env = LunaEnvironment();
+    LunaFlavor _flavor = LunaFlavor.EDGE.from(LunaEnvironment.flavor);
+
     return FutureBuilder(
         future: PackageInfo.fromPlatform(),
         builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
@@ -67,12 +71,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: 'Version: $version',
             body: [
               TextSpan(
-                text: _flavor.isLowerOrEqualTo(LunaEnvironment.CANDIDATE)
-                    ? '${_flavor.environment.name} (${_flavor.shortCommit})'
+                text: _env.isFlavorSupported(LunaFlavor.CANDIDATE)
+                    ? '${_flavor.name} (${_env.getShortCommit()})'
                     : 'settings.ViewRecentChanges'.tr(),
                 style: TextStyle(
                   fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                  color: _flavor.environment.color,
+                  color: _flavor.color,
                 ),
               ),
             ],

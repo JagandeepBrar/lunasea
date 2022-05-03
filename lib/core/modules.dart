@@ -18,6 +18,8 @@ import '../modules/dashboard/core/database.dart';
 import '../modules/dashboard/core/state.dart' as dashboard_state;
 import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
 import '../modules/wake_on_lan/api/wake_on_lan.dart';
+import '../system/build/environment.dart';
+import '../system/build/flavor.dart';
 
 part 'modules.g.dart';
 
@@ -75,7 +77,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return true;
       case LunaModule.OVERSEERR:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.EDGE);
+        return LunaEnvironment().isFlavorSupported(LunaFlavor.EDGE);
       case LunaModule.RADARR:
         return true;
       case LunaModule.SABNZBD:

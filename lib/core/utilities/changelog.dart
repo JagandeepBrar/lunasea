@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
+import '../../system/build/environment.dart';
+import '../../system/build/flavor.dart';
+
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
   String _version = '';
@@ -25,8 +28,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     bool showCommitHistory = false,
   }) async {
     // Do not show unless it is a prod release
-    if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.CANDIDATE)) {
-      if (showCommitHistory) LunaFlavor().openCommitHistory();
+    if (LunaEnvironment().isFlavorSupported(LunaFlavor.CANDIDATE)) {
+      if (showCommitHistory) LunaEnvironment().openCommitHistory();
       return;
     }
 

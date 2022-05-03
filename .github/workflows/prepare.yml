@@ -213,10 +213,10 @@ jobs:
           platform: test
           skip-core: true
 
-      - name: Generate Flavor Configuration
+      - name: Generate Environment Configuration
         run: |
-          echo FLAVOR=${{ inputs.flavor }} > .flavor
-          echo COMMIT=${{ github.sha }} >> .flavor
+          echo FLAVOR=${{ inputs.flavor }} > .env
+          echo COMMIT=${{ github.sha }} >> .env
      
       - name: Generate Localization
         run: dart ${{github.workspace }}/scripts/generate_localization.dart
@@ -229,6 +229,6 @@ jobs:
         with:
           name: core-files
           path: |
-            ${{ github.workspace }}/.flavor
+            ${{ github.workspace }}/.env
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart

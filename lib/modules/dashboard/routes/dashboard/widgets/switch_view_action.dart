@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/mixins/load_callback.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../../../vendor.dart';
 import '../../../core/adapters/calendar_starting_type.dart';
 import '../../../core/state.dart';

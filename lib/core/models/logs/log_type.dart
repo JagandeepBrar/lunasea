@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-import '../../../system/build/environment.dart';
-import '../../../system/build/flavor.dart';
+import '../../../system/environment.dart';
+import '../../../system/flavor.dart';
 
 part 'log_type.g.dart';
 

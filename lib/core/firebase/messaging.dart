@@ -1,7 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
 
-import '../system/platform.dart';
+import '../../system/platform.dart';
 
 class LunaFirebaseMessaging {
   static const _VAPID_KEY =

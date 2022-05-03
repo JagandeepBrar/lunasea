@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/ui.dart';
+import '../../ui/ui.dart';
 
 const _EDGE = 'edge';
 const _BETA = 'beta';

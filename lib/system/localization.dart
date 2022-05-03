@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-import '../../system/build/environment.dart';
-import '../../system/build/flavor.dart';
+import 'environment.dart';
+import 'flavor.dart';
 
 class LunaLocalization {
-  /// List of [LunaLanguage] values with all currently supported languages
-  List<LunaLanguage> get supportedLanguages =>
-      LunaLanguage.values.where((lang) => lang.enabled).toList();
+  static const fileDirectory = 'assets/localization';
+  static final fallbackLocale = LunaLanguage.ENGLISH.locale;
 
-  /// Returns an iterable list of [Locale] objects containing all supported & enabled locales.
-  Iterable<Locale> get supportedLocales =>
-      supportedLanguages.map<Locale>((lang) => lang.locale).toList();
+  List<LunaLanguage> supportedLanguages() {
+    return LunaLanguage.values.where((lang) => lang.enabled).toList();
+  }
 
-  Locale get fallbackLocale => LunaLanguage.ENGLISH.locale;
+  List<Locale> supportedLocales() {
+    return supportedLanguages().map<Locale>((lang) => lang.locale).toList();
+  }
 
-  /// Directory containing all localization files
-  String get fileDirectory => 'assets/localization';
-
-  /// Initialize the localization system.
   Future<void> initialize() async {
     await EasyLocalization.ensureInitialized();
   }
@@ -75,7 +72,6 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.ENGLISH:
         return true;
-      // Keep all languages enabled in debug mode while LunaSea is being adapted for localization
       case LunaLanguage.FRENCH:
       case LunaLanguage.GERMAN:
       case LunaLanguage.ITALIAN:

@@ -1,6 +1,6 @@
 import 'package:lunasea/core.dart';
 
-import '../system/platform.dart';
+import '../../system/platform.dart';
 
 class Database {
   static const String _DATABASE_LEGACY_PATH = 'database';

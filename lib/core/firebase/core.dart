@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import '../../firebase_options.dart';
-import '../system/platform.dart';
+import '../../system/platform.dart';
 
 class LunaFirebase {
   static bool get isSupported {

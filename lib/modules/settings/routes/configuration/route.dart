@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-import '../../../../core/system/networking/networking.dart';
-import '../../../../core/system/platform.dart';
+import '../../../../system/network/network.dart';
+import '../../../../system/platform.dart';
+import '../../../../system/quick_actions/quick_actions.dart';
 
 class SettingsConfigurationRouter extends SettingsPageRouter {
   SettingsConfigurationRouter() : super('/settings/configuration');
@@ -81,7 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async =>
               SettingsConfigurationLocalizationRouter().navigateTo(context),
         ),
-        if (LunaNetworking.isSupported)
+        if (LunaNetwork.isSupported)
           LunaBlock(
             title: 'settings.Network'.tr(),
             body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
@@ -105,7 +106,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               );
             },
           ),
-        if (LunaQuickActions.isPlatformCompatible)
+        if (LunaQuickActions.isSupported)
           LunaBlock(
             title: 'settings.QuickActions'.tr(),
             body: [TextSpan(text: 'settings.QuickActionsDescription'.tr())],

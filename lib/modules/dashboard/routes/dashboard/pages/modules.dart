@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/database/luna_database.dart';
 import '../../../../../../core/modules.dart';
 import '../../../../../../core/system/profile.dart';
-import '../../../../../../core/ui.dart';
+import '../../../../../../ui/ui.dart';
 import '../../../../wake_on_lan/api/wake_on_lan.dart';
 import '../widgets/navigation_bar.dart';
 

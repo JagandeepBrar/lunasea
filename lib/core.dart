@@ -4,7 +4,6 @@ export 'core/database.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';
 export 'core/firebase.dart';
-export 'core/mixins.dart';
 export 'core/models.dart';
 export 'core/modules.dart';
 export 'core/pages.dart';
@@ -12,9 +11,9 @@ export 'core/router.dart';
 export 'core/services.dart';
 export 'core/state.dart';
 export 'core/system.dart';
-export 'core/ui.dart';
 export 'core/utilities.dart';
 
+export 'ui/ui.dart';
 export 'vendor.dart'
     hide
         StreamProvider,

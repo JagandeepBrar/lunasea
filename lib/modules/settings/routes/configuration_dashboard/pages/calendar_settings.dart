@@ -2,9 +2,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
-import '../../../../../core/mixins/scroll_controller.dart';
 import '../../../../../core/modules.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../../dashboard/core/adapters/calendar_starting_day.dart';
 import '../../../../dashboard/core/adapters/calendar_starting_size.dart';
 import '../../../../dashboard/core/adapters/calendar_starting_type.dart';

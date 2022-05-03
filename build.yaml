@@ -12,7 +12,7 @@ targets:
           exclude:
             - lib
           include:
-            - lib/system/build/environment.dart
+            - lib/system/environment.dart
       # Hive
       hive_generator:
         enabled: true

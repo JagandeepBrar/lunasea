@@ -21,7 +21,7 @@ class LunaEnvironment {
   }
 
   /// Returns if the given flavor is "lower" than the given environment.
-  /// For example, `alpha` is lower than `beta` but is not lower than `develop`.
+  /// For example, `beta` is lower than `candidate` but is not lower than `edge`.
   bool isFlavorSupported(LunaFlavor env) {
     LunaFlavor _flavor = LunaFlavor.EDGE.from(flavor);
     if (_flavor == env) return true;

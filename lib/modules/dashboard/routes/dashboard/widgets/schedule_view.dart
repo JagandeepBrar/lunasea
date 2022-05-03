@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../core/api/data/abstract.dart';
 import '../../../core/database.dart';
 import '../../../core/state.dart';

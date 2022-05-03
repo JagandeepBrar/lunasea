@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/database/luna_database.dart';
 import '../../../../core/modules.dart';
-import '../../../../core/ui.dart';
+import '../../../../ui/ui.dart';
 import '../../../../vendor.dart';
 import '../../core/database.dart';
 import '../routes.dart';

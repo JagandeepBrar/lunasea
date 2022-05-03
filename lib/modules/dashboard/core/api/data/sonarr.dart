@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../../core/database/luna_database.dart';
 import '../../../../../core/system/profile.dart';
 import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
+import '../../../../../ui/ui.dart';
 import '../../../../../core/utilities/logger.dart';
 import '../../../../../vendor.dart';
 import '../../../../sonarr/core/state.dart';

@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import '../../../../vendor.dart';
-import '../../../database/luna_database.dart';
-import '../networking.dart';
+import '../../../core/database/luna_database.dart';
+import '../network.dart';
 
 bool isPlatformSupported() => true;
-LunaNetworking getNetworking() => IO();
+LunaNetwork getNetwork() => IO();
 
-class IO extends HttpOverrides implements LunaNetworking {
+class IO extends HttpOverrides implements LunaNetwork {
   @override
   void initialize() {
     HttpOverrides.global = IO();

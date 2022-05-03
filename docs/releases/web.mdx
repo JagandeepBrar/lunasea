@@ -1,0 +1,90 @@
+---
+title: Web Releases
+description: Where to download Web releases of LunaSea
+---
+
+# Web Releases
+
+> If you want a stable experience, stick with stable releases. Want to test new builds of LunaSea? Read about the [build channels](/getting-started/build-channels) to make the right choice!
+
+## Hosted Builds
+
+_Channel(s): `Stable`, `Candidate`, `Beta`, `Edge`_<br/>
+
+All web releases of LunaSea are available on hosted instances by the LunaSea team! All communication and data stored is client-side, but there are some limitations of the platform which can be [viewed here](/getting-started/platform-restrictions).
+
+<Tabs
+  groupId="channel"
+  defaultValue="stable"
+  values={[
+    { label: "Stable", value: "stable" },
+    { label: "Candidate", value: "candidate" },
+    { label: "Beta", value: "beta" },
+    { label: "Edge", value: "edge" },
+  ]}
+>
+  <TabItem value="stable">
+    Access the stable release [here](https://web.lunasea.app)!
+  </TabItem>
+  <TabItem value="candidate">
+    Access the candidate release [here](https://candidate.web.lunasea.app)!
+  </TabItem>
+  <TabItem value="beta">
+    Access the beta release [here](https://beta.web.lunasea.app)!
+  </TabItem>
+  <TabItem value="edge">
+    Access the edge release [here](https://edge.web.lunasea.app)!
+</TabItem>
+</Tabs>
+
+## Docker
+
+_Channel(s): `Stable`, `Candidate`, `Beta`, `Edge`_<br/>
+
+All web releases of LunaSea are also available in officially hosted Docker images! There is currently only one value that needs to be configured which is the port mapping. LunaSea functions as a frontend application with all data being stored client-side.
+
+<Tabs
+  groupId="channel"
+  defaultValue="stable"
+  values={[
+    { label: "Stable", value: "stable" },
+    { label: "Candidate", value: "candidate" },
+    { label: "Beta", value: "beta" },
+    { label: "Edge", value: "edge" },
+  ]}
+>
+  <TabItem value="stable">
+    ```bash
+    docker run -p 80:80 ghcr.io/jagandeepbrar/lunasea:stable
+    ```
+  </TabItem>
+  <TabItem value="candidate">
+    ```bash
+    docker run -p 80:80 ghcr.io/jagandeepbrar/lunasea:candidate
+    ```
+  </TabItem>
+  <TabItem value="beta">
+    ```bash
+    docker run -p 80:80 ghcr.io/jagandeepbrar/lunasea:beta
+    ```
+  </TabItem>
+  <TabItem value="edge">
+    ```bash
+    docker run -p 80:80 ghcr.io/jagandeepbrar/lunasea:edge
+    ```
+  </TabItem>
+</Tabs>
+
+## Build Bucket
+
+_Channel(s): `Stable`, `Candidate`, `Beta`, `Edge`_<br/>
+_Format(s): `.zip`_
+
+All web releases are available in the [Build Bucket](https://builds.lunasea.app/#latest/)!
+
+## GitHub Releases
+
+_Channel(s): `Stable`_<br/>
+_Format(s): `.zip`_
+
+All stable releases are available on GitHub via the [Releases](https://github.com/JagandeepBrar/LunaSea/releases) page!

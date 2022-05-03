@@ -7,146 +7,26 @@ description: How to use different builds of LunaSea
 
 LunaSea offers four different build channels, each of which supply signed and notarized copies of LunaSea.
 
-Please do not download any releases of LunaSea from any location other than those listed below, from the [build bucket](https://builds.lunasea.app), or from [GitHub](https://www.lunasea.app/github).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
+
+- [Android](/releases/android)
+- [iOS](/releases/ios)
+- [Linux](/releases/linux)
+- [macOS](/releases/macos)
+- [Web](/releases/web)
+- [Windows](/releases/windows/)
 
 ## Stable
 
 This is the store version and will remain the most stable version. No in-progress features will be deployed to this channel.
 
-Stable releases can be downloaded from the [build bucket](https://builds.lunasea.app/#/latest/stable/) or by following the instructions below for each platform:
-
-<Tabs
-  groupId="platform"
-  defaultValue="android"
-  values={[
-    { label: "Android", value: "android" },
-    { label: "iOS", value: "ios" },
-    { label: "Linux", value: "linux" },
-    { label: "macOS", value: "macos" },
-    { label: "Web", value: "web" },
-    { label: "Windows", value: "windows" },
-  ]}
->
-  <TabItem value="android">
-    The latest stable release is available on the [Google Play Store](https://www.lunasea.app/playstore).
-  </TabItem>
-  <TabItem value="ios">
-    The latest stable release is available on the [App Store](https://www.lunasea.app/appstore).
-  </TabItem>
-  <TabItem value="macos">
-    1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight stable channel](https://www.lunasea.app/testflight/stable)
-    3. Download LunaSea via the TestFlight application
-
-    LunaSea can also be downloaded from [Homebrew Cask](https://formulae.brew.sh/cask/lunasea)!
-  </TabItem>
-  <TabItem value="linux">
-    ```bash
-    sudo snap install lunasea
-    ```
-  </TabItem>
-  <TabItem value="web">
-    The latest web release is [available here](https://web.lunasea.app).
-
-    LunaSea can also be self-hosted using the [Docker image](https://github.com/JagandeepBrar/LunaSea/pkgs/container/lunasea)!
-  </TabItem>
-  <TabItem value="windows">
-    Download the latest stable release from the [build bucket](https://builds.lunasea.app/#/latest/stable/).
-  </TabItem>
-</Tabs>
-
 ## Candidate
 
 This channel is focused around _final release candidate testing of completed new features_ leading up to the release to stable. This channel is intended to help catch any remaining bugs from beta builds and overall should remain relatively stable.
 
-Candidate releases can be downloaded from the [build bucket](https://builds.lunasea.app/#/latest/candidate/) or by following the instructions below for each platform:
-
-<Tabs
-  groupId="platform"
-  defaultValue="android"
-  values={[
-    { label: "Android", value: "android" },
-    { label: "iOS", value: "ios" },
-    { label: "Linux", value: "linux" },
-    { label: "macOS", value: "macos" },
-    { label: "Web", value: "web" },
-    { label: "Windows", value: "windows" },
-  ]}
->
-  <TabItem value="android">
-    1. Head to the [Google Play Store](https://www.lunasea.app/playstore)
-    2. Register for the test directly on the store listing
-    3. Download LunaSea via the Google Play Store
-  </TabItem>
-  <TabItem value="ios">
-    1. [Download TestFlight for iOS](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight candidate channel](https://www.lunasea.app/testflight/candidate)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="macos">
-    1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight candidate channel](https://www.lunasea.app/testflight/candidate)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="linux">
-    ```bash
-    sudo snap install lunasea --candidate
-    ```
-  </TabItem>
-  <TabItem value="web">
-    The latest candidate web release is [available here](https://candidate.web.lunasea.app).
-  </TabItem>
-  <TabItem value="windows">
-    Download the latest candidate release from the [build bucket](https://builds.lunasea.app/#/latest/candidate/).
-  </TabItem>
-</Tabs>
-
 ## Beta
 
 this channel is focused around _early previews and testing of work-in-progress features_. This channel is intended to allow users to give feedback to the developer on features that are actively being worked on.
-
-Beta releases can be downloaded from the [build bucket](https://builds.lunasea.app/#/latest/beta/) or by following the instructions below for each platform:
-
-<Tabs
-  groupId="platform"
-  defaultValue="android"
-  values={[
-    { label: "Android", value: "android" },
-    { label: "iOS", value: "ios" },
-    { label: "Linux", value: "linux" },
-    { label: "macOS", value: "macos" },
-    { label: "Web", value: "web" },
-    { label: "Windows", value: "windows" },
-  ]}
->
-  <TabItem value="android">
-    1. Join the [LunaSea: Beta Testing](https://groups.google.com/g/lunasea-beta-test) Google Group
-    2. Head to the [Google Play Store](https://www.lunasea.app/playstore)
-    3. Register for the test directly on the store listing
-    4. Download LunaSea via the Google Play Store
-  </TabItem>
-  <TabItem value="ios">
-    1. [Download TestFlight for iOS](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight beta channel](https://www.lunasea.app/testflight/beta)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="macos">
-    1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight beta channel](https://www.lunasea.app/testflight/beta)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="linux">
-    ```bash
-    sudo snap install lunasea --beta
-    ```
-  </TabItem>
-  <TabItem value="web">
-    The latest beta web release is [available here](https://beta.web.lunasea.app).
-  </TabItem>
-  <TabItem value="windows">
-    Download the latest beta release from the [build bucket](https://builds.lunasea.app/#/latest/beta/).
-  </TabItem>
-</Tabs>
 
 ## Edge
 
@@ -155,45 +35,3 @@ This channel's purpose is to _ensure that every commit made to master is buildin
 There are no restrictions on features in these builds (barring a very specific subset used for debugging/testing) so it gives full access to everything that is work in progress.
 
 **Do not expect a fully stable experience if you use these builds**, as it is entirely possible that a single build could cause problems including but not limited to database corruption. If you are running these builds, please ensure you have either a cloud or offline backup available for easy restoration.
-
-Edge releases can be downloaded from the [build bucket](https://builds.lunasea.app/#/latest/edge/) or by following the instructions below for each platform:
-
-<Tabs
-  groupId="platform"
-  defaultValue="android"
-  values={[
-    { label: "Android", value: "android" },
-    { label: "iOS", value: "ios" },
-    { label: "Linux", value: "linux" },
-    { label: "macOS", value: "macos" },
-    { label: "Web", value: "web" },
-    { label: "Windows", value: "windows" },
-  ]}
->
-  <TabItem value="android">
-    Because of the limitations on internal testing set by the Google Play Store, develop builds on Android are only available upon request to a very limited amount of users.
-
-    Reach out via [email](mailto:hello@lunasea.app) for more information.
-  </TabItem>
-  <TabItem value="ios">
-    1. [Download TestFlight](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight edge channel](https://www.lunasea.app/testflight/edge)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="macos">
-    1. [Download TestFlight](https://apps.apple.com/app/testflight/id899247664)
-    2. Join the [TestFlight edge channel](https://www.lunasea.app/testflight/edge)
-    3. Download LunaSea via the TestFlight application
-  </TabItem>
-  <TabItem value="linux">
-    ```bash
-    sudo snap install lunasea --edge
-    ```
-  </TabItem>
-  <TabItem value="web">
-    The latest edge web release is [available here](https://edge.web.lunasea.app).
-  </TabItem>
-  <TabItem value="windows">
-    Download the latest edge release from the [build bucket](https://builds.lunasea.app/#/latest/edge/).
-  </TabItem>
-</Tabs>

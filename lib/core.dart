@@ -22,4 +22,5 @@ export 'vendor.dart'
         Consumer,
         Locator,
         Create;
+
 export 'package:provider/provider.dart';

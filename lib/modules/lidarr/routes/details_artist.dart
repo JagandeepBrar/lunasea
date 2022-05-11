@@ -33,7 +33,7 @@ class _State extends State<LidarrDetailsArtist> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       _arguments = ModalRoute.of(context)!.settings.arguments
           as LidarrDetailsArtistArguments?;
       _fetch();

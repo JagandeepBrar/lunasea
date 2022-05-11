@@ -39,7 +39,7 @@ class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
           as LidarrEditArtistArguments?);
       _refresh();

@@ -34,7 +34,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.scheduleFrameCallback((_) {
+    SchedulerBinding.instance.scheduleFrameCallback((_) {
       setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
           as LidarrAddDetailsArguments?);
       _refresh();

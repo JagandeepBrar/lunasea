@@ -105,18 +105,18 @@ class _State extends State<LunaOS> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.addPostFrameCallback((_) => _boot());
+    SchedulerBinding.instance.addPostFrameCallback((_) => _boot());
   }
 
   Future<void> _initNotifications() async {
-    final _messaging = LunaFirebaseMessaging();
-    final _firestore = LunaFirebaseFirestore();
-    await _messaging.requestNotificationPermissions();
+    final messaging = LunaFirebaseMessaging();
+    final firestore = LunaFirebaseFirestore();
+    await messaging.requestNotificationPermissions();
 
-    _firestore.addDeviceToken();
-    _messaging.checkAndHandleInitialMessage();
-    _messaging.registerOnMessageListener();
-    _messaging.registerOnMessageOpenedAppListener();
+    firestore.addDeviceToken();
+    messaging.checkAndHandleInitialMessage();
+    messaging.registerOnMessageListener();
+    messaging.registerOnMessageOpenedAppListener();
   }
 
   Future<void> _boot() async {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard;
 import 'package:lunasea/modules/lidarr/core/state.dart';
@@ -12,6 +11,8 @@ import 'package:lunasea/modules/sabnzbd/core/state.dart';
 import 'package:lunasea/modules/nzbget/core/state.dart';
 import 'package:lunasea/modules/tautulli/core/state.dart';
 import 'package:lunasea/core/modules.dart';
+
+import 'package:provider/provider.dart';
 
 class LunaState {
   LunaState._();

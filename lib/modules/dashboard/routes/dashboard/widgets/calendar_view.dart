@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
 import 'package:lunasea/core/database/database.dart';
 import 'package:lunasea/core/extensions.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -16,6 +14,9 @@ import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
+
+import 'package:provider/provider.dart';
+import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 class CalendarView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;

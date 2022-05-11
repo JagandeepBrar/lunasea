@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/extensions/string.dart';
-import 'package:provider/provider.dart';
-
 import 'package:lunasea/core/system/profile.dart';
 import 'package:lunasea/core/extensions.dart';
 import 'package:lunasea/vendor.dart';
@@ -11,6 +9,8 @@ import 'package:lunasea/modules/radarr/core/state.dart';
 import 'package:lunasea/modules/radarr/routes/movie_details/route.dart';
 import 'package:lunasea/modules/radarr/routes/releases/route.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+
+import 'package:provider/provider.dart';
 
 class CalendarRadarrData extends CalendarData {
   final Map<String, dynamic> api = LunaProfile.current.getRadarr();

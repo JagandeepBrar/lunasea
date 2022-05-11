@@ -32,7 +32,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
   }
 
   @override

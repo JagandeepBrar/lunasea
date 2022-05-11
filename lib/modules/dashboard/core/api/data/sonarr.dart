@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/extensions/string.dart';
-import 'package:provider/provider.dart';
 
 import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/core/system/profile.dart';
@@ -11,6 +10,8 @@ import 'package:lunasea/modules/sonarr/core/state.dart';
 import 'package:lunasea/modules/sonarr/routes/releases/route.dart';
 import 'package:lunasea/modules/sonarr/routes/series_details/route.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+
+import 'package:provider/provider.dart';
 
 class CalendarSonarrData extends CalendarData {
   final Map<String, dynamic> api = LunaProfile.current.getSonarr();

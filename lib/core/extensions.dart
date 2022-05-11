@@ -1,6 +1,5 @@
 export 'extensions/async_snapshot.dart';
 export 'extensions/datetime.dart';
-export 'extensions/double.dart';
 export 'extensions/duration.dart';
 export 'extensions/iap_product_details.dart';
 export 'extensions/int.dart';

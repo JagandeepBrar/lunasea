@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
 import 'package:lunasea/core/database/luna_database.dart';
-import 'package:lunasea/core/models/types/browser.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';

@@ -179,7 +179,7 @@ jobs:
             const url = `https://builds.lunasea.app/#${ process.env.BUILD_TITLE }/`;
             let _base = `[Download](${url})`;
             if ( ANDROID || IOS || LINUX || MACOS || WEB || WINDOWS) {
-              _base += '\n\nThis release is only available for the following platforms: ';
+              _base += '\n\nThis release is available on the following platforms: ';
 
               const platforms = [];
               if (ANDROID) platforms.push('Android');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddSearchResultTile extends StatefulWidget {
@@ -94,5 +95,5 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
   }
 
   Future<void>? _onLongPress() async =>
-      widget.series.tvdbId?.toString().lunaOpenTheTVDB();
+      widget.series.tvdbId?.toString().openTvdbSeries();
 }

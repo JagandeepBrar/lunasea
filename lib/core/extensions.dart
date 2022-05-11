@@ -7,4 +7,3 @@ export 'extensions/int.dart';
 export 'extensions/navigator_state.dart';
 export 'extensions/page_controller.dart';
 export 'extensions/scroll_controller.dart';
-export 'extensions/string.dart';

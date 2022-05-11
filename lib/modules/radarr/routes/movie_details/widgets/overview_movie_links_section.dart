@@ -25,7 +25,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-              onTap: () async => await movie?.imdbId?.lunaOpenIMDB(),
+              onTap: () async => await movie?.imdbId?.openImdb(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -40,7 +40,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await movie?.tmdbId?.toString().lunaOpenTheMovieDBMovie(),
+                  await movie?.tmdbId?.toString().openTmdbMovie(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -55,7 +55,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await movie?.tmdbId?.toString().lunaOpenTraktMovie(),
+                  await movie?.tmdbId?.toString().openTraktMovie(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),

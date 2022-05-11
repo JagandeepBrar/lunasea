@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string_links.dart';
 
 enum _Type {
   CONTENT,
@@ -114,7 +115,7 @@ class LunaTableContent extends StatelessWidget {
             left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
           ),
         ),
-        onTap: !bodyIsUrl ? null : body!.lunaOpenGenericLink,
+        onTap: !bodyIsUrl ? null : body!.openLink,
         onLongPress: !bodyIsUrl ? null : () => body!.copyToClipboard(),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
       ),

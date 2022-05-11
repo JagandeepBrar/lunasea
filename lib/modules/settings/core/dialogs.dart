@@ -861,33 +861,6 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  Future<Tuple2<bool, LunaBrowser?>> changeBrowser(BuildContext context) async {
-    bool _flag = false;
-    LunaBrowser? _browser;
-
-    void _setValues(bool flag, LunaBrowser browser) {
-      _flag = flag;
-      _browser = browser;
-      Navigator.of(context).pop();
-    }
-
-    await LunaDialog.dialog(
-      context: context,
-      title: 'settings.OpenLinksIn'.tr(),
-      content: List.generate(
-        LunaBrowser.values.length,
-        (index) => LunaDialog.tile(
-          icon: LunaBrowser.values[index].icon,
-          iconColor: LunaColours().byListIndex(index),
-          text: LunaBrowser.values[index].name!,
-          onTap: () => _setValues(true, LunaBrowser.values[index]),
-        ),
-      ),
-      contentPadding: LunaDialog.listDialogContentPadding(),
-    );
-    return Tuple2(_flag, _browser);
-  }
-
   Future<Tuple2<bool, LunaLanguage?>> changeLanguage(
     BuildContext context,
   ) async {

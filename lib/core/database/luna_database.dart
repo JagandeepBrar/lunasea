@@ -9,7 +9,6 @@ enum LunaDatabaseValue {
   THEME_AMOLED,
   THEME_AMOLED_BORDER,
   THEME_IMAGE_BACKGROUND_OPACITY,
-  SELECTED_BROWSER,
   QUICK_ACTIONS_LIDARR,
   QUICK_ACTIONS_RADARR,
   QUICK_ACTIONS_SONARR,
@@ -26,11 +25,13 @@ enum LunaDatabaseValue {
 class LunaDatabase extends LunaModuleDatabase {
   @override
   void registerAdapters() {
+    // Deprecated
+    Hive.registerAdapter(DeprecatedLunaBrowserAdapter());
+    // Active
     Hive.registerAdapter(ExternalModuleHiveObjectAdapter());
     Hive.registerAdapter(IndexerHiveObjectAdapter());
     Hive.registerAdapter(ProfileHiveObjectAdapter());
     Hive.registerAdapter(LunaLogHiveObjectAdapter());
-    Hive.registerAdapter(LunaBrowserAdapter());
     Hive.registerAdapter(LunaIndexerIconAdapter());
     Hive.registerAdapter(LunaLogTypeAdapter());
     Hive.registerAdapter(LunaModuleAdapter());
@@ -43,10 +44,6 @@ class LunaDatabase extends LunaModuleDatabase {
     for (LunaDatabaseValue value in LunaDatabaseValue.values) {
       switch (value) {
         // Non-primitive values
-        case LunaDatabaseValue.SELECTED_BROWSER:
-          data[value.key] =
-              (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser?).key;
-          break;
         case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
           data[value.key] =
               (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule).key;
@@ -72,9 +69,6 @@ class LunaDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Non-primitive values
-          case LunaDatabaseValue.SELECTED_BROWSER:
-            value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key]));
-            break;
           case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
             value.put(LunaModule.DASHBOARD.fromKey(config[key]));
             break;
@@ -149,8 +143,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
         return value is int;
-      case LunaDatabaseValue.SELECTED_BROWSER:
-        return value is LunaBrowser;
       case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
         return value is bool;
       case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
@@ -186,8 +178,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return true;
       case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
         return null;
-      case LunaDatabaseValue.SELECTED_BROWSER:
-        return LunaBrowser.APPLE_SAFARI;
       case LunaDatabaseValue.THEME_AMOLED:
         return false;
       case LunaDatabaseValue.THEME_AMOLED_BORDER:

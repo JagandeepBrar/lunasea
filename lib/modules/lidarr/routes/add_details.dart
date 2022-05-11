@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAddDetailsArguments {
@@ -161,7 +162,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
                   title: 'No Discogs Page Available',
                   message: 'No Discogs URL is available',
                 );
-              _arguments!.data.discogsLink!.lunaOpenGenericLink();
+              _arguments!.data.discogsLink!.openLink();
             },
           ),
           ValueListenableBuilder(

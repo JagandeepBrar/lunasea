@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchResultTile extends StatefulWidget {
@@ -90,5 +91,5 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
   }
 
   Future<void>? _onLongPress() async =>
-      widget.movie.tmdbId?.toString().lunaOpenTheMovieDBMovie();
+      widget.movie.tmdbId?.toString().openTmdbMovie();
 }

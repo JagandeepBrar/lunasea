@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
@@ -24,7 +25,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-              onTap: () async => await series.imdbId!.lunaOpenIMDB(),
+              onTap: () async => await series.imdbId!.openImdb(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -39,7 +40,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await series.tvdbId!.toString().lunaOpenTraktSeries(),
+                  await series.tvdbId!.toString().openTraktSeries(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -54,7 +55,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
               onTap: () async =>
-                  await series.tvdbId!.toString().lunaOpenTheTVDB(),
+                  await series.tvdbId!.toString().openTvdbSeries(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -68,8 +69,7 @@ class SonarrSeriesDetailsOverviewLinksSection extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-              onTap: () async =>
-                  await series.tvMazeId!.toString().lunaOpenTVMaze(),
+              onTap: () async => await series.tvMazeId!.toString().openTvMaze(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),

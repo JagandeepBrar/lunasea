@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 
 class NZBGetQueueData {
   int id;
@@ -70,7 +71,7 @@ class NZBGetQueueData {
 
   String get subtitle {
     String size = '$downloaded/$sizeTotal MB';
-    String paddedBullet = LunaUI.TEXT_BULLET.lunaPad();
+    String paddedBullet = LunaUI.TEXT_BULLET.pad();
     return '$statusString$paddedBullet$size$paddedBullet$percentageDone%$paddedBullet$formattedCategory';
   }
 }

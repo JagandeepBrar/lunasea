@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryTile extends StatelessWidget {
@@ -51,7 +52,7 @@ class TautulliHistoryTile extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(text: 'Season ${history.parentMediaIndex}'),
-              TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+              TextSpan(text: LunaUI.TEXT_BULLET.pad()),
               TextSpan(text: 'Episode ${history.mediaIndex}: '),
               TextSpan(
                 text: history.title,
@@ -65,7 +66,7 @@ class TautulliHistoryTile extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(text: history.title),
-              TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+              TextSpan(text: LunaUI.TEXT_BULLET.pad()),
               TextSpan(text: history.parentTitle),
             ],
           ),

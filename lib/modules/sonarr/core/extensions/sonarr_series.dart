@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrSeriesExtension on SonarrSeries {

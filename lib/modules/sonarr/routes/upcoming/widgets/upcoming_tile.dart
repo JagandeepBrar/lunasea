@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingTile extends StatefulWidget {
@@ -54,7 +55,7 @@ class _State extends State<SonarrUpcomingTile> {
             text: widget.record.seasonNumber == 0
                 ? 'Specials'
                 : 'Season ${widget.record.seasonNumber}'),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: 'Episode ${widget.record.episodeNumber}'),
       ],
     );

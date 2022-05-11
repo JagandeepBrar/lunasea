@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrReleasesTile extends StatefulWidget {
@@ -53,9 +54,9 @@ class _State extends State<RadarrReleasesTile> {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.lunaIndexer),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.lunaAge),
       ],
     );
@@ -65,7 +66,7 @@ class _State extends State<RadarrReleasesTile> {
     return TextSpan(
       children: [
         TextSpan(text: widget.release.lunaQuality),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.lunaSize),
       ],
     );

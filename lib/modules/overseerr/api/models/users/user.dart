@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/utils/parser.dart';
 
 part 'user.g.dart';
 

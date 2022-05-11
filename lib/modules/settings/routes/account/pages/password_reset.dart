@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/validator.dart';
 
 class SettingsAccountPasswordResetRouter extends SettingsPageRouter {
   SettingsAccountPasswordResetRouter()
@@ -15,12 +17,12 @@ class SettingsAccountPasswordResetRouter extends SettingsPageRouter {
   }
 }
 
-class _Widget extends StatefulWidget {
+class _Widget extends ConsumerStatefulWidget {
   @override
-  State<_Widget> createState() => _State();
+  _State createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends ConsumerState<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
 
@@ -106,7 +108,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   bool _validateEmailAddress({bool showSnackBarOnFailure = true}) {
-    if (!LunaValidator().email(_emailController.text)) {
+    if (!ref.watch(validatorProvider).email(_emailController.text)) {
       if (showSnackBarOnFailure) {
         showLunaErrorSnackBar(
           title: 'settings.InvalidEmail'.tr(),

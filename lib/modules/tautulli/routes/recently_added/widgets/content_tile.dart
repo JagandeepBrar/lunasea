@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliRecentlyAddedContentTile extends StatefulWidget {
@@ -72,7 +73,7 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
         TextSpan(
           children: [
             TextSpan(text: 'S${widget.recentlyAdded.parentMediaIndex}'),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: 'E${widget.recentlyAdded.mediaIndex}: '),
             TextSpan(
               text: widget.recentlyAdded.title,
@@ -98,7 +99,7 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
         TextSpan(
           children: [
             TextSpan(text: widget.recentlyAdded.title),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: widget.recentlyAdded.parentTitle),
           ],
         ),

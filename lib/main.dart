@@ -4,14 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-
-import 'core/cache/image_cache/image_cache.dart';
-import 'system/localization.dart';
-import 'system/network/network.dart';
-import 'system/quick_actions/quick_actions.dart';
-import 'system/window_manager/window_manager.dart';
-import 'system/platform.dart';
-import 'modules/dashboard/routes/dashboard/route.dart' show HomeRouter;
+import 'package:lunasea/core/cache/image_cache/image_cache.dart';
+import 'package:lunasea/firebase/core.dart';
+import 'package:lunasea/firebase/firestore.dart';
+import 'package:lunasea/firebase/messaging.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
+    show HomeRouter;
+import 'package:lunasea/system/localization.dart';
+import 'package:lunasea/system/network/network.dart';
+import 'package:lunasea/system/quick_actions/quick_actions.dart';
+import 'package:lunasea/system/window_manager/window_manager.dart';
+import 'package:lunasea/system/platform.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 ///
@@ -106,8 +109,8 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _initNotifications() async {
-    LunaFirebaseMessaging _messaging = LunaFirebaseMessaging();
-    LunaFirebaseFirestore _firestore = LunaFirebaseFirestore();
+    final _messaging = LunaFirebaseMessaging();
+    final _firestore = LunaFirebaseFirestore();
     await _messaging.requestNotificationPermissions();
 
     _firestore.addDeviceToken();

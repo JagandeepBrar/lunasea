@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/router/module_router.dart';
-import '../../../core/router/page_router.dart';
-import '../../../core/router/router.dart';
-import '../../../vendor.dart';
-import 'dashboard/route.dart';
+import 'package:lunasea/core/router/module_router.dart';
+import 'package:lunasea/core/router/page_router.dart';
+import 'package:lunasea/core/router/router.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart';
 
 enum Routes {
   HOME,

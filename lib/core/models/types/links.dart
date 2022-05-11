@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 
 enum LunaLinks {
   BUILDS,
@@ -42,5 +43,5 @@ extension LunaLinksExtension on LunaLinks {
     }
   }
 
-  Future<void> launch() async => this.url.lunaOpenGenericLink();
+  Future<void> launch() async => this.url.openLink();
 }

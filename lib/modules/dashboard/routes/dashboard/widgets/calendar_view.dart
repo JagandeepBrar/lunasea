@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/database/database.dart';
-import '../../../../../core/extensions.dart';
-import '../../../../../ui/ui.dart';
-import '../../../../../vendor.dart';
-import '../../../core/adapters/calendar_starting_day.dart';
-import '../../../core/adapters/calendar_starting_size.dart';
-import '../../../core/api/data/abstract.dart';
-import '../../../core/api/data/lidarr.dart';
-import '../../../core/api/data/radarr.dart';
-import '../../../core/api/data/sonarr.dart';
-import '../../../core/database.dart';
-import '../../../core/state.dart';
-import 'content_block.dart';
-import 'navigation_bar.dart';
+import 'package:lunasea/core/database/database.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/sonarr.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class CalendarView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchResultTile extends StatelessWidget {
@@ -27,7 +28,7 @@ class SearchResultTile extends StatelessWidget {
   TextSpan _subtitle1() {
     return TextSpan(children: [
       TextSpan(text: data.size.lunaBytesToString()),
-      TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+      TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: data.category),
     ]);
   }

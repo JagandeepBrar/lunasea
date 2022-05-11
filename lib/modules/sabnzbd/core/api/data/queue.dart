@@ -1,4 +1,5 @@
-import '../../../../../core.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 
 class SABnzbdQueueData {
   String name;
@@ -37,7 +38,7 @@ class SABnzbdQueueData {
             ? '―'
             : timeLeft;
     String size = '${sizeTotal - sizeLeft}/$sizeTotal MB';
-    String paddedBullet = LunaUI.TEXT_BULLET.lunaPad();
+    String paddedBullet = LunaUI.TEXT_BULLET.pad();
     return '$time$paddedBullet$size$paddedBullet$percentageDone%$paddedBullet$formattedCategory';
   }
 

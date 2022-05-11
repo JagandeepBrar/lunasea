@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../../../../system/quick_actions/quick_actions.dart';
+import 'package:lunasea/system/quick_actions/quick_actions.dart';
 
 class SettingsConfigurationQuickActionsRouter extends SettingsPageRouter {
   SettingsConfigurationQuickActionsRouter()

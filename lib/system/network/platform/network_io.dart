@@ -1,7 +1,9 @@
 import 'dart:io';
 
-import '../../../../vendor.dart';
-import '../../../core/database/luna_database.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+
+// ignore: always_use_package_imports
 import '../network.dart';
 
 bool isPlatformSupported() => true;

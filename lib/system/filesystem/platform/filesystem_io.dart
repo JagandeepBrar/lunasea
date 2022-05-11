@@ -5,11 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../ui/ui.dart';
-import '../../../core/utilities/logger.dart';
-import '../../platform.dart';
-import '../file.dart';
-import '../filesystem.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/system/platform.dart';
+import 'package:lunasea/system/filesystem/file.dart';
+import 'package:lunasea/system/filesystem/filesystem.dart';
 
 bool isPlatformSupported() {
   final platform = LunaPlatform();

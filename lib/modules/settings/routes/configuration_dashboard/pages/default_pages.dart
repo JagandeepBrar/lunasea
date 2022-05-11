@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-import '../../../../dashboard/core/database.dart';
-import '../../../../dashboard/core/dialogs.dart';
-import '../../../../dashboard/routes/dashboard/widgets/navigation_bar.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/dialogs.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class SettingsConfigurationDashboardDefaultPagesRouter
     extends SettingsPageRouter {

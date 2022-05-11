@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/extensions.dart';
-import '../../../../../ui/ui.dart';
-import '../../../core/api/data/abstract.dart';
-import '../../../core/database.dart';
-import '../../../core/state.dart';
-import 'content_block.dart';
-import 'navigation_bar.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class ScheduleView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;

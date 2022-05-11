@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAPIHelper {
@@ -28,7 +29,7 @@ class RadarrAPIHelper {
             showLunaSuccessSnackBar(
               title:
                   movieCopy.monitored! ? 'Monitoring' : 'No Longer Monitoring',
-              message: lunaSafeString(movie.title),
+              message: movie.title.uiSafe(),
             );
           return true;
         });
@@ -63,7 +64,7 @@ class RadarrAPIHelper {
           .refreshMovie(movieIds: [movie.id!]).then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(
-              title: 'Refreshing...', message: lunaSafeString(movie.title));
+              title: 'Refreshing...', message: movie.title.uiSafe());
         return true;
       }).catchError((error, stack) {
         LunaLogger()
@@ -111,7 +112,7 @@ class RadarrAPIHelper {
               'Movie Added',
               if (searchForMovie) '(Searching...)',
             ].join(' '),
-            message: lunaSafeString(movie.title),
+            message: movie.title.uiSafe(),
           );
         return movie;
       }).catchError((error, stack) {
@@ -241,7 +242,7 @@ class RadarrAPIHelper {
         if (showSnackbar)
           showLunaSuccessSnackBar(
             title: 'File Deleted',
-            message: lunaSafeString(movieFile.relativePath),
+            message: movieFile.relativePath.uiSafe(),
           );
         return true;
       }).catchError((error, stack) {
@@ -275,7 +276,7 @@ class RadarrAPIHelper {
           if (showSnackbar)
             showLunaSuccessSnackBar(
               title: 'Updated Movie',
-              message: lunaSafeString(movie.title),
+              message: movie.title.uiSafe(),
             );
           return true;
         });
@@ -318,7 +319,7 @@ class RadarrAPIHelper {
                 if (RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data)
                   '(With Files)',
               ].join(' '),
-              message: lunaSafeString(movie.title),
+              message: movie.title.uiSafe(),
             );
           return true;
         });
@@ -406,7 +407,7 @@ class RadarrAPIHelper {
         if (showSnackbar)
           showLunaSuccessSnackBar(
             title: 'Downloading Release...',
-            message: lunaSafeString(release.title),
+            message: release.title.uiSafe(),
           );
         return true;
       }).catchError((error, stack) {
@@ -436,7 +437,7 @@ class RadarrAPIHelper {
           .then((tag) {
         showLunaSuccessSnackBar(
           title: 'radarr.AddedTag'.tr(),
-          message: lunaSafeString(tag.label),
+          message: tag.label.uiSafe(),
         );
         return true;
       }).catchError((error, stack) {
@@ -466,7 +467,9 @@ class RadarrAPIHelper {
           .delete(id: tag.id!)
           .then((_) {
         showLunaSuccessSnackBar(
-            title: 'Deleted Tag', message: lunaSafeString(tag.label));
+          title: 'Deleted Tag',
+          message: tag.label.uiSafe(),
+        );
         return true;
       }).catchError((error, stack) {
         LunaLogger().error('Failed to add tag: ${tag.id}', error, stack);
@@ -494,11 +497,11 @@ class RadarrAPIHelper {
             importMode: importMode,
           )
           .then((_) {
-        String? message = '${files.length} Files';
-        if (files.length == 1) message = files[0].path;
+        String message = '${files.length} Files';
+        if (files.length == 1) message = files[0].path!;
         showLunaSuccessSnackBar(
           title: 'Importing... (${importMode.value.toTitleCase()})',
-          message: lunaSafeString(message),
+          message: message,
         );
         return true;
       }).catchError((error, stack) {

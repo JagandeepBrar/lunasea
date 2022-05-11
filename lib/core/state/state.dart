@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../modules/dashboard/core/state.dart' as dashboard;
-import '../../modules/lidarr/core/state.dart';
-import '../../modules/radarr/core/state.dart';
-import '../../modules/search/core/state.dart';
-import '../../modules/settings/core/state.dart';
-import '../../modules/sonarr/core/state.dart';
-import '../../modules/overseerr/core/state.dart';
-import '../../modules/sabnzbd/core/state.dart';
-import '../../modules/nzbget/core/state.dart';
-import '../../modules/tautulli/core/state.dart';
-import '../modules.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard;
+import 'package:lunasea/modules/lidarr/core/state.dart';
+import 'package:lunasea/modules/radarr/core/state.dart';
+import 'package:lunasea/modules/search/core/state.dart';
+import 'package:lunasea/modules/settings/core/state.dart';
+import 'package:lunasea/modules/sonarr/core/state.dart';
+import 'package:lunasea/modules/overseerr/core/state.dart';
+import 'package:lunasea/modules/sabnzbd/core/state.dart';
+import 'package:lunasea/modules/nzbget/core/state.dart';
+import 'package:lunasea/modules/tautulli/core/state.dart';
+import 'package:lunasea/core/modules.dart';
 
 class LunaState {
   LunaState._();

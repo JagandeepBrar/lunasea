@@ -14,12 +14,13 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-import '../modules/dashboard/core/database.dart';
-import '../modules/dashboard/core/state.dart' as dashboard_state;
-import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
-import '../modules/wake_on_lan/api/wake_on_lan.dart';
-import '../system/environment.dart';
-import '../system/flavor.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
+import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
+    as dashboard_home;
+import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/flavor.dart';
 
 part 'modules.g.dart';
 

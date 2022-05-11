@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/validator.dart';
 
-class SettingsAccountSignedOutPage extends StatefulWidget {
+class SettingsAccountSignedOutPage extends ConsumerStatefulWidget {
   final ScrollController scrollController;
 
   const SettingsAccountSignedOutPage({
@@ -11,10 +13,10 @@ class SettingsAccountSignedOutPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _State();
+  _State createState() => _State();
 }
 
-class _State extends State<SettingsAccountSignedOutPage> {
+class _State extends ConsumerState<SettingsAccountSignedOutPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -123,7 +125,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
   }
 
   bool _validateEmailAddress({bool showSnackBarOnFailure = true}) {
-    if (!LunaValidator().email(_emailController.text)) {
+    if (!ref.watch(validatorProvider).email(_emailController.text)) {
       if (showSnackBarOnFailure)
         showLunaErrorSnackBar(
           title: 'settings.InvalidEmail'.tr(),

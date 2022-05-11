@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
-
-import '../../system/platform.dart';
+import 'package:lunasea/system/platform.dart';
 
 extension ProductDetailsExtension on ProductDetails {
   IconData get icon {

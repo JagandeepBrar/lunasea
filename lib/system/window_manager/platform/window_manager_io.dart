@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/system/platform.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../../platform.dart';
+// ignore: always_use_package_imports
 import '../window_manager.dart';
 
 bool isPlatformSupported() => LunaPlatform().isDesktop;

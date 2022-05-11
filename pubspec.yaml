@@ -55,7 +55,7 @@ dependencies:
   table_calendar: ^3.0.5
   transparent_image: ^2.0.0
   tuple: ^2.0.0
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.1
   uuid: ^3.0.6
   wake_on_lan: ^3.0.0
   window_manager: ^0.2.1

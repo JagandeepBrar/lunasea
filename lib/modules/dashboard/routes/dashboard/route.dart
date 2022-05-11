@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/database/luna_database.dart';
-import '../../../../core/modules.dart';
-import '../../../../ui/ui.dart';
-import '../../../../vendor.dart';
-import '../../core/database.dart';
-import '../routes.dart';
-import 'pages/calendar.dart';
-import 'pages/modules.dart';
-import 'widgets/switch_view_action.dart';
-import 'widgets/navigation_bar.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/routes/routes.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/pages/calendar.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/pages/modules.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/switch_view_action.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class HomeRouter extends DashboardPageRouter {
   HomeRouter() : super('/dashboard');

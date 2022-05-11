@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistoryTile extends StatefulWidget {
@@ -35,9 +36,9 @@ class _State extends State<SABnzbdHistoryTile> {
   TextSpan _subtitle1() {
     return TextSpan(children: [
       TextSpan(text: widget.data.completeTimeString),
-      TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+      TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: widget.data.sizeReadable),
-      TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+      TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: widget.data.category),
     ]);
   }

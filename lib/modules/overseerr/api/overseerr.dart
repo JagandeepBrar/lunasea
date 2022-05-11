@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'models.dart';
+import 'package:lunasea/modules/overseerr/api/models.dart';
 
 part 'overseerr.g.dart';
 

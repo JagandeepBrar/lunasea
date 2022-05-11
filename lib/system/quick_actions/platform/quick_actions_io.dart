@@ -1,8 +1,9 @@
 import 'package:quick_actions/quick_actions.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/system/platform.dart';
 
-import '../../../core/database/luna_database.dart';
-import '../../../core/modules.dart';
-import '../../platform.dart';
+// ignore: always_use_package_imports
 import '../quick_actions.dart';
 
 bool isPlatformSupported() => LunaPlatform().isMobile;

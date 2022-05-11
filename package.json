@@ -27,7 +27,7 @@
     "generate:localization": "dart ./scripts/generate_localization.dart",
     "git:ignore": "npm run git:ignore:environment && npm run git:ignore:firebase",
     "git:ignore:environment": "git update-index --skip-worktree .env",
-    "git:ignore:firebase": "git update-index --skip-worktree lib/firebase_options.dart",
+    "git:ignore:firebase": "git update-index --skip-worktree lib/firebase/options.dart",
     "prepare": "husky install && npm run git:ignore && flutter pub get",
     "prepare:keychain": "npm run prepare:keychain:ios && npm run prepare:keychain:macos",
     "prepare:keychain:ios": "cd ios && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",

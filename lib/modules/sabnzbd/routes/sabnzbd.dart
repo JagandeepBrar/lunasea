@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
@@ -112,8 +113,7 @@ class _State extends State<SABnzbd> {
       switch (values[1]) {
         case 'web_gui':
           ProfileHiveObject profile = LunaProfile.current;
-          await profile.sabnzbdHost
-              ?.lunaOpenGenericLink(headers: profile.sabnzbdHeaders);
+          await profile.sabnzbdHost?.openLink();
           break;
         case 'add_nzb':
           _addNZB();

@@ -89,22 +89,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             onTap: () async =>
                 SettingsConfigurationNetworkRouter().navigateTo(context),
           ),
-        if (LunaPlatform().isIOS)
-          LunaDatabaseValue.SELECTED_BROWSER.listen(
-            builder: (context, box, widget) {
-              LunaDatabaseValue _db = LunaDatabaseValue.SELECTED_BROWSER;
-              return LunaBlock(
-                title: 'settings.OpenLinksIn'.tr(),
-                body: [TextSpan(text: (_db.data as LunaBrowser?).name)],
-                trailing: LunaIconButton(icon: (_db.data as LunaBrowser?).icon),
-                onTap: () async {
-                  Tuple2<bool, LunaBrowser?> result =
-                      await SettingsDialogs().changeBrowser(context);
-                  if (result.item1) _db.put(result.item2);
-                },
-              );
-            },
-          ),
         if (LunaQuickActions.isSupported)
           LunaBlock(
             title: 'settings.QuickActions'.tr(),

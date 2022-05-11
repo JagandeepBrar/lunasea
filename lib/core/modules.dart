@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/core.dart';
 
@@ -621,13 +622,13 @@ extension LunaModuleExtension on LunaModule {
                 LunaButton.text(
                   text: 'GitHub',
                   icon: LunaBrandIcons.github,
-                  onTap: this.github!.lunaOpenGenericLink,
+                  onTap: this.github!.openLink,
                 ),
               if (this.website != null)
                 LunaButton.text(
                   text: 'lunasea.Website'.tr(),
                   icon: Icons.home_rounded,
-                  onTap: this.website!.lunaOpenGenericLink,
+                  onTap: this.website!.openLink,
                 ),
             ],
           );

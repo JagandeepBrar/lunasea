@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 
 class ExternalModulesModuleTile extends StatelessWidget {
   final ExternalModuleHiveObject? module;
@@ -15,7 +16,7 @@ class ExternalModulesModuleTile extends StatelessWidget {
       title: module!.displayName,
       body: [TextSpan(text: module!.host)],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => module!.host!.lunaOpenGenericLink(),
+      onTap: module!.host!.openLink,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 import 'package:lunasea/system/filesystem/file.dart';
@@ -113,8 +114,7 @@ class _State extends State<NZBGet> {
       switch (values[1]) {
         case 'web_gui':
           ProfileHiveObject profile = LunaProfile.current;
-          await profile.nzbgetHost
-              ?.lunaOpenGenericLink(headers: profile.nzbgetHeaders);
+          await profile.nzbgetHost?.openLink();
           break;
         case 'add_nzb':
           _addNZB();

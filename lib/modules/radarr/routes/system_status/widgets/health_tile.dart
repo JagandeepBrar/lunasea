@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrHealthCheckTile extends StatelessWidget {
@@ -20,7 +21,7 @@ class RadarrHealthCheckTile extends StatelessWidget {
       ],
       expandedTableContent: expandedTable(),
       expandedHighlightedNodes: highlightedNodes(),
-      onLongPress: healthCheck.wikiUrl!.lunaOpenGenericLink,
+      onLongPress: healthCheck.wikiUrl!.openLink,
     );
   }
 

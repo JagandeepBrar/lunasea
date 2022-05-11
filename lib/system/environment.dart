@@ -1,5 +1,5 @@
 import 'package:envify/envify.dart';
-import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/system/flavor.dart';
 
@@ -16,7 +16,7 @@ class LunaEnvironment {
 
   Future<void> openCommitHistory() async {
     String _base = 'https://github.com/JagandeepBrar/LunaSea/commits';
-    return '$_base/$commit'.lunaOpenGenericLink();
+    return '$_base/$commit'.openLink();
   }
 
   /// Returns if the given flavor is "lower" than the given environment.

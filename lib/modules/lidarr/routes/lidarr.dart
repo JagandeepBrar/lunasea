@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class Lidarr extends StatefulWidget {
@@ -144,8 +145,7 @@ class _State extends State<Lidarr> {
       switch (values[1]) {
         case 'web_gui':
           ProfileHiveObject profile = LunaProfile.current;
-          await profile.lidarrHost
-              ?.lunaOpenGenericLink(headers: profile.lidarrHeaders);
+          await profile.lidarrHost?.openLink();
           break;
         case 'update_library':
           await _api

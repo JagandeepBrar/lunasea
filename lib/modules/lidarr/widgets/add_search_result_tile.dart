@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAddSearchResultTile extends StatelessWidget {
@@ -32,7 +33,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
               title: 'No Discogs Page Available',
               message: 'No Discogs URL is available',
             );
-          data.discogsLink!.lunaOpenGenericLink();
+          data.discogsLink!.openLink();
         },
       );
 

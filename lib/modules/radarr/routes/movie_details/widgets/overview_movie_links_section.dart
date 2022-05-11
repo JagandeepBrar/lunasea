@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
@@ -69,8 +70,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
               ),
               borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-              onTap: () async =>
-                  await movie?.youTubeTrailerId?.lunaOpenYouTube(),
+              onTap: () async => await movie?.youTubeTrailerId?.openYouTube(),
             ),
             height: 50.0,
             margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),

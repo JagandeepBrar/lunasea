@@ -38,6 +38,8 @@
     "lunasea.Clear": "Clear",
     "lunasea.Close": "Close",
     "lunasea.ComingSoon": "Coming Soon",
+    "lunasea.Copied": "Copied",
+    "lunasea.CopiedContentToTheClipboard": "Copied Content to the Clipboard",
     "lunasea.Dashboard": "Dashboard",
     "lunasea.DaysAgo": "{} Days Ago",
     "lunasea.Delete": "Delete",

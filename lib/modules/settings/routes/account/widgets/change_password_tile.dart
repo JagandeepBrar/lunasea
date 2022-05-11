@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class ChangePasswordTile extends StatefulWidget {

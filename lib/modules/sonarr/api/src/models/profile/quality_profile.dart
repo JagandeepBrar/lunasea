@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'quality_profile_item.dart';
+import 'package:lunasea/modules/sonarr/api/src/models/profile/quality_profile_item.dart';
 
 part 'quality_profile.g.dart';
 

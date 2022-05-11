@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrQueueTileType {
@@ -89,11 +90,11 @@ class _State extends State<SonarrQueueTile> {
         TextSpan(
           text: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(
           text: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(
           text: widget.queueRecord.lunaTimeLeft(),
         ),
@@ -111,7 +112,7 @@ class _State extends State<SonarrQueueTile> {
       ),
       children: [
         TextSpan(text: widget.queueRecord.lunaPercentage()),
-        TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_EMDASH.pad()),
         TextSpan(text: _params.item1),
       ],
     );

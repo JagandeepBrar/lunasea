@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
-
-import '../../dashboard/routes/dashboard/route.dart' as dashboard_home;
+import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
+    as dashboard_home;
 
 class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;
@@ -51,9 +52,9 @@ class _State extends State<LidarrReleasesTile> {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-      TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+      TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: widget.release.indexer),
-      TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+      TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: widget.release.ageHours.asTimeAgo),
     ]);
   }
@@ -62,7 +63,7 @@ class _State extends State<LidarrReleasesTile> {
     return TextSpan(
       children: [
         TextSpan(text: widget.release.quality),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.size.lunaBytesToString()),
       ],
     );

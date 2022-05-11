@@ -1,3 +1,4 @@
+// ignore: always_use_package_imports
 import 'platform/window_manager_stub.dart'
     if (dart.library.io) 'platform/window_manager_io.dart'
     if (dart.library.html) 'platform/window_manager_html.dart';

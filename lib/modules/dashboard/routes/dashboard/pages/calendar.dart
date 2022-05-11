@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/extensions.dart';
-import '../../../../../ui/ui.dart';
-import '../../../../../core/utilities/logger.dart';
-import '../../../../../vendor.dart';
-import '../../../core/adapters/calendar_starting_type.dart';
-import '../../../core/api/data/abstract.dart';
-import '../../../core/state.dart';
-import '../widgets/calendar_view.dart';
-import '../widgets/schedule_view.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/calendar_view.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/schedule_view.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);

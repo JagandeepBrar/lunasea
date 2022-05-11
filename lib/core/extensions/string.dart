@@ -1,46 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-extension StringExtension on String {
-  /// Pad a string on both sides with the spacer value [count] amount of times.
-  /// Count is the amount of times to add the [padding] on each time, and not the maximum total width of the string unlike padLeft and padRight.
-  ///
-  /// Example "LunaSea" with count 2 and padding "1" would return "11LunaSea11".
-  String lunaPad([int count = 1, String padding = ' ']) {
-    return this
-        .padLeft((this.length + count), padding)
-        .padRight((this.length + (count * 2)), padding);
-  }
-
-  /// Returns a string with all first letters of each word capitalized.
-  String toTitleCase() {
-    String _wordDelimiter = ' ';
-    List<String> split = this.split(_wordDelimiter);
-
-    for (var i = 0; i < split.length; i++) {
-      String s = split[i];
-      if (s.length == 1)
-        s = s.toUpperCase();
-      else
-        s = s.substring(0, 1).toUpperCase() + s.substring(1);
-      split[i] = s;
-    }
-
-    return split.join(_wordDelimiter);
-  }
-
-  Future<void> copyToClipboard({
-    bool showSnackBar = true,
-  }) async {
-    await Clipboard.setData(ClipboardData(text: this));
-    if (showSnackBar)
-      showLunaSuccessSnackBar(
-        title: 'Copied',
-        message: 'Copied content to the clipboard',
-      );
-  }
-}
 
 extension StringLinksExtension on String {
   Future<void> _openLink(String url, {Map<String, String>? headers}) async {
@@ -73,10 +32,6 @@ extension StringLinksExtension on String {
   /// Attach this string as an ID/title to IMDB and attempt to launch it as a URL.
   Future<void> lunaOpenIMDB() async =>
       await _openLink('https://www.imdb.com/title/$this');
-
-  /// Attach this string as a video ID to YouTube and attempt to launch it as a URL.
-  Future<void> lunaOpenYouTube() async =>
-      await _openLink('https://www.youtube.com/watch?v=$this');
 
   /// Attach this string as a movie ID to TheMovieDB and attempt to launch it as a URL.
   Future<void> lunaOpenTheMovieDBMovie() async =>

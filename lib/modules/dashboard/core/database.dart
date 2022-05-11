@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/database/database.dart';
-import '../../../core/database/module_database.dart';
-import '../../../core/utilities/logger.dart';
-import '../../../vendor.dart';
-import 'adapters/calendar_starting_day.dart';
-import 'adapters/calendar_starting_size.dart';
-import 'adapters/calendar_starting_type.dart';
+import 'package:lunasea/core/database/database.dart';
+import 'package:lunasea/core/database/module_database.dart';
+import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 
 enum DashboardDatabaseValue {
   NAVIGATION_INDEX,

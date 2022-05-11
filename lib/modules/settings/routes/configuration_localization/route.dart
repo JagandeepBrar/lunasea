@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../../../../system/localization.dart';
+import 'package:lunasea/system/localization.dart';
 
 class SettingsConfigurationLocalizationRouter extends SettingsPageRouter {
   SettingsConfigurationLocalizationRouter()

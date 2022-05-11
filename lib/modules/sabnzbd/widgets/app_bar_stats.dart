@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
@@ -38,7 +39,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
                   ),
                   const TextSpan(text: '\n'),
                   TextSpan(text: data.item3 == '0:00:00' ? '―' : data.item3),
-                  TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                  TextSpan(text: LunaUI.TEXT_BULLET.pad()),
                   TextSpan(text: data.item4 == '0.0 B' ? '―' : data.item4)
                 ],
               ),

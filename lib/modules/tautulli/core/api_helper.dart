@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliAPIHelper {
@@ -180,7 +181,7 @@ class TautulliAPIHelper {
           message: [
             session.friendlyName,
             session.title,
-          ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+          ].join(LunaUI.TEXT_EMDASH.pad()),
         );
         return true;
       }).catchError((error, stack) {

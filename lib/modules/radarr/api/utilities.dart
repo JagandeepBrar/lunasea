@@ -1,7 +1,7 @@
 /// Library containing all utility functions for Radarr data.
 library radarr_utilities;
 
-import 'types.dart';
+import 'package:lunasea/modules/radarr/api/types.dart';
 
 /// [RadarrUtilities] gives access to static, functional operations. These are mainly used for the (de)serialization of received JSON data.
 ///

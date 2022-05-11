@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../ui/ui.dart';
-import '../../../../../vendor.dart';
-import '../../../core/adapters/calendar_starting_type.dart';
-import '../../../core/state.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart';
 
 class SwitchViewAction extends StatefulWidget {
   final PageController? pageController;

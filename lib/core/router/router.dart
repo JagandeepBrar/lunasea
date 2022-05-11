@@ -14,7 +14,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-import '../../modules/dashboard/routes/routes.dart' as dashboard;
+import 'package:lunasea/modules/dashboard/routes/routes.dart' as dashboard;
 
 class LunaRouter {
   static FluroRouter router = FluroRouter();

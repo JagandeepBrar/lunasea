@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'language_profile_item_language.dart';
+import 'package:lunasea/modules/sonarr/api/src/models/profile/language_profile_item_language.dart';
 
 part 'language_profile_item.g.dart';
 

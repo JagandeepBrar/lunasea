@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/firestore.dart';
+import 'package:lunasea/firebase/storage.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/encryption.dart';
 
-class SettingsAccountRestoreConfigurationTile extends StatefulWidget {
+class SettingsAccountRestoreConfigurationTile extends ConsumerStatefulWidget {
   const SettingsAccountRestoreConfigurationTile({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _State();
+  _State createState() => _State();
 }
 
-class _State extends State<SettingsAccountRestoreConfigurationTile> {
+class _State extends ConsumerState<SettingsAccountRestoreConfigurationTile> {
   LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
 
   void updateState(LunaLoadingState state) {
@@ -56,14 +59,15 @@ class _State extends State<SettingsAccountRestoreConfigurationTile> {
   Future<void> _decryptBackup(BuildContext context, String encrypted) async {
     Tuple2<bool, String> _key = await SettingsDialogs().decryptBackup(context);
     if (_key.item1) {
-      String decrypted = LunaEncryption().decrypt(_key.item2, encrypted);
-      if (decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
+      try {
+        final encryption = ref.watch(encryptionProvider);
+        String decrypted = encryption.decrypt(_key.item2, encrypted);
         await LunaConfiguration().import(context, decrypted);
         showLunaSuccessSnackBar(
           title: 'settings.RestoreFromCloudSuccess'.tr(),
           message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
         );
-      } else {
+      } catch (_) {
         showLunaErrorSnackBar(
           title: 'settings.RestoreFromCloudFailure'.tr(),
           message: 'lunasea.IncorrectEncryptionKey'.tr(),

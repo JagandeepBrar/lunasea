@@ -1,44 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/system/filesystem/filesystem.dart';
+import 'package:lunasea/utils/encryption.dart';
 
-import '../../../../../system/filesystem/filesystem.dart';
-
-class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
+class SettingsSystemBackupRestoreBackupTile extends ConsumerWidget {
   const SettingsSystemBackupRestoreBackupTile({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return LunaBlock(
       title: 'settings.BackupToDevice'.tr(),
       body: [TextSpan(text: 'settings.BackupToDeviceDescription'.tr())],
       trailing: const LunaIconButton(icon: Icons.upload_rounded),
-      onTap: () async => _backup(context),
+      onTap: () async => _backup(context, ref),
     );
   }
 
-  Future<void> _backup(BuildContext context) async {
+  Future<void> _backup(BuildContext context, WidgetRef ref) async {
     try {
-      Tuple2<bool, String> _values =
-          await SettingsDialogs().backupConfiguration(context);
+      final _values = await SettingsDialogs().backupConfiguration(context);
       if (_values.item1) {
+        final encryption = ref.watch(encryptionProvider);
         String data = LunaConfiguration().export();
-        String encrypted = LunaEncryption().encrypt(_values.item2, data);
+        String encrypted = encryption.encrypt(_values.item2, data);
         String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
-        if (encrypted != LunaEncryption.ENCRYPTION_FAILURE) {
-          bool result = await LunaFileSystem().save(
-            context,
-            '$name.lunasea',
-            utf8.encode(encrypted),
+        bool result = await LunaFileSystem().save(
+          context,
+          '$name.lunasea',
+          utf8.encode(encrypted),
+        );
+        if (result) {
+          showLunaSuccessSnackBar(
+            title: 'settings.BackupToCloudSuccess'.tr(),
+            message: '$name.lunasea',
           );
-          if (result) {
-            showLunaSuccessSnackBar(
-              title: 'settings.BackupToCloudSuccess'.tr(),
-              message: '$name.lunasea',
-            );
-          }
         }
       }
     } catch (error, stack) {

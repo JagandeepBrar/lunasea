@@ -1,8 +1,7 @@
 import 'package:envify/envify.dart';
-
-import '../../core/extensions.dart';
-import '../../vendor.dart';
-import 'flavor.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/system/flavor.dart';
 
 part 'environment.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-
-import '../../system/environment.dart';
-import '../../system/flavor.dart';
+import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/flavor.dart';
 
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
@@ -97,7 +97,7 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
           (index) {
             String _body = changes[index]
                 .changes
-                .map((s) => '${LunaUI.TEXT_BULLET.lunaPad()}$s')
+                .map((s) => '${LunaUI.TEXT_BULLET.pad()}$s')
                 .join('\n');
             return LunaTableContent(
               title: changes[index].module,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPIController {
@@ -21,7 +22,7 @@ class SonarrAPIController {
         if (showSnackbar) {
           showLunaSuccessSnackBar(
             title: 'sonarr.DownloadingRelease'.tr(),
-            message: lunaSafeString(release.title),
+            message: release.title.uiSafe(),
           );
         }
         return true;

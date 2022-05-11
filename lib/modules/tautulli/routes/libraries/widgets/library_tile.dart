@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLibrariesLibraryTile extends StatelessWidget {
@@ -20,7 +21,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         TextSpan(
           children: [
             TextSpan(text: _plays == 1 ? '1 Play' : '$_plays Plays'),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: library.duration!.lunaTimestampWords),
           ],
         ),

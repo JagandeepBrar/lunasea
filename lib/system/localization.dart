@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 
-import 'environment.dart';
-import 'flavor.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/flavor.dart';
+import 'package:lunasea/vendor.dart';
 
 class LunaLocalization {
   static const fileDirectory = 'assets/localization';

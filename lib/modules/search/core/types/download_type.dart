@@ -3,8 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/search.dart';
-
-import '../../../../system/filesystem/filesystem.dart';
+import 'package:lunasea/system/filesystem/filesystem.dart';
 
 enum SearchDownloadType {
   NZBGET,

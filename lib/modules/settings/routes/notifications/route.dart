@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsNotificationsRouter extends SettingsPageRouter {

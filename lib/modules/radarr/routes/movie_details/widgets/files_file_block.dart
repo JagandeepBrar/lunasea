@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsFilesFileBlock extends StatefulWidget {
@@ -35,7 +36,7 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
             widget.file.mediaInfo?.lunaAudioCodec,
             if (widget.file.mediaInfo?.audioChannels != null)
               widget.file.mediaInfo?.audioChannels.toString(),
-          ].join(LunaUI.TEXT_BULLET.lunaPad()),
+          ].join(LunaUI.TEXT_BULLET.pad()),
         ),
         LunaTableContent(
           title: 'size',

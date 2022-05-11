@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 
 extension DateTimeExtension on DateTime {
   /// Get the floor of a date.
@@ -69,7 +70,7 @@ extension DateTimeExtension on DateTime {
     bool shortMonth = false,
   }) {
     String _format = shortMonth ? 'MMM dd, y' : 'MMMM dd, y';
-    _format += timeOnNewLine ? '\n' : sameLineDelimiter.lunaPad();
+    _format += timeOnNewLine ? '\n' : sameLineDelimiter.pad();
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'HH:mm' : 'hh:mm';
     _format += showSeconds ? ':ss' : '';
     _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? '' : ' a';

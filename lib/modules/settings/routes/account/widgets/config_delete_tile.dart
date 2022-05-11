@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/firestore.dart';
+import 'package:lunasea/firebase/storage.dart';
+import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountDeleteConfigurationTile extends StatefulWidget {

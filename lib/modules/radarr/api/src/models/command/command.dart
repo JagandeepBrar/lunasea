@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import '../../../utilities.dart';
-import 'command_body.dart';
+import 'package:lunasea/modules/radarr/api/utilities.dart';
+import 'package:lunasea/modules/radarr/api/src/models/command/command_body.dart';
 
 part 'command.g.dart';
 

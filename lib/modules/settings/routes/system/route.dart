@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
+import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../../../../core/cache/image_cache/image_cache.dart';
-import '../../../../system/environment.dart';
-import '../../../../system/flavor.dart';
+import 'package:lunasea/core/cache/image_cache/image_cache.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/flavor.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');

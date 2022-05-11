@@ -1,6 +1,7 @@
 /// Library containing all utilty functions for Tautulli data.
 library tautulli_utilities;
 
+// ignore: always_use_package_imports
 import './types.dart';
 
 /// [TautulliUtilities] gives access to static, functional operations. These are mainly used for the (de)serialization of received JSON data.

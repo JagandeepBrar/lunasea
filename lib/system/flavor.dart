@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../ui/ui.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 const _EDGE = 'edge';
 const _BETA = 'beta';

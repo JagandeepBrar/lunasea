@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import '../../../models.dart';
-import '../../../types.dart';
-import '../../../utilities.dart';
+import 'package:lunasea/modules/radarr/api/utilities.dart';
+import 'package:lunasea/modules/radarr/api/models.dart';
+import 'package:lunasea/modules/radarr/api/types.dart';
 
 part 'queue_record.g.dart';
 

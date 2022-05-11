@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'custom_format_specifications.dart';
+import 'package:lunasea/modules/radarr/api/src/models/custom_format/custom_format_specifications.dart';
 
 part 'custom_format.g.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliStatisticsUserTile extends StatefulWidget {
@@ -48,7 +49,7 @@ class _State extends State<TautulliStatisticsUserTile> {
                   : null,
             ),
           ),
-          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
           widget.data['total_duration'] != null
               ? TextSpan(
                   text: Duration(seconds: widget.data['total_duration'])

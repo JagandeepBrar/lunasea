@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
+import 'package:lunasea/utils/parser.dart';
 
 part 'media.g.dart';
 

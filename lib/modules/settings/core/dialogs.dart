@@ -1,17 +1,16 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
-import 'package:tuple/tuple.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/core/models/types/browser.dart';
+import 'package:lunasea/system/localization.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
-
-import '../../../core/database/luna_database.dart';
-import '../../../core/firebase/types/backup_document.dart';
-import '../../../core/models/types/browser.dart';
-import '../../../system/localization.dart';
-import '../../../ui/ui.dart';
-import '../../dashboard/core/adapters/calendar_starting_day.dart';
-import '../../dashboard/core/adapters/calendar_starting_size.dart';
-import '../../dashboard/core/adapters/calendar_starting_type.dart';
 
 class SettingsDialogs {
   Future<Tuple2<bool, int>> setDefaultOption(

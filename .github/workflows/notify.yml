@@ -1,0 +1,108 @@
+name: Notify
+
+on:
+  workflow_call:
+    inputs:
+      build-title:
+        required: true
+        type: string
+      flavor:
+        required: true
+        type: string
+      enable-android:
+        required: true
+        type: string
+      enable-ios:
+        required: true
+        type: string
+      enable-linux:
+        required: true
+        type: string
+      enable-macos:
+        required: true
+        type: string
+      enable-web:
+        required: true
+        type: string
+      enable-windows:
+        required: true
+        type: string
+
+    secrets:
+      DISCORD_WEBHOOK_EDGE:
+        required: true
+      DISCORD_WEBHOOK_BETA:
+        required: true
+      DISCORD_WEBHOOK_CANDIDATE:
+        required: true
+      DISCORD_WEBHOOK_STABLE:
+        required: true
+
+jobs:
+  discord:
+    name: Discord
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Webhook Channel
+        id: webhook
+        uses: actions/github-script@v6
+        env:
+          DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
+          DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+          DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
+          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
+          FLAVOR: ${{ inputs.flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const ref = process.env.FLAVOR || 'edge';
+            switch (ref) {
+              case 'beta': return process.env.DISCORD_WEBHOOK_BETA;
+              case 'candidate': return process.env.DISCORD_WEBHOOK_CANDIDATE;
+              case 'stable': return process.env.DISCORD_WEBHOOK_STABLE;
+              case 'edge':
+              default: return process.env.DISCORD_WEBHOOK_EDGE;
+            }
+
+      - name: Create Discord Message
+        id: message
+        uses: actions/github-script@v6
+        env:
+          BUILD_TITLE: ${{ inputs.build-title }}
+          ANDROID: ${{ inputs.enable-android }}
+          IOS: ${{ inputs.enable-ios }}
+          LINUX: ${{ inputs.enable-linux }}
+          MACOS: ${{ inputs.enable-macos }}
+          WEB: ${{ inputs.enable-web }}
+          WINDOWS: ${{ inputs.enable-windows }}
+        with:
+          result-encoding: string
+          script: |
+            const { ANDROID, IOS, LINUX, MACOS, WEB, WINDOWS } = process.env;
+            const url = `https://builds.lunasea.app/#${ process.env.BUILD_TITLE }/`;
+            let _base = `[Download](${url})`;
+            if ( ANDROID || IOS || LINUX || MACOS || WEB || WINDOWS) {
+              _base += '\n\nThis release is available on the following platforms: ';
+
+              const platforms = [];
+              if (ANDROID === 'true') platforms.push('Android');
+              if (IOS === 'true') platforms.push('iOS');
+              if (LINUX === 'true') platforms.push('Linux');
+              if (MACOS === 'true') platforms.push('macOS');
+              if (WEB === 'true') platforms.push('Web');
+              if (WINDOWS === 'true') platforms.push('Windows');
+
+              _base += platforms.map((p) => `**${p}**`).join(', ');
+            }
+            return _base;
+
+      - name: Send Discord Message
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ steps.webhook.outputs.result }}
+          username: LunaSea Support
+          avatar_url: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
+          noprefix: true
+          color: 0x4ECCA3
+          title: ${{ inputs.build-title }}
+          description: ${{ steps.message.outputs.result }}

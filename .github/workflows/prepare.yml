@@ -71,7 +71,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:android");
       
       - name: iOS
@@ -83,7 +83,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:ios");
       
       - name: Linux
@@ -95,7 +95,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:linux");
       
       - name: macOS
@@ -107,7 +107,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:macos");
       
       - name: Web
@@ -119,7 +119,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:web");
       
       - name: Windows
@@ -131,7 +131,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            if (process.env.EXISTS == "false") return true;
+            if (process.env.EXISTS === "false") return true;
             return process.env.MESSAGE.includes("platform:windows");
 
       - name: Log Platform List

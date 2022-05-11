@@ -67,6 +67,7 @@ runs:
       with:
         channel: stable
         cache: true
+        cache-key: ${{ github.sha }}
 
     - name: Install Java
       if: ${{ inputs.platform == 'android' }}

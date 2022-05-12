@@ -225,22 +225,22 @@ jobs:
     if: |
       always() &&
       !cancelled() &&
-      (needs.publish-android == 'success' || needs.publish-android == 'skipped') &&
-      (needs.publish-ios == 'success' || needs.publish-ios == 'skipped') &&
-      (needs.publish-linux == 'success' || needs.publish-linux == 'skipped') &&
-      (needs.publish-macos == 'success' || needs.publish-macos == 'skipped') &&
-      (needs.publish-web == 'success' || needs.publish-web == 'skipped') &&
-      (needs.publish-windows == 'success' || needs.publish-windows == 'skipped')
+      (needs.publish-android.result == 'success' || needs.publish-android.result == 'skipped') &&
+      (needs.publish-ios.result == 'success' || needs.publish-ios.result == 'skipped') &&
+      (needs.publish-linux.result == 'success' || needs.publish-linux.result == 'skipped') &&
+      (needs.publish-macos.result == 'success' || needs.publish-macos.result == 'skipped') &&
+      (needs.publish-web.result == 'success' || needs.publish-web.result == 'skipped') &&
+      (needs.publish-windows.result == 'success' || needs.publish-windows.result == 'skipped')
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
       build-title: ${{ needs.prepare.outputs.build-title }}
-      enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android == 'success' }}
-      enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios == 'success' }}
-      enable-linux: ${{ needs.prepare.outputs.enable-linux && needs.publish-linux == 'success' }}
-      enable-macos: ${{ needs.prepare.outputs.enable-macos && needs.publish-macos == 'success' }}
-      enable-web: ${{ needs.prepare.outputs.enable-web && needs.publish-web == 'success' }}
-      enable-windows: ${{ needs.prepare.outputs.enable-windows && needs.publish-windows == 'success' }}
+      enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android.result == 'success' }}
+      enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios.result == 'success' }}
+      enable-linux: ${{ needs.prepare.outputs.enable-linux && needs.publish-linux.result == 'success' }}
+      enable-macos: ${{ needs.prepare.outputs.enable-macos && needs.publish-macos.result == 'success' }}
+      enable-web: ${{ needs.prepare.outputs.enable-web && needs.publish-web.result == 'success' }}
+      enable-windows: ${{ needs.prepare.outputs.enable-windows && needs.publish-windows.result == 'success' }}
     secrets:
       DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
       DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}

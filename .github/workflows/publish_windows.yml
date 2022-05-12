@@ -62,7 +62,7 @@ jobs:
 
       - name: Create Version File
         working-directory: ${{ github.workspace }}/output
-        run: echo ${{ inputs.build-title }} > VERSION_WINDOWS.txt
+        run: echo ${{ inputs.build-number }} > VERSION_WINDOWS.txt
 
       - name: Upload to S3 Bucket (Latest)
         uses: jakejarvis/s3-sync-action@v0.5.1

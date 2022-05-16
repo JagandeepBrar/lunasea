@@ -33,10 +33,10 @@
     "prepare:keychain:ios": "cd ios && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
     "prepare:keychain:macos": "cd macos && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
     "profile": "flutter run --profile --cache-sksl --purge-persistent-cache",
-    "release": "HUSKY=0 standard-version --no-verify --commit-all --sign",
+    "release": "cross-env HUSKY=0 standard-version --no-verify --commit-all --sign",
     "release:changelog": "npm run release -- --dry-run",
-    "release:flavor:beta": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release\n\n[skip ci]\"",
-    "release:flavor:candidate": "HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release\n\n[skip ci]\"",
+    "release:flavor:beta": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release\n\n[skip ci]\"",
+    "release:flavor:candidate": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release\n\n[skip ci]\"",
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
@@ -44,6 +44,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "all-contributors-cli": "^6.20.0",
     "commitizen": "^4.2.4",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
     "standard-version": "^9.3.2"

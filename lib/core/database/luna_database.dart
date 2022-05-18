@@ -20,6 +20,7 @@ enum LunaDatabaseValue {
   QUICK_ACTIONS_SEARCH,
   USE_24_HOUR_TIME,
   DEFAULT_LAUNCH_MODULE,
+  ENABLE_IN_APP_NOTIFICATIONS,
 }
 
 class LunaDatabase extends LunaModuleDatabase {
@@ -167,6 +168,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is LunaModule;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return value is bool;
+      case LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS:
+        return value is bool;
     }
   }
 
@@ -208,6 +211,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return LunaModule.DASHBOARD;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return false;
+      case LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS:
+        return true;
     }
   }
 }

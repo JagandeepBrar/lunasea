@@ -63,9 +63,22 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton.arrow(),
           onTap: LunaLinks.NOTIFICATIONS_GETTING_STARTED.launch,
         ),
+        _enableInAppNotifications(),
         LunaDivider(),
         ..._modules(),
       ],
+    );
+  }
+
+  Widget _enableInAppNotifications() {
+    return LunaBlock(
+      title: 'settings.EnableInAppNotifications'.tr(),
+      trailing: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.listen(
+        builder: (context, box, _) => LunaSwitch(
+          value: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.data,
+          onChanged: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.put,
+        ),
+      ),
     );
   }
 

@@ -127,6 +127,7 @@ runs:
         --macos-bundle-id=app.lunasea.lunasea \
         --out=lib/firebase/options.dart \
         --platforms=android,ios,macos,web \
+        --no-apply-gradle-plugins \
         --yes
 
     - name: Setup Android Platform

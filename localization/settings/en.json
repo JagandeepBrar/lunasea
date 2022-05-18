@@ -121,6 +121,7 @@
   "settings.EmailSentSuccessMessage": "An email to reset your password has been sent!",
   "settings.EmailUpdated": "Email Updated",
   "settings.EmailValidation": "Invalid Email Address",
+  "settings.EnableInAppNotifications": "Enable In-App Notifications",
   "settings.EnableModule": "Enable {}",
   "settings.EnabledProfile": "Enabled Profile",
   "settings.EncryptionKey": "Encryption Key",

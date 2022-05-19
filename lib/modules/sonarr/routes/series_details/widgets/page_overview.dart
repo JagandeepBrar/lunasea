@@ -40,7 +40,6 @@ class _State extends State<SonarrSeriesDetailsOverviewPage>
           controller: SonarrSeriesDetailsNavigationBar.scrollControllers[0],
           children: [
             SonarrSeriesDetailsOverviewDescriptionTile(series: widget.series),
-            SonarrSeriesDetailsOverviewLinksSection(series: widget.series),
             SonarrSeriesDetailsOverviewInformationBlock(
               series: widget.series,
               qualityProfile: widget.qualityProfile,

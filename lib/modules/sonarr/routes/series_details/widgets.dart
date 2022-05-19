@@ -2,7 +2,6 @@ export 'widgets/appbar_settings_action.dart';
 export 'widgets/navigation_bar.dart';
 export 'widgets/overview_series_description_tile.dart';
 export 'widgets/overview_series_information_block.dart.dart';
-export 'widgets/overview_series_links_section.dart';
 export 'widgets/page_history.dart';
 export 'widgets/page_overview.dart';
 export 'widgets/page_seasons.dart';

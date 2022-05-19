@@ -38,7 +38,6 @@ class _State extends State<RadarrMovieDetailsOverviewPage>
           controller: RadarrMovieDetailsNavigationBar.scrollControllers[0],
           children: [
             RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
-            RadarrMovieDetailsOverviewLinksSection(movie: widget.movie),
             RadarrMovieDetailsOverviewInformationBlock(
               movie: widget.movie,
               qualityProfile: widget.qualityProfile,

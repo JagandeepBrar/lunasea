@@ -84,7 +84,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'Plex Media Server',
           body: const [TextSpan(text: 'Plex Media Server Logs')],
           trailing: LunaIconButton(
-            icon: LunaBrandIcons.plex,
+            icon: LunaIcons.PLEX,
+            iconSize: LunaUI.ICON_SIZE - 2.0,
             color: LunaColours().byListIndex(4),
           ),
           onTap: () async =>
@@ -94,7 +95,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'Tautulli',
           body: const [TextSpan(text: 'Tautulli Logs')],
           trailing: LunaIconButton(
-            icon: LunaBrandIcons.tautulli,
+            icon: LunaIcons.TAUTULLI,
             color: LunaColours().byListIndex(5),
           ),
           onTap: () async => TautulliLogsTautulliRouter().navigateTo(context),

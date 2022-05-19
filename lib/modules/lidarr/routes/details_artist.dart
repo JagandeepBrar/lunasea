@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/modules/lidarr/sheets/links.dart';
 
 class LidarrDetailsArtistArguments {
   LidarrCatalogueData? data;
@@ -72,23 +73,31 @@ class _State extends State<LidarrDetailsArtist> {
             : null,
       );
 
-  Widget get _appBar => LunaAppBar(
-        title: _arguments == null || _arguments!.data == null
-            ? 'Artist Details'
-            : _arguments!.data!.title,
-        pageController: _pageController,
-        scrollControllers: LidarrArtistNavigationBar.scrollControllers,
-        actions: _arguments == null || _arguments!.data == null
-            ? null
-            : <Widget>[
-                const LidarrDetailsHideButton(),
-                LidarrDetailsEditButton(data: _arguments!.data),
-                LidarrDetailsSettingsButton(
-                  data: _arguments!.data,
-                  remove: _removeCallback,
-                ),
-              ],
-      );
+  Widget get _appBar {
+    List<Widget>? _actions;
+
+    if (_arguments?.data != null) {
+      _actions = [
+        LunaIconButton(
+          icon: LunaIcons.LINK,
+          onPressed: () async {
+            LinksSheet(artist: _arguments!.data!).show(context: context);
+          },
+        ),
+        LidarrDetailsEditButton(data: _arguments!.data),
+        LidarrDetailsSettingsButton(
+          data: _arguments!.data,
+          remove: _removeCallback,
+        ),
+      ];
+    }
+    return LunaAppBar(
+      title: 'Artist Details',
+      pageController: _pageController,
+      scrollControllers: LidarrArtistNavigationBar.scrollControllers,
+      actions: _actions,
+    );
+  }
 
   Widget get _bottomNavigationBar =>
       LidarrArtistNavigationBar(pageController: _pageController);

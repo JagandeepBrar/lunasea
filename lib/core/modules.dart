@@ -307,23 +307,23 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.DASHBOARD:
         return Icons.home_rounded;
       case LunaModule.LIDARR:
-        return LunaBrandIcons.lidarr;
+        return LunaIcons.LIDARR;
       case LunaModule.NZBGET:
-        return LunaBrandIcons.nzbget;
+        return LunaIcons.NZBGET;
       case LunaModule.RADARR:
-        return LunaBrandIcons.radarr;
+        return LunaIcons.RADARR;
       case LunaModule.SABNZBD:
-        return LunaBrandIcons.sabnzbd;
+        return LunaIcons.SABNZBD;
       case LunaModule.SEARCH:
         return Icons.search_rounded;
       case LunaModule.SETTINGS:
         return Icons.settings_rounded;
       case LunaModule.SONARR:
-        return LunaBrandIcons.sonarr;
+        return LunaIcons.SONARR;
       case LunaModule.TAUTULLI:
-        return LunaBrandIcons.tautulli;
+        return LunaIcons.TAUTULLI;
       case LunaModule.OVERSEERR:
-        return LunaBrandIcons.overseerr;
+        return LunaIcons.OVERSEERR;
       case LunaModule.WAKE_ON_LAN:
         return Icons.settings_remote_rounded;
       case LunaModule.EXTERNAL_MODULES:
@@ -621,7 +621,7 @@ extension LunaModuleExtension on LunaModule {
               if (this.github != null)
                 LunaButton.text(
                   text: 'GitHub',
-                  icon: LunaBrandIcons.github,
+                  icon: LunaIcons.GITHUB,
                   onTap: this.github!.openLink,
                 ),
               if (this.website != null)

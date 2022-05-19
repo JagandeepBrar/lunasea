@@ -63,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaBlock(
           title: 'Discord',
           body: [TextSpan(text: 'settings.DiscordDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaBrandIcons.discord),
+          trailing: const LunaIconButton(icon: LunaIcons.DISCORD),
           onTap: LunaLinks.DISCORD.launch,
         ),
         LunaBlock(
@@ -75,14 +75,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaBlock(
           title: 'Reddit',
           body: [TextSpan(text: 'settings.RedditDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaBrandIcons.reddit),
+          trailing: const LunaIconButton(icon: LunaIcons.REDDIT),
           onTap: LunaLinks.REDDIT.launch,
         ),
         LunaDivider(),
         LunaBlock(
           title: 'GitHub',
           body: [TextSpan(text: 'settings.GitHubDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaBrandIcons.github),
+          trailing: const LunaIconButton(icon: LunaIcons.GITHUB),
           onTap: LunaLinks.GITHUB.launch,
         ),
         LunaBlock(

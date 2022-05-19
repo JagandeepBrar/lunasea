@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 class LunaIcons {
+  static const _fontFamily = 'LunaBrandIcons';
+
+  // Built-In
   static const IconData ADD = Icons.add_rounded;
   static const IconData ARROW_RIGHT = Icons.arrow_forward_ios_rounded;
   static const IconData ARROW_DROPDOWN = Icons.arrow_drop_down_rounded;
@@ -14,12 +18,14 @@ class LunaIcons {
   static const IconData DEVICES = Icons.devices_rounded;
   static const IconData DOCUMENTATION = Icons.auto_stories_rounded;
   static const IconData DOWNLOAD = Icons.file_download_rounded;
+  static const IconData EDIT = Icons.edit_rounded;
   static const IconData EMAIL = Icons.email_rounded;
   static const IconData ERROR = Icons.error_rounded;
   static const IconData FEEDBACK = Icons.speaker_notes_rounded;
   static const IconData FILTER = Icons.filter_list_rounded;
   static const IconData HISTORY = Icons.history_rounded;
   static const IconData HOME = Icons.home_rounded;
+  static const IconData LINK = Icons.link_rounded;
   static const IconData MONITOR_OFF = Icons.turned_in_not_rounded;
   static const IconData MONITOR_ON = Icons.turned_in_rounded;
   static const IconData MUSIC = Icons.music_note_rounded;
@@ -40,4 +46,29 @@ class LunaIcons {
   static const IconData VIEW = Icons.grid_view_rounded;
   static const IconData WARNING = Icons.warning_amber_rounded;
   static const IconData WATCHED = Icons.visibility_rounded;
+
+  // Brands - Simple Icons
+  static const IconData BANDSINTOWN = SimpleIcons.bandsintown;
+  static const IconData DISCOGS = SimpleIcons.discogs;
+  static const IconData DISCORD = SimpleIcons.discord;
+  static const IconData GITHUB = SimpleIcons.github;
+  static const IconData IMDB = SimpleIcons.imdb;
+  static const IconData LASTFM = SimpleIcons.lastdotfm;
+  static const IconData LETTERBOXD = SimpleIcons.letterboxd;
+  static const IconData PLEX = SimpleIcons.plex;
+  static const IconData REDDIT = SimpleIcons.reddit;
+  static const IconData THEMOVIEDATABASE = SimpleIcons.themoviedatabase;
+  static const IconData TRAKT = SimpleIcons.trakt;
+  static const IconData YOUTUBE = SimpleIcons.youtube;
+
+  // Brands - Custom
+  static const IconData LIDARR = IconData(0xe805, fontFamily: _fontFamily);
+  static const IconData NZBGET = IconData(0xe807, fontFamily: _fontFamily);
+  static const IconData OVERSEERR = IconData(0xe808, fontFamily: _fontFamily);
+  static const IconData RADARR = IconData(0xe80a, fontFamily: _fontFamily);
+  static const IconData SABNZBD = IconData(0xe80c, fontFamily: _fontFamily);
+  static const IconData SONARR = IconData(0xe80e, fontFamily: _fontFamily);
+  static const IconData TAUTULLI = IconData(0xe80f, fontFamily: _fontFamily);
+  static const IconData THETVDB = IconData(0xe820, fontFamily: _fontFamily);
+  static const IconData TVMAZE = IconData(0xe821, fontFamily: _fontFamily);
 }

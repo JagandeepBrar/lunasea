@@ -6,12 +6,12 @@ import 'package:window_manager/window_manager.dart';
 // ignore: always_use_package_imports
 import '../window_manager.dart';
 
-bool isPlatformSupported() => LunaPlatform().isDesktop;
+bool isPlatformSupported() => LunaPlatform.isDesktop;
 LunaWindowManager getWindowManager() {
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.linux:
-    case TargetPlatform.macOS:
-    case TargetPlatform.windows:
+  switch (LunaPlatform.current) {
+    case LunaPlatform.LINUX:
+    case LunaPlatform.MACOS:
+    case LunaPlatform.WINDOWS:
       return IO();
     default:
       throw UnsupportedError('LunaWindowManager unsupported');
@@ -44,7 +44,7 @@ class IO implements LunaWindowManager {
 
     if (!kDebugMode) await windowManager.setSize(initSize);
     // Currently broken on Linux
-    if (!LunaPlatform().isLinux) {
+    if (!LunaPlatform.isLinux) {
       await windowManager.setMinimumSize(minSize);
     }
   }

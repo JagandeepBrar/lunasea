@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -12,24 +11,13 @@ import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 
 bool isPlatformSupported() {
-  final platform = LunaPlatform();
-  return platform.isMobile || platform.isDesktop;
+  return LunaPlatform.isMobile || LunaPlatform.isDesktop;
 }
 
 LunaFileSystem getFileSystem() {
-  switch (defaultTargetPlatform) {
-    // Mobile
-    case TargetPlatform.android:
-    case TargetPlatform.iOS:
-      return _Mobile();
-    // Desktop
-    case TargetPlatform.linux:
-    case TargetPlatform.macOS:
-    case TargetPlatform.windows:
-      return _Desktop();
-    default:
-      throw UnsupportedError('LunaFileSystem unsupported');
-  }
+  if (LunaPlatform.isMobile) return _Mobile();
+  if (LunaPlatform.isDesktop) return _Desktop();
+  throw UnsupportedError('LunaFileSystem unsupported');
 }
 
 class _Desktop implements LunaFileSystem {

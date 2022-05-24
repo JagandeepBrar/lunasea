@@ -53,7 +53,7 @@ class LunaInAppPurchases {
   static List<ProductDetails> donationIAPs = [];
   static bool isAvailable = false;
 
-  static bool get isSupported => LunaPlatform().isMobile;
+  static bool get isSupported => LunaPlatform.isMobile;
 
   /// Callback function for [purchaseStream].
   static Future<void> _purchasedCallback(

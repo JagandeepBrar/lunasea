@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string.dart';
-import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/flavor.dart';
 
 class LunaChangelogSheet extends LunaBottomModalSheet {
@@ -28,8 +28,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     bool showCommitHistory = false,
   }) async {
     // Do not show unless it is a prod release
-    if (LunaEnvironment().isFlavorSupported(LunaFlavor.CANDIDATE)) {
-      if (showCommitHistory) LunaEnvironment().openCommitHistory();
+    if (LunaFlavor.CANDIDATE.isRunningFlavor()) {
+      if (showCommitHistory) LunaBuild().openCommitHistory();
       return;
     }
 

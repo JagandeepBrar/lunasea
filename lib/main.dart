@@ -53,7 +53,7 @@ class LunaBIOS extends StatelessWidget {
 
     return ProviderScope(
       child: DevicePreview(
-        enabled: kDebugMode && LunaPlatform().isDesktop,
+        enabled: kDebugMode && LunaPlatform.isDesktop,
         builder: (context) => EasyLocalization(
           supportedLocales: LunaLocalization().supportedLocales(),
           path: LunaLocalization.fileDirectory,

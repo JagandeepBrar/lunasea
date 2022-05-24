@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/vendor.dart';
 
@@ -84,7 +83,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
-        return LunaEnvironment().isFlavorSupported(LunaFlavor.BETA);
+        return LunaFlavor.BETA.isRunningFlavor();
     }
   }
 

@@ -6,8 +6,7 @@ import 'options.dart';
 
 class LunaFirebase {
   static bool get isSupported {
-    final platform = LunaPlatform();
-    if (platform.isMobile || platform.isMacOS || platform.isWeb) {
+    if (LunaPlatform.isMobile || LunaPlatform.isMacOS || LunaPlatform.isWeb) {
       // Validate that the firebase config exists by trying to load it
       try {
         DefaultFirebaseOptions.currentPlatform;

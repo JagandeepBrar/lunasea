@@ -3,7 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 
 class SettingsHomeRouter extends SettingsPageRouter {
@@ -96,7 +95,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.settings_rounded),
           onTap: () async => SettingsSystemRouter().navigateTo(context),
         ),
-        if (LunaEnvironment().isFlavorSupported(LunaFlavor.EDGE))
+        if (LunaFlavor.CANDIDATE.isRunningFlavor())
           LunaBlock(
             title: 'settings.DebugMenu'.tr(),
             body: [TextSpan(text: 'settings.DebugMenuDescription'.tr())],

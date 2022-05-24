@@ -6,8 +6,7 @@ import 'package:lunasea/system/platform.dart';
 import '../image_cache.dart';
 
 bool isPlatformSupported() {
-  final platform = LunaPlatform();
-  return platform.isMobile || platform.isMacOS;
+  return LunaPlatform.isMobile || LunaPlatform.isMacOS;
 }
 
 LunaImageCache getImageCache() {

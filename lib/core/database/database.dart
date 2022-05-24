@@ -13,8 +13,7 @@ class Database {
   static late _BoxManager<ProfileHiveObject> profiles;
 
   String get _databasePath {
-    final platform = LunaPlatform();
-    if (platform.isWindows || platform.isLinux)
+    if (LunaPlatform.isWindows || LunaPlatform.isLinux)
       return _DATABASE_PATH;
     else
       return _DATABASE_LEGACY_PATH;

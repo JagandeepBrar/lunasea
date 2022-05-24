@@ -6,7 +6,7 @@ import 'package:lunasea/system/platform.dart';
 // ignore: always_use_package_imports
 import '../quick_actions.dart';
 
-bool isPlatformSupported() => LunaPlatform().isMobile;
+bool isPlatformSupported() => LunaPlatform.isMobile;
 LunaQuickActions getQuickActions() {
   if (isPlatformSupported()) return IO();
   throw UnsupportedError('LunaQuickActions unsupported');

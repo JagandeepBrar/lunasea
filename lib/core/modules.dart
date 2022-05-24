@@ -20,7 +20,6 @@ import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
 import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
     as dashboard_home;
 import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
-import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 
 part 'modules.g.dart';
@@ -79,7 +78,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return true;
       case LunaModule.OVERSEERR:
-        return LunaEnvironment().isFlavorSupported(LunaFlavor.EDGE);
+        return LunaFlavor.EDGE.isRunningFlavor();
       case LunaModule.RADARR:
         return true;
       case LunaModule.SABNZBD:

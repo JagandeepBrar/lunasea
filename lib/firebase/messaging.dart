@@ -8,8 +8,7 @@ class LunaFirebaseMessaging {
       'BGCP2BO8JOTuvagaYl41btXiiC_XszsGCDduq6C-escc4xb2UMglX3RDojCY1YuGMAx2lXGVF-VYmTN3LQGvhYc';
 
   static bool get isSupported {
-    final platform = LunaPlatform();
-    if (LunaFirebase.isSupported && !platform.isWeb) return true;
+    if (LunaFirebase.isSupported && !LunaPlatform.isWeb) return true;
     return false;
   }
 

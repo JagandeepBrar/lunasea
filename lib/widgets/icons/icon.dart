@@ -10,6 +10,8 @@ class LunaIcons {
   static const IconData ARROW_DROPDOWN = Icons.arrow_drop_down_rounded;
   static const IconData BUILD_BUCKET = Icons.downloading_rounded;
   static const IconData BUILD_CHANNELS = Icons.rocket_launch_rounded;
+  static const IconData CHANGELOG = Icons.system_update_rounded;
+  static const IconData CHECK_MARK = Icons.check_rounded;
   static const IconData CLOUD_DELETE = Icons.cloud_off_rounded;
   static const IconData CLOUD_DOWNLOAD = Icons.cloud_download_rounded;
   static const IconData CLOUD_UPLOAD = Icons.cloud_upload_rounded;

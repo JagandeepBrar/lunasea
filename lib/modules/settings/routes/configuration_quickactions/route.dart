@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/system/quick_actions/quick_actions.dart';
 
 class SettingsConfigurationQuickActionsRouter extends SettingsPageRouter {
   SettingsConfigurationQuickActionsRouter()
@@ -90,7 +91,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             value: action.data,
             onChanged: (value) {
               action.put(value);
-              LunaQuickActions().setShortcutItems();
+              if (LunaQuickActions.isSupported)
+                LunaQuickActions().setActionItems();
             }),
       ),
     );

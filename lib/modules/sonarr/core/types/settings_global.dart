@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrGlobalSettingsType {
@@ -57,9 +58,7 @@ extension SonarrGlobalSettingsTypeExtension on SonarrGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<SonarrState>().host.lunaOpenGenericLink(
-            headers: context.read<SonarrState>().headers,
-          );
+      context.read<SonarrState>().host.openLink();
   Future<void> _backupDatabase(BuildContext context) async =>
       SonarrAPIController().backupDatabase(context: context);
   Future<void> _searchAllMissing(BuildContext context) async {

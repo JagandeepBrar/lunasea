@@ -13,7 +13,7 @@ export: false
 use_part_of: false
 
 # Location where all the generated references will be stored
-package: core
+package: widgets
 
 groups:
   - path: assets/images

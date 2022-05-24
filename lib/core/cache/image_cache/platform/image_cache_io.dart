@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lunasea/system/platform.dart';
 
-import '../../../system/platform.dart';
+// ignore: always_use_package_imports
 import '../image_cache.dart';
 
 bool isPlatformSupported() {
-  final platform = LunaPlatform();
-  return platform.isMobile || platform.isMacOS;
+  return LunaPlatform.isMobile || LunaPlatform.isMacOS;
 }
 
 LunaImageCache getImageCache() {

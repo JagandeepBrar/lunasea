@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/database/luna_database.dart';
-import '../../../../../../core/modules.dart';
-import '../../../../../../core/system/profile.dart';
-import '../../../../../../core/ui.dart';
-import '../../../../wake_on_lan/api/wake_on_lan.dart';
-import '../widgets/navigation_bar.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class ModulesPage extends StatefulWidget {
   const ModulesPage({

@@ -74,23 +74,16 @@ class _State extends State<LidarrDetailsAlbumList>
 
   Widget get _list => Consumer<LidarrState>(
         builder: (context, model, widget) {
-          List<LidarrAlbumData> _filtered =
-              model.hideUnmonitoredAlbums ? _hide(_results)! : _results!;
           return LunaListViewBuilder(
             controller: LidarrArtistNavigationBar.scrollControllers[1],
-            itemCount: _filtered.isEmpty ? 1 : _filtered.length,
-            itemBuilder: _filtered.isEmpty
+            itemCount: _results!.isEmpty ? 1 : _results!.length,
+            itemBuilder: _results!.isEmpty
                 ? (context, _) => const LunaMessage(text: 'No Albums Found')
                 : (context, index) => LidarrDetailsAlbumTile(
-                      data: _filtered[index],
+                      data: _results![index],
                       refreshState: _refreshState,
                     ),
           );
         },
       );
-
-  List<LidarrAlbumData>? _hide(List<LidarrAlbumData>? data) {
-    if (data?.isEmpty ?? true) return data;
-    return data!.where((entry) => entry.monitored).toList();
-  }
 }

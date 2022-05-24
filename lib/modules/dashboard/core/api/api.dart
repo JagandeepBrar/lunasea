@@ -1,12 +1,12 @@
-import '../../../../core/models/configuration/profile.dart';
-import '../../../../core/extensions.dart';
-import '../../../../core/ui.dart';
-import '../../../../vendor.dart';
-import '../database.dart';
-import 'data/abstract.dart';
-import 'data/lidarr.dart';
-import 'data/radarr.dart';
-import 'data/sonarr.dart';
+import 'package:lunasea/core/models/configuration/profile.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/sonarr.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/vendor.dart';
 
 class API {
   final Map<String, dynamic>? lidarr;

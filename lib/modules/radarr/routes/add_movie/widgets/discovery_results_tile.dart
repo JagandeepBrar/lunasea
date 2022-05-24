@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
@@ -37,9 +39,9 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
     return TextSpan(
       children: [
         TextSpan(text: widget.movie.lunaYear),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.movie.lunaRuntime),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.movie.lunaStudio),
       ],
     );
@@ -81,5 +83,5 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
   }
 
   Future<void>? _onLongPress() async =>
-      widget.movie.tmdbId.toString().lunaOpenTheMovieDBMovie();
+      widget.movie.tmdbId.toString().openTmdbMovie();
 }

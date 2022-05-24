@@ -23,7 +23,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
     return Column(
       children: [
         LunaIconButton(
-          icon: LunaBrandIcons.tautulli,
+          icon: LunaIcons.TAUTULLI,
           color: LunaColours().byListIndex(1),
         ),
       ],

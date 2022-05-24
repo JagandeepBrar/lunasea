@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../widgets/change_email_tile.dart';
-import '../widgets/change_password_tile.dart';
-import '../widgets/delete_account_tile.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/change_email_tile.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/change_password_tile.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/delete_account_tile.dart';
 
 class SettingsAccountSettingsRouter extends SettingsPageRouter {
   SettingsAccountSettingsRouter() : super('/settings/account/settings');

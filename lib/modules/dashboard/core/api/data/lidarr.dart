@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../core/system/profile.dart';
-import '../../../../../core/ui.dart';
-import '../../../../lidarr/core/api/api.dart';
-import '../../../../lidarr/routes/details_artist.dart';
-import '../../../../lidarr/routes/search_results.dart';
-import './abstract.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/lidarr/core/api/api.dart';
+import 'package:lunasea/modules/lidarr/routes/details_artist.dart';
+import 'package:lunasea/modules/lidarr/routes/search_results.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 
 class CalendarLidarrData extends CalendarData {
   final Map<String, dynamic> api = LunaProfile.current.getLidarr();

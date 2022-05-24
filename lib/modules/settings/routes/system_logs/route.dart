@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../../../../core/system/filesystem/filesystem.dart';
+import 'package:lunasea/system/filesystem/filesystem.dart';
 
 class SettingsSystemLogsRouter extends SettingsPageRouter {
   SettingsSystemLogsRouter() : super('/settings/logs');
@@ -85,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         bool result = await SettingsDialogs().clearLogs(context);
         if (result) {
-          LunaLogger().clearLogs();
+          LunaLogger().clear();
           showLunaSuccessSnackBar(
             title: 'Logs Cleared',
             message: 'All recorded logs have been cleared',
@@ -105,7 +104,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             title: 'Exporting Logs',
             message: 'Please wait...',
           );
-          String data = await LunaLogger().exportLogs();
+          String data = await LunaLogger().export();
           bool result = await LunaFileSystem()
               .save(context, 'logs.json', utf8.encode(data));
           if (result)

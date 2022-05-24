@@ -250,6 +250,24 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "marcosvdiasofc",
+      "name": "marcosvdiasofc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/96720080?v=4",
+      "profile": "https://github.com/marcosvdiasofc",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "fscorrupt",
+      "name": "FSCorrupt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45659314?v=4",
+      "profile": "https://liberapay.com/FSCorrupt/donate",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,

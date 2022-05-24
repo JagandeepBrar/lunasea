@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'format_item.dart';
-import 'item.dart';
-import 'language.dart';
+import 'package:lunasea/modules/radarr/api/models.dart';
 
 part 'quality_profile.g.dart';
 

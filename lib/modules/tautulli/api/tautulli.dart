@@ -6,7 +6,7 @@ library tautulli;
 
 // Imports
 import 'package:dio/dio.dart';
-import 'commands.dart';
+import 'package:lunasea/modules/tautulli/api/commands.dart';
 
 /// The core class to handle all connections to Tautulli.
 /// Gives you easy access to all implemented command handlers, initialized and ready to call.

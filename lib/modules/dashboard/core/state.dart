@@ -1,10 +1,10 @@
-import '../../../core/models/configuration/profile.dart';
-import '../../../core/state/module_state.dart';
-import '../../../core/system/profile.dart';
-import 'adapters/calendar_starting_type.dart';
-import 'api/api.dart';
-import 'api/data/abstract.dart';
-import 'database.dart';
+import 'package:lunasea/core/models/configuration/profile.dart';
+import 'package:lunasea/core/state/module_state.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
+import 'package:lunasea/modules/dashboard/core/api/api.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
 
 class ModuleState extends LunaModuleState {
   ModuleState() {

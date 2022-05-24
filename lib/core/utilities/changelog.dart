@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/system/build.dart';
+import 'package:lunasea/system/flavor.dart';
 
 class LunaChangelogSheet extends LunaBottomModalSheet {
   late _Changelog _changelog;
@@ -25,8 +28,8 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
     bool showCommitHistory = false,
   }) async {
     // Do not show unless it is a prod release
-    if (LunaFlavor().isLowerOrEqualTo(LunaEnvironment.CANDIDATE)) {
-      if (showCommitHistory) LunaFlavor().openCommitHistory();
+    if (LunaFlavor.CANDIDATE.isRunningFlavor()) {
+      if (showCommitHistory) LunaBuild().openCommitHistory();
       return;
     }
 
@@ -94,7 +97,7 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
           (index) {
             String _body = changes[index]
                 .changes
-                .map((s) => '${LunaUI.TEXT_BULLET.lunaPad()}$s')
+                .map((s) => '${LunaUI.TEXT_BULLET.pad()}$s')
                 .join('\n');
             return LunaTableContent(
               title: changes[index].module,

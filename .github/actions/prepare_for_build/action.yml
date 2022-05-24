@@ -67,6 +67,7 @@ runs:
       with:
         channel: stable
         cache: true
+        cache-key: ${{ github.sha }}
 
     - name: Install Java
       if: ${{ inputs.platform == 'android' }}
@@ -121,9 +122,12 @@ runs:
         dart pub global activate flutterfire_cli
 
         flutterfire configure \
-        --android-app-id=app.lunasea.lunasea \
+        --android-package-name=app.lunasea.lunasea \
         --ios-bundle-id=app.lunasea.lunasea \
         --macos-bundle-id=app.lunasea.lunasea \
+        --out=lib/firebase/options.dart \
+        --platforms=android,ios,macos,web \
+        --no-apply-gradle-plugins \
         --yes
 
     - name: Setup Android Platform

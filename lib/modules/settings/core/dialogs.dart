@@ -1,17 +1,15 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
-import 'package:tuple/tuple.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/system/localization.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
-
-import '../../../core/database/luna_database.dart';
-import '../../../core/firebase/types/backup_document.dart';
-import '../../../core/models/types/browser.dart';
-import '../../../core/system/localization.dart';
-import '../../../core/ui.dart';
-import '../../dashboard/core/adapters/calendar_starting_day.dart';
-import '../../dashboard/core/adapters/calendar_starting_size.dart';
-import '../../dashboard/core/adapters/calendar_starting_type.dart';
 
 class SettingsDialogs {
   Future<Tuple2<bool, int>> setDefaultOption(
@@ -862,37 +860,10 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  Future<Tuple2<bool, LunaBrowser?>> changeBrowser(BuildContext context) async {
-    bool _flag = false;
-    LunaBrowser? _browser;
-
-    void _setValues(bool flag, LunaBrowser browser) {
-      _flag = flag;
-      _browser = browser;
-      Navigator.of(context).pop();
-    }
-
-    await LunaDialog.dialog(
-      context: context,
-      title: 'settings.OpenLinksIn'.tr(),
-      content: List.generate(
-        LunaBrowser.values.length,
-        (index) => LunaDialog.tile(
-          icon: LunaBrowser.values[index].icon,
-          iconColor: LunaColours().byListIndex(index),
-          text: LunaBrowser.values[index].name!,
-          onTap: () => _setValues(true, LunaBrowser.values[index]),
-        ),
-      ),
-      contentPadding: LunaDialog.listDialogContentPadding(),
-    );
-    return Tuple2(_flag, _browser);
-  }
-
   Future<Tuple2<bool, LunaLanguage?>> changeLanguage(
     BuildContext context,
   ) async {
-    List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
+    List<LunaLanguage> languages = LunaLocalization().supportedLanguages();
     bool _flag = false;
     LunaLanguage? _language;
 

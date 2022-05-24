@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
+import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/modules/settings.dart';
-
-import '../../../../core/cache/image_cache/image_cache.dart';
+import 'package:lunasea/core/cache/image_cache/image_cache.dart';
+import 'package:lunasea/modules/settings/routes/system/widgets/build_details.dart';
+import 'package:lunasea/system/build.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');
@@ -22,6 +25,8 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final packageInfo = PackageInfo.fromPlatform();
+  final checkForUpdates = LunaBuild().checkForUpdates();
 
   @override
   Widget build(BuildContext context) {
@@ -43,46 +48,16 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: <Widget>[
-        _versionInformation(),
-        _logs(),
+        const BuildDetails(),
         LunaDivider(),
         const SettingsSystemBackupRestoreBackupTile(),
         const SettingsSystemBackupRestoreRestoreTile(),
         LunaDivider(),
+        _logs(),
         if (LunaImageCache.isSupported) _clearImageCache(),
         _clearConfiguration(),
       ],
     );
-  }
-
-  Widget _versionInformation() {
-    LunaFlavor _flavor = LunaFlavor();
-    return FutureBuilder(
-        future: PackageInfo.fromPlatform(),
-        builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
-          String version = 'Loading${LunaUI.TEXT_ELLIPSIS}';
-          if (snapshot.hasError) version = 'Unknown';
-          if (snapshot.hasData) version = snapshot.data!.version;
-          return LunaBlock(
-            title: 'Version: $version',
-            body: [
-              TextSpan(
-                text: _flavor.isLowerOrEqualTo(LunaEnvironment.CANDIDATE)
-                    ? '${_flavor.environment.name} (${_flavor.shortCommit})'
-                    : 'settings.ViewRecentChanges'.tr(),
-                style: TextStyle(
-                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                  color: _flavor.environment.color,
-                ),
-              ),
-            ],
-            trailing: const LunaIconButton(icon: Icons.system_update_rounded),
-            onTap: () async => LunaChangelogSheet().show(
-              context: context,
-              showCommitHistory: true,
-            ),
-          );
-        });
   }
 
   Widget _logs() {

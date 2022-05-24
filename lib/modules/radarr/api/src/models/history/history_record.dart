@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import '../../../types.dart';
-import '../../../utilities.dart';
-import '../../../models.dart';
+import 'package:lunasea/modules/radarr/api/types.dart';
+import 'package:lunasea/modules/radarr/api/utilities.dart';
+import 'package:lunasea/modules/radarr/api/models.dart';
 
 part 'history_record.g.dart';
 

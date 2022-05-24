@@ -114,87 +114,135 @@ jobs:
       CODE_SIGNING_PUBLISHER: ${{ secrets.CODE_SIGNING_PUBLISHER }}
       CODE_SIGNING_PUBLISHER_NAME: ${{ secrets.CODE_SIGNING_PUBLISHER_NAME }}
 
-  publish_android:
+  publish-android:
     name: Publish Android
     needs: [ prepare, build-android ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
     with:
       flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
-
-  publish_ios:
-    name: Publish iOS
-    needs: [ prepare, build-ios ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
-    with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-
-  publish_linux:
-    name: Publish Linux
-    needs: [ prepare, build-linux ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
-    with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
-    secrets:
-      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
-
-  publish_macos:
-    name: Publish macOS
-    needs: [ prepare, build-macos ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
-    with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
-    secrets:
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
-      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
-      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-
-  publish_web:
-    name: Publish Web
-    needs: [ prepare, build-web ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
-    with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
-    secrets:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
-  publish_s3:
-    name: Publish
-    needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-web, build-windows ]
-    if: ${{ always() }}
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_s3.yml@master
-    with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
-      enable-android: ${{ needs.prepare.outputs.enable-android }}
-      enable-ios: ${{ needs.prepare.outputs.enable-ios }}
-      enable-linux: ${{ needs.prepare.outputs.enable-linux }}
-      enable-macos: ${{ needs.prepare.outputs.enable-macos }}
-      enable-web: ${{ needs.prepare.outputs.enable-web }}
-      enable-windows: ${{ needs.prepare.outputs.enable-windows }}
-    secrets:
-      DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
-      DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
-      DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
-      DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
       S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
       S3_BUCKET: ${{ secrets.S3_BUCKET }}
       S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
       S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
       S3_REGION: ${{ secrets.S3_REGION }}
+
+  publish-ios:
+    name: Publish iOS
+    needs: [ prepare, build-ios ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}
+
+  publish-linux:
+    name: Publish Linux
+    needs: [ prepare, build-linux ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+    secrets:
+      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}
+
+  publish-macos:
+    name: Publish macOS
+    needs: [ prepare, build-macos ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+    secrets:
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+      APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+      APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
+      APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}
+
+  publish-web:
+    name: Publish Web
+    needs: [ prepare, build-web ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+    secrets:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}
+
+  publish-windows:
+    name: Publish Windows
+    needs: [ prepare, build-windows ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_windows.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+    secrets:
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
+      S3_REGION: ${{ secrets.S3_REGION }}
+
+  notify:
+    name: Notify
+    needs: [ prepare, publish-android, publish-ios, publish-linux, publish-macos, publish-web, publish-windows ]
+    if: |
+      always() &&
+      !cancelled() &&
+      (needs.publish-android.result == 'success' || needs.publish-android.result == 'skipped') &&
+      (needs.publish-ios.result == 'success' || needs.publish-ios.result == 'skipped') &&
+      (needs.publish-linux.result == 'success' || needs.publish-linux.result == 'skipped') &&
+      (needs.publish-macos.result == 'success' || needs.publish-macos.result == 'skipped') &&
+      (needs.publish-web.result == 'success' || needs.publish-web.result == 'skipped') &&
+      (needs.publish-windows.result == 'success' || needs.publish-windows.result == 'skipped')
+    uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
+    with:
+      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      build-title: ${{ needs.prepare.outputs.build-title }}
+      enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android.result == 'success' }}
+      enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios.result == 'success' }}
+      enable-linux: ${{ needs.prepare.outputs.enable-linux && needs.publish-linux.result == 'success' }}
+      enable-macos: ${{ needs.prepare.outputs.enable-macos && needs.publish-macos.result == 'success' }}
+      enable-web: ${{ needs.prepare.outputs.enable-web && needs.publish-web.result == 'success' }}
+      enable-windows: ${{ needs.prepare.outputs.enable-windows && needs.publish-windows.result == 'success' }}
+    secrets:
+      DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
+      DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+      DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
+      DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}

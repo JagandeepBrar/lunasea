@@ -8,7 +8,7 @@ library radarr;
 
 // Imports
 import 'package:dio/dio.dart';
-import 'commands.dart';
+import 'package:lunasea/modules/radarr/api/commands.dart';
 
 /// The core class to handle all connections to Radarr.
 /// Gives you easy access to all implemented command handlers, initialized and ready to call.

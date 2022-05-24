@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliSyncedItemTile extends StatelessWidget {
@@ -42,9 +43,9 @@ class TautulliSyncedItemTile extends StatelessWidget {
     return TextSpan(
       children: [
         TextSpan(text: _type.toTitleCase()),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: _count == 1 ? '1 Item' : '$_count Items'),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: _size.lunaBytesToString(decimals: 1)),
       ],
     );
@@ -54,9 +55,9 @@ class TautulliSyncedItemTile extends StatelessWidget {
     return TextSpan(
       children: [
         TextSpan(text: syncedItem.user ?? 'Unknown User'),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: syncedItem.deviceName ?? 'Unknown Device'),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: syncedItem.platform ?? 'Unknown Platform'),
       ],
     );

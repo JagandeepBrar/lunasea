@@ -1,5 +1,5 @@
 // Dart
-export 'dart:async';
+export 'dart:async' hide AsyncError;
 export 'dart:convert';
 export 'dart:math';
 export 'dart:typed_data';
@@ -10,6 +10,7 @@ export 'package:expandable/expandable.dart';
 export 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 export 'package:flash/flash.dart';
 export 'package:fluro/fluro.dart';
+export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:go_router/go_router.dart';
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
@@ -17,8 +18,6 @@ export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:layout/layout.dart';
 export 'package:package_info_plus/package_info_plus.dart';
-export 'package:provider/provider.dart';
-export 'package:simple_gesture_detector/simple_gesture_detector.dart';
 export 'package:stash/stash_api.dart';
 export 'package:stash_memory/stash_memory.dart';
 export 'package:supercharged/supercharged.dart';

@@ -1,6 +1,5 @@
 import 'package:lunasea/core.dart';
-
-import '../system/platform.dart';
+import 'package:lunasea/system/platform.dart';
 
 class Database {
   static const String _DATABASE_LEGACY_PATH = 'database';
@@ -14,8 +13,7 @@ class Database {
   static late _BoxManager<ProfileHiveObject> profiles;
 
   String get _databasePath {
-    final platform = LunaPlatform();
-    if (platform.isWindows || platform.isLinux)
+    if (LunaPlatform.isWindows || LunaPlatform.isLinux)
       return _DATABASE_PATH;
     else
       return _DATABASE_LEGACY_PATH;

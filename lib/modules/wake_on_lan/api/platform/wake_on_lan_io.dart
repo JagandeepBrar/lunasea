@@ -1,9 +1,10 @@
+import 'package:lunasea/core/models/configuration/profile.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/system/logger.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
-import '../../../../core/models/configuration/profile.dart';
-import '../../../../core/system/profile.dart';
-import '../../../../core/ui.dart';
-import '../../../../core/utilities/logger.dart';
+// ignore: always_use_package_imports
 import '../wake_on_lan.dart';
 
 bool isPlatformSupported() => true;

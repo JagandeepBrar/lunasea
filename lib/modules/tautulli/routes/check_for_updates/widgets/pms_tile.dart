@@ -23,7 +23,8 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
     return Column(
       children: [
         LunaIconButton(
-          icon: LunaBrandIcons.plex,
+          icon: LunaIcons.PLEX,
+          iconSize: LunaUI.ICON_SIZE - 2.0,
           color: LunaColours().byListIndex(0),
         ),
       ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/firebase/auth.dart';
+import 'package:lunasea/firebase/messaging.dart';
 
 class SettingsNotificationsModuleTile extends StatelessWidget {
   final LunaModule module;

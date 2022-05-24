@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueTile extends StatefulWidget {
@@ -32,7 +33,7 @@ class _State extends State<LidarrCatalogueTile> {
           TextSpan(
             children: [
               TextSpan(text: widget.data.albums),
-              TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+              TextSpan(text: LunaUI.TEXT_BULLET.pad()),
               TextSpan(text: widget.data.tracks),
             ],
           ),

@@ -1,10 +1,10 @@
 /// Library containing all logic and accessors to make calls to Sonarr's API.
 library sonarr_commands;
 
-import './types.dart';
+import 'package:lunasea/modules/sonarr/api/types.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'models.dart';
+import 'package:lunasea/modules/sonarr/api/models.dart';
 
 // Calendar
 part 'src/controllers/calendar.dart';

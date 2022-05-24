@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrQueueTile extends StatelessWidget {
@@ -57,7 +58,7 @@ class RadarrQueueTile extends StatelessWidget {
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
           ),
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: record.timeLeft ?? LunaUI.TEXT_EMDASH),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum _SonarrSeriesTileType {
@@ -107,9 +108,9 @@ class _State extends State<SonarrSeriesTile> {
           widget.series.lunaEpisodeCount,
           SonarrSeriesSorting.EPISODES,
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.series.lunaSeasonCount),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         _buildChildTextSpan(
           widget.series.lunaSizeOnDisk,
           SonarrSeriesSorting.SIZE,
@@ -125,7 +126,7 @@ class _State extends State<SonarrSeriesTile> {
           widget.series.lunaSeriesType,
           SonarrSeriesSorting.TYPE,
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         _buildChildTextSpan(
           widget.profile?.name ?? LunaUI.TEXT_EMDASH,
           SonarrSeriesSorting.QUALITY,
@@ -142,7 +143,7 @@ class _State extends State<SonarrSeriesTile> {
           widget.series.lunaNetwork,
           SonarrSeriesSorting.NETWORK,
         ),
-        TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         if (_sorting == SonarrSeriesSorting.DATE_ADDED)
           _buildChildTextSpan(
             widget.series.lunaDateAdded,

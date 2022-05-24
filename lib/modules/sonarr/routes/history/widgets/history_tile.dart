@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrHistoryTileType {
@@ -146,7 +147,7 @@ class SonarrHistoryTile extends StatelessWidget {
       text: [
         history.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
         history.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
-      ].join(LunaUI.TEXT_BULLET.lunaPad()),
+      ].join(LunaUI.TEXT_BULLET.pad()),
     );
   }
 

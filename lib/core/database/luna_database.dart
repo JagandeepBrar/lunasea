@@ -9,7 +9,6 @@ enum LunaDatabaseValue {
   THEME_AMOLED,
   THEME_AMOLED_BORDER,
   THEME_IMAGE_BACKGROUND_OPACITY,
-  SELECTED_BROWSER,
   QUICK_ACTIONS_LIDARR,
   QUICK_ACTIONS_RADARR,
   QUICK_ACTIONS_SONARR,
@@ -21,16 +20,19 @@ enum LunaDatabaseValue {
   QUICK_ACTIONS_SEARCH,
   USE_24_HOUR_TIME,
   DEFAULT_LAUNCH_MODULE,
+  ENABLE_IN_APP_NOTIFICATIONS,
 }
 
 class LunaDatabase extends LunaModuleDatabase {
   @override
   void registerAdapters() {
+    // Deprecated
+    Hive.registerAdapter(DeprecatedLunaBrowserAdapter());
+    // Active
     Hive.registerAdapter(ExternalModuleHiveObjectAdapter());
     Hive.registerAdapter(IndexerHiveObjectAdapter());
     Hive.registerAdapter(ProfileHiveObjectAdapter());
     Hive.registerAdapter(LunaLogHiveObjectAdapter());
-    Hive.registerAdapter(LunaBrowserAdapter());
     Hive.registerAdapter(LunaIndexerIconAdapter());
     Hive.registerAdapter(LunaLogTypeAdapter());
     Hive.registerAdapter(LunaModuleAdapter());
@@ -43,10 +45,6 @@ class LunaDatabase extends LunaModuleDatabase {
     for (LunaDatabaseValue value in LunaDatabaseValue.values) {
       switch (value) {
         // Non-primitive values
-        case LunaDatabaseValue.SELECTED_BROWSER:
-          data[value.key] =
-              (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser?).key;
-          break;
         case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
           data[value.key] =
               (LunaDatabaseValue.DEFAULT_LAUNCH_MODULE.data as LunaModule).key;
@@ -72,9 +70,6 @@ class LunaDatabase extends LunaModuleDatabase {
       if (value != null)
         switch (value) {
           // Non-primitive values
-          case LunaDatabaseValue.SELECTED_BROWSER:
-            value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key]));
-            break;
           case LunaDatabaseValue.DEFAULT_LAUNCH_MODULE:
             value.put(LunaModule.DASHBOARD.fromKey(config[key]));
             break;
@@ -149,8 +144,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is bool;
       case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
         return value is int;
-      case LunaDatabaseValue.SELECTED_BROWSER:
-        return value is LunaBrowser;
       case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
         return value is bool;
       case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
@@ -175,6 +168,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return value is LunaModule;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return value is bool;
+      case LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS:
+        return value is bool;
     }
   }
 
@@ -186,8 +181,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return true;
       case LunaDatabaseValue.DRAWER_MANUAL_ORDER:
         return null;
-      case LunaDatabaseValue.SELECTED_BROWSER:
-        return LunaBrowser.APPLE_SAFARI;
       case LunaDatabaseValue.THEME_AMOLED:
         return false;
       case LunaDatabaseValue.THEME_AMOLED_BORDER:
@@ -218,6 +211,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         return LunaModule.DASHBOARD;
       case LunaDatabaseValue.NETWORKING_TLS_VALIDATION:
         return false;
+      case LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS:
+        return true;
     }
   }
 }

@@ -29,7 +29,7 @@ class _State extends State<TautulliMediaDetailsMetadata>
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.scheduleFrameCallback((_) => _refresh());
+    SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
   }
 
   Future<void> _refresh() async {

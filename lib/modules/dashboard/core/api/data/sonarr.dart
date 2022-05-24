@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/extensions/string.dart';
 
-import '../../../../../core/database/luna_database.dart';
-import '../../../../../core/system/profile.dart';
-import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
-import '../../../../../core/utilities/logger.dart';
-import '../../../../../vendor.dart';
-import '../../../../sonarr/core/state.dart';
-import '../../../../sonarr/routes/releases/route.dart';
-import '../../../../sonarr/routes/series_details/route.dart';
-import './abstract.dart';
+import 'package:lunasea/core/database/luna_database.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/modules/sonarr/core/state.dart';
+import 'package:lunasea/modules/sonarr/routes/releases/route.dart';
+import 'package:lunasea/modules/sonarr/routes/series_details/route.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
+
+import 'package:provider/provider.dart';
 
 class CalendarSonarrData extends CalendarData {
   final Map<String, dynamic> api = LunaProfile.current.getSonarr();
@@ -40,7 +42,7 @@ class CalendarSonarrData extends CalendarData {
         children: [
           TextSpan(
               text: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber'),
-          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
           TextSpan(text: 'Episode $episodeNumber'),
         ],
       ),

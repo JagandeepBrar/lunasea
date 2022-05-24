@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrGlobalSettingsType {
@@ -57,10 +58,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async {
-    context
-        .read<RadarrState>()
-        .host
-        .lunaOpenGenericLink(headers: context.read<RadarrState>().headers);
+    context.read<RadarrState>().host.openLink();
   }
 
   Future<void> _backupDatabase(BuildContext context) async {

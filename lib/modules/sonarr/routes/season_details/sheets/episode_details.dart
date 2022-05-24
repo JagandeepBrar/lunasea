@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
@@ -92,7 +93,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           'sonarr.SeasonNumber'.tr(
             args: [episode?.seasonNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
-          LunaUI.TEXT_BULLET.lunaPad(),
+          LunaUI.TEXT_BULLET.pad(),
           'sonarr.EpisodeNumber'.tr(
             args: [episode?.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH],
           ),
@@ -131,7 +132,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               episodeFile?.mediaInfo?.audioCodec ?? LunaUI.TEXT_EMDASH,
               if (episodeFile?.mediaInfo?.audioChannels != null)
                 episodeFile?.mediaInfo?.audioChannels?.toString(),
-            ].join(LunaUI.TEXT_BULLET.lunaPad()),
+            ].join(LunaUI.TEXT_BULLET.pad()),
           ),
           LunaTableContent(
             title: 'sonarr.Size'.tr(),

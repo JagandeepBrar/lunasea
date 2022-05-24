@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/double.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrReleaseExtension on SonarrRelease {

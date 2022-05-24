@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/core.dart';
 
@@ -14,10 +15,12 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-import '../modules/dashboard/core/database.dart';
-import '../modules/dashboard/core/state.dart' as dashboard_state;
-import '../modules/dashboard/routes/dashboard/route.dart' as dashboard_home;
-import '../modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
+import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
+    as dashboard_home;
+import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/system/flavor.dart';
 
 part 'modules.g.dart';
 
@@ -75,7 +78,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.NZBGET:
         return true;
       case LunaModule.OVERSEERR:
-        return LunaFlavor().isLowerOrEqualTo(LunaEnvironment.EDGE);
+        return LunaFlavor.EDGE.isRunningFlavor();
       case LunaModule.RADARR:
         return true;
       case LunaModule.SABNZBD:
@@ -303,23 +306,23 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.DASHBOARD:
         return Icons.home_rounded;
       case LunaModule.LIDARR:
-        return LunaBrandIcons.lidarr;
+        return LunaIcons.LIDARR;
       case LunaModule.NZBGET:
-        return LunaBrandIcons.nzbget;
+        return LunaIcons.NZBGET;
       case LunaModule.RADARR:
-        return LunaBrandIcons.radarr;
+        return LunaIcons.RADARR;
       case LunaModule.SABNZBD:
-        return LunaBrandIcons.sabnzbd;
+        return LunaIcons.SABNZBD;
       case LunaModule.SEARCH:
         return Icons.search_rounded;
       case LunaModule.SETTINGS:
         return Icons.settings_rounded;
       case LunaModule.SONARR:
-        return LunaBrandIcons.sonarr;
+        return LunaIcons.SONARR;
       case LunaModule.TAUTULLI:
-        return LunaBrandIcons.tautulli;
+        return LunaIcons.TAUTULLI;
       case LunaModule.OVERSEERR:
-        return LunaBrandIcons.overseerr;
+        return LunaIcons.OVERSEERR;
       case LunaModule.WAKE_ON_LAN:
         return Icons.settings_remote_rounded;
       case LunaModule.EXTERNAL_MODULES:
@@ -540,7 +543,7 @@ extension LunaModuleExtension on LunaModule {
   }
 
   /// Return the [ShortcutItem] for the module.
-  ShortcutItem? get shortcutItem {
+  ShortcutItem get shortcutItem {
     switch (this) {
       case LunaModule.DASHBOARD:
         return ShortcutItem(type: key, localizedTitle: name);
@@ -563,7 +566,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.OVERSEERR:
         return ShortcutItem(type: key, localizedTitle: name);
       case LunaModule.WAKE_ON_LAN:
-        return null;
+        throw Exception('WAKE_ON_LAN does not have a shortcut item');
       case LunaModule.EXTERNAL_MODULES:
         return ShortcutItem(type: key, localizedTitle: name);
     }
@@ -617,14 +620,14 @@ extension LunaModuleExtension on LunaModule {
               if (this.github != null)
                 LunaButton.text(
                   text: 'GitHub',
-                  icon: LunaBrandIcons.github,
-                  onTap: this.github!.lunaOpenGenericLink,
+                  icon: LunaIcons.GITHUB,
+                  onTap: this.github!.openLink,
                 ),
               if (this.website != null)
                 LunaButton.text(
                   text: 'lunasea.Website'.tr(),
                   icon: Icons.home_rounded,
-                  onTap: this.website!.lunaOpenGenericLink,
+                  onTap: this.website!.openLink,
                 ),
             ],
           );

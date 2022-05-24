@@ -2,16 +2,15 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
-import '../../../../../core/mixins/scroll_controller.dart';
-import '../../../../../core/modules.dart';
-import '../../../../../core/ui.dart';
-import '../../../../dashboard/core/adapters/calendar_starting_day.dart';
-import '../../../../dashboard/core/adapters/calendar_starting_size.dart';
-import '../../../../dashboard/core/adapters/calendar_starting_type.dart';
-import '../../../../dashboard/core/database.dart';
-import '../../../../dashboard/core/dialogs.dart';
-import '../../../core/dialogs.dart';
-import '../../../core/router.dart';
+import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
+import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/modules/dashboard/core/dialogs.dart';
+import 'package:lunasea/modules/settings/core/dialogs.dart';
+import 'package:lunasea/modules/settings/core/router.dart';
 
 class SettingsConfigurationDashboardCalendarSettingsRouter
     extends SettingsPageRouter {

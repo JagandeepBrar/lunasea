@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/sonarr/routes/series_details/sheets/links.dart';
 
 class SonarrSeriesDetailsRouter extends SonarrPageRouter {
   SonarrSeriesDetailsRouter() : super('/sonarr/series/:seriesid');
@@ -125,18 +126,24 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   }
 
   Widget _appBar() {
-    List<Widget>? _actions = series == null
-        ? null
-        : [
-            LunaIconButton(
-              icon: Icons.edit_rounded,
-              onPressed: () async => SonarrEditSeriesRouter().navigateTo(
-                context,
-                widget.seriesId,
-              ),
-            ),
-            SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
-          ];
+    List<Widget>? _actions;
+
+    if (series != null) {
+      _actions = [
+        LunaIconButton(
+          icon: LunaIcons.LINK,
+          onPressed: () => LinksSheet(series: series!).show(context: context),
+        ),
+        LunaIconButton(
+          icon: LunaIcons.EDIT,
+          onPressed: () async => SonarrEditSeriesRouter().navigateTo(
+            context,
+            widget.seriesId,
+          ),
+        ),
+        SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
+      ];
+    }
     return LunaAppBar(
       title: 'sonarr.SeriesDetails'.tr(),
       scrollControllers: SonarrSeriesDetailsNavigationBar.scrollControllers,

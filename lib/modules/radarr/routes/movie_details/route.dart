@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/radarr/routes/movie_details/sheets/links.dart';
 
 class RadarrMoviesDetailsRouter extends RadarrPageRouter {
   RadarrMoviesDetailsRouter() : super('/radarr/movie/:movieid');
@@ -114,17 +115,26 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   }
 
   PreferredSizeWidget _appBar() {
-    List<Widget>? _actions = movie == null
-        ? null
-        : [
-            LunaIconButton(
-              iconSize: LunaUI.ICON_SIZE,
-              icon: Icons.edit_rounded,
-              onPressed: () async =>
-                  RadarrMoviesEditRouter().navigateTo(context, widget.movieId),
-            ),
-            RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
-          ];
+    List<Widget>? _actions;
+
+    if (movie != null) {
+      _actions = [
+        LunaIconButton(
+          icon: LunaIcons.LINK,
+          onPressed: () async {
+            LinksSheet(movie: movie!).show(context: context);
+          },
+        ),
+        LunaIconButton(
+          icon: LunaIcons.EDIT,
+          onPressed: () async {
+            RadarrMoviesEditRouter().navigateTo(context, widget.movieId);
+          },
+        ),
+        RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
+      ];
+    }
+
     return LunaAppBar(
       pageController: _pageController,
       scrollControllers: RadarrMovieDetailsNavigationBar.scrollControllers,

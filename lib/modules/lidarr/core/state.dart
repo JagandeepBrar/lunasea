@@ -39,13 +39,6 @@ class LidarrState extends LunaModuleState {
     notifyListeners();
   }
 
-  bool _hideUnmonitoredAlbums = false;
-  bool get hideUnmonitoredAlbums => _hideUnmonitoredAlbums;
-  set hideUnmonitoredAlbums(bool hideUnmonitoredAlbums) {
-    _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
-    notifyListeners();
-  }
-
   ///Releases Sticky Header Content
 
   String _searchReleasesFilter = '';

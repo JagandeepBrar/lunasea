@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliUserDetailsIPAddresses extends StatefulWidget {
@@ -93,7 +94,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
         TextSpan(
           children: [
             TextSpan(text: record.lastSeen?.lunaAge ?? 'lunasea.Unknown'.tr()),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+            TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: _count == 1 ? '1 Play' : '$_count Plays'),
           ],
         ),

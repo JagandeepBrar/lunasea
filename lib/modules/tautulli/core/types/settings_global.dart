@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 enum TautulliGlobalSettingsType {
@@ -64,9 +65,7 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<TautulliState>().host!.lunaOpenGenericLink(
-            headers: context.read<TautulliState>().headers,
-          );
+      context.read<TautulliState>().host!.openLink();
   Future<void> _backupConfig(BuildContext context) async =>
       TautulliAPIHelper().backupConfiguration(context: context);
   Future<void> _backupDatabase(BuildContext context) async =>

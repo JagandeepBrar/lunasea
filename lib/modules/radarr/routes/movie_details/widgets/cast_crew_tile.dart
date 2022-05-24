@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
@@ -28,7 +29,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
           ),
         ),
       ],
-      onTap: credits.personTmdbId?.toString().lunaOpenTheMovieDBCredits,
+      onTap: credits.personTmdbId?.toString().openTmdbPerson,
     );
   }
 

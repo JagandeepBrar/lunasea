@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/modules/radarr/core/api_helper.dart';
+import 'package:lunasea/modules/radarr/core/state.dart';
+import 'package:lunasea/modules/radarr/routes/movie_details/route.dart';
+import 'package:lunasea/modules/radarr/routes/releases/route.dart';
+import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 
-import '../../../../../core/system/profile.dart';
-import '../../../../../core/extensions.dart';
-import '../../../../../core/ui.dart';
-import '../../../../../vendor.dart';
-import '../../../../radarr/core/api_helper.dart';
-import '../../../../radarr/core/state.dart';
-import '../../../../radarr/routes/movie_details/route.dart';
-import '../../../../radarr/routes/releases/route.dart';
-import './abstract.dart';
+import 'package:provider/provider.dart';
 
 class CalendarRadarrData extends CalendarData {
   final Map<String, dynamic> api = LunaProfile.current.getRadarr();
@@ -34,7 +36,7 @@ class CalendarRadarrData extends CalendarData {
       TextSpan(
         children: [
           TextSpan(text: year.toString()),
-          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
           TextSpan(text: runtime.lunaRuntime()),
         ],
       ),

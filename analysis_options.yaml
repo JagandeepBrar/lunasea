@@ -6,15 +6,17 @@ analyzer:
 linter:
   rules:
     avoid_function_literals_in_foreach_calls: false
-    avoid_positional_boolean_parameters: false
     avoid_types_on_closure_parameters: false
     constant_identifier_names: false
-    lines_longer_than_80_chars: false
     omit_local_variable_types: false
-    one_member_abstracts: false
     public_member_api_docs: false
+    always_use_package_imports: true
+    library_private_types_in_public_api: false
     # Will be disabled and required once other linting rules have been fixed
-    prefer_relative_imports: false
+    depend_on_referenced_packages: false
+    use_build_context_synchronously: false
+    sort_child_properties_last: false
+    no_leading_underscores_for_local_identifiers: false
     curly_braces_in_flow_control_structures: false
     unnecessary_this: false
     avoid_catches_without_on_clauses: false

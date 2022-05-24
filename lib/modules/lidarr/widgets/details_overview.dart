@@ -34,59 +34,6 @@ class _State extends State<LidarrDetailsOverview>
           squareImage: true,
           headers: LunaProfile.current.getLidarr()['headers'],
         ),
-        LunaButtonContainer(
-          buttonsPerRow: 4,
-          children: [
-            if (widget.data.bandsintownURI?.isNotEmpty ?? false)
-              LunaCard(
-                context: context,
-                child: InkWell(
-                  child: Padding(
-                    child: Image.asset(LunaAssets.serviceBandsintown),
-                    padding: const EdgeInsets.all(12.0),
-                  ),
-                  borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                  onTap: () async =>
-                      widget.data.bandsintownURI!.lunaOpenGenericLink(),
-                ),
-                height: 50.0,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-              ),
-            if (widget.data.discogsURI?.isNotEmpty ?? false)
-              LunaCard(
-                context: context,
-                child: InkWell(
-                  child: Padding(
-                    child: Image.asset(LunaAssets.serviceDiscogs),
-                    padding: const EdgeInsets.all(12.0),
-                  ),
-                  borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                  onTap: () async =>
-                      widget.data.discogsURI!.lunaOpenGenericLink(),
-                ),
-                height: 50.0,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-              ),
-            if (widget.data.lastfmURI?.isNotEmpty ?? false)
-              LunaCard(
-                context: context,
-                child: InkWell(
-                  child: Padding(
-                    child: Image.asset(LunaAssets.serviceLastfm),
-                    padding: const EdgeInsets.all(12.0),
-                  ),
-                  borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                  onTap: () async =>
-                      widget.data.lastfmURI!.lunaOpenGenericLink(),
-                ),
-                height: 50.0,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-              ),
-          ],
-        ),
         LunaTableCard(
           content: [
             LunaTableContent(

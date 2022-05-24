@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'search_result.dart';
+import 'package:lunasea/modules/tautulli/api/src/models/libraries/search_result.dart';
 
 part 'search_results.g.dart';
 

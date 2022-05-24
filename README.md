@@ -20,12 +20,12 @@ LunaSea even comes with support for webhook-based push notifications, multiple i
 
 All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
 
-- [Android](https://www.lunasea.app/playstore)
-- [iOS](https://www.lunasea.app/appstore)
-- [Linux](https://www.lunasea.app/snapcraft)
-- [macOS](https://formulae.brew.sh/cask/lunasea)
-- [Web](https://web.lunasea.app)
-- [Windows](https://builds.lunasea.app/#latest/stable/)
+- [Android](https://docs.lunasea.app/releases/android)
+- [iOS](https://docs.lunasea.app/releases/ios)
+- [Linux](https://docs.lunasea.app/releases/linux)
+- [macOS](https://docs.lunasea.app/releases/macos)
+- [Web](https://docs.lunasea.app/releases/web)
+- [Windows](https://docs.lunasea.app/releases/windows)
 
 Interested in using prerelease build channels of LunaSea? Learn the differences between all the build channels and how to join one [here](https://www.lunasea.app/build-channels)!
 

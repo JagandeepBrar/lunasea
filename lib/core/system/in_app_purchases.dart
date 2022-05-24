@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
-
-import 'platform.dart';
+import 'package:lunasea/system/platform.dart';
 
 extension ProductDetailsExtension on ProductDetails {
   IconData get icon {
@@ -54,7 +53,7 @@ class LunaInAppPurchases {
   static List<ProductDetails> donationIAPs = [];
   static bool isAvailable = false;
 
-  static bool get isSupported => LunaPlatform().isMobile;
+  static bool get isSupported => LunaPlatform.isMobile;
 
   /// Callback function for [purchaseStream].
   static Future<void> _purchasedCallback(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliActivityTile extends StatelessWidget {
@@ -40,7 +41,7 @@ class TautulliActivityTile extends StatelessWidget {
       return TextSpan(
         children: [
           TextSpan(text: session.parentTitle),
-          TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
           TextSpan(
               text: 'tautulli.Episode'.tr(args: [
             session.mediaIndex?.toString() ?? LunaUI.TEXT_EMDASH
@@ -62,7 +63,7 @@ class TautulliActivityTile extends StatelessWidget {
       return TextSpan(
         children: [
           TextSpan(text: session.parentTitle),
-          TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
+          TextSpan(text: LunaUI.TEXT_EMDASH.pad()),
           TextSpan(
             style: const TextStyle(
               fontStyle: FontStyle.italic,

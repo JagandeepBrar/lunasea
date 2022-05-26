@@ -204,6 +204,7 @@ jobs:
 
   generate-files:
     name: Generate Files
+    needs: build-details
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
@@ -217,6 +218,7 @@ jobs:
         run: |
           echo FLAVOR=${{ inputs.flavor }} > .env
           echo COMMIT=${{ github.sha }} >> .env
+          echo BUILD=${{ needs.build-details.outputs.build-number }} >> .env
      
       - name: Generate Localization
         run: dart ${{github.workspace }}/scripts/generate_localization.dart

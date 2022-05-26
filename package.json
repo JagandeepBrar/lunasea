@@ -35,18 +35,18 @@
     "profile": "flutter run --profile --cache-sksl --purge-persistent-cache",
     "release": "cross-env HUSKY=0 standard-version --no-verify --commit-all --sign",
     "release:changelog": "npm run release -- --dry-run",
-    "release:flavor:beta": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release\n\n[skip ci]\"",
-    "release:flavor:candidate": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release\n\n[skip ci]\"",
+    "release:flavor:beta": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): beta release\" -m \"[skip ci]\"",
+    "release:flavor:candidate": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"chore(release): candidate release\" -m \"[skip ci]\"",
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
+    "@commitlint/cli": "^17.0.1",
+    "@commitlint/config-conventional": "^17.0.0",
     "all-contributors-cli": "^6.20.0",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^7.0.4",
-    "standard-version": "^9.3.2"
+    "husky": "^8.0.1",
+    "standard-version": "^9.5.0"
   }
 }

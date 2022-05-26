@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.0.3](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.2...v10.0.3) (2022-05-26)
+
+
+### Features
+
+* **-arr:** updated UI for viewing content links ([8b559e0](https://github.com/JagandeepBrar/LunaSea/commit/8b559e00b01305af6d1f8139a75aa25391127626))
+* **ci:** build web docker images ([73fbb10](https://github.com/JagandeepBrar/LunaSea/commit/73fbb1076ec8e951d99ad2df28a28454ca8189a1))
+* **notifications:** option to disable in-app notifications ([da0c44c](https://github.com/JagandeepBrar/LunaSea/commit/da0c44c8b1bc846acc4a1d0a4b7f1ee7c4c2e44d))
+* **settings:** ability to check for updates ([b3caf34](https://github.com/JagandeepBrar/LunaSea/commit/b3caf34074ecc72257b26d091a332e8f54a47587))
+
+
+### Bug Fixes
+
+* correctly calculate age of releases in -arrs ([e35433a](https://github.com/JagandeepBrar/LunaSea/commit/e35433af314b13ff3c951eef4c99f42e460f2b28))
+* **ui:** enable interactivity on all scrollbars on all platforms ([174fa96](https://github.com/JagandeepBrar/LunaSea/commit/174fa969517b00e611534defc12ca3768348623a))
+
 ### [10.0.2](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.1...v10.0.2) (2022-04-12)
 
 

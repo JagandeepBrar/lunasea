@@ -68,14 +68,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _use24HourTime() {
-    LunaDatabaseValue _db = LunaDatabaseValue.USE_24_HOUR_TIME;
+    const _db = LunaSeaDatabase.USE_24_HOUR_TIME;
     return _db.listen(
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.Use24HourTime'.tr(),
         body: [TextSpan(text: 'settings.Use24HourTimeDescription'.tr())],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: _db.update,
         ),
       ),
     );

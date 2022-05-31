@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/database.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -95,7 +96,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         bool result = await SettingsDialogs().clearConfiguration(context);
         if (result) {
-          Database().bootstrap();
+          LunaDatabase().bootstrap();
           if (LunaFirebase.isSupported) LunaFirebaseAuth().signOut();
           LunaState.reset(context);
           showLunaSuccessSnackBar(

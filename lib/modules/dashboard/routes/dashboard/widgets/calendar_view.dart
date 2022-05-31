@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/core/database/database.dart';
 import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/database/box.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
@@ -10,7 +11,6 @@ import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/sonarr.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
@@ -46,10 +46,10 @@ class _State extends State<CalendarView> {
   void initState() {
     super.initState();
 
-    final size = DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data;
+    final size = DashboardDatabase.CALENDAR_STARTING_SIZE.read();
     _selected = context.read<ModuleState>().today!.lunaFloor;
     _selectedEvents = widget.events[_selected] ?? [];
-    _calendarFormat = (size as CalendarStartingSize).data;
+    _calendarFormat = size.data;
   }
 
   TextStyle _getTextStyle(Color color) {
@@ -125,16 +125,16 @@ class _State extends State<CalendarView> {
 
   Widget _calendar() {
     return ValueListenableBuilder(
-      valueListenable: Database.lunasea.box.listenable(keys: [
-        DashboardDatabaseValue.CALENDAR_STARTING_DAY.key,
-        DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
+      valueListenable: LunaBox.lunasea.box.listenable(keys: [
+        DashboardDatabase.CALENDAR_STARTING_DAY.key,
+        DashboardDatabase.CALENDAR_STARTING_SIZE.key,
       ]),
       builder: (context, dynamic box, _) {
         DateTime firstDay = context.watch<ModuleState>().today!.subtract(
-              Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data),
+              Duration(days: DashboardDatabase.CALENDAR_DAYS_PAST.read()),
             );
         DateTime lastDay = context.watch<ModuleState>().today!.add(
-              Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data),
+              Duration(days: DashboardDatabase.CALENDAR_DAYS_FUTURE.read()),
             );
         return SafeArea(
           child: LunaCard(
@@ -154,9 +154,8 @@ class _State extends State<CalendarView> {
                 lastDay: lastDay,
                 //events: widget.events,
                 headerVisible: false,
-                startingDayOfWeek: (DashboardDatabaseValue
-                        .CALENDAR_STARTING_DAY.data as CalendarStartingDay)
-                    .data,
+                startingDayOfWeek:
+                    DashboardDatabase.CALENDAR_STARTING_DAY.read().data,
                 selectedDayPredicate: (date) =>
                     date.lunaFloor == _selected.lunaFloor,
                 calendarStyle: CalendarStyle(

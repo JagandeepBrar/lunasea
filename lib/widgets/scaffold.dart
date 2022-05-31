@@ -14,7 +14,7 @@ class LunaScaffold extends StatelessWidget {
   final bool extendBodyBehindAppBar;
   final bool hideDrawer;
 
-  /// Called when [LunaDatabaseValue.ENABLED_PROFILE] has changed. Triggered within the build function.
+  /// Called when [LunaSeaDatabase.ENABLED_PROFILE] has changed. Triggered within the build function.
   final void Function(BuildContext)? onProfileChange;
 
   const LunaScaffold({
@@ -44,8 +44,8 @@ class LunaScaffold extends StatelessWidget {
 
   Widget get scaffold {
     return ValueListenableBuilder(
-      valueListenable: Database.lunasea.box.listenable(
-        keys: [LunaDatabaseValue.ENABLED_PROFILE.key],
+      valueListenable: LunaBox.lunasea.box.listenable(
+        keys: [LunaSeaDatabase.ENABLED_PROFILE.key],
       ),
       builder: (context, dynamic _, __) {
         if (onProfileChange != null) onProfileChange!(context);

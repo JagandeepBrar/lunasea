@@ -54,10 +54,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           body: [
             TextSpan(text: 'settings.AutomaticallyManageOrderDescription'.tr()),
           ],
-          trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
-            builder: (context, _, __) => LunaSwitch(
-              value: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
-              onChanged: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.put,
+          trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
+            builder: (context, _) => LunaSwitch(
+              value: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
+              onChanged: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.update,
             ),
           ),
         ),
@@ -75,7 +75,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               LunaModule module = _modules![oIndex];
               _modules!.remove(module);
               _modules!.insert(nIndex, module);
-              LunaDatabaseValue.DRAWER_MANUAL_ORDER.put(_modules);
+              LunaSeaDatabase.DRAWER_MANUAL_ORDER.update(_modules);
             },
           ),
         ),
@@ -84,14 +84,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _reorderableModuleTile(int index) {
-    return LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
+    return LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
       key: ObjectKey(_modules![index]),
-      builder: (context, _, __) => LunaBlock(
-        disabled: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data,
+      builder: (context, _) => LunaBlock(
+        disabled: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
         title: _modules![index].name,
         body: [TextSpan(text: _modules![index].description)],
         leading: LunaIconButton(icon: _modules![index].icon),
-        trailing: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+        trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()
             ? null
             : LunaReorderableListViewDragger(index: index),
       ),

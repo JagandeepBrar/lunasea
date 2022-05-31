@@ -40,7 +40,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         .history
         .get(
           page: pageKey,
-          pageSize: RadarrDatabaseValue.CONTENT_PAGE_SIZE.data,
+          pageSize: RadarrDatabase.CONTENT_PAGE_SIZE.read(),
           sortKey: RadarrHistorySortKey.DATE,
           sortDirection: RadarrSortDirection.DESCENDING,
         )

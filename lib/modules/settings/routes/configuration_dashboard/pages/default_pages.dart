@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 
-import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/core/dialogs.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
@@ -54,18 +54,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    DashboardDatabaseValue _db = DashboardDatabaseValue.NAVIGATION_INDEX;
+    const _db = DashboardDatabase.NAVIGATION_INDEX;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
-        body: [TextSpan(text: HomeNavigationBar.titles[_db.data])],
-        trailing: LunaIconButton(icon: HomeNavigationBar.icons[_db.data]),
+        body: [TextSpan(text: HomeNavigationBar.titles[_db.read()])],
+        trailing: LunaIconButton(icon: HomeNavigationBar.icons[_db.read()]),
         onTap: () async {
-          Tuple2<bool, int> values =
-              await DashboardDialogs().defaultPage(context);
-          if (values.item1) {
-            DashboardDatabaseValue.NAVIGATION_INDEX.put(values.item2);
-          }
+          final values = await DashboardDialogs().defaultPage(context);
+          if (values.item1) _db.update(values.item2);
         },
       ),
     );

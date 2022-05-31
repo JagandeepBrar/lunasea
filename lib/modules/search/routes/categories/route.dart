@@ -98,7 +98,7 @@ class _State extends State<_Widget>
 
   List<NewznabCategoryData> _filter(List<NewznabCategoryData> categories) {
     return categories.where((category) {
-      if (!SearchDatabaseValue.HIDE_XXX.data) return true;
+      if (!SearchDatabase.HIDE_XXX.read()) return true;
       if (category.id >= 6000 && category.id <= 6999) return false;
       if (ADULT_CATEGORIES.contains(category.name!.toLowerCase().trim())) {
         return false;

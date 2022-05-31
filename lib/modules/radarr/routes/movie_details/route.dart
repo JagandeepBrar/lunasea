@@ -76,7 +76,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   void initState() {
     super.initState();
     _pageController = PageController(
-      initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data,
+      initialPage: RadarrDatabase.NAVIGATION_INDEX_MOVIE_DETAILS.read(),
     );
   }
 

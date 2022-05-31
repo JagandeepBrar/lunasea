@@ -7,10 +7,10 @@ class LunaTheme {
   void initialize() {
     //Set system UI overlay style (navbar, statusbar)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: LunaDatabaseValue.THEME_AMOLED.data
+      systemNavigationBarColor: LunaSeaDatabase.THEME_AMOLED.read()
           ? Colors.black
           : LunaColours.secondary,
-      systemNavigationBarDividerColor: LunaDatabaseValue.THEME_AMOLED.data
+      systemNavigationBarDividerColor: LunaSeaDatabase.THEME_AMOLED.read()
           ? Colors.black
           : LunaColours.secondary,
       statusBarColor: Colors.transparent,
@@ -25,8 +25,8 @@ class LunaTheme {
     return isAMOLEDTheme ? _pureBlackTheme() : _midnightTheme();
   }
 
-  static bool get isAMOLEDTheme => LunaDatabaseValue.THEME_AMOLED.data;
-  static bool get useBorders => LunaDatabaseValue.THEME_AMOLED_BORDER.data;
+  static bool get isAMOLEDTheme => LunaSeaDatabase.THEME_AMOLED.read();
+  static bool get useBorders => LunaSeaDatabase.THEME_AMOLED_BORDER.read();
 
   /// Midnight theme (Default)
   ThemeData _midnightTheme() {

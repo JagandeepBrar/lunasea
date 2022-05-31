@@ -41,7 +41,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.profiles.box.listenable(),
+      valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [

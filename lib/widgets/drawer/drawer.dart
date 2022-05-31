@@ -11,7 +11,7 @@ class LunaDrawer extends StatelessWidget {
   }) : super(key: key);
 
   static List<LunaModule> moduleOrderedList() {
-    final db = LunaDatabaseValue.DRAWER_MANUAL_ORDER.data as List?;
+    final db = LunaSeaDatabase.DRAWER_MANUAL_ORDER.read();
     final modules = db?.cast<LunaModule>() ?? LunaModule.DASHBOARD.allModules();
 
     // Add any modules that were added after the user set their drawer order preference
@@ -26,20 +26,20 @@ class LunaDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaDatabaseValue.ENABLED_PROFILE.listen(
-      builder: (context, lunaBox, widget) => ValueListenableBuilder(
-        valueListenable: Database.indexers.box.listenable(),
+    return LunaSeaDatabase.ENABLED_PROFILE.listen(
+      builder: (context, _) => ValueListenableBuilder(
+        valueListenable: LunaBox.indexers.box.listenable(),
         builder: (context, dynamic indexerBox, widget) => Drawer(
           elevation: LunaUI.ELEVATION,
           backgroundColor: Theme.of(context).primaryColor,
-          child: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.listen(
-            builder: (context, _, __) => Column(
+          child: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
+            builder: (context, _) => Column(
               children: [
                 LunaDrawerHeader(page: page),
                 Expanded(
                   child: LunaListView(
                     controller: PrimaryScrollController.of(context),
-                    children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+                    children: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()
                         ? _getAlphabeticalOrder(context)
                         : _getManualOrder(context),
                     physics: const ClampingScrollPhysics(),

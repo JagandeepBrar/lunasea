@@ -47,50 +47,50 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         SettingsBanners.QUICK_ACTIONS_SUPPORT.banner(),
         _actionTile(
           LunaModule.LIDARR.name,
-          LunaDatabaseValue.QUICK_ACTIONS_LIDARR,
+          LunaSeaDatabase.QUICK_ACTIONS_LIDARR,
         ),
         _actionTile(
           LunaModule.NZBGET.name,
-          LunaDatabaseValue.QUICK_ACTIONS_NZBGET,
+          LunaSeaDatabase.QUICK_ACTIONS_NZBGET,
         ),
         if (LunaModule.OVERSEERR.featureFlag)
           _actionTile(
             LunaModule.OVERSEERR.name,
-            LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR,
+            LunaSeaDatabase.QUICK_ACTIONS_OVERSEERR,
           ),
         _actionTile(
           LunaModule.RADARR.name,
-          LunaDatabaseValue.QUICK_ACTIONS_RADARR,
+          LunaSeaDatabase.QUICK_ACTIONS_RADARR,
         ),
         _actionTile(
           LunaModule.SABNZBD.name,
-          LunaDatabaseValue.QUICK_ACTIONS_SABNZBD,
+          LunaSeaDatabase.QUICK_ACTIONS_SABNZBD,
         ),
         _actionTile(
           LunaModule.SEARCH.name,
-          LunaDatabaseValue.QUICK_ACTIONS_SEARCH,
+          LunaSeaDatabase.QUICK_ACTIONS_SEARCH,
         ),
         _actionTile(
           LunaModule.SONARR.name,
-          LunaDatabaseValue.QUICK_ACTIONS_SONARR,
+          LunaSeaDatabase.QUICK_ACTIONS_SONARR,
         ),
         _actionTile(
           LunaModule.TAUTULLI.name,
-          LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI,
+          LunaSeaDatabase.QUICK_ACTIONS_TAUTULLI,
         ),
       ],
     );
   }
 
-  Widget _actionTile(String title, LunaDatabaseValue action) {
+  Widget _actionTile(String title, LunaSeaDatabase action) {
     return LunaBlock(
       title: title,
       trailing: ValueListenableBuilder(
-        valueListenable: Database.lunasea.box.listenable(keys: [action.key]),
+        valueListenable: LunaBox.lunasea.box.listenable(keys: [action.key]),
         builder: (context, dynamic _, __) => LunaSwitch(
-            value: action.data,
+            value: action.read(),
             onChanged: (value) {
-              action.put(value);
+              action.update(value);
               if (LunaQuickActions.isSupported)
                 LunaQuickActions().setActionItems();
             }),

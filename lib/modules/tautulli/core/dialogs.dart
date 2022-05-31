@@ -68,7 +68,7 @@ class TautulliDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-        text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
+        text: TautulliDatabase.TERMINATION_MESSAGE.read());
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {
@@ -111,7 +111,7 @@ class TautulliDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-        text: TautulliDatabaseValue.REFRESH_RATE.data.toString());
+        text: TautulliDatabase.REFRESH_RATE.read().toString());
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {
@@ -159,7 +159,7 @@ class TautulliDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-        text: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data.toString());
+        text: TautulliDatabase.STATISTICS_STATS_COUNT.read().toString());
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {
@@ -207,7 +207,7 @@ class TautulliDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-        text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
+        text: TautulliDatabase.TERMINATION_MESSAGE.read());
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {

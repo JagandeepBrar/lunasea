@@ -27,7 +27,7 @@ class _State extends State<_Widget> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-      initialPage: OverseerrDatabaseValue.NAVIGATION_INDEX.data,
+      initialPage: OverseerrDatabase.NAVIGATION_INDEX.read(),
     );
   }
 
@@ -37,7 +37,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.OVERSEERR,
       drawer: _drawer(),
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -54,11 +54,11 @@ class _State extends State<_Widget> {
     return null;
   }
 
-  Widget _appBar() {
-    List<String> profiles = Database.profiles.box.keys.fold(
+  PreferredSizeWidget _appBar() {
+    List<String> profiles = LunaBox.profiles.box.keys.fold(
       [],
       (value, element) {
-        if (Database.profiles.box.get(element)?.overseerrEnabled ?? false) {
+        if (LunaBox.profiles.box.get(element)?.overseerrEnabled ?? false) {
           value.add(element);
         }
         return value;

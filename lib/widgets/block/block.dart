@@ -164,11 +164,10 @@ class LunaBlock extends StatelessWidget {
   }
 
   Widget _fadeInBackground(BuildContext context, double _height) {
-    int? _percent =
-        LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int?;
+    final _percent = LunaSeaDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
     if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
-    double _opacity = _percent! / 100;
+    double _opacity = _percent / 100;
     if (disabled!) _opacity *= LunaUI.OPACITY_DISABLED;
 
     return Opacity(

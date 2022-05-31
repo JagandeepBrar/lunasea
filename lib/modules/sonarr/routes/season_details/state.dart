@@ -135,7 +135,7 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
   void cancelQueueTimer() => _queueTimer?.cancel();
   void createQueueTimer(BuildContext context) {
     _queueTimer = Timer.periodic(
-      Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
+      Duration(seconds: SonarrDatabase.QUEUE_REFRESH_RATE.read()),
       (_) => fetchQueue(context),
     );
   }

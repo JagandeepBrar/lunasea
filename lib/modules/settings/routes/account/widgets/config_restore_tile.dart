@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/config.dart';
 import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/storage.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -62,7 +63,7 @@ class _State extends ConsumerState<SettingsAccountRestoreConfigurationTile> {
       try {
         final encryption = ref.watch(encryptionProvider);
         String decrypted = encryption.decrypt(_key.item2, encrypted);
-        await LunaConfiguration().import(context, decrypted);
+        await LunaConfig().import(context, decrypted);
         showLunaSuccessSnackBar(
           title: 'settings.RestoreFromCloudSuccess'.tr(),
           message: 'settings.RestoreFromCloudSuccessMessage'.tr(),

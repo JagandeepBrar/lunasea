@@ -11,16 +11,16 @@ class LunaDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaDatabaseValue.ENABLED_PROFILE.listen(
-      builder: (context, box, _) => Container(
+    return LunaSeaDatabase.ENABLED_PROFILE.listen(
+      builder: (context, _) => Container(
         child: LunaAppBar.dropdown(
           backgroundColor: Colors.transparent,
           hideLeading: true,
           useDrawer: false,
-          title: Database.profiles.box.keys.length == 1
+          title: LunaBox.profiles.box.keys.length == 1
               ? 'LunaSea'
-              : LunaDatabaseValue.ENABLED_PROFILE.data,
-          profiles: Database.profiles.box.keys.cast<String>().toList(),
+              : LunaSeaDatabase.ENABLED_PROFILE.read(),
+          profiles: LunaBox.profiles.box.keys.cast<String>().toList(),
           actions: [
             LunaIconButton(
               icon: LunaIcons.SETTINGS,

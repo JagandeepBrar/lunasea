@@ -79,7 +79,7 @@ extension SonarrSeriesExtension on SonarrSeries {
 
   String? get lunaAirTime {
     if (this.previousAiring != null) {
-      return LunaDatabaseValue.USE_24_HOUR_TIME.data
+      return LunaSeaDatabase.USE_24_HOUR_TIME.read()
           ? DateFormat.Hm().format(this.previousAiring!.toLocal())
           : DateFormat('hh:mm a').format(this.previousAiring!.toLocal());
     }

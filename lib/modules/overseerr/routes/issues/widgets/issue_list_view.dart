@@ -24,12 +24,12 @@ class _State extends State<OverseerrIssuesListView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final int pageSize = OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data;
+    final pageSize = OverseerrDatabase.CONTENT_PAGE_SIZE.read();
     await context
         .read<OverseerrState>()
         .api
         ?.getIssues(
-          take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
+          take: OverseerrDatabase.CONTENT_PAGE_SIZE.read(),
           skip: pageKey * pageSize,
           filter: OverseerrIssueFilterType.ALL.key,
           sort: OverseerrIssueSortType.MOST_RECENT.key,

@@ -580,9 +580,9 @@ class SonarrAPIController {
           .series
           .delete(
             seriesId: series.id!,
-            deleteFiles: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data,
+            deleteFiles: SonarrDatabase.REMOVE_SERIES_DELETE_FILES.read(),
             addImportListExclusion:
-                SonarrDatabaseValue.REMOVE_SERIES_EXCLUSION_LIST.data,
+                SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.read(),
           )
           .then((_) async {
         return await context
@@ -591,7 +591,7 @@ class SonarrAPIController {
             .then((_) {
           if (showSnackbar)
             showLunaSuccessSnackBar(
-              title: SonarrDatabaseValue.REMOVE_SERIES_DELETE_FILES.data
+              title: SonarrDatabase.REMOVE_SERIES_DELETE_FILES.read()
                   ? 'sonarr.RemovedSeriesWithFiles'.tr()
                   : 'sonarr.RemovedSeries'.tr(),
               message: series.title,
@@ -643,9 +643,9 @@ class SonarrAPIController {
             monitorType: monitorType,
             tags: tags,
             searchForMissingEpisodes:
-                SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_MISSING.data,
+                SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.read(),
             searchForCutoffUnmetEpisodes:
-                SonarrDatabaseValue.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.data,
+                SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.read(),
           )
           .then((series) {
         if (showSnackbar) {

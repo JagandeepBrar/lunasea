@@ -302,9 +302,8 @@ class RadarrAPIHelper {
           .movie
           .delete(
             movieId: movie.id!,
-            addImportExclusion:
-                RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
-            deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data,
+            addImportExclusion: RadarrDatabase.REMOVE_MOVIE_IMPORT_LIST.read(),
+            deleteFiles: RadarrDatabase.REMOVE_MOVIE_DELETE_FILES.read(),
           )
           .then((_) async {
         movie.id = null;
@@ -316,7 +315,7 @@ class RadarrAPIHelper {
             showLunaSuccessSnackBar(
               title: [
                 'Removed Movie',
-                if (RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data)
+                if (RadarrDatabase.REMOVE_MOVIE_DELETE_FILES.read())
                   '(With Files)',
               ].join(' '),
               message: movie.title.uiSafe(),

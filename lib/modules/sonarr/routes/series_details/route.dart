@@ -78,7 +78,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   void initState() {
     super.initState();
     _pageController = PageController(
-      initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.data,
+      initialPage: SonarrDatabase.NAVIGATION_INDEX_SERIES_DETAILS.read(),
     );
   }
 

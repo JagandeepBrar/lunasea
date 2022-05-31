@@ -32,8 +32,8 @@ class SonarrSeriesAddDetailsSeriesTypeTile extends StatelessWidget {
         await SonarrDialogs().editSeriesType(context);
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().seriesType = result.item2!;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE
-          .put(result.item2!.value);
+      SonarrDatabase.ADD_SERIES_DEFAULT_SERIES_TYPE
+          .update(result.item2!.value!);
     }
   }
 }

@@ -28,7 +28,7 @@ class _State extends State<_Widget> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-      initialPage: RadarrDatabaseValue.NAVIGATION_INDEX.data,
+      initialPage: RadarrDatabase.NAVIGATION_INDEX.read(),
     );
   }
 
@@ -56,10 +56,10 @@ class _State extends State<_Widget> {
   }
 
   Widget _appBar() {
-    List<String> profiles = Database.profiles.box.keys.fold(
+    List<String> profiles = LunaBox.profiles.box.keys.fold(
       [],
       (value, element) {
-        if (Database.profiles.box.get(element)?.radarrEnabled ?? false) {
+        if (LunaBox.profiles.box.get(element)?.radarrEnabled ?? false) {
           value.add(element);
         }
         return value;

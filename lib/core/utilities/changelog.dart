@@ -9,9 +9,9 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
   String _version = '';
 
   bool _isBuildDifferent() {
-    final db = AlertsDatabaseValue.PREVIOUS_BUILD.data;
+    final db = LunaSeaDatabase.CHANGELOG_LAST_BUILD.read();
     final current = _version.split('.').map((s) => int.parse(s)).toList();
-    final stored = (db as String).split('.').map((s) => int.parse(s)).toList();
+    final stored = db.split('.').map((s) => int.parse(s)).toList();
 
     if (current[0] != stored[0]) return true;
     if (current[1] != stored[1]) return true;
@@ -44,7 +44,7 @@ class LunaChangelogSheet extends LunaBottomModalSheet {
 
       if (checkBuildVersion) {
         if (!_isBuildDifferent()) return;
-        AlertsDatabaseValue.PREVIOUS_BUILD.put(_version);
+        LunaSeaDatabase.CHANGELOG_LAST_BUILD.update(_version);
       }
 
       return this.showModal(context: context, builder: builder);

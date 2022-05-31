@@ -17,26 +17,26 @@ class LunaLogger {
   }
 
   Future<void> _compact([int count = 100]) async {
-    if (Database.logs.box.keys.length <= count) return;
-    List<LunaLogHiveObject> logs = Database.logs.box.values.toList();
+    if (LunaBox.logs.box.keys.length <= count) return;
+    List<LunaLogHiveObject> logs = LunaBox.logs.box.values.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
 
   Future<String> export() async {
-    final logs = Database.logs.box.values.map((log) => log.toMap()).toList();
+    final logs = LunaBox.logs.box.values.map((log) => log.toMap()).toList();
     final encoder = JsonEncoder.withIndent(' '.repeat(4));
     return encoder.convert(logs);
   }
 
-  Future<void> clear() async => Database.logs.clear();
+  Future<void> clear() async => LunaBox.logs.clear();
 
   void debug(String message) {
     LunaLogHiveObject log = LunaLogHiveObject.withMessage(
       type: LunaLogType.WARNING,
       message: message,
     );
-    Database.logs.box.add(log);
+    LunaBox.logs.box.add(log);
   }
 
   void warning(String className, String methodName, String message) {
@@ -46,7 +46,7 @@ class LunaLogger {
       methodName: methodName,
       message: message,
     );
-    Database.logs.box.add(log);
+    LunaBox.logs.box.add(log);
   }
 
   void error(String message, dynamic error, StackTrace? stackTrace) {
@@ -62,7 +62,7 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      Database.logs.box.add(log);
+      LunaBox.logs.box.add(log);
     }
   }
 
@@ -78,7 +78,7 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      Database.logs.box.add(log);
+      LunaBox.logs.box.add(log);
     }
   }
 }

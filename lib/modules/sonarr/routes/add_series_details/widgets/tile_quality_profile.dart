@@ -33,8 +33,8 @@ class SonarrSeriesAddDetailsQualityProfileTile extends StatelessWidget {
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().qualityProfile =
           result.item2!;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE
-          .put(result.item2!.id);
+      SonarrDatabase.ADD_SERIES_DEFAULT_QUALITY_PROFILE
+          .update(result.item2!.id);
     }
   }
 }

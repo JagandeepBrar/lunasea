@@ -14,7 +14,7 @@ class NZBGetLogData {
   });
 
   String get timestamp {
-    return LunaDatabaseValue.USE_24_HOUR_TIME.data
+    return LunaSeaDatabase.USE_24_HOUR_TIME.read()
         ? DateFormat('MMMM dd, y - HH:mm')
             .format(DateTime.fromMillisecondsSinceEpoch(time! * 1000))
         : DateFormat('MMMM dd, y - hh:mm:ss a')

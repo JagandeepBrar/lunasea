@@ -59,13 +59,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _viewMovies() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.DEFAULT_VIEW_MOVIES;
+    const _db = RadarrDatabase.DEFAULT_VIEW_MOVIES;
     return _db.listen(
-      builder: (context, box, _) {
-        LunaListViewOption _view = _db.data;
+      builder: (context, _) {
         return LunaBlock(
           title: 'lunasea.View'.tr(),
-          body: [TextSpan(text: _view.readable)],
+          body: [TextSpan(text: _db.read().readable)],
           trailing: const LunaIconButton.arrow(),
           onTap: () async {
             List<String> titles = LunaListViewOption.values
@@ -85,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             if (values.item1) {
               LunaListViewOption _opt = LunaListViewOption.values[values.item2];
               context.read<RadarrState>().moviesViewType = _opt;
-              _db.put(_opt);
+              _db.update(_opt);
             }
           },
         );
@@ -94,11 +93,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingMovies() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES;
+    const _db = RadarrDatabase.DEFAULT_SORTING_MOVIES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesSorting).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = RadarrMoviesSorting.values
@@ -114,10 +113,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(RadarrMoviesSorting.values[values.item2]);
-            context.read<RadarrState>().moviesSortType = _db.data;
+            _db.update(RadarrMoviesSorting.values[values.item2]);
+            context.read<RadarrState>().moviesSortType = _db.read();
             context.read<RadarrState>().moviesSortAscending =
-                RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+                RadarrDatabase.DEFAULT_SORTING_MOVIES_ASCENDING.read();
           }
         },
       ),
@@ -125,24 +124,24 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingMoviesDirection() {
-    RadarrDatabaseValue _db =
-        RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING;
+    const _db = RadarrDatabase.DEFAULT_SORTING_MOVIES_ASCENDING;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
           TextSpan(
-            text:
-                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+            text: _db.read()
+                ? 'lunasea.Ascending'.tr()
+                : 'lunasea.Descending'.tr(),
           ),
         ],
         trailing: LunaSwitch(
-          value: _db.data,
+          value: _db.read(),
           onChanged: (value) {
-            _db.put(value);
+            _db.update(value);
             context.read<RadarrState>().moviesSortType =
-                RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
-            context.read<RadarrState>().moviesSortAscending = _db.data;
+                RadarrDatabase.DEFAULT_SORTING_MOVIES.read();
+            context.read<RadarrState>().moviesSortAscending = _db.read();
           },
         ),
       ),
@@ -150,11 +149,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _filteringMovies() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES;
+    const _db = RadarrDatabase.DEFAULT_FILTERING_MOVIES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrMoviesFilter).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrMoviesFilter.values
@@ -170,8 +169,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(RadarrMoviesFilter.values[values.item2]);
-            context.read<RadarrState>().moviesFilterType = _db.data;
+            _db.update(RadarrMoviesFilter.values[values.item2]);
+            context.read<RadarrState>().moviesFilterType = _db.read();
           }
         },
       ),
@@ -179,11 +178,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingReleases() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.DEFAULT_SORTING_RELEASES;
+    const _db = RadarrDatabase.DEFAULT_SORTING_RELEASES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesSorting).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrReleasesSorting.values
@@ -199,7 +198,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(RadarrReleasesSorting.values[values.item2]);
+            _db.update(RadarrReleasesSorting.values[values.item2]);
           }
         },
       ),
@@ -207,31 +206,31 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingReleasesDirection() {
-    RadarrDatabaseValue _db =
-        RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
+    const _db = RadarrDatabase.DEFAULT_SORTING_RELEASES_ASCENDING;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
           TextSpan(
-            text:
-                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+            text: _db.read()
+                ? 'lunasea.Ascending'.tr()
+                : 'lunasea.Descending'.tr(),
           ),
         ],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: (value) => _db.update(value),
         ),
       ),
     );
   }
 
   Widget _filteringReleases() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES;
+    const _db = RadarrDatabase.DEFAULT_FILTERING_RELEASES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as RadarrReleasesFilter).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = RadarrReleasesFilter.values
@@ -247,7 +246,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(RadarrReleasesFilter.values[values.item2]);
+            _db.update(RadarrReleasesFilter.values[values.item2]);
           }
         },
       ),

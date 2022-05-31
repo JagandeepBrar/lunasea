@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/config.dart';
 import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/storage.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -45,7 +46,7 @@ class _State extends ConsumerState<SettingsAccountBackupConfigurationTile> {
       if (_values.item1) {
         final encryption = ref.watch(encryptionProvider);
 
-        String decrypted = LunaConfiguration().export();
+        String decrypted = LunaConfig().export();
         String encrypted = encryption.encrypt(_values.item2, decrypted);
         int timestamp = DateTime.now().millisecondsSinceEpoch;
         String id = ref.watch(uuidProvider).generate();

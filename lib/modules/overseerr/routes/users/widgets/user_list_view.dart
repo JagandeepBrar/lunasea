@@ -24,12 +24,12 @@ class _State extends State<OverseerrUserListView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final int pageSize = OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data;
+    final int pageSize = OverseerrDatabase.CONTENT_PAGE_SIZE.read();
     await context
         .read<OverseerrState>()
         .api
         ?.getUsers(
-          take: OverseerrDatabaseValue.CONTENT_PAGE_SIZE.data,
+          take: OverseerrDatabase.CONTENT_PAGE_SIZE.read(),
           skip: pageKey * pageSize,
         )
         .then((data) {

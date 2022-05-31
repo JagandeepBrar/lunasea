@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/core/cache/image_cache/image_cache.dart';
+import 'package:lunasea/database/database.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/messaging.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
   runZonedGuarded(
     () async {
       //LunaSea initialization
-      await Database().initialize();
+      await LunaDatabase().initialize();
       if (LunaFirebase.isSupported) await LunaFirebase().initialize();
       LunaLogger().initialize();
       LunaTheme().initialize();
@@ -62,9 +63,9 @@ class LunaBIOS extends StatelessWidget {
           useFallbackTranslations: true,
           child: LunaState.providers(
             child: ValueListenableBuilder(
-              valueListenable: Database.lunasea.box.listenable(keys: [
-                LunaDatabaseValue.THEME_AMOLED.key,
-                LunaDatabaseValue.THEME_AMOLED_BORDER.key,
+              valueListenable: LunaBox.lunasea.box.listenable(keys: [
+                LunaSeaDatabase.THEME_AMOLED.key,
+                LunaSeaDatabase.THEME_AMOLED_BORDER.key,
               ]),
               builder: (context, dynamic box, _) {
                 return Layout(

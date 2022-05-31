@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: Database.indexers.box.listenable(),
+      valueListenable: LunaBox.indexers.box.listenable(),
       builder: (context, dynamic box, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -67,13 +67,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _indexerSection() => [
-        if (Database.indexers.box.isEmpty)
+        if (LunaBox.indexers.box.isEmpty)
           const LunaMessage(text: 'No Indexers Found'),
         ..._indexers,
       ];
 
   List<Widget> get _indexers {
-    List<IndexerHiveObject> indexers = Database.indexers.box.values.toList();
+    List<IndexerHiveObject> indexers = LunaBox.indexers.box.values.toList();
     indexers.sort((a, b) =>
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(
@@ -105,28 +105,28 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hideAdultCategories() {
-    SearchDatabaseValue _db = SearchDatabaseValue.HIDE_XXX;
+    const _db = SearchDatabase.HIDE_XXX;
     return _db.listen(
-      builder: (context, box, widget) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'Hide Adult Categories',
         body: const [TextSpan(text: 'Hide Adult Content')],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: _db.update,
         ),
       ),
     );
   }
 
   Widget _showLinks() {
-    SearchDatabaseValue _db = SearchDatabaseValue.SHOW_LINKS;
+    const _db = SearchDatabase.SHOW_LINKS;
     return _db.listen(
-      builder: (context, box, widget) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'Show Links',
         body: const [TextSpan(text: 'Show Download and Comments Links')],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: _db.update,
         ),
       ),
     );

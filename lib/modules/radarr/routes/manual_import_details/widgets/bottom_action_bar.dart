@@ -11,11 +11,11 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaBottomActionBar(
       actions: [
-        RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.listen(
-          builder: (context, _, __) => LunaActionBarCard(
+        RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.listen(
+          builder: (context, _) => LunaActionBarCard(
             title: 'radarr.ImportMode'.tr(),
             subtitle: RadarrImportMode.COPY
-                .from((RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.data))!
+                .from((RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.read()))!
                 .lunaReadable,
             //checkboxState: true,
             onTap: () async => _importModeOnTap(context),
@@ -37,7 +37,7 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
     Tuple2<bool, RadarrImportMode?> result =
         await RadarrDialogs().setManualImportMode(context);
     if (result.item1)
-      RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.put(result.item2!.value);
+      RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.update(result.item2!.value);
   }
 
   Future<void> _importOnTap(BuildContext context) async {
@@ -80,7 +80,7 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
               context: context,
               files: _files,
               importMode: RadarrImportMode.COPY
-                  .from((RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE.data))!,
+                  .from((RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.read()))!,
             )
             .then((result) => result
                 ? Navigator.of(context).pop()

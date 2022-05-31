@@ -11,7 +11,7 @@ class SonarrQueueState extends ChangeNotifier {
   void cancelTimer() => _timer?.cancel();
   void createTimer(BuildContext context) {
     _timer = Timer.periodic(
-      Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
+      Duration(seconds: SonarrDatabase.QUEUE_REFRESH_RATE.read()),
       (_) => fetchQueue(context),
     );
   }
@@ -44,7 +44,7 @@ class SonarrQueueState extends ChangeNotifier {
       _queue = context.read<SonarrState>().api!.queue.get(
             includeEpisode: true,
             includeSeries: true,
-            pageSize: SonarrDatabaseValue.QUEUE_PAGE_SIZE.data,
+            pageSize: SonarrDatabase.QUEUE_PAGE_SIZE.read(),
           );
       createTimer(context);
     }

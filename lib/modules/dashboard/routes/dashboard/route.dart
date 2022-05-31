@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/routes/routes.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/pages/calendar.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/pages/modules.dart';
@@ -37,7 +37,7 @@ class _State extends State<Home> {
   void initState() {
     super.initState();
 
-    int page = DashboardDatabaseValue.NAVIGATION_INDEX.data;
+    int page = DashboardDatabase.NAVIGATION_INDEX.read();
     _pageController = LunaPageController(initialPage: page);
   }
 
@@ -64,12 +64,12 @@ class _State extends State<Home> {
   }
 
   Widget _body() {
-    return LunaDatabaseValue.ENABLED_PROFILE.listen(
-      builder: (context, _, __) => LunaPageView(
+    return LunaSeaDatabase.ENABLED_PROFILE.listen(
+      builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
-          ModulesPage(key: ValueKey(LunaDatabaseValue.ENABLED_PROFILE.data)),
-          CalendarPage(key: ValueKey(LunaDatabaseValue.ENABLED_PROFILE.data)),
+          ModulesPage(key: ValueKey(LunaSeaDatabase.ENABLED_PROFILE.read())),
+          CalendarPage(key: ValueKey(LunaSeaDatabase.ENABLED_PROFILE.read())),
         ],
       ),
     );

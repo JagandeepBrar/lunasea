@@ -75,7 +75,7 @@ class _State extends State<_SonarrSeasonDetails>
   void initState() {
     super.initState();
     _pageController = PageController(
-      initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SEASON_DETAILS.data,
+      initialPage: SonarrDatabase.NAVIGATION_INDEX_SEASON_DETAILS.read(),
     );
   }
 

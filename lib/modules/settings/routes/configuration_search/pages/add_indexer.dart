@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
                 message: 'All fields are required',
               );
             } else {
-              Database.indexers.box.add(_indexer);
+              LunaBox.indexers.box.add(_indexer);
               showLunaSuccessSnackBar(
                 title: 'Indexer Added',
                 message: _indexer.displayName,

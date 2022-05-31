@@ -41,7 +41,7 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
             context.read<RadarrAddMovieDetailsState>().qualityProfile,
         availability: context.read<RadarrAddMovieDetailsState>().availability,
         tags: context.read<RadarrAddMovieDetailsState>().tags,
-        searchForMovie: RadarrDatabaseValue.ADD_MOVIE_SEARCH_FOR_MISSING.data,
+        searchForMovie: RadarrDatabase.ADD_MOVIE_SEARCH_FOR_MISSING.read(),
       )
           .then((movie) async {
         context.read<RadarrState>().fetchMovies();

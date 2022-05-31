@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/sabnzbd.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -51,15 +52,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    SABnzbdDatabaseValue _db = SABnzbdDatabaseValue.NAVIGATION_INDEX;
+    const _db = SABnzbdDatabase.NAVIGATION_INDEX;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
-        body: [TextSpan(text: SABnzbdNavigationBar.titles[_db.data])],
-        trailing: LunaIconButton(icon: SABnzbdNavigationBar.icons[_db.data]),
+        body: [TextSpan(text: SABnzbdNavigationBar.titles[_db.read()])],
+        trailing: LunaIconButton(icon: SABnzbdNavigationBar.icons[_db.read()]),
         onTap: () async {
           List values = await SABnzbdDialogs.defaultPage(context);
-          if (values[0]) _db.put(values[1]);
+          if (values[0]) _db.update(values[1]);
         },
       ),
     );

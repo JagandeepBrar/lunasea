@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profiles.box.listenable(),
+      valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.RADARR.name}',
         trailing: LunaSwitch(
@@ -103,30 +103,32 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _discoverUseRadarrSuggestionsToggle() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS;
+    const _db = RadarrDatabase.ADD_DISCOVER_USE_SUGGESTIONS;
     return _db.listen(
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'Discover Suggestions',
         body: const [TextSpan(text: 'Add Suggested Releases in Discover')],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: (value) => _db.update(value),
         ),
       ),
     );
   }
 
   Widget _queueSize() {
-    RadarrDatabaseValue _db = RadarrDatabaseValue.QUEUE_PAGE_SIZE;
+    const _db = RadarrDatabase.QUEUE_PAGE_SIZE;
     return _db.listen(
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'Queue Size',
-        body: [TextSpan(text: _db.data == 1 ? '1 Item' : '${_db.data} Items')],
+        body: [
+          TextSpan(text: _db.read() == 1 ? '1 Item' : '${_db.read()} Items')
+        ],
         trailing: const LunaIconButton(icon: Icons.queue_play_next_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await RadarrDialogs().setQueuePageSize(context);
-          if (result.item1) _db.put(result.item2);
+          if (result.item1) _db.update(result.item2);
         },
       ),
     );

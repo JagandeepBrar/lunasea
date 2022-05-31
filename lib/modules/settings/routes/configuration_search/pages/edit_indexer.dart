@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     if (widget.indexerId < 0)
       return LunaInvalidRoute(
           title: 'Edit Indexer', message: 'Indexer Not Found');
-    if (!Database.indexers.box.containsKey(widget.indexerId))
+    if (!LunaBox.indexers.box.containsKey(widget.indexerId))
       return LunaInvalidRoute(
           title: 'Edit Indexer', message: 'Indexer Not Found');
     return LunaScaffold(
@@ -96,11 +96,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _body() {
     return ValueListenableBuilder(
         valueListenable:
-            Database.indexers.box.listenable(keys: [widget.indexerId]),
+            LunaBox.indexers.box.listenable(keys: [widget.indexerId]),
         builder: (context, dynamic box, __) {
-          if (!Database.indexers.box.containsKey(widget.indexerId))
+          if (!LunaBox.indexers.box.containsKey(widget.indexerId))
             return Container();
-          _indexer = Database.indexers.box.get(widget.indexerId);
+          _indexer = LunaBox.indexers.box.get(widget.indexerId);
           return LunaListView(
             controller: scrollController,
             children: [

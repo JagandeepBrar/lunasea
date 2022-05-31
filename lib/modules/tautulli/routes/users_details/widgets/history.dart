@@ -29,7 +29,7 @@ class _State extends State<TautulliUserDetailsHistory>
           widget.user.userId!,
           context.read<TautulliState>().api!.history.getHistory(
                 userId: widget.user.userId,
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+                length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
               ),
         );
     await context.read<TautulliState>().userHistory[widget.user.userId!];

@@ -66,10 +66,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledProfile() {
-    return LunaDatabaseValue.ENABLED_PROFILE.listen(
-      builder: (context, _, __) => LunaBlock(
+    const db = LunaSeaDatabase.ENABLED_PROFILE;
+    return db.listen(
+      builder: (context, _) => LunaBlock(
         title: 'settings.EnabledProfile'.tr(),
-        body: [TextSpan(text: LunaDatabaseValue.ENABLED_PROFILE.data)],
+        body: [TextSpan(text: db.read())],
         trailing: const LunaIconButton(icon: LunaIcons.USER),
         onTap: () async {
           Tuple2<bool, String?> results =
@@ -77,8 +78,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             LunaState.navigatorKey.currentContext!,
             LunaProfile().profilesList(),
           );
-          if (results.item1 &&
-              results.item2 != LunaDatabaseValue.ENABLED_PROFILE.data)
+          if (results.item1 && results.item2 != db.read())
             LunaProfile().safelyChangeProfiles(results.item2!);
         },
       ),

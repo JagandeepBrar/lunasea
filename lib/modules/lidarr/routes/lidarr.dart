@@ -29,8 +29,8 @@ class _State extends State<Lidarr> {
   @override
   void initState() {
     super.initState();
-    _pageController = LunaPageController(
-        initialPage: LidarrDatabaseValue.NAVIGATION_INDEX.data);
+    _pageController =
+        LunaPageController(initialPage: LidarrDatabase.NAVIGATION_INDEX.read());
   }
 
   @override
@@ -82,8 +82,8 @@ class _State extends State<Lidarr> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profiles.box.keys.fold([], (value, element) {
-      if (Database.profiles.box.get(element)?.lidarrEnabled ?? false)
+        LunaBox.profiles.box.keys.fold([], (value, element) {
+      if (LunaBox.profiles.box.get(element)?.lidarrEnabled ?? false)
         value.add(element);
       return value;
     });

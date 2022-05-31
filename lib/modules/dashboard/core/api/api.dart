@@ -1,6 +1,6 @@
 import 'package:lunasea/core/models/configuration/profile.dart';
 import 'package:lunasea/core/extensions.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
@@ -29,14 +29,11 @@ class API {
 
   Future<Map<DateTime, List<CalendarData>>> getUpcoming(DateTime today) async {
     Map<DateTime, List<CalendarData>> _upcoming = {};
-    if (lidarr!['enabled'] &&
-        DashboardDatabaseValue.CALENDAR_ENABLE_LIDARR.data)
+    if (lidarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_LIDARR.read())
       await _getLidarrUpcoming(_upcoming, today);
-    if (radarr!['enabled'] &&
-        DashboardDatabaseValue.CALENDAR_ENABLE_RADARR.data)
+    if (radarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_RADARR.read())
       await _getRadarrUpcoming(_upcoming, today);
-    if (sonarr!['enabled'] &&
-        DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data)
+    if (sonarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_SONARR.read())
       await _getSonarrUpcoming(_upcoming, today);
     return _upcoming;
   }
@@ -201,13 +198,13 @@ class API {
 
   DateTime _startBoundDate(DateTime today) {
     return today.subtract(
-      Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data + 1),
+      Duration(days: DashboardDatabase.CALENDAR_DAYS_PAST.read() + 1),
     );
   }
 
   DateTime _endBoundDate(DateTime today) {
     return today.add(
-      Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data + 1),
+      Duration(days: DashboardDatabase.CALENDAR_DAYS_FUTURE.read() + 1),
     );
   }
 

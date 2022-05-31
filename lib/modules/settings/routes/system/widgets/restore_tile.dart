@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/config.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
@@ -44,7 +45,7 @@ class SettingsSystemBackupRestoreRestoreTile extends ConsumerWidget {
       String encrypted = String.fromCharCodes(file.data);
       try {
         String decrypted = encryption.decrypt(_key.item2, encrypted);
-        await LunaConfiguration().import(context, decrypted);
+        await LunaConfig().import(context, decrypted);
         showLunaSuccessSnackBar(
           title: 'settings.RestoreFromCloudSuccess'.tr(),
           message: 'settings.RestoreFromCloudSuccessMessage'.tr(),

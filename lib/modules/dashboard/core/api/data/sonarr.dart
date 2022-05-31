@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/extensions/string.dart';
 
-import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/core/system/profile.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -93,7 +93,7 @@ class CalendarSonarrData extends CalendarData {
 
   String get airTimeString {
     if (airTimeObject != null) {
-      return LunaDatabaseValue.USE_24_HOUR_TIME.data
+      return LunaSeaDatabase.USE_24_HOUR_TIME.read()
           ? DateFormat.Hm().format(airTimeObject!)
           : DateFormat('hh:mm\na').format(airTimeObject!);
     }

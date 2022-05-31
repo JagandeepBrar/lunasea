@@ -56,7 +56,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profiles.box.listenable(),
+      valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.SABNZBD.name}',
         trailing: LunaSwitch(

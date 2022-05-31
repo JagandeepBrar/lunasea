@@ -33,8 +33,8 @@ class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().languageProfile =
           result.item2!;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE
-          .put(result.item2!.id);
+      SonarrDatabase.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE
+          .update(result.item2!.id);
     }
   }
 }

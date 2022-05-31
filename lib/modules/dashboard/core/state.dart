@@ -1,10 +1,10 @@
 import 'package:lunasea/core/models/configuration/profile.dart';
 import 'package:lunasea/core/state/module_state.dart';
 import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/api/api.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
 
 class ModuleState extends LunaModuleState {
   ModuleState() {
@@ -19,7 +19,7 @@ class ModuleState extends LunaModuleState {
   }
 
   CalendarStartingType _calendarStartingType =
-      DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data;
+      DashboardDatabase.CALENDAR_STARTING_TYPE.read();
   CalendarStartingType get calendarStartingType => _calendarStartingType;
   set calendarStartingType(CalendarStartingType calendarStartingType) {
     _calendarStartingType = calendarStartingType;

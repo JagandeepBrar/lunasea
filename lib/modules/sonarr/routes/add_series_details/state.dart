@@ -18,7 +18,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   }
 
   void initializeMonitored() {
-    _monitored = SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED.data ?? true;
+    _monitored = SonarrDatabase.ADD_SERIES_DEFAULT_MONITORED.read();
   }
 
   bool _useSeasonFolders = true;
@@ -30,7 +30,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
 
   void initializeUseSeasonFolders() {
     _useSeasonFolders =
-        SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.data ?? true;
+        SonarrDatabase.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.read();
   }
 
   late SonarrSeriesType _seriesType;
@@ -43,8 +43,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   void initializeSeriesType() {
     _seriesType = SonarrSeriesType.values.firstWhere(
       (element) =>
-          element.value ==
-          SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.data,
+          element.value == SonarrDatabase.ADD_SERIES_DEFAULT_SERIES_TYPE.read(),
       orElse: () => SonarrSeriesType.STANDARD,
     );
   }
@@ -60,7 +59,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     _monitorType = SonarrSeriesMonitorType.values.firstWhere(
       (element) =>
           element.value ==
-          SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE.data,
+          SonarrDatabase.ADD_SERIES_DEFAULT_MONITOR_TYPE.read(),
       orElse: () => SonarrSeriesMonitorType.ALL,
     );
   }
@@ -75,7 +74,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   void initializeRootFolder(List<SonarrRootFolder> rootFolders) {
     _rootFolder = rootFolders.firstWhere(
       (element) =>
-          element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
+          element.id == SonarrDatabase.ADD_SERIES_DEFAULT_ROOT_FOLDER.read(),
       orElse: () => rootFolders.isNotEmpty
           ? rootFolders[0]
           : SonarrRootFolder(id: -1, freeSpace: 0, path: LunaUI.TEXT_EMDASH),
@@ -93,7 +92,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     _qualityProfile = qualityProfiles.firstWhere(
       (element) =>
           element.id ==
-          SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
+          SonarrDatabase.ADD_SERIES_DEFAULT_QUALITY_PROFILE.read(),
       orElse: () => qualityProfiles.isNotEmpty
           ? qualityProfiles[0]
           : SonarrQualityProfile(id: -1, name: LunaUI.TEXT_EMDASH),
@@ -111,7 +110,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     _languageProfile = languageProfiles.firstWhere(
       (element) =>
           element.id ==
-          SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
+          SonarrDatabase.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.read(),
       orElse: () => languageProfiles.isNotEmpty
           ? languageProfiles[0]
           : SonarrLanguageProfile(id: -1, name: LunaUI.TEXT_EMDASH),
@@ -122,16 +121,15 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
   List<SonarrTag> get tags => _tags;
   set tags(List<SonarrTag> tags) {
     _tags = tags;
-    SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS
-        .put(tags.map<int?>((tag) => tag.id).toList());
+    SonarrDatabase.ADD_SERIES_DEFAULT_TAGS
+        .update(tags.map<int?>((tag) => tag.id).toList());
     notifyListeners();
   }
 
   void initializeTags(List<SonarrTag> tags) {
     _tags = tags
-        .where((tag) =>
-            ((SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.data as List?) ?? [])
-                .contains(tag.id))
+        .where((tag) => (SonarrDatabase.ADD_SERIES_DEFAULT_TAGS.read() ?? [])
+            .contains(tag.id))
         .toList();
   }
 

@@ -56,12 +56,12 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
 
   Future<void> _fetchRootFolders(LidarrAPI api) async {
     return await api.getRootFolders().then((values) {
-      LidarrRootFolder? _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
+      final _rootfolder = LidarrDatabase.ADD_ROOT_FOLDER.read();
       _rootFolders = values;
       int index = _rootFolders.indexWhere((value) =>
           value.id == _rootfolder?.id && value.path == _rootfolder?.path);
-      LidarrDatabaseValue.ADD_ROOT_FOLDER
-          .put(index != -1 ? _rootFolders[index] : _rootFolders[0]);
+      LidarrDatabase.ADD_ROOT_FOLDER
+          .update(index != -1 ? _rootFolders[index] : _rootFolders[0]);
     }).catchError((error) {
       Future.error(error);
     });
@@ -69,25 +69,23 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
 
   Future<void> _fetchQualityProfiles(LidarrAPI api) async {
     return await api.getQualityProfiles().then((values) {
-      LidarrQualityProfile? _profile =
-          LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
+      final _profile = LidarrDatabase.ADD_QUALITY_PROFILE.read();
       _qualityProfiles = values.values.toList();
       int index = _qualityProfiles.indexWhere(
           (value) => value.id == _profile?.id && value.name == _profile?.name);
-      LidarrDatabaseValue.ADD_QUALITY_PROFILE
-          .put(index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
+      LidarrDatabase.ADD_QUALITY_PROFILE
+          .update(index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
     }).catchError((error) => error);
   }
 
   Future<void> _fetchMetadataProfiles(LidarrAPI api) async {
     return await api.getMetadataProfiles().then((values) {
-      LidarrMetadataProfile? _profile =
-          LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
+      final _profile = LidarrDatabase.ADD_METADATA_PROFILE.read();
       _metadataProfiles = values.values.toList();
       int index = _metadataProfiles.indexWhere(
           (value) => value.id == _profile?.id && value.name == _profile?.name);
-      LidarrDatabaseValue.ADD_METADATA_PROFILE
-          .put(index != -1 ? _metadataProfiles[index] : _metadataProfiles[0]);
+      LidarrDatabase.ADD_METADATA_PROFILE.update(
+          index != -1 ? _metadataProfiles[index] : _metadataProfiles[0]);
     }).catchError((error) => error);
   }
 
@@ -144,122 +142,115 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
           },
         );
 
-  Widget get _list => LunaListView(
-        controller: scrollController,
-        children: <Widget>[
-          LidarrDescriptionBlock(
-            title: _arguments?.data.title ?? 'lunasea.Unknown'.tr(),
-            description: _arguments!.data.overview == ''
-                ? 'No Summary Available'
-                : _arguments!.data.overview,
-            uri: _arguments!.data.posterURI ?? '',
-            squareImage: true,
-            headers: LunaProfile.current.getLidarr()['headers'],
-            onLongPress: () async {
-              if (_arguments!.data.discogsLink == null ||
-                  _arguments!.data.discogsLink == '')
-                showLunaInfoSnackBar(
-                  title: 'No Discogs Page Available',
-                  message: 'No Discogs URL is available',
-                );
-              _arguments!.data.discogsLink!.openLink();
-            },
-          ),
-          ValueListenableBuilder(
-            valueListenable: Database.lunasea.box
-                .listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
-            builder: (context, dynamic box, widget) {
-              LidarrRootFolder? _rootfolder =
-                  LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
-              return LunaBlock(
-                title: 'Root Folder',
-                body: [
-                  TextSpan(text: _rootfolder?.path ?? 'Unknown Root Folder'),
-                ],
-                trailing: const LunaIconButton.arrow(),
-                onTap: () async {
-                  List _values =
-                      await LidarrDialogs.editRootFolder(context, _rootFolders);
-                  if (_values[0])
-                    LidarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
-                },
+  Widget get _list {
+    return LunaListView(
+      controller: scrollController,
+      children: <Widget>[
+        LidarrDescriptionBlock(
+          title: _arguments?.data.title ?? 'lunasea.Unknown'.tr(),
+          description: _arguments!.data.overview == ''
+              ? 'No Summary Available'
+              : _arguments!.data.overview,
+          uri: _arguments!.data.posterURI ?? '',
+          squareImage: true,
+          headers: LunaProfile.current.getLidarr()['headers'],
+          onLongPress: () async {
+            if (_arguments!.data.discogsLink == null ||
+                _arguments!.data.discogsLink == '')
+              showLunaInfoSnackBar(
+                title: 'No Discogs Page Available',
+                message: 'No Discogs URL is available',
               );
-            },
-          ),
-          LidarrDatabaseValue.ADD_MONITORED_STATUS.listen(
-              builder: (context, box, _) {
-            LidarrDatabaseValue _db = LidarrDatabaseValue.ADD_MONITORED_STATUS;
-            LidarrMonitorStatus? _status =
-                LidarrMonitorStatus.ALL.fromKey(_db.data);
-            _status ??= LidarrMonitorStatus.ALL;
-
+            _arguments!.data.discogsLink!.openLink();
+          },
+        ),
+        ValueListenableBuilder(
+          valueListenable: LunaBox.lunasea.box
+              .listenable(keys: [LidarrDatabase.ADD_ROOT_FOLDER.key]),
+          builder: (context, dynamic box, widget) {
+            final _rootfolder = LidarrDatabase.ADD_ROOT_FOLDER.read();
             return LunaBlock(
-              title: 'Monitor',
+              title: 'Root Folder',
+              body: [
+                TextSpan(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+              ],
               trailing: const LunaIconButton.arrow(),
-              body: [TextSpan(text: _status.readable)],
               onTap: () async {
-                Tuple2<bool, LidarrMonitorStatus?> _result =
-                    await LidarrDialogs().selectMonitoringOption(context);
-                if (_result.item1) _db.put(_result.item2!.key);
+                List _values =
+                    await LidarrDialogs.editRootFolder(context, _rootFolders);
+                if (_values[0])
+                  LidarrDatabase.ADD_ROOT_FOLDER.update(_values[1]);
               },
             );
-          }),
-          ValueListenableBuilder(
-            valueListenable: Database.lunasea.box.listenable(
-                keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
-            builder: (context, dynamic box, widget) {
-              LidarrQualityProfile? _profile =
-                  LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
-              return LunaBlock(
-                title: 'Quality Profile',
-                body: [
-                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
-                ],
-                trailing: const LunaIconButton.arrow(),
-                onTap: () async {
-                  List _values = await LidarrDialogs.editQualityProfile(
-                      context, _qualityProfiles);
-                  if (_values[0])
-                    LidarrDatabaseValue.ADD_QUALITY_PROFILE.put(_values[1]);
-                },
-              );
+          },
+        ),
+        LidarrDatabase.ADD_MONITORED_STATUS.listen(builder: (context, _) {
+          const _db = LidarrDatabase.ADD_MONITORED_STATUS;
+          final _status = LidarrMonitorStatus.ALL.fromKey(_db.read()) ??
+              LidarrMonitorStatus.ALL;
+
+          return LunaBlock(
+            title: 'Monitor',
+            trailing: const LunaIconButton.arrow(),
+            body: [TextSpan(text: _status.readable)],
+            onTap: () async {
+              Tuple2<bool, LidarrMonitorStatus?> _result =
+                  await LidarrDialogs().selectMonitoringOption(context);
+              if (_result.item1) _db.update(_result.item2!.key);
             },
-          ),
-          ValueListenableBuilder(
-            valueListenable: Database.lunasea.box.listenable(
-                keys: [LidarrDatabaseValue.ADD_METADATA_PROFILE.key]),
-            builder: (context, dynamic box, widget) {
-              LidarrMetadataProfile? _profile =
-                  LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
-              return LunaBlock(
-                title: 'Metadata Profile',
-                body: [
-                  TextSpan(text: _profile?.name ?? 'Unknown Profile'),
-                ],
-                trailing: const LunaIconButton.arrow(),
-                onTap: () async {
-                  List _values = await LidarrDialogs.editMetadataProfile(
-                      context, _metadataProfiles);
-                  if (_values[0])
-                    LidarrDatabaseValue.ADD_METADATA_PROFILE.put(_values[1]);
-                },
-              );
-            },
-          ),
-        ],
-      );
+          );
+        }),
+        LidarrDatabase.ADD_QUALITY_PROFILE.listen(
+          builder: (context, _) {
+            final _profile = LidarrDatabase.ADD_QUALITY_PROFILE.read();
+            return LunaBlock(
+              title: 'Quality Profile',
+              body: [
+                TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+              ],
+              trailing: const LunaIconButton.arrow(),
+              onTap: () async {
+                List _values = await LidarrDialogs.editQualityProfile(
+                    context, _qualityProfiles);
+                if (_values[0])
+                  LidarrDatabase.ADD_QUALITY_PROFILE.update(_values[1]);
+              },
+            );
+          },
+        ),
+        LidarrDatabase.ADD_METADATA_PROFILE.listen(
+          builder: (context, _) {
+            final _profile = LidarrDatabase.ADD_METADATA_PROFILE.read();
+            return LunaBlock(
+              title: 'Metadata Profile',
+              body: [
+                TextSpan(text: _profile?.name ?? 'Unknown Profile'),
+              ],
+              trailing: const LunaIconButton.arrow(),
+              onTap: () async {
+                List _values = await LidarrDialogs.editMetadataProfile(
+                    context, _metadataProfiles);
+                if (_values[0])
+                  LidarrDatabase.ADD_METADATA_PROFILE.update(_values[1]);
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
 
   Future<void> _addArtist() async {
     LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
-    bool? search = LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data;
+    bool? search = LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.read();
     await _api
         .addArtist(
           _arguments!.data,
-          LidarrDatabaseValue.ADD_QUALITY_PROFILE.data,
-          LidarrDatabaseValue.ADD_ROOT_FOLDER.data,
-          LidarrDatabaseValue.ADD_METADATA_PROFILE.data,
+          LidarrDatabase.ADD_QUALITY_PROFILE.read()!,
+          LidarrDatabase.ADD_ROOT_FOLDER.read()!,
+          LidarrDatabase.ADD_METADATA_PROFILE.read()!,
           LidarrMonitorStatus.ALL
-              .fromKey(LidarrDatabaseValue.ADD_MONITORED_STATUS.data)!,
+              .fromKey(LidarrDatabase.ADD_MONITORED_STATUS.read())!,
           search: search,
         )
         .then((id) => Navigator.of(context)
@@ -267,7 +258,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
         .catchError((error, stack) {
       LunaLogger().error('Failed to add artist', error, stack);
       showLunaErrorSnackBar(
-        title: search!
+        title: search
             ? 'Failed to Add Artist (With Search)'
             : 'Failed to Add Artist',
         error: error,

@@ -52,7 +52,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
           LunaHeader(
             text: 'Daily Stream Type Breakdown',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_LINECHART_DAYS.read()} Days',
               '\n\n',
               'The total play count or duration of television, movies, and music by the transcode decision.',
             ].join(),
@@ -61,7 +61,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
           LunaHeader(
             text: 'By Source Resolution',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television and movies by their original resolution (pre-transcoding).',
             ].join(),
@@ -70,7 +70,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
           LunaHeader(
             text: 'By Stream Resolution',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television and movies by their streamed resolution (post-transcoding).',
             ].join(),
@@ -79,7 +79,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
           LunaHeader(
             text: 'By Platform Stream Type',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television, movies, and music by platform and stream type.',
             ].join(),
@@ -88,7 +88,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute>
           LunaHeader(
             text: 'By User Stream Type',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television, movies, and music by user and stream type.',
             ].join(),

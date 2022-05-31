@@ -106,7 +106,7 @@ class TautulliState extends LunaModuleState {
 
   /// Create the periodic timer to handle refreshing activity data
   void createActivityTimer() => _getActivityTimer = Timer.periodic(
-        Duration(seconds: TautulliDatabaseValue.REFRESH_RATE.data),
+        Duration(seconds: TautulliDatabase.REFRESH_RATE.read()),
         (_) => activity = _api!.activity.getActivity(),
       );
 
@@ -154,7 +154,7 @@ class TautulliState extends LunaModuleState {
     // Reset user table
     if (_api != null) {
       _users = _api!.users.getUsersTable(
-        length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
         orderDirection: TautulliOrderDirection.ASCENDING,
         orderColumn: TautulliUsersOrderColumn.FRIENDLY_NAME,
       );
@@ -180,7 +180,7 @@ class TautulliState extends LunaModuleState {
     // Reset user table
     if (_api != null) {
       _history = _api!.history.getHistory(
-        length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
         orderDirection: TautulliOrderDirection.ASCENDING,
       );
     }
@@ -298,7 +298,7 @@ class TautulliState extends LunaModuleState {
       _statistics = _api!.history.getHomeStats(
         timeRange: _statisticsTimeRange.value,
         statsType: _statisticsType,
-        statsCount: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data,
+        statsCount: TautulliDatabase.STATISTICS_STATS_COUNT.read(),
       );
     notifyListeners();
   }
@@ -317,7 +317,7 @@ class TautulliState extends LunaModuleState {
   void resetRecentlyAdded() {
     if (_api != null)
       _recentlyAdded = _api!.libraries.getRecentlyAdded(
-        count: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        count: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
       );
     notifyListeners();
   }
@@ -344,7 +344,7 @@ class TautulliState extends LunaModuleState {
   void resetDailyPlayCountGraph() {
     if (_api != null)
       _dailyPlayCountGraph = _api!.history.getPlaysByDate(
-        timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_LINECHART_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -360,7 +360,7 @@ class TautulliState extends LunaModuleState {
   void resetPlaysByMonthGraph() {
     if (_api != null)
       _playsByMonthGraph = _api!.history.getPlaysPerMonth(
-        timeRange: TautulliDatabaseValue.GRAPHS_MONTHS.data,
+        timeRange: TautulliDatabase.GRAPHS_MONTHS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -378,7 +378,7 @@ class TautulliState extends LunaModuleState {
   void resetPlayCountByDayOfWeekGraph() {
     if (_api != null)
       _playCountByDayOfWeekGraph = _api!.history.getPlaysByDayOfWeek(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -396,7 +396,7 @@ class TautulliState extends LunaModuleState {
   void resetPlayCountByTopPlatformsGraph() {
     if (_api != null)
       _playCountByTopPlatformsGraph = _api!.history.getPlaysByTopTenPlatforms(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -414,7 +414,7 @@ class TautulliState extends LunaModuleState {
   void resetPlayCountByTopUsersGraph() {
     if (_api != null)
       _playCountByTopUsersGraph = _api!.history.getPlaysByTopTenUsers(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -440,7 +440,7 @@ class TautulliState extends LunaModuleState {
   void resetDailyStreamTypeBreakdownGraph() {
     if (_api != null)
       _dailyStreamTypeBreakdownGraph = _api!.history.getPlaysByStreamType(
-        timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_LINECHART_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -459,7 +459,7 @@ class TautulliState extends LunaModuleState {
     if (_api != null)
       _playCountBySourceResolutionGraph =
           _api!.history.getPlaysBySourceResolution(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -478,7 +478,7 @@ class TautulliState extends LunaModuleState {
     if (_api != null)
       _playCountByStreamResolutionGraph =
           _api!.history.getPlaysByStreamResolution(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -497,7 +497,7 @@ class TautulliState extends LunaModuleState {
     if (_api != null)
       _playCountByPlatformStreamTypeGraph =
           _api!.history.getStreamTypeByTopTenPlatforms(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -516,7 +516,7 @@ class TautulliState extends LunaModuleState {
     if (_api != null)
       _playCountByUserStreamTypeGraph =
           _api!.history.getStreamTypeByTopTenUsers(
-        timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+        timeRange: TautulliDatabase.GRAPHS_DAYS.read(),
         yAxis: _graphYAxis,
       );
     notifyListeners();
@@ -544,7 +544,7 @@ class TautulliState extends LunaModuleState {
   void resetLibrariesTable() {
     if (_api != null)
       _librariesTable = _api!.libraries.getLibrariesTable(
-        length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
         orderColumn: TautulliLibrariesOrderColumn.SECTION_NAME,
         orderDirection: TautulliOrderDirection.ASCENDING,
       );
@@ -601,7 +601,7 @@ class TautulliState extends LunaModuleState {
   void fetchSearch() {
     _search = _api!.libraries.search(
       query: _searchQuery,
-      limit: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+      limit: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
     );
     notifyListeners();
   }

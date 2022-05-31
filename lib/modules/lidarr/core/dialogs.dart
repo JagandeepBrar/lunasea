@@ -318,12 +318,13 @@ class LidarrDialogs {
       ],
       showCancelButton: false,
       content: [
-        LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.listen(
-          builder: (context, value, _) => LunaDialog.checkbox(
+        LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.listen(
+          builder: (context, _) => LunaDialog.checkbox(
             title: 'lidarr.StartSearchForMissingAlbums'.tr(),
-            value: LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.data,
-            onChanged: (value) =>
-                LidarrDatabaseValue.ADD_ARTIST_SEARCH_FOR_MISSING.put(value),
+            value: LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.read(),
+            onChanged: (value) {
+              LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.update(value!);
+            },
           ),
         ),
       ],

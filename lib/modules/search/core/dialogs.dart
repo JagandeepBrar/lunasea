@@ -18,8 +18,8 @@ class SearchDialogs {
     await LunaDialog.dialog(
       context: context,
       title: 'search.Download'.tr(),
-      customContent: LunaDatabaseValue.ENABLED_PROFILE.listen(
-        builder: (context, lunaBox, widget) => LunaDialog.content(
+      customContent: LunaSeaDatabase.ENABLED_PROFILE.listen(
+        builder: (context, _) => LunaDialog.content(
           children: [
             Padding(
               child: LunaPopupMenuButton<String>(
@@ -30,7 +30,7 @@ class SearchDialogs {
                     children: [
                       Expanded(
                         child: Text(
-                          LunaDatabaseValue.ENABLED_PROFILE.data,
+                          LunaSeaDatabase.ENABLED_PROFILE.read(),
                           style: const TextStyle(
                             fontSize: LunaUI.FONT_SIZE_H3,
                           ),
@@ -59,15 +59,14 @@ class SearchDialogs {
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
                     for (String? profile
-                        in Database.profiles.box.keys as Iterable<String?>)
+                        in LunaBox.profiles.box.keys as Iterable<String?>)
                       PopupMenuItem<String>(
                         value: profile,
                         child: Text(
                           profile!,
                           style: TextStyle(
                             fontSize: LunaUI.FONT_SIZE_H3,
-                            color: (LunaDatabaseValue.ENABLED_PROFILE.data ??
-                                        'default') ==
+                            color: LunaSeaDatabase.ENABLED_PROFILE.read() ==
                                     profile
                                 ? LunaColours.accent
                                 : Colors.white,

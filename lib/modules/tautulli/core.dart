@@ -1,5 +1,5 @@
+export 'package:lunasea/database/tables/tautulli.dart';
 export 'core/api_helper.dart';
-export 'core/database.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';
 export 'core/graphs.dart';

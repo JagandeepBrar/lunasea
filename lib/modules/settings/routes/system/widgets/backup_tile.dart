@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/config.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 import 'package:lunasea/utils/encryption.dart';
@@ -24,7 +25,7 @@ class SettingsSystemBackupRestoreBackupTile extends ConsumerWidget {
       final _values = await SettingsDialogs().backupConfiguration(context);
       if (_values.item1) {
         final encryption = ref.watch(encryptionProvider);
-        String data = LunaConfiguration().export();
+        String data = LunaConfig().export();
         String encrypted = encryption.encrypt(_values.item2, data);
         String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
         bool result = await LunaFileSystem().save(

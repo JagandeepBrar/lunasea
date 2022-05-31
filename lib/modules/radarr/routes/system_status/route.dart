@@ -27,7 +27,7 @@ class _State extends State<_Widget> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-      initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data,
+      initialPage: RadarrDatabase.NAVIGATION_INDEX_SYSTEM_STATUS.read(),
     );
   }
 

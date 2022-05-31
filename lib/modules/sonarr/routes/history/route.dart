@@ -45,7 +45,7 @@ class _State extends State<_Widget>
         .history
         .get(
           page: pageKey,
-          pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
+          pageSize: SonarrDatabase.CONTENT_PAGE_SIZE.read(),
           sortKey: SonarrHistorySortKey.DATE,
           sortDirection: SonarrSortDirection.DESCENDING,
           includeEpisode: true,

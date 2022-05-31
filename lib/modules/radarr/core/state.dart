@@ -92,7 +92,7 @@ class RadarrState extends LunaModuleState {
   }
 
   LunaListViewOption? _moviesViewType =
-      RadarrDatabaseValue.DEFAULT_VIEW_MOVIES.data;
+      RadarrDatabase.DEFAULT_VIEW_MOVIES.read();
   LunaListViewOption get moviesViewType => _moviesViewType!;
   set moviesViewType(LunaListViewOption moviesViewType) {
     _moviesViewType = moviesViewType;
@@ -100,7 +100,7 @@ class RadarrState extends LunaModuleState {
   }
 
   RadarrMoviesSorting? _moviesSortType =
-      RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
+      RadarrDatabase.DEFAULT_SORTING_MOVIES.read();
   RadarrMoviesSorting get moviesSortType => _moviesSortType!;
   set moviesSortType(RadarrMoviesSorting moviesSortType) {
     _moviesSortType = moviesSortType;
@@ -108,7 +108,7 @@ class RadarrState extends LunaModuleState {
   }
 
   RadarrMoviesFilter? _moviesFilterType =
-      RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
+      RadarrDatabase.DEFAULT_FILTERING_MOVIES.read();
   RadarrMoviesFilter get moviesFilterType => _moviesFilterType!;
   set moviesFilterType(RadarrMoviesFilter moviesFilterType) {
     _moviesFilterType = moviesFilterType;
@@ -116,7 +116,7 @@ class RadarrState extends LunaModuleState {
   }
 
   bool? _moviesSortAscending =
-      RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+      RadarrDatabase.DEFAULT_SORTING_MOVIES_ASCENDING.read();
   bool get moviesSortAscending => _moviesSortAscending!;
   set moviesSortAscending(bool moviesSortAscending) {
     _moviesSortAscending = moviesSortAscending;
@@ -295,7 +295,7 @@ class RadarrState extends LunaModuleState {
   Timer? _getQueueTimer;
 
   void createQueueTimer() => _getQueueTimer = Timer.periodic(
-        Duration(seconds: RadarrDatabaseValue.QUEUE_REFRESH_RATE.data),
+        Duration(seconds: RadarrDatabase.QUEUE_REFRESH_RATE.read()),
         (_) => fetchQueue(),
       );
 
@@ -311,8 +311,7 @@ class RadarrState extends LunaModuleState {
   void fetchQueue() {
     cancelQueueTimer();
     if (_api != null) {
-      _queue =
-          _api!.queue.get(pageSize: RadarrDatabaseValue.QUEUE_PAGE_SIZE.data);
+      _queue = _api!.queue.get(pageSize: RadarrDatabase.QUEUE_PAGE_SIZE.read());
       createQueueTimer();
     }
     notifyListeners();

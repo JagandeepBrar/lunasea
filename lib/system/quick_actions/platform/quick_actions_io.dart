@@ -1,5 +1,5 @@
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/core/modules.dart';
 import 'package:lunasea/system/platform.dart';
 
@@ -29,21 +29,21 @@ class IO implements LunaQuickActions {
   @override
   void setActionItems() {
     _quickActions.setShortcutItems(<ShortcutItem>[
-      if (LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_TAUTULLI.read())
         LunaModule.TAUTULLI.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_SONARR.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_SONARR.read())
         LunaModule.SONARR.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_SEARCH.read())
         LunaModule.SEARCH.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_SABNZBD.read())
         LunaModule.SABNZBD.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_RADARR.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_RADARR.read())
         LunaModule.RADARR.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_OVERSEERR.read())
         LunaModule.OVERSEERR.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_NZBGET.read())
         LunaModule.NZBGET.shortcutItem,
-      if (LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data)
+      if (LunaSeaDatabase.QUICK_ACTIONS_LIDARR.read())
         LunaModule.LIDARR.shortcutItem,
       LunaModule.SETTINGS.shortcutItem,
     ]);

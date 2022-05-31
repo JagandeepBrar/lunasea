@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/vendor.dart';
-import 'package:lunasea/core/database/luna_database.dart';
 
 // ignore: always_use_package_imports
 import '../network.dart';
@@ -24,7 +24,7 @@ class IO extends HttpOverrides implements LunaNetwork {
     final HttpClient client = super.createHttpClient(context);
 
     // Disable TLS validation
-    if (!LunaDatabaseValue.NETWORKING_TLS_VALIDATION.data)
+    if (!LunaSeaDatabase.NETWORKING_TLS_VALIDATION.read())
       client.badCertificateCallback = (cert, host, port) => true;
 
     // Set User-Agent

@@ -36,7 +36,7 @@ class _State extends State<TautulliStatisticsStreamTile> {
       ),
       int.tryParse(widget.data['started']) != null
           ? TextSpan(
-              text: LunaDatabaseValue.USE_24_HOUR_TIME.data
+              text: LunaSeaDatabase.USE_24_HOUR_TIME.read()
                   ? DateFormat('yyyy-MM-dd HH:mm').format(
                       DateTime.fromMillisecondsSinceEpoch(
                           int.tryParse(widget.data['started'])! * 1000))

@@ -98,7 +98,7 @@ class _State extends State<_Widget>
     context.read<TautulliState>().setIndividualHistory(
           widget.ratingKey,
           context.read<TautulliState>().api!.history.getHistory(
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+                length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
                 ratingKey: widget.ratingKey,
               ),
         );

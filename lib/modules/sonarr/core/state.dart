@@ -77,7 +77,7 @@ class SonarrState extends LunaModuleState {
   /////////////////
 
   LunaListViewOption _seriesViewType =
-      SonarrDatabaseValue.DEFAULT_VIEW_SERIES.data;
+      SonarrDatabase.DEFAULT_VIEW_SERIES.read();
   LunaListViewOption get seriesViewType => _seriesViewType;
   set seriesViewType(LunaListViewOption seriesViewType) {
     _seriesViewType = seriesViewType;
@@ -92,7 +92,7 @@ class SonarrState extends LunaModuleState {
   }
 
   SonarrSeriesSorting _seriesSortType =
-      SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
+      SonarrDatabase.DEFAULT_SORTING_SERIES.read();
   SonarrSeriesSorting get seriesSortType => _seriesSortType;
   set seriesSortType(SonarrSeriesSorting seriesSortType) {
     _seriesSortType = seriesSortType;
@@ -100,7 +100,7 @@ class SonarrState extends LunaModuleState {
   }
 
   SonarrSeriesFilter _seriesFilterType =
-      SonarrDatabaseValue.DEFAULT_FILTERING_SERIES.data;
+      SonarrDatabase.DEFAULT_FILTERING_SERIES.read();
   SonarrSeriesFilter get seriesFilterType => _seriesFilterType;
   set seriesFilterType(SonarrSeriesFilter seriesFilterType) {
     _seriesFilterType = seriesFilterType;
@@ -108,7 +108,7 @@ class SonarrState extends LunaModuleState {
   }
 
   bool _seriesSortAscending =
-      SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
+      SonarrDatabase.DEFAULT_SORTING_SERIES_ASCENDING.read();
   bool get seriesSortAscending => _seriesSortAscending;
   set seriesSortAscending(bool seriesSortAscending) {
     _seriesSortAscending = seriesSortAscending;
@@ -165,7 +165,7 @@ class SonarrState extends LunaModuleState {
   void fetchMissing() {
     if (_api != null)
       _missing = _api!.wanted.getMissing(
-        pageSize: SonarrDatabaseValue.CONTENT_PAGE_SIZE.data,
+        pageSize: SonarrDatabase.CONTENT_PAGE_SIZE.read(),
         sortDir: SonarrSortDirection.DESCENDING,
         sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
       );
@@ -185,8 +185,8 @@ class SonarrState extends LunaModuleState {
 
   void fetchUpcoming() {
     DateTime start = DateTime.now();
-    DateTime end = start
-        .add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
+    DateTime end =
+        start.add(Duration(days: SonarrDatabase.UPCOMING_FUTURE_DAYS.read()));
     if (_api != null)
       _upcoming = _api!.calendar.get(
         start: start,

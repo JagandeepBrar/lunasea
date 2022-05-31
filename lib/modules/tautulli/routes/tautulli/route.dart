@@ -25,8 +25,8 @@ class _State extends State<_Widget> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
-        initialPage: TautulliDatabaseValue.NAVIGATION_INDEX.data);
+    _pageController =
+        PageController(initialPage: TautulliDatabase.NAVIGATION_INDEX.read());
   }
 
   @override
@@ -51,8 +51,8 @@ class _State extends State<_Widget> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profiles.box.keys.fold([], (value, element) {
-      if (Database.profiles.box.get(element)?.tautulliEnabled ?? false)
+        LunaBox.profiles.box.keys.fold([], (value, element) {
+      if (LunaBox.profiles.box.get(element)?.tautulliEnabled ?? false)
         value.add(element);
       return value;
     });

@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profiles.box.listenable(),
+      valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.name}',
         trailing: LunaSwitch(
@@ -95,10 +95,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _defaultTerminationMessage() {
-    TautulliDatabaseValue _db = TautulliDatabaseValue.TERMINATION_MESSAGE;
+    const _db = TautulliDatabase.TERMINATION_MESSAGE;
     return _db.listen(
-      builder: (context, box, _) {
-        String message = _db.data;
+      builder: (context, _) {
+        String message = _db.read();
         return LunaBlock(
           title: 'Default Termination Message',
           body: [TextSpan(text: message.isEmpty ? 'Not Set' : message)],
@@ -106,7 +106,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async {
             Tuple2<bool, String> result =
                 await TautulliDialogs.setTerminationMessage(context);
-            if (result.item1) _db.put(result.item2);
+            if (result.item1) _db.update(result.item2);
           },
         );
       },
@@ -114,30 +114,30 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _activityRefreshRate() {
-    TautulliDatabaseValue _db = TautulliDatabaseValue.REFRESH_RATE;
-    return _db.listen(builder: (context, box, _) {
+    const _db = TautulliDatabase.REFRESH_RATE;
+    return _db.listen(builder: (context, _) {
       String? refreshRate;
-      if (_db.data == 1) refreshRate = 'Every Second';
-      if (_db.data != 1) refreshRate = 'Every ${_db.data} Seconds';
+      if (_db.read() == 1) refreshRate = 'Every Second';
+      if (_db.read() != 1) refreshRate = 'Every ${_db.read()} Seconds';
       return LunaBlock(
         title: 'Activity Refresh Rate',
         body: [TextSpan(text: refreshRate)],
         trailing: const LunaIconButton(icon: LunaIcons.REFRESH),
         onTap: () async {
           List<dynamic> _values = await TautulliDialogs.setRefreshRate(context);
-          if (_values[0]) TautulliDatabaseValue.REFRESH_RATE.put(_values[1]);
+          if (_values[0]) _db.update(_values[1]);
         },
       );
     });
   }
 
   Widget _statisticsItemCount() {
-    TautulliDatabaseValue _db = TautulliDatabaseValue.STATISTICS_STATS_COUNT;
+    const _db = TautulliDatabase.STATISTICS_STATS_COUNT;
     return _db.listen(
-      builder: (context, box, _) {
+      builder: (context, _) {
         String? statisticsItems;
-        if (_db.data == 1) statisticsItems = '1 Item';
-        if (_db.data != 1) statisticsItems = '${_db.data} Items';
+        if (_db.read() == 1) statisticsItems = '1 Item';
+        if (_db.read() != 1) statisticsItems = '${_db.read()} Items';
         return LunaBlock(
           title: 'Statistics Item Count',
           body: [TextSpan(text: statisticsItems)],
@@ -145,7 +145,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async {
             List<dynamic> _values =
                 await TautulliDialogs.setStatisticsItemCount(context);
-            if (_values[0]) _db.put(_values[1]);
+            if (_values[0]) _db.update(_values[1]);
           },
         );
       },

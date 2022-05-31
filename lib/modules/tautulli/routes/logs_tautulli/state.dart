@@ -13,7 +13,7 @@ class TautulliLogsTautulliState extends ChangeNotifier {
     if (context.read<TautulliState>().enabled!) {
       _logs = context.read<TautulliState>().api!.miscellaneous.getLogs(
             start: 0,
-            end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            end: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
           );
     }
     notifyListeners();

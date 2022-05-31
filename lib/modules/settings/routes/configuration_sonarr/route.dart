@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _enabledToggle() {
     return ValueListenableBuilder(
-      valueListenable: Database.profiles.box.listenable(),
+      valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.name}',
         trailing: LunaSwitch(
@@ -109,16 +109,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _queueSize() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.QUEUE_PAGE_SIZE;
+    const _db = SonarrDatabase.QUEUE_PAGE_SIZE;
     return _db.listen(
-      builder: (context, _, __) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'Queue Size',
-        body: [TextSpan(text: _db.data == 1 ? '1 Item' : '${_db.data} Items')],
+        body: [
+          TextSpan(text: _db.read() == 1 ? '1 Item' : '${_db.read()} Items')
+        ],
         trailing: const LunaIconButton(icon: Icons.queue_play_next_rounded),
         onTap: () async {
           Tuple2<bool, int> result =
               await SonarrDialogs().setQueuePageSize(context);
-          if (result.item1) _db.put(result.item2);
+          if (result.item1) _db.update(result.item2);
         },
       ),
     );

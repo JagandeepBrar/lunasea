@@ -77,7 +77,7 @@ class _State extends State<_Widget> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-        initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data);
+        initialPage: TautulliDatabase.NAVIGATION_INDEX_MEDIA_DETAILS.read());
   }
 
   @override

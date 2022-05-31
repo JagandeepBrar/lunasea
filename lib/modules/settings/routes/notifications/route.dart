@@ -71,12 +71,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enableInAppNotifications() {
+    const db = LunaSeaDatabase.ENABLE_IN_APP_NOTIFICATIONS;
     return LunaBlock(
       title: 'settings.EnableInAppNotifications'.tr(),
-      trailing: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.listen(
-        builder: (context, box, _) => LunaSwitch(
-          value: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.data,
-          onChanged: LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.put,
+      trailing: db.listen(
+        builder: (context, _) => LunaSwitch(
+          value: db.read(),
+          onChanged: db.update,
         ),
       ),
     );

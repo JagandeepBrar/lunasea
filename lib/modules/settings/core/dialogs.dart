@@ -1,8 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
-import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -1294,7 +1294,7 @@ class SettingsDialogs {
     int _opacity = 0;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController()
-      ..text = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
+      ..text = LunaSeaDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read().toString();
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {

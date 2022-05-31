@@ -27,8 +27,8 @@ class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
         await SonarrDialogs().editMonitorType(context);
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().monitorType = result.item2!;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_TYPE
-          .put(result.item2!.value);
+      SonarrDatabase.ADD_SERIES_DEFAULT_MONITOR_TYPE
+          .update(result.item2!.value!);
     }
   }
 }

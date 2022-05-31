@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
 
 class DashboardDialogs {
   Future<Tuple2<bool, int>> defaultPage(BuildContext context) async {
@@ -38,7 +38,7 @@ class DashboardDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-      text: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data.toString(),
+      text: DashboardDatabase.CALENDAR_DAYS_PAST.read().toString(),
     );
 
     void _setValues(bool flag) {
@@ -86,7 +86,7 @@ class DashboardDialogs {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     TextEditingController _textController = TextEditingController(
-      text: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data.toString(),
+      text: DashboardDatabase.CALENDAR_DAYS_FUTURE.read().toString(),
     );
 
     void _setValues(bool flag) {

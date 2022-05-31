@@ -58,10 +58,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _viewSeries() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_VIEW_SERIES;
+    const _db = SonarrDatabase.DEFAULT_VIEW_SERIES;
     return _db.listen(
-      builder: (context, box, _) {
-        LunaListViewOption _view = _db.data;
+      builder: (context, _) {
+        LunaListViewOption _view = _db.read();
         return LunaBlock(
           title: 'lunasea.View'.tr(),
           body: [TextSpan(text: _view.readable)],
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             if (values.item1) {
               LunaListViewOption _opt = LunaListViewOption.values[values.item2];
               context.read<SonarrState>().seriesViewType = _opt;
-              _db.put(_opt);
+              _db.update(_opt);
             }
           },
         );
@@ -93,11 +93,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingSeries() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_SORTING_SERIES;
+    const _db = SonarrDatabase.DEFAULT_SORTING_SERIES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrSeriesSorting).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = SonarrSeriesSorting.values
@@ -113,10 +113,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(SonarrSeriesSorting.values[values.item2]);
-            context.read<SonarrState>().seriesSortType = _db.data;
+            _db.update(SonarrSeriesSorting.values[values.item2]);
+            context.read<SonarrState>().seriesSortType = _db.read();
             context.read<SonarrState>().seriesSortAscending =
-                SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
+                SonarrDatabase.DEFAULT_SORTING_SERIES_ASCENDING.read();
           }
         },
       ),
@@ -124,31 +124,31 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingSeriesDirection() {
-    SonarrDatabaseValue _db =
-        SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING;
+    const _db = SonarrDatabase.DEFAULT_SORTING_SERIES_ASCENDING;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
           TextSpan(
-            text:
-                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+            text: _db.read()
+                ? 'lunasea.Ascending'.tr()
+                : 'lunasea.Descending'.tr(),
           ),
         ],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: _db.update,
         ),
       ),
     );
   }
 
   Widget _filteringSeries() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_FILTERING_SERIES;
+    const _db = SonarrDatabase.DEFAULT_FILTERING_SERIES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrSeriesFilter).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrSeriesFilter.values
@@ -164,7 +164,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(SonarrSeriesFilter.values[values.item2]);
+            _db.update(SonarrSeriesFilter.values[values.item2]);
           }
         },
       ),
@@ -172,11 +172,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingReleases() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES;
+    const _db = SonarrDatabase.DEFAULT_SORTING_RELEASES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrReleasesSorting).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String?> titles = SonarrReleasesSorting.values
@@ -192,7 +192,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(SonarrReleasesSorting.values[values.item2]);
+            _db.update(SonarrReleasesSorting.values[values.item2]);
           }
         },
       ),
@@ -200,31 +200,31 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _sortingReleasesDirection() {
-    SonarrDatabaseValue _db =
-        SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
+    const _db = SonarrDatabase.DEFAULT_SORTING_RELEASES_ASCENDING;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
           TextSpan(
-            text:
-                _db.data ? 'lunasea.Ascending'.tr() : 'lunasea.Descending'.tr(),
+            text: _db.read()
+                ? 'lunasea.Ascending'.tr()
+                : 'lunasea.Descending'.tr(),
           ),
         ],
         trailing: LunaSwitch(
-          value: _db.data,
-          onChanged: (value) => _db.put(value),
+          value: _db.read(),
+          onChanged: _db.update,
         ),
       ),
     );
   }
 
   Widget _filteringReleases() {
-    SonarrDatabaseValue _db = SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES;
+    const _db = SonarrDatabase.DEFAULT_FILTERING_RELEASES;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
-        body: [TextSpan(text: (_db.data as SonarrReleasesFilter).readable)],
+        body: [TextSpan(text: _db.read().readable)],
         trailing: const LunaIconButton.arrow(),
         onTap: () async {
           List<String> titles = SonarrReleasesFilter.values
@@ -240,7 +240,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
 
           if (values.item1) {
-            _db.put(SonarrReleasesFilter.values[values.item2]);
+            _db.update(SonarrReleasesFilter.values[values.item2]);
           }
         },
       ),

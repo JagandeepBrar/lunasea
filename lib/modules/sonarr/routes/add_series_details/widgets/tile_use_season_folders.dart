@@ -15,7 +15,7 @@ class SonarrSeriesAddDetailsUseSeasonFoldersTile extends StatelessWidget {
         value: context.watch<SonarrSeriesAddDetailsState>().useSeasonFolders,
         onChanged: (value) {
           context.read<SonarrSeriesAddDetailsState>().useSeasonFolders = value;
-          SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.put(value);
+          SonarrDatabase.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.update(value);
         },
       ),
     );

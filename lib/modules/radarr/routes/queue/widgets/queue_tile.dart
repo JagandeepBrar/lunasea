@@ -145,9 +145,9 @@ class RadarrQueueTile extends StatelessWidget {
                   .queue
                   .delete(
                     id: record.id!,
-                    blacklist: RadarrDatabaseValue.QUEUE_BLACKLIST.data,
+                    blacklist: RadarrDatabase.QUEUE_BLACKLIST.read(),
                     removeFromClient:
-                        RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.data,
+                        RadarrDatabase.QUEUE_REMOVE_FROM_CLIENT.read(),
                   )
                   .then((_) {
                 showLunaSuccessSnackBar(

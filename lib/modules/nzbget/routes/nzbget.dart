@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/nzbget.dart';
 import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
@@ -31,8 +32,8 @@ class _State extends State<NZBGet> {
   @override
   void initState() {
     super.initState();
-    _pageController = LunaPageController(
-        initialPage: NZBGetDatabaseValue.NAVIGATION_INDEX.data);
+    _pageController =
+        LunaPageController(initialPage: NZBGetDatabase.NAVIGATION_INDEX.read());
   }
 
   @override
@@ -61,8 +62,8 @@ class _State extends State<NZBGet> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profiles.box.keys.fold([], (value, element) {
-      if (Database.profiles.box.get(element)?.nzbgetEnabled ?? false)
+        LunaBox.profiles.box.keys.fold([], (value, element) {
+      if (LunaBox.profiles.box.get(element)?.nzbgetEnabled ?? false)
         value.add(element);
       return value;
     });

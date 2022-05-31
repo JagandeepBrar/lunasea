@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lunasea/core/extensions.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
-import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
@@ -53,7 +53,7 @@ class _State extends State<ScheduleView> {
     keys.sort();
 
     for (var key in keys) {
-      bool pastDays = DashboardDatabaseValue.CALENDAR_SHOW_PAST_DAYS.data;
+      bool pastDays = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS.read();
       bool dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
       bool hasEvents = widget.events[key]?.isNotEmpty ?? false;
       if ((pastDays || dayInFuture) && hasEvents) days.add(_buildDay(key));

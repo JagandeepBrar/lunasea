@@ -52,7 +52,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
           LunaHeader(
             text: 'Daily',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_LINECHART_DAYS.read()} Days',
               '\n\n',
               'The total play count or duration of television, movies, and music played per day.'
             ].join(),
@@ -61,7 +61,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
           LunaHeader(
             text: 'Monthly',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
+              'Last ${TautulliDatabase.GRAPHS_MONTHS.read()} Months',
               '\n\n',
               'The combined total of television, movies, and music by month.',
             ].join(),
@@ -70,7 +70,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
           LunaHeader(
             text: 'By Day Of Week',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television, movies, and music played per day of the week.',
             ].join(),
@@ -79,7 +79,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
           LunaHeader(
             text: 'By Top Platforms',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television, movies, and music played by the top most active platforms.',
             ].join(),
@@ -88,7 +88,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute>
           LunaHeader(
             text: 'By Top Users',
             subtitle: [
-              'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+              'Last ${TautulliDatabase.GRAPHS_DAYS.read()} Days',
               '\n\n',
               'The combined total of television, movies, and music played by the top most active users.',
             ].join(),

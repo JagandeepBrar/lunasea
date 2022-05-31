@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/nzbget.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -50,17 +51,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _homePage() {
-    NZBGetDatabaseValue _db = NZBGetDatabaseValue.NAVIGATION_INDEX;
+    const _db = NZBGetDatabase.NAVIGATION_INDEX;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
-        body: [TextSpan(text: NZBGetNavigationBar.titles[_db.data])],
+        body: [TextSpan(text: NZBGetNavigationBar.titles[_db.read()])],
         trailing: LunaIconButton(
-          icon: NZBGetNavigationBar.icons[_db.data],
+          icon: NZBGetNavigationBar.icons[_db.read()],
         ),
         onTap: () async {
           List values = await NZBGetDialogs.defaultPage(context);
-          if (values[0]) _db.put(values[1]);
+          if (values[0]) _db.update(values[1]);
         },
       ),
     );

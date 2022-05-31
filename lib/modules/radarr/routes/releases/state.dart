@@ -28,7 +28,7 @@ class RadarrReleasesState extends ChangeNotifier {
   }
 
   RadarrReleasesFilter? _filterType =
-      RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
+      RadarrDatabase.DEFAULT_FILTERING_RELEASES.read();
   RadarrReleasesFilter get filterType => _filterType!;
   set filterType(RadarrReleasesFilter filterType) {
     _filterType = filterType;
@@ -36,7 +36,7 @@ class RadarrReleasesState extends ChangeNotifier {
   }
 
   RadarrReleasesSorting? _sortType =
-      RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
+      RadarrDatabase.DEFAULT_SORTING_RELEASES.read();
   RadarrReleasesSorting get sortType => _sortType!;
   set sortType(RadarrReleasesSorting sortType) {
     _sortType = sortType;
@@ -44,7 +44,7 @@ class RadarrReleasesState extends ChangeNotifier {
   }
 
   bool? _sortAscending =
-      RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
+      RadarrDatabase.DEFAULT_SORTING_RELEASES_ASCENDING.read();
   bool get sortAscending => _sortAscending!;
   set sortAscending(bool sortAscending) {
     _sortAscending = sortAscending;

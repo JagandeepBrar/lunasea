@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/sabnzbd.dart';
 import 'package:lunasea/extensions/string_links.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/system/filesystem/file.dart';
@@ -31,7 +32,7 @@ class _State extends State<SABnzbd> {
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-        initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
+        initialPage: SABnzbdDatabase.NAVIGATION_INDEX.read());
   }
 
   @override
@@ -60,8 +61,8 @@ class _State extends State<SABnzbd> {
 
   Widget _appBar() {
     List<String> profiles =
-        Database.profiles.box.keys.fold([], (value, element) {
-      if (Database.profiles.box.get(element)?.sabnzbdEnabled ?? false)
+        LunaBox.profiles.box.keys.fold([], (value, element) {
+      if (LunaBox.profiles.box.get(element)?.sabnzbdEnabled ?? false)
         value.add(element);
       return value;
     });

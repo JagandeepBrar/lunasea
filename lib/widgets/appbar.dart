@@ -309,11 +309,9 @@ class _State extends State<LunaAppBar> {
                   profile!,
                   style: TextStyle(
                     fontSize: LunaUI.FONT_SIZE_H3,
-                    color:
-                        (LunaDatabaseValue.ENABLED_PROFILE.data ?? 'default') ==
-                                profile
-                            ? LunaColours.accent
-                            : Colors.white,
+                    color: LunaSeaDatabase.ENABLED_PROFILE.read() == profile
+                        ? LunaColours.accent
+                        : Colors.white,
                   ),
                 ),
               )

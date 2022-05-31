@@ -78,7 +78,7 @@ class LunaFirebaseMessaging {
   /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
   StreamSubscription<RemoteMessage> registerOnMessageListener() {
     return onMessage.listen((message) {
-      if (LunaDatabaseValue.ENABLE_IN_APP_NOTIFICATIONS.data) return;
+      if (LunaSeaDatabase.ENABLE_IN_APP_NOTIFICATIONS.read()) return;
 
       LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
       showLunaSnackBar(

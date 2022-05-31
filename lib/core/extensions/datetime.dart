@@ -38,7 +38,7 @@ extension DateTimeExtension on DateTime {
   /// Returns just the time as a string.
   ///
   /// 3 PM will return either 15:00 (24 hour style) or 3:00 PM depending on the configured database option.
-  String get lunaTime => LunaDatabaseValue.USE_24_HOUR_TIME.data
+  String get lunaTime => LunaSeaDatabase.USE_24_HOUR_TIME.read()
       ? DateFormat.Hm().format(this)
       : DateFormat.jm().format(this);
 
@@ -71,9 +71,9 @@ extension DateTimeExtension on DateTime {
   }) {
     String _format = shortMonth ? 'MMM dd, y' : 'MMMM dd, y';
     _format += timeOnNewLine ? '\n' : sameLineDelimiter.pad();
-    _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'HH:mm' : 'hh:mm';
+    _format += LunaSeaDatabase.USE_24_HOUR_TIME.read() ? 'HH:mm' : 'hh:mm';
     _format += showSeconds ? ':ss' : '';
-    _format += LunaDatabaseValue.USE_24_HOUR_TIME.data ? '' : ' a';
+    _format += LunaSeaDatabase.USE_24_HOUR_TIME.read() ? '' : ' a';
     return DateFormat(_format).format(this.toLocal());
   }
 }

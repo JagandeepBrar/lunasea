@@ -15,7 +15,6 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-import 'package:lunasea/modules/dashboard/core/database.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
 import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
     as dashboard_home;
@@ -25,7 +24,7 @@ import 'package:lunasea/system/flavor.dart';
 part 'modules.g.dart';
 
 const _DASHBOARD_KEY = 'dashboard';
-const _EXTERNAL_MODULES_KEY = 'externalmodules';
+const _EXTERNAL_MODULES_KEY = 'external_modules';
 const _LIDARR_KEY = 'lidarr';
 const _NZBGET_KEY = 'nzbget';
 const _OVERSEERR_KEY = 'overseerr';
@@ -192,7 +191,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SABNZBD:
         return LunaProfile.current.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
-        return Database.indexers.box.isNotEmpty;
+        return LunaBox.indexers.box.isNotEmpty;
       case LunaModule.SONARR:
         return LunaProfile.current.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:
@@ -200,7 +199,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return LunaProfile.current.wakeOnLANEnabled ?? false;
       case LunaModule.EXTERNAL_MODULES:
-        return Database.externalModules.box.isNotEmpty;
+        return LunaBox.externalModules.box.isNotEmpty;
     }
   }
 
@@ -222,7 +221,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.SABNZBD:
         return LunaProfile.current.getSABnzbd();
       case LunaModule.SEARCH:
-        return Database.indexers.box
+        return LunaBox.indexers.box
             .toMap()
             .map((key, value) => MapEntry(key.toString(), value.toMap()));
       case LunaModule.SETTINGS:
@@ -234,7 +233,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return LunaProfile.current.getWakeOnLAN();
       case LunaModule.EXTERNAL_MODULES:
-        return Database.externalModules.box
+        return LunaBox.externalModules.box
             .toMap()
             .map((key, value) => MapEntry(key.toString(), value.toMap()));
     }
@@ -327,36 +326,6 @@ extension LunaModuleExtension on LunaModule {
         return Icons.settings_remote_rounded;
       case LunaModule.EXTERNAL_MODULES:
         return Icons.settings_ethernet_rounded;
-    }
-  }
-
-  /// The [LunaModuleDatabase] for the module.
-  LunaModuleDatabase? get database {
-    switch (this) {
-      case LunaModule.SETTINGS:
-        return null;
-      case LunaModule.WAKE_ON_LAN:
-        return null;
-      case LunaModule.DASHBOARD:
-        return DashboardDatabase();
-      case LunaModule.SEARCH:
-        return SearchDatabase();
-      case LunaModule.LIDARR:
-        return LidarrDatabase();
-      case LunaModule.RADARR:
-        return RadarrDatabase();
-      case LunaModule.SONARR:
-        return SonarrDatabase();
-      case LunaModule.NZBGET:
-        return NZBGetDatabase();
-      case LunaModule.SABNZBD:
-        return SABnzbdDatabase();
-      case LunaModule.OVERSEERR:
-        return OverseerrDatabase();
-      case LunaModule.TAUTULLI:
-        return TautulliDatabase();
-      case LunaModule.EXTERNAL_MODULES:
-        return null;
     }
   }
 
@@ -604,12 +573,12 @@ extension LunaModuleExtension on LunaModule {
 
   Widget informationBanner() {
     String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
-    void markSeen() => Database.alerts.box.put(key, false);
+    void markSeen() => LunaBox.alerts.box.put(key, false);
 
     return ValueListenableBuilder(
-      valueListenable: Database.alerts.box.listenable(keys: [key]),
+      valueListenable: LunaBox.alerts.box.listenable(keys: [key]),
       builder: (context, dynamic box, _) {
-        if (Database.alerts.box.get(key, defaultValue: true)) {
+        if (LunaBox.alerts.box.get(key, defaultValue: true)) {
           return LunaBanner(
             dismissCallback: markSeen,
             headerText: this.name,

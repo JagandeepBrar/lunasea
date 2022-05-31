@@ -46,7 +46,7 @@ class SonarrReleasesState extends ChangeNotifier {
   }
 
   SonarrReleasesFilter? _filterType =
-      SonarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
+      SonarrDatabase.DEFAULT_FILTERING_RELEASES.read();
   SonarrReleasesFilter get filterType => _filterType!;
   set filterType(SonarrReleasesFilter filterType) {
     _filterType = filterType;
@@ -54,7 +54,7 @@ class SonarrReleasesState extends ChangeNotifier {
   }
 
   SonarrReleasesSorting? _sortType =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
+      SonarrDatabase.DEFAULT_SORTING_RELEASES.read();
   SonarrReleasesSorting get sortType => _sortType!;
   set sortType(SonarrReleasesSorting sortType) {
     _sortType = sortType;
@@ -62,7 +62,7 @@ class SonarrReleasesState extends ChangeNotifier {
   }
 
   bool? _sortAscending =
-      SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
+      SonarrDatabase.DEFAULT_SORTING_RELEASES_ASCENDING.read();
   bool get sortAscending => _sortAscending!;
   set sortAscending(bool sortAscending) {
     _sortAscending = sortAscending;

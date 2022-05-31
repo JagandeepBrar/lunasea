@@ -43,14 +43,14 @@ class SearchResultTile extends StatelessWidget {
       LunaTableContent(
           title: 'search.Size'.tr(), body: data.size.lunaBytesToString()),
       LunaTableContent(title: 'search.Category'.tr(), body: data.category),
-      if (SearchDatabaseValue.SHOW_LINKS.data)
+      if (SearchDatabase.SHOW_LINKS.read())
         LunaTableContent(title: '', body: ''),
-      if (SearchDatabaseValue.SHOW_LINKS.data)
+      if (SearchDatabase.SHOW_LINKS.read())
         LunaTableContent(
             title: 'search.Comments'.tr(),
             body: data.linkComments,
             bodyIsUrl: true),
-      if (SearchDatabaseValue.SHOW_LINKS.data)
+      if (SearchDatabase.SHOW_LINKS.read())
         LunaTableContent(
             title: 'search.Download'.tr(),
             body: data.linkDownload,

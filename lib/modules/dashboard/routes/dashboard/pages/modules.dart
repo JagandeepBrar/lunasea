@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/core/database/luna_database.dart';
 import 'package:lunasea/core/modules.dart';
 import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
@@ -37,7 +37,7 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
     return LunaListView(
       controller: HomeNavigationBar.scrollControllers[0],
       itemExtent: LunaBlock.calculateItemExtent(1),
-      children: LunaDatabaseValue.DRAWER_AUTOMATIC_MANAGE.data
+      children: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()
           ? _buildAlphabeticalList()
           : _buildManuallyOrderedList(),
     );

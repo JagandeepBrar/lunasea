@@ -49,7 +49,7 @@ class _State extends State<_Widget> {
     _pageController = LunaPageController(
       initialPage: (_arguments?.query ?? '').isNotEmpty
           ? 0
-          : RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data,
+          : RadarrDatabase.NAVIGATION_INDEX_ADD_MOVIE.read(),
     );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,

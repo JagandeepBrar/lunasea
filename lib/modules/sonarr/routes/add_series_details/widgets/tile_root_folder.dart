@@ -29,7 +29,7 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
         await SonarrDialogs().editRootFolder(context, _folders);
     if (result.item1) {
       context.read<SonarrSeriesAddDetailsState>().rootFolder = result.item2!;
-      SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.put(result.item2!.id);
+      SonarrDatabase.ADD_SERIES_DEFAULT_ROOT_FOLDER.update(result.item2!.id);
     }
   }
 }

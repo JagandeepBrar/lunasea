@@ -39,7 +39,7 @@ class _State extends State<TautulliMediaDetailsHistory>
                 ratingKey: _ratingKey,
                 parentRatingKey: _parentRatingKey,
                 grandparentRatingKey: _grandparentRatingKey,
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+                length: TautulliDatabase.CONTENT_LOAD_LENGTH.read(),
               ),
         );
     await context.read<TautulliState>().individualHistory[widget.ratingKey];

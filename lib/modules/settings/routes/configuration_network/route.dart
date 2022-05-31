@@ -50,17 +50,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _useTLSValidation() {
-    LunaDatabaseValue _db = LunaDatabaseValue.NETWORKING_TLS_VALIDATION;
+    const _db = LunaSeaDatabase.NETWORKING_TLS_VALIDATION;
     return _db.listen(
-      builder: (context, box, _) => LunaBlock(
+      builder: (context, _) => LunaBlock(
         title: 'settings.TLSCertificateValidation'.tr(),
         body: [
           TextSpan(text: 'settings.TLSCertificateValidationDescription'.tr()),
         ],
         trailing: LunaSwitch(
-          value: _db.data,
+          value: _db.read(),
           onChanged: (data) {
-            _db.put(data);
+            _db.update(data);
             if (LunaNetwork.isSupported) LunaNetwork().initialize();
           },
         ),

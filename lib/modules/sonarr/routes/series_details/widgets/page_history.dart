@@ -26,7 +26,6 @@ class _State extends State<SonarrSeriesDetailsHistoryPage>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
-      hideDrawer: true,
       body: _body(),
     );
   }

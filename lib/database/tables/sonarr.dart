@@ -21,7 +21,7 @@ enum SonarrDatabase<T> with LunaTableMixin<T> {
   ADD_SERIES_DEFAULT_LANGUAGE_PROFILE<int?>(null),
   ADD_SERIES_DEFAULT_QUALITY_PROFILE<int?>(null),
   ADD_SERIES_DEFAULT_ROOT_FOLDER<int?>(null),
-  ADD_SERIES_DEFAULT_TAGS<List?>(null),
+  ADD_SERIES_DEFAULT_TAGS<List>([]),
   DEFAULT_VIEW_SERIES<LunaListViewOption>(LunaListViewOption.BLOCK_VIEW),
   DEFAULT_FILTERING_SERIES<SonarrSeriesFilter>(SonarrSeriesFilter.ALL),
   DEFAULT_FILTERING_RELEASES<SonarrReleasesFilter>(SonarrReleasesFilter.ALL),

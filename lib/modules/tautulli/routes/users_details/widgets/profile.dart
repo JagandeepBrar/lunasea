@@ -67,7 +67,6 @@ class _State extends State<TautulliUserDetailsProfile>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      hideDrawer: true,
       body: _initialLoad ? _body() : const LunaLoader(),
     );
   }

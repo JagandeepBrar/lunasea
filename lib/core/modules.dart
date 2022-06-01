@@ -61,7 +61,18 @@ enum LunaModule {
   @HiveField(9)
   TAUTULLI,
   @HiveField(10)
-  WAKE_ON_LAN,
+  WAKE_ON_LAN;
+
+  /// Returns a list of all system-enabled modules.
+  ///
+  /// Internal modules (dashboard, settings, etc.) are removed by default.
+  static List<LunaModule> get active {
+    return LunaModule.values.filter((m) {
+      if (m == LunaModule.DASHBOARD) return false;
+      if (m == LunaModule.SETTINGS) return false;
+      return m.featureFlag;
+    }).toList();
+  }
 }
 
 extension LunaModuleExtension on LunaModule {
@@ -93,21 +104,6 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return LunaWakeOnLAN.isSupported;
     }
-  }
-
-  /// Returns a list of all system-enabled modules.
-  ///
-  /// Internal modules (dashboard, settings, etc.) are removed by default.
-  List<LunaModule> allModules({
-    bool removeInternalModules = true,
-  }) {
-    List<LunaModule> _modules =
-        LunaModule.values.filter((module) => module.featureFlag).toList();
-    if (removeInternalModules) {
-      _modules.remove(LunaModule.DASHBOARD);
-      _modules.remove(LunaModule.SETTINGS);
-    }
-    return _modules;
   }
 
   /// Used to convert a string key back to a [LunaModule] value.

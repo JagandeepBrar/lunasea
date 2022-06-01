@@ -42,7 +42,6 @@ class _State extends State<TautulliUserDetailsSyncedItems>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      hideDrawer: true,
       body: _body(),
     );
   }

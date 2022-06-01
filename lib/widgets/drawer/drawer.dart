@@ -10,18 +10,26 @@ class LunaDrawer extends StatelessWidget {
     required this.page,
   }) : super(key: key);
 
+  static List<LunaModule> moduleAlphabeticalList() {
+    return LunaModule.active
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  }
+
   static List<LunaModule> moduleOrderedList() {
-    final db = LunaSeaDatabase.DRAWER_MANUAL_ORDER.read();
-    final modules = db?.cast<LunaModule>() ?? LunaModule.DASHBOARD.allModules();
+    try {
+      const db = LunaSeaDatabase.DRAWER_MANUAL_ORDER;
+      final modules = List.from(db.read());
+      final missing = LunaModule.active;
 
-    // Add any modules that were added after the user set their drawer order preference
-    List<LunaModule> _missing = LunaModule.DASHBOARD.allModules()
-      ..retainWhere((module) => !modules.contains(module));
-    modules
-      ..addAll(_missing)
-      ..retainWhere((module) => module.featureFlag);
+      missing.retainWhere((m) => !modules.contains(m));
+      modules.addAll(missing);
+      modules.retainWhere((m) => (m as LunaModule).featureFlag);
 
-    return modules;
+      return modules.cast<LunaModule>();
+    } catch (error, stack) {
+      LunaLogger().error('Failed to create ordered module list', error, stack);
+      return moduleAlphabeticalList();
+    }
   }
 
   @override
@@ -39,9 +47,12 @@ class LunaDrawer extends StatelessWidget {
                 Expanded(
                   child: LunaListView(
                     controller: PrimaryScrollController.of(context),
-                    children: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()
-                        ? _getAlphabeticalOrder(context)
-                        : _getManualOrder(context),
+                    children: _moduleList(
+                      context,
+                      LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()
+                          ? moduleAlphabeticalList()
+                          : moduleOrderedList(),
+                    ),
                     physics: const ClampingScrollPhysics(),
                     padding: MediaQuery.of(context).padding.copyWith(top: 0),
                   ),
@@ -63,29 +74,10 @@ class LunaDrawer extends StatelessWidget {
     ];
   }
 
-  List<Widget> _getAlphabeticalOrder(BuildContext context) {
-    List<LunaModule> _modules = LunaModule.DASHBOARD.allModules()
-      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+  List<Widget> _moduleList(BuildContext context, List<LunaModule> modules) {
     return <Widget>[
       ..._sharedHeader(context),
-      ..._modules.map((module) {
-        if (module.isEnabled) {
-          return _buildEntry(
-            context: context,
-            module: module,
-            onTap: module == LunaModule.WAKE_ON_LAN ? _wakeOnLAN : null,
-          );
-        }
-        return const SizedBox(height: 0.0);
-      }),
-    ];
-  }
-
-  List<Widget> _getManualOrder(BuildContext context) {
-    List<LunaModule> _modules = moduleOrderedList();
-    return <Widget>[
-      ..._sharedHeader(context),
-      ..._modules.map((module) {
+      ...modules.map((module) {
         if (module.isEnabled) {
           return _buildEntry(
             context: context,
@@ -101,7 +93,7 @@ class LunaDrawer extends StatelessWidget {
   Widget _buildEntry({
     required BuildContext context,
     required LunaModule module,
-    Function? onTap,
+    void Function()? onTap,
   }) {
     bool currentPage = page == module.key.toLowerCase();
     return SizedBox(
@@ -126,10 +118,9 @@ class LunaDrawer extends StatelessWidget {
             ),
           ],
         ),
-        onTap: onTap as void Function()? ??
+        onTap: onTap ??
             () async {
-              LayoutBreakpoint _bp = context.breakpoint;
-              if (_bp < LayoutBreakpoint.md) Navigator.of(context).pop();
+              Navigator.of(context).pop();
               if (!currentPage) module.launch();
             },
       ),

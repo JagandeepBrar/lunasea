@@ -46,7 +46,7 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
   List<Widget> _buildAlphabeticalList() {
     List<Widget> modules = [];
     int index = 0;
-    LunaModule.DASHBOARD.allModules()
+    LunaModule.active
       ..sort((a, b) => a.name.toLowerCase().compareTo(
             b.name.toLowerCase(),
           ))

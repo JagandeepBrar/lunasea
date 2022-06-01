@@ -75,7 +75,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               LunaModule module = _modules![oIndex];
               _modules!.remove(module);
               _modules!.insert(nIndex, module);
-              LunaSeaDatabase.DRAWER_MANUAL_ORDER.update(_modules);
+              LunaSeaDatabase.DRAWER_MANUAL_ORDER.update(_modules!);
             },
           ),
         ),

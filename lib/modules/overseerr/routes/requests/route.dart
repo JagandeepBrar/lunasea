@@ -24,7 +24,6 @@ class _State extends State<OverseerrRequestsRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.OVERSEERR,
-      hideDrawer: true,
       body: const OverseerrRequestsListView(),
     );
   }

@@ -32,7 +32,6 @@ class _State extends State<TautulliHistoryRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      hideDrawer: true,
       body: _body(),
     );
   }

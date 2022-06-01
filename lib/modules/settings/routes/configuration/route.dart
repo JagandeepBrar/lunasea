@@ -103,7 +103,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _moduleList() {
-    return ([LunaModule.DASHBOARD, ...LunaModule.DASHBOARD.allModules()])
+    return ([LunaModule.DASHBOARD, ...LunaModule.active])
         .map(_tileFromModuleMap)
         .toList();
   }

@@ -13,7 +13,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   DRAWER_AUTOMATIC_MANAGE<bool>(true),
-  DRAWER_MANUAL_ORDER<List<LunaModule>?>(null),
+  DRAWER_MANUAL_ORDER<List>([]),
   ENABLED_PROFILE<String>('default'),
   NETWORKING_TLS_VALIDATION<bool>(false),
   THEME_AMOLED<bool>(false),
@@ -76,11 +76,12 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
       return;
     }
     if (this == LunaSeaDatabase.DRAWER_MANUAL_ORDER) {
-      final item = (value as List)
-          .map((module) => LunaModule.DASHBOARD.fromKey(module))
-          .toList();
-      item.removeWhere((i) => i == null);
-      update(item.cast<LunaModule>() as T);
+      List<LunaModule> item = [];
+      (value as List).cast<String>().forEach((val) {
+        LunaModule? module = LunaModule.DASHBOARD.fromKey(val);
+        if (module != null) item.add(module);
+      });
+      update(item as T);
       return;
     }
     return super.import(value);

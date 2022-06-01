@@ -22,7 +22,6 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      hideDrawer: true,
       body: _body(),
     );
   }

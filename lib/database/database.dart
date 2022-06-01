@@ -20,6 +20,7 @@ class LunaDatabase {
     for (final table in LunaTable.values) table.items[0].registerAdapters();
     for (final box in LunaBox.values) await box.open();
     if (LunaBox.profiles.box.isEmpty) await bootstrap();
+    // await bootstrap();
   }
 
   Future<void> bootstrap() async {

@@ -42,13 +42,12 @@ class _State extends State<SonarrCatalogueRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
-      hideDrawer: true,
       body: _body(),
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar.empty(
       child: SonarrSeriesSearchBar(
         scrollController: SonarrNavigationBar.scrollControllers[0],

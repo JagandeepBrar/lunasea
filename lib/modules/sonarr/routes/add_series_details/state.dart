@@ -128,8 +128,8 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
 
   void initializeTags(List<SonarrTag> tags) {
     _tags = tags
-        .where((tag) => (SonarrDatabase.ADD_SERIES_DEFAULT_TAGS.read() ?? [])
-            .contains(tag.id))
+        .where((tag) =>
+            (SonarrDatabase.ADD_SERIES_DEFAULT_TAGS.read()).contains(tag.id))
         .toList();
   }
 

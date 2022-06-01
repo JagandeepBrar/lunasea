@@ -39,12 +39,11 @@ class _State extends State<RadarrCatalogueRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
-      appBar: _appBar() as PreferredSizeWidget?,
-      hideDrawer: true,
+      appBar: _appBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar.empty(
       child: RadarrCatalogueSearchBar(
         scrollController: RadarrNavigationBar.scrollControllers[0],

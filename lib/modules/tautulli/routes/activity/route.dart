@@ -32,7 +32,6 @@ class _State extends State<TautulliActivityRoute>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      hideDrawer: true,
       body: _body(),
     );
   }

@@ -42,7 +42,6 @@ class _State extends State<TautulliUserDetailsIPAddresses>
     super.build(context);
     return LunaScaffold(
       module: LunaModule.TAUTULLI,
-      hideDrawer: true,
       scaffoldKey: _scaffoldKey,
       body: _body(),
     );

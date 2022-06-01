@@ -28,7 +28,6 @@ class _State extends State<RadarrMovieDetailsCastCrewPage>
     super.build(context);
     return LunaScaffold(
       module: LunaModule.RADARR,
-      hideDrawer: true,
       scaffoldKey: _scaffoldKey,
       body: _body(),
     );

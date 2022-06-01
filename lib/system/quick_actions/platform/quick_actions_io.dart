@@ -1,6 +1,6 @@
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/system/platform.dart';
 
 // ignore: always_use_package_imports
@@ -23,7 +23,7 @@ class IO implements LunaQuickActions {
 
   @override
   void actionHandler(String action) {
-    LunaModule.LIDARR.fromKey(action)?.launch();
+    LunaModule.fromKey(action)?.launch();
   }
 
   @override

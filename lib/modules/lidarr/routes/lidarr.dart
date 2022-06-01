@@ -59,7 +59,7 @@ class _State extends State<Lidarr> {
     if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
-        module: LunaModule.LIDARR.name,
+        module: LunaModule.LIDARR.title,
       );
     return LunaPageView(
       controller: _pageController,
@@ -100,7 +100,7 @@ class _State extends State<Lidarr> {
         ),
       ];
     return LunaAppBar.dropdown(
-      title: LunaModule.LIDARR.name,
+      title: LunaModule.LIDARR.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,

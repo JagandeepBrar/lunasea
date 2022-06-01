@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: LunaModule.OVERSEERR.name,
+      title: LunaModule.OVERSEERR.title,
       scrollControllers: [scrollController],
     );
   }
@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'Enable ${LunaModule.OVERSEERR.name}',
+        title: 'Enable ${LunaModule.OVERSEERR.title}',
         trailing: LunaSwitch(
           value: LunaProfile.current.overseerrEnabled ?? false,
           onChanged: (value) {
@@ -74,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: 'settings.ConnectionDetailsDescription'.tr(
-            args: [LunaModule.OVERSEERR.name],
+            args: [LunaModule.OVERSEERR.title],
           ),
         ),
       ],

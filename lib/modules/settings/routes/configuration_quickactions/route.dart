@@ -46,36 +46,36 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         SettingsBanners.QUICK_ACTIONS_SUPPORT.banner(),
         _actionTile(
-          LunaModule.LIDARR.name,
+          LunaModule.LIDARR.title,
           LunaSeaDatabase.QUICK_ACTIONS_LIDARR,
         ),
         _actionTile(
-          LunaModule.NZBGET.name,
+          LunaModule.NZBGET.title,
           LunaSeaDatabase.QUICK_ACTIONS_NZBGET,
         ),
         if (LunaModule.OVERSEERR.featureFlag)
           _actionTile(
-            LunaModule.OVERSEERR.name,
+            LunaModule.OVERSEERR.title,
             LunaSeaDatabase.QUICK_ACTIONS_OVERSEERR,
           ),
         _actionTile(
-          LunaModule.RADARR.name,
+          LunaModule.RADARR.title,
           LunaSeaDatabase.QUICK_ACTIONS_RADARR,
         ),
         _actionTile(
-          LunaModule.SABNZBD.name,
+          LunaModule.SABNZBD.title,
           LunaSeaDatabase.QUICK_ACTIONS_SABNZBD,
         ),
         _actionTile(
-          LunaModule.SEARCH.name,
+          LunaModule.SEARCH.title,
           LunaSeaDatabase.QUICK_ACTIONS_SEARCH,
         ),
         _actionTile(
-          LunaModule.SONARR.name,
+          LunaModule.SONARR.title,
           LunaSeaDatabase.QUICK_ACTIONS_SONARR,
         ),
         _actionTile(
-          LunaModule.TAUTULLI.name,
+          LunaModule.TAUTULLI.title,
           LunaSeaDatabase.QUICK_ACTIONS_TAUTULLI,
         ),
       ],

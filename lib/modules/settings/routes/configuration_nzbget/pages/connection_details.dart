@@ -150,7 +150,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'
-                .tr(args: [LunaModule.NZBGET.name]),
+                .tr(args: [LunaModule.NZBGET.title]),
           );
           return;
         }
@@ -159,7 +159,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             .then((_) => showLunaSuccessSnackBar(
                   title: 'settings.ConnectedSuccessfully'.tr(),
                   message: 'settings.ConnectedSuccessfullyMessage'
-                      .tr(args: [LunaModule.NZBGET.name]),
+                      .tr(args: [LunaModule.NZBGET.title]),
                 ))
             .catchError((error, trace) {
           LunaLogger().error('Connection Test Failed', error, trace);

@@ -15,7 +15,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LunaBanner(
-      headerText: module.name,
+      headerText: module.title,
       icon: module.icon,
       iconColor: module.color,
       bodyText: module.information,
@@ -30,7 +30,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
               await Clipboard.setData(ClipboardData(
                   text: LunaWebhooks.buildUserTokenURL(userId, module)));
               showLunaInfoSnackBar(
-                title: 'Copied URL for ${module.name}',
+                title: 'Copied URL for ${module.title}',
                 message: 'Copied your user-based URL to the clipboard',
               );
             },
@@ -43,7 +43,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
             await Clipboard.setData(ClipboardData(
                 text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
             showLunaInfoSnackBar(
-              title: 'Copied URL for ${module.name}',
+              title: 'Copied URL for ${module.title}',
               message: 'Copied your device-based URL to the clipboard',
             );
           },

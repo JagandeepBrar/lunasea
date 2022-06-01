@@ -12,7 +12,7 @@ class LunaDrawer extends StatelessWidget {
 
   static List<LunaModule> moduleAlphabeticalList() {
     return LunaModule.active
-      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      ..sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
   }
 
   static List<LunaModule> moduleOrderedList() {
@@ -110,7 +110,7 @@ class LunaDrawer extends StatelessWidget {
               padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL * 1.5,
             ),
             Text(
-              module.name,
+              module.title,
               style: TextStyle(
                 color: currentPage ? module.color : LunaColours.white,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,

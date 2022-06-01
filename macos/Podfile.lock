@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.16):
+  - cloud_firestore (3.1.17):
     - Firebase/CoreOnly (~> 8.15.0)
     - Firebase/Firestore (~> 8.15.0)
     - firebase_core
@@ -18,20 +18,20 @@ PODS:
   - Firebase/Storage (8.15.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.15.0)
-  - firebase_auth (3.3.18):
+  - firebase_auth (3.3.19):
     - Firebase/Auth (~> 8.15.0)
     - Firebase/CoreOnly (~> 8.15.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (1.17.0):
+  - firebase_core (1.17.1):
     - Firebase/CoreOnly (~> 8.15.0)
     - FlutterMacOS
-  - firebase_messaging (11.4.0):
+  - firebase_messaging (11.4.1):
     - Firebase/CoreOnly (~> 8.15.0)
     - Firebase/Messaging (~> 8.15.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_storage (10.2.16):
+  - firebase_storage (10.2.17):
     - Firebase/CoreOnly (~> 8.15.0)
     - Firebase/Storage (~> 8.15.0)
     - firebase_core
@@ -192,12 +192,12 @@ CHECKOUT OPTIONS:
     :tag: 8.15.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 0b86223f1b24b2515df01951b4f58035057ef134
+  cloud_firestore: 9122e411bd8ad0b5c4fb72581dd2fcefa4bfeeed
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
-  firebase_auth: 5b7faa82249b4157ea4a80952582289cc7a8d0b4
-  firebase_core: 895eaa063bde36f163d959810717e0f7a3bac614
-  firebase_messaging: 822d21e8fd9ed8f849a51a4480676a2f934abb98
-  firebase_storage: 897b8316581dd8032499656bb5bc106c2cbb7c85
+  firebase_auth: 5719d06eb4b1c19a3afa58e4dfcd8c7912754241
+  firebase_core: 7b87364e2d1eae70018a60698e89e7d6f5320bad
+  firebase_messaging: e319ed0a19e37b556c6d9df89e275e36d32a3973
+  firebase_storage: 547c1e1158f762fd1f122baab025aeae9fa56772
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
@@ -212,7 +212,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
-  path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   share_plus_macos: 853ee48e7dce06b633998ca0735d482dd671ade4
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727

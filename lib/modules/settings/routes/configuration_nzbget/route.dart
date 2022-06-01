@@ -34,7 +34,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: LunaModule.NZBGET.name,
+      title: LunaModule.NZBGET.title,
       scrollControllers: [scrollController],
     );
   }
@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'settings.EnableModule'.tr(args: [LunaModule.NZBGET.name]),
+        title: 'settings.EnableModule'.tr(args: [LunaModule.NZBGET.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.nzbgetEnabled ?? false,
           onChanged: (value) {
@@ -76,7 +76,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: 'settings.ConnectionDetailsDescription'
-              .tr(args: [LunaModule.NZBGET.name]),
+              .tr(args: [LunaModule.NZBGET.title]),
         ),
       ],
       trailing: const LunaIconButton.arrow(),

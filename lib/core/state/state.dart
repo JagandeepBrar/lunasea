@@ -10,7 +10,7 @@ import 'package:lunasea/modules/overseerr/core/state.dart';
 import 'package:lunasea/modules/sabnzbd/core/state.dart';
 import 'package:lunasea/modules/nzbget/core/state.dart';
 import 'package:lunasea/modules/tautulli/core/state.dart';
-import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/modules.dart';
 
 import 'package:provider/provider.dart';
 

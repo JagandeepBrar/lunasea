@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'Enable ${LunaModule.SONARR.name}',
+        title: 'Enable ${LunaModule.SONARR.title}',
         trailing: LunaSwitch(
           value: LunaProfile.current.sonarrEnabled ?? false,
           onChanged: (value) {
@@ -76,7 +76,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: 'settings.ConnectionDetailsDescription'.tr(
-            args: [LunaModule.SONARR.name],
+            args: [LunaModule.SONARR.title],
           ),
         )
       ],

@@ -88,7 +88,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       key: ObjectKey(_modules![index]),
       builder: (context, _) => LunaBlock(
         disabled: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
-        title: _modules![index].name,
+        title: _modules![index].title,
         body: [TextSpan(text: _modules![index].description)],
         leading: LunaIconButton(icon: _modules![index].icon),
         trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read()

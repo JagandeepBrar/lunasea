@@ -6,7 +6,7 @@ import 'package:lunasea/core/models/logs/log_type.dart';
 import 'package:lunasea/core/models/types/browser.dart';
 import 'package:lunasea/core/models/types/indexer_icon.dart';
 import 'package:lunasea/core/models/types/list_view_option.dart';
-import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -71,14 +71,14 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   @override
   void import(dynamic value) {
     if (this == LunaSeaDatabase.DEFAULT_LAUNCH_MODULE) {
-      final item = LunaModule.DASHBOARD.fromKey(value.toString());
+      final item = LunaModule.fromKey(value.toString());
       if (item != null) update(item as T);
       return;
     }
     if (this == LunaSeaDatabase.DRAWER_MANUAL_ORDER) {
       List<LunaModule> item = [];
       (value as List).cast<String>().forEach((val) {
-        LunaModule? module = LunaModule.DASHBOARD.fromKey(val);
+        LunaModule? module = LunaModule.fromKey(val);
         if (module != null) item.add(module);
       });
       update(item as T);

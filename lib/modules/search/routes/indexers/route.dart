@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _appBar() {
     return LunaAppBar(
       useDrawer: true,
-      title: LunaModule.SEARCH.name,
+      title: LunaModule.SEARCH.title,
       scrollControllers: [scrollController],
     );
   }
@@ -46,7 +46,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     if (LunaBox.indexers.box.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
-        module: LunaModule.SEARCH.name,
+        module: LunaModule.SEARCH.title,
       );
     }
     return LunaListView(

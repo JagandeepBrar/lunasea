@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (3.1.16):
+  - cloud_firestore (3.1.17):
     - Firebase/Firestore (= 8.15.0)
     - firebase_core
     - Flutter
@@ -51,18 +51,18 @@ PODS:
   - Firebase/Storage (8.15.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.15.0)
-  - firebase_auth (3.3.18):
+  - firebase_auth (3.3.19):
     - Firebase/Auth (= 8.15.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.17.0):
+  - firebase_core (1.17.1):
     - Firebase/CoreOnly (= 8.15.0)
     - Flutter
-  - firebase_messaging (11.4.0):
+  - firebase_messaging (11.4.1):
     - Firebase/Messaging (= 8.15.0)
     - firebase_core
     - Flutter
-  - firebase_storage (10.2.16):
+  - firebase_storage (10.2.17):
     - Firebase/Storage (= 8.15.0)
     - firebase_core
     - Flutter
@@ -244,15 +244,15 @@ CHECKOUT OPTIONS:
     :tag: 8.15.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: c85ca781dc18eed0b05c90973b4b030e6802acc4
+  cloud_firestore: 936969669b510f2affd43583582d7b117c5f08d1
   DKImagePickerController: 72fd378f244cef3d27288e0aebf217a4467e4012
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
-  file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
+  file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
-  firebase_auth: ace975b530600827bd901a9a18584f7cdaf6d160
-  firebase_core: aa1b92020533f5c23955e388c347c58fd64f8627
-  firebase_messaging: 8957bf304b47daf8bf12d0b111fdecc5b33e77a3
-  firebase_storage: 9708f24db0c21dadf7e5494f27406326c0d4ab53
+  firebase_auth: a6470a6974d42f83117932c913aecb926182f907
+  firebase_core: 318de541b0e61d3f24262982a3f0b54afe72439b
+  firebase_messaging: 943cfe65e0b3f457240489ce67655e40da1d270c
+  firebase_storage: b079dbfa7ef016051b6f95315a7002012fda9984
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb

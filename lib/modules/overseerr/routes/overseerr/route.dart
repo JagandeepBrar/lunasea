@@ -67,7 +67,7 @@ class _State extends State<_Widget> {
     List<Widget>? actions;
     if (context.watch<OverseerrState>().enabled) actions = [];
     return LunaAppBar.dropdown(
-      title: LunaModule.OVERSEERR.name,
+      title: LunaModule.OVERSEERR.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,
@@ -83,7 +83,7 @@ class _State extends State<_Widget> {
         if (!enabled!) {
           return LunaMessage.moduleNotEnabled(
             context: context,
-            module: LunaModule.OVERSEERR.name,
+            module: LunaModule.OVERSEERR.title,
           );
         }
         return LunaPageView(

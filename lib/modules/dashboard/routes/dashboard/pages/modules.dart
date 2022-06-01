@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/core/system/profile.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -47,8 +47,8 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
     List<Widget> modules = [];
     int index = 0;
     LunaModule.active
-      ..sort((a, b) => a.name.toLowerCase().compareTo(
-            b.name.toLowerCase(),
+      ..sort((a, b) => a.title.toLowerCase().compareTo(
+            b.title.toLowerCase(),
           ))
       ..forEach((module) {
         if (module.isEnabled) {
@@ -83,7 +83,7 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
 
   Widget _buildFromLunaModule(LunaModule module, int listIndex) {
     return LunaBlock(
-      title: module.name,
+      title: module.title,
       body: [TextSpan(text: module.description)],
       trailing: LunaIconButton(icon: module.icon, color: module.color),
       onTap: module.launch,
@@ -92,7 +92,7 @@ class _State extends State<ModulesPage> with AutomaticKeepAliveClientMixin {
 
   Widget _buildWakeOnLAN(BuildContext context, int listIndex) {
     return LunaBlock(
-      title: LunaModule.WAKE_ON_LAN.name,
+      title: LunaModule.WAKE_ON_LAN.title,
       body: [TextSpan(text: LunaModule.WAKE_ON_LAN.description)],
       trailing: LunaIconButton(
         icon: LunaModule.WAKE_ON_LAN.icon,

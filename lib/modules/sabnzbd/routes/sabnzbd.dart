@@ -80,7 +80,7 @@ class _State extends State<SABnzbd> {
         ),
       ];
     return LunaAppBar.dropdown(
-      title: LunaModule.SABNZBD.name,
+      title: LunaModule.SABNZBD.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,
@@ -93,7 +93,7 @@ class _State extends State<SABnzbd> {
     if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
-        module: LunaModule.SABNZBD.name,
+        module: LunaModule.SABNZBD.title,
       );
     return LunaPageView(
       controller: _pageController,

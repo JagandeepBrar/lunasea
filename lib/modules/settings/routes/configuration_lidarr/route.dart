@@ -35,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: LunaModule.LIDARR.name,
+      title: LunaModule.LIDARR.title,
     );
   }
 
@@ -57,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'settings.EnableModule'.tr(args: [LunaModule.LIDARR.name]),
+        title: 'settings.EnableModule'.tr(args: [LunaModule.LIDARR.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.lidarrEnabled ?? false,
           onChanged: (value) {
@@ -76,7 +76,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       body: [
         TextSpan(
           text: 'settings.ConnectionDetailsDescription'.tr(
-            args: [LunaModule.LIDARR.name],
+            args: [LunaModule.LIDARR.title],
           ),
         ),
       ],

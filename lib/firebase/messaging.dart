@@ -80,7 +80,7 @@ class LunaFirebaseMessaging {
     return onMessage.listen((message) {
       if (LunaSeaDatabase.ENABLE_IN_APP_NOTIFICATIONS.read()) return;
 
-      LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
+      LunaModule? module = LunaModule.fromKey(message.data['module']);
       showLunaSnackBar(
         title: message.notification?.title ?? 'Unknown Content',
         message: message.notification?.body ?? LunaUI.TEXT_EMDASH,
@@ -112,7 +112,7 @@ class LunaFirebaseMessaging {
   Future<void> _handleWebhook(RemoteMessage? message) async {
     if (message == null || message.data.isEmpty) return;
     // Extract module
-    LunaModule? module = LunaModule.DASHBOARD.fromKey(message.data['module']);
+    LunaModule? module = LunaModule.fromKey(message.data['module']);
     if (module == null) {
       LunaLogger().warning(
         'LunaFirebaseMessaging',

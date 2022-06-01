@@ -81,7 +81,7 @@ class _State extends State<NZBGet> {
         ),
       ];
     return LunaAppBar.dropdown(
-      title: LunaModule.NZBGET.name,
+      title: LunaModule.NZBGET.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,
@@ -94,7 +94,7 @@ class _State extends State<NZBGet> {
     if (!_api.enabled!)
       return LunaMessage.moduleNotEnabled(
         context: context,
-        module: LunaModule.NZBGET.name,
+        module: LunaModule.NZBGET.title,
       );
     return LunaPageView(
       controller: _pageController,

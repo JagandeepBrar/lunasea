@@ -40,7 +40,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       useDrawer: true,
       scrollControllers: [scrollController],
-      title: LunaModule.SETTINGS.name,
+      title: LunaModule.SETTINGS.title,
     );
   }
 

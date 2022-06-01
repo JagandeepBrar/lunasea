@@ -62,7 +62,7 @@ class _State extends State<_Widget> {
         const TautulliAppBarGlobalSettingsAction(),
       ];
     return LunaAppBar.dropdown(
-      title: LunaModule.TAUTULLI.name,
+      title: LunaModule.TAUTULLI.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,

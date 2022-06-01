@@ -55,7 +55,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
+            return LunaNotEnabledRoute(module: LunaModule.SONARR.title);
           }
           int episodeId = int.tryParse(params['episodeid']![0]) ?? -1;
           return _Widget(
@@ -70,7 +70,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.SONARR.name);
+            return LunaNotEnabledRoute(module: LunaModule.SONARR.title);
           }
           int seriesId = int.tryParse(params['seriesid']![0]) ?? -1;
           int seasonNumber = int.tryParse(params['seasonnumber']![0]) ?? -1;

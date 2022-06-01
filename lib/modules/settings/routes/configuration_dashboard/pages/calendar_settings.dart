@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:tuple/tuple.dart';
 
-import 'package:lunasea/core/modules.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
@@ -130,11 +130,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     const _db = DashboardDatabase.CALENDAR_ENABLE_LIDARR;
     return _db.listen(
       builder: (context, _) => LunaBlock(
-        title: LunaModule.LIDARR.name,
+        title: LunaModule.LIDARR.title,
         body: [
           TextSpan(
             text: 'settings.ShowCalendarEntries'.tr(
-              args: [LunaModule.LIDARR.name],
+              args: [LunaModule.LIDARR.title],
             ),
           )
         ],
@@ -150,11 +150,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     const _db = DashboardDatabase.CALENDAR_ENABLE_RADARR;
     return _db.listen(
       builder: (context, _) => LunaBlock(
-        title: LunaModule.RADARR.name,
+        title: LunaModule.RADARR.title,
         body: [
           TextSpan(
             text: 'settings.ShowCalendarEntries'.tr(
-              args: [LunaModule.RADARR.name],
+              args: [LunaModule.RADARR.title],
             ),
           )
         ],
@@ -170,11 +170,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     const _db = DashboardDatabase.CALENDAR_ENABLE_SONARR;
     return _db.listen(
       builder: (context, _) => LunaBlock(
-        title: LunaModule.SONARR.name,
+        title: LunaModule.SONARR.title,
         body: [
           TextSpan(
             text: 'settings.ShowCalendarEntries'.tr(
-              args: [LunaModule.SONARR.name],
+              args: [LunaModule.SONARR.title],
             ),
           )
         ],

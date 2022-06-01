@@ -59,7 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return ValueListenableBuilder(
       valueListenable: LunaBox.profiles.box.listenable(),
       builder: (context, dynamic _, __) => LunaBlock(
-        title: 'Enable ${LunaModule.RADARR.name}',
+        title: 'Enable ${LunaModule.RADARR.title}',
         trailing: LunaSwitch(
           value: LunaProfile.current.radarrEnabled ?? false,
           onChanged: (value) {

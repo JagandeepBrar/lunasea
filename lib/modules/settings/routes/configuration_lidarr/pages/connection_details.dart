@@ -121,7 +121,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'.tr(
-              args: [LunaModule.LIDARR.name],
+              args: [LunaModule.LIDARR.title],
             ),
           );
           return;
@@ -130,7 +130,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           showLunaErrorSnackBar(
             title: 'settings.ApiKeyRequired'.tr(),
             message: 'settings.ApiKeyRequiredMessage'.tr(
-              args: [LunaModule.LIDARR.name],
+              args: [LunaModule.LIDARR.title],
             ),
           );
           return;
@@ -141,7 +141,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               (_) => showLunaSuccessSnackBar(
                 title: 'settings.ConnectedSuccessfully'.tr(),
                 message: 'settings.ConnectedSuccessfullyMessage'.tr(
-                  args: [LunaModule.LIDARR.name],
+                  args: [LunaModule.LIDARR.title],
                 ),
               ),
             )

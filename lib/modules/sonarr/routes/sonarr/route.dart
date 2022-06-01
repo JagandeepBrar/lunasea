@@ -73,7 +73,7 @@ class _State extends State<_Widget> {
       ];
     }
     return LunaAppBar.dropdown(
-      title: LunaModule.SONARR.name,
+      title: LunaModule.SONARR.title,
       useDrawer: true,
       profiles: profiles,
       actions: actions,

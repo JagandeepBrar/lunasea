@@ -110,12 +110,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _tileFromModuleMap(LunaModule module) {
     return LunaBlock(
-      title: module.name,
+      title: module.title,
       body: [
-        TextSpan(text: 'settings.ConfigureModule'.tr(args: [module.name]))
+        TextSpan(text: 'settings.ConfigureModule'.tr(args: [module.title]))
       ],
       trailing: LunaIconButton(icon: module.icon),
-      onTap: () async => module.settingsPage!.navigateTo(context),
+      onTap: () async => module.settingsRoute!.navigateTo(context),
     );
   }
 }

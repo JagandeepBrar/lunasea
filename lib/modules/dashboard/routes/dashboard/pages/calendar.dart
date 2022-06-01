@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core/extensions/async_snapshot.dart';
 import 'package:provider/provider.dart';
 
-import 'package:lunasea/core/extensions.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/vendor.dart';

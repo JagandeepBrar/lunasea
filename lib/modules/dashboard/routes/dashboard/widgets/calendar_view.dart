@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/core/extensions/datetime.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/widgets/ui.dart';

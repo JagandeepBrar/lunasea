@@ -1,5 +1,5 @@
+import 'package:lunasea/core/extensions/datetime.dart';
 import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/extensions.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';

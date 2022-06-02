@@ -4,20 +4,26 @@ import 'package:lunasea/system/flavor.dart';
 
 part 'log_type.g.dart';
 
+const TYPE_DEBUG = 'debug';
+const TYPE_WARNING = 'warning';
+const TYPE_ERROR = 'error';
+const TYPE_CRITICAL = 'critical';
+
 @HiveType(typeId: 24, adapterName: 'LunaLogTypeAdapter')
 enum LunaLogType {
   @HiveField(0)
-  WARNING,
+  WARNING(TYPE_WARNING),
   @HiveField(1)
-  ERROR,
+  ERROR(TYPE_ERROR),
   @HiveField(2)
-  CRITICAL,
+  CRITICAL(TYPE_CRITICAL),
   @HiveField(3)
-  DEBUG,
-}
+  DEBUG(TYPE_DEBUG);
 
-extension LunaLogTypeExtension on LunaLogType {
-  LunaLogType? fromKey(String key) {
+  final String key;
+  const LunaLogType(this.key);
+
+  static LunaLogType? fromKey(String key) {
     switch (key) {
       case 'warning':
         return LunaLogType.WARNING;
@@ -30,20 +36,9 @@ extension LunaLogTypeExtension on LunaLogType {
     }
     return null;
   }
+}
 
-  String get key {
-    switch (this) {
-      case LunaLogType.WARNING:
-        return 'warning';
-      case LunaLogType.ERROR:
-        return 'error';
-      case LunaLogType.CRITICAL:
-        return 'critical';
-      case LunaLogType.DEBUG:
-        return 'debug';
-    }
-  }
-
+extension LunaLogTypeExtension on LunaLogType {
   bool get enabled {
     switch (this) {
       case LunaLogType.WARNING:

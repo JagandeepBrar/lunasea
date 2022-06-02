@@ -20,7 +20,6 @@ export 'core/router/router.dart';
 export 'core/services/the_movie_db.dart';
 export 'core/state/module_state.dart';
 export 'core/state/state.dart';
-export 'core/system/in_app_purchases.dart';
 export 'core/system/profile.dart';
 export 'core/utilities/changelog.dart';
 export 'core/utilities/dialogs.dart';

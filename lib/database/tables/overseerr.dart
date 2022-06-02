@@ -5,10 +5,10 @@ enum OverseerrDatabase<T> with LunaTableMixin<T> {
   CONTENT_PAGE_SIZE<int>(10);
 
   @override
-  String get table => TABLE_OVERSEERR_KEY;
+  LunaTable get table => LunaTable.overseerr;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const OverseerrDatabase(this.defaultValue);
+  const OverseerrDatabase(this.fallback);
 }

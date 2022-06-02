@@ -51,8 +51,8 @@ class _State extends State<_Widget> {
 
   Widget _appBar() {
     List<String> profiles =
-        LunaBox.profiles.box.keys.fold([], (value, element) {
-      if (LunaBox.profiles.box.get(element)?.tautulliEnabled ?? false)
+        LunaBox.profiles.data.keys.fold([], (value, element) {
+      if (LunaBox.profiles.read(element)?.tautulliEnabled ?? false)
         value.add(element);
       return value;
     });

@@ -67,7 +67,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-        valueListenable: LunaBox.logs.box.listenable(),
+        valueListenable: LunaBox.logs.listenable(),
         builder: (context, dynamic box, _) {
           List<LunaLogHiveObject> logs = filter(box);
           if (logs.isEmpty) {

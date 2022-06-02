@@ -39,15 +39,15 @@ enum SonarrDatabase<T> with LunaTableMixin<T> {
   CONTENT_PAGE_SIZE<int>(10);
 
   @override
-  String get table => TABLE_SONARR_KEY;
+  LunaTable get table => LunaTable.sonarr;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const SonarrDatabase(this.defaultValue);
+  const SonarrDatabase(this.fallback);
 
   @override
-  void registerAdapters() {
+  void register() {
     // Deprecated, not in use but necessary to avoid Hive read errors
     Hive.registerAdapter(DeprecatedSonarrQualityProfileAdapter());
     Hive.registerAdapter(DeprecatedSonarrRootFolderAdapter());

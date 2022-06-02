@@ -5,10 +5,10 @@ enum SearchDatabase<T> with LunaTableMixin<T> {
   SHOW_LINKS<bool>(true);
 
   @override
-  String get table => TABLE_SEARCH_KEY;
+  LunaTable get table => LunaTable.search;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const SearchDatabase(this.defaultValue);
+  const SearchDatabase(this.fallback);
 }

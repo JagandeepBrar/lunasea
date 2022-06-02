@@ -55,10 +55,10 @@ class _State extends State<_Widget> {
   }
 
   PreferredSizeWidget _appBar() {
-    List<String> profiles = LunaBox.profiles.box.keys.fold(
+    List<String> profiles = LunaBox.profiles.data.keys.fold(
       [],
       (value, element) {
-        if (LunaBox.profiles.box.get(element)?.overseerrEnabled ?? false) {
+        if (LunaBox.profiles.read(element)?.overseerrEnabled ?? false) {
           value.add(element);
         }
         return value;

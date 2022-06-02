@@ -10,24 +10,24 @@ class LunaDatabase {
   static const String _DATABASE_LEGACY_PATH = 'database';
   static const String _DATABASE_PATH = 'LunaSea/database';
 
-  String get _databasePath {
+  String get _path {
     if (LunaPlatform.isWindows || LunaPlatform.isLinux) return _DATABASE_PATH;
     return _DATABASE_LEGACY_PATH;
   }
 
   Future<void> initialize() async {
-    await Hive.initFlutter(_databasePath);
-    for (final table in LunaTable.values) table.items[0].registerAdapters();
-    for (final box in LunaBox.values) await box.open();
-    if (LunaBox.profiles.box.isEmpty) await bootstrap();
-    // await bootstrap();
+    await Hive.initFlutter(_path);
+    LunaTable.register();
+    await LunaBox.open();
+
+    if (LunaBox.profiles.isEmpty) await bootstrap();
   }
 
   Future<void> bootstrap() async {
     await clear();
 
     const defaultProfile = LunaProfile.DEFAULT_PROFILE;
-    LunaBox.profiles.box.put(defaultProfile, ProfileHiveObject.empty());
+    LunaBox.profiles.update(defaultProfile, ProfileHiveObject.empty());
     LunaSeaDatabase.ENABLED_PROFILE.update(defaultProfile);
   }
 

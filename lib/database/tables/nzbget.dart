@@ -4,10 +4,10 @@ enum NZBGetDatabase<T> with LunaTableMixin<T> {
   NAVIGATION_INDEX<int>(0);
 
   @override
-  String get table => TABLE_NZBGET_KEY;
+  LunaTable get table => LunaTable.nzbget;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const NZBGetDatabase(this.defaultValue);
+  const NZBGetDatabase(this.fallback);
 }

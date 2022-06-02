@@ -101,7 +101,7 @@ enum RadarrDatabase<T> with LunaTableMixin<T> {
       return;
     }
     if (this == RadarrDatabase.DEFAULT_VIEW_MOVIES) {
-      final item = LunaListViewOption.GRID_VIEW.fromKey(value.toString());
+      final item = LunaListViewOption.fromKey(value.toString());
       if (item != null) update(item as T);
       return;
     }

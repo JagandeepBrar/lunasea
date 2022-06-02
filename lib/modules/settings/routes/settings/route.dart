@@ -4,6 +4,7 @@ import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/flavor.dart';
+import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 
 class SettingsHomeRouter extends SettingsPageRouter {
   SettingsHomeRouter() : super('/settings');
@@ -76,7 +77,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onTap: () async => SettingsProfilesRouter().navigateTo(context),
         ),
         LunaDivider(),
-        if (LunaInAppPurchases.isSupported)
+        if (LunaInAppPurchase.isSupported)
           LunaBlock(
             title: 'settings.Donations'.tr(),
             body: [TextSpan(text: 'settings.DonationsDescription'.tr())],

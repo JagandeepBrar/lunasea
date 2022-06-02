@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/system/in_app_purchase/purchase_option.dart';
+import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 
 class SettingsDonationsRouter extends SettingsPageRouter {
   SettingsDonationsRouter() : super('/settings/donations');
@@ -20,48 +21,8 @@ class _Widget extends StatefulWidget {
 }
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static StreamSubscription<List<PurchaseDetails>>? purchaseStream;
-
-  @override
-  void initState() {
-    super.initState();
-    if (LunaInAppPurchases.isAvailable) {
-      purchaseStream = LunaInAppPurchases.connection.purchaseStream
-          .listen(_purchasedCallback);
-    }
-  }
-
-  @override
-  void dispose() {
-    purchaseStream?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _purchasedCallback(List<PurchaseDetails> purchases) async {
-    for (var purchase in purchases) {
-      if (purchase.pendingCompletePurchase) {
-        switch (purchase.status) {
-          case PurchaseStatus.error:
-            _purchaseFailed();
-            break;
-          case PurchaseStatus.purchased:
-            _purchasedSuccess();
-            break;
-          default:
-            break;
-        }
-      }
-    }
-  }
-
-  void _purchasedSuccess() =>
-      SettingsDonationsThankYouRouter().navigateTo(context);
-
-  void _purchaseFailed() => showLunaErrorSnackBar(
-        title: 'Transaction Failure',
-        message: 'The transaction has failed, please try again',
-      );
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _donationOptions = LunaInAppPurchase().getOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -80,35 +41,31 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    if (!LunaInAppPurchases.isAvailable ||
-        LunaInAppPurchases.donationIAPs.isEmpty) {
-      return LunaMessage.goBack(
-        context: context,
-        text: 'Not Available',
-      );
-    }
-    return LunaListViewBuilder(
-      controller: scrollController,
-      itemCount: LunaInAppPurchases.donationIAPs.length,
-      itemBuilder: (context, index) =>
-          _iapTile(LunaInAppPurchases.donationIAPs[index]),
+    return FutureBuilder(
+      future: _donationOptions,
+      builder: (context, AsyncSnapshot<List<PurchaseOption>> snapshot) {
+        if (snapshot.hasData) {
+          return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) => _tile(snapshot.data![index]),
+          );
+        } else {
+          return LunaMessage.goBack(
+            context: context,
+            text: 'Not Available',
+          );
+        }
+      },
     );
   }
 
-  Widget _iapTile(ProductDetails product) {
+  Widget _tile(PurchaseOption option) {
     return LunaBlock(
-      title: product.name,
-      body: [TextSpan(text: product.price)],
-      trailing: LunaIconButton(icon: product.icon),
-      onTap: () async {
-        final PurchaseParam _parameters = PurchaseParam(
-          productDetails: product,
-        );
-        await LunaInAppPurchases.connection.buyConsumable(
-          purchaseParam: _parameters,
-          autoConsume: true,
-        );
-      },
+      title: option.title,
+      body: [TextSpan(text: option.product!.price)],
+      trailing: LunaIconButton(icon: option.icon),
+      onTap: () async => LunaInAppPurchase().purchaseOption(option),
     );
   }
 }

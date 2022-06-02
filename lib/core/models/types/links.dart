@@ -2,46 +2,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string_links.dart';
 
 enum LunaLinks {
-  BUILDS,
-  CHANGELOG,
-  DISCORD,
-  DOCUMENTATION,
-  FEEDBACK_BOARD,
-  GITHUB,
-  NOTIFICATIONS_GETTING_STARTED,
-  REDDIT,
-  BUILD_CHANNELS,
-  WEBLATE,
-  WEBSITE,
-}
+  CHANGELOG('https://www.lunasea.app/changelog'),
+  BUILD_CHANNELS('https://www.lunasea.app/build-channels'),
+  BUILDS('https://www.lunasea.app/builds'),
+  DISCORD('https://www.lunasea.app/discord'),
+  DOCUMENTATION('https://www.lunasea.app/docs'),
+  FEEDBACK_BOARD('https://www.lunasea.app/feedback'),
+  GITHUB('https://www.lunasea.app/github'),
+  NOTIFICATIONS_DOC('https://docs.lunasea.app/lunasea/notifications'),
+  REDDIT('https://www.lunasea.app/reddit'),
+  WEBLATE('https:/www.lunasea.app/translate'),
+  WEBSITE('https://www.lunasea.app');
 
-extension LunaLinksExtension on LunaLinks {
-  String get url {
-    switch (this) {
-      case LunaLinks.BUILDS:
-        return 'https://www.lunasea.app/builds';
-      case LunaLinks.CHANGELOG:
-        return 'https://www.lunasea.app/changelog';
-      case LunaLinks.DISCORD:
-        return 'https://www.lunasea.app/discord';
-      case LunaLinks.DOCUMENTATION:
-        return 'https://www.lunasea.app/docs';
-      case LunaLinks.FEEDBACK_BOARD:
-        return 'https://www.lunasea.app/feedback';
-      case LunaLinks.GITHUB:
-        return 'https://www.lunasea.app/github';
-      case LunaLinks.REDDIT:
-        return 'https://www.lunasea.app/reddit';
-      case LunaLinks.BUILD_CHANNELS:
-        return 'https://www.lunasea.app/build-channels';
-      case LunaLinks.WEBLATE:
-        return 'https:/www.lunasea.app/translate';
-      case LunaLinks.WEBSITE:
-        return 'https://www.lunasea.app';
-      case LunaLinks.NOTIFICATIONS_GETTING_STARTED:
-        return 'https://docs.lunasea.app/lunasea/notifications';
-    }
-  }
+  final String url;
+  const LunaLinks(this.url);
 
-  Future<void> launch() async => this.url.openLink();
+  Future<void> launch() async => url.openLink();
 }

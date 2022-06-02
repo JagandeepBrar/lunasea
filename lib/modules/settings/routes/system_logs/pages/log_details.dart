@@ -28,7 +28,7 @@ class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
       (context, params) {
         String type =
             (params['type']?.isNotEmpty ?? false) ? params['type']![0] : '';
-        return _Widget(type: LunaLogType.ERROR.fromKey(type));
+        return _Widget(type: LunaLogType.fromKey(type));
       },
     );
   }

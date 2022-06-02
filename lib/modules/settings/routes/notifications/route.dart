@@ -61,7 +61,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'Getting Started',
           body: const [TextSpan(text: 'Information & Setup Instructions')],
           trailing: const LunaIconButton.arrow(),
-          onTap: LunaLinks.NOTIFICATIONS_GETTING_STARTED.launch,
+          onTap: LunaLinks.NOTIFICATIONS_DOC.launch,
         ),
         _enableInAppNotifications(),
         LunaDivider(),

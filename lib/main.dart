@@ -11,6 +11,7 @@ import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
     show HomeRouter;
+import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
@@ -33,7 +34,7 @@ Future<void> main() async {
       if (LunaNetwork.isSupported) LunaNetwork().initialize();
       if (LunaImageCache.isSupported) LunaImageCache().initialize();
       LunaRouter().initialize();
-      await LunaInAppPurchases().initialize();
+      if (LunaInAppPurchase.isSupported) LunaInAppPurchase().initialize();
       await LunaLocalization().initialize();
       // Run application
       return runApp(const LunaBIOS());

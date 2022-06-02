@@ -43,7 +43,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _drawer() => LunaDrawer(page: LunaModule.SEARCH.key);
 
   Widget _body() {
-    if (LunaBox.indexers.box.isEmpty) {
+    if (LunaBox.indexers.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.SEARCH.title,
@@ -51,22 +51,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     }
     return LunaListView(
       controller: scrollController,
-      children: _list as List<Widget>,
+      children: _list,
     );
   }
 
-  List get _list {
-    List<SearchIndexerTile> list = List.generate(
-      LunaBox.indexers.box.length,
-      (index) => SearchIndexerTile(
-        indexer: LunaBox.indexers.box.getAt(index),
-      ),
-    );
-    list.sort(
-      (a, b) => a.indexer!.displayName!
-          .toLowerCase()
-          .compareTo(b.indexer!.displayName!.toLowerCase()),
-    );
+  List<Widget> get _list {
+    final list = LunaBox.indexers.data.values
+        .map((indexer) => SearchIndexerTile(indexer: indexer))
+        .toList();
+    list.sort((a, b) => a.indexer!.displayName!
+        .toLowerCase()
+        .compareTo(b.indexer!.displayName!.toLowerCase()));
+
     return list;
   }
 }

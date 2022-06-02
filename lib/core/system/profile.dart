@@ -5,10 +5,10 @@ class LunaProfile {
   static const String DEFAULT_PROFILE = 'default';
 
   /// Returns a list of the profiles, sorted by their lowercase key/display name.
-  List<String> profilesList() => LunaBox.profiles.box.keys
-      .map<String>((profile) => profile as String)
-      .toList()
-    ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+  List<String> profilesList() {
+    return LunaBox.profiles.data.keys.map((p) => p.toString()).toList()
+      ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+  }
 
   /// Safely change profiles.
   ///
@@ -21,7 +21,7 @@ class LunaProfile {
     bool popToFirst = false,
   }) async {
     if (LunaSeaDatabase.ENABLED_PROFILE.read() == profile) return true;
-    if (LunaBox.profiles.box.containsKey(profile)) {
+    if (LunaBox.profiles.contains(profile)) {
       LunaSeaDatabase.ENABLED_PROFILE.update(profile);
       LunaState.reset(LunaState.navigatorKey.currentContext!);
       if (showSnackbar)
@@ -53,8 +53,8 @@ class LunaProfile {
               LunaState.navigatorKey.currentContext!, profiles);
       if (newProfile.item1) {
         ProfileHiveObject oldProfileObject =
-            LunaBox.profiles.box.get(selectedProfile.item2)!;
-        LunaBox.profiles.box.put(newProfile.item2,
+            LunaBox.profiles.read(selectedProfile.item2)!;
+        LunaBox.profiles.update(newProfile.item2,
             ProfileHiveObject.fromProfileHiveObject(oldProfileObject));
         if (LunaSeaDatabase.ENABLED_PROFILE.read() == selectedProfile.item2)
           LunaProfile()
@@ -83,7 +83,7 @@ class LunaProfile {
           .deleteProfile(LunaState.navigatorKey.currentContext!, profiles);
       if (selectedProfile.item1) {
         if (selectedProfile.item2 != LunaSeaDatabase.ENABLED_PROFILE.read()) {
-          LunaBox.profiles.box.delete(selectedProfile.item2);
+          LunaBox.profiles.delete(selectedProfile.item2);
           if (showSnackbar)
             showLunaSuccessSnackBar(
                 title: 'Deleted Profile',
@@ -108,7 +108,7 @@ class LunaProfile {
     Tuple2<bool, String> result = await SettingsDialogs()
         .addProfile(LunaState.navigatorKey.currentContext!, profiles);
     if (result.item1) {
-      LunaBox.profiles.box.put(result.item2, ProfileHiveObject.empty());
+      await LunaBox.profiles.update(result.item2, ProfileHiveObject.empty());
       safelyChangeProfiles(result.item2);
       if (showSnackbar)
         showLunaSuccessSnackBar(
@@ -121,7 +121,7 @@ class LunaProfile {
 
   static ProfileHiveObject get current {
     const _db = LunaSeaDatabase.ENABLED_PROFILE;
-    String _name = LunaBox.lunasea.box.get(_db.key) ?? DEFAULT_PROFILE;
-    return LunaBox.profiles.box.get(_name) ?? ProfileHiveObject.empty();
+    String _name = LunaBox.lunasea.read(_db.key) ?? DEFAULT_PROFILE;
+    return LunaBox.profiles.read(_name) ?? ProfileHiveObject.empty();
   }
 }

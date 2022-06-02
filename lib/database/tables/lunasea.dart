@@ -8,13 +8,14 @@ import 'package:lunasea/core/models/types/indexer_icon.dart';
 import 'package:lunasea/core/models/types/list_view_option.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/database/table.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   DRAWER_AUTOMATIC_MANAGE<bool>(true),
   DRAWER_MANUAL_ORDER<List>([]),
-  ENABLED_PROFILE<String>('default'),
+  ENABLED_PROFILE<String>(LunaProfile.DEFAULT_PROFILE),
   NETWORKING_TLS_VALIDATION<bool>(false),
   THEME_AMOLED<bool>(false),
   THEME_AMOLED_BORDER<bool>(false),
@@ -33,15 +34,15 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   CHANGELOG_LAST_BUILD<String>('0.0.0');
 
   @override
-  String get table => TABLE_LUNASEA_KEY;
+  LunaTable get table => LunaTable.lunasea;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const LunaSeaDatabase(this.defaultValue);
+  const LunaSeaDatabase(this.fallback);
 
   @override
-  void registerAdapters() {
+  void register() {
     // Deprecated
     Hive.registerAdapter(DeprecatedLunaBrowserAdapter());
     // Active

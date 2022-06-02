@@ -125,7 +125,7 @@ class _State extends State<CalendarView> {
 
   Widget _calendar() {
     return ValueListenableBuilder(
-      valueListenable: LunaBox.lunasea.box.listenable(keys: [
+      valueListenable: LunaBox.lunasea.listenable([
         DashboardDatabase.CALENDAR_STARTING_DAY.key,
         DashboardDatabase.CALENDAR_STARTING_SIZE.key,
       ]),

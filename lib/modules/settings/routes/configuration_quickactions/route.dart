@@ -86,7 +86,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaBlock(
       title: title,
       trailing: ValueListenableBuilder(
-        valueListenable: LunaBox.lunasea.box.listenable(keys: [action.key]),
+        valueListenable: LunaBox.lunasea.listenable([action.key]),
         builder: (context, dynamic _, __) => LunaSwitch(
             value: action.read(),
             onChanged: (value) {

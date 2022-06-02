@@ -164,10 +164,8 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             _arguments!.data.discogsLink!.openLink();
           },
         ),
-        ValueListenableBuilder(
-          valueListenable: LunaBox.lunasea.box
-              .listenable(keys: [LidarrDatabase.ADD_ROOT_FOLDER.key]),
-          builder: (context, dynamic box, widget) {
+        LidarrDatabase.ADD_ROOT_FOLDER.listen(
+          builder: (context, _) {
             final _rootfolder = LidarrDatabase.ADD_ROOT_FOLDER.read();
             return LunaBlock(
               title: 'Root Folder',

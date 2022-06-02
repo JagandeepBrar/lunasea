@@ -134,7 +134,7 @@ extension LunaModuleEnablementExtension on LunaModule {
       case LunaModule.SABNZBD:
         return LunaProfile.current.sabnzbdEnabled ?? false;
       case LunaModule.SEARCH:
-        return LunaBox.indexers.box.isNotEmpty;
+        return !LunaBox.indexers.isEmpty;
       case LunaModule.SONARR:
         return LunaProfile.current.sonarrEnabled ?? false;
       case LunaModule.TAUTULLI:
@@ -142,7 +142,7 @@ extension LunaModuleEnablementExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return LunaProfile.current.wakeOnLANEnabled ?? false;
       case LunaModule.EXTERNAL_MODULES:
-        return LunaBox.externalModules.box.isNotEmpty;
+        return !LunaBox.externalModules.isEmpty;
     }
   }
 }
@@ -496,12 +496,12 @@ extension LunaModuleExtension on LunaModule {
 
   Widget informationBanner() {
     String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
-    void markSeen() => LunaBox.alerts.box.put(key, false);
+    void markSeen() => LunaBox.alerts.update(key, false);
 
     return ValueListenableBuilder(
-      valueListenable: LunaBox.alerts.box.listenable(keys: [key]),
-      builder: (context, dynamic box, _) {
-        if (LunaBox.alerts.box.get(key, defaultValue: true)) {
+      valueListenable: LunaBox.alerts.listenable([key]),
+      builder: (context, box, _) {
+        if (LunaBox.lunasea.read(key, fallback: true)) {
           return LunaBanner(
             dismissCallback: markSeen,
             headerText: this.title,

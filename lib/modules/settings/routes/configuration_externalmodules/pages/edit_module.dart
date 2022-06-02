@@ -60,7 +60,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.moduleId < 0 ||
-        !LunaBox.externalModules.box.containsKey(widget.moduleId)) {
+        !LunaBox.externalModules.contains(widget.moduleId)) {
       return LunaInvalidRoute(
         title: 'settings.EditModule'.tr(),
         message: 'settings.ModuleNotFound'.tr(),
@@ -105,13 +105,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return ValueListenableBuilder(
-      valueListenable: LunaBox.externalModules.box.listenable(
-        keys: [widget.moduleId],
-      ),
+      valueListenable: LunaBox.externalModules.listenable([widget.moduleId]),
       builder: (context, dynamic _, __) {
-        if (!LunaBox.externalModules.box.containsKey(widget.moduleId))
+        if (!LunaBox.externalModules.contains(widget.moduleId))
           return Container();
-        _module = LunaBox.externalModules.box.get(widget.moduleId);
+        _module = LunaBox.externalModules.read(widget.moduleId);
         return LunaListView(
           controller: scrollController,
           children: [

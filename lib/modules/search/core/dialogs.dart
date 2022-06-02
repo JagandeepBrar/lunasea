@@ -59,7 +59,7 @@ class SearchDialogs {
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
                     for (String? profile
-                        in LunaBox.profiles.box.keys as Iterable<String?>)
+                        in LunaBox.profiles.data.keys as Iterable<String?>)
                       PopupMenuItem<String>(
                         value: profile,
                         child: Text(

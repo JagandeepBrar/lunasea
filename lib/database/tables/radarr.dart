@@ -38,7 +38,7 @@ enum RadarrDatabase<T> with LunaTableMixin<T> {
   CONTENT_PAGE_SIZE<int>(10);
 
   @override
-  void registerAdapters() {
+  void register() {
     // Deprecated, not in use but necessary to avoid Hive read errors
     Hive.registerAdapter(DeprecatedRadarrQualityProfileAdapter());
     Hive.registerAdapter(DeprecatedRadarrRootFolderAdapter());
@@ -51,12 +51,12 @@ enum RadarrDatabase<T> with LunaTableMixin<T> {
   }
 
   @override
-  String get table => TABLE_RADARR_KEY;
+  LunaTable get table => LunaTable.radarr;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const RadarrDatabase(this.defaultValue);
+  const RadarrDatabase(this.fallback);
 
   @override
   dynamic export() {

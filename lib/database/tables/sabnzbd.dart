@@ -4,10 +4,10 @@ enum SABnzbdDatabase<T> with LunaTableMixin<T> {
   NAVIGATION_INDEX<int>(0);
 
   @override
-  String get table => TABLE_SABNZBD_KEY;
+  LunaTable get table => LunaTable.sabnzbd;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const SABnzbdDatabase(this.defaultValue);
+  const SABnzbdDatabase(this.fallback);
 }

@@ -61,8 +61,8 @@ class _State extends State<SABnzbd> {
 
   Widget _appBar() {
     List<String> profiles =
-        LunaBox.profiles.box.keys.fold([], (value, element) {
-      if (LunaBox.profiles.box.get(element)?.sabnzbdEnabled ?? false)
+        LunaBox.profiles.data.keys.fold([], (value, element) {
+      if (LunaBox.profiles.read(element)?.sabnzbdEnabled ?? false)
         value.add(element);
       return value;
     });

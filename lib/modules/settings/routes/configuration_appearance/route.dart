@@ -71,12 +71,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _amoledThemeBorders() {
     return ValueListenableBuilder(
-      valueListenable: LunaBox.lunasea.box.listenable(
-        keys: [
-          LunaSeaDatabase.THEME_AMOLED_BORDER.key,
-          LunaSeaDatabase.THEME_AMOLED.key,
-        ],
-      ),
+      valueListenable: LunaBox.lunasea.listenable([
+        LunaSeaDatabase.THEME_AMOLED_BORDER.key,
+        LunaSeaDatabase.THEME_AMOLED.key,
+      ]),
       builder: (context, dynamic _, __) => LunaBlock(
         title: 'settings.AmoledThemeBorders'.tr(),
         body: [

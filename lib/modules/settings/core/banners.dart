@@ -63,10 +63,10 @@ extension SettingsBannersExtension on SettingsBanners {
   }
 
   /// Return true if the banner should be shown in the UI
-  bool? get shouldShow => LunaBox.alerts.box.get(key, defaultValue: true);
+  bool? get shouldShow => LunaBox.alerts.read(key, fallback: true);
 
   /// Mark the banner as seen, so it will not appear in the UI anymore
-  void markSeen() => LunaBox.alerts.box.put(key, false);
+  void markSeen() => LunaBox.alerts.update(key, false);
 
   /// Create a new [ValueListenableBuilder]
   ValueListenableBuilder banner({
@@ -74,7 +74,7 @@ extension SettingsBannersExtension on SettingsBanners {
     Color bodyColor = LunaColours.grey,
   }) =>
       ValueListenableBuilder(
-        valueListenable: LunaBox.alerts.box.listenable(keys: [key]),
+        valueListenable: LunaBox.alerts.listenable([key]),
         builder: (context, box, _) {
           if (shouldShow!)
             return LunaBanner(

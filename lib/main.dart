@@ -64,7 +64,7 @@ class LunaBIOS extends StatelessWidget {
           useFallbackTranslations: true,
           child: LunaState.providers(
             child: ValueListenableBuilder(
-              valueListenable: LunaBox.lunasea.box.listenable(keys: [
+              valueListenable: LunaBox.lunasea.listenable([
                 LunaSeaDatabase.THEME_AMOLED.key,
                 LunaSeaDatabase.THEME_AMOLED_BORDER.key,
               ]),

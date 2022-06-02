@@ -17,15 +17,15 @@ enum DashboardDatabase<T> with LunaTableMixin<T> {
   CALENDAR_SHOW_PAST_DAYS<bool>(false);
 
   @override
-  String get table => TABLE_DASHBOARD_KEY;
+  LunaTable get table => LunaTable.dashboard;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const DashboardDatabase(this.defaultValue);
+  const DashboardDatabase(this.fallback);
 
   @override
-  void registerAdapters() {
+  void register() {
     Hive.registerAdapter(CalendarStartingDayAdapter());
     Hive.registerAdapter(CalendarStartingSizeAdapter());
     Hive.registerAdapter(CalendarStartingTypeAdapter());

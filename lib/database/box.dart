@@ -21,7 +21,9 @@ enum LunaBox<T> {
 
   Box<T> get _instance => Hive.box<T>(key);
 
-  Map<dynamic, T> get data => _instance.toMap();
+  Iterable<dynamic> get keys => _instance.keys;
+  Iterable<T> get data => _instance.values;
+
   int get size => _instance.length;
   bool get isEmpty => _instance.isEmpty;
 

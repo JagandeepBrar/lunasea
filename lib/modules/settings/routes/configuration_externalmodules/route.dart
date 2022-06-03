@@ -72,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       ];
 
   List<Widget> get _modules {
-    final modules = LunaBox.externalModules.data.values.toList();
+    final modules = LunaBox.externalModules.data.toList();
     modules.sort((a, b) =>
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(

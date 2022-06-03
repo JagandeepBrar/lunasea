@@ -17,10 +17,10 @@ class LunaDrawerHeader extends StatelessWidget {
           backgroundColor: Colors.transparent,
           hideLeading: true,
           useDrawer: false,
-          title: LunaBox.profiles.data.keys.length == 1
+          title: LunaBox.profiles.keys.length == 1
               ? 'LunaSea'
               : LunaSeaDatabase.ENABLED_PROFILE.read(),
-          profiles: LunaBox.profiles.data.keys.cast<String>().toList(),
+          profiles: LunaBox.profiles.keys.cast<String>().toList(),
           actions: [
             LunaIconButton(
               icon: LunaIcons.SETTINGS,

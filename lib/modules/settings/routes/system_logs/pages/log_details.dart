@@ -90,27 +90,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
     switch (widget.type) {
       case LunaLogType.WARNING:
-        logs = box.data.values
-            .where((log) => log.type == LunaLogType.WARNING)
-            .toList();
+        logs =
+            box.data.where((log) => log.type == LunaLogType.WARNING).toList();
         break;
       case LunaLogType.ERROR:
-        logs = box.data.values
-            .where((log) => log.type == LunaLogType.ERROR)
-            .toList();
+        logs = box.data.where((log) => log.type == LunaLogType.ERROR).toList();
         break;
       case LunaLogType.CRITICAL:
-        logs = box.data.values
-            .where((log) => log.type == LunaLogType.CRITICAL)
-            .toList();
+        logs =
+            box.data.where((log) => log.type == LunaLogType.CRITICAL).toList();
         break;
       case LunaLogType.DEBUG:
-        logs = box.data.values
-            .where((log) => log.type == LunaLogType.DEBUG)
-            .toList();
+        logs = box.data.where((log) => log.type == LunaLogType.DEBUG).toList();
         break;
       default:
-        logs = box.data.values.where((log) => log.type.enabled).toList();
+        logs = box.data.where((log) => log.type.enabled).toList();
         break;
     }
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));

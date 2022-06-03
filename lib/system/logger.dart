@@ -19,13 +19,13 @@ class LunaLogger {
 
   Future<void> _compact([int count = 50]) async {
     if (LunaBox.logs.data.length <= count) return;
-    List<LunaLogHiveObject> logs = LunaBox.logs.data.values.toList();
+    List<LunaLogHiveObject> logs = LunaBox.logs.data.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
 
   Future<String> export() async {
-    final logs = LunaBox.logs.data.values.map((log) => log.toMap()).toList();
+    final logs = LunaBox.logs.data.map((log) => log.toMap()).toList();
     final encoder = JsonEncoder.withIndent(' '.repeat(4));
     return encoder.convert(logs);
   }

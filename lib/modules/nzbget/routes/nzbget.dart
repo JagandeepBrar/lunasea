@@ -61,8 +61,7 @@ class _State extends State<NZBGet> {
   }
 
   Widget _appBar() {
-    List<String> profiles =
-        LunaBox.profiles.data.keys.fold([], (value, element) {
+    List<String> profiles = LunaBox.profiles.keys.fold([], (value, element) {
       if (LunaBox.profiles.read(element)?.nzbgetEnabled ?? false)
         value.add(element);
       return value;

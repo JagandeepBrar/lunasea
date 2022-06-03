@@ -73,7 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> get _indexers {
-    List<IndexerHiveObject> indexers = LunaBox.indexers.data.values.toList();
+    List<IndexerHiveObject> indexers = LunaBox.indexers.data.toList();
     indexers.sort((a, b) =>
         a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
     List<LunaBlock> list = List.generate(

@@ -82,7 +82,7 @@ class _State extends State<Lidarr> {
 
   Widget _appBar() {
     const db = LunaBox.profiles;
-    final profiles = db.data.keys.fold<List<String>>([], (arr, key) {
+    final profiles = db.keys.fold<List<String>>([], (arr, key) {
       if (LunaBox.profiles.read(key)?.lidarrEnabled ?? false) arr.add(key);
       return arr;
     });

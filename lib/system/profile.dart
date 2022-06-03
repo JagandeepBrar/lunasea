@@ -16,7 +16,7 @@ class LunaProfile {
   }
 
   static List<String> get list {
-    final profiles = LunaBox.profiles.data.keys.cast<String>().toList();
+    final profiles = LunaBox.profiles.keys.cast<String>().toList();
     profiles.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
     return profiles;
   }

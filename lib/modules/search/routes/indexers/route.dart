@@ -56,7 +56,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> get _list {
-    final list = LunaBox.indexers.data.values
+    final list = LunaBox.indexers.data
         .map((indexer) => SearchIndexerTile(indexer: indexer))
         .toList();
     list.sort((a, b) => a.indexer!.displayName!

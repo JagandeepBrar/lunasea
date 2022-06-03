@@ -66,48 +66,51 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-        valueListenable: LunaBox.logs.listenable(),
-        builder: (context, dynamic box, _) {
-          List<LunaLogHiveObject> logs = filter(box);
-          if (logs.isEmpty) {
-            return LunaMessage.goBack(
-              context: context,
-              text: 'No Logs Found',
-            );
-          }
-          return LunaListViewBuilder(
-            controller: scrollController,
-            itemCount: logs.length,
-            itemBuilder: (context, index) => SettingsSystemLogTile(
-              log: logs[index],
-            ),
-          );
-        });
+    return LunaBox.logs.watch(builder: (context, _) {
+      List<LunaLogHiveObject> logs = filter();
+      if (logs.isEmpty) {
+        return LunaMessage.goBack(
+          context: context,
+          text: 'No Logs Found',
+        );
+      }
+      return LunaListViewBuilder(
+        controller: scrollController,
+        itemCount: logs.length,
+        itemBuilder: (context, index) => SettingsSystemLogTile(
+          log: logs[index],
+        ),
+      );
+    });
   }
 
-  List<LunaLogHiveObject> filter(Box<LunaLogHiveObject> box) {
+  List<LunaLogHiveObject> filter() {
     List<LunaLogHiveObject> logs;
+    const box = LunaBox.logs;
+
     switch (widget.type) {
       case LunaLogType.WARNING:
-        logs =
-            box.values.where((log) => log.type == LunaLogType.WARNING).toList();
+        logs = box.data.values
+            .where((log) => log.type == LunaLogType.WARNING)
+            .toList();
         break;
       case LunaLogType.ERROR:
-        logs =
-            box.values.where((log) => log.type == LunaLogType.ERROR).toList();
+        logs = box.data.values
+            .where((log) => log.type == LunaLogType.ERROR)
+            .toList();
         break;
       case LunaLogType.CRITICAL:
-        logs = box.values
+        logs = box.data.values
             .where((log) => log.type == LunaLogType.CRITICAL)
             .toList();
         break;
       case LunaLogType.DEBUG:
-        logs =
-            box.values.where((log) => log.type == LunaLogType.DEBUG).toList();
+        logs = box.data.values
+            .where((log) => log.type == LunaLogType.DEBUG)
+            .toList();
         break;
       default:
-        logs = box.values.where((log) => log.type.enabled).toList();
+        logs = box.data.values.where((log) => log.type.enabled).toList();
         break;
     }
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));

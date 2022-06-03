@@ -22,7 +22,8 @@ class LunaState {
       GlobalKey<NavigatorState>();
 
   /// Calls `.reset()` on all states which extend [LunaModuleState].
-  static void reset(BuildContext context) {
+  static void reset([BuildContext? ctx]) {
+    final context = ctx ?? navigatorKey.currentContext!;
     LunaModule.values.forEach((module) => module.state(context)?.reset());
   }
 

@@ -63,12 +63,12 @@ class LunaBIOS extends StatelessWidget {
           startLocale: LunaLocalization.fallbackLocale,
           useFallbackTranslations: true,
           child: LunaState.providers(
-            child: ValueListenableBuilder(
-              valueListenable: LunaBox.lunasea.listenable([
-                LunaSeaDatabase.THEME_AMOLED.key,
-                LunaSeaDatabase.THEME_AMOLED_BORDER.key,
-              ]),
-              builder: (context, dynamic box, _) {
+            child: LunaBox.lunasea.watch(
+              selectItems: [
+                LunaSeaDatabase.THEME_AMOLED,
+                LunaSeaDatabase.THEME_AMOLED_BORDER,
+              ],
+              builder: (context, _) {
                 return MaterialApp(
                   localizationsDelegates: context.localizationDelegates,
                   supportedLocales: context.supportedLocales,

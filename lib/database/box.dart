@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core/models/configuration/external_module.dart';
 import 'package:lunasea/core/models/configuration/indexer.dart';
 import 'package:lunasea/core/models/configuration/profile.dart';
 import 'package:lunasea/core/models/logs/log.dart';
+import 'package:lunasea/database/table.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/vendor.dart';
 
@@ -51,16 +53,34 @@ enum LunaBox<T> {
     return _instance.delete(key);
   }
 
-  ValueListenable<Box<T>> listenable([List<dynamic>? keys]) {
-    return _instance.listenable(keys: keys);
-  }
-
   Future<void> clear() async {
     _instance.keys.forEach((k) async => await _instance.delete(k));
   }
 
   Future<Box<T>> _open() async {
     return Hive.openBox<T>(key);
+  }
+
+  ValueListenable<Box<T>> listenable([List<dynamic>? keys]) {
+    return _instance.listenable(keys: keys);
+  }
+
+  ValueListenableBuilder watch({
+    required Widget Function(BuildContext, Widget?) builder,
+    List<dynamic>? selectKeys,
+    List<LunaTableMixin>? selectItems,
+    Key? key,
+    Widget? child,
+  }) {
+    final items = selectItems?.map((item) => item.key).toList();
+    final keys = [...?selectKeys, ...?items];
+
+    return ValueListenableBuilder(
+      key: key,
+      valueListenable: listenable(keys.isNotEmpty ? keys : null),
+      builder: (context, _, widget) => builder(context, widget),
+      child: child,
+    );
   }
 }
 

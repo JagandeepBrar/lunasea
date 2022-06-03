@@ -54,9 +54,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledToggle() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.profiles.listenable(),
-      builder: (context, dynamic _, __) => LunaBlock(
+    return LunaBox.profiles.watch(
+      builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.title}',
         trailing: LunaSwitch(
           value: LunaProfile.current.sonarrEnabled ?? false,
@@ -110,7 +109,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _queueSize() {
     const _db = SonarrDatabase.QUEUE_PAGE_SIZE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Queue Size',
         body: [

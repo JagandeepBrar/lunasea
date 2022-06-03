@@ -318,7 +318,7 @@ class LidarrDialogs {
       ],
       showCancelButton: false,
       content: [
-        LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.listen(
+        LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'lidarr.StartSearchForMissingAlbums'.tr(),
             value: LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.read(),

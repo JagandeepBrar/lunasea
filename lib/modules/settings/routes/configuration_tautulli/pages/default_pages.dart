@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _homePage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: TautulliNavigationBar.titles[_db.read()])],
@@ -74,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _graphsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_GRAPHS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Graphs',
         body: [TextSpan(text: TautulliGraphsNavigationBar.titles[_db.read()])],
@@ -94,7 +94,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _libraryDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_LIBRARIES_DETAILS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Library Details',
         body: [
@@ -117,7 +117,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _mediaDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_MEDIA_DETAILS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Media Details',
         body: [
@@ -139,7 +139,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _userDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_USER_DETAILS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'User Details',
         body: [

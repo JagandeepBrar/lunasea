@@ -53,9 +53,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.indexers.listenable(),
-      builder: (context, dynamic box, _) => LunaListView(
+    return LunaBox.indexers.watch(
+      builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
           LunaModule.SEARCH.informationBanner(),
@@ -107,7 +106,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _hideAdultCategories() {
     const _db = SearchDatabase.HIDE_XXX;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Hide Adult Categories',
         body: const [TextSpan(text: 'Hide Adult Content')],
@@ -121,7 +120,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _showLinks() {
     const _db = SearchDatabase.SHOW_LINKS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Show Links',
         body: const [TextSpan(text: 'Show Download and Comments Links')],

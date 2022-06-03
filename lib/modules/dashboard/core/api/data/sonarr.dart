@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/extensions/string.dart';
 
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';

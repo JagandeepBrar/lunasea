@@ -34,13 +34,12 @@ class LunaDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaSeaDatabase.ENABLED_PROFILE.listen(
-      builder: (context, _) => ValueListenableBuilder(
-        valueListenable: LunaBox.indexers.listenable(),
-        builder: (context, dynamic indexerBox, widget) => Drawer(
+    return LunaSeaDatabase.ENABLED_PROFILE.watch(
+      builder: (context, _) => LunaBox.indexers.watch(
+        builder: (context, _) => Drawer(
           elevation: LunaUI.ELEVATION,
           backgroundColor: Theme.of(context).primaryColor,
-          child: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
+          child: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.watch(
             builder: (context, _) => Column(
               children: [
                 LunaDrawerHeader(page: page),

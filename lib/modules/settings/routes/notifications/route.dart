@@ -74,7 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     const db = LunaSeaDatabase.ENABLE_IN_APP_NOTIFICATIONS;
     return LunaBlock(
       title: 'settings.EnableInAppNotifications'.tr(),
-      trailing: db.listen(
+      trailing: db.watch(
         builder: (context, _) => LunaSwitch(
           value: db.read(),
           onChanged: db.update,

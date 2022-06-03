@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core/extensions/int.dart';
 import 'package:lunasea/extensions/string.dart';
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/radarr/core/api_helper.dart';

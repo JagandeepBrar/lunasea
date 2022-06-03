@@ -71,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _pastDaysInSchedule() {
     const _db = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.PastDaysInScheduleView'.tr(),
         trailing: LunaSwitch(
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _pastDays() {
     const _db = DashboardDatabase.CALENDAR_DAYS_PAST;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.PastDays'.tr(),
         body: [
@@ -106,7 +106,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _futureDays() {
     const _db = DashboardDatabase.CALENDAR_DAYS_FUTURE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.FutureDays'.tr(),
         body: [
@@ -128,7 +128,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _modulesLidarr() {
     const _db = DashboardDatabase.CALENDAR_ENABLE_LIDARR;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: LunaModule.LIDARR.title,
         body: [
@@ -148,7 +148,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _modulesRadarr() {
     const _db = DashboardDatabase.CALENDAR_ENABLE_RADARR;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: LunaModule.RADARR.title,
         body: [
@@ -168,7 +168,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _modulesSonarr() {
     const _db = DashboardDatabase.CALENDAR_ENABLE_SONARR;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: LunaModule.SONARR.title,
         body: [
@@ -188,7 +188,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _startingView() {
     const _db = DashboardDatabase.CALENDAR_STARTING_TYPE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.StartingView'.tr(),
         body: [
@@ -206,7 +206,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _startingDay() {
     const _db = DashboardDatabase.CALENDAR_STARTING_DAY;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.StartingDay'.tr(),
         body: [
@@ -224,7 +224,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _startingSize() {
     const _db = DashboardDatabase.CALENDAR_STARTING_SIZE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.StartingSize'.tr(),
         body: [

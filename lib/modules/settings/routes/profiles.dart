@@ -43,43 +43,105 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       children: [
         SettingsBanners.PROFILES_SUPPORT.banner(),
         _enabledProfile(),
-        LunaBlock(
-          title: 'settings.AddProfile'.tr(),
-          body: [TextSpan(text: 'settings.AddProfileDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.ADD),
-          onTap: () async => LunaProfile().addProfile(),
-        ),
-        LunaBlock(
-          title: 'settings.RenameProfile'.tr(),
-          body: [TextSpan(text: 'settings.RenameProfileDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.RENAME),
-          onTap: () async => LunaProfile().renameProfile(),
-        ),
-        LunaBlock(
-          title: 'settings.DeleteProfile'.tr(),
-          body: [TextSpan(text: 'settings.DeleteProfileDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.DELETE),
-          onTap: () async => LunaProfile().deleteProfile(),
-        ),
+        _addProfile(),
+        _renameProfile(),
+        _deleteProfile(),
       ],
     );
   }
 
+  Widget _addProfile() {
+    return LunaBlock(
+      title: 'settings.AddProfile'.tr(),
+      body: [TextSpan(text: 'settings.AddProfileDescription'.tr())],
+      trailing: const LunaIconButton(icon: LunaIcons.ADD),
+      onTap: () async {
+        final dialogs = SettingsDialogs();
+        final context = LunaState.navigatorKey.currentContext!;
+        final profiles = LunaProfile.list;
+
+        final selected = await dialogs.addProfile(context, profiles);
+        if (selected.item1) {
+          LunaProfile().create(selected.item2);
+        }
+      },
+    );
+  }
+
+  Widget _renameProfile() {
+    return LunaBlock(
+      title: 'settings.RenameProfile'.tr(),
+      body: [TextSpan(text: 'settings.RenameProfileDescription'.tr())],
+      trailing: const LunaIconButton(icon: LunaIcons.RENAME),
+      onTap: () async {
+        final dialogs = SettingsDialogs();
+        final context = LunaState.navigatorKey.currentContext!;
+        final profiles = LunaProfile.list;
+
+        final selected = await dialogs.renameProfile(context, profiles);
+        if (selected.item1) {
+          final name = await dialogs.renameProfileSelected(context, profiles);
+          if (name.item1) {
+            LunaProfile().rename(selected.item2, name.item2);
+          }
+        }
+      },
+    );
+  }
+
+  Widget _deleteProfile() {
+    return LunaBlock(
+        title: 'settings.DeleteProfile'.tr(),
+        body: [TextSpan(text: 'settings.DeleteProfileDescription'.tr())],
+        trailing: const LunaIconButton(icon: LunaIcons.DELETE),
+        onTap: () async {
+          final dialogs = SettingsDialogs();
+          final enabledProfile = LunaSeaDatabase.ENABLED_PROFILE.read();
+          final context = LunaState.navigatorKey.currentContext!;
+          final profiles = LunaProfile.list;
+          profiles.removeWhere((p) => p == enabledProfile);
+
+          if (profiles.isEmpty) {
+            showLunaInfoSnackBar(
+              title: 'settings.NoProfilesFound'.tr(),
+              message: 'settings.NoAdditionalProfilesAdded'.tr(),
+            );
+            return;
+          }
+
+          final selected = await dialogs.deleteProfile(context, profiles);
+          if (selected.item1) {
+            LunaProfile().remove(selected.item2);
+          }
+        });
+  }
+
   Widget _enabledProfile() {
     const db = LunaSeaDatabase.ENABLED_PROFILE;
-    return db.listen(
+    return db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.EnabledProfile'.tr(),
         body: [TextSpan(text: db.read())],
         trailing: const LunaIconButton(icon: LunaIcons.USER),
         onTap: () async {
-          Tuple2<bool, String?> results =
-              await SettingsDialogs().enabledProfile(
-            LunaState.navigatorKey.currentContext!,
-            LunaProfile().profilesList(),
-          );
-          if (results.item1 && results.item2 != db.read())
-            LunaProfile().safelyChangeProfiles(results.item2!);
+          final dialogs = SettingsDialogs();
+          final enabledProfile = LunaSeaDatabase.ENABLED_PROFILE.read();
+          final context = LunaState.navigatorKey.currentContext!;
+          final profiles = LunaProfile.list;
+          profiles.removeWhere((p) => p == enabledProfile);
+
+          if (profiles.isEmpty) {
+            showLunaInfoSnackBar(
+              title: 'settings.NoProfilesFound'.tr(),
+              message: 'settings.NoAdditionalProfilesAdded'.tr(),
+            );
+            return;
+          }
+
+          final selected = await dialogs.enabledProfile(context, profiles);
+          if (selected.item1) {
+            LunaProfile().changeTo(selected.item2);
+          }
         },
       ),
     );

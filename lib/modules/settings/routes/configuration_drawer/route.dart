@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           body: [
             TextSpan(text: 'settings.AutomaticallyManageOrderDescription'.tr()),
           ],
-          trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
+          trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.watch(
             builder: (context, _) => LunaSwitch(
               value: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
               onChanged: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.update,
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _reorderableModuleTile(int index) {
-    return LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listen(
+    return LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.watch(
       key: ObjectKey(_modules![index]),
       builder: (context, _) => LunaBlock(
         disabled: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),

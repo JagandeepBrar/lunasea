@@ -18,7 +18,7 @@ class SearchDialogs {
     await LunaDialog.dialog(
       context: context,
       title: 'search.Download'.tr(),
-      customContent: LunaSeaDatabase.ENABLED_PROFILE.listen(
+      customContent: LunaSeaDatabase.ENABLED_PROFILE.watch(
         builder: (context, _) => LunaDialog.content(
           children: [
             Padding(
@@ -54,7 +54,7 @@ class SearchDialogs {
                 ),
                 onSelected: (result) {
                   HapticFeedback.selectionClick();
-                  LunaProfile().safelyChangeProfiles(result);
+                  LunaProfile().changeTo(result);
                 },
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[

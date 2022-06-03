@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';

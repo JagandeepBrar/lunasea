@@ -37,21 +37,38 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: 'settings.Configuration'.tr(),
       scrollControllers: [scrollController],
-      actions: [
-        LunaIconButton(
+      actions: [_enabledProfile()],
+    );
+  }
+
+  Widget _enabledProfile() {
+    return LunaBox.profiles.watch(
+      builder: (context, _) {
+        if (LunaBox.profiles.size < 2) return const SizedBox();
+        return LunaIconButton(
           icon: Icons.switch_account_rounded,
           onPressed: () async {
-            Tuple2<bool, String?> results =
-                await SettingsDialogs().enabledProfile(
-              LunaState.navigatorKey.currentContext!,
-              LunaProfile().profilesList(),
-            );
-            if (results.item1 &&
-                results.item2 != LunaSeaDatabase.ENABLED_PROFILE.read())
-              LunaProfile().safelyChangeProfiles(results.item2!);
+            final dialogs = SettingsDialogs();
+            final enabledProfile = LunaSeaDatabase.ENABLED_PROFILE.read();
+            final context = LunaState.navigatorKey.currentContext!;
+            final profiles = LunaProfile.list;
+            profiles.removeWhere((p) => p == enabledProfile);
+
+            if (profiles.isEmpty) {
+              showLunaInfoSnackBar(
+                title: 'settings.NoProfilesFound'.tr(),
+                message: 'settings.NoAdditionalProfilesAdded'.tr(),
+              );
+              return;
+            }
+
+            final selected = await dialogs.enabledProfile(context, profiles);
+            if (selected.item1) {
+              LunaProfile().changeTo(selected.item2);
+            }
           },
-        ),
-      ],
+        );
+      },
     );
   }
 

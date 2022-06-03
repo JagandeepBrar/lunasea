@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';

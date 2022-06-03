@@ -20,13 +20,13 @@ export 'core/router/router.dart';
 export 'core/services/the_movie_db.dart';
 export 'core/state/module_state.dart';
 export 'core/state/state.dart';
-export 'core/system/profile.dart';
 export 'core/utilities/changelog.dart';
 export 'core/utilities/dialogs.dart';
 
 export 'database/box.dart';
 export 'database/tables/lunasea.dart';
 export 'system/logger.dart';
+export 'system/profile.dart';
 export 'widgets/ui.dart';
 export 'modules.dart';
 export 'vendor.dart'

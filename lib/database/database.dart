@@ -1,9 +1,9 @@
 import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/system/profile.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/system/platform.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/vendor.dart';
 
 class LunaDatabase {

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/types/exception.dart';
 
 class LunaLogger {
   static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
@@ -79,6 +80,23 @@ class LunaLogger {
         print(stackTrace);
       }
       LunaBox.logs.create(log);
+    }
+  }
+
+  void exception(LunaException exception, [StackTrace? trace]) {
+    switch (exception.type) {
+      case LunaLogType.WARNING:
+        // TODO: Handle this case.
+        break;
+      case LunaLogType.ERROR:
+        // TODO: Handle this case.
+        break;
+      case LunaLogType.CRITICAL:
+        // TODO: Handle this case.
+        break;
+      case LunaLogType.DEBUG:
+        // TODO: Handle this case.
+        break;
     }
   }
 }

@@ -295,7 +295,7 @@ class _State extends State<LunaAppBar> {
         ),
         onSelected: (result) {
           HapticFeedback.selectionClick();
-          LunaProfile().safelyChangeProfiles(result, popToFirst: true);
+          LunaProfile().changeTo(result, popToRoot: true);
         },
         itemBuilder: (context) {
           return <PopupMenuEntry<String>>[

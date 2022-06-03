@@ -64,7 +64,7 @@ class _State extends State<Home> {
   }
 
   Widget _body() {
-    return LunaSeaDatabase.ENABLED_PROFILE.listen(
+    return LunaSeaDatabase.ENABLED_PROFILE.watch(
       builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [

@@ -1,6 +1,6 @@
 import 'package:lunasea/core/models/configuration/profile.dart';
 import 'package:lunasea/core/state/module_state.dart';
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/api/api.dart';

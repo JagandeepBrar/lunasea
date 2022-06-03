@@ -164,7 +164,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             _arguments!.data.discogsLink!.openLink();
           },
         ),
-        LidarrDatabase.ADD_ROOT_FOLDER.listen(
+        LidarrDatabase.ADD_ROOT_FOLDER.watch(
           builder: (context, _) {
             final _rootfolder = LidarrDatabase.ADD_ROOT_FOLDER.read();
             return LunaBlock(
@@ -182,7 +182,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             );
           },
         ),
-        LidarrDatabase.ADD_MONITORED_STATUS.listen(builder: (context, _) {
+        LidarrDatabase.ADD_MONITORED_STATUS.watch(builder: (context, _) {
           const _db = LidarrDatabase.ADD_MONITORED_STATUS;
           final _status = LidarrMonitorStatus.ALL.fromKey(_db.read()) ??
               LidarrMonitorStatus.ALL;
@@ -198,7 +198,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             },
           );
         }),
-        LidarrDatabase.ADD_QUALITY_PROFILE.listen(
+        LidarrDatabase.ADD_QUALITY_PROFILE.watch(
           builder: (context, _) {
             final _profile = LidarrDatabase.ADD_QUALITY_PROFILE.read();
             return LunaBlock(
@@ -216,7 +216,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
             );
           },
         ),
-        LidarrDatabase.ADD_METADATA_PROFILE.listen(
+        LidarrDatabase.ADD_METADATA_PROFILE.watch(
           builder: (context, _) {
             final _profile = LidarrDatabase.ADD_METADATA_PROFILE.read();
             return LunaBlock(

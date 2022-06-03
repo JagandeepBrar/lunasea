@@ -86,20 +86,21 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-        valueListenable: LunaBox.indexers.listenable([widget.indexerId]),
-        builder: (context, dynamic box, __) {
-          if (!LunaBox.indexers.contains(widget.indexerId)) return Container();
-          _indexer = LunaBox.indexers.read(widget.indexerId);
-          return LunaListView(
-            controller: scrollController,
-            children: [
-              if ((_indexer!.headers ?? {}).isEmpty)
-                LunaMessage.inList(text: 'No Headers Added'),
-              ..._list(),
-            ],
-          );
-        });
+    return LunaBox.indexers.watch(
+      selectKeys: [widget.indexerId],
+      builder: (context, _) {
+        if (!LunaBox.indexers.contains(widget.indexerId)) return Container();
+        _indexer = LunaBox.indexers.read(widget.indexerId);
+        return LunaListView(
+          controller: scrollController,
+          children: [
+            if ((_indexer!.headers ?? {}).isEmpty)
+              LunaMessage.inList(text: 'No Headers Added'),
+            ..._list(),
+          ],
+        );
+      },
+    );
   }
 
   List<Widget> _list() {

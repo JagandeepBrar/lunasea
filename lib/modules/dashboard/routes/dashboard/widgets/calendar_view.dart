@@ -124,12 +124,12 @@ class _State extends State<CalendarView> {
   }
 
   Widget _calendar() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.lunasea.listenable([
-        DashboardDatabase.CALENDAR_STARTING_DAY.key,
-        DashboardDatabase.CALENDAR_STARTING_SIZE.key,
-      ]),
-      builder: (context, dynamic box, _) {
+    return LunaBox.lunasea.watch(
+      selectItems: [
+        DashboardDatabase.CALENDAR_STARTING_DAY,
+        DashboardDatabase.CALENDAR_STARTING_SIZE,
+      ],
+      builder: (context, _) {
         DateTime firstDay = context.watch<ModuleState>().today!.subtract(
               Duration(days: DashboardDatabase.CALENDAR_DAYS_PAST.read()),
             );

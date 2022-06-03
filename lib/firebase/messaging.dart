@@ -130,10 +130,7 @@ class LunaFirebaseMessaging {
       );
       return;
     }
-    bool result = await LunaProfile().safelyChangeProfiles(
-      profile,
-      popToFirst: true,
-    );
+    bool result = LunaProfile().changeTo(profile, popToRoot: true);
     if (result) {
       module.handleWebhook(message.data);
     } else {

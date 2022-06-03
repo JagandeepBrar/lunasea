@@ -722,14 +722,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _controller.text);
   }
 
-  Future<Tuple2<bool, String?>> renameProfile(
+  Future<Tuple2<bool, String>> renameProfile(
     BuildContext context,
-    List<String?> profiles,
+    List<String> profiles,
   ) async {
     bool _flag = false;
-    String? _profile = '';
+    String _profile = '';
 
-    void _setValues(bool flag, String? profile) {
+    void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -743,7 +743,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index]!,
+          text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),
@@ -800,14 +800,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _controller.text);
   }
 
-  Future<Tuple2<bool, String?>> deleteProfile(
+  Future<Tuple2<bool, String>> deleteProfile(
     BuildContext context,
-    List<String?> profiles,
+    List<String> profiles,
   ) async {
     bool _flag = false;
-    String? _profile = '';
+    String _profile = '';
 
-    void _setValues(bool flag, String? profile) {
+    void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -821,7 +821,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: Icons.settings_rounded,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index]!,
+          text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),
@@ -830,14 +830,14 @@ class SettingsDialogs {
     return Tuple2(_flag, _profile);
   }
 
-  Future<Tuple2<bool, String?>> enabledProfile(
+  Future<Tuple2<bool, String>> enabledProfile(
     BuildContext context,
-    List<String?> profiles,
+    List<String> profiles,
   ) async {
     bool _flag = false;
-    String? _profile = '';
+    String _profile = '';
 
-    void _setValues(bool flag, String? profile) {
+    void _setValues(bool flag, String profile) {
       _flag = flag;
       _profile = profile;
       Navigator.of(context).pop();
@@ -851,7 +851,7 @@ class SettingsDialogs {
         (index) => LunaDialog.tile(
           icon: LunaIcons.USER,
           iconColor: LunaColours().byListIndex(index),
-          text: profiles[index]!,
+          text: profiles[index],
           onTap: () => _setValues(true, profiles[index]),
         ),
       ),

@@ -90,15 +90,15 @@ mixin LunaTableMixin<T> on Enum {
     return update(value);
   }
 
-  ValueListenableBuilder listen({
+  ValueListenableBuilder watch({
     required Widget Function(BuildContext, Widget?) builder,
     Key? key,
     Widget? child,
   }) {
-    return ValueListenableBuilder(
+    return box.watch(
       key: key,
-      valueListenable: box.listenable([this.key]),
-      builder: (context, _, widget) => builder(context, widget),
+      selectItems: [this],
+      builder: (context, widget) => builder(context, widget),
       child: child,
     );
   }

@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _homePage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         return LunaBlock(
           title: 'lunasea.Home'.tr(),
@@ -73,7 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _seriesDetailsPage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX_SERIES_DETAILS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         return LunaBlock(
           title: 'sonarr.SeriesDetails'.tr(),
@@ -97,7 +97,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _seasonDetailsPage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX_SEASON_DETAILS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         return LunaBlock(
           title: 'sonarr.SeasonDetails'.tr(),

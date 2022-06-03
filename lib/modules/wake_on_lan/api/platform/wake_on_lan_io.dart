@@ -1,5 +1,5 @@
 import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';

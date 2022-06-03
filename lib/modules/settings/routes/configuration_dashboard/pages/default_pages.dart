@@ -55,7 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _homePage() {
     const _db = DashboardDatabase.NAVIGATION_INDEX;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: HomeNavigationBar.titles[_db.read()])],

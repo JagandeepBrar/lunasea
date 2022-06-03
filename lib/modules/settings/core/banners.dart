@@ -72,21 +72,22 @@ extension SettingsBannersExtension on SettingsBanners {
   ValueListenableBuilder banner({
     Color headerColor = Colors.white,
     Color bodyColor = LunaColours.grey,
-  }) =>
-      ValueListenableBuilder(
-        valueListenable: LunaBox.alerts.listenable([key]),
-        builder: (context, box, _) {
-          if (shouldShow!)
-            return LunaBanner(
-              dismissCallback: markSeen,
-              headerText: header,
-              bodyText: body,
-              icon: icon,
-              iconColor: iconColor,
-              headerColor: headerColor,
-              bodyColor: bodyColor,
-            );
-          return const SizedBox(height: 0.0, width: double.infinity);
-        },
-      );
+  }) {
+    return LunaBox.alerts.watch(
+      selectKeys: [key],
+      builder: (context, _) {
+        if (shouldShow!)
+          return LunaBanner(
+            dismissCallback: markSeen,
+            headerText: header,
+            bodyText: body,
+            icon: icon,
+            iconColor: iconColor,
+            headerColor: headerColor,
+            bodyColor: bodyColor,
+          );
+        return const SizedBox(height: 0.0, width: double.infinity);
+      },
+    );
+  }
 }

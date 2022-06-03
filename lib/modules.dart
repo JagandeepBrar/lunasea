@@ -498,10 +498,10 @@ extension LunaModuleExtension on LunaModule {
     String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
     void markSeen() => LunaBox.alerts.update(key, false);
 
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.alerts.listenable([key]),
-      builder: (context, box, _) {
-        if (LunaBox.lunasea.read(key, fallback: true)) {
+    return LunaBox.alerts.watch(
+      selectKeys: [key],
+      builder: (context, _) {
+        if (LunaBox.alerts.read(key, fallback: true)) {
           return LunaBanner(
             dismissCallback: markSeen,
             headerText: this.title,

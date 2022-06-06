@@ -250,5 +250,6 @@
     "settings.Channel": "渠道",
     "settings.DownloadUpdate": "下载更新",
     "settings.EnableInAppNotifications": "启用应用内通知",
-    "settings.UpToDate": "最新"
+    "settings.UpToDate": "最新",
+    "settings.Version": "版本"
 }

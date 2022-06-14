@@ -33,35 +33,39 @@ enum DashboardDatabase<T> with LunaTableMixin<T> {
 
   @override
   dynamic export() {
-    if (this == DashboardDatabase.CALENDAR_STARTING_DAY) {
-      return DashboardDatabase.CALENDAR_STARTING_DAY.read().key;
+    DashboardDatabase db = this;
+    switch (db) {
+      case DashboardDatabase.CALENDAR_STARTING_DAY:
+        return DashboardDatabase.CALENDAR_STARTING_DAY.read().key;
+      case DashboardDatabase.CALENDAR_STARTING_SIZE:
+        return DashboardDatabase.CALENDAR_STARTING_SIZE.read().key;
+      case DashboardDatabase.CALENDAR_STARTING_TYPE:
+        return DashboardDatabase.CALENDAR_STARTING_TYPE.read().key;
+      default:
+        return super.export();
     }
-    if (this == DashboardDatabase.CALENDAR_STARTING_SIZE) {
-      return DashboardDatabase.CALENDAR_STARTING_SIZE.read().key;
-    }
-    if (this == DashboardDatabase.CALENDAR_STARTING_TYPE) {
-      return DashboardDatabase.CALENDAR_STARTING_TYPE.read().key;
-    }
-    return super.export();
   }
 
   @override
   void import(dynamic value) {
-    if (this == DashboardDatabase.CALENDAR_STARTING_DAY) {
-      final item = CalendarStartingDay.MONDAY.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
+    DashboardDatabase db = this;
+    dynamic result;
+
+    switch (db) {
+      case DashboardDatabase.CALENDAR_STARTING_DAY:
+        result = CalendarStartingDay.MONDAY.fromKey(value.toString());
+        break;
+      case DashboardDatabase.CALENDAR_STARTING_SIZE:
+        result = CalendarStartingSize.ONE_WEEK.fromKey(value.toString());
+        break;
+      case DashboardDatabase.CALENDAR_STARTING_TYPE:
+        result = CalendarStartingType.CALENDAR.fromKey(value.toString());
+        break;
+      default:
+        result = value;
+        break;
     }
-    if (this == DashboardDatabase.CALENDAR_STARTING_SIZE) {
-      final item = CalendarStartingSize.ONE_WEEK.fromKey(value.toString());
-      if (item != null) return update(item as T);
-      return;
-    }
-    if (this == DashboardDatabase.CALENDAR_STARTING_TYPE) {
-      final item = CalendarStartingType.CALENDAR.fromKey(value.toString());
-      if (item != null) return update(item as T);
-      return;
-    }
-    return super.import(value);
+
+    return super.import(result);
   }
 }

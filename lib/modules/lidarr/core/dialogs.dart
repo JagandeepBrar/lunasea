@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDialogs {
@@ -229,7 +230,7 @@ class LidarrDialogs {
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
-                text: folders[index].freeSpace.lunaBytesToString(),
+                text: folders[index].freeSpace.asBytes(),
                 fontSize: LunaDialog.BUTTON_SIZE,
               ),
             ],

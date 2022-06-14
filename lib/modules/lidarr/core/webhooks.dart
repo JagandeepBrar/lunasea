@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system/webhooks.dart';
 
 class LidarrWebhooks extends LunaWebhooks {
   @override
@@ -6,8 +7,6 @@ class LidarrWebhooks extends LunaWebhooks {
     _EventType? event = _EventType.GRAB.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
-        'LidarrWebhooks',
-        'handle',
         'Unknown event type: ${data['event'] ?? 'null'}',
       );
     event?.execute(data);

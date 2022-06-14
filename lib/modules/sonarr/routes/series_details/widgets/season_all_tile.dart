@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
@@ -30,8 +31,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
 
   TextSpan _subtitle1() {
     return TextSpan(
-      text: series?.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ??
-          '0.0B',
+      text: series?.statistics?.sizeOnDisk?.asBytes(decimals: 1) ?? '0.0B',
     );
   }
 

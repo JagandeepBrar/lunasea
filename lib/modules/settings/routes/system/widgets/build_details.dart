@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/utilities/changelog.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/platform.dart';
 import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/changelog/sheet.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class BuildDetails extends ConsumerStatefulWidget {
@@ -17,7 +17,7 @@ class BuildDetails extends ConsumerStatefulWidget {
 
 class _State extends ConsumerState<BuildDetails> {
   Future<PackageInfo> packageInfo = PackageInfo.fromPlatform();
-  Future<bool> checkForUpdates = LunaBuild().checkForUpdates();
+  Future<Tuple2<bool, int?>> checkUpdates = LunaBuild().isLatestBuildNumber();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class _State extends ConsumerState<BuildDetails> {
       future: packageInfo,
       builder: (context, AsyncSnapshot<PackageInfo> package) {
         return FutureBuilder(
-          future: checkForUpdates,
-          builder: (context, AsyncSnapshot<bool> updates) {
+          future: checkUpdates,
+          builder: (context, AsyncSnapshot<Tuple2<bool, int?>> updates) {
             return LunaTableCard(
               content: [
                 LunaTableContent(
@@ -61,14 +61,16 @@ class _State extends ConsumerState<BuildDetails> {
     return LunaButton.text(
       icon: LunaIcons.CHANGELOG,
       text: 'lunasea.Changelog'.tr(),
-      onTap: () async => LunaChangelogSheet().show(
-        context: context,
-        showCommitHistory: true,
-      ),
+      onTap: () async {
+        if (LunaFlavor.isStable) {
+          return ChangelogSheet().show();
+        }
+        return LunaBuild().openCommitHistory();
+      },
     );
   }
 
-  LunaButton _updatesButton(AsyncSnapshot<bool> updates) {
+  LunaButton _updatesButton(AsyncSnapshot<Tuple2<bool, int?>> updates) {
     if (updates.hasError) {
       return LunaButton.text(
         icon: LunaIcons.ERROR,
@@ -76,7 +78,7 @@ class _State extends ConsumerState<BuildDetails> {
       );
     }
     if (updates.connectionState == ConnectionState.done && updates.hasData) {
-      if (updates.data!) {
+      if (updates.data!.item1) {
         return LunaButton.text(
           icon: LunaIcons.DOWNLOAD,
           color: LunaColours.orange,
@@ -89,7 +91,7 @@ class _State extends ConsumerState<BuildDetails> {
           color: LunaColours.accent,
           text: 'settings.UpToDate'.tr(),
           onTap: () => setState(() {
-            checkForUpdates = LunaBuild().checkForUpdates();
+            checkUpdates = LunaBuild().isLatestBuildNumber();
           }),
         );
       }

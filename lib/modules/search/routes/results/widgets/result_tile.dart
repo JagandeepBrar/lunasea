@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchResultTile extends StatelessWidget {
@@ -27,7 +28,7 @@ class SearchResultTile extends StatelessWidget {
 
   TextSpan _subtitle1() {
     return TextSpan(children: [
-      TextSpan(text: data.size.lunaBytesToString()),
+      TextSpan(text: data.size.asBytes()),
       TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: data.category),
     ]);
@@ -40,8 +41,7 @@ class SearchResultTile extends StatelessWidget {
   List<LunaTableContent> _tableContent() {
     return [
       LunaTableContent(title: 'search.Age'.tr(), body: data.age),
-      LunaTableContent(
-          title: 'search.Size'.tr(), body: data.size.lunaBytesToString()),
+      LunaTableContent(title: 'search.Size'.tr(), body: data.size.asBytes()),
       LunaTableContent(title: 'search.Category'.tr(), body: data.category),
       if (SearchDatabase.SHOW_LINKS.read())
         LunaTableContent(title: '', body: ''),

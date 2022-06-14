@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
+import 'package:lunasea/utils/links.dart';
 
 class OverseerrIssueTile extends StatefulWidget {
   final OverseerrIssue issue;
@@ -81,10 +82,16 @@ class _State extends State<OverseerrIssueTile> with LunaLoadCallbackMixin {
         ),
       ],
       posterHeaders: context.read<OverseerrState>().headers,
-      posterUrl: TheMovieDB.getPosterURL(movie.posterPath),
+      posterUrl: LunaLinkedContent.theMovieDB(
+        movie.posterPath,
+        LinkedContentType.IMAGE_POSTER,
+      ),
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundHeaders: context.read<OverseerrState>().headers,
-      backgroundUrl: TheMovieDB.getBackdropURL(movie.backdropPath),
+      backgroundUrl: LunaLinkedContent.theMovieDB(
+        movie.backdropPath,
+        LinkedContentType.IMAGE_BACKDROP,
+      ),
     );
   }
 
@@ -103,10 +110,16 @@ class _State extends State<OverseerrIssueTile> with LunaLoadCallbackMixin {
         ),
       ],
       posterHeaders: context.read<OverseerrState>().headers,
-      posterUrl: TheMovieDB.getPosterURL(series.posterPath),
+      posterUrl: LunaLinkedContent.theMovieDB(
+        series.posterPath,
+        LinkedContentType.IMAGE_POSTER,
+      ),
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
       backgroundHeaders: context.read<OverseerrState>().headers,
-      backgroundUrl: TheMovieDB.getBackdropURL(series.backdropPath),
+      backgroundUrl: LunaLinkedContent.theMovieDB(
+        series.backdropPath,
+        LinkedContentType.IMAGE_BACKDROP,
+      ),
     );
   }
 }

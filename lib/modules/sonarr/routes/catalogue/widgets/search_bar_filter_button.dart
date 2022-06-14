@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesSearchBarFilterButton extends StatefulWidget {
@@ -25,7 +26,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
             icon: Icons.filter_list_rounded,
             onSelected: (result) {
               state.seriesFilterType = result;
-              widget.controller.lunaAnimateToStart();
+              widget.controller.animateToStart();
             },
             itemBuilder: (context) =>
                 List<PopupMenuEntry<SonarrSeriesFilter>>.generate(

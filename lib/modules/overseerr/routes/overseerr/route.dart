@@ -58,7 +58,7 @@ class _State extends State<_Widget> {
     List<String> profiles = LunaBox.profiles.keys.fold(
       [],
       (value, element) {
-        if (LunaBox.profiles.read(element)?.overseerrEnabled ?? false) {
+        if (LunaBox.profiles.read(element)!.overseerrEnabled) {
           value.add(element);
         }
         return value;

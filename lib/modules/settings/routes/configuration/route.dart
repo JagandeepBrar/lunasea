@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
+import 'package:lunasea/utils/profile_tools.dart';
 
 class SettingsConfigurationRouter extends SettingsPageRouter {
   SettingsConfigurationRouter() : super('/settings/configuration');
@@ -64,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
             final selected = await dialogs.enabledProfile(context, profiles);
             if (selected.item1) {
-              LunaProfile().changeTo(selected.item2);
+              LunaProfileTools().changeTo(selected.item2);
             }
           },
         );

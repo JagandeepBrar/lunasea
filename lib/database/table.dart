@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/box.dart';
+import 'package:lunasea/database/models/deprecated.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/database/tables/lidarr.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
@@ -32,7 +33,8 @@ enum LunaTable<T extends LunaTableMixin> {
   });
 
   static void register() {
-    LunaTable.values.forEach((t) => t.items[0].register());
+    for (final table in LunaTable.values) table.items[0].register();
+    registerDeprecatedAdapters();
   }
 
   T? _itemFromKey(String key) {
@@ -72,7 +74,7 @@ mixin LunaTableMixin<T> on Enum {
   T read() => box.read(key, fallback: fallback);
   void update(T value) => box.update(key, value);
 
-  /// Default is a no-op and does not register any Hive adapters
+  /// Default is an empty list and does not register any Hive adapters
   void register() {}
 
   /// The list of items that are not imported or exported by default
@@ -86,8 +88,8 @@ mixin LunaTableMixin<T> on Enum {
 
   @mustCallSuper
   void import(dynamic value) {
-    if (blockedFromImportExport.contains(this)) return;
-    return update(value);
+    if (blockedFromImportExport.contains(this) || value == null) return;
+    return update(value as T);
   }
 
   ValueListenableBuilder watch({

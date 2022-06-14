@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/double.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/double/time.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
     as dashboard_home;
@@ -56,7 +57,7 @@ class _State extends State<LidarrReleasesTile> {
       TextSpan(text: LunaUI.TEXT_BULLET.pad()),
       TextSpan(text: widget.release.indexer),
       TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-      TextSpan(text: widget.release.ageHours.asTimeAgo),
+      TextSpan(text: widget.release.ageHours.asTimeAgo()),
     ]);
   }
 
@@ -65,7 +66,7 @@ class _State extends State<LidarrReleasesTile> {
       children: [
         TextSpan(text: widget.release.quality),
         TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-        TextSpan(text: widget.release.size.lunaBytesToString()),
+        TextSpan(text: widget.release.size.asBytes()),
       ],
     );
   }
@@ -96,10 +97,9 @@ class _State extends State<LidarrReleasesTile> {
     return [
       LunaTableContent(
           title: 'source', body: widget.release.protocol.toTitleCase()),
-      LunaTableContent(title: 'age', body: widget.release.ageHours.asTimeAgo),
+      LunaTableContent(title: 'age', body: widget.release.ageHours.asTimeAgo()),
       LunaTableContent(title: 'indexer', body: widget.release.indexer),
-      LunaTableContent(
-          title: 'size', body: widget.release.size.lunaBytesToString()),
+      LunaTableContent(title: 'size', body: widget.release.size.asBytes()),
       LunaTableContent(title: 'quality', body: widget.release.quality),
       if (widget.release.protocol == 'torrent' &&
           widget.release.seeders != null)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/double.dart';
+import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrEventTypeLunaExtension on SonarrEventType {
@@ -268,7 +268,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       ),
       LunaTableContent(
         title: 'sonarr.Age'.tr(),
-        body: double.tryParse(history.data!['ageHours'])?.asTimeAgo,
+        body: double.tryParse(history.data!['ageHours'])?.asTimeAgo(),
       ),
       LunaTableContent(
           title: 'sonarr.PublishedDate'.tr(),

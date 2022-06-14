@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class _Args {
   final SonarrSeries series;
@@ -62,7 +63,7 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     _Args? arguments = ModalRoute.of(context)!.settings.arguments as _Args?;
     if (arguments == null) {
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'sonarr.AddSeries'.tr(),
         message: 'sonarr.NoSeriesFound'.tr(),
       );

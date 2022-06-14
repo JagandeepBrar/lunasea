@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrMovieFileExtension on RadarrMovieFile {
@@ -8,7 +9,7 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
   }
 
   String get lunaSize {
-    if ((this.size ?? 0) != 0) return this.size.lunaBytesToString(decimals: 1);
+    if ((this.size ?? 0) != 0) return this.size.asBytes(decimals: 1);
     return LunaUI.TEXT_EMDASH;
   }
 

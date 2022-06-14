@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/double.dart';
+import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrEventType on RadarrEventType {
@@ -144,7 +144,7 @@ extension LunaRadarrEventType on RadarrEventType {
         title: 'age',
         body: record.data!['ageHours'] != null
             ? double.tryParse((record.data!['ageHours'] as String))
-                    ?.asTimeAgo ??
+                    ?.asTimeAgo() ??
                 LunaUI.TEXT_EMDASH
             : LunaUI.TEXT_EMDASH,
       ),

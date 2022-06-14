@@ -59,8 +59,7 @@ class _State extends State<NZBGetQueueTile> {
           _helper._delete();
           break;
         default:
-          LunaLogger().warning(
-              'NZBGetQueueTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/utils/links.dart';
 
 class SettingsSystemDebugMenuUIRouter extends SettingsPageRouter {
   SettingsSystemDebugMenuUIRouter() : super('/settings/debug_menu/ui');
@@ -174,9 +175,14 @@ class _State extends State<_Widget>
         title: 'Title 1',
         body: _generateBody(2),
         posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-        posterUrl: TheMovieDB.getPosterURL('/qLX91FhHWCVrxDVsw0g2UD5c3Zk.jpg'),
-        backgroundUrl:
-            TheMovieDB.getPosterURL('/wR3ZbCWM55qbJBcIO7rHm0MB68j.jpg'),
+        posterUrl: LunaLinkedContent.theMovieDB(
+          '/qLX91FhHWCVrxDVsw0g2UD5c3Zk.jpg',
+          LinkedContentType.IMAGE_POSTER,
+        ),
+        backgroundUrl: LunaLinkedContent.theMovieDB(
+          '/wR3ZbCWM55qbJBcIO7rHm0MB68j.jpg',
+          LinkedContentType.IMAGE_BACKDROP,
+        ),
         onTap: () {},
       ),
     ];

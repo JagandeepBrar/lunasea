@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.lidarrHost ?? '';
+    String host = LunaProfile.current.lidarrHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.lidarrKey ?? '';
+    String apiKey = LunaProfile.current.lidarrKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -115,8 +115,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.lidarrHost == null || _profile.lidarrHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.lidarrHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'.tr(
@@ -125,7 +125,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        if (_profile.lidarrKey == null || _profile.lidarrKey!.isEmpty) {
+        if (_profile.lidarrKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.ApiKeyRequired'.tr(),
             message: 'settings.ApiKeyRequiredMessage'.tr(

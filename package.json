@@ -23,7 +23,7 @@
     "fastlane:update:macos": "cd macos && bundle update",
     "generate": "npm run generate:assets && npm run generate:build_runner && npm run generate:localization",
     "generate:assets": "dart pub global activate spider && spider build",
-    "generate:build_runner": "flutter packages pub run build_runner build --delete-conflicting-outputs",
+    "generate:build_runner": "flutter packages pub run build_runner build",
     "generate:localization": "dart ./scripts/generate_localization.dart",
     "git:ignore": "npm run git:ignore:environment && npm run git:ignore:firebase",
     "git:ignore:environment": "git update-index --skip-worktree .env",

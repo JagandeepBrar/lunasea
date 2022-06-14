@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/sonarr.dart';
-import 'package:lunasea/utils/link_generator.dart';
+import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LinksSheet extends LunaBottomModalSheet {
@@ -13,10 +13,12 @@ class LinksSheet extends LunaBottomModalSheet {
 
   @override
   Widget builder(BuildContext context) {
-    final imdb = LinkGenerator.imdb(series.imdbId);
-    final tvdb = LinkGenerator.theTVDB(series.tvdbId, ContentType.SERIES);
-    final trakt = LinkGenerator.trakt(series.tvdbId, ContentType.SERIES);
-    final tvMaze = LinkGenerator.tvMaze(series.tvMazeId);
+    final imdb = LunaLinkedContent.imdb(series.imdbId);
+    final tvdb =
+        LunaLinkedContent.theTVDB(series.tvdbId, LinkedContentType.SERIES);
+    final trakt =
+        LunaLinkedContent.trakt(series.tvdbId, LinkedContentType.SERIES);
+    final tvMaze = LunaLinkedContent.tvMaze(series.tvMazeId);
 
     return LunaListViewModal(
       children: [

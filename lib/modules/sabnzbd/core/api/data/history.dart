@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 
 class SABnzbdHistoryData {
   String nzoId;
@@ -38,7 +39,7 @@ class SABnzbdHistoryData {
   }
 
   String get sizeReadable {
-    return size.lunaBytesToString();
+    return size.asBytes();
   }
 
   bool get failed {

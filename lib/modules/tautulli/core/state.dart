@@ -81,12 +81,12 @@ class TautulliState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = LunaProfile.current;
+    LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
-    _enabled = _profile.tautulliEnabled ?? false;
-    _host = _profile.tautulliHost ?? '';
-    _apiKey = _profile.tautulliKey ?? '';
-    _headers = _profile.tautulliHeaders ?? {};
+    _enabled = _profile.tautulliEnabled;
+    _host = _profile.tautulliHost;
+    _apiKey = _profile.tautulliKey;
+    _headers = _profile.tautulliHeaders;
     // Create the API instance if Tautulli is enabled
     _api = _enabled!
         ? Tautulli(

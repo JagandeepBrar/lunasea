@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrMovieExtension on RadarrMovie {
   String get lunaRuntime {
-    if (this.runtime != null && this.runtime != 0)
-      return this.runtime.lunaRuntime();
-    return LunaUI.TEXT_EMDASH;
+    return this.runtime.asVideoDuration();
   }
 
   String get lunaAlternateTitles {
@@ -90,7 +90,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
 
   String get lunaFileSize {
     if (!this.hasFile!) return LunaUI.TEXT_EMDASH;
-    return this.sizeOnDisk.lunaBytesToString();
+    return this.sizeOnDisk.asBytes();
   }
 
   Text lunaHasFileTextObject() {
@@ -157,7 +157,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
 
   /// Compare two movies by their release dates. Returns an integer value compatible with `.sort()` in arrays.
   ///
-  /// Compares and uses the earlier date between `phyiscalRelease` and `digitalRelease`.
+  /// Compares and uses the earlier date between `physicalRelease` and `digitalRelease`.
   int lunaCompareToByReleaseDate(RadarrMovie movie) {
     if (this.physicalRelease == null &&
         this.digitalRelease == null &&

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/radarr/routes/movie_details/sheets/links.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class RadarrMoviesDetailsRouter extends RadarrPageRouter {
   RadarrMoviesDetailsRouter() : super('/radarr/movie/:movieid');
@@ -100,7 +101,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.movieId <= 0)
-      return LunaInvalidRoute(
+      return const InvalidRoutePage(
         title: 'Movie Details',
         message: 'Movie Not Found',
       );
@@ -122,7 +123,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
         LunaIconButton(
           icon: LunaIcons.LINK,
           onPressed: () async {
-            LinksSheet(movie: movie!).show(context: context);
+            LinksSheet(movie: movie!).show();
           },
         ),
         LunaIconButton(

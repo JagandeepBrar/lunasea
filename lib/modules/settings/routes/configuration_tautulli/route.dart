@@ -60,7 +60,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.title}',
         trailing: LunaSwitch(
-          value: LunaProfile.current.tautulliEnabled ?? false,
+          value: LunaProfile.current.tautulliEnabled,
           onChanged: (value) {
             LunaProfile.current.tautulliEnabled = value;
             LunaProfile.current.save();

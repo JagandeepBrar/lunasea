@@ -254,6 +254,7 @@
   "settings.UsernameValidation": "Username Required",
   "settings.Version": "Version",
   "settings.ViewRecentChanges": "View Recent Changes",
+  "settings.ViewTypeLogs": "View {} Logs",
   "settings.WeblateDescription": "Help Localize LunaSea",
   "settings.Website": "Website",
   "settings.WebsiteDescription": "Visit LunaSea's Website"

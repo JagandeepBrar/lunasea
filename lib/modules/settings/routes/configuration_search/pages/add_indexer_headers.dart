@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
   SettingsConfigurationSearchAddHeadersRouter()
@@ -12,7 +14,7 @@ class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
   @override
   Future<void> navigateTo(
     BuildContext context, [
-    IndexerHiveObject? indexer,
+    LunaIndexer? indexer,
   ]) async {
     assert(indexer != null);
     LunaRouter.router.navigateTo(
@@ -28,7 +30,7 @@ class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
 }
 
 class _Arguments {
-  final IndexerHiveObject indexer;
+  final LunaIndexer indexer;
 
   _Arguments({
     required this.indexer,
@@ -48,7 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     _arguments = ModalRoute.of(context)!.settings.arguments as _Arguments?;
     if (_arguments == null) {
-      return LunaInvalidRoute(
+      return const InvalidRoutePage(
         title: 'Custom Headers',
         message: 'Indexer Not Found',
       );
@@ -88,7 +90,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       children: [
-        if ((_arguments!.indexer.headers ?? {}).isEmpty)
+        if (_arguments!.indexer.headers.isEmpty)
           LunaMessage.inList(text: 'No Headers Added'),
         ..._list(),
       ],
@@ -96,8 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _list() {
-    Map<String, dynamic> headers =
-        (_arguments!.indexer.headers ?? {}).cast<String, dynamic>();
+    final headers = _arguments!.indexer.headers.cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
         .map<LunaBlock>((key) => _headerTile(key, headers[key]))

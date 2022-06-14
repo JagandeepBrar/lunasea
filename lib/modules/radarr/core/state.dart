@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class RadarrState extends LunaModuleState {
   RadarrState() {
@@ -64,12 +65,12 @@ class RadarrState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = LunaProfile.current;
+    LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
-    _enabled = _profile.radarrEnabled ?? false;
-    _host = _profile.radarrHost ?? '';
-    _apiKey = _profile.radarrKey ?? '';
-    _headers = _profile.radarrHeaders ?? {};
+    _enabled = _profile.radarrEnabled;
+    _host = _profile.radarrHost;
+    _apiKey = _profile.radarrKey;
+    _headers = _profile.radarrHeaders;
     // Create the API instance if Radarr is enabled
     _api = !_enabled
         ? null

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
@@ -31,6 +32,6 @@ class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
 
   String _body(int? plays, Duration duration) {
     String _plays = plays == 1 ? '1 Play' : '$plays Plays';
-    return '$_plays\n${duration.lunaTimestampWords}';
+    return '$_plays\n${duration.asWordsTimestamp()}';
   }
 }

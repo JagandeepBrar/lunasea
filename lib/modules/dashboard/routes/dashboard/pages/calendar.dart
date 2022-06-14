@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/extensions/async_snapshot.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lunasea/widgets/ui.dart';
@@ -53,7 +52,8 @@ class _State extends State<CalendarPage>
             return LunaMessage.error(onTap: _refreshKey.currentState!.show);
           }
 
-          if (snapshot.lunaIsFinishedWithData) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
             final events = snapshot.data!;
             return Selector<ModuleState, CalendarStartingType>(
               selector: (_, s) => s.calendarStartingType,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsTrackTile extends StatefulWidget {
@@ -21,7 +22,7 @@ class _State extends State<LidarrDetailsTrackTile> {
   Widget build(BuildContext context) => LunaBlock(
         title: widget.data.title,
         body: [
-          TextSpan(text: widget.data.duration.lunaTimestamp(divisor: 1000)),
+          TextSpan(text: widget.data.duration.asTrackDuration(divisor: 1000)),
           widget.data.file(widget.monitored),
         ],
         disabled: !widget.monitored,

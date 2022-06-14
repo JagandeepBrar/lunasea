@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class HeaderUtility {
@@ -11,7 +12,7 @@ class HeaderUtility {
     BuildContext context, {
     required Map<dynamic, dynamic>? headers,
     required String key,
-    IndexerHiveObject? indexer,
+    LunaIndexer? indexer,
   }) async {
     bool result = await SettingsDialogs().deleteHeader(context);
     if (result) {
@@ -34,7 +35,7 @@ class HeaderUtility {
   Future<void> addHeader(
     BuildContext context, {
     required Map<dynamic, dynamic>? headers,
-    IndexerHiveObject? indexer,
+    LunaIndexer? indexer,
   }) async {
     Tuple2<bool, HeaderType?> result =
         await SettingsDialogs().addHeader(context);
@@ -48,8 +49,6 @@ class HeaderUtility {
           break;
         default:
           LunaLogger().warning(
-            'HeaderUtility',
-            'addHeader',
             'Unknown case: ${result.item2}',
           );
       }
@@ -59,7 +58,7 @@ class HeaderUtility {
   Future<void> _genericHeader(
     BuildContext context,
     Map<dynamic, dynamic>? headers,
-    IndexerHiveObject? indexer,
+    LunaIndexer? indexer,
   ) async {
     Tuple3<bool, String, String> results =
         await SettingsDialogs().addCustomHeader(context);
@@ -80,7 +79,7 @@ class HeaderUtility {
   Future<void> _basicAuthenticationHeader(
     BuildContext context,
     Map<dynamic, dynamic>? headers,
-    IndexerHiveObject? indexer,
+    LunaIndexer? indexer,
   ) async {
     Tuple3<bool, String, String> results =
         await SettingsDialogs().addBasicAuthenticationHeader(context);

@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.overseerrHost ?? '';
+    String host = LunaProfile.current.overseerrHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -72,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: LunaProfile.current.overseerrHost ?? '',
+          prefill: LunaProfile.current.overseerrHost,
         );
         if (_values.item1) {
           LunaProfile.current.overseerrHost = _values.item2;
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.overseerrKey ?? '';
+    String apiKey = LunaProfile.current.overseerrKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -115,8 +115,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.overseerrHost == null || _profile.overseerrHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.overseerrHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'
@@ -124,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        if (_profile.overseerrKey == null || _profile.overseerrKey!.isEmpty) {
+        if (_profile.overseerrKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.ApiKeyRequired'.tr(),
             message: 'settings.ApiKeyRequiredMessage'
@@ -133,9 +133,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Overseerr(
-          host: _profile.overseerrHost ?? '',
-          apiKey: _profile.overseerrKey ?? '',
-          headers: Map<String, dynamic>.from(_profile.overseerrHeaders ?? {}),
+          host: _profile.overseerrHost,
+          apiKey: _profile.overseerrKey,
+          headers: Map<String, dynamic>.from(_profile.overseerrHeaders),
         )
             .getStatus()
             .then(

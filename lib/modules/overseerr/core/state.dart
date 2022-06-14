@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
+import 'package:lunasea/system/cache/memory/memory_cache.dart';
 
 class OverseerrState extends LunaModuleState {
   OverseerrState() {
@@ -40,13 +41,13 @@ class OverseerrState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = LunaProfile.current;
+    LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
     _api = null;
-    _enabled = _profile.overseerrEnabled ?? false;
-    _host = _profile.overseerrHost ?? '';
-    _apiKey = _profile.overseerrKey ?? '';
-    _headers = _profile.overseerrHeaders ?? {};
+    _enabled = _profile.overseerrEnabled;
+    _host = _profile.overseerrHost;
+    _apiKey = _profile.overseerrKey;
+    _headers = _profile.overseerrHeaders;
     // Create the API instance if Overseerr is enabled
     if (_enabled) {
       _api = Overseerr(
@@ -61,13 +62,13 @@ class OverseerrState extends LunaModuleState {
   /// REQUESTS ///
   ////////////////
 
-  final LunaLRUCache _movieCache = LunaLRUCache(
+  final LunaMemoryCache _movieCache = LunaMemoryCache(
     maxEntries: 50,
     module: LunaModule.OVERSEERR,
     id: 'requests_movie_cache',
   );
 
-  final LunaLRUCache _seriesCache = LunaLRUCache(
+  final LunaMemoryCache _seriesCache = LunaMemoryCache(
     maxEntries: 50,
     module: LunaModule.OVERSEERR,
     id: 'requests_series_cache',

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/core/extensions/datetime.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
@@ -47,7 +47,7 @@ class _State extends State<CalendarView> {
     super.initState();
 
     final size = DashboardDatabase.CALENDAR_STARTING_SIZE.read();
-    _selected = context.read<ModuleState>().today!.lunaFloor;
+    _selected = context.read<ModuleState>().today!.floor();
     _selectedEvents = widget.events[_selected] ?? [];
     _calendarFormat = size.data;
   }
@@ -64,8 +64,8 @@ class _State extends State<CalendarView> {
     HapticFeedback.selectionClick();
     if (mounted)
       setState(() {
-        _selected = selected.lunaFloor;
-        _selectedEvents = widget.events[selected.lunaFloor] ?? [];
+        _selected = selected.floor();
+        _selectedEvents = widget.events[selected.floor()] ?? [];
       });
   }
 
@@ -157,7 +157,7 @@ class _State extends State<CalendarView> {
                 startingDayOfWeek:
                     DashboardDatabase.CALENDAR_STARTING_DAY.read().data,
                 selectedDayPredicate: (date) =>
-                    date.lunaFloor == _selected.lunaFloor,
+                    date.floor() == _selected.floor(),
                 calendarStyle: CalendarStyle(
                   markersMaxCount: 1,
                   isTodayHighlighted: true,
@@ -191,7 +191,7 @@ class _State extends State<CalendarView> {
                 ),
                 eventLoader: (date) {
                   if (widget.events.isEmpty) return [];
-                  return widget.events[date.lunaFloor] ?? [];
+                  return widget.events[date.floor()] ?? [];
                 },
                 calendarFormat: _calendarFormat,
                 availableCalendarFormats: const {
@@ -214,8 +214,8 @@ class _State extends State<CalendarView> {
   /// -1: Date is after today (with content)
   /// -100: Event list was empty or null
   int _countMissingContent(DateTime date, List<dynamic> events) {
-    DateTime _date = date.lunaFloor;
-    DateTime _now = DateTime.now().lunaFloor;
+    DateTime _date = date.floor();
+    DateTime _now = DateTime.now().floor();
 
     if (events.isEmpty) return -100;
     if (_date.isAfter(_now)) return -1;

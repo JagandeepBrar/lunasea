@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SonarrEditSeriesRouter extends SonarrPageRouter {
   SonarrEditSeriesRouter() : super('/sonarr/editmovie/:seriesid');
@@ -63,7 +64,7 @@ class _State extends State<_Widget>
   @override
   Widget build(BuildContext context) {
     if (widget.seriesId <= 0)
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'sonarr.EditSeries'.tr(),
         message: 'sonarr.SeriesNotFound'.tr(),
       );

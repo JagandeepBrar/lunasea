@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/search/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -73,9 +74,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> get _indexers {
-    List<IndexerHiveObject> indexers = LunaBox.indexers.data.toList();
+    List<LunaIndexer> indexers = LunaBox.indexers.data.toList();
     indexers.sort((a, b) =>
-        a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
+        a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
     List<LunaBlock> list = List.generate(
       indexers.length,
       (index) =>
@@ -84,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return list;
   }
 
-  Widget _indexerTile(IndexerHiveObject indexer, int index) {
+  Widget _indexerTile(LunaIndexer indexer, int index) {
     return LunaBlock(
       title: indexer.displayName,
       body: [TextSpan(text: indexer.host)],

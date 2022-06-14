@@ -1,12 +1,12 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/int/duration.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrSeriesExtension on SonarrSeries {
   String get lunaRuntime {
-    if (this.runtime != null && this.runtime != 0)
-      return this.runtime.lunaRuntime();
-    return LunaUI.TEXT_EMDASH;
+    return this.runtime.asVideoDuration();
   }
 
   String get lunaAlternateTitles {
@@ -109,7 +109,7 @@ extension SonarrSeriesExtension on SonarrSeries {
     if (this.statistics?.sizeOnDisk == null) {
       return '0.0 B';
     }
-    return this.statistics!.sizeOnDisk.lunaBytesToString(decimals: 1);
+    return this.statistics!.sizeOnDisk.asBytes(decimals: 1);
   }
 
   String? get lunaOverview {

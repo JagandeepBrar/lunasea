@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/log.dart';
 import 'package:lunasea/types/exception.dart';
+import 'package:lunasea/types/log_type.dart';
 
 class LunaLogger {
   static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
@@ -25,7 +27,7 @@ class LunaLogger {
   }
 
   Future<String> export() async {
-    final logs = LunaBox.logs.data.map((log) => log.toMap()).toList();
+    final logs = LunaBox.logs.data.map((log) => log.toJson()).toList();
     final encoder = JsonEncoder.withIndent(' '.repeat(4));
     return encoder.convert(logs);
   }
@@ -34,18 +36,18 @@ class LunaLogger {
 
   void debug(String message) {
     LunaLogHiveObject log = LunaLogHiveObject.withMessage(
-      type: LunaLogType.WARNING,
+      type: LunaLogType.DEBUG,
       message: message,
     );
     LunaBox.logs.create(log);
   }
 
-  void warning(String className, String methodName, String message) {
+  void warning(String message, [String? className, String? methodName]) {
     LunaLogHiveObject log = LunaLogHiveObject.withMessage(
       type: LunaLogType.WARNING,
+      message: message,
       className: className,
       methodName: methodName,
-      message: message,
     );
     LunaBox.logs.create(log);
   }
@@ -71,7 +73,7 @@ class LunaLogger {
     if (error is! NetworkImageLoadException) {
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.CRITICAL,
-        message: error?.toString() ?? 'Unknown critical error',
+        message: error?.toString() ?? LunaUI.TEXT_EMDASH,
         error: error,
         stackTrace: stackTrace,
       );
@@ -86,16 +88,12 @@ class LunaLogger {
   void exception(LunaException exception, [StackTrace? trace]) {
     switch (exception.type) {
       case LunaLogType.WARNING:
-        // TODO: Handle this case.
+        warning(exception.toString(), exception.runtimeType.toString());
         break;
       case LunaLogType.ERROR:
-        // TODO: Handle this case.
+        error(exception.toString(), exception, trace);
         break;
-      case LunaLogType.CRITICAL:
-        // TODO: Handle this case.
-        break;
-      case LunaLogType.DEBUG:
-        // TODO: Handle this case.
+      default:
         break;
     }
   }

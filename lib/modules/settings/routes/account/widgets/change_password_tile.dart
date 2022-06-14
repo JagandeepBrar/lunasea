@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -46,7 +47,7 @@ class _State extends State<ChangePasswordTile> {
             title: 'settings.PasswordUpdated'.tr(),
             message: 'settings.PleaseSignInAgain'.tr(),
           );
-          Navigator.of(context).lunaSafetyPop();
+          Navigator.of(context).safetyPop();
           LunaFirebaseAuth().signOut();
         } else {
           updateState(LunaLoadingState.INACTIVE);

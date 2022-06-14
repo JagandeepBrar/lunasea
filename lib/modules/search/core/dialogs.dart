@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/utils/profile_tools.dart';
 
 class SearchDialogs {
   Future<Tuple2<bool, SearchDownloadType?>> downloadResult(
@@ -54,7 +55,7 @@ class SearchDialogs {
                 ),
                 onSelected: (result) {
                   HapticFeedback.selectionClick();
-                  LunaProfile().changeTo(result);
+                  LunaProfileTools().changeTo(result);
                 },
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
@@ -79,14 +80,14 @@ class SearchDialogs {
               padding: LunaDialog.tileContentPadding()
                   .add(const EdgeInsets.only(bottom: 16.0)),
             ),
-            if (LunaProfile.current.sabnzbdEnabled!)
+            if (LunaProfile.current.sabnzbdEnabled)
               LunaDialog.tile(
                 icon: SearchDownloadType.SABNZBD.icon,
                 iconColor: LunaColours().byListIndex(0),
                 text: SearchDownloadType.SABNZBD.name,
                 onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
               ),
-            if (LunaProfile.current.nzbgetEnabled!)
+            if (LunaProfile.current.nzbgetEnabled)
               LunaDialog.tile(
                 icon: SearchDownloadType.NZBGET.icon,
                 iconColor: LunaColours().byListIndex(1),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/widgets/pages/not_enabled.dart';
 
 class SonarrReleasesRouter extends SonarrPageRouter {
   SonarrReleasesRouter() : super('/sonarr/releases');
@@ -55,7 +56,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.SONARR.title);
+            return NotEnabledPage(module: LunaModule.SONARR.title);
           }
           int episodeId = int.tryParse(params['episodeid']![0]) ?? -1;
           return _Widget(
@@ -70,7 +71,7 @@ class SonarrReleasesRouter extends SonarrPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.SONARR.title);
+            return NotEnabledPage(module: LunaModule.SONARR.title);
           }
           int seriesId = int.tryParse(params['seriesid']![0]) ?? -1;
           int seasonNumber = int.tryParse(params['seasonnumber']![0]) ?? -1;

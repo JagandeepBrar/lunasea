@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
@@ -54,7 +55,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
       if (episode!.hasFile! && episodeFile != null)
         LunaHighlightedNode(
           backgroundColor: LunaColours.blueGrey,
-          text: episodeFile!.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+          text: episodeFile!.size?.asBytes() ?? LunaUI.TEXT_EMDASH,
         ),
       if (!episode!.hasFile! &&
           (episode?.airDateUtc?.toLocal().isAfter(DateTime.now()) ?? true))
@@ -136,7 +137,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           ),
           LunaTableContent(
             title: 'sonarr.Size'.tr(),
-            body: episodeFile!.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+            body: episodeFile!.size?.asBytes() ?? LunaUI.TEXT_EMDASH,
           ),
           LunaTableContent(
             title: 'sonarr.AddedOn'.tr(),
@@ -151,7 +152,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               icon: Icons.info_outline_rounded,
               onTap: () async =>
                   SonarrMediaInfoSheet(mediaInfo: episodeFile!.mediaInfo)
-                      .show(context: context),
+                      .show(),
             ),
           LunaButton(
             type: LunaButtonType.TEXT,

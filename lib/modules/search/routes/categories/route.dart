@@ -42,8 +42,7 @@ class _State extends State<_Widget>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: context.read<SearchState>().indexer.displayName ??
-          'search.Categories'.tr(),
+      title: context.read<SearchState>().indexer.displayName,
       scrollControllers: [scrollController],
       actions: <Widget>[
         LunaIconButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueSearchBarFilterButton extends StatefulWidget {
@@ -25,7 +26,7 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
           icon: LunaIcons.FILTER,
           onSelected: (result) {
             state.moviesFilterType = result;
-            widget.controller.lunaAnimateToStart();
+            widget.controller.animateToStart();
           },
           itemBuilder: (context) =>
               List<PopupMenuEntry<RadarrMoviesFilter>>.generate(

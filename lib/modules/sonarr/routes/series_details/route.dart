@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:lunasea/modules/sonarr/routes/series_details/sheets/links.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SonarrSeriesDetailsRouter extends SonarrPageRouter {
   SonarrSeriesDetailsRouter() : super('/sonarr/series/:seriesid');
@@ -110,7 +111,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.seriesId <= 0) {
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'sonarr.SeriesDetails'.tr(),
         message: 'sonarr.SeriesNotFound'.tr(),
       );
@@ -132,7 +133,7 @@ class _State extends State<_SonarrSeriesDetails> with LunaLoadCallbackMixin {
       _actions = [
         LunaIconButton(
           icon: LunaIcons.LINK,
-          onPressed: () => LinksSheet(series: series!).show(context: context),
+          onPressed: () => LinksSheet(series: series!).show(),
         ),
         LunaIconButton(
           icon: LunaIcons.EDIT,

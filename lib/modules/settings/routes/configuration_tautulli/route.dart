@@ -56,12 +56,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledToggle() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.profiles.box.listenable(),
-      builder: (context, dynamic _, __) => LunaBlock(
+    return LunaBox.profiles.watch(
+      builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.title}',
         trailing: LunaSwitch(
-          value: LunaProfile.current.tautulliEnabled ?? false,
+          value: LunaProfile.current.tautulliEnabled,
           onChanged: (value) {
             LunaProfile.current.tautulliEnabled = value;
             LunaProfile.current.save();
@@ -96,7 +95,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _defaultTerminationMessage() {
     const _db = TautulliDatabase.TERMINATION_MESSAGE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         String message = _db.read();
         return LunaBlock(
@@ -115,7 +114,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _activityRefreshRate() {
     const _db = TautulliDatabase.REFRESH_RATE;
-    return _db.listen(builder: (context, _) {
+    return _db.watch(builder: (context, _) {
       String? refreshRate;
       if (_db.read() == 1) refreshRate = 'Every Second';
       if (_db.read() != 1) refreshRate = 'Every ${_db.read()} Seconds';
@@ -133,7 +132,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _statisticsItemCount() {
     const _db = TautulliDatabase.STATISTICS_STATS_COUNT;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         String? statisticsItems;
         if (_db.read() == 1) statisticsItems = '1 Item';

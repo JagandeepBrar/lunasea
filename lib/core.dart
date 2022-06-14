@@ -1,33 +1,19 @@
-export 'core/cache/memory_lru.dart';
-export 'core/cache/memory_store.dart';
-export 'core/extensions/async_snapshot.dart';
-export 'core/extensions/datetime.dart';
-export 'core/extensions/duration.dart';
-export 'core/extensions/iap_product_details.dart';
-export 'core/extensions/int.dart';
-export 'core/extensions/navigator_state.dart';
-export 'core/extensions/page_controller.dart';
-export 'core/extensions/scroll_controller.dart';
-export 'core/models/configuration.dart';
-export 'core/models/logs.dart';
-export 'core/models/types.dart';
-export 'core/models/webhooks.dart';
-export 'core/pages/invalid_route.dart';
-export 'core/pages/not_enabled.dart';
-export 'core/router/module_router.dart';
-export 'core/router/page_router.dart';
-export 'core/router/router.dart';
-export 'core/services/the_movie_db.dart';
-export 'core/state/module_state.dart';
-export 'core/state/state.dart';
-export 'core/system/in_app_purchases.dart';
-export 'core/system/profile.dart';
-export 'core/utilities/changelog.dart';
-export 'core/utilities/dialogs.dart';
+/// This file is deprecated and should no longer be actively used.
+/// All imports should happen directly and canonical export files will not be used anymore.
 
+export 'deprecated/extensions/datetime.dart';
+export 'deprecated/state/module_state.dart';
+export 'deprecated/state/state.dart';
+export 'deprecated/router/module_router.dart';
+export 'deprecated/router/page_router.dart';
+export 'deprecated/router/router.dart';
+
+export 'types/loading_state.dart';
 export 'database/box.dart';
+export 'database/models/profile.dart';
 export 'database/tables/lunasea.dart';
 export 'system/logger.dart';
+export 'utils/dialogs.dart';
 export 'widgets/ui.dart';
 export 'modules.dart';
 export 'vendor.dart'

@@ -15,10 +15,10 @@ enum TautulliDatabase<T> with LunaTableMixin<T> {
   GRAPHS_MONTHS<int>(6);
 
   @override
-  String get table => TABLE_TAUTULLI_KEY;
+  LunaTable get table => LunaTable.tautulli;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const TautulliDatabase(this.defaultValue);
+  const TautulliDatabase(this.fallback);
 }

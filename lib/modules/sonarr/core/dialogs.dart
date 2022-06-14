@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
@@ -466,7 +467,7 @@ class SonarrDialogs {
           subtitle: LunaDialog.richText(
             children: [
               LunaDialog.bolded(
-                text: folders[index].freeSpace.lunaBytesToString(),
+                text: folders[index].freeSpace.asBytes(),
                 fontSize: LunaDialog.BUTTON_SIZE,
               ),
             ],
@@ -556,7 +557,7 @@ class SonarrDialogs {
         ),
       ],
       content: [
-        SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.listen(
+        SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.AddToExclusionList'.tr(),
             value: SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.read(),
@@ -564,7 +565,7 @@ class SonarrDialogs {
                 SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.update(value!),
           ),
         ),
-        SonarrDatabase.REMOVE_SERIES_DELETE_FILES.listen(
+        SonarrDatabase.REMOVE_SERIES_DELETE_FILES.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.DeleteFiles'.tr(),
             value: SonarrDatabase.REMOVE_SERIES_DELETE_FILES.read(),
@@ -590,7 +591,7 @@ class SonarrDialogs {
       ],
       showCancelButton: false,
       content: [
-        SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.listen(
+        SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.StartSearchForMissingEpisodes'.tr(),
             value: SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.read(),
@@ -598,7 +599,7 @@ class SonarrDialogs {
                 SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.update(value!),
           ),
         ),
-        SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.listen(
+        SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.StartSearchForCutoffUnmetEpisodes'.tr(),
             value: SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.read(),
@@ -689,7 +690,7 @@ class SonarrDialogs {
         ),
       ],
       content: [
-        SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.listen(
+        SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.RemoveFromDownloadClient'.tr(),
             value: SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.read(),
@@ -697,7 +698,7 @@ class SonarrDialogs {
                 SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.update(value!),
           ),
         ),
-        SonarrDatabase.QUEUE_ADD_BLOCKLIST.listen(
+        SonarrDatabase.QUEUE_ADD_BLOCKLIST.watch(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.AddReleaseToBlocklist'.tr(),
             value: SonarrDatabase.QUEUE_ADD_BLOCKLIST.read(),

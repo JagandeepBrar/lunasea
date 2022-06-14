@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/database.dart';
+import 'package:lunasea/database/models/external_module.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/database/table.dart';
 
 class LunaConfig {
@@ -9,9 +11,9 @@ class LunaConfig {
 
     try {
       Map config = json.decode(data);
-      _setProfiles(config[BOX_PROFILES_KEY]);
-      _setIndexers(config[BOX_INDEXERS_KEY]);
-      _setExternalModules(config[BOX_EXTERNAL_MODULES_KEY]);
+      _setProfiles(config[LunaBox.profiles.key]);
+      _setIndexers(config[LunaBox.indexers.key]);
+      _setExternalModules(config[LunaBox.externalModules.key]);
       for (final table in LunaTable.values) table.import(config[table.key]);
     } catch (error, stack) {
       LunaLogger().error(
@@ -27,9 +29,9 @@ class LunaConfig {
 
   String export() {
     Map<String, dynamic> config = {};
-    config[BOX_EXTERNAL_MODULES_KEY] = LunaBox.externalModules.export();
-    config[BOX_INDEXERS_KEY] = LunaBox.indexers.export();
-    config[BOX_PROFILES_KEY] = LunaBox.profiles.export();
+    config[LunaBox.externalModules.key] = LunaBox.externalModules.export();
+    config[LunaBox.indexers.key] = LunaBox.indexers.export();
+    config[LunaBox.profiles.key] = LunaBox.profiles.export();
     for (final table in LunaTable.values) config[table.key] = table.export();
 
     return json.encode(config);
@@ -40,8 +42,8 @@ class LunaConfig {
 
     for (final item in data) {
       final key = item['key'];
-      final obj = ProfileHiveObject.fromMap(item);
-      LunaBox.profiles.box.put(key, obj);
+      final obj = LunaProfile.fromJson((item as Map).cast<String, dynamic>());
+      LunaBox.profiles.update(key, obj);
     }
   }
 
@@ -49,8 +51,8 @@ class LunaConfig {
     if (data == null) return;
 
     for (final indexer in data) {
-      final obj = IndexerHiveObject.fromMap(indexer);
-      LunaBox.indexers.box.add(obj);
+      final obj = LunaIndexer.fromJson(indexer);
+      LunaBox.indexers.create(obj);
     }
   }
 
@@ -58,8 +60,8 @@ class LunaConfig {
     if (data == null) return;
 
     for (final module in data) {
-      final obj = ExternalModuleHiveObject.fromMap(module);
-      LunaBox.externalModules.box.add(obj);
+      final obj = LunaExternalModule.fromJson(module);
+      LunaBox.externalModules.create(obj);
     }
   }
 }

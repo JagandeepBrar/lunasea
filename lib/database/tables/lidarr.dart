@@ -14,35 +14,27 @@ enum LidarrDatabase<T> with LunaTableMixin<T> {
   ADD_ROOT_FOLDER<LidarrRootFolder?>(null);
 
   @override
-  String get table => TABLE_LIDARR_KEY;
+  LunaTable get table => LunaTable.lidarr;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const LidarrDatabase(this.defaultValue);
+  const LidarrDatabase(this.fallback);
 
   @override
-  void registerAdapters() {
+  void register() {
     Hive.registerAdapter(LidarrQualityProfileAdapter());
     Hive.registerAdapter(LidarrMetadataProfileAdapter());
     Hive.registerAdapter(LidarrRootFolderAdapter());
   }
 
   @override
-  dynamic export() {
-    if (this == LidarrDatabase.ADD_ALBUM_FOLDERS) return null;
-    if (this == LidarrDatabase.ADD_QUALITY_PROFILE) return null;
-    if (this == LidarrDatabase.ADD_METADATA_PROFILE) return null;
-    if (this == LidarrDatabase.ADD_ROOT_FOLDER) return null;
-    return super.export();
-  }
-
-  @override
-  void import(dynamic value) {
-    if (this == LidarrDatabase.ADD_ALBUM_FOLDERS) return;
-    if (this == LidarrDatabase.ADD_QUALITY_PROFILE) return;
-    if (this == LidarrDatabase.ADD_METADATA_PROFILE) return;
-    if (this == LidarrDatabase.ADD_ROOT_FOLDER) return;
-    return super.import(value);
+  List<LidarrDatabase> get blockedFromImportExport {
+    return [
+      LidarrDatabase.ADD_ALBUM_FOLDERS,
+      LidarrDatabase.ADD_QUALITY_PROFILE,
+      LidarrDatabase.ADD_METADATA_PROFILE,
+      LidarrDatabase.ADD_ROOT_FOLDER,
+    ];
   }
 }

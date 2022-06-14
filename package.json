@@ -1,7 +1,7 @@
 {
   "name": "lunasea",
   "description": "Self-Hosted Controller",
-  "version": "10.0.4",
+  "version": "10.1.0",
   "private": true,
   "scripts": {
     "build:android": "flutter clean && flutter build apk --bundle-sksl-path shaders/android_sksl.json --release",
@@ -21,13 +21,12 @@
     "fastlane:update:android": "cd android && bundle update",
     "fastlane:update:ios": "cd ios && bundle update",
     "fastlane:update:macos": "cd macos && bundle update",
-    "generate": "npm run generate:assets && npm run generate:build_runner && npm run generate:localization",
+    "generate": "npm run generate:environment && npm run generate:assets && npm run generate:build_runner && npm run generate:localization",
     "generate:assets": "dart pub global activate spider && spider build",
-    "generate:build_runner": "flutter packages pub run build_runner build --delete-conflicting-outputs",
+    "generate:build_runner": "flutter packages pub run build_runner build",
+    "generate:environment": "flutter pub run environment_config:generate",
     "generate:localization": "dart ./scripts/generate_localization.dart",
-    "git:ignore": "npm run git:ignore:environment && npm run git:ignore:firebase",
-    "git:ignore:environment": "git update-index --skip-worktree .env",
-    "git:ignore:firebase": "git update-index --skip-worktree lib/firebase/options.dart",
+    "git:ignore": "git update-index --skip-worktree lib/firebase/options.dart",
     "prepare": "husky install && npm run git:ignore && flutter pub get",
     "prepare:keychain": "npm run prepare:keychain:ios && npm run prepare:keychain:macos",
     "prepare:keychain:ios": "cd ios && bundle exec fastlane keychain_create && bundle exec fastlane keychain_setup",
@@ -42,8 +41,8 @@
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.1",
-    "@commitlint/config-conventional": "^17.0.0",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "all-contributors-cli": "^6.20.0",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",

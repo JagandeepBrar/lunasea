@@ -52,7 +52,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _amoledTheme() {
     const _db = LunaSeaDatabase.THEME_AMOLED;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.AmoledTheme'.tr(),
         body: [
@@ -70,14 +70,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _amoledThemeBorders() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.lunasea.box.listenable(
-        keys: [
-          LunaSeaDatabase.THEME_AMOLED_BORDER.key,
-          LunaSeaDatabase.THEME_AMOLED.key,
-        ],
-      ),
-      builder: (context, dynamic _, __) => LunaBlock(
+    return LunaBox.lunasea.watch(
+      selectItems: [
+        LunaSeaDatabase.THEME_AMOLED_BORDER,
+        LunaSeaDatabase.THEME_AMOLED,
+      ],
+      builder: (context, _) => LunaBlock(
         title: 'settings.AmoledThemeBorders'.tr(),
         body: [
           TextSpan(text: 'settings.AmoledThemeBordersDescription'.tr()),
@@ -94,7 +92,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _imageBackgroundOpacity() {
     const _db = LunaSeaDatabase.THEME_IMAGE_BACKGROUND_OPACITY;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.BackgroundImageOpacity'.tr(),
         body: [

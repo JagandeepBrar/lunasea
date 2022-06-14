@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/extensions/int.dart';
-import 'package:lunasea/extensions/string.dart';
-import 'package:lunasea/core/system/profile.dart';
+import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/extensions/int/duration.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/radarr/core/api_helper.dart';
@@ -37,7 +37,7 @@ class CalendarRadarrData extends CalendarData {
         children: [
           TextSpan(text: year.toString()),
           TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-          TextSpan(text: runtime.lunaRuntime()),
+          TextSpan(text: runtime.asVideoDuration()),
         ],
       ),
       TextSpan(text: studio),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/sabnzbd.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
@@ -60,9 +60,8 @@ class _State extends State<SABnzbd> {
   }
 
   Widget _appBar() {
-    List<String> profiles =
-        LunaBox.profiles.box.keys.fold([], (value, element) {
-      if (LunaBox.profiles.box.get(element)?.sabnzbdEnabled ?? false)
+    List<String> profiles = LunaBox.profiles.keys.fold([], (value, element) {
+      if (LunaBox.profiles.read(element)?.sabnzbdEnabled ?? false)
         value.add(element);
       return value;
     });
@@ -113,8 +112,8 @@ class _State extends State<SABnzbd> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = LunaProfile.current;
-          await profile.sabnzbdHost?.openLink();
+          LunaProfile profile = LunaProfile.current;
+          await profile.sabnzbdHost.openLink();
           break;
         case 'add_nzb':
           _addNZB();
@@ -132,8 +131,7 @@ class _State extends State<SABnzbd> {
           _serverDetails();
           break;
         default:
-          LunaLogger()
-              .warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 
@@ -206,8 +204,7 @@ class _State extends State<SABnzbd> {
           _addByFile();
           break;
         default:
-          LunaLogger()
-              .warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 

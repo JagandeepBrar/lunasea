@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/core/router/module_router.dart';
-import 'package:lunasea/core/router/page_router.dart';
-import 'package:lunasea/core/router/router.dart';
+import 'package:lunasea/deprecated/router/module_router.dart';
+import 'package:lunasea/deprecated/router/page_router.dart';
+import 'package:lunasea/deprecated/router/router.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart';
 

@@ -1,6 +1,6 @@
-import 'package:lunasea/core/extensions/datetime.dart';
-import 'package:lunasea/core/models/configuration/profile.dart';
+import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
@@ -19,7 +19,7 @@ class API {
     required this.sonarr,
   });
 
-  factory API.from(ProfileHiveObject? profile) {
+  factory API.from(LunaProfile? profile) {
     return API._internal(
       lidarr: profile?.getLidarr(),
       radarr: profile?.getRadarr(),
@@ -61,7 +61,7 @@ class API {
     if (response.data.length > 0) {
       for (var entry in response.data) {
         DateTime? date =
-            DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal().lunaFloor;
+            DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal().floor();
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];
           day.add(CalendarLidarrData(
@@ -108,11 +108,9 @@ class API {
         DateTime? physicalRelease =
             DateTime.tryParse(entry['physicalRelease'] ?? '')
                 ?.toLocal()
-                .lunaFloor;
+                .floor();
         DateTime? digitalRelease =
-            DateTime.tryParse(entry['digitalRelease'] ?? '')
-                ?.toLocal()
-                .lunaFloor;
+            DateTime.tryParse(entry['digitalRelease'] ?? '')?.toLocal().floor();
         DateTime? release;
         if (physicalRelease != null || digitalRelease != null) {
           if (physicalRelease == null) release = digitalRelease;
@@ -166,7 +164,7 @@ class API {
     if (response.data.length > 0) {
       for (var entry in response.data) {
         DateTime? date =
-            DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal().lunaFloor;
+            DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal().floor();
         if (date != null && _isDateWithinBounds(date, today)) {
           List<CalendarData> day = map[date] ?? [];
           day.add(CalendarSonarrData(

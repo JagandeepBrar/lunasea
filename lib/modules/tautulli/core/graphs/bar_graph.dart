@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliBarGraphHelper {
@@ -59,7 +60,7 @@ class TautulliBarGraphHelper {
               String _text = context.read<TautulliState>().graphYAxis ==
                       TautulliGraphYAxis.PLAYS
                   ? _number.truncate().toString()
-                  : Duration(seconds: _number.truncate()).lunaTimestampWords;
+                  : Duration(seconds: _number.truncate()).asWordsTimestamp();
               _body += '$_value: $_text\n';
             }
             return BarTooltipItem(

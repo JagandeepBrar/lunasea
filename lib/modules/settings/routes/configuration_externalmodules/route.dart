@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/external_module.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationExternalModulesRouter extends SettingsPageRouter {
@@ -54,9 +55,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.externalModules.box.listenable(),
-      builder: (context, dynamic box, _) => LunaListView(
+    return LunaBox.externalModules.watch(
+      builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
           LunaModule.EXTERNAL_MODULES.informationBanner(),
@@ -67,16 +67,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _moduleSection() => [
-        if (LunaBox.externalModules.box.isEmpty)
+        if (LunaBox.externalModules.isEmpty)
           LunaMessage(text: 'settings.NoExternalModulesFound'.tr()),
         ..._modules,
       ];
 
   List<Widget> get _modules {
-    List<ExternalModuleHiveObject> modules =
-        LunaBox.externalModules.box.values.toList();
+    final modules = LunaBox.externalModules.data.toList();
     modules.sort((a, b) =>
-        a.displayName!.toLowerCase().compareTo(b.displayName!.toLowerCase()));
+        a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
     List<LunaBlock> list = List.generate(
       modules.length,
       (index) => _moduleTile(modules[index], modules[index].key) as LunaBlock,
@@ -84,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return list;
   }
 
-  Widget _moduleTile(ExternalModuleHiveObject module, int index) {
+  Widget _moduleTile(LunaExternalModule module, int index) {
     return LunaBlock(
       title: module.displayName,
       body: [TextSpan(text: module.host)],

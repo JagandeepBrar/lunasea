@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -48,7 +49,7 @@ class _State extends State<DeleteAccountTile> {
             title: 'settings.AccountDeleted'.tr(),
             message: 'settings.AccountDeletedMessage'.tr(),
           );
-          Navigator.of(context).lunaSafetyPop();
+          Navigator.of(context).safetyPop();
         } else {
           updateState(LunaLoadingState.INACTIVE);
           showLunaErrorSnackBar(

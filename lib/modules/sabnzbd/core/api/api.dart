@@ -6,7 +6,7 @@ class SABnzbdAPI {
   final Dio _dio;
 
   SABnzbdAPI._internal(this._values, this._dio);
-  factory SABnzbdAPI.from(ProfileHiveObject profile) {
+  factory SABnzbdAPI.from(LunaProfile profile) {
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(profile.getSABnzbd()['headers']);
     Dio _client = Dio(

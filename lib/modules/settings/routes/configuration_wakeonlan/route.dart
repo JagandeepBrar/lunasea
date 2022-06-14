@@ -40,9 +40,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.profiles.box.listenable(),
-      builder: (context, dynamic box, _) => LunaListView(
+    return LunaBox.profiles.watch(
+      builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
           LunaModule.WAKE_ON_LAN.informationBanner(),
@@ -58,7 +57,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaBlock(
       title: 'Enable Wake on LAN',
       trailing: LunaSwitch(
-        value: LunaProfile.current.wakeOnLANEnabled ?? false,
+        value: LunaProfile.current.wakeOnLANEnabled,
         onChanged: (value) {
           LunaProfile.current.wakeOnLANEnabled = value;
           LunaProfile.current.save();
@@ -72,18 +71,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaBlock(
       title: 'settings.BroadcastAddress'.tr(),
       body: [
-        TextSpan(
-          text: broadcastAddress == null || broadcastAddress == ''
-              ? 'Not Set'
-              : broadcastAddress,
-        ),
+        TextSpan(text: broadcastAddress == '' ? 'Not Set' : broadcastAddress),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values =
             await SettingsDialogs().editBroadcastAddress(
           context,
-          broadcastAddress ?? '',
+          broadcastAddress,
         );
         if (_values.item1) {
           LunaProfile.current.wakeOnLANBroadcastAddress = _values.item2;
@@ -98,15 +93,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaBlock(
       title: 'settings.MACAddress'.tr(),
       body: [
-        TextSpan(
-          text: macAddress == null || macAddress == '' ? 'Not Set' : macAddress,
-        ),
+        TextSpan(text: macAddress == '' ? 'Not Set' : macAddress),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editMACAddress(
           context,
-          macAddress ?? '',
+          macAddress,
         );
         if (_values.item1) {
           LunaProfile.current.wakeOnLANMACAddress = _values.item2;

@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/utils/profile_tools.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/system/platform.dart';
 
@@ -115,8 +116,6 @@ class LunaFirebaseMessaging {
     LunaModule? module = LunaModule.fromKey(message.data['module']);
     if (module == null) {
       LunaLogger().warning(
-        'LunaFirebaseMessaging',
-        '_handleWebhook',
         'Unknown module found inside of RemoteMessage: ${message.data['module'] ?? 'null'}',
       );
       return;
@@ -124,16 +123,11 @@ class LunaFirebaseMessaging {
     String profile = message.data['profile'] ?? '';
     if (profile.isEmpty) {
       LunaLogger().warning(
-        'LunaFirebaseMessaging',
-        '_handleWebhook',
         'Invalid profile received in webhook: ${message.data['profile'] ?? 'null'}',
       );
       return;
     }
-    bool result = await LunaProfile().safelyChangeProfiles(
-      profile,
-      popToFirst: true,
-    );
+    bool result = LunaProfileTools().changeTo(profile, popToRootRoute: true);
     if (result) {
       module.handleWebhook(message.data);
     } else {

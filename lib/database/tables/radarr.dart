@@ -1,8 +1,5 @@
-import 'package:lunasea/core/models/types/list_view_option.dart';
+import 'package:lunasea/types/list_view_option.dart';
 import 'package:lunasea/database/table.dart';
-import 'package:lunasea/modules/radarr/core/deprecated/availability.dart';
-import 'package:lunasea/modules/radarr/core/deprecated/qualityprofile.dart';
-import 'package:lunasea/modules/radarr/core/deprecated/rootfolder.dart';
 import 'package:lunasea/modules/radarr/core/types/filter_movies.dart';
 import 'package:lunasea/modules/radarr/core/types/filter_releases.dart';
 import 'package:lunasea/modules/radarr/core/types/sorting_movies.dart';
@@ -38,12 +35,7 @@ enum RadarrDatabase<T> with LunaTableMixin<T> {
   CONTENT_PAGE_SIZE<int>(10);
 
   @override
-  void registerAdapters() {
-    // Deprecated, not in use but necessary to avoid Hive read errors
-    Hive.registerAdapter(DeprecatedRadarrQualityProfileAdapter());
-    Hive.registerAdapter(DeprecatedRadarrRootFolderAdapter());
-    Hive.registerAdapter(DeprecatedRadarrAvailabilityAdapter());
-    // Active adapters
+  void register() {
     Hive.registerAdapter(RadarrMoviesSortingAdapter());
     Hive.registerAdapter(RadarrMoviesFilterAdapter());
     Hive.registerAdapter(RadarrReleasesSortingAdapter());
@@ -51,60 +43,58 @@ enum RadarrDatabase<T> with LunaTableMixin<T> {
   }
 
   @override
-  String get table => TABLE_RADARR_KEY;
+  LunaTable get table => LunaTable.radarr;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const RadarrDatabase(this.defaultValue);
+  const RadarrDatabase(this.fallback);
 
   @override
   dynamic export() {
-    if (this == RadarrDatabase.DEFAULT_SORTING_MOVIES) {
-      return RadarrDatabase.DEFAULT_SORTING_MOVIES.read().key;
+    RadarrDatabase db = this;
+    switch (db) {
+      case RadarrDatabase.DEFAULT_SORTING_MOVIES:
+        return RadarrDatabase.DEFAULT_SORTING_MOVIES.read().key;
+      case RadarrDatabase.DEFAULT_SORTING_RELEASES:
+        return RadarrDatabase.DEFAULT_SORTING_RELEASES.read().key;
+      case RadarrDatabase.DEFAULT_FILTERING_MOVIES:
+        return RadarrDatabase.DEFAULT_FILTERING_MOVIES.read().key;
+      case RadarrDatabase.DEFAULT_FILTERING_RELEASES:
+        return RadarrDatabase.DEFAULT_FILTERING_RELEASES.read().key;
+      case RadarrDatabase.DEFAULT_VIEW_MOVIES:
+        return RadarrDatabase.DEFAULT_VIEW_MOVIES.read().key;
+      default:
+        return super.export();
     }
-    if (this == RadarrDatabase.DEFAULT_SORTING_RELEASES) {
-      return RadarrDatabase.DEFAULT_SORTING_RELEASES.read().key;
-    }
-    if (this == RadarrDatabase.DEFAULT_FILTERING_MOVIES) {
-      return RadarrDatabase.DEFAULT_FILTERING_MOVIES.read().key;
-    }
-    if (this == RadarrDatabase.DEFAULT_FILTERING_RELEASES) {
-      return RadarrDatabase.DEFAULT_FILTERING_RELEASES.read().key;
-    }
-    if (this == RadarrDatabase.DEFAULT_VIEW_MOVIES) {
-      return RadarrDatabase.DEFAULT_VIEW_MOVIES.read().key;
-    }
-    return super.export();
   }
 
   @override
   void import(dynamic value) {
-    if (this == RadarrDatabase.DEFAULT_SORTING_MOVIES) {
-      final item = RadarrMoviesSorting.ALPHABETICAL.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
+    RadarrDatabase db = this;
+    dynamic result;
+
+    switch (db) {
+      case RadarrDatabase.DEFAULT_SORTING_MOVIES:
+        result = RadarrMoviesSorting.ALPHABETICAL.fromKey(value.toString());
+        break;
+      case RadarrDatabase.DEFAULT_SORTING_RELEASES:
+        result = RadarrReleasesSorting.ALPHABETICAL.fromKey(value.toString());
+        break;
+      case RadarrDatabase.DEFAULT_FILTERING_MOVIES:
+        result = RadarrMoviesFilter.ALL.fromKey(value.toString());
+        break;
+      case RadarrDatabase.DEFAULT_FILTERING_RELEASES:
+        result = RadarrReleasesFilter.ALL.fromKey(value.toString());
+        break;
+      case RadarrDatabase.DEFAULT_VIEW_MOVIES:
+        result = LunaListViewOption.fromKey(value.toString());
+        break;
+      default:
+        result = value;
+        break;
     }
-    if (this == RadarrDatabase.DEFAULT_SORTING_RELEASES) {
-      final item = RadarrReleasesSorting.ALPHABETICAL.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
-    }
-    if (this == RadarrDatabase.DEFAULT_FILTERING_MOVIES) {
-      final item = RadarrMoviesFilter.ALL.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
-    }
-    if (this == RadarrDatabase.DEFAULT_FILTERING_RELEASES) {
-      final item = RadarrReleasesFilter.ALL.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
-    }
-    if (this == RadarrDatabase.DEFAULT_VIEW_MOVIES) {
-      final item = LunaListViewOption.GRID_VIEW.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
-    }
-    return super.import(value);
+
+    return super.import(result);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/duration.dart';
+import 'package:lunasea/extensions/string/string.dart';
 
 class NZBGetQueueData {
   int id;
@@ -41,9 +42,9 @@ class NZBGetQueueData {
   }
 
   String get timestamp {
-    return (queueSeconds + remainingTime).lunaTimestamp() == '0:00:00'
+    return (queueSeconds + remainingTime).asTrackDuration() == '00:00'
         ? '―'
-        : (queueSeconds + remainingTime).lunaTimestamp();
+        : (queueSeconds + remainingTime).asTrackDuration();
   }
 
   String get statusString {

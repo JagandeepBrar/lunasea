@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationSearchAddRouter extends SettingsPageRouter {
@@ -20,8 +21,8 @@ class _Widget extends StatefulWidget {
 }
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final IndexerHiveObject _indexer = IndexerHiveObject.empty();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _indexer = LunaIndexer();
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +48,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           text: 'Add Indexer',
           icon: Icons.add_rounded,
           onTap: () async {
-            if (_indexer.displayName!.isEmpty ||
-                _indexer.host!.isEmpty ||
-                _indexer.apiKey!.isEmpty) {
+            if (_indexer.displayName.isEmpty ||
+                _indexer.host.isEmpty ||
+                _indexer.apiKey.isEmpty) {
               showLunaErrorSnackBar(
                 title: 'Failed to Add Indexer',
                 message: 'All fields are required',
               );
             } else {
-              LunaBox.indexers.box.add(_indexer);
+              LunaBox.indexers.create(_indexer);
               showLunaSuccessSnackBar(
                 title: 'Indexer Added',
                 message: _indexer.displayName,
@@ -81,7 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayName() {
-    String _name = _indexer.displayName ?? '';
+    String _name = _indexer.displayName;
     return LunaBlock(
       title: 'Display Name',
       body: [TextSpan(text: _name.isEmpty ? 'lunasea.NotSet'.tr() : _name)],
@@ -100,7 +101,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiURL() {
-    String _host = _indexer.host ?? '';
+    String _host = _indexer.host;
     return LunaBlock(
       title: 'Indexer API Host',
       body: [TextSpan(text: _host.isEmpty ? 'lunasea.NotSet'.tr() : _host)],
@@ -119,7 +120,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String _key = _indexer.apiKey ?? '';
+    String _key = _indexer.apiKey;
     return LunaBlock(
       title: 'Indexer API Key',
       body: [TextSpan(text: _key.isEmpty ? 'lunasea.NotSet'.tr() : _key)],

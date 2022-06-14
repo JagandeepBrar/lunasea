@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
+import 'package:lunasea/types/log_type.dart';
 
 class SettingsSystemLogsRouter extends SettingsPageRouter {
   SettingsSystemLogsRouter() : super('/settings/logs');
@@ -62,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         (index) {
           if (LunaLogType.values[index].enabled)
             return LunaBlock(
-              title: LunaLogType.values[index].name,
+              title: LunaLogType.values[index].title,
               body: [TextSpan(text: LunaLogType.values[index].description)],
               trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
               onTap: () async => _viewLogs(LunaLogType.values[index]),

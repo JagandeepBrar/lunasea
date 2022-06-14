@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrMovieSettingsType {
@@ -64,7 +65,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     if (result) {
       RadarrAPIHelper().removeMovie(context: context, movie: movie).then((_) {
         context.read<RadarrState>().fetchMovies();
-        Navigator.of(context).lunaSafetyPop();
+        Navigator.of(context).safetyPop();
       });
     }
   }

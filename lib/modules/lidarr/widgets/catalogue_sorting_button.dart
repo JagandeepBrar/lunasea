@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueSortButton extends StatefulWidget {
@@ -32,7 +33,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                 model.sortCatalogueAscending = true;
                 model.sortCatalogueType = result;
               }
-              widget.controller.lunaAnimateToStart();
+              widget.controller.animateToStart();
             },
             itemBuilder: (context) =>
                 List<PopupMenuEntry<LidarrCatalogueSorting>>.generate(

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 
 class SettingsRouter extends LunaModuleRouter {
   @override
@@ -18,7 +19,7 @@ class SettingsRouter extends LunaModuleRouter {
       SettingsNotificationsRouter().defineRoute(router);
     }
     // Donations
-    if (LunaInAppPurchases.isSupported) {
+    if (LunaInAppPurchase.isSupported) {
       SettingsDonationsRouter().defineRoute(router);
       SettingsDonationsThankYouRouter().defineRoute(router);
     }

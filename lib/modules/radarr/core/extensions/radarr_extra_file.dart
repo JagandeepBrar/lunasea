@@ -1,5 +1,5 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrExtraFileExtension on RadarrExtraFile {

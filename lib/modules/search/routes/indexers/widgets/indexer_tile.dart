@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchIndexerTile extends StatelessWidget {
-  final IndexerHiveObject? indexer;
+  final LunaIndexer? indexer;
 
   const SearchIndexerTile({
     Key? key,

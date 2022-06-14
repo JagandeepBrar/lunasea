@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/nzbget.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 import 'package:lunasea/system/filesystem/file.dart';
@@ -61,9 +61,8 @@ class _State extends State<NZBGet> {
   }
 
   Widget _appBar() {
-    List<String> profiles =
-        LunaBox.profiles.box.keys.fold([], (value, element) {
-      if (LunaBox.profiles.box.get(element)?.nzbgetEnabled ?? false)
+    List<String> profiles = LunaBox.profiles.keys.fold([], (value, element) {
+      if (LunaBox.profiles.read(element)?.nzbgetEnabled ?? false)
         value.add(element);
       return value;
     });
@@ -114,8 +113,8 @@ class _State extends State<NZBGet> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = LunaProfile.current;
-          await profile.nzbgetHost?.openLink();
+          LunaProfile profile = LunaProfile.current;
+          await profile.nzbgetHost.openLink();
           break;
         case 'add_nzb':
           _addNZB();
@@ -127,8 +126,7 @@ class _State extends State<NZBGet> {
           _serverDetails();
           break;
         default:
-          LunaLogger()
-              .warning('NZBGet', '_handlePopup', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 
@@ -143,8 +141,7 @@ class _State extends State<NZBGet> {
           _addByFile();
           break;
         default:
-          LunaLogger()
-              .warning('NZBGet', '_addNZB', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 

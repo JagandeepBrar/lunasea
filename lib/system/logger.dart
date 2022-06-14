@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/log.dart';
+import 'package:lunasea/types/exception.dart';
+import 'package:lunasea/types/log_type.dart';
 
 class LunaLogger {
   static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
@@ -16,15 +19,15 @@ class LunaLogger {
     _compact();
   }
 
-  Future<void> _compact([int count = 100]) async {
-    if (LunaBox.logs.box.keys.length <= count) return;
-    List<LunaLogHiveObject> logs = LunaBox.logs.box.values.toList();
+  Future<void> _compact([int count = 50]) async {
+    if (LunaBox.logs.data.length <= count) return;
+    List<LunaLogHiveObject> logs = LunaBox.logs.data.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
 
   Future<String> export() async {
-    final logs = LunaBox.logs.box.values.map((log) => log.toMap()).toList();
+    final logs = LunaBox.logs.data.map((log) => log.toJson()).toList();
     final encoder = JsonEncoder.withIndent(' '.repeat(4));
     return encoder.convert(logs);
   }
@@ -33,20 +36,20 @@ class LunaLogger {
 
   void debug(String message) {
     LunaLogHiveObject log = LunaLogHiveObject.withMessage(
-      type: LunaLogType.WARNING,
+      type: LunaLogType.DEBUG,
       message: message,
     );
-    LunaBox.logs.box.add(log);
+    LunaBox.logs.create(log);
   }
 
-  void warning(String className, String methodName, String message) {
+  void warning(String message, [String? className, String? methodName]) {
     LunaLogHiveObject log = LunaLogHiveObject.withMessage(
       type: LunaLogType.WARNING,
+      message: message,
       className: className,
       methodName: methodName,
-      message: message,
     );
-    LunaBox.logs.box.add(log);
+    LunaBox.logs.create(log);
   }
 
   void error(String message, dynamic error, StackTrace? stackTrace) {
@@ -62,7 +65,7 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      LunaBox.logs.box.add(log);
+      LunaBox.logs.create(log);
     }
   }
 
@@ -70,7 +73,7 @@ class LunaLogger {
     if (error is! NetworkImageLoadException) {
       LunaLogHiveObject log = LunaLogHiveObject.withError(
         type: LunaLogType.CRITICAL,
-        message: error?.toString() ?? 'Unknown critical error',
+        message: error?.toString() ?? LunaUI.TEXT_EMDASH,
         error: error,
         stackTrace: stackTrace,
       );
@@ -78,7 +81,20 @@ class LunaLogger {
         print(error);
         print(stackTrace);
       }
-      LunaBox.logs.box.add(log);
+      LunaBox.logs.create(log);
+    }
+  }
+
+  void exception(LunaException exception, [StackTrace? trace]) {
+    switch (exception.type) {
+      case LunaLogType.WARNING:
+        warning(exception.toString(), exception.runtimeType.toString());
+        break;
+      case LunaLogType.ERROR:
+        error(exception.toString(), exception, trace);
+        break;
+      default:
+        break;
     }
   }
 }

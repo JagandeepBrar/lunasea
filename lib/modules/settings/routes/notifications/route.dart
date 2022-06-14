@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/links.dart';
 
 class SettingsNotificationsRouter extends SettingsPageRouter {
   SettingsNotificationsRouter() : super('/settings/notifications');
@@ -61,7 +62,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'Getting Started',
           body: const [TextSpan(text: 'Information & Setup Instructions')],
           trailing: const LunaIconButton.arrow(),
-          onTap: LunaLinks.NOTIFICATIONS_GETTING_STARTED.launch,
+          onTap: LunaLinkedContent.NOTIFICATIONS_DOC.launch,
         ),
         _enableInAppNotifications(),
         LunaDivider(),
@@ -74,7 +75,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     const db = LunaSeaDatabase.ENABLE_IN_APP_NOTIFICATIONS;
     return LunaBlock(
       title: 'settings.EnableInAppNotifications'.tr(),
-      trailing: db.listen(
+      trailing: db.watch(
         builder: (context, _) => LunaSwitch(
           value: db.read(),
           onChanged: db.update,

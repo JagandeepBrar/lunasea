@@ -51,7 +51,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _homePage() {
     const _db = LidarrDatabase.NAVIGATION_INDEX;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: LidarrNavigationBar.titles[_db.read()])],

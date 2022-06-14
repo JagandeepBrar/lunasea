@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
@@ -9,10 +10,8 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
   }
 
   String get lunaSpace {
-    String numerator =
-        this.freeSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
-    String denumerator =
-        this.totalSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
+    String numerator = this.freeSpace.asBytes();
+    String denumerator = this.totalSpace.asBytes();
     return '$numerator / $denumerator\n';
   }
 

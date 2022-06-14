@@ -44,7 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget _drawer() => LunaDrawer(page: LunaModule.EXTERNAL_MODULES.key);
 
   Widget _body() {
-    if (LunaBox.externalModules.box.isEmpty) {
+    if (LunaBox.externalModules.isEmpty) {
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.EXTERNAL_MODULES.title,
@@ -53,22 +53,18 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaListView(
       controller: scrollController,
       itemExtent: LunaBlock.calculateItemExtent(1),
-      children: _list as List<Widget>,
+      children: _list,
     );
   }
 
-  List get _list {
-    List<ExternalModulesModuleTile> list = List.generate(
-      LunaBox.externalModules.box.length,
-      (index) => ExternalModulesModuleTile(
-        module: LunaBox.externalModules.box.getAt(index),
-      ),
-    );
-    list.sort(
-      (a, b) => a.module!.displayName!
-          .toLowerCase()
-          .compareTo(b.module!.displayName!.toLowerCase()),
-    );
+  List<Widget> get _list {
+    final list = LunaBox.externalModules.data
+        .map((module) => ExternalModulesModuleTile(module: module))
+        .toList();
+    list.sort((a, b) => a.module!.displayName
+        .toLowerCase()
+        .compareTo(b.module!.displayName.toLowerCase()));
+
     return list;
   }
 }

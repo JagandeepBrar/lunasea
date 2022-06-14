@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class _RadarrManualImportDetailsArguments {
   final String path;
@@ -59,7 +60,7 @@ class _State extends State<_Widget>
         .settings
         .arguments as _RadarrManualImportDetailsArguments?;
     if (arguments == null || arguments.path.isEmpty) {
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'radarr.ManualImport'.tr(),
         message: 'radarr.DirectoryNotFound'.tr(),
       );

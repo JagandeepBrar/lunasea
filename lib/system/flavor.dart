@@ -2,18 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-const _EDGE = 'edge';
-const _BETA = 'beta';
-const _CANDIDATE = 'candidate';
-const _STABLE = 'stable';
+const FLAVOR_EDGE = 'edge';
+const FLAVOR_BETA = 'beta';
+const FLAVOR_CANDIDATE = 'candidate';
+const FLAVOR_STABLE = 'stable';
 
 enum LunaFlavor {
-  EDGE,
-  BETA,
-  CANDIDATE,
-  STABLE;
+  EDGE(FLAVOR_EDGE),
+  BETA(FLAVOR_BETA),
+  CANDIDATE(FLAVOR_CANDIDATE),
+  STABLE(FLAVOR_STABLE);
 
-  static LunaFlavor get current => LunaFlavor.EDGE.from(LunaEnvironment.flavor);
+  final String key;
+  const LunaFlavor(this.key);
+
+  static LunaFlavor fromKey(String key) {
+    switch (key) {
+      case FLAVOR_EDGE:
+        return LunaFlavor.EDGE;
+      case FLAVOR_BETA:
+        return LunaFlavor.BETA;
+      case FLAVOR_CANDIDATE:
+        return LunaFlavor.CANDIDATE;
+      case FLAVOR_STABLE:
+        return LunaFlavor.STABLE;
+    }
+    throw Exception('Invalid LunaFlavor');
+  }
+
+  static LunaFlavor get current => LunaFlavor.fromKey(LunaEnvironment.flavor);
+  static bool get isStable => current == LunaFlavor.STABLE;
 }
 
 extension LunaFlavorExtension on LunaFlavor {
@@ -49,19 +67,6 @@ extension LunaFlavorExtension on LunaFlavor {
     }
   }
 
-  String get key {
-    switch (this) {
-      case LunaFlavor.EDGE:
-        return _EDGE;
-      case LunaFlavor.BETA:
-        return _BETA;
-      case LunaFlavor.CANDIDATE:
-        return _CANDIDATE;
-      case LunaFlavor.STABLE:
-        return _STABLE;
-    }
-  }
-
   String get name {
     switch (this) {
       case LunaFlavor.EDGE:
@@ -86,19 +91,5 @@ extension LunaFlavorExtension on LunaFlavor {
       case LunaFlavor.STABLE:
         return LunaColours.accent;
     }
-  }
-
-  LunaFlavor from(String key) {
-    switch (key) {
-      case _EDGE:
-        return LunaFlavor.EDGE;
-      case _BETA:
-        return LunaFlavor.BETA;
-      case _CANDIDATE:
-        return LunaFlavor.CANDIDATE;
-      case _STABLE:
-        return LunaFlavor.STABLE;
-    }
-    throw Exception('Invalid LunaFlavor');
   }
 }

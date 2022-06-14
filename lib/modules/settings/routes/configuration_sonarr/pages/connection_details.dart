@@ -50,9 +50,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.profiles.box.listenable(),
-      builder: (context, dynamic box, _) => LunaListView(
+    return LunaBox.profiles.watch(
+      builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
           _host(),
@@ -64,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.sonarrHost ?? '';
+    String host = LunaProfile.current.sonarrHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -84,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.sonarrKey ?? '';
+    String apiKey = LunaProfile.current.sonarrKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -115,15 +114,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.sonarrHost == null || _profile.sonarrHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.sonarrHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Sonarr',
           );
           return;
         }
-        if (_profile.sonarrKey == null || _profile.sonarrKey!.isEmpty) {
+        if (_profile.sonarrKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Sonarr',
@@ -131,10 +130,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Sonarr(
-          host: _profile.sonarrHost!,
-          apiKey: _profile.sonarrKey!,
+          host: _profile.sonarrHost,
+          apiKey: _profile.sonarrKey,
           headers: Map<String, dynamic>.from(
-            _profile.sonarrHeaders ?? {},
+            _profile.sonarrHeaders,
           ),
         ).system.getStatus().then((_) {
           showLunaSuccessSnackBar(

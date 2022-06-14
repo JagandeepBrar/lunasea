@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 enum TautulliGlobalSettingsType {

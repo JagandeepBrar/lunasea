@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension LunaRadarrRootFolderExtension on RadarrRootFolder? {
@@ -8,7 +9,7 @@ extension LunaRadarrRootFolderExtension on RadarrRootFolder? {
   }
 
   String get lunaSpace {
-    return this?.freeSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
+    return this?.freeSpace.asBytes() ?? LunaUI.TEXT_EMDASH;
   }
 
   String get lunaUnmappedFolders {

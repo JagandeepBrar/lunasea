@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class SettingsConfigurationRadarrDefaultOptionsRouter
     extends SettingsPageRouter {
@@ -60,7 +61,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _viewMovies() {
     const _db = RadarrDatabase.DEFAULT_VIEW_MOVIES;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) {
         return LunaBlock(
           title: 'lunasea.View'.tr(),
@@ -94,7 +95,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _sortingMovies() {
     const _db = RadarrDatabase.DEFAULT_SORTING_MOVIES;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
         body: [TextSpan(text: _db.read().readable)],
@@ -125,7 +126,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _sortingMoviesDirection() {
     const _db = RadarrDatabase.DEFAULT_SORTING_MOVIES_ASCENDING;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
@@ -150,7 +151,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _filteringMovies() {
     const _db = RadarrDatabase.DEFAULT_FILTERING_MOVIES;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
         body: [TextSpan(text: _db.read().readable)],
@@ -179,7 +180,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _sortingReleases() {
     const _db = RadarrDatabase.DEFAULT_SORTING_RELEASES;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.SortCategory'.tr(),
         body: [TextSpan(text: _db.read().readable)],
@@ -207,7 +208,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _sortingReleasesDirection() {
     const _db = RadarrDatabase.DEFAULT_SORTING_RELEASES_ASCENDING;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.SortDirection'.tr(),
         body: [
@@ -227,7 +228,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _filteringReleases() {
     const _db = RadarrDatabase.DEFAULT_FILTERING_RELEASES;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'settings.FilterCategory'.tr(),
         body: [TextSpan(text: _db.read().readable)],

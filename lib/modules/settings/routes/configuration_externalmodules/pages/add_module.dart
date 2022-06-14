@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/external_module.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationExternalModulesAddRouter extends SettingsPageRouter {
@@ -22,7 +23,7 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ExternalModuleHiveObject _module = ExternalModuleHiveObject.empty();
+  final LunaExternalModule _module = LunaExternalModule();
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +49,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           text: 'settings.AddModule'.tr(),
           icon: Icons.add_rounded,
           onTap: () async {
-            if (_module.displayName!.isEmpty || _module.host!.isEmpty) {
+            if (_module.displayName.isEmpty || _module.host.isEmpty) {
               showLunaErrorSnackBar(
                 title: 'settings.AddModuleFailed'.tr(),
                 message: 'settings.AllFieldsAreRequired'.tr(),
               );
             } else {
-              LunaBox.externalModules.box.add(_module);
+              LunaBox.externalModules.create(_module);
               showLunaSuccessSnackBar(
                 title: 'settings.AddModuleSuccess'.tr(),
                 message: _module.displayName,
@@ -78,7 +79,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayNameTile() {
-    String _displayName = _module.displayName ?? '';
+    String _displayName = _module.displayName;
     return LunaBlock(
       title: 'settings.DisplayName'.tr(),
       body: [
@@ -99,7 +100,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hostTile() {
-    String _host = _module.host ?? '';
+    String _host = _module.host;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [

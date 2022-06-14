@@ -1,20 +1,19 @@
-import 'package:lunasea/core/models/configuration/external_module.dart';
-import 'package:lunasea/core/models/configuration/indexer.dart';
-import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/models/logs/log.dart';
-import 'package:lunasea/core/models/logs/log_type.dart';
-import 'package:lunasea/core/models/types/browser.dart';
-import 'package:lunasea/core/models/types/indexer_icon.dart';
-import 'package:lunasea/core/models/types/list_view_option.dart';
+import 'package:lunasea/database/models/external_module.dart';
+import 'package:lunasea/database/models/indexer.dart';
+import 'package:lunasea/database/models/log.dart';
+import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/types/indexer_icon.dart';
+import 'package:lunasea/types/list_view_option.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/database/table.dart';
+import 'package:lunasea/types/log_type.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   DRAWER_AUTOMATIC_MANAGE<bool>(true),
   DRAWER_MANUAL_ORDER<List>([]),
-  ENABLED_PROFILE<String>('default'),
+  ENABLED_PROFILE<String>(LunaProfile.DEFAULT_PROFILE),
   NETWORKING_TLS_VALIDATION<bool>(false),
   THEME_AMOLED<bool>(false),
   THEME_AMOLED_BORDER<bool>(false),
@@ -33,21 +32,18 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   CHANGELOG_LAST_BUILD<String>('0.0.0');
 
   @override
-  String get table => TABLE_LUNASEA_KEY;
+  LunaTable get table => LunaTable.lunasea;
 
   @override
-  final T defaultValue;
+  final T fallback;
 
-  const LunaSeaDatabase(this.defaultValue);
+  const LunaSeaDatabase(this.fallback);
 
   @override
-  void registerAdapters() {
-    // Deprecated
-    Hive.registerAdapter(DeprecatedLunaBrowserAdapter());
-    // Active
-    Hive.registerAdapter(ExternalModuleHiveObjectAdapter());
-    Hive.registerAdapter(IndexerHiveObjectAdapter());
-    Hive.registerAdapter(ProfileHiveObjectAdapter());
+  void register() {
+    Hive.registerAdapter(LunaExternalModuleAdapter());
+    Hive.registerAdapter(LunaIndexerAdapter());
+    Hive.registerAdapter(LunaProfileAdapter());
     Hive.registerAdapter(LunaLogHiveObjectAdapter());
     Hive.registerAdapter(LunaIndexerIconAdapter());
     Hive.registerAdapter(LunaLogTypeAdapter());
@@ -57,33 +53,41 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
 
   @override
   dynamic export() {
-    if (this == LunaSeaDatabase.DEFAULT_LAUNCH_MODULE) {
-      return LunaSeaDatabase.DEFAULT_LAUNCH_MODULE.read().key;
+    LunaSeaDatabase db = this;
+    switch (db) {
+      case LunaSeaDatabase.DEFAULT_LAUNCH_MODULE:
+        return LunaSeaDatabase.DEFAULT_LAUNCH_MODULE.read().key;
+      case LunaSeaDatabase.DRAWER_MANUAL_ORDER:
+        return LunaDrawer.moduleOrderedList()
+            .map<String>((module) => module.key)
+            .toList();
+      default:
+        return super.export();
     }
-    if (this == LunaSeaDatabase.DRAWER_MANUAL_ORDER) {
-      return LunaDrawer.moduleOrderedList()
-          .map<String>((module) => module.key)
-          .toList();
-    }
-    return super.export();
   }
 
   @override
   void import(dynamic value) {
-    if (this == LunaSeaDatabase.DEFAULT_LAUNCH_MODULE) {
-      final item = LunaModule.fromKey(value.toString());
-      if (item != null) update(item as T);
-      return;
+    LunaSeaDatabase db = this;
+    dynamic result;
+
+    switch (db) {
+      case LunaSeaDatabase.DEFAULT_LAUNCH_MODULE:
+        result = LunaModule.fromKey(value.toString());
+        break;
+      case LunaSeaDatabase.DRAWER_MANUAL_ORDER:
+        List<LunaModule> item = [];
+        (value as List).cast<String>().forEach((val) {
+          LunaModule? module = LunaModule.fromKey(val);
+          if (module != null) item.add(module);
+        });
+        result = item;
+        break;
+      default:
+        result = value;
+        break;
     }
-    if (this == LunaSeaDatabase.DRAWER_MANUAL_ORDER) {
-      List<LunaModule> item = [];
-      (value as List).cast<String>().forEach((val) {
-        LunaModule? module = LunaModule.fromKey(val);
-        if (module != null) item.add(module);
-      });
-      update(item as T);
-      return;
-    }
-    return super.import(value);
+
+    return super.import(result);
   }
 }

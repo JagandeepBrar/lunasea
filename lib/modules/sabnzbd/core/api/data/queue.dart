@@ -1,5 +1,5 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string/string.dart';
 
 class SABnzbdQueueData {
   String name;

@@ -6,7 +6,7 @@ class NZBGetAPI {
   final Dio _dio;
 
   NZBGetAPI._internal(this._values, this._dio);
-  factory NZBGetAPI.from(ProfileHiveObject profile) {
+  factory NZBGetAPI.from(LunaProfile profile) {
     String _baseURL = Uri.encodeFull(profile.getNZBGet()['host']);
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(profile.getNZBGet()['headers']);

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/firebase/messaging.dart';
+import 'package:lunasea/system/webhooks.dart';
 
 class SettingsNotificationsModuleTile extends StatelessWidget {
   final LunaModule module;
@@ -26,7 +27,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
             icon: Icons.person_rounded,
             onTap: () async {
               if (!LunaFirebaseAuth().isSignedIn) return;
-              String? userId = LunaFirebaseAuth().uid;
+              String userId = LunaFirebaseAuth().uid!;
               await Clipboard.setData(ClipboardData(
                   text: LunaWebhooks.buildUserTokenURL(userId, module)));
               showLunaInfoSnackBar(
@@ -39,7 +40,7 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
           text: 'Device',
           icon: Icons.devices_rounded,
           onTap: () async {
-            String? deviceId = await LunaFirebaseMessaging().token;
+            String deviceId = (await LunaFirebaseMessaging().token)!;
             await Clipboard.setData(ClipboardData(
                 text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
             showLunaInfoSnackBar(

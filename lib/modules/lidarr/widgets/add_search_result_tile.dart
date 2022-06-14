@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAddSearchResultTile extends StatelessWidget {
@@ -63,8 +63,6 @@ class LidarrAddSearchResultTile extends StatelessWidget {
             break;
           default:
             LunaLogger().warning(
-              'LidarrAddSearchResultTile',
-              '_enterDetails',
               'Unknown Case: ${result[0]}',
             );
             break;

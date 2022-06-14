@@ -6,7 +6,7 @@ class LidarrAPI {
   final Dio _dio;
 
   LidarrAPI._internal(this._values, this._dio);
-  factory LidarrAPI.from(ProfileHiveObject profile) {
+  factory LidarrAPI.from(LunaProfile profile) {
     Map<String, dynamic> _headers =
         Map<String, dynamic>.from(profile.getLidarr()['headers']);
     Dio _client = Dio(

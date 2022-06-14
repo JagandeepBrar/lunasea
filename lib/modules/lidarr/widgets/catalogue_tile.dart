@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueTile extends StatefulWidget {
@@ -99,8 +99,7 @@ class _State extends State<LidarrCatalogueTile> {
             break;
           }
         default:
-          LunaLogger().warning('LidarrCatalogueTile', '_enterArtist',
-              'Unknown Case: ${result[0]}');
+          LunaLogger().warning('Unknown Case: ${result[0]}');
       }
   }
 
@@ -118,8 +117,8 @@ class _State extends State<LidarrCatalogueTile> {
           _removeArtist();
           break;
         default:
-          LunaLogger().warning('LidarrCatalogueTile', '_handlePopup',
-              'Invalid method passed through popup. (${values[1]})');
+          LunaLogger()
+              .warning('Invalid method passed through popup. (${values[1]})');
       }
   }
 

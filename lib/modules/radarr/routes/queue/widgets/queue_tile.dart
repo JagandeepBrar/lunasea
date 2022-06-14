@@ -1,7 +1,8 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrQueueTile extends StatelessWidget {
@@ -73,8 +74,7 @@ class RadarrQueueTile extends StatelessWidget {
       LunaTableContent(title: 'Client', body: record.lunaDownloadClient),
       LunaTableContent(title: 'Indexer', body: record.lunaIndexer),
       LunaTableContent(
-          title: 'radarr.Size'.tr(),
-          body: record.size!.toInt().lunaBytesToString()),
+          title: 'radarr.Size'.tr(), body: record.size!.toInt().asBytes()),
       LunaTableContent(
           title: 'Time Left', body: record.timeLeft ?? LunaUI.TEXT_EMDASH),
     ];

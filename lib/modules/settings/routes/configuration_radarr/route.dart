@@ -56,12 +56,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _enabledToggle() {
-    return ValueListenableBuilder(
-      valueListenable: LunaBox.profiles.box.listenable(),
-      builder: (context, dynamic _, __) => LunaBlock(
+    return LunaBox.profiles.watch(
+      builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.RADARR.title}',
         trailing: LunaSwitch(
-          value: LunaProfile.current.radarrEnabled ?? false,
+          value: LunaProfile.current.radarrEnabled,
           onChanged: (value) {
             LunaProfile.current.radarrEnabled = value;
             LunaProfile.current.save();
@@ -104,7 +103,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _discoverUseRadarrSuggestionsToggle() {
     const _db = RadarrDatabase.ADD_DISCOVER_USE_SUGGESTIONS;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Discover Suggestions',
         body: const [TextSpan(text: 'Add Suggested Releases in Discover')],
@@ -118,7 +117,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _queueSize() {
     const _db = RadarrDatabase.QUEUE_PAGE_SIZE;
-    return _db.listen(
+    return _db.watch(
       builder: (context, _) => LunaBlock(
         title: 'Queue Size',
         body: [

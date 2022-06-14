@@ -63,30 +63,31 @@ extension SettingsBannersExtension on SettingsBanners {
   }
 
   /// Return true if the banner should be shown in the UI
-  bool? get shouldShow => LunaBox.alerts.box.get(key, defaultValue: true);
+  bool? get shouldShow => LunaBox.alerts.read(key, fallback: true);
 
   /// Mark the banner as seen, so it will not appear in the UI anymore
-  void markSeen() => LunaBox.alerts.box.put(key, false);
+  void markSeen() => LunaBox.alerts.update(key, false);
 
   /// Create a new [ValueListenableBuilder]
   ValueListenableBuilder banner({
     Color headerColor = Colors.white,
     Color bodyColor = LunaColours.grey,
-  }) =>
-      ValueListenableBuilder(
-        valueListenable: LunaBox.alerts.box.listenable(keys: [key]),
-        builder: (context, box, _) {
-          if (shouldShow!)
-            return LunaBanner(
-              dismissCallback: markSeen,
-              headerText: header,
-              bodyText: body,
-              icon: icon,
-              iconColor: iconColor,
-              headerColor: headerColor,
-              bodyColor: bodyColor,
-            );
-          return const SizedBox(height: 0.0, width: double.infinity);
-        },
-      );
+  }) {
+    return LunaBox.alerts.watch(
+      selectKeys: [key],
+      builder: (context, _) {
+        if (shouldShow!)
+          return LunaBanner(
+            dismissCallback: markSeen,
+            headerText: header,
+            bodyText: body,
+            icon: icon,
+            iconColor: iconColor,
+            headerColor: headerColor,
+            bodyColor: bodyColor,
+          );
+        return const SizedBox(height: 0.0, width: double.infinity);
+      },
+    );
+  }
 }

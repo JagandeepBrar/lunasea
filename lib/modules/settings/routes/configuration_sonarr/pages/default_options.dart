@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class SettingsConfigurationSonarrDefaultOptionsRouter
     extends SettingsPageRouter {

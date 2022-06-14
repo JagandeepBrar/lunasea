@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.radarrHost ?? '';
+    String host = LunaProfile.current.radarrHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.radarrKey ?? '';
+    String apiKey = LunaProfile.current.radarrKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -115,8 +115,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.radarrHost == null || _profile.radarrHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.radarrHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'
@@ -124,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        if (_profile.radarrKey == null || _profile.radarrKey!.isEmpty) {
+        if (_profile.radarrKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.ApiKeyRequired'.tr(),
             message: 'settings.ApiKeyRequiredMessage'
@@ -133,9 +133,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Radarr(
-          host: _profile.radarrHost!,
-          apiKey: _profile.radarrKey!,
-          headers: Map<String, dynamic>.from(_profile.radarrHeaders ?? {}),
+          host: _profile.radarrHost,
+          apiKey: _profile.radarrKey,
+          headers: Map<String, dynamic>.from(_profile.radarrHeaders),
         )
             .system
             .status()

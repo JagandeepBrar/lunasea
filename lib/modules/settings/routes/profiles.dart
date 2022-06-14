@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/profile_tools.dart';
 
 class SettingsProfilesRouter extends SettingsPageRouter {
   SettingsProfilesRouter() : super('/settings/profiles');
@@ -62,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
         final selected = await dialogs.addProfile(context, profiles);
         if (selected.item1) {
-          LunaProfile().create(selected.item2);
+          LunaProfileTools().create(selected.item2);
         }
       },
     );
@@ -82,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         if (selected.item1) {
           final name = await dialogs.renameProfileSelected(context, profiles);
           if (name.item1) {
-            LunaProfile().rename(selected.item2, name.item2);
+            LunaProfileTools().rename(selected.item2, name.item2);
           }
         }
       },
@@ -111,7 +112,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
           final selected = await dialogs.deleteProfile(context, profiles);
           if (selected.item1) {
-            LunaProfile().remove(selected.item2);
+            LunaProfileTools().remove(selected.item2);
           }
         });
   }
@@ -140,7 +141,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
           final selected = await dialogs.enabledProfile(context, profiles);
           if (selected.item1) {
-            LunaProfile().changeTo(selected.item2);
+            LunaProfileTools().changeTo(selected.item2);
           }
         },
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/log.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/types/log_type.dart';
 
 class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
   SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
@@ -60,7 +62,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: '${widget.type?.name ?? 'All'} Logs',
+      title: '${widget.type?.title ?? 'All'} Logs',
       scrollControllers: [scrollController],
     );
   }

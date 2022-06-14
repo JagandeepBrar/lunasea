@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueData {
@@ -70,7 +71,7 @@ class LidarrCatalogueData {
         return dateAdded;
       case LidarrCatalogueSorting.size:
       case LidarrCatalogueSorting.alphabetical:
-        return sizeOnDisk.lunaBytesToString();
+        return sizeOnDisk.asBytes();
     }
   }
 

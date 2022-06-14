@@ -64,7 +64,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.sabnzbdHost ?? '';
+    String host = LunaProfile.current.sabnzbdHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -84,7 +84,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.sabnzbdKey ?? '';
+    String apiKey = LunaProfile.current.sabnzbdKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -115,15 +115,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'Test Connection',
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.sabnzbdHost == null || _profile.sabnzbdHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.sabnzbdHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to SABnzbd',
           );
           return;
         }
-        if (_profile.sabnzbdKey == null || _profile.sabnzbdKey!.isEmpty) {
+        if (_profile.sabnzbdKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to SABnzbd',

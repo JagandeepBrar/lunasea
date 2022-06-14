@@ -1,6 +1,5 @@
-import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/state/module_state.dart';
-import 'package:lunasea/system/profile.dart';
+import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/deprecated/state/module_state.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/api/api.dart';
@@ -29,7 +28,7 @@ class ModuleState extends LunaModuleState {
   API? _api;
   API? get api => _api;
   void resetAPI() {
-    ProfileHiveObject? _profile = LunaProfile.current;
+    LunaProfile? _profile = LunaProfile.current;
     _api = API.from(_profile);
     notifyListeners();
   }

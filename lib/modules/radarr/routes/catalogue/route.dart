@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class RadarrCatalogueRoute extends StatefulWidget {
   const RadarrCatalogueRoute({

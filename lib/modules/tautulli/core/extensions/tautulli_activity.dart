@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliActivityExtension on TautulliActivity {
@@ -24,12 +25,12 @@ extension TautulliActivityExtension on TautulliActivity {
 
   String get lunaBandwidth {
     String value =
-        '${'tautulli.Bandwidth'.tr()}: ${this.totalBandwidth?.lunaKilobytesToString(bytes: false, decimals: 1) ?? '0.0'}ps (';
+        '${'tautulli.Bandwidth'.tr()}: ${this.totalBandwidth?.asKilobits(decimals: 1) ?? '0.0'}ps (';
     value += [
       if ((this.lanBandwidth ?? 0) > 0)
-        'LAN: ${this.lanBandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps',
+        'LAN: ${this.lanBandwidth.asKilobits(decimals: 1)}ps',
       if ((this.wanBandwidth ?? 0) > 0)
-        'WAN: ${this.wanBandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps',
+        'WAN: ${this.wanBandwidth.asKilobits(decimals: 1)}ps',
     ].join(', ');
     value += ')';
     return value;

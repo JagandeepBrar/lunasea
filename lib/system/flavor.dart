@@ -31,6 +31,7 @@ enum LunaFlavor {
   }
 
   static LunaFlavor get current => LunaFlavor.fromKey(LunaEnvironment.flavor);
+  static bool get isStable => current == LunaFlavor.STABLE;
 }
 
 extension LunaFlavorExtension on LunaFlavor {

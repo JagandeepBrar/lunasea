@@ -1,9 +1,8 @@
-import 'package:lunasea/core/models/configuration/profile.dart';
 import 'package:lunasea/database/box.dart';
+import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/system/platform.dart';
-import 'package:lunasea/system/profile.dart';
 import 'package:lunasea/vendor.dart';
 
 class LunaDatabase {
@@ -27,7 +26,7 @@ class LunaDatabase {
     await clear();
 
     const defaultProfile = LunaProfile.DEFAULT_PROFILE;
-    LunaBox.profiles.update(defaultProfile, ProfileHiveObject.empty());
+    LunaBox.profiles.update(defaultProfile, LunaProfile());
     LunaSeaDatabase.ENABLED_PROFILE.update(defaultProfile);
   }
 

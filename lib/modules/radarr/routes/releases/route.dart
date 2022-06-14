@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class RadarrReleasesRouter extends RadarrPageRouter {
   RadarrReleasesRouter() : super('/radarr/releases/:movieid');
@@ -64,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.movieId <= 0) {
-      return LunaInvalidRoute(
+      return const InvalidRoutePage(
         title: 'Releases',
         message: 'Movie Not Found',
       );

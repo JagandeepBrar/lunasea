@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
+import 'package:lunasea/widgets/pages/not_enabled.dart';
 
 class OverseerrRouter extends LunaModuleRouter {
   @override
@@ -27,7 +28,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context!.read<OverseerrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.title);
+            return NotEnabledPage(module: LunaModule.OVERSEERR.title);
           }
           return widget();
         },
@@ -47,7 +48,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context!.read<OverseerrState>().enabled) {
-            return LunaNotEnabledRoute(module: LunaModule.OVERSEERR.title);
+            return NotEnabledPage(module: LunaModule.OVERSEERR.title);
           }
           return handlerFunc(context, params);
         },

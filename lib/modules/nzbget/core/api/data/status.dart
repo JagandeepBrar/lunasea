@@ -1,4 +1,5 @@
-import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/int/duration.dart';
 
 class NZBGetStatusData {
   bool paused;
@@ -20,22 +21,20 @@ class NZBGetStatusData {
   }
 
   String get currentSpeed {
-    return '${speed.lunaBytesToString(decimals: 1)}/s';
+    return '${speed.asBytes(decimals: 1)}/s';
   }
 
   String get remainingString {
-    return remaining.lunaBytesToString(decimals: 1);
+    return remaining.asBytes(decimals: 1);
   }
 
   String get timeLeft {
     return speed == 0
         ? '0:00:00'
-        : ((remaining / speed).floor()).lunaTimestamp();
+        : ((remaining / speed).floor()).asTrackDuration();
   }
 
   String get speedlimitString {
-    return speedlimit == 0
-        ? 'Unlimited'
-        : speedlimit.lunaBytesToString(decimals: 0);
+    return speedlimit == 0 ? 'Unlimited' : speedlimit.asBytes(decimals: 0);
   }
 }

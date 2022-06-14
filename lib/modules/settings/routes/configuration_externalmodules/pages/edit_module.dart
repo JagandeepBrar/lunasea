@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/external_module.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SettingsConfigurationExternalModulesEditRouter
     extends SettingsPageRouter {
@@ -55,13 +57,13 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ExternalModuleHiveObject? _module;
+  LunaExternalModule? _module;
 
   @override
   Widget build(BuildContext context) {
     if (widget.moduleId < 0 ||
         !LunaBox.externalModules.contains(widget.moduleId)) {
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'settings.EditModule'.tr(),
         message: 'settings.ModuleNotFound'.tr(),
       );
@@ -122,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _displayNameTile() {
-    String _displayName = _module!.displayName ?? '';
+    String _displayName = _module!.displayName;
     return LunaBlock(
       title: 'settings.DisplayName'.tr(),
       body: [
@@ -144,7 +146,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _hostTile() {
-    String _host = _module!.host ?? '';
+    String _host = _module!.host;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [

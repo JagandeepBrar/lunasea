@@ -1,4 +1,4 @@
-import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 
 class SABnzbdStatusData {
   bool paused;
@@ -16,10 +16,10 @@ class SABnzbdStatusData {
   });
 
   String get currentSpeed {
-    return '${speed.floor().lunaKilobytesToString(decimals: 1)}/s';
+    return '${speed.floor().asKilobytes(decimals: 1)}/s';
   }
 
   String get remainingSize {
-    return sizeLeft.floor().lunaMegabytesToString(decimals: 1);
+    return sizeLeft.floor().asMegabytes(decimals: 1);
   }
 }

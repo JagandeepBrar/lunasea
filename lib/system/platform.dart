@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/vendor.dart';
 
 enum LunaPlatform {
   ANDROID,
@@ -68,5 +70,35 @@ enum LunaPlatform {
       case LunaPlatform.WINDOWS:
         return 'Windows';
     }
+  }
+
+  Future<int> getLatestBuildNumber() async {
+    const base = 'https://downloads.lunasea.app/latest/';
+    const flavor = LunaEnvironment.flavor;
+    late String endpoint;
+
+    switch (this) {
+      case LunaPlatform.ANDROID:
+        endpoint = '$base/$flavor/VERSION_ANDROID.txt';
+        break;
+      case LunaPlatform.IOS:
+        endpoint = '$base/$flavor/VERSION_IOS.txt';
+        break;
+      case LunaPlatform.LINUX:
+        endpoint = '$base/$flavor/VERSION_LINUX.txt';
+        break;
+      case LunaPlatform.MACOS:
+        endpoint = '$base/$flavor/VERSION_MACOS.txt';
+        break;
+      case LunaPlatform.WEB:
+        endpoint = '$base/$flavor/VERSION_WEB.txt';
+        break;
+      case LunaPlatform.WINDOWS:
+        endpoint = '$base/$flavor/VERSION_WINDOWS.txt';
+        break;
+    }
+
+    final result = await Dio().get(endpoint);
+    return int.parse(result.data as String);
   }
 }

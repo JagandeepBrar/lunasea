@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchState extends LunaModuleState {
@@ -11,9 +12,9 @@ class SearchState extends LunaModuleState {
     _api = api;
   }
 
-  late IndexerHiveObject _indexer;
-  IndexerHiveObject get indexer => _indexer;
-  set indexer(IndexerHiveObject indexer) {
+  late LunaIndexer _indexer;
+  LunaIndexer get indexer => _indexer;
+  set indexer(LunaIndexer indexer) {
     _indexer = indexer;
     api = NewznabAPI.fromIndexer(_indexer);
     notifyListeners();

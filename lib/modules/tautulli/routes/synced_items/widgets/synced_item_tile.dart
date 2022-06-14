@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliSyncedItemTile extends StatelessWidget {
@@ -46,7 +47,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
         TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: _count == 1 ? '1 Item' : '$_count Items'),
         TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-        TextSpan(text: _size.lunaBytesToString(decimals: 1)),
+        TextSpan(text: _size.asBytes(decimals: 1)),
       ],
     );
   }

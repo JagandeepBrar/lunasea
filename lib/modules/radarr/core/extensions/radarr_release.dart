@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/double.dart';
+import 'package:lunasea/extensions/double/time.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension RadarrReleaseExtension on RadarrRelease {
@@ -36,7 +37,7 @@ extension RadarrReleaseExtension on RadarrRelease {
   }
 
   String get lunaAge {
-    if (this.ageHours != null) return this.ageHours!.asTimeAgo;
+    if (this.ageHours != null) return this.ageHours!.asTimeAgo();
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -47,7 +48,7 @@ extension RadarrReleaseExtension on RadarrRelease {
   }
 
   String get lunaSize {
-    if (this.size != null) return this.size.lunaBytesToString();
+    if (this.size != null) return this.size.asBytes();
     return LunaUI.TEXT_EMDASH;
   }
 

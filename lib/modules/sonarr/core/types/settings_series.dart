@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
@@ -61,7 +62,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         if (result) {
           await SonarrAPIController()
               .removeSeries(context: context, series: series)
-              .then((_) => Navigator.of(context).lunaSafetyPop());
+              .then((_) => Navigator.of(context).safetyPop());
         }
         break;
       case SonarrSeriesSettingsType.MONITORED:

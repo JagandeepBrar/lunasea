@@ -58,7 +58,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.title}',
         trailing: LunaSwitch(
-          value: LunaProfile.current.sonarrEnabled ?? false,
+          value: LunaProfile.current.sonarrEnabled,
           onChanged: (value) {
             LunaProfile.current.sonarrEnabled = value;
             LunaProfile.current.save();

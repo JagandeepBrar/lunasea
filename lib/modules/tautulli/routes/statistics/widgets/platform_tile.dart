@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliStatisticsPlatformTile extends StatefulWidget {
@@ -44,7 +45,7 @@ class _State extends State<TautulliStatisticsPlatformTile> {
       widget.data['total_duration'] != null
           ? TextSpan(
               text: Duration(seconds: widget.data['total_duration'])
-                  .lunaTimestampWords,
+                  .asWordsTimestamp(),
               style: TextStyle(
                 color: context.watch<TautulliState>().statisticsType ==
                         TautulliStatsType.DURATION

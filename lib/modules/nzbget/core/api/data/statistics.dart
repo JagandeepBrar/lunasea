@@ -1,4 +1,5 @@
-import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/int/duration.dart';
 
 class NZBGetStatisticsData {
   int freeSpaceHigh;
@@ -32,19 +33,19 @@ class NZBGetStatisticsData {
   }
 
   String get freeSpaceString {
-    return freeSpace.lunaBytesToString(decimals: 1);
+    return freeSpace.asBytes(decimals: 1);
   }
 
   String get downloadedString {
-    return downloaded.lunaBytesToString(decimals: 1);
+    return downloaded.asBytes(decimals: 1);
   }
 
   String get uptimeString {
-    return uptimeSeconds.lunaDuration();
+    return uptimeSeconds.asWordDuration();
   }
 
   String get speedLimitString {
-    String limit = speedLimit.lunaBytesToString();
+    String limit = speedLimit.asBytes();
     return limit == '0.00 B' ? 'No Limit Set' : '$limit/s';
   }
 }

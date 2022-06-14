@@ -72,8 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _appBar() {
-    String title =
-        context.read<SearchState>().indexer.displayName ?? 'search.Search'.tr();
+    String title = context.read<SearchState>().indexer.displayName;
     NewznabCategoryData? category = context.read<SearchState>().activeCategory;
     NewznabSubcategoryData? subcategory =
         context.read<SearchState>().activeSubcategory;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistoryTile extends StatefulWidget {
@@ -98,8 +98,7 @@ class _State extends State<SABnzbdHistoryTile> {
           _handleRefresh('History Deleted');
           break;
         default:
-          LunaLogger().warning('SABnzbdHistoryTile', '_enterDetails',
-              'Unknown Case: ${result[0]}');
+          LunaLogger().warning('Unknown Case: ${result[0]}');
       }
   }
 
@@ -118,8 +117,7 @@ class _State extends State<SABnzbdHistoryTile> {
           _delete();
           break;
         default:
-          LunaLogger().warning('SABnzbdHistoryTile', '_handlePopup',
-              'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 

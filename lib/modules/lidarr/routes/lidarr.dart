@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class Lidarr extends StatefulWidget {
@@ -133,8 +133,7 @@ class _State extends State<Lidarr> {
             break;
           }
         default:
-          LunaLogger().warning(
-              'Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
+          LunaLogger().warning('[_enterAddArtist] Unknown Case: ${result[0]}');
       }
   }
 
@@ -143,8 +142,8 @@ class _State extends State<Lidarr> {
     if (values[0])
       switch (values[1]) {
         case 'web_gui':
-          ProfileHiveObject profile = LunaProfile.current;
-          await profile.lidarrHost?.openLink();
+          LunaProfile profile = LunaProfile.current;
+          await profile.lidarrHost.openLink();
           break;
         case 'update_library':
           await _api
@@ -188,8 +187,7 @@ class _State extends State<Lidarr> {
             break;
           }
         default:
-          LunaLogger()
-              .warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
+          LunaLogger().warning('Unknown Case: ${values[1]}');
       }
   }
 

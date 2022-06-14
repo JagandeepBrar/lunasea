@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
@@ -28,7 +29,7 @@ class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
         if (metadata!.duration != null)
           LunaTableContent(
             title: 'duration',
-            body: metadata!.duration!.lunaTimestamp,
+            body: metadata!.duration!.asNumberTimestamp(),
           ),
         if (metadata?.mediaInfo?.isNotEmpty ?? false)
           LunaTableContent(

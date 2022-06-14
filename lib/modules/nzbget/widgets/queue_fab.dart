@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetQueueFAB extends StatefulWidget {
@@ -112,7 +113,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message:
-                        'For ${(values[1] as int?).lunaDuration(multiplier: 60)}',
+                        'For ${(values[1] as int?).asWordDuration(multiplier: 60)}',
                   ))
               .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
@@ -124,7 +125,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
             .then((_) => showLunaSuccessSnackBar(
                   title: 'Pausing Queue',
                   message:
-                      'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
+                      'For ${(values[1] as int).asWordDuration(multiplier: 60)}',
                 ))
             .catchError((error) => showLunaErrorSnackBar(
                   title: 'Failed to Pause Queue',

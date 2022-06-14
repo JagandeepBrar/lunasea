@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetAppBarStats extends StatelessWidget {
@@ -72,7 +73,7 @@ class NZBGetAppBarStats extends StatelessWidget {
                   .then((_) => showLunaSuccessSnackBar(
                         title: 'Speed Limit Set',
                         message:
-                            'Set to ${(values[1] as int?).lunaKilobytesToString(decimals: 0)}/s',
+                            'Set to ${(values[1] as int?).asKilobytes(decimals: 0)}/s',
                       ))
                   .catchError((error) => showLunaErrorSnackBar(
                         title: 'Failed to Set Speed Limit',
@@ -86,7 +87,7 @@ class NZBGetAppBarStats extends StatelessWidget {
               .then((_) => showLunaSuccessSnackBar(
                     title: 'Speed Limit Set',
                     message:
-                        'Set to ${(values[1] as int?).lunaKilobytesToString(decimals: 0)}/s',
+                        'Set to ${(values[1] as int?).asKilobytes(decimals: 0)}/s',
                   ))
               .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Set Speed Limit',

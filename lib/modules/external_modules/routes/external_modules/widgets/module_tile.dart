@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/database/models/external_module.dart';
+import 'package:lunasea/extensions/string/links.dart';
 
 class ExternalModulesModuleTile extends StatelessWidget {
-  final ExternalModuleHiveObject? module;
+  final LunaExternalModule? module;
 
   const ExternalModulesModuleTile({
     Key? key,
@@ -16,7 +17,7 @@ class ExternalModulesModuleTile extends StatelessWidget {
       title: module!.displayName,
       body: [TextSpan(text: module!.host)],
       trailing: const LunaIconButton.arrow(),
-      onTap: module!.host!.openLink,
+      onTap: module!.host.openLink,
     );
   }
 }

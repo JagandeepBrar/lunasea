@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/system/cache/memory/memory_cache.dart';
 
 class SonarrSeasonDetailsState extends ChangeNotifier {
   final int seriesId;
@@ -46,14 +47,14 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  final LunaLRUCache _episodeHistoryCache = LunaLRUCache(
+  final LunaMemoryCache _episodeHistoryCache = LunaMemoryCache(
     maxEntries: 10,
     module: LunaModule.SONARR,
     id: 'episode_history_cache',
   );
 
-  LunaLRUCache get episodeHistoryCache => _episodeHistoryCache;
-  set episodeHistoryCache(LunaLRUCache episodeHistoryCache) {
+  LunaMemoryCache get episodeHistoryCache => _episodeHistoryCache;
+  set episodeHistoryCache(LunaMemoryCache episodeHistoryCache) {
     episodeHistoryCache = episodeHistoryCache;
     notifyListeners();
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class SonarrSeriesSearchBarViewButton extends StatefulWidget {
   final ScrollController controller;
@@ -25,7 +27,7 @@ class _State extends State<SonarrSeriesSearchBarViewButton> {
           icon: LunaIcons.VIEW,
           onSelected: (result) {
             state.seriesViewType = result;
-            widget.controller.lunaAnimateToStart();
+            widget.controller.animateToStart();
           },
           itemBuilder: (context) =>
               List<PopupMenuEntry<LunaListViewOption>>.generate(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/widgets/pages/not_enabled.dart';
 
 class SonarrRouter extends LunaModuleRouter {
   @override
@@ -38,7 +39,7 @@ abstract class SonarrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: 'Sonarr');
+            return NotEnabledPage(module: 'Sonarr');
           }
           return widget();
         },
@@ -58,7 +59,7 @@ abstract class SonarrPageRouter extends LunaPageRouter {
       handler: Handler(
         handlerFunc: (context, params) {
           if (!homeRoute && !context!.read<SonarrState>().enabled) {
-            return LunaNotEnabledRoute(module: 'Sonarr');
+            return NotEnabledPage(module: 'Sonarr');
           }
           return handlerFunc(context, params);
         },

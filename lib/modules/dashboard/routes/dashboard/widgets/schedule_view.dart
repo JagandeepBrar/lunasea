@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/extensions/datetime.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lunasea/widgets/ui.dart';
@@ -27,7 +27,7 @@ class _State extends State<ScheduleView> {
   @override
   void initState() {
     super.initState();
-    DateTime _floored = context.read<ModuleState>().today!.lunaFloor;
+    DateTime _floored = context.read<ModuleState>().today!.floor();
     _today = _floored;
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/widgets/pages/not_enabled.dart';
 
 class TautulliRouter extends LunaModuleRouter {
   @override
@@ -50,7 +51,7 @@ abstract class TautulliPageRouter extends LunaPageRouter {
         handler: Handler(
           handlerFunc: (context, params) {
             if (!homeRoute && !context!.read<TautulliState>().enabled!) {
-              return LunaNotEnabledRoute(module: 'Tautulli');
+              return NotEnabledPage(module: 'Tautulli');
             }
             return widget();
           },
@@ -69,7 +70,7 @@ abstract class TautulliPageRouter extends LunaPageRouter {
         handler: Handler(
           handlerFunc: (context, params) {
             if (!homeRoute && !context!.read<TautulliState>().enabled!) {
-              return LunaNotEnabledRoute(module: 'Tautulli');
+              return NotEnabledPage(module: 'Tautulli');
             }
             return handlerFunc(context, params);
           },

@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/system/webhooks.dart';
 
 class TautulliWebhooks extends LunaWebhooks {
   @override
@@ -7,8 +8,6 @@ class TautulliWebhooks extends LunaWebhooks {
     _EventType? event = _EventType.PLAYBACK_PAUSE.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
-        'TautulliWebhooks',
-        'handle',
         'Unknown event type: ${data['event'] ?? 'null'}',
       );
     event?.execute(data);

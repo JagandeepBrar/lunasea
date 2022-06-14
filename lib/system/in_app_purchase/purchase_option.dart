@@ -79,11 +79,7 @@ extension ProductDetailsExtension on ProductDetails {
       case _DONATION_10_KEY:
         return PurchaseOption.donation10(this);
       default:
-        LunaLogger().warning(
-          'ProductDetailsExtension',
-          'toDonation',
-          'Unknown id: ${this.id}',
-        );
+        LunaLogger().warning('Unknown id: ${this.id}');
         return null;
     }
   }

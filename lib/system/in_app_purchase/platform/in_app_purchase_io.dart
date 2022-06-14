@@ -1,5 +1,5 @@
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:lunasea/core/state/state.dart';
+import 'package:lunasea/deprecated/state/state.dart';
 import 'package:lunasea/modules/settings/routes/donations/pages/thank_you.dart';
 import 'package:lunasea/system/in_app_purchase/purchase_option.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';

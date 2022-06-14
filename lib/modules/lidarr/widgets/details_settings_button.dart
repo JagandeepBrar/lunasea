@@ -40,8 +40,8 @@ class _State extends State<LidarrDetailsSettingsButton> {
           _removeArtist(context);
           break;
         default:
-          LunaLogger().warning('LidarrDetailsSettingsButton', '_handlePopup',
-              'Invalid method passed through popup. (${values[1]})');
+          LunaLogger()
+              .warning('Invalid method passed through popup. (${values[1]})');
       }
   }
 

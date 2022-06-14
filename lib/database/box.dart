@@ -1,20 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/models/configuration/external_module.dart';
-import 'package:lunasea/core/models/configuration/indexer.dart';
-import 'package:lunasea/core/models/configuration/profile.dart';
-import 'package:lunasea/core/models/logs/log.dart';
+import 'package:lunasea/database/models/external_module.dart';
+import 'package:lunasea/database/models/indexer.dart';
+import 'package:lunasea/database/models/log.dart';
+import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/vendor.dart';
 
 enum LunaBox<T> {
   alerts<dynamic>('alerts'),
-  externalModules<ExternalModuleHiveObject>('external_modules'),
-  indexers<IndexerHiveObject>('indexers'),
+  externalModules<LunaExternalModule>('external_modules'),
+  indexers<LunaIndexer>('indexers'),
   logs<LunaLogHiveObject>('logs'),
   lunasea<dynamic>('lunasea'),
-  profiles<ProfileHiveObject>('profiles');
+  profiles<LunaProfile>('profiles');
 
   final String key;
   const LunaBox(this.key);

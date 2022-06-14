@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/utils/links.dart';
 
 class SettingsResourcesRouter extends SettingsPageRouter {
   SettingsResourcesRouter() : super('/settings/resources');
@@ -45,51 +46,51 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'settings.BuildChannels'.tr(),
           body: [TextSpan(text: 'settings.BuildChannelsDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.BUILD_CHANNELS),
-          onTap: LunaLinks.BUILD_CHANNELS.launch,
+          onTap: LunaLinkedContent.BUILD_CHANNELS.launch,
         ),
         LunaBlock(
           title: 'settings.Documentation'.tr(),
           body: [TextSpan(text: 'settings.DocumentationDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.DOCUMENTATION),
-          onTap: LunaLinks.DOCUMENTATION.launch,
+          onTap: LunaLinkedContent.DOCUMENTATION.launch,
         ),
         LunaBlock(
           title: 'settings.Localization'.tr(),
           body: [TextSpan(text: 'settings.WeblateDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.TRANSLATE),
-          onTap: LunaLinks.WEBLATE.launch,
+          onTap: LunaLinkedContent.WEBLATE.launch,
         ),
         LunaDivider(),
         LunaBlock(
           title: 'Discord',
           body: [TextSpan(text: 'settings.DiscordDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.DISCORD),
-          onTap: LunaLinks.DISCORD.launch,
+          onTap: LunaLinkedContent.DISCORD.launch,
         ),
         LunaBlock(
           title: 'settings.FeedbackBoard'.tr(),
           body: [TextSpan(text: 'settings.FeedbackBoardDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.FEEDBACK),
-          onTap: LunaLinks.FEEDBACK_BOARD.launch,
+          onTap: LunaLinkedContent.FEEDBACK_BOARD.launch,
         ),
         LunaBlock(
           title: 'Reddit',
           body: [TextSpan(text: 'settings.RedditDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.REDDIT),
-          onTap: LunaLinks.REDDIT.launch,
+          onTap: LunaLinkedContent.REDDIT.launch,
         ),
         LunaDivider(),
         LunaBlock(
           title: 'GitHub',
           body: [TextSpan(text: 'settings.GitHubDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.GITHUB),
-          onTap: LunaLinks.GITHUB.launch,
+          onTap: LunaLinkedContent.GITHUB.launch,
         ),
         LunaBlock(
           title: 'settings.Website'.tr(),
           body: [TextSpan(text: 'settings.WebsiteDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.HOME),
-          onTap: LunaLinks.WEBSITE.launch,
+          onTap: LunaLinkedContent.WEBSITE.launch,
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/types/list_view_option.dart';
 
 class SonarrState extends LunaModuleState {
   SonarrState() {
@@ -55,13 +56,13 @@ class SonarrState extends LunaModuleState {
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
-    ProfileHiveObject _profile = LunaProfile.current;
+    LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
     _api = null;
-    _enabled = _profile.sonarrEnabled ?? false;
-    _host = _profile.sonarrHost ?? '';
-    _apiKey = _profile.sonarrKey ?? '';
-    _headers = _profile.sonarrHeaders ?? {};
+    _enabled = _profile.sonarrEnabled;
+    _host = _profile.sonarrHost;
+    _apiKey = _profile.sonarrKey;
+    _headers = _profile.sonarrHeaders;
     // Create the API instance if Sonarr is enabled
     if (_enabled) {
       _api = Sonarr(

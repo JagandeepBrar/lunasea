@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SettingsConfigurationSearchEditRouter extends SettingsPageRouter {
   SettingsConfigurationSearchEditRouter()
@@ -47,15 +49,15 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  IndexerHiveObject? _indexer;
+  LunaIndexer? _indexer;
 
   @override
   Widget build(BuildContext context) {
     if (widget.indexerId < 0)
-      return LunaInvalidRoute(
+      return const InvalidRoutePage(
           title: 'Edit Indexer', message: 'Indexer Not Found');
     if (!LunaBox.indexers.contains(widget.indexerId))
-      return LunaInvalidRoute(
+      return const InvalidRoutePage(
           title: 'Edit Indexer', message: 'Indexer Not Found');
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
@@ -117,7 +119,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Display Name',
       body: [
         TextSpan(
-          text: _indexer!.displayName == null || _indexer!.displayName!.isEmpty
+          text: _indexer?.displayName.isEmpty ?? true
               ? 'Not Set'
               : _indexer!.displayName,
         ),
@@ -125,7 +127,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Display Name', prefill: _indexer!.displayName!);
+            .editText(context, 'Display Name', prefill: _indexer!.displayName);
         if (values.item1) _indexer!.displayName = values.item2;
         _indexer!.save();
       },
@@ -137,15 +139,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Indexer API Host',
       body: [
         TextSpan(
-          text: _indexer!.host == null || _indexer!.host!.isEmpty
-              ? 'Not Set'
-              : _indexer!.host,
+          text: _indexer?.host.isEmpty ?? true ? 'Not Set' : _indexer!.host,
         ),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Indexer API Host', prefill: _indexer!.host!);
+            .editText(context, 'Indexer API Host', prefill: _indexer!.host);
         if (values.item1) _indexer!.host = values.item2;
         _indexer!.save();
       },
@@ -157,15 +157,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Indexer API Key',
       body: [
         TextSpan(
-          text: _indexer!.apiKey == null || _indexer!.apiKey!.isEmpty
-              ? 'Not Set'
-              : _indexer!.apiKey,
+          text: _indexer?.apiKey.isEmpty ?? true ? 'Not Set' : _indexer!.apiKey,
         ),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> values = await LunaDialogs()
-            .editText(context, 'Indexer API Key', prefill: _indexer!.apiKey!);
+            .editText(context, 'Indexer API Key', prefill: _indexer!.apiKey);
         if (values.item1) _indexer!.apiKey = values.item2;
         _indexer!.save();
       },

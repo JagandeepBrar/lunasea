@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliSessionExtension on TautulliSession {
@@ -92,8 +94,8 @@ extension TautulliSessionExtension on TautulliSession {
                 ((this.streamDuration ?? const Duration(seconds: 0)).inSeconds *
                         _percent)
                     .floor())
-        .lunaTimestamp;
-    String _total = this.streamDuration!.lunaTimestamp;
+        .asNumberTimestamp();
+    String _total = this.streamDuration!.asNumberTimestamp();
     return '$_progress/$_total (${this.progressPercent}%)';
   }
 
@@ -137,13 +139,13 @@ extension TautulliSessionExtension on TautulliSession {
     return [
       this.qualityProfile ?? LunaUI.TEXT_EMDASH,
       if (this.streamBitrate != null)
-        '(${this.streamBitrate.lunaKilobytesToString(bytes: false, decimals: 1)}ps)',
+        '(${this.streamBitrate.asKilobits(decimals: 1)}ps)',
     ].join(' ');
   }
 
   String get lunaBandwidth {
     if (this.bandwidth != null)
-      return '${this.bandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps';
+      return '${this.bandwidth.asKilobits(decimals: 1)}ps';
     return LunaUI.TEXT_EMDASH;
   }
 

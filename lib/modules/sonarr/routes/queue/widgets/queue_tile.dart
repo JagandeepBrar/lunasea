@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrQueueTileType {
@@ -171,8 +172,7 @@ class _State extends State<SonarrQueueTile> {
       ),
       LunaTableContent(
         title: 'sonarr.Size'.tr(),
-        body: widget.queueRecord.size?.floor().lunaBytesToString() ??
-            LunaUI.TEXT_EMDASH,
+        body: widget.queueRecord.size?.floor().asBytes() ?? LunaUI.TEXT_EMDASH,
       ),
       LunaTableContent(
         title: 'sonarr.TimeLeft'.tr(),

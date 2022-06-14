@@ -81,7 +81,7 @@ class _State extends State<LidarrDetailsArtist> {
         LunaIconButton(
           icon: LunaIcons.LINK,
           onPressed: () async {
-            LinksSheet(artist: _arguments!.data!).show(context: context);
+            LinksSheet(artist: _arguments!.data!).show();
           },
         ),
         LidarrDetailsEditButton(data: _arguments!.data),

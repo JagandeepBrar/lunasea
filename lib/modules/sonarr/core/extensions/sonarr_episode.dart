@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrEpisodeExtension on SonarrEpisode {
@@ -33,7 +34,7 @@ extension SonarrEpisodeExtension on SonarrEpisode {
     }
     if (file == null) return 'lunasea.Unknown'.tr();
     String quality = file.quality?.quality?.name ?? 'lunasea.Unknown'.tr();
-    String size = file.size?.lunaBytesToString() ?? '0.00 B';
+    String size = file.size?.asBytes() ?? '0.00 B';
     return '$quality ${LunaUI.TEXT_EMDASH} $size';
   }
 

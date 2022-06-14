@@ -60,7 +60,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.RADARR.title}',
         trailing: LunaSwitch(
-          value: LunaProfile.current.radarrEnabled ?? false,
+          value: LunaProfile.current.radarrEnabled,
           onChanged: (value) {
             LunaProfile.current.radarrEnabled = value;
             LunaProfile.current.save();

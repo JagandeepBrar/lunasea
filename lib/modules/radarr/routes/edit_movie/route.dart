@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class RadarrMoviesEditRouter extends RadarrPageRouter {
   RadarrMoviesEditRouter() : super('/radarr/editmovie/:movieid');
@@ -65,7 +66,7 @@ class _State extends State<_Widget>
   @override
   Widget build(BuildContext context) {
     if (widget.movieId <= 0) {
-      return LunaInvalidRoute(
+      return InvalidRoutePage(
         title: 'radarr.EditMovie'.tr(),
         message: 'radarr.MovieNotFound'.tr(),
       );

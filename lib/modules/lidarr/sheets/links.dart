@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr/core/api.dart';
 import 'package:lunasea/widgets/ui.dart';
 

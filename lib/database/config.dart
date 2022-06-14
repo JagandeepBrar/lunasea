@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/database.dart';
+import 'package:lunasea/database/models/external_module.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/database/table.dart';
 
 class LunaConfig {
@@ -40,7 +42,7 @@ class LunaConfig {
 
     for (final item in data) {
       final key = item['key'];
-      final obj = ProfileHiveObject.fromMap(item);
+      final obj = LunaProfile.fromJson((item as Map).cast<String, dynamic>());
       LunaBox.profiles.update(key, obj);
     }
   }
@@ -49,7 +51,7 @@ class LunaConfig {
     if (data == null) return;
 
     for (final indexer in data) {
-      final obj = IndexerHiveObject.fromMap(indexer);
+      final obj = LunaIndexer.fromJson(indexer);
       LunaBox.indexers.create(obj);
     }
   }
@@ -58,7 +60,7 @@ class LunaConfig {
     if (data == null) return;
 
     for (final module in data) {
-      final obj = ExternalModuleHiveObject.fromMap(module);
+      final obj = LunaExternalModule.fromJson(module);
       LunaBox.externalModules.create(obj);
     }
   }

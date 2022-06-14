@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.nzbgetHost ?? '';
+    String host = LunaProfile.current.nzbgetHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -85,7 +85,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _username() {
-    String username = LunaProfile.current.nzbgetUser ?? '';
+    String username = LunaProfile.current.nzbgetUser;
     return LunaBlock(
       title: 'settings.Username'.tr(),
       body: [
@@ -108,7 +108,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _password() {
-    String password = LunaProfile.current.nzbgetPass ?? '';
+    String password = LunaProfile.current.nzbgetPass;
     return LunaBlock(
       title: 'settings.Password'.tr(),
       body: [
@@ -144,8 +144,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.nzbgetHost == null || _profile.nzbgetHost!.isEmpty) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.nzbgetHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'settings.HostRequired'.tr(),
             message: 'settings.HostRequiredMessage'

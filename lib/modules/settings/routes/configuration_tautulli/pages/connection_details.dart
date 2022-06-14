@@ -63,7 +63,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _host() {
-    String host = LunaProfile.current.tautulliHost ?? '';
+    String host = LunaProfile.current.tautulliHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
       body: [TextSpan(text: host.isEmpty ? 'lunasea.NotSet'.tr() : host)],
@@ -71,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(
           context,
-          prefill: LunaProfile.current.tautulliHost ?? '',
+          prefill: LunaProfile.current.tautulliHost,
         );
         if (_values.item1) {
           LunaProfile.current.tautulliHost = _values.item2;
@@ -83,7 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _apiKey() {
-    String apiKey = LunaProfile.current.tautulliKey ?? '';
+    String apiKey = LunaProfile.current.tautulliKey;
     return LunaBlock(
       title: 'settings.ApiKey'.tr(),
       body: [
@@ -98,7 +98,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         Tuple2<bool, String> _values = await LunaDialogs().editText(
           context,
           'settings.ApiKey'.tr(),
-          prefill: LunaProfile.current.tautulliKey ?? '',
+          prefill: LunaProfile.current.tautulliKey,
         );
         if (_values.item1) {
           LunaProfile.current.tautulliKey = _values.item2;
@@ -114,15 +114,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       text: 'settings.TestConnection'.tr(),
       icon: LunaIcons.CONNECTION_TEST,
       onTap: () async {
-        ProfileHiveObject _profile = LunaProfile.current;
-        if (_profile.tautulliHost?.isEmpty ?? true) {
+        LunaProfile _profile = LunaProfile.current;
+        if (_profile.tautulliHost.isEmpty) {
           showLunaErrorSnackBar(
             title: 'Host Required',
             message: 'Host is required to connect to Tautulli',
           );
           return;
         }
-        if (_profile.tautulliKey?.isEmpty ?? true) {
+        if (_profile.tautulliKey.isEmpty) {
           showLunaErrorSnackBar(
             title: 'API Key Required',
             message: 'API key is required to connect to Tautulli',
@@ -130,10 +130,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           return;
         }
         Tautulli(
-                host: _profile.tautulliHost!,
-                apiKey: _profile.tautulliKey!,
-                headers:
-                    Map<String, dynamic>.from(_profile.tautulliHeaders ?? {}))
+                host: _profile.tautulliHost,
+                apiKey: _profile.tautulliKey,
+                headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
             .miscellaneous
             .arnold()
             .then((_) => showLunaSuccessSnackBar(

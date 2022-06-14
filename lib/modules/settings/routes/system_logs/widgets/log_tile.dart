@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/log.dart';
 
 class SettingsSystemLogTile extends StatelessWidget {
   final LunaLogHiveObject log;
@@ -18,7 +19,7 @@ class SettingsSystemLogTile extends StatelessWidget {
       collapsedSubtitles: [
         TextSpan(text: dateTime),
         TextSpan(
-          text: log.type.name.toUpperCase(),
+          text: log.type.title.toUpperCase(),
           style: TextStyle(
             color: log.type.color,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -27,7 +28,7 @@ class SettingsSystemLogTile extends StatelessWidget {
       ],
       expandedHighlightedNodes: [
         LunaHighlightedNode(
-          text: log.type.name.toUpperCase(),
+          text: log.type.title.toUpperCase(),
           backgroundColor: log.type.color,
         ),
         LunaHighlightedNode(

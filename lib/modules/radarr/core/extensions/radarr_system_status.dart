@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/string.dart';
+import 'package:lunasea/extensions/duration/timestamp.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 extension RadarrSystemStatusExtension on RadarrSystemStatus {
@@ -53,7 +54,7 @@ extension RadarrSystemStatusExtension on RadarrSystemStatus {
     if (this.startTime != null && this.startTime!.isNotEmpty) {
       DateTime? _start = DateTime.tryParse(this.startTime!);
       if (_start != null)
-        return DateTime.now().difference(_start).lunaTimestampWords;
+        return DateTime.now().difference(_start).asWordsTimestamp();
     }
     return LunaUI.TEXT_EMDASH;
   }

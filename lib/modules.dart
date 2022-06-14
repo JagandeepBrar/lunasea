@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/extensions/string_links.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/core.dart';
 
@@ -124,23 +124,23 @@ extension LunaModuleEnablementExtension on LunaModule {
       case LunaModule.SETTINGS:
         return true;
       case LunaModule.LIDARR:
-        return LunaProfile.current.lidarrEnabled ?? false;
+        return LunaProfile.current.lidarrEnabled;
       case LunaModule.NZBGET:
-        return LunaProfile.current.nzbgetEnabled ?? false;
+        return LunaProfile.current.nzbgetEnabled;
       case LunaModule.OVERSEERR:
-        return LunaProfile.current.overseerrEnabled ?? false;
+        return LunaProfile.current.overseerrEnabled;
       case LunaModule.RADARR:
-        return LunaProfile.current.radarrEnabled ?? false;
+        return LunaProfile.current.radarrEnabled;
       case LunaModule.SABNZBD:
-        return LunaProfile.current.sabnzbdEnabled ?? false;
+        return LunaProfile.current.sabnzbdEnabled;
       case LunaModule.SEARCH:
         return !LunaBox.indexers.isEmpty;
       case LunaModule.SONARR:
-        return LunaProfile.current.sonarrEnabled ?? false;
+        return LunaProfile.current.sonarrEnabled;
       case LunaModule.TAUTULLI:
-        return LunaProfile.current.tautulliEnabled ?? false;
+        return LunaProfile.current.tautulliEnabled;
       case LunaModule.WAKE_ON_LAN:
-        return LunaProfile.current.wakeOnLANEnabled ?? false;
+        return LunaProfile.current.wakeOnLANEnabled;
       case LunaModule.EXTERNAL_MODULES:
         return !LunaBox.externalModules.isEmpty;
     }

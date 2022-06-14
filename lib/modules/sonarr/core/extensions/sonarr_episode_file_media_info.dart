@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 extension SonarrEpisodeFileMediaInfoExtension on SonarrEpisodeFileMediaInfo {
@@ -8,8 +9,7 @@ extension SonarrEpisodeFileMediaInfoExtension on SonarrEpisodeFileMediaInfo {
   }
 
   String get lunaVideoBitrate {
-    if (videoBitrate != null)
-      return '${videoBitrate.lunaBytesToString(bytes: false)}/s';
+    if (videoBitrate != null) return '${videoBitrate.asBits()}/s';
     return LunaUI.TEXT_EMDASH;
   }
 
@@ -34,8 +34,7 @@ extension SonarrEpisodeFileMediaInfoExtension on SonarrEpisodeFileMediaInfo {
   }
 
   String get lunaAudioBitrate {
-    if (audioBitrate != null)
-      return '${audioBitrate.lunaBytesToString(bytes: false)}/s';
+    if (audioBitrate != null) return '${audioBitrate.asBits()}/s';
     return LunaUI.TEXT_EMDASH;
   }
 

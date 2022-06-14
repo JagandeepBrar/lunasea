@@ -4,9 +4,8 @@ import 'package:lunasea/database/database.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:lunasea/core/cache/image_cache/image_cache.dart';
 import 'package:lunasea/modules/settings/routes/system/widgets/build_details.dart';
-import 'package:lunasea/system/build.dart';
+import 'package:lunasea/system/cache/image/image_cache.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
   SettingsSystemRouter() : super('/settings/system');
@@ -26,8 +25,6 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final packageInfo = PackageInfo.fromPlatform();
-  final checkForUpdates = LunaBuild().checkForUpdates();
 
   @override
   Widget build(BuildContext context) {

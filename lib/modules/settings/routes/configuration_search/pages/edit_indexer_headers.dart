@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
 class SettingsConfigurationSearchEditHeadersRouter extends SettingsPageRouter {
   SettingsConfigurationSearchEditHeadersRouter()
@@ -47,16 +49,17 @@ class _Widget extends StatefulWidget {
 
 class _State extends State<_Widget> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  IndexerHiveObject? _indexer;
+  LunaIndexer? _indexer;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.indexerId < 0)
-      return LunaInvalidRoute(
-          title: 'Custom Headers', message: 'Indexer Not Found');
-    if (!LunaBox.indexers.contains(widget.indexerId))
-      return LunaInvalidRoute(
-          title: 'Custom Headers', message: 'Indexer Not Found');
+    if (widget.indexerId < 0 || !LunaBox.indexers.contains(widget.indexerId)) {
+      return const InvalidRoutePage(
+        title: 'Custom Headers',
+        message: 'Indexer Not Found',
+      );
+    }
+
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar() as PreferredSizeWidget?,
@@ -94,7 +97,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         return LunaListView(
           controller: scrollController,
           children: [
-            if ((_indexer!.headers ?? {}).isEmpty)
+            if (_indexer!.headers.isEmpty)
               LunaMessage.inList(text: 'No Headers Added'),
             ..._list(),
           ],
@@ -104,8 +107,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   List<Widget> _list() {
-    Map<String, dynamic> headers =
-        (_indexer!.headers ?? {}).cast<String, dynamic>();
+    final headers = _indexer!.headers.cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
         .map<LunaBlock>((key) => _headerBlock(key, headers[key]))

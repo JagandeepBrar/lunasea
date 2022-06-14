@@ -42,6 +42,7 @@ ios/Flutter/.last_build_id
 output/
 *.packages
 coverage/
+lib/system/environment.dart
 
 # XCode Build Artifacts
 ios/build/

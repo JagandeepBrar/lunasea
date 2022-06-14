@@ -216,9 +216,10 @@ jobs:
 
       - name: Generate Environment Configuration
         run: |
-          echo FLAVOR=${{ inputs.flavor }} > .env
-          echo COMMIT=${{ github.sha }} >> .env
-          echo BUILD=${{ needs.build-details.outputs.build-number }} >> .env
+          export FLAVOR=${{ inputs.flavor }}
+          export COMMIT=${{ github.sha }}
+          export BUILD=${{ needs.build-details.outputs.build-number }}
+          flutter packages pub run environment_config:generate
      
       - name: Generate Localization
         run: dart ${{github.workspace }}/scripts/generate_localization.dart
@@ -231,6 +232,6 @@ jobs:
         with:
           name: core-files
           path: |
-            ${{ github.workspace }}/.env
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
+            ${{ github.workspace }}/lib/system/environment.dart

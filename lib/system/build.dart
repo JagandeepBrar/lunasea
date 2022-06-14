@@ -21,7 +21,7 @@ class LunaBuild {
   Future<Tuple2<bool, int?>> isLatestBuildNumber() async {
     try {
       final latest = await LunaPlatform.current.getLatestBuildNumber();
-      final current = int.parse(LunaEnvironment.build);
+      const current = LunaEnvironment.build;
       return Tuple2(latest > current, latest);
     } catch (error, stack) {
       LunaLogger().error(

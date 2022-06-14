@@ -246,13 +246,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
-  dotenv:
-    dependency: transitive
-    description:
-      name: dotenv
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   easy_localization:
     dependency: "direct main"
     description:
@@ -281,20 +274,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.1"
-  envify:
-    dependency: "direct main"
-    description:
-      name: envify
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
-  envify_generator:
+  environment_config:
     dependency: "direct dev"
     description:
-      name: envify_generator
+      name: environment_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "3.1.0"
   equatable:
     dependency: transitive
     description:

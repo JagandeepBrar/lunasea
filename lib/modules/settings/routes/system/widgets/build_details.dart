@@ -5,7 +5,7 @@ import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/platform.dart';
 import 'package:lunasea/vendor.dart';
-import 'package:lunasea/widgets/changelog/sheet.dart';
+import 'package:lunasea/utils/changelog/sheet.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class BuildDetails extends ConsumerStatefulWidget {

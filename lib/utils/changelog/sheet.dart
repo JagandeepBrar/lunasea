@@ -4,8 +4,8 @@ import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/vendor.dart';
-import 'package:lunasea/widgets/changelog/change.dart';
-import 'package:lunasea/widgets/changelog/changelog.dart';
+import 'package:lunasea/utils/changelog/change.dart';
+import 'package:lunasea/utils/changelog/changelog.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class ChangelogSheet extends LunaBottomModalSheet {

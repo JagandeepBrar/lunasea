@@ -5,14 +5,6 @@ targets:
       - pubspec.*
       - $package$
     builders:
-      # Envify
-      envify_generator|envify:
-        enabled: true
-        generate_for:
-          exclude:
-            - lib
-          include:
-            - lib/system/environment.dart
       # Hive
       hive_generator:
         enabled: true

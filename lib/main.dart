@@ -19,7 +19,7 @@ import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/system/window_manager/window_manager.dart';
 import 'package:lunasea/system/platform.dart';
-import 'package:lunasea/widgets/changelog/sheet.dart';
+import 'package:lunasea/utils/changelog/sheet.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 ///

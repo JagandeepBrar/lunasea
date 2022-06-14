@@ -1,5 +1,0 @@
-{
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///Users/jagandeepbrar/Git/LunaSea/.github/workflows/deploy.yml"
-  }
-}

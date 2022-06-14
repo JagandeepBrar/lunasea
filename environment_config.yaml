@@ -1,0 +1,17 @@
+environment_config:
+  path: system/environment.dart
+  class: LunaEnvironment
+
+  fields:
+    build:
+      type: int
+      default: 9999999999
+      env_var: BUILD
+    commit:
+      type: String
+      default: master
+      env_var: COMMIT
+    flavor:
+      type: String
+      default: edge
+      env_var: FLAVOR

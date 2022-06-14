@@ -22,7 +22,7 @@ jobs:
     name: Prepare
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -99,7 +99,7 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
     with:
       build-title: ${{ needs.prepare.outputs.build-title }}
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -119,7 +119,7 @@ jobs:
     needs: [ prepare, build-android ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -135,7 +135,7 @@ jobs:
     needs: [ prepare, build-ios ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -156,7 +156,7 @@ jobs:
     needs: [ prepare, build-linux ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -172,7 +172,7 @@ jobs:
     needs: [ prepare, build-macos ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -193,7 +193,7 @@ jobs:
     needs: [ prepare, build-web ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -209,7 +209,7 @@ jobs:
     needs: [ prepare, build-windows ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_windows.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -233,7 +233,7 @@ jobs:
       (needs.publish-windows.result == 'success' || needs.publish-windows.result == 'skipped')
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
-      flavor: ${{ github.event.inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor || 'edge' }}
       build-title: ${{ needs.prepare.outputs.build-title }}
       enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android.result == 'success' }}
       enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios.result == 'success' }}

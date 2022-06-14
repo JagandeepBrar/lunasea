@@ -29,7 +29,7 @@ Build App Bundle
 [bundle exec] fastlane android build_apk
 ```
 
-Build APKs
+Build APK
 
 ### android deploy_playstore
 

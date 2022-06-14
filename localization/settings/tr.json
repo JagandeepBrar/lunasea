@@ -242,5 +242,12 @@
     "settings.SystemStatusDescription": "Barındırılan Hizmetler için Durum Sayfası",
     "settings.PasswordHint1": "Parolanız özel karakterler içeriyorsa, daha iyi destek için kullanıcı adınız ve parolanızla temel bir kimlik doğrulama başlığı eklemeyi düşünün",
     "settings.ProfilesBannerLine1": "Profiller, LunaSea'ye birden fazla modül örneği eklemenize izin verir. Ana gezinme çekmecesinde profiller arasında geçiş yapabilirsiniz.",
-    "settings.ProfilesBannerLine2": "Newznab dizin oluşturucu arama ve harici modüller etkinleştirilir ve tüm profillerde paylaşılır."
+    "settings.ProfilesBannerLine2": "Newznab dizin oluşturucu arama ve harici modüller etkinleştirilir ve tüm profillerde paylaşılır.",
+    "settings.DownloadUpdate": "Güncellemeyi İndir",
+    "settings.Platform": "Platform",
+    "settings.Build": "İnşa",
+    "settings.EnableInAppNotifications": "Uygulama İçi Bildirimleri Etkinleştir",
+    "settings.UpToDate": "Güncel",
+    "settings.Version": "Sürüm",
+    "settings.Channel": "Kanal"
 }

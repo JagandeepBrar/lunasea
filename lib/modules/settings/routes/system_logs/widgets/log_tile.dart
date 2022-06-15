@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/log.dart';
 
 class SettingsSystemLogTile extends StatelessWidget {
-  final LunaLogHiveObject log;
+  final LunaLog log;
 
   const SettingsSystemLogTile({
     Key? key,

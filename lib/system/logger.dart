@@ -21,7 +21,7 @@ class LunaLogger {
 
   Future<void> _compact([int count = 50]) async {
     if (LunaBox.logs.data.length <= count) return;
-    List<LunaLogHiveObject> logs = LunaBox.logs.data.toList();
+    List<LunaLog> logs = LunaBox.logs.data.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
   }
@@ -35,7 +35,7 @@ class LunaLogger {
   Future<void> clear() async => LunaBox.logs.clear();
 
   void debug(String message) {
-    LunaLogHiveObject log = LunaLogHiveObject.withMessage(
+    LunaLog log = LunaLog.withMessage(
       type: LunaLogType.DEBUG,
       message: message,
     );
@@ -43,7 +43,7 @@ class LunaLogger {
   }
 
   void warning(String message, [String? className, String? methodName]) {
-    LunaLogHiveObject log = LunaLogHiveObject.withMessage(
+    LunaLog log = LunaLog.withMessage(
       type: LunaLogType.WARNING,
       message: message,
       className: className,
@@ -54,7 +54,7 @@ class LunaLogger {
 
   void error(String message, dynamic error, StackTrace? stackTrace) {
     if (error is! NetworkImageLoadException) {
-      LunaLogHiveObject log = LunaLogHiveObject.withError(
+      LunaLog log = LunaLog.withError(
         type: LunaLogType.ERROR,
         message: message,
         error: error,
@@ -71,7 +71,7 @@ class LunaLogger {
 
   void critical(dynamic error, StackTrace stackTrace) {
     if (error is! NetworkImageLoadException) {
-      LunaLogHiveObject log = LunaLogHiveObject.withError(
+      LunaLog log = LunaLog.withError(
         type: LunaLogType.CRITICAL,
         message: error?.toString() ?? LunaUI.TEXT_EMDASH,
         error: error,

@@ -69,7 +69,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return LunaBox.logs.watch(builder: (context, _) {
-      List<LunaLogHiveObject> logs = filter();
+      List<LunaLog> logs = filter();
       if (logs.isEmpty) {
         return LunaMessage.goBack(
           context: context,
@@ -86,8 +86,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     });
   }
 
-  List<LunaLogHiveObject> filter() {
-    List<LunaLogHiveObject> logs;
+  List<LunaLog> filter() {
+    List<LunaLog> logs;
     const box = LunaBox.logs;
 
     switch (widget.type) {

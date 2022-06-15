@@ -244,5 +244,20 @@
     "settings.FailedToUpdateEmail": "Échec de la mise à jour du courriel",
     "settings.UpdateEmail": "Modifier le courriel",
     "settings.BuildChannels": "Canal de compilation",
-    "settings.BuildChannelsDescription": "En savoir plus sur les canaux de compilation"
+    "settings.BuildChannelsDescription": "En savoir plus sur les canaux de compilation",
+    "settings.AddedProfile": "Profils ajoutés",
+    "settings.Channel": "Canal",
+    "settings.DeletedProfile": "Profil supprimé",
+    "settings.DownloadUpdate": "Télécharger la mise à jour",
+    "settings.EnableInAppNotifications": "Activer les notifications In-App",
+    "settings.NoAdditionalProfilesAdded": "Aucun profil supplémentaire n'a été ajouté",
+    "settings.ProfileToProfile": "\"{}\" à \"{}\"",
+    "settings.UpToDate": "A jour",
+    "settings.ViewTypeLogs": "Voir {} journaux",
+    "settings.ChangedProfile": "Profil modifié",
+    "settings.Build": "Compilation",
+    "settings.NoProfilesFound": "Aucun profil trouvé",
+    "settings.RenamedProfile": "Profil renommé",
+    "settings.Platform": "Plateforme",
+    "settings.Version": "Version"
 }

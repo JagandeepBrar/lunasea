@@ -3,62 +3,64 @@ import 'package:lunasea/core.dart';
 
 part 'indexer_icon.g.dart';
 
+const _GENERIC = 'generic';
+const _DOGNZB = 'dognzb';
+const _DRUNKENSLUG = 'drunkenslug';
+const _NZBFINDER = 'nzbfinder';
+const _NZBGEEK = 'nzbgeek';
+const _NZBHYDRA = 'nzbhydra';
+const _NZBSU = 'nzbsu';
+
+@JsonEnum()
 @HiveType(typeId: 22, adapterName: 'LunaIndexerIconAdapter')
 enum LunaIndexerIcon {
+  @JsonValue(_GENERIC)
   @HiveField(0)
-  GENERIC,
-  @HiveField(1)
-  DOGNZB,
-  @HiveField(2)
-  DRUNKENSLUG,
-  @HiveField(3)
-  NZBFINDER,
-  @HiveField(4)
-  NZBGEEK,
-  @HiveField(5)
-  NZBHYDRA,
-  @HiveField(6)
-  NZBSU,
-}
+  GENERIC(_GENERIC),
 
-extension LunaIndexerIconExtension on LunaIndexerIcon {
-  LunaIndexerIcon fromKey(String key) {
+  @JsonValue(_DOGNZB)
+  @HiveField(1)
+  DOGNZB(_DOGNZB),
+
+  @JsonValue(_DRUNKENSLUG)
+  @HiveField(2)
+  DRUNKENSLUG(_DRUNKENSLUG),
+
+  @JsonValue(_NZBFINDER)
+  @HiveField(3)
+  NZBFINDER(_NZBFINDER),
+
+  @JsonValue(_NZBGEEK)
+  @HiveField(4)
+  NZBGEEK(_NZBGEEK),
+
+  @JsonValue(_NZBHYDRA)
+  @HiveField(5)
+  NZBHYDRA(_NZBHYDRA),
+
+  @JsonValue(_NZBSU)
+  @HiveField(6)
+  NZBSU(_NZBSU);
+
+  final String key;
+  const LunaIndexerIcon(this.key);
+
+  static LunaIndexerIcon fromKey(String key) {
     switch (key) {
-      case 'generic':
-        return LunaIndexerIcon.GENERIC;
-      case 'dognzb':
+      case _DOGNZB:
         return LunaIndexerIcon.DOGNZB;
-      case 'drunkenslug':
+      case _DRUNKENSLUG:
         return LunaIndexerIcon.DRUNKENSLUG;
-      case 'nzbfinder':
+      case _NZBFINDER:
         return LunaIndexerIcon.NZBFINDER;
-      case 'nzbgeek':
+      case _NZBGEEK:
         return LunaIndexerIcon.NZBGEEK;
-      case 'nzbhydra':
+      case _NZBHYDRA:
         return LunaIndexerIcon.NZBHYDRA;
-      case 'nzbsu':
+      case _NZBSU:
         return LunaIndexerIcon.NZBSU;
       default:
         return LunaIndexerIcon.GENERIC;
-    }
-  }
-
-  String get key {
-    switch (this) {
-      case LunaIndexerIcon.GENERIC:
-        return 'generic';
-      case LunaIndexerIcon.DOGNZB:
-        return 'dognzb';
-      case LunaIndexerIcon.DRUNKENSLUG:
-        return 'drunkenslug';
-      case LunaIndexerIcon.NZBFINDER:
-        return 'nzbfinder';
-      case LunaIndexerIcon.NZBGEEK:
-        return 'nzbgeek';
-      case LunaIndexerIcon.NZBHYDRA:
-        return 'nzbhydra';
-      case LunaIndexerIcon.NZBSU:
-        return 'nzbsu';
     }
   }
 

@@ -3,5 +3,5 @@ class LunaEnvironment {
 
   static const String commit = 'master';
 
-  static const String flavor = 'stable';
+  static const String flavor = 'edge';
 }

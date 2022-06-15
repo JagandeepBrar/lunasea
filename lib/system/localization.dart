@@ -34,6 +34,7 @@ enum LunaLanguage {
   SPANISH,
   SWEDISH,
   TURKISH,
+  VIETNAMESE,
 }
 
 extension LunaLanguageExtension on LunaLanguage {
@@ -64,6 +65,8 @@ extension LunaLanguageExtension on LunaLanguage {
       return LunaLanguage.SWEDISH;
     if (locale.toLanguageTag() == LunaLanguage.TURKISH.languageTag)
       return LunaLanguage.TURKISH;
+    if (locale.toLanguageTag() == LunaLanguage.VIETNAMESE.languageTag)
+      return LunaLanguage.VIETNAMESE;
     return null;
   }
 
@@ -83,6 +86,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
+      case LunaLanguage.VIETNAMESE:
         return LunaFlavor.BETA.isRunningFlavor();
     }
   }
@@ -115,6 +119,8 @@ extension LunaLanguageExtension on LunaLanguage {
         return 'Swedish';
       case LunaLanguage.TURKISH:
         return 'Turkish';
+      case LunaLanguage.VIETNAMESE:
+        return 'Vietnamese';
     }
   }
 
@@ -146,6 +152,8 @@ extension LunaLanguageExtension on LunaLanguage {
         return 'sv';
       case LunaLanguage.TURKISH:
         return 'tr';
+      case LunaLanguage.VIETNAMESE:
+        return 'vi';
     }
   }
 
@@ -177,6 +185,8 @@ extension LunaLanguageExtension on LunaLanguage {
         return const Locale('sv');
       case LunaLanguage.TURKISH:
         return const Locale('tr');
+      case LunaLanguage.VIETNAMESE:
+        return const Locale('vi');
     }
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/database/tables/lunasea.dart';
+import 'package:lunasea/modules.dart';
+import 'package:lunasea/system/platform.dart';
 
 class LunaScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState>? scaffoldKey;
@@ -31,21 +33,21 @@ class LunaScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final hasDrawer = scaffoldKey?.currentState?.hasDrawer ?? false;
-        final isOpen = scaffoldKey?.currentState?.isDrawerOpen ?? false;
+    final state = scaffoldKey?.currentState;
+    final hasDrawer = state?.hasDrawer ?? false;
 
-        if (hasDrawer) {
-          if (isOpen) return true;
-          scaffoldKey?.currentState?.openDrawer();
+    if (hasDrawer && LunaPlatform.isAndroid) {
+      return WillPopScope(
+        onWillPop: () async {
+          if (state!.isDrawerOpen) return true;
+          state.openDrawer();
           return false;
-        }
+        },
+        child: scaffold,
+      );
+    }
 
-        return true;
-      },
-      child: scaffold,
-    );
+    return scaffold;
   }
 
   Widget get scaffold {

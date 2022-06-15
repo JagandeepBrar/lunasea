@@ -44,7 +44,7 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
     Hive.registerAdapter(LunaExternalModuleAdapter());
     Hive.registerAdapter(LunaIndexerAdapter());
     Hive.registerAdapter(LunaProfileAdapter());
-    Hive.registerAdapter(LunaLogHiveObjectAdapter());
+    Hive.registerAdapter(LunaLogAdapter());
     Hive.registerAdapter(LunaIndexerIconAdapter());
     Hive.registerAdapter(LunaLogTypeAdapter());
     Hive.registerAdapter(LunaModuleAdapter());

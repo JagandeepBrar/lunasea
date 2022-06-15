@@ -35,7 +35,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(26)
-  Map lidarrHeaders;
+  Map<String, dynamic> lidarrHeaders;
 
   Map<String, dynamic> getLidarr() {
     return {
@@ -59,7 +59,7 @@ class LunaProfile extends HiveObject {
   String radarrKey;
 
   @HiveField(27)
-  Map radarrHeaders;
+  Map<String, dynamic> radarrHeaders;
 
   Map<String, dynamic> getRadarr() {
     return {
@@ -84,7 +84,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(28)
-  Map sonarrHeaders;
+  Map<String, dynamic> sonarrHeaders;
 
   Map<String, dynamic> getSonarr() {
     return {
@@ -110,7 +110,7 @@ class LunaProfile extends HiveObject {
   @JsonKey()
   @JsonKey()
   @HiveField(29)
-  Map sabnzbdHeaders;
+  Map<String, dynamic> sabnzbdHeaders;
 
   Map<String, dynamic> getSABnzbd() {
     return {
@@ -139,7 +139,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(30)
-  Map nzbgetHeaders;
+  Map<String, dynamic> nzbgetHeaders;
 
   Map<String, dynamic> getNZBGet() {
     return {
@@ -185,7 +185,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(35)
-  Map tautulliHeaders;
+  Map<String, dynamic> tautulliHeaders;
 
   Map<String, dynamic> getTautulli() {
     return {
@@ -210,7 +210,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(43)
-  Map overseerrHeaders;
+  Map<String, dynamic> overseerrHeaders;
 
   Map<String, dynamic> getOverseerr() {
     return {
@@ -267,14 +267,18 @@ class LunaProfile extends HiveObject {
   @override
   String toString() => json.encode(this.toJson());
 
-  Map<String, dynamic> toJson() => _$LunaProfileToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$LunaProfileToJson(this);
+    json['key'] = key.toString();
+    return json;
+  }
 
   factory LunaProfile.fromJson(Map<String, dynamic> json) {
     return _$LunaProfileFromJson(json);
   }
 
   factory LunaProfile.clone(LunaProfile profile) {
-    return LunaProfile.fromJson(profile.toJson());
+    return LunaProfile.fromJson(profile.toJson().cast<String, dynamic>());
   }
 
   factory LunaProfile.get(String key) {

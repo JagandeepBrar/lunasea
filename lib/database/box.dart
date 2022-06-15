@@ -12,7 +12,7 @@ enum LunaBox<T> {
   alerts<dynamic>('alerts'),
   externalModules<LunaExternalModule>('external_modules'),
   indexers<LunaIndexer>('indexers'),
-  logs<LunaLogHiveObject>('logs'),
+  logs<LunaLog>('logs'),
   lunasea<dynamic>('lunasea'),
   profiles<LunaProfile>('profiles');
 
@@ -92,7 +92,7 @@ extension LunaBoxExtension on LunaBox {
   List<Map<String, dynamic>> export() {
     try {
       return _instance.keys
-          .map<Map<String, dynamic>>((k) => _instance.get(k)!.toMap())
+          .map<Map<String, dynamic>>((k) => _instance.get(k)!.toJson())
           .toList();
     } catch (error, stack) {
       LunaLogger().error('Failed to export LunaBox', error, stack);

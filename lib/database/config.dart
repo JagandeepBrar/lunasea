@@ -10,11 +10,16 @@ class LunaConfig {
     await LunaDatabase().clear();
 
     try {
-      Map config = json.decode(data);
+      Map<String, dynamic> config = json.decode(data);
+
       _setProfiles(config[LunaBox.profiles.key]);
       _setIndexers(config[LunaBox.indexers.key]);
       _setExternalModules(config[LunaBox.externalModules.key]);
       for (final table in LunaTable.values) table.import(config[table.key]);
+
+      if (!LunaProfile.list.contains(LunaSeaDatabase.ENABLED_PROFILE.read())) {
+        LunaSeaDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
+      }
     } catch (error, stack) {
       LunaLogger().error(
         'Failed to import configuration, resetting to default',
@@ -41,8 +46,9 @@ class LunaConfig {
     if (data == null) return;
 
     for (final item in data) {
-      final key = item['key'];
-      final obj = LunaProfile.fromJson((item as Map).cast<String, dynamic>());
+      final content = (item as Map).cast<String, dynamic>();
+      final key = content['key'] ?? 'default';
+      final obj = LunaProfile.fromJson(content);
       LunaBox.profiles.update(key, obj);
     }
   }

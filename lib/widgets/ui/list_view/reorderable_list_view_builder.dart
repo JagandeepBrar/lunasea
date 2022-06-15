@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui/list_view/flutter_reorderable_list_view.dart';
 
 class LunaReorderableListViewBuilder extends StatelessWidget {
   final int itemCount;
@@ -27,7 +26,7 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
     return Scrollbar(
       controller: controller,
       interactive: true,
-      child: FlutterReorderableListView.builder(
+      child: ReorderableListView.builder(
         scrollController: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: padding as EdgeInsets? ??

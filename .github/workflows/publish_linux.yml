@@ -14,7 +14,7 @@ on:
         type: string
 
     secrets:
-      SNAPCRAFT_TOKEN:
+      SNAPCRAFT_STORE_CREDENTIALS:
         required: true
       S3_ACCESS_KEY:
         required: true
@@ -36,7 +36,6 @@ jobs:
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
         with:
           channel: snapcraft
-          snapcraft-token: ${{ secrets.SNAPCRAFT_TOKEN }}
 
       - name: Download Snap
         uses: actions/download-artifact@v3
@@ -45,7 +44,12 @@ jobs:
           path: ${{ github.workspace }}/output
 
       - name: Deploy to Snapcraft
-        run: snapcraft upload --release=${{ inputs.flavor }} ${{ github.workspace }}/output/lunasea-linux-amd64.snap
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        with:
+          release: ${{ inputs.flavor }}
+          snap: ${{ github.workspace }}/output/lunasea-linux-amd64.snap
 
   s3:
     name: S3

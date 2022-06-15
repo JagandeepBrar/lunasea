@@ -160,7 +160,7 @@ jobs:
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
-      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
       S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
       S3_BUCKET: ${{ secrets.S3_BUCKET }}
       S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}

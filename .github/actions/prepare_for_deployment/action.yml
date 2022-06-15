@@ -23,10 +23,6 @@ inputs:
     description: 'Google Play Store API Key'
     required: false
     default: ''
-  snapcraft-token:
-    description: 'Snapcraft API Key'
-    required: false
-    default: ''
 
 runs:
   using: composite
@@ -48,12 +44,6 @@ runs:
       with:
         bundler-cache: true
     
-    - name: Install Snapcraft
-      if: ${{ inputs.channel == 'snapcraft' }}
-      uses: samuelmeuli/action-snapcraft@v1
-      with:
-        snapcraft_token: ${{ inputs.snapcraft-token }}
-
     - name: Install XCode
       if: ${{ inputs.channel == 'app-store' }}
       uses: maxim-lobanov/setup-xcode@v1

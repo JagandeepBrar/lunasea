@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -92,7 +93,7 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       body: [
         TextSpan(
           children: [
-            TextSpan(text: record.lastSeen?.lunaAge ?? 'lunasea.Unknown'.tr()),
+            TextSpan(text: record.lastSeen?.asAge() ?? 'lunasea.Unknown'.tr()),
             TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: _count == 1 ? '1 Play' : '$_count Plays'),
           ],

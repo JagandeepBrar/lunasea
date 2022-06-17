@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 extension StringNullableExtension on String? {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -218,7 +219,7 @@ extension TautulliSessionExtension on TautulliSession {
       Duration _progress = Duration(
           seconds: (this.streamDuration!.inSeconds * _percent).floor());
       Duration _eta = this.streamDuration! - _progress;
-      return DateTime.now().add(_eta).lunaTime;
+      return DateTime.now().add(_eta).asTimeOnly();
     } catch (error, stack) {
       LunaLogger().error('Failed to calculate ETA', error, stack);
       return 'lunasea.Unknown'.tr();

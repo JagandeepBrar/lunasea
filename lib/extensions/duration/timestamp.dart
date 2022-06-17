@@ -1,3 +1,4 @@
+import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 extension DurationAsTimestampExtension on Duration? {

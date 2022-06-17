@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 
 class NZBGetHistoryData {
@@ -52,7 +53,7 @@ class NZBGetHistoryData {
   }
 
   String get completeTime {
-    return timestampObject?.lunaAge ?? 'Unknown';
+    return timestampObject?.asAge() ?? 'Unknown';
   }
 
   String get healthString {

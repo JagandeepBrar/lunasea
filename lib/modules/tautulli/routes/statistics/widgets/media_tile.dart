@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -70,7 +71,7 @@ class _State extends State<TautulliStatisticsMediaTile> {
       widget.data['last_play'] != null
           ? TextSpan(
               text:
-                  'Last Played ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000).lunaAge}',
+                  'Last Played ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_play'] * 1000).asAge()}',
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];

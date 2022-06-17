@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
@@ -32,7 +33,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
           title: 'last played',
           body: [
             library.lastPlayed ?? LunaUI.TEXT_EMDASH,
-            library.lastAccessed?.lunaAge ?? 'Unknown',
+            library.lastAccessed?.asAge() ?? 'Unknown',
           ].join('\n'),
         ),
       ],

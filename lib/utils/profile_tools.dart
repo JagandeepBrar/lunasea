@@ -5,6 +5,7 @@ import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/deprecated/state/state.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/types/exception.dart';
+import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LunaProfileTools {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -130,7 +131,7 @@ class _State extends State<TautulliUserDetailsProfile>
         LunaTableContent(
           title: 'last seen',
           body: widget.user.lastSeen != null
-              ? widget.user.lastSeen?.lunaAge ?? 'Unknown'
+              ? widget.user.lastSeen?.asAge() ?? 'Unknown'
               : 'Never',
         ),
         LunaTableContent(title: '', body: ''),

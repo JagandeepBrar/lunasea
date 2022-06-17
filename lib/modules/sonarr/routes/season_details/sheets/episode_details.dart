@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -141,8 +142,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
           ),
           LunaTableContent(
             title: 'sonarr.AddedOn'.tr(),
-            body: episodeFile?.dateAdded
-                ?.lunaDateTimeReadable(timeOnNewLine: true),
+            body: episodeFile?.dateAdded?.asDateTime(delimiter: '\n'),
           ),
         ],
         buttons: [

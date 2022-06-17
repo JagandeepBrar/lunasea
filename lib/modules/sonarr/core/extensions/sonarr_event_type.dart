@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -273,7 +274,7 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       LunaTableContent(
           title: 'sonarr.PublishedDate'.tr(),
           body: DateTime.tryParse(history.data!['publishedDate'])
-              ?.lunaDateTimeReadable(timeOnNewLine: true)),
+              ?.asDateTime(delimiter: '\n')),
     ];
   }
 

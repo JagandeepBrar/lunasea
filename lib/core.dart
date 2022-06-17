@@ -1,7 +1,6 @@
 /// This file is deprecated and should no longer be actively used.
 /// All imports should happen directly and canonical export files will not be used anymore.
 
-export 'deprecated/extensions/datetime.dart';
 export 'deprecated/state/module_state.dart';
 export 'deprecated/state/state.dart';
 export 'deprecated/router/module_router.dart';

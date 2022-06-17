@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -68,7 +69,7 @@ class _State extends State<RadarrMissingTile> {
   }
 
   TextSpan _subtitle3() {
-    String? _days = widget.movie.lunaEarlierReleaseDate?.lunaDaysDifference;
+    String? _days = widget.movie.lunaEarlierReleaseDate?.asDaysDifference();
     return TextSpan(
         style: const TextStyle(
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,

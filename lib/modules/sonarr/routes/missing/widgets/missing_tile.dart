@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -85,7 +86,7 @@ class _State extends State<SonarrMissingTile> {
         TextSpan(
             text: widget.record.airDateUtc == null
                 ? 'Aired'
-                : 'Aired ${widget.record.airDateUtc!.toLocal().lunaAge}'),
+                : 'Aired ${widget.record.airDateUtc!.toLocal().asAge()}'),
       ],
     );
   }

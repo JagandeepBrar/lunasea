@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -145,8 +146,8 @@ class SonarrHistoryTile extends StatelessWidget {
   TextSpan _subtitle2() {
     return TextSpan(
       text: [
-        history.date?.lunaAge ?? LunaUI.TEXT_EMDASH,
-        history.date?.lunaDateTimeReadable() ?? LunaUI.TEXT_EMDASH,
+        history.date?.asAge() ?? LunaUI.TEXT_EMDASH,
+        history.date?.asDateTime() ?? LunaUI.TEXT_EMDASH,
       ].join(LunaUI.TEXT_BULLET.pad()),
     );
   }

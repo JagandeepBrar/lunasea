@@ -1,7 +1,6 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
-import 'package:tuple/tuple.dart';
+import 'package:lunasea/vendor.dart';
 
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/widgets/ui.dart';

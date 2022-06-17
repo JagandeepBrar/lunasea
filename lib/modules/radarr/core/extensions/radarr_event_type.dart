@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -152,7 +153,7 @@ extension LunaRadarrEventType on RadarrEventType {
         title: 'published date',
         body: DateTime.tryParse(record.data!['publishedDate']) != null
             ? DateTime.tryParse(record.data!['publishedDate'])
-                    ?.lunaDateTimeReadable(timeOnNewLine: true) ??
+                    ?.asDateTime(delimiter: '\n') ??
                 LunaUI.TEXT_EMDASH
             : LunaUI.TEXT_EMDASH,
       ),

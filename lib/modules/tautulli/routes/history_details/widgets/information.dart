@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -47,11 +48,11 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
         LunaTableContent(
             title: 'date',
             body: DateFormat('yyyy-MM-dd').format(history.date!)),
-        LunaTableContent(title: 'started', body: history.date!.lunaTime),
+        LunaTableContent(title: 'started', body: history.date!.asTimeOnly()),
         LunaTableContent(
             title: 'stopped',
             body: history.state == null
-                ? history.stopped!.lunaTime
+                ? history.stopped!.asTimeOnly()
                 : LunaUI.TEXT_EMDASH),
         LunaTableContent(
             title: 'paused', body: history.pausedCounter!.asWordsTimestamp()),

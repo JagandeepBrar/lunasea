@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -26,7 +27,7 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
 
   String get lunaDateAdded {
     if (this.dateAdded != null)
-      return this.dateAdded!.lunaDateTimeReadable(timeOnNewLine: true);
+      return this.dateAdded!.asDateTime(delimiter: '\n');
     return LunaUI.TEXT_EMDASH;
   }
 

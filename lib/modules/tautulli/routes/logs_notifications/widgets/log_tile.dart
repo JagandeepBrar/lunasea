@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsNotificationLogTile extends StatelessWidget {
@@ -25,7 +26,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
       TextSpan(text: notification.subjectText),
       TextSpan(text: notification.bodyText),
       TextSpan(
-        text: notification.timestamp!.lunaDateTimeReadable(),
+        text: notification.timestamp!.asDateTime(),
         style: const TextStyle(
           color: LunaColours.accent,
           fontWeight: LunaUI.FONT_WEIGHT_BOLD,

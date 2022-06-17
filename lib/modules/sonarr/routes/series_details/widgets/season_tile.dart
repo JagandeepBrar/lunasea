@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
@@ -62,10 +64,9 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
 
   TextSpan _subtitle1() {
     return TextSpan(
-      text: widget.season.statistics?.previousAiring?.lunaDateTimeReadable(
-            timeOnNewLine: false,
+      text: widget.season.statistics?.previousAiring?.asDateTime(
             showSeconds: false,
-            sameLineDelimiter: '@',
+            delimiter: '@'.pad(),
           ) ??
           LunaUI.TEXT_EMDASH,
     );

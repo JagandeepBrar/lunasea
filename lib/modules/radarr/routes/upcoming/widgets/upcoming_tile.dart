@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -76,11 +77,11 @@ class _State extends State<RadarrUpcomingTile> {
     String type;
     if (widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.blue;
-      _days = widget.movie.lunaEarlierReleaseDate?.lunaDaysDifference;
+      _days = widget.movie.lunaEarlierReleaseDate?.asDaysDifference();
       type = 'release';
     } else if (!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
       color = LunaColours.orange;
-      _days = widget.movie.inCinemas?.lunaDaysDifference;
+      _days = widget.movie.inCinemas?.asDaysDifference();
       type = 'cinema';
     } else {
       color = LunaColours.grey;

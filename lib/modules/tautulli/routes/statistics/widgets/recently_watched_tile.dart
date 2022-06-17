@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliStatisticsRecentlyWatchedTile extends StatefulWidget {
@@ -41,7 +42,7 @@ class _State extends State<TautulliStatisticsRecentlyWatchedTile> {
       widget.data['last_watch'] != null
           ? TextSpan(
               text:
-                  'Watched ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_watch'] * 1000).lunaAge}',
+                  'Watched ${DateTime.fromMillisecondsSinceEpoch(widget.data['last_watch'] * 1000).asAge()}',
             )
           : const TextSpan(text: LunaUI.TEXT_EMDASH)
     ];

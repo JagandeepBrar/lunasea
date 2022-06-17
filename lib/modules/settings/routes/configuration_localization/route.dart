@@ -51,17 +51,17 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   }
 
   Widget _language() {
-    String? _language = LunaLanguage.ENGLISH.fromLocale(context.locale)?.name;
+    String? _language = LunaLanguage.fromLocale(context.locale)?.name;
     return LunaBlock(
       title: 'settings.Language'.tr(),
       body: [TextSpan(text: _language ?? LunaUI.TEXT_EMDASH)],
       trailing: const LunaIconButton(icon: Icons.language_rounded),
       onTap: () async {
-        Tuple2<bool, LunaLanguage?> result =
-            await SettingsDialogs().changeLanguage(context);
+        final result = await SettingsDialogs().changeLanguage(context);
         if (result.item1) {
           result.item2!.use(context);
-          Intl.defaultLocale = result.item2!.languageTag;
+          context.setLocale(result.item2!.locale);
+          // Intl.defaultLocale = result.item2!.languageTag;
         }
       },
     );

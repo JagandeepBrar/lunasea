@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
@@ -32,7 +32,7 @@ extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
     }
   }
 
-  String get lsDate => this.date?.lunaAge ?? 'Unknown';
+  String get lsDate => this.date?.asAge() ?? 'Unknown';
 
   String get lsStatus {
     switch (this.watchedStatus) {

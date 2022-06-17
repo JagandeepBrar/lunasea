@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliUserTile extends StatelessWidget {
@@ -24,7 +25,7 @@ class TautulliUserTile extends StatelessWidget {
           ),
       backgroundHeaders: context.read<TautulliState>().headers,
       body: [
-        TextSpan(text: user.lastSeen?.lunaAge ?? 'Never'),
+        TextSpan(text: user.lastSeen?.asAge() ?? 'Never'),
         TextSpan(text: user.lastPlayed ?? 'Never'),
       ],
       bodyLeadingIcons: const [

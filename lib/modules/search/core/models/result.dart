@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 
 class NewznabResultData {
   String title;
@@ -32,7 +33,7 @@ class NewznabResultData {
     return null;
   }
 
-  String get age => dateObject?.lunaAge ?? 'lunasea.Unknown'.tr();
+  String get age => dateObject?.asAge() ?? 'lunasea.Unknown'.tr();
 
   int get posix => dateObject?.millisecondsSinceEpoch ?? 0;
 }

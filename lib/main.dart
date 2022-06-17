@@ -104,21 +104,34 @@ class _State extends State<LunaOS> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _boot();
-      _healthCheck();
-    });
+    SchedulerBinding.instance.addPostFrameCallback(_boot);
+  }
+
+  Future<void> _boot(Duration duration) async {
+    _initLocale();
+    _initNotifications();
+    if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
+
+    _healthCheck();
   }
 
   Future<void> _initNotifications() async {
-    final messaging = LunaFirebaseMessaging();
-    final firestore = LunaFirebaseFirestore();
-    await messaging.requestNotificationPermissions();
+    if (LunaFirebaseMessaging.isSupported) {
+      final messaging = LunaFirebaseMessaging();
+      final firestore = LunaFirebaseFirestore();
+      await messaging.requestNotificationPermissions();
 
-    firestore.addDeviceToken();
-    messaging.checkAndHandleInitialMessage();
-    messaging.registerOnMessageListener();
-    messaging.registerOnMessageOpenedAppListener();
+      firestore.addDeviceToken();
+      messaging.checkAndHandleInitialMessage();
+      messaging.registerOnMessageListener();
+      messaging.registerOnMessageOpenedAppListener();
+    }
+  }
+
+  void _initLocale() {
+    final lan = LunaLanguage.fromLocale(context.locale) ?? LunaLanguage.ENGLISH;
+    context.setLocale(lan.locale);
+    Intl.defaultLocale = lan.languageTag;
   }
 
   Future<void> _healthCheck() async {
@@ -127,16 +140,6 @@ class _State extends State<LunaOS> {
         if (!isLatest.item1) ChangelogSheet().show();
       });
     }
-  }
-
-  Future<void> _boot() async {
-    if (LunaFirebaseMessaging.isSupported) _initNotifications();
-
-    String? tag = LunaLanguage.ENGLISH.fromLocale(context.locale)?.languageTag;
-    tag ??= LunaLanguage.ENGLISH.languageTag;
-    Intl.defaultLocale = tag;
-
-    if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
   }
 
   @override

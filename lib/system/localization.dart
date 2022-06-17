@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/deprecated/state/state.dart';
 
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/vendor.dart';
@@ -34,11 +35,14 @@ enum LunaLanguage {
   SPANISH,
   SWEDISH,
   TURKISH,
-  VIETNAMESE,
-}
+  VIETNAMESE;
 
-extension LunaLanguageExtension on LunaLanguage {
-  LunaLanguage? fromLocale(Locale locale) {
+  static LunaLanguage get current {
+    final locale = LunaState.navigatorKey.currentContext!.locale;
+    return fromLocale(locale) ?? LunaLanguage.ENGLISH;
+  }
+
+  static LunaLanguage? fromLocale(Locale locale) {
     if (locale.toLanguageTag() == LunaLanguage.CHINESE_SIMPLIFIED.languageTag)
       return LunaLanguage.CHINESE_SIMPLIFIED;
     if (locale.toLanguageTag() == LunaLanguage.DUTCH.languageTag)
@@ -69,7 +73,9 @@ extension LunaLanguageExtension on LunaLanguage {
       return LunaLanguage.VIETNAMESE;
     return null;
   }
+}
 
+extension LunaLanguageExtension on LunaLanguage {
   bool get enabled {
     switch (this) {
       case LunaLanguage.ENGLISH:

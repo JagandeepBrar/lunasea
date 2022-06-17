@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/log.dart';
+import 'package:lunasea/extensions/datetime.dart';
 
 class SettingsSystemLogTile extends StatelessWidget {
   final LunaLog log;
@@ -12,8 +13,8 @@ class SettingsSystemLogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String dateTime = DateTime.fromMillisecondsSinceEpoch(log.timestamp)
-        .lunaDateTimeReadable();
+    String dateTime =
+        DateTime.fromMillisecondsSinceEpoch(log.timestamp).asDateTime();
     return LunaExpandableListTile(
       title: log.message,
       collapsedSubtitles: [

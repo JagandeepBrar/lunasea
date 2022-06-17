@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/extensions/string/string.dart';
@@ -40,21 +41,19 @@ extension SonarrSeriesExtension on SonarrSeries {
   String lunaNextAiring([bool short = false]) {
     if (this.status == 'ended') return 'sonarr.SeriesEnded'.tr();
     if (this.nextAiring == null) return 'lunasea.Unknown'.tr();
-    return this.nextAiring!.lunaDateTimeReadable(
-          timeOnNewLine: false,
+    return this.nextAiring!.asDateTime(
           showSeconds: false,
-          sameLineDelimiter: '@',
-          shortMonth: short,
+          delimiter: '@'.pad(),
+          shortenMonth: short,
         );
   }
 
   String lunaPreviousAiring([bool short = false]) {
     if (this.previousAiring == null) return LunaUI.TEXT_EMDASH;
-    return this.previousAiring!.lunaDateTimeReadable(
-          timeOnNewLine: false,
+    return this.previousAiring!.asDateTime(
           showSeconds: false,
-          sameLineDelimiter: '@',
-          shortMonth: short,
+          delimiter: '@'.pad(),
+          shortenMonth: short,
         );
   }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-export 'package:easy_localization/easy_localization.dart';
-
 export 'ui/appbar.dart';
 export 'ui/assets.dart';
 export 'ui/banner.dart';

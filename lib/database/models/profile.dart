@@ -35,7 +35,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(26)
-  Map<String, dynamic> lidarrHeaders;
+  Map<String, String> lidarrHeaders;
 
   Map<String, dynamic> getLidarr() {
     return {
@@ -59,7 +59,7 @@ class LunaProfile extends HiveObject {
   String radarrKey;
 
   @HiveField(27)
-  Map<String, dynamic> radarrHeaders;
+  Map<String, String> radarrHeaders;
 
   Map<String, dynamic> getRadarr() {
     return {
@@ -84,7 +84,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(28)
-  Map<String, dynamic> sonarrHeaders;
+  Map<String, String> sonarrHeaders;
 
   Map<String, dynamic> getSonarr() {
     return {
@@ -110,7 +110,7 @@ class LunaProfile extends HiveObject {
   @JsonKey()
   @JsonKey()
   @HiveField(29)
-  Map<String, dynamic> sabnzbdHeaders;
+  Map<String, String> sabnzbdHeaders;
 
   Map<String, dynamic> getSABnzbd() {
     return {
@@ -139,7 +139,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(30)
-  Map<String, dynamic> nzbgetHeaders;
+  Map<String, String> nzbgetHeaders;
 
   Map<String, dynamic> getNZBGet() {
     return {
@@ -185,7 +185,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(35)
-  Map<String, dynamic> tautulliHeaders;
+  Map<String, String> tautulliHeaders;
 
   Map<String, dynamic> getTautulli() {
     return {
@@ -210,7 +210,7 @@ class LunaProfile extends HiveObject {
 
   @JsonKey()
   @HiveField(43)
-  Map<String, dynamic> overseerrHeaders;
+  Map<String, String> overseerrHeaders;
 
   Map<String, dynamic> getOverseerr() {
     return {

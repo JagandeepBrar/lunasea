@@ -44,7 +44,7 @@ jobs:
           path: ${{ github.workspace }}/output
 
       - name: Deploy to Snapcraft
-        uses: snapcore/action-publish@v1
+        uses: snapcore/action-publish@master
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:

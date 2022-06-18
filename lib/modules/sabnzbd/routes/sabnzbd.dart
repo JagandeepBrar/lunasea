@@ -54,7 +54,7 @@ class _State extends State<SABnzbd> {
   Widget _drawer() => LunaDrawer(page: LunaModule.SABNZBD.key);
 
   Widget? _bottomNavigationBar() {
-    if (_api.enabled!)
+    if (LunaProfile.current.sabnzbdEnabled)
       return SABnzbdNavigationBar(pageController: _pageController);
     return null;
   }
@@ -66,7 +66,7 @@ class _State extends State<SABnzbd> {
       return value;
     });
     List<Widget>? actions;
-    if (_api.enabled!)
+    if (LunaProfile.current.sabnzbdEnabled)
       actions = [
         Selector<SABnzbdState, bool>(
           selector: (_, model) => model.error,
@@ -89,7 +89,7 @@ class _State extends State<SABnzbd> {
   }
 
   Widget _body() {
-    if (!_api.enabled!)
+    if (!LunaProfile.current.sabnzbdEnabled)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.SABNZBD.title,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/extensions/string/string.dart';
 
@@ -14,7 +13,6 @@ import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:provider/provider.dart';
 
 class CalendarSonarrData extends CalendarData {
-  final Map<String, dynamic> api = LunaProfile.current.getSonarr();
   String episodeTitle;
   int seasonNumber;
   int episodeNumber;

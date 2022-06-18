@@ -55,8 +55,9 @@ class _State extends State<NZBGet> {
   Widget _drawer() => LunaDrawer(page: LunaModule.NZBGET.key);
 
   Widget? _bottomNavigationBar() {
-    if (_api.enabled!)
+    if (LunaProfile.current.nzbgetEnabled) {
       return NZBGetNavigationBar(pageController: _pageController);
+    }
     return null;
   }
 
@@ -67,7 +68,7 @@ class _State extends State<NZBGet> {
       return value;
     });
     List<Widget>? actions;
-    if (_api.enabled!)
+    if (LunaProfile.current.nzbgetEnabled)
       actions = [
         Selector<NZBGetState, bool>(
           selector: (_, model) => model.error,
@@ -90,7 +91,7 @@ class _State extends State<NZBGet> {
   }
 
   Widget _body() {
-    if (!_api.enabled!)
+    if (!LunaProfile.current.nzbgetEnabled)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.NZBGET.title,

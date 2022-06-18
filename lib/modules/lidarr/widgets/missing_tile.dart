@@ -49,11 +49,11 @@ class _State extends State<LidarrMissingTile> {
       onTap: () async => _enterAlbum(),
       onLongPress: () async => _enterArtist(),
       posterUrl: widget.entry.albumCoverURI(),
-      posterHeaders: LunaProfile.current.getLidarr()['headers'],
+      posterHeaders: LunaProfile.current.lidarrHeaders,
       posterIsSquare: true,
       posterPlaceholderIcon: LunaIcons.MUSIC,
       backgroundUrl: widget.entry.fanartURI(),
-      backgroundHeaders: LunaProfile.current.getLidarr()['headers'],
+      backgroundHeaders: LunaProfile.current.lidarrHeaders,
     );
   }
 

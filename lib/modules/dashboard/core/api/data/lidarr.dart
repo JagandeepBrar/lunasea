@@ -7,7 +7,6 @@ import 'package:lunasea/modules/lidarr/routes/search_results.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 
 class CalendarLidarrData extends CalendarData {
-  final Map<String, dynamic> api = LunaProfile.current.getLidarr();
   String albumTitle;
   int artistId;
   int totalTrackCount;
@@ -92,19 +91,27 @@ class CalendarLidarrData extends CalendarData {
 
   @override
   String backgroundUrl(BuildContext context) {
-    return api['enabled']
-        ? (api['host'] as String).endsWith('/')
-            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
-            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/fanart-360.jpg?apikey=${api['key']}'
-        : '';
+    final host = LunaProfile.current.lidarrHost;
+    final key = LunaProfile.current.lidarrKey;
+    if (LunaProfile.current.lidarrEnabled) {
+      String _base = host.endsWith('/')
+          ? '${host}api/v1/MediaCover/Artist'
+          : '$host/api/v1/MediaCover/Artist';
+      return '$_base/$artistId/fanart-360.jpg?apikey=$key';
+    }
+    return '';
   }
 
   @override
   String posterUrl(BuildContext context) {
-    return api['enabled']
-        ? (api['host'] as String).endsWith('/')
-            ? '${api['host']}api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
-            : '${api['host']}/api/v1/MediaCover/Artist/$artistId/poster-500.jpg?apikey=${api['key']}'
-        : '';
+    final host = LunaProfile.current.lidarrHost;
+    final key = LunaProfile.current.lidarrKey;
+    if (LunaProfile.current.lidarrEnabled) {
+      String _base = host.endsWith('/')
+          ? '${host}api/v1/MediaCover/Artist'
+          : '$host/api/v1/MediaCover/Artist';
+      return '$_base/$artistId/poster-500.jpg?apikey=$key';
+    }
+    return '';
   }
 }

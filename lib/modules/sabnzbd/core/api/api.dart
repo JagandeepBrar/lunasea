@@ -2,38 +2,30 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdAPI {
-  final Map<String, dynamic> _values;
   final Dio _dio;
 
-  SABnzbdAPI._internal(this._values, this._dio);
+  SABnzbdAPI._internal(this._dio);
   factory SABnzbdAPI.from(LunaProfile profile) {
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(profile.getSABnzbd()['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${profile.getSABnzbd()['host']}/api',
+        baseUrl: profile.sabnzbdHost.endsWith('/')
+            ? '${profile.sabnzbdHost}api'
+            : '${profile.sabnzbdHost}/api',
         queryParameters: {
-          if (profile.getSABnzbd()['key'] != '')
-            'apikey': profile.getSABnzbd()['key'],
+          if (profile.sabnzbdKey != '') 'apikey': profile.sabnzbdKey,
           'output': 'json',
         },
-        headers: _headers,
+        headers: profile.sabnzbdHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),
     );
-    return SABnzbdAPI._internal(
-      profile.getSABnzbd(),
-      _client,
-    );
+
+    return SABnzbdAPI._internal(_client);
   }
 
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('SABnzbd: $text', error, trace);
-
-  bool? get enabled => _values['enabled'];
-  String? get host => _values['host'];
-  String? get key => _values['key'];
 
   Future<dynamic> testConnection() async => _dio.get('', queryParameters: {
         'mode': 'fullstatus',

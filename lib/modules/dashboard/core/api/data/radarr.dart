@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/vendor.dart';
@@ -13,7 +12,6 @@ import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:provider/provider.dart';
 
 class CalendarRadarrData extends CalendarData {
-  final Map<String, dynamic> api = LunaProfile.current.getRadarr();
   bool hasFile;
   String? fileQualityProfile;
   int year;

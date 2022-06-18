@@ -22,7 +22,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
     return LunaBlock(
       title: widget.data.title,
       disabled: !widget.data.monitored,
-      posterHeaders: LunaProfile.current.getLidarr()['headers'] ?? {},
+      posterHeaders: LunaProfile.current.lidarrHeaders,
       posterPlaceholderIcon: LunaIcons.MUSIC,
       posterIsSquare: true,
       posterUrl: widget.data.albumCoverURI(),

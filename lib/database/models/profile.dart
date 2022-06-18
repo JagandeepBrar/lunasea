@@ -22,204 +22,132 @@ class LunaProfile extends HiveObject {
   }
 
   @JsonKey()
-  @HiveField(0)
+  @HiveField(0, defaultValue: false)
   bool lidarrEnabled;
 
   @JsonKey()
-  @HiveField(1)
+  @HiveField(1, defaultValue: '')
   String lidarrHost;
 
   @JsonKey()
-  @HiveField(2)
+  @HiveField(2, defaultValue: '')
   String lidarrKey;
 
   @JsonKey()
-  @HiveField(26)
+  @HiveField(26, defaultValue: <String, String>{})
   Map<String, String> lidarrHeaders;
 
-  Map<String, dynamic> getLidarr() {
-    return {
-      'enabled': lidarrEnabled,
-      'host': lidarrHost,
-      'key': lidarrKey,
-      'headers': lidarrHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(3)
+  @HiveField(3, defaultValue: false)
   bool radarrEnabled;
 
   @JsonKey()
-  @HiveField(4)
+  @HiveField(4, defaultValue: '')
   String radarrHost;
 
   @JsonKey()
-  @HiveField(5)
+  @HiveField(5, defaultValue: '')
   String radarrKey;
 
-  @HiveField(27)
+  @JsonKey()
+  @HiveField(27, defaultValue: <String, String>{})
   Map<String, String> radarrHeaders;
 
-  Map<String, dynamic> getRadarr() {
-    return {
-      'enabled': radarrEnabled,
-      'host': radarrHost,
-      'key': radarrKey,
-      'headers': radarrHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(6)
+  @HiveField(6, defaultValue: false)
   bool sonarrEnabled;
 
   @JsonKey()
-  @HiveField(7)
+  @HiveField(7, defaultValue: '')
   String sonarrHost;
 
   @JsonKey()
-  @HiveField(8)
+  @HiveField(8, defaultValue: '')
   String sonarrKey;
 
   @JsonKey()
-  @HiveField(28)
+  @HiveField(28, defaultValue: <String, String>{})
   Map<String, String> sonarrHeaders;
 
-  Map<String, dynamic> getSonarr() {
-    return {
-      'enabled': sonarrEnabled,
-      'host': sonarrHost,
-      'key': sonarrKey,
-      'headers': sonarrHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(9)
+  @HiveField(9, defaultValue: false)
   bool sabnzbdEnabled;
 
   @JsonKey()
-  @HiveField(10)
+  @HiveField(10, defaultValue: '')
   String sabnzbdHost;
 
   @JsonKey()
-  @HiveField(11)
+  @HiveField(11, defaultValue: '')
   String sabnzbdKey;
 
   @JsonKey()
-  @JsonKey()
-  @HiveField(29)
+  @HiveField(29, defaultValue: <String, String>{})
   Map<String, String> sabnzbdHeaders;
 
-  Map<String, dynamic> getSABnzbd() {
-    return {
-      'enabled': sabnzbdEnabled,
-      'host': sabnzbdHost,
-      'key': sabnzbdKey,
-      'headers': sabnzbdHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(12)
+  @HiveField(12, defaultValue: false)
   bool nzbgetEnabled;
 
   @JsonKey()
-  @HiveField(13)
+  @HiveField(13, defaultValue: '')
   String nzbgetHost;
 
   @JsonKey()
-  @HiveField(14)
+  @HiveField(14, defaultValue: '')
   String nzbgetUser;
 
   @JsonKey()
-  @HiveField(15)
+  @HiveField(15, defaultValue: '')
   String nzbgetPass;
 
   @JsonKey()
-  @HiveField(30)
+  @HiveField(30, defaultValue: <String, String>{})
   Map<String, String> nzbgetHeaders;
 
-  Map<String, dynamic> getNZBGet() {
-    return {
-      'enabled': nzbgetEnabled,
-      'host': nzbgetHost,
-      'user': nzbgetUser,
-      'pass': nzbgetPass,
-      'headers': nzbgetHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(23)
+  @HiveField(23, defaultValue: false)
   bool wakeOnLANEnabled;
 
   @JsonKey()
-  @HiveField(24)
+  @HiveField(24, defaultValue: '')
   String wakeOnLANBroadcastAddress;
 
   @JsonKey()
-  @HiveField(25)
+  @HiveField(25, defaultValue: '')
   String wakeOnLANMACAddress;
 
-  Map<String, dynamic> getWakeOnLAN() {
-    return {
-      'enabled': wakeOnLANEnabled,
-      'broadcastAddress': wakeOnLANBroadcastAddress,
-      'MACAddress': wakeOnLANMACAddress,
-    };
-  }
-
   @JsonKey()
-  @HiveField(31)
+  @HiveField(31, defaultValue: false)
   bool tautulliEnabled;
 
   @JsonKey()
-  @HiveField(32)
+  @HiveField(32, defaultValue: '')
   String tautulliHost;
 
   @JsonKey()
-  @HiveField(33)
+  @HiveField(33, defaultValue: '')
   String tautulliKey;
 
   @JsonKey()
-  @HiveField(35)
+  @HiveField(35, defaultValue: <String, String>{})
   Map<String, String> tautulliHeaders;
 
-  Map<String, dynamic> getTautulli() {
-    return {
-      'enabled': tautulliEnabled,
-      'host': tautulliHost,
-      'key': tautulliKey,
-      'headers': tautulliHeaders,
-    };
-  }
-
   @JsonKey()
-  @HiveField(40)
+  @HiveField(40, defaultValue: false)
   bool overseerrEnabled;
 
   @JsonKey()
-  @HiveField(41)
+  @HiveField(41, defaultValue: '')
   String overseerrHost;
 
   @JsonKey()
-  @HiveField(42)
+  @HiveField(42, defaultValue: '')
   String overseerrKey;
 
   @JsonKey()
-  @HiveField(43)
+  @HiveField(43, defaultValue: <String, String>{})
   Map<String, String> overseerrHeaders;
-
-  Map<String, dynamic> getOverseerr() {
-    return {
-      'enabled': overseerrEnabled,
-      'host': overseerrHost,
-      'key': overseerrKey,
-      'headers': overseerrHeaders,
-    };
-  }
 
   LunaProfile({
     //Lidarr

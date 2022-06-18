@@ -1,7 +1,6 @@
 import 'package:lunasea/core.dart';
 
 class LidarrAlbumData {
-  final Map<String, dynamic> api = LunaProfile.current.getLidarr();
   String title;
   String releaseDate;
   int albumID;
@@ -32,11 +31,13 @@ class LidarrAlbumData {
   }
 
   String albumCoverURI() {
-    if (api['enabled']) {
-      String _base = (api['host'] as String).endsWith('/')
-          ? '${api['host']}api/v1/MediaCover/Album'
-          : '${api['host']}/api/v1/MediaCover/Album';
-      return '$_base/$albumID/cover-250.jpg?apikey=${api['key']}';
+    final host = LunaProfile.current.lidarrHost;
+    final key = LunaProfile.current.lidarrKey;
+    if (LunaProfile.current.lidarrEnabled) {
+      String _base = host.endsWith('/')
+          ? '${host}api/v1/MediaCover/Album'
+          : '$host/api/v1/MediaCover/Album';
+      return '$_base/$albumID/cover-250.jpg?apikey=$key';
     }
     return '';
   }

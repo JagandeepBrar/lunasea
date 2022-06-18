@@ -9,32 +9,30 @@ import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
 
 class API {
-  final Map<String, dynamic>? lidarr;
-  final Map<String, dynamic>? radarr;
-  final Map<String, dynamic>? sonarr;
+  final LunaProfile profile;
 
   API._internal({
-    required this.lidarr,
-    required this.radarr,
-    required this.sonarr,
+    required this.profile,
   });
 
-  factory API.from(LunaProfile? profile) {
-    return API._internal(
-      lidarr: profile?.getLidarr(),
-      radarr: profile?.getRadarr(),
-      sonarr: profile?.getSonarr(),
-    );
+  factory API() {
+    return API._internal(profile: LunaProfile.current);
   }
 
   Future<Map<DateTime, List<CalendarData>>> getUpcoming(DateTime today) async {
     Map<DateTime, List<CalendarData>> _upcoming = {};
-    if (lidarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_LIDARR.read())
+    if (profile.lidarrEnabled &&
+        DashboardDatabase.CALENDAR_ENABLE_LIDARR.read()) {
       await _getLidarrUpcoming(_upcoming, today);
-    if (radarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_RADARR.read())
+    }
+    if (profile.radarrEnabled &&
+        DashboardDatabase.CALENDAR_ENABLE_RADARR.read()) {
       await _getRadarrUpcoming(_upcoming, today);
-    if (sonarr!['enabled'] && DashboardDatabase.CALENDAR_ENABLE_SONARR.read())
+    }
+    if (profile.sonarrEnabled &&
+        DashboardDatabase.CALENDAR_ENABLE_SONARR.read()) {
       await _getSonarrUpcoming(_upcoming, today);
+    }
     return _upcoming;
   }
 
@@ -42,17 +40,15 @@ class API {
     Map<DateTime, List<CalendarData>> map,
     DateTime today,
   ) async {
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(lidarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${lidarr!['host']}/api/v1/',
+        baseUrl: '${profile.lidarrHost}/api/v1/',
         queryParameters: {
-          if (lidarr!['key'] != '') 'apikey': lidarr!['key'],
+          if (profile.lidarrKey != '') 'apikey': profile.lidarrKey,
           'start': _startDate(today),
           'end': _endDate(today),
         },
-        headers: _headers,
+        headers: profile.lidarrHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),
@@ -87,17 +83,15 @@ class API {
     Map<DateTime, List<CalendarData>> map,
     DateTime today,
   ) async {
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(radarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${radarr!['host']}/api/v3/',
+        baseUrl: '${profile.radarrHost}/api/v3/',
         queryParameters: {
-          if (radarr!['key'] != '') 'apikey': radarr!['key'],
+          if (profile.radarrKey != '') 'apikey': profile.radarrKey,
           'start': _startDate(today),
           'end': _endDate(today),
         },
-        headers: _headers,
+        headers: profile.radarrHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),
@@ -142,17 +136,15 @@ class API {
     Map<DateTime, List<CalendarData>> map,
     DateTime today,
   ) async {
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(sonarr!['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: '${sonarr!['host']}/api/v3/',
+        baseUrl: '${profile.sonarrHost}/api/v3/',
         queryParameters: {
-          if (sonarr!['key'] != '') 'apikey': sonarr!['key'],
+          if (profile.sonarrKey != '') 'apikey': profile.sonarrKey,
           'start': _startDate(today),
           'end': _endDate(today),
         },
-        headers: _headers,
+        headers: profile.sonarrHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),

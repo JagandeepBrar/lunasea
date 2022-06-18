@@ -153,7 +153,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
               : _arguments!.data.overview,
           uri: _arguments!.data.posterURI ?? '',
           squareImage: true,
-          headers: LunaProfile.current.getLidarr()['headers'],
+          headers: LunaProfile.current.lidarrHeaders,
           onLongPress: () async {
             if (_arguments!.data.discogsLink == null ||
                 _arguments!.data.discogsLink == '')

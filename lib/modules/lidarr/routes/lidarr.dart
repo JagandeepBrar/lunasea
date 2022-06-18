@@ -50,13 +50,13 @@ class _State extends State<Lidarr> {
   Widget _drawer() => LunaDrawer(page: LunaModule.LIDARR.key);
 
   Widget? _bottomNavigationBar() {
-    if (_api.enabled!)
+    if (LunaProfile.current.lidarrEnabled)
       return LidarrNavigationBar(pageController: _pageController);
     return null;
   }
 
   Widget _body() {
-    if (!_api.enabled!)
+    if (!LunaProfile.current.lidarrEnabled)
       return LunaMessage.moduleNotEnabled(
         context: context,
         module: LunaModule.LIDARR.title,
@@ -87,7 +87,7 @@ class _State extends State<Lidarr> {
       return arr;
     });
     List<Widget>? actions;
-    if (_api.enabled!)
+    if (LunaProfile.current.lidarrEnabled)
       actions = [
         LunaIconButton(
           icon: Icons.add_rounded,

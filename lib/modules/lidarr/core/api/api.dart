@@ -2,39 +2,28 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAPI {
-  final Map<String, dynamic> _values;
   final Dio _dio;
 
-  LidarrAPI._internal(this._values, this._dio);
+  LidarrAPI._internal(this._dio);
   factory LidarrAPI.from(LunaProfile profile) {
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(profile.getLidarr()['headers']);
     Dio _client = Dio(
       BaseOptions(
-        baseUrl: (profile.getLidarr()['host'] as String).endsWith('/')
-            ? '${profile.getLidarr()['host']}api/v1/'
-            : '${profile.getLidarr()['host']}/api/v1/',
+        baseUrl: profile.lidarrHost.endsWith('/')
+            ? '${profile.lidarrHost}api/v1/'
+            : '${profile.lidarrHost}/api/v1/',
         queryParameters: {
-          if (profile.getLidarr()['key'] != '')
-            'apikey': profile.getLidarr()['key'],
+          if (profile.lidarrKey != '') 'apikey': profile.lidarrKey,
         },
-        headers: _headers,
+        headers: LunaProfile.current.lidarrHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),
     );
-    return LidarrAPI._internal(
-      profile.getLidarr(),
-      _client,
-    );
+    return LidarrAPI._internal(_client);
   }
 
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('Lidarr: $text', error, trace);
-
-  bool? get enabled => _values['enabled'];
-  String? get host => _values['host'];
-  String? get key => _values['key'];
 
   Future<dynamic> testConnection() async => await _dio.get('system/status');
 

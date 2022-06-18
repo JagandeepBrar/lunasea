@@ -2,39 +2,29 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetAPI {
-  final Map<String, dynamic> _values;
   final Dio _dio;
 
-  NZBGetAPI._internal(this._values, this._dio);
+  NZBGetAPI._internal(this._dio);
   factory NZBGetAPI.from(LunaProfile profile) {
-    String _baseURL = Uri.encodeFull(profile.getNZBGet()['host']);
-    Map<String, dynamic> _headers =
-        Map<String, dynamic>.from(profile.getNZBGet()['headers']);
-    _baseURL += profile.getNZBGet()['user'] != '' &&
-            profile.getNZBGet()['pass'] != ''
-        ? '/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
+    String _baseURL = Uri.encodeFull(profile.nzbgetHost);
+    _baseURL += profile.nzbgetUser.isNotEmpty && profile.nzbgetPass.isNotEmpty
+        ? '/${profile.nzbgetUser}:${profile.nzbgetPass}/jsonrpc'
         : '/jsonrpc';
+
     Dio _client = Dio(
       BaseOptions(
         baseUrl: _baseURL,
-        headers: _headers,
+        headers: profile.nzbgetHeaders,
         followRedirects: true,
         maxRedirects: 5,
       ),
     );
-    return NZBGetAPI._internal(
-      profile.getNZBGet(),
-      _client,
-    );
+
+    return NZBGetAPI._internal(_client);
   }
 
   void logError(String text, Object error, StackTrace trace) =>
       LunaLogger().error('NZBGet: $text', error, trace);
-
-  bool? get enabled => _values['enabled'];
-  String? get host => _values['host'];
-  String? get user => _values['user'];
-  String? get pass => _values['pass'];
 
   String getBody(String method, {List<dynamic>? params}) {
     return json.encode({

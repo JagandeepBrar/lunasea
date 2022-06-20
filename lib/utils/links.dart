@@ -89,9 +89,9 @@ enum LunaLinkedContent {
 
     switch (type) {
       case LinkedContentType.MOVIE:
-        return '$base/dereferrer/series/$id';
-      case LinkedContentType.SERIES:
         return '$base/dereferrer/movie/$id';
+      case LinkedContentType.SERIES:
+        return '$base/dereferrer/series/$id';
       case LinkedContentType.PERSON:
         return '$base/people/$id';
       default:

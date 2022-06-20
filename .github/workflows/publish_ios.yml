@@ -3,6 +3,9 @@ name: Publish iOS
 on:
   workflow_call:
     inputs:
+      build-changelog:
+        required: true
+        type: string
       build-number:
         required: true
         type: string
@@ -63,7 +66,7 @@ jobs:
           APPLE_STORE_CONNECT_KEY_FILEPATH: ${{ github.workspace }}/keys/appstore.p8
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} ipa:${{ github.workspace }}/output/lunasea-ios.ipa
+        run: bundle exec fastlane deploy_appstore groups:${{ inputs.flavor }} changelog:${{ inputs.build-changelog }} ipa:${{ github.workspace }}/output/lunasea-ios.ipa
 
   s3:
     name: S3

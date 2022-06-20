@@ -8,6 +8,9 @@ on:
         required: true
 
     outputs:
+      build-changelog:
+        description: "Build Changelog"
+        value: ${{ jobs.build-details.outputs.build-changelog }}
       build-number:
         description: "Build Number"
         value: ${{ jobs.build-details.outputs.build-number }}
@@ -164,16 +167,36 @@ jobs:
           fetch-depth: 0
       
       - name: Count Commits
-        id: commit_count
+        id: commit-count
         run: |
           COUNT=`git rev-list HEAD --count`
-          echo "::set-output name=commit_count::$COUNT"
+          echo "::set-output name=commit-count::$COUNT"
+      
+      - name: Latest Commit Message
+        id: commit-message
+        run: |
+          MESSAGE=`git show -s --format=%s`
+          echo "::set-output name=commit-message::$MESSAGE"
+
+      - name: Build Changelog
+        id: build-changelog
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.flavor }}
+          MESSAGE: ${{ steps.commit-message.outputs.commit-message }}
+        with:
+          result-encoding: string
+          script: |
+            const defaultMessage = 'Thank you for testing pre-release builds of LunaSea! Please consider joining the Discord to give feedback to the developer.\n\nChanges can be found on GitHub or by going to settings/system!';
+            const isEdge = process.env.FLAVOR === 'edge';
+            if (isEdge) return process.env.MESSAGE ?? defaultMessage;
+            return defaultMessage;
 
       - name: Build Number
         id: build-number
         uses: actions/github-script@v6
         env:
-          COUNT: ${{ steps.commit_count.outputs.commit_count }}
+          COUNT: ${{ steps.commit-count.outputs.commit-count }}
         with:
           result-encoding: string
           script: |
@@ -194,10 +217,12 @@ jobs:
 
       - name: Log Build Details
         env:
+          changelog: ${{ steps.build-changelog.outputs.result }}
           number: ${{ steps.build-number.outputs.result }}
           title: ${{ steps.build-title.outputs.output }}
           version: ${{ steps.build-version.outputs.current-version }}
         run: |
+          echo "Build Changelog: $changelog"
           echo "Build Number: $number"
           echo "Build Title: $title"
           echo "Build Version: $version"
@@ -226,12 +251,17 @@ jobs:
 
       - name: Generate Build Runner Files
         run: flutter packages pub run build_runner build
-      
+
+      - name: Generate Changelog
+        run: |
+          echo ${{ needs.build-details.outputs.build-changelog }} > ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
+  
       - name: Upload Core Files
         uses: actions/upload-artifact@v3
         with:
           name: core-files
           path: |
+            ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
             ${{ github.workspace }}/lib/system/environment.dart

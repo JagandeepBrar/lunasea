@@ -1,3 +1,0 @@
-Thank you for testing upcoming releases of LunaSea! Please consider joining the Discord to give feedback to the developer.
-
-Changes can be found on GitHub or by going to settings/system and tapping on the version tile!

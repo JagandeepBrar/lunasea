@@ -3,6 +3,9 @@ name: Publish Android
 on:
   workflow_call:
     inputs:
+      build-changelog:
+        required: true
+        type: string
       build-number:
         required: true
         type: string
@@ -60,6 +63,11 @@ jobs:
               case 'edge':
               default: return 'internal';
             }
+
+      - name: Generate Changelog
+        run: |
+          mkdir -p  ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
+          echo ${{ inputs.build-changelog }} > ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
       
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android

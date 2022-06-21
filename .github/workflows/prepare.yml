@@ -157,6 +157,7 @@ jobs:
     name: Build Details
     runs-on: ubuntu-latest
     outputs:
+      build-changelog: ${{ steps.build-changelog.outputs.result }}
       build-number: ${{ steps.build-number.outputs.result }}
       build-title: ${{ steps.build-title.outputs.output }}
       build-version: ${{ steps.build-version.outputs.current-version }}
@@ -252,16 +253,11 @@ jobs:
       - name: Generate Build Runner Files
         run: flutter packages pub run build_runner build
 
-      - name: Generate Changelog
-        run: |
-          echo ${{ needs.build-details.outputs.build-changelog }} > ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
-  
       - name: Upload Core Files
         uses: actions/upload-artifact@v3
         with:
           name: core-files
           path: |
-            ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
             ${{ github.workspace }}/lib/system/environment.dart

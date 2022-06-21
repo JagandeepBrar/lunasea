@@ -120,6 +120,7 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
     with:
       flavor: ${{ inputs.flavor || 'edge' }}
+      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:

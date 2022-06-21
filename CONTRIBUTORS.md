@@ -3,7 +3,7 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -51,6 +51,8 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/marcosvdiasofc"><img src="https://avatars.githubusercontent.com/u/96720080?v=4?s=100" width="100px;" alt=""/><br /><sub><b>marcosvdiasofc</b></sub></a><br /><a href="#translation-marcosvdiasofc" title="Translation">🌍</a></td>
     <td align="center"><a href="https://liberapay.com/FSCorrupt/donate"><img src="https://avatars.githubusercontent.com/u/45659314?v=4?s=100" width="100px;" alt=""/><br /><sub><b>FSCorrupt</b></sub></a><br /><a href="#translation-fscorrupt" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/iHunterX"><img src="https://avatars.githubusercontent.com/u/16854718?v=4?s=100" width="100px;" alt=""/><br /><sub><b>iHunterX</b></sub></a><br /><a href="#translation-iHunterX" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/Brokeos"><img src="https://avatars.githubusercontent.com/u/8388746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brokeos</b></sub></a><br /><a href="#translation-Brokeos" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/punchy98"><img src="https://avatars.githubusercontent.com/u/12002902?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael Maldonado</b></sub></a><br /><a href="#translation-punchy98" title="Translation">🌍</a></td>
   </tr>
 </table>
 

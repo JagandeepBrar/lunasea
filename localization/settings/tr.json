@@ -249,5 +249,13 @@
     "settings.EnableInAppNotifications": "Uygulama İçi Bildirimleri Etkinleştir",
     "settings.UpToDate": "Güncel",
     "settings.Version": "Sürüm",
-    "settings.Channel": "Kanal"
+    "settings.Channel": "Kanal",
+    "settings.AddedProfile": "Profil Eklendi",
+    "settings.ChangedProfile": "Profil Değiştirildi",
+    "settings.NoAdditionalProfilesAdded": "Başka profil eklenmedi",
+    "settings.ProfileToProfile": "\"{}\" ila \"{}\"",
+    "settings.ViewTypeLogs": "{} Günlüklerini Görüntüle",
+    "settings.RenamedProfile": "Profil Yeniden Adlandırıldı",
+    "settings.DeletedProfile": "Profil Silindi",
+    "settings.NoProfilesFound": "Profil Bulunamadı"
 }

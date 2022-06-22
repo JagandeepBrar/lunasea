@@ -22,7 +22,7 @@ jobs:
     name: Prepare
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
+      flavor: ${{ inputs.flavor }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -36,7 +36,6 @@ jobs:
   build-android:
     name: Build Android
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-android == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -48,7 +47,6 @@ jobs:
   build-ios:
     name: Build iOS
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-ios == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -66,13 +64,11 @@ jobs:
   build-linux:
     name: Build Linux
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-linux == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
 
   build-macos:
     name: Build macOS
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-macos == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -95,18 +91,16 @@ jobs:
   build-web:
     name: Build Web
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-web == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
     with:
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
-      flavor: ${{ inputs.flavor || 'edge' }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build-windows:
     name: Build Windows
     needs: [ prepare, validate ]
-    if: ${{ needs.prepare.outputs.enable-windows == 'true' }}
     uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
     secrets:
       CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
@@ -119,8 +113,8 @@ jobs:
     needs: [ prepare, build-android ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -136,8 +130,8 @@ jobs:
     needs: [ prepare, build-ios ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -158,7 +152,7 @@ jobs:
     needs: [ prepare, build-linux ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -174,8 +168,8 @@ jobs:
     needs: [ prepare, build-macos ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -196,7 +190,7 @@ jobs:
     needs: [ prepare, build-web ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -212,7 +206,7 @@ jobs:
     needs: [ prepare, build-windows ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_windows.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
@@ -225,26 +219,11 @@ jobs:
   notify:
     name: Notify
     needs: [ prepare, publish-android, publish-ios, publish-linux, publish-macos, publish-web, publish-windows ]
-    if: |
-      always() &&
-      !cancelled() &&
-      (needs.publish-android.result == 'success' || needs.publish-android.result == 'skipped') &&
-      (needs.publish-ios.result == 'success' || needs.publish-ios.result == 'skipped') &&
-      (needs.publish-linux.result == 'success' || needs.publish-linux.result == 'skipped') &&
-      (needs.publish-macos.result == 'success' || needs.publish-macos.result == 'skipped') &&
-      (needs.publish-web.result == 'success' || needs.publish-web.result == 'skipped') &&
-      (needs.publish-windows.result == 'success' || needs.publish-windows.result == 'skipped')
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
-      flavor: ${{ inputs.flavor || 'edge' }}
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
+      build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
-      enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android.result == 'success' }}
-      enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios.result == 'success' }}
-      enable-linux: ${{ needs.prepare.outputs.enable-linux && needs.publish-linux.result == 'success' }}
-      enable-macos: ${{ needs.prepare.outputs.enable-macos && needs.publish-macos.result == 'success' }}
-      enable-web: ${{ needs.prepare.outputs.enable-web && needs.publish-web.result == 'success' }}
-      enable-windows: ${{ needs.prepare.outputs.enable-windows && needs.publish-windows.result == 'success' }}
     secrets:
       DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
       DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}

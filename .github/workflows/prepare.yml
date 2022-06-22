@@ -11,6 +11,9 @@ on:
       build-changelog:
         description: "Build Changelog"
         value: ${{ jobs.build-details.outputs.build-changelog }}
+      build-flavor:
+        description: "Build Flavor"
+        value: ${{ jobs.build-details.outputs.build-flavor }}
       build-number:
         description: "Build Number"
         value: ${{ jobs.build-details.outputs.build-number }}
@@ -20,144 +23,18 @@ on:
       build-version:
         description: "Build Version"
         value: ${{ jobs.build-details.outputs.build-version }}
-      enable-android:
-        description: "Is Android Enabled?"
-        value: ${{ jobs.platform-list.outputs.android }}
-      enable-ios:
-        description: "Is iOS Enabled?"
-        value: ${{ jobs.platform-list.outputs.ios }}
-      enable-linux:
-        description: "Is Linux Enabled?"
-        value: ${{ jobs.platform-list.outputs.linux }}
-      enable-macos:
-        description: "Is macOS Enabled?"
-        value: ${{ jobs.platform-list.outputs.macos }}
-      enable-windows:
-        description: "Is Windows Enabled?"
-        value: ${{ jobs.platform-list.outputs.windows }}
-      enable-web:
-        description: "Is Web Enabled?"
-        value: ${{ jobs.platform-list.outputs.web }}
 
     secrets:
       FIREBASE_TOKEN:
         required: true
 
 jobs:
-  platform-list:
-    name: Platform List
-    runs-on: ubuntu-latest
-    outputs:
-      android: ${{ steps.android.outputs.result }}
-      ios: ${{ steps.ios.outputs.result }}
-      linux: ${{ steps.linux.outputs.result }}
-      macos: ${{ steps.macos.outputs.result }}
-      windows: ${{ steps.windows.outputs.result }}
-      web: ${{ steps.web.outputs.result }}
-    steps:
-      - name: Check Message for Any Keywords
-        id: exists
-        uses: actions/github-script@v6
-        env:
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            return process.env.MESSAGE.includes("platform:");
-
-      - name: Android
-        id: android
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:android");
-      
-      - name: iOS
-        id: ios
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:ios");
-      
-      - name: Linux
-        id: linux
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:linux");
-      
-      - name: macOS
-        id: macos
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:macos");
-      
-      - name: Web
-        id: web
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:web");
-      
-      - name: Windows
-        id: windows
-        uses: actions/github-script@v6
-        env:
-          EXISTS: ${{ steps.exists.outputs.result }}
-          MESSAGE: ${{ github.event.head_commit.message || '' }}
-        with:
-          result-encoding: string
-          script: |
-            if (process.env.EXISTS === "false") return true;
-            return process.env.MESSAGE.includes("platform:windows");
-
-      - name: Log Platform List
-        env:
-          android: ${{ steps.android.outputs.result }}
-          ios: ${{ steps.ios.outputs.result }}
-          linux: ${{ steps.linux.outputs.result }}
-          macos: ${{ steps.macos.outputs.result }}
-          windows: ${{ steps.windows.outputs.result }}
-          web: ${{ steps.web.outputs.result }}
-        run: |
-          echo "Android: $android"
-          echo "iOS: $ios"
-          echo "Linux: $linux"
-          echo "macOS: $macos"
-          echo "Web: $web"
-          echo "Windows: $windows"
-
   build-details:
     name: Build Details
     runs-on: ubuntu-latest
     outputs:
       build-changelog: ${{ steps.build-changelog.outputs.result }}
+      build-flavor: ${{ steps.build-flavor.outputs.result }}
       build-number: ${{ steps.build-number.outputs.result }}
       build-title: ${{ steps.build-title.outputs.output }}
       build-version: ${{ steps.build-version.outputs.current-version }}
@@ -179,11 +56,29 @@ jobs:
           MESSAGE=`git show -s --format=%s`
           echo "::set-output name=commit-message::$MESSAGE"
 
+      - name: Build Flavor
+        id: build-flavor
+        uses: actions/github-script@v6
+        env:
+          FLAVOR: ${{ inputs.flavor }}
+        with:
+          result-encoding: string
+          script: |
+            const flavor = process.env.FLAVOR;
+            if (flavor) switch (flavor) {
+              case 'edge':
+              case 'beta':
+              case 'candidate':
+              case 'stable':
+                return flavor;
+            }
+            return 'edge';
+
       - name: Build Changelog
         id: build-changelog
         uses: actions/github-script@v6
         env:
-          FLAVOR: ${{ inputs.flavor }}
+          FLAVOR: ${{ steps.build-flavor.outputs.result }}
           MESSAGE: ${{ steps.commit-message.outputs.commit-message }}
         with:
           result-encoding: string
@@ -213,20 +108,22 @@ jobs:
         id: build-title
         run: |
           HASH=`git rev-parse --short ${{ github.sha }}`
-          TITLE="v${{ steps.build-version.outputs.current-version }}-${{ inputs.flavor }}-${{ steps.build-number.outputs.result }}-$HASH"
+          TITLE="v${{ steps.build-version.outputs.current-version }}-${{ steps.build-flavor.outputs.result }}-${{ steps.build-number.outputs.result }}-$HASH"
           echo "::set-output name=output::$TITLE"
 
       - name: Log Build Details
         env:
-          changelog: ${{ steps.build-changelog.outputs.result }}
-          number: ${{ steps.build-number.outputs.result }}
-          title: ${{ steps.build-title.outputs.output }}
-          version: ${{ steps.build-version.outputs.current-version }}
+          CHANGELOG: ${{ steps.build-changelog.outputs.result }}
+          FLAVOR: ${{ steps.build-flavor.outputs.result }}
+          NUMBER: ${{ steps.build-number.outputs.result }}
+          TITLE: ${{ steps.build-title.outputs.output }}
+          VERSION: ${{ steps.build-version.outputs.current-version }}
         run: |
-          echo "Build Changelog: $changelog"
-          echo "Build Number: $number"
-          echo "Build Title: $title"
-          echo "Build Version: $version"
+          echo "Build Changelog: $CHANGELOG"
+          echo "Build Flavor: $FLAVOR"
+          echo "Build Number: $NUMBER"
+          echo "Build Title: $TITLE"
+          echo "Build Version: $VERSION"
 
   generate-files:
     name: Generate Files
@@ -242,7 +139,7 @@ jobs:
 
       - name: Generate Environment Configuration
         run: |
-          export FLAVOR=${{ inputs.flavor }}
+          export FLAVOR=${{ needs.build-details.outputs.build-flavor }}
           export COMMIT=${{ github.sha }}
           export BUILD=${{ needs.build-details.outputs.build-number }}
           flutter packages pub run environment_config:generate

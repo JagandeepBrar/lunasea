@@ -3,13 +3,13 @@ name: Publish Linux
 on:
   workflow_call:
     inputs:
+      build-flavor:
+        required: true
+        type: string
       build-number:
         required: true
         type: string
       build-title:
-        required: true
-        type: string
-      flavor:
         required: true
         type: string
 
@@ -48,7 +48,7 @@ jobs:
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
-          release: ${{ inputs.flavor }}
+          release: ${{ inputs.build-flavor }}
           snap: ${{ github.workspace }}/output/lunasea-linux-amd64.snap
 
   s3:
@@ -94,4 +94,4 @@ jobs:
           AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
-          DEST_DIR: latest/${{ inputs.flavor }}
+          DEST_DIR: latest/${{ inputs.build-flavor }}

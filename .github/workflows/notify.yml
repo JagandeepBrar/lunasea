@@ -6,28 +6,10 @@ on:
       build-changelog:
         required: true
         type: string
+      build-flavor:
+        required: true
+        type: string
       build-title:
-        required: true
-        type: string
-      flavor:
-        required: true
-        type: string
-      enable-android:
-        required: true
-        type: string
-      enable-ios:
-        required: true
-        type: string
-      enable-linux:
-        required: true
-        type: string
-      enable-macos:
-        required: true
-        type: string
-      enable-web:
-        required: true
-        type: string
-      enable-windows:
         required: true
         type: string
 
@@ -59,12 +41,11 @@ jobs:
           DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
           DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
           DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
-          FLAVOR: ${{ inputs.flavor }}
+          BUILD_FLAVOR: ${{ inputs.build-flavor }}
         with:
           result-encoding: string
           script: |
-            const ref = process.env.FLAVOR || 'edge';
-            switch (ref) {
+            switch (process.env.BUILD_FLAVOR) {
               case 'beta': return process.env.DISCORD_WEBHOOK_BETA;
               case 'candidate': return process.env.DISCORD_WEBHOOK_CANDIDATE;
               case 'stable': return process.env.DISCORD_WEBHOOK_STABLE;
@@ -76,15 +57,9 @@ jobs:
         id: embed
         uses: actions/github-script@v6
         env:
+          BUILD_CHANGELOG: ${{ inputs.build-changelog }}
+          BUILD_FLAVOR: ${{ inputs.build-flavor }}
           BUILD_TITLE: ${{ inputs.build-title }}
-          CHANGELOG: ${{ inputs.build-changelog }}
-          ENABLE_ANDROID: ${{ inputs.enable-android }}
-          ENABLE_IOS: ${{ inputs.enable-ios }}
-          ENABLE_LINUX: ${{ inputs.enable-linux }}
-          ENABLE_MACOS: ${{ inputs.enable-macos }}
-          ENABLE_WEB: ${{ inputs.enable-web }}
-          ENABLE_WINDOWS: ${{ inputs.enable-windows }}
-          FLAVOR: ${{ inputs.flavor }}
         with:
           result-encoding: string
           script: return require('.github/scripts/notify-embed.js')();

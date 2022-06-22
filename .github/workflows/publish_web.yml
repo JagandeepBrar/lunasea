@@ -3,13 +3,13 @@ name: Publish Web (Docker)
 on:
   workflow_call:
     inputs:
+      build-flavor:
+        required: true
+        type: string
       build-number:
         required: true
         type: string
       build-title:
-        required: true
-        type: string
-      flavor:
         required: true
         type: string
 
@@ -72,7 +72,7 @@ jobs:
         id: channel
         uses: actions/github-script@v6
         env:
-          FLAVOR: ${{ inputs.flavor }}
+          FLAVOR: ${{ inputs.build-flavor }}
         with:
           result-encoding: string
           script: |
@@ -138,4 +138,4 @@ jobs:
           AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
-          DEST_DIR: latest/${{ inputs.flavor }}
+          DEST_DIR: latest/${{ inputs.build-flavor }}

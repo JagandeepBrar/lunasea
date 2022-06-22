@@ -1,4 +1,4 @@
-const platforms = () => {
+const getPlatforms = () => {
   const platforms = [];
   const {
     ENABLE_ANDROID,
@@ -20,11 +20,18 @@ const platforms = () => {
   return "None";
 };
 
-const changelog = () => {
-  return process.env.CHANGELOG ?? "No Documented Changes";
+const getChangelog = () => {
+  if (process.env.CHANGELOG) return process.env.CHANGELOG;
+  return "No Documented Changes";
 };
 
-const web = () => {
+const getRelease = () => {
+  let url = "https://builds.lunasea.app";
+  if (process.env.BUILD_TITLE) url += `/#${process.env.BUILD_TITLE}/`;
+  return `[Download](${url})`;
+};
+
+const getWeb = () => {
   let url = "";
   if (process.env.FLAVOR !== "stable") url += `${process.env.FLAVOR}.`;
   url += "web.lunasea.app";
@@ -40,21 +47,21 @@ module.exports = () => {
       fields: [
         {
           name: "Release",
-          value: `[Download](https://builds.lunasea.app/#${process.env.BUILD_TITLE}/)`,
+          value: getRelease(),
           inline: true,
         },
         {
           name: "Web",
-          value: web(),
+          value: getWeb(),
           inline: true,
         },
         {
           name: "Platforms",
-          value: platforms(),
+          value: getPlatforms(),
         },
         {
           name: "Changelog",
-          value: changelog(),
+          value: getChangelog(),
         },
       ],
     },

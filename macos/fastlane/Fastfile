@@ -162,7 +162,7 @@ platform :mac do
     connect_appstore_connect
 
     upload_to_testflight(
-      changelog: options[:changelog],
+      changelog: File.read("./changelog.txt"),
       distribute_external: true,
       groups: options[:groups],
       pkg: options[:pkg],

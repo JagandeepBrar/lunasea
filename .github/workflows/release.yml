@@ -237,6 +237,7 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
       flavor: ${{ inputs.flavor || 'edge' }}
+      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-title: ${{ needs.prepare.outputs.build-title }}
       enable-android: ${{ needs.prepare.outputs.enable-android && needs.publish-android.result == 'success' }}
       enable-ios: ${{ needs.prepare.outputs.enable-ios && needs.publish-ios.result == 'success' }}

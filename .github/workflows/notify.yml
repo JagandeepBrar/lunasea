@@ -3,6 +3,9 @@ name: Notify
 on:
   workflow_call:
     inputs:
+      build-changelog:
+        required: true
+        type: string
       build-title:
         required: true
         type: string
@@ -43,6 +46,7 @@ jobs:
     name: Discord
     runs-on: ubuntu-latest
     steps:
+    
       - name: Determine Webhook Channel
         id: webhook
         uses: actions/github-script@v6
@@ -64,45 +68,27 @@ jobs:
               default: return process.env.DISCORD_WEBHOOK_EDGE;
             }
 
-      - name: Create Discord Message
-        id: message
+      - name: Create Discord Embed
+        id: embed
         uses: actions/github-script@v6
         env:
           BUILD_TITLE: ${{ inputs.build-title }}
-          ANDROID: ${{ inputs.enable-android }}
-          IOS: ${{ inputs.enable-ios }}
-          LINUX: ${{ inputs.enable-linux }}
-          MACOS: ${{ inputs.enable-macos }}
-          WEB: ${{ inputs.enable-web }}
-          WINDOWS: ${{ inputs.enable-windows }}
+          CHANGELOG: ${{ inputs.build-changelog }}
+          ENABLE_ANDROID: ${{ inputs.enable-android }}
+          ENABLE_IOS: ${{ inputs.enable-ios }}
+          ENABLE_LINUX: ${{ inputs.enable-linux }}
+          ENABLE_MACOS: ${{ inputs.enable-macos }}
+          ENABLE_WEB: ${{ inputs.enable-web }}
+          ENABLE_WINDOWS: ${{ inputs.enable-windows }}
+          FLAVOR: ${{ inputs.flavor }}
         with:
           result-encoding: string
-          script: |
-            const { ANDROID, IOS, LINUX, MACOS, WEB, WINDOWS } = process.env;
-            const url = `https://builds.lunasea.app/#${ process.env.BUILD_TITLE }/`;
-            let _base = `[Download](${url})`;
-            if ( ANDROID || IOS || LINUX || MACOS || WEB || WINDOWS) {
-              _base += '\n\nThis release is available on the following platforms: ';
-
-              const platforms = [];
-              if (ANDROID === 'true') platforms.push('Android');
-              if (IOS === 'true') platforms.push('iOS');
-              if (LINUX === 'true') platforms.push('Linux');
-              if (MACOS === 'true') platforms.push('macOS');
-              if (WEB === 'true') platforms.push('Web');
-              if (WINDOWS === 'true') platforms.push('Windows');
-
-              _base += platforms.map((p) => `**${p}**`).join(', ');
-            }
-            return _base;
+          script: return require('.github/scripts/notify-embed.js')();
 
       - name: Send Discord Message
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ steps.webhook.outputs.result }}
-          username: LunaSea Support
-          avatar_url: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
-          noprefix: true
-          color: 0x4ECCA3
-          title: ${{ inputs.build-title }}
-          description: ${{ steps.message.outputs.result }}
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ steps.webhook.outputs.result }}
+          DISCORD_USERNAME: LunaSea Support
+          DISCORD_AVATAR: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
+          DISCORD_EMBEDS: ${{ steps.embed.outputs.result }}

@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   badges: ^2.0.3
   cached_network_image: ^3.2.1
-  cloud_firestore: ^3.1.17
+  cloud_firestore: ^3.1.18
   collection: ^1.15.0
   convert: ^3.0.2
   device_preview: ^1.1.0
@@ -21,21 +21,21 @@ dependencies:
   expandable: ^5.0.1
   fading_edge_scrollview: ^3.0.0
   file_picker: ^4.6.1
-  firebase_auth: ^3.3.19
-  firebase_core: ^1.17.1
-  firebase_messaging: ^11.4.1
-  firebase_storage: ^10.2.17
+  firebase_auth: ^3.3.20
+  firebase_core: ^1.18.0
+  firebase_messaging: ^11.4.2
+  firebase_storage: ^10.2.18
   fl_chart: ^0.46.0
   flash: ^2.0.3+2
   fluro: ^2.0.3
   flutter_cache_manager: ^3.3.0
   flutter_riverpod: ^2.0.0-dev.9
   flutter_spinkit: ^5.1.0
-  go_router: ^3.1.1
+  go_router: ^4.0.0
   google_nav_bar: ^5.0.6
   hive: ^2.2.2
   hive_flutter: ^1.1.0
-  in_app_purchase: ^3.0.5
+  in_app_purchase: ^3.0.6
   infinite_scroll_pagination: ^3.2.0
   intl: ^0.17.0
   json_annotation: ^4.5.0
@@ -46,7 +46,7 @@ dependencies:
   percent_indicator: ^4.2.2
   quick_actions: ^0.6.0+11
   retrofit: ^3.0.1+1
-  share_plus: ^4.0.8
+  share_plus: ^4.0.9
   shimmer: ^2.0.0
   simple_icons: ^7.1.0
   stack_trace: ^1.10.0

@@ -58,7 +58,12 @@ jobs:
           path: ${{ github.workspace }}/output
 
       - name: Generate Changelog
-        run: echo ${{ inputs.build-changelog }} > ${{ github.workspace }}/macos/fastlane/changelog.txt
+        env:
+          CHANGELOG: ${{ inputs.build-changelog }}
+          CHANGELOG_PATH: ${{ github.workspace }}/macos/fastlane
+        run: |
+          mkdir -p $CHANGELOG_PATH
+          echo $CHANGELOG > $CHANGELOG_PATH/changelog.txt
 
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/macos

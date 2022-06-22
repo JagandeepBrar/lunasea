@@ -65,9 +65,12 @@ jobs:
             }
 
       - name: Generate Changelog
+        env:
+          CHANGELOG: ${{ inputs.build-changelog }}
+          CHANGELOG_PATH: ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
         run: |
-          mkdir -p  ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
-          echo ${{ inputs.build-changelog }} > ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs/default.txt
+          mkdir -p $CHANGELOG_PATH
+          echo $CHANGELOG > $CHANGELOG_PATH/default.txt
       
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android

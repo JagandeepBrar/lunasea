@@ -146,14 +146,21 @@ class _State extends State<CalendarView> {
                 ),
                 rowHeight: 48.0,
                 rangeSelectionMode: RangeSelectionMode.disabled,
-                simpleSwipeConfig: const SimpleSwipeConfig(
-                  verticalThreshold: 10.0,
-                ),
                 focusedDay: _selected,
                 firstDay: firstDay,
                 lastDay: lastDay,
                 //events: widget.events,
-                headerVisible: false,
+                headerVisible: true,
+                headerStyle: const HeaderStyle(
+                    titleCentered: true,
+                    leftChevronVisible: false,
+                    rightChevronVisible: false,
+                    formatButtonVisible: false,
+                    headerPadding: LunaUI.MARGIN_DEFAULT_VERTICAL,
+                    titleTextStyle: TextStyle(
+                      fontSize: LunaUI.FONT_SIZE_H2,
+                      fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                    )),
                 startingDayOfWeek:
                     DashboardDatabase.CALENDAR_STARTING_DAY.read().data,
                 selectedDayPredicate: (date) =>
@@ -201,8 +208,8 @@ class _State extends State<CalendarView> {
                 },
                 onDaySelected: _onDaySelected,
               ),
-              padding: const EdgeInsets.symmetric(
-                vertical: LunaUI.DEFAULT_MARGIN_SIZE,
+              padding: const EdgeInsets.only(
+                bottom: LunaUI.DEFAULT_MARGIN_SIZE,
               ),
             ),
           ),

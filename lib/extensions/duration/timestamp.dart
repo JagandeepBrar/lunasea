@@ -18,6 +18,8 @@ extension DurationAsTimestampExtension on Duration? {
     int divisor = 1,
   }) {
     if (this == null) return 'lunasea.Unknown'.tr();
+    if (this!.inSeconds <= 5) return 'lunasea.Minutes'.tr(args: ['0']);
+
     final List<String> words = [];
 
     final days = this!.inDays;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/extensions/datetime.dart';
-import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
@@ -14,9 +13,9 @@ import 'package:lunasea/modules/dashboard/core/api/data/sonarr.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
-
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/ui.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 class CalendarView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;

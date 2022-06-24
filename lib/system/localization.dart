@@ -76,6 +76,11 @@ enum LunaLanguage {
 }
 
 extension LunaLanguageExtension on LunaLanguage {
+  Future<void> use() async {
+    await LunaState.navigatorKey.currentContext!.setLocale(locale);
+    Intl.defaultLocale = languageTag;
+  }
+
   bool get enabled {
     switch (this) {
       case LunaLanguage.ENGLISH:
@@ -195,6 +200,4 @@ extension LunaLanguageExtension on LunaLanguage {
         return const Locale('vi');
     }
   }
-
-  Future<void> use(BuildContext context) => context.setLocale(this.locale);
 }

@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-/// Simple dart script to concat all module's localization files into a single file for loading into LunaSea.
+/// Simple dart script to concatenate all module's localization files into a single file for loading into LunaSea.
 ///
 /// This script is designed to be run from the root of the project.
 void main() {
@@ -38,11 +38,19 @@ void main() {
           _createFile(path);
           File file = File(language.path);
           _writeFile(path, jsonDecode(file.readAsStringSync()));
+          // If required, create a stub primary language to prevent asset load failures
+          if (name.contains('-')) _writeStubPrimaryLanguage(_assets.path, name);
         }
       });
       print('');
     }
   });
+}
+
+void _writeStubPrimaryLanguage(String assets, String language) {
+  final primary = language.split('-').first;
+  final path = '$assets/$primary.json';
+  _createFile(path);
 }
 
 void _writeFile(String path, Map<dynamic, dynamic>? data) {

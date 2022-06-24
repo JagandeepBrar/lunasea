@@ -108,7 +108,7 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _boot(Duration duration) async {
-    _initLocale();
+    LunaLanguage.current.use();
     _initNotifications();
     if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
 
@@ -126,12 +126,6 @@ class _State extends State<LunaOS> {
       messaging.registerOnMessageListener();
       messaging.registerOnMessageOpenedAppListener();
     }
-  }
-
-  void _initLocale() {
-    final lan = LunaLanguage.fromLocale(context.locale) ?? LunaLanguage.ENGLISH;
-    context.setLocale(lan.locale);
-    Intl.defaultLocale = lan.languageTag;
   }
 
   Future<void> _healthCheck() async {

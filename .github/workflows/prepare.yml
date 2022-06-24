@@ -3,6 +3,9 @@ name: Prepare
 on:
   workflow_call:
     inputs:
+      changelog:
+        type: string
+        required: true
       flavor:
         type: string
         required: true
@@ -43,7 +46,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
+
       - name: Count Commits
         id: commit-count
         run: |
@@ -78,15 +81,15 @@ jobs:
         id: build-changelog
         uses: actions/github-script@v6
         env:
+          CHANGELOG: ${{ inputs.changelog }}
           FLAVOR: ${{ steps.build-flavor.outputs.result }}
-          MESSAGE: ${{ steps.commit-message.outputs.commit-message }}
+          COMMIT: ${{ steps.commit-message.outputs.commit-message }}
         with:
           result-encoding: string
           script: |
-            const defaultMessage = 'Thank you for testing pre-release builds of LunaSea! Please consider joining the Discord to give feedback to the developer.\n\nChanges can be found on GitHub or by going to settings/system!';
-            const isEdge = process.env.FLAVOR === 'edge';
-            if (isEdge) return process.env.MESSAGE ?? defaultMessage;
-            return defaultMessage;
+            if (process.env.CHANGELOG) return process.env.CHANGELOG;
+            if (process.env.FLAVOR === 'edge') return process.env.COMMIT || 'No Documented Changes';
+            throw new Error('This flavor requires a changelog.');
 
       - name: Build Number
         id: build-number

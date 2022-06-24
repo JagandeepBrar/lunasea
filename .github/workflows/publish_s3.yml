@@ -1,4 +1,4 @@
-name: Publish Windows
+name: Publish s3
 
 on:
   workflow_call:
@@ -35,6 +35,42 @@ jobs:
         with:
           channel: s3
 
+      - name: Download Android App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: android-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download iOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: ios-appstore-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download Linux Snap
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-snapcraft
+          path: ${{ github.workspace }}/output
+
+      - name: Download macOS App Package
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-app-package
+          path: ${{ github.workspace }}/output
+
+      - name: Download macOS Disk Image
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-disk-image
+          path: ${{ github.workspace }}/output
+
+      - name: Download Web Archive
+        uses: actions/download-artifact@v3
+        with:
+          name: web-archive
+          path: ${{ github.workspace }}/output
+
       - name: Download Windows App Package
         uses: actions/download-artifact@v3
         with:
@@ -46,6 +82,17 @@ jobs:
         with:
           name: windows-msix-installer
           path: ${{ github.workspace }}/output
+
+      - name: Create Version File
+        working-directory: ${{ github.workspace }}/output
+        run: |
+          echo ${{ inputs.build-number }} > VERSION.txt
+          echo ${{ inputs.build-number }} > VERSION_ANDROID.txt
+          echo ${{ inputs.build-number }} > VERSION_IOS.txt
+          echo ${{ inputs.build-number }} > VERSION_LINUX.txt
+          echo ${{ inputs.build-number }} > VERSION_MACOS.txt
+          echo ${{ inputs.build-number }} > VERSION_WEB.txt
+          echo ${{ inputs.build-number }} > VERSION_WINDOWS.txt
 
       - name: Upload to S3 Bucket (Build Title)
         uses: jakejarvis/s3-sync-action@v0.5.1
@@ -59,10 +106,6 @@ jobs:
           AWS_REGION: ${{ secrets.S3_REGION }}
           SOURCE_DIR: ${{ github.workspace }}/output
           DEST_DIR: ${{ inputs.build-title }}
-
-      - name: Create Version File
-        working-directory: ${{ github.workspace }}/output
-        run: echo ${{ inputs.build-number }} > VERSION_WINDOWS.txt
 
       - name: Upload to S3 Bucket (Latest)
         uses: jakejarvis/s3-sync-action@v0.5.1

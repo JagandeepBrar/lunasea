@@ -68,14 +68,27 @@ jobs:
         with:
           platform: web
 
+      - name: Determine Tags
+        id: tags
+        uses: actions/github-script@v6
+        env:
+          BUILD_FLAVOR: ${{ inputs.build-flavor }}
+          BUILD_TITLE: ${{ inputs.build-title }}
+        with:
+          result-encoding: string
+          script: |
+            const tags = [];
+            tags.push(process.env.BUILD_FLAVOR);
+            tags.push(process.env.BUILD_TITLE);
+            if (process.env.BUILD_FLAVOR === 'stable') tags.push('latest');
+            return tags.join(',');
+
       - name: Build LunaSea
         uses: docker/build-push-action@v2
         with:
           context: .
           outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar
-          tags: |
-            ghcr.io/jagandeepbrar/lunasea:${{ inputs.build-title }}
-            ghcr.io/jagandeepbrar/lunasea:${{ inputs.build-flavor }}
+          tags: ${{ steps.tags.outputs.result }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

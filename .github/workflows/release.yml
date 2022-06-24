@@ -121,15 +121,9 @@ jobs:
     with:
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
-      build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
-      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
-      S3_REGION: ${{ secrets.S3_REGION }}
 
   publish-ios:
     name: Publish iOS
@@ -138,8 +132,6 @@ jobs:
     with:
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
-      build-number: ${{ needs.prepare.outputs.build-number }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -147,11 +139,6 @@ jobs:
       APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
-      S3_REGION: ${{ secrets.S3_REGION }}
 
   publish-linux:
     name: Publish Linux
@@ -159,15 +146,8 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
-      build-number: ${{ needs.prepare.outputs.build-number }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
-      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
-      S3_REGION: ${{ secrets.S3_REGION }}
 
   publish-macos:
     name: Publish macOS
@@ -176,8 +156,6 @@ jobs:
     with:
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
-      build-number: ${{ needs.prepare.outputs.build-number }}
-      build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -185,11 +163,6 @@ jobs:
       APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
-      S3_REGION: ${{ secrets.S3_REGION }}
 
   publish-web:
     name: Publish Web
@@ -197,20 +170,14 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
-      build-number: ${{ needs.prepare.outputs.build-number }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
-      S3_REGION: ${{ secrets.S3_REGION }}
 
-  publish-windows:
-    name: Publish Windows
-    needs: [ prepare, build-windows ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_windows.yml@master
+  publish-s3:
+    name: Publish S3
+    needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-web, build-windows ]
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_s3.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -224,7 +191,7 @@ jobs:
 
   notify:
     name: Notify
-    needs: [ prepare, publish-android, publish-ios, publish-linux, publish-macos, publish-web, publish-windows ]
+    needs: [ prepare, publish-android, publish-ios, publish-linux, publish-macos, publish-web, publish-s3 ]
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
       build-changelog: ${{ needs.prepare.outputs.build-changelog }}

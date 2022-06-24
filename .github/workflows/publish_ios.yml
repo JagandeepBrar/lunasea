@@ -9,12 +9,6 @@ on:
       build-flavor:
         required: true
         type: string
-      build-number:
-        required: true
-        type: string
-      build-title:
-        required: true
-        type: string
 
     secrets:
       APPLE_ID:
@@ -28,16 +22,6 @@ on:
       APPLE_STORE_CONNECT_KEY_ID:
         required: true
       APPLE_TEAM_ID:
-        required: true
-      S3_ACCESS_KEY:
-        required: true
-      S3_BUCKET:
-        required: true
-      S3_ENDPOINT:
-        required: true
-      S3_KEY_ID:
-        required: true
-      S3_REGION:
         required: true
 
 jobs:
@@ -75,48 +59,3 @@ jobs:
           APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: bundle exec fastlane deploy_appstore groups:${{ inputs.build-flavor }} ipa:${{ github.workspace }}/output/lunasea-ios.ipa
-
-  s3:
-    name: S3
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Environment
-        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_deployment@master
-        with:
-          channel: s3
-
-      - name: Download iOS App Package
-        uses: actions/download-artifact@v3
-        with:
-          name: ios-appstore-package
-          path: ${{ github.workspace }}/output
-
-      - name: Upload to S3 Bucket (Build Title)
-        uses: jakejarvis/s3-sync-action@v0.5.1
-        with:
-          args: --acl public-read --follow-symlinks 
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.S3_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-          AWS_REGION: ${{ secrets.S3_REGION }}
-          SOURCE_DIR: ${{ github.workspace }}/output
-          DEST_DIR: ${{ inputs.build-title }}
-
-      - name: Create Version File
-        working-directory: ${{ github.workspace }}/output
-        run: echo ${{ inputs.build-number }} > VERSION_IOS.txt
-
-      - name: Upload to S3 Bucket (Latest)
-        uses: jakejarvis/s3-sync-action@v0.5.1
-        with:
-          args: --acl public-read --follow-symlinks 
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.S3_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-          AWS_REGION: ${{ secrets.S3_REGION }}
-          SOURCE_DIR: ${{ github.workspace }}/output
-          DEST_DIR: latest/${{ inputs.build-flavor }}

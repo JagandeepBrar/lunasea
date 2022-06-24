@@ -32,16 +32,9 @@ jobs:
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-  validate:
-    name: Validate
-    needs: [ prepare ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/validate.yml@master
-    secrets:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
   build-android:
     name: Build Android
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -52,7 +45,7 @@ jobs:
 
   build-ios:
     name: Build iOS
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -69,12 +62,12 @@ jobs:
 
   build-linux:
     name: Build Linux
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
 
   build-macos:
     name: Build macOS
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -96,7 +89,7 @@ jobs:
 
   build-web:
     name: Build Web
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
@@ -106,7 +99,7 @@ jobs:
 
   build-windows:
     name: Build Windows
-    needs: [ prepare, validate ]
+    needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
     secrets:
       CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}

@@ -17,8 +17,11 @@ jobs:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: test
 
-      - name: Analyze
+      - name: Analyze Release
         uses: invertase/github-action-dart-analyzer@v1
         with:
           fatal-infos: false
           fatal-warnings: true
+
+      - name: Test Release
+        run: flutter test

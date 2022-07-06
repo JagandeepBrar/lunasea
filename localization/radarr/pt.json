@@ -59,6 +59,7 @@
     "radarr.NoTagsFound": "Nenhuma etiqueta encontrada",
     "radarr.Other": "Outro",
     "radarr.ParentDirectory": "Diretório Parental",
+    "radarr.PhysicalRelease": "Lançamento Físico",
     "radarr.Quality": "Qualidade",
     "radarr.QualityProfile": "Perfil de qualidade",
     "radarr.Queue": "Fila",
@@ -71,5 +72,6 @@
     "radarr.RemoveMovie": "Remover filme",
     "radarr.Resolution": "Resolução",
     "radarr.RootFolder": "Pasta raiz",
-    "radarr.RootFolders": "Pastas raiz"
+    "radarr.RootFolders": "Pastas raiz",
+    "radarr.Runtime": "Tempo de execução"
 }

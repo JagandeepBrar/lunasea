@@ -11,6 +11,7 @@ enum _Type {
 class LunaTableContent extends StatelessWidget {
   final String? title;
   final String? body;
+  final String? url;
   final bool bodyIsUrl;
   final int titleFlex;
   final int bodyFlex;
@@ -23,6 +24,7 @@ class LunaTableContent extends StatelessWidget {
     Key? key,
     this.title,
     this.body,
+    this.url,
     this.bodyIsUrl = false,
     this.titleAlign = TextAlign.end,
     this.bodyAlign = TextAlign.start,
@@ -44,8 +46,9 @@ class LunaTableContent extends StatelessWidget {
 
   factory LunaTableContent({
     Key? key,
-    required String? title,
+    String? title,
     required String? body,
+    String? url,
     bool bodyIsUrl = false,
     TextAlign titleAlign = TextAlign.end,
     TextAlign bodyAlign = TextAlign.start,
@@ -56,6 +59,7 @@ class LunaTableContent extends StatelessWidget {
         key: key,
         title: title,
         body: body,
+        url: url,
         bodyIsUrl: bodyIsUrl,
         titleAlign: titleAlign,
         bodyAlign: bodyAlign,
@@ -69,7 +73,7 @@ class LunaTableContent extends StatelessWidget {
     if (type == _Type.SPACER) return SizedBox(height: spacerSize);
     return Row(
       children: [
-        _title(),
+        if (title != null) _title(),
         _subtitle(),
       ],
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +119,25 @@ class LunaTableContent extends StatelessWidget {
             left: LunaUI.DEFAULT_MARGIN_SIZE / 2,
           ),
         ),
-        onTap: !bodyIsUrl ? null : body!.openLink,
-        onLongPress: !bodyIsUrl ? null : () => body!.copyToClipboard(),
         borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+        onTap: _onTap(),
+        onLongPress: _onLongPress(),
       ),
       flex: bodyFlex,
     );
+  }
+
+  void Function()? _onTap() {
+    final sanitizedUrl = url ?? '';
+    if (sanitizedUrl.isEmpty && !bodyIsUrl) return null;
+    if (sanitizedUrl.isNotEmpty) return sanitizedUrl.openLink;
+    return body!.openLink;
+  }
+
+  void Function()? _onLongPress() {
+    final sanitizedUrl = url ?? '';
+    if (sanitizedUrl.isEmpty && !bodyIsUrl) return null;
+    if (sanitizedUrl.isNotEmpty) return sanitizedUrl.copyToClipboard;
+    return body!.copyToClipboard;
   }
 }

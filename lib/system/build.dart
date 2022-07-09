@@ -12,10 +12,16 @@ class LunaBuild {
     return commit.substring(0, min(7, commit.length));
   }
 
-  Future<void> openCommitHistory() async {
-    const commit = LunaEnvironment.commit;
-    String _base = 'https://github.com/JagandeepBrar/LunaSea/commits';
-    return '$_base/$commit'.openLink();
+  String getCommitUrl(
+    String commit, {
+    bool fullHistory = false,
+  }) {
+    final location = fullHistory ? 'commits' : 'commit';
+    return 'https://github.com/JagandeepBrar/LunaSea/$location/$commit';
+  }
+
+  Future<void> openCommitHistory({String? commit}) async {
+    return getCommitUrl(LunaEnvironment.commit, fullHistory: true).openLink();
   }
 
   Future<Tuple2<bool, int?>> isLatestBuildNumber() async {
@@ -34,36 +40,14 @@ class LunaBuild {
     return const Tuple2(false, null);
   }
 
-  Future<Tuple2<bool, String?>> isLatestBuildVersion() async {
-    List<int> _parse(String v) =>
-        v.split('.').map((s) => int.parse(s)).toList();
+  Future<Tuple2<bool, int>> isLatestBuildVersion() async {
+    const database = LunaSeaDatabase.CHANGELOG_LAST_BUILD_VERSION;
+    const build = LunaEnvironment.build;
 
-    try {
-      const database = LunaSeaDatabase.CHANGELOG_LAST_BUILD;
-      final package = (await PackageInfo.fromPlatform()).version;
+    bool isLatest = true;
+    if (build > database.read()) isLatest = false;
 
-      final currentVersion = _parse(database.read());
-      final runningVersion = _parse(package);
-
-      bool isLatest = true;
-      if (runningVersion[0] != currentVersion[0]) {
-        isLatest = false;
-      } else if (runningVersion[1] != currentVersion[1]) {
-        isLatest = false;
-      } else if (runningVersion[2] != currentVersion[2]) {
-        isLatest = false;
-      }
-
-      database.update(package);
-      return Tuple2(isLatest, package);
-    } catch (error, stack) {
-      LunaLogger().error(
-        'Failed to check if running latest build version',
-        error,
-        stack,
-      );
-    }
-
-    return const Tuple2(false, null);
+    database.update(build);
+    return Tuple2(isLatest, build);
   }
 }

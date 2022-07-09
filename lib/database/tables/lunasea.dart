@@ -29,7 +29,7 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   USE_24_HOUR_TIME<bool>(false),
   DEFAULT_LAUNCH_MODULE<LunaModule>(LunaModule.DASHBOARD),
   ENABLE_IN_APP_NOTIFICATIONS<bool>(true),
-  CHANGELOG_LAST_BUILD<String>('0.0.0');
+  CHANGELOG_LAST_BUILD_VERSION<int>(0);
 
   @override
   LunaTable get table => LunaTable.lunasea;

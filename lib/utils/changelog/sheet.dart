@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/deprecated/state/state.dart';
 import 'package:lunasea/extensions/string/string.dart';
+import 'package:lunasea/system/build.dart';
+import 'package:lunasea/system/environment.dart';
+import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/vendor.dart';
@@ -9,6 +12,8 @@ import 'package:lunasea/utils/changelog/changelog.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class ChangelogSheet extends LunaBottomModalSheet {
+  static final _defaultMOTD =
+      'Welcome to LunaSea!\n\nThank you for testing ${LunaFlavor.current.key} release builds! Please see below for all documented changes found in this release.';
   late Changelog _changelog;
   late String _version;
 
@@ -17,11 +22,9 @@ class ChangelogSheet extends LunaBottomModalSheet {
     Widget Function(BuildContext context)? builder,
   }) async {
     try {
-      final context = LunaState.navigatorKey.currentContext!;
       _version = await PackageInfo.fromPlatform().then((v) => v.version);
-      _changelog = await DefaultAssetBundle.of(context)
-          .loadString('assets/changelog.json')
-          .then((c) => Changelog.fromJson(json.decode(c)));
+      await _loadChangelog();
+
       return this.showModal(builder: builder);
     } catch (error, stack) {
       LunaLogger().error(
@@ -32,13 +35,25 @@ class ChangelogSheet extends LunaBottomModalSheet {
     }
   }
 
+  Future<void> _loadChangelog() async {
+    final context = LunaState.navigatorKey.currentContext!;
+    final asset = LunaFlavor.isStable
+        ? 'assets/changelog_stable.json'
+        : 'assets/changelog.json';
+
+    _changelog = await DefaultAssetBundle.of(context)
+        .loadString(asset)
+        .then((c) => Changelog.fromJson(json.decode(c)));
+  }
+
   @override
   Widget builder(BuildContext context) {
+    final showDefaultMOTD = _changelog.motd?.isEmpty ?? true;
     return LunaListViewModal(
       children: [
         LunaHeader(
-          text: _version,
-          subtitle: _changelog.motd ?? 'Welcome to LunaSea!',
+          text: '$_version (${LunaEnvironment.build})',
+          subtitle: showDefaultMOTD ? _defaultMOTD : _changelog.motd,
         ),
         ..._buildChangeBlock(
           'lunasea.New'.tr(),
@@ -52,6 +67,16 @@ class ChangelogSheet extends LunaBottomModalSheet {
           'lunasea.Fixes'.tr(),
           _changelog.fixes,
         ),
+        if (LunaFlavor.isEdge)
+          ..._buildChangeBlock(
+            'lunasea.Chores'.tr(),
+            _changelog.chores,
+          ),
+        if (LunaFlavor.isEdge)
+          ..._buildChangeBlock(
+            'lunasea.Docs'.tr(),
+            _changelog.docs,
+          ),
         const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       ],
       actionBar: LunaBottomActionBar(
@@ -59,7 +84,9 @@ class ChangelogSheet extends LunaBottomModalSheet {
           LunaButton.text(
             text: 'lunasea.FullChangelog'.tr(),
             icon: Icons.track_changes_rounded,
-            onTap: LunaLinkedContent.CHANGELOG.launch,
+            onTap: LunaFlavor.isStable
+                ? LunaLinkedContent.CHANGELOG.launch
+                : LunaBuild().openCommitHistory,
           ),
         ],
       ),
@@ -74,8 +101,8 @@ class ChangelogSheet extends LunaBottomModalSheet {
         content: List<LunaTableContent>.generate(
           changes.length,
           (i) => LunaTableContent(
-            title: changes[i].module,
-            body: changes[i].changes.map((s) => s.bulleted()).join('\n'),
+            body: changes[i].message.bulleted(),
+            url: LunaBuild().getCommitUrl(changes[i].commit),
           ),
         ),
       ),

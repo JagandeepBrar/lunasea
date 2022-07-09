@@ -61,12 +61,7 @@ class _State extends ConsumerState<BuildDetails> {
     return LunaButton.text(
       icon: LunaIcons.CHANGELOG,
       text: 'lunasea.Changelog'.tr(),
-      onTap: () async {
-        if (LunaFlavor.isStable) {
-          return ChangelogSheet().show();
-        }
-        return LunaBuild().openCommitHistory();
-      },
+      onTap: ChangelogSheet().show,
     );
   }
 

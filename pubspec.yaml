@@ -82,6 +82,7 @@ flutter:
   assets:
     # System Assets
     - assets/changelog.json
+    - assets/changelog_stable.json
     - assets/images/
     - assets/localization/
   fonts:

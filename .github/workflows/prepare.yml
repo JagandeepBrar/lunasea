@@ -3,9 +3,6 @@ name: Prepare
 on:
   workflow_call:
     inputs:
-      changelog:
-        type: string
-        required: true
       flavor:
         type: string
         required: true
@@ -53,12 +50,6 @@ jobs:
           COUNT=`git rev-list HEAD --count`
           echo "::set-output name=commit-count::$COUNT"
       
-      - name: Latest Commit Message
-        id: commit-message
-        run: |
-          MESSAGE=`git show -s --format=%s`
-          echo "::set-output name=commit-message::$MESSAGE"
-
       - name: Build Flavor
         id: build-flavor
         uses: actions/github-script@v6
@@ -81,15 +72,10 @@ jobs:
         id: build-changelog
         uses: actions/github-script@v6
         env:
-          CHANGELOG: ${{ inputs.changelog }}
           FLAVOR: ${{ steps.build-flavor.outputs.result }}
-          COMMIT: ${{ steps.commit-message.outputs.commit-message }}
         with:
           result-encoding: string
-          script: |
-            if (process.env.CHANGELOG) return process.env.CHANGELOG;
-            if (process.env.FLAVOR === 'edge') return process.env.COMMIT || 'No Documented Changes';
-            throw new Error('This flavor requires a changelog.');
+          script: return `Thank you for testing ${process.env.FLAVOR} release builds!\n\nAll changes can be found within the application.`;
 
       - name: Build Number
         id: build-number
@@ -150,6 +136,9 @@ jobs:
       - name: Generate Localization
         run: dart ${{github.workspace }}/scripts/generate_localization.dart
 
+      - name: Generate Changelog
+        run: dart ${{github.workspace }}/scripts/generate_changelog.dart ${{ needs.build-details.outputs.build-flavor }}
+
       - name: Generate Build Runner Files
         run: flutter packages pub run build_runner build
 
@@ -158,6 +147,7 @@ jobs:
         with:
           name: core-files
           path: |
+            ${{ github.workspace }}/assets/changelog.json
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
             ${{ github.workspace }}/lib/system/environment.dart

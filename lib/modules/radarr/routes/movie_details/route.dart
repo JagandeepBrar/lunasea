@@ -101,7 +101,7 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.movieId <= 0)
-      return const InvalidRoutePage(
+      return InvalidRoutePage(
         title: 'Movie Details',
         message: 'Movie Not Found',
       );

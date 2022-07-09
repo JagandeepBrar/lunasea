@@ -24,7 +24,7 @@ class LunaRouter {
   /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
   void initialize() {
     router.notFoundHandler = Handler(
-      handlerFunc: (context, params) => const InvalidRoutePage(),
+      handlerFunc: (context, params) => InvalidRoutePage(),
     );
     router.define(
       '/',

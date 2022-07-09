@@ -54,7 +54,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.indexerId < 0 || !LunaBox.indexers.contains(widget.indexerId)) {
-      return const InvalidRoutePage(
+      return InvalidRoutePage(
         title: 'Custom Headers',
         message: 'Indexer Not Found',
       );

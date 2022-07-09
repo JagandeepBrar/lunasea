@@ -35,7 +35,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
       drawer: _drawer(),
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -49,7 +49,7 @@ class _State extends State<_Widget> {
     return null;
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     List<String> profiles = LunaBox.profiles.keys.fold([], (value, element) {
       if (LunaBox.profiles.read(element)?.tautulliEnabled ?? false)
         value.add(element);

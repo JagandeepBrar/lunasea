@@ -4,7 +4,7 @@ import 'package:lunasea/modules.dart';
 import 'package:lunasea/system/platform.dart';
 
 class LunaScaffold extends StatelessWidget {
-  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final LunaModule? module;
   final PreferredSizeWidget? appBar;
   final Widget? body;
@@ -19,7 +19,7 @@ class LunaScaffold extends StatelessWidget {
 
   // ignore: use_key_in_widget_constructors
   const LunaScaffold({
-    this.scaffoldKey,
+    required this.scaffoldKey,
     this.module,
     this.appBar,
     this.body,
@@ -33,15 +33,16 @@ class LunaScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = scaffoldKey?.currentState;
-    final hasDrawer = state?.hasDrawer ?? false;
-
-    if (hasDrawer && LunaPlatform.isAndroid) {
+    if (LunaPlatform.isAndroid) {
       return WillPopScope(
         onWillPop: () async {
-          if (state!.isDrawerOpen) return true;
-          state.openDrawer();
-          return false;
+          final state = scaffoldKey.currentState;
+          if (state?.hasDrawer ?? false) {
+            if (state!.isDrawerOpen) return true;
+            state.openDrawer();
+            return false;
+          }
+          return true;
         },
         child: scaffold,
       );

@@ -27,13 +27,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.EXTERNAL_MODULES,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       drawer: _drawer(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       useDrawer: true,
       title: LunaModule.EXTERNAL_MODULES.title,

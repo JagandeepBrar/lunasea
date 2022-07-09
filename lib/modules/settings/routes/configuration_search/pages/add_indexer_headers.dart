@@ -50,7 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     _arguments = ModalRoute.of(context)!.settings.arguments as _Arguments?;
     if (_arguments == null) {
-      return const InvalidRoutePage(
+      return InvalidRoutePage(
         title: 'Custom Headers',
         message: 'Indexer Not Found',
       );

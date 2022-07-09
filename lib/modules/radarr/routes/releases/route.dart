@@ -65,7 +65,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.movieId <= 0) {
-      return const InvalidRoutePage(
+      return InvalidRoutePage(
         title: 'Releases',
         message: 'Movie Not Found',
       );

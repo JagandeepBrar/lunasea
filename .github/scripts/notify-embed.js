@@ -1,9 +1,3 @@
-const getChangelog = () => {
-  const changelog = process.env.BUILD_CHANGELOG;
-  if (changelog) return changelog;
-  return "No Documented Changes";
-};
-
 const getRelease = () => {
   const title = process.env.BUILD_TITLE;
   let url = "https://builds.lunasea.app";
@@ -35,10 +29,6 @@ module.exports = () => {
           name: "Web",
           value: getWeb(),
           inline: true,
-        },
-        {
-          name: "Changelog",
-          value: getChangelog(),
         },
       ],
     },

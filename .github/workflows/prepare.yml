@@ -75,7 +75,7 @@ jobs:
           FLAVOR: ${{ steps.build-flavor.outputs.result }}
         with:
           result-encoding: string
-          script: return `Thank you for testing ${process.env.FLAVOR} release builds!\n\nAll changes can be found within the application.`;
+          script: return `Thank you for testing ${process.env.FLAVOR} release builds! All changes can be found within the application.`;
 
       - name: Build Number
         id: build-number

@@ -12,7 +12,6 @@ import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
     show HomeRouter;
 import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/cache/image/image_cache.dart';
-import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/network/network.dart';
@@ -129,11 +128,9 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _healthCheck() async {
-    if (LunaFlavor.isStable) {
-      LunaBuild().isLatestBuildVersion().then((isLatest) {
-        if (!isLatest.item1) ChangelogSheet().show();
-      });
-    }
+    LunaBuild().isLatestBuildVersion().then((isLatest) {
+      if (!isLatest.item1) ChangelogSheet().show();
+    });
   }
 
   @override

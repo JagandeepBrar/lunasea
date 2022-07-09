@@ -16,11 +16,6 @@ on:
           - beta
           - candidate
           - stable
-      changelog:
-        description: Custom Release Changelog
-        required: false
-        default: ''
-        type: string
 
 jobs:
   prepare:
@@ -28,7 +23,6 @@ jobs:
     uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
     with:
       flavor: ${{ inputs.flavor }}
-      changelog: ${{ inputs.changelog }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

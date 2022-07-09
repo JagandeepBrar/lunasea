@@ -5,14 +5,14 @@ part 'change.g.dart';
 @JsonSerializable()
 class Change {
   @JsonKey()
-  String module;
+  String commit;
 
   @JsonKey()
-  List<String> changes;
+  String message;
 
   Change({
-    required this.module,
-    required this.changes,
+    required this.commit,
+    required this.message,
   });
 
   @override

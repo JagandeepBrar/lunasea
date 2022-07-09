@@ -8,20 +8,28 @@ class Changelog {
   @JsonKey()
   String? motd;
 
-  @JsonKey(name: 'new')
+  @JsonKey(name: 'feat')
   List<Change>? feat;
 
-  @JsonKey(name: 'tweaks')
+  @JsonKey(name: 'refactor')
   List<Change>? tweaks;
 
-  @JsonKey(name: 'fixes')
+  @JsonKey(name: 'fix')
   List<Change>? fixes;
+
+  @JsonKey(name: 'docs')
+  List<Change>? docs;
+
+  @JsonKey(name: 'chore')
+  List<Change>? chores;
 
   Changelog({
     this.motd,
     this.feat,
     this.tweaks,
     this.fixes,
+    this.docs,
+    this.chores,
   });
 
   @override

@@ -32,6 +32,10 @@ enum LunaFlavor {
   }
 
   static LunaFlavor get current => LunaFlavor.fromKey(LunaEnvironment.flavor);
+
+  static bool get isEdge => current == LunaFlavor.EDGE;
+  static bool get isBeta => current == LunaFlavor.BETA;
+  static bool get isCandidate => current == LunaFlavor.CANDIDATE;
   static bool get isStable => current == LunaFlavor.STABLE;
 }
 

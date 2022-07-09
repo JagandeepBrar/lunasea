@@ -81,7 +81,7 @@ jobs:
             tags.push(process.env.BUILD_FLAVOR);
             tags.push(process.env.BUILD_TITLE);
             if (process.env.BUILD_FLAVOR === 'stable') tags.push('latest');
-            return tags.join(',');
+            return tags.map((tag) => `ghcr.io/jagandeepbrar/lunasea:${tag}`).join(',');
 
       - name: Build LunaSea
         uses: docker/build-push-action@v2

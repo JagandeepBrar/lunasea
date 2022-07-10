@@ -56,7 +56,7 @@ class ChangelogSheet extends LunaBottomModalSheet {
           subtitle: showDefaultMOTD ? _defaultMOTD : _changelog.motd,
         ),
         ..._buildChangeBlock(
-          'lunasea.New'.tr(),
+          'lunasea.Features'.tr(),
           _changelog.feat,
         ),
         ..._buildChangeBlock(
@@ -69,13 +69,8 @@ class ChangelogSheet extends LunaBottomModalSheet {
         ),
         if (LunaFlavor.isEdge)
           ..._buildChangeBlock(
-            'lunasea.Chores'.tr(),
+            'lunasea.Other'.tr(),
             _changelog.chores,
-          ),
-        if (LunaFlavor.isEdge)
-          ..._buildChangeBlock(
-            'lunasea.Docs'.tr(),
-            _changelog.docs,
           ),
         const SizedBox(height: LunaUI.DEFAULT_MARGIN_SIZE / 2),
       ],

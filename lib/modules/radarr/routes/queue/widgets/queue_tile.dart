@@ -32,7 +32,7 @@ class RadarrQueueTile extends StatelessWidget {
             _subtitle2(),
           ],
           expandedHighlightedNodes: _highlightedNodes(),
-          expandedTableContent: _tableContent(movie!),
+          expandedTableContent: _tableContent(movie),
           expandedTableButtons: _tableButtons(context),
           collapsedTrailing: LunaIconButton(
             icon: record.lunaStatusIcon,
@@ -65,7 +65,8 @@ class RadarrQueueTile extends StatelessWidget {
     );
   }
 
-  List<LunaTableContent> _tableContent(RadarrMovie movie) {
+  List<LunaTableContent> _tableContent(RadarrMovie? movie) {
+    if (movie == null) return [];
     return [
       LunaTableContent(
           title: 'radarr.Movie'.tr(), body: record.lunaMovieTitle(movie)),

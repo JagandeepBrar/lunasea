@@ -9,19 +9,19 @@ class Changelog {
   String? motd;
 
   @JsonKey(name: 'feat')
-  List<Change>? feat;
+  Map<String, List<Change>>? feat;
 
   @JsonKey(name: 'refactor')
-  List<Change>? tweaks;
+  Map<String, List<Change>>? tweaks;
 
   @JsonKey(name: 'fix')
-  List<Change>? fixes;
+  Map<String, List<Change>>? fixes;
 
   @JsonKey(name: 'docs')
-  List<Change>? docs;
+  Map<String, List<Change>>? docs;
 
   @JsonKey(name: 'chore')
-  List<Change>? chores;
+  Map<String, List<Change>>? chores;
 
   Changelog({
     this.motd,

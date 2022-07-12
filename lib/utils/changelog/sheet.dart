@@ -5,10 +5,10 @@ import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/logger.dart';
-import 'package:lunasea/utils/links.dart';
-import 'package:lunasea/vendor.dart';
 import 'package:lunasea/utils/changelog/change.dart';
 import 'package:lunasea/utils/changelog/changelog.dart';
+import 'package:lunasea/utils/links.dart';
+import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class ChangelogSheet extends LunaBottomModalSheet {
@@ -88,18 +88,21 @@ class ChangelogSheet extends LunaBottomModalSheet {
     );
   }
 
-  List<Widget> _buildChangeBlock(String header, List<Change>? changes) {
+  List<Widget> _buildChangeBlock(
+    String header,
+    Map<String, List<Change>>? changes,
+  ) {
     if (changes == null || changes.isEmpty) return [];
+    final keys = changes.keys.toList()..sort();
     return [
       LunaHeader(text: header),
       LunaTableCard(
-        content: List<LunaTableContent>.generate(
-          changes.length,
-          (i) => LunaTableContent(
-            body: changes[i].message.bulleted(),
-            url: LunaBuild().getCommitUrl(changes[i].commit),
-          ),
-        ),
+        content: keys.map<LunaTableContent>((feature) {
+          final combined = changes[feature]!.map((i) {
+            return i.message.bulleted();
+          }).join('\n');
+          return LunaTableContent(title: feature, body: combined);
+        }).toList(),
       ),
     ];
   }

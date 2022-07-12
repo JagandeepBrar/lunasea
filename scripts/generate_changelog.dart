@@ -19,12 +19,29 @@ Future<void> main(List<String> args) async {
     if (type.isNotEmpty && results[type] != null) {
       results[type]!.add({
         "commit": commit,
-        "message": parsed,
+        "feature": parsed[0],
+        "message": parsed[1],
       });
     }
   }
 
-  export(args[0], results);
+  final output = results.map((k, v) => MapEntry(k, groupContent(v)));
+  export(args[0], output);
+}
+
+Map<String, List<Map>> groupContent(List<dynamic> items) {
+  Map<String, List<Map>> results = {};
+  for (final item in items) {
+    results[item['feature']] ??= [];
+    results[item['feature']]!.add({
+      'commit': item['commit'],
+      'message': item['message'],
+    });
+  }
+  results.values.forEach((items) {
+    items.sort((a, b) => a['message'].compareTo(b['message']));
+  });
+  return results;
 }
 
 void export(String flavor, Map<String, dynamic> results) {
@@ -40,7 +57,6 @@ void loadCommitTypes(Map<String, dynamic> results) {
   final file = File('.czrc');
   final config = json.decode(file.readAsStringSync());
 
-  results['motd'] = '';
   for (final key in (config['types'] as Map).keys) {
     results[key] = [];
   }
@@ -51,16 +67,14 @@ String parseCommitType(String commit) {
   return type.split('(')[0];
 }
 
-String parseCommitMessage(String commit, String type) {
+List<String> parseCommitMessage(String commit, String type) {
   final index = type.length;
   final endIndex = commit.indexOf(':');
-
-  if (commit[index] == '(') {
-    final feature = commit.substring(index + 1, endIndex - 1);
-    final message = commit.substring(endIndex + 2);
-    return '$feature: $message';
-  }
-  return commit.substring(endIndex + 2);
+  final message = commit.substring(endIndex + 2);
+  final feature = commit[index] == '('
+      ? commit.substring(index + 1, endIndex - 1)
+      : 'other';
+  return [feature, message];
 }
 
 Future<List<String>> getChanges(String flavor) async {
@@ -85,5 +99,6 @@ Future<List<String>> getChanges(String flavor) async {
     '-n ${(currentVersion - lastVersion).toString()}',
   ]);
 
+  if ((messages.stdout as String).isEmpty) return [];
   return (messages.stdout as String).trim().split('\n');
 }

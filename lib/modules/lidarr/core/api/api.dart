@@ -356,13 +356,13 @@ class LidarrAPI {
 
   Future<List<LidarrHistoryData>> getHistory(
       {String sortKey = 'date',
-      String sortDir = 'desc',
+      String sortDir = 'descending',
       int pageSize = 250}) async {
     try {
       Response response = await _dio.get('history', queryParameters: {
         'sortKey': sortKey,
         'pageSize': pageSize,
-        'sortDir': sortDir,
+        'sortDirection': sortDir,
       });
       List<LidarrHistoryData> _entries = [];
       for (var entry in response.data['records']) {

@@ -54,6 +54,7 @@ class _State extends State<SonarrSeriesTile> {
   Widget _buildBlockTile() {
     return LunaBlock(
       backgroundUrl: context.read<SonarrState>().getFanartURL(widget.series.id),
+      backgroundHeaders: context.read<SonarrState>().headers,
       posterUrl: context.read<SonarrState>().getPosterURL(widget.series.id),
       posterHeaders: context.read<SonarrState>().headers,
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,

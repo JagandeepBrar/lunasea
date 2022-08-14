@@ -295,6 +295,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "natiz",
+      "name": "natiz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3515888?v=4",
+      "profile": "https://github.com/natiz",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 8,

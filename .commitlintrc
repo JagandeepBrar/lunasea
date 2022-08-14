@@ -11,7 +11,8 @@
         "docs",
         "feat",
         "fix",
-        "refactor"
+        "refactor",
+        "release"
       ]
     ]
   }

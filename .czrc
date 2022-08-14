@@ -9,6 +9,10 @@
       "description": "Documentation only changes",
       "title": "Documentation"
     },
+    "release": {
+      "description": "A commit intended for publishing a new release",
+      "title": "Release"
+    },
     "feat": {
       "description": "A code change that implements a new feature",
       "title": "Feature"

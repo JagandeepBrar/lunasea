@@ -23,6 +23,9 @@ class Changelog {
   @JsonKey(name: 'chore')
   Map<String, List<Change>>? chores;
 
+  @JsonKey(name: 'release')
+  Map<String, List<Change>>? release;
+
   Changelog({
     this.motd,
     this.feat,
@@ -30,6 +33,7 @@ class Changelog {
     this.fixes,
     this.docs,
     this.chores,
+    this.release,
   });
 
   @override

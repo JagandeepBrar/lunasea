@@ -60,7 +60,7 @@ class _State extends State<OverseerrIssuesListView> {
       pagingController: _pagingController,
       scrollController: OverseerrNavigationBar.scrollControllers[1],
       listener: _fetchPage,
-      noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
+      noItemsFoundMessage: 'overseerr.NoIssuesFound'.tr(),
       // itemExtent: LunaBlock.calculateItemExtent(3),
       itemBuilder: (context, issue, _) => OverseerrIssueTile(issue: issue),
     );

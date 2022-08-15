@@ -58,7 +58,7 @@ class _State extends State<OverseerrRequestsListView> {
       pagingController: _pagingController,
       scrollController: OverseerrNavigationBar.scrollControllers[0],
       listener: _fetchPage,
-      noItemsFoundMessage: 'overseerr.NoIssuesFound'.tr(),
+      noItemsFoundMessage: 'overseerr.NoRequestsFound'.tr(),
       // itemExtent: LunaBlock.calculateItemExtent(3),
       itemBuilder: (context, request, _) => OverseerrRequestTile(
         request: request,

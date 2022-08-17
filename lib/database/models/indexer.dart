@@ -7,20 +7,20 @@ part 'indexer.g.dart';
 @HiveType(typeId: 1, adapterName: 'LunaIndexerAdapter')
 class LunaIndexer extends HiveObject {
   @JsonKey()
-  @HiveField(0)
+  @HiveField(0, defaultValue: '')
   String displayName;
 
   @JsonKey()
-  @HiveField(1)
+  @HiveField(1, defaultValue: '')
   String host;
 
   @JsonKey(name: 'key')
-  @HiveField(2)
+  @HiveField(2, defaultValue: '')
   String apiKey;
 
   @JsonKey()
-  @HiveField(3)
-  Map headers;
+  @HiveField(3, defaultValue: <String, String>{})
+  Map<String, String> headers;
 
   @JsonKey()
   @HiveField(4)

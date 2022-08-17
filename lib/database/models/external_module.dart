@@ -6,11 +6,11 @@ part 'external_module.g.dart';
 @HiveType(typeId: 26, adapterName: 'LunaExternalModuleAdapter')
 class LunaExternalModule extends HiveObject {
   @JsonKey()
-  @HiveField(0)
+  @HiveField(0, defaultValue: '')
   String displayName;
 
   @JsonKey()
-  @HiveField(1)
+  @HiveField(1, defaultValue: '')
   String host;
 
   LunaExternalModule({

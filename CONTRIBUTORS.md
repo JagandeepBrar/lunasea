@@ -3,7 +3,7 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -56,6 +56,8 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/natiz"><img src="https://avatars.githubusercontent.com/u/3515888?v=4?s=100" width="100px;" alt=""/><br /><sub><b>natiz</b></sub></a><br /><a href="https://github.com/JagandeepBrar/LunaSea/commits?author=natiz" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/KevoM"><img src="https://avatars.githubusercontent.com/u/8274366?v=4?s=100" width="100px;" alt=""/><br /><sub><b>KevoM</b></sub></a><br /><a href="#translation-KevoM" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/rogeriomendes"><img src="https://avatars.githubusercontent.com/u/1494503?v=4?s=100" width="100px;" alt=""/><br /><sub><b>rogeriomendes</b></sub></a><br /><a href="#translation-rogeriomendes" title="Translation">🌍</a></td>
   </tr>
 </table>
 

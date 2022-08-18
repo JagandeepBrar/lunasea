@@ -1,1 +1,4 @@
-{}
+{
+    "lidarr.StartSearchFor": "Iniciar búsqueda de…",
+    "lidarr.StartSearchForMissingAlbums": "Iniciar la búsqueda de álbumes que faltan"
+}

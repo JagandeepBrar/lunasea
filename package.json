@@ -36,10 +36,9 @@
     "profile": "flutter run --profile --cache-sksl --purge-persistent-cache",
     "release": "cross-env HUSKY=0 standard-version --no-verify --commit-all --sign",
     "release:changelog": "npm run release -- --dry-run",
-    "release:flavor:edge": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release: edge [skip ci]\"",
-    "release:flavor:beta": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release: beta [skip ci]\"",
-    "release:flavor:candidate": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release: candidate [skip ci]\"",
-    "release:flavor:stable": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release: stable [skip ci]\"",
+    "release:flavor:edge": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release(testflight): edge\" -m \"[skip ci]\"",
+    "release:flavor:beta": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release(testflight): beta\" -m \"[skip ci]\"",
+    "release:flavor:candidate": "cross-env HUSKY=0 git commit --no-verify --allow-empty -m \"release(testflight): candidate\" -m \"[skip ci]\"",
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {

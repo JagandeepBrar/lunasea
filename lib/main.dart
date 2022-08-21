@@ -132,13 +132,14 @@ class _State extends State<LunaOS> {
 
   Future<void> _healthCheck() async {
     final isLatest = LunaBuild().isLatestBuildVersion();
+    final firstBoot = BIOSDatabase.FIRST_BOOT.read();
 
     if (BIOSDatabase.DATABASE_CORRUPTION.read()) {
       DatabaseCorruptionSheet().show();
       BIOSDatabase.DATABASE_CORRUPTION.update(false);
     }
 
-    if (!isLatest.item1) {
+    if (!firstBoot && !isLatest.item1) {
       ChangelogSheet().show();
     }
   }

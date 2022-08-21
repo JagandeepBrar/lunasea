@@ -22,16 +22,11 @@ class LunaIndexer extends HiveObject {
   @HiveField(3, defaultValue: <String, String>{})
   Map<String, String> headers;
 
-  @JsonKey()
-  @HiveField(4)
-  LunaIndexerIcon? icon;
-
   LunaIndexer({
     this.displayName = '',
     this.host = '',
     this.apiKey = '',
     this.headers = const {},
-    this.icon,
   });
 
   @override

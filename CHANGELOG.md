@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.1.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.1.0...v10.1.1) (2022-08-21)
+
+
+### Features
+
+* **changelog:** do not show changelog on first boot of new installs ([52fd7fc](https://github.com/JagandeepBrar/LunaSea/commit/52fd7fca0c5076b4b98458d449a4b1f581726a52))
+
+
+### Bug Fixes
+
+* **config:** log restoration error after resetting the database to default ([b02fe81](https://github.com/JagandeepBrar/LunaSea/commit/b02fe81df697066be6172a7d423768490639593e))
+* **indexer:** remove LunaIndexerIcon from model definition ([cf3d9bb](https://github.com/JagandeepBrar/LunaSea/commit/cf3d9bbc17cd67f0c5e8be22b9450563046a2127))
+
 ## [10.1.0](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.3...v10.1.0) (2022-08-21)
 
 

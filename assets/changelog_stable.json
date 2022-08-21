@@ -1,1 +1,97 @@
-{}
+{
+  "motd": "Welcome to LunaSea v10.1.0!\n\nThis release contains a wide variety of bug fixes including a completely rewritten database interface to detect and be resilient against corruption.",
+  "feat": {
+    "changelog": [
+      {
+        "commit": "df65f53a4b00d11abc998f681274d22d94254f14",
+        "message": "prepare and show changelog on pre-release builds"
+      }
+    ],
+    "calendar": [
+      {
+        "commit": "925f163e1534aeb45e5b22e8254eaf391eabd79f",
+        "message": "show current month in header"
+      }
+    ]
+  },
+  "fix": {
+    "database": [
+      {
+        "commit": "8fe81d11ab5c5aa484f0c2b471932d5364e6209c",
+        "message": "correctly store manually ordered module list"
+      },
+      {
+        "commit": "758756fcf2456996c7ee02be2bd523cca91c45d3",
+        "message": "detect and recover from database corruption"
+      },
+      {
+        "commit": "fb3e8e53255c457d0922505ad6c2d91f5c0fcf03",
+        "message": "fallback to defaults on null values in profile"
+      },
+      {
+        "commit": "f1dcd0c36d558882bfbc7f4465ed56fac0743c55",
+        "message": "safely type indexer fields and headers"
+      },
+      {
+        "commit": "d4d9816c945b1930ecfda0382d809a7c67839a26",
+        "message": "utilize stricter typing for module headers map"
+      },
+      {
+        "commit": "d8506ee2834ca6a83394c11f6d4d329f03a3647f",
+        "message": "validate enabled profile exists on restore"
+      }
+    ],
+    "sonarr": [
+      {
+        "commit": "b5bb300046431d8c1c26fd8ac4a26c42444f4f53",
+        "message": "fanart image requests did not including headers"
+      },
+      {
+        "commit": "80678a75bb871a4835d1c73934e043564d80b6b0",
+        "message": "invalid links to theTVDB content"
+      }
+    ],
+    "lidarr": [
+      {
+        "commit": "ad22820d6662371d3d2bc7fbf596f86619002d20",
+        "message": "(history) sort list by date descending"
+      }
+    ],
+    "radarr": [
+      {
+        "commit": "22bf728a3dab6b7d76c7674cb4d97dc73e849201",
+        "message": "(queue) allow loading queue list when associated movie is not found"
+      }
+    ],
+    "android": [
+      {
+        "commit": "c91ba2ce8134fdc796d0431ba1c9134908fddd91",
+        "message": "correctly handle back-button to open drawer on applicable routes"
+      }
+    ],
+    "ui/ux": [
+      {
+        "commit": "95a645c06cf2a76231c4b8dbea87ec593961c205",
+        "message": "(lists) reorderable lists could not be reordered on some platforms"
+      },
+      {
+        "commit": "e05b17ae5ed35cec85ade5b910b82869cb7ad3f2",
+        "message": "(timestamps) display 0-length timestamps as \"0 Minutes\" instead of \"Under a Minute\""
+      }
+    ]
+  },
+  "refactor": {
+    "purchases": [
+      {
+        "commit": "9cb3fabdf1f5fa10d65770a181ced937413642a2",
+        "message": "rewrite interface to in-app purchase APIs"
+      }
+    ],
+    "database": [
+      {
+        "commit": "a0eaca084a399a2e249b142cb720cc50739a3f51",
+        "message": "rewrite interface to key-value database"
+      }
+    ]
+  }
+}

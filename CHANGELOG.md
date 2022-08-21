@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.1.0](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.3...v10.1.0) (2022-08-21)
+
+
+### Features
+
+* **calendar:** show current month in header ([925f163](https://github.com/JagandeepBrar/LunaSea/commit/925f163e1534aeb45e5b22e8254eaf391eabd79f))
+* **changelog:** prepare and show changelog on pre-release builds ([df65f53](https://github.com/JagandeepBrar/LunaSea/commit/df65f53a4b00d11abc998f681274d22d94254f14))
+* **locale:** support Vietnamese (vi) ([8b57450](https://github.com/JagandeepBrar/LunaSea/commit/8b5745044e3af64a6c9bc593a9877400ac8a2dc2))
+
+
+### Bug Fixes
+
+* **android:** correctly handle back-button to open drawer on applicable routes ([c91ba2c](https://github.com/JagandeepBrar/LunaSea/commit/c91ba2ce8134fdc796d0431ba1c9134908fddd91))
+* **changelog:** group changelog item rows by key feature change ([2ababbd](https://github.com/JagandeepBrar/LunaSea/commit/2ababbd1b32abd153fa73fcdfe292c7791edbf52))
+* **ci:** utilize latest standard for Snapcraft login ([aff6e2c](https://github.com/JagandeepBrar/LunaSea/commit/aff6e2ca184e9539f28dd326c06478ca2dbfee4c))
+* **database:** correctly store manually ordered module list ([8fe81d1](https://github.com/JagandeepBrar/LunaSea/commit/8fe81d11ab5c5aa484f0c2b471932d5364e6209c))
+* **database:** detect and recover from database corruption ([758756f](https://github.com/JagandeepBrar/LunaSea/commit/758756fcf2456996c7ee02be2bd523cca91c45d3))
+* **database:** fallback to defaults on null values in profile ([fb3e8e5](https://github.com/JagandeepBrar/LunaSea/commit/fb3e8e53255c457d0922505ad6c2d91f5c0fcf03))
+* **database:** safely type indexer fields and headers ([f1dcd0c](https://github.com/JagandeepBrar/LunaSea/commit/f1dcd0c36d558882bfbc7f4465ed56fac0743c55))
+* **database:** utilize stricter typing for module headers map ([d4d9816](https://github.com/JagandeepBrar/LunaSea/commit/d4d9816c945b1930ecfda0382d809a7c67839a26))
+* **database:** validate enabled profile exists on restore ([d8506ee](https://github.com/JagandeepBrar/LunaSea/commit/d8506ee2834ca6a83394c11f6d4d329f03a3647f))
+* display 0-length timestamps as "0 Minutes" instead of "Under a Minute" ([e05b17a](https://github.com/JagandeepBrar/LunaSea/commit/e05b17ae5ed35cec85ade5b910b82869cb7ad3f2))
+* **lidarr:** (history) sort list by date descending ([ad22820](https://github.com/JagandeepBrar/LunaSea/commit/ad22820d6662371d3d2bc7fbf596f86619002d20))
+* **lists:** reorderable lists could not be reordered on some platforms ([95a645c](https://github.com/JagandeepBrar/LunaSea/commit/95a645c06cf2a76231c4b8dbea87ec593961c205))
+* **locale:** create stub primary language localization assets ([18ef4cf](https://github.com/JagandeepBrar/LunaSea/commit/18ef4cf1d4032a3f9db54b5da56158ffaf9b50c8))
+* **overseerr:** issues/requests list view translation keys ([136b92b](https://github.com/JagandeepBrar/LunaSea/commit/136b92b8a7bdd5cd0ec2322444443d054df6daed))
+* **radarr:** (queue) allow loading queue list when associated movie is not found ([22bf728](https://github.com/JagandeepBrar/LunaSea/commit/22bf728a3dab6b7d76c7674cb4d97dc73e849201))
+* **sonarr:** fanart image requests not including headers ([b5bb300](https://github.com/JagandeepBrar/LunaSea/commit/b5bb300046431d8c1c26fd8ac4a26c42444f4f53))
+* **sonarr:** invalid linking to theTVDB content ([80678a7](https://github.com/JagandeepBrar/LunaSea/commit/80678a75bb871a4835d1c73934e043564d80b6b0))
+
+
+### Tweaks
+
+* **changelog:** do not show documentation changes in in-app changelog ([2367050](https://github.com/JagandeepBrar/LunaSea/commit/2367050a66f2929d1ead17cc9191f47ddcb07f3a))
+* **core:** destructure core folder and reintegrate extensions ([5d52440](https://github.com/JagandeepBrar/LunaSea/commit/5d52440a43e4b605a8ac95bcb02b909f489ef7e2))
+* **database:** rewrite interface to key-value database ([a0eaca0](https://github.com/JagandeepBrar/LunaSea/commit/a0eaca084a399a2e249b142cb720cc50739a3f51))
+* **environment:** load environment using environment_config ([c4dd509](https://github.com/JagandeepBrar/LunaSea/commit/c4dd509e3210847c0ddba4c7982f38099228a2d6))
+* refactored in-app purchase interface ([9cb3fab](https://github.com/JagandeepBrar/LunaSea/commit/9cb3fabdf1f5fa10d65770a181ced937413642a2))
+* utilize statics and class functions for LunaModule enum ([9f3c3f7](https://github.com/JagandeepBrar/LunaSea/commit/9f3c3f779dda1b2da007abe5c2079dcfa834eb99))
+
 ### [10.0.3](https://github.com/JagandeepBrar/LunaSea/compare/v10.0.2...v10.0.3) (2022-05-26)
 
 

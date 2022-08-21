@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/models/deprecated.dart';
+import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/database/tables/lidarr.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
@@ -16,6 +17,7 @@ enum LunaTable<T extends LunaTableMixin> {
   dashboard<DashboardDatabase>('home', items: DashboardDatabase.values),
   lidarr<LidarrDatabase>('lidarr', items: LidarrDatabase.values),
   lunasea<LunaSeaDatabase>('lunasea', items: LunaSeaDatabase.values),
+  bios<BIOSDatabase>('bios', items: BIOSDatabase.values),
   nzbget<NZBGetDatabase>('nzbget', items: NZBGetDatabase.values),
   overseerr<OverseerrDatabase>('overseerr', items: OverseerrDatabase.values),
   radarr<RadarrDatabase>('radarr', items: RadarrDatabase.values),

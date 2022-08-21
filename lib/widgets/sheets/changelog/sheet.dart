@@ -5,11 +5,11 @@ import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/environment.dart';
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/logger.dart';
-import 'package:lunasea/utils/changelog/change.dart';
-import 'package:lunasea/utils/changelog/changelog.dart';
 import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/widgets/sheets/changelog/change.dart';
+import 'package:lunasea/widgets/sheets/changelog/changelog.dart';
 
 class ChangelogSheet extends LunaBottomModalSheet {
   static final _defaultMOTD =

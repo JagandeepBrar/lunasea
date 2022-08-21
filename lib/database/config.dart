@@ -26,7 +26,7 @@ class LunaConfig {
         error,
         stack,
       );
-      LunaDatabase().bootstrap();
+      LunaDatabase().bootstrap(databaseCorruption: true);
     }
 
     LunaState.reset(context);

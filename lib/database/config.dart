@@ -21,12 +21,12 @@ class LunaConfig {
         LunaSeaDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
       }
     } catch (error, stack) {
+      await LunaDatabase().bootstrap(databaseCorruption: true);
       LunaLogger().error(
         'Failed to import configuration, resetting to default',
         error,
         stack,
       );
-      LunaDatabase().bootstrap(databaseCorruption: true);
     }
 
     LunaState.reset(context);

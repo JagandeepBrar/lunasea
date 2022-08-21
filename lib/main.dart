@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/database.dart';
+import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/messaging.dart';
@@ -18,7 +19,8 @@ import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/system/window_manager/window_manager.dart';
 import 'package:lunasea/system/platform.dart';
-import 'package:lunasea/utils/changelog/sheet.dart';
+import 'package:lunasea/widgets/sheets/database_corruption/sheet.dart';
+import 'package:lunasea/widgets/sheets/changelog/sheet.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 ///
@@ -111,7 +113,8 @@ class _State extends State<LunaOS> {
     _initNotifications();
     if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
 
-    _healthCheck();
+    await _healthCheck();
+    BIOSDatabase.FIRST_BOOT.update(false);
   }
 
   Future<void> _initNotifications() async {
@@ -128,9 +131,17 @@ class _State extends State<LunaOS> {
   }
 
   Future<void> _healthCheck() async {
-    LunaBuild().isLatestBuildVersion().then((isLatest) {
-      if (!isLatest.item1) ChangelogSheet().show();
-    });
+    final isLatest = LunaBuild().isLatestBuildVersion();
+    final firstBoot = BIOSDatabase.FIRST_BOOT.read();
+
+    if (BIOSDatabase.DATABASE_CORRUPTION.read()) {
+      DatabaseCorruptionSheet().show();
+      BIOSDatabase.DATABASE_CORRUPTION.update(false);
+    }
+
+    if (!firstBoot && !isLatest.item1) {
+      ChangelogSheet().show();
+    }
   }
 
   @override

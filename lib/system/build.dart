@@ -40,7 +40,7 @@ class LunaBuild {
     return const Tuple2(false, null);
   }
 
-  Future<Tuple2<bool, int>> isLatestBuildVersion() async {
+  Tuple2<bool, int> isLatestBuildVersion() {
     const database = LunaSeaDatabase.CHANGELOG_LAST_BUILD_VERSION;
     const build = LunaEnvironment.build;
 

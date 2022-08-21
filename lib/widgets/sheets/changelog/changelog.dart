@@ -1,5 +1,5 @@
 import 'package:lunasea/vendor.dart';
-import 'package:lunasea/utils/changelog/change.dart';
+import 'package:lunasea/widgets/sheets/changelog/change.dart';
 
 part 'changelog.g.dart';
 

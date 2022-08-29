@@ -17,4 +17,5 @@ abstract class LunaFileSystem {
 
   Future<bool> save(BuildContext context, String name, List<int> data);
   Future<LunaFile?> read(BuildContext context, List<String> extensions);
+  Future<void> nuke();
 }

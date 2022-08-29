@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/database.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -21,7 +22,20 @@ LunaFileSystem getFileSystem() {
   throw UnsupportedError('LunaFileSystem unsupported');
 }
 
-class _Desktop implements LunaFileSystem {
+abstract class _Shared implements LunaFileSystem {
+  @override
+  Future<void> nuke() async {
+    final subpath = LunaDatabase().path;
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final database = Directory('${appDocDir.path}/$subpath');
+
+    if (database.existsSync()) {
+      database.deleteSync(recursive: true);
+    }
+  }
+}
+
+class _Desktop extends _Shared {
   @override
   Future<bool> save(BuildContext context, String name, List<int> data) async {
     try {
@@ -69,7 +83,7 @@ class _Desktop implements LunaFileSystem {
   }
 }
 
-class _Mobile implements LunaFileSystem {
+class _Mobile extends _Shared {
   @override
   Future<bool> save(BuildContext context, String name, List<int> data) async {
     try {

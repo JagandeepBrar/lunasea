@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lunasea/api/radarr/src/models/root_folder/unmapped_folder.dart';
+import 'package:lunasea/api/radarr/models/root_folder/unmapped_folder.dart';
 
 part 'root_folder.g.dart';
 

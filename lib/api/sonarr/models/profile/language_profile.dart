@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lunasea/api/sonarr/src/models/profile/language_profile_cutoff.dart';
-import 'package:lunasea/api/sonarr/src/models/profile/language_profile_item.dart';
+import 'package:lunasea/api/sonarr/models/profile/language_profile_cutoff.dart';
+import 'package:lunasea/api/sonarr/models/profile/language_profile_item.dart';
 
 part 'language_profile.g.dart';
 

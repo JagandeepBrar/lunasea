@@ -2,68 +2,68 @@
 library sonarr_models;
 
 /// Calendar
-export 'src/models/calendar/calendar.dart';
+export 'models/calendar/calendar.dart';
 
 /// Command
-export 'src/models/command/command.dart';
-export 'src/models/command/command_body.dart';
+export 'models/command/command.dart';
+export 'models/command/command_body.dart';
 
 /// Episode
-export 'src/models/episode/episode.dart';
+export 'models/episode/episode.dart';
 
 /// Episode File
-export 'src/models/episode_file/episode_file.dart';
-export 'src/models/episode_file/episode_file_language.dart';
-export 'src/models/episode_file/episode_file_media_info.dart';
-export 'src/models/episode_file/episode_file_quality.dart';
-export 'src/models/episode_file/episode_file_quality_quality.dart';
-export 'src/models/episode_file/episode_file_quality_revision.dart';
+export 'models/episode_file/episode_file.dart';
+export 'models/episode_file/episode_file_language.dart';
+export 'models/episode_file/episode_file_media_info.dart';
+export 'models/episode_file/episode_file_quality.dart';
+export 'models/episode_file/episode_file_quality_quality.dart';
+export 'models/episode_file/episode_file_quality_revision.dart';
 
 /// History
-export 'src/models/history/history.dart';
-export 'src/models/history/history_record.dart';
+export 'models/history/history.dart';
+export 'models/history/history_record.dart';
 
 /// Import List
-export 'src/models/import_list/exclusion.dart';
+export 'models/import_list/exclusion.dart';
 
 /// Profile
-export 'src/models/profile/language_profile_cutoff.dart';
-export 'src/models/profile/language_profile_item.dart';
-export 'src/models/profile/language_profile_item_language.dart';
-export 'src/models/profile/language_profile.dart';
-export 'src/models/profile/quality_profile_cutoff.dart';
-export 'src/models/profile/quality_profile_item_quality.dart';
-export 'src/models/profile/quality_profile_item.dart';
-export 'src/models/profile/quality_profile.dart';
+export 'models/profile/language_profile_cutoff.dart';
+export 'models/profile/language_profile_item.dart';
+export 'models/profile/language_profile_item_language.dart';
+export 'models/profile/language_profile.dart';
+export 'models/profile/quality_profile_cutoff.dart';
+export 'models/profile/quality_profile_item_quality.dart';
+export 'models/profile/quality_profile_item.dart';
+export 'models/profile/quality_profile.dart';
 
 /// Queue
-export 'src/models/queue/queue.dart';
-export 'src/models/queue/queue_record.dart';
-export 'src/models/queue/queue_status_message.dart';
+export 'models/queue/queue.dart';
+export 'models/queue/queue_record.dart';
+export 'models/queue/queue_status_message.dart';
 
 /// Release
-export 'src/models/release/release.dart';
-export 'src/models/release/added_release.dart';
+export 'models/release/release.dart';
+export 'models/release/added_release.dart';
 
 /// Root Folder
-export 'src/models/root_folder/root_folder.dart';
-export 'src/models/root_folder/unmapped_folder.dart';
+export 'models/root_folder/root_folder.dart';
+export 'models/root_folder/unmapped_folder.dart';
 
 /// Series
-export 'src/models/series/alternate_title.dart';
-export 'src/models/series/image.dart';
-export 'src/models/series/rating.dart';
-export 'src/models/series/season_statistics.dart';
-export 'src/models/series/season.dart';
-export 'src/models/series/series.dart';
-export 'src/models/series/series_statistics.dart';
+export 'models/series/alternate_title.dart';
+export 'models/series/image.dart';
+export 'models/series/rating.dart';
+export 'models/series/season_statistics.dart';
+export 'models/series/season.dart';
+export 'models/series/series.dart';
+export 'models/series/series_statistics.dart';
 
 /// System
-export 'src/models/system/status.dart';
+export 'models/system/status.dart';
 
 /// Tags
-export 'src/models/tag/tag.dart';
+export 'models/tag/tag.dart';
 
 /// Wanted/Missing
-export 'src/models/wanted_missing/missing.dart';
-export 'src/models/wanted_missing/missing_record.dart';
+export 'models/wanted_missing/missing.dart';
+export 'models/wanted_missing/missing_record.dart';

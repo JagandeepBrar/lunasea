@@ -2,79 +2,79 @@
 library radarr_models;
 
 /// Commands
-export 'src/models/command/command.dart';
-export 'src/models/command/command_body.dart';
+export 'models/command/command.dart';
+export 'models/command/command_body.dart';
 
 /// Custom Formats
-export 'src/models/custom_format/custom_format.dart';
-export 'src/models/custom_format/custom_format_specifications.dart';
+export 'models/custom_format/custom_format.dart';
+export 'models/custom_format/custom_format_specifications.dart';
 
 /// Filesystem
-export 'src/models/filesystem/directory.dart';
-export 'src/models/filesystem/disk_space.dart';
-export 'src/models/filesystem/file.dart';
-export 'src/models/filesystem/filesystem.dart';
+export 'models/filesystem/directory.dart';
+export 'models/filesystem/disk_space.dart';
+export 'models/filesystem/file.dart';
+export 'models/filesystem/filesystem.dart';
 
 /// Exclusions
-export 'src/models/exclusions/exclusion.dart';
+export 'models/exclusions/exclusion.dart';
 
 /// Extra File
-export 'src/models/extrafile/extra_file.dart';
+export 'models/extrafile/extra_file.dart';
 
 /// Health Check
-export 'src/models/health_check/health_check.dart';
+export 'models/health_check/health_check.dart';
 
 /// History
-export 'src/models/history/history.dart';
-export 'src/models/history/history_record.dart';
+export 'models/history/history.dart';
+export 'models/history/history_record.dart';
 
 /// Images
-export 'src/models/image/image.dart';
+export 'models/image/image.dart';
 
 /// Import List
-export 'src/models/import_list/import_list.dart';
+export 'models/import_list/import_list.dart';
 
 /// Manual Import
-export 'src/models/manual_import/manual_import.dart';
-export 'src/models/manual_import/manual_import_file.dart';
-export 'src/models/manual_import/manual_import_rejection.dart';
-export 'src/models/manual_import/manual_import_update.dart';
-export 'src/models/manual_import/manual_import_update_data.dart';
+export 'models/manual_import/manual_import.dart';
+export 'models/manual_import/manual_import_file.dart';
+export 'models/manual_import/manual_import_rejection.dart';
+export 'models/manual_import/manual_import_update.dart';
+export 'models/manual_import/manual_import_update_data.dart';
 
 /// Movie
-export 'src/models/movie/alternate_titles.dart';
-export 'src/models/movie/collection.dart';
-export 'src/models/movie/credits.dart';
-export 'src/models/movie/movie.dart';
-export 'src/models/movie/movie_file.dart';
-export 'src/models/movie/movie_file_media_info.dart';
-export 'src/models/movie/movie_file_quality.dart';
-export 'src/models/movie/rating.dart';
+export 'models/movie/alternate_titles.dart';
+export 'models/movie/collection.dart';
+export 'models/movie/credits.dart';
+export 'models/movie/movie.dart';
+export 'models/movie/movie_file.dart';
+export 'models/movie/movie_file_media_info.dart';
+export 'models/movie/movie_file_quality.dart';
+export 'models/movie/rating.dart';
 
 /// Quality Profile
-export 'src/models/quality_profile/format_item.dart';
-export 'src/models/quality_profile/item.dart';
-export 'src/models/quality_profile/language.dart';
-export 'src/models/quality_profile/quality.dart';
-export 'src/models/quality_profile/quality_definition.dart';
-export 'src/models/quality_profile/quality_profile.dart';
-export 'src/models/quality_profile/quality_revision.dart';
+export 'models/quality_profile/format_item.dart';
+export 'models/quality_profile/item.dart';
+export 'models/quality_profile/language.dart';
+export 'models/quality_profile/quality.dart';
+export 'models/quality_profile/quality_definition.dart';
+export 'models/quality_profile/quality_profile.dart';
+export 'models/quality_profile/quality_revision.dart';
 
 /// Queue
-export 'src/models/queue/queue.dart';
-export 'src/models/queue/queue_record.dart';
-export 'src/models/queue/queue_status.dart';
-export 'src/models/queue/queue_status_message.dart';
+export 'models/queue/queue.dart';
+export 'models/queue/queue_record.dart';
+export 'models/queue/queue_status.dart';
+export 'models/queue/queue_status_message.dart';
 
 /// Release
-export 'src/models/release/release.dart';
+export 'models/release/release.dart';
 
 /// Root Folder
-export 'src/models/root_folder/root_folder.dart';
-export 'src/models/root_folder/unmapped_folder.dart';
+export 'models/root_folder/root_folder.dart';
+export 'models/root_folder/unmapped_folder.dart';
 
 /// System
-export 'src/models/system/status.dart';
+export 'models/system/status.dart';
 
 /// Tag
-export 'src/models/tag/tag.dart';
+export 'models/tag/tag.dart';

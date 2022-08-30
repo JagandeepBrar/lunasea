@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/api/radarr/src/models/movie/movie.dart';
+import 'package:lunasea/api/radarr/models/movie/movie.dart';
 import 'package:lunasea/modules/radarr/core/state.dart';
 import 'package:lunasea/modules/radarr/routes/add_movie/route.dart';
 import 'package:lunasea/modules/radarr/routes/add_movie_details/route.dart';

@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/external_modules.dart';
+import 'package:lunasea/modules/external_modules/routes/external_modules/widgets/module_tile.dart';
 
-class ExternalModulesHomeRouter extends ExternalModulesPageRouter {
-  ExternalModulesHomeRouter() : super('/externalmodules');
+class ExternalModulesRoute extends StatefulWidget {
+  const ExternalModulesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ExternalModulesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ExternalModulesRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

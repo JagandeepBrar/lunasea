@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class SonarrAppBarAddSeriesAction extends StatelessWidget {
   const SonarrAppBarAddSeriesAction({
@@ -11,7 +11,7 @@ class SonarrAppBarAddSeriesAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaIconButton(
       icon: Icons.add_rounded,
-      onPressed: () async => SonarrAddSeriesRouter().navigateTo(context),
+      onPressed: SonarrRoutes.ADD_SERIES.go,
     );
   }
 }

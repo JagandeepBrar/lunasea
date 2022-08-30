@@ -3,26 +3,18 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliRecentlyAddedRouter extends TautulliPageRouter {
-  TautulliRecentlyAddedRouter() : super('/tautulli/recentlyadded');
+class RecentlyAddedRoute extends StatefulWidget {
+  const RecentlyAddedRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<RecentlyAddedRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
+class _State extends State<RecentlyAddedRoute> with LunaScrollControllerMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<void> _refresh() async {
     context.read<TautulliState>().resetRecentlyAdded();
@@ -39,12 +31,12 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Recently Added',
       scrollControllers: [scrollController],

@@ -2,26 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliLogsNotificationsRouter extends TautulliPageRouter {
-  TautulliLogsNotificationsRouter() : super('/tautulli/logs/notifications');
+class LogsNotificationsRoute extends StatefulWidget {
+  const LogsNotificationsRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
+class _State extends State<LogsNotificationsRoute>
+    with LunaScrollControllerMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {

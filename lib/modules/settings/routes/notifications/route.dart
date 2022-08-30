@@ -2,25 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/routes/notifications/widgets/module_tile.dart';
 import 'package:lunasea/utils/links.dart';
 
-class SettingsNotificationsRouter extends SettingsPageRouter {
-  SettingsNotificationsRouter() : super('/settings/notifications');
+class NotificationsRoute extends StatefulWidget {
+  const NotificationsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<NotificationsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<NotificationsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

@@ -2,43 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrSearchResultsArguments {
-  final int albumID;
-  final String title;
+class ArtistAlbumReleasesRoute extends StatefulWidget {
+  final int albumId;
 
-  LidarrSearchResultsArguments({
-    required this.albumID,
-    required this.title,
-  });
-}
-
-class LidarrSearchResults extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr/search/results';
-
-  const LidarrSearchResults({
+  const ArtistAlbumReleasesRoute({
     Key? key,
+    required this.albumId,
   }) : super(key: key);
 
   @override
-  State<LidarrSearchResults> createState() => _State();
+  State<ArtistAlbumReleasesRoute> createState() => _State();
 }
 
-class _State extends State<LidarrSearchResults>
+class _State extends State<ArtistAlbumReleasesRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
-  LidarrSearchResultsArguments? _arguments;
   Future<List<LidarrReleaseData>>? _future;
   List<LidarrReleaseData>? _results = [];
 
   @override
   Future<void> loadCallback() async {
-    _arguments = ModalRoute.of(context)!.settings.arguments
-        as LidarrSearchResultsArguments?;
     if (mounted) setState(() => _results = []);
     final _api = LidarrAPI.from(LunaProfile.current);
-    setState(() => {_future = _api.getReleases(_arguments!.albumID)});
+    setState(() => {_future = _api.getReleases(widget.albumId)});
     //Clear the search filter using a microtask
     Future.microtask(
         () => context.read<LidarrState>().searchReleasesFilter = '');
@@ -46,18 +34,16 @@ class _State extends State<LidarrSearchResults>
 
   @override
   Widget build(BuildContext context) {
-    _arguments = ModalRoute.of(context)!.settings.arguments
-        as LidarrSearchResultsArguments?;
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: _arguments!.title,
+      title: 'Releases',
       scrollControllers: [scrollController],
       bottom: LidarrReleasesSearchBar(scrollController: scrollController),
     );

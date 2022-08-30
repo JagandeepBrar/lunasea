@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrManualImportBottomActionBar extends StatelessWidget {
   const RadarrManualImportBottomActionBar({
@@ -22,10 +23,9 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
         LunaButton.text(
           text: 'radarr.Interactive'.tr(),
           icon: Icons.person_rounded,
-          onTap: () async => RadarrManualImportDetailsRouter().navigateTo(
-            context,
-            context.read<RadarrManualImportState>().currentPath,
-          ),
+          onTap: () => RadarrRoutes.MANUAL_IMPORT_DETAILS.go(queryParams: {
+            'path': context.read<RadarrManualImportState>().currentPath,
+          }),
         ),
       ],
     );

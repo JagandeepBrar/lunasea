@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliMoreRoute extends StatefulWidget {
   const TautulliMoreRoute({
@@ -39,8 +40,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.system_update_rounded,
             color: LunaColours().byListIndex(0),
           ),
-          onTap: () async =>
-              TautulliCheckForUpdatesRouter().navigateTo(context),
+          onTap: TautulliRoutes.CHECK_FOR_UPDATES.go,
         ),
         LunaBlock(
           title: 'Graphs',
@@ -49,7 +49,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.insert_chart_rounded,
             color: LunaColours().byListIndex(1),
           ),
-          onTap: () async => TautulliGraphsRouter().navigateTo(context),
+          onTap: TautulliRoutes.GRAPHS.go,
         ),
         LunaBlock(
           title: 'Libraries',
@@ -58,7 +58,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.video_library_rounded,
             color: LunaColours().byListIndex(2),
           ),
-          onTap: () async => TautulliLibrariesRouter().navigateTo(context),
+          onTap: TautulliRoutes.LIBRARIES.go,
         ),
         LunaBlock(
           title: 'Logs',
@@ -67,7 +67,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.developer_mode_rounded,
             color: LunaColours().byListIndex(3),
           ),
-          onTap: () async => TautulliLogsRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS.go,
         ),
         LunaBlock(
           title: 'Recently Added',
@@ -76,7 +76,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.recent_actors_rounded,
             color: LunaColours().byListIndex(4),
           ),
-          onTap: () async => TautulliRecentlyAddedRouter().navigateTo(context),
+          onTap: TautulliRoutes.RECENTLY_ADDED.go,
         ),
         LunaBlock(
           title: 'Search',
@@ -85,7 +85,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.search_rounded,
             color: LunaColours().byListIndex(5),
           ),
-          onTap: () async => TautulliSearchRouter().navigateTo(context),
+          onTap: TautulliRoutes.SEARCH.go,
         ),
         LunaBlock(
           title: 'Statistics',
@@ -94,7 +94,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.format_list_numbered_rounded,
             color: LunaColours().byListIndex(6),
           ),
-          onTap: () async => TautulliStatisticsRouter().navigateTo(context),
+          onTap: TautulliRoutes.STATISTICS.go,
         ),
         LunaBlock(
           title: 'Synced Items',
@@ -103,7 +103,7 @@ class _State extends State<TautulliMoreRoute>
             icon: Icons.sync_rounded,
             color: LunaColours().byListIndex(7),
           ),
-          onTap: () async => TautulliSyncedItemsRouter().navigateTo(context),
+          onTap: TautulliRoutes.SYNCED_ITEMS.go,
         ),
       ],
     );

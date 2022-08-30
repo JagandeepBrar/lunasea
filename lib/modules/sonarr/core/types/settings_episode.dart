@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 enum SonarrEpisodeSettingsType {
   MONITORED,
@@ -59,10 +60,9 @@ extension SonarrEpisodeSettingsTypeExtension on SonarrEpisodeSettingsType {
         );
         break;
       case SonarrEpisodeSettingsType.INTERACTIVE_SEARCH:
-        await SonarrReleasesRouter().navigateTo(
-          context,
-          episodeId: episode.id,
-        );
+        SonarrRoutes.RELEASES.go(queryParams: {
+          'episode': episode.id.toString(),
+        });
         break;
       case SonarrEpisodeSettingsType.DELETE_FILE:
         bool result = await SonarrDialogs().deleteEpisode(context);

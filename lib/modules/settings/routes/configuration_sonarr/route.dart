@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSonarrRouter extends SettingsPageRouter {
-  SettingsConfigurationSonarrRouter() : super('/settings/configuration/sonarr');
+class ConfigurationSonarrRoute extends StatefulWidget {
+  const ConfigurationSonarrRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationSonarrRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSonarrRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -80,8 +74,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         )
       ],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSonarrConnectionDetailsRouter()
-          .navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_SONARR_CONNECTION_DETAILS.go,
     );
   }
 
@@ -90,8 +83,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.DefaultPages'.tr(),
       body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationSonarrDefaultPagesRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_SONARR_DEFAULT_PAGES.go,
     );
   }
 
@@ -102,8 +94,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         TextSpan(text: 'settings.DefaultOptionsDescription'.tr()),
       ],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationSonarrDefaultOptionsRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_SONARR_DEFAULT_OPTIONS.go,
     );
   }
 

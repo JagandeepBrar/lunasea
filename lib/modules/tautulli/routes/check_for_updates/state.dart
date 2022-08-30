@@ -19,7 +19,7 @@ class TautulliCheckForUpdatesState extends ChangeNotifier {
   Future<TautulliPMSUpdate>? _plexMediaServer;
   Future<TautulliPMSUpdate>? get plexMediaServer => _plexMediaServer;
   void fetchPlexMediaServer(BuildContext context) {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       _plexMediaServer =
           context.read<TautulliState>().api!.system.getPMSUpdate();
     }
@@ -29,7 +29,7 @@ class TautulliCheckForUpdatesState extends ChangeNotifier {
   Future<TautulliUpdateCheck>? _tautulli;
   Future<TautulliUpdateCheck>? get tautulli => _tautulli;
   void fetchTautulli(BuildContext context) {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       _tautulli = context.read<TautulliState>().api!.system.updateCheck();
     }
     notifyListeners();

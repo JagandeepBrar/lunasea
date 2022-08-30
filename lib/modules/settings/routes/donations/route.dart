@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/in_app_purchase/purchase_option.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 
-class SettingsDonationsRouter extends SettingsPageRouter {
-  SettingsDonationsRouter() : super('/settings/donations');
+class DonationsRoute extends StatefulWidget {
+  const DonationsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<DonationsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<DonationsRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _donationOptions = LunaInAppPurchase().getOptions();
 

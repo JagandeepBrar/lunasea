@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
-class Lidarr extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr';
-
-  const Lidarr({
+class LidarrRoute extends StatefulWidget {
+  const LidarrRoute({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Lidarr> createState() => _State();
+  State<LidarrRoute> createState() => _State();
 }
 
-class _State extends State<Lidarr> {
+class _State extends State<LidarrRoute> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
   String _profileState = LunaProfile.current.toString();
@@ -111,30 +110,7 @@ class _State extends State<Lidarr> {
   Future<void> _enterAddArtist() async {
     final _model = Provider.of<LidarrState>(context, listen: false);
     _model.addSearchQuery = '';
-    final dynamic result =
-        await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
-    if (result != null)
-      switch (result[0]) {
-        case 'artist_added':
-          {
-            showLunaSuccessSnackBar(
-              title: 'Artist Added',
-              message: result[1],
-              showButton: true,
-              buttonOnPressed: () => Navigator.of(context).pushNamed(
-                LidarrDetailsArtist.ROUTE_NAME,
-                arguments: LidarrDetailsArtistArguments(
-                  artistID: result[2],
-                  data: null,
-                ),
-              ),
-            );
-            _refreshAllPages();
-            break;
-          }
-        default:
-          LunaLogger().warning('[_enterAddArtist] Unknown Case: ${result[0]}');
-      }
+    LidarrRoutes.ADD_ARTIST.go();
   }
 
   Future<void> _handlePopup() async {

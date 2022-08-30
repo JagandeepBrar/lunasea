@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/deprecated/state/state.dart';
+import 'package:lunasea/system/state.dart';
 
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/vendor.dart';
@@ -38,7 +38,7 @@ enum LunaLanguage {
   VIETNAMESE;
 
   static LunaLanguage get current {
-    final locale = LunaState.navigatorKey.currentContext!.locale;
+    final locale = LunaState.context.locale;
     return fromLocale(locale) ?? LunaLanguage.ENGLISH;
   }
 
@@ -77,7 +77,7 @@ enum LunaLanguage {
 
 extension LunaLanguageExtension on LunaLanguage {
   Future<void> use() async {
-    await LunaState.navigatorKey.currentContext!.setLocale(locale);
+    await LunaState.context.setLocale(locale);
     Intl.defaultLocale = languageTag;
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/router.dart';
 
 class RadarrEditMovieActionBar extends StatelessWidget {
   const RadarrEditMovieActionBar({
@@ -35,7 +35,7 @@ class RadarrEditMovieActionBar extends StatelessWidget {
           context: context,
           movie: movie,
         );
-        if (result) Navigator.of(context).safetyPop();
+        if (result) LunaRouter().popSafely();
       }
     }
   }

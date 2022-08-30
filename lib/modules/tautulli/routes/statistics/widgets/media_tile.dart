@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliStatisticsMediaTile extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -77,9 +78,10 @@ class _State extends State<TautulliStatisticsMediaTile> {
     ];
   }
 
-  Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
-        context,
-        widget.data['rating_key'],
-        widget.mediaType,
-      );
+  void _onTap() {
+    TautulliRoutes.MEDIA_DETAILS.go(params: {
+      'rating_key': widget.data['rating_key'].toString(),
+      'media_type': widget.mediaType.value,
+    });
+  }
 }

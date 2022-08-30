@@ -3,7 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistory extends StatefulWidget {
-  static const ROUTE_NAME = '/sabnzbd/history';
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const SABnzbdHistory({

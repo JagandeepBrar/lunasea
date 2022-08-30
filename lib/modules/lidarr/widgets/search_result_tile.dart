@@ -4,8 +4,7 @@ import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
-import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
-    as dashboard_home;
+import 'package:lunasea/router/router.dart';
 
 class LidarrReleasesTile extends StatefulWidget {
   final LidarrReleaseData release;
@@ -148,13 +147,7 @@ class _State extends State<LidarrReleasesTile> {
         message: widget.release.title,
         showButton: true,
         buttonText: 'Back',
-        buttonOnPressed: () =>
-            Navigator.of(context).popUntil((Route<dynamic> route) {
-          return !route.willHandlePopInternally &&
-              route is ModalRoute &&
-              (route.settings.name == Lidarr.ROUTE_NAME ||
-                  route.settings.name == dashboard_home.HomeRouter().fullRoute);
-        }),
+        buttonOnPressed: LunaRouter().popToRootRoute,
       );
     }).catchError((error, stack) {
       showLunaErrorSnackBar(

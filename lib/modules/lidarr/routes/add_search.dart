@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrAddSearch extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr/add/search';
-
-  const LidarrAddSearch({
+class AddArtistRoute extends StatefulWidget {
+  const AddArtistRoute({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LidarrAddSearch> createState() => _State();
+  State<AddArtistRoute> createState() => _State();
 }
 
-class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
+class _State extends State<AddArtistRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();

@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationRadarrDefaultPagesRouter extends SettingsPageRouter {
-  SettingsConfigurationRadarrDefaultPagesRouter()
-      : super('/settings/configuration/radarr/pages');
-
-  @override
-  Widget widget() => _Widget();
+class ConfigurationRadarrDefaultPagesRoute extends StatefulWidget {
+  const ConfigurationRadarrDefaultPagesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationRadarrDefaultPagesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRadarrDefaultPagesRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

@@ -1,12 +1,7 @@
 /// This file is deprecated and should no longer be actively used.
 /// All imports should happen directly and canonical export files will not be used anymore.
 
-export 'deprecated/state/module_state.dart';
-export 'deprecated/state/state.dart';
-export 'deprecated/router/module_router.dart';
-export 'deprecated/router/page_router.dart';
-export 'deprecated/router/router.dart';
-
+export 'system/state.dart';
 export 'types/loading_state.dart';
 export 'database/box.dart';
 export 'database/models/profile.dart';

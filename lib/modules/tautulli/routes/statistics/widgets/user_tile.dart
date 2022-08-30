@@ -4,6 +4,7 @@ import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliStatisticsUserTile extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -79,8 +80,9 @@ class _State extends State<TautulliStatisticsUserTile> {
     ];
   }
 
-  Future<void> _onTap() async => TautulliUserDetailsRouter().navigateTo(
-        context,
-        widget.data['user_id']!,
-      );
+  Future<void> _onTap() async {
+    TautulliRoutes.USER_DETAILS.go(params: {
+      'user': widget.data['user_id']!.toString(),
+    });
+  }
 }

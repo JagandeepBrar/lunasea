@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
 class LidarrDetailsAlbumTile extends StatefulWidget {
   final LidarrAlbumData data;
+  final int artistId;
   final Function refreshState;
 
   const LidarrDetailsAlbumTile({
     Key? key,
     required this.data,
+    required this.artistId,
     required this.refreshState,
   }) : super(key: key);
 
@@ -67,12 +70,12 @@ class _State extends State<LidarrDetailsAlbumTile> {
     });
   }
 
-  Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(
-        LidarrDetailsAlbum.ROUTE_NAME,
-        arguments: LidarrDetailsAlbumArguments(
-          albumID: widget.data.albumID,
-          title: widget.data.title,
-          monitored: widget.data.monitored,
-        ),
-      );
+  Future<void> _enterAlbum() async {
+    LidarrRoutes.ARTIST_ALBUM.go(params: {
+      'album': widget.data.albumID.toString(),
+      'artist': widget.artistId.toString(),
+    }, queryParams: {
+      'monitored': widget.data.monitored.toString(),
+    });
+  }
 }

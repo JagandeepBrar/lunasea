@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/lidarr/core/api/api.dart';
-import 'package:lunasea/modules/lidarr/routes/details_artist.dart';
-import 'package:lunasea/modules/lidarr/routes/search_results.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 
 class CalendarLidarrData extends CalendarData {
@@ -53,14 +52,11 @@ class CalendarLidarrData extends CalendarData {
   }
 
   @override
-  Future<void> enterContent(BuildContext context) async =>
-      Navigator.of(context).pushNamed(
-        LidarrDetailsArtist.ROUTE_NAME,
-        arguments: LidarrDetailsArtistArguments(
-          artistID: artistId,
-          data: null,
-        ),
-      );
+  Future<void> enterContent(BuildContext context) async {
+    LidarrRoutes.ARTIST.go(params: {
+      'artist': artistId.toString(),
+    });
+  }
 
   @override
   Widget trailing(BuildContext context) => LunaIconButton(
@@ -80,14 +76,12 @@ class CalendarLidarrData extends CalendarData {
   }
 
   @override
-  Future<void> trailingOnLongPress(BuildContext context) async =>
-      Navigator.of(context).pushNamed(
-        LidarrSearchResults.ROUTE_NAME,
-        arguments: LidarrSearchResultsArguments(
-          albumID: id,
-          title: albumTitle,
-        ),
-      );
+  Future<void> trailingOnLongPress(BuildContext context) async {
+    LidarrRoutes.ARTIST_ALBUM_RELEASES.go(params: {
+      'artist': artistId.toString(),
+      'album': id.toString(),
+    });
+  }
 
   @override
   String backgroundUrl(BuildContext context) {

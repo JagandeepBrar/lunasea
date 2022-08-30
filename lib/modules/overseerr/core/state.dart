@@ -20,8 +20,8 @@ class OverseerrState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Overseerr? _api;
-  Overseerr? get api => _api;
+  OverseerrAPI? _api;
+  OverseerrAPI? get api => _api;
 
   /// Is the API enabled?
   bool _enabled = false;
@@ -50,7 +50,7 @@ class OverseerrState extends LunaModuleState {
     _headers = _profile.overseerrHeaders;
     // Create the API instance if Overseerr is enabled
     if (_enabled) {
-      _api = Overseerr(
+      _api = OverseerrAPI(
         host: _host,
         apiKey: _apiKey,
         headers: Map<String, dynamic>.from(_headers),

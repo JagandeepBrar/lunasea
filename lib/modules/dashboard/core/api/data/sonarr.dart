@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/extensions/string/string.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/modules/sonarr/core/state.dart';
-import 'package:lunasea/modules/sonarr/routes/releases/route.dart';
-import 'package:lunasea/modules/sonarr/routes/series_details/route.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
-
-import 'package:provider/provider.dart';
 
 class CalendarSonarrData extends CalendarData {
   String episodeTitle;
@@ -75,8 +72,9 @@ class CalendarSonarrData extends CalendarData {
   }
 
   @override
-  Future<void> enterContent(BuildContext context) async =>
-      SonarrSeriesDetailsRouter().navigateTo(context, seriesID);
+  Future<void> enterContent(BuildContext context) async {
+    SonarrRoutes.SERIES.go(params: {'series': seriesID.toString()});
+  }
 
   @override
   Widget trailing(BuildContext context) => LunaIconButton(
@@ -124,11 +122,11 @@ class CalendarSonarrData extends CalendarData {
   }
 
   @override
-  Future<void> trailingOnLongPress(BuildContext context) async =>
-      SonarrReleasesRouter().navigateTo(
-        context,
-        episodeId: id,
-      );
+  Future<void> trailingOnLongPress(BuildContext context) async {
+    SonarrRoutes.RELEASES.go(queryParams: {
+      'episode': id.toString(),
+    });
+  }
 
   @override
   String? backgroundUrl(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliUserDetailsIPAddresses extends StatefulWidget {
   final TautulliTableUser user;
@@ -105,10 +106,9 @@ class _State extends State<TautulliUserDetailsIPAddresses>
             width: MediaQuery.of(context).size.width.truncate(),
           ),
       backgroundHeaders: context.read<TautulliState>().headers,
-      onTap: () async => TautulliIPAddressDetailsRouter().navigateTo(
-        context,
-        record.ipAddress!,
-      ),
+      onTap: () => TautulliRoutes.IP_DETAILS.go(params: {
+        'ip_address': record.ipAddress!,
+      }),
     );
   }
 }

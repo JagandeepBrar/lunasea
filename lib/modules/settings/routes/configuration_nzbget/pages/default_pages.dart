@@ -2,27 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/nzbget.dart';
 import 'package:lunasea/modules/nzbget.dart';
-import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationNZBGetDefaultPagesRouter extends SettingsPageRouter {
-  SettingsConfigurationNZBGetDefaultPagesRouter()
-      : super('/settings/configuration/nzbget/pages');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationNZBGetDefaultPagesRoute extends StatefulWidget {
+  const ConfigurationNZBGetDefaultPagesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationNZBGetDefaultPagesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationNZBGetDefaultPagesRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

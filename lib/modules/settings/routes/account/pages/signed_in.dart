@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/config_backup_tile.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/config_delete_tile.dart';
+import 'package:lunasea/modules/settings/routes/account/widgets/config_restore_tile.dart';
 
 class SettingsAccountSignedInPage extends StatefulWidget {
   final ScrollController scrollController;

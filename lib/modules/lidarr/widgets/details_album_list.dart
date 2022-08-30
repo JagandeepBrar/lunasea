@@ -73,7 +73,7 @@ class _State extends State<LidarrDetailsAlbumList>
       );
 
   Widget get _list => Consumer<LidarrState>(
-        builder: (context, model, widget) {
+        builder: (context, model, _) {
           return LunaListViewBuilder(
             controller: LidarrArtistNavigationBar.scrollControllers[1],
             itemCount: _results!.isEmpty ? 1 : _results!.length,
@@ -81,6 +81,7 @@ class _State extends State<LidarrDetailsAlbumList>
                 ? (context, _) => const LunaMessage(text: 'No Albums Found')
                 : (context, index) => LidarrDetailsAlbumTile(
                       data: _results![index],
+                      artistId: widget.artistID,
                       refreshState: _refreshState,
                     ),
           );

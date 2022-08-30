@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 import 'package:lunasea/types/list_view_option.dart';
 
 class SonarrCatalogueRoute extends StatefulWidget {
@@ -152,10 +153,11 @@ class _State extends State<SonarrCatalogueRoute>
                             ])
                           : 'sonarr.SearchFor'.tr(args: ['"$query"']),
                       backgroundColor: LunaColours.accent,
-                      onTap: () async => SonarrAddSeriesRouter().navigateTo(
-                        context,
-                        query,
-                      ),
+                      onTap: () async {
+                        SonarrRoutes.ADD_SERIES.go(queryParams: {
+                          'query': query,
+                        });
+                      },
                     ),
                   ],
                 ),

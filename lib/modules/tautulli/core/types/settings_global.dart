@@ -65,7 +65,7 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
   }
 
   Future<void> _webGUI(BuildContext context) async =>
-      context.read<TautulliState>().host!.openLink();
+      context.read<TautulliState>().host.openLink();
   Future<void> _backupConfig(BuildContext context) async =>
       TautulliAPIHelper().backupConfiguration(context: context);
   Future<void> _backupDatabase(BuildContext context) async =>

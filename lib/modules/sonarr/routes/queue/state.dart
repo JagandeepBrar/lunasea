@@ -16,9 +16,9 @@ class SonarrQueueState extends ChangeNotifier {
     );
   }
 
-  late Future<SonarrQueue> _queue;
-  Future<SonarrQueue> get queue => _queue;
-  set queue(Future<SonarrQueue> queue) {
+  late Future<SonarrQueuePage> _queue;
+  Future<SonarrQueuePage> get queue => _queue;
+  set queue(Future<SonarrQueuePage> queue) {
     this.queue = queue;
     notifyListeners();
   }

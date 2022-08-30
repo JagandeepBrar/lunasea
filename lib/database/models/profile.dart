@@ -149,48 +149,134 @@ class LunaProfile extends HiveObject {
   @HiveField(43, defaultValue: <String, String>{})
   Map<String, String> overseerrHeaders;
 
-  LunaProfile({
+  LunaProfile._internal({
     //Lidarr
-    this.lidarrEnabled = false,
-    this.lidarrHost = '',
-    this.lidarrKey = '',
-    this.lidarrHeaders = const {},
+    required this.lidarrEnabled,
+    required this.lidarrHost,
+    required this.lidarrKey,
+    required this.lidarrHeaders,
     //Radarr
-    this.radarrEnabled = false,
-    this.radarrHost = '',
-    this.radarrKey = '',
-    this.radarrHeaders = const {},
+    required this.radarrEnabled,
+    required this.radarrHost,
+    required this.radarrKey,
+    required this.radarrHeaders,
     //Sonarr
-    this.sonarrEnabled = false,
-    this.sonarrHost = '',
-    this.sonarrKey = '',
-    this.sonarrHeaders = const {},
+    required this.sonarrEnabled,
+    required this.sonarrHost,
+    required this.sonarrKey,
+    required this.sonarrHeaders,
     //SABnzbd
-    this.sabnzbdEnabled = false,
-    this.sabnzbdHost = '',
-    this.sabnzbdKey = '',
-    this.sabnzbdHeaders = const {},
+    required this.sabnzbdEnabled,
+    required this.sabnzbdHost,
+    required this.sabnzbdKey,
+    required this.sabnzbdHeaders,
     //NZBGet
-    this.nzbgetEnabled = false,
-    this.nzbgetHost = '',
-    this.nzbgetUser = '',
-    this.nzbgetPass = '',
-    this.nzbgetHeaders = const {},
+    required this.nzbgetEnabled,
+    required this.nzbgetHost,
+    required this.nzbgetUser,
+    required this.nzbgetPass,
+    required this.nzbgetHeaders,
     //Wake On LAN
-    this.wakeOnLANEnabled = false,
-    this.wakeOnLANBroadcastAddress = '',
-    this.wakeOnLANMACAddress = '',
+    required this.wakeOnLANEnabled,
+    required this.wakeOnLANBroadcastAddress,
+    required this.wakeOnLANMACAddress,
     //Tautulli
-    this.tautulliEnabled = false,
-    this.tautulliHost = '',
-    this.tautulliKey = '',
-    this.tautulliHeaders = const {},
+    required this.tautulliEnabled,
+    required this.tautulliHost,
+    required this.tautulliKey,
+    required this.tautulliHeaders,
     //Overseerr
-    this.overseerrEnabled = false,
-    this.overseerrHost = '',
-    this.overseerrKey = '',
-    this.overseerrHeaders = const {},
+    required this.overseerrEnabled,
+    required this.overseerrHost,
+    required this.overseerrKey,
+    required this.overseerrHeaders,
   });
+
+  factory LunaProfile({
+    //Lidarr
+    bool? lidarrEnabled,
+    String? lidarrHost,
+    String? lidarrKey,
+    Map<String, String>? lidarrHeaders,
+    //Radarr
+    bool? radarrEnabled,
+    String? radarrHost,
+    String? radarrKey,
+    Map<String, String>? radarrHeaders,
+    //Sonarr
+    bool? sonarrEnabled,
+    String? sonarrHost,
+    String? sonarrKey,
+    Map<String, String>? sonarrHeaders,
+    //SABnzbd
+    bool? sabnzbdEnabled,
+    String? sabnzbdHost,
+    String? sabnzbdKey,
+    Map<String, String>? sabnzbdHeaders,
+    //NZBGet
+    bool? nzbgetEnabled,
+    String? nzbgetHost,
+    String? nzbgetUser,
+    String? nzbgetPass,
+    Map<String, String>? nzbgetHeaders,
+    //Wake On LAN
+    bool? wakeOnLANEnabled,
+    String? wakeOnLANBroadcastAddress,
+    String? wakeOnLANMACAddress,
+    //Tautulli
+    bool? tautulliEnabled,
+    String? tautulliHost,
+    String? tautulliKey,
+    Map<String, String>? tautulliHeaders,
+    //Overseerr
+    bool? overseerrEnabled,
+    String? overseerrHost,
+    String? overseerrKey,
+    Map<String, String>? overseerrHeaders,
+  }) {
+    return LunaProfile._internal(
+      // Lidarr
+      lidarrEnabled: lidarrEnabled ?? false,
+      lidarrHost: lidarrHost ?? '',
+      lidarrKey: lidarrKey ?? '',
+      lidarrHeaders: lidarrHeaders ?? {},
+      // Radarr
+      radarrEnabled: radarrEnabled ?? false,
+      radarrHost: radarrHost ?? '',
+      radarrKey: radarrKey ?? '',
+      radarrHeaders: radarrHeaders ?? {},
+      // Sonarr
+      sonarrEnabled: sonarrEnabled ?? false,
+      sonarrHost: sonarrHost ?? '',
+      sonarrKey: sonarrKey ?? '',
+      sonarrHeaders: sonarrHeaders ?? {},
+      // SABnzbd
+      sabnzbdEnabled: sabnzbdEnabled ?? false,
+      sabnzbdHost: sabnzbdHost ?? '',
+      sabnzbdKey: sabnzbdKey ?? '',
+      sabnzbdHeaders: sabnzbdHeaders ?? {},
+      // NZBGet
+      nzbgetEnabled: nzbgetEnabled ?? false,
+      nzbgetHost: nzbgetHost ?? '',
+      nzbgetUser: nzbgetUser ?? '',
+      nzbgetPass: nzbgetPass ?? '',
+      nzbgetHeaders: nzbgetHeaders ?? {},
+      // Wake On LAN
+      wakeOnLANEnabled: wakeOnLANEnabled ?? false,
+      wakeOnLANBroadcastAddress: wakeOnLANBroadcastAddress ?? '',
+      wakeOnLANMACAddress: wakeOnLANMACAddress ?? '',
+      // Tautulli
+      tautulliEnabled: tautulliEnabled ?? false,
+      tautulliHost: tautulliHost ?? '',
+      tautulliKey: tautulliKey ?? '',
+      tautulliHeaders: tautulliHeaders ?? {},
+      // Overseerr
+      overseerrEnabled: overseerrEnabled ?? false,
+      overseerrHost: overseerrHost ?? '',
+      overseerrKey: overseerrKey ?? '',
+      overseerrHeaders: overseerrHeaders ?? {},
+    );
+  }
 
   @override
   String toString() => json.encode(this.toJson());

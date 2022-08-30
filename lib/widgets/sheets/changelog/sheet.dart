@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/deprecated/state/state.dart';
+import 'package:lunasea/system/state.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/environment.dart';
@@ -36,12 +36,11 @@ class ChangelogSheet extends LunaBottomModalSheet {
   }
 
   Future<void> _loadChangelog() async {
-    final context = LunaState.navigatorKey.currentContext!;
     final asset = LunaFlavor.isStable
         ? 'assets/changelog_stable.json'
         : 'assets/changelog.json';
 
-    _changelog = await DefaultAssetBundle.of(context)
+    _changelog = await DefaultAssetBundle.of(LunaState.context)
         .loadString(asset)
         .then((c) => Changelog.fromJson(json.decode(c)));
   }

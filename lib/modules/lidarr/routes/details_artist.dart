@@ -3,94 +3,94 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/lidarr/sheets/links.dart';
+import 'package:lunasea/router/router.dart';
 
-class LidarrDetailsArtistArguments {
-  LidarrCatalogueData? data;
-  final int? artistID;
+class ArtistDetailsRoute extends StatefulWidget {
+  final LidarrCatalogueData? data;
+  final int? artistId;
 
-  LidarrDetailsArtistArguments({
+  const ArtistDetailsRoute({
     required this.data,
-    required this.artistID,
-  });
-}
-
-class LidarrDetailsArtist extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr/details/artist';
-
-  const LidarrDetailsArtist({
+    required this.artistId,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LidarrDetailsArtist> createState() => _State();
+  State<ArtistDetailsRoute> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsArtist> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final LunaPageController _pageController = LunaPageController(initialPage: 1);
-  LidarrDetailsArtistArguments? _arguments;
+class _State extends State<ArtistDetailsRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _pageController = LunaPageController(initialPage: 1);
+
+  LidarrCatalogueData? data;
   bool _error = false;
 
   @override
   void initState() {
     super.initState();
+    data = widget.data;
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context)!.settings.arguments
-          as LidarrDetailsArtistArguments?;
       _fetch();
     });
   }
 
   Future<void> _fetch() async {
     if (mounted) setState(() => _error = false);
-    if (_arguments != null)
-      await LidarrAPI.from(LunaProfile.current)
-          .getArtist(_arguments!.artistID)
-          .then((data) {
-        if (mounted)
-          setState(() {
-            _arguments!.data = data;
-            _error = false;
-          });
-      }).catchError((error) {
-        if (mounted) setState(() => _error = true);
-      });
+    final api = LidarrAPI.from(LunaProfile.current);
+    await api.getArtist(widget.artistId).then((newData) {
+      if (mounted) {
+        setState(() {
+          data = newData;
+          _error = false;
+        });
+      }
+    }).catchError((error) {
+      if (mounted) {
+        setState(() {
+          _error = true;
+        });
+      }
+    });
   }
 
   @override
-  Widget build(BuildContext context) => LunaScaffold(
+  Widget build(BuildContext context) {
+    if (_error) {
+      return LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar as PreferredSizeWidget?,
-        bottomNavigationBar: _arguments != null && _arguments!.data != null
-            ? _bottomNavigationBar
-            : null,
-        body: _arguments != null
-            ? _arguments!.data != null
-                ? _body
-                : _error
-                    ? LunaMessage.error(onTap: _fetch)
-                    : const LunaLoader()
-            : null,
+        appBar: LunaAppBar(title: 'Artist Details'),
+        body: LunaMessage.error(onTap: _fetch),
       );
+    }
 
-  Widget get _appBar {
+    return LunaScaffold(
+      scaffoldKey: _scaffoldKey,
+      appBar: _appBar,
+      bottomNavigationBar: data != null ? _bottomNavigationBar : null,
+      body: data != null ? _body : const LunaLoader(),
+    );
+  }
+
+  PreferredSizeWidget get _appBar {
     List<Widget>? _actions;
 
-    if (_arguments?.data != null) {
+    if (data != null) {
       _actions = [
         LunaIconButton(
           icon: LunaIcons.LINK,
           onPressed: () async {
-            LinksSheet(artist: _arguments!.data!).show();
+            LinksSheet(artist: data!).show();
           },
         ),
-        LidarrDetailsEditButton(data: _arguments!.data),
+        LidarrDetailsEditButton(data: data),
         LidarrDetailsSettingsButton(
-          data: _arguments!.data,
+          data: data,
           remove: _removeCallback,
         ),
       ];
     }
+
     return LunaAppBar(
       title: 'Artist Details',
       pageController: _pageController,
@@ -103,8 +103,8 @@ class _State extends State<LidarrDetailsArtist> {
       LidarrArtistNavigationBar(pageController: _pageController);
 
   List<Widget> get _tabs => [
-        LidarrDetailsOverview(data: _arguments!.data!),
-        LidarrDetailsAlbumList(artistID: _arguments!.data!.artistID),
+        LidarrDetailsOverview(data: data!),
+        LidarrDetailsAlbumList(artistID: data!.artistID),
       ];
 
   Widget get _body => LunaPageView(
@@ -112,6 +112,11 @@ class _State extends State<LidarrDetailsArtist> {
         children: _tabs,
       );
 
-  Future<void> _removeCallback(bool withData) async =>
-      Navigator.of(context).pop(['remove_artist', withData]);
+  Future<void> _removeCallback(bool withData) async {
+    showLunaSuccessSnackBar(
+      title: 'Artist Removed',
+      message: data!.title,
+    );
+    LunaRouter.router.pop();
+  }
 }

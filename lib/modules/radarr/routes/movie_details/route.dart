@@ -3,51 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/radarr/routes/movie_details/sheets/links.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class RadarrMoviesDetailsRouter extends RadarrPageRouter {
-  RadarrMoviesDetailsRouter() : super('/radarr/movie/:movieid');
-
-  @override
-  Widget widget([
-    int movieId = -1,
-  ]) {
-    return _Widget(movieId: movieId);
-  }
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int movieId = -1,
-  ]) async {
-    LunaRouter.router.navigateTo(context, route(movieId));
-  }
-
-  @override
-  String route([
-    int movieId = -1,
-  ]) {
-    return fullRoute.replaceFirst(':movieid', movieId.toString());
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.withParameterRouteDefinition(
-      router,
-      (context, params) {
-        int movieId = params['movieid'] == null || params['movieid']!.isEmpty
-            ? -1
-            : (int.tryParse(params['movieid']![0]) ?? -1);
-        return _Widget(movieId: movieId);
-      },
-    );
-  }
-}
-
-class _Widget extends StatefulWidget {
+class MovieDetailsRoute extends StatefulWidget {
   final int movieId;
 
-  const _Widget({
+  const MovieDetailsRoute({
     Key? key,
     required this.movieId,
   }) : super(key: key);
@@ -56,7 +18,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaLoadCallbackMixin {
+class _State extends State<MovieDetailsRoute> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   RadarrMovie? movie;
   PageController? _pageController;
@@ -128,9 +90,9 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
         ),
         LunaIconButton(
           icon: LunaIcons.EDIT,
-          onPressed: () async {
-            RadarrMoviesEditRouter().navigateTo(context, widget.movieId);
-          },
+          onPressed: () => RadarrRoutes.MOVIE_EDIT.go(params: {
+            'movie': widget.movieId.toString(),
+          }),
         ),
         RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
       ];

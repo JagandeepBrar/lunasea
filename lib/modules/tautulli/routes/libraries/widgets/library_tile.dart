@@ -4,6 +4,7 @@ import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliLibrariesLibraryTile extends StatelessWidget {
   final TautulliTableLibrary library;
@@ -38,10 +39,9 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
       backgroundUrl:
           context.watch<TautulliState>().getImageURLFromPath(library.thumb),
       backgroundHeaders: context.watch<TautulliState>().headers,
-      onTap: () async => TautulliLibrariesDetailsRouter().navigateTo(
-        context,
-        library.sectionId!,
-      ),
+      onTap: () => TautulliRoutes.LIBRARIES_DETAILS.go(params: {
+        'section': library.sectionId.toString(),
+      }),
     );
   }
 }

@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/router/routes/search.dart';
 
-class SearchSubcategoriesRouter extends SearchPageRouter {
-  SearchSubcategoriesRouter() : super('/search/subcategories');
+class SubcategoriesRoute extends StatefulWidget {
+  const SubcategoriesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<SubcategoriesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<SubcategoriesRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -41,7 +34,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           icon: Icons.search_rounded,
           onPressed: () async {
             context.read<SearchState>().activeSubcategory = null;
-            SearchSearchRouter().navigateTo(context);
+            SearchRoutes.SEARCH.go();
           },
         ),
       ],

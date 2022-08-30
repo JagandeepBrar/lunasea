@@ -17,7 +17,7 @@ Future<void> showLunaErrorSnackBar({
       buttonOnPressed: () async {
         if (error != null) {
           LunaDialogs().textPreview(
-            LunaState.navigatorKey.currentContext!,
+            LunaState.context,
             'Error',
             error.toString(),
           );

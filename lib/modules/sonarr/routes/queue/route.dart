@@ -2,24 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrQueueRouter extends SonarrPageRouter {
-  SonarrQueueRouter() : super('/sonarr/queue');
+class QueueRoute extends StatefulWidget {
+  const QueueRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<QueueRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -29,7 +21,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => SonarrQueueState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar() as PreferredSizeWidget?,
+        appBar: _appBar(),
         body: _body(context),
       ),
     );
@@ -43,7 +35,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     await context.read<SonarrQueueState>().queue;
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'sonarr.Queue'.tr(),
       scrollControllers: [scrollController],
@@ -57,7 +49,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       onRefresh: () async => _onRefresh(context),
       child: FutureBuilder(
         future: context.watch<SonarrQueueState>().queue,
-        builder: (context, AsyncSnapshot<SonarrQueue> snapshot) {
+        builder: (context, AsyncSnapshot<SonarrQueuePage> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {
               LunaLogger().error(
@@ -79,7 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     );
   }
 
-  Widget _list(SonarrQueue queue) {
+  Widget _list(SonarrQueuePage queue) {
     if (queue.records!.isEmpty) {
       return LunaMessage(
         text: 'sonarr.EmptyQueue'.tr(),

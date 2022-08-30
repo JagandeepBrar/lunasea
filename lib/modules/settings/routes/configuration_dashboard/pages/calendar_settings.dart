@@ -9,28 +9,18 @@ import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.d
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/dialogs.dart';
 import 'package:lunasea/modules/settings/core/dialogs.dart';
-import 'package:lunasea/modules/settings/core/router.dart';
 
-class SettingsConfigurationDashboardCalendarSettingsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationDashboardCalendarSettingsRouter()
-      : super('/settings/configuration/dashboard/calendar');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationDashboardCalendarRoute extends StatefulWidget {
+  const ConfigurationDashboardCalendarRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationDashboardCalendarRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationDashboardCalendarRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

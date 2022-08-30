@@ -2,27 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/overseerr.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationOverseerrConnectionDetailsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationOverseerrConnectionDetailsRouter()
-      : super('/settings/configuration/overseerr/connection');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationOverseerrConnectionDetailsRoute extends StatefulWidget {
+  const ConfigurationOverseerrConnectionDetailsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationOverseerrConnectionDetailsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationOverseerrConnectionDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -132,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        Overseerr(
+        OverseerrAPI(
           host: _profile.overseerrHost,
           apiKey: _profile.overseerrKey,
           headers: Map<String, dynamic>.from(_profile.overseerrHeaders),
@@ -163,9 +155,8 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationOverseerrHeadersRouter().navigateTo(context);
-      },
+      onTap:
+          SettingsRoutes.CONFIGURATION_OVERSEERR_CONNECTION_DETAILS_HEADERS.go,
     );
   }
 }

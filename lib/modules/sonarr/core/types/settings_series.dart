@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
   SEARCH,
@@ -49,7 +50,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
   Future<void> execute(BuildContext context, SonarrSeries series) async {
     switch (this) {
       case SonarrSeriesSettingsType.EDIT:
-        await SonarrEditSeriesRouter().navigateTo(context, series.id!);
+        SonarrRoutes.SERIES_EDIT.go(params: {'series': series.id!.toString()});
         break;
       case SonarrSeriesSettingsType.REFRESH:
         await SonarrAPIController().refreshSeries(
@@ -62,7 +63,7 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         if (result) {
           await SonarrAPIController()
               .removeSeries(context: context, series: series)
-              .then((_) => Navigator.of(context).safetyPop());
+              .then((_) => LunaRouter().popSafely());
         }
         break;
       case SonarrSeriesSettingsType.MONITORED:

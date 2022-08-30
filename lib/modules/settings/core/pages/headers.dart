@@ -57,7 +57,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
-          if ((_headers() ?? {}).isEmpty) _noHeadersFound(),
+          if ((_headers()).isEmpty) _noHeadersFound(),
           ..._headerList(),
         ],
       ),
@@ -68,7 +68,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       LunaMessage.inList(text: 'settings.NoHeadersAdded'.tr());
 
   List<LunaBlock> _headerList() {
-    Map<String, dynamic> headers = (_headers() ?? {}).cast<String, dynamic>();
+    final headers = _headers();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
         .map<LunaBlock>((key) => _headerBlock(key, headers[key]))
@@ -93,7 +93,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     );
   }
 
-  Map<dynamic, dynamic>? _headers() {
+  Map<String, String> _headers() {
     switch (widget.module) {
       case LunaModule.DASHBOARD:
         throw Exception('Dashboard does not have a headers page');

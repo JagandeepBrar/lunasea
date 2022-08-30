@@ -2,49 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
-  TautulliIPAddressDetailsRouter() : super('/tautulli/ipaddress/:ipaddress');
-
-  @override
-  _Widget widget([String ipAddress = '']) => _Widget(ipAddress: ipAddress);
-
-  @override
-  Future<void> navigateTo(BuildContext context,
-          [String ipAddress = '']) async =>
-      LunaRouter.router.navigateTo(
-        context,
-        route(ipAddress),
-      );
-
-  @override
-  String route([String ipAddress = '']) =>
-      fullRoute.replaceFirst(':ipaddress', ipAddress);
-
-  @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          String? ipAddress = (params['ipaddress']?.isNotEmpty ?? false)
-              ? params['ipaddress']![0]
-              : null;
-          return _Widget(ipAddress: ipAddress);
-        },
-      );
-}
-
-class _Widget extends StatefulWidget {
+class IPDetailsRoute extends StatefulWidget {
   final String? ipAddress;
 
-  const _Widget({
+  const IPDetailsRoute({
     Key? key,
     required this.ipAddress,
   }) : super(key: key);
 
   @override
-  State<_Widget> createState() => _State();
+  State<IPDetailsRoute> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<IPDetailsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
 class LidarrDetailsEditButton extends StatefulWidget {
   final LidarrCatalogueData? data;
@@ -24,14 +25,11 @@ class _State extends State<LidarrDetailsEditButton> {
       );
 
   Future<void> _enterEditArtist(BuildContext context) async {
-    final dynamic result = await Navigator.of(context).pushNamed(
-      LidarrEditArtist.ROUTE_NAME,
-      arguments: LidarrEditArtistArguments(entry: widget.data),
+    LidarrRoutes.ARTIST_EDIT.go(
+      extra: widget.data,
+      params: {
+        'artist': widget.data!.artistID.toString(),
+      },
     );
-    if (result != null && result[0])
-      showLunaSuccessSnackBar(
-        title: 'Updated',
-        message: widget.data!.title,
-      );
   }
 }

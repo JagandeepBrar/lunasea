@@ -2,27 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationRadarrConnectionDetailsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationRadarrConnectionDetailsRouter()
-      : super('/settings/configuration/radarr/connection');
-
-  @override
-  Widget widget() => _Widget();
+class ConfigurationRadarrConnectionDetailsRoute extends StatefulWidget {
+  const ConfigurationRadarrConnectionDetailsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationRadarrConnectionDetailsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRadarrConnectionDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -132,7 +124,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        Radarr(
+        RadarrAPI(
           host: _profile.radarrHost,
           apiKey: _profile.radarrKey,
           headers: Map<String, dynamic>.from(_profile.radarrHeaders),
@@ -168,9 +160,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationRadarrHeadersRouter().navigateTo(context);
-      },
+      onTap: SettingsRoutes.CONFIGURATION_RADARR_CONNECTION_DETAILS_HEADERS.go,
     );
   }
 }

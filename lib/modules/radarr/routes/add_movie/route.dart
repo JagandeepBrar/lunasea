@@ -2,58 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class _RadarrAddMovieArguments {
+class AddMovieRoute extends StatefulWidget {
   final String query;
 
-  _RadarrAddMovieArguments(this.query);
-}
+  const AddMovieRoute({
+    Key? key,
+    required this.query,
+  }) : super(key: key);
 
-class RadarrAddMovieRouter extends RadarrPageRouter {
-  RadarrAddMovieRouter() : super('/radarr/addmovie');
-
-  @override
-  Widget widget() => _Widget();
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    String query = '',
-  ]) async {
-    LunaRouter.router.navigateTo(
-      context,
-      route(),
-      routeSettings: RouteSettings(arguments: _RadarrAddMovieArguments(query)),
-    );
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _RadarrAddMovieArguments? _arguments;
-  LunaPageController? _pageController;
+class _State extends State<AddMovieRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late LunaPageController _pageController;
+  bool hasQuery = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final page = RadarrDatabase.NAVIGATION_INDEX_ADD_MOVIE.read();
+    hasQuery = widget.query.isNotEmpty;
+    _pageController = LunaPageController(initialPage: hasQuery ? 0 : page);
+  }
 
   @override
   Widget build(BuildContext context) {
-    _arguments =
-        ModalRoute.of(context)!.settings.arguments as _RadarrAddMovieArguments?;
-    _pageController = LunaPageController(
-      initialPage: (_arguments?.query ?? '').isNotEmpty
-          ? 0
-          : RadarrDatabase.NAVIGATION_INDEX_ADD_MOVIE.read(),
-    );
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -63,7 +42,7 @@ class _State extends State<_Widget> {
     return RadarrAddMovieNavigationBar(pageController: _pageController);
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'radarr.AddMovie'.tr(),
       pageController: _pageController,
@@ -75,14 +54,13 @@ class _State extends State<_Widget> {
     return ChangeNotifierProvider(
       create: (context) => RadarrAddMovieState(
         context,
-        _arguments?.query ?? '',
+        widget.query,
       ),
       builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
           RadarrAddMovieSearchPage(
-            autofocusSearchBar: (_arguments?.query ?? '').isEmpty &&
-                _pageController!.initialPage == 0,
+            autofocusSearchBar: hasQuery && _pageController.initialPage == 0,
           ),
           const RadarrAddMovieDiscoverPage(),
         ],

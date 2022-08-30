@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 import 'package:lunasea/types/list_view_option.dart';
 
 class RadarrCatalogueRoute extends StatefulWidget {
@@ -147,10 +148,9 @@ class _State extends State<RadarrCatalogueRoute>
                             ])
                           : 'radarr.SearchFor'.tr(args: ['"$query"']),
                       backgroundColor: LunaColours.accent,
-                      onTap: () async => RadarrAddMovieRouter().navigateTo(
-                        context,
-                        query,
-                      ),
+                      onTap: () => RadarrRoutes.ADD_MOVIE.go(queryParams: {
+                        'query': query,
+                      }),
                     ),
                   ],
                 ),

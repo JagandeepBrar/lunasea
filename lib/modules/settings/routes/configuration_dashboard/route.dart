@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationDashboardRouter extends SettingsPageRouter {
-  SettingsConfigurationDashboardRouter()
-      : super('/settings/configuration/dashboard');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationDashboardRoute extends StatefulWidget {
+  const ConfigurationDashboardRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationDashboardRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationDashboardRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -54,8 +46,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.DefaultPages'.tr(),
       body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationDashboardDefaultPagesRouter()
-          .navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_DASHBOARD_DEFAULT_PAGES.go,
     );
   }
 
@@ -64,10 +55,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Calendar Settings',
       body: const [TextSpan(text: 'Customize the Unified Calendar')],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationDashboardCalendarSettingsRouter()
-            .navigateTo(context);
-      },
+      onTap: SettingsRoutes.CONFIGURATION_DASHBOARD_CALENDAR.go,
     );
   }
 }

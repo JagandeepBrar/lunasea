@@ -3,60 +3,31 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSearchEditRouter extends SettingsPageRouter {
-  SettingsConfigurationSearchEditRouter()
-      : super('/settings/configuration/search/edit/:indexerid');
+class ConfigurationSearchEditIndexerRoute extends StatefulWidget {
+  final int id;
 
-  @override
-  _Widget widget([int indexerId = -1]) => _Widget(indexerId: indexerId);
-
-  @override
-  Future<void> navigateTo(BuildContext context, [int indexerId = -1]) async {
-    LunaRouter.router.navigateTo(context, route(indexerId));
-  }
-
-  @override
-  String route([int indexerId = -1]) {
-    return super.fullRoute.replaceFirst(':indexerid', indexerId.toString());
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.withParameterRouteDefinition(
-      router,
-      (context, params) {
-        int indexerId = (params['indexerid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['indexerid']![0]) ?? -1)
-            : -1;
-        return _Widget(indexerId: indexerId);
-      },
-    );
-  }
-}
-
-class _Widget extends StatefulWidget {
-  final int indexerId;
-
-  const _Widget({
+  const ConfigurationSearchEditIndexerRoute({
     Key? key,
-    required this.indexerId,
+    required this.id,
   }) : super(key: key);
 
   @override
-  State<_Widget> createState() => _State();
+  State<ConfigurationSearchEditIndexerRoute> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSearchEditIndexerRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaIndexer? _indexer;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.indexerId < 0)
+    if (widget.id < 0)
       return InvalidRoutePage(
           title: 'Edit Indexer', message: 'Indexer Not Found');
-    if (!LunaBox.indexers.contains(widget.indexerId))
+    if (!LunaBox.indexers.contains(widget.id))
       return InvalidRoutePage(
           title: 'Edit Indexer', message: 'Indexer Not Found');
     return LunaScaffold(
@@ -97,10 +68,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
 
   Widget _body() {
     return LunaBox.indexers.watch(
-      selectKeys: [widget.indexerId],
+      selectKeys: [widget.id],
       builder: (context, _) {
-        if (!LunaBox.indexers.contains(widget.indexerId)) return Container();
-        _indexer = LunaBox.indexers.read(widget.indexerId);
+        if (!LunaBox.indexers.contains(widget.id)) return Container();
+        _indexer = LunaBox.indexers.read(widget.id);
         return LunaListView(
           controller: scrollController,
           children: [
@@ -175,8 +146,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSearchEditHeadersRouter()
-          .navigateTo(context, widget.indexerId),
+      onTap: () => SettingsRoutes.CONFIGURATION_SEARCH_EDIT_INDEXER_HEADERS.go(
+        params: {
+          'id': widget.id.toString(),
+        },
+      ),
     );
   }
 }

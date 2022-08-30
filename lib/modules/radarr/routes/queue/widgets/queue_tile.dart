@@ -4,6 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrQueueTile extends StatelessWidget {
   final RadarrQueueRecord record;
@@ -38,8 +39,9 @@ class RadarrQueueTile extends StatelessWidget {
             icon: record.lunaStatusIcon,
             color: record.lunaStatusColor,
           ),
-          onLongPress: () async =>
-              RadarrMoviesDetailsRouter().navigateTo(context, record.movieId!),
+          onLongPress: () => RadarrRoutes.MOVIE.go(params: {
+            'movie': record.movieId!.toString(),
+          }),
         );
       },
     );
@@ -128,10 +130,12 @@ class RadarrQueueTile extends StatelessWidget {
           record.trackedDownloadStatus == RadarrTrackedDownloadStatus.WARNING &&
           (record.outputPath ?? '').isNotEmpty)
         LunaButton.text(
-            icon: Icons.download_done_rounded,
-            text: 'radarr.Import'.tr(),
-            onTap: () async => RadarrManualImportDetailsRouter()
-                .navigateTo(context, record.outputPath!)),
+          icon: Icons.download_done_rounded,
+          text: 'radarr.Import'.tr(),
+          onTap: () => RadarrRoutes.MANUAL_IMPORT_DETAILS.go(queryParams: {
+            'path': record.outputPath!,
+          }),
+        ),
       LunaButton.text(
         icon: Icons.delete_rounded,
         color: LunaColours.red,

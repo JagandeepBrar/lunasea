@@ -2,61 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeasonDetailsRouter extends SonarrPageRouter {
-  SonarrSeasonDetailsRouter()
-      : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
-
-  @override
-  _SonarrSeasonDetails widget([
-    int seriesId = -1,
-    int seasonNumber = -1,
-  ]) {
-    return _SonarrSeasonDetails(
-      seriesId: seriesId,
-      seasonNumber: seasonNumber,
-    );
-  }
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int seriesId = -1,
-    int seasonNumber = -1,
-  ]) async {
-    LunaRouter.router.navigateTo(
-      context,
-      route(seriesId, seasonNumber),
-    );
-  }
-
-  @override
-  String route([
-    int seriesId = -1,
-    int seasonNumber = -1,
-  ]) =>
-      fullRoute
-          .replaceFirst(':seriesid', seriesId.toString())
-          .replaceFirst(':seasonnumber', seasonNumber.toString());
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.withParameterRouteDefinition(router, (context, params) {
-        int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seriesid']![0]) ?? -1)
-            : -1;
-        int seasonNumber = (params['seasonnumber']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seasonnumber']![0]) ?? -1)
-            : -1;
-        return _SonarrSeasonDetails(
-            seriesId: seriesId, seasonNumber: seasonNumber);
-      });
-}
-
-class _SonarrSeasonDetails extends StatefulWidget {
+class SeriesSeasonDetailsRoute extends StatefulWidget {
   final int seriesId;
   final int seasonNumber;
 
-  const _SonarrSeasonDetails({
+  const SeriesSeasonDetailsRoute({
     Key? key,
     required this.seriesId,
     required this.seasonNumber,
@@ -66,7 +16,7 @@ class _SonarrSeasonDetails extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrSeasonDetails>
+class _State extends State<SeriesSeasonDetailsRoute>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PageController? _pageController;

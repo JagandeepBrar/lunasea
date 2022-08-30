@@ -3,54 +3,21 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class _RadarrAddMovieDetailsArguments {
-  final RadarrMovie movie;
+class AddMovieDetailsRoute extends StatefulWidget {
+  final RadarrMovie? movie;
   final bool isDiscovery;
 
-  _RadarrAddMovieDetailsArguments({
+  const AddMovieDetailsRoute({
+    Key? key,
     required this.movie,
     required this.isDiscovery,
-  });
-}
+  }) : super(key: key);
 
-class RadarrAddMovieDetailsRouter extends RadarrPageRouter {
-  RadarrAddMovieDetailsRouter() : super('/radarr/addmovie/details');
-
-  @override
-  Widget widget() => _Widget();
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    RadarrMovie? movie,
-    bool? isDiscovery,
-  ]) async {
-    assert(movie != null);
-    assert(isDiscovery != null);
-    LunaRouter.router.navigateTo(
-      context,
-      route(),
-      routeSettings: RouteSettings(
-        arguments: _RadarrAddMovieDetailsArguments(
-          movie: movie!,
-          isDiscovery: isDiscovery!,
-        ),
-      ),
-    );
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<AddMovieDetailsRoute>
     with LunaLoadCallbackMixin, LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
@@ -65,10 +32,7 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _RadarrAddMovieDetailsArguments? arguments = ModalRoute.of(context)!
-        .settings
-        .arguments as _RadarrAddMovieDetailsArguments?;
-    if (arguments == null) {
+    if (widget.movie == null) {
       return InvalidRoutePage(
         title: 'radarr.AddMovie'.tr(),
         message: 'radarr.MovieNotFound'.tr(),
@@ -76,19 +40,19 @@ class _State extends State<_Widget>
     }
     return ChangeNotifierProvider(
       create: (_) => RadarrAddMovieDetailsState(
-        movie: arguments.movie,
-        isDiscovery: arguments.isDiscovery,
+        movie: widget.movie!,
+        isDiscovery: widget.isDiscovery,
       ),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar() as PreferredSizeWidget?,
+        appBar: _appBar(),
         body: _body(),
         bottomNavigationBar: const RadarrAddMovieDetailsActionBar(),
       ),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'radarr.AddMovie'.tr(),
       scrollControllers: [scrollController],

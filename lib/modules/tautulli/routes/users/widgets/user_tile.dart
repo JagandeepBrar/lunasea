@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliUserTile extends StatelessWidget {
   final TautulliTableUser user;
@@ -32,10 +33,9 @@ class TautulliUserTile extends StatelessWidget {
         LunaIcons.WATCHED,
         LunaIcons.PLAY,
       ],
-      onTap: () async => TautulliUserDetailsRouter().navigateTo(
-        context,
-        user.userId!,
-      ),
+      onTap: () => TautulliRoutes.USER_DETAILS.go(params: {
+        'user': user.userId!.toString(),
+      }),
     );
   }
 }

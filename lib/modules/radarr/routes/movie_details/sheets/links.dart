@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/api/radarr/models.dart';
 import 'package:lunasea/extensions/string/links.dart';
-import 'package:lunasea/modules/radarr/api.dart';
 import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/widgets/ui.dart';
 

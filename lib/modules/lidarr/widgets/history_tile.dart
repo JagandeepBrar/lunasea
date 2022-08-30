@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
 class LidarrHistoryTile extends StatefulWidget {
   static final double extent = LunaBlock.calculateItemExtent(2);
@@ -35,25 +36,11 @@ class _State extends State<LidarrHistoryTile> {
         message: 'There is no artist associated with this history entry',
       );
     } else {
-      final dynamic result = await Navigator.of(context).pushNamed(
-        LidarrDetailsArtist.ROUTE_NAME,
-        arguments: LidarrDetailsArtistArguments(
-          data: null,
-          artistID: widget.entry.artistID,
-        ),
+      LidarrRoutes.ARTIST.go(
+        params: {
+          'artist': widget.entry.artistID.toString(),
+        },
       );
-      if (result != null)
-        switch (result[0]) {
-          case 'remove_artist':
-            {
-              showLunaSuccessSnackBar(
-                title: result[1] ? 'Removed (With Data)' : 'Removed',
-                message: 'Removed artist with ID ${widget.entry.artistID}',
-              );
-              widget.refresh();
-              break;
-            }
-        }
     }
   }
 }

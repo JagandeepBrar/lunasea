@@ -68,7 +68,7 @@ class _State extends State<TautulliNavigationBar> {
                 snapshot.hasData ? snapshot.data!.streamCount.toString() : '?',
             icon: TautulliNavigationBar.icons[0],
             isActive: _index == 0,
-            showBadge: context.read<TautulliState>().enabled! &&
+            showBadge: context.read<TautulliState>().enabled &&
                 _index != 0 &&
                 snapshot.hasData &&
                 snapshot.data!.streamCount! > 0,

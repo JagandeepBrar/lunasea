@@ -4,26 +4,17 @@ import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/types/list_view_option.dart';
 
-class SettingsConfigurationRadarrDefaultOptionsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationRadarrDefaultOptionsRouter()
-      : super('/settings/configuration/radarr/options');
+class ConfigurationRadarrDefaultOptionsRoute extends StatefulWidget {
+  const ConfigurationRadarrDefaultOptionsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationRadarrDefaultOptionsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRadarrDefaultOptionsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

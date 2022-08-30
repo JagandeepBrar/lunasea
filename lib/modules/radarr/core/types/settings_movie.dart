@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 enum RadarrMovieSettingsType {
   EDIT,
@@ -54,8 +55,12 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     }
   }
 
-  Future<void> _edit(BuildContext context, RadarrMovie movie) async =>
-      RadarrMoviesEditRouter().navigateTo(context, movie.id!);
+  Future<void> _edit(BuildContext context, RadarrMovie movie) async {
+    RadarrRoutes.MOVIE_EDIT.go(params: {
+      'movie': movie.id!.toString(),
+    });
+  }
+
   Future<void> _monitored(BuildContext context, RadarrMovie movie) =>
       RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
   Future<void> _refresh(BuildContext context, RadarrMovie movie) async =>
@@ -65,7 +70,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     if (result) {
       RadarrAPIHelper().removeMovie(context: context, movie: movie).then((_) {
         context.read<RadarrState>().fetchMovies();
-        Navigator.of(context).safetyPop();
+        LunaRouter().popSafely();
       });
     }
   }

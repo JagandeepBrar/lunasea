@@ -35,8 +35,8 @@ class SonarrState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Sonarr? _api;
-  Sonarr? get api => _api;
+  SonarrAPI? _api;
+  SonarrAPI? get api => _api;
 
   /// Is the API enabled?
   bool _enabled = false;
@@ -65,7 +65,7 @@ class SonarrState extends LunaModuleState {
     _headers = _profile.sonarrHeaders;
     // Create the API instance if Sonarr is enabled
     if (_enabled) {
-      _api = Sonarr(
+      _api = SonarrAPI(
         host: _host,
         apiKey: _apiKey,
         headers: Map<String, dynamic>.from(_headers),

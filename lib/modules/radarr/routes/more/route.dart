@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrMoreRoute extends StatefulWidget {
   const RadarrMoreRoute({
@@ -38,7 +39,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.history_rounded,
             color: LunaColours().byListIndex(0),
           ),
-          onTap: () async => RadarrHistoryRouter().navigateTo(context),
+          onTap: RadarrRoutes.HISTORY.go,
         ),
         LunaBlock(
           title: 'radarr.ManualImport'.tr(),
@@ -47,7 +48,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.download_done_rounded,
             color: LunaColours().byListIndex(1),
           ),
-          onTap: () async => RadarrManualImportRouter().navigateTo(context),
+          onTap: RadarrRoutes.MANUAL_IMPORT.go,
         ),
         LunaBlock(
           title: 'radarr.Queue'.tr(),
@@ -56,7 +57,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.queue_play_next_rounded,
             color: LunaColours().byListIndex(2),
           ),
-          onTap: () async => RadarrQueueRouter().navigateTo(context),
+          onTap: RadarrRoutes.QUEUE.go,
         ),
         LunaBlock(
           title: 'radarr.SystemStatus'.tr(),
@@ -65,7 +66,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.computer_rounded,
             color: LunaColours().byListIndex(3),
           ),
-          onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
+          onTap: RadarrRoutes.SYSTEM_STATUS.go,
         ),
         LunaBlock(
           title: 'radarr.Tags'.tr(),
@@ -74,7 +75,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
             icon: Icons.style_rounded,
             color: LunaColours().byListIndex(4),
           ),
-          onTap: () async => RadarrTagsRouter().navigateTo(context),
+          onTap: RadarrRoutes.TAGS.go,
         ),
       ],
     );

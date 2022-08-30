@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliHistoryDetailsUser extends StatelessWidget {
   final int ratingKey;
@@ -37,6 +38,9 @@ class TautulliHistoryDetailsUser extends StatelessWidget {
         },
       );
 
-  Future<void> _onPressed(BuildContext context, int userId) =>
-      TautulliUserDetailsRouter().navigateTo(context, userId);
+  void _onPressed(BuildContext context, int userId) {
+    TautulliRoutes.USER_DETAILS.go(params: {
+      'user': userId.toString(),
+    });
+  }
 }

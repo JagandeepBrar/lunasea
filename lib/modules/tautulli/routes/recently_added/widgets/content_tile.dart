@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliRecentlyAddedContentTile extends StatefulWidget {
   final TautulliRecentlyAdded recentlyAdded;
@@ -116,9 +117,10 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
     ];
   }
 
-  Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
-        context,
-        widget.recentlyAdded.ratingKey!,
-        widget.recentlyAdded.mediaType!,
-      );
+  void _onTap() {
+    TautulliRoutes.MEDIA_DETAILS.go(params: {
+      'rating_key': widget.recentlyAdded.ratingKey.toString(),
+      'media_type': widget.recentlyAdded.mediaType!.value,
+    });
+  }
 }

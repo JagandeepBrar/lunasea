@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/settings/routes/account/widgets/change_email_tile.dart';
 import 'package:lunasea/modules/settings/routes/account/widgets/change_password_tile.dart';
 import 'package:lunasea/modules/settings/routes/account/widgets/delete_account_tile.dart';
 
-class SettingsAccountSettingsRouter extends SettingsPageRouter {
-  SettingsAccountSettingsRouter() : super('/settings/account/settings');
+class AccountSettingsRoute extends StatefulWidget {
+  const AccountSettingsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _SettingsAccountSettingsRoute widget() => _SettingsAccountSettingsRoute();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<AccountSettingsRoute> createState() => _State();
 }
 
-class _SettingsAccountSettingsRoute extends StatefulWidget {
-  @override
-  State<_SettingsAccountSettingsRoute> createState() => _State();
-}
-
-class _State extends State<_SettingsAccountSettingsRoute>
+class _State extends State<AccountSettingsRoute>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
   final RadarrMovie movie;
@@ -78,7 +79,9 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
       LunaDialogs().textPreview(context, widget.movie.title,
           widget.movie.overview ?? 'radarr.NoSummaryIsAvailable'.tr());
     } else {
-      RadarrAddMovieDetailsRouter().navigateTo(context, widget.movie, true);
+      RadarrRoutes.ADD_MOVIE_DETAILS.go(extra: widget.movie, queryParams: {
+        'isDiscovery': 'true',
+      });
     }
   }
 

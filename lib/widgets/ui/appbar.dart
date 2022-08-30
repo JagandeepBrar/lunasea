@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/extensions/scroll_controller.dart';
+import 'package:lunasea/router/router.dart';
 import 'package:lunasea/utils/profile_tools.dart';
 
 enum _AppBarType {
@@ -235,8 +235,8 @@ class _State extends State<LunaAppBar> {
     return SizedBox(
       child: LunaIconButton.appBar(
         icon: Icons.arrow_back_ios_new_rounded,
-        onPressed: () async => Navigator.of(context).safetyPop(),
-        onLongPress: () async => Navigator.of(context).popToRootRoute(),
+        onPressed: LunaRouter().popSafely,
+        onLongPress: LunaRouter().popToRootRoute,
       ),
       height: kToolbarHeight,
     );

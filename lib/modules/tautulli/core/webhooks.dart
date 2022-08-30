@@ -1,10 +1,10 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 import 'package:lunasea/system/webhooks.dart';
 
 class TautulliWebhooks extends LunaWebhooks {
   @override
-  Future<void> handle(Map<dynamic, dynamic> data) async {
+  Future<void> handle(Map data) async {
     _EventType? event = _EventType.PLAYBACK_PAUSE.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
@@ -15,7 +15,7 @@ class TautulliWebhooks extends LunaWebhooks {
 }
 
 enum _EventType {
-  BUFFFER_WARNING,
+  BUFFER_WARNING,
   PLAYBACK_ERROR,
   PLAYBACK_PAUSE,
   PLAYBACK_RESUME,
@@ -39,7 +39,7 @@ extension _EventTypeExtension on _EventType {
   _EventType? fromKey(String? key) {
     switch (key) {
       case 'BufferWarning':
-        return _EventType.BUFFFER_WARNING;
+        return _EventType.BUFFER_WARNING;
       case 'PlaybackError':
         return _EventType.PLAYBACK_ERROR;
       case 'PlaybackPause':
@@ -78,9 +78,9 @@ extension _EventTypeExtension on _EventType {
     return null;
   }
 
-  Future<void> execute(Map<dynamic, dynamic> data) async {
+  Future<void> execute(Map data) async {
     switch (this) {
-      case _EventType.BUFFFER_WARNING:
+      case _EventType.BUFFER_WARNING:
         return _bufferWarning(data);
       case _EventType.PLAYBACK_ERROR:
         return _playbackErrorEvent(data);
@@ -119,66 +119,85 @@ extension _EventTypeExtension on _EventType {
     }
   }
 
-  Future<void> _bufferWarning(Map<dynamic, dynamic> data) async =>
+  Future<void> _bufferWarning(Map data) async =>
       _goToActivityDetails(data['session_id']);
-  Future<void> _playbackErrorEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _playbackErrorEvent(Map data) async =>
       _goToUserDetails(int.tryParse(data['user_id']));
-  Future<void> _playbackPauseEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _playbackPauseEvent(Map data) async =>
       _goToActivityDetails(data['session_id']);
-  Future<void> _playbackResumeEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _playbackResumeEvent(Map data) async =>
       _goToActivityDetails(data['session_id']);
-  Future<void> _playbackStartEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _playbackStartEvent(Map data) async =>
       _goToActivityDetails(data['session_id']);
-  Future<void> _playbackStopEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _playbackStopEvent(Map data) async =>
       _goToUserDetails(int.tryParse(data['user_id']));
-  Future<void> _plexRemoteAccessBackUp(Map<dynamic, dynamic> data) async =>
-      TautulliLogsRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _plexRemoteAccessDown(Map<dynamic, dynamic> data) async =>
-      TautulliLogsRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _plexServerBackUp(Map<dynamic, dynamic> data) async =>
-      TautulliLogsRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _plexServerDown(Map<dynamic, dynamic> data) async =>
-      TautulliLogsRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _plexUpdateAvailable(Map<dynamic, dynamic> data) async =>
-      TautulliCheckForUpdatesRouter()
-          .navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _recentlyAdded(Map<dynamic, dynamic> data) async =>
-      TautulliRecentlyAddedRouter()
-          .navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _tautulliDatabaseCorruption(Map<dynamic, dynamic> data) async =>
-      TautulliLogsRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _tautulliUpdateAvailable(Map<dynamic, dynamic> data) async =>
-      TautulliCheckForUpdatesRouter()
-          .navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _transcodeDecisionChangeEvent(
-          Map<dynamic, dynamic> data) async =>
+
+  Future<void> _transcodeDecisionChangeEvent(Map data) async =>
       _goToActivityDetails(data['session_id']);
-  Future<void> _userConcurrentStreams(Map<dynamic, dynamic> data) async =>
+  Future<void> _userConcurrentStreams(Map data) async =>
       _goToUserDetails(int.tryParse(data['user_id']));
-  Future<void> _userNewDevice(Map<dynamic, dynamic> data) async =>
+  Future<void> _userNewDevice(Map data) async =>
       _goToUserDetails(int.tryParse(data['user_id']));
-  Future<void> _watchedEvent(Map<dynamic, dynamic> data) async =>
+  Future<void> _watchedEvent(Map data) async =>
       _goToUserDetails(int.tryParse(data['user_id']));
+
+  Future<void> _plexRemoteAccessBackUp(Map data) async {
+    TautulliRoutes.LOGS.go(buildTree: true);
+  }
+
+  Future<void> _plexRemoteAccessDown(Map data) async {
+    TautulliRoutes.LOGS.go(buildTree: true);
+  }
+
+  Future<void> _plexServerBackUp(Map data) async {
+    TautulliRoutes.LOGS.go(buildTree: true);
+  }
+
+  Future<void> _plexServerDown(Map data) async {
+    TautulliRoutes.LOGS.go(buildTree: true);
+  }
+
+  Future<void> _plexUpdateAvailable(Map data) async {
+    TautulliRoutes.CHECK_FOR_UPDATES.go(buildTree: true);
+  }
+
+  Future<void> _tautulliDatabaseCorruption(Map data) async {
+    TautulliRoutes.LOGS.go(buildTree: true);
+  }
+
+  Future<void> _tautulliUpdateAvailable(Map data) async {
+    TautulliRoutes.CHECK_FOR_UPDATES.go(buildTree: true);
+  }
+
+  Future<void> _recentlyAdded(Map data) async {
+    TautulliRoutes.RECENTLY_ADDED.go(buildTree: true);
+  }
 
   Future<void> _goToHome() async {
     return LunaModule.TAUTULLI.launch();
   }
 
   Future<void> _goToUserDetails(int? userId) async {
-    if (userId != null)
-      return TautulliUserDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext!,
-        userId,
+    if (userId != null) {
+      return TautulliRoutes.USER_DETAILS.go(
+        buildTree: true,
+        params: {
+          'user': userId.toString(),
+        },
       );
+    }
     return _goToHome();
   }
 
   Future<void> _goToActivityDetails(String? sessionId) async {
-    if (sessionId != null && sessionId.isNotEmpty)
-      return TautulliActivityDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext!,
-        sessionId,
+    if (sessionId != null && sessionId.isNotEmpty) {
+      return TautulliRoutes.ACTIVITY_DETAILS.go(
+        buildTree: true,
+        params: {
+          'session': sessionId.toString(),
+        },
       );
+    }
     return _goToHome();
   }
 }

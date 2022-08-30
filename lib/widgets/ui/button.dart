@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/system/state.dart';
+import 'package:lunasea/types/loading_state.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 enum LunaButtonType {
   TEXT,
@@ -47,7 +49,7 @@ class LunaButton extends Card {
           margin: margin,
           color: backgroundColor != null
               ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
-              : Theme.of(LunaState.navigatorKey.currentContext!)
+              : Theme.of(LunaState.context)
                   .canvasColor
                   .withOpacity(LunaUI.OPACITY_DIMMED),
           shape: backgroundColor != null

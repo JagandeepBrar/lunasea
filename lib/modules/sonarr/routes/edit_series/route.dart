@@ -3,45 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class SonarrEditSeriesRouter extends SonarrPageRouter {
-  SonarrEditSeriesRouter() : super('/sonarr/editmovie/:seriesid');
-
-  @override
-  _Widget widget([int seriesId = -1]) => _Widget(seriesId: seriesId);
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int seriesId = -1,
-  ]) async =>
-      LunaRouter.router.navigateTo(context, route(seriesId));
-
-  @override
-  String route([int seriesId = -1]) => fullRoute.replaceFirst(
-        ':seriesid',
-        seriesId.toString(),
-      );
-
-  @override
-  void defineRoute(
-    FluroRouter router,
-  ) {
-    super.withParameterRouteDefinition(
-      router,
-      (context, params) {
-        int seriesId = (params['seriesid']?.isNotEmpty ?? false)
-            ? (int.tryParse(params['seriesid']![0]) ?? -1)
-            : -1;
-        return _Widget(seriesId: seriesId);
-      },
-    );
-  }
-}
-
-class _Widget extends StatefulWidget {
+class SeriesEditRoute extends StatefulWidget {
   final int seriesId;
 
-  const _Widget({
+  const SeriesEditRoute({
     Key? key,
     required this.seriesId,
   }) : super(key: key);
@@ -50,7 +15,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<SeriesEditRoute>
     with LunaLoadCallbackMixin, LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

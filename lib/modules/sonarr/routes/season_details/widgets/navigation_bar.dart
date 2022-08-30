@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 class SonarrSeasonDetailsNavigationBar extends StatefulWidget {
   static const List<IconData> icons = [
@@ -73,10 +74,9 @@ class _State extends State<SonarrSeasonDetailsNavigationBar> {
   }
 
   Future<void> _manual() async {
-    return SonarrReleasesRouter().navigateTo(
-      context,
-      seriesId: widget.seriesId,
-      seasonNumber: widget.seasonNumber,
-    );
+    return SonarrRoutes.RELEASES.go(queryParams: {
+      'series': widget.seriesId.toString(),
+      'season': widget.seasonNumber.toString(),
+    });
   }
 }

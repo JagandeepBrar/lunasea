@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
-class TautulliLogsRouter extends TautulliPageRouter {
-  TautulliLogsRouter() : super('/tautulli/logs');
+class LogsRoute extends StatefulWidget {
+  const LogsRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<LogsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -48,7 +41,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: Icons.vpn_key_rounded,
             color: LunaColours().byListIndex(0),
           ),
-          onTap: () async => TautulliLogsLoginsRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_LOGINS.go,
         ),
         LunaBlock(
           title: 'Newsletters',
@@ -57,8 +50,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: Icons.email_rounded,
             color: LunaColours().byListIndex(1),
           ),
-          onTap: () async =>
-              TautulliLogsNewslettersRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_NEWSLETTERS.go,
         ),
         LunaBlock(
           title: 'Notifications',
@@ -67,8 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: Icons.notifications_rounded,
             color: LunaColours().byListIndex(2),
           ),
-          onTap: () async =>
-              TautulliLogsNotificationsRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_NOTIFICATIONS.go,
         ),
         LunaBlock(
           title: 'Plex Media Scanner',
@@ -77,8 +68,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: Icons.scanner_rounded,
             color: LunaColours().byListIndex(3),
           ),
-          onTap: () async =>
-              TautulliLogsPlexMediaScannerRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_PLEX_MEDIA_SCANNER.go,
         ),
         LunaBlock(
           title: 'Plex Media Server',
@@ -88,8 +78,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             iconSize: LunaUI.ICON_SIZE - 2.0,
             color: LunaColours().byListIndex(4),
           ),
-          onTap: () async =>
-              TautulliLogsPlexMediaServerRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_PLEX_MEDIA_SERVER.go,
         ),
         LunaBlock(
           title: 'Tautulli',
@@ -98,7 +87,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             icon: LunaIcons.TAUTULLI,
             color: LunaColours().byListIndex(5),
           ),
-          onTap: () async => TautulliLogsTautulliRouter().navigateTo(context),
+          onTap: TautulliRoutes.LOGS_TAUTULLI.go,
         ),
       ],
     );

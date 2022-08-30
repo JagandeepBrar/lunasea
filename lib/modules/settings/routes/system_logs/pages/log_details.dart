@@ -1,54 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/log.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/routes/system_logs/widgets/log_tile.dart';
 import 'package:lunasea/types/log_type.dart';
 
-class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
-  SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
-
-  @override
-  Widget widget([LunaLogType? type]) => _Widget(type: type);
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    LunaLogType? type,
-  ]) async {
-    LunaRouter.router.navigateTo(context, route(type));
-  }
-
-  @override
-  String route([LunaLogType? type]) {
-    return fullRoute.replaceFirst(':type', type?.key ?? 'all');
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.withParameterRouteDefinition(
-      router,
-      (context, params) {
-        String type =
-            (params['type']?.isNotEmpty ?? false) ? params['type']![0] : '';
-        return _Widget(type: LunaLogType.fromKey(type));
-      },
-    );
-  }
-}
-
-class _Widget extends StatefulWidget {
+class SystemLogsDetailsRoute extends StatefulWidget {
   final LunaLogType? type;
 
-  const _Widget({
+  const SystemLogsDetailsRoute({
     Key? key,
     required this.type,
   }) : super(key: key);
 
   @override
-  State<_Widget> createState() => _State();
+  State<SystemLogsDetailsRoute> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<SystemLogsDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

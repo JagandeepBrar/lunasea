@@ -3,80 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliHistoryDetailsRouter extends TautulliPageRouter {
-  TautulliHistoryDetailsRouter()
-      : super('/tautulli/history/:ratingkey/:key/:value');
-
-  @override
-  _Widget widget([
-    int ratingKey = -1,
-    int? referenceId,
-    int? sessionKey,
-  ]) =>
-      _Widget(
-        ratingKey: ratingKey,
-        referenceId: referenceId,
-        sessionKey: sessionKey,
-      );
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int ratingKey = -1,
-    int? referenceId,
-    int? sessionKey,
-  ]) async {
-    LunaRouter.router.navigateTo(
-      context,
-      route(ratingKey, referenceId, sessionKey),
-    );
-  }
-
-  @override
-  String route([
-    int ratingKey = -1,
-    int? referenceId,
-    int? sessionKey,
-  ]) {
-    String _route = TautulliHomeRouter().route();
-    if (referenceId != null)
-      _route = fullRoute
-          .replaceFirst(':ratingkey', ratingKey.toString())
-          .replaceFirst(':key', 'referenceid')
-          .replaceFirst(':value', referenceId.toString());
-    if (sessionKey != null)
-      _route = fullRoute
-          .replaceFirst(':ratingkey', ratingKey.toString())
-          .replaceFirst(':key', 'sessionkey')
-          .replaceFirst(':value', sessionKey.toString());
-    return _route;
-  }
-
-  @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          int ratingKey = (params['ratingkey']?.isNotEmpty ?? false)
-              ? int.tryParse(params['ratingkey']![0]) ?? -1
-              : -1;
-          int value = (params['value']?.isNotEmpty ?? false)
-              ? int.tryParse(params['value']![0]) ?? -1
-              : -1;
-          return _Widget(
-            ratingKey: ratingKey,
-            referenceId: params['key']![0] == 'referenceid' ? value : null,
-            sessionKey: params['key']![0] == 'sessionkey' ? value : null,
-          );
-        },
-      );
-}
-
-class _Widget extends StatefulWidget {
+class HistoryDetailsRoute extends StatefulWidget {
   final int ratingKey;
   final int? sessionKey;
   final int? referenceId;
 
-  const _Widget({
+  const HistoryDetailsRoute({
     Key? key,
     required this.ratingKey,
     this.sessionKey,
@@ -87,7 +19,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<HistoryDetailsRoute>
     with LunaLoadCallbackMixin, LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =

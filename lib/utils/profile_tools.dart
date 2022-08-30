@@ -1,8 +1,8 @@
 import 'package:lunasea/database/models/profile.dart';
-import 'package:lunasea/extensions/navigator_state.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
-import 'package:lunasea/deprecated/state/state.dart';
+import 'package:lunasea/system/state.dart';
+import 'package:lunasea/router/router.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/types/exception.dart';
 import 'package:lunasea/vendor.dart';
@@ -26,7 +26,7 @@ class LunaProfileTools {
       }
 
       if (popToRootRoute) {
-        LunaState.navigatorKey.currentState!.popToRootRoute();
+        LunaRouter().popToRootRoute();
       }
 
       return true;

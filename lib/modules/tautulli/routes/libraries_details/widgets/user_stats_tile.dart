@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
   final TautulliLibraryUserStats user;
@@ -16,7 +17,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
       posterUrl:
           context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
       posterHeaders:
-          context.watch<TautulliState>().headers!.cast<String, String>(),
+          context.watch<TautulliState>().headers.cast<String, String>(),
       posterPlaceholderIcon: LunaIcons.USER,
       title: user.friendlyName,
       body: [
@@ -33,6 +34,9 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
     );
   }
 
-  Future<void> _onTap(BuildContext context) =>
-      TautulliUserDetailsRouter().navigateTo(context, user.userId!);
+  void _onTap(BuildContext context) {
+    TautulliRoutes.USER_DETAILS.go(params: {
+      'user': user.userId!.toString(),
+    });
+  }
 }

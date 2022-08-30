@@ -2,27 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliSyncedItemsRouter extends TautulliPageRouter {
-  TautulliSyncedItemsRouter() : super('/tautulli/synceditems');
+class SyncedItemsRoute extends StatefulWidget {
+  const SyncedItemsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<SyncedItemsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget>
+class _State extends State<SyncedItemsRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Future<void> loadCallback() async {
@@ -52,8 +44,8 @@ class _State extends State<_Widget>
       context: context,
       key: _refreshKey,
       onRefresh: loadCallback,
-      child: Selector<TautulliState, Future<List<TautulliSyncedItem>>>(
-        selector: (_, state) => state.syncedItems!,
+      child: Selector<TautulliState, Future<List<TautulliSyncedItem>>?>(
+        selector: (_, state) => state.syncedItems,
         builder: (context, synced, _) => FutureBuilder(
           future: synced,
           builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {

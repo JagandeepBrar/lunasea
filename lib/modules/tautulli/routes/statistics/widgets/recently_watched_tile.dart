@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliStatisticsRecentlyWatchedTile extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -48,9 +49,10 @@ class _State extends State<TautulliStatisticsRecentlyWatchedTile> {
     ];
   }
 
-  Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
-        context,
-        widget.data['rating_key'],
-        TautulliMediaType.NULL.from(widget.data['media_type'])!,
-      );
+  Future<void> _onTap() async {
+    TautulliRoutes.MEDIA_DETAILS.go(params: {
+      'rating_key': widget.data['rating_key'].toString(),
+      'media_type': TautulliMediaType.from(widget.data['media_type']).value,
+    });
+  }
 }

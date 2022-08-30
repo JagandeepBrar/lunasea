@@ -27,7 +27,6 @@ dependencies:
   firebase_storage: ^10.3.4
   fl_chart: ^0.46.0
   flash: ^2.0.3+3
-  fluro: ^2.0.3
   flutter_cache_manager: ^3.3.0
   flutter_riverpod: ^2.0.0-dev.9
   flutter_spinkit: ^5.1.0

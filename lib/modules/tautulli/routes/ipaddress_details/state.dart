@@ -20,7 +20,7 @@ class TautulliIPAddressDetailsState extends ChangeNotifier {
   Future<TautulliGeolocationInfo>? _geolocation;
   Future<TautulliGeolocationInfo>? get geolocation => _geolocation;
   void fetchGeolocation(BuildContext context) {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       _geolocation = context
           .read<TautulliState>()
           .api!
@@ -33,7 +33,7 @@ class TautulliIPAddressDetailsState extends ChangeNotifier {
   Future<TautulliWHOISInfo>? _whois;
   Future<TautulliWHOISInfo>? get whois => _whois;
   void fetchWHOIS(BuildContext context) {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       _whois = context
           .read<TautulliState>()
           .api!

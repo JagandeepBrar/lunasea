@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 enum _SonarrSeriesTileType {
   TILE,
@@ -165,10 +166,11 @@ class _State extends State<SonarrSeriesTile> {
     );
   }
 
-  Future<void> _onTap() async => SonarrSeriesDetailsRouter().navigateTo(
-        context,
-        widget.series.id!,
-      );
+  Future<void> _onTap() async {
+    SonarrRoutes.SERIES.go(params: {
+      'series': widget.series.id!.toString(),
+    });
+  }
 
   Future<void> _onLongPress() async {
     Tuple2<bool, SonarrSeriesSettingsType?> values =

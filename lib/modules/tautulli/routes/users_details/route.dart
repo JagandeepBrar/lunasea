@@ -2,40 +2,12 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class TautulliUserDetailsRouter extends TautulliPageRouter {
-  TautulliUserDetailsRouter() : super('/tautulli/user/:userid');
+class UserDetailsRoute extends StatefulWidget {
+  final int? userId;
 
-  @override
-  _Widget widget([int userId = -1]) => _Widget(userId: userId);
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int userId = -1,
-  ]) async =>
-      LunaRouter.router.navigateTo(context, route(userId));
-
-  @override
-  String route([int userId = -1]) =>
-      fullRoute.replaceFirst(':userid', userId.toString());
-
-  @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          int userId = (params['userid']?.isNotEmpty ?? false)
-              ? int.tryParse(params['userid']![0]) ?? -1
-              : -1;
-          return _Widget(userId: userId);
-        },
-      );
-}
-
-class _Widget extends StatefulWidget {
-  final int userId;
-
-  const _Widget({
+  const UserDetailsRoute({
     Key? key,
     required this.userId,
   }) : super(key: key);
@@ -44,9 +16,9 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaLoadCallbackMixin {
+class _State extends State<UserDetailsRoute> with LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaPageController? _pageController;
+  late LunaPageController _pageController;
 
   @override
   void initState() {
@@ -63,6 +35,8 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
   }
 
   TautulliTableUser? _findUser(TautulliUsersTable users) {
+    if (widget.userId == null) return null;
+
     return users.users!.firstWhereOrNull(
       (user) => user.userId == widget.userId,
     );
@@ -70,16 +44,23 @@ class _State extends State<_Widget> with LunaLoadCallbackMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.userId == null) {
+      return InvalidRoutePage(
+        title: 'User Details',
+        message: 'User Not Found',
+      );
+    }
+
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       module: LunaModule.TAUTULLI,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body,
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'User Details',
       pageController: _pageController,

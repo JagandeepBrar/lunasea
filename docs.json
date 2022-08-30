@@ -4,6 +4,10 @@
   "logo": "/assets/logo.png",
   "logoDark": "/assets/logo.png",
   "theme": "#4ECCA3",
+  "docsearch": {
+    "apiKey": "58e5f38cec4d05c99cc2e20f557c5463",
+    "indexName": "lunasea"
+  },
   "sidebar": [
     [
       "Overview",

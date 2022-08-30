@@ -6,7 +6,8 @@
   "theme": "#4ECCA3",
   "docsearch": {
     "apiKey": "58e5f38cec4d05c99cc2e20f557c5463",
-    "indexName": "lunasea"
+    "indexName": "lunasea",
+    "appId": "W0TEIU1RA4"
   },
   "sidebar": [
     [

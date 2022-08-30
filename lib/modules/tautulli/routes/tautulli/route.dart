@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliHomeRouter extends TautulliPageRouter {
-  TautulliHomeRouter() : super('/tautulli');
+class TautulliRoute extends StatefulWidget {
+  const TautulliRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router, homeRoute: true);
+  State<TautulliRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _State extends State<TautulliRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   PageController? _pageController;
 
   @override
@@ -44,7 +37,7 @@ class _State extends State<_Widget> {
   Widget _drawer() => LunaDrawer(page: LunaModule.TAUTULLI.key);
 
   Widget? _bottomNavigationBar() {
-    if (context.read<TautulliState>().enabled!)
+    if (context.read<TautulliState>().enabled)
       return TautulliNavigationBar(pageController: _pageController);
     return null;
   }
@@ -56,7 +49,7 @@ class _State extends State<_Widget> {
       return value;
     });
     List<Widget>? actions;
-    if (context.watch<TautulliState>().enabled!)
+    if (context.watch<TautulliState>().enabled)
       actions = [
         const TautulliAppBarGlobalSettingsAction(),
       ];

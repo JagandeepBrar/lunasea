@@ -2,25 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrHomeRouter extends SonarrPageRouter {
-  SonarrHomeRouter() : super('/sonarr');
+class SonarrRoute extends StatefulWidget {
+  const SonarrRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(
-        router,
-        homeRoute: true,
-      );
+  State<SonarrRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> {
+class _State extends State<SonarrRoute> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
 
@@ -38,7 +29,7 @@ class _State extends State<_Widget> {
       scaffoldKey: _scaffoldKey,
       module: LunaModule.SONARR,
       drawer: _drawer(),
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: _body(),
     );
@@ -55,7 +46,7 @@ class _State extends State<_Widget> {
     return null;
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     List<String> profiles = LunaBox.profiles.keys.fold(
       [],
       (value, element) {

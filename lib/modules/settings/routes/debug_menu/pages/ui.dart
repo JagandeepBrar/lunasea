@@ -3,28 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/utils/links.dart';
 
-class SettingsSystemDebugMenuUIRouter extends SettingsPageRouter {
-  SettingsSystemDebugMenuUIRouter() : super('/settings/debug_menu/ui');
+class DebugMenuUIRoute extends StatefulWidget {
+  const DebugMenuUIRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<DebugMenuUIRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget>
+class _State extends State<DebugMenuUIRoute>
     with LunaScrollControllerMixin, TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _iconController;

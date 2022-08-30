@@ -1,5 +1,4 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/types/indexer_icon.dart';
 
 part 'indexer.g.dart';
 
@@ -22,12 +21,26 @@ class LunaIndexer extends HiveObject {
   @HiveField(3, defaultValue: <String, String>{})
   Map<String, String> headers;
 
-  LunaIndexer({
-    this.displayName = '',
-    this.host = '',
-    this.apiKey = '',
-    this.headers = const {},
+  LunaIndexer._internal({
+    required this.displayName,
+    required this.host,
+    required this.apiKey,
+    required this.headers,
   });
+
+  factory LunaIndexer({
+    String? displayName,
+    String? host,
+    String? apiKey,
+    Map<String, String>? headers,
+  }) {
+    return LunaIndexer._internal(
+      displayName: displayName ?? '',
+      host: host ?? '',
+      apiKey: apiKey ?? '',
+      headers: headers ?? {},
+    );
+  }
 
   @override
   String toString() => json.encode(this.toJson());

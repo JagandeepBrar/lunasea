@@ -3,14 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/nzbget.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/nzbget.dart';
+import 'package:lunasea/router/routes/nzbget.dart';
 
 import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 
-class NZBGet extends StatefulWidget {
-  static const ROUTE_NAME = '/nzbget';
-
-  const NZBGet({
+class NZBGetRoute extends StatefulWidget {
+  const NZBGetRoute({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +17,7 @@ class NZBGet extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<NZBGet> {
+class _State extends State<NZBGetRoute> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
   String _profileState = LunaProfile.current.toString();
@@ -200,8 +199,7 @@ class _State extends State<NZBGet> {
       });
   }
 
-  Future<void> _serverDetails() async =>
-      Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
+  Future<void> _serverDetails() async => NZBGetRoutes.STATISTICS.go();
 
   void _refreshProfile() {
     _api = NZBGetAPI.from(LunaProfile.current);

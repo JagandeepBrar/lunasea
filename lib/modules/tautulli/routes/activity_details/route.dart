@@ -3,39 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliActivityDetailsRouter extends TautulliPageRouter {
-  TautulliActivityDetailsRouter() : super('/tautulli/activity/:sessionid');
-
-  @override
-  _Widget widget([String sessionId = '']) => _Widget(sessionId: sessionId);
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    String sessionId = '',
-  ]) async =>
-      LunaRouter.router.navigateTo(context, route(sessionId));
-
-  @override
-  String route([String sessionId = '']) =>
-      fullRoute.replaceFirst(':sessionid', sessionId);
-
-  @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          String? sessionId = (params['sessionid']?.isNotEmpty ?? false)
-              ? params['sessionid']![0]
-              : null;
-          return _Widget(sessionId: sessionId);
-        },
-      );
-}
-
-class _Widget extends StatefulWidget {
+class ActivityDetailsRoute extends StatefulWidget {
   final String? sessionId;
 
-  const _Widget({
+  const ActivityDetailsRoute({
     Key? key,
     required this.sessionId,
   }) : super(key: key);
@@ -44,7 +15,8 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ActivityDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();

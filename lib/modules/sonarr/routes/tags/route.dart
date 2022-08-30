@@ -2,24 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrTagsRouter extends SonarrPageRouter {
-  SonarrTagsRouter() : super('/sonarr/tags');
+class TagsRoute extends StatefulWidget {
+  const TagsRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<TagsRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
@@ -35,12 +27,12 @@ class _State extends State<_Widget>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Tags',
       scrollControllers: [scrollController],

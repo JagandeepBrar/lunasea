@@ -2,6 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliHistoryDetailsMetadata extends StatelessWidget {
   final int ratingKey;
@@ -37,10 +38,10 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
         },
       );
 
-  Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) =>
-      TautulliMediaDetailsRouter().navigateTo(
-        context,
-        record.ratingKey!,
-        record.mediaType!,
-      );
+  void _onPressed(BuildContext context, TautulliHistoryRecord record) {
+    TautulliRoutes.MEDIA_DETAILS.go(params: {
+      'rating_key': record.ratingKey.toString(),
+      'media_type': record.mediaType!.value,
+    });
+  }
 }

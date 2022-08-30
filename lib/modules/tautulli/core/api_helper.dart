@@ -9,7 +9,7 @@ class TautulliAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!
@@ -40,7 +40,7 @@ class TautulliAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!
@@ -71,7 +71,7 @@ class TautulliAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!
@@ -102,7 +102,7 @@ class TautulliAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!
@@ -133,7 +133,7 @@ class TautulliAPIHelper {
     required BuildContext context,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!
@@ -166,7 +166,7 @@ class TautulliAPIHelper {
     String? terminationMessage,
     bool showSnackbar = true,
   }) async {
-    if (context.read<TautulliState>().enabled!) {
+    if (context.read<TautulliState>().enabled) {
       return await context
           .read<TautulliState>()
           .api!

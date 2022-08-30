@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliLogsTautulliRouter extends TautulliPageRouter {
-  TautulliLogsTautulliRouter() : super('/tautulli/logs/tautulli');
+class LogsTautulliRoute extends StatefulWidget {
+  const LogsTautulliRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<LogsTautulliRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
@@ -29,15 +22,15 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => TautulliLogsTautulliState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar() as PreferredSizeWidget?,
+        appBar: _appBar(),
         body: _body(context),
       ),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Plex Media Server Logs',
+      title: 'Tautulli Logs',
       scrollControllers: [scrollController],
     );
   }

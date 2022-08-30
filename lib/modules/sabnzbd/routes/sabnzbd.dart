@@ -3,21 +3,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/sabnzbd.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
+import 'package:lunasea/router/routes/sabnzbd.dart';
 import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 
-class SABnzbd extends StatefulWidget {
-  static const ROUTE_NAME = '/sabnzbd';
-
-  const SABnzbd({
+class SABnzbdRoute extends StatefulWidget {
+  const SABnzbdRoute({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SABnzbd> createState() => _State();
+  State<SABnzbdRoute> createState() => _State();
 }
 
-class _State extends State<SABnzbd> {
+class _State extends State<SABnzbdRoute> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
   String _profileState = LunaProfile.current.toString();
@@ -135,8 +134,7 @@ class _State extends State<SABnzbd> {
       }
   }
 
-  Future<void> _serverDetails() async =>
-      Navigator.of(context).pushNamed(SABnzbdStatistics.ROUTE_NAME);
+  Future<void> _serverDetails() async => SABnzbdRoutes.STATISTICS.go();
 
   Future<void> _completeAction() async {
     List values = await SABnzbdDialogs.changeOnCompleteAction(context);

@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationLidarrRouter extends SettingsPageRouter {
-  SettingsConfigurationLidarrRouter() : super('/settings/configuration/lidarr');
+class ConfigurationLidarrRoute extends StatefulWidget {
+  const ConfigurationLidarrRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationLidarrRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationLidarrRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -80,10 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         ),
       ],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationLidarrConnectionDetailsRouter()
-            .navigateTo(context);
-      },
+      onTap: SettingsRoutes.CONFIGURATION_LIDARR_CONNECTION_DETAILS.go,
     );
   }
 
@@ -92,8 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.DefaultPages'.tr(),
       body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationLidarrDefaultPagesRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_LIDARR_DEFAULT_PAGES.go,
     );
   }
 }

@@ -4,26 +4,22 @@ import 'package:lunasea/database/database.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/routes/system/widgets/backup_tile.dart';
 import 'package:lunasea/modules/settings/routes/system/widgets/build_details.dart';
+import 'package:lunasea/modules/settings/routes/system/widgets/restore_tile.dart';
+import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/system/cache/image/image_cache.dart';
 
-class SettingsSystemRouter extends SettingsPageRouter {
-  SettingsSystemRouter() : super('/settings/system');
+class SystemRoute extends StatefulWidget {
+  const SystemRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<SystemRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<SystemRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -63,7 +59,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Logs',
       body: const [TextSpan(text: 'View, Export, and Clear Logs')],
       trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
-      onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
+      onTap: SettingsRoutes.SYSTEM_LOGS.go,
     );
   }
 

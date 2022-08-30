@@ -3,25 +3,17 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/localization.dart';
 
-class SettingsConfigurationLocalizationRouter extends SettingsPageRouter {
-  SettingsConfigurationLocalizationRouter()
-      : super('/settings/configuration/localization');
+class ConfigurationLocalizationRoute extends StatefulWidget {
+  const ConfigurationLocalizationRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationLocalizationRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationLocalizationRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

@@ -2,39 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSonarrConnectionDetailsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationSonarrConnectionDetailsRouter()
-      : super('/settings/configuration/sonarr/connection');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationSonarrConnectionDetailsRoute extends StatefulWidget {
+  const ConfigurationSonarrConnectionDetailsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationSonarrConnectionDetailsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSonarrConnectionDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Connection Details',
       scrollControllers: [scrollController],
@@ -129,7 +122,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           );
           return;
         }
-        Sonarr(
+        SonarrAPI(
           host: _profile.sonarrHost,
           apiKey: _profile.sonarrKey,
           headers: Map<String, dynamic>.from(
@@ -160,9 +153,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSonarrHeadersRouter().navigateTo(
-        context,
-      ),
+      onTap: SettingsRoutes.CONFIGURATION_SONARR_CONNECTION_DETAILS_HEADERS.go,
     );
   }
 }

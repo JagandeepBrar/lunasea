@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsDebugMenuRouter extends SettingsPageRouter {
-  SettingsDebugMenuRouter() : super('/settings/debug_menu');
+class DebugMenuRoute extends StatefulWidget {
+  const DebugMenuRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<DebugMenuRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<DebugMenuRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,8 +37,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaBlock(
           title: 'UI',
           trailing: const LunaIconButton(icon: LunaIcons.ARROW_RIGHT),
-          onTap: () async =>
-              SettingsSystemDebugMenuUIRouter().navigateTo(context),
+          onTap: SettingsRoutes.DEBUG_MENU_UI.go,
         ),
         const LunaHeader(text: 'Boxes'),
         LunaBlock(

@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/indexer.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSearchAddRouter extends SettingsPageRouter {
-  SettingsConfigurationSearchAddRouter()
-      : super('/settings/configuration/search/add');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationSearchAddIndexerRoute extends StatefulWidget {
+  const ConfigurationSearchAddIndexerRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationSearchAddIndexerRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSearchAddIndexerRoute>
+    with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _indexer = LunaIndexer();
 
@@ -28,13 +21,13 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Add Indexer',
       scrollControllers: [scrollController],
@@ -143,8 +136,9 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSearchAddHeadersRouter()
-          .navigateTo(context, _indexer),
+      onTap: () => SettingsRoutes.CONFIGURATION_SEARCH_ADD_INDEXER_HEADERS.go(
+        extra: _indexer,
+      ),
     );
   }
 }

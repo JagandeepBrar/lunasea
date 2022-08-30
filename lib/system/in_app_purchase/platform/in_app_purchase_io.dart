@@ -1,6 +1,5 @@
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:lunasea/deprecated/state/state.dart';
-import 'package:lunasea/modules/settings/routes/donations/pages/thank_you.dart';
+import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/system/in_app_purchase/purchase_option.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/logger.dart';
@@ -33,8 +32,7 @@ class _Mobile implements LunaInAppPurchase {
             );
             break;
           case PurchaseStatus.purchased:
-            final context = LunaState.navigatorKey.currentContext!;
-            SettingsDonationsThankYouRouter().navigateTo(context);
+            SettingsRoutes.DONATIONS_THANK_YOU.go();
             break;
           default:
             break;

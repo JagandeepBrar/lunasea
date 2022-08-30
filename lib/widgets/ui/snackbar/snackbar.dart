@@ -47,7 +47,7 @@ Future<void> showLunaSnackBar({
   Function? buttonOnPressed,
 }) async =>
     showFlash(
-      context: LunaState.navigatorKey.currentContext!,
+      context: LunaState.context,
       duration: duration ?? Duration(seconds: showButton ? 4 : 2),
       builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,

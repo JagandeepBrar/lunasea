@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/vendor.dart';
-import 'package:provider/provider.dart';
 
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';

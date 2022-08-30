@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 enum SonarrQueueTileType {
   ALL,
@@ -45,13 +46,12 @@ class _State extends State<SonarrQueueTile> {
   Future<void> _onLongPress() async {
     switch (widget.type) {
       case SonarrQueueTileType.ALL:
-        SonarrSeriesDetailsRouter().navigateTo(
-          context,
-          widget.queueRecord.seriesId!,
-        );
+        SonarrRoutes.SERIES.go(params: {
+          'series': widget.queueRecord.seriesId!.toString(),
+        });
         break;
       case SonarrQueueTileType.EPISODE:
-        SonarrQueueRouter().navigateTo(context);
+        SonarrRoutes.QUEUE.go();
         break;
     }
   }

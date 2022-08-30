@@ -3,52 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class RadarrReleasesRouter extends RadarrPageRouter {
-  RadarrReleasesRouter() : super('/radarr/releases/:movieid');
-
-  @override
-  Widget widget([
-    int movieId = -1,
-  ]) {
-    return _Widget(movieId: movieId);
-  }
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int movieId = -1,
-  ]) async {
-    LunaRouter.router.navigateTo(context, route(movieId));
-  }
-
-  @override
-  String route([
-    int movieId = -1,
-  ]) {
-    return fullRoute.replaceFirst(
-      ':movieid',
-      movieId.toString(),
-    );
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.withParameterRouteDefinition(
-      router,
-      (context, params) {
-        int movieId = params['movieid'] == null || params['movieid']!.isEmpty
-            ? -1
-            : (int.tryParse(params['movieid']![0]) ?? -1);
-        return _Widget(movieId: movieId);
-      },
-    );
-  }
-}
-
-class _Widget extends StatefulWidget {
+class MovieReleasesRoute extends StatefulWidget {
   final int movieId;
 
-  const _Widget({
+  const MovieReleasesRoute({
     Key? key,
     required this.movieId,
   }) : super(key: key);
@@ -57,7 +15,7 @@ class _Widget extends StatefulWidget {
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<MovieReleasesRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();

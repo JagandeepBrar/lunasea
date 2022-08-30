@@ -15,7 +15,6 @@ import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/content_block
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:provider/provider.dart';
 
 class CalendarView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;

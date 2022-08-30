@@ -3,24 +3,16 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrTagsRouter extends RadarrPageRouter {
-  RadarrTagsRouter() : super('/radarr/tags');
+class TagsRoute extends StatefulWidget {
+  const TagsRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<TagsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();

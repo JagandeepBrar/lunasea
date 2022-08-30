@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationTautulliRouter extends SettingsPageRouter {
-  SettingsConfigurationTautulliRouter()
-      : super('/settings/configuration/tautulli');
+class ConfigurationTautulliRoute extends StatefulWidget {
+  const ConfigurationTautulliRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationTautulliRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationTautulliRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -78,8 +71,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         TextSpan(text: 'Connection Details for Tautulli'),
       ],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationTautulliConnectionDetailsRouter()
-          .navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_TAUTULLI_CONNECTION_DETAILS.go,
     );
   }
 
@@ -88,8 +80,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Default Pages',
       body: const [TextSpan(text: 'Set Default Landing Pages')],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationTautulliDefaultPagesRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_TAUTULLI_DEFAULT_PAGES.go,
     );
   }
 

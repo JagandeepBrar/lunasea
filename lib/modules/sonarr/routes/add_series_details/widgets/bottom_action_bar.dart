@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
   const SonarrAddSeriesDetailsActionBar({
@@ -48,8 +50,11 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
           .then((series) async {
         context.read<SonarrState>().fetchAllSeries();
         context.read<SonarrSeriesAddDetailsState>().series.id = series!.id;
-        Navigator.of(context)
-            .popAndPushNamed(SonarrSeriesDetailsRouter().route(series.id!));
+
+        LunaRouter.router.pop();
+        SonarrRoutes.SERIES.go(params: {
+          'series': series.id!.toString(),
+        });
       }).catchError((error, stack) {
         context.read<SonarrSeriesAddDetailsState>().state =
             LunaLoadingState.ERROR;

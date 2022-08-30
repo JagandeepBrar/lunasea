@@ -3,47 +3,19 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class _RadarrManualImportDetailsArguments {
-  final String path;
+class ManualImportDetailsRoute extends StatefulWidget {
+  final String? path;
 
-  _RadarrManualImportDetailsArguments({
+  const ManualImportDetailsRoute({
+    Key? key,
     required this.path,
-  });
-}
+  }) : super(key: key);
 
-class RadarrManualImportDetailsRouter extends RadarrPageRouter {
-  RadarrManualImportDetailsRouter() : super('/radarr/manualimport/details');
-
-  @override
-  Widget widget() => _Widget();
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    String path = '',
-  ]) async {
-    String _path = path.isEmpty ? '/' : path;
-    LunaRouter.router.navigateTo(
-      context,
-      route(),
-      routeSettings: RouteSettings(
-        arguments: _RadarrManualImportDetailsArguments(path: _path),
-      ),
-    );
-  }
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<ManualImportDetailsRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -56,10 +28,7 @@ class _State extends State<_Widget>
 
   @override
   Widget build(BuildContext context) {
-    _RadarrManualImportDetailsArguments? arguments = ModalRoute.of(context)!
-        .settings
-        .arguments as _RadarrManualImportDetailsArguments?;
-    if (arguments == null || arguments.path.isEmpty) {
+    if (widget.path?.isEmpty ?? true) {
       return InvalidRoutePage(
         title: 'radarr.ManualImport'.tr(),
         message: 'radarr.DirectoryNotFound'.tr(),
@@ -68,12 +37,12 @@ class _State extends State<_Widget>
     return ChangeNotifierProvider(
       create: (BuildContext context) => RadarrManualImportDetailsState(
         context,
-        path: arguments.path,
+        path: widget.path!,
       ),
       builder: (context, _) {
         return LunaScaffold(
           scaffoldKey: _scaffoldKey,
-          appBar: _appBar() as PreferredSizeWidget?,
+          appBar: _appBar(),
           body: _body(context),
           bottomNavigationBar: const RadarrManualImportDetailsBottomActionBar(),
         );
@@ -81,7 +50,7 @@ class _State extends State<_Widget>
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'radarr.ManualImport'.tr(),
       scrollControllers: [scrollController],

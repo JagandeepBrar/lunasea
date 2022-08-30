@@ -3,18 +3,16 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
-class SABnzbdStatistics extends StatefulWidget {
-  static const ROUTE_NAME = '/sabnzbd/statistics';
-
-  const SABnzbdStatistics({
+class StatisticsRoute extends StatefulWidget {
+  const StatisticsRoute({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SABnzbdStatistics> createState() => _State();
+  State<StatisticsRoute> createState() => _State();
 }
 
-class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
+class _State extends State<StatisticsRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<SABnzbdStatisticsData>? _future;

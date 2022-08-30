@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/router/routes/search.dart';
 
-class SearchResultsRouter extends SearchPageRouter {
-  SearchResultsRouter() : super('/search/results');
+class ResultsRoute extends StatefulWidget {
+  const ResultsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ResultsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ResultsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
@@ -79,7 +72,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       actions: [
         LunaIconButton(
           icon: Icons.search_rounded,
-          onPressed: () async => SearchSearchRouter().navigateTo(context),
+          onPressed: () => SearchRoutes.SEARCH.go(),
         ),
       ],
       scrollControllers: [scrollController],

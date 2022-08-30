@@ -3,29 +3,24 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class LidarrAddDetailsArguments {
-  final LidarrSearchData data;
+class AddArtistDetailsRoute extends StatefulWidget {
+  final LidarrSearchData? data;
 
-  LidarrAddDetailsArguments({
-    required this.data,
-  });
-}
-
-class LidarrAddDetails extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr/add/details';
-
-  const LidarrAddDetails({
+  const AddArtistDetailsRoute({
     Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
-  State<LidarrAddDetails> createState() => _State();
+  State<AddArtistDetailsRoute> createState() => _State();
 }
 
-class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
+class _State extends State<AddArtistDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LidarrAddDetailsArguments? _arguments;
   Future<void>? _future;
   List<LidarrRootFolder> _rootFolders = [];
   List<LidarrQualityProfile> _qualityProfiles = [];
@@ -35,8 +30,6 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   void initState() {
     super.initState();
     SchedulerBinding.instance.scheduleFrameCallback((_) {
-      setState(() => _arguments = ModalRoute.of(context)!.settings.arguments
-          as LidarrAddDetailsArguments?);
       _refresh();
     });
   }
@@ -90,12 +83,21 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
   }
 
   @override
-  Widget build(BuildContext context) => LunaScaffold(
-        scaffoldKey: _scaffoldKey,
-        appBar: _appBar as PreferredSizeWidget?,
-        body: _body,
-        bottomNavigationBar: _bottomActionBar(),
+  Widget build(BuildContext context) {
+    if (widget.data == null) {
+      return InvalidRoutePage(
+        title: 'Add Artist',
+        message: 'Artist Not Found',
       );
+    }
+
+    return LunaScaffold(
+      scaffoldKey: _scaffoldKey,
+      appBar: _appBar,
+      body: _body,
+      bottomNavigationBar: _bottomActionBar(),
+    );
+  }
 
   Widget _bottomActionBar() {
     return LunaBottomActionBar(
@@ -114,54 +116,53 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
     );
   }
 
-  Widget? get _appBar => _arguments == null
-      ? null
-      : LunaAppBar(
-          title: _arguments!.data.title,
-          scrollControllers: [scrollController],
-        );
+  PreferredSizeWidget get _appBar {
+    return LunaAppBar(
+      title: widget.data!.title,
+      scrollControllers: [scrollController],
+    );
+  }
 
-  Widget? get _body => _arguments == null
-      ? null
-      : FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                {
-                  if (snapshot.hasError)
-                    return LunaMessage.error(onTap: _refresh);
-                  return _list;
-                }
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-              default:
-                return const LunaLoader();
+  Widget get _body {
+    return FutureBuilder(
+      future: _future,
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            {
+              if (snapshot.hasError) return LunaMessage.error(onTap: _refresh);
+              return _list;
             }
-          },
-        );
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+          default:
+            return const LunaLoader();
+        }
+      },
+    );
+  }
 
   Widget get _list {
     return LunaListView(
       controller: scrollController,
       children: <Widget>[
         LidarrDescriptionBlock(
-          title: _arguments?.data.title ?? 'lunasea.Unknown'.tr(),
-          description: _arguments!.data.overview == ''
+          title: widget.data?.title ?? 'lunasea.Unknown'.tr(),
+          description: (widget.data?.overview ?? '').isEmpty
               ? 'No Summary Available'
-              : _arguments!.data.overview,
-          uri: _arguments!.data.posterURI ?? '',
+              : widget.data!.overview,
+          uri: widget.data?.posterURI ?? '',
           squareImage: true,
           headers: LunaProfile.current.lidarrHeaders,
           onLongPress: () async {
-            if (_arguments!.data.discogsLink == null ||
-                _arguments!.data.discogsLink == '')
+            if (widget.data?.discogsLink?.isEmpty ?? true) {
               showLunaInfoSnackBar(
                 title: 'No Discogs Page Available',
                 message: 'No Discogs URL is available',
               );
-            _arguments!.data.discogsLink!.openLink();
+            }
+            widget.data?.discogsLink?.openLink();
           },
         ),
         LidarrDatabase.ADD_ROOT_FOLDER.watch(
@@ -243,17 +244,23 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
     bool? search = LidarrDatabase.ADD_ARTIST_SEARCH_FOR_MISSING.read();
     await _api
         .addArtist(
-          _arguments!.data,
-          LidarrDatabase.ADD_QUALITY_PROFILE.read()!,
-          LidarrDatabase.ADD_ROOT_FOLDER.read()!,
-          LidarrDatabase.ADD_METADATA_PROFILE.read()!,
-          LidarrMonitorStatus.ALL
-              .fromKey(LidarrDatabase.ADD_MONITORED_STATUS.read())!,
-          search: search,
-        )
-        .then((id) => Navigator.of(context)
-            .pop(['artist_added', _arguments!.data.title, id]))
-        .catchError((error, stack) {
+      widget.data!,
+      LidarrDatabase.ADD_QUALITY_PROFILE.read()!,
+      LidarrDatabase.ADD_ROOT_FOLDER.read()!,
+      LidarrDatabase.ADD_METADATA_PROFILE.read()!,
+      LidarrMonitorStatus.ALL
+          .fromKey(LidarrDatabase.ADD_MONITORED_STATUS.read())!,
+      search: search,
+    )
+        .then((id) {
+      showLunaSuccessSnackBar(
+        title: 'Artist Added',
+        message: widget.data!.title,
+      );
+      LunaRouter.router.pop();
+
+      /// todo: Add redirect to artist page
+    }).catchError((error, stack) {
       LunaLogger().error('Failed to add artist', error, stack);
       showLunaErrorSnackBar(
         title: search

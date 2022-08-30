@@ -4,25 +4,17 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:lunasea/types/list_view_option.dart';
 
-class SettingsConfigurationSonarrDefaultOptionsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationSonarrDefaultOptionsRouter()
-      : super('/settings/configuration/sonarr/options');
+class ConfigurationSonarrDefaultOptionsRoute extends StatefulWidget {
+  const ConfigurationSonarrDefaultOptionsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationSonarrDefaultOptionsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSonarrDefaultOptionsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

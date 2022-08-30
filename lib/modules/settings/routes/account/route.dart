@@ -2,25 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/settings/routes/account/pages.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsAccountRouter extends SettingsPageRouter {
-  SettingsAccountRouter() : super('/settings/account');
+class AccountRoute extends StatefulWidget {
+  const AccountRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<AccountRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<AccountRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -50,9 +44,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
             }
             return LunaIconButton(
               icon: Icons.settings_rounded,
-              onPressed: () async {
-                SettingsAccountSettingsRouter().navigateTo(context);
-              },
+              onPressed: SettingsRoutes.ACCOUNT_SETTINGS.go,
             );
           },
         ),

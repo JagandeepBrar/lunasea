@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrMovieDetailsNavigationBar extends StatefulWidget {
   static const List<IconData> icons = [
@@ -73,6 +74,9 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
     });
   }
 
-  Future<void> _manual() async =>
-      RadarrReleasesRouter().navigateTo(context, widget.movie?.id ?? -1);
+  Future<void> _manual() async {
+    RadarrRoutes.MOVIE_RELEASES.go(params: {
+      'movie': widget.movie!.id!.toString(),
+    });
+  }
 }

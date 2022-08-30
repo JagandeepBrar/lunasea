@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationRadarrRouter extends SettingsPageRouter {
-  SettingsConfigurationRadarrRouter() : super('/settings/configuration/radarr');
+class ConfigurationRadarrRoute extends StatefulWidget {
+  const ConfigurationRadarrRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationRadarrRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRadarrRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -76,8 +69,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Connection Details',
       body: const [TextSpan(text: 'Connection Details for Radarr')],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationRadarrConnectionDetailsRouter()
-          .navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_RADARR_CONNECTION_DETAILS.go,
     );
   }
 
@@ -86,8 +78,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.DefaultOptions'.tr(),
       body: [TextSpan(text: 'settings.DefaultOptionsDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationRadarrDefaultOptionsRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_RADARR_DEFAULT_OPTIONS.go,
     );
   }
 
@@ -96,8 +87,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'Default Pages',
       body: const [TextSpan(text: 'Set Default Landing Pages')],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationRadarrDefaultPagesRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_RADARR_DEFAULT_PAGES.go,
     );
   }
 

@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
-class NZBGetStatistics extends StatefulWidget {
-  static const ROUTE_NAME = '/nzbget/statistics';
-
-  const NZBGetStatistics({
+class StatisticsRoute extends StatefulWidget {
+  const StatisticsRoute({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<NZBGetStatistics> createState() => _State();
+  State<StatisticsRoute> createState() => _State();
 }
 
-class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
+class _State extends State<StatisticsRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
 

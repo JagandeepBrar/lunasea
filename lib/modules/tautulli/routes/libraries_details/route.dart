@@ -1,72 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
-  TautulliLibrariesDetailsRouter() : super('/tautulli/libraries/:sectionid');
+class LibrariesDetailsRoute extends StatefulWidget {
+  final int? sectionId;
 
-  @override
-  _Widget widget([int sectionId = -1]) => _Widget(sectionId: sectionId);
-
-  @override
-  Future<void> navigateTo(
-    BuildContext context, [
-    int sectionId = -1,
-  ]) async =>
-      LunaRouter.router.navigateTo(context, route(sectionId));
-
-  @override
-  String route([int sectionId = -1]) =>
-      fullRoute.replaceFirst(':sectionid', sectionId.toString());
-
-  @override
-  void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(
-        router,
-        (context, params) {
-          int sectionId = (params['sectionid']?.isNotEmpty ?? false)
-              ? int.tryParse(params['sectionid']![0]) ?? -1
-              : -1;
-          return _Widget(sectionId: sectionId);
-        },
-      );
-}
-
-class _Widget extends StatefulWidget {
-  final int sectionId;
-
-  const _Widget({
+  const LibrariesDetailsRoute({
     Key? key,
     required this.sectionId,
   }) : super(key: key);
 
   @override
-  State<_Widget> createState() => _State();
+  State<LibrariesDetailsRoute> createState() => _State();
 }
 
-class _State extends State<_Widget> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _State extends State<LibrariesDetailsRoute> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
 
   @override
   void initState() {
     super.initState();
     _pageController = LunaPageController(
-        initialPage:
-            TautulliDatabase.NAVIGATION_INDEX_LIBRARIES_DETAILS.read());
+      initialPage: TautulliDatabase.NAVIGATION_INDEX_LIBRARIES_DETAILS.read(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.sectionId == null) {
+      return InvalidRoutePage(
+        title: 'Library Details',
+        message: 'Library Not Found',
+      );
+    }
+
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: TautulliLibrariesDetailsNavigationBar(
-          pageController: _pageController),
+        pageController: _pageController,
+      ),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'Library Details',
       scrollControllers:
@@ -79,8 +59,8 @@ class _State extends State<_Widget> {
     return LunaPageView(
       controller: _pageController,
       children: [
-        TautulliLibrariesDetailsInformation(sectionId: widget.sectionId),
-        TautulliLibrariesDetailsUserStats(sectionId: widget.sectionId),
+        TautulliLibrariesDetailsInformation(sectionId: widget.sectionId!),
+        TautulliLibrariesDetailsUserStats(sectionId: widget.sectionId!),
       ],
     );
   }

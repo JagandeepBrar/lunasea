@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 enum SonarrSeasonSettingsType {
   AUTOMATIC_SEARCH,
@@ -40,11 +41,10 @@ extension SonarrSeasonSettingsTypeExtension on SonarrSeasonSettingsType {
         );
         return;
       case SonarrSeasonSettingsType.INTERACTIVE_SEARCH:
-        return SonarrReleasesRouter().navigateTo(
-          context,
-          seriesId: seriesId,
-          seasonNumber: seasonNumber,
-        );
+        return SonarrRoutes.RELEASES.go(queryParams: {
+          'series': seriesId.toString(),
+          'season': seasonNumber.toString(),
+        });
     }
   }
 }

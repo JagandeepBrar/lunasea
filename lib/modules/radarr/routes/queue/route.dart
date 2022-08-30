@@ -3,24 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrQueueRouter extends RadarrPageRouter {
-  RadarrQueueRouter() : super('/radarr/queue');
+class QueueRoute extends StatefulWidget {
+  const QueueRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_Widget>
+class _State extends State<QueueRoute>
     with LunaLoadCallbackMixin, LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =

@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 import 'package:lunasea/types/log_type.dart';
 
-class SettingsSystemLogsRouter extends SettingsPageRouter {
-  SettingsSystemLogsRouter() : super('/settings/logs');
+class SystemLogsRoute extends StatefulWidget {
+  const SystemLogsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<SystemLogsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -74,8 +67,11 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
     ]);
   }
 
-  Future<void> _viewLogs(LunaLogType? type) async =>
-      SettingsSystemLogsDetailsRouter().navigateTo(context, type);
+  Future<void> _viewLogs(LunaLogType? type) async {
+    SettingsRoutes.SYSTEM_LOGS_DETAILS.go(params: {
+      'type': type?.key ?? 'all',
+    });
+  }
 
   Widget _clearLogs() {
     return LunaButton.text(

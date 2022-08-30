@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationLidarrHeadersRouter extends SettingsPageRouter {
-  SettingsConfigurationLidarrHeadersRouter()
-      : super('/settings/configuration/lidarr/headers');
+class ConfigurationLidarrConnectionDetailsHeadersRoute extends StatelessWidget {
+  const ConfigurationLidarrConnectionDetailsHeadersRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => const SettingsHeaderRoute(module: LunaModule.LIDARR);
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
+  Widget build(BuildContext context) {
+    return const SettingsHeaderRoute(module: LunaModule.LIDARR);
   }
 }

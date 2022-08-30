@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationDrawerRouter extends SettingsPageRouter {
-  SettingsConfigurationDrawerRouter() : super('/settings/configuration/drawer');
-
-  @override
-  Widget widget() => _Widget();
+class ConfigurationDrawerRoute extends StatefulWidget {
+  const ConfigurationDrawerRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationDrawerRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationDrawerRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<LunaModule>? _modules;
 

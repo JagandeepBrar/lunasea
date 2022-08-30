@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/extensions/int/duration.dart';
 import 'package:lunasea/extensions/string/string.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/radarr/core/api_helper.dart';
 import 'package:lunasea/modules/radarr/core/state.dart';
-import 'package:lunasea/modules/radarr/routes/movie_details/route.dart';
-import 'package:lunasea/modules/radarr/routes/releases/route.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
-
-import 'package:provider/provider.dart';
 
 class CalendarRadarrData extends CalendarData {
   bool hasFile;
@@ -59,8 +56,11 @@ class CalendarRadarrData extends CalendarData {
   }
 
   @override
-  Future<void> enterContent(BuildContext context) async =>
-      RadarrMoviesDetailsRouter().navigateTo(context, id);
+  Future<void> enterContent(BuildContext context) async {
+    RadarrRoutes.MOVIE.go(params: {
+      'movie': id.toString(),
+    });
+  }
 
   @override
   Widget trailing(BuildContext context) {
@@ -76,8 +76,11 @@ class CalendarRadarrData extends CalendarData {
       .automaticSearch(context: context, movieId: id, title: title);
 
   @override
-  Future<void> trailingOnLongPress(BuildContext context) async =>
-      RadarrReleasesRouter().navigateTo(context, id);
+  Future<void> trailingOnLongPress(BuildContext context) async {
+    RadarrRoutes.MOVIE_RELEASES.go(params: {
+      'movie': id.toString(),
+    });
+  }
 
   @override
   String? backgroundUrl(BuildContext context) {

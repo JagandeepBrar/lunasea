@@ -2,27 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationLidarrConnectionDetailsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationLidarrConnectionDetailsRouter()
-      : super('/settings/configuration/lidarr/connection');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationLidarrConnectionDetailsRoute extends StatefulWidget {
+  const ConfigurationLidarrConnectionDetailsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationLidarrConnectionDetailsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationLidarrConnectionDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -164,9 +156,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationLidarrHeadersRouter().navigateTo(context);
-      },
+      onTap: SettingsRoutes.CONFIGURATION_LIDARR_CONNECTION_DETAILS_HEADERS.go,
     );
   }
 }

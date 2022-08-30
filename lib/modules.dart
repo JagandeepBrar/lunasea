@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/extensions/string/links.dart';
-import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string/links.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes.dart';
+import 'package:lunasea/router/routes/settings.dart';
+import 'package:quick_actions/quick_actions.dart';
 
-import 'package:lunasea/modules/external_modules.dart';
 import 'package:lunasea/modules/search.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -16,8 +18,6 @@ import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
-import 'package:lunasea/modules/dashboard/routes/dashboard/route.dart'
-    as dashboard_home;
 import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
 import 'package:lunasea/system/flavor.dart';
 
@@ -356,67 +356,64 @@ extension LunaModuleRoutingExtension on LunaModule {
   String? get homeRoute {
     switch (this) {
       case LunaModule.DASHBOARD:
-        return dashboard_home.HomeRouter().route();
+        return LunaRoutes.dashboard.root.path;
       case LunaModule.LIDARR:
-        return Lidarr.ROUTE_NAME;
+        return LunaRoutes.lidarr.root.path;
       case LunaModule.NZBGET:
-        return NZBGet.ROUTE_NAME;
+        return LunaRoutes.nzbget.root.path;
       case LunaModule.RADARR:
-        return RadarrHomeRouter().route();
+        return LunaRoutes.radarr.root.path;
       case LunaModule.SABNZBD:
-        return SABnzbd.ROUTE_NAME;
+        return LunaRoutes.sabnzbd.root.path;
       case LunaModule.SEARCH:
-        return SearchHomeRouter().route();
+        return LunaRoutes.search.root.path;
       case LunaModule.SETTINGS:
-        return SettingsHomeRouter().route();
+        return LunaRoutes.settings.root.path;
       case LunaModule.SONARR:
-        return SonarrHomeRouter().route();
+        return LunaRoutes.sonarr.root.path;
       case LunaModule.TAUTULLI:
-        return TautulliHomeRouter().route();
+        return LunaRoutes.tautulli.root.path;
       case LunaModule.OVERSEERR:
-        return OverseerrHomeRouter().route();
+        return LunaRoutes.overseerr.root.path;
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.EXTERNAL_MODULES:
-        return ExternalModulesHomeRouter().route();
+        return LunaRoutes.externalModules.root.path;
     }
   }
 
-  SettingsPageRouter? get settingsRoute {
+  SettingsRoutes? get settingsRoute {
     switch (this) {
       case LunaModule.DASHBOARD:
-        return SettingsConfigurationDashboardRouter();
+        return SettingsRoutes.CONFIGURATION_DASHBOARD;
       case LunaModule.LIDARR:
-        return SettingsConfigurationLidarrRouter();
+        return SettingsRoutes.CONFIGURATION_LIDARR;
       case LunaModule.NZBGET:
-        return SettingsConfigurationNZBGetRouter();
+        return SettingsRoutes.CONFIGURATION_NZBGET;
       case LunaModule.OVERSEERR:
-        return SettingsConfigurationOverseerrRouter();
+        return SettingsRoutes.CONFIGURATION_OVERSEERR;
       case LunaModule.RADARR:
-        return SettingsConfigurationRadarrRouter();
+        return SettingsRoutes.CONFIGURATION_RADARR;
       case LunaModule.SABNZBD:
-        return SettingsConfigurationSABnzbdRouter();
+        return SettingsRoutes.CONFIGURATION_SABNZBD;
       case LunaModule.SEARCH:
-        return SettingsConfigurationSearchRouter();
+        return SettingsRoutes.CONFIGURATION_SEARCH;
       case LunaModule.SETTINGS:
         return null;
       case LunaModule.SONARR:
-        return SettingsConfigurationSonarrRouter();
+        return SettingsRoutes.CONFIGURATION_SONARR;
       case LunaModule.TAUTULLI:
-        return SettingsConfigurationTautulliRouter();
+        return SettingsRoutes.CONFIGURATION_TAUTULLI;
       case LunaModule.WAKE_ON_LAN:
-        return SettingsConfigurationWakeOnLANRouter();
+        return SettingsRoutes.CONFIGURATION_WAKE_ON_LAN;
       case LunaModule.EXTERNAL_MODULES:
-        return SettingsConfigurationExternalModulesRouter();
+        return SettingsRoutes.CONFIGURATION_EXTERNAL_MODULES;
     }
   }
 
   Future<void> launch() async {
     if (homeRoute != null) {
-      LunaState.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        homeRoute!,
-        (Route<dynamic> route) => false,
-      );
+      LunaRouter.router.replace(homeRoute!);
     }
   }
 }

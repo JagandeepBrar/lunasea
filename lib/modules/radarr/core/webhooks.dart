@@ -1,10 +1,10 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 import 'package:lunasea/system/webhooks.dart';
 
 class RadarrWebhooks extends LunaWebhooks {
   @override
-  Future<void> handle(Map<dynamic, dynamic> data) async {
+  Future<void> handle(Map data) async {
     _EventType? event = _EventType.GRAB.fromKey(data['event']);
     if (event == null)
       LunaLogger().warning(
@@ -56,24 +56,33 @@ extension _EventTypeExtension on _EventType? {
     }
   }
 
-  Future<void> _downloadEvent(Map<dynamic, dynamic> data) async =>
-      _goToMovieDetails(int.tryParse(data['id']));
-  Future<void> _grabEvent(Map<dynamic, dynamic> data) async =>
-      RadarrQueueRouter().navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _healthEvent(Map<dynamic, dynamic> data) async =>
-      RadarrSystemStatusRouter()
-          .navigateTo(LunaState.navigatorKey.currentContext!);
-  Future<void> _renameEvent(Map<dynamic, dynamic> data) async =>
-      _goToMovieDetails(int.tryParse(data['id']));
-  Future<void> _testEvent(Map<dynamic, dynamic> data) async =>
-      LunaModule.RADARR.launch();
+  Future<void> _downloadEvent(Map data) async {
+    _goToMovieDetails(int.tryParse(data['id']));
+  }
+
+  Future<void> _renameEvent(Map data) async {
+    _goToMovieDetails(int.tryParse(data['id']));
+  }
+
+  Future<void> _grabEvent(Map data) async {
+    RadarrRoutes.QUEUE.go(buildTree: true);
+  }
+
+  Future<void> _healthEvent(Map data) async {
+    RadarrRoutes.SYSTEM_STATUS.go(buildTree: true);
+  }
+
+  Future<void> _testEvent(Map data) async => LunaModule.RADARR.launch();
 
   Future<void> _goToMovieDetails(int? movieId) async {
-    if (movieId != null)
-      return RadarrMoviesDetailsRouter().navigateTo(
-        LunaState.navigatorKey.currentContext!,
-        movieId,
+    if (movieId != null) {
+      return RadarrRoutes.MOVIE.go(
+        buildTree: true,
+        params: {
+          'movie': movieId.toString(),
+        },
       );
+    }
     return LunaModule.RADARR.launch();
   }
 }

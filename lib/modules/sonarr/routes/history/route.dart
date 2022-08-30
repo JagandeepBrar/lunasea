@@ -2,30 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrHistoryRouter extends SonarrPageRouter {
-  SonarrHistoryRouter() : super('/sonarr/history');
+class HistoryRoute extends StatefulWidget {
+  const HistoryRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<HistoryRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget>
+class _State extends State<HistoryRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
-  final PagingController<int, SonarrHistoryRecord> _pagingController =
-      PagingController(firstPageKey: 1);
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
+  final _pagingController =
+      PagingController<int, SonarrHistoryRecord>(firstPageKey: 1);
 
   @override
   Future<void> loadCallback() async {

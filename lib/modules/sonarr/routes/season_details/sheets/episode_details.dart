@@ -4,6 +4,7 @@ import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   BuildContext context;
@@ -199,10 +200,12 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   List<Widget> _history(BuildContext context) {
     return [
       FutureBuilder(
-        future: context.select<SonarrSeasonDetailsState, Future<SonarrHistory>>(
+        future:
+            context.select<SonarrSeasonDetailsState, Future<SonarrHistoryPage>>(
           (s) => s.getEpisodeHistory(episode!.id),
         ),
-        builder: (BuildContext context, AsyncSnapshot<SonarrHistory> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<SonarrHistoryPage> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {
               LunaLogger().error(
@@ -274,11 +277,10 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
         LunaButton.text(
           text: 'sonarr.Interactive'.tr(),
           icon: Icons.person_rounded,
-          onTap: () async {
-            await SonarrReleasesRouter().navigateTo(
-              context,
-              episodeId: episode!.id,
-            );
+          onTap: () {
+            SonarrRoutes.RELEASES.go(queryParams: {
+              'episode': episode!.id!.toString(),
+            });
             context.read<SonarrSeasonDetailsState>().fetchState(
                   context,
                   shouldFetchEpisodes: false,

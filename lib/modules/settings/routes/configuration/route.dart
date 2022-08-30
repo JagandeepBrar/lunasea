@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/utils/profile_tools.dart';
 
-class SettingsConfigurationRouter extends SettingsPageRouter {
-  SettingsConfigurationRouter() : super('/settings/configuration');
+class ConfigurationRoute extends StatefulWidget {
+  const ConfigurationRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -51,7 +44,6 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           onPressed: () async {
             final dialogs = SettingsDialogs();
             final enabledProfile = LunaSeaDatabase.ENABLED_PROFILE.read();
-            final context = LunaState.navigatorKey.currentContext!;
             final profiles = LunaProfile.list;
             profiles.removeWhere((p) => p == enabledProfile);
 
@@ -63,7 +55,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
               return;
             }
 
-            final selected = await dialogs.enabledProfile(context, profiles);
+            final selected = await dialogs.enabledProfile(
+              LunaState.context,
+              profiles,
+            );
             if (selected.item1) {
               LunaProfileTools().changeTo(selected.item2);
             }
@@ -81,38 +76,33 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
           title: 'settings.Appearance'.tr(),
           body: [TextSpan(text: 'settings.AppearanceDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.brush_rounded),
-          onTap: () async =>
-              SettingsConfigurationAppearanceRouter().navigateTo(context),
+          onTap: SettingsRoutes.CONFIGURATION_APPEARANCE.go,
         ),
         LunaBlock(
           title: 'settings.Drawer'.tr(),
           body: [TextSpan(text: 'settings.DrawerDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.menu_rounded),
-          onTap: () async =>
-              SettingsConfigurationDrawerRouter().navigateTo(context),
+          onTap: SettingsRoutes.CONFIGURATION_DRAWER.go,
         ),
         LunaBlock(
           title: 'settings.Localization'.tr(),
           body: [TextSpan(text: 'settings.LocalizationDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.translate_rounded),
-          onTap: () async =>
-              SettingsConfigurationLocalizationRouter().navigateTo(context),
+          onTap: SettingsRoutes.CONFIGURATION_LOCALIZATION.go,
         ),
         if (LunaNetwork.isSupported)
           LunaBlock(
             title: 'settings.Network'.tr(),
             body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
             trailing: const LunaIconButton(icon: Icons.network_check_rounded),
-            onTap: () async =>
-                SettingsConfigurationNetworkRouter().navigateTo(context),
+            onTap: SettingsRoutes.CONFIGURATION_NETWORK.go,
           ),
         if (LunaQuickActions.isSupported)
           LunaBlock(
             title: 'settings.QuickActions'.tr(),
             body: [TextSpan(text: 'settings.QuickActionsDescription'.tr())],
             trailing: const LunaIconButton(icon: Icons.rounded_corner_rounded),
-            onTap: () async =>
-                SettingsConfigurationQuickActionsRouter().navigateTo(context),
+            onTap: SettingsRoutes.CONFIGURATION_QUICK_ACTIONS.go,
           ),
         LunaDivider(),
         ..._moduleList(),
@@ -133,7 +123,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         TextSpan(text: 'settings.ConfigureModule'.tr(args: [module.title]))
       ],
       trailing: LunaIconButton(icon: module.icon),
-      onTap: () async => module.settingsRoute!.navigateTo(context),
+      onTap: module.settingsRoute!.go,
     );
   }
 }

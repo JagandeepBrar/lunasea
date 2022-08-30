@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrAppBarAddMoviesAction extends StatelessWidget {
   const RadarrAppBarAddMoviesAction({
@@ -12,7 +12,7 @@ class RadarrAppBarAddMoviesAction extends StatelessWidget {
     return LunaIconButton(
       icon: Icons.add_rounded,
       iconSize: LunaUI.ICON_SIZE,
-      onPressed: () async => RadarrAddMovieRouter().navigateTo(context),
+      onPressed: RadarrRoutes.ADD_MOVIE.go,
     );
   }
 }

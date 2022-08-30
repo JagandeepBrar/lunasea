@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 class SonarrEpisodeTile extends StatefulWidget {
   final SonarrEpisode episode;
@@ -102,10 +103,11 @@ class _State extends State<SonarrEpisodeTile> {
             )
             .whenComplete(() => setLoadingState(LunaLoadingState.INACTIVE));
       },
-      onLongPress: () async => SonarrReleasesRouter().navigateTo(
-        context,
-        episodeId: widget.episode.id,
-      ),
+      onLongPress: () async {
+        SonarrRoutes.RELEASES.go(queryParams: {
+          'episode': widget.episode.id!.toString(),
+        });
+      },
     );
   }
 }

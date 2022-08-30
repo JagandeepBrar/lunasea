@@ -2,27 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationNZBGetConnectionDetailsRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationNZBGetConnectionDetailsRouter()
-      : super('/settings/configuration/nzbget/connection');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationNZBGetConnectionDetailsRoute extends StatefulWidget {
+  const ConfigurationNZBGetConnectionDetailsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationNZBGetConnectionDetailsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationNZBGetConnectionDetailsRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -176,9 +168,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.CustomHeaders'.tr(),
       body: [TextSpan(text: 'settings.CustomHeadersDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async {
-        SettingsConfigurationNZBGetHeadersRouter().navigateTo(context);
-      },
+      onTap: SettingsRoutes.CONFIGURATION_NZBGET_CONNECTION_DETAILS_HEADERS.go,
     );
   }
 }

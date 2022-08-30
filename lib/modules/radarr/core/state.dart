@@ -44,8 +44,8 @@ class RadarrState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Radarr? _api;
-  Radarr? get api => _api;
+  RadarrAPI? _api;
+  RadarrAPI? get api => _api;
 
   /// Is the API enabled?
   bool _enabled = false;
@@ -74,7 +74,7 @@ class RadarrState extends LunaModuleState {
     // Create the API instance if Radarr is enabled
     _api = !_enabled
         ? null
-        : Radarr(
+        : RadarrAPI(
             host: _host,
             apiKey: _apiKey,
             headers: Map<String, dynamic>.from(_headers),

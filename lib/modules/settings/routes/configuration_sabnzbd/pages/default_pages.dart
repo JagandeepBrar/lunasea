@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/tables/sabnzbd.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSABnzbdDefaultPagesRouter
-    extends SettingsPageRouter {
-  SettingsConfigurationSABnzbdDefaultPagesRouter()
-      : super('/settings/configuration/sabnzbd/pages');
-
-  @override
-  _Widget widget() => _Widget();
+class ConfigurationSABnzbdDefaultPagesRoute extends StatefulWidget {
+  const ConfigurationSABnzbdDefaultPagesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationSABnzbdDefaultPagesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSABnzbdDefaultPagesRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

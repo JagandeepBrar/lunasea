@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/auth.dart';
-import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/utils/validator.dart';
 
-class SettingsAccountPasswordResetRouter extends SettingsPageRouter {
-  SettingsAccountPasswordResetRouter()
-      : super('/settings/account/passwordreset');
+class AccountPasswordResetRoute extends ConsumerStatefulWidget {
+  const AccountPasswordResetRoute({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
-}
-
-class _Widget extends ConsumerStatefulWidget {
   @override
   _State createState() => _State();
 }
 
-class _State extends ConsumerState<_Widget> with LunaScrollControllerMixin {
+class _State extends ConsumerState<AccountPasswordResetRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
 

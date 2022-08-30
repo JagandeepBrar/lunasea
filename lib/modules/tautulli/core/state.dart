@@ -60,24 +60,24 @@ class TautulliState extends LunaModuleState {
   ///////////////
 
   /// API handler instance
-  Tautulli? _api;
-  Tautulli? get api => _api;
+  TautulliAPI? _api;
+  TautulliAPI? get api => _api;
 
   /// Is the API enabled?
-  bool? _enabled;
-  bool? get enabled => _enabled;
+  bool _enabled = false;
+  bool get enabled => _enabled;
 
   /// Tautulli host
-  String? _host;
-  String? get host => _host;
+  String _host = '';
+  String get host => _host;
 
   /// Tautulli API key
-  String? _apiKey;
-  String? get apiKey => _apiKey;
+  String _apiKey = '';
+  String get apiKey => _apiKey;
 
   /// Headers to attach to all requests
-  Map<dynamic, dynamic>? _headers;
-  Map<dynamic, dynamic>? get headers => _headers;
+  Map<dynamic, dynamic> _headers = {};
+  Map<dynamic, dynamic> get headers => _headers;
 
   /// Reset the profile data, reinitializes API instance
   void resetProfile() {
@@ -88,11 +88,11 @@ class TautulliState extends LunaModuleState {
     _apiKey = _profile.tautulliKey;
     _headers = _profile.tautulliHeaders;
     // Create the API instance if Tautulli is enabled
-    _api = _enabled!
-        ? Tautulli(
-            host: _host!,
-            apiKey: _apiKey!,
-            headers: Map<String, dynamic>.from(_headers!),
+    _api = _enabled
+        ? TautulliAPI(
+            host: _host,
+            apiKey: _apiKey,
+            headers: Map<String, dynamic>.from(_headers),
           )
         : null;
   }
@@ -613,7 +613,7 @@ class TautulliState extends LunaModuleState {
   /// Get the direct URL to an image via `pms_image_proxy` using a rating key.
   String? getImageURLFromRatingKey(int? ratingKey, {int width = 300}) {
     if (ratingKey == null) return null;
-    if (host!.endsWith('/'))
+    if (host.endsWith('/'))
       return [
         host,
         'api/v2?apikey=$apiKey',
@@ -633,7 +633,7 @@ class TautulliState extends LunaModuleState {
   /// Get the direct URL to an image via `pms_image_proxy` using an image path.
   String? getImageURLFromPath(String? path, {int width = 300}) {
     if (path == null || path.isEmpty) return null;
-    if (host!.endsWith('/'))
+    if (host.endsWith('/'))
       return [
         host,
         'api/v2?apikey=$apiKey',

@@ -72,10 +72,10 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<SonarrHistory> getEpisodeHistory(int? episodeId) async {
+  Future<SonarrHistoryPage> getEpisodeHistory(int? episodeId) async {
     return episodeHistoryCache
         .get(episodeId.toString())
-        .then((data) => data as SonarrHistory);
+        .then((data) => data as SonarrHistoryPage);
   }
 
   Future<Map<int, SonarrEpisode>>? _episodes;

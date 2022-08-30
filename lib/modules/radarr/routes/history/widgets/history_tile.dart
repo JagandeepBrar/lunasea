@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrHistoryTile extends StatelessWidget {
   final RadarrHistoryRecord history;
@@ -54,10 +55,9 @@ class RadarrHistoryTile extends StatelessWidget {
           [],
       onLongPress: movieHistory
           ? null
-          : () async => RadarrMoviesDetailsRouter().navigateTo(
-                context,
-                history.movieId ?? -1,
-              ),
+          : () => RadarrRoutes.MOVIE.go(params: {
+                'movie': history.movieId!.toString(),
+              }),
     );
   }
 }

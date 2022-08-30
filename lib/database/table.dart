@@ -14,10 +14,10 @@ import 'package:lunasea/database/tables/sonarr.dart';
 import 'package:lunasea/database/tables/tautulli.dart';
 
 enum LunaTable<T extends LunaTableMixin> {
+  bios<BIOSDatabase>('bios', items: BIOSDatabase.values),
   dashboard<DashboardDatabase>('home', items: DashboardDatabase.values),
   lidarr<LidarrDatabase>('lidarr', items: LidarrDatabase.values),
   lunasea<LunaSeaDatabase>('lunasea', items: LunaSeaDatabase.values),
-  bios<BIOSDatabase>('bios', items: BIOSDatabase.values),
   nzbget<NZBGetDatabase>('nzbget', items: NZBGetDatabase.values),
   overseerr<OverseerrDatabase>('overseerr', items: OverseerrDatabase.values),
   radarr<RadarrDatabase>('radarr', items: RadarrDatabase.values),

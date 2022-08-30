@@ -5,6 +5,7 @@ import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/router/routes/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
   final SonarrSeriesSeason season;
@@ -45,11 +46,12 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     );
   }
 
-  Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
-        context,
-        widget.seriesId ?? -1,
-        widget.season.seasonNumber ?? -1,
-      );
+  Future<void> _onTap() async {
+    SonarrRoutes.SERIES_SEASON.go(params: {
+      'series': (widget.seriesId ?? -1).toString(),
+      'season': (widget.season.seasonNumber ?? -1).toString(),
+    });
+  }
 
   Future<void> _onLongPress() async {
     Tuple2<bool, SonarrSeasonSettingsType?> result = await SonarrDialogs()

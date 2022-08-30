@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliGraphsRouter extends TautulliPageRouter {
-  TautulliGraphsRouter() : super('/tautulli/graphs');
+class GraphsRoute extends StatefulWidget {
+  const GraphsRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<GraphsRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> {
+class _State extends State<GraphsRoute> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   LunaPageController? _pageController;
 

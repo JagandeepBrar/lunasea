@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSABnzbdRouter extends SettingsPageRouter {
-  SettingsConfigurationSABnzbdRouter()
-      : super('/settings/configuration/sabnzbd');
-
-  @override
-  Widget widget() => _Widget();
+class ConfigurationSABnzbdRoute extends StatefulWidget {
+  const ConfigurationSABnzbdRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ConfigurationSABnzbdRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSABnzbdRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'SABnzbd',
       scrollControllers: [scrollController],
@@ -81,8 +73,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         )
       ],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSABnzbdConnectionDetailsRouter()
-          .navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_SABNZBD_CONNECTION_DETAILS.go,
     );
   }
 
@@ -91,8 +82,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: 'settings.DefaultPages'.tr(),
       body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async =>
-          SettingsConfigurationSABnzbdDefaultPagesRouter().navigateTo(context),
+      onTap: SettingsRoutes.CONFIGURATION_SABNZBD_DEFAULT_PAGES.go,
     );
   }
 }

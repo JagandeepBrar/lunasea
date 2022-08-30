@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
 class LidarrAddSearchResultTile extends StatelessWidget {
   final bool alreadyAdded;
@@ -52,22 +53,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         message: data.title,
       );
     } else {
-      final dynamic result = await Navigator.of(context).pushNamed(
-        LidarrAddDetails.ROUTE_NAME,
-        arguments: LidarrAddDetailsArguments(data: data),
-      );
-      if (result != null) {
-        switch (result[0]) {
-          case 'artist_added':
-            Navigator.of(context).pop(result);
-            break;
-          default:
-            LunaLogger().warning(
-              'Unknown Case: ${result[0]}',
-            );
-            break;
-        }
-      }
+      LidarrRoutes.ADD_ARTIST_DETAILS.go(extra: data);
     }
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes/radarr.dart';
 
 class RadarrAddMovieDetailsActionBar extends StatelessWidget {
   const RadarrAddMovieDetailsActionBar({
@@ -46,8 +48,10 @@ class RadarrAddMovieDetailsActionBar extends StatelessWidget {
           .then((movie) async {
         context.read<RadarrState>().fetchMovies();
         context.read<RadarrAddMovieDetailsState>().movie.id = movie!.id;
-        Navigator.of(context)
-            .popAndPushNamed(RadarrMoviesDetailsRouter().route(movie.id!));
+        LunaRouter.router.pop();
+        RadarrRoutes.MOVIE.go(params: {
+          'movie': movie.id!.toString(),
+        });
       }).catchError((error, stack) {
         context.read<RadarrAddMovieDetailsState>().state =
             LunaLoadingState.ERROR;

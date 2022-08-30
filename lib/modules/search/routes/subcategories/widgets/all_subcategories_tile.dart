@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/router/routes/search.dart';
 
 class SearchSubcategoryAllTile extends StatelessWidget {
   const SearchSubcategoryAllTile({
@@ -19,7 +20,7 @@ class SearchSubcategoryAllTile extends StatelessWidget {
             color: LunaColours().byListIndex(0)),
         onTap: () async {
           context.read<SearchState>().activeSubcategory = null;
-          SearchResultsRouter().navigateTo(context);
+          SearchRoutes.RESULTS.go();
         },
       ),
     );

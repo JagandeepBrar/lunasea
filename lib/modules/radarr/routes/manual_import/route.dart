@@ -2,24 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrManualImportRouter extends RadarrPageRouter {
-  RadarrManualImportRouter() : super('/radarr/manualimport');
+class ManualImportRoute extends StatefulWidget {
+  const ManualImportRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) {
-    super.noParameterRouteDefinition(router);
-  }
+  State<ManualImportRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ManualImportRoute> with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,14 +20,14 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       create: (context) => RadarrManualImportState(context),
       builder: (context, _) => LunaScaffold(
         scaffoldKey: _scaffoldKey,
-        appBar: _appBar() as PreferredSizeWidget?,
+        appBar: _appBar(),
         body: _body(context),
         bottomNavigationBar: const RadarrManualImportBottomActionBar(),
       ),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'radarr.ManualImport'.tr(),
       scrollControllers: [scrollController],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliSearchResultTile extends StatefulWidget {
   final TautulliSearchResult result;
@@ -73,9 +74,10 @@ class _State extends State<TautulliSearchResultTile> {
     );
   }
 
-  Future<void> _onTap() async => TautulliMediaDetailsRouter().navigateTo(
-        context,
-        widget.result.ratingKey!,
-        widget.mediaType,
-      );
+  void _onTap() {
+    TautulliRoutes.MEDIA_DETAILS.go(params: {
+      'rating_key': widget.result.ratingKey.toString(),
+      'media_type': widget.mediaType.value,
+    });
+  }
 }

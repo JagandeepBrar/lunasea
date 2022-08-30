@@ -2,25 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/modules/search/core.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/router/routes/settings.dart';
 
-class SettingsConfigurationSearchRouter extends SettingsPageRouter {
-  SettingsConfigurationSearchRouter() : super('/settings/configuration/search');
+class ConfigurationSearchRoute extends StatefulWidget {
+  const ConfigurationSearchRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<ConfigurationSearchRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationSearchRoute>
+    with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,8 +40,7 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
         LunaButton.text(
           text: 'Add Indexer',
           icon: Icons.add_rounded,
-          onTap: () async =>
-              SettingsConfigurationSearchAddRouter().navigateTo(context),
+          onTap: SettingsRoutes.CONFIGURATION_SEARCH_ADD_INDEXER.go,
         ),
       ],
     );
@@ -90,9 +83,10 @@ class _State extends State<_Widget> with LunaScrollControllerMixin {
       title: indexer.displayName,
       body: [TextSpan(text: indexer.host)],
       trailing: const LunaIconButton.arrow(),
-      onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
-        context,
-        index,
+      onTap: () => SettingsRoutes.CONFIGURATION_SEARCH_EDIT_INDEXER.go(
+        params: {
+          'id': index.toString(),
+        },
       ),
     );
   }

@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliLibrariesRouter extends TautulliPageRouter {
-  TautulliLibrariesRouter() : super('/tautulli/libraries');
+class LibrariesRoute extends StatefulWidget {
+  const LibrariesRoute({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Widget widget() => _Widget();
-
-  @override
-  void defineRoute(FluroRouter router) =>
-      super.noParameterRouteDefinition(router);
+  State<LibrariesRoute> createState() => _State();
 }
 
-class _Widget extends StatefulWidget {
-  @override
-  State<_Widget> createState() => _State();
-}
-
-class _State extends State<_Widget>
+class _State extends State<LibrariesRoute>
     with LunaScrollControllerMixin, LunaLoadCallbackMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
@@ -51,8 +44,8 @@ class _State extends State<_Widget>
       context: context,
       onRefresh: loadCallback,
       key: _refreshKey,
-      child: Selector<TautulliState, Future<TautulliLibrariesTable>>(
-        selector: (_, state) => state.librariesTable!,
+      child: Selector<TautulliState, Future<TautulliLibrariesTable>?>(
+        selector: (_, state) => state.librariesTable,
         builder: (context, future, _) => FutureBuilder(
           future: future,
           builder: (context, AsyncSnapshot<TautulliLibrariesTable> snapshot) {

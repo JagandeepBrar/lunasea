@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
+import 'package:lunasea/router/router.dart';
+import 'package:lunasea/router/routes/dashboard.dart';
+import 'package:lunasea/vendor.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class LunaMessage extends StatelessWidget {
   final String text;
@@ -41,7 +45,13 @@ class LunaMessage extends StatelessWidget {
       key: key,
       text: text,
       buttonText: 'lunasea.GoBack'.tr(),
-      onTap: () => Navigator.of(context).pop(),
+      onTap: () {
+        if (LunaRouter.router.canPop()) {
+          LunaRouter.router.pop();
+        } else {
+          LunaRouter.router.replace(DashboardRoutes.HOME.path);
+        }
+      },
       useSafeArea: useSafeArea,
     );
   }
@@ -72,7 +82,7 @@ class LunaMessage extends StatelessWidget {
       key: key,
       text: 'lunasea.ModuleIsNotEnabled'.tr(args: [module]),
       buttonText: 'lunasea.ReturnToDashboard'.tr(),
-      onTap: () async => LunaModule.DASHBOARD.launch(),
+      onTap: LunaModule.DASHBOARD.launch,
       useSafeArea: useSafeArea,
     );
   }

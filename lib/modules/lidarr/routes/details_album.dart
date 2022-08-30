@@ -2,118 +2,111 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/router/routes/lidarr.dart';
 
-class LidarrDetailsAlbumArguments {
-  final String title;
-  final int albumID;
+class ArtistAlbumDetailsRoute extends StatefulWidget {
+  final int artistId;
+  final int albumId;
   final bool monitored;
 
-  LidarrDetailsAlbumArguments({
-    required this.title,
-    required this.albumID,
-    required this.monitored,
-  });
-}
-
-class LidarrDetailsAlbum extends StatefulWidget {
-  static const ROUTE_NAME = '/lidarr/details/album';
-
-  const LidarrDetailsAlbum({
+  const ArtistAlbumDetailsRoute({
     Key? key,
+    required this.artistId,
+    required this.albumId,
+    required this.monitored,
   }) : super(key: key);
 
   @override
-  State<LidarrDetailsAlbum> createState() => _State();
+  State<ArtistAlbumDetailsRoute> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshKey =
-      GlobalKey<RefreshIndicatorState>();
-
-  LidarrDetailsAlbumArguments? _arguments;
+class _State extends State<ArtistAlbumDetailsRoute>
+    with LunaScrollControllerMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<List<LidarrTrackData>>? _future;
-  List<LidarrTrackData>? _results;
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _arguments = ModalRoute.of(context)!.settings.arguments
-          as LidarrDetailsAlbumArguments?;
       _refresh();
     });
   }
 
   Future<void> _refresh() async {
-    _results = [];
+    final api = LidarrAPI.from(LunaProfile.current);
     setState(() {
-      _future = LidarrAPI.from(LunaProfile.current)
-          .getAlbumTracks(_arguments?.albumID);
+      _future = api.getAlbumTracks(widget.albumId);
     });
   }
 
   @override
-  Widget build(BuildContext context) => LunaScaffold(
-        scaffoldKey: _scaffoldKey,
-        body: _body,
-        appBar: _appBar as PreferredSizeWidget?,
-      );
+  Widget build(BuildContext context) {
+    return LunaScaffold(
+      scaffoldKey: _scaffoldKey,
+      body: _body,
+      appBar: _appBar,
+    );
+  }
 
-  Widget get _appBar => LunaAppBar(
-        title: _arguments == null ? 'Details Album' : _arguments!.title,
-        scrollControllers: [scrollController],
-        actions: <Widget>[
-          LunaIconButton(
-            icon: Icons.search_rounded,
-            onPressed: () async => _automaticSearch(),
-            onLongPress: () async => _manualSearch(),
-          ),
-        ],
-      );
+  PreferredSizeWidget get _appBar {
+    return LunaAppBar(
+      title: 'Album Details',
+      scrollControllers: [scrollController],
+      actions: <Widget>[
+        LunaIconButton(
+          icon: Icons.search_rounded,
+          onPressed: () async => _automaticSearch(),
+          onLongPress: () async => _manualSearch(),
+        ),
+      ],
+    );
+  }
 
-  Widget? get _body => _arguments == null
-      ? null
-      : LunaRefreshIndicator(
-          context: context,
-          key: _refreshKey,
-          onRefresh: _refresh,
-          child: FutureBuilder(
-            future: _future,
-            builder: (context, AsyncSnapshot<List<LidarrTrackData>> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  {
-                    if (snapshot.hasError || snapshot.data == null)
-                      return LunaMessage.error(onTap: _refresh);
-                    _results = snapshot.data;
-                    return _list;
-                  }
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                case ConnectionState.active:
-                default:
-                  return const LunaLoader();
+  Widget get _body {
+    return LunaRefreshIndicator(
+      context: context,
+      key: _refreshKey,
+      onRefresh: _refresh,
+      child: FutureBuilder(
+        future: _future,
+        builder: (context, AsyncSnapshot<List<LidarrTrackData>> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              {
+                if (snapshot.hasError || snapshot.data == null) {
+                  return LunaMessage.error(onTap: _refresh);
+                }
+                return _list(snapshot.data!);
               }
-            },
-          ),
-        );
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+            default:
+              return const LunaLoader();
+          }
+        },
+      ),
+    );
+  }
 
-  Widget get _list {
-    if (_results?.isEmpty ?? true) {
+  Widget _list(List<LidarrTrackData> results) {
+    if (results.isEmpty) {
       return LunaMessage(
         text: 'No Tracks Found',
         buttonText: 'Refresh',
         onTap: _refresh,
       );
     }
+
     return LunaListViewBuilder(
       controller: scrollController,
-      itemCount: _results!.length,
+      itemCount: results.length,
       itemBuilder: (context, index) {
         return LidarrDetailsTrackTile(
-          data: _results![index],
-          monitored: _arguments?.monitored ?? false,
+          data: results[index],
+          monitored: widget.monitored,
         );
       },
     );
@@ -121,10 +114,10 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
 
   Future<void> _automaticSearch() async {
     LidarrAPI _api = LidarrAPI.from(LunaProfile.current);
-    _api.searchAlbums([_arguments!.albumID]).then((_) {
+    _api.searchAlbums([widget.albumId]).then((_) {
       showLunaSuccessSnackBar(
         title: 'Searching...',
-        message: _arguments!.title,
+        message: '',
       );
     }).catchError((error, stack) {
       LunaLogger().error('Failed to search for album', error, stack);
@@ -135,11 +128,10 @@ class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
     });
   }
 
-  Future<void> _manualSearch() async => Navigator.of(context).pushNamed(
-        LidarrSearchResults.ROUTE_NAME,
-        arguments: LidarrSearchResultsArguments(
-          title: _arguments!.title,
-          albumID: _arguments!.albumID,
-        ),
-      );
+  Future<void> _manualSearch() async {
+    LidarrRoutes.ARTIST_ALBUM_RELEASES.go(params: {
+      'artist': widget.artistId.toString(),
+      'album': widget.albumId.toString(),
+    });
+  }
 }

@@ -441,7 +441,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.46.0"
+    version: "0.55.1"
   flash:
     dependency: "direct main"
     description:

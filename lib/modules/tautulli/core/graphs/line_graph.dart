@@ -8,61 +8,67 @@ class TautulliLineGraphHelper {
   TautulliLineGraphHelper._();
 
   static FlTitlesData titlesData(TautulliGraphData data) {
-    String _getTitles(double value) {
+    String _getTitle(double value) {
       DateTime? _dt = DateTime.tryParse(data.categories![value.truncate()]!);
       return _dt != null ? DateFormat('dd').format(_dt).toString() : '??';
     }
 
     return FlTitlesData(
-      leftTitles: SideTitles(showTitles: false),
-      rightTitles: SideTitles(showTitles: false),
-      topTitles: SideTitles(showTitles: false),
-      bottomTitles: SideTitles(
-        showTitles: true,
-        margin: 8.0,
-        reservedSize: 8.0,
-        getTitles: _getTitles,
-        getTextStyles: (_, __) => const TextStyle(
-          color: LunaColours.grey,
-          fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
+      leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize:
+              LunaUI.FONT_SIZE_GRAPH_LEGEND + LunaUI.DEFAULT_MARGIN_SIZE,
+          getTitlesWidget: (value, meta) => Padding(
+            padding: const EdgeInsets.only(top: LunaUI.DEFAULT_MARGIN_SIZE),
+            child: Text(
+              _getTitle(value),
+              style: const TextStyle(
+                color: LunaColours.grey,
+                fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  static List<LineChartBarData> lineBarsData(TautulliGraphData data) =>
-      List<LineChartBarData>.generate(
-        data.series!.length,
-        (sIndex) => LineChartBarData(
-          isCurved: true,
-          isStrokeCapRound: true,
-          barWidth: 3.0,
-          colors: [LunaColours().byGraphLayer(sIndex)],
-          spots: List<FlSpot>.generate(
-            data.series![sIndex].data!.length,
-            (dIndex) => FlSpot(dIndex.toDouble(),
-                data.series![sIndex].data![dIndex]!.toDouble()),
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            colors: [
-              LunaColours()
-                  .byGraphLayer(sIndex)
-                  .withOpacity(LunaUI.OPACITY_SPLASH)
-            ],
-          ),
-          dotData: FlDotData(
-            show: true,
-            getDotPainter: (FlSpot spot, double xPercentage,
-                    LineChartBarData bar, int index) =>
-                FlDotCirclePainter(
-              radius: 2.50,
-              strokeColor: bar.colors[0],
-              color: bar.colors[0],
-            ),
+  static List<LineChartBarData> lineBarsData(TautulliGraphData data) {
+    return List<LineChartBarData>.generate(
+      data.series!.length,
+      (sIndex) => LineChartBarData(
+        isCurved: true,
+        isStrokeCapRound: true,
+        barWidth: 3.0,
+        color: LunaColours().byGraphLayer(sIndex),
+        spots: List<FlSpot>.generate(
+          data.series![sIndex].data!.length,
+          (dIndex) => FlSpot(dIndex.toDouble(),
+              data.series![sIndex].data![dIndex]!.toDouble()),
+        ),
+        belowBarData: BarAreaData(
+          show: true,
+          color: LunaColours()
+              .byGraphLayer(sIndex)
+              .withOpacity(LunaUI.OPACITY_SPLASH),
+        ),
+        dotData: FlDotData(
+          show: true,
+          getDotPainter: (FlSpot spot, double xPercentage, LineChartBarData bar,
+                  int index) =>
+              FlDotCirclePainter(
+            radius: 2.50,
+            strokeColor: bar.color,
+            color: bar.color,
           ),
         ),
-      );
+      ),
+    );
+  }
 
   static LineTouchData lineTouchData(
     BuildContext context,
@@ -107,7 +113,7 @@ class TautulliLineGraphHelper {
         (index) => TouchedSpotIndicatorData(
           FlLine(
             strokeWidth: 3.0,
-            color: bar.colors[0].withOpacity(LunaUI.OPACITY_DISABLED),
+            color: bar.color!.withOpacity(LunaUI.OPACITY_DISABLED),
           ),
           FlDotData(
             show: true,
@@ -115,8 +121,8 @@ class TautulliLineGraphHelper {
                     LineChartBarData bar, int index) =>
                 FlDotCirclePainter(
               radius: 5.0,
-              strokeColor: bar.colors[0],
-              color: bar.colors[0],
+              strokeColor: bar.color,
+              color: bar.color,
             ),
           ),
         ),

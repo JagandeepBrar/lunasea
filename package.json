@@ -24,6 +24,7 @@
     "generate": "npm run generate:environment && npm run generate:assets && npm run generate:build_runner && npm run generate:localization",
     "generate:assets": "dart pub global activate spider && spider build",
     "generate:build_runner": "flutter packages pub run build_runner build --delete-conflicting-outputs",
+    "generate:build_runner:watch": "flutter packages pub run build_runner watch --delete-conflicting-outputs",
     "generate:environment": "flutter pub run environment_config:generate",
     "generate:localization": "dart ./scripts/generate_localization.dart",
     "git:ignore": "npm run git:ignore:firebase && npm run git:ignore:changelog",

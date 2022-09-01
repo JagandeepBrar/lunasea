@@ -80,7 +80,7 @@ class OverseerrState extends LunaModuleState {
       bool exists = await _movieCache.contains(id);
 
       if (force || !exists) {
-        await _movieCache.put(id, api!.getMovie(id: movieId));
+        await _movieCache.put(id, api!.getMovie(movieId));
       }
     }
     notifyListeners();
@@ -92,7 +92,7 @@ class OverseerrState extends LunaModuleState {
       bool exists = await _seriesCache.contains(id);
 
       if (force || !exists) {
-        await _seriesCache.put(id, api!.getSeries(id: seriesId));
+        await _seriesCache.put(id, api!.getSeries(seriesId));
       }
     }
     notifyListeners();

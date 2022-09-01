@@ -23,6 +23,7 @@ class LunaLocalization {
 
 enum LunaLanguage {
   CHINESE_SIMPLIFIED,
+  CROATIAN,
   DUTCH,
   ENGLISH,
   FRENCH,
@@ -45,6 +46,8 @@ enum LunaLanguage {
   static LunaLanguage? fromLocale(Locale locale) {
     if (locale.toLanguageTag() == LunaLanguage.CHINESE_SIMPLIFIED.languageTag)
       return LunaLanguage.CHINESE_SIMPLIFIED;
+    if (locale.toLanguageTag() == LunaLanguage.CROATIAN.languageTag)
+      return LunaLanguage.CROATIAN;
     if (locale.toLanguageTag() == LunaLanguage.DUTCH.languageTag)
       return LunaLanguage.DUTCH;
     if (locale.toLanguageTag() == LunaLanguage.ENGLISH.languageTag)
@@ -85,16 +88,17 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.ENGLISH:
         return true;
+      case LunaLanguage.CHINESE_SIMPLIFIED:
+      case LunaLanguage.CROATIAN:
+      case LunaLanguage.DUTCH:
       case LunaLanguage.FRENCH:
       case LunaLanguage.GERMAN:
+      case LunaLanguage.HUNGARIAN:
       case LunaLanguage.ITALIAN:
       case LunaLanguage.NORWEGIAN_BOKMAL:
       case LunaLanguage.PORTUGUESE:
       case LunaLanguage.RUSSIAN:
       case LunaLanguage.SWEDISH:
-      case LunaLanguage.CHINESE_SIMPLIFIED:
-      case LunaLanguage.DUTCH:
-      case LunaLanguage.HUNGARIAN:
       case LunaLanguage.SPANISH:
       case LunaLanguage.TURKISH:
       case LunaLanguage.VIETNAMESE:
@@ -106,6 +110,8 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.CHINESE_SIMPLIFIED:
         return 'Chinese (Simplified)';
+      case LunaLanguage.CROATIAN:
+        return 'Crotian (Hrvatski)';
       case LunaLanguage.DUTCH:
         return 'Dutch';
       case LunaLanguage.ENGLISH:
@@ -139,6 +145,8 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.CHINESE_SIMPLIFIED:
         return 'zh-Hans';
+      case LunaLanguage.CROATIAN:
+        return 'hr';
       case LunaLanguage.DUTCH:
         return 'nl';
       case LunaLanguage.ENGLISH:
@@ -172,6 +180,8 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.CHINESE_SIMPLIFIED:
         return const Locale('zh', 'Hans');
+      case LunaLanguage.CROATIAN:
+        return const Locale('hr');
       case LunaLanguage.DUTCH:
         return const Locale('nl');
       case LunaLanguage.ENGLISH:

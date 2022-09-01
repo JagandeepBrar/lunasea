@@ -71,7 +71,6 @@ class LunaOS extends StatelessWidget {
                 useInheritedMediaQuery: true,
                 darkTheme: theme.activeTheme(),
                 theme: theme.activeTheme(),
-                scrollBehavior: LunaScrollBehavior(),
                 title: 'LunaSea',
                 routeInformationProvider: router.routeInformationProvider,
                 routeInformationParser: router.routeInformationParser,

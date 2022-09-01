@@ -34,13 +34,13 @@ abstract class OverseerrAPI {
   });
 
   @GET('issue/{id}')
-  Future<OverseerrIssue> getIssue({
-    @Path('id') required int id,
-  });
+  Future<OverseerrIssue> getIssue(
+    @Path('id') int id,
+  );
 
   @GET('movie/{id}')
-  Future<OverseerrMovie> getMovie({
-    @Path('id') required int id,
+  Future<OverseerrMovie> getMovie(
+    @Path('id') int id, {
     @Query('language') String? language,
   });
 
@@ -54,9 +54,9 @@ abstract class OverseerrAPI {
   });
 
   @GET('request/{id}')
-  Future<OverseerrRequest> getRequest({
-    @Path('id') required String id,
-  });
+  Future<OverseerrRequest> getRequest(
+    @Path('id') String id,
+  );
 
   @GET('request/count')
   Future<OverseerrRequestCount> getRequestCount();
@@ -68,8 +68,8 @@ abstract class OverseerrAPI {
   Future<OverseerrStatusAppData> getStatusAppData();
 
   @GET('tv/{id}')
-  Future<OverseerrSeries> getSeries({
-    @Path('id') required int id,
+  Future<OverseerrSeries> getSeries(
+    @Path('id') int id, {
     @Query('language') String? language,
   });
 
@@ -81,12 +81,12 @@ abstract class OverseerrAPI {
   });
 
   @GET('user/{id}')
-  Future<OverseerrUserPage> getUser({
-    @Path('id') required String id,
-  });
+  Future<OverseerrUserPage> getUser(
+    @Path('id') String id,
+  );
 
   @GET('user/{id}/quota')
-  Future<OverseerrUserQuota> getUserQuota({
-    @Path('id') required String id,
-  });
+  Future<OverseerrUserQuota> getUserQuota(
+    @Path('id') String id,
+  );
 }

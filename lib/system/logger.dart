@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/log.dart';
+import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/types/exception.dart';
 import 'package:lunasea/types/log_type.dart';
 
@@ -53,34 +54,44 @@ class LunaLogger {
   }
 
   void error(String message, dynamic error, StackTrace? stackTrace) {
+    if (kDebugMode) {
+      print(message);
+      print(error);
+      print(stackTrace);
+    }
+
     if (error is! NetworkImageLoadException) {
+      if (error is! DioError) {
+        LunaSentry().captureException(error, stackTrace);
+      }
+
       LunaLog log = LunaLog.withError(
         type: LunaLogType.ERROR,
         message: message,
         error: error,
         stackTrace: stackTrace,
       );
-      if (kDebugMode) {
-        print(message);
-        print(error);
-        print(stackTrace);
-      }
       LunaBox.logs.create(log);
     }
   }
 
   void critical(dynamic error, StackTrace stackTrace) {
+    if (kDebugMode) {
+      print(error);
+      print(stackTrace);
+    }
+
     if (error is! NetworkImageLoadException) {
+      if (error is! DioError) {
+        LunaSentry().captureException(error, stackTrace);
+      }
+
       LunaLog log = LunaLog.withError(
         type: LunaLogType.CRITICAL,
         message: error?.toString() ?? LunaUI.TEXT_EMDASH,
         error: error,
         stackTrace: stackTrace,
       );
-      if (kDebugMode) {
-        print(error);
-        print(stackTrace);
-      }
       LunaBox.logs.create(log);
     }
   }

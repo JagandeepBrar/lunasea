@@ -27,6 +27,8 @@ on:
     secrets:
       FIREBASE_TOKEN:
         required: true
+      SENTRY_DSN:
+        required: true
 
 jobs:
   build-details:
@@ -131,6 +133,7 @@ jobs:
           export FLAVOR=${{ needs.build-details.outputs.build-flavor }}
           export COMMIT=${{ github.sha }}
           export BUILD=${{ needs.build-details.outputs.build-number }}
+          export SENTRY_DSN=${{ secrets.SENTRY_DSN }}
           flutter packages pub run environment_config:generate
      
       - name: Generate Localization

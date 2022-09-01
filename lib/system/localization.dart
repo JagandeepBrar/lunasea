@@ -111,7 +111,7 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.CHINESE_SIMPLIFIED:
         return 'Chinese (Simplified)';
       case LunaLanguage.CROATIAN:
-        return 'Crotian (Hrvatski)';
+        return 'Crotian';
       case LunaLanguage.DUTCH:
         return 'Dutch';
       case LunaLanguage.ENGLISH:

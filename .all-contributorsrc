@@ -331,6 +331,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "Slam4uk",
+      "name": "Slam4uk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78175288?v=4",
+      "profile": "https://github.com/Slam4uk",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,

@@ -3,7 +3,7 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-36-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -59,6 +59,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://github.com/KevoM"><img src="https://avatars.githubusercontent.com/u/8274366?v=4?s=100" width="100px;" alt=""/><br /><sub><b>KevoM</b></sub></a><br /><a href="#translation-KevoM" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/rogeriomendes"><img src="https://avatars.githubusercontent.com/u/1494503?v=4?s=100" width="100px;" alt=""/><br /><sub><b>rogeriomendes</b></sub></a><br /><a href="#translation-rogeriomendes" title="Translation">🌍</a></td>
     <td align="center"><a href="http://www.paddez.com/"><img src="https://avatars.githubusercontent.com/u/587220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David K</b></sub></a><br /><a href="#design-Irishsmurf" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/Slam4uk"><img src="https://avatars.githubusercontent.com/u/78175288?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Slam4uk</b></sub></a><br /><a href="#translation-Slam4uk" title="Translation">🌍</a></td>
   </tr>
 </table>
 

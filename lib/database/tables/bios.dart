@@ -2,6 +2,7 @@ import 'package:lunasea/database/table.dart';
 
 enum BIOSDatabase<T> with LunaTableMixin<T> {
   DATABASE_CORRUPTION<bool>(false),
+  SENTRY_LOGGING<bool>(true),
   FIRST_BOOT<bool>(true);
 
   @override

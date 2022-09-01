@@ -1,3 +1,4 @@
+import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/system/environment.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -11,6 +12,7 @@ class LunaSentry {
   }
 
   Future<void> captureException(dynamic error, StackTrace? stackTrace) async {
+    if (!BIOSDatabase.SENTRY_LOGGING.read()) return;
     await Sentry.captureException(error, stackTrace: stackTrace);
   }
 

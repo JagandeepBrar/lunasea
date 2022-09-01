@@ -523,6 +523,8 @@
     "settings.RestoreFromCloudSuccessMessage": "Your configuration has been restored",
     "settings.RestoreFromDevice": "Restore from Device",
     "settings.RestoreFromDeviceDescription": "Restore Configuration Data",
+    "settings.SentryLogging": "Sentry Logging",
+    "settings.SentryLoggingDescription": "Upload Errors & Crashes to Sentry",
     "settings.SignedInFailure": "Failed to Sign In",
     "settings.SignedInSuccess": "Successfully Signed In",
     "settings.SignedOutFailure": "Failed to Sign Out",

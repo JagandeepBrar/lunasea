@@ -27,7 +27,6 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   QUICK_ACTIONS_TAUTULLI<bool>(false),
   QUICK_ACTIONS_SEARCH<bool>(false),
   USE_24_HOUR_TIME<bool>(false),
-  DEFAULT_LAUNCH_MODULE<LunaModule>(LunaModule.DASHBOARD),
   ENABLE_IN_APP_NOTIFICATIONS<bool>(true),
   CHANGELOG_LAST_BUILD_VERSION<int>(0);
 
@@ -55,8 +54,6 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
   dynamic export() {
     LunaSeaDatabase db = this;
     switch (db) {
-      case LunaSeaDatabase.DEFAULT_LAUNCH_MODULE:
-        return LunaSeaDatabase.DEFAULT_LAUNCH_MODULE.read().key;
       case LunaSeaDatabase.DRAWER_MANUAL_ORDER:
         return LunaDrawer.moduleOrderedList()
             .map<String>((module) => module.key)
@@ -72,9 +69,6 @@ enum LunaSeaDatabase<T> with LunaTableMixin<T> {
     dynamic result;
 
     switch (db) {
-      case LunaSeaDatabase.DEFAULT_LAUNCH_MODULE:
-        result = LunaModule.fromKey(value.toString());
-        break;
       case LunaSeaDatabase.DRAWER_MANUAL_ORDER:
         List<LunaModule> item = [];
         (value as List).cast<String>().forEach((val) {

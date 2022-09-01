@@ -1,0 +1,21 @@
+{
+    "dashboard.Calendar": "Kalendar",
+    "dashboard.Friday": "Petak",
+    "dashboard.FutureDays": "Budući dani",
+    "dashboard.FutureDaysDescription": "Postavi broj dana da se ubuduće dohvate unosi iz kalendara.",
+    "dashboard.MinimumOfOneDay": "Najmanje 1 dan",
+    "dashboard.Modules": "Moduli",
+    "dashboard.Monday": "Ponedjeljak",
+    "dashboard.NoNewContent": "Bez novog sadrzaja",
+    "dashboard.OneMonth": "Jedan mjesec",
+    "dashboard.OneWeek": "Jedan tjedan",
+    "dashboard.PastDays": "Prošli dani",
+    "dashboard.PastDaysDescription": "Postavi broj dana iz prošlosti da se dohvate unosi iz kalendara.",
+    "dashboard.Saturday": "Subota",
+    "dashboard.Schedule": "Raspored",
+    "dashboard.Sunday": "Nedjelja",
+    "dashboard.Thursday": "Četvrtak",
+    "dashboard.Tuesday": "Utorak",
+    "dashboard.TwoWeeks": "Dva tjedna",
+    "dashboard.Wednesday": "Srijeda"
+}

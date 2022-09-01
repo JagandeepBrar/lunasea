@@ -10,6 +10,7 @@ import 'package:lunasea/system/cache/image/image_cache.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/network/network.dart';
+import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/system/window_manager/window_manager.dart';
 import 'package:lunasea/system/platform.dart';
 
@@ -21,9 +22,10 @@ Future<void> main() async {
   runZonedGuarded(
     () async {
       //LunaSea initialization
+      await LunaSentry().initialize();
       await LunaDatabase().initialize();
-      if (LunaFirebase.isSupported) await LunaFirebase().initialize();
       LunaLogger().initialize();
+      if (LunaFirebase.isSupported) await LunaFirebase().initialize();
       LunaTheme().initialize();
       if (LunaWindowManager.isSupported) await LunaWindowManager().initialize();
       if (LunaNetwork.isSupported) LunaNetwork().initialize();

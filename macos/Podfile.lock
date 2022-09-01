@@ -26,7 +26,7 @@ PODS:
   - firebase_core (1.21.1):
     - Firebase/CoreOnly (~> 9.4.0)
     - FlutterMacOS
-  - firebase_messaging (12.0.1):
+  - firebase_messaging (12.0.3):
     - Firebase/CoreOnly (~> 9.4.0)
     - Firebase/Messaging (~> 9.4.0)
     - firebase_core
@@ -126,6 +126,13 @@ PODS:
   - PromisesObjC (2.1.1)
   - screen_retriever (0.0.1):
     - FlutterMacOS
+  - Sentry (7.23.0):
+    - Sentry/Core (= 7.23.0)
+  - Sentry/Core (7.23.0)
+  - sentry_flutter (0.0.1):
+    - Flutter
+    - FlutterMacOS
+    - Sentry (~> 7.23.0)
   - share_plus_macos (0.0.1):
     - FlutterMacOS
   - shared_preferences_macos (0.0.1):
@@ -149,6 +156,7 @@ DEPENDENCIES:
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
+  - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
   - share_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
@@ -175,6 +183,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
+    - Sentry
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -198,6 +207,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
   screen_retriever:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
+  sentry_flutter:
+    :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
   share_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos
   shared_preferences_macos:
@@ -219,7 +230,7 @@ SPEC CHECKSUMS:
   Firebase: 7703fc4022824b6d6db1bf7bea58d13b8e17ec46
   firebase_auth: d73121234b93a92fa130c1595c59afd37cbfcce8
   firebase_core: 822a1076483bf9764284322c9310daa98e1e6817
-  firebase_messaging: 564a55c225276ba69412e29557c8d280916aa22f
+  firebase_messaging: b76079f26d7a22470b2de423198a0cabf98ebf03
   firebase_storage: 5e4de184fe773a22f4c65875d1e71c009a4cc7b0
   FirebaseAppCheckInterop: 8e95b4329809e3c06fb425acb3839dcadfe23673
   FirebaseAuth: ae5d4402e1516497357d909162b091b3ca2a2e9c
@@ -243,6 +254,8 @@ SPEC CHECKSUMS:
   path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
+  Sentry: a0d4563fa4ddacba31fdcc35daaa8573d87224d6
+  sentry_flutter: 8bde7d0e57a721727fe573f13bb292c497b5a249
   share_plus_macos: 853ee48e7dce06b633998ca0735d482dd671ade4
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea

@@ -25,6 +25,7 @@ jobs:
       flavor: ${{ inputs.flavor }}
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   build-android:
     name: Build Android

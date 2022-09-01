@@ -44,6 +44,7 @@ dependencies:
   percent_indicator: ^4.2.2
   quick_actions: ^1.0.0
   retrofit: ^3.0.1+1
+  sentry_flutter: ^6.9.1
   share_plus: ^4.0.10+1
   shimmer: ^2.0.0
   simple_icons: ^7.1.0

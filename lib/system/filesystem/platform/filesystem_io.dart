@@ -64,6 +64,7 @@ class _Desktop extends _Shared {
         String? _ext = result!.files[0].extension;
         if (LunaFileSystem.isValidExtension(extensions, _ext)) {
           return LunaFile(
+            name: result.files[0].name,
             path: result.files[0].path!,
             data: result.files[0].bytes!,
           );
@@ -123,6 +124,7 @@ class _Mobile extends _Shared {
         String? _ext = result!.files[0].extension;
         if (LunaFileSystem.isValidExtension(extensions, _ext)) {
           return LunaFile(
+            name: result.files[0].name,
             path: result.files[0].path!,
             data: result.files[0].bytes!,
           );

@@ -1,1 +1,26 @@
-{}
+{
+  "sabnzbd.Age": "Age",
+  "sabnzbd.All": "All",
+  "sabnzbd.Ascending": "Ascending",
+  "sabnzbd.CategoryDefault": "Category Default",
+  "sabnzbd.Completed": "Completed",
+  "sabnzbd.Descending": "Descending",
+  "sabnzbd.Duplicate": "Duplicate",
+  "sabnzbd.Failed": "Failed",
+  "sabnzbd.Force": "Force",
+  "sabnzbd.HibernatePC": "Hibernate PC",
+  "sabnzbd.High": "High",
+  "sabnzbd.Low": "Low",
+  "sabnzbd.Name": "Name",
+  "sabnzbd.None": "None",
+  "sabnzbd.Normal": "Normal",
+  "sabnzbd.Paused": "Paused",
+  "sabnzbd.Repair": "Repair",
+  "sabnzbd.RepairUnpack": "Repair/Unpack",
+  "sabnzbd.RepairUnpackDelete": "Repair/Unpack/Delete",
+  "sabnzbd.Size": "Size",
+  "sabnzbd.ShutdownPC": "Shutdown PC",
+  "sabnzbd.ShutdownSABnzbd": "Shutdown SABnzbd",
+  "sabnzbd.StandbyPC": "Standby PC",
+  "sabnzbd.Stop": "Stop"
+}

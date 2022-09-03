@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:lunasea/api/sabnzbd/types/post_processing.dart';
 import 'package:retrofit/retrofit.dart';

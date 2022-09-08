@@ -123,6 +123,7 @@ runs:
         FIREBASE_TOKEN: ${{ inputs.firebase-token }}
       run: |
         npm install -g firebase-tools
+        gem install --user-install xcodeproj
         dart pub global activate flutterfire_cli
 
         flutterfire configure \

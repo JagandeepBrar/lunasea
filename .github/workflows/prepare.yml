@@ -154,4 +154,3 @@ jobs:
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
             ${{ github.workspace }}/lib/system/environment.dart
-            ${{ github.workspace }}/web/firebase-messaging-sw.js

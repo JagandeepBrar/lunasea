@@ -7,7 +7,7 @@ import 'package:lunasea/firebase/types.dart';
 class LunaFirebaseFirestore {
   /// Returns an instance of [FirebaseFirestore].
   ///
-  /// Throws an errof if [LunaFirebase.initialize] has not been called.
+  /// Throws an error if [LunaFirebase.initialize] has not been called.
   static FirebaseFirestore get instance => FirebaseFirestore.instance;
 
   /// Add a backup entry to Firestore. Returns true if successful, and false on any error.

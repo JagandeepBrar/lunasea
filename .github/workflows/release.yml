@@ -24,6 +24,7 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
     secrets:
+      FIREBASE_SERVICE_WORKER: ${{ secrets.FIREBASE_SERVICE_WORKER }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 

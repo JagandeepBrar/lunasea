@@ -25,6 +25,8 @@ on:
         value: ${{ jobs.build-details.outputs.build-version }}
 
     secrets:
+      FIREBASE_SERVICE_WORKER:
+        required: true
       FIREBASE_TOKEN:
         required: true
       SENTRY_DSN:
@@ -142,6 +144,9 @@ jobs:
       - name: Generate Changelog
         run: dart ${{github.workspace }}/scripts/generate_changelog.dart ${{ needs.build-details.outputs.build-flavor }}
 
+      - name: Generate Firebase Service Worker
+        run: echo ${{ secrets.FIREBASE_SERVICE_WORKER }} | base64 --decode > web/firebase-messaging-sw.js
+
       - name: Generate Build Runner Files
         run: flutter packages pub run build_runner build
 
@@ -154,3 +159,4 @@ jobs:
             ${{ github.workspace }}/assets/localization
             ${{ github.workspace }}/lib/**/*.g.dart
             ${{ github.workspace }}/lib/system/environment.dart
+            ${{ github.workspace }}/web/firebase-messaging-sw.js

@@ -2,14 +2,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/utils/profile_tools.dart';
 import 'package:lunasea/firebase/core.dart';
-import 'package:lunasea/system/platform.dart';
 
 class LunaFirebaseMessaging {
   static const _VAPID_KEY =
       'BGCP2BO8JOTuvagaYl41btXiiC_XszsGCDduq6C-escc4xb2UMglX3RDojCY1YuGMAx2lXGVF-VYmTN3LQGvhYc';
 
   static bool get isSupported {
-    if (LunaFirebase.isSupported && !LunaPlatform.isWeb) return true;
+    if (LunaFirebase.isSupported) return true;
     return false;
   }
 

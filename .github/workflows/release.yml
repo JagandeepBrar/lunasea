@@ -24,7 +24,7 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
     secrets:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   build-android:
@@ -34,7 +34,7 @@ jobs:
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       KEY_JKS: ${{ secrets.KEY_JKS }}
       KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
 
@@ -48,7 +48,7 @@ jobs:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       IOS_CODESIGNING_IDENTITY: ${{ secrets.IOS_CODESIGNING_IDENTITY }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
       MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
@@ -74,7 +74,7 @@ jobs:
       APPLE_STORE_CONNECT_KEY: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
       APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       MACOS_INSTALLER_CERT_APP_STORE: ${{ secrets.MACOS_INSTALLER_CERT_APP_STORE }}
       MACOS_INSTALLER_CERT_DIRECT: ${{ secrets.MACOS_INSTALLER_CERT_DIRECT }}
       MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
@@ -90,8 +90,8 @@ jobs:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
+      FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
       FIREBASE_SERVICE_WORKER: ${{ secrets.FIREBASE_SERVICE_WORKER }}
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build-windows:
     name: Build Windows

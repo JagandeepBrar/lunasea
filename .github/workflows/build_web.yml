@@ -13,7 +13,7 @@ on:
     secrets:
       FIREBASE_SERVICE_WORKER:
         required: true
-      FIREBASE_TOKEN:
+      FIREBASE_OPTIONS:
         required: true
 
 jobs:
@@ -24,8 +24,8 @@ jobs:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
+          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
           firebase-service-worker: ${{ secrets.firebase-service-worker }}
-          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: web
 
       - name: Build LunaSea

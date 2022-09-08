@@ -7,8 +7,8 @@ inputs:
     required: true
 
   # Config
-  firebase-token:
-    description: 'Firebase Token'
+  firebase-options:
+    description: 'Firebase Options'
     required: false
     default: ''
   skip-core:
@@ -117,23 +117,9 @@ runs:
         echo ${{ inputs.android-key-properties }} | base64 --decode > android/key.properties
 
     - name: Setup Firebase Configuration
-      if: ${{ inputs.firebase-token != '' }}
+      if: ${{ inputs.firebase-options != '' }}
       shell: bash
-      env:
-        FIREBASE_TOKEN: ${{ inputs.firebase-token }}
-      run: |
-        npm install -g firebase-tools
-        gem install --user-install xcodeproj
-        dart pub global activate flutterfire_cli
-
-        flutterfire configure \
-        --android-package-name=app.lunasea.lunasea \
-        --ios-bundle-id=app.lunasea.lunasea \
-        --macos-bundle-id=app.lunasea.lunasea \
-        --out=lib/firebase/options.dart \
-        --platforms=android,ios,macos,web \
-        --no-apply-gradle-plugins \
-        --yes
+      run: echo ${{ inputs.firebase-options }} | base64 --decode > lib/firebase/options.dart
 
     - name: Setup Firebase Service Worker
       if: ${{ inputs.firebase-service-worker != '' }}

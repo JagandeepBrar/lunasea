@@ -1,4 +1,4 @@
-import 'package:lunasea/types/enum_serializable.dart';
+import 'package:lunasea/types/enum/serializable.dart';
 
 enum SABnzbdAction with EnumSerializable {
   FALSE('0'),

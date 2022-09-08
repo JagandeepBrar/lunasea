@@ -24,7 +24,6 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
     secrets:
-      FIREBASE_SERVICE_WORKER: ${{ secrets.FIREBASE_SERVICE_WORKER }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
@@ -91,6 +90,7 @@ jobs:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
+      FIREBASE_SERVICE_WORKER: ${{ secrets.FIREBASE_SERVICE_WORKER }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build-windows:

@@ -33,6 +33,10 @@ inputs:
     description: 'Code Signing Certificate'
     required: false
     default: ''
+  firebase-service-worker:
+    description: 'Firebase Service Worker'
+    required: false
+    default: ''
   google-play-key:
     description: 'Google Play Store API Key'
     required: false
@@ -129,6 +133,11 @@ runs:
         --platforms=android,ios,macos,web \
         --no-apply-gradle-plugins \
         --yes
+
+    - name: Setup Firebase Service Worker
+      if: ${{ inputs.firebase-service-worker != '' }}
+      shell: bash
+      run: echo ${{ inputs.firebase-service-worker }} | base64 --decode > web/firebase-messaging-sw.js
 
     - name: Setup Android Platform
       if: ${{ inputs.platform == 'android' }}

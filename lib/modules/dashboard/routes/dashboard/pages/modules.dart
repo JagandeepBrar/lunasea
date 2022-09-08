@@ -5,7 +5,7 @@ import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/modules/dashboard/routes/dashboard/widgets/navigation_bar.dart';
 
 class ModulesPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 
 class LunaDrawer extends StatelessWidget {
   final String page;

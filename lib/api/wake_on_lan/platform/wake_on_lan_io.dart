@@ -1,11 +1,9 @@
+import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
-
-// ignore: always_use_package_imports
-import '../wake_on_lan.dart';
 
 bool isPlatformSupported() => true;
 LunaWakeOnLAN getWakeOnLAN() => IO();

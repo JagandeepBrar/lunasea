@@ -18,7 +18,7 @@ import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
-import 'package:lunasea/modules/wake_on_lan/api/wake_on_lan.dart';
+import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/system/flavor.dart';
 
 part 'modules.g.dart';

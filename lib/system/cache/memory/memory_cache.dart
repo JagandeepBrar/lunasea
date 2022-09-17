@@ -2,9 +2,9 @@ import 'package:lunasea/system/cache/memory/memory_store.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/vendor.dart';
 
-class LunaMemoryCache {
+class LunaMemoryCache<T> {
   late String _key;
-  late Future<Cache> _cache;
+  late Future<Cache<T>> _cache;
 
   LunaMemoryCache({
     required LunaModule module,
@@ -28,14 +28,14 @@ class LunaMemoryCache {
   /// Returns the the cache with the given ID from the module.
   ///
   /// If the cache has not been instantiated, it will create a new one.
-  Future<Cache> _getCache({
+  Future<Cache<T>> _getCache({
     EvictionPolicy evictionPolicy = const LruEvictionPolicy(),
     ExpiryPolicy expiryPolicy = const EternalExpiryPolicy(),
     int maxEntries = 25,
     KeySampler sampler = const FullSampler(),
     EventListenerMode eventListenerMode = EventListenerMode.disabled,
   }) async {
-    return LunaMemoryStore.get(
+    return LunaMemoryStore().get(
       id: _key,
       fresh: true,
       evictionPolicy: evictionPolicy,
@@ -51,7 +51,7 @@ class LunaMemoryCache {
     return cache.containsKey(key);
   }
 
-  Future<dynamic> get(String key) async {
+  Future<T?> get(String key) async {
     final cache = await _cache;
     return cache.get(key);
   }
@@ -61,7 +61,7 @@ class LunaMemoryCache {
     return cache.size;
   }
 
-  Future<void> put(String key, dynamic value) async {
+  Future<void> put(String key, T value) async {
     final cache = await _cache;
     return cache.put(key, value);
   }

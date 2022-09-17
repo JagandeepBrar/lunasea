@@ -60,12 +60,6 @@ class _State extends State<ResourcesRoute> with LunaScrollControllerMixin {
           onTap: LunaLinkedContent.DISCORD.launch,
         ),
         LunaBlock(
-          title: 'settings.FeedbackBoard'.tr(),
-          body: [TextSpan(text: 'settings.FeedbackBoardDescription'.tr())],
-          trailing: const LunaIconButton(icon: LunaIcons.FEEDBACK),
-          onTap: LunaLinkedContent.FEEDBACK_BOARD.launch,
-        ),
-        LunaBlock(
           title: 'Reddit',
           body: [TextSpan(text: 'settings.RedditDescription'.tr())],
           trailing: const LunaIconButton(icon: LunaIcons.REDDIT),

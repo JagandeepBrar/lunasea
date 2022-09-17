@@ -47,21 +47,15 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  final LunaMemoryCache _episodeHistoryCache = LunaMemoryCache(
+  final _episodeHistoryCache = LunaMemoryCache<Future<SonarrHistoryPage>>(
     maxEntries: 10,
     module: LunaModule.SONARR,
     id: 'episode_history_cache',
   );
 
-  LunaMemoryCache get episodeHistoryCache => _episodeHistoryCache;
-  set episodeHistoryCache(LunaMemoryCache episodeHistoryCache) {
-    episodeHistoryCache = episodeHistoryCache;
-    notifyListeners();
-  }
-
   Future<void> fetchEpisodeHistory(BuildContext context, int? episodeId) async {
     if (context.read<SonarrState>().enabled) {
-      episodeHistoryCache.put(
+      _episodeHistoryCache.put(
         episodeId.toString(),
         context.read<SonarrState>().api!.history.get(
               pageSize: 1000,
@@ -72,10 +66,9 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<SonarrHistoryPage> getEpisodeHistory(int? episodeId) async {
-    return episodeHistoryCache
-        .get(episodeId.toString())
-        .then((data) => data as SonarrHistoryPage);
+  Future<SonarrHistoryPage?> getEpisodeHistory(int episodeId) async {
+    String id = episodeId.toString();
+    return await _episodeHistoryCache.get(id);
   }
 
   Future<Map<int, SonarrEpisode>>? _episodes;

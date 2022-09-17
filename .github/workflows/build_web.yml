@@ -11,9 +11,9 @@ on:
         type: string
 
     secrets:
-      FIREBASE_SERVICE_WORKER:
-        required: true
       FIREBASE_OPTIONS:
+        required: true
+      FIREBASE_SERVICE_WORKER:
         required: true
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
           firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
-          firebase-service-worker: ${{ secrets.firebase-service-worker }}
+          firebase-service-worker: ${{ secrets.FIREBASE_SERVICE_WORKER }}
           platform: web
 
       - name: Build LunaSea

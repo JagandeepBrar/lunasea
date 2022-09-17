@@ -62,13 +62,13 @@ class OverseerrState extends LunaModuleState {
   /// REQUESTS ///
   ////////////////
 
-  final LunaMemoryCache _movieCache = LunaMemoryCache(
+  final _movieCache = LunaMemoryCache<Future<OverseerrMovie>>(
     maxEntries: 50,
     module: LunaModule.OVERSEERR,
     id: 'requests_movie_cache',
   );
 
-  final LunaMemoryCache _seriesCache = LunaMemoryCache(
+  final _seriesCache = LunaMemoryCache<Future<OverseerrSeries>>(
     maxEntries: 50,
     module: LunaModule.OVERSEERR,
     id: 'requests_series_cache',
@@ -100,15 +100,11 @@ class OverseerrState extends LunaModuleState {
 
   Future<OverseerrMovie?> getMovie(int movieId) async {
     String id = movieId.toString();
-    return _movieCache.get(id).then((movie) {
-      return movie as OverseerrMovie?;
-    });
+    return await _movieCache.get(id);
   }
 
-  Future<OverseerrSeries?> getSeries(int seriesId) {
+  Future<OverseerrSeries?> getSeries(int seriesId) async {
     String id = seriesId.toString();
-    return _seriesCache.get(id).then((series) {
-      return series as OverseerrSeries?;
-    });
+    return await _seriesCache.get(id);
   }
 }

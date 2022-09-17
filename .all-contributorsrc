@@ -340,6 +340,24 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "timrettop",
+      "name": "Tim Potter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/434913?v=4",
+      "profile": "https://github.com/timrettop",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "carlesmu",
+      "name": "Carles Muñoz Gorriz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1310090?v=4",
+      "profile": "https://github.com/carlesmu",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,

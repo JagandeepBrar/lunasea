@@ -113,8 +113,6 @@ class LunaUI {
   }
 
   static ShapeBorder get shapeBorder {
-    return shouldUseBorder
-        ? LunaShapeBorder.roundedWithBorder()
-        : LunaShapeBorder.rounded();
+    return LunaShapeBorder(useBorder: shouldUseBorder);
   }
 }

@@ -6,18 +6,7 @@ class LunaTheme {
   /// Initialize the theme by setting the system navigation and system colours.
   void initialize() {
     //Set system UI overlay style (navbar, statusbar)
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: LunaSeaDatabase.THEME_AMOLED.read()
-          ? Colors.black
-          : LunaColours.secondary,
-      systemNavigationBarDividerColor: LunaSeaDatabase.THEME_AMOLED.read()
-          ? Colors.black
-          : LunaColours.secondary,
-      statusBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(overlayStyle);
   }
 
   /// Returns the active [ThemeData] by checking the theme database value.
@@ -94,6 +83,21 @@ class LunaTheme {
       textTheme: _sharedTextTheme,
       textButtonTheme: _sharedTextButtonThemeData,
       visualDensity: VisualDensity.adaptivePlatformDensity,
+    );
+  }
+
+  SystemUiOverlayStyle get overlayStyle {
+    return SystemUiOverlayStyle(
+      systemNavigationBarColor: LunaSeaDatabase.THEME_AMOLED.read()
+          ? Colors.black
+          : LunaColours.secondary,
+      systemNavigationBarDividerColor: LunaSeaDatabase.THEME_AMOLED.read()
+          ? Colors.black
+          : LunaColours.secondary,
+      statusBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
     );
   }
 

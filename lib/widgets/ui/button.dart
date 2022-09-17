@@ -52,9 +52,8 @@ class LunaButton extends Card {
               : Theme.of(LunaState.context)
                   .canvasColor
                   .withOpacity(LunaUI.OPACITY_DIMMED),
-          shape: backgroundColor != null
-              ? LunaShapeBorder.rounded()
-              : LunaUI.shapeBorder,
+          shape:
+              backgroundColor != null ? LunaShapeBorder() : LunaUI.shapeBorder,
           elevation: LunaUI.ELEVATION,
           clipBehavior: Clip.antiAlias,
         );

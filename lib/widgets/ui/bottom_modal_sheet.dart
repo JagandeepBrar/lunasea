@@ -13,10 +13,14 @@ class LunaBottomModalSheet<T> {
       expand: false,
       backgroundColor:
           LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
-      shape: LunaUI.shapeBorder,
+      shape: LunaShapeBorder(
+        topOnly: true,
+        useBorder: LunaUI.shouldUseBorder,
+      ),
       builder: builder ?? this.builder as Widget Function(BuildContext),
       closeProgressThreshold: 0.90,
       elevation: LunaUI.ELEVATION,
+      overlayStyle: LunaTheme().overlayStyle,
     );
   }
 

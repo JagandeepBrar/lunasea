@@ -559,7 +559,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "4.4.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -755,7 +755,7 @@ packages:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.0"
   msix:
     dependency: "direct dev"
     description:

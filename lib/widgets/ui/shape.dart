@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaShapeBorder extends RoundedRectangleBorder {
-  LunaShapeBorder._internal({
+  LunaShapeBorder({
     bool useBorder = false,
+    bool topOnly = false,
   }) : super(
-          borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(LunaUI.BORDER_RADIUS),
+            topRight: const Radius.circular(LunaUI.BORDER_RADIUS),
+            bottomLeft: topOnly
+                ? Radius.zero
+                : const Radius.circular(LunaUI.BORDER_RADIUS),
+            bottomRight: topOnly
+                ? Radius.zero
+                : const Radius.circular(LunaUI.BORDER_RADIUS),
+          ),
           side: useBorder
               ? const BorderSide(color: LunaColours.white10)
               : BorderSide.none,
         );
-
-  factory LunaShapeBorder.rounded() => LunaShapeBorder._internal();
-  factory LunaShapeBorder.roundedWithBorder() =>
-      LunaShapeBorder._internal(useBorder: true);
 }

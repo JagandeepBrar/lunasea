@@ -73,7 +73,7 @@ class LunaListTile extends Card {
           ),
           margin: margin,
           elevation: LunaUI.ELEVATION,
-          shape: drawBorder ? LunaUI.shapeBorder : LunaShapeBorder.rounded(),
+          shape: drawBorder ? LunaUI.shapeBorder : LunaShapeBorder(),
           color: color ?? Theme.of(context).primaryColor,
         );
 }

@@ -7,6 +7,7 @@ import 'package:lunasea/database/database.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/router/router.dart';
 import 'package:lunasea/system/cache/image/image_cache.dart';
+import 'package:lunasea/system/cache/memory/memory_store.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/network/network.dart';
@@ -33,6 +34,7 @@ Future<void> main() async {
       LunaRouter().initialize();
       if (LunaInAppPurchase.isSupported) LunaInAppPurchase().initialize();
       await LunaLocalization().initialize();
+      await LunaMemoryStore().initialize();
       // Run application
       return runApp(const LunaOS());
     },

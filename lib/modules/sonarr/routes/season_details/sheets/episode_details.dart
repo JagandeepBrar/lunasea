@@ -200,12 +200,12 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
   List<Widget> _history(BuildContext context) {
     return [
       FutureBuilder(
-        future:
-            context.select<SonarrSeasonDetailsState, Future<SonarrHistoryPage>>(
-          (s) => s.getEpisodeHistory(episode!.id),
+        future: context
+            .select<SonarrSeasonDetailsState, Future<SonarrHistoryPage?>>(
+          (s) => s.getEpisodeHistory(episode!.id!),
         ),
         builder:
-            (BuildContext context, AsyncSnapshot<SonarrHistoryPage> snapshot) {
+            (BuildContext context, AsyncSnapshot<SonarrHistoryPage?> snapshot) {
           if (snapshot.hasError) {
             if (snapshot.connectionState != ConnectionState.waiting) {
               LunaLogger().error(
@@ -302,7 +302,7 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
             state.episodes!,
             state.files!,
             state.queue,
-            state.getEpisodeHistory(episode!.id),
+            state.getEpisodeHistory(episode!.id!),
           ]),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {

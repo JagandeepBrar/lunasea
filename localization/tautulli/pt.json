@@ -56,5 +56,12 @@
     "tautulli.Users": "Utilizadores",
     "tautulli.Video": "Vídeo",
     "tautulli.ViewWebGUI": "Ver WEB GUI",
-    "tautulli.Year": "Ano"
+    "tautulli.Year": "Ano",
+    "tautulli.TerminationAttachMessage": "Opcionalmente, você pode anexar uma mensagem de rescisão abaixo.",
+    "tautulli.TerminationConfirmMessage": "Deseja encerrar esta sessão?",
+    "tautulli.TerminationMessage": "Mensagem de Rescisão",
+    "tautulli.Transcode": "Transcodificar",
+    "tautulli.TerminateSession": "Encerrar Sessão",
+    "tautulli.TerminatedSession": "Sessão Encerrada",
+    "tautulli.TerminateSessionFailed": "Falha ao encerrar a sessão"
 }

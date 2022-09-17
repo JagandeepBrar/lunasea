@@ -22,21 +22,27 @@ class LunaLocalization {
 }
 
 enum LunaLanguage {
-  CHINESE_SIMPLIFIED,
-  CROATIAN,
-  DUTCH,
-  ENGLISH,
-  FRENCH,
-  GERMAN,
-  HUNGARIAN,
-  ITALIAN,
-  NORWEGIAN_BOKMAL,
-  PORTUGUESE,
-  RUSSIAN,
-  SPANISH,
-  SWEDISH,
-  TURKISH,
-  VIETNAMESE;
+  CATALAN('ca', Locale('ca'), 'Catalan'),
+  CHINESE_SIMPLIFIED('zh-Hans', Locale('zh', 'Hans'), 'Chinese (Simplified)'),
+  CROATIAN('hr', Locale('hr'), 'Croatian'),
+  DUTCH('nl', Locale('nl'), 'Dutch'),
+  ENGLISH('en', Locale('en'), 'English'),
+  FRENCH('fr', Locale('fr'), 'French'),
+  GERMAN('de', Locale('de'), 'German'),
+  HUNGARIAN('hu', Locale('hu'), 'Hungarian'),
+  ITALIAN('it', Locale('it'), 'Italian'),
+  NORWEGIAN_BOKMAL('nb-NO', Locale('nb', 'NO'), 'Norwegian (Bokmål)'),
+  PORTUGUESE('pt', Locale('pt'), 'Portuguese'),
+  RUSSIAN('ru', Locale('ru'), 'Russian'),
+  SPANISH('es', Locale('es'), 'Spanish'),
+  SWEDISH('sv', Locale('sv'), 'Swedish'),
+  TURKISH('tr', Locale('tr'), 'Turkish'),
+  VIETNAMESE('vi', Locale('vi'), 'Vietnamese');
+
+  final String languageTag;
+  final Locale locale;
+  final String name;
+  const LunaLanguage(this.languageTag, this.locale, this.name);
 
   static LunaLanguage get current {
     final locale = LunaState.context.locale;
@@ -44,41 +50,13 @@ enum LunaLanguage {
   }
 
   static LunaLanguage? fromLocale(Locale locale) {
-    if (locale.toLanguageTag() == LunaLanguage.CHINESE_SIMPLIFIED.languageTag)
-      return LunaLanguage.CHINESE_SIMPLIFIED;
-    if (locale.toLanguageTag() == LunaLanguage.CROATIAN.languageTag)
-      return LunaLanguage.CROATIAN;
-    if (locale.toLanguageTag() == LunaLanguage.DUTCH.languageTag)
-      return LunaLanguage.DUTCH;
-    if (locale.toLanguageTag() == LunaLanguage.ENGLISH.languageTag)
-      return LunaLanguage.ENGLISH;
-    if (locale.toLanguageTag() == LunaLanguage.FRENCH.languageTag)
-      return LunaLanguage.FRENCH;
-    if (locale.toLanguageTag() == LunaLanguage.GERMAN.languageTag)
-      return LunaLanguage.GERMAN;
-    if (locale.toLanguageTag() == LunaLanguage.HUNGARIAN.languageTag)
-      return LunaLanguage.HUNGARIAN;
-    if (locale.toLanguageTag() == LunaLanguage.ITALIAN.languageTag)
-      return LunaLanguage.ITALIAN;
-    if (locale.toLanguageTag() == LunaLanguage.NORWEGIAN_BOKMAL.languageTag)
-      return LunaLanguage.NORWEGIAN_BOKMAL;
-    if (locale.toLanguageTag() == LunaLanguage.PORTUGUESE.languageTag)
-      return LunaLanguage.PORTUGUESE;
-    if (locale.toLanguageTag() == LunaLanguage.RUSSIAN.languageTag)
-      return LunaLanguage.RUSSIAN;
-    if (locale.toLanguageTag() == LunaLanguage.SPANISH.languageTag)
-      return LunaLanguage.SPANISH;
-    if (locale.toLanguageTag() == LunaLanguage.SWEDISH.languageTag)
-      return LunaLanguage.SWEDISH;
-    if (locale.toLanguageTag() == LunaLanguage.TURKISH.languageTag)
-      return LunaLanguage.TURKISH;
-    if (locale.toLanguageTag() == LunaLanguage.VIETNAMESE.languageTag)
-      return LunaLanguage.VIETNAMESE;
+    final tag = locale.toLanguageTag();
+    for (final language in LunaLanguage.values) {
+      if (tag == language.languageTag) return language;
+    }
     return null;
   }
-}
 
-extension LunaLanguageExtension on LunaLanguage {
   Future<void> use() async {
     await LunaState.context.setLocale(locale);
     Intl.defaultLocale = languageTag;
@@ -88,6 +66,7 @@ extension LunaLanguageExtension on LunaLanguage {
     switch (this) {
       case LunaLanguage.ENGLISH:
         return true;
+      case LunaLanguage.CATALAN:
       case LunaLanguage.CHINESE_SIMPLIFIED:
       case LunaLanguage.CROATIAN:
       case LunaLanguage.DUTCH:
@@ -103,111 +82,6 @@ extension LunaLanguageExtension on LunaLanguage {
       case LunaLanguage.TURKISH:
       case LunaLanguage.VIETNAMESE:
         return LunaFlavor.BETA.isRunningFlavor();
-    }
-  }
-
-  String get name {
-    switch (this) {
-      case LunaLanguage.CHINESE_SIMPLIFIED:
-        return 'Chinese (Simplified)';
-      case LunaLanguage.CROATIAN:
-        return 'Crotian';
-      case LunaLanguage.DUTCH:
-        return 'Dutch';
-      case LunaLanguage.ENGLISH:
-        return 'English';
-      case LunaLanguage.FRENCH:
-        return 'French';
-      case LunaLanguage.GERMAN:
-        return 'German';
-      case LunaLanguage.HUNGARIAN:
-        return 'Hungarian';
-      case LunaLanguage.ITALIAN:
-        return 'Italian';
-      case LunaLanguage.NORWEGIAN_BOKMAL:
-        return 'Norwegian (Bokmål)';
-      case LunaLanguage.PORTUGUESE:
-        return 'Portuguese';
-      case LunaLanguage.RUSSIAN:
-        return 'Russian';
-      case LunaLanguage.SPANISH:
-        return 'Spanish';
-      case LunaLanguage.SWEDISH:
-        return 'Swedish';
-      case LunaLanguage.TURKISH:
-        return 'Turkish';
-      case LunaLanguage.VIETNAMESE:
-        return 'Vietnamese';
-    }
-  }
-
-  String get languageTag {
-    switch (this) {
-      case LunaLanguage.CHINESE_SIMPLIFIED:
-        return 'zh-Hans';
-      case LunaLanguage.CROATIAN:
-        return 'hr';
-      case LunaLanguage.DUTCH:
-        return 'nl';
-      case LunaLanguage.ENGLISH:
-        return 'en';
-      case LunaLanguage.FRENCH:
-        return 'fr';
-      case LunaLanguage.GERMAN:
-        return 'de';
-      case LunaLanguage.HUNGARIAN:
-        return 'hu';
-      case LunaLanguage.ITALIAN:
-        return 'it';
-      case LunaLanguage.NORWEGIAN_BOKMAL:
-        return 'nb-NO';
-      case LunaLanguage.PORTUGUESE:
-        return 'pt';
-      case LunaLanguage.RUSSIAN:
-        return 'ru';
-      case LunaLanguage.SPANISH:
-        return 'es';
-      case LunaLanguage.SWEDISH:
-        return 'sv';
-      case LunaLanguage.TURKISH:
-        return 'tr';
-      case LunaLanguage.VIETNAMESE:
-        return 'vi';
-    }
-  }
-
-  Locale get locale {
-    switch (this) {
-      case LunaLanguage.CHINESE_SIMPLIFIED:
-        return const Locale('zh', 'Hans');
-      case LunaLanguage.CROATIAN:
-        return const Locale('hr');
-      case LunaLanguage.DUTCH:
-        return const Locale('nl');
-      case LunaLanguage.ENGLISH:
-        return const Locale('en');
-      case LunaLanguage.FRENCH:
-        return const Locale('fr');
-      case LunaLanguage.GERMAN:
-        return const Locale('de');
-      case LunaLanguage.HUNGARIAN:
-        return const Locale('hu');
-      case LunaLanguage.ITALIAN:
-        return const Locale('it');
-      case LunaLanguage.NORWEGIAN_BOKMAL:
-        return const Locale('nb', 'NO');
-      case LunaLanguage.PORTUGUESE:
-        return const Locale('pt');
-      case LunaLanguage.RUSSIAN:
-        return const Locale('ru');
-      case LunaLanguage.SPANISH:
-        return const Locale('es');
-      case LunaLanguage.SWEDISH:
-        return const Locale('sv');
-      case LunaLanguage.TURKISH:
-        return const Locale('tr');
-      case LunaLanguage.VIETNAMESE:
-        return const Locale('vi');
     }
   }
 }

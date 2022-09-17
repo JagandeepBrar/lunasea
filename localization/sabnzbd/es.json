@@ -1,1 +1,10 @@
-{}
+{
+    "sabnzbd.Age": "Años",
+    "sabnzbd.All": "Todos",
+    "sabnzbd.Ascending": "Ascendente",
+    "sabnzbd.CategoryDefault": "Categoría Predeterminada",
+    "sabnzbd.Completed": "Terminado",
+    "sabnzbd.Descending": "Descendente",
+    "sabnzbd.Duplicate": "Duplicado",
+    "sabnzbd.Failed": "Fallido"
+}

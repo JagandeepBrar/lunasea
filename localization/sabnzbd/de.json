@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Alter",
+    "sabnzbd.All": "Alle",
+    "sabnzbd.Ascending": "Aufsteigend",
+    "sabnzbd.CategoryDefault": "Standard Kategorie",
+    "sabnzbd.Completed": "Abgeschlossen",
+    "sabnzbd.Descending": "Absteigend",
+    "sabnzbd.Duplicate": "Duplikat",
+    "sabnzbd.Failed": "fehlgeschlagen",
+    "sabnzbd.Force": "erzwingen",
+    "sabnzbd.HibernatePC": "Ruhezustand",
+    "sabnzbd.High": "Hoch",
+    "sabnzbd.Low": "Niedrig",
+    "sabnzbd.Name": "Name",
+    "sabnzbd.None": "Keines",
+    "sabnzbd.Normal": "Normal",
+    "sabnzbd.Paused": "Pausiert",
+    "sabnzbd.Repair": "Reparieren",
+    "sabnzbd.RepairUnpack": "Reparieren/Entpacken",
+    "sabnzbd.RepairUnpackDelete": "Reparieren/Entpacken/Löschen",
+    "sabnzbd.Size": "Größe",
+    "sabnzbd.ShutdownPC": "PC Herunterfahren",
+    "sabnzbd.ShutdownSABnzbd": "SABnzbd Herunterfahren",
+    "sabnzbd.StandbyPC": "PC in den Standbymodus setzten",
+    "sabnzbd.Stop": "Stopp"
+}

@@ -256,5 +256,10 @@
     "settings.NoProfilesFound": "Aucun profil trouvé",
     "settings.RenamedProfile": "Profil renommé",
     "settings.Platform": "Plateforme",
-    "settings.Version": "Version"
+    "settings.Version": "Version",
+    "settings.SentryLogging": "Journaux de Sentry",
+    "settings.SentryLoggingDescription": "Soumettre toutes les erreurs et plantages à Sentry",
+    "settings.DatabaseCorruptionDetectedMessageLine1": "Une corruption de la base de données a été détectée et votre configuration a été effacée.",
+    "settings.DatabaseCorruptionDetectedMessageLine2": "Désolé pour ce problème, toutes les sauvegardes devraient pouvoir être restaurés même celles créés avec une base de données corrompue.",
+    "settings.DatabaseCorruptionDetected": "Base de données corrompue détectée"
 }

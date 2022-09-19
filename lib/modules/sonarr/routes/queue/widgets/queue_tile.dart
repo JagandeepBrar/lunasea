@@ -92,10 +92,12 @@ class _State extends State<SonarrQueueTile> {
           text: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
         ),
         TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-        TextSpan(
-          text: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
-        ),
-        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
+        if (widget.queueRecord.language != null)
+          TextSpan(
+            text: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
+          ),
+        if (widget.queueRecord.language != null)
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(
           text: widget.queueRecord.lunaTimeLeft(),
         ),
@@ -162,10 +164,11 @@ class _State extends State<SonarrQueueTile> {
         title: 'sonarr.Quality'.tr(),
         body: widget.queueRecord.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
-      LunaTableContent(
-        title: 'sonarr.Language'.tr(),
-        body: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
-      ),
+      if (widget.queueRecord.language != null)
+        LunaTableContent(
+          title: 'sonarr.Language'.tr(),
+          body: widget.queueRecord.language?.name ?? LunaUI.TEXT_EMDASH,
+        ),
       LunaTableContent(
         title: 'sonarr.Client'.tr(),
         body: widget.queueRecord.downloadClient ?? LunaUI.TEXT_EMDASH,

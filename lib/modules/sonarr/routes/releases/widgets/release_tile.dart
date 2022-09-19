@@ -80,8 +80,10 @@ class _State extends State<SonarrReleasesTile> {
         if (_preferredWordScore != null)
           TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.lunaQuality),
-        TextSpan(text: LunaUI.TEXT_BULLET.pad()),
-        TextSpan(text: widget.release.lunaLanguage),
+        if (widget.release.language != null)
+          TextSpan(text: LunaUI.TEXT_BULLET.pad()),
+        if (widget.release.language != null)
+          TextSpan(text: widget.release.lunaLanguage),
         TextSpan(text: LunaUI.TEXT_BULLET.pad()),
         TextSpan(text: widget.release.lunaSize),
       ],
@@ -118,10 +120,11 @@ class _State extends State<SonarrReleasesTile> {
         title: 'sonarr.Size'.tr(),
         body: widget.release.lunaSize,
       ),
-      LunaTableContent(
-        title: 'sonarr.Language'.tr(),
-        body: widget.release.lunaLanguage,
-      ),
+      if (widget.release.language != null)
+        LunaTableContent(
+          title: 'sonarr.Language'.tr(),
+          body: widget.release.lunaLanguage,
+        ),
       LunaTableContent(
         title: 'sonarr.Quality'.tr(),
         body: widget.release.lunaQuality,

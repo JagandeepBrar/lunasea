@@ -621,10 +621,10 @@ class SonarrAPIController {
     required SonarrSeriesType seriesType,
     required bool seasonFolder,
     required SonarrQualityProfile qualityProfile,
-    required SonarrLanguageProfile languageProfile,
     required SonarrRootFolder rootFolder,
     required SonarrSeriesMonitorType monitorType,
     required List<SonarrTag> tags,
+    SonarrLanguageProfile? languageProfile,
     bool showSnackbar = true,
   }) async {
     if (context.read<SonarrState>().enabled) {

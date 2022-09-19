@@ -17,10 +17,10 @@ class SonarrControllerSeries {
     required SonarrSeriesType seriesType,
     required bool seasonFolder,
     required SonarrQualityProfile qualityProfile,
-    required SonarrLanguageProfile languageProfile,
     required SonarrRootFolder rootFolder,
     required SonarrSeriesMonitorType monitorType,
     List<SonarrTag> tags = const [],
+    SonarrLanguageProfile? languageProfile,
     bool searchForMissingEpisodes = false,
     bool searchForCutoffUnmetEpisodes = false,
     bool includeSeasonImages = false,
@@ -42,7 +42,7 @@ class SonarrControllerSeries {
   /// Handler for [series/{id}](https://github.com/Sonarr/Sonarr/wiki/Series#deleteid).
   ///
   /// Delete the series with the given series ID.
-  Future<SonarrSeries> delete({
+  Future<void> delete({
     required int seriesId,
     bool deleteFiles = false,
     bool addImportListExclusion = false,

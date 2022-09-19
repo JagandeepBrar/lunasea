@@ -139,10 +139,11 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         title: 'sonarr.Quality'.tr(),
         body: history.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
-      LunaTableContent(
-        title: 'sonarr.Languages'.tr(),
-        body: history.language?.name ?? LunaUI.TEXT_EMDASH,
-      ),
+      if (history.language != null)
+        LunaTableContent(
+          title: 'sonarr.Languages'.tr(),
+          body: history.language?.name ?? LunaUI.TEXT_EMDASH,
+        ),
       LunaTableContent(
         title: 'sonarr.Client'.tr(),
         body: history.data!['downloadClient'] ?? LunaUI.TEXT_EMDASH,
@@ -242,10 +243,11 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         title: 'sonarr.Quality'.tr(),
         body: history.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
       ),
-      LunaTableContent(
-        title: 'sonarr.Languages'.tr(),
-        body: history.language?.name ?? LunaUI.TEXT_EMDASH,
-      ),
+      if (history.language != null)
+        LunaTableContent(
+          title: 'sonarr.Languages'.tr(),
+          body: history.language?.name ?? LunaUI.TEXT_EMDASH,
+        ),
       LunaTableContent(
         title: 'sonarr.Indexer'.tr(),
         body: history.data!['indexer'],

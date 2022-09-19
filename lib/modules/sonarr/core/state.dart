@@ -221,8 +221,24 @@ class SonarrState extends LunaModuleState {
     notifyListeners();
   }
 
+  Future<List<SonarrLanguageProfile>> _fetchLanguageProfiles() async {
+    try {
+      final profiles = await _api!.profile.getLanguageProfiles();
+      return profiles;
+    } catch (error, stack) {
+      LunaLogger().error(
+        'Failed to fetch language profiles, assuming v4',
+        error,
+        stack,
+      );
+      return const [];
+    }
+  }
+
   void fetchLanguageProfiles() {
-    if (_api != null) _languageProfiles = _api!.profile.getLanguageProfiles();
+    if (_api != null) {
+      _languageProfiles = _fetchLanguageProfiles();
+    }
     notifyListeners();
   }
 

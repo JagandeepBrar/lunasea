@@ -124,7 +124,8 @@ class _State extends State<AddSeriesDetailsRoute>
         const SonarrSeriesAddDetailsRootFolderTile(),
         const SonarrSeriesAddDetailsMonitorTile(),
         const SonarrSeriesAddDetailsQualityProfileTile(),
-        const SonarrSeriesAddDetailsLanguageProfileTile(),
+        if (languageProfiles.isNotEmpty)
+          const SonarrSeriesAddDetailsLanguageProfileTile(),
         const SonarrSeriesAddDetailsSeriesTypeTile(),
         const SonarrSeriesAddDetailsUseSeasonFoldersTile(),
         const SonarrSeriesAddDetailsTagsTile(),

@@ -16,7 +16,8 @@ class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
       title: 'sonarr.LanguageProfile'.tr(),
       body: [
         TextSpan(
-          text: context.watch<SonarrSeriesEditState>().languageProfile.name,
+          text: context.watch<SonarrSeriesEditState>().languageProfile?.name ??
+              LunaUI.TEXT_EMDASH,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

@@ -121,7 +121,8 @@ class _State extends State<SeriesEditRoute>
         const SonarrSeriesEditMonitoredTile(),
         const SonarrSeriesEditSeasonFoldersTile(),
         SonarrSeriesEditQualityProfileTile(profiles: qualityProfiles),
-        SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles),
+        if (languageProfiles.isNotEmpty)
+          SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles),
         const SonarrSeriesEditSeriesTypeTile(),
         const SonarrSeriesEditSeriesPathTile(),
         const SonarrSeriesEditTagsTile(),

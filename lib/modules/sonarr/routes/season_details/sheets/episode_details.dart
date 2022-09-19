@@ -47,7 +47,9 @@ class SonarrEpisodeDetailsSheet extends LunaBottomModalSheet {
               : LunaColours.accent,
           text: episodeFile!.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
         ),
-      if (episode!.hasFile! && episodeFile != null)
+      if (episode!.hasFile! &&
+          episodeFile != null &&
+          episodeFile!.languageCutoffNotMet != null)
         LunaHighlightedNode(
           backgroundColor: episodeFile!.languageCutoffNotMet!
               ? LunaColours.orange

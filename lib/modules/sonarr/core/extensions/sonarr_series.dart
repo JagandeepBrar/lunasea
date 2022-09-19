@@ -142,10 +142,13 @@ extension SonarrSeriesExtension on SonarrSeries {
     series.seasonFolder = edits.useSeasonFolders;
     series.path = edits.seriesPath;
     series.qualityProfileId = edits.qualityProfile?.id ?? this.qualityProfileId;
-    series.languageProfileId =
-        edits.languageProfile.id ?? this.languageProfileId;
     series.seriesType = edits.seriesType ?? this.seriesType;
     series.tags = edits.tags?.map((t) => t.id!).toList() ?? [];
+    if (edits.languageProfile != null) {
+      series.languageProfileId =
+          edits.languageProfile!.id ?? this.languageProfileId;
+    }
+
     return series;
   }
 }

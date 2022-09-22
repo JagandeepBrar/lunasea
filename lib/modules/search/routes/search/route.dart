@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:lunasea/widgets/sheets/download_client/button.dart';
 
 class SearchIndexerRoute extends StatefulWidget {
   const SearchIndexerRoute({
@@ -78,6 +79,9 @@ class _State extends State<SearchIndexerRoute> with LunaScrollControllerMixin {
         submitCallback: _searchCallback,
         scrollController: scrollController,
       ),
+      actions: const [
+        DownloadClientButton(),
+      ],
     );
   }
 

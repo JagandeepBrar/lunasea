@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 import 'package:lunasea/router/routes/search.dart';
+import 'package:lunasea/widgets/sheets/download_client/button.dart';
 
 class ResultsRoute extends StatefulWidget {
   const ResultsRoute({
@@ -70,6 +71,7 @@ class _State extends State<ResultsRoute> with LunaScrollControllerMixin {
     return LunaAppBar(
       title: title!,
       actions: [
+        const DownloadClientButton(),
         LunaIconButton(
           icon: Icons.search_rounded,
           onPressed: () => SearchRoutes.SEARCH.go(),

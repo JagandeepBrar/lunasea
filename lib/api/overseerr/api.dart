@@ -1,8 +1,17 @@
-import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
-import 'package:lunasea/api/overseerr/models.dart';
+import 'package:lunasea/api/overseerr/models/content/movie.dart';
+import 'package:lunasea/api/overseerr/models/content/series.dart';
+import 'package:lunasea/api/overseerr/models/issues/issue.dart';
+import 'package:lunasea/api/overseerr/models/issues/issue_page.dart';
+import 'package:lunasea/api/overseerr/models/requests/request.dart';
+import 'package:lunasea/api/overseerr/models/requests/request_count.dart';
+import 'package:lunasea/api/overseerr/models/requests/request_page.dart';
+import 'package:lunasea/api/overseerr/models/status/status.dart';
+import 'package:lunasea/api/overseerr/models/status/status_appdata.dart';
+import 'package:lunasea/api/overseerr/models/users/user_page.dart';
+import 'package:lunasea/api/overseerr/models/users/user_quota.dart';
+import 'package:lunasea/vendor.dart';
 
-part 'overseerr.g.dart';
+part 'api.g.dart';
 
 @RestApi()
 abstract class OverseerrAPI {

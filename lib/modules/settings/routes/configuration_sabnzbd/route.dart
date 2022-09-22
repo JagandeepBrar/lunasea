@@ -47,7 +47,7 @@ class _State extends State<ConfigurationSABnzbdRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.SABNZBD.title}',
         trailing: LunaSwitch(

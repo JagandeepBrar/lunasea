@@ -63,11 +63,15 @@ enum LunaBox<T> {
     return Hive.openBox<T>(key);
   }
 
+  Stream<BoxEvent> watch([dynamic key]) {
+    return _instance.watch(key: key);
+  }
+
   ValueListenable<Box<T>> listenable([List<dynamic>? keys]) {
     return _instance.listenable(keys: keys);
   }
 
-  ValueListenableBuilder watch({
+  ValueListenableBuilder listenableBuilder({
     required Widget Function(BuildContext, Widget?) builder,
     List<dynamic>? selectKeys,
     List<LunaTableMixin>? selectItems,

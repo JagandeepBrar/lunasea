@@ -44,7 +44,7 @@ class _State extends State<ConfigurationAppearanceRoute>
 
   Widget _amoledTheme() {
     const _db = LunaSeaDatabase.THEME_AMOLED;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.AmoledTheme'.tr(),
         body: [
@@ -62,7 +62,7 @@ class _State extends State<ConfigurationAppearanceRoute>
   }
 
   Widget _amoledThemeBorders() {
-    return LunaBox.lunasea.watch(
+    return LunaBox.lunasea.listenableBuilder(
       selectItems: [
         LunaSeaDatabase.THEME_AMOLED_BORDER,
         LunaSeaDatabase.THEME_AMOLED,
@@ -84,7 +84,7 @@ class _State extends State<ConfigurationAppearanceRoute>
 
   Widget _imageBackgroundOpacity() {
     const _db = LunaSeaDatabase.THEME_IMAGE_BACKGROUND_OPACITY;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.BackgroundImageOpacity'.tr(),
         body: [

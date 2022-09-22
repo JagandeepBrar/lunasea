@@ -53,7 +53,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
   }
 
   Widget _body() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [

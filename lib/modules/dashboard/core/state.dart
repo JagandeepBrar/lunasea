@@ -2,7 +2,7 @@ import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/api/api.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
-import 'package:lunasea/system/state.dart';
+import 'package:lunasea/state/state.dart';
 
 class ModuleState extends LunaModuleState {
   ModuleState() {

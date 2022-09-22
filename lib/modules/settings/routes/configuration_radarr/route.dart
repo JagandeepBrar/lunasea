@@ -49,7 +49,7 @@ class _State extends State<ConfigurationRadarrRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.RADARR.title}',
         trailing: LunaSwitch(
@@ -93,7 +93,7 @@ class _State extends State<ConfigurationRadarrRoute>
 
   Widget _discoverUseRadarrSuggestionsToggle() {
     const _db = RadarrDatabase.ADD_DISCOVER_USE_SUGGESTIONS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Discover Suggestions',
         body: const [TextSpan(text: 'Add Suggested Releases in Discover')],
@@ -107,7 +107,7 @@ class _State extends State<ConfigurationRadarrRoute>
 
   Widget _queueSize() {
     const _db = RadarrDatabase.QUEUE_PAGE_SIZE;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Queue Size',
         body: [

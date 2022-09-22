@@ -467,7 +467,7 @@ class RadarrDialogs {
         ),
       ],
       content: [
-        RadarrDatabase.QUEUE_REMOVE_FROM_CLIENT.watch(
+        RadarrDatabase.QUEUE_REMOVE_FROM_CLIENT.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'Remove From Client',
             value: RadarrDatabase.QUEUE_REMOVE_FROM_CLIENT.read(),
@@ -475,7 +475,7 @@ class RadarrDialogs {
                 RadarrDatabase.QUEUE_REMOVE_FROM_CLIENT.update(selected!),
           ),
         ),
-        RadarrDatabase.QUEUE_BLACKLIST.watch(
+        RadarrDatabase.QUEUE_BLACKLIST.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'Blacklist Release',
             value: RadarrDatabase.QUEUE_BLACKLIST.read(),
@@ -610,7 +610,7 @@ class RadarrDialogs {
         ),
       ],
       content: [
-        RadarrDatabase.REMOVE_MOVIE_IMPORT_LIST.watch(
+        RadarrDatabase.REMOVE_MOVIE_IMPORT_LIST.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'Add to Exclusion List',
             value: RadarrDatabase.REMOVE_MOVIE_IMPORT_LIST.read(),
@@ -618,7 +618,7 @@ class RadarrDialogs {
                 RadarrDatabase.REMOVE_MOVIE_IMPORT_LIST.update(value!),
           ),
         ),
-        RadarrDatabase.REMOVE_MOVIE_DELETE_FILES.watch(
+        RadarrDatabase.REMOVE_MOVIE_DELETE_FILES.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'Delete Files',
             value: RadarrDatabase.REMOVE_MOVIE_DELETE_FILES.read(),
@@ -690,7 +690,7 @@ class RadarrDialogs {
       ],
       showCancelButton: false,
       content: [
-        RadarrDatabase.ADD_MOVIE_SEARCH_FOR_MISSING.watch(
+        RadarrDatabase.ADD_MOVIE_SEARCH_FOR_MISSING.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'radarr.StartSearchForMissingMovie'.tr(),
             value: RadarrDatabase.ADD_MOVIE_SEARCH_FOR_MISSING.read(),

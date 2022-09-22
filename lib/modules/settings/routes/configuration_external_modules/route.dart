@@ -46,7 +46,7 @@ class _State extends State<ConfigurationExternalModulesRoute>
   }
 
   Widget _body() {
-    return LunaBox.externalModules.watch(
+    return LunaBox.externalModules.listenableBuilder(
       builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [

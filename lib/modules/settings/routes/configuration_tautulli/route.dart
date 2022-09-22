@@ -49,7 +49,7 @@ class _State extends State<ConfigurationTautulliRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.TAUTULLI.title}',
         trailing: LunaSwitch(
@@ -86,7 +86,7 @@ class _State extends State<ConfigurationTautulliRoute>
 
   Widget _defaultTerminationMessage() {
     const _db = TautulliDatabase.TERMINATION_MESSAGE;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) {
         String message = _db.read();
         return LunaBlock(
@@ -105,7 +105,7 @@ class _State extends State<ConfigurationTautulliRoute>
 
   Widget _activityRefreshRate() {
     const _db = TautulliDatabase.REFRESH_RATE;
-    return _db.watch(builder: (context, _) {
+    return _db.listenableBuilder(builder: (context, _) {
       String? refreshRate;
       if (_db.read() == 1) refreshRate = 'Every Second';
       if (_db.read() != 1) refreshRate = 'Every ${_db.read()} Seconds';
@@ -123,7 +123,7 @@ class _State extends State<ConfigurationTautulliRoute>
 
   Widget _statisticsItemCount() {
     const _db = TautulliDatabase.STATISTICS_STATS_COUNT;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) {
         String? statisticsItems;
         if (_db.read() == 1) statisticsItems = '1 Item';

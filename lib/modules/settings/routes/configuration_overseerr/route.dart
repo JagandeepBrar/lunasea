@@ -44,7 +44,7 @@ class _State extends State<ConfigurationOverseerrRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.OVERSEERR.title}',
         trailing: LunaSwitch(

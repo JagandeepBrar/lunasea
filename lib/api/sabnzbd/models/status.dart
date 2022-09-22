@@ -5,7 +5,7 @@ part 'status.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SABnzbdStatus {
-  SABnzbdStatusResult status;
+  _SABnzbdStatusResult status;
 
   SABnzbdStatus({
     required this.status,
@@ -24,7 +24,7 @@ class SABnzbdStatus {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SABnzbdStatusResult {
+class _SABnzbdStatusResult {
   String uptime;
   String version;
   bool paused;
@@ -41,7 +41,7 @@ class SABnzbdStatusResult {
   @JsonKey(name: 'speedlimit')
   String speedLimitPercentage;
 
-  SABnzbdStatusResult({
+  _SABnzbdStatusResult({
     required this.uptime,
     required this.version,
     required this.paused,
@@ -54,7 +54,7 @@ class SABnzbdStatusResult {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SABnzbdStatusResult.fromJson(Map<String, dynamic> json) {
+  factory _SABnzbdStatusResult.fromJson(Map<String, dynamic> json) {
     return _$SABnzbdStatusResultFromJson(json);
   }
 

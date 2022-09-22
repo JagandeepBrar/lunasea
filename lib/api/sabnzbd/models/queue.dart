@@ -5,7 +5,7 @@ part 'queue.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SABnzbdQueue {
-  SABnzbdQueueResult queue;
+  _SABnzbdQueueResult queue;
 
   SABnzbdQueue({
     required this.queue,
@@ -24,10 +24,10 @@ class SABnzbdQueue {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SABnzbdQueueResult {
+class _SABnzbdQueueResult {
   String status;
   bool paused;
-  List<SABnzbdQueueSlot> slots;
+  List<_SABnzbdQueueSlot> slots;
 
   @JsonKey(name: 'kbpersec')
   String speed;
@@ -41,7 +41,7 @@ class SABnzbdQueueResult {
   @JsonKey(name: 'mbleft')
   String sizeLeft;
 
-  SABnzbdQueueResult({
+  _SABnzbdQueueResult({
     required this.status,
     required this.paused,
     required this.speed,
@@ -54,7 +54,7 @@ class SABnzbdQueueResult {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SABnzbdQueueResult.fromJson(Map<String, dynamic> json) {
+  factory _SABnzbdQueueResult.fromJson(Map<String, dynamic> json) {
     return _$SABnzbdQueueResultFromJson(json);
   }
 
@@ -64,7 +64,7 @@ class SABnzbdQueueResult {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SABnzbdQueueSlot {
+class _SABnzbdQueueSlot {
   String filename;
   String status;
   String script;
@@ -85,7 +85,7 @@ class SABnzbdQueueSlot {
   @JsonKey(name: 'cat')
   String category;
 
-  SABnzbdQueueSlot({
+  _SABnzbdQueueSlot({
     required this.filename,
     required this.status,
     required this.script,
@@ -100,7 +100,7 @@ class SABnzbdQueueSlot {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SABnzbdQueueSlot.fromJson(Map<String, dynamic> json) {
+  factory _SABnzbdQueueSlot.fromJson(Map<String, dynamic> json) {
     return _$SABnzbdQueueSlotFromJson(json);
   }
 

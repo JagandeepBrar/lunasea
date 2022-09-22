@@ -112,7 +112,7 @@ class _State extends State<ProfilesRoute> with LunaScrollControllerMixin {
 
   Widget _enabledProfile() {
     const db = LunaSeaDatabase.ENABLED_PROFILE;
-    return db.watch(
+    return db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.EnabledProfile'.tr(),
         body: [TextSpan(text: db.read())],

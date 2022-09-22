@@ -44,7 +44,7 @@ class _State extends State<ConfigurationSonarrDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) {
         return LunaBlock(
           title: 'lunasea.Home'.tr(),
@@ -65,7 +65,7 @@ class _State extends State<ConfigurationSonarrDefaultPagesRoute>
 
   Widget _seriesDetailsPage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX_SERIES_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) {
         return LunaBlock(
           title: 'sonarr.SeriesDetails'.tr(),
@@ -89,7 +89,7 @@ class _State extends State<ConfigurationSonarrDefaultPagesRoute>
 
   Widget _seasonDetailsPage() {
     const _db = SonarrDatabase.NAVIGATION_INDEX_SEASON_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) {
         return LunaBlock(
           title: 'sonarr.SeasonDetails'.tr(),

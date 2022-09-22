@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/state.dart';
+import 'package:lunasea/state/state.dart';
 
 import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/vendor.dart';

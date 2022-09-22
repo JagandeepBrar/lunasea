@@ -19,7 +19,7 @@ class SearchDialogs {
     await LunaDialog.dialog(
       context: context,
       title: 'search.Download'.tr(),
-      customContent: LunaSeaDatabase.ENABLED_PROFILE.watch(
+      customContent: LunaSeaDatabase.ENABLED_PROFILE.listenableBuilder(
         builder: (context, _) => LunaDialog.content(
           children: [
             Padding(

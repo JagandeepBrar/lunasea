@@ -42,7 +42,7 @@ class _State extends State<ConfigurationLidarrDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = LidarrDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: LidarrNavigationBar.titles[_db.read()])],

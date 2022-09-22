@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/firebase/firestore.dart';
 import 'package:lunasea/firebase/messaging.dart';
@@ -7,14 +8,12 @@ import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/widgets/sheets/changelog/sheet.dart';
 import 'package:lunasea/widgets/sheets/database_corruption/sheet.dart';
 
-class LunaBIOS {
-  Future<void> boot() async {
-    LunaLanguage.current.use();
+class LunaOS {
+  Future<void> boot(BuildContext context) async {
+    LunaLanguage.current(context).use(context);
     _initNotifications();
     if (LunaQuickActions.isSupported) LunaQuickActions().initialize();
-
-    await _healthCheck();
-    BIOSDatabase.FIRST_BOOT.update(false);
+    Future.microtask(_healthCheck);
   }
 
   Future<void> _initNotifications() async {
@@ -42,5 +41,7 @@ class LunaBIOS {
     if (!firstBoot && !isLatest.item1) {
       ChangelogSheet().show();
     }
+
+    BIOSDatabase.FIRST_BOOT.update(false);
   }
 }

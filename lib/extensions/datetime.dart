@@ -6,7 +6,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 extension DateTimeExtension on DateTime {
   String _formatted(String format) {
-    final locale = LunaLanguage.current.languageTag;
+    final locale = LunaLanguage.current().languageTag;
     return DateFormat(format, locale).format(this.toLocal());
   }
 

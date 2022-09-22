@@ -23,8 +23,8 @@ enum BIOSRoutes with LunaRoutesMixin {
   GoRoute get routes {
     switch (this) {
       case BIOSRoutes.HOME:
-        return redirect(redirect: (_) {
-          Future.microtask(LunaBIOS().boot);
+        return redirect(redirect: (context, _) {
+          LunaOS().boot(context);
           return DashboardRoutes.HOME.path;
         });
     }

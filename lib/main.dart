@@ -36,14 +36,14 @@ Future<void> main() async {
       await LunaLocalization().initialize();
       await LunaMemoryStore().initialize();
       // Run application
-      return runApp(const LunaOS());
+      return runApp(const LunaBIOS());
     },
     (error, stack) => LunaLogger().critical(error, stack),
   );
 }
 
-class LunaOS extends StatelessWidget {
-  const LunaOS({
+class LunaBIOS extends StatelessWidget {
+  const LunaBIOS({
     Key? key,
   }) : super(key: key);
 

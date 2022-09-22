@@ -559,7 +559,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.1"
+    version: "5.0.1"
   google_nav_bar:
     dependency: "direct main"
     description:

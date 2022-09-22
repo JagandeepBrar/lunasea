@@ -44,8 +44,8 @@ enum LunaLanguage {
   final String name;
   const LunaLanguage(this.languageTag, this.locale, this.name);
 
-  static LunaLanguage get current {
-    final locale = LunaState.context.locale;
+  static LunaLanguage current([BuildContext? context]) {
+    final locale = (context ?? LunaState.context).locale;
     return fromLocale(locale) ?? LunaLanguage.ENGLISH;
   }
 
@@ -57,8 +57,8 @@ enum LunaLanguage {
     return null;
   }
 
-  Future<void> use() async {
-    await LunaState.context.setLocale(locale);
+  Future<void> use([BuildContext? context]) async {
+    await (context ?? LunaState.context).setLocale(locale);
     Intl.defaultLocale = languageTag;
   }
 
@@ -66,21 +66,7 @@ enum LunaLanguage {
     switch (this) {
       case LunaLanguage.ENGLISH:
         return true;
-      case LunaLanguage.CATALAN:
-      case LunaLanguage.CHINESE_SIMPLIFIED:
-      case LunaLanguage.CROATIAN:
-      case LunaLanguage.DUTCH:
-      case LunaLanguage.FRENCH:
-      case LunaLanguage.GERMAN:
-      case LunaLanguage.HUNGARIAN:
-      case LunaLanguage.ITALIAN:
-      case LunaLanguage.NORWEGIAN_BOKMAL:
-      case LunaLanguage.PORTUGUESE:
-      case LunaLanguage.RUSSIAN:
-      case LunaLanguage.SWEDISH:
-      case LunaLanguage.SPANISH:
-      case LunaLanguage.TURKISH:
-      case LunaLanguage.VIETNAMESE:
+      default:
         return LunaFlavor.BETA.isRunningFlavor();
     }
   }

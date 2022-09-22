@@ -1,14 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Support via Discord
+  - name: Feedback Requets & Support via Discord
     url: https://www.lunasea.app/discord
-    about: Chat with the developer and users on support and setup related topics.
+    about: Request new features and get support from the community
   - name: Support via GitHub Discussions
     url: https://github.com/JagandeepBrar/LunaSea/discussions
     about: Ask questions and discuss with other community members
   - name: Support via Reddit
     url: https://www.lunasea.app/reddit
-    about: Ask the developer and other redditors for support and setup related topics.
-  - name: Feedback & Feature Requests Board
-    url: https://feedback.lunasea.app
-    about: Request new features and modules to be implemented into LunaSea.
+    about: Ask the developer and other redditors for support and setup related topics

@@ -15,7 +15,6 @@ enum LunaLinkedContent {
   BUILDS('https://www.lunasea.app/builds'),
   DISCORD('https://www.lunasea.app/discord'),
   DOCUMENTATION('https://www.lunasea.app/docs'),
-  FEEDBACK_BOARD('https://www.lunasea.app/feedback'),
   GITHUB('https://www.lunasea.app/github'),
   NOTIFICATIONS_DOC('https://docs.lunasea.app/lunasea/notifications'),
   REDDIT('https://www.lunasea.app/reddit'),

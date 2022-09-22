@@ -33,7 +33,6 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 
 - [Build Guide](https://github.com/JagandeepBrar/LunaSea/wiki/Build-Guide)
 - [Documentation](https://www.lunasea.app/docs)
-- [Feedback & Feature Requests Board](https://www.lunasea.app/feedback)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)
 
 ## Support
@@ -41,9 +40,8 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 [![Discord](https://img.shields.io/discord/673591529834807358?label=Discord&style=flat)](https://www.lunasea.app/discord)
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=r%2FLunaSeaApp&style=flat)](https://www.lunasea.app/reddit)
 
-**Please only create an issue on GitHub for bugs and software issues**. Post in the [discussions board](https://github.com/JagandeepBrar/LunaSea/discussions) or the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
+**Please only create an issue on GitHub for bugs and software issues**. Post in the [discussions board](https://github.com/JagandeepBrar/LunaSea/discussions) or the [Discord forum](https://www.lunasea.app/discord) for requests and general feedback.
 
-- [Discord](https://www.lunasea.app/discord)
 - [Email](mailto:hello@lunasea.app)
 - [Reddit](https://www.lunasea.app/reddit)
 - [Website](https://www.lunasea.app)
@@ -55,5 +53,4 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 Thank you to all tools and services for offering free subscriptions for open-source projects!
 
 - [docs.page](https://docs.page/): docs.page is used to host LunaSea's documentation
-- [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback board
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea

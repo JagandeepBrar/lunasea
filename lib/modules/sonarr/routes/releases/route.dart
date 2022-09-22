@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/widgets/sheets/download_client/button.dart';
 
 class ReleasesRoute extends StatefulWidget {
   final int? episodeId;
@@ -45,6 +46,9 @@ class _State extends State<ReleasesRoute> with LunaScrollControllerMixin {
       title: 'sonarr.Releases'.tr(),
       scrollControllers: [scrollController],
       bottom: SonarrReleasesSearchBar(scrollController: scrollController),
+      actions: const [
+        DownloadClientButton(),
+      ],
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
+import 'package:lunasea/widgets/sheets/download_client/button.dart';
 
 class MovieReleasesRoute extends StatefulWidget {
   final int movieId;
@@ -43,6 +44,9 @@ class _State extends State<MovieReleasesRoute> with LunaScrollControllerMixin {
       title: 'Releases',
       scrollControllers: [scrollController],
       bottom: RadarrReleasesSearchBar(scrollController: scrollController),
+      actions: const [
+        DownloadClientButton(),
+      ],
     );
   }
 

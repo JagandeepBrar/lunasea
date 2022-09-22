@@ -8,8 +8,11 @@ import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 
 class SABnzbdRoute extends StatefulWidget {
+  final bool showDrawer;
+
   const SABnzbdRoute({
     Key? key,
+    this.showDrawer = true,
   }) : super(key: key);
 
   @override
@@ -39,7 +42,7 @@ class _State extends State<SABnzbdRoute> {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
-      drawer: _drawer(),
+      drawer: widget.showDrawer ? _drawer() : null,
       appBar: _appBar() as PreferredSizeWidget?,
       bottomNavigationBar: _bottomNavigationBar(),
       extendBodyBehindAppBar: false,
@@ -79,7 +82,8 @@ class _State extends State<SABnzbdRoute> {
       ];
     return LunaAppBar.dropdown(
       title: LunaModule.SABNZBD.title,
-      useDrawer: true,
+      useDrawer: widget.showDrawer,
+      hideLeading: !widget.showDrawer,
       profiles: profiles,
       actions: actions,
       pageController: _pageController,

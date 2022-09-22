@@ -157,4 +157,40 @@ class LunaDialogs {
     );
     return [_flag];
   }
+
+  Future<LunaModule?> selectDownloadClient() async {
+    final profile = LunaProfile.current;
+    final context = LunaState.context;
+    LunaModule? module;
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'lunasea.DownloadClient'.tr(),
+      content: [
+        if (profile.nzbgetEnabled)
+          LunaDialog.tile(
+            text: LunaModule.NZBGET.title,
+            icon: LunaModule.NZBGET.icon,
+            iconColor: LunaModule.NZBGET.color,
+            onTap: () {
+              module = LunaModule.NZBGET;
+              Navigator.of(context).pop();
+            },
+          ),
+        if (profile.sabnzbdEnabled)
+          LunaDialog.tile(
+            text: LunaModule.SABNZBD.title,
+            icon: LunaModule.SABNZBD.icon,
+            iconColor: LunaModule.SABNZBD.color,
+            onTap: () {
+              module = LunaModule.SABNZBD;
+              Navigator.of(context).pop();
+            },
+          ),
+      ],
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+
+    return module;
+  }
 }

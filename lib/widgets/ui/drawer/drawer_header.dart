@@ -11,7 +11,7 @@ class LunaDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LunaSeaDatabase.ENABLED_PROFILE.watch(
+    return LunaSeaDatabase.ENABLED_PROFILE.listenableBuilder(
       builder: (context, _) => Container(
         child: LunaAppBar.dropdown(
           backgroundColor: Colors.transparent,

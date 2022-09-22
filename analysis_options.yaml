@@ -2,6 +2,8 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - 'test/**'
+    - 'test.g.dart'
+    - 'lib/**/*.g.dart'
 
 linter:
   rules:

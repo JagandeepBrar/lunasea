@@ -47,7 +47,7 @@ class _State extends State<ConfigurationLidarrRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.EnableModule'.tr(args: [LunaModule.LIDARR.title]),
         trailing: LunaSwitch(

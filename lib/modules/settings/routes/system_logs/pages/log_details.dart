@@ -37,7 +37,7 @@ class _State extends State<SystemLogsDetailsRoute>
   }
 
   Widget _body() {
-    return LunaBox.logs.watch(builder: (context, _) {
+    return LunaBox.logs.listenableBuilder(builder: (context, _) {
       List<LunaLog> logs = filter();
       if (logs.isEmpty) {
         return LunaMessage.goBack(

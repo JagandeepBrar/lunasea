@@ -52,7 +52,7 @@ class LunaScaffold extends StatelessWidget {
   }
 
   Widget get scaffold {
-    return LunaSeaDatabase.ENABLED_PROFILE.watch(
+    return LunaSeaDatabase.ENABLED_PROFILE.listenableBuilder(
       builder: (context, _) {
         onProfileChange?.call(context);
         return Scaffold(

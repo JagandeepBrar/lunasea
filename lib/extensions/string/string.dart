@@ -65,4 +65,9 @@ extension StringExtension on String {
   }) {
     return '${bullet.pad(count: padCount)}$this';
   }
+
+  /// Returns the string without any trailing slash.
+  String noTrailingSlash() {
+    return this.endsWith('/') ? this.substring(0, this.length - 1) : this;
+  }
 }

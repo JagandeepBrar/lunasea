@@ -6,7 +6,7 @@ part 'history.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SABnzbdHistory {
-  SABnzbdHistoryResult history;
+  _SABnzbdHistoryResult history;
 
   SABnzbdHistory({
     required this.history,
@@ -25,8 +25,8 @@ class SABnzbdHistory {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SABnzbdHistoryResult {
-  List<SABnzbdHistorySlot> slots;
+class _SABnzbdHistoryResult {
+  List<_SABnzbdHistorySlot> slots;
 
   @JsonKey(name: 'day_size')
   String dailySize;
@@ -40,7 +40,7 @@ class SABnzbdHistoryResult {
   @JsonKey(name: 'total_size')
   String totalSize;
 
-  SABnzbdHistoryResult({
+  _SABnzbdHistoryResult({
     required this.slots,
     required this.dailySize,
     required this.weeklySize,
@@ -51,7 +51,7 @@ class SABnzbdHistoryResult {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SABnzbdHistoryResult.fromJson(Map<String, dynamic> json) {
+  factory _SABnzbdHistoryResult.fromJson(Map<String, dynamic> json) {
     return _$SABnzbdHistoryResultFromJson(json);
   }
 
@@ -61,7 +61,7 @@ class SABnzbdHistoryResult {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class SABnzbdHistorySlot {
+class _SABnzbdHistorySlot {
   String name;
   String status;
   String script;
@@ -89,7 +89,7 @@ class SABnzbdHistorySlot {
   @JsonKey(name: 'stage_log')
   List<SABnzbdStageLog> stageLog;
 
-  SABnzbdHistorySlot({
+  _SABnzbdHistorySlot({
     required this.name,
     required this.status,
     required this.script,
@@ -107,7 +107,7 @@ class SABnzbdHistorySlot {
   @override
   String toString() => json.encode(this.toJson());
 
-  factory SABnzbdHistorySlot.fromJson(Map<String, dynamic> json) {
+  factory _SABnzbdHistorySlot.fromJson(Map<String, dynamic> json) {
     return _$SABnzbdHistorySlotFromJson(json);
   }
 

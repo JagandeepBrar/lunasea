@@ -73,7 +73,7 @@ extension SettingsBannersExtension on SettingsBanners {
     Color headerColor = Colors.white,
     Color bodyColor = LunaColours.grey,
   }) {
-    return LunaBox.alerts.watch(
+    return LunaBox.alerts.listenableBuilder(
       selectKeys: [key],
       builder: (context, _) {
         if (shouldShow!)

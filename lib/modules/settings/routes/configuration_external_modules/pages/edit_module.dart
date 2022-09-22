@@ -68,7 +68,7 @@ class _State extends State<ConfigurationExternalModulesEditRoute>
   }
 
   Widget _body() {
-    return LunaBox.externalModules.watch(
+    return LunaBox.externalModules.listenableBuilder(
       selectKeys: [widget.moduleId],
       builder: (context, dynamic _) {
         if (!LunaBox.externalModules.contains(widget.moduleId))

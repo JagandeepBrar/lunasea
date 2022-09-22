@@ -495,7 +495,7 @@ extension LunaModuleExtension on LunaModule {
     String key = 'LUNASEA_MODULE_INFORMATION_${this.key}';
     void markSeen() => LunaBox.alerts.update(key, false);
 
-    return LunaBox.alerts.watch(
+    return LunaBox.alerts.listenableBuilder(
       selectKeys: [key],
       builder: (context, _) {
         if (LunaBox.alerts.read(key, fallback: true)) {

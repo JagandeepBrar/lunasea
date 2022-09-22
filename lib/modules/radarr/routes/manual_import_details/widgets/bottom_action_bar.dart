@@ -11,7 +11,7 @@ class RadarrManualImportDetailsBottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LunaBottomActionBar(
       actions: [
-        RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.watch(
+        RadarrDatabase.MANUAL_IMPORT_DEFAULT_MODE.listenableBuilder(
           builder: (context, _) => LunaActionBarCard(
             title: 'radarr.ImportMode'.tr(),
             subtitle: RadarrImportMode.COPY

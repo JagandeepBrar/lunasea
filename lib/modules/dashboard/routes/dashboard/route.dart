@@ -53,7 +53,7 @@ class _State extends State<DashboardRoute> {
   }
 
   Widget _body() {
-    return LunaSeaDatabase.ENABLED_PROFILE.watch(
+    return LunaSeaDatabase.ENABLED_PROFILE.listenableBuilder(
       builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [

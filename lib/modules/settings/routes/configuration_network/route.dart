@@ -42,7 +42,7 @@ class _State extends State<ConfigurationNetworkRoute>
 
   Widget _useTLSValidation() {
     const _db = LunaSeaDatabase.NETWORKING_TLS_VALIDATION;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.TLSCertificateValidation'.tr(),
         body: [

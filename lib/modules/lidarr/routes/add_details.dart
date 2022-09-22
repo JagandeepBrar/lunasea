@@ -165,7 +165,7 @@ class _State extends State<AddArtistDetailsRoute>
             widget.data?.discogsLink?.openLink();
           },
         ),
-        LidarrDatabase.ADD_ROOT_FOLDER.watch(
+        LidarrDatabase.ADD_ROOT_FOLDER.listenableBuilder(
           builder: (context, _) {
             final _rootfolder = LidarrDatabase.ADD_ROOT_FOLDER.read();
             return LunaBlock(
@@ -183,7 +183,8 @@ class _State extends State<AddArtistDetailsRoute>
             );
           },
         ),
-        LidarrDatabase.ADD_MONITORED_STATUS.watch(builder: (context, _) {
+        LidarrDatabase.ADD_MONITORED_STATUS.listenableBuilder(
+            builder: (context, _) {
           const _db = LidarrDatabase.ADD_MONITORED_STATUS;
           final _status = LidarrMonitorStatus.ALL.fromKey(_db.read()) ??
               LidarrMonitorStatus.ALL;
@@ -199,7 +200,7 @@ class _State extends State<AddArtistDetailsRoute>
             },
           );
         }),
-        LidarrDatabase.ADD_QUALITY_PROFILE.watch(
+        LidarrDatabase.ADD_QUALITY_PROFILE.listenableBuilder(
           builder: (context, _) {
             final _profile = LidarrDatabase.ADD_QUALITY_PROFILE.read();
             return LunaBlock(
@@ -217,7 +218,7 @@ class _State extends State<AddArtistDetailsRoute>
             );
           },
         ),
-        LidarrDatabase.ADD_METADATA_PROFILE.watch(
+        LidarrDatabase.ADD_METADATA_PROFILE.listenableBuilder(
           builder: (context, _) {
             final _profile = LidarrDatabase.ADD_METADATA_PROFILE.read();
             return LunaBlock(

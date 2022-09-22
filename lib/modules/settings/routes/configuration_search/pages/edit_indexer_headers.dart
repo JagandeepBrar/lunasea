@@ -59,7 +59,7 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
   }
 
   Widget _body() {
-    return LunaBox.indexers.watch(
+    return LunaBox.indexers.listenableBuilder(
       selectKeys: [widget.id],
       builder: (context, _) {
         if (!LunaBox.indexers.contains(widget.id)) return Container();

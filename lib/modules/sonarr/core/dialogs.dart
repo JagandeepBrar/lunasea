@@ -557,7 +557,7 @@ class SonarrDialogs {
         ),
       ],
       content: [
-        SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.watch(
+        SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.AddToExclusionList'.tr(),
             value: SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.read(),
@@ -565,7 +565,7 @@ class SonarrDialogs {
                 SonarrDatabase.REMOVE_SERIES_EXCLUSION_LIST.update(value!),
           ),
         ),
-        SonarrDatabase.REMOVE_SERIES_DELETE_FILES.watch(
+        SonarrDatabase.REMOVE_SERIES_DELETE_FILES.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.DeleteFiles'.tr(),
             value: SonarrDatabase.REMOVE_SERIES_DELETE_FILES.read(),
@@ -591,7 +591,7 @@ class SonarrDialogs {
       ],
       showCancelButton: false,
       content: [
-        SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.watch(
+        SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.StartSearchForMissingEpisodes'.tr(),
             value: SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.read(),
@@ -599,7 +599,7 @@ class SonarrDialogs {
                 SonarrDatabase.ADD_SERIES_SEARCH_FOR_MISSING.update(value!),
           ),
         ),
-        SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.watch(
+        SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.StartSearchForCutoffUnmetEpisodes'.tr(),
             value: SonarrDatabase.ADD_SERIES_SEARCH_FOR_CUTOFF_UNMET.read(),
@@ -690,7 +690,7 @@ class SonarrDialogs {
         ),
       ],
       content: [
-        SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.watch(
+        SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.RemoveFromDownloadClient'.tr(),
             value: SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.read(),
@@ -698,7 +698,7 @@ class SonarrDialogs {
                 SonarrDatabase.QUEUE_REMOVE_DOWNLOAD_CLIENT.update(value!),
           ),
         ),
-        SonarrDatabase.QUEUE_ADD_BLOCKLIST.watch(
+        SonarrDatabase.QUEUE_ADD_BLOCKLIST.listenableBuilder(
           builder: (context, _) => LunaDialog.checkbox(
             title: 'sonarr.AddReleaseToBlocklist'.tr(),
             value: SonarrDatabase.QUEUE_ADD_BLOCKLIST.read(),

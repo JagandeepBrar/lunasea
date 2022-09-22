@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:lunasea/vendor.dart';
 import 'package:lunasea/api/sabnzbd/models/action_result.dart';
 import 'package:lunasea/api/sabnzbd/models/categories.dart';
 import 'package:lunasea/api/sabnzbd/models/history.dart';
@@ -13,9 +13,13 @@ import 'package:lunasea/api/sabnzbd/types/post_processing.dart';
 import 'package:lunasea/api/sabnzbd/types/priority.dart';
 import 'package:lunasea/api/sabnzbd/types/sort_category.dart';
 import 'package:lunasea/api/sabnzbd/types/sort_direction.dart';
-import 'package:retrofit/retrofit.dart';
 
-part 'sabnzbd.g.dart';
+part 'api.g.dart';
+
+String _baseUrl(String host) {
+  String base = host.endsWith('/') ? host.substring(0, host.length - 1) : host;
+  return '$base/api/';
+}
 
 @RestApi()
 abstract class SABnzbdAPI {
@@ -24,7 +28,6 @@ abstract class SABnzbdAPI {
     required String apiKey,
     Map<String, dynamic> headers = const {},
   }) {
-    String baseUrl = host.endsWith('/') ? '${host}api/' : '$host/api/';
     Dio dio = Dio(BaseOptions(
       headers: headers,
       followRedirects: true,
@@ -34,7 +37,7 @@ abstract class SABnzbdAPI {
         'output': 'json',
       },
     ));
-    return _SABnzbdAPI(dio, baseUrl: baseUrl);
+    return _SABnzbdAPI(dio, baseUrl: _baseUrl(host));
   }
 
   @GET('')

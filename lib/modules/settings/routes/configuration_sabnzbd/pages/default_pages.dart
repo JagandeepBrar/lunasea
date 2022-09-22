@@ -43,7 +43,7 @@ class _State extends State<ConfigurationSABnzbdDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = SABnzbdDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: SABnzbdNavigationBar.titles[_db.read()])],

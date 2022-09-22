@@ -12,6 +12,7 @@ import 'package:lunasea/database/tables/sabnzbd.dart';
 import 'package:lunasea/database/tables/search.dart';
 import 'package:lunasea/database/tables/sonarr.dart';
 import 'package:lunasea/database/tables/tautulli.dart';
+import 'package:lunasea/vendor.dart';
 
 enum LunaTable<T extends LunaTableMixin> {
   bios<BIOSDatabase>('bios', items: BIOSDatabase.values),
@@ -94,12 +95,16 @@ mixin LunaTableMixin<T> on Enum {
     return update(value as T);
   }
 
-  ValueListenableBuilder watch({
+  Stream<BoxEvent> watch() {
+    return box.watch(this.key);
+  }
+
+  ValueListenableBuilder listenableBuilder({
     required Widget Function(BuildContext, Widget?) builder,
     Key? key,
     Widget? child,
   }) {
-    return box.watch(
+    return box.listenableBuilder(
       key: key,
       selectItems: [this],
       builder: (context, widget) => builder(context, widget),

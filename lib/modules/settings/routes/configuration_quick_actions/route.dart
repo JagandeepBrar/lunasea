@@ -77,7 +77,7 @@ class _State extends State<ConfigurationQuickActionsRoute>
   Widget _actionTile(String title, LunaSeaDatabase action) {
     return LunaBlock(
       title: title,
-      trailing: LunaBox.lunasea.watch(
+      trailing: LunaBox.lunasea.listenableBuilder(
         selectKeys: [action.key],
         builder: (context, _) => LunaSwitch(
           value: action.read(),

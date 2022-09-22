@@ -48,7 +48,7 @@ class _State extends State<ConfigurationSonarrRoute>
   }
 
   Widget _enabledToggle() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Enable ${LunaModule.SONARR.title}',
         trailing: LunaSwitch(
@@ -100,7 +100,7 @@ class _State extends State<ConfigurationSonarrRoute>
 
   Widget _queueSize() {
     const _db = SonarrDatabase.QUEUE_PAGE_SIZE;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Queue Size',
         body: [

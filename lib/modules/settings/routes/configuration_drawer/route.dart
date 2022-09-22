@@ -46,7 +46,7 @@ class _State extends State<ConfigurationDrawerRoute>
           body: [
             TextSpan(text: 'settings.AutomaticallyManageOrderDescription'.tr()),
           ],
-          trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.watch(
+          trailing: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
             builder: (context, _) => LunaSwitch(
               value: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
               onChanged: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.update,
@@ -76,7 +76,7 @@ class _State extends State<ConfigurationDrawerRoute>
   }
 
   Widget _reorderableModuleTile(int index) {
-    return LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.watch(
+    return LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
       key: ObjectKey(_modules![index]),
       builder: (context, _) => LunaBlock(
         disabled: LunaSeaDatabase.DRAWER_AUTOMATIC_MANAGE.read(),

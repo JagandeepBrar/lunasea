@@ -61,7 +61,7 @@ class LunaOS extends StatelessWidget {
           fallbackLocale: LunaLocalization.fallbackLocale,
           startLocale: LunaLocalization.fallbackLocale,
           useFallbackTranslations: true,
-          child: LunaBox.lunasea.watch(
+          child: LunaBox.lunasea.listenableBuilder(
             selectItems: [
               LunaSeaDatabase.THEME_AMOLED,
               LunaSeaDatabase.THEME_AMOLED_BORDER,

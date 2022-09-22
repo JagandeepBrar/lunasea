@@ -43,7 +43,7 @@ class _State extends State<ConfigurationSABnzbdConnectionDetailsRoute>
   }
 
   Widget _body() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [

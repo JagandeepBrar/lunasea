@@ -1,7 +1,7 @@
 import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
-import 'package:lunasea/system/state.dart';
+import 'package:lunasea/state/state.dart';
 import 'package:lunasea/router/router.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/types/exception.dart';

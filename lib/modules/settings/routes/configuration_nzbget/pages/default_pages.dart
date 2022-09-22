@@ -43,7 +43,7 @@ class _State extends State<ConfigurationNZBGetDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = NZBGetDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: NZBGetNavigationBar.titles[_db.read()])],

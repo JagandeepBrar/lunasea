@@ -81,7 +81,7 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
 
   Widget _sentryLogging() {
     const db = BIOSDatabase.SENTRY_LOGGING;
-    return db.watch(
+    return db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.SentryLogging'.tr(),
         body: [TextSpan(text: 'settings.SentryLoggingDescription'.tr())],

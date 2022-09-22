@@ -46,7 +46,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: TautulliNavigationBar.titles[_db.read()])],
@@ -65,7 +65,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _graphsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_GRAPHS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Graphs',
         body: [TextSpan(text: TautulliGraphsNavigationBar.titles[_db.read()])],
@@ -85,7 +85,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _libraryDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_LIBRARIES_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Library Details',
         body: [
@@ -108,7 +108,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _mediaDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_MEDIA_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Media Details',
         body: [
@@ -130,7 +130,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _userDetailsPage() {
     const _db = TautulliDatabase.NAVIGATION_INDEX_USER_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'User Details',
         body: [

@@ -45,7 +45,7 @@ class _State extends State<ConfigurationDashboardDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = DashboardDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'lunasea.Home'.tr(),
         body: [TextSpan(text: HomeNavigationBar.titles[_db.read()])],

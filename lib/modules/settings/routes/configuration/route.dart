@@ -36,7 +36,7 @@ class _State extends State<ConfigurationRoute> with LunaScrollControllerMixin {
   }
 
   Widget _enabledProfile() {
-    return LunaBox.profiles.watch(
+    return LunaBox.profiles.listenableBuilder(
       builder: (context, _) {
         if (LunaBox.profiles.size < 2) return const SizedBox();
         return LunaIconButton(

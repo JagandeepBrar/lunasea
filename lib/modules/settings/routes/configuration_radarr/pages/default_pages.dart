@@ -45,7 +45,7 @@ class _State extends State<ConfigurationRadarrDefaultPagesRoute>
 
   Widget _homePage() {
     const _db = RadarrDatabase.NAVIGATION_INDEX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'settings.Home'.tr(),
         body: [TextSpan(text: RadarrNavigationBar.titles[_db.read()])],
@@ -64,7 +64,7 @@ class _State extends State<ConfigurationRadarrDefaultPagesRoute>
 
   Widget _movieDetailsPage() {
     const _db = RadarrDatabase.NAVIGATION_INDEX_MOVIE_DETAILS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Movie Details',
         body: [
@@ -87,7 +87,7 @@ class _State extends State<ConfigurationRadarrDefaultPagesRoute>
 
   Widget _addMoviePage() {
     const _db = RadarrDatabase.NAVIGATION_INDEX_ADD_MOVIE;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Add Movie',
         body: [TextSpan(text: RadarrAddMovieNavigationBar.titles[_db.read()])],
@@ -107,7 +107,7 @@ class _State extends State<ConfigurationRadarrDefaultPagesRoute>
 
   Widget _systemStatusPage() {
     const _db = RadarrDatabase.NAVIGATION_INDEX_SYSTEM_STATUS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'System Status',
         body: [

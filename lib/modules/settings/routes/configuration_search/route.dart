@@ -47,7 +47,7 @@ class _State extends State<ConfigurationSearchRoute>
   }
 
   Widget _body() {
-    return LunaBox.indexers.watch(
+    return LunaBox.indexers.listenableBuilder(
       builder: (context, _) => LunaListView(
         controller: scrollController,
         children: [
@@ -101,7 +101,7 @@ class _State extends State<ConfigurationSearchRoute>
 
   Widget _hideAdultCategories() {
     const _db = SearchDatabase.HIDE_XXX;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Hide Adult Categories',
         body: const [TextSpan(text: 'Hide Adult Content')],
@@ -115,7 +115,7 @@ class _State extends State<ConfigurationSearchRoute>
 
   Widget _showLinks() {
     const _db = SearchDatabase.SHOW_LINKS;
-    return _db.watch(
+    return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
         title: 'Show Links',
         body: const [TextSpan(text: 'Show Download and Comments Links')],

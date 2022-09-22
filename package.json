@@ -1,7 +1,7 @@
 {
   "name": "lunasea",
   "description": "Self-Hosted Controller",
-  "version": "10.2.0",
+  "version": "10.2.1",
   "private": true,
   "scripts": {
     "build:android": "flutter clean && flutter build apk --bundle-sksl-path shaders/android_sksl.json --release",

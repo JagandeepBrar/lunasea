@@ -3,9 +3,6 @@ name: Notify
 on:
   workflow_call:
     inputs:
-      build-changelog:
-        required: true
-        type: string
       build-flavor:
         required: true
         type: string
@@ -57,7 +54,6 @@ jobs:
         id: embed
         uses: actions/github-script@v6
         env:
-          BUILD_CHANGELOG: ${{ inputs.build-changelog }}
           BUILD_FLAVOR: ${{ inputs.build-flavor }}
           BUILD_TITLE: ${{ inputs.build-title }}
         with:

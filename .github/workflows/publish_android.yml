@@ -3,10 +3,10 @@ name: Publish Android
 on:
   workflow_call:
     inputs:
-      build-changelog:
+      build-flavor:
         required: true
         type: string
-      build-flavor:
+      build-motd:
         required: true
         type: string
       build-title:
@@ -53,11 +53,11 @@ jobs:
 
       - name: Generate Changelog
         env:
-          CHANGELOG: ${{ inputs.build-changelog }}
-          CHANGELOG_PATH: ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
+          MOTD: ${{ inputs.build-motd }}
+          PATH: ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
         run: |
-          mkdir -p $CHANGELOG_PATH
-          echo $CHANGELOG > $CHANGELOG_PATH/default.txt
+          mkdir -p $PATH
+          echo $MOTD > $PATH/default.txt
       
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android

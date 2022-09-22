@@ -8,12 +8,12 @@ on:
         required: true
 
     outputs:
-      build-changelog:
-        description: "Build Changelog"
-        value: ${{ jobs.build-details.outputs.build-changelog }}
       build-flavor:
         description: "Build Flavor"
         value: ${{ jobs.build-details.outputs.build-flavor }}
+      build-motd:
+        description: "Build MOTD"
+        value: ${{ jobs.build-details.outputs.build-motd }}
       build-number:
         description: "Build Number"
         value: ${{ jobs.build-details.outputs.build-number }}
@@ -35,7 +35,7 @@ jobs:
     name: Build Details
     runs-on: ubuntu-latest
     outputs:
-      build-changelog: ${{ steps.build-changelog.outputs.result }}
+      build-motd: ${{ steps.build-motd.outputs.result }}
       build-flavor: ${{ steps.build-flavor.outputs.result }}
       build-number: ${{ steps.build-number.outputs.result }}
       build-title: ${{ steps.build-title.outputs.output }}
@@ -70,8 +70,8 @@ jobs:
             }
             return 'edge';
 
-      - name: Build Changelog
-        id: build-changelog
+      - name: Build MOTD
+        id: build-motd
         uses: actions/github-script@v6
         env:
           FLAVOR: ${{ steps.build-flavor.outputs.result }}
@@ -104,13 +104,13 @@ jobs:
 
       - name: Log Build Details
         env:
-          CHANGELOG: ${{ steps.build-changelog.outputs.result }}
           FLAVOR: ${{ steps.build-flavor.outputs.result }}
+          MOTD: ${{ steps.build-motd.outputs.result }}
           NUMBER: ${{ steps.build-number.outputs.result }}
           TITLE: ${{ steps.build-title.outputs.output }}
           VERSION: ${{ steps.build-version.outputs.current-version }}
         run: |
-          echo "Build Changelog: $CHANGELOG"
+          echo "Build MOTD: $MOTD"
           echo "Build Flavor: $FLAVOR"
           echo "Build Number: $NUMBER"
           echo "Build Title: $TITLE"

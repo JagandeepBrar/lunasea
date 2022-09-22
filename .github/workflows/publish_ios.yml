@@ -3,10 +3,10 @@ name: Publish iOS
 on:
   workflow_call:
     inputs:
-      build-changelog:
+      build-flavor:
         required: true
         type: string
-      build-flavor:
+      build-motd:
         required: true
         type: string
 
@@ -43,11 +43,11 @@ jobs:
 
       - name: Generate Changelog
         env:
-          CHANGELOG: ${{ inputs.build-changelog }}
-          CHANGELOG_PATH: ${{ github.workspace }}/ios/fastlane
+          MOTD: ${{ inputs.build-motd }}
+          PATH: ${{ github.workspace }}/ios/fastlane
         run: |
-          mkdir -p $CHANGELOG_PATH
-          echo $CHANGELOG > $CHANGELOG_PATH/changelog.txt
+          mkdir -p $PATH
+          echo $MOTD > $PATH/changelog.txt
 
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/ios

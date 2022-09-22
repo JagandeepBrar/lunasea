@@ -108,8 +108,8 @@ jobs:
     needs: [ prepare, build-android ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
     with:
-      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
+      build-motd: ${{ needs.prepare.outputs.build-motd }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:
       GOOGLE_PLAY_API: ${{ secrets.GOOGLE_PLAY_API }}
@@ -119,8 +119,8 @@ jobs:
     needs: [ prepare, build-ios ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
     with:
-      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
+      build-motd: ${{ needs.prepare.outputs.build-motd }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -143,8 +143,8 @@ jobs:
     needs: [ prepare, build-macos ]
     uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
     with:
-      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
+      build-motd: ${{ needs.prepare.outputs.build-motd }}
     secrets:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
@@ -180,10 +180,9 @@ jobs:
 
   notify:
     name: Notify
-    needs: [ prepare, publish-android, publish-ios, publish-linux, publish-macos, publish-web, publish-s3 ]
+    needs: [ prepare, publish-s3 ]
     uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
     with:
-      build-changelog: ${{ needs.prepare.outputs.build-changelog }}
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
     secrets:

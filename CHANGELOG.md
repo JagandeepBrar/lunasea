@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.2.0](https://github.com/JagandeepBrar/LunaSea/compare/v10.1.1...v10.2.0) (2022-09-22)
+
+
+### Features
+
+* **-arr:** view download client queue via overlay sheet ([0c59886](https://github.com/JagandeepBrar/LunaSea/commit/0c59886657db0ed05a9d741c82689cb1272c6ad2))
+* **android:** add support for monochromatic adaptive icon ([#701](https://github.com/JagandeepBrar/LunaSea/issues/701)) ([96b2b1b](https://github.com/JagandeepBrar/LunaSea/commit/96b2b1b5b010507dd7ece3421bf02eac6ba32486))
+* **locale:** support Croatian ([a160f09](https://github.com/JagandeepBrar/LunaSea/commit/a160f0941f2e0c86d2e2fab5e01a577ceba2a8f3))
+* **logging:** integrate Sentry logging support for all platforms ([57bbb80](https://github.com/JagandeepBrar/LunaSea/commit/57bbb80a0188d3bed9ca70846a89df6a3c2c0953))
+* **logo:** add Vectorized app logos ([113b294](https://github.com/JagandeepBrar/LunaSea/commit/113b2943469464598ce07b931818c7e29c6cc63a))
+* **router:** re-implementation of routing via go_router ([1d4207a](https://github.com/JagandeepBrar/LunaSea/commit/1d4207ae5106c2a0648b77a3b3ef6508665561e8))
+* **sabnzbd:** rewrite SABnzbd API interface ([a1b736a](https://github.com/JagandeepBrar/LunaSea/commit/a1b736ae0c9bf754d913e86c69d15c27f256c413))
+* **search:** view download client queue via overlay sheet ([a6be658](https://github.com/JagandeepBrar/LunaSea/commit/a6be658164fed7dd2411a167dec6b4c53eab70f0))
+* **settings:** re-add option to disable Sentry logging ([3d0c520](https://github.com/JagandeepBrar/LunaSea/commit/3d0c5209cb3e796629817dee986634154e7ffe9e))
+* **web:** enable service worker processing of notifications ([4b41110](https://github.com/JagandeepBrar/LunaSea/commit/4b411107f74f048e6f3d571845590a5d29720ac3))
+
+
+### Bug Fixes
+
+* **android:** support Android 13 notification prompt ([83e8374](https://github.com/JagandeepBrar/LunaSea/commit/83e8374c33977c82096fcf8d5a4d94da5c291f8f))
+* **cache:** add type-safety to LRU cache ([7aae480](https://github.com/JagandeepBrar/LunaSea/commit/7aae4807221184dbe1d02454f73998a0458dd7f6))
+* **database:** prevent deadlock in database deletion actions ([9960124](https://github.com/JagandeepBrar/LunaSea/commit/9960124d3219e2ab72e14443a1a79a1bac6b2cd3))
+* **graphs:** support fl_chart@0.55.1 ([b812c7b](https://github.com/JagandeepBrar/LunaSea/commit/b812c7b4a12b4766e04b5d4023b45320e6b7927c))
+* **images:** validate image availability before fading-in ([6f9e0e8](https://github.com/JagandeepBrar/LunaSea/commit/6f9e0e87ce3d02dfff7dec439a2e975585c5b986))
+* **notifications:** correctly inject service worker for notification handling ([82ef5f0](https://github.com/JagandeepBrar/LunaSea/commit/82ef5f0c529a9e30475f86f496fa63c18785e87c))
+* **notifications:** enable in-app notifications config was inversed ([3593eb3](https://github.com/JagandeepBrar/LunaSea/commit/3593eb329b38fb4a5b776cf1b165ad6f463e371b))
+* **resources:** remove feedback board resource ([d3d090e](https://github.com/JagandeepBrar/LunaSea/commit/d3d090e277f7dda7d4ef3d7808e7341cf79178fe))
+* **scrolling:** remove custom scrolling behaviour ([864082f](https://github.com/JagandeepBrar/LunaSea/commit/864082fd4045ef7dea0e0ab6a17d41ca86015fcb))
+* **settings:** show notification settings area on web ([136cda5](https://github.com/JagandeepBrar/LunaSea/commit/136cda5215ae1d44dcd898e8e8e0b1e1912b3a41))
+* **sheets:** set default overlay theme for sheets, remove bottom radius clipping ([3a5e19b](https://github.com/JagandeepBrar/LunaSea/commit/3a5e19b02c048df21bd169a0a06f1e9ae741debb))
+* **sonarr:** support Sonarr v4 API changes ([e477eca](https://github.com/JagandeepBrar/LunaSea/commit/e477ecafcce268d7de112f33711fc02a089a4206))
+* **web:** correctly register notification service worker ([579531c](https://github.com/JagandeepBrar/LunaSea/commit/579531c30a17e2c8d53d011dbecf710f42598ec8))
+
+
+### Tweaks
+
+* **remove logos:** removes unused logo pngs ([2adfe59](https://github.com/JagandeepBrar/LunaSea/commit/2adfe59bd5cd289beb7f7c703fe26397310dbc90))
+
 ### [10.1.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.1.0...v10.1.1) (2022-08-21)
 
 

@@ -1,96 +1,110 @@
 {
-  "motd": "Welcome to LunaSea v10.1.0!\n\nThis release contains a wide variety of bug fixes including a completely rewritten database interface to detect and be resilient against corruption.",
+  "motd": "Welcome to LunaSea v10.2.0!\n\nThis release adds Sentry logging to allow for better error catching and tracking, full support for notifications on web (hosted version only), viewing your download client from the search and -arr releases page, and support for Android 13!\n\nThis build also includes fixes for users running Sonarr v4, safer database transactions, and a fully rewritten routing tree.\n\nFinally, the feedback board resource has been removed in favour of using Discord's new forum feature for feature requests! All requests from the previous board will slowly be transitioned to the Discord forum!",
   "feat": {
-    "changelog": [
+    "android": [
       {
-        "commit": "df65f53a4b00d11abc998f681274d22d94254f14",
-        "message": "prepare and show changelog on pre-release builds"
+        "commit": "96b2b1b5b010507dd7ece3421bf02eac6ba32486",
+        "message": "add support for monochromatic adaptive icon"
+      },
+      {
+        "commit": "113b2943469464598ce07b931818c7e29c6cc63a",
+        "message": "use vector images for icon"
+      },
+      {
+        "commit": "f8dca603310a3d514c0bd29cefc07e9802ea1350",
+        "message": "target building for Android 13 (SDK 33)"
+      },
+      {
+        "commit": "83e8374c33977c82096fcf8d5a4d94da5c291f8f",
+        "message": "support Android 13 notification prompt"
       }
     ],
-    "calendar": [
+    "logging": [
       {
-        "commit": "925f163e1534aeb45e5b22e8254eaf391eabd79f",
-        "message": "show current month in header"
+        "commit": "57bbb80a0188d3bed9ca70846a89df6a3c2c0953",
+        "message": "integrate Sentry logging support for all platforms"
+      }
+    ],
+    "router": [
+      {
+        "commit": "1d4207ae5106c2a0648b77a3b3ef6508665561e8",
+        "message": "re-implementation of routing via go_router"
+      }
+    ],
+    "search": [
+      {
+        "commit": "a6be658164fed7dd2411a167dec6b4c53eab70f0",
+        "message": "view download client via overlay sheet"
+      }
+    ],
+    "settings": [
+      {
+        "commit": "3d0c5209cb3e796629817dee986634154e7ffe9e",
+        "message": "add option to disable Sentry logging"
+      },
+      {
+        "commit": "136cda5215ae1d44dcd898e8e8e0b1e1912b3a41",
+        "message": "show notification settings area on web"
+      }
+    ],
+    "web": [
+      {
+        "commit": "4b411107f74f048e6f3d571845590a5d29720ac3",
+        "message": "enable service worker processing of notifications"
+      }
+    ],
+    "-arr": [
+      {
+        "commit": "0c59886657db0ed05a9d741c82689cb1272c6ad2",
+        "message": "view download client via overlay sheet"
       }
     ]
   },
   "fix": {
+    "cache": [
+      {
+        "commit": "7aae4807221184dbe1d02454f73998a0458dd7f6",
+        "message": "add type-safety to LRU cache"
+      }
+    ],
     "database": [
       {
-        "commit": "8fe81d11ab5c5aa484f0c2b471932d5364e6209c",
-        "message": "correctly store manually ordered module list"
+        "commit": "9960124d3219e2ab72e14443a1a79a1bac6b2cd3",
+        "message": "prevent deadlock in database deletion actions"
+      }
+    ],
+    "notifications": [
+      {
+        "commit": "3593eb329b38fb4a5b776cf1b165ad6f463e371b",
+        "message": "enable in-app notifications config was inversed"
+      }
+    ],
+    "resources": [
+      {
+        "commit": "d3d090e277f7dda7d4ef3d7808e7341cf79178fe",
+        "message": "remove feedback board resource"
+      }
+    ],
+    "scrolling": [
+      {
+        "commit": "864082fd4045ef7dea0e0ab6a17d41ca86015fcb",
+        "message": "remove custom scrolling behaviour"
+      }
+    ],
+    "sheets": [
+      {
+        "commit": "3a5e19b02c048df21bd169a0a06f1e9ae741debb",
+        "message": "set default overlay theme"
       },
       {
-        "commit": "758756fcf2456996c7ee02be2bd523cca91c45d3",
-        "message": "detect and recover from database corruption"
-      },
-      {
-        "commit": "fb3e8e53255c457d0922505ad6c2d91f5c0fcf03",
-        "message": "fallback to defaults on null values in profile"
-      },
-      {
-        "commit": "f1dcd0c36d558882bfbc7f4465ed56fac0743c55",
-        "message": "safely type indexer fields and headers"
-      },
-      {
-        "commit": "d4d9816c945b1930ecfda0382d809a7c67839a26",
-        "message": "utilize stricter typing for module headers map"
-      },
-      {
-        "commit": "d8506ee2834ca6a83394c11f6d4d329f03a3647f",
-        "message": "validate enabled profile exists on restore"
+        "commit": "3a5e19b02c048df21bd169a0a06f1e9ae741debb",
+        "message": "remove bottom radius clipping"
       }
     ],
     "sonarr": [
       {
-        "commit": "b5bb300046431d8c1c26fd8ac4a26c42444f4f53",
-        "message": "fanart image requests did not including headers"
-      },
-      {
-        "commit": "80678a75bb871a4835d1c73934e043564d80b6b0",
-        "message": "invalid links to theTVDB content"
-      }
-    ],
-    "lidarr": [
-      {
-        "commit": "ad22820d6662371d3d2bc7fbf596f86619002d20",
-        "message": "(history) sort list by date descending"
-      }
-    ],
-    "radarr": [
-      {
-        "commit": "22bf728a3dab6b7d76c7674cb4d97dc73e849201",
-        "message": "(queue) allow loading queue list when associated movie is not found"
-      }
-    ],
-    "android": [
-      {
-        "commit": "c91ba2ce8134fdc796d0431ba1c9134908fddd91",
-        "message": "correctly handle back-button to open drawer on applicable routes"
-      }
-    ],
-    "ui/ux": [
-      {
-        "commit": "95a645c06cf2a76231c4b8dbea87ec593961c205",
-        "message": "(lists) reorderable lists could not be reordered on some platforms"
-      },
-      {
-        "commit": "e05b17ae5ed35cec85ade5b910b82869cb7ad3f2",
-        "message": "(timestamps) display 0-length timestamps as \"0 Minutes\" instead of \"Under a Minute\""
-      }
-    ]
-  },
-  "refactor": {
-    "purchases": [
-      {
-        "commit": "9cb3fabdf1f5fa10d65770a181ced937413642a2",
-        "message": "rewrite interface to in-app purchase APIs"
-      }
-    ],
-    "database": [
-      {
-        "commit": "a0eaca084a399a2e249b142cb720cc50739a3f51",
-        "message": "rewrite interface to key-value database"
+        "commit": "e477ecafcce268d7de112f33711fc02a089a4206",
+        "message": "support Sonarr v4 API changes"
       }
     ]
   }

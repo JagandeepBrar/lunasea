@@ -54,10 +54,10 @@ jobs:
       - name: Generate Changelog
         env:
           MOTD: ${{ inputs.build-motd }}
-          PATH: ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
+          OUTPUT_PATH: ${{ github.workspace }}/android/fastlane/metadata/android/en-CA/changelogs
         run: |
-          mkdir -p $PATH
-          echo $MOTD > $PATH/default.txt
+          mkdir -p $OUTPUT_PATH
+          echo $MOTD > $OUTPUT_PATH/default.txt
       
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android

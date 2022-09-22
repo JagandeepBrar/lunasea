@@ -44,10 +44,10 @@ jobs:
       - name: Generate Changelog
         env:
           MOTD: ${{ inputs.build-motd }}
-          PATH: ${{ github.workspace }}/macos/fastlane
+          OUTPUT_PATH: ${{ github.workspace }}/macos/fastlane
         run: |
-          mkdir -p $PATH
-          echo $MOTD > $PATH/changelog.txt
+          mkdir -p $OUTPUT_PATH
+          echo $MOTD > $OUTPUT_PATH/changelog.txt
 
       - name: Deploy to App Store Connect
         working-directory: ${{ github.workspace }}/macos

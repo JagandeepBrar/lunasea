@@ -6,7 +6,6 @@ import 'package:lunasea/system/build.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/widgets/sheets/changelog/sheet.dart';
-import 'package:lunasea/widgets/sheets/database_corruption/sheet.dart';
 
 class LunaOS {
   Future<void> boot(BuildContext context) async {
@@ -32,11 +31,6 @@ class LunaOS {
   Future<void> _healthCheck() async {
     final isLatest = LunaBuild().isLatestBuildVersion();
     final firstBoot = BIOSDatabase.FIRST_BOOT.read();
-
-    if (BIOSDatabase.DATABASE_CORRUPTION.read()) {
-      DatabaseCorruptionSheet().show();
-      BIOSDatabase.DATABASE_CORRUPTION.update(false);
-    }
 
     if (!firstBoot && !isLatest.item1) {
       ChangelogSheet().show();

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/widgets/pages/error_route.dart';
@@ -10,7 +9,6 @@ class LunaRouter {
 
   void initialize() {
     router = GoRouter(
-      debugLogDiagnostics: kDebugMode,
       errorBuilder: (_, state) => ErrorRoutePage(exception: state.error),
       initialLocation: LunaRoutes.initialLocation,
       observers: [LunaSentry().navigatorObserver],

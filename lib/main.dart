@@ -11,35 +11,44 @@ import 'package:lunasea/system/cache/memory/memory_store.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/system/network/network.dart';
+import 'package:lunasea/system/recovery_mode/main.dart';
 import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/system/window_manager/window_manager.dart';
 import 'package:lunasea/system/platform.dart';
 
-/// LunaSea Entry Point: Initialize & Run Application
+/// LunaSea Entry Point: Bootstrap & Run Application
 ///
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(
     () async {
-      //LunaSea initialization
-      await LunaSentry().initialize();
-      await LunaDatabase().initialize();
-      LunaLogger().initialize();
-      if (LunaFirebase.isSupported) await LunaFirebase().initialize();
-      LunaTheme().initialize();
-      if (LunaWindowManager.isSupported) await LunaWindowManager().initialize();
-      if (LunaNetwork.isSupported) LunaNetwork().initialize();
-      if (LunaImageCache.isSupported) LunaImageCache().initialize();
-      LunaRouter().initialize();
-      if (LunaInAppPurchase.isSupported) LunaInAppPurchase().initialize();
-      await LunaLocalization().initialize();
-      await LunaMemoryStore().initialize();
-      // Run application
-      return runApp(const LunaBIOS());
+      try {
+        await bootstrap();
+        runApp(const LunaBIOS());
+      } catch (error) {
+        runApp(const LunaRecoveryMode());
+      }
     },
     (error, stack) => LunaLogger().critical(error, stack),
   );
+}
+
+/// Bootstrap the core
+///
+Future<void> bootstrap() async {
+  await LunaSentry().initialize();
+  await LunaDatabase().initialize();
+  LunaLogger().initialize();
+  if (LunaFirebase.isSupported) await LunaFirebase().initialize();
+  LunaTheme().initialize();
+  if (LunaWindowManager.isSupported) await LunaWindowManager().initialize();
+  if (LunaNetwork.isSupported) LunaNetwork().initialize();
+  if (LunaImageCache.isSupported) LunaImageCache().initialize();
+  LunaRouter().initialize();
+  if (LunaInAppPurchase.isSupported) LunaInAppPurchase().initialize();
+  await LunaLocalization().initialize();
+  await LunaMemoryStore().initialize();
 }
 
 class LunaBIOS extends StatelessWidget {

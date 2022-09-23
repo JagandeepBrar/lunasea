@@ -21,7 +21,7 @@ class LunaConfig {
         LunaSeaDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
       }
     } catch (error, stack) {
-      await LunaDatabase().bootstrap(databaseCorruption: true);
+      await LunaDatabase().bootstrap();
       LunaLogger().error(
         'Failed to import configuration, resetting to default',
         error,

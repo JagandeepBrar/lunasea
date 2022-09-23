@@ -1,10 +1,8 @@
 import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/models/profile.dart';
 import 'package:lunasea/database/table.dart';
-import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
-import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/system/platform.dart';
 import 'package:lunasea/vendor.dart';
 
@@ -24,20 +22,8 @@ class LunaDatabase {
   }
 
   Future<void> open() async {
-    try {
-      await LunaBox.open();
-      if (LunaBox.profiles.isEmpty) await bootstrap();
-    } catch (error, stack) {
-      await nuke();
-      await LunaBox.open();
-      await bootstrap(databaseCorruption: true);
-
-      LunaLogger().error(
-        'Database corruption detected',
-        error,
-        stack,
-      );
-    }
+    await LunaBox.open();
+    if (LunaBox.profiles.isEmpty) await bootstrap();
   }
 
   Future<void> nuke() async {
@@ -52,15 +38,12 @@ class LunaDatabase {
     }
   }
 
-  Future<void> bootstrap({
-    bool databaseCorruption = false,
-  }) async {
+  Future<void> bootstrap() async {
     const defaultProfile = LunaProfile.DEFAULT_PROFILE;
     await clear();
 
     LunaBox.profiles.update(defaultProfile, LunaProfile());
     LunaSeaDatabase.ENABLED_PROFILE.update(defaultProfile);
-    BIOSDatabase.DATABASE_CORRUPTION.update(databaseCorruption);
   }
 
   Future<void> clear() async {

@@ -67,6 +67,7 @@ class LunaIcons {
 
   // Brands - Custom
   static const IconData LIDARR = IconData(0xe805, fontFamily: _fontFamily);
+  static const IconData MUSICBRAINZ = IconData(0xe809, fontFamily: _fontFamily);
   static const IconData NZBGET = IconData(0xe807, fontFamily: _fontFamily);
   static const IconData OVERSEERR = IconData(0xe808, fontFamily: _fontFamily);
   static const IconData RADARR = IconData(0xe80a, fontFamily: _fontFamily);

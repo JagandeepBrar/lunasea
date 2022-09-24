@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/modules/lidarr/core/api.dart';
+import 'package:lunasea/utils/links.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LinksSheet extends LunaBottomModalSheet {
@@ -38,6 +39,12 @@ class LinksSheet extends LunaBottomModalSheet {
             leading: const LunaIconButton(icon: LunaIcons.LASTFM),
             onTap: artist.lastfmURI!.openLink,
           ),
+        LunaBlock(
+          title: 'MusicBrainz',
+          leading: const LunaIconButton(icon: LunaIcons.MUSICBRAINZ),
+          onTap:
+              LunaLinkedContent.musicBrainz(artist.foreignArtistID)!.openLink,
+        ),
       ],
     );
   }

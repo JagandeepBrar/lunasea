@@ -40,6 +40,13 @@ enum LunaLinkedContent {
     return '$base/tmdb/$id';
   }
 
+  static String? musicBrainz(String? id) {
+    if (id == null) return null;
+    String base = 'https://musicbrainz.org/artist';
+
+    return '$base/$id';
+  }
+
   static String? theMovieDB(dynamic id, LinkedContentType type) {
     if (id == null) return null;
     String base = 'https://www.themoviedb.org';

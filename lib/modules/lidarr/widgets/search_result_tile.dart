@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/double/time.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/router/router.dart';
@@ -126,6 +127,13 @@ class _State extends State<LidarrReleasesTile> {
         onTap: _startDownload,
         loadingState: _downloadState,
       ),
+      if (widget.release.infoUrl.isNotEmpty)
+        LunaButton.text(
+          text: 'Indexer',
+          icon: Icons.info_outline_rounded,
+          color: LunaColours.blue,
+          onTap: widget.release.infoUrl.openLink,
+        ),
       if (!widget.release.approved)
         LunaButton.text(
           text: 'Rejected',

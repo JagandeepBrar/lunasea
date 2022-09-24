@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.All": "Alle",
+    "sabnzbd.Completed": "Fullført",
+    "sabnzbd.Descending": "Synkende",
+    "sabnzbd.Duplicate": "Duplikat",
+    "sabnzbd.Failed": "Feilet",
+    "sabnzbd.Force": "Tving",
+    "sabnzbd.HibernatePC": "Dvalemodus",
+    "sabnzbd.Name": "Navn",
+    "sabnzbd.RepairUnpack": "Reparer/Pakk ut",
+    "sabnzbd.RepairUnpackDelete": "Reparer/Pakk ut/Slett",
+    "sabnzbd.Size": "Størrelse",
+    "sabnzbd.ShutdownPC": "Skru av PC",
+    "sabnzbd.StandbyPC": "Ventemodus",
+    "sabnzbd.Stop": "Stopp",
+    "sabnzbd.Age": "Alder",
+    "sabnzbd.Ascending": "Stigende",
+    "sabnzbd.CategoryDefault": "Standardkategori",
+    "sabnzbd.High": "Høy",
+    "sabnzbd.Low": "Lav",
+    "sabnzbd.None": "Ingen",
+    "sabnzbd.Paused": "Pauset",
+    "sabnzbd.Normal": "Normal",
+    "sabnzbd.Repair": "Reparer",
+    "sabnzbd.ShutdownSABnzbd": "Skru av SABnzbd"
+}

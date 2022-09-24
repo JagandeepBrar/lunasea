@@ -14,6 +14,7 @@ class CalendarRadarrData extends CalendarData {
   int year;
   int runtime;
   String studio;
+  DateTime releaseDate;
 
   CalendarRadarrData({
     required int id,
@@ -23,10 +24,14 @@ class CalendarRadarrData extends CalendarData {
     required this.year,
     required this.runtime,
     required this.studio,
+    required this.releaseDate,
   }) : super(id, title);
+
+  bool get hasReleased => DateTime.now().isAfter(releaseDate);
 
   @override
   List<TextSpan> get body {
+    final released = hasReleased;
     return [
       TextSpan(
         children: [
@@ -37,11 +42,11 @@ class CalendarRadarrData extends CalendarData {
       ),
       TextSpan(text: studio),
       if (!hasFile)
-        const TextSpan(
-          text: 'Not Downloaded',
+        TextSpan(
+          text: released ? 'radarr.Missing'.tr() : 'radarr.Unreleased'.tr(),
           style: TextStyle(
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-            color: LunaColours.red,
+            color: released ? LunaColours.red : LunaColours.blue,
           ),
         ),
       if (hasFile)

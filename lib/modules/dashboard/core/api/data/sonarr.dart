@@ -32,6 +32,7 @@ class CalendarSonarrData extends CalendarData {
 
   @override
   List<TextSpan> get body {
+    final released = hasAired;
     return [
       TextSpan(
         children: [
@@ -49,10 +50,10 @@ class CalendarSonarrData extends CalendarData {
       ),
       if (!hasFile)
         TextSpan(
-          text: hasAired ? 'sonarr.Missing'.tr() : 'sonarr.Unaired'.tr(),
+          text: released ? 'sonarr.Missing'.tr() : 'sonarr.Unaired'.tr(),
           style: TextStyle(
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-            color: hasAired ? LunaColours.red : LunaColours.blue,
+            color: released ? LunaColours.red : LunaColours.blue,
           ),
         ),
       if (hasFile)

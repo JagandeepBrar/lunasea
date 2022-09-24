@@ -124,6 +124,7 @@ class API {
               year: entry['year'] ?? 0,
               runtime: entry['runtime'] ?? 0,
               studio: entry['studio'] ?? LunaUI.TEXT_EMDASH,
+              releaseDate: release,
             ));
             map[release] = day;
           }

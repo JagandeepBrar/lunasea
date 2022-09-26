@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/firebase/types.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
+import 'package:lunasea/state/state.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -1352,5 +1354,40 @@ class SettingsDialogs {
       content: [LunaDialog.textContent(text: 'settings.AccountHelpHint1'.tr())],
       contentPadding: LunaDialog.textDialogContentPadding(),
     );
+  }
+
+  Future<Tuple2<bool, LunaModule?>> selectBootModule() async {
+    final context = LunaState.context;
+    bool _flag = false;
+    LunaModule? _module;
+
+    void _setValues(LunaModule module) {
+      _flag = true;
+      _module = module;
+      Navigator.of(context).pop();
+    }
+
+    final modules = LunaModule.values.filter((m) {
+      if (m.homeRoute == null) return false;
+      if (!m.isEnabled) return false;
+      return true;
+    }).toList();
+
+    await LunaDialog.dialog(
+      context: context,
+      title: 'settings.BootModule'.tr(),
+      content: List.generate(
+        modules.length,
+        (index) => LunaDialog.tile(
+          text: modules[index].title,
+          icon: modules[index].icon,
+          iconColor: modules[index].color,
+          onTap: () => _setValues(modules[index]),
+        ),
+      ),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+
+    return Tuple2(_flag, _module);
   }
 }

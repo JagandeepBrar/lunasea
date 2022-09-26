@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/database/tables/bios.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/router/routes.dart';
 import 'package:lunasea/router/routes/dashboard.dart';
@@ -25,7 +26,9 @@ enum BIOSRoutes with LunaRoutesMixin {
       case BIOSRoutes.HOME:
         return redirect(redirect: (context, _) {
           LunaOS().boot(context);
-          return DashboardRoutes.HOME.path;
+
+          final fallback = DashboardRoutes.HOME.path;
+          return BIOSDatabase.BOOT_MODULE.read().homeRoute ?? fallback;
         });
     }
   }

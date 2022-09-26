@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/router/routes/settings.dart';
-import 'package:lunasea/system/network/network.dart';
 import 'package:lunasea/system/quick_actions/quick_actions.dart';
 import 'package:lunasea/utils/profile_tools.dart';
 
@@ -73,10 +72,10 @@ class _State extends State<ConfigurationRoute> with LunaScrollControllerMixin {
       controller: scrollController,
       children: [
         LunaBlock(
-          title: 'settings.Appearance'.tr(),
-          body: [TextSpan(text: 'settings.AppearanceDescription'.tr())],
+          title: 'settings.General'.tr(),
+          body: [TextSpan(text: 'settings.GeneralDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.brush_rounded),
-          onTap: SettingsRoutes.CONFIGURATION_APPEARANCE.go,
+          onTap: SettingsRoutes.CONFIGURATION_GENERAL.go,
         ),
         LunaBlock(
           title: 'settings.Drawer'.tr(),
@@ -84,19 +83,6 @@ class _State extends State<ConfigurationRoute> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.menu_rounded),
           onTap: SettingsRoutes.CONFIGURATION_DRAWER.go,
         ),
-        LunaBlock(
-          title: 'settings.Localization'.tr(),
-          body: [TextSpan(text: 'settings.LocalizationDescription'.tr())],
-          trailing: const LunaIconButton(icon: Icons.translate_rounded),
-          onTap: SettingsRoutes.CONFIGURATION_LOCALIZATION.go,
-        ),
-        if (LunaNetwork.isSupported)
-          LunaBlock(
-            title: 'settings.Network'.tr(),
-            body: [TextSpan(text: 'settings.NetworkDescription'.tr())],
-            trailing: const LunaIconButton(icon: Icons.network_check_rounded),
-            onTap: SettingsRoutes.CONFIGURATION_NETWORK.go,
-          ),
         if (LunaQuickActions.isSupported)
           LunaBlock(
             title: 'settings.QuickActions'.tr(),

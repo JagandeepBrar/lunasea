@@ -5,7 +5,7 @@ import 'package:lunasea/modules/settings/routes/account/pages/password_reset.dar
 import 'package:lunasea/modules/settings/routes/account/pages/settings.dart';
 import 'package:lunasea/modules/settings/routes/account/route.dart';
 import 'package:lunasea/modules/settings/routes/configuration/route.dart';
-import 'package:lunasea/modules/settings/routes/configuration_appearance/route.dart';
+import 'package:lunasea/modules/settings/routes/configuration_general/route.dart';
 import 'package:lunasea/modules/settings/routes/configuration_dashboard/pages/calendar_settings.dart';
 import 'package:lunasea/modules/settings/routes/configuration_dashboard/pages/default_pages.dart';
 import 'package:lunasea/modules/settings/routes/configuration_dashboard/route.dart';
@@ -17,8 +17,6 @@ import 'package:lunasea/modules/settings/routes/configuration_lidarr/pages/conne
 import 'package:lunasea/modules/settings/routes/configuration_lidarr/pages/default_pages.dart';
 import 'package:lunasea/modules/settings/routes/configuration_lidarr/pages/headers.dart';
 import 'package:lunasea/modules/settings/routes/configuration_lidarr/route.dart';
-import 'package:lunasea/modules/settings/routes/configuration_localization/route.dart';
-import 'package:lunasea/modules/settings/routes/configuration_network/route.dart';
 import 'package:lunasea/modules/settings/routes/configuration_nzbget/pages/connection_details.dart';
 import 'package:lunasea/modules/settings/routes/configuration_nzbget/pages/default_pages.dart';
 import 'package:lunasea/modules/settings/routes/configuration_nzbget/pages/headers.dart';
@@ -72,7 +70,7 @@ enum SettingsRoutes with LunaRoutesMixin {
   ACCOUNT_PASSWORD_RESET('password_reset'),
   ACCOUNT_SETTINGS('settings'),
   CONFIGURATION('configuration'),
-  CONFIGURATION_APPEARANCE('appearance'),
+  CONFIGURATION_GENERAL('general'),
   CONFIGURATION_DASHBOARD('dashboard'),
   CONFIGURATION_DASHBOARD_CALENDAR('calendar'),
   CONFIGURATION_DASHBOARD_DEFAULT_PAGES('default_pages'),
@@ -84,8 +82,6 @@ enum SettingsRoutes with LunaRoutesMixin {
   CONFIGURATION_LIDARR_CONNECTION_DETAILS('connection_details'),
   CONFIGURATION_LIDARR_CONNECTION_DETAILS_HEADERS('headers'),
   CONFIGURATION_LIDARR_DEFAULT_PAGES('default_pages'),
-  CONFIGURATION_LOCALIZATION('localization'),
-  CONFIGURATION_NETWORK('network'),
   CONFIGURATION_NZBGET('nzbget'),
   CONFIGURATION_NZBGET_CONNECTION_DETAILS('connection_details'),
   CONFIGURATION_NZBGET_CONNECTION_DETAILS_HEADERS('headers'),
@@ -153,8 +149,8 @@ enum SettingsRoutes with LunaRoutesMixin {
         return route(widget: const AccountSettingsRoute());
       case SettingsRoutes.CONFIGURATION:
         return route(widget: const ConfigurationRoute());
-      case SettingsRoutes.CONFIGURATION_APPEARANCE:
-        return route(widget: const ConfigurationAppearanceRoute());
+      case SettingsRoutes.CONFIGURATION_GENERAL:
+        return route(widget: const ConfigurationGeneralRoute());
       case SettingsRoutes.CONFIGURATION_DASHBOARD:
         return route(widget: const ConfigurationDashboardRoute());
       case SettingsRoutes.CONFIGURATION_DASHBOARD_CALENDAR:
@@ -182,10 +178,6 @@ enum SettingsRoutes with LunaRoutesMixin {
         );
       case SettingsRoutes.CONFIGURATION_LIDARR_DEFAULT_PAGES:
         return route(widget: const ConfigurationLidarrDefaultPagesRoute());
-      case SettingsRoutes.CONFIGURATION_LOCALIZATION:
-        return route(widget: const ConfigurationLocalizationRoute());
-      case SettingsRoutes.CONFIGURATION_NETWORK:
-        return route(widget: const ConfigurationNetworkRoute());
       case SettingsRoutes.CONFIGURATION_NZBGET:
         return route(widget: const ConfigurationNZBGetRoute());
       case SettingsRoutes.CONFIGURATION_NZBGET_CONNECTION_DETAILS:
@@ -324,13 +316,11 @@ enum SettingsRoutes with LunaRoutesMixin {
         ];
       case SettingsRoutes.CONFIGURATION:
         return [
-          SettingsRoutes.CONFIGURATION_APPEARANCE.routes,
+          SettingsRoutes.CONFIGURATION_GENERAL.routes,
           SettingsRoutes.CONFIGURATION_DASHBOARD.routes,
           SettingsRoutes.CONFIGURATION_DRAWER.routes,
           SettingsRoutes.CONFIGURATION_EXTERNAL_MODULES.routes,
           SettingsRoutes.CONFIGURATION_LIDARR.routes,
-          SettingsRoutes.CONFIGURATION_LOCALIZATION.routes,
-          SettingsRoutes.CONFIGURATION_NETWORK.routes,
           SettingsRoutes.CONFIGURATION_NZBGET.routes,
           SettingsRoutes.CONFIGURATION_OVERSEERR.routes,
           SettingsRoutes.CONFIGURATION_QUICK_ACTIONS.routes,

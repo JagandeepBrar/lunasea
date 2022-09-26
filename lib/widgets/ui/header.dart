@@ -13,7 +13,7 @@ class LunaHeader extends StatelessWidget {
 
   Widget _headerText() {
     return Text(
-      text!.toUpperCase(),
+      text!,
       style: const TextStyle(
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: LunaUI.FONT_SIZE_H2,

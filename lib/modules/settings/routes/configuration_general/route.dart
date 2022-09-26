@@ -40,6 +40,7 @@ class _State extends State<ConfigurationGeneralRoute>
       children: [
         ..._appearance(),
         ..._localization(),
+        ..._modules(),
         if (LunaNetwork.isSupported) ..._network(),
       ],
     );

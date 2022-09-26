@@ -1367,10 +1367,12 @@ class SettingsDialogs {
       Navigator.of(context).pop();
     }
 
-    final modules = LunaModule.values.filter((m) {
-      if (m.homeRoute == null) return false;
-      if (!m.isEnabled) return false;
-      return true;
+    final modules = LunaModule.values.filter((module) {
+      final enabled = module.isEnabled;
+      final featureFlag = module.featureFlag;
+      final homeRoute = module.homeRoute != null;
+
+      return homeRoute && enabled && featureFlag;
     }).toList();
 
     await LunaDialog.dialog(

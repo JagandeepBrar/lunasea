@@ -702,4 +702,31 @@ class RadarrDialogs {
       contentPadding: LunaDialog.listDialogContentPadding(),
     );
   }
+
+  Future<bool> moveFiles() async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(LunaState.context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: LunaState.context,
+      title: 'radarr.MoveFiles'.tr(),
+      contentPadding: LunaDialog.textDialogContentPadding(),
+      cancelButtonText: 'lunasea.No'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'lunasea.Yes'.tr(),
+          onPressed: () => _setValues(true),
+        ),
+      ],
+      content: [
+        LunaDialog.textContent(text: 'radarr.MoveFilesDescription'.tr()),
+      ],
+    );
+
+    return _flag;
+  }
 }

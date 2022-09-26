@@ -29,8 +29,15 @@ class RadarrCommandHandlerMovie {
   ///
   /// Required Parameters:
   /// - `movie`: [RadarrMovie] object with the updated information
-  Future<RadarrMovie> update({required RadarrMovie movie}) async =>
-      _commandUpdateMovie(_client, movie: movie);
+  Future<RadarrMovie> update({
+    required RadarrMovie movie,
+    bool moveFiles = false,
+  }) async =>
+      _commandUpdateMovie(
+        _client,
+        movie: movie,
+        moveFiles: moveFiles,
+      );
 
   /// Handler for [movie/{id}](https://radarr.video/docs/api/#/Movie/deleteMovie).
   ///

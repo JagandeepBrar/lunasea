@@ -260,6 +260,7 @@ class RadarrAPIHelper {
   Future<bool> updateMovie({
     required BuildContext context,
     required RadarrMovie movie,
+    required bool moveFiles,
     bool showSnackbar = true,
   }) async {
     if (context.read<RadarrState>().enabled) {
@@ -267,7 +268,7 @@ class RadarrAPIHelper {
           .read<RadarrState>()
           .api!
           .movie
-          .update(movie: movie)
+          .update(movie: movie, moveFiles: moveFiles)
           .then((_) async {
         return await context
             .read<RadarrState>()

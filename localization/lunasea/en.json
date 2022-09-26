@@ -57,6 +57,7 @@
   "lunasea.Months": "{} Months",
   "lunasea.MonthsAgo": "{} Months Ago",
   "lunasea.New": "New",
+  "lunasea.No": "No",
   "lunasea.NotSet": "Not Set",
   "lunasea.NoModulesEnabled": "No Modules Enabled",
   "lunasea.OneDay": "1 Day",
@@ -105,5 +106,6 @@
   "lunasea.Warning": "Warning",
   "lunasea.Website": "Website",
   "lunasea.Years": "{} Years",
-  "lunasea.YearsAgo": "{} Years Ago"
+  "lunasea.YearsAgo": "{} Years Ago",
+  "lunasea.Yes": "Yes"
 }

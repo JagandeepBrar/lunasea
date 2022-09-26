@@ -66,7 +66,7 @@ class _State extends State<SystemRoute> with LunaScrollControllerMixin {
   Widget _clearImageCache() {
     return LunaBlock(
       title: 'Clear Image Cache',
-      body: const [TextSpan(text: 'Clear cached images from the disk')],
+      body: const [TextSpan(text: 'Clear Cached Images From the Disk')],
       trailing: const LunaIconButton(icon: Icons.image_not_supported_rounded),
       onTap: () async {
         bool result = await SettingsDialogs().clearImageCache(context);

@@ -57,6 +57,7 @@
     "lunasea.Months": "{} Ay",
     "lunasea.MonthsAgo": "{} Ay Önce",
     "lunasea.New": "Yeni",
+    "lunasea.No": "Hayır",
     "lunasea.NoModulesEnabled": "Etkin Modül Yok",
     "lunasea.NotSet": "Ayarlanmadı",
     "lunasea.OneDay": "1 Gün",
@@ -105,5 +106,6 @@
     "lunasea.Warning": "Uyarı",
     "lunasea.Website": "Web Sitesi",
     "lunasea.Years": "{} Yıl",
-    "lunasea.YearsAgo": "{} Yıl Önce"
+    "lunasea.YearsAgo": "{} Yıl Önce",
+    "lunasea.Yes": "Evet"
 }

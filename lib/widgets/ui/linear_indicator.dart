@@ -24,9 +24,10 @@ class LunaLinearPercentIndicator extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: LinearPercentIndicator(
         percent: percent!,
-        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+        padding: EdgeInsets.zero,
         lineHeight: 4.0,
         progressColor: progressColor,
+        barRadius: const Radius.circular(LunaUI.BORDER_RADIUS),
         backgroundColor:
             backgroundColor ?? progressColor.withOpacity(LunaUI.OPACITY_SPLASH),
       ),

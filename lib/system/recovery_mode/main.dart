@@ -11,7 +11,10 @@ class LunaRecoveryMode extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: _home(),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      ),
       themeMode: ThemeMode.dark,
     );
   }
@@ -29,8 +32,8 @@ class LunaRecoveryMode extends StatelessWidget {
     );
   }
 
-  Widget _motd() {
-    return const Padding(
+  SliverToBoxAdapter _motd() {
+    return const SliverToBoxAdapter(
       child: Center(
         child: Text(
           'To exit please fully close and restart the application.',
@@ -40,7 +43,6 @@ class LunaRecoveryMode extends StatelessWidget {
           ),
         ),
       ),
-      padding: EdgeInsets.all(12.0),
     );
   }
 
@@ -50,16 +52,16 @@ class LunaRecoveryMode extends StatelessWidget {
       ClearDatabaseTile(),
     ];
 
-    return ListView.separated(
-      itemCount: actions.length + 1,
-      itemBuilder: (context, idx) {
-        if (idx == 0) return _motd();
-        return actions[idx - 1];
-      },
-      separatorBuilder: (context, idx) {
-        if (idx == 0) return const SizedBox();
-        return const Divider();
-      },
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          sliver: _motd(),
+          padding: const EdgeInsets.all(12.0),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(actions),
+        ),
+      ],
     );
   }
 }

@@ -51,7 +51,7 @@ abstract class RecoveryActionTile extends StatelessWidget {
       builder: (context) => const SimpleDialog(
         title: Text('Success'),
         children: [
-          Text('Action Completed Successfully'),
+          Text('Action completed successfully.'),
         ],
         contentPadding: EdgeInsets.only(
           left: 24.0,
@@ -87,14 +87,32 @@ abstract class RecoveryActionTile extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Are You Sure?'),
-        content: const Text('Are you sure you want to do this action?'),
+        content: RichText(
+          text: TextSpan(
+            children: [
+              const TextSpan(text: 'Are you sure you want to '),
+              TextSpan(text: description.toLowerCase()),
+              const TextSpan(text: '?'),
+            ],
+          ),
+        ),
         actions: [
+          TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           TextButton(
             onPressed: () {
               result = true;
               Navigator.of(context).pop();
             },
-            child: const Text('Confirm'),
+            child: const Text(
+              'Confirm',
+              style: TextStyle(color: Colors.red),
+            ),
           )
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
-import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/vendor.dart';
 
@@ -24,14 +23,6 @@ class ScheduleView extends StatefulWidget {
 
 class _State extends State<ScheduleView> {
   final _formatter = DateFormat('EEEE / MMMM dd, y');
-  late DateTime _today;
-
-  @override
-  void initState() {
-    super.initState();
-    DateTime _floored = context.read<ModuleState>().today!.floor();
-    _today = _floored;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +56,22 @@ class _State extends State<ScheduleView> {
 
   Tuple2<List<Widget>, double> _buildSchedule() {
     double offset = 0.0;
-    double offsetOfToday = 0.0;
+    double offsetOfSelected = 0.0;
     List<Widget> days = [];
     List<DateTime> keys = widget.events.keys.toList();
     keys.sort();
 
     for (final key in keys) {
-      bool pastDays = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS.read();
-      bool dayInFuture = key.isAfter(_today.subtract(const Duration(days: 1)));
-      bool hasEvents = widget.events[key]?.isNotEmpty ?? false;
-      bool isToday = _today.isAtSameMomentAs(key);
+      final selected = context.read<ModuleState>().selected;
+      final today = context.read<ModuleState>().today;
 
-      if (isToday) {
-        offsetOfToday = offset;
+      bool pastDays = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS.read();
+      bool dayInFuture = key.isAfter(today.subtract(const Duration(days: 1)));
+      bool hasEvents = widget.events[key]?.isNotEmpty ?? false;
+      bool isSelected = selected.isAtSameMomentAs(key);
+
+      if (isSelected) {
+        offsetOfSelected = offset;
       }
 
       if ((pastDays || dayInFuture) && hasEvents) {
@@ -87,14 +81,14 @@ class _State extends State<ScheduleView> {
       }
     }
 
-    return Tuple2(days, offsetOfToday);
+    return Tuple2(days, offsetOfSelected);
   }
 
   Tuple2<List<Widget>, double> _buildDay(DateTime day) {
     List<CalendarData> events = widget.events[day]!;
 
     final extent = LunaBlock.calculateItemExtent(3);
-    final offset = 39.0 + events.length * extent;
+    final offset = 39.30 + events.length * extent;
     final slivers = [
       SliverToBoxAdapter(
         child: LunaHeader(text: _formatter.format(day)),

@@ -1,8 +1,11 @@
 import 'package:lunasea/database/tables/dashboard.dart';
+import 'package:lunasea/extensions/datetime.dart';
+import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_type.dart';
 import 'package:lunasea/modules/dashboard/core/api/api.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/state/state.dart';
+import 'package:lunasea/vendor.dart';
 
 class ModuleState extends LunaModuleState {
   ModuleState() {
@@ -16,11 +19,19 @@ class ModuleState extends LunaModuleState {
     resetUpcoming();
   }
 
-  CalendarStartingType _calendarStartingType =
+  CalendarStartingType _calendarType =
       DashboardDatabase.CALENDAR_STARTING_TYPE.read();
-  CalendarStartingType get calendarStartingType => _calendarStartingType;
-  set calendarStartingType(CalendarStartingType calendarStartingType) {
-    _calendarStartingType = calendarStartingType;
+  CalendarStartingType get calendarType => _calendarType;
+  set calendarType(CalendarStartingType calendarStartingType) {
+    _calendarType = calendarStartingType;
+    notifyListeners();
+  }
+
+  CalendarFormat _calendarFormat =
+      DashboardDatabase.CALENDAR_STARTING_SIZE.read().data;
+  CalendarFormat get calendarFormat => _calendarFormat;
+  set calendarFormat(CalendarFormat calendarFormat) {
+    _calendarFormat = calendarFormat;
     notifyListeners();
   }
 
@@ -31,10 +42,10 @@ class ModuleState extends LunaModuleState {
     notifyListeners();
   }
 
-  DateTime? _today;
-  DateTime? get today => _today;
+  DateTime _today = DateTime.now().floor();
+  DateTime get today => _today;
   void resetToday() {
-    _today = DateTime.now();
+    _today = DateTime.now().floor();
     notifyListeners();
   }
 
@@ -42,6 +53,13 @@ class ModuleState extends LunaModuleState {
   Future<Map<DateTime, List<CalendarData>>>? get upcoming => _upcoming;
   void resetUpcoming() {
     if (_api != null) _upcoming = _api!.getUpcoming(DateTime.now());
+    notifyListeners();
+  }
+
+  DateTime _selected = DateTime.now().floor();
+  DateTime get selected => _selected;
+  set selected(DateTime selected) {
+    _selected = selected;
     notifyListeners();
   }
 }

@@ -45,7 +45,7 @@ class _State extends State<SwitchViewAction> with LunaLoadCallbackMixin {
   @override
   Widget build(BuildContext context) {
     return Selector<ModuleState, CalendarStartingType>(
-      selector: (_, state) => state.calendarStartingType,
+      selector: (_, state) => state.calendarType,
       builder: (context, view, _) {
         if (_showButton) {
           return LunaIconButton.appBar(
@@ -53,9 +53,9 @@ class _State extends State<SwitchViewAction> with LunaLoadCallbackMixin {
             onPressed: () {
               final state = context.read<ModuleState>();
               if (view == CalendarStartingType.CALENDAR)
-                state.calendarStartingType = CalendarStartingType.SCHEDULE;
+                state.calendarType = CalendarStartingType.SCHEDULE;
               else
-                state.calendarStartingType = CalendarStartingType.CALENDAR;
+                state.calendarType = CalendarStartingType.CALENDAR;
             },
           );
         }

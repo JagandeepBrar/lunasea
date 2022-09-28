@@ -56,7 +56,7 @@ class _State extends State<CalendarPage>
               snapshot.hasData) {
             final events = snapshot.data!;
             return Selector<ModuleState, CalendarStartingType>(
-              selector: (_, s) => s.calendarStartingType,
+              selector: (_, s) => s.calendarType,
               builder: (context, type, _) {
                 if (type == CalendarStartingType.CALENDAR)
                   return CalendarView(events: events);

@@ -5,7 +5,6 @@ import 'package:lunasea/database/box.dart';
 import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
-import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_size.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/abstract.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/lidarr.dart';
 import 'package:lunasea/modules/dashboard/core/api/data/radarr.dart';
@@ -30,25 +29,10 @@ class CalendarView extends StatefulWidget {
 
 class _State extends State<CalendarView> {
   final double _calendarBulletSize = 8.0;
-  List<CalendarData> _selectedEvents = [];
-
-  late DateTime _selected;
-  late CalendarFormat _calendarFormat;
-
   late final TextStyle dayStyle = _getTextStyle(LunaColours.white);
   late final TextStyle outsideStyle = _getTextStyle(LunaColours.white70);
   late final TextStyle unavailableStyle = _getTextStyle(LunaColours.white10);
   late final TextStyle weekdayStyle = _getTextStyle(LunaColours.accent);
-
-  @override
-  void initState() {
-    super.initState();
-
-    final size = DashboardDatabase.CALENDAR_STARTING_SIZE.read();
-    _selected = context.read<ModuleState>().today!.floor();
-    _selectedEvents = widget.events[_selected] ?? [];
-    _calendarFormat = size.data;
-  }
 
   TextStyle _getTextStyle(Color color) {
     return TextStyle(
@@ -60,11 +44,7 @@ class _State extends State<CalendarView> {
 
   void _onDaySelected(DateTime selected, DateTime focused) {
     HapticFeedback.selectionClick();
-    if (mounted)
-      setState(() {
-        _selected = selected.floor();
-        _selectedEvents = widget.events[selected.floor()] ?? [];
-      });
+    context.read<ModuleState>().selected = selected.floor();
   }
 
   @override
@@ -128,10 +108,10 @@ class _State extends State<CalendarView> {
         DashboardDatabase.CALENDAR_STARTING_SIZE,
       ],
       builder: (context, _) {
-        DateTime firstDay = context.watch<ModuleState>().today!.subtract(
+        DateTime firstDay = context.watch<ModuleState>().today.subtract(
               Duration(days: DashboardDatabase.CALENDAR_DAYS_PAST.read()),
             );
-        DateTime lastDay = context.watch<ModuleState>().today!.add(
+        DateTime lastDay = context.watch<ModuleState>().today.add(
               Duration(days: DashboardDatabase.CALENDAR_DAYS_FUTURE.read()),
             );
         return SafeArea(
@@ -144,7 +124,7 @@ class _State extends State<CalendarView> {
                 ),
                 rowHeight: 48.0,
                 rangeSelectionMode: RangeSelectionMode.disabled,
-                focusedDay: _selected,
+                focusedDay: context.watch<ModuleState>().selected,
                 firstDay: firstDay,
                 lastDay: lastDay,
                 //events: widget.events,
@@ -161,8 +141,9 @@ class _State extends State<CalendarView> {
                     )),
                 startingDayOfWeek:
                     DashboardDatabase.CALENDAR_STARTING_DAY.read().data,
-                selectedDayPredicate: (date) =>
-                    date.floor() == _selected.floor(),
+                selectedDayPredicate: (date) {
+                  return date.floor() == context.read<ModuleState>().selected;
+                },
                 calendarStyle: CalendarStyle(
                   markersMaxCount: 1,
                   isTodayHighlighted: true,
@@ -188,8 +169,9 @@ class _State extends State<CalendarView> {
                   markersAlignment: Alignment.bottomCenter,
                   todayTextStyle: dayStyle,
                 ),
-                onFormatChanged: (format) =>
-                    setState(() => _calendarFormat = format),
+                onFormatChanged: (format) {
+                  context.read<ModuleState>().calendarFormat = format;
+                },
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekendStyle: weekdayStyle,
                   weekdayStyle: weekdayStyle,
@@ -198,7 +180,7 @@ class _State extends State<CalendarView> {
                   if (widget.events.isEmpty) return [];
                   return widget.events[date.floor()] ?? [];
                 },
-                calendarFormat: _calendarFormat,
+                calendarFormat: context.watch<ModuleState>().calendarFormat,
                 availableCalendarFormats: const {
                   CalendarFormat.month: 'Month',
                   CalendarFormat.twoWeeks: '2 Weeks',
@@ -246,7 +228,9 @@ class _State extends State<CalendarView> {
   }
 
   Widget _calendarList() {
-    if (_selectedEvents.isEmpty) {
+    final selected = context.read<ModuleState>().selected;
+    final events = widget.events[selected.floor()] ?? [];
+    if (events.isEmpty) {
       return Expanded(
         child: LunaListView(
           controller: HomeNavigationBar.scrollControllers[1],
@@ -262,7 +246,7 @@ class _State extends State<CalendarView> {
     return Expanded(
       child: LunaListView(
         controller: HomeNavigationBar.scrollControllers[1],
-        children: _selectedEvents.map(ContentBlock.new).toList(),
+        children: events.map(ContentBlock.new).toList(),
         padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
       ),
     );

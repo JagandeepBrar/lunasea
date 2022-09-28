@@ -45,7 +45,6 @@ class _State extends State<ConfigurationDashboardCalendarRoute>
       children: [
         _futureDays(),
         _pastDays(),
-        _pastDaysInSchedule(),
         LunaDivider(),
         _startingDay(),
         _startingSize(),
@@ -55,19 +54,6 @@ class _State extends State<ConfigurationDashboardCalendarRoute>
         _modulesRadarr(),
         _modulesSonarr(),
       ],
-    );
-  }
-
-  Widget _pastDaysInSchedule() {
-    const _db = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS;
-    return _db.listenableBuilder(
-      builder: (context, _) => LunaBlock(
-        title: 'settings.PastDaysInScheduleView'.tr(),
-        trailing: LunaSwitch(
-          value: _db.read(),
-          onChanged: _db.update,
-        ),
-      ),
     );
   }
 

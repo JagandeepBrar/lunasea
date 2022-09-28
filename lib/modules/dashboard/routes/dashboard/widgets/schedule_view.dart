@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/database/tables/dashboard.dart';
 import 'package:lunasea/extensions/scroll_controller.dart';
 import 'package:lunasea/vendor.dart';
 
@@ -63,18 +62,12 @@ class _State extends State<ScheduleView> {
 
     for (final key in keys) {
       final selected = context.read<ModuleState>().selected;
-      final today = context.read<ModuleState>().today;
-
-      bool pastDays = DashboardDatabase.CALENDAR_SHOW_PAST_DAYS.read();
-      bool dayInFuture = key.isAfter(today.subtract(const Duration(days: 1)));
-      bool hasEvents = widget.events[key]?.isNotEmpty ?? false;
-      bool isSelected = selected.isAtSameMomentAs(key);
-
-      if (isSelected) {
+      if (selected.isAtSameMomentAs(key)) {
         offsetOfSelected = offset;
       }
 
-      if ((pastDays || dayInFuture) && hasEvents) {
+      final hasEvents = widget.events[key]?.isNotEmpty ?? false;
+      if (hasEvents) {
         final built = _buildDay(key);
         offset += built.item2;
         days.addAll(built.item1);

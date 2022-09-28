@@ -13,8 +13,7 @@ enum DashboardDatabase<T> with LunaTableMixin<T> {
   CALENDAR_ENABLE_RADARR<bool>(true),
   CALENDAR_ENABLE_SONARR<bool>(true),
   CALENDAR_DAYS_PAST<int>(14),
-  CALENDAR_DAYS_FUTURE<int>(14),
-  CALENDAR_SHOW_PAST_DAYS<bool>(false);
+  CALENDAR_DAYS_FUTURE<int>(14);
 
   @override
   LunaTable get table => LunaTable.dashboard;

@@ -21,6 +21,8 @@ LunaWindowManager getWindowManager() {
 class IO implements LunaWindowManager {
   @override
   Future<void> initialize() async {
+    if (kDebugMode) return;
+
     await windowManager.ensureInitialized();
     windowManager.waitUntilReadyToShow().then((_) async {
       await setWindowSize();
@@ -42,7 +44,7 @@ class IO implements LunaWindowManager {
     const minSize = Size(min, min);
     const initSize = Size(init, init);
 
-    if (!kDebugMode) await windowManager.setSize(initSize);
+    await windowManager.setSize(initSize);
     // Currently broken on Linux
     if (!LunaPlatform.isLinux) {
       await windowManager.setMinimumSize(minSize);

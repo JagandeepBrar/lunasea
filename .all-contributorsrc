@@ -358,6 +358,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "osjurso",
+      "name": "Olav Markus Sjursø",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17827103?v=4",
+      "profile": "https://github.com/osjurso",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,

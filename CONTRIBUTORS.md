@@ -3,7 +3,7 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-40-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -63,6 +63,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
       <td align="center"><a href="https://github.com/Slam4uk"><img src="https://avatars.githubusercontent.com/u/78175288?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Slam4uk</b></sub></a><br /><a href="#translation-Slam4uk" title="Translation">🌍</a></td>
       <td align="center"><a href="https://github.com/timrettop"><img src="https://avatars.githubusercontent.com/u/434913?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Potter</b></sub></a><br /><a href="#translation-timrettop" title="Translation">🌍</a></td>
       <td align="center"><a href="https://github.com/carlesmu"><img src="https://avatars.githubusercontent.com/u/1310090?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Carles Muñoz Gorriz</b></sub></a><br /><a href="#translation-carlesmu" title="Translation">🌍</a></td>
+      <td align="center"><a href="https://github.com/osjurso"><img src="https://avatars.githubusercontent.com/u/17827103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Olav Markus Sjursø</b></sub></a><br /><a href="#translation-osjurso" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

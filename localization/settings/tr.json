@@ -254,5 +254,14 @@
     "settings.ViewTypeLogs": "{} Günlüklerini Görüntüle",
     "settings.RenamedProfile": "Profil Yeniden Adlandırıldı",
     "settings.DeletedProfile": "Profil Silindi",
-    "settings.NoProfilesFound": "Profil Bulunamadı"
+    "settings.NoProfilesFound": "Profil Bulunamadı",
+    "settings.SentryLogging": "Sentry Günlüğü",
+    "settings.SentryLoggingDescription": "Hataları ve Çökmeleri Sentry'ye Yükleyin",
+    "settings.DatabaseCorruptionDetected": "Veri Tabanı Bozulması Tespit Edildi",
+    "settings.DatabaseCorruptionDetectedMessageLine1": "Veri tabanı bozulması tespit edildi ve yapılandırmanız temizlendi.",
+    "settings.DatabaseCorruptionDetectedMessageLine2": "Rahatsızlık için özür dileriz, daha önce oluşturulan tüm yedeklemeler, daha önce bozuk bir veri tabanı ile dışa aktarılmış olsa bile geri yüklenebilir olmalıdır.",
+    "settings.DiscordDescription": "Özellik İsteyin & Destek Alın",
+    "settings.BootModule": "Önyükleme Modülü",
+    "settings.GeneralDescription": "LunaSea'yi Özelleştirin",
+    "settings.General": "Genel"
 }

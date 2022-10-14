@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/database/database.dart';
 import 'package:lunasea/database/models/external_module.dart';
 import 'package:lunasea/database/models/indexer.dart';
+import 'package:lunasea/database/models/rss.dart';
 import 'package:lunasea/database/table.dart';
 
 class LunaConfig {
@@ -36,6 +37,7 @@ class LunaConfig {
     Map<String, dynamic> config = {};
     config[LunaBox.externalModules.key] = LunaBox.externalModules.export();
     config[LunaBox.indexers.key] = LunaBox.indexers.export();
+    config[LunaBox.rss.key] = LunaBox.rss.export();
     config[LunaBox.profiles.key] = LunaBox.profiles.export();
     for (final table in LunaTable.values) config[table.key] = table.export();
 
@@ -50,6 +52,15 @@ class LunaConfig {
       final key = content['key'] ?? 'default';
       final obj = LunaProfile.fromJson(content);
       LunaBox.profiles.update(key, obj);
+    }
+  }
+
+  void _setRss(List? data) {
+    if (data == null) return;
+
+    for (final rss in data) {
+      final obj = LunaRss.fromJson(rss);
+      LunaBox.rss.create(obj);
     }
   }
 

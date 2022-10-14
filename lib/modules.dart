@@ -16,6 +16,7 @@ import 'package:lunasea/modules/overseerr.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:lunasea/modules/rss.dart';
 
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
 import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
@@ -35,6 +36,7 @@ const MODULE_SETTINGS_KEY = 'settings';
 const MODULE_SONARR_KEY = 'sonarr';
 const MODULE_TAUTULLI_KEY = 'tautulli';
 const MODULE_WAKE_ON_LAN_KEY = 'wake_on_lan';
+const MODULE_RSS_KEY = 'rss';
 
 @HiveType(typeId: 25, adapterName: 'LunaModuleAdapter')
 enum LunaModule {
@@ -61,7 +63,9 @@ enum LunaModule {
   @HiveField(9)
   TAUTULLI(MODULE_TAUTULLI_KEY),
   @HiveField(10)
-  WAKE_ON_LAN(MODULE_WAKE_ON_LAN_KEY);
+  WAKE_ON_LAN(MODULE_WAKE_ON_LAN_KEY),
+  @HiveField(12)
+  RSS(MODULE_RSS_KEY);
 
   final String key;
   const LunaModule(this.key);
@@ -92,6 +96,8 @@ enum LunaModule {
         return LunaModule.WAKE_ON_LAN;
       case MODULE_EXTERNAL_MODULES_KEY:
         return LunaModule.EXTERNAL_MODULES;
+      case MODULE_RSS_KEY:
+        return LunaModule.RSS;
     }
     return null;
   }
@@ -143,6 +149,8 @@ extension LunaModuleEnablementExtension on LunaModule {
         return LunaProfile.current.wakeOnLANEnabled;
       case LunaModule.EXTERNAL_MODULES:
         return !LunaBox.externalModules.isEmpty;
+      case LunaModule.RSS:
+        return !LunaBox.rss.isEmpty;
     }
   }
 }
@@ -174,6 +182,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return 'Wake on LAN';
       case LunaModule.EXTERNAL_MODULES:
         return 'lunasea.ExternalModules'.tr();
+      case LunaModule.RSS:
+        return 'RSS';
     }
   }
 
@@ -203,6 +213,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return Icons.settings_remote_rounded;
       case LunaModule.EXTERNAL_MODULES:
         return Icons.settings_ethernet_rounded;
+      case LunaModule.RSS:
+        return Icons.rss_feed_rounded;
     }
   }
 
@@ -232,6 +244,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return LunaColours.accent;
       case LunaModule.EXTERNAL_MODULES:
         return LunaColours.accent;
+      case LunaModule.RSS:
+        return const Color(0xFFEE802f);
     }
   }
 
@@ -260,6 +274,8 @@ extension LunaModuleMetadataExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.EXTERNAL_MODULES:
+        return null;
+      case LunaModule.RSS:
         return null;
     }
   }
@@ -290,6 +306,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return null;
       case LunaModule.EXTERNAL_MODULES:
         return null;
+      case LunaModule.RSS:
+        return null;
     }
   }
 
@@ -319,6 +337,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return 'Wake Your Machine';
       case LunaModule.EXTERNAL_MODULES:
         return 'Access External Modules';
+      case LunaModule.RSS:
+        return 'View RSS Feeds';
     }
   }
 
@@ -348,6 +368,8 @@ extension LunaModuleMetadataExtension on LunaModule {
         return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
       case LunaModule.EXTERNAL_MODULES:
         return 'LunaSea allows you to add links to additional modules that are not currently supported allowing you to open the module\'s web GUI without having to leave LunaSea!';
+      case LunaModule.RSS:
+        return 'RSS Feeds';
     }
   }
 }
@@ -379,6 +401,8 @@ extension LunaModuleRoutingExtension on LunaModule {
         return null;
       case LunaModule.EXTERNAL_MODULES:
         return LunaRoutes.externalModules.root.path;
+      case LunaModule.RSS:
+        return LunaRoutes.rss.root.path;
     }
   }
 
@@ -408,6 +432,8 @@ extension LunaModuleRoutingExtension on LunaModule {
         return SettingsRoutes.CONFIGURATION_WAKE_ON_LAN;
       case LunaModule.EXTERNAL_MODULES:
         return SettingsRoutes.CONFIGURATION_EXTERNAL_MODULES;
+      case LunaModule.RSS:
+        return SettingsRoutes.CONFIGURATION_RSS;
     }
   }
 
@@ -472,6 +498,8 @@ extension LunaModuleExtension on LunaModule {
         return context.read<SettingsState>();
       case LunaModule.SEARCH:
         return context.read<SearchState>();
+      case LunaModule.RSS:
+        return context.read<RssState>();
       case LunaModule.LIDARR:
         return context.read<LidarrState>();
       case LunaModule.RADARR:

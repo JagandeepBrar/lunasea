@@ -4,6 +4,7 @@ import 'package:lunasea/database/models/external_module.dart';
 import 'package:lunasea/database/models/indexer.dart';
 import 'package:lunasea/database/models/log.dart';
 import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/database/models/rss.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/vendor.dart';
@@ -12,6 +13,7 @@ enum LunaBox<T> {
   alerts<dynamic>('alerts'),
   externalModules<LunaExternalModule>('external_modules'),
   indexers<LunaIndexer>('indexers'),
+  rss<LunaRss>('rss'),
   logs<LunaLog>('logs'),
   lunasea<dynamic>('lunasea'),
   profiles<LunaProfile>('profiles');

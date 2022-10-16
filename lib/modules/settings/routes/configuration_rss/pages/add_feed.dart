@@ -12,7 +12,8 @@ class ConfigurationRssAddFeedRoute extends StatefulWidget {
   State<ConfigurationRssAddFeedRoute> createState() => _State();
 }
 
-class _State extends State<ConfigurationRssAddFeedRoute> with LunaScrollControllerMixin {
+class _State extends State<ConfigurationRssAddFeedRoute>
+    with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _feed = LunaRss();
 
@@ -40,8 +41,7 @@ class _State extends State<ConfigurationRssAddFeedRoute> with LunaScrollControll
           text: 'Add Feed',
           icon: Icons.add_rounded,
           onTap: () async {
-            if (_feed.displayName.isEmpty ||
-                _feed.url.isEmpty) {
+            if (_feed.displayName.isEmpty || _feed.url.isEmpty) {
               showLunaErrorSnackBar(
                 title: 'Failed to Add Feed',
                 message: 'All fields are required',
@@ -129,7 +129,7 @@ class _State extends State<ConfigurationRssAddFeedRoute> with LunaScrollControll
       body: [
         TextSpan(
             text: _key.isEmpty
-                ? "${'rss.FilterNotSet'.tr()} ${"rss.IncludeFilterHelp".tr()}"
+                ? "${'rss.FilterNotSet'.tr()} - ${'rss.IncludeFilterHelp'.tr()}"
                 : _key)
       ],
       trailing: const LunaIconButton.arrow(),
@@ -153,7 +153,7 @@ class _State extends State<ConfigurationRssAddFeedRoute> with LunaScrollControll
       body: [
         TextSpan(
             text: _key.isEmpty
-                ? "${'rss.FilterNotSet'.tr()} ${"rss.ExcludeFilterHelp".tr()}"
+                ? "${'rss.FilterNotSet'.tr()} - ${'rss.ExcludeFilterHelp'.tr()}"
                 : _key)
       ],
       trailing: const LunaIconButton.arrow(),

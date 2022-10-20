@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Feedback Requets & Support via Discord
+  - name: Feature Requests & Support via Discord
     url: https://www.lunasea.app/discord
     about: Request new features and get support from the community
   - name: Support via GitHub Discussions

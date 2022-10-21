@@ -1,4 +1,4 @@
-name: Publish s3
+name: Publish S3
 
 on:
   workflow_call:

@@ -1,4 +1,4 @@
-name: Publish Web (Docker)
+name: Publish Web
 
 on:
   workflow_call:

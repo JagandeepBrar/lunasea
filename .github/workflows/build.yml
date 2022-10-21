@@ -166,7 +166,7 @@ jobs:
   publish-s3:
     name: Publish S3
     needs: [ prepare, build-android, build-ios, build-linux, build-macos, build-web, build-windows ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_S3.yml@master
+    uses: JagandeepBrar/LunaSea/.github/workflows/publish_s3.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}

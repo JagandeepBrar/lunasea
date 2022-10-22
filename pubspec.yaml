@@ -20,7 +20,7 @@ dependencies:
   encrypt: ^5.0.1
   expandable: ^5.0.1
   fading_edge_scrollview: ^3.0.0
-  file_picker: ^5.0.1
+  file_picker: ^5.2.2
   firebase_auth: ^4.0.2
   firebase_core: ^2.1.0
   firebase_messaging: ^14.0.2

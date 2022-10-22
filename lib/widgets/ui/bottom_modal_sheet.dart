@@ -12,7 +12,7 @@ class LunaBottomModalSheet<T> {
       context: LunaState.context,
       expand: false,
       backgroundColor:
-          LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
+          LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
       shape: LunaShapeBorder(
         topOnly: true,
         useBorder: LunaUI.shouldUseBorder,

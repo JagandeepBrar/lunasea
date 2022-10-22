@@ -17,7 +17,5 @@ export 'vendor.dart'
         FutureProvider,
         ChangeNotifierProvider,
         Consumer,
-        Locator,
-        Create;
-
+        Locator;
 export 'package:provider/provider.dart';

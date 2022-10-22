@@ -111,21 +111,21 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
-  - package_info_plus_macos (0.0.1):
+  - package_info_plus (0.0.1):
     - FlutterMacOS
   - path_provider_macos (0.0.1):
     - FlutterMacOS
   - PromisesObjC (2.1.1)
   - screen_retriever (0.0.1):
     - FlutterMacOS
-  - Sentry (7.23.0):
-    - Sentry/Core (= 7.23.0)
-  - Sentry/Core (7.23.0)
+  - Sentry (7.28.0):
+    - Sentry/Core (= 7.28.0)
+  - Sentry/Core (7.28.0)
   - sentry_flutter (0.0.1):
     - Flutter
     - FlutterMacOS
-    - Sentry (~> 7.23.0)
-  - share_plus_macos (0.0.1):
+    - Sentry (~> 7.28.0)
+  - share_plus (0.0.1):
     - FlutterMacOS
   - shared_preferences_macos (0.0.1):
     - FlutterMacOS
@@ -145,11 +145,11 @@ DEPENDENCIES:
   - firebase_storage (from `Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.0.0`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
+  - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
-  - share_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos`)
+  - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
@@ -191,16 +191,16 @@ EXTERNAL SOURCES:
     :tag: 10.0.0
   FlutterMacOS:
     :path: Flutter/ephemeral
-  package_info_plus_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
+  package_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
   screen_retriever:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   sentry_flutter:
     :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
-  share_plus_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/share_plus_macos/macos
+  share_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
   shared_preferences_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
   sqflite:
@@ -238,13 +238,13 @@ SPEC CHECKSUMS:
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
+  package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
   path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
-  Sentry: a0d4563fa4ddacba31fdcc35daaa8573d87224d6
-  sentry_flutter: 8bde7d0e57a721727fe573f13bb292c497b5a249
-  share_plus_macos: 853ee48e7dce06b633998ca0735d482dd671ade4
+  Sentry: 2c6053e4cfe6dea6608135dea1928ffbb4ecfba5
+  sentry_flutter: fad3ef0917dc1afa7d242af0743696ed9a9a8864
+  share_plus: 76dd39142738f7a68dd57b05093b5e8193f220f7
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3

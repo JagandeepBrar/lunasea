@@ -166,13 +166,12 @@ class _State extends State<NZBGetRoute> {
         'nzb',
       ]);
       if (_file != null) {
-        String _name = _file.path.substring(_file.path.lastIndexOf('/') + 1);
         if (_file.data.isNotEmpty) {
-          await _api.uploadFile(_file.data, _name).then((value) {
+          await _api.uploadFile(_file.data, _file.name).then((value) {
             _refreshKeys[0]?.currentState?.show();
             showLunaSuccessSnackBar(
               title: 'Uploaded NZB (File)',
-              message: _name,
+              message: _file.name,
             );
           });
         } else {

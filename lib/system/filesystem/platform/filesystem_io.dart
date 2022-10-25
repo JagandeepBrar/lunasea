@@ -5,6 +5,7 @@ import 'package:lunasea/database/database.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:cross_file/cross_file.dart';
 
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/system/logger.dart';
@@ -98,8 +99,8 @@ class _Mobile extends _Shared {
       Rect? rect;
       if (box != null) rect = box.localToGlobal(Offset.zero) & box.size;
 
-      ShareResult result = await Share.shareFilesWithResult(
-        [path],
+      ShareResult result = await Share.shareXFiles(
+        [XFile(path)],
         sharePositionOrigin: rect,
       );
       switch (result.status) {

@@ -1,11 +1,11 @@
 class LunaFile {
-  String path;
-  String name;
   List<int> data;
+  String name;
+  String? path;
 
   LunaFile({
-    required this.path,
-    required this.name,
     required this.data,
+    required this.name,
+    this.path,
   });
 }

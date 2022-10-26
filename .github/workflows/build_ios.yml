@@ -14,7 +14,7 @@ on:
         required: true
       APPLE_TEAM_ID:
         required: true
-      FIREBASE_OPTIONS:
+      FIREBASE_TOKEN:
         required: true
       IOS_CODESIGNING_IDENTITY:
         required: true
@@ -35,7 +35,7 @@ jobs:
       - name: Setup Environment
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
-          firebase-options: ${{ secrets.FIREBASE_OPTIONS }}
+          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: ios
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
 

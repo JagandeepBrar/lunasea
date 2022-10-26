@@ -1,0 +1,17 @@
+{
+    "dashboard.Modules": "Module",
+    "dashboard.Calendar": "Calendar",
+    "dashboard.Friday": "Vineri",
+    "dashboard.OneMonth": "O lună",
+    "dashboard.OneWeek": "O săptămână",
+    "dashboard.PastDays": "Zile trecute",
+    "dashboard.Saturday": "Sâmbătă",
+    "dashboard.Schedule": "Program",
+    "dashboard.Sunday": "Duminică",
+    "dashboard.Thursday": "Joi",
+    "dashboard.Tuesday": "Marți",
+    "dashboard.TwoWeeks": "Două săptămâni",
+    "dashboard.Wednesday": "Miercuri",
+    "dashboard.FutureDays": "Zile în viitor",
+    "dashboard.Monday": "Luni"
+}

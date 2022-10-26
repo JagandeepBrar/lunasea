@@ -57,6 +57,7 @@
     "lunasea.Months": "{} 个月",
     "lunasea.MonthsAgo": "{} 几个月前",
     "lunasea.New": "新的",
+    "lunasea.No": "否",
     "lunasea.NoModulesEnabled": "未启用模块",
     "lunasea.NotSet": "未设置",
     "lunasea.OneDay": "1天",
@@ -105,5 +106,6 @@
     "lunasea.Warning": "警告",
     "lunasea.Website": "网站",
     "lunasea.Years": "{} 年",
-    "lunasea.YearsAgo": "{} 年前"
+    "lunasea.YearsAgo": "{} 年前",
+    "lunasea.Yes": "是"
 }

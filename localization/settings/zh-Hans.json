@@ -262,5 +262,7 @@
     "settings.DatabaseCorruptionDetectedMessageLine2": "很抱歉给您带来不便，即使以前导出的数据库已损坏，所有以前创建的备份都应该是可恢复的。",
     "settings.SentryLogging": "哨兵日志记录",
     "settings.SentryLoggingDescription": "上传错误崩溃到Sentry",
-    "settings.DiscordDescription": "请求功能获得支持"
+    "settings.DiscordDescription": "请求功能获得支持",
+    "settings.General": "通用",
+    "settings.GeneralDescription": "自定义LunaSea"
 }

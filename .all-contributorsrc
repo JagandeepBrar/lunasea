@@ -367,6 +367,33 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "fyu0h",
+      "name": "fyu0h",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33602841?v=4",
+      "profile": "https://github.com/fyu0h",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "johnflorin",
+      "name": "Florin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45756085?v=4",
+      "profile": "https://github.com/johnflorin",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "tuzumbear",
+      "name": "tuzumbear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61370405?v=4",
+      "profile": "https://github.com/tuzumbear",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 8,

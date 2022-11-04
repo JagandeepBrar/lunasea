@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/widgets/pages/error_route.dart';
@@ -6,9 +7,11 @@ import 'package:lunasea/vendor.dart';
 
 class LunaRouter {
   static late GoRouter router;
+  static GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
   void initialize() {
     router = GoRouter(
+      navigatorKey: navigator,
       errorBuilder: (_, state) => ErrorRoutePage(exception: state.error),
       initialLocation: LunaRoutes.initialLocation,
       observers: [LunaSentry().navigatorObserver],
@@ -21,10 +24,10 @@ class LunaRouter {
   }
 
   void popToRootRoute() {
-    if (router.navigator == null) {
+    if (navigator.currentState == null) {
       LunaLogger().warning('Not observing any navigation navigators, skipping');
       return;
     }
-    router.navigator!.popUntil((route) => route.isFirst);
+    navigator.currentState!.popUntil((route) => route.isFirst);
   }
 }

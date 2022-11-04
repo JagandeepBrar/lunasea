@@ -19,7 +19,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
 class LunaState {
   LunaState._();
 
-  static BuildContext get context => LunaRouter.router.navigator!.context;
+  static BuildContext get context => LunaRouter.navigator.currentContext!;
 
   /// Calls `.reset()` on all states which extend [LunaModuleState].
   static void reset([BuildContext? context]) {

@@ -1,110 +1,110 @@
 {
-  "motd": "Welcome to LunaSea v10.2.0!\n\nThis release adds Sentry logging to allow for better error catching and tracking, full support for notifications on web (hosted version only), viewing your download client from the search and -arr releases page, and support for Android 13!\n\nThis build also includes fixes for users running Sonarr v4, safer database transactions, and a fully rewritten routing tree.\n\nFinally, the feedback board resource has been removed in favour of using Discord's new forum feature for feature requests! All requests from the previous board will slowly be transitioned to the Discord forum!",
+  "motd": "Welcome to LunaSea v10.2.1!\n\nThis release adds some nice quality of life changes including the ability to set your boot module, automatic scrolling to the selected date in the calendar, and support for filesystem actions on web!\n\nThis build also includes some additional Android 13 fixes and other miscellaneous fixes and tweaks!",
   "feat": {
-    "android": [
+    "dashboard": [
       {
-        "commit": "96b2b1b5b010507dd7ece3421bf02eac6ba32486",
-        "message": "add support for monochromatic adaptive icon"
+        "commit": "3ac2c5d791f94208a4004d161bb046c24b698345",
+        "message": "(calendar) always show previous days in schedule view"
       },
       {
-        "commit": "113b2943469464598ce07b931818c7e29c6cc63a",
-        "message": "use vector images for icon"
-      },
-      {
-        "commit": "f8dca603310a3d514c0bd29cefc07e9802ea1350",
-        "message": "target building for Android 13 (SDK 33)"
-      },
-      {
-        "commit": "83e8374c33977c82096fcf8d5a4d94da5c291f8f",
-        "message": "support Android 13 notification prompt"
+        "commit": "f1226e563899cfc0950865a9734448d4e00601b9",
+        "message": "(calendar) scroll to selected date when loading the schedule view"
       }
     ],
-    "logging": [
+    "modules": [
       {
-        "commit": "57bbb80a0188d3bed9ca70846a89df6a3c2c0953",
-        "message": "integrate Sentry logging support for all platforms"
-      }
-    ],
-    "router": [
-      {
-        "commit": "1d4207ae5106c2a0648b77a3b3ef6508665561e8",
-        "message": "re-implementation of routing via go_router"
-      }
-    ],
-    "search": [
-      {
-        "commit": "a6be658164fed7dd2411a167dec6b4c53eab70f0",
-        "message": "view download client via overlay sheet"
-      }
-    ],
-    "settings": [
-      {
-        "commit": "3d0c5209cb3e796629817dee986634154e7ffe9e",
-        "message": "add option to disable Sentry logging"
-      },
-      {
-        "commit": "136cda5215ae1d44dcd898e8e8e0b1e1912b3a41",
-        "message": "show notification settings area on web"
-      }
-    ],
-    "web": [
-      {
-        "commit": "4b411107f74f048e6f3d571845590a5d29720ac3",
-        "message": "enable service worker processing of notifications"
+        "commit": "3dd087e361619889057a0b037b1eef35157a0988",
+        "message": "ability to set the boot module"
       }
     ],
     "-arr": [
       {
-        "commit": "0c59886657db0ed05a9d741c82689cb1272c6ad2",
-        "message": "view download client via overlay sheet"
+        "commit": "bccd1a43c42b349901137f8fc605f393b51d541a",
+        "message": "(releases) button to open indexer information page"
+      }
+    ],
+    "lidarr": [
+      {
+        "commit": "c76418d26f1a5f52f5cb1e46951f1cf6726508c2",
+        "message": "(links) add MusicBrainz"
+      }
+    ],
+    "radarr": [
+      {
+        "commit": "c9bd02b75086579f60ad8987c42ab217c12f6d43",
+        "message": "(edit) support moving files when editing the storage path"
+      }
+    ],
+    "web": [
+      {
+        "commit": "7d437d5c3a34a8681c372570fc366e869f0b2090",
+        "message": "(filesystem) support local filesystem read/save actions"
+      }
+    ],
+    "system": [
+      {
+        "commit": "c062b3d786e55bc3ba7fe767dd946d73efbef64f",
+        "message": "launch recovery mode on bootstrap failure"
+      },
+      {
+        "commit": "125596498ec9839e584912185ddc5b625602a701",
+        "message": "(locale) translations update from Weblate"
       }
     ]
   },
   "fix": {
-    "cache": [
+    "firebase": [
       {
-        "commit": "7aae4807221184dbe1d02454f73998a0458dd7f6",
-        "message": "add type-safety to LRU cache"
-      }
-    ],
-    "database": [
-      {
-        "commit": "9960124d3219e2ab72e14443a1a79a1bac6b2cd3",
-        "message": "prevent deadlock in database deletion actions"
-      }
-    ],
-    "notifications": [
-      {
-        "commit": "3593eb329b38fb4a5b776cf1b165ad6f463e371b",
-        "message": "enable in-app notifications config was inversed"
-      }
-    ],
-    "resources": [
-      {
-        "commit": "d3d090e277f7dda7d4ef3d7808e7341cf79178fe",
-        "message": "remove feedback board resource"
-      }
-    ],
-    "scrolling": [
-      {
-        "commit": "864082fd4045ef7dea0e0ab6a17d41ca86015fcb",
-        "message": "remove custom scrolling behaviour"
-      }
-    ],
-    "sheets": [
-      {
-        "commit": "3a5e19b02c048df21bd169a0a06f1e9ae741debb",
-        "message": "set default overlay theme"
+        "commit": "38f2eb4cb2a8e400ce2ecb0b6f2854469c9626fc",
+        "message": "inject service file for older OS versions"
       },
       {
-        "commit": "3a5e19b02c048df21bd169a0a06f1e9ae741debb",
-        "message": "remove bottom radius clipping"
+        "commit": "f3a3f222bd56beb4e961817b18d71f01fb7c5e81",
+        "message": "upgrade to Firebase v10"
       }
     ],
-    "sonarr": [
+    "flutter": [
       {
-        "commit": "e477ecafcce268d7de112f33711fc02a089a4206",
-        "message": "support Sonarr v4 API changes"
+        "commit": "3d794099a5418385dc1010f204c3f46fdbdd5503",
+        "message": "upgrade packages"
+      },
+      {
+        "commit": "cf5bfca265d03b0fd966dfb069393a4bbb24c672",
+        "message": "upgrade to Flutter 3.3.7/857bd6b74c"
+      }
+    ],
+    "android": [
+      {
+        "commit": "25e0d051422b399de8c90e0fc71e57349e3355b7",
+        "message": "support Android 13 filesystem access"
+      },
+      {
+        "commit": "b7ceebcb679dbca935b6a1810c0c67a14002e358",
+        "message": "utilize Kotlin v1.7.20 & Gradle v7.1.2"
+      }
+    ],
+    "calendar": [
+      {
+        "commit": "70ed750652ff419e6fed659a0785adc5064654e7",
+        "message": "label unreleased movies as unreleased instead of missing"
+      }
+    ]
+  },
+  "refactor": {
+    "uiux": [
+      {
+        "commit": "958e6f156862c1092399649baa361cd955299c88",
+        "message": "remove forced-upper case on headers"
+      },
+      {
+        "commit": "d9623e992d2ac2039eaa4f069c739d968c921cc6",
+        "message": "add circular radius to linear progression bars"
+      }
+    ],
+    "settings": [
+      {
+        "commit": "ac838f99a9c839ce4e36e5eae80f1100e2787dc5",
+        "message": "consolidate appearance, network, and localization pages"
       }
     ]
   }

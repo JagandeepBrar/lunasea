@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.0...v10.2.1) (2022-11-06)
+
+
+### Features
+
+* **-arr:** button to open indexer information page ([bccd1a4](https://github.com/JagandeepBrar/LunaSea/commit/bccd1a43c42b349901137f8fc605f393b51d541a))
+* **calendar:** remove option to show previous days in schedule view, now always shows them ([3ac2c5d](https://github.com/JagandeepBrar/LunaSea/commit/3ac2c5d791f94208a4004d161bb046c24b698345))
+* **calendar:** scroll to selected date when switching from calendar to schedule view ([f1226e5](https://github.com/JagandeepBrar/LunaSea/commit/f1226e563899cfc0950865a9734448d4e00601b9))
+* launch recovery mode on bootstrap failure ([c062b3d](https://github.com/JagandeepBrar/LunaSea/commit/c062b3d786e55bc3ba7fe767dd946d73efbef64f))
+* **lidarr:** add MusicBrainz to links ([c76418d](https://github.com/JagandeepBrar/LunaSea/commit/c76418d26f1a5f52f5cb1e46951f1cf6726508c2))
+* **modules:** ability to set the boot module ([3dd087e](https://github.com/JagandeepBrar/LunaSea/commit/3dd087e361619889057a0b037b1eef35157a0988))
+* **radarr:** support moving files when editing the storage path ([c9bd02b](https://github.com/JagandeepBrar/LunaSea/commit/c9bd02b75086579f60ad8987c42ab217c12f6d43))
+* **web:** support local filesystem read/save actions ([7d437d5](https://github.com/JagandeepBrar/LunaSea/commit/7d437d5c3a34a8681c372570fc366e869f0b2090))
+
+
+### Bug Fixes
+
+* **android:** apply Google Play Services plugin during gradle build ([71f597b](https://github.com/JagandeepBrar/LunaSea/commit/71f597baa7c23102b711c3ca3c1ea5b2f8e1f5e9))
+* **android:** revert applying Google Play Services plugin during gradle build ([250a494](https://github.com/JagandeepBrar/LunaSea/commit/250a49490333f4de726226dc4aa15a681f32a70c))
+* **android:** support Android 13 filesystem access ([25e0d05](https://github.com/JagandeepBrar/LunaSea/commit/25e0d051422b399de8c90e0fc71e57349e3355b7))
+* **android:** utilize Kotlin v1.7.20 & Gradle v7.1.2 ([b7ceebc](https://github.com/JagandeepBrar/LunaSea/commit/b7ceebcb679dbca935b6a1810c0c67a14002e358))
+* **backup:** edge-case where backup/restore would fail ([f3931c6](https://github.com/JagandeepBrar/LunaSea/commit/f3931c6b08025a70920039e5cbbc9cf7120c0b36))
+* **calendar:** label unreleased movies as unreleased instead of missing ([70ed750](https://github.com/JagandeepBrar/LunaSea/commit/70ed750652ff419e6fed659a0785adc5064654e7))
+* **calendar:** start to current date when past days are enabled ([6eff6c9](https://github.com/JagandeepBrar/LunaSea/commit/6eff6c902cd7bcd523d83be09034098234679a79))
+* **firebase:** inject service file for older OS versions ([38f2eb4](https://github.com/JagandeepBrar/LunaSea/commit/38f2eb4cb2a8e400ce2ecb0b6f2854469c9626fc))
+* **firebase:** upgrade to Firebase v10 ([#717](https://github.com/JagandeepBrar/LunaSea/issues/717)) ([f3a3f22](https://github.com/JagandeepBrar/LunaSea/commit/f3a3f222bd56beb4e961817b18d71f01fb7c5e81))
+* **uiux:** add circular radius to linear progression bars ([d9623e9](https://github.com/JagandeepBrar/LunaSea/commit/d9623e992d2ac2039eaa4f069c739d968c921cc6))
+
+
+### Tweaks
+
+* **settings:** consolidate appearance, network, and localization pages ([ac838f9](https://github.com/JagandeepBrar/LunaSea/commit/ac838f99a9c839ce4e36e5eae80f1100e2787dc5))
+* **uiux:** remove forced-upper case on headers ([958e6f1](https://github.com/JagandeepBrar/LunaSea/commit/958e6f156862c1092399649baa361cd955299c88))
+
 ## [10.2.0](https://github.com/JagandeepBrar/LunaSea/compare/v10.1.1...v10.2.0) (2022-09-22)
 
 

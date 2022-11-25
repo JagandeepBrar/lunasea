@@ -47,6 +47,12 @@ jobs:
           name: ios-appstore-package
           path: ${{ github.workspace }}/output
 
+      - name: Download Linux Tarball
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-tarball
+          path: ${{ github.workspace }}/output
+
       - name: Download Linux Snap
         uses: actions/download-artifact@v3
         with:

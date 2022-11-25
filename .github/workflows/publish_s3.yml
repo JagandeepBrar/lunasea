@@ -47,6 +47,12 @@ jobs:
           name: ios-appstore-package
           path: ${{ github.workspace }}/output
 
+      - name: Download Linux Debian
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-debian
+          path: ${{ github.workspace }}/output
+
       - name: Download Linux Tarball
         uses: actions/download-artifact@v3
         with:

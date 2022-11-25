@@ -78,6 +78,7 @@ jspm_packages/
 
 # Artifacts
 output/
+debian/
 *.apk
 *.aab
 *.ipa

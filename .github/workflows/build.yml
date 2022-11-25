@@ -59,6 +59,9 @@ jobs:
     name: Build Linux
     needs: [ prepare ]
     uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
+    with:
+      build-number: ${{ needs.prepare.outputs.build-number }}
+      build-version: ${{ needs.prepare.outputs.build-version }}
 
   build-macos:
     name: Build macOS

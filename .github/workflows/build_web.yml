@@ -87,7 +87,7 @@ jobs:
             return tags.map((tag) => `ghcr.io/jagandeepbrar/lunasea:${tag}`).join(',');
 
       - name: Build LunaSea
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar

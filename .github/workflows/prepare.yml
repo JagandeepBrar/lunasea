@@ -50,7 +50,7 @@ jobs:
         id: commit-count
         run: |
           COUNT=`git rev-list HEAD --count`
-          echo "::set-output name=commit-count::$COUNT"
+          echo "commit-count=$COUNT" >> $GITHUB_OUTPUT
       
       - name: Build Flavor
         id: build-flavor
@@ -93,14 +93,14 @@ jobs:
 
       - name: Build Version
         id: build-version
-        uses: martinbeentjes/npm-get-version-action@v1.1.0
+        uses: martinbeentjes/npm-get-version-action@main
 
       - name: Build Title
         id: build-title
         run: |
           HASH=`git rev-parse --short ${{ github.sha }}`
           TITLE="v${{ steps.build-version.outputs.current-version }}-${{ steps.build-flavor.outputs.result }}-${{ steps.build-number.outputs.result }}-$HASH"
-          echo "::set-output name=output::$TITLE"
+          echo "output=$TITLE" >> $GITHUB_OUTPUT
 
       - name: Log Build Details
         env:

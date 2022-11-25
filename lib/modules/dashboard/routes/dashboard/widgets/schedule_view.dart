@@ -56,13 +56,14 @@ class _State extends State<ScheduleView> {
   Tuple2<List<Widget>, double> _buildSchedule() {
     double offset = 0.0;
     double offsetOfSelected = 0.0;
+
     List<Widget> days = [];
     List<DateTime> keys = widget.events.keys.toList();
     keys.sort();
 
     for (final key in keys) {
       final selected = context.read<ModuleState>().selected;
-      if (selected.isAtSameMomentAs(key)) {
+      if (key.isBefore(selected) || key.isAtSameMomentAs(selected)) {
         offsetOfSelected = offset;
       }
 

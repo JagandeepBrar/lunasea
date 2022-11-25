@@ -132,6 +132,7 @@ runs:
         --android-package-name=app.lunasea.lunasea \
         --ios-bundle-id=app.lunasea.lunasea \
         --macos-bundle-id=app.lunasea.lunasea \
+        --web-app-id=1:511093487055:web:37d2f8e4c960708add8eba \
         --out=lib/firebase/options.dart \
         --yes
 

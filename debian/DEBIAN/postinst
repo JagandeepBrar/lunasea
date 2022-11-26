@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ln -sf '/usr/local/lib/LunaSea/lunasea' '/usr/local/bin/lunasea'

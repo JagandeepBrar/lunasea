@@ -1,0 +1,6 @@
+Package:LunaSea
+Architecture:amd64
+Essential:no
+Priority:optional
+Maintainer:LunaSea Support <hello@lunasea.app>
+Description:Self-hosted software controller built using Flutter

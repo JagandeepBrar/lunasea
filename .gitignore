@@ -78,10 +78,13 @@ jspm_packages/
 
 # Artifacts
 output/
-debian/
 *.apk
 *.aab
 *.ipa
 *.dmg
 *.pkg
+
+# Linux Artifacts
+debian/DEBIAN/md5sums
+debian/usr/local/lib/LunaSea
 *.snap

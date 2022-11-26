@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LunaSea
+Comment=Self-hosted software controller built using Flutter
+Icon=/usr/share/icons/lunasea.png
+Terminal=false
+Type=Application
+Categories=Utilities;Entertainment;
+Exec=/usr/local/bin/lunasea
+TryExec=/usr/local/bin/lunasea

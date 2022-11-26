@@ -58,7 +58,7 @@ jobs:
           BUILD_TITLE: ${{ inputs.build-title }}
         with:
           result-encoding: string
-          script: return require('.github/scripts/notify-embed.js')();
+          script: return require('.github/scripts/notify_discord_embed.js')();
 
       - name: Send Discord Message
         uses: Ilshidur/action-discord@0.3.2

@@ -15,6 +15,7 @@ class LunaPageView extends StatelessWidget {
     return PageView(
       controller: controller,
       children: children,
+      physics: const NeverScrollableScrollPhysics(),
     );
   }
 }

@@ -43,13 +43,13 @@
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "all-contributors-cli": "^6.24.0",
     "commitizen": "^4.2.5",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.2",
     "standard-version": "^9.5.0"
   }
 }

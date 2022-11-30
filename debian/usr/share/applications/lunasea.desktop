@@ -5,5 +5,5 @@ Icon=/usr/share/icons/lunasea.png
 Terminal=false
 Type=Application
 Categories=Utilities;Entertainment;
-Exec=/usr/local/bin/lunasea
-TryExec=/usr/local/bin/lunasea
+Exec=/usr/bin/lunasea
+TryExec=/usr/bin/lunasea

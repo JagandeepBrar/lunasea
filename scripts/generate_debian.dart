@@ -13,11 +13,10 @@ void _setVersion(String version) {
 }
 
 void _copyBuild() {
-  const path = 'debian/usr/local/lib';
+  const path = 'debian/usr/share';
 
-  final directory = Directory(path);
+  final directory = Directory('$path/lunasea');
   if (directory.existsSync()) directory.deleteSync(recursive: true);
-  directory.createSync(recursive: true);
 
   Process.runSync('cp', [
     '-r',
@@ -26,7 +25,7 @@ void _copyBuild() {
   ]);
   Process.runSync('mv', [
     '$path/bundle',
-    '$path/LunaSea',
+    '$path/lunasea',
   ]);
 }
 

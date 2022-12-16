@@ -121,7 +121,7 @@ class TautulliActivityTile extends StatelessWidget {
 
   Future<void> _enterDetails(BuildContext context) async {
     TautulliRoutes.ACTIVITY_DETAILS.go(params: {
-      'session': session.sessionId!.toString(),
+      'session': session.sessionKey.toString(),
     });
   }
 }

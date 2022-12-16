@@ -120,26 +120,26 @@ extension _EventTypeExtension on _EventType {
   }
 
   Future<void> _bufferWarning(Map data) async =>
-      _goToActivityDetails(data['session_id']);
+      _goToActivityDetails(data['session_key']);
   Future<void> _playbackErrorEvent(Map data) async =>
-      _goToUserDetails(int.tryParse(data['user_id']));
+      _goToUserDetails(data['user_id']);
   Future<void> _playbackPauseEvent(Map data) async =>
-      _goToActivityDetails(data['session_id']);
+      _goToActivityDetails(data['session_key']);
   Future<void> _playbackResumeEvent(Map data) async =>
-      _goToActivityDetails(data['session_id']);
+      _goToActivityDetails(data['session_key']);
   Future<void> _playbackStartEvent(Map data) async =>
-      _goToActivityDetails(data['session_id']);
+      _goToActivityDetails(data['session_key']);
   Future<void> _playbackStopEvent(Map data) async =>
-      _goToUserDetails(int.tryParse(data['user_id']));
+      _goToUserDetails(data['user_id']);
 
   Future<void> _transcodeDecisionChangeEvent(Map data) async =>
-      _goToActivityDetails(data['session_id']);
+      _goToActivityDetails(data['session_key']);
   Future<void> _userConcurrentStreams(Map data) async =>
-      _goToUserDetails(int.tryParse(data['user_id']));
+      _goToUserDetails(data['user_id']);
   Future<void> _userNewDevice(Map data) async =>
-      _goToUserDetails(int.tryParse(data['user_id']));
+      _goToUserDetails(data['user_id']);
   Future<void> _watchedEvent(Map data) async =>
-      _goToUserDetails(int.tryParse(data['user_id']));
+      _goToUserDetails(data['user_id']);
 
   Future<void> _plexRemoteAccessBackUp(Map data) async {
     TautulliRoutes.LOGS.go(buildTree: true);
@@ -177,24 +177,24 @@ extension _EventTypeExtension on _EventType {
     return LunaModule.TAUTULLI.launch();
   }
 
-  Future<void> _goToUserDetails(int? userId) async {
-    if (userId != null) {
+  Future<void> _goToUserDetails(String? userId) async {
+    if (userId != null && userId.isNotEmpty) {
       return TautulliRoutes.USER_DETAILS.go(
         buildTree: true,
         params: {
-          'user': userId.toString(),
+          'user': userId,
         },
       );
     }
     return _goToHome();
   }
 
-  Future<void> _goToActivityDetails(String? sessionId) async {
-    if (sessionId != null && sessionId.isNotEmpty) {
+  Future<void> _goToActivityDetails(String? sessionKey) async {
+    if (sessionKey != null && sessionKey.isNotEmpty) {
       return TautulliRoutes.ACTIVITY_DETAILS.go(
         buildTree: true,
         params: {
-          'session': sessionId.toString(),
+          'session': sessionKey,
         },
       );
     }

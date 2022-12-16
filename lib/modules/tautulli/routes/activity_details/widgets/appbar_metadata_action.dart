@@ -5,11 +5,11 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/router/routes/tautulli.dart';
 
 class TautulliActivityDetailsMetadataAction extends StatelessWidget {
-  final String? sessionId;
+  final int sessionKey;
 
   const TautulliActivityDetailsMetadataAction({
     Key? key,
-    required this.sessionId,
+    required this.sessionKey,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class TautulliActivityDetailsMetadataAction extends StatelessWidget {
         if (snapshot.hasError) return Container();
         if (snapshot.hasData) {
           TautulliSession? session = snapshot.data!.sessions!
-              .firstWhereOrNull((element) => element.sessionId == sessionId);
+              .firstWhereOrNull((element) => element.sessionKey == sessionKey);
           if (session != null)
             return LunaIconButton(
               icon: Icons.info_outline_rounded,

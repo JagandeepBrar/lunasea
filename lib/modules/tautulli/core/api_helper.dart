@@ -172,7 +172,7 @@ class TautulliAPIHelper {
           .api!
           .activity
           .terminateSession(
-            sessionId: session.sessionId,
+            sessionKey: session.sessionKey,
             message: terminationMessage,
           )
           .then((_) {

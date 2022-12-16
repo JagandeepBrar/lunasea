@@ -70,7 +70,7 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.ACTIVITY_DETAILS:
         return route(builder: (_, state) {
           return ActivityDetailsRoute(
-            sessionId: state.params['session'],
+            sessionKey: int.tryParse(state.params['session'] ?? '') ?? -1,
           );
         });
       case TautulliRoutes.CHECK_FOR_UPDATES:

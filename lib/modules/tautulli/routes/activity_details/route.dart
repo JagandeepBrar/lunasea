@@ -4,11 +4,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class ActivityDetailsRoute extends StatefulWidget {
-  final String? sessionId;
+  final int sessionKey;
 
   const ActivityDetailsRoute({
     Key? key,
-    required this.sessionId,
+    required this.sessionKey,
   }) : super(key: key);
 
   @override
@@ -28,12 +28,19 @@ class _State extends State<ActivityDetailsRoute>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.sessionKey == -1) {
+      return LunaMessage.goBack(
+        context: context,
+        text: 'tautulli.SessionEnded'.tr(),
+      );
+    }
+
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: _appBar() as PreferredSizeWidget?,
       body: _body(),
       bottomNavigationBar:
-          TautulliActivityDetailsBottomActionBar(sessionId: widget.sessionId),
+          TautulliActivityDetailsBottomActionBar(sessionKey: widget.sessionKey),
     );
   }
 
@@ -44,8 +51,8 @@ class _State extends State<ActivityDetailsRoute>
           scrollController
         ],
         actions: [
-          TautulliActivityDetailsUserAction(sessionId: widget.sessionId),
-          TautulliActivityDetailsMetadataAction(sessionId: widget.sessionId),
+          TautulliActivityDetailsUserAction(sessionKey: widget.sessionKey),
+          TautulliActivityDetailsMetadataAction(sessionKey: widget.sessionKey),
         ]);
   }
 
@@ -70,7 +77,7 @@ class _State extends State<ActivityDetailsRoute>
           if (snapshot.hasData) {
             TautulliSession? session = snapshot.data!.sessions!
                 .firstWhereOrNull(
-                    (element) => element.sessionId == widget.sessionId);
+                    (element) => element.sessionKey == widget.sessionKey);
             return _session(session);
           }
           return const LunaLoader();

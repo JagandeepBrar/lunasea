@@ -4,11 +4,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliActivityDetailsBottomActionBar extends StatelessWidget {
-  final String? sessionId;
+  final int sessionKey;
 
   const TautulliActivityDetailsBottomActionBar({
     Key? key,
-    required this.sessionId,
+    required this.sessionKey,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class TautulliActivityDetailsBottomActionBar extends StatelessWidget {
         if (snapshot.hasError) return Container(height: 0.0);
         if (snapshot.hasData) {
           TautulliSession? session = snapshot.data!.sessions!
-              .firstWhereOrNull((element) => element.sessionId == sessionId);
+              .firstWhereOrNull((element) => element.sessionKey == sessionKey);
           if (session != null)
             return LunaBottomActionBar(
               actions: [

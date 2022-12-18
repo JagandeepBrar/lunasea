@@ -2,7 +2,6 @@
 .dart_tool/
 android/
 build/
-docs/
 ios/
 linux/
 localization/

@@ -52,5 +52,5 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 
 Thank you to all tools and services for offering free subscriptions for open-source projects!
 
-- [docs.page](https://docs.page/): docs.page is used to host LunaSea's documentation
+- [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea

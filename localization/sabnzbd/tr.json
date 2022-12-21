@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Yaş",
+    "sabnzbd.Duplicate": "Yinelenen",
+    "sabnzbd.Failed": "Başarısız",
+    "sabnzbd.Force": "Zorla",
+    "sabnzbd.Repair": "Onar",
+    "sabnzbd.RepairUnpack": "Onar/Ayıkla",
+    "sabnzbd.RepairUnpackDelete": "Onar/Ayıkla/Sil",
+    "sabnzbd.Size": "Boyut",
+    "sabnzbd.ShutdownPC": "Bilgisayarı Kapat",
+    "sabnzbd.ShutdownSABnzbd": "SABnzbd'yi Kapat",
+    "sabnzbd.StandbyPC": "Bilgisayarı Beklemeye Al",
+    "sabnzbd.Stop": "Durdur",
+    "sabnzbd.CategoryDefault": "Kategori Öntanımlı Değeri",
+    "sabnzbd.Completed": "Tamamlandı",
+    "sabnzbd.Descending": "Azalan",
+    "sabnzbd.High": "Yüksek",
+    "sabnzbd.Low": "Düşük",
+    "sabnzbd.Paused": "Duraklatıldı",
+    "sabnzbd.All": "Tümü",
+    "sabnzbd.Ascending": "Artan",
+    "sabnzbd.HibernatePC": "Bilgisayarı Hazırda Beklet",
+    "sabnzbd.None": "Yok",
+    "sabnzbd.Name": "Ad",
+    "sabnzbd.Normal": "Normal"
+}

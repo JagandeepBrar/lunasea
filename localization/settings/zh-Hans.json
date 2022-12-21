@@ -264,5 +264,6 @@
     "settings.SentryLoggingDescription": "上传错误崩溃到Sentry",
     "settings.DiscordDescription": "请求功能获得支持",
     "settings.General": "通用",
-    "settings.GeneralDescription": "自定义LunaSea"
+    "settings.GeneralDescription": "自定义LunaSea",
+    "settings.BootModule": "启动模块"
 }

@@ -11,6 +11,7 @@ import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 enum LunaSeaDatabase<T> with LunaTableMixin<T> {
+  ANDROID_BACK_OPENS_DRAWER<bool>(true),
   DRAWER_AUTOMATIC_MANAGE<bool>(true),
   DRAWER_MANUAL_ORDER<List>([]),
   ENABLED_PROFILE<String>(LunaProfile.DEFAULT_PROFILE),

@@ -189,6 +189,8 @@
   "settings.NoExternalModulesFound": "No External Modules Found",
   "settings.NoHeadersAdded": "No Headers Added",
   "settings.NoProfilesFound": "No Profiles Found",
+  "settings.OpenDrawerOnBackAction": "Open Drawer on Back Action",
+  "settings.OpenDrawerOnBackActionDescription": "Open the drawer instead of closing LunaSea",
   "settings.OpenLinksIn": "Open Links In…",
   "settings.Password": "Password",
   "settings.PasswordHint1": "If your password includes special characters, considering adding a basic authentication header with your username and password instead for better support",

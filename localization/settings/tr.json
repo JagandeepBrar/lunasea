@@ -263,5 +263,7 @@
     "settings.DiscordDescription": "Özellik İsteyin & Destek Alın",
     "settings.BootModule": "Önyükleme Modülü",
     "settings.GeneralDescription": "LunaSea'yi Özelleştirin",
-    "settings.General": "Genel"
+    "settings.General": "Genel",
+    "settings.OpenDrawerOnBackAction": "Geri Eyleminde Çekmeceyi Aç",
+    "settings.OpenDrawerOnBackActionDescription": "LunaSea'yi kapatmak yerine çekmeceyi açın"
 }

@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.2](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.1...v10.2.2) (2022-12-22)
+
+
+### Features
+
+* **android:** add option to disable back action to open drawer ([d4774b0](https://github.com/JagandeepBrar/LunaSea/commit/d4774b054204546490ef9f78090e28303eefc1fc))
+* **linux:** include MD5 sums in Debian distributions ([c46924c](https://github.com/JagandeepBrar/LunaSea/commit/c46924c99645a2d9c27e2d3532d30ecf93882e2a))
+* **linux:** publish Linux builds as Debian archive (.deb) ([b1d01e0](https://github.com/JagandeepBrar/LunaSea/commit/b1d01e02ca4cdb8a2775700930ada2d1d40a1031))
+* **linux:** publish Linux builds as tarball (.tar.gz) ([a390a80](https://github.com/JagandeepBrar/LunaSea/commit/a390a80ef1897d4c95812045a3472527ff38fd49))
+
+
+### Bug Fixes
+
+* **calendar:** scroll to last past date with content when selected date has no content ([3f10675](https://github.com/JagandeepBrar/LunaSea/commit/3f10675422b9a32c43f4f49c16b6e9723f267f50))
+* **linux:** install binaries to /usr/share instead of /usr/local/lib ([edb645f](https://github.com/JagandeepBrar/LunaSea/commit/edb645f8871d8f3a59c122191e8d8219e9957924))
+* **tautulli:** cached or downloaded activity sessions could not be opened ([4c99ecf](https://github.com/JagandeepBrar/LunaSea/commit/4c99ecf927e21538f875bb7ee93fc7aaf20de479))
+
+
+### Tweaks
+
+* **uiux:** disable horizontal swiping/scrolling between pages ([968fe9c](https://github.com/JagandeepBrar/LunaSea/commit/968fe9cbbc4aff3ae584682e462defbf09ea5699))
+
 ### [10.2.1](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.0...v10.2.1) (2022-11-06)
 
 

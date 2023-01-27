@@ -49,7 +49,7 @@ class LunaMessage extends StatelessWidget {
         if (LunaRouter.router.canPop()) {
           LunaRouter.router.pop();
         } else {
-          LunaRouter.router.replace(DashboardRoutes.HOME.path);
+          LunaRouter.router.pushReplacement(DashboardRoutes.HOME.path);
         }
       },
       useSafeArea: useSafeArea,

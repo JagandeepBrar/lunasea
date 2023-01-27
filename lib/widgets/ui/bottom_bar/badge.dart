@@ -1,8 +1,8 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LunaNavigationBarBadge extends Badge {
+class LunaNavigationBarBadge extends badges.Badge {
   LunaNavigationBarBadge({
     Key? key,
     required String text,
@@ -11,13 +11,16 @@ class LunaNavigationBarBadge extends Badge {
     required bool isActive,
   }) : super(
           key: key,
-          badgeColor: LunaColours.accent.dimmed(),
-          elevation: LunaUI.ELEVATION,
-          animationDuration:
-              const Duration(milliseconds: LunaUI.ANIMATION_SPEED_SCROLLING),
-          animationType: BadgeAnimationType.scale,
-          shape: BadgeShape.circle,
-          position: BadgePosition.topEnd(
+          badgeStyle: badges.BadgeStyle(
+            badgeColor: LunaColours.accent.dimmed(),
+            elevation: LunaUI.ELEVATION,
+            shape: badges.BadgeShape.circle,
+          ),
+          badgeAnimation: const badges.BadgeAnimation.scale(
+            animationDuration:
+                Duration(milliseconds: LunaUI.ANIMATION_SPEED_SCROLLING),
+          ),
+          position: badges.BadgePosition.topEnd(
             top: -LunaUI.DEFAULT_MARGIN_SIZE,
             end: -LunaUI.DEFAULT_MARGIN_SIZE,
           ),

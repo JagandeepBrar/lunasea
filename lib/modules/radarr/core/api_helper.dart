@@ -92,7 +92,7 @@ class RadarrAPIHelper {
     bool showSnackbar = true,
   }) async {
     if (context.read<RadarrState>().enabled) {
-      return await context
+      final result = await context
           .read<RadarrState>()
           .api!
           .movie
@@ -120,7 +120,10 @@ class RadarrAPIHelper {
             'Failed to add movie (tmdbId: ${movie.tmdbId})', error, stack);
         if (showSnackbar)
           showLunaErrorSnackBar(title: 'Failed to Add Movie', error: error);
+        return RadarrMovie();
       });
+      if (result.id == null) return null;
+      return result;
     }
     return null;
   }

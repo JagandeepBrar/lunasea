@@ -413,7 +413,7 @@ extension LunaModuleRoutingExtension on LunaModule {
 
   Future<void> launch() async {
     if (homeRoute != null) {
-      LunaRouter.router.replace(homeRoute!);
+      LunaRouter.router.pushReplacement(homeRoute!);
     }
   }
 }

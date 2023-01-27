@@ -28,7 +28,6 @@ class LunaTheme {
       hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
       dialogBackgroundColor: LunaColours.secondary,
-      toggleableActiveColor: LunaColours.accent,
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),
@@ -61,7 +60,6 @@ class LunaTheme {
       hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
       splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
       dialogBackgroundColor: Colors.black,
-      toggleableActiveColor: LunaColours.accent,
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),
@@ -104,19 +102,21 @@ class LunaTheme {
   TextTheme get _sharedTextTheme {
     const textStyle = TextStyle(color: Colors.white);
     return const TextTheme(
-      bodyText1: textStyle,
-      bodyText2: textStyle,
-      headline1: textStyle,
-      headline2: textStyle,
-      headline3: textStyle,
-      headline4: textStyle,
-      headline5: textStyle,
-      headline6: textStyle,
-      button: textStyle,
-      caption: textStyle,
-      subtitle1: textStyle,
-      subtitle2: textStyle,
-      overline: textStyle,
+      displaySmall: textStyle,
+      displayMedium: textStyle,
+      displayLarge: textStyle,
+      headlineSmall: textStyle,
+      headlineMedium: textStyle,
+      headlineLarge: textStyle,
+      bodySmall: textStyle,
+      bodyMedium: textStyle,
+      bodyLarge: textStyle,
+      titleSmall: textStyle,
+      titleMedium: textStyle,
+      titleLarge: textStyle,
+      labelSmall: textStyle,
+      labelMedium: textStyle,
+      labelLarge: textStyle,
     );
   }
 

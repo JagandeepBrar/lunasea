@@ -629,7 +629,7 @@ class SonarrAPIController {
   }) async {
     if (context.read<SonarrState>().enabled) {
       series.id = 0;
-      return await context
+      final result = await context
           .read<SonarrState>()
           .api!
           .series
@@ -667,7 +667,10 @@ class SonarrAPIController {
             error: error,
           );
         }
+        return SonarrSeries();
       });
+      if (result.id == null) return null;
+      return result;
     }
     return null;
   }

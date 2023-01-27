@@ -8,7 +8,6 @@ platform :android do
       "build",
       "appbundle",
       "--release",
-      "--bundle-sksl-path=shaders/android_sksl.json",
       "--build-number=#{options[:build_number]}",
     )
 
@@ -23,7 +22,6 @@ platform :android do
       "build",
       "apk",
       "--release",
-      "--bundle-sksl-path=shaders/android_sksl.json",
       "--build-number=#{options[:build_number]}",
     )
 

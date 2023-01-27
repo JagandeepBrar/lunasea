@@ -1,7 +1,7 @@
 {
   "name": "lunasea",
   "description": "Self-Hosted Controller",
-  "version": "10.2.2",
+  "version": "10.2.3",
   "private": true,
   "scripts": {
     "build:android": "flutter clean && flutter build apk --release",
@@ -43,13 +43,13 @@
     "release:prepare": "npm run cocoapods:nuke && npm run generate && npm run fastlane:update"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "all-contributors-cli": "^6.24.0",
-    "commitizen": "^4.2.5",
+    "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "standard-version": "^9.5.0"
   }
 }

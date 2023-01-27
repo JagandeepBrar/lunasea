@@ -872,10 +872,11 @@ packages:
   modal_bottom_sheet:
     dependency: "direct main"
     description:
-      name: modal_bottom_sheet
-      sha256: ef533916a2c3089571c32bd34e410faca77a6849a3f28f748e0794525c5658a0
-      url: "https://pub.dev"
-    source: hosted
+      path: modal_bottom_sheet
+      ref: "38c6f44d0c4205608618a676a907c2d104d00b52"
+      resolved-ref: "38c6f44d0c4205608618a676a907c2d104d00b52"
+      url: "https://github.com/jamesblasco/modal_bottom_sheet.git"
+    source: git
     version: "2.1.2"
   msix:
     dependency: "direct dev"

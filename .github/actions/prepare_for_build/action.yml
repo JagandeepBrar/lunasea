@@ -69,7 +69,7 @@ runs:
     - name: Install Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.3.9'
+        flutter-version: '3.7'
         channel: stable
         cache: true
         cache-key: ${{ github.sha }}

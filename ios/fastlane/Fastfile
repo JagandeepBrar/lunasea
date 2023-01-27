@@ -54,7 +54,6 @@ platform :ios do
     sh(
       "flutter", "build", "ios",
       "--release",
-      "--bundle-sksl-path=shaders/ios_sksl.json",
       "--no-codesign",
       "--build-number=#{options[:build_number]}",
     )

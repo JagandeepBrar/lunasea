@@ -78,5 +78,9 @@
 		<false/>
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
-	</dict>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+	  <true/>
+    <key>FLTEnableImpeller</key>
+    <true/>
+</dict>
 </plist>

@@ -312,7 +312,7 @@ class TautulliSession {
       fromJson: TautulliUtilities.ensureStringFromJson)
   final String? videoResolution;
 
-  /// Full resoltuion of the video stream.
+  /// Full resolution of the video stream.
   @JsonKey(
       name: 'video_full_resolution',
       fromJson: TautulliUtilities.ensureStringFromJson)
@@ -793,13 +793,13 @@ class TautulliSession {
   @JsonKey(
       name: 'transcode_hw_encode',
       fromJson: TautulliUtilities.ensureStringFromJson)
-  final String? transcodeHardwarEencode;
+  final String? transcodeHardwareEncode;
 
   /// Hardware encode title of the transcode stream.
   @JsonKey(
       name: 'transcode_hw_encode_title',
       fromJson: TautulliUtilities.ensureStringFromJson)
-  final String? transcodeHardwarEencodeTitle;
+  final String? transcodeHardwareEncodeTitle;
 
   /// Is the transcoder using hardware acceleration for the full pipeline?
   @JsonKey(
@@ -958,7 +958,7 @@ class TautulliSession {
   @JsonKey(name: 'subtitles', fromJson: TautulliUtilities.ensureBooleanFromJson)
   final bool? subtitles;
 
-  /// Full resoltuion of the final video stream.
+  /// Full resolution of the final video stream.
   @JsonKey(
       name: 'stream_video_full_resolution',
       fromJson: TautulliUtilities.ensureStringFromJson)
@@ -1295,8 +1295,8 @@ class TautulliSession {
     this.transcodeHardwareRequested,
     this.transcodeHardwareDecode,
     this.transcodeHardwareDecodeTitle,
-    this.transcodeHardwarEencode,
-    this.transcodeHardwarEencodeTitle,
+    this.transcodeHardwareEncode,
+    this.transcodeHardwareEncodeTitle,
     this.transcodeHardwareFullPipeline,
     this.audioDecision,
     this.videoDecision,

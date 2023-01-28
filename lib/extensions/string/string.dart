@@ -20,6 +20,8 @@ extension StringExtension on String {
   String toTitleCase({
     String delimiter = ' ',
   }) {
+    if (isEmpty) return '';
+
     final split = this.split(delimiter);
     for (var i = 0; i < split.length; i++) {
       String word = split[i];

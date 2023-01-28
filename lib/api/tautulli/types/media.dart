@@ -9,8 +9,12 @@ enum TautulliMediaType {
   ARTIST,
   ALBUM,
   TRACK,
-  LIVE,
+  PHOTO_ALBUM,
+  PHOTO,
+  CLIP,
   COLLECTION,
+  PLAYLIST,
+  LIVE,
   NULL;
 
   static TautulliMediaType from(String? type) {
@@ -29,10 +33,18 @@ enum TautulliMediaType {
         return TautulliMediaType.ALBUM;
       case 'track':
         return TautulliMediaType.TRACK;
-      case 'live':
-        return TautulliMediaType.LIVE;
+      case 'photoalbum':
+        return TautulliMediaType.PHOTO_ALBUM;
+      case 'photo':
+        return TautulliMediaType.PHOTO;
+      case 'clip':
+        return TautulliMediaType.CLIP;
       case 'collection':
         return TautulliMediaType.COLLECTION;
+      case 'playlist':
+        return TautulliMediaType.PLAYLIST;
+      case 'live':
+        return TautulliMediaType.LIVE;
       default:
         return TautulliMediaType.NULL;
     }
@@ -55,10 +67,18 @@ enum TautulliMediaType {
         return 'album';
       case TautulliMediaType.TRACK:
         return 'track';
-      case TautulliMediaType.LIVE:
-        return 'live';
+      case TautulliMediaType.PHOTO_ALBUM:
+        return 'photoalbum';
+      case TautulliMediaType.PHOTO:
+        return 'photo';
+      case TautulliMediaType.CLIP:
+        return 'clip';
       case TautulliMediaType.COLLECTION:
         return 'collection';
+      case TautulliMediaType.PLAYLIST:
+        return 'playlist';
+      case TautulliMediaType.LIVE:
+        return 'live';
       default:
         return '';
     }

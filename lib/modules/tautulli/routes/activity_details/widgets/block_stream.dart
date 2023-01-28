@@ -15,15 +15,32 @@ class TautulliActivityDetailsStreamBlock extends StatelessWidget {
     return LunaTableCard(
       content: [
         LunaTableContent(
-            title: 'tautulli.Bandwidth'.tr(), body: session.lunaBandwidth),
+          title: 'tautulli.Bandwidth'.tr(),
+          body: session.lunaBandwidth,
+        ),
         LunaTableContent(
-            title: 'tautulli.Stream'.tr(), body: session.lunaTranscodeDecision),
+          title: 'tautulli.Stream'.tr(),
+          body: session.formattedStream(),
+        ),
         LunaTableContent(
-            title: 'tautulli.Container'.tr(), body: session.lunaContainer),
-        LunaTableContent(title: 'tautulli.Video'.tr(), body: session.lunaVideo),
-        LunaTableContent(title: 'tautulli.Audio'.tr(), body: session.lunaAudio),
-        LunaTableContent(
-            title: 'tautulli.Subtitle'.tr(), body: session.lunaSubtitle),
+          title: 'tautulli.Container'.tr(),
+          body: session.formattedContainer(),
+        ),
+        if (session.hasVideo())
+          LunaTableContent(
+            title: 'tautulli.Video'.tr(),
+            body: session.formattedVideo(),
+          ),
+        if (session.hasAudio())
+          LunaTableContent(
+            title: 'tautulli.Audio'.tr(),
+            body: session.formattedAudio(),
+          ),
+        if (session.hasSubtitles())
+          LunaTableContent(
+            title: 'tautulli.Subtitle'.tr(),
+            body: session.formattedSubtitles(),
+          ),
       ],
     );
   }

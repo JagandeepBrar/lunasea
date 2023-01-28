@@ -3,65 +3,230 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/duration/timestamp.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
+import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
+extension TautulliSessionAudioExtension on TautulliSession {
+  String get _language {
+    if (audioLanguage?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return audioLanguage!.toTitleCase();
+  }
+
+  String get _codec {
+    if (audioCodec?.isEmpty ?? true) return LunaUI.TEXT_EMDASH;
+    if (audioCodec == 'truehd') return 'TrueHD';
+    return audioCodec!.toUpperCase();
+  }
+
+  String get _channelLayout {
+    if (audioChannelLayout?.isEmpty ?? true) return LunaUI.TEXT_EMDASH;
+    return audioChannelLayout!.split('(')[0].toTitleCase();
+  }
+
+  String get _streamCodec {
+    if (streamAudioCodec?.isEmpty ?? true) return LunaUI.TEXT_EMDASH;
+    if (streamAudioCodec == 'truehd') return 'TrueHD';
+    return streamAudioCodec!.toUpperCase();
+  }
+
+  String get _streamChannelLayout {
+    if (streamAudioChannelLayout?.isEmpty ?? false) return LunaUI.TEXT_EMDASH;
+    return streamAudioChannelLayout!.split('(')[0].toTitleCase();
+  }
+
+  String formattedAudio() {
+    if (streamAudioDecision != null) {
+      final decision = streamAudioDecision.localizedName;
+
+      switch (streamAudioDecision) {
+        case TautulliTranscodeDecision.TRANSCODE:
+          return '$decision ($_language - $_codec $_channelLayout ${LunaUI.TEXT_ARROW_RIGHT} $_streamCodec $_streamChannelLayout)';
+        case TautulliTranscodeDecision.COPY:
+          return '$decision ($_language - $_streamCodec $_streamChannelLayout)';
+        default:
+          return '$decision ($_language - $_streamCodec $_streamChannelLayout)';
+      }
+    }
+
+    return 'tautulli.None'.tr();
+  }
+}
+
+extension TautulliSessionContainerExtension on TautulliSession {
+  String get _container {
+    if (container?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return container!.toUpperCase();
+  }
+
+  String get _streamContainer {
+    if (streamContainer?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return streamContainer!.toUpperCase();
+  }
+
+  String formattedContainer() {
+    if (streamContainerDecision == TautulliTranscodeDecision.TRANSCODE) {
+      return '${'tautulli.Converting'.tr()} ($_container ${LunaUI.TEXT_ARROW_RIGHT} $_streamContainer)';
+    }
+
+    return '${TautulliTranscodeDecision.DIRECT_PLAY.localizedName} ($_streamContainer)';
+  }
+}
+
+extension TautulliSessionSubtitleExtension on TautulliSession {
+  String get _language {
+    if (subtitleLanguage?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return subtitleLanguage!.toTitleCase();
+  }
+
+  String get _codec {
+    if ((streamSubtitleTransient ?? false) && streamSubtitleCodec != null)
+      return 'tautulli.None'.tr();
+    if (subtitleCodec?.isEmpty ?? true) return LunaUI.TEXT_EMDASH;
+    return subtitleCodec!.toUpperCase();
+  }
+
+  String get _streamCodec {
+    if (streamSubtitleCodec?.isEmpty ?? true) return LunaUI.TEXT_EMDASH;
+    return streamSubtitleCodec!.toUpperCase();
+  }
+
+  String formattedSubtitles() {
+    if (subtitles ?? false) {
+      final decision = streamSubtitleDecision.localizedName;
+      final synced = syncedVersion ?? false;
+
+      switch (streamSubtitleDecision) {
+        case TautulliTranscodeDecision.TRANSCODE:
+          return '$decision ($_language - $_codec ${LunaUI.TEXT_ARROW_RIGHT} $_streamCodec)';
+        case TautulliTranscodeDecision.COPY:
+          return '$decision ($_language - $_codec)';
+        case TautulliTranscodeDecision.BURN:
+          return '$decision ($_language - $_codec)';
+        default:
+          return '${TautulliTranscodeDecision.DIRECT_PLAY.localizedName} ($_language - ${synced ? _codec : _streamCodec})';
+      }
+    }
+
+    return 'tautulli.None'.tr();
+  }
+}
+
+extension TautulliSessionStreamExtension on TautulliSession {
+  String get _transcodeSpeed {
+    if (transcodeThrottled ?? true) return 'tautulli.Throttled'.tr();
+    return 'tautulli.Speed'.tr(args: ['${transcodeSpeed ?? 0.0}']);
+  }
+
+  String formattedStream() {
+    final decision = transcodeDecision.localizedName;
+
+    switch (transcodeDecision) {
+      case TautulliTranscodeDecision.TRANSCODE:
+        return '$decision ($_transcodeSpeed)';
+      case TautulliTranscodeDecision.COPY:
+        return decision;
+      default:
+        return TautulliTranscodeDecision.DIRECT_PLAY.localizedName;
+    }
+  }
+}
+
+extension TautulliSessionVideoExtension on TautulliSession {
+  String get _codec {
+    if (videoCodec?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return videoCodec!.toUpperCase();
+  }
+
+  String get _streamCodec {
+    if (streamVideoCodec?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return streamVideoCodec!.toUpperCase();
+  }
+
+  String get _fullResolution {
+    if (videoFullResolution?.isEmpty ?? true) return 'lunasea.Unknown'.tr();
+    return videoFullResolution!;
+  }
+
+  String get _streamFullResolution {
+    if (streamVideoFullResolution?.isEmpty ?? true)
+      return 'lunasea.Unknown'.tr();
+    return streamVideoFullResolution!;
+  }
+
+  String get _dynamicRange {
+    if (videoDynamicRange?.isEmpty ?? true) return '';
+    if (videoDynamicRange != 'SDR') return ' $videoDynamicRange';
+    return '';
+  }
+
+  String get _streamDynamicRange {
+    final isSdr = streamVideoDynamicRange == 'SDR';
+
+    if (streamVideoDynamicRange?.isEmpty ?? true) return '';
+    if (!isSdr || _dynamicRange.isNotEmpty) return ' $streamVideoDynamicRange';
+    return '';
+  }
+
+  String get _hardwareDecoding {
+    final isTc = streamVideoDecision == TautulliTranscodeDecision.TRANSCODE;
+
+    if (isTc && (transcodeHardwareDecoding ?? false)) return ' (HW)';
+    return '';
+  }
+
+  String get _hardwareEncoding {
+    final isTc = streamVideoDecision == TautulliTranscodeDecision.TRANSCODE;
+
+    if (isTc && (transcodeHardwareEncoding ?? false)) return ' (HW)';
+    return '';
+  }
+
+  String formattedVideo() {
+    if (streamVideoDecision != null) {
+      final decision = streamVideoDecision.localizedName;
+
+      switch (streamVideoDecision) {
+        case TautulliTranscodeDecision.TRANSCODE:
+          return '$decision ($_codec$_hardwareDecoding $_fullResolution$_dynamicRange ${LunaUI.TEXT_ARROW_RIGHT} $_streamCodec$_hardwareEncoding $_streamFullResolution$_streamDynamicRange)';
+        case TautulliTranscodeDecision.COPY:
+          return '$decision ($_streamCodec $_streamFullResolution$_streamDynamicRange)';
+        default:
+          return '${TautulliTranscodeDecision.DIRECT_PLAY.localizedName} ($_streamCodec $_streamFullResolution$_streamDynamicRange)';
+      }
+    }
+
+    return 'tautulli.None'.tr();
+  }
+}
+
 extension TautulliSessionExtension on TautulliSession {
-  String get lunaContainer {
-    return [
-      this.streamContainerDecision.localizedName,
-      ' (',
-      this.container!.toUpperCase(),
-      if (this.streamContainerDecision != null &&
-          this.streamContainerDecision != TautulliTranscodeDecision.DIRECT_PLAY)
-        ' ${LunaUI.TEXT_ARROW_RIGHT} ${this.streamContainer!.toUpperCase()}',
-      ')',
-    ].join();
+  bool hasAudio() {
+    const types = [
+      TautulliMediaType.MOVIE,
+      TautulliMediaType.EPISODE,
+      TautulliMediaType.CLIP,
+      TautulliMediaType.TRACK,
+    ];
+    return types.contains(mediaType);
   }
 
-  String get lunaVideo {
-    return [
-      this.videoDecision.localizedName,
-      ' (${this.videoCodec?.toUpperCase() ?? LunaUI.TEXT_EMDASH} ',
-      if (this.transcodeHardwareDecoding!) '(HW) ',
-      this.videoFullResolution,
-      if (this.transcodeVideoCodec!.isNotEmpty) ' ${LunaUI.TEXT_ARROW_RIGHT} ',
-      if (this.transcodeVideoCodec!.isNotEmpty)
-        '${this.transcodeVideoCodec!.toUpperCase()} ',
-      if (this.transcodeVideoCodec!.isNotEmpty &&
-          this.transcodeHardwareDecoding!)
-        '(HW) ',
-      if (this.transcodeVideoCodec!.isNotEmpty) this.streamVideoFullResolution,
-      ')',
-    ].join();
+  bool hasSubtitles() {
+    const types = [
+      TautulliMediaType.MOVIE,
+      TautulliMediaType.EPISODE,
+      TautulliMediaType.CLIP,
+    ];
+    return types.contains(mediaType);
   }
 
-  String get lunaAudio {
-    return [
-      this.audioDecision.localizedName,
-      ' (',
-      this.audioCodec?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
-      if (this.audioChannelLayout?.split('(').isNotEmpty ?? false)
-        ' ${this.audioChannelLayout?.split('(')[0]}',
-      if (this.transcodeAudioCodec?.isNotEmpty ?? false)
-        ' ${LunaUI.TEXT_ARROW_RIGHT} ',
-      if (this.transcodeAudioCodec?.isNotEmpty ?? false)
-        this.transcodeAudioCodec!.toUpperCase(),
-      if ((this.transcodeAudioCodec?.isNotEmpty ?? false) &&
-          (this.streamAudioChannelLayout?.split('(').isNotEmpty ?? false))
-        ' ${this.streamAudioChannelLayout?.split('(')[0]}',
-      ')',
-    ].join();
-  }
-
-  String get lunaSubtitle {
-    if (!this.subtitles!) return 'tautulli.None'.tr();
-    return [
-      this.streamSubtitleDecision == TautulliTranscodeDecision.NULL
-          ? 'tautulli.DirectPlay'.tr()
-          : this.streamSubtitleDecision.localizedName,
-      if (this.subtitleCodec != null && this.subtitleCodec!.isNotEmpty)
-        '(${this.subtitleCodec?.toUpperCase() ?? LunaUI.TEXT_EMDASH})',
-    ].join(' ');
+  bool hasVideo() {
+    const types = [
+      TautulliMediaType.MOVIE,
+      TautulliMediaType.EPISODE,
+      TautulliMediaType.CLIP,
+      TautulliMediaType.PHOTO,
+    ];
+    return types.contains(mediaType);
   }
 
   String? get lunaTitle {
@@ -166,26 +331,6 @@ extension TautulliSessionExtension on TautulliSession {
         return context
             .read<TautulliState>()
             .getImageURLFromRatingKey(this.ratingKey);
-    }
-  }
-
-  String get lunaTranscodeDecision {
-    switch (this.transcodeDecision) {
-      case TautulliTranscodeDecision.TRANSCODE:
-        String _transcodeStatus = this.transcodeThrottled!
-            ? 'tautulli.Throttled'.tr()
-            : '${this.transcodeSpeed ?? 0.0}x';
-        return [
-          this.transcodeDecision.localizedName,
-          ' ($_transcodeStatus)',
-        ].join();
-      case TautulliTranscodeDecision.DIRECT_PLAY:
-      case TautulliTranscodeDecision.COPY:
-      case TautulliTranscodeDecision.BURN:
-      case TautulliTranscodeDecision.NULL:
-        return this.transcodeDecision.localizedName;
-      default:
-        return 'tautulli.None'.tr();
     }
   }
 

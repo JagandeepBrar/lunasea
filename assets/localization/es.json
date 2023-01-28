@@ -680,6 +680,8 @@
     "sonarr.Streams": "Transmisiones",
     "sonarr.DownloadID": "ID de descarga",
     "sonarr.DownloadFailed": "Descarga fracasó",
+    "sonarr.DeleteEpisodeFileHint1": "¿Seguro que quieres eliminar este archivo de episodio?",
+    "sonarr.DeleteReasonManual": "El archivo fue borrado vía UI",
     "tautulli.Quality": "Calidad",
     "tautulli.None": "Ninguno",
     "tautulli.Terminate": "Terminar",

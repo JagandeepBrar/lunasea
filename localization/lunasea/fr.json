@@ -33,6 +33,7 @@
     "lunasea.Disabled": "Désactivé",
     "lunasea.Dismiss": "Rejeter",
     "lunasea.Docs": "Documents",
+    "lunasea.DownloadClient": "Client de téléchargement",
     "lunasea.Edge": "Limite",
     "lunasea.Error": "Erreur",
     "lunasea.ExternalModules": "Modules externes",
@@ -56,6 +57,7 @@
     "lunasea.Months": "{} Mois",
     "lunasea.MonthsAgo": "Il y a {} mois",
     "lunasea.New": "Nouveau",
+    "lunasea.No": "Non",
     "lunasea.NoModulesEnabled": "Aucun module activé",
     "lunasea.NotSet": "Non défini",
     "lunasea.OneDay": "1 Jour",
@@ -104,5 +106,6 @@
     "lunasea.Warning": "Attention",
     "lunasea.Website": "Site web",
     "lunasea.Years": "{} années",
-    "lunasea.YearsAgo": "Il y a {} années"
+    "lunasea.YearsAgo": "Il y a {} années",
+    "lunasea.Yes": "Oui"
 }

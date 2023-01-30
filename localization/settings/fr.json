@@ -261,5 +261,11 @@
     "settings.SentryLoggingDescription": "Soumettre toutes les erreurs et plantages à Sentry",
     "settings.DatabaseCorruptionDetectedMessageLine1": "Une corruption de la base de données a été détectée et votre configuration a été effacée.",
     "settings.DatabaseCorruptionDetectedMessageLine2": "Désolé pour ce problème, toutes les sauvegardes devraient pouvoir être restaurés même celles créés avec une base de données corrompue.",
-    "settings.DatabaseCorruptionDetected": "Base de données corrompue détectée"
+    "settings.DatabaseCorruptionDetected": "Base de données corrompue détectée",
+    "settings.OpenDrawerOnBackActionDescription": "Ouvrir le tiroir au lieu de fermer LunaSea",
+    "settings.OpenDrawerOnBackAction": "Ouvrir le tiroir au dos",
+    "settings.DiscordDescription": "Demandes d'améliorations et assistance",
+    "settings.BootModule": "Module de démarrage",
+    "settings.General": "Général",
+    "settings.GeneralDescription": "Personnaliser LunsaSea"
 }

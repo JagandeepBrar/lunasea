@@ -66,6 +66,8 @@ enum LunaLanguage {
     switch (this) {
       case LunaLanguage.ENGLISH:
         return true;
+      case LunaLanguage.FRENCH:
+        return true;
       default:
         return LunaFlavor.BETA.isRunningFlavor();
     }

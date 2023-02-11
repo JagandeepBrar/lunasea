@@ -1,4 +1,4 @@
-git_url("git@github.com:JagandeepBrar/LunaSea-Fastlane-Storage.git")
+git_url("git@github.com:RoninComputer/fastlane-match-storage.git")
 storage_mode("git")
 app_identifier("app.lunasea.lunasea")
 platform("macos")

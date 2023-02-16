@@ -42,6 +42,12 @@ class _State extends State<MediaDetailsRoute> {
       title: 'Media Details',
       scrollControllers: TautulliMediaDetailsNavigationBar.scrollControllers,
       pageController: _pageController,
+      actions: [
+        TautulliMediaDetailsOpenPlexButton(
+          ratingKey: widget.ratingKey,
+          mediaType: widget.mediaType,
+        ),
+      ],
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/links.dart';
+import 'package:lunasea/system/platform.dart';
 
 enum LinkedContentType {
   MOVIE,
@@ -28,29 +29,55 @@ enum LunaLinkedContent {
 
   static String? imdb(String? id) {
     if (id == null) return null;
-    String base = 'https://www.imdb.com';
+    const base = 'https://www.imdb.com';
 
     return '$base/title/$id';
   }
 
   static String? letterboxd(int? id) {
     if (id == null) return null;
-    String base = 'https://letterboxd.com';
+    const base = 'https://letterboxd.com';
 
     return '$base/tmdb/$id';
   }
 
   static String? musicBrainz(String? id) {
     if (id == null) return null;
-    String base = 'https://musicbrainz.org/artist';
+    const base = 'https://musicbrainz.org/artist';
 
     return '$base/$id';
   }
 
+  static String plexMobile(
+    String plexIdentifier,
+    int ratingKey,
+  ) {
+    if (LunaPlatform.isAndroid) {
+      const base = 'plex://server://';
+      const path = '/com.plexapp.plugins.library/library/metadata/';
+      return '$base$plexIdentifier$path$ratingKey';
+    } else {
+      const base = 'plex://preplay/?server=';
+      const path = '&metadataKey=/library/metadata/';
+      return '$base$plexIdentifier$path$ratingKey';
+    }
+  }
+
+  static String plexWeb(
+    String plexIdentifier,
+    int ratingKey, [
+    bool useLegacy = false,
+  ]) {
+    const base = 'https://app.plex.tv/desktop#!/server/';
+    const path = '/details?key=%2Flibrary%2Fmetadata%2F';
+    final legacy = useLegacy ? '&legacy=1' : '';
+    return '$base$plexIdentifier$path$ratingKey$legacy';
+  }
+
   static String? theMovieDB(dynamic id, LinkedContentType type) {
     if (id == null) return null;
-    String base = 'https://www.themoviedb.org';
-    String baseImage = 'https://image.tmdb.org/t/p';
+    const base = 'https://www.themoviedb.org';
+    const baseImage = 'https://image.tmdb.org/t/p';
 
     switch (type) {
       case LinkedContentType.MOVIE:
@@ -70,7 +97,7 @@ enum LunaLinkedContent {
 
   static String? trakt(int? id, LinkedContentType type) {
     if (id == null) return null;
-    String base = 'https://trakt.tv';
+    const base = 'https://trakt.tv';
 
     switch (type) {
       case LinkedContentType.MOVIE:
@@ -84,14 +111,14 @@ enum LunaLinkedContent {
 
   static String? tvMaze(int? id) {
     if (id == null) return null;
-    String base = 'https://www.tvmaze.com';
+    const base = 'https://www.tvmaze.com';
 
     return '$base/shows/$id';
   }
 
   static String? theTVDB(int? id, LinkedContentType type) {
     if (id == null) return null;
-    String base = 'https://thetvdb.com';
+    const base = 'https://thetvdb.com';
 
     switch (type) {
       case LinkedContentType.MOVIE:
@@ -107,7 +134,7 @@ enum LunaLinkedContent {
 
   static String? youtube(String? id) {
     if (id == null) return null;
-    String base = 'https://www.youtube.com';
+    const base = 'https://www.youtube.com';
 
     return '$base/watch?v=$id';
   }

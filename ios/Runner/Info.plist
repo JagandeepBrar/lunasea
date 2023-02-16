@@ -61,6 +61,11 @@
 		<string>Main</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+    <key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>plex</string>
+			<string>https</string>
+		</array>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>

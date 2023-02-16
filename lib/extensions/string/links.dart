@@ -1,17 +1,17 @@
 import 'package:lunasea/system/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 extension StringAsLinksExtension on String {
-  Future<bool> _launchUniversal(uri) async {
-    return await launchUrl(
+  Future<bool> _launchUniversal(String uri) async {
+    return await launchUrlString(
       uri,
       webOnlyWindowName: '_blank',
-      mode: LaunchMode.externalNonBrowserApplication,
+      mode: LaunchMode.externalApplication,
     );
   }
 
-  Future<bool> _launchDefault(uri) async {
-    return await launchUrl(
+  Future<bool> _launchDefault(String uri) async {
+    return await launchUrlString(
       uri,
       webOnlyWindowName: '_blank',
       mode: LaunchMode.platformDefault,
@@ -20,9 +20,8 @@ extension StringAsLinksExtension on String {
 
   Future<void> openLink() async {
     try {
-      Uri uri = Uri.parse(this);
-      if (await _launchUniversal(uri)) return;
-      await _launchDefault(uri);
+      if (await _launchUniversal(this)) return;
+      await _launchDefault(this);
     } catch (error, stack) {
       LunaLogger().error(
         'Unable to open URL',
@@ -30,6 +29,10 @@ extension StringAsLinksExtension on String {
         stack,
       );
     }
+  }
+
+  Future<bool> canOpenUrl() async {
+    return canLaunchUrlString(this);
   }
 
   Future<void> openImdb() async =>

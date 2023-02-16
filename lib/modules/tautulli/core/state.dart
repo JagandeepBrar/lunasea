@@ -33,6 +33,7 @@ class TautulliState extends LunaModuleState {
     _playCountByPlatformStreamTypeGraph = null;
     _playCountByUserStreamTypeGraph = null;
     _librariesTable = null;
+    _serverIdentity = null;
     _searchQuery = '';
 
     // Clear user data
@@ -52,6 +53,7 @@ class TautulliState extends LunaModuleState {
     resetActivity();
     resetUsers();
     resetHistory();
+    resetServerIdentity();
     notifyListeners();
   }
 
@@ -191,6 +193,24 @@ class TautulliState extends LunaModuleState {
   Map<int, Future<TautulliHistory>> get individualHistory => _individualHistory;
   void setIndividualHistory(int userId, Future<TautulliHistory> data) {
     _individualHistory[userId] = data;
+    notifyListeners();
+  }
+
+  ///////////////////////
+  /// SERVER IDENTITY ///
+  ///////////////////////
+
+  Future<TautulliServerIdentity>? _serverIdentity;
+  Future<TautulliServerIdentity>? get serverIdentity => _serverIdentity;
+  set serverIdentity(Future<TautulliServerIdentity>? serverIdentity) {
+    _serverIdentity = serverIdentity;
+    notifyListeners();
+  }
+
+  void resetServerIdentity() {
+    if (_api != null) {
+      _serverIdentity = _api!.miscellaneous.getServerIdentity();
+    }
     notifyListeners();
   }
 

@@ -22,6 +22,7 @@ class NewznabAPI {
         queryParameters: {
           if (indexer.apiKey != '') 'apikey': indexer.apiKey,
         },
+        responseType: ResponseType.plain,
         followRedirects: true,
         maxRedirects: 5,
       ),
@@ -108,6 +109,7 @@ class NewznabAPI {
         },
         followRedirects: true,
         maxRedirects: 5,
+        responseType: ResponseType.plain,
       ),
     ).get(data.linkDownload);
     return response.data;

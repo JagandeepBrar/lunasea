@@ -17,6 +17,7 @@ class NZBGetAPI {
         headers: profile.nzbgetHeaders,
         followRedirects: true,
         maxRedirects: 5,
+        responseType: ResponseType.json,
       ),
     );
 

@@ -14,6 +14,7 @@ class LidarrAPI {
         queryParameters: {
           if (profile.lidarrKey != '') 'apikey': profile.lidarrKey,
         },
+        responseType: ResponseType.json,
         headers: LunaProfile.current.lidarrHeaders,
         followRedirects: true,
         maxRedirects: 5,

@@ -31,7 +31,7 @@ void _attachInterceptor(Dio dio) {
 }
 
 void _setResponseTransformer(Dio dio) {
-  (dio.transformer as DefaultTransformer).jsonDecodeCallback = (data) {
+  (dio.transformer as BackgroundTransformer).jsonDecodeCallback = (data) {
     final parsed = json.decode(data);
     final result = parsed['result'];
     if (result is Map) return result;

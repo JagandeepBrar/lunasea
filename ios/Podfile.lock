@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (4.3.1):
+  - cloud_firestore (4.4.1):
     - Firebase/Firestore (= 10.3.0)
     - firebase_core
     - Flutter
@@ -52,18 +52,18 @@ PODS:
   - Firebase/Storage (10.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.3.0)
-  - firebase_auth (4.2.5):
+  - firebase_auth (4.2.7):
     - Firebase/Auth (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.4.1):
+  - firebase_core (2.6.0):
     - Firebase/CoreOnly (= 10.3.0)
     - Flutter
-  - firebase_messaging (14.2.1):
+  - firebase_messaging (14.2.3):
     - Firebase/Messaging (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.0.10):
+  - firebase_storage (11.0.12):
     - Firebase/Storage (= 10.3.0)
     - firebase_core
     - Flutter
@@ -264,15 +264,15 @@ CHECKOUT OPTIONS:
     :tag: 10.3.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 5e5bb98722f66e820bf1aa7b3c98ffc9b2450ffb
+  cloud_firestore: 2464c599d5eec8ca57afa0d2f77a0ee54e693864
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_auth: 3bab991fe1df91c2f948156e9dee976e01a19ab9
-  firebase_core: bf59c32d2e53814f558efa20840c1902fa2fe461
-  firebase_messaging: ee597229fc260f8fa491fa8f2d4a32dfbfa406fa
-  firebase_storage: 8b85bf19de50a1886f9387924fbddf066a718965
+  firebase_auth: 1683261c732cd83b8b69223252a6f7a1446779b5
+  firebase_core: a98dd43f175cca0b2d509c7703700d5e9b5833e3
+  firebase_messaging: 330dab37891313a27cbc9eb8f8f528ad28f87a4f
+  firebase_storage: 6897e832f5d1df90aadce8d61d3e28ef3eb7a7eb
   FirebaseAppCheckInterop: ef074633831a90cf6c10e8f2c1e1f8b7842a446a
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseAuthInterop: fef284922da3c350f846ff85cc0dfd5186448e49
@@ -302,7 +302,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
+  url_launcher_ios: fb12c43172927bb5cf75aeebd073f883801f1993
 
 PODFILE CHECKSUM: 9b967f5488f45111c5d6bfeec6dafc71a56d0e01
 

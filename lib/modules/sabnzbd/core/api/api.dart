@@ -18,6 +18,7 @@ class SABnzbdAPI {
         headers: profile.sabnzbdHeaders,
         followRedirects: true,
         maxRedirects: 5,
+        contentType: Headers.jsonContentType,
         responseType: ResponseType.json,
       ),
     );

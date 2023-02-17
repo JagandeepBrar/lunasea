@@ -51,6 +51,7 @@ class TautulliAPI {
         queryParameters: {
           'apikey': apiKey,
         },
+        contentType: Headers.jsonContentType,
         responseType: ResponseType.json,
         headers: headers,
         followRedirects: followRedirects,

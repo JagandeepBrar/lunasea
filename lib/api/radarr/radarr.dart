@@ -68,6 +68,7 @@ class RadarrAPI {
         headers: headers,
         followRedirects: followRedirects,
         maxRedirects: maxRedirects,
+        contentType: Headers.jsonContentType,
         responseType: ResponseType.json,
       ),
     );

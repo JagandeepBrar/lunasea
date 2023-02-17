@@ -21,6 +21,8 @@ abstract class LidarrAPI {
       queryParameters: {
         if (apiKey.isNotEmpty) 'apikey': apiKey,
       },
+      contentType: Headers.jsonContentType,
+      responseType: ResponseType.json,
     ));
     return _LidarrAPI(dio, baseUrl: _baseUrl(host));
   }

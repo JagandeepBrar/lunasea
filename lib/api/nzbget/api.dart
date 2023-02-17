@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:lunasea/api/nzbget/models/status.dart';
 import 'package:lunasea/api/nzbget/models/version.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:lunasea/vendor.dart';
 
 part 'api.g.dart';
 
@@ -51,6 +49,8 @@ abstract class NZBGetAPI {
       headers: headers,
       followRedirects: true,
       maxRedirects: 5,
+      contentType: Headers.jsonContentType,
+      responseType: ResponseType.json,
     ));
     _attachInterceptor(dio);
     _setResponseTransformer(dio);

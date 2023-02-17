@@ -27,6 +27,8 @@ abstract class OverseerrAPI {
           'X-Api-Key': apiKey,
           ...headers,
         },
+        contentType: Headers.jsonContentType,
+        responseType: ResponseType.json,
         followRedirects: true,
         maxRedirects: 5,
       ),

@@ -32,6 +32,8 @@ abstract class SABnzbdAPI {
       headers: headers,
       followRedirects: true,
       maxRedirects: 5,
+      contentType: Headers.jsonContentType,
+      responseType: ResponseType.json,
       queryParameters: {
         if (apiKey.isNotEmpty) 'apikey': apiKey,
         'output': 'json',

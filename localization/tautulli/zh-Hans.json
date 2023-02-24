@@ -66,5 +66,7 @@
     "tautulli.DeletingTemporarySessions": "正在删除临时会话…",
     "tautulli.NoActiveStreams": "没有活动流",
     "tautulli.Season": "季 {}",
-    "tautulli.TerminateSessionFailed": "终止会话失败"
+    "tautulli.TerminateSessionFailed": "终止会话失败",
+    "tautulli.Converting": "转换",
+    "tautulli.Speed": "倍速:{}x"
 }

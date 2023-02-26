@@ -66,5 +66,7 @@
     "tautulli.BackingUpConfigurationDescription": "Yapılandırmanız arka planda yedekleniyor",
     "tautulli.BackingUpConfiguration": "Yapılandırma Yedekleniyor…",
     "tautulli.Audio": "Ses",
-    "tautulli.ActivityDetails": "Etkinlik Ayrıntıları"
+    "tautulli.ActivityDetails": "Etkinlik Ayrıntıları",
+    "tautulli.Converting": "Dönüştürülüyor",
+    "tautulli.Speed": "Hız: {}x"
 }

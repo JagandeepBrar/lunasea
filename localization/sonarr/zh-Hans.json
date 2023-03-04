@@ -1,6 +1,6 @@
 {
     "sonarr.AddSeries": "添加系列",
-    "sonarr.AddedOn": "添加于",
+    "sonarr.AddedOn": "添加到",
     "sonarr.Age": "年龄",
     "sonarr.All": "全部",
     "sonarr.AllSeasons": "所有季",
@@ -176,7 +176,7 @@
     "sonarr.UpdatedSeries": "更新系列",
     "sonarr.Languages": "语言文字",
     "sonarr.NoReleasesFound": "未找到任何新版本",
-    "sonarr.AddedSeries": "添加系列",
+    "sonarr.AddedSeries": "新增系列",
     "sonarr.AddedTag": "添加标签",
     "sonarr.AddReleaseToBlocklist": "添加发布到阻止列表",
     "sonarr.DownloadWarning": "下载警告",

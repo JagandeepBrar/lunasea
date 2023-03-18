@@ -592,6 +592,8 @@
     "settings.BootModule": "Önyükleme Modülü",
     "settings.GeneralDescription": "LunaSea'yi Özelleştirin",
     "settings.General": "Genel",
+    "settings.OpenDrawerOnBackAction": "Geri Eyleminde Çekmeceyi Aç",
+    "settings.OpenDrawerOnBackActionDescription": "LunaSea'yi kapatmak yerine çekmeceyi açın",
     "sonarr.AddedSeries": "Eklenen Diziler",
     "sonarr.Age": "Yıl",
     "sonarr.All": "Her Şey",
@@ -871,6 +873,8 @@
     "tautulli.BackingUpConfiguration": "Yapılandırma Yedekleniyor…",
     "tautulli.Audio": "Ses",
     "tautulli.ActivityDetails": "Etkinlik Ayrıntıları",
+    "tautulli.Converting": "Dönüştürülüyor",
+    "tautulli.Speed": "Hız: {}x",
     "wake_on_lan.MagicPacketSent": "Sihirli Paket Gönderildi",
     "wake_on_lan.MagicPacketSentMessage": "Makineniz uyanıyor olmalı!",
     "wake_on_lan.MagicPacketFailedToSend": "Sihirli Paket Gönderilemedi"

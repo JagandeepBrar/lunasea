@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Kor",
+    "sabnzbd.All": "Összes",
+    "sabnzbd.Ascending": "Emelkedő",
+    "sabnzbd.CategoryDefault": "Alapértelmezett kategória",
+    "sabnzbd.Completed": "Befejezve",
+    "sabnzbd.Descending": "Csökkenő",
+    "sabnzbd.Duplicate": "Duplikálás",
+    "sabnzbd.Failed": "Nem sikerült",
+    "sabnzbd.HibernatePC": "PC Hibernálása",
+    "sabnzbd.Low": "Alacsony",
+    "sabnzbd.Force": "Kényszerítés",
+    "sabnzbd.High": "Magas",
+    "sabnzbd.Repair": "Javítás",
+    "sabnzbd.RepairUnpack": "Javítás/kicsomagolás",
+    "sabnzbd.ShutdownSABnzbd": "SABnzbd leállítása",
+    "sabnzbd.Name": "Név",
+    "sabnzbd.RepairUnpackDelete": "Javítás/kicsomagolás/törlés",
+    "sabnzbd.StandbyPC": "PC készenlétbe",
+    "sabnzbd.None": "Egyik sem",
+    "sabnzbd.Size": "Méret",
+    "sabnzbd.Normal": "Normál",
+    "sabnzbd.Paused": "Szüneteltetve",
+    "sabnzbd.ShutdownPC": "PC leállítása",
+    "sabnzbd.Stop": "Megállítás"
+}

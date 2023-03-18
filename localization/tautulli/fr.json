@@ -5,10 +5,10 @@
     "tautulli.Video": "Vidéo",
     "tautulli.Users": "Utilisateurs",
     "tautulli.User": "Utilisateur",
-    "tautulli.Transcodes": "Transcodes",
-    "tautulli.Transcode": "Transcode",
+    "tautulli.Transcodes": "Conversions",
+    "tautulli.Transcode": "Conversion",
     "tautulli.Title": "Titre",
-    "tautulli.Throttled": "Throttled",
+    "tautulli.Throttled": "Limité",
     "tautulli.TerminateSessionFailed": "Échec de la fin de la session",
     "tautulli.TerminateSession": "Mettre fin à la session",
     "tautulli.TerminatedSession": "Session terminée",
@@ -66,5 +66,7 @@
     "tautulli.BackingUpConfiguration": "Sauvegarde de la configuration…",
     "tautulli.Audio": "Audio",
     "tautulli.ActivityDetails": "Détails de l'activité",
-    "tautulli.Activity": "Activité"
+    "tautulli.Activity": "Activité",
+    "tautulli.Speed": "Vitesse : x{}",
+    "tautulli.Converting": "Conversion"
 }

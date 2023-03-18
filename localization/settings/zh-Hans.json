@@ -265,5 +265,7 @@
     "settings.DiscordDescription": "请求功能获得支持",
     "settings.General": "通用",
     "settings.GeneralDescription": "自定义LunaSea",
-    "settings.BootModule": "启动模块"
+    "settings.BootModule": "启动模块",
+    "settings.OpenDrawerOnBackAction": "从背面打开抽屉",
+    "settings.OpenDrawerOnBackActionDescription": "打开抽屉而不关闭LunaSea"
 }

@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Failed": "Échoué",
+    "sabnzbd.Low": "Bas",
+    "sabnzbd.Ascending": "Ascendant",
+    "sabnzbd.CategoryDefault": "Catégorie par défaut",
+    "sabnzbd.StandbyPC": "Mettre le PC en veille",
+    "sabnzbd.Stop": "Arrêter",
+    "sabnzbd.Name": "Nom",
+    "sabnzbd.Paused": "En pause",
+    "sabnzbd.RepairUnpack": "Réparer/Deballer",
+    "sabnzbd.High": "Haut",
+    "sabnzbd.None": "Aucun",
+    "sabnzbd.Normal": "Normal",
+    "sabnzbd.RepairUnpackDelete": "Réparer/Deballer/Supprimer",
+    "sabnzbd.Size": "Taille",
+    "sabnzbd.Repair": "Réparer",
+    "sabnzbd.ShutdownPC": "Arrêter le PC",
+    "sabnzbd.ShutdownSABnzbd": "Arrêter SABnzbd",
+    "sabnzbd.Force": "Forcer",
+    "sabnzbd.Completed": "Complétés",
+    "sabnzbd.Descending": "Descendant",
+    "sabnzbd.Duplicate": "Dupliquer",
+    "sabnzbd.HibernatePC": "Mettre le PC en veille",
+    "sabnzbd.All": "Tout",
+    "sabnzbd.Age": "Âge"
+}

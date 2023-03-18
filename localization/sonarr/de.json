@@ -156,7 +156,7 @@
     "sonarr.RunningRSSSync": "RSS-Synchro wird durchgeführt {}",
     "sonarr.Runtime": "Laufzeit",
     "sonarr.SearchFor": "Nach {} suchen",
-    "sonarr.Releases": "Releases",
+    "sonarr.Releases": "Veröffentlichungen",
     "sonarr.RemovedSeriesWithFiles": "Serie entfernt (Mit Dateien)",
     "sonarr.SearchingForSeason": "Staffel wird gesucht…",
     "sonarr.SeriesFolderImported": "Folge aus Serien-Ordner importiert",

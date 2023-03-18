@@ -66,5 +66,7 @@
     "tautulli.BackingUpConfiguration": "Konfiguráció biztonsági mentése …",
     "tautulli.Audio": "Hang",
     "tautulli.ActivityDetails": "Tevékenység részletei",
-    "tautulli.Activity": "Tevékenység"
+    "tautulli.Activity": "Tevékenység",
+    "tautulli.Converting": "Konvertálás",
+    "tautulli.Speed": "Sebesség: {}x"
 }

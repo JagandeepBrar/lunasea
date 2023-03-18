@@ -242,7 +242,7 @@
     "settings.PasswordUpdated": "Passwort aktualisiert",
     "settings.PleaseSignInAgain": "Bitte erneut anmelden",
     "settings.RestoreFromDeviceDescription": "Konfigurationsdaten wiederherstellen",
-    "settings.AddedProfile": "Profil hinzugefügt",
+    "settings.AddedProfile": "Hinzugefügtes Profil",
     "settings.Build": "Build",
     "settings.ChangedProfile": "Profil geändert",
     "settings.CurrentPassword": "Aktuelles Passwort",
@@ -254,5 +254,18 @@
     "settings.BackupToDeviceDescription": "Konfigurationsdaten sichern",
     "settings.DownloadUpdate": "Update herunterladen",
     "settings.EmailUpdated": "E-Mail aktualisiert",
-    "settings.EnableInAppNotifications": "App-Benachrichtigungen Aktivieren"
+    "settings.EnableInAppNotifications": "App-Benachrichtigungen Aktivieren",
+    "settings.SentryLoggingDescription": "Fehler und Abstürze hochladen und an Sentry senden",
+    "settings.SentryLogging": "Sentry Protokollierung",
+    "settings.Version": "Version",
+    "settings.OpenDrawerOnBackAction": "Seitenmenü bei Zurück-Aktion öffnen",
+    "settings.OpenDrawerOnBackActionDescription": "Öffne das Seitenmenü anstatt LunaSea zu schließen",
+    "settings.UpdateEmail": "Email aktualisieren",
+    "settings.UpdatePassword": "Passwort aktualisieren",
+    "settings.UpToDate": "Auf dem neuesten Stand",
+    "settings.DiscordDescription": "Schlage neue Funktionen vor & erhalte Unterstützung",
+    "settings.ViewTypeLogs": "{} Protokolle ansehen",
+    "settings.BootModule": "Startmodul",
+    "settings.General": "Allgemein",
+    "settings.GeneralDescription": "LunaSea anpassen"
 }

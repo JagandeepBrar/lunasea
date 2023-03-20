@@ -6,7 +6,7 @@ extension StringAsLinksExtension on String {
     return await launchUrlString(
       uri,
       webOnlyWindowName: '_blank',
-      mode: LaunchMode.externalApplication,
+      mode: LaunchMode.externalNonBrowserApplication,
     );
   }
 

@@ -20,7 +20,7 @@ class ArtistEditRoute extends StatefulWidget {
 
 class _State extends State<ArtistEditRoute> with LunaScrollControllerMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<void>? _future;
+  Future<bool>? _future;
 
   List<LidarrQualityProfile> _qualityProfiles = [];
   List<LidarrMetadataProfile> _metadataProfiles = [];

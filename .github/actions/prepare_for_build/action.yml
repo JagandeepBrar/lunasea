@@ -1,50 +1,50 @@
-name: 'Prepare for Build'
-description: 'Setup all required dependencies and secrets for building the given platform'
+name: "Prepare for Build"
+description: "Setup all required dependencies and secrets for building the given platform"
 
 inputs:
   platform:
-    description: 'Platform to be Built'
+    description: "Platform to be Built"
     required: true
 
   # Config
   firebase-token:
-    description: 'Firebase Token'
+    description: "Firebase Token"
     required: false
-    default: ''
+    default: ""
   skip-core:
-    description: 'Skip Installing Core Files'
+    description: "Skip Installing Core Files"
     required: false
-    default: 'false'
+    default: "false"
 
   # Secret Keys
   android-key-jks:
-    description: 'Android Signing Key'
+    description: "Android Signing Key"
     required: false
-    default: ''
+    default: ""
   android-key-properties:
-    description: 'Android Signing Key Properties'
+    description: "Android Signing Key Properties"
     required: false
-    default: ''
+    default: ""
   appstore-connect-key:
-    description: 'App Store Connect API Key'
+    description: "App Store Connect API Key"
     required: false
-    default: ''
+    default: ""
   code-signing-certificate:
-    description: 'Code Signing Certificate'
+    description: "Code Signing Certificate"
     required: false
-    default: ''
+    default: ""
   firebase-service-worker:
-    description: 'Firebase Service Worker'
+    description: "Firebase Service Worker"
     required: false
-    default: ''
+    default: ""
   google-play-key:
-    description: 'Google Play Store API Key'
+    description: "Google Play Store API Key"
     required: false
-    default: ''
+    default: ""
   match-ssh-private-key:
-    description: 'Fastlane Match SSH Key'
+    description: "Fastlane Match SSH Key"
     required: false
-    default: ''
+    default: ""
 
 runs:
   using: composite
@@ -53,7 +53,7 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        
+
     - name: Prepare Core
       if: ${{ inputs.skip-core == 'false' }}
       uses: actions/download-artifact@v3
@@ -101,7 +101,7 @@ runs:
       if: ${{ inputs.platform == 'web' }}
       uses: docker/setup-buildx-action@v2
 
-    - name: Setup Match SSH Keys 
+    - name: Setup Match SSH Keys
       if: ${{ inputs.platform == 'ios' || inputs.platform == 'macos' }}
       uses: webfactory/ssh-agent@v0.6.0
       with:
@@ -120,10 +120,11 @@ runs:
       if: ${{ inputs.firebase-token != '' }}
       shell: bash
       run: |
-        npm install -g firebase-tools
         gem install --user-install xcodeproj
-        dart pub global activate flutterfire_cli
+        npm install -g firebase-tools
+        firebase --version
 
+        dart pub global activate flutterfire_cli 0.3.0-dev.16
         flutterfire configure \
         --project=comettools-lunasea \
         --token=${{ inputs.firebase-token }} \
@@ -132,6 +133,8 @@ runs:
         --ios-bundle-id=app.lunasea.lunasea \
         --macos-bundle-id=app.lunasea.lunasea \
         --web-app-id=1:511093487055:web:37d2f8e4c960708add8eba \
+        --no-debug-symbols-ios \
+        --no-debug-symbols-macos \
         --out=lib/firebase/options.dart \
         --yes
 
@@ -151,7 +154,7 @@ runs:
       shell: bash
       run: |
         (cd ios && bundle install)
-      
+
     - name: Setup Linux Platform
       if: ${{ inputs.platform == 'linux' }}
       shell: bash

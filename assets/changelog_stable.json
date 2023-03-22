@@ -1,57 +1,46 @@
 {
-  "motd": "Welcome to LunaSea v10.2.2!\n\nThis release adds support for official .deb and .tar.gz builds for Linux releases!\n\nThis build also fixes an issue with cached activity sessions in Tautulli and fixes cases where it would not automatically scroll to the current date in the calendar schedule view.\n\nFinally, this release has a UX change that disables the horizontal swiping to change pages on routes with a bottom navigation bar. This will allow future extensibility of the UX to utilize horizontal actions more cleanly!",
+  "motd": "Welcome to LunaSea v10.2.3!\n\nThis update adds the ability to open Tautulli library items directly in Plex and more details about activity streams.",
   "feat": {
-    "android": [
-      {
-        "commit": "d4774b054204546490ef9f78090e28303eefc1fc",
-        "message": "add option to disable back action to open drawer"
-      }
-    ],
-    "linux": [
-      {
-        "commit": "c46924c99645a2d9c27e2d3532d30ecf93882e2a",
-        "message": "include MD5 sums in Debian distributions"
-      },
-      {
-        "commit": "b1d01e02ca4cdb8a2775700930ada2d1d40a1031",
-        "message": "publish Linux builds as Debian archive (.deb)"
-      },
-      {
-        "commit": "a390a80ef1897d4c95812045a3472527ff38fd49",
-        "message": "publish Linux builds as tarball (.tar.gz)"
-      }
-    ]
-  },
-  "fix": {
     "tautulli": [
       {
-        "commit": "4c99ecf927e21538f875bb7ee93fc7aaf20de479",
-        "message": "cached or downloaded activity sessions could not be opened"
-      }
-    ],
-    "calendar": [
+        "commit": "5cf1a06cec079aa66c77425c0ed8d4fa7897bbd3",
+        "message": "add ability to open media in Plex"
+      },
       {
-        "commit": "3f10675422b9a32c43f4f49c16b6e9723f267f50",
-        "message": "scroll to last past date with content when selected date has no content"
+        "commit": "6de806316efaa61c5ddbac1b8f5b214949f0bcf8",
+        "message": "display audio language, subtitle language, and video dynamic range for activity"
       }
     ],
     "flutter": [
       {
-        "commit": "56f26e701eda951cd292431e23646e037332c78e",
-        "message": "upgrade Flutter packages"
+        "commit": "6241ee462989f1f65fa8f1e18378579e2e77197b",
+        "message": "replace Skia with Impeller rendering engine"
       },
       {
-        "commit": "19f7ecf8858409f702f0656cfb7f485113c3d680",
-        "message": "upgrade to Flutter 3.3.9/8f2221fbef"
+        "commit": "f1b831a118e56c480aae72042ee4eb7013f954b2",
+        "message": "upgrade to Flutter 3.7.7/1837b5be5f"
       }
     ]
   },
-  "refactor": {
-    "uiux": [
+  "fix": {
+    "links": [
       {
-        "commit": "968fe9cbbc4aff3ae584682e462defbf09ea5699",
-        "message": "disable horizontal swiping/scrolling between pages"
+        "commit": "596eab4bad1aa183e3c0dfc8d20a32c15ecdb78d",
+        "message": "use platform default method to launch URLs"
+      }
+    ],
+    "http": [
+      {
+        "commit": "aca5d0eb826b38ebeec33e3495045bf21e8a49c7",
+        "message": "correctly set content type for POST requests"
+      }
+    ],
+    "macos": [
+      {
+        "commit": "d612ae221cac741b3a36893d4bc7f05f5055c7b8",
+        "message": "set minimum platform version to 10.15"
       }
     ]
-  }
+  },
+  "refactor": {}
 }

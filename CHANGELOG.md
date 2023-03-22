@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.3](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.2...v10.2.3) (2023-03-22)
+
+
+### Features
+
+* **flutter:** replace Skia with Impeller rendering engine ([6241ee4](https://github.com/JagandeepBrar/LunaSea/commit/6241ee462989f1f65fa8f1e18378579e2e77197b))
+* **flutter:** upgrade to Flutter 3.7/b06b8b2710 ([f1b831a](https://github.com/JagandeepBrar/LunaSea/commit/f1b831a118e56c480aae72042ee4eb7013f954b2))
+* **tautulli:** add ability to open media in Plex ([5cf1a06](https://github.com/JagandeepBrar/LunaSea/commit/5cf1a06cec079aa66c77425c0ed8d4fa7897bbd3))
+* **tautulli:** display audio language, subtitle language, and video dynamic range for activity ([6de8063](https://github.com/JagandeepBrar/LunaSea/commit/6de806316efaa61c5ddbac1b8f5b214949f0bcf8))
+
+
+### Bug Fixes
+
+* **http:** correctly set content type for POST requests ([aca5d0e](https://github.com/JagandeepBrar/LunaSea/commit/aca5d0eb826b38ebeec33e3495045bf21e8a49c7))
+* **links:** use platform default method to laucnh URLs ([596eab4](https://github.com/JagandeepBrar/LunaSea/commit/596eab4bad1aa183e3c0dfc8d20a32c15ecdb78d))
+* **macos:** set minimum platform version to 10.15 ([d612ae2](https://github.com/JagandeepBrar/LunaSea/commit/d612ae221cac741b3a36893d4bc7f05f5055c7b8))
+* **uiux:** update bottom modal sheet package to support Flutter 3.7 ([8042c04](https://github.com/JagandeepBrar/LunaSea/commit/8042c0475ecff05d9337842eef7cfe4117d05528))
+
 ### [10.2.2](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.1...v10.2.2) (2022-12-22)
 
 

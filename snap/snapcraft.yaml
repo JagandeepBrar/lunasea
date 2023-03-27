@@ -1,5 +1,5 @@
 name: lunasea
-version: 10.2.3
+version: 10.2.4
 confinement: strict
 base: core18
 
@@ -17,18 +17,18 @@ apps:
   lunasea:
     command: lunasea
     extensions:
-    - flutter-stable
+      - flutter-stable
     plugs:
-    - home
-    - network
+      - home
+      - network
     slots:
-    - dbus-lunasea
+      - dbus-lunasea
 
 parts:
   zenity:
     plugin: nil
     stage-packages:
-    - zenity
+      - zenity
 
   lunasea:
     source: .

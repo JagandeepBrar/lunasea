@@ -70,6 +70,10 @@ class _State extends State<ConfigurationQuickActionsRoute>
           LunaModule.TAUTULLI.title,
           LunaSeaDatabase.QUICK_ACTIONS_TAUTULLI,
         ),
+        _actionTile(
+          LunaModule.RSS.title,
+          LunaSeaDatabase.QUICK_ACTIONS_RSS,
+        ),
       ],
     );
   }

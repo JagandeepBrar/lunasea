@@ -1,0 +1,15 @@
+{
+    "rss.AddFeed": "Add Feed",
+    "rss.DisplayName": "Display Name",
+    "rss.ErrorFetching": "Error fetching feed",
+    "rss.ExcludeFilter": "Exclude Filter",
+    "rss.ExcludeFilterHelp": "Only show items whose name matches these |-separated words",
+    "rss.FeedUrl": "Feed Url",
+    "rss.FilterNotSet": "Not set",
+    "rss.IncludeFilter": "Include Filter",
+    "rss.IncludeFilterHelp": "Don't show items whose name matches these |-separated words",
+    "rss.NoDescriptionAvailable": "Empty description",
+    "rss.NoItemsFound": "No items Found",
+    "rss.NoPublishDate": "Not available",
+    "rss.OpenLink": "Open Link"
+}

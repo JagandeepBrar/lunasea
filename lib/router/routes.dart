@@ -10,6 +10,7 @@ import 'package:lunasea/router/routes/overseerr.dart';
 import 'package:lunasea/router/routes/radarr.dart';
 import 'package:lunasea/router/routes/sabnzbd.dart';
 import 'package:lunasea/router/routes/search.dart';
+import 'package:lunasea/router/routes/rss.dart';
 import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/router/routes/sonarr.dart';
 import 'package:lunasea/router/routes/tautulli.dart';
@@ -26,6 +27,7 @@ enum LunaRoutes {
   radarr('radarr', root: RadarrRoutes.HOME),
   sabnzbd('sabnzbd', root: SABnzbdRoutes.HOME),
   search('search', root: SearchRoutes.HOME),
+  rss('rss', root: RssRoutes.HOME),
   settings('settings', root: SettingsRoutes.HOME),
   sonarr('sonarr', root: SonarrRoutes.HOME),
   tautulli('tautulli', root: TautulliRoutes.HOME);

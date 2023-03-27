@@ -45,6 +45,8 @@ class IO implements LunaQuickActions {
         LunaModule.NZBGET.shortcutItem,
       if (LunaSeaDatabase.QUICK_ACTIONS_LIDARR.read())
         LunaModule.LIDARR.shortcutItem,
+      if (LunaSeaDatabase.QUICK_ACTIONS_RSS.read())
+        LunaModule.RSS.shortcutItem,
       LunaModule.SETTINGS.shortcutItem,
     ]);
   }

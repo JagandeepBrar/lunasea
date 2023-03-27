@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/database/models/indexer.dart';
+import 'package:lunasea/database/models/rss.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/widgets/pages/invalid_route.dart';
 
-class ConfigurationSearchEditIndexerHeadersRoute extends StatefulWidget {
+class ConfigurationRssEditFeedHeadersRoute extends StatefulWidget {
   final int id;
 
-  const ConfigurationSearchEditIndexerHeadersRoute({
+  const ConfigurationRssEditFeedHeadersRoute({
     Key? key,
     required this.id,
   }) : super(key: key);
 
   @override
-  State<ConfigurationSearchEditIndexerHeadersRoute> createState() => _State();
+  State<ConfigurationRssEditFeedHeadersRoute> createState() => _State();
 }
 
-class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
+class _State extends State<ConfigurationRssEditFeedHeadersRoute>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  LunaIndexer? _indexer;
+  LunaRss? _feed;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.id < 0 || !LunaBox.indexers.contains(widget.id)) {
+    if (widget.id < 0 || !LunaBox.rss.contains(widget.id)) {
       return InvalidRoutePage(
         title: 'Custom Headers',
         message: 'Indexer Not Found',
@@ -52,22 +52,22 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
           text: 'Add Header',
           icon: Icons.add_rounded,
           onTap: () async => HeaderUtility().addHeader(context,
-              headers: _indexer!.headers, item: _indexer),
+              headers: _feed!.headers, item: _feed),
         ),
       ],
     );
   }
 
   Widget _body() {
-    return LunaBox.indexers.listenableBuilder(
+    return LunaBox.rss.listenableBuilder(
       selectKeys: [widget.id],
       builder: (context, _) {
-        if (!LunaBox.indexers.contains(widget.id)) return Container();
-        _indexer = LunaBox.indexers.read(widget.id);
+        if (!LunaBox.rss.contains(widget.id)) return Container();
+        _feed = LunaBox.rss.read(widget.id);
         return LunaListView(
           controller: scrollController,
           children: [
-            if (_indexer!.headers.isEmpty)
+            if (_feed!.headers.isEmpty)
               LunaMessage.inList(text: 'No Headers Added'),
             ..._list(),
           ],
@@ -77,7 +77,7 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
   }
 
   List<Widget> _list() {
-    final headers = _indexer!.headers.cast<String, dynamic>();
+    final headers = _feed!.headers.cast<String, dynamic>();
     List<String> _sortedKeys = headers.keys.toList()..sort();
     return _sortedKeys
         .map<LunaBlock>((key) => _headerBlock(key, headers[key]))
@@ -93,9 +93,9 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
         color: LunaColours.red,
         onPressed: () async => HeaderUtility().deleteHeader(
           context,
-          headers: _indexer!.headers,
+          headers: _feed!.headers,
           key: key,
-          item: _indexer,
+          item: _feed,
         ),
       ),
     );

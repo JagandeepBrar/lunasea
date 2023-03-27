@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard;
 import 'package:lunasea/modules/lidarr/core/state.dart';
 import 'package:lunasea/modules/radarr/core/state.dart';
+import 'package:lunasea/modules/rss/core/state.dart';
 import 'package:lunasea/modules/search/core/state.dart';
 import 'package:lunasea/modules/settings/core/state.dart';
 import 'package:lunasea/modules/sonarr/core/state.dart';
@@ -34,6 +35,7 @@ class LunaState {
           ChangeNotifierProvider(create: (_) => dashboard.ModuleState()),
           ChangeNotifierProvider(create: (_) => SettingsState()),
           ChangeNotifierProvider(create: (_) => SearchState()),
+          ChangeNotifierProvider(create: (_) => RssState()),
           ChangeNotifierProvider(create: (_) => LidarrState()),
           ChangeNotifierProvider(create: (_) => RadarrState()),
           ChangeNotifierProvider(create: (_) => SonarrState()),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/models/indexer.dart';
+import 'package:lunasea/database/models/rss.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings/routes/account/pages/password_reset.dart';
 import 'package:lunasea/modules/settings/routes/account/pages/settings.dart';
@@ -30,6 +31,11 @@ import 'package:lunasea/modules/settings/routes/configuration_radarr/pages/defau
 import 'package:lunasea/modules/settings/routes/configuration_radarr/pages/default_pages.dart';
 import 'package:lunasea/modules/settings/routes/configuration_radarr/pages/headers.dart';
 import 'package:lunasea/modules/settings/routes/configuration_radarr/route.dart';
+import 'package:lunasea/modules/settings/routes/configuration_rss/pages/add_feed.dart';
+import 'package:lunasea/modules/settings/routes/configuration_rss/pages/add_feed_headers.dart';
+import 'package:lunasea/modules/settings/routes/configuration_rss/pages/edit_feed.dart';
+import 'package:lunasea/modules/settings/routes/configuration_rss/pages/edit_feed_headers.dart';
+import 'package:lunasea/modules/settings/routes/configuration_rss/route.dart';
 import 'package:lunasea/modules/settings/routes/configuration_sabnzbd/pages/connection_details.dart';
 import 'package:lunasea/modules/settings/routes/configuration_sabnzbd/pages/default_pages.dart';
 import 'package:lunasea/modules/settings/routes/configuration_sabnzbd/pages/headers.dart';
@@ -114,6 +120,11 @@ enum SettingsRoutes with LunaRoutesMixin {
   CONFIGURATION_TAUTULLI_CONNECTION_DETAILS_HEADERS('headers'),
   CONFIGURATION_TAUTULLI_DEFAULT_PAGES('default_pages'),
   CONFIGURATION_WAKE_ON_LAN('wake_on_lan'),
+  CONFIGURATION_RSS('rss'),
+  CONFIGURATION_RSS_ADD_FEED('add_rss'),
+  CONFIGURATION_RSS_ADD_FEED_HEADERS('rss_headers'),
+  CONFIGURATION_RSS_EDIT_FEED('edit_rss/:id'),
+  CONFIGURATION_RSS_EDIT_FEED_HEADERS('rss_headers'),
   DEBUG_MENU('debug_menu'),
   DEBUG_MENU_UI('ui'),
   DONATIONS('donations'),
@@ -227,7 +238,7 @@ enum SettingsRoutes with LunaRoutesMixin {
       case SettingsRoutes.CONFIGURATION_SEARCH:
         return route(widget: const ConfigurationSearchRoute());
       case SettingsRoutes.CONFIGURATION_SEARCH_ADD_INDEXER:
-        return route(widget: const ConfigurationSearchAddIndexerRoute());
+       return route(widget: const ConfigurationSearchAddIndexerRoute());
       case SettingsRoutes.CONFIGURATION_SEARCH_ADD_INDEXER_HEADERS:
         return route(builder: (_, state) {
           final indexer = state.extra as LunaIndexer?;
@@ -269,6 +280,25 @@ enum SettingsRoutes with LunaRoutesMixin {
         return route(widget: const ConfigurationTautulliDefaultPagesRoute());
       case SettingsRoutes.CONFIGURATION_WAKE_ON_LAN:
         return route(widget: const ConfigurationWakeOnLANRoute());
+      case SettingsRoutes.CONFIGURATION_RSS:
+        return route(widget: const ConfigurationRssRoute());
+      case SettingsRoutes.CONFIGURATION_RSS_ADD_FEED:
+        return route(widget: const ConfigurationRssAddFeedRoute());
+      case SettingsRoutes.CONFIGURATION_RSS_ADD_FEED_HEADERS:
+        return route(builder: (_, state) {
+          final feed = state.extra as LunaRss?;
+          return ConfigurationRssAddFeedHeadersRoute(feed: feed);
+        });
+      case SettingsRoutes.CONFIGURATION_RSS_EDIT_FEED:
+        return route(builder: (_, state) {
+          final id = int.tryParse(state.params['id']!) ?? -1;
+          return ConfigurationRssEditFeedRoute(id: id);
+        });
+      case SettingsRoutes.CONFIGURATION_RSS_EDIT_FEED_HEADERS:
+        return route(builder: (_, state) {
+          final id = int.tryParse(state.params['id']!) ?? -1;
+          return ConfigurationRssEditFeedHeadersRoute(id: id);
+        });
       case SettingsRoutes.DEBUG_MENU:
         return route(widget: const DebugMenuRoute());
       case SettingsRoutes.DEBUG_MENU_UI:
@@ -330,6 +360,7 @@ enum SettingsRoutes with LunaRoutesMixin {
           SettingsRoutes.CONFIGURATION_SONARR.routes,
           SettingsRoutes.CONFIGURATION_TAUTULLI.routes,
           SettingsRoutes.CONFIGURATION_WAKE_ON_LAN.routes,
+          SettingsRoutes.CONFIGURATION_RSS.routes,
         ];
       case SettingsRoutes.CONFIGURATION_DASHBOARD:
         return [
@@ -415,6 +446,19 @@ enum SettingsRoutes with LunaRoutesMixin {
         return [
           SettingsRoutes
               .CONFIGURATION_TAUTULLI_CONNECTION_DETAILS_HEADERS.routes,
+        ];
+      case SettingsRoutes.CONFIGURATION_RSS:
+        return [
+          SettingsRoutes.CONFIGURATION_RSS_ADD_FEED.routes,
+          SettingsRoutes.CONFIGURATION_RSS_EDIT_FEED.routes,
+        ];
+      case SettingsRoutes.CONFIGURATION_RSS_ADD_FEED:
+        return [
+          SettingsRoutes.CONFIGURATION_RSS_ADD_FEED_HEADERS.routes,
+        ];
+      case SettingsRoutes.CONFIGURATION_RSS_EDIT_FEED:
+        return [
+          SettingsRoutes.CONFIGURATION_RSS_EDIT_FEED_HEADERS.routes,
         ];
       case SettingsRoutes.DEBUG_MENU:
         return [

@@ -34,6 +34,7 @@ enum LunaLanguage {
   NORWEGIAN_BOKMAL('nb-NO', Locale('nb', 'NO'), 'Norwegian (Bokmål)'),
   PORTUGUESE('pt', Locale('pt'), 'Portuguese'),
   RUSSIAN('ru', Locale('ru'), 'Russian'),
+  SLOVAK('sk', Locale('sk'), 'Slovak'),
   SPANISH('es', Locale('es'), 'Spanish'),
   SWEDISH('sv', Locale('sv'), 'Swedish'),
   TURKISH('tr', Locale('tr'), 'Turkish'),

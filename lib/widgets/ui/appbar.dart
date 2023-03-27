@@ -282,14 +282,11 @@ class _State extends State<LunaAppBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
-              child: FadingEdgeScrollView.fromSingleChildScrollView(
-                child: SingleChildScrollView(
-                  controller: ScrollController(),
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    widget.title!,
-                    style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
-                  ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  widget.title!,
+                  style: const TextStyle(fontSize: LunaUI.FONT_SIZE_H1),
                 ),
               ),
             ),

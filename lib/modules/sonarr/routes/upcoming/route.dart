@@ -100,13 +100,13 @@ class _State extends State<SonarrUpcomingRoute>
     List<List<Widget>> _episodeWidgets = [];
     _episodeMap.keys.toList()
       ..sort()
-      ..forEach((key) => {
-            _episodeWidgets.add(_buildDay(
-              (_episodeMap[key]!['date'] as String?),
-              (_episodeMap[key]!['entries'] as List).cast<SonarrCalendar>(),
-              series,
-            )),
-          });
+      ..forEach((key) {
+        _episodeWidgets.add(_buildDay(
+          (_episodeMap[key]!['date'] as String?),
+          (_episodeMap[key]!['entries'] as List).cast<SonarrCalendar>(),
+          series,
+        ));
+      });
     // Return the list
     return LunaListView(
       controller: SonarrNavigationBar.scrollControllers[1],

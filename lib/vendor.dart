@@ -7,7 +7,6 @@ export 'dart:typed_data';
 export 'package:dio/dio.dart';
 export 'package:easy_localization/easy_localization.dart';
 export 'package:expandable/expandable.dart';
-export 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 export 'package:flash/flash.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:go_router/go_router.dart';

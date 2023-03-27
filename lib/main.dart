@@ -81,7 +81,6 @@ class LunaBIOS extends StatelessWidget {
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 builder: DevicePreview.appBuilder,
-                useInheritedMediaQuery: true,
                 darkTheme: theme.activeTheme(),
                 theme: theme.activeTheme(),
                 title: 'LunaSea',

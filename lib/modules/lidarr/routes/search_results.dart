@@ -27,7 +27,9 @@ class _State extends State<ArtistAlbumReleasesRoute>
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
     final _api = LidarrAPI.from(LunaProfile.current);
-    setState(() => {_future = _api.getReleases(widget.albumId)});
+    setState(() {
+      _future = _api.getReleases(widget.albumId);
+    });
     //Clear the search filter using a microtask
     Future.microtask(
         () => context.read<LidarrState>().searchReleasesFilter = '');

@@ -138,22 +138,19 @@ class LunaGridBlock extends StatelessWidget {
   Widget _title() {
     return Container(
       child: Padding(
-        child: FadingEdgeScrollView.fromSingleChildScrollView(
-          child: SingleChildScrollView(
-            controller: ScrollController(),
-            scrollDirection: Axis.horizontal,
-            child: RichText(
-              text: TextSpan(
-                style: const TextStyle(
-                  fontSize: LunaUI.FONT_SIZE_H3,
-                  color: LunaColours.white,
-                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                ),
-                text: title,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: RichText(
+            text: TextSpan(
+              style: const TextStyle(
+                fontSize: LunaUI.FONT_SIZE_H3,
+                color: LunaColours.white,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
               ),
-              overflow: TextOverflow.visible,
-              softWrap: false,
+              text: title,
             ),
+            overflow: TextOverflow.visible,
+            softWrap: false,
           ),
         ),
         padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,
@@ -166,21 +163,19 @@ class LunaGridBlock extends StatelessWidget {
   Widget _subtitle() {
     return Container(
       child: Padding(
-        child: FadingEdgeScrollView.fromSingleChildScrollView(
-          child: SingleChildScrollView(
-            controller: ScrollController(),
-            scrollDirection: Axis.horizontal,
-            child: RichText(
-              text: TextSpan(
-                style: const TextStyle(
-                  fontSize: LunaUI.FONT_SIZE_H3,
-                  color: LunaColours.grey,
-                ),
-                children: [subtitle],
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          scrollDirection: Axis.horizontal,
+          child: RichText(
+            text: TextSpan(
+              style: const TextStyle(
+                fontSize: LunaUI.FONT_SIZE_H3,
+                color: LunaColours.grey,
               ),
-              overflow: TextOverflow.visible,
-              softWrap: false,
+              children: [subtitle],
             ),
+            overflow: TextOverflow.visible,
+            softWrap: false,
           ),
         ),
         padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL,

@@ -46,7 +46,11 @@ class _State extends State<ArtistEditRoute> with LunaScrollControllerMixin {
         bottomNavigationBar: _bottomActionBar(),
       );
 
-  Future<void> _refresh() async => setState(() => {_future = _fetch()});
+  Future<void> _refresh() async {
+    setState(() {
+      _future = _fetch();
+    });
+  }
 
   Future<bool> _fetch() async {
     final _api = LidarrAPI.from(LunaProfile.current);

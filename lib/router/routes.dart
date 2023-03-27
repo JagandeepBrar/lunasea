@@ -94,7 +94,7 @@ mixin LunaRoutesMixin on Enum {
         queryParams: queryParams,
       );
     }
-    return LunaRouter.router.pushNamed(
+    LunaRouter.router.pushNamed(
       _routeName,
       extra: extra,
       params: params,

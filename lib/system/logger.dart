@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/database/models/log.dart';
 import 'package:lunasea/system/sentry.dart';
 import 'package:lunasea/types/exception.dart';
 import 'package:lunasea/types/log_type.dart';
+
+const _NETWORK_IMAGE_ERRORS = [
+  'Bad state: User cancel request',
+  'Bad state: Failed to load',
+];
 
 class LunaLogger {
   static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
@@ -25,6 +29,16 @@ class LunaLogger {
     List<LunaLog> logs = LunaBox.logs.data.toList();
     logs.sort((a, b) => (b.timestamp).compareTo(a.timestamp));
     logs.skip(count).forEach((log) => log.delete());
+  }
+
+  bool _isImageError(Object? error) {
+    final msg = error.toString();
+
+    for (final err in _NETWORK_IMAGE_ERRORS) {
+      if (msg.startsWith(err)) return true;
+    }
+
+    return false;
   }
 
   Future<String> export() async {
@@ -53,47 +67,47 @@ class LunaLogger {
     LunaBox.logs.create(log);
   }
 
-  void error(String message, dynamic error, StackTrace? stackTrace) {
+  void error(String message, Object? error, StackTrace? stackTrace) {
+    if (_isImageError(error)) return;
+
     if (kDebugMode) {
       print(message);
       print(error);
       print(stackTrace);
     }
 
-    if (error is! NetworkImageLoadException) {
-      if (error is! DioError) {
-        LunaSentry().captureException(error, stackTrace);
-      }
-
-      LunaLog log = LunaLog.withError(
-        type: LunaLogType.ERROR,
-        message: message,
-        error: error,
-        stackTrace: stackTrace,
-      );
-      LunaBox.logs.create(log);
+    if (error is! DioError) {
+      LunaSentry().captureException(error, stackTrace);
     }
+
+    LunaLog log = LunaLog.withError(
+      type: LunaLogType.ERROR,
+      message: message,
+      error: error,
+      stackTrace: stackTrace,
+    );
+    LunaBox.logs.create(log);
   }
 
-  void critical(dynamic error, StackTrace stackTrace) {
+  void critical(Object? error, StackTrace stackTrace) {
+    if (_isImageError(error)) return;
+
     if (kDebugMode) {
       print(error);
       print(stackTrace);
     }
 
-    if (error is! NetworkImageLoadException) {
-      if (error is! DioError) {
-        LunaSentry().captureException(error, stackTrace);
-      }
-
-      LunaLog log = LunaLog.withError(
-        type: LunaLogType.CRITICAL,
-        message: error?.toString() ?? LunaUI.TEXT_EMDASH,
-        error: error,
-        stackTrace: stackTrace,
-      );
-      LunaBox.logs.create(log);
+    if (error is! DioError) {
+      LunaSentry().captureException(error, stackTrace);
     }
+
+    LunaLog log = LunaLog.withError(
+      type: LunaLogType.CRITICAL,
+      message: error?.toString() ?? LunaUI.TEXT_EMDASH,
+      error: error,
+      stackTrace: stackTrace,
+    );
+    LunaBox.logs.create(log);
   }
 
   void exception(LunaException exception, [StackTrace? trace]) {

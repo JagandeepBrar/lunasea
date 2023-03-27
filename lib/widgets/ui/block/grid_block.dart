@@ -85,33 +85,11 @@ class LunaGridBlock extends StatelessWidget {
   }
 
   Widget _fadeInBackground(BuildContext context) {
-    if (backgroundUrl == null) return const SizedBox();
-
-    final _percent = LunaSeaDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
-    if (_percent == 0) return const SizedBox(height: 0, width: 0);
-
-    double _opacity = _percent / 100;
-    if (disabled) _opacity *= LunaUI.OPACITY_DISABLED;
-
-    return Opacity(
-      opacity: _opacity,
-      child: FadeInImage(
-        placeholder: MemoryImage(kTransparentImage),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        fadeInDuration: const Duration(
-          milliseconds: LunaUI.ANIMATION_SPEED_IMAGES,
-        ),
-        fit: BoxFit.cover,
-        image: LunaNetworkImageProvider(
-          url: backgroundUrl!,
-          headers: backgroundHeaders?.cast<String, String>(),
-        ).imageProvider,
-        imageErrorBuilder: (context, error, stack) => SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-        ),
-      ),
+    return LunaNetworkImageBackground(
+      disabled: disabled,
+      height: MediaQuery.of(context).size.height,
+      url: backgroundUrl,
+      headers: backgroundHeaders,
     );
   }
 
@@ -123,7 +101,6 @@ class LunaGridBlock extends StatelessWidget {
     return Flexible(
       child: Padding(
         child: LunaNetworkImage(
-          context: context,
           url: posterUrl ?? '',
           height: MAX_CROSS_AXIS_EXTENT * 1.5,
           width: MAX_CROSS_AXIS_EXTENT,

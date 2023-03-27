@@ -1,0 +1,12 @@
+{
+    "tautulli.ActivityDetails": "Podrobnosti o aktivite",
+    "tautulli.BackingUpConfiguration": "Zálohovanie konfigurácie…",
+    "tautulli.BackingUpConfigurationDescription": "Zálohovanie konfigurácie na pozadí",
+    "tautulli.BackingUpConfigurationFailed": "Zlyhalo zálohovanie konfigurácie",
+    "tautulli.BackingUpDatabaseFailed": "Zlyhalo zálohovanie databázy",
+    "tautulli.BackupConfiguration": "Konfigurácia zálohovania",
+    "tautulli.Activity": "Aktivita",
+    "tautulli.Audio": "Audio",
+    "tautulli.BackingUpDatabase": "Zálohovanie databázy…",
+    "tautulli.BackingUpDatabaseDescription": "Zálohovanie databázy na pozadí"
+}

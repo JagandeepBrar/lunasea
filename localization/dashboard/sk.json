@@ -1,0 +1,21 @@
+{
+    "dashboard.Calendar": "Kalendár",
+    "dashboard.Friday": "Piatok",
+    "dashboard.MinimumOfOneDay": "Minimálne 1 deň",
+    "dashboard.Modules": "Moduly",
+    "dashboard.Monday": "Pondelok",
+    "dashboard.OneMonth": "Jeden mesiac",
+    "dashboard.OneWeek": "Jeden týždeň",
+    "dashboard.PastDays": "Uplynulé dni",
+    "dashboard.PastDaysDescription": "Vyberte počet dní v minulosti, pre ktoré sa majú načítať záznamy z kalendára.",
+    "dashboard.Saturday": "Sobota",
+    "dashboard.Schedule": "Prehľad",
+    "dashboard.Sunday": "Nedeľa",
+    "dashboard.FutureDaysDescription": "Vyberte počet dní v budúcnosti, pre ktoré sa majú načítať záznamy z kalendára.",
+    "dashboard.TwoWeeks": "Dva týždne",
+    "dashboard.Wednesday": "Streda",
+    "dashboard.FutureDays": "Budúce dni",
+    "dashboard.Tuesday": "Utorok",
+    "dashboard.NoNewContent": "Žiadny nový obsah",
+    "dashboard.Thursday": "Štvrtok"
+}

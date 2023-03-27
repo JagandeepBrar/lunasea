@@ -1,0 +1,5 @@
+{
+    "wake_on_lan.MagicPacketSent": "Odoslaný magický balík",
+    "wake_on_lan.MagicPacketFailedToSend": "Nepodarilo sa odoslať magický balík",
+    "wake_on_lan.MagicPacketSentMessage": "Váš počítač by sa mal prebúdzať!"
+}

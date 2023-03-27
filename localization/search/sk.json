@@ -1,0 +1,23 @@
+{
+    "search.AllSubcategories": "Všetky podkategórie",
+    "search.Category": "Kategória",
+    "search.Download": "Stiahnuť",
+    "search.Downloading": "Sťahovanie…",
+    "search.DownloadingNZBToDevice": "Sťahuje sa NZB do zariadenia",
+    "search.DownloadToDevice": "Stiahnuť do zariadenia",
+    "search.FailedToDownloadNZB": "Nepodarilo sa stiahnuť NZB",
+    "search.FailedToSend": "Nepodarilo sa odoslať",
+    "search.NoSubcategoriesFound": "Nenašli sa žiadne podkategórie",
+    "search.Results": "Výsledky",
+    "search.Search": "Vyhľadávanie",
+    "search.SentTo": "Odoslané {}",
+    "search.Size": "Veľkosť",
+    "search.Subcategories": "Podkategórie",
+    "search.Age": "Vek",
+    "search.Alphabetical": "Abecedné",
+    "search.Categories": "Kategórie",
+    "search.Comments": "Komentáre",
+    "search.NoCategoriesFound": "Nenašli sa žiadne kategórie",
+    "search.NoResultsFound": "Nenašli sa žiadne výsledky",
+    "search.SentNZBData": "Odoslané NZB údaje"
+}

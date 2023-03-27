@@ -21,11 +21,15 @@ class IO implements LunaImageCache {
   CacheManager get instance => _cache;
 
   @override
-  Future<void> clear() async => _cache.emptyCache();
+  Future<bool> clear() async {
+    await _cache.emptyCache();
+    PaintingBinding.instance.imageCache.clear();
+    return true;
+  }
 
   @override
   void initialize() {
-    ImageCache().maximumSize = 1000;
-    ImageCache().maximumSizeBytes = 128 << 20;
+    PaintingBinding.instance.imageCache.maximumSize = 1000;
+    PaintingBinding.instance.imageCache.maximumSizeBytes = 128 << 20;
   }
 }

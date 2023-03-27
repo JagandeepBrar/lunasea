@@ -9,6 +9,6 @@ abstract class LunaImageCache {
   factory LunaImageCache() => getImageCache();
 
   void initialize();
-  Future<void> clear();
+  Future<bool> clear();
   dynamic get instance;
 }

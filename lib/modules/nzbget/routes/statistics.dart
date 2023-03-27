@@ -40,11 +40,15 @@ class _State extends State<StatisticsRoute> with LunaScrollControllerMixin {
   }
 
   Future<void> _fetchStatistics(NZBGetAPI api) async {
-    return await api.getStatistics().then((stats) => {_statistics = stats});
+    return await api.getStatistics().then((stats) {
+      _statistics = stats;
+    });
   }
 
   Future<void> _fetchLogs(NZBGetAPI api) async {
-    return await api.getLogs().then((logs) => {_logs = logs});
+    return await api.getLogs().then((logs) {
+      _logs = logs;
+    });
   }
 
   @override

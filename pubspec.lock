@@ -369,14 +369,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.1"
-  fading_edge_scrollview:
-    dependency: "direct main"
-    description:
-      name: fading_edge_scrollview
-      sha256: c25c2231652ce774cc31824d0112f11f653881f43d7f5302c05af11942052031
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:

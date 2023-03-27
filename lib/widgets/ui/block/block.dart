@@ -388,12 +388,9 @@ class LunaBlock extends StatelessWidget {
     required Widget child,
     Axis scrollDirection = Axis.horizontal,
   }) {
-    return FadingEdgeScrollView.fromSingleChildScrollView(
-      child: SingleChildScrollView(
-        controller: ScrollController(),
-        scrollDirection: scrollDirection,
-        child: child,
-      ),
+    return SingleChildScrollView(
+      scrollDirection: scrollDirection,
+      child: child,
     );
   }
 }

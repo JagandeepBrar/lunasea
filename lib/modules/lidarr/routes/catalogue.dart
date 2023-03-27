@@ -30,7 +30,11 @@ class _State extends State<LidarrCatalogue>
   Future<void> loadCallback() async {
     if (mounted) setState(() => _results = []);
     final _api = LidarrAPI.from(LunaProfile.current);
-    if (mounted) setState(() => {_future = _api.getAllArtists()});
+    if (mounted) {
+      setState(() {
+        _future = _api.getAllArtists();
+      });
+    }
   }
 
   void _refreshState() => setState(() {});

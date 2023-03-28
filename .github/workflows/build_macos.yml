@@ -1,4 +1,4 @@
-name: 'Build macOS'
+name: "Build macOS"
 
 on:
   workflow_call:
@@ -49,7 +49,7 @@ jobs:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
           appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos
@@ -82,7 +82,7 @@ jobs:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
           appstore-connect-key: ${{ secrets.APPLE_STORE_CONNECT_KEY }}
-          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/macos

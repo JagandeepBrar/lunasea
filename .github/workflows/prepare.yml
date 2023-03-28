@@ -51,7 +51,7 @@ jobs:
         run: |
           COUNT=`git rev-list HEAD --count`
           echo "commit-count=$COUNT" >> $GITHUB_OUTPUT
-      
+
       - name: Build Flavor
         id: build-flavor
         uses: actions/github-script@v6
@@ -135,7 +135,7 @@ jobs:
           export BUILD=${{ needs.build-details.outputs.build-number }}
           export SENTRY_DSN=${{ secrets.SENTRY_DSN }}
           flutter packages pub run environment_config:generate
-     
+
       - name: Generate Localization
         run: dart ${{github.workspace }}/scripts/generate_localization.dart
 

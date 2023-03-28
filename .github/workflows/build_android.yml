@@ -1,4 +1,4 @@
-name: 'Build Android'
+name: "Build Android"
 
 on:
   workflow_call:
@@ -26,7 +26,7 @@ jobs:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: android
           android-key-jks: ${{ secrets.KEY_JKS }}
-          android-key-properties: ${{ secrets.KEY_PROPERTIES }} 
+          android-key-properties: ${{ secrets.KEY_PROPERTIES }}
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/android
@@ -48,7 +48,7 @@ jobs:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: android
           android-key-jks: ${{ secrets.KEY_JKS }}
-          android-key-properties: ${{ secrets.KEY_PROPERTIES }} 
+          android-key-properties: ${{ secrets.KEY_PROPERTIES }}
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/android

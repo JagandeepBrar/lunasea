@@ -1,4 +1,4 @@
-name: 'Build Web'
+name: "Build Web"
 
 on:
   workflow_call:

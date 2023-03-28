@@ -1,4 +1,4 @@
-name: 'Build Linux'
+name: "Build Linux"
 
 on:
   workflow_call:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Prepare Artifact
         run: dart ${{github.workspace }}/scripts/generate_debian.dart "${{ inputs.build-version }}+${{ inputs.build-number }}"
-      
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -46,7 +46,7 @@ jobs:
 
       - name: Prepare Artifact
         run: tar czf output/lunasea-linux-amd64.tar.gz -C build/linux/x64/release/bundle/ .
-      
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -61,11 +61,11 @@ jobs:
         uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
         with:
           platform: linux
-      
+
       - name: Build LunaSea
         uses: snapcore/action-build@v1
         id: build
-      
+
       - name: Prepare Artifact
         run: mv ${{ steps.build.outputs.snap }} ${{ github.workspace }}/output/lunasea-linux-amd64.snap
 
@@ -74,5 +74,3 @@ jobs:
         with:
           name: linux-snapcraft
           path: ${{ github.workspace }}/output
-
-  

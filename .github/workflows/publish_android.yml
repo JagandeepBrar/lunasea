@@ -58,7 +58,7 @@ jobs:
         run: |
           mkdir -p $OUTPUT_PATH
           echo $MOTD > $OUTPUT_PATH/default.txt
-      
+
       - name: Deploy to Google Play Store
         working-directory: ${{ github.workspace }}/android
         env:

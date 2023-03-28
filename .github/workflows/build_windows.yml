@@ -1,4 +1,4 @@
-name: 'Build Windows'
+name: "Build Windows"
 
 on:
   workflow_call:
@@ -27,7 +27,7 @@ jobs:
 
       - name: Prepare Artifact
         run: Compress-Archive -path ${{ github.workspace }}\build\windows\runner\Release\* ${{github.workspace}}\output\lunasea-windows-amd64.zip
-      
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:

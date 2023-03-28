@@ -1,4 +1,4 @@
-name: 'Build iOS'
+name: "Build iOS"
 
 on:
   workflow_call:
@@ -37,7 +37,7 @@ jobs:
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: ios
-          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }} 
+          match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
       - name: Build LunaSea
         working-directory: ${{ github.workspace }}/ios
@@ -50,7 +50,7 @@ jobs:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
         run: bundle exec fastlane build_appstore build_number:${{ inputs.build-number }}
-      
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:

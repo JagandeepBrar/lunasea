@@ -18,14 +18,14 @@ class _State extends State<DonationsThankYouRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Donations',
+      title: 'settings.Donations'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -35,11 +35,8 @@ class _State extends State<DonationsThankYouRoute>
       controller: scrollController,
       children: [
         LunaHeader(
-          text: 'Thank You',
-          subtitle: [
-            "Thank you for supporting the open-source community!",
-            "Donations are never expected or assumed, so thank you for giving back and helping LunaSea remain free, forever!",
-          ].join("\n\n"),
+          text: 'lunasea.ThankYou'.tr(),
+          subtitle: 'lunasea.ThankYouMessage'.tr(),
         ),
       ],
     );

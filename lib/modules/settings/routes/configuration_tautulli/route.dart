@@ -20,14 +20,14 @@ class _State extends State<ConfigurationTautulliRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Tautulli',
+      title: LunaModule.TAUTULLI.title,
       scrollControllers: [scrollController],
     );
   }
@@ -51,7 +51,7 @@ class _State extends State<ConfigurationTautulliRoute>
   Widget _enabledToggle() {
     return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Enable ${LunaModule.TAUTULLI.title}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.TAUTULLI.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.tautulliEnabled,
           onChanged: (value) {
@@ -66,9 +66,13 @@ class _State extends State<ConfigurationTautulliRoute>
 
   Widget _connectionDetailsPage() {
     return LunaBlock(
-      title: 'Connection Details',
-      body: const [
-        TextSpan(text: 'Connection Details for Tautulli'),
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.TAUTULLI.title],
+          ),
+        ),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: SettingsRoutes.CONFIGURATION_TAUTULLI_CONNECTION_DETAILS.go,
@@ -77,8 +81,8 @@ class _State extends State<ConfigurationTautulliRoute>
 
   Widget _defaultPagesPage() {
     return LunaBlock(
-      title: 'Default Pages',
-      body: const [TextSpan(text: 'Set Default Landing Pages')],
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: SettingsRoutes.CONFIGURATION_TAUTULLI_DEFAULT_PAGES.go,
     );
@@ -90,8 +94,10 @@ class _State extends State<ConfigurationTautulliRoute>
       builder: (context, _) {
         String message = _db.read();
         return LunaBlock(
-          title: 'Default Termination Message',
-          body: [TextSpan(text: message.isEmpty ? 'Not Set' : message)],
+          title: 'tautulli.DefaultTerminationMessage'.tr(),
+          body: [
+            TextSpan(text: message.isEmpty ? 'lunasea.NotSet'.tr() : message),
+          ],
           trailing: const LunaIconButton(icon: Icons.videocam_off_rounded),
           onTap: () async {
             Tuple2<bool, String> result =
@@ -106,11 +112,11 @@ class _State extends State<ConfigurationTautulliRoute>
   Widget _activityRefreshRate() {
     const _db = TautulliDatabase.REFRESH_RATE;
     return _db.listenableBuilder(builder: (context, _) {
-      String? refreshRate;
-      if (_db.read() == 1) refreshRate = 'Every Second';
-      if (_db.read() != 1) refreshRate = 'Every ${_db.read()} Seconds';
+      String refreshRate = _db.read() == 1
+          ? 'lunasea.EverySecond'.tr()
+          : 'lunasea.EverySeconds'.tr(args: [_db.read().toString()]);
       return LunaBlock(
-        title: 'Activity Refresh Rate',
+        title: 'tautulli.ActivityRefreshRate'.tr(),
         body: [TextSpan(text: refreshRate)],
         trailing: const LunaIconButton(icon: LunaIcons.REFRESH),
         onTap: () async {
@@ -125,11 +131,11 @@ class _State extends State<ConfigurationTautulliRoute>
     const _db = TautulliDatabase.STATISTICS_STATS_COUNT;
     return _db.listenableBuilder(
       builder: (context, _) {
-        String? statisticsItems;
-        if (_db.read() == 1) statisticsItems = '1 Item';
-        if (_db.read() != 1) statisticsItems = '${_db.read()} Items';
+        String statisticsItems = _db.read() == 1
+            ? 'lunasea.OneItem'.tr()
+            : 'lunasea.Items'.tr(args: [_db.read().toString()]);
         return LunaBlock(
-          title: 'Statistics Item Count',
+          title: 'tautulli.StatisticsItemCount'.tr(),
           body: [TextSpan(text: statisticsItems)],
           trailing: const LunaIconButton(icon: Icons.format_list_numbered),
           onTap: () async {

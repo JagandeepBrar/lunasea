@@ -125,9 +125,9 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
   Future<void> _resetState() async {
     switch (widget.module) {
       case LunaModule.DASHBOARD:
-        throw Exception('Dashboard does not have a headers page');
+        throw Exception('Dashboard does not have a global state');
       case LunaModule.EXTERNAL_MODULES:
-        throw Exception('External modules do not have a headers page');
+        throw Exception('External modules do not have a global state');
       case LunaModule.LIDARR:
         return;
       case LunaModule.RADARR:
@@ -139,11 +139,11 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
       case LunaModule.NZBGET:
         return;
       case LunaModule.SEARCH:
-        throw Exception('Search does not have a headers page');
+        throw Exception('Search does not have a global state');
       case LunaModule.SETTINGS:
-        throw Exception('Settings does not have a headers page');
+        throw Exception('Settings does not have a global state');
       case LunaModule.WAKE_ON_LAN:
-        throw Exception('Wake on LAN does not have a headers page');
+        throw Exception('Wake on LAN does not have a global state');
       case LunaModule.TAUTULLI:
         return context.read<TautulliState>().reset();
       case LunaModule.OVERSEERR:

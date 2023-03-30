@@ -69,7 +69,7 @@ class _State extends ConsumerState<BuildDetails> {
     if (updates.hasError) {
       return LunaButton.text(
         icon: LunaIcons.ERROR,
-        text: 'Error',
+        text: 'lunasea.Error'.tr(),
       );
     }
     if (updates.connectionState == ConnectionState.done && updates.hasData) {

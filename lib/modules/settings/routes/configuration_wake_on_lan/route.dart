@@ -27,7 +27,7 @@ class _State extends State<ConfigurationWakeOnLANRoute>
   PreferredSizeWidget _appBar() {
     return LunaAppBar(
       scrollControllers: [scrollController],
-      title: 'Wake on LAN',
+      title: LunaModule.WAKE_ON_LAN.title,
     );
   }
 
@@ -47,7 +47,7 @@ class _State extends State<ConfigurationWakeOnLANRoute>
 
   Widget _enabledToggle() {
     return LunaBlock(
-      title: 'Enable Wake on LAN',
+      title: 'settings.EnableModule'.tr(args: [LunaModule.WAKE_ON_LAN.title]),
       trailing: LunaSwitch(
         value: LunaProfile.current.wakeOnLANEnabled,
         onChanged: (value) {
@@ -63,7 +63,10 @@ class _State extends State<ConfigurationWakeOnLANRoute>
     return LunaBlock(
       title: 'settings.BroadcastAddress'.tr(),
       body: [
-        TextSpan(text: broadcastAddress == '' ? 'Not Set' : broadcastAddress),
+        TextSpan(
+          text:
+              broadcastAddress == '' ? 'lunasea.NotSet'.tr() : broadcastAddress,
+        ),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
@@ -85,7 +88,7 @@ class _State extends State<ConfigurationWakeOnLANRoute>
     return LunaBlock(
       title: 'settings.MACAddress'.tr(),
       body: [
-        TextSpan(text: macAddress == '' ? 'Not Set' : macAddress),
+        TextSpan(text: macAddress == '' ? 'lunasea.NotSet'.tr() : macAddress),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {

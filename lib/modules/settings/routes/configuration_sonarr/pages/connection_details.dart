@@ -29,7 +29,7 @@ class _State extends State<ConfigurationSonarrConnectionDetailsRoute>
 
   PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -110,15 +110,17 @@ class _State extends State<ConfigurationSonarrConnectionDetailsRoute>
         LunaProfile _profile = LunaProfile.current;
         if (_profile.sonarrHost.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to Sonarr',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.SONARR.title]),
           );
           return;
         }
         if (_profile.sonarrKey.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to Sonarr',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'
+                .tr(args: [LunaModule.SONARR.title]),
           );
           return;
         }
@@ -130,8 +132,9 @@ class _State extends State<ConfigurationSonarrConnectionDetailsRoute>
           ),
         ).system.getStatus().then((_) {
           showLunaSuccessSnackBar(
-            title: 'Connected Successfully',
-            message: 'Sonarr is ready to use with LunaSea',
+            title: 'settings.ConnectedSuccessfully'.tr(),
+            message: 'settings.ConnectedSuccessfullyMessage'
+                .tr(args: [LunaModule.SONARR.title]),
           );
         }).catchError((error, trace) {
           LunaLogger().error(
@@ -140,7 +143,7 @@ class _State extends State<ConfigurationSonarrConnectionDetailsRoute>
             trace,
           );
           showLunaErrorSnackBar(
-            title: 'Connection Test Failed',
+            title: 'settings.ConnectionTestFailed'.tr(),
             error: error,
           );
         });

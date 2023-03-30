@@ -27,7 +27,7 @@ class _State extends State<DonationsRoute> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Donations',
+      title: 'settings.Donations'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -45,7 +45,7 @@ class _State extends State<DonationsRoute> with LunaScrollControllerMixin {
         } else {
           return LunaMessage.goBack(
             context: context,
-            text: 'Not Available',
+            text: 'settings.NotAvailable'.tr(),
           );
         }
       },

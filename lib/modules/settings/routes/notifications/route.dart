@@ -28,7 +28,7 @@ class _State extends State<NotificationsRoute> with LunaScrollControllerMixin {
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Notifications',
+      title: 'settings.Notifications'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -41,10 +41,9 @@ class _State extends State<NotificationsRoute> with LunaScrollControllerMixin {
           future: LunaFirebaseMessaging().areNotificationsAllowed(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData && !snapshot.data!)
-              return const LunaBanner(
-                headerText: 'Not Authorized',
-                bodyText:
-                    'LunaSea is not authorized to show notifications. Please go to your device\'s settings to enable notifications.',
+              return LunaBanner(
+                headerText: 'settings.NotAuthorized'.tr(),
+                bodyText: 'settings.NotAuthorizedMessage'.tr(),
                 icon: Icons.error_outline_rounded,
                 iconColor: LunaColours.red,
               );
@@ -53,8 +52,8 @@ class _State extends State<NotificationsRoute> with LunaScrollControllerMixin {
         ),
         SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT.banner(),
         LunaBlock(
-          title: 'Getting Started',
-          body: const [TextSpan(text: 'Information & Setup Instructions')],
+          title: 'settings.GettingStarted'.tr(),
+          body: [TextSpan(text: 'settings.GettingStartedDescription'.tr())],
           trailing: const LunaIconButton.arrow(),
           onTap: LunaLinkedContent.NOTIFICATIONS_DOC.launch,
         ),

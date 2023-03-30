@@ -20,14 +20,14 @@ class _State extends State<ConfigurationSonarrRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Sonarr',
+      title: LunaModule.SONARR.title,
       scrollControllers: [scrollController],
     );
   }
@@ -50,7 +50,7 @@ class _State extends State<ConfigurationSonarrRoute>
   Widget _enabledToggle() {
     return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Enable ${LunaModule.SONARR.title}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.SONARR.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.sonarrEnabled,
           onChanged: (value) {
@@ -102,9 +102,13 @@ class _State extends State<ConfigurationSonarrRoute>
     const _db = SonarrDatabase.QUEUE_PAGE_SIZE;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Queue Size',
+        title: 'sonarr.QueueSize'.tr(),
         body: [
-          TextSpan(text: _db.read() == 1 ? '1 Item' : '${_db.read()} Items')
+          TextSpan(
+            text: _db.read() == 1
+                ? 'lunasea.OneItem'.tr()
+                : 'lunasea.Items'.tr(args: [_db.read().toString()]),
+          ),
         ],
         trailing: const LunaIconButton(icon: Icons.queue_play_next_rounded),
         onTap: () async {

@@ -1,11 +1,7 @@
 import 'package:encrypt/encrypt.dart';
-
 import 'package:lunasea/system/logger.dart';
-import 'package:lunasea/vendor.dart';
 
 class LunaEncryption {
-  const LunaEncryption._();
-
   Key _generateKey(String key) {
     const _length = 32;
     const _pad = '0';
@@ -40,5 +36,3 @@ class LunaEncryption {
     }
   }
 }
-
-final encryptionProvider = Provider((_) => const LunaEncryption._());

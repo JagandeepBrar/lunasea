@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard;
+import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/modules/lidarr/core/state.dart';
 import 'package:lunasea/modules/radarr/core/state.dart';
 import 'package:lunasea/modules/search/core/state.dart';
@@ -12,9 +12,7 @@ import 'package:lunasea/modules/nzbget/core/state.dart';
 import 'package:lunasea/modules/tautulli/core/state.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/router/router.dart';
-
 import 'package:provider/provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
 
 class LunaState {
   LunaState._();
@@ -27,23 +25,21 @@ class LunaState {
     LunaModule.values.forEach((module) => module.state(ctx)?.reset());
   }
 
-  static ProviderScope providers({required Widget child}) {
-    return ProviderScope(
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => dashboard.ModuleState()),
-          ChangeNotifierProvider(create: (_) => SettingsState()),
-          ChangeNotifierProvider(create: (_) => SearchState()),
-          ChangeNotifierProvider(create: (_) => LidarrState()),
-          ChangeNotifierProvider(create: (_) => RadarrState()),
-          ChangeNotifierProvider(create: (_) => SonarrState()),
-          ChangeNotifierProvider(create: (_) => NZBGetState()),
-          ChangeNotifierProvider(create: (_) => SABnzbdState()),
-          ChangeNotifierProvider(create: (_) => OverseerrState()),
-          ChangeNotifierProvider(create: (_) => TautulliState()),
-        ],
-        child: child,
-      ),
+  static MultiProvider providers({required Widget child}) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DashboardState()),
+        ChangeNotifierProvider(create: (_) => SettingsState()),
+        ChangeNotifierProvider(create: (_) => SearchState()),
+        ChangeNotifierProvider(create: (_) => LidarrState()),
+        ChangeNotifierProvider(create: (_) => RadarrState()),
+        ChangeNotifierProvider(create: (_) => SonarrState()),
+        ChangeNotifierProvider(create: (_) => NZBGetState()),
+        ChangeNotifierProvider(create: (_) => SABnzbdState()),
+        ChangeNotifierProvider(create: (_) => OverseerrState()),
+        ChangeNotifierProvider(create: (_) => TautulliState()),
+      ],
+      child: child,
     );
   }
 }

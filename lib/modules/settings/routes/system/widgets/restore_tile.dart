@@ -6,25 +6,25 @@ import 'package:lunasea/system/filesystem/file.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 import 'package:lunasea/utils/encryption.dart';
 
-class SettingsSystemBackupRestoreRestoreTile extends ConsumerWidget {
+class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   const SettingsSystemBackupRestoreRestoreTile({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return LunaBlock(
       title: 'settings.RestoreFromDevice'.tr(),
       body: [TextSpan(text: 'settings.RestoreFromDeviceDescription'.tr())],
       trailing: const LunaIconButton(icon: Icons.download_rounded),
-      onTap: () async => _restore(context, ref),
+      onTap: () async => _restore(context),
     );
   }
 
-  Future<void> _restore(BuildContext context, WidgetRef ref) async {
+  Future<void> _restore(BuildContext context) async {
     try {
       LunaFile? file = await LunaFileSystem().read(context, ['lunasea']);
-      if (file != null) await _decryptBackup(context, ref, file);
+      if (file != null) await _decryptBackup(context, file);
     } catch (error, stack) {
       LunaLogger().error('Failed to restore device backup', error, stack);
       showLunaErrorSnackBar(
@@ -36,15 +36,13 @@ class SettingsSystemBackupRestoreRestoreTile extends ConsumerWidget {
 
   Future<void> _decryptBackup(
     BuildContext context,
-    WidgetRef ref,
     LunaFile file,
   ) async {
     Tuple2<bool, String> _key = await SettingsDialogs().decryptBackup(context);
     if (_key.item1) {
-      final encryption = ref.watch(encryptionProvider);
       String encrypted = String.fromCharCodes(file.data);
       try {
-        String decrypted = encryption.decrypt(_key.item2, encrypted);
+        String decrypted = LunaEncryption().decrypt(_key.item2, encrypted);
         await LunaConfig().import(context, decrypted);
         showLunaSuccessSnackBar(
           title: 'settings.RestoreFromCloudSuccess'.tr(),
@@ -56,7 +54,7 @@ class SettingsSystemBackupRestoreRestoreTile extends ConsumerWidget {
           message: 'lunasea.IncorrectEncryptionKey'.tr(),
           showButton: true,
           buttonText: 'lunasea.Retry'.tr(),
-          buttonOnPressed: () async => _decryptBackup(context, ref, file),
+          buttonOnPressed: () async => _decryptBackup(context, file),
         );
       }
     }

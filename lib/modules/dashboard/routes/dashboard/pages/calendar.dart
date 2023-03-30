@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/system/logger.dart';
@@ -26,8 +25,8 @@ class _State extends State<CalendarPage>
 
   @override
   Future<void> loadCallback() async {
-    context.read<ModuleState>().resetToday();
-    context.read<ModuleState>().resetUpcoming();
+    context.read<DashboardState>().resetToday();
+    context.read<DashboardState>().resetUpcoming();
   }
 
   @override
@@ -38,7 +37,7 @@ class _State extends State<CalendarPage>
       key: _refreshKey,
       onRefresh: loadCallback,
       child: FutureBuilder(
-        future: context.watch<ModuleState>().upcoming,
+        future: context.watch<DashboardState>().upcoming,
         builder: (
           BuildContext context,
           AsyncSnapshot<Map<DateTime, List<CalendarData>>> snapshot,
@@ -55,7 +54,7 @@ class _State extends State<CalendarPage>
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             final events = snapshot.data!;
-            return Selector<ModuleState, CalendarStartingType>(
+            return Selector<DashboardState, CalendarStartingType>(
               selector: (_, s) => s.calendarType,
               builder: (context, type, _) {
                 if (type == CalendarStartingType.CALENDAR)

@@ -5,28 +5,27 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/system/filesystem/filesystem.dart';
 import 'package:lunasea/utils/encryption.dart';
 
-class SettingsSystemBackupRestoreBackupTile extends ConsumerWidget {
+class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
   const SettingsSystemBackupRestoreBackupTile({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return LunaBlock(
       title: 'settings.BackupToDevice'.tr(),
       body: [TextSpan(text: 'settings.BackupToDeviceDescription'.tr())],
       trailing: const LunaIconButton(icon: Icons.upload_rounded),
-      onTap: () async => _backup(context, ref),
+      onTap: () async => _backup(context),
     );
   }
 
-  Future<void> _backup(BuildContext context, WidgetRef ref) async {
+  Future<void> _backup(BuildContext context) async {
     try {
       final _values = await SettingsDialogs().backupConfiguration(context);
       if (_values.item1) {
-        final encryption = ref.watch(encryptionProvider);
         String data = LunaConfig().export();
-        String encrypted = encryption.encrypt(_values.item2, data);
+        String encrypted = LunaEncryption().encrypt(_values.item2, data);
         String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
         bool result = await LunaFileSystem().save(
           context,

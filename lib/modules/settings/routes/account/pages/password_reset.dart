@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/utils/validator.dart';
 
-class AccountPasswordResetRoute extends ConsumerStatefulWidget {
+class AccountPasswordResetRoute extends StatefulWidget {
   const AccountPasswordResetRoute({
     Key? key,
   }) : super(key: key);
@@ -12,7 +12,7 @@ class AccountPasswordResetRoute extends ConsumerStatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends ConsumerState<AccountPasswordResetRoute>
+class _State extends State<AccountPasswordResetRoute>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
@@ -99,7 +99,7 @@ class _State extends ConsumerState<AccountPasswordResetRoute>
   }
 
   bool _validateEmailAddress({bool showSnackBarOnFailure = true}) {
-    if (!ref.watch(validatorProvider).email(_emailController.text)) {
+    if (!LunaValidator().email(_emailController.text)) {
       if (showSnackBarOnFailure) {
         showLunaErrorSnackBar(
           title: 'settings.InvalidEmail'.tr(),

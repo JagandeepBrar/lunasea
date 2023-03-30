@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/vendor.dart';
@@ -44,14 +43,14 @@ class _State extends State<SwitchViewAction> with LunaLoadCallbackMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<ModuleState, CalendarStartingType>(
+    return Selector<DashboardState, CalendarStartingType>(
       selector: (_, state) => state.calendarType,
       builder: (context, view, _) {
         if (_showButton) {
           return LunaIconButton.appBar(
             icon: view.icon,
             onPressed: () {
-              final state = context.read<ModuleState>();
+              final state = context.read<DashboardState>();
               if (view == CalendarStartingType.CALENDAR)
                 state.calendarType = CalendarStartingType.SCHEDULE;
               else

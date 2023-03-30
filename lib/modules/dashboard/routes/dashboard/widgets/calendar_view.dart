@@ -44,7 +44,7 @@ class _State extends State<CalendarView> {
 
   void _onDaySelected(DateTime selected, DateTime focused) {
     HapticFeedback.selectionClick();
-    context.read<ModuleState>().selected = selected.floor();
+    context.read<DashboardState>().selected = selected.floor();
   }
 
   @override
@@ -108,10 +108,10 @@ class _State extends State<CalendarView> {
         DashboardDatabase.CALENDAR_STARTING_SIZE,
       ],
       builder: (context, _) {
-        DateTime firstDay = context.watch<ModuleState>().today.subtract(
+        DateTime firstDay = context.watch<DashboardState>().today.subtract(
               Duration(days: DashboardDatabase.CALENDAR_DAYS_PAST.read()),
             );
-        DateTime lastDay = context.watch<ModuleState>().today.add(
+        DateTime lastDay = context.watch<DashboardState>().today.add(
               Duration(days: DashboardDatabase.CALENDAR_DAYS_FUTURE.read()),
             );
         return SafeArea(
@@ -124,7 +124,7 @@ class _State extends State<CalendarView> {
                 ),
                 rowHeight: 48.0,
                 rangeSelectionMode: RangeSelectionMode.disabled,
-                focusedDay: context.watch<ModuleState>().selected,
+                focusedDay: context.watch<DashboardState>().selected,
                 firstDay: firstDay,
                 lastDay: lastDay,
                 //events: widget.events,
@@ -142,7 +142,8 @@ class _State extends State<CalendarView> {
                 startingDayOfWeek:
                     DashboardDatabase.CALENDAR_STARTING_DAY.read().data,
                 selectedDayPredicate: (date) {
-                  return date.floor() == context.read<ModuleState>().selected;
+                  return date.floor() ==
+                      context.read<DashboardState>().selected;
                 },
                 calendarStyle: CalendarStyle(
                   markersMaxCount: 1,
@@ -170,7 +171,7 @@ class _State extends State<CalendarView> {
                   todayTextStyle: dayStyle,
                 ),
                 onFormatChanged: (format) {
-                  context.read<ModuleState>().calendarFormat = format;
+                  context.read<DashboardState>().calendarFormat = format;
                 },
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekendStyle: weekdayStyle,
@@ -180,7 +181,7 @@ class _State extends State<CalendarView> {
                   if (widget.events.isEmpty) return [];
                   return widget.events[date.floor()] ?? [];
                 },
-                calendarFormat: context.watch<ModuleState>().calendarFormat,
+                calendarFormat: context.watch<DashboardState>().calendarFormat,
                 availableCalendarFormats: const {
                   CalendarFormat.month: 'Month',
                   CalendarFormat.twoWeeks: '2 Weeks',
@@ -228,7 +229,7 @@ class _State extends State<CalendarView> {
   }
 
   Widget _calendarList() {
-    final selected = context.read<ModuleState>().selected;
+    final selected = context.read<DashboardState>().selected;
     final events = widget.events[selected.floor()] ?? [];
     if (events.isEmpty) {
       return Expanded(

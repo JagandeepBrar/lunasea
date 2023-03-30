@@ -21,15 +21,15 @@ class _State extends State<ConfigurationSearchRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Search',
+      title: 'search.Search'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -38,7 +38,7 @@ class _State extends State<ConfigurationSearchRoute>
     return LunaBottomActionBar(
       actions: [
         LunaButton.text(
-          text: 'Add Indexer',
+          text: 'search.AddIndexer'.tr(),
           icon: Icons.add_rounded,
           onTap: SettingsRoutes.CONFIGURATION_SEARCH_ADD_INDEXER.go,
         ),
@@ -61,7 +61,7 @@ class _State extends State<ConfigurationSearchRoute>
 
   List<Widget> _indexerSection() {
     if (LunaBox.indexers.isEmpty) {
-      return [const LunaMessage(text: 'No Indexers Found')];
+      return [LunaMessage(text: 'search.NoIndexersFound'.tr())];
     }
     return _indexers;
   }
@@ -103,8 +103,8 @@ class _State extends State<ConfigurationSearchRoute>
     const _db = SearchDatabase.HIDE_XXX;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Hide Adult Categories',
-        body: const [TextSpan(text: 'Hide Adult Content')],
+        title: 'search.HideAdultCategories'.tr(),
+        body: [TextSpan(text: 'search.HideAdultCategoriesDescription'.tr())],
         trailing: LunaSwitch(
           value: _db.read(),
           onChanged: _db.update,
@@ -117,8 +117,8 @@ class _State extends State<ConfigurationSearchRoute>
     const _db = SearchDatabase.SHOW_LINKS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Show Links',
-        body: const [TextSpan(text: 'Show Download and Comments Links')],
+        title: 'search.ShowLinks'.tr(),
+        body: [TextSpan(text: 'search.ShowLinksDescription'.tr())],
         trailing: LunaSwitch(
           value: _db.read(),
           onChanged: _db.update,

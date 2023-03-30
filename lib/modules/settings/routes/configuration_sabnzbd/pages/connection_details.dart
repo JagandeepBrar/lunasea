@@ -29,7 +29,7 @@ class _State extends State<ConfigurationSABnzbdConnectionDetailsRoute>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -104,34 +104,37 @@ class _State extends State<ConfigurationSABnzbdConnectionDetailsRoute>
 
   Widget _testConnection() {
     return LunaButton.text(
-      text: 'Test Connection',
+      text: 'settings.TestConnection'.tr(),
       icon: Icons.wifi_tethering_rounded,
       onTap: () async {
         LunaProfile _profile = LunaProfile.current;
         if (_profile.sabnzbdHost.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to SABnzbd',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.SABNZBD.title]),
           );
           return;
         }
         if (_profile.sabnzbdKey.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to SABnzbd',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'
+                .tr(args: [LunaModule.SABNZBD.title]),
           );
           return;
         }
         SABnzbdAPI.from(LunaProfile.current)
             .testConnection()
             .then((_) => showLunaSuccessSnackBar(
-                  title: 'Connected Successfully',
-                  message: 'SABnzbd is ready to use with LunaSea',
+                  title: 'settings.ConnectedSuccessfully'.tr(),
+                  message: 'settings.ConnectedSuccessfullyMessage'
+                      .tr(args: [LunaModule.SABNZBD.title]),
                 ))
             .catchError((error, trace) {
           LunaLogger().error('Connection Test Failed', error, trace);
           showLunaErrorSnackBar(
-            title: 'Connection Test Failed',
+            title: 'settings.ConnectionTestFailed'.tr(),
             error: error,
           );
         });

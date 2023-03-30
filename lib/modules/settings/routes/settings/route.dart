@@ -3,7 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/firebase/core.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/router/routes/settings.dart';
-import 'package:lunasea/system/flavor.dart';
 import 'package:lunasea/system/in_app_purchase/in_app_purchase.dart';
 
 class SettingsRoute extends StatefulWidget {
@@ -22,7 +21,7 @@ class _State extends State<SettingsRoute> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       drawer: _drawer(),
       body: _body(),
     );
@@ -30,7 +29,7 @@ class _State extends State<SettingsRoute> with LunaScrollControllerMixin {
 
   Widget _drawer() => LunaDrawer(page: LunaModule.SETTINGS.key);
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       useDrawer: true,
       scrollControllers: [scrollController],
@@ -88,13 +87,6 @@ class _State extends State<SettingsRoute> with LunaScrollControllerMixin {
           trailing: const LunaIconButton(icon: Icons.settings_rounded),
           onTap: SettingsRoutes.SYSTEM.go,
         ),
-        if (LunaFlavor.CANDIDATE.isRunningFlavor())
-          LunaBlock(
-            title: 'settings.DebugMenu'.tr(),
-            body: [TextSpan(text: 'settings.DebugMenuDescription'.tr())],
-            trailing: const LunaIconButton(icon: Icons.bug_report_rounded),
-            onTap: SettingsRoutes.DEBUG_MENU.go,
-          ),
       ],
     );
   }

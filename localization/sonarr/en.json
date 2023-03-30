@@ -133,6 +133,7 @@
   "sonarr.Queue": "Queue",
   "sonarr.Queued": "Queued",
   "sonarr.QueueDescription": "View Active & Queued Content",
+  "sonarr.QueueSize": "Queue Size",
   "sonarr.Reason": "Reason",
   "sonarr.RefreshSeries": "Refresh Series",
   "sonarr.Rejected": "Rejected",

@@ -21,15 +21,15 @@ class _State extends State<ConfigurationTautulliConnectionDetailsRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Connection Details',
+      title: 'settings.ConnectionDetails'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -110,15 +110,17 @@ class _State extends State<ConfigurationTautulliConnectionDetailsRoute>
         LunaProfile _profile = LunaProfile.current;
         if (_profile.tautulliHost.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'Host Required',
-            message: 'Host is required to connect to Tautulli',
+            title: 'settings.HostRequired'.tr(),
+            message: 'settings.HostRequiredMessage'
+                .tr(args: [LunaModule.TAUTULLI.title]),
           );
           return;
         }
         if (_profile.tautulliKey.isEmpty) {
           showLunaErrorSnackBar(
-            title: 'API Key Required',
-            message: 'API key is required to connect to Tautulli',
+            title: 'settings.ApiKeyRequired'.tr(),
+            message: 'settings.ApiKeyRequiredMessage'
+                .tr(args: [LunaModule.TAUTULLI.title]),
           );
           return;
         }
@@ -129,13 +131,14 @@ class _State extends State<ConfigurationTautulliConnectionDetailsRoute>
             .miscellaneous
             .arnold()
             .then((_) => showLunaSuccessSnackBar(
-                  title: 'Connected Successfully',
-                  message: 'Tautulli is ready to use with LunaSea',
+                  title: 'settings.ConnectedSuccessfully'.tr(),
+                  message: 'settings.ConnectedSuccessfullyMessage'
+                      .tr(args: [LunaModule.TAUTULLI.title]),
                 ))
             .catchError((error, trace) {
           LunaLogger().error('Connection Test Failed', error, trace);
           showLunaErrorSnackBar(
-            title: 'Connection Test Failed',
+            title: 'settings.ConnectionTestFailed'.tr(),
             error: error,
           );
         });

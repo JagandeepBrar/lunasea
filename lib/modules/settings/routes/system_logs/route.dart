@@ -22,15 +22,15 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: _bottomActionBar(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'Logs',
+      title: 'settings.Logs'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -49,8 +49,8 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
       controller: scrollController,
       children: [
         LunaBlock(
-          title: 'All Logs',
-          body: const [TextSpan(text: 'View Logs of All Types')],
+          title: 'settings.AllLogs'.tr(),
+          body: [TextSpan(text: 'settings.AllLogsDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.developer_mode_rounded),
           onTap: () async => _viewLogs(null),
         ),
@@ -95,7 +95,7 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
 
   Widget _clearLogs() {
     return LunaButton.text(
-      text: 'Clear',
+      text: 'settings.Clear'.tr(),
       icon: LunaIcons.DELETE,
       color: LunaColours.red,
       onTap: () async {
@@ -103,8 +103,8 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
         if (result) {
           LunaLogger().clear();
           showLunaSuccessSnackBar(
-            title: 'Logs Cleared',
-            message: 'All recorded logs have been cleared',
+            title: 'settings.LogsCleared'.tr(),
+            message: 'settings.LogsClearedDescription'.tr(),
           );
         }
       },
@@ -114,20 +114,16 @@ class _State extends State<SystemLogsRoute> with LunaScrollControllerMixin {
   Widget _exportLogs() {
     return Builder(
       builder: (context) => LunaButton.text(
-        text: 'Export',
+        text: 'settings.Export'.tr(),
         icon: LunaIcons.DOWNLOAD,
         onTap: () async {
-          showLunaInfoSnackBar(
-            title: 'Exporting Logs',
-            message: 'Please wait...',
-          );
           String data = await LunaLogger().export();
           bool result = await LunaFileSystem()
               .save(context, 'logs.json', utf8.encode(data));
           if (result)
             showLunaSuccessSnackBar(
-                title: 'Saved Logs',
-                message: 'Logs have been successfully saved');
+                title: 'settings.ExportedLogs'.tr(),
+                message: 'settings.ExportedLogsMessage'.tr());
         },
       ),
     );

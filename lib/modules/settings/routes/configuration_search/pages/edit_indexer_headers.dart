@@ -25,8 +25,8 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
   Widget build(BuildContext context) {
     if (widget.id < 0 || !LunaBox.indexers.contains(widget.id)) {
       return InvalidRoutePage(
-        title: 'Custom Headers',
-        message: 'Indexer Not Found',
+        title: 'settings.CustomHeaders'.tr(),
+        message: 'search.IndexerNotFound'.tr(),
       );
     }
 
@@ -40,7 +40,7 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Custom Headers',
+      title: 'settings.CustomHeaders'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -49,7 +49,7 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
     return LunaBottomActionBar(
       actions: [
         LunaButton.text(
-          text: 'Add Header',
+          text: 'settings.AddHeader'.tr(),
           icon: Icons.add_rounded,
           onTap: () async => HeaderUtility().addHeader(context,
               headers: _indexer!.headers, indexer: _indexer),
@@ -68,7 +68,7 @@ class _State extends State<ConfigurationSearchEditIndexerHeadersRoute>
           controller: scrollController,
           children: [
             if (_indexer!.headers.isEmpty)
-              LunaMessage.inList(text: 'No Headers Added'),
+              LunaMessage.inList(text: 'settings.NoHeadersAdded'.tr()),
             ..._list(),
           ],
         );

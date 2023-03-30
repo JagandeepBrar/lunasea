@@ -45,9 +45,7 @@ class HeaderUtility {
           await _genericHeader(context, headers, indexer);
           break;
         default:
-          LunaLogger().warning(
-            'Unknown case: ${result.item2}',
-          );
+          LunaLogger().warning('Unknown case: ${result.item2}');
       }
   }
 

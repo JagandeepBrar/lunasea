@@ -436,6 +436,23 @@ extension LunaModuleWebhookExtension on LunaModule {
     }
   }
 
+  String? get webhookDocs {
+    switch (this) {
+      case LunaModule.LIDARR:
+        return 'https://docs.lunasea.app/lunasea/notifications/lidarr';
+      case LunaModule.RADARR:
+        return 'https://docs.lunasea.app/lunasea/notifications/radarr';
+      case LunaModule.SONARR:
+        return 'https://docs.lunasea.app/lunasea/notifications/sonarr';
+      case LunaModule.OVERSEERR:
+        return 'https://docs.lunasea.app/lunasea/notifications/overseerr';
+      case LunaModule.TAUTULLI:
+        return 'https://docs.lunasea.app/lunasea/notifications/tautulli';
+      default:
+        return null;
+    }
+  }
+
   Future<void> handleWebhook(Map<String, dynamic> data) async {
     switch (this) {
       case LunaModule.LIDARR:

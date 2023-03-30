@@ -39,11 +39,11 @@ class SettingsSystemLogTile extends StatelessWidget {
       ],
       expandedTableContent: [
         if (log.className != null && log.className!.isNotEmpty)
-          LunaTableContent(title: 'Class', body: log.className),
+          LunaTableContent(title: 'settings.Class'.tr(), body: log.className),
         if (log.methodName != null && log.methodName!.isNotEmpty)
-          LunaTableContent(title: 'Method', body: log.methodName),
+          LunaTableContent(title: 'settings.Method'.tr(), body: log.methodName),
         if (log.error != null && log.error!.isNotEmpty)
-          LunaTableContent(title: 'Exception', body: log.error),
+          LunaTableContent(title: 'settings.Exception'.tr(), body: log.error),
       ],
     );
   }

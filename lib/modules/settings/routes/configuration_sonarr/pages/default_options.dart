@@ -21,12 +21,12 @@ class _State extends State<ConfigurationSonarrDefaultOptionsRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
       title: 'settings.DefaultOptions'.tr(),
       scrollControllers: [scrollController],

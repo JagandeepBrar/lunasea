@@ -27,7 +27,7 @@ class _State extends State<ConfigurationRadarrRoute>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Radarr',
+      title: LunaModule.RADARR.title,
       scrollControllers: [scrollController],
     );
   }
@@ -51,7 +51,7 @@ class _State extends State<ConfigurationRadarrRoute>
   Widget _enabledToggle() {
     return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Enable ${LunaModule.RADARR.title}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.RADARR.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.radarrEnabled,
           onChanged: (value) {
@@ -66,8 +66,14 @@ class _State extends State<ConfigurationRadarrRoute>
 
   Widget _connectionDetailsPage() {
     return LunaBlock(
-      title: 'Connection Details',
-      body: const [TextSpan(text: 'Connection Details for Radarr')],
+      title: 'settings.ConnectionDetails'.tr(),
+      body: [
+        TextSpan(
+          text: 'settings.ConnectionDetailsDescription'.tr(
+            args: [LunaModule.RADARR.title],
+          ),
+        ),
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: SettingsRoutes.CONFIGURATION_RADARR_CONNECTION_DETAILS.go,
     );
@@ -84,8 +90,8 @@ class _State extends State<ConfigurationRadarrRoute>
 
   Widget _defaultPagesPage() {
     return LunaBlock(
-      title: 'Default Pages',
-      body: const [TextSpan(text: 'Set Default Landing Pages')],
+      title: 'settings.DefaultPages'.tr(),
+      body: [TextSpan(text: 'settings.DefaultPagesDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: SettingsRoutes.CONFIGURATION_RADARR_DEFAULT_PAGES.go,
     );
@@ -95,8 +101,8 @@ class _State extends State<ConfigurationRadarrRoute>
     const _db = RadarrDatabase.ADD_DISCOVER_USE_SUGGESTIONS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Discover Suggestions',
-        body: const [TextSpan(text: 'Add Suggested Releases in Discover')],
+        title: 'radarr.DiscoverSuggestions'.tr(),
+        body: [TextSpan(text: 'radarr.DiscoverSuggestionsDescription'.tr())],
         trailing: LunaSwitch(
           value: _db.read(),
           onChanged: (value) => _db.update(value),
@@ -109,9 +115,13 @@ class _State extends State<ConfigurationRadarrRoute>
     const _db = RadarrDatabase.QUEUE_PAGE_SIZE;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Queue Size',
+        title: 'radarr.QueueSize'.tr(),
         body: [
-          TextSpan(text: _db.read() == 1 ? '1 Item' : '${_db.read()} Items')
+          TextSpan(
+            text: _db.read() == 1
+                ? 'lunasea.OneItem'.tr()
+                : 'lunasea.Items'.tr(args: [_db.read().toString()]),
+          ),
         ],
         trailing: const LunaIconButton(icon: Icons.queue_play_next_rounded),
         onTap: () async {

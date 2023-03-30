@@ -26,7 +26,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
 
   Widget _appBar() {
     return LunaAppBar(
-      title: 'Default Pages',
+      title: 'settings.DefaultPages'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -67,7 +67,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
     const _db = TautulliDatabase.NAVIGATION_INDEX_GRAPHS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Graphs',
+        title: 'tautulli.Graphs'.tr(),
         body: [TextSpan(text: TautulliGraphsNavigationBar.titles[_db.read()])],
         trailing:
             LunaIconButton(icon: TautulliGraphsNavigationBar.icons[_db.read()]),
@@ -87,7 +87,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
     const _db = TautulliDatabase.NAVIGATION_INDEX_LIBRARIES_DETAILS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Library Details',
+        title: 'tautulli.LibraryDetails'.tr(),
         body: [
           TextSpan(
               text: TautulliLibrariesDetailsNavigationBar.titles[_db.read()])
@@ -110,7 +110,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
     const _db = TautulliDatabase.NAVIGATION_INDEX_MEDIA_DETAILS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Media Details',
+        title: 'tautulli.MediaDetails'.tr(),
         body: [
           TextSpan(text: TautulliMediaDetailsNavigationBar.titles[_db.read()]),
         ],
@@ -132,7 +132,7 @@ class _State extends State<ConfigurationTautulliDefaultPagesRoute>
     const _db = TautulliDatabase.NAVIGATION_INDEX_USER_DETAILS;
     return _db.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'User Details',
+        title: 'tautulli.UserDetails'.tr(),
         body: [
           TextSpan(text: TautulliUserDetailsNavigationBar.titles[_db.read()]),
         ],

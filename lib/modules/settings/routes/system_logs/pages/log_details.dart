@@ -24,14 +24,14 @@ class _State extends State<SystemLogsDetailsRoute>
   Widget build(BuildContext context) {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
-      appBar: _appBar() as PreferredSizeWidget?,
+      appBar: _appBar(),
       body: _body(),
     );
   }
 
-  Widget _appBar() {
+  PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: '${widget.type?.title ?? 'All'} Logs',
+      title: 'settings.Logs'.tr(),
       scrollControllers: [scrollController],
     );
   }
@@ -42,7 +42,7 @@ class _State extends State<SystemLogsDetailsRoute>
       if (logs.isEmpty) {
         return LunaMessage.goBack(
           context: context,
-          text: 'No Logs Found',
+          text: 'settings.NoLogsFound'.tr(),
         );
       }
       return LunaListViewBuilder(

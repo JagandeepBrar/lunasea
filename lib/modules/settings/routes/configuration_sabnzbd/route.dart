@@ -27,7 +27,7 @@ class _State extends State<ConfigurationSABnzbdRoute>
 
   PreferredSizeWidget _appBar() {
     return LunaAppBar(
-      title: 'SABnzbd',
+      title: LunaModule.SABNZBD.title,
       scrollControllers: [scrollController],
     );
   }
@@ -49,7 +49,7 @@ class _State extends State<ConfigurationSABnzbdRoute>
   Widget _enabledToggle() {
     return LunaBox.profiles.listenableBuilder(
       builder: (context, _) => LunaBlock(
-        title: 'Enable ${LunaModule.SABNZBD.title}',
+        title: 'settings.EnableModule'.tr(args: [LunaModule.SABNZBD.title]),
         trailing: LunaSwitch(
           value: LunaProfile.current.sabnzbdEnabled,
           onChanged: (value) {

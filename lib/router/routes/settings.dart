@@ -49,8 +49,6 @@ import 'package:lunasea/modules/settings/routes/configuration_tautulli/pages/def
 import 'package:lunasea/modules/settings/routes/configuration_tautulli/pages/headers.dart';
 import 'package:lunasea/modules/settings/routes/configuration_tautulli/route.dart';
 import 'package:lunasea/modules/settings/routes/configuration_wake_on_lan/route.dart';
-import 'package:lunasea/modules/settings/routes/debug_menu/pages/ui.dart';
-import 'package:lunasea/modules/settings/routes/debug_menu/route.dart';
 import 'package:lunasea/modules/settings/routes/donations/pages/thank_you.dart';
 import 'package:lunasea/modules/settings/routes/donations/route.dart';
 import 'package:lunasea/modules/settings/routes/notifications/route.dart';
@@ -114,8 +112,6 @@ enum SettingsRoutes with LunaRoutesMixin {
   CONFIGURATION_TAUTULLI_CONNECTION_DETAILS_HEADERS('headers'),
   CONFIGURATION_TAUTULLI_DEFAULT_PAGES('default_pages'),
   CONFIGURATION_WAKE_ON_LAN('wake_on_lan'),
-  DEBUG_MENU('debug_menu'),
-  DEBUG_MENU_UI('ui'),
   DONATIONS('donations'),
   DONATIONS_THANK_YOU('thank_you'),
   NOTIFICATIONS('notifications'),
@@ -269,10 +265,6 @@ enum SettingsRoutes with LunaRoutesMixin {
         return route(widget: const ConfigurationTautulliDefaultPagesRoute());
       case SettingsRoutes.CONFIGURATION_WAKE_ON_LAN:
         return route(widget: const ConfigurationWakeOnLANRoute());
-      case SettingsRoutes.DEBUG_MENU:
-        return route(widget: const DebugMenuRoute());
-      case SettingsRoutes.DEBUG_MENU_UI:
-        return route(widget: const DebugMenuUIRoute());
       case SettingsRoutes.DONATIONS:
         return route(widget: const DonationsRoute());
       case SettingsRoutes.DONATIONS_THANK_YOU:
@@ -302,7 +294,6 @@ enum SettingsRoutes with LunaRoutesMixin {
         return [
           SettingsRoutes.ACCOUNT.routes,
           SettingsRoutes.CONFIGURATION.routes,
-          SettingsRoutes.DEBUG_MENU.routes,
           SettingsRoutes.DONATIONS.routes,
           SettingsRoutes.NOTIFICATIONS.routes,
           SettingsRoutes.PROFILES.routes,
@@ -415,10 +406,6 @@ enum SettingsRoutes with LunaRoutesMixin {
         return [
           SettingsRoutes
               .CONFIGURATION_TAUTULLI_CONNECTION_DETAILS_HEADERS.routes,
-        ];
-      case SettingsRoutes.DEBUG_MENU:
-        return [
-          SettingsRoutes.DEBUG_MENU_UI.routes,
         ];
       case SettingsRoutes.DONATIONS:
         return [

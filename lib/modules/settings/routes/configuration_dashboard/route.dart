@@ -52,8 +52,8 @@ class _State extends State<ConfigurationDashboardRoute>
 
   Widget _calendarSettingsPage() {
     return LunaBlock(
-      title: 'Calendar Settings',
-      body: const [TextSpan(text: 'Customize the Unified Calendar')],
+      title: 'settings.CalendarSettings'.tr(),
+      body: [TextSpan(text: 'settings.CalendarSettingsDescription'.tr())],
       trailing: const LunaIconButton.arrow(),
       onTap: SettingsRoutes.CONFIGURATION_DASHBOARD_CALENDAR.go,
     );

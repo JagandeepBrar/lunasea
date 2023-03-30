@@ -1,1 +1,5 @@
-{}
+{
+    "wake_on_lan.MagicPacketSent": "Αποστολή Magic Packet",
+    "wake_on_lan.MagicPacketSentMessage": "Το μηχάνημα πρέπει να εκκινεί!",
+    "wake_on_lan.MagicPacketFailedToSend": "Αποτυχία αποστολής Magic Packet"
+}

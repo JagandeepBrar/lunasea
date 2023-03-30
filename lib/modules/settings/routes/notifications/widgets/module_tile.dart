@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/extensions/string/links.dart';
 import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/firebase/messaging.dart';
 import 'package:lunasea/system/webhooks.dart';
@@ -21,9 +22,22 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
       iconColor: module.color,
       bodyText: module.information,
       buttons: [
+        LunaButton.text(
+          text: 'settings.Device'.tr(),
+          icon: Icons.devices_rounded,
+          onTap: () async {
+            String deviceId = (await LunaFirebaseMessaging().token)!;
+            await Clipboard.setData(ClipboardData(
+                text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
+            showLunaInfoSnackBar(
+              title: 'settings.CopiedURLFor'.tr(args: [module.title]),
+              message: 'settings.CopiedDeviceURL'.tr(),
+            );
+          },
+        ),
         if (LunaFirebaseAuth().isSignedIn)
           LunaButton.text(
-            text: 'User',
+            text: 'settings.User'.tr(),
             icon: Icons.person_rounded,
             onTap: () async {
               if (!LunaFirebaseAuth().isSignedIn) return;
@@ -31,23 +45,16 @@ class SettingsNotificationsModuleTile extends StatelessWidget {
               await Clipboard.setData(ClipboardData(
                   text: LunaWebhooks.buildUserTokenURL(userId, module)));
               showLunaInfoSnackBar(
-                title: 'Copied URL for ${module.title}',
-                message: 'Copied your user-based URL to the clipboard',
+                title: 'settings.CopiedURLFor'.tr(args: [module.title]),
+                message: 'settings.CopiedUserURL'.tr(),
               );
             },
           ),
         LunaButton.text(
-          text: 'Device',
-          icon: Icons.devices_rounded,
-          onTap: () async {
-            String deviceId = (await LunaFirebaseMessaging().token)!;
-            await Clipboard.setData(ClipboardData(
-                text: LunaWebhooks.buildDeviceTokenURL(deviceId, module)));
-            showLunaInfoSnackBar(
-              title: 'Copied URL for ${module.title}',
-              message: 'Copied your device-based URL to the clipboard',
-            );
-          },
+          text: 'settings.Documentation'.tr(),
+          icon: LunaIcons.DOCUMENTATION,
+          color: LunaColours.blue,
+          onTap: module.webhookDocs!.openLink,
         ),
       ],
     );

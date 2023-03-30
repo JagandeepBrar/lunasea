@@ -1,1 +1,6 @@
-{}
+{
+    "settings.AccountDeleted": "Διαγραφή λογαριασμού",
+    "settings.AccountDescription": "Ο LunaSea λογαριασμός σου",
+    "settings.AccountDeletedMessage": "Διαγραφή λογαριασμού LunaSea",
+    "settings.Account": "Λογαριασμός"
+}

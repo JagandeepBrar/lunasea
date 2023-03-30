@@ -17,7 +17,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-import 'package:lunasea/modules/dashboard/core/state.dart' as dashboard_state;
+import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/system/flavor.dart';
 
@@ -484,7 +484,7 @@ extension LunaModuleExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return null;
       case LunaModule.DASHBOARD:
-        return context.read<dashboard_state.ModuleState>();
+        return context.read<DashboardState>();
       case LunaModule.SETTINGS:
         return context.read<SettingsState>();
       case LunaModule.SEARCH:

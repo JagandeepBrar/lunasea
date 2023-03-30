@@ -62,7 +62,7 @@ class _State extends State<ScheduleView> {
     keys.sort();
 
     for (final key in keys) {
-      final selected = context.read<ModuleState>().selected;
+      final selected = context.read<DashboardState>().selected;
       if (key.isBefore(selected) || key.isAtSameMomentAs(selected)) {
         offsetOfSelected = offset;
       }

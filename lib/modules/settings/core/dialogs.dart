@@ -4,7 +4,7 @@ import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/firebase/types.dart';
 import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
-import 'package:lunasea/state/state.dart';
+import 'package:lunasea/system/state.dart';
 import 'package:lunasea/system/localization.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';

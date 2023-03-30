@@ -7,7 +7,7 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/utils/encryption.dart';
 import 'package:lunasea/utils/uuid.dart';
 
-class SettingsAccountBackupConfigurationTile extends ConsumerStatefulWidget {
+class SettingsAccountBackupConfigurationTile extends StatefulWidget {
   const SettingsAccountBackupConfigurationTile({
     Key? key,
   }) : super(key: key);
@@ -16,7 +16,7 @@ class SettingsAccountBackupConfigurationTile extends ConsumerStatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends ConsumerState<SettingsAccountBackupConfigurationTile> {
+class _State extends State<SettingsAccountBackupConfigurationTile> {
   LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
 
   void updateState(LunaLoadingState state) {
@@ -44,12 +44,10 @@ class _State extends ConsumerState<SettingsAccountBackupConfigurationTile> {
       Tuple2<bool, String> _values =
           await SettingsDialogs().backupConfiguration(context);
       if (_values.item1) {
-        final encryption = ref.watch(encryptionProvider);
-
         String decrypted = LunaConfig().export();
-        String encrypted = encryption.encrypt(_values.item2, decrypted);
+        String encrypted = LunaEncryption().encrypt(_values.item2, decrypted);
         int timestamp = DateTime.now().millisecondsSinceEpoch;
-        String id = ref.watch(uuidProvider).generate();
+        String id = LunaUUID().generate();
         String format = 'MMMM dd, yyyy\nhh:mm:ss a';
         String title = DateFormat(format).format(DateTime.now());
 

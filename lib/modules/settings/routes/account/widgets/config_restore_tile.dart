@@ -6,7 +6,7 @@ import 'package:lunasea/firebase/storage.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:lunasea/utils/encryption.dart';
 
-class SettingsAccountRestoreConfigurationTile extends ConsumerStatefulWidget {
+class SettingsAccountRestoreConfigurationTile extends StatefulWidget {
   const SettingsAccountRestoreConfigurationTile({
     Key? key,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class SettingsAccountRestoreConfigurationTile extends ConsumerStatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends ConsumerState<SettingsAccountRestoreConfigurationTile> {
+class _State extends State<SettingsAccountRestoreConfigurationTile> {
   LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
 
   void updateState(LunaLoadingState state) {
@@ -61,8 +61,7 @@ class _State extends ConsumerState<SettingsAccountRestoreConfigurationTile> {
     Tuple2<bool, String> _key = await SettingsDialogs().decryptBackup(context);
     if (_key.item1) {
       try {
-        final encryption = ref.watch(encryptionProvider);
-        String decrypted = encryption.decrypt(_key.item2, encrypted);
+        String decrypted = LunaEncryption().decrypt(_key.item2, encrypted);
         await LunaConfig().import(context, decrypted);
         showLunaSuccessSnackBar(
           title: 'settings.RestoreFromCloudSuccess'.tr(),

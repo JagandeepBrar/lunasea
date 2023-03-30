@@ -4,7 +4,7 @@ import 'package:lunasea/firebase/auth.dart';
 import 'package:lunasea/router/routes/settings.dart';
 import 'package:lunasea/utils/validator.dart';
 
-class SettingsAccountSignedOutPage extends ConsumerStatefulWidget {
+class SettingsAccountSignedOutPage extends StatefulWidget {
   final ScrollController scrollController;
 
   const SettingsAccountSignedOutPage({
@@ -16,7 +16,7 @@ class SettingsAccountSignedOutPage extends ConsumerStatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends ConsumerState<SettingsAccountSignedOutPage> {
+class _State extends State<SettingsAccountSignedOutPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -124,7 +124,7 @@ class _State extends ConsumerState<SettingsAccountSignedOutPage> {
   }
 
   bool _validateEmailAddress({bool showSnackBarOnFailure = true}) {
-    if (!ref.watch(validatorProvider).email(_emailController.text)) {
+    if (!LunaValidator().email(_emailController.text)) {
       if (showSnackBarOnFailure)
         showLunaErrorSnackBar(
           title: 'settings.InvalidEmail'.tr(),

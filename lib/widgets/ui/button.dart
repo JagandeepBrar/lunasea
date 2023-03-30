@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lunasea/state/state.dart';
+import 'package:lunasea/system/state.dart';
 import 'package:lunasea/types/loading_state.dart';
 import 'package:lunasea/widgets/ui.dart';
 

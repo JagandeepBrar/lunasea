@@ -579,14 +579,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
-  flutter_riverpod:
-    dependency: "direct main"
-    description:
-      name: flutter_riverpod
-      sha256: b3c3a8a9714b7f88dd2a41e1efbc47f76d620b06ab427c62ae7bc82298cd7dbb
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -1109,14 +1101,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0+1"
-  riverpod:
-    dependency: transitive
-    description:
-      name: riverpod
-      sha256: b0fbf7927333c5c318f7e2c22c8b4fd2542ba294de0373e80ecdb34e0dcd8dc4
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   rxdart:
     dependency: transitive
     description:
@@ -1338,14 +1322,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.2"
-  state_notifier:
-    dependency: transitive
-    description:
-      name: state_notifier
-      sha256: "8fe42610f179b843b12371e40db58c9444f8757f8b69d181c97e50787caed289"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2+1"
   stream_channel:
     dependency: transitive
     description:

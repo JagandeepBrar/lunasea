@@ -8,14 +8,14 @@ import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/sheets/changelog/sheet.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class BuildDetails extends ConsumerStatefulWidget {
+class BuildDetails extends StatefulWidget {
   const BuildDetails({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<BuildDetails> createState() => _State();
+  State<BuildDetails> createState() => _State();
 }
 
-class _State extends ConsumerState<BuildDetails> {
+class _State extends State<BuildDetails> {
   Future<PackageInfo> packageInfo = PackageInfo.fromPlatform();
   Future<Tuple2<bool, int?>> checkUpdates = LunaBuild().isLatestBuildNumber();
 

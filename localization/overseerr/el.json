@@ -1,1 +1,13 @@
-{}
+{
+    "overseerr.Audio": "Ήχος",
+    "overseerr.Approved": "Έγκριση",
+    "overseerr.Available": "Διαθέσιμο",
+    "overseerr.Declined": "Απορρίφθηκε",
+    "overseerr.Issues": "Θέματα",
+    "overseerr.NoIssues": "Κανένα Θέμα",
+    "overseerr.NoIssuesFound": "Κανένα θέμα δεν βρέθηκε",
+    "overseerr.NoRequests": "Χωρίς αιτήματα",
+    "overseerr.NoRequestsFound": "Κανένα αίτημα δεν βρέθηκε",
+    "overseerr.OneRequest": "1 Αίτημα",
+    "overseerr.Open": "Ανοιχτό"
+}

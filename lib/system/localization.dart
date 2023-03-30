@@ -29,6 +29,7 @@ enum LunaLanguage {
   ENGLISH('en', Locale('en'), 'English'),
   FRENCH('fr', Locale('fr'), 'French'),
   GERMAN('de', Locale('de'), 'German'),
+  GREEK('el', Locale('el'), 'Greek'),
   HUNGARIAN('hu', Locale('hu'), 'Hungarian'),
   ITALIAN('it', Locale('it'), 'Italian'),
   NORWEGIAN_BOKMAL('nb-NO', Locale('nb', 'NO'), 'Norwegian (Bokmål)'),

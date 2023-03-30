@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/database/tables/lunasea.dart';
 import 'package:lunasea/firebase/types.dart';
@@ -6,6 +5,7 @@ import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings/core/types/header.dart';
 import 'package:lunasea/system/state.dart';
 import 'package:lunasea/system/localization.dart';
+import 'package:lunasea/utils/validator.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/modules/dashboard/core/adapters/calendar_starting_day.dart';
@@ -591,7 +591,7 @@ class SettingsDialogs {
                 title: 'settings.Email'.tr(),
                 onSubmitted: (_) => _setValues(true),
                 validator: (value) {
-                  return EmailValidator.validate(value ?? '')
+                  return LunaValidator().email(value ?? '')
                       ? null
                       : 'settings.EmailValidation'.tr();
                 },

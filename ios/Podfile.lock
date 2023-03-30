@@ -1,6 +1,6 @@
 PODS:
-  - cloud_firestore (4.4.5):
-    - Firebase/Firestore (= 10.5.0)
+  - cloud_firestore (4.5.0):
+    - Firebase/Firestore (= 10.7.0)
     - firebase_core
     - Flutter
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -38,43 +38,43 @@ PODS:
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
-  - Firebase/Auth (10.5.0):
+  - Firebase/Auth (10.7.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.5.0)
-  - Firebase/CoreOnly (10.5.0):
-    - FirebaseCore (= 10.5.0)
-  - Firebase/Firestore (10.5.0):
+    - FirebaseAuth (~> 10.7.0)
+  - Firebase/CoreOnly (10.7.0):
+    - FirebaseCore (= 10.7.0)
+  - Firebase/Firestore (10.7.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 10.5.0)
-  - Firebase/Messaging (10.5.0):
+    - FirebaseFirestore (~> 10.7.0)
+  - Firebase/Messaging (10.7.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 10.5.0)
-  - Firebase/Storage (10.5.0):
+    - FirebaseMessaging (~> 10.7.0)
+  - Firebase/Storage (10.7.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (~> 10.5.0)
-  - firebase_auth (4.3.0):
-    - Firebase/Auth (= 10.5.0)
+    - FirebaseStorage (~> 10.7.0)
+  - firebase_auth (4.4.0):
+    - Firebase/Auth (= 10.7.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.8.0):
-    - Firebase/CoreOnly (= 10.5.0)
+  - firebase_core (2.9.0):
+    - Firebase/CoreOnly (= 10.7.0)
     - Flutter
-  - firebase_messaging (14.3.0):
-    - Firebase/Messaging (= 10.5.0)
+  - firebase_messaging (14.4.0):
+    - Firebase/Messaging (= 10.7.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.0.16):
-    - Firebase/Storage (= 10.5.0)
+  - firebase_storage (11.1.0):
+    - Firebase/Storage (= 10.7.0)
     - firebase_core
     - Flutter
   - FirebaseAppCheckInterop (10.7.0)
-  - FirebaseAuth (10.5.0):
+  - FirebaseAuth (10.7.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseAuthInterop (10.7.0)
-  - FirebaseCore (10.5.0):
+  - FirebaseCore (10.7.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
@@ -82,20 +82,20 @@ PODS:
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.7.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseFirestore (10.5.0):
-    - FirebaseFirestore/AutodetectLeveldb (= 10.5.0)
-  - FirebaseFirestore/AutodetectLeveldb (10.5.0):
+  - FirebaseFirestore (10.7.0):
+    - FirebaseFirestore/AutodetectLeveldb (= 10.7.0)
+  - FirebaseFirestore/AutodetectLeveldb (10.7.0):
     - FirebaseFirestore/Base
     - FirebaseFirestore/WithLeveldb
-  - FirebaseFirestore/Base (10.5.0)
-  - FirebaseFirestore/WithLeveldb (10.5.0):
+  - FirebaseFirestore/Base (10.7.0)
+  - FirebaseFirestore/WithLeveldb (10.7.0):
     - FirebaseFirestore/Base
   - FirebaseInstallations (10.7.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (10.5.0):
+  - FirebaseMessaging (10.7.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
@@ -104,7 +104,7 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseStorage (10.5.0):
+  - FirebaseStorage (10.7.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -157,13 +157,13 @@ PODS:
   - SDWebImage (5.15.5):
     - SDWebImage/Core (= 5.15.5)
   - SDWebImage/Core (5.15.5)
-  - Sentry/HybridSDK (8.3.1):
-    - SentryPrivate (= 8.3.1)
+  - Sentry/HybridSDK (8.3.3):
+    - SentryPrivate (= 8.3.3)
   - sentry_flutter (0.0.1):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.3.1)
-  - SentryPrivate (8.3.1)
+    - Sentry/HybridSDK (= 8.3.3)
+  - SentryPrivate (8.3.3)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -184,7 +184,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
-  - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.5.0`)
+  - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.7.0`)
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
@@ -237,7 +237,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_storage/ios"
   FirebaseFirestore:
     :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
-    :tag: 10.5.0
+    :tag: 10.7.0
   Flutter:
     :path: Flutter
   flutter_native_splash:
@@ -264,28 +264,28 @@ EXTERNAL SOURCES:
 CHECKOUT OPTIONS:
   FirebaseFirestore:
     :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
-    :tag: 10.5.0
+    :tag: 10.7.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 29dafcfe235974cd3907d6212400629838180a16
+  cloud_firestore: 84f58b426bd8d21a22c4b19d9d18028fc4ff3eb1
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
-  Firebase: 3d6637234ab163e31852834617b4fe1df3b7af6d
-  firebase_auth: 94ca572cd6a84385096c5a8f6328d5ee6cf84a16
-  firebase_core: d9c8f891a986a99a60ab81eabb5ef2ea2edcfee1
-  firebase_messaging: b9ce7e6dbd0c80fca3c8b9ba112eb59e50e178ae
-  firebase_storage: b6a95fdcb9cc14e4ae44121764e893e08fd65020
+  Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
+  firebase_auth: 5984ebaf5463319e304ab1c0966b06994bd1c69a
+  firebase_core: d85432877e814811e040e7659f9c82faeab66e04
+  firebase_messaging: 45c0514ca78426630338a42fb7b55af962c7ccd2
+  firebase_storage: 3419feab3ca832a07bdff5307477e0b9d20eb5f8
   FirebaseAppCheckInterop: 8e907eea79958960a8bd2058e067f31e03a7914b
-  FirebaseAuth: 1028326bcaa7a61391386e74b9078cc558ae14f1
+  FirebaseAuth: dd64c01631df724b09f33e584625775c52f7d71f
   FirebaseAuthInterop: 46201190fe90ef1f581513eb0f9fa3d7820e7d6d
-  FirebaseCore: 324b8d182d9ff7e3f6d1fa2f04b082d1c7a3e366
+  FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
   FirebaseCoreExtension: f17247ba8c61e4d3c8d136b5e2de3cb4ac6a85b6
   FirebaseCoreInternal: 8845798510aae74703467480f71ac613788d0696
-  FirebaseFirestore: 41e14a56b72dfdf579790c42b7ac361b30d171f2
+  FirebaseFirestore: 712ff268d746fc65efb361e9ce2cfeb458f10643
   FirebaseInstallations: 59c0e4c7a816a0f76710d83f77e5369b3e45eb96
-  FirebaseMessaging: 35ecbbc68ff547fca80f9326c9622e79288c7149
-  FirebaseStorage: 858ba102341232ad8f4e3a457090858200716966
+  FirebaseMessaging: ac9062bcc35ed56e15a0241d8fd317022499baf8
+  FirebaseStorage: 4841efa304543e1f9e4ca116c559c7a1ea2a9d0f
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -299,15 +299,15 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   quick_actions_ios: bb09d1c35b4a89f9dbb15487039fa1b983ca375e
   SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
-  Sentry: 316f997b2f89557014ae9919f0d0c71e6e43c01e
-  sentry_flutter: f0e51fac01e46af2e16f0a7458e3014bbc131ff5
-  SentryPrivate: 63dd9ee25187d20427ab7b5d03054df149912c23
+  Sentry: 8ffc397d98fe58d693e73959b26ed0eaee55646a
+  sentry_flutter: 5028afacfa875785cb0e3682aece171fcd9dc0d5
+  SentryPrivate: bf776a47a131648f5023097215987b40fbd47025
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
-PODFILE CHECKSUM: e27cc29c7cdd07e9428874a7c32df1ab5677bbc7
+PODFILE CHECKSUM: a6733085e951fef104751649a2a2b404da0cbd5f
 
 COCOAPODS: 1.12.0

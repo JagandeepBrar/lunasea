@@ -1,1 +1,7 @@
-{}
+{
+    "tautulli.Activity": "Δραστηριότητα",
+    "tautulli.ActivityDetails": "Λεπτομέρειες δραστηριότητας",
+    "tautulli.ActivityRefreshRate": "Ρυθμός ανανέωσης δραστηριότητας",
+    "tautulli.Audio": "Ήχος",
+    "tautulli.BackingUpConfiguration": "Δημιουργία αντιγράφων ασφαλείας διαμόρφωσης…"
+}

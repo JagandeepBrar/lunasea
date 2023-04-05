@@ -1,1 +1,7 @@
-{}
+{
+    "radarr.AddMovie": "Προσθήκη ταινίας",
+    "radarr.AddMovieAndSearch": "Προσθήκη + αναζήτηση",
+    "radarr.AddedTag": "Προσθήκη ετικέτας",
+    "radarr.Age": "Ηλικία",
+    "radarr.All": "Όλα"
+}

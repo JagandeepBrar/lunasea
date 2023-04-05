@@ -1,1 +1,7 @@
-{}
+{
+    "sonarr.AddedSeries": "Προστέθηκε σειρά",
+    "sonarr.AddedTag": "Προσθήκη ετικέτας",
+    "sonarr.AddReleaseToBlocklist": "Προσθήκη έκδοσης στην λίστα αποκλεισμού",
+    "sonarr.AddedOn": "Προστέθηκε στις",
+    "sonarr.AddSeries": "Προσθήκη σειρών"
+}

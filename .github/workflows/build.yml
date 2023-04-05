@@ -1,5 +1,5 @@
 name: Build
-run-name: "Build Release: ${{ inputs.flavor }}"
+run-name: "Build Release: ${{ inputs.flavor || github.sha }}"
 
 on:
   push:

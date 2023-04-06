@@ -254,5 +254,12 @@
     "settings.SystemStatus": "Status do Sistema",
     "settings.TLSCertificateValidationDescription": "Validar certificados em conexões TLS",
     "settings.UpdateEmail": "Atualizar e-mail",
-    "settings.UpdatePassword": "Atualizar senha"
+    "settings.UpdatePassword": "Atualizar senha",
+    "settings.Clear": "Limpar",
+    "settings.Device": "Dispositivo",
+    "settings.Export": "Exportar",
+    "settings.General": "Geral",
+    "settings.NotAuthorized": "Não Autorizado",
+    "settings.NotAvailable": "Não Disponível",
+    "settings.User": "Usuário"
 }

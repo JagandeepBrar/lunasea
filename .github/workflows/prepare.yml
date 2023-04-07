@@ -64,7 +64,6 @@ jobs:
             if (flavor) switch (flavor) {
               case 'edge':
               case 'beta':
-              case 'candidate':
               case 'stable':
                 return flavor;
             }

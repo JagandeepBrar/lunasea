@@ -5,13 +5,11 @@ import 'package:lunasea/widgets/ui.dart';
 
 const FLAVOR_EDGE = 'edge';
 const FLAVOR_BETA = 'beta';
-const FLAVOR_CANDIDATE = 'candidate';
 const FLAVOR_STABLE = 'stable';
 
 enum LunaFlavor {
   EDGE(FLAVOR_EDGE),
   BETA(FLAVOR_BETA),
-  CANDIDATE(FLAVOR_CANDIDATE),
   STABLE(FLAVOR_STABLE);
 
   final String key;
@@ -23,8 +21,6 @@ enum LunaFlavor {
         return LunaFlavor.EDGE;
       case FLAVOR_BETA:
         return LunaFlavor.BETA;
-      case FLAVOR_CANDIDATE:
-        return LunaFlavor.CANDIDATE;
       case FLAVOR_STABLE:
         return LunaFlavor.STABLE;
     }
@@ -35,13 +31,10 @@ enum LunaFlavor {
 
   static bool get isEdge => current == LunaFlavor.EDGE;
   static bool get isBeta => current == LunaFlavor.BETA;
-  static bool get isCandidate => current == LunaFlavor.CANDIDATE;
   static bool get isStable => current == LunaFlavor.STABLE;
 }
 
 extension LunaFlavorExtension on LunaFlavor {
-  // Returns true if the running build's flavor is "lower" than or equal to the called-on flavor.
-  /// For example, a running build of `beta` is lower than `candidate` but is not lower than `edge`.
   bool isRunningFlavor() {
     LunaFlavor flavor = LunaFlavor.current;
     if (flavor == this) return true;
@@ -51,8 +44,6 @@ extension LunaFlavorExtension on LunaFlavor {
         return false;
       case LunaFlavor.BETA:
         return flavor == LunaFlavor.EDGE;
-      case LunaFlavor.CANDIDATE:
-        return flavor == LunaFlavor.EDGE || flavor == LunaFlavor.BETA;
       case LunaFlavor.STABLE:
         return true;
     }
@@ -65,8 +56,6 @@ extension LunaFlavorExtension on LunaFlavor {
         return '$base/${this.key}/';
       case LunaFlavor.BETA:
         return '$base/${this.key}/';
-      case LunaFlavor.CANDIDATE:
-        return '$base/${this.key}/';
       case LunaFlavor.STABLE:
         return '$base/${this.key}/';
     }
@@ -78,8 +67,6 @@ extension LunaFlavorExtension on LunaFlavor {
         return 'lunasea.Edge'.tr();
       case LunaFlavor.BETA:
         return 'lunasea.Beta'.tr();
-      case LunaFlavor.CANDIDATE:
-        return 'lunasea.Candidate'.tr();
       case LunaFlavor.STABLE:
         return 'lunasea.Stable'.tr();
     }
@@ -90,8 +77,6 @@ extension LunaFlavorExtension on LunaFlavor {
       case LunaFlavor.EDGE:
         return LunaColours.red;
       case LunaFlavor.BETA:
-        return LunaColours.orange;
-      case LunaFlavor.CANDIDATE:
         return LunaColours.blue;
       case LunaFlavor.STABLE:
         return LunaColours.accent;

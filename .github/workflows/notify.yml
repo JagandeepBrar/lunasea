@@ -15,8 +15,6 @@ on:
         required: true
       DISCORD_WEBHOOK_BETA:
         required: true
-      DISCORD_WEBHOOK_CANDIDATE:
-        required: true
       DISCORD_WEBHOOK_STABLE:
         required: true
 
@@ -36,7 +34,6 @@ jobs:
         env:
           DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
           DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
-          DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
           DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
           BUILD_FLAVOR: ${{ inputs.build-flavor }}
         with:
@@ -44,7 +41,6 @@ jobs:
           script: |
             switch (process.env.BUILD_FLAVOR) {
               case 'beta': return process.env.DISCORD_WEBHOOK_BETA;
-              case 'candidate': return process.env.DISCORD_WEBHOOK_CANDIDATE;
               case 'stable': return process.env.DISCORD_WEBHOOK_STABLE;
               case 'edge':
               default: return process.env.DISCORD_WEBHOOK_EDGE;

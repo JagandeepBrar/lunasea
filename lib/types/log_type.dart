@@ -28,7 +28,7 @@ enum LunaLogType {
   bool get enabled {
     switch (this) {
       case LunaLogType.DEBUG:
-        return LunaFlavor.CANDIDATE.isRunningFlavor();
+        return LunaFlavor.BETA.isRunningFlavor();
       default:
         return true;
     }

@@ -44,11 +44,10 @@ jobs:
           script: |
             const ref = process.env.FLAVOR || 'edge';
             switch (ref) {
-              case 'beta': return 'alpha';
-              case 'candidate': return 'beta';
+              case 'beta': return 'beta';
               case 'stable': return 'production';
               case 'edge':
-              default: return 'internal';
+              default: return 'alpha';
             }
 
       - name: Generate Changelog

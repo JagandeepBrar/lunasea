@@ -64,7 +64,6 @@ jobs:
             const ref = process.env.FLAVOR || 'edge';
             switch (ref) {
               case 'beta': return '11ef2676-fc31-41b5-897b-fd21273d87ed';
-              case 'candidate': return '4636e6a1-17ef-45a2-a2b6-3d1c166fd1df';
               case 'stable': return '6634f0b1-323c-4a2f-bd0b-8f1f388673a9';
               case 'edge':
               default: return '325e197e-55f4-449a-b2bb-6831fe47bf2a';

@@ -15,7 +15,6 @@ on:
         options:
           - edge
           - beta
-          - candidate
           - stable
 
 jobs:
@@ -201,5 +200,4 @@ jobs:
     secrets:
       DISCORD_WEBHOOK_EDGE: ${{ secrets.DISCORD_WEBHOOK_EDGE }}
       DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
-      DISCORD_WEBHOOK_CANDIDATE: ${{ secrets.DISCORD_WEBHOOK_CANDIDATE }}
       DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}

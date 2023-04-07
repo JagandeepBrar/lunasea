@@ -1,46 +1,39 @@
 {
-  "motd": "Welcome to LunaSea v10.2.3!\n\nThis update adds the ability to open Tautulli library items directly in Plex and more details about activity streams.",
+  "motd": "Welcome to LunaSea v10.2.4!\n\nThis update adds direct links to the documentation to correctly set up service notifications, as well as fixes underlying issues with network image caching and text rendering due to the fading edge on horizontally scrollable text.",
   "feat": {
-    "tautulli": [
+    "settings": [
       {
-        "commit": "5cf1a06cec079aa66c77425c0ed8d4fa7897bbd3",
-        "message": "add ability to open media in Plex"
+        "commit": "0f4ac9a893d5b13a732db49e0bfc7b09fe7c05d9",
+        "message": "add direct link to documentation for service notifications"
       },
       {
-        "commit": "6de806316efaa61c5ddbac1b8f5b214949f0bcf8",
-        "message": "display audio language, subtitle language, and video dynamic range for activity"
-      }
-    ],
-    "flutter": [
-      {
-        "commit": "6241ee462989f1f65fa8f1e18378579e2e77197b",
-        "message": "replace Skia with Impeller rendering engine"
-      },
-      {
-        "commit": "f1b831a118e56c480aae72042ee4eb7013f954b2",
-        "message": "upgrade to Flutter 3.7.7/1837b5be5f"
+        "commit": "5ce12795e7223a543bd037151b1a3eaa484f2634",
+        "message": "replace all strings with localizable strings"
       }
     ]
   },
   "fix": {
-    "links": [
+    "images": [
       {
-        "commit": "596eab4bad1aa183e3c0dfc8d20a32c15ecdb78d",
-        "message": "use platform default method to launch URLs"
+        "commit": "f1a82c06aa58fe493af2b2b0bf9ef8a93011802b",
+        "message": "more efficiently cache persistent network images"
       }
     ],
-    "http": [
+    "uiux": [
       {
-        "commit": "aca5d0eb826b38ebeec33e3495045bf21e8a49c7",
-        "message": "correctly set content type for POST requests"
+        "commit": "781727abbab0dc70d959c723c3d101e66430ac60",
+        "message": "remove fading edge on horizontal scroll-views"
       }
     ],
-    "macos": [
+    "flutter": [
       {
-        "commit": "d612ae221cac741b3a36893d4bc7f05f5055c7b8",
-        "message": "set minimum platform version to 10.15"
+        "commit": "605002f5bd4b015791d3d1f260e03b4127c5020d",
+        "message": "remove unused packages"
+      },
+      {
+        "commit": "4b149b58d0eaab53a39917152ff224f7b6e93c0f",
+        "message": "translations update from Weblate"
       }
     ]
-  },
-  "refactor": {}
+  }
 }

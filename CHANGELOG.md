@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.4](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.3...v10.2.4) (2023-04-09)
+
+
+### Features
+
+* **settings:** add direct link to documentation for service notifications ([0f4ac9a](https://github.com/JagandeepBrar/LunaSea/commit/0f4ac9a893d5b13a732db49e0bfc7b09fe7c05d9))
+* **settings:** replace all strings with localizable strings ([5ce1279](https://github.com/JagandeepBrar/LunaSea/commit/5ce12795e7223a543bd037151b1a3eaa484f2634))
+
+
+### Bug Fixes
+
+* **images:** utilize new technique to persistently cache images ([f1a82c0](https://github.com/JagandeepBrar/LunaSea/commit/f1a82c06aa58fe493af2b2b0bf9ef8a93011802b))
+* **routing:** handle pushing route which may return data ([3500d83](https://github.com/JagandeepBrar/LunaSea/commit/3500d83477880b8ee490132bc270e632af4a4bb1))
+* **uiux:** remove fading edge on horizontal scrollviews ([781727a](https://github.com/JagandeepBrar/LunaSea/commit/781727abbab0dc70d959c723c3d101e66430ac60))
+
+
+### Tweaks
+
+* **flavors:** remove candidate flavor and merge with beta ([fe3d41a](https://github.com/JagandeepBrar/LunaSea/commit/fe3d41af57717b994e71370968404fc05f20f72b))
+* remove cupertino_icons and email_validator packages ([605002f](https://github.com/JagandeepBrar/LunaSea/commit/605002f5bd4b015791d3d1f260e03b4127c5020d))
+* remove riverpod state management ([2f94c42](https://github.com/JagandeepBrar/LunaSea/commit/2f94c42da1a97847be4a77e79d096eb0212a9657))
+
 ### [10.2.3](https://github.com/JagandeepBrar/LunaSea/compare/v10.2.2...v10.2.3) (2023-03-22)
 
 

@@ -1,5 +1,5 @@
 {
-  "motd": "Welcome to LunaSea v10.2.4!\n\nThis update adds direct links to the documentation to correctly set up service notifications, as well as fixes underlying issues with network image caching and text rendering due to the fading edge on horizontally scrollable text.",
+  "motd": "Welcome to LunaSea v10.2.4!\n\nThis update fixes some small underlying issues with network image caching and text rendering. To further improve scrolling performance of large lists of content (especially on lower-end devices), the horizontal fading edge of scrollable text has been removed.\n\nFor testers of pre-release builds, beta and candidate release channels have now been combined for simplicity. For more information on early release channels, check out the page in the documentation (a direct link is available in the Resources section of the settings).",
   "feat": {
     "settings": [
       {
@@ -23,6 +23,14 @@
       {
         "commit": "781727abbab0dc70d959c723c3d101e66430ac60",
         "message": "remove fading edge on horizontal scroll-views"
+      }
+    ]
+  },
+  "refactor": {
+    "flavors": [
+      {
+        "commit": "fe3d41af57717b994e71370968404fc05f20f72b",
+        "message": "remove candidate flavor and merge with beta"
       }
     ],
     "flutter": [

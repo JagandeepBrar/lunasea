@@ -261,5 +261,7 @@
     "settings.General": "Geral",
     "settings.NotAuthorized": "Não Autorizado",
     "settings.NotAvailable": "Não Disponível",
-    "settings.User": "Usuário"
+    "settings.User": "Usuário",
+    "settings.AllLogs": "Todos os Registros",
+    "settings.GeneralDescription": "Customizar LunaSea"
 }

@@ -1,10 +1,9 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 10.2.4+1
+version: 10.2.5+1
 publish_to: "none"
 environment:
   sdk: ">=2.19.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -57,7 +56,6 @@ dependencies:
   wake_on_lan: ^3.1.0+6
   window_manager: ^0.3.1
   xml: ^6.2.2
-
 dev_dependencies:
   # Generators
   build_runner: ^2.3.3
@@ -70,7 +68,6 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_native_splash: ^2.2.19
   msix: ^3.7.0
-
 flutter:
   uses-material-design: true
   assets:
@@ -83,18 +80,15 @@ flutter:
     - family: LunaBrandIcons
       fonts:
         - asset: assets/LunaBrandIcons.ttf
-
 flutter_icons:
   android: true
   ios: true
   image_path: assets/icon/icon.png
   adaptive_icon_background: "#32323E"
   adaptive_icon_foreground: assets/icon/icon_adaptive.png
-
 flutter_native_splash:
   image: assets/images/branding_full.png
   color: "#32323E"
-
 msix_config:
   architecture: x64
   capabilities: internetClientServer,privateNetworkClientServer

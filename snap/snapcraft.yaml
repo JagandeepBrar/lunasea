@@ -1,18 +1,15 @@
 name: lunasea
-version: 10.2.4
+version: 10.2.5
 confinement: strict
 base: core18
-
 # Required but managed manually via Snapcraft dashboard
 summary: summary
 description: description
-
 slots:
   dbus-lunasea:
     interface: dbus
     bus: session
     name: app.lunasea.lunasea
-
 apps:
   lunasea:
     command: lunasea
@@ -23,13 +20,11 @@ apps:
       - network
     slots:
       - dbus-lunasea
-
 parts:
   zenity:
     plugin: nil
     stage-packages:
       - zenity
-
   lunasea:
     source: .
     plugin: flutter

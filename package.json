@@ -1,7 +1,7 @@
 {
   "name": "lunasea",
   "description": "Self-Hosted Controller",
-  "version": "10.2.4",
+  "version": "10.2.5",
   "private": true,
   "scripts": {
     "build:android": "flutter clean && flutter build apk --release",

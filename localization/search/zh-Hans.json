@@ -19,5 +19,16 @@
     "search.Size": "大小",
     "search.Subcategories": "子类别",
     "search.Age": "年龄",
-    "search.Download": "下载"
+    "search.Download": "下载",
+    "search.AddIndexer": "添加索引器",
+    "search.FailedToAddIndexer": "添加索引器失败",
+    "search.HideAdultCategories": "隐藏成人类别",
+    "search.DeleteIndexer": "删除索引器",
+    "search.EditIndexer": "编辑索引器",
+    "search.IndexerDeleted": "索引器已删除",
+    "search.IndexerAdded": "添加索引器",
+    "search.IndexerNotFound": "未找到索引器",
+    "search.ShowLinks": "显示链接",
+    "search.ShowLinksDescription": "显示下载和评论链接",
+    "search.NoIndexersFound": "未找到索引器"
 }

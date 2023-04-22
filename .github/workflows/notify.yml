@@ -61,5 +61,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ steps.webhook.outputs.result }}
           DISCORD_USERNAME: LunaSea Support
-          DISCORD_AVATAR: https://raw.githubusercontent.com/JagandeepBrar/LunaSea/master/assets/icon/icon.png
+          DISCORD_AVATAR: https://raw.githubusercontent.com/JagandeepBrar/lunasea/master/assets/icon/icon.png
           DISCORD_EMBEDS: ${{ steps.embed.outputs.result }}

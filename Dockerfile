@@ -17,5 +17,5 @@ RUN flutter build web
 
 # Runtime
 FROM nginx:alpine
-LABEL org.opencontainers.image.source="https://github.com/JagandeepBrar/LunaSea"
+LABEL org.opencontainers.image.source="https://github.com/JagandeepBrar/lunasea"
 COPY --from=build /lunasea/build/web /usr/share/nginx/html

@@ -44,7 +44,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Setup Environment
-        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        uses: JagandeepBrar/lunasea/.github/actions/prepare_for_build@master
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
@@ -77,7 +77,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Setup Environment
-        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        uses: JagandeepBrar/lunasea/.github/actions/prepare_for_build@master
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos
@@ -110,7 +110,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Setup Environment
-        uses: JagandeepBrar/LunaSea/.github/actions/prepare_for_build@master
+        uses: JagandeepBrar/lunasea/.github/actions/prepare_for_build@master
         with:
           firebase-token: ${{ secrets.FIREBASE_TOKEN }}
           platform: macos

@@ -20,7 +20,7 @@ on:
 jobs:
   prepare:
     name: Prepare
-    uses: JagandeepBrar/LunaSea/.github/workflows/prepare.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/prepare.yml@master
     with:
       flavor: ${{ inputs.flavor }}
     secrets:
@@ -30,7 +30,7 @@ jobs:
   build-android:
     name: Build Android
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_android.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_android.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
@@ -41,7 +41,7 @@ jobs:
   build-ios:
     name: Build iOS
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_ios.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_ios.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
@@ -58,7 +58,7 @@ jobs:
   build-linux:
     name: Build Linux
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_linux.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_linux.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-version: ${{ needs.prepare.outputs.build-version }}
@@ -66,7 +66,7 @@ jobs:
   build-macos:
     name: Build macOS
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_macos.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_macos.yml@master
     with:
       build-number: ${{ needs.prepare.outputs.build-number }}
       build-version: ${{ needs.prepare.outputs.build-version }}
@@ -88,7 +88,7 @@ jobs:
   build-web:
     name: Build Web
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_web.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_web.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
@@ -99,7 +99,7 @@ jobs:
   build-windows:
     name: Build Windows
     needs: [prepare]
-    uses: JagandeepBrar/LunaSea/.github/workflows/build_windows.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/build_windows.yml@master
     secrets:
       CODE_SIGNING_CERTIFICATE: ${{ secrets.CODE_SIGNING_CERTIFICATE }}
       CODE_SIGNING_PASSWORD: ${{ secrets.CODE_SIGNING_PASSWORD }}
@@ -109,7 +109,7 @@ jobs:
   publish-android:
     name: Publish Android
     needs: [prepare, build-android]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_android.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_android.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-motd: ${{ needs.prepare.outputs.build-motd }}
@@ -120,7 +120,7 @@ jobs:
   publish-ios:
     name: Publish iOS
     needs: [prepare, build-ios]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_ios.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_ios.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-motd: ${{ needs.prepare.outputs.build-motd }}
@@ -135,7 +135,7 @@ jobs:
   publish-linux:
     name: Publish Linux
     needs: [prepare, build-linux]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_linux.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_linux.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
     secrets:
@@ -144,7 +144,7 @@ jobs:
   publish-macos:
     name: Publish macOS
     needs: [prepare, build-macos]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_macos.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_macos.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-motd: ${{ needs.prepare.outputs.build-motd }}
@@ -159,7 +159,7 @@ jobs:
   publish-web:
     name: Publish Web
     needs: [prepare, build-web]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_web.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_web.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}
@@ -178,7 +178,7 @@ jobs:
         build-web,
         build-windows,
       ]
-    uses: JagandeepBrar/LunaSea/.github/workflows/publish_s3.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/publish_s3.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-number: ${{ needs.prepare.outputs.build-number }}
@@ -193,7 +193,7 @@ jobs:
   notify:
     name: Notify
     needs: [prepare, publish-s3]
-    uses: JagandeepBrar/LunaSea/.github/workflows/notify.yml@master
+    uses: JagandeepBrar/lunasea/.github/workflows/notify.yml@master
     with:
       build-flavor: ${{ needs.prepare.outputs.build-flavor }}
       build-title: ${{ needs.prepare.outputs.build-title }}

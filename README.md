@@ -18,7 +18,7 @@ LunaSea even comes with support for webhook-based push notifications, multiple i
 
 ## Releases
 
-All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/lunasea/releases).
 
 - [Android](https://docs.lunasea.app/releases/android)
 - [iOS](https://docs.lunasea.app/releases/ios)
@@ -31,7 +31,7 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 
 ## Getting Started
 
-- [Build Guide](https://github.com/JagandeepBrar/LunaSea/wiki/Build-Guide)
+- [Build Guide](https://github.com/JagandeepBrar/lunasea/wiki/Build-Guide)
 - [Documentation](https://www.lunasea.app/docs)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)
 
@@ -40,7 +40,7 @@ Interested in using prerelease build channels of LunaSea? Learn the differences 
 [![Discord](https://img.shields.io/discord/673591529834807358?label=Discord&style=flat)](https://www.lunasea.app/discord)
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=r%2FLunaSeaApp&style=flat)](https://www.lunasea.app/reddit)
 
-**Please only create an issue on GitHub for bugs and software issues**. Post in the [discussions board](https://github.com/JagandeepBrar/LunaSea/discussions) or the [Discord forum](https://www.lunasea.app/discord) for requests and general feedback.
+**Please only create an issue on GitHub for bugs and software issues**. Post in the [discussions board](https://github.com/JagandeepBrar/lunasea/discussions) or the [Discord forum](https://www.lunasea.app/discord) for requests and general feedback.
 
 - [Email](mailto:hello@lunasea.app)
 - [Reddit](https://www.lunasea.app/reddit)

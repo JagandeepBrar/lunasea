@@ -1,5 +1,5 @@
 # Build
-FROM debian:latest as build
+FROM --platform=$BUILDPLATFORM debian:latest as build
 
 ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:$PATH"
 RUN apt-get update 
@@ -16,6 +16,6 @@ WORKDIR /lunasea/
 RUN flutter build web
 
 # Runtime
-FROM nginx:alpine
+FROM --platform=$TARGETPLATFORM nginx:alpine
 LABEL org.opencontainers.image.source="https://github.com/JagandeepBrar/lunasea"
 COPY --from=build /lunasea/build/web /usr/share/nginx/html

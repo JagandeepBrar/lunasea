@@ -86,16 +86,17 @@ jobs:
             if (process.env.BUILD_FLAVOR === 'stable') tags.push('latest');
             return tags.map((tag) => `ghcr.io/jagandeepbrar/lunasea:${tag}`).join(',');
 
-      - name: Build LunaSea
+      - name: Setup GitHub Package Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Build & Push LunaSea
         uses: docker/build-push-action@v4
         with:
           context: .
-          outputs: type=docker,dest=${{ github.workspace}}/output/lunasea-web-docker.tar
-          tags: ${{ steps.tags.outputs.result }}
           platforms: linux/amd64,linux/arm64
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: web-docker
-          path: ${{ github.workspace }}/output
+          push: true
+          tags: ${{ steps.tags.outputs.result }}

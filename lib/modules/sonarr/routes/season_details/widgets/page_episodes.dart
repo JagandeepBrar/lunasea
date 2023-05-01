@@ -12,13 +12,39 @@ class SonarrSeasonDetailsEpisodesPage extends StatefulWidget {
 }
 
 class _State extends State<SonarrSeasonDetailsEpisodesPage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshKey =
       GlobalKey<RefreshIndicatorState>();
+  late AnimationController _hideController;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    _hideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+    );
+    context.read<SonarrSeasonDetailsState>().addListener(_updateFabListener);
+  }
+
+  @override
+  void dispose() {
+    _hideController.dispose();
+    super.dispose();
+  }
+
+  void _updateFabListener() {
+    final state = context.read<SonarrSeasonDetailsState>();
+    if (state.selectedEpisodes.isNotEmpty) {
+      _hideController.forward();
+    } else {
+      _hideController.reverse();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +52,39 @@ class _State extends State<SonarrSeasonDetailsEpisodesPage>
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       body: _body(),
+      floatingActionButton: _floatingActionButton(),
+    );
+  }
+
+  Widget? _floatingActionButton() {
+    final state = context.watch<SonarrSeasonDetailsState>();
+    return ScaleTransition(
+      scale: _hideController,
+      child: LunaFloatingActionButton(
+        icon: LunaIcons.EDIT,
+        label: state.selectedEpisodes.length > 1
+            ? 'sonarr.EpisodesCount'
+                .tr(args: [state.selectedEpisodes.length.toString()])
+            : 'sonarr.OneEpisode'.tr(),
+        onPressed: () async {
+          final result = await SonarrDialogs().episodeMultiSettings(
+            context,
+            state.selectedEpisodes.length,
+          );
+
+          if (result.item1) {
+            final eps = (await state.episodes)!
+                .values
+                .filter((ep) => state.selectedEpisodes.contains(ep.id!))
+                .toList();
+            result.item2!.execute(
+              context,
+              eps,
+            );
+            state.clearSelectedEpisodes();
+          }
+        },
+      ),
     );
   }
 

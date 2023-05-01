@@ -127,6 +127,54 @@ class SonarrAPIController {
     return false;
   }
 
+  Future<bool> deleteEpisodes({
+    required BuildContext context,
+    required List<int> episodeFileIds,
+    bool showSnackbar = true,
+  }) async {
+    if (episodeFileIds.isEmpty) {
+      showLunaInfoSnackBar(
+        title: 'sonarr.NoEpisodeFilesFound'.tr(),
+        message: 'sonarr.NoEpisodeFilesFoundDeleteMessage'.tr(),
+      );
+      return true;
+    }
+
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api!
+          .episodeFile
+          .deleteBulk(episodeFileIds: episodeFileIds)
+          .then((response) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.EpisodeFilesDeleted'.tr(),
+            message: episodeFileIds.length > 1
+                ? 'sonarr.EpisodesCount'
+                    .tr(args: [episodeFileIds.length.toString()])
+                : 'sonarr.OneEpisode'.tr(),
+          );
+        }
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to delete episodes (${episodeFileIds.join(',')})',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToDeleteEpisodeFiles'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
   Future<bool> episodeSearch({
     required BuildContext context,
     required SonarrEpisode episode,
@@ -154,6 +202,46 @@ class SonarrAPIController {
         if (showSnackbar) {
           showLunaErrorSnackBar(
             title: 'sonarr.FailedToSearch'.tr(),
+            error: error,
+          );
+        }
+        return false;
+      });
+    }
+    return false;
+  }
+
+  Future<bool> multiEpisodeSearch({
+    required BuildContext context,
+    required List<int> episodeIds,
+    bool showSnackbar = true,
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api!
+          .command
+          .episodeSearch(episodeIds: episodeIds)
+          .then((response) {
+        if (showSnackbar) {
+          showLunaSuccessSnackBar(
+            title: 'sonarr.SearchingForEpisodes'.tr(),
+            message: episodeIds.length > 1
+                ? 'sonarr.EpisodesCount'
+                    .tr(args: [episodeIds.length.toString()])
+                : 'sonarr.OneEpisode'.tr(),
+          );
+        }
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to search for episode: ${episodeIds.join(',')}',
+          error,
+          stack,
+        );
+        if (showSnackbar) {
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToSearchForEpisodes'.tr(),
             error: error,
           );
         }

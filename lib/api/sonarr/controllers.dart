@@ -26,6 +26,7 @@ part 'controllers/command/series_search.dart';
 // Episode File
 part 'controllers/episode_file.dart';
 part 'controllers/episode_file/delete_episode_file.dart';
+part 'controllers/episode_file/delete_episode_files.dart';
 part 'controllers/episode_file/get_episode_file.dart';
 part 'controllers/episode_file/get_series_episode_files.dart';
 

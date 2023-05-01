@@ -181,4 +181,38 @@ class SonarrSeasonDetailsState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  final Set<int> selectedEpisodes = {};
+
+  void toggleSelectedEpisode(SonarrEpisode episode) {
+    final id = episode.id!;
+    if (selectedEpisodes.contains(id)) {
+      selectedEpisodes.remove(id);
+    } else {
+      selectedEpisodes.add(id);
+    }
+
+    notifyListeners();
+  }
+
+  void clearSelectedEpisodes() {
+    selectedEpisodes.clear();
+    notifyListeners();
+  }
+
+  Future<void> toggleSeasonEpisodes(int seasonNumber) async {
+    final eps = (await episodes)!
+        .filter((ep) => ep.value.seasonNumber == seasonNumber)
+        .map((ep) => ep.value.id!)
+        .toList();
+    final allSelected = eps.every(selectedEpisodes.contains);
+
+    if (allSelected) {
+      selectedEpisodes.removeAll(eps);
+    } else {
+      selectedEpisodes.addAll(eps);
+    }
+
+    notifyListeners();
+  }
 }

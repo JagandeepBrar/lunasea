@@ -32,6 +32,12 @@ class _State extends State<SonarrEpisodeTile> {
       trailing: _trailing(),
       onTap: _onTap,
       onLongPress: _onLongPress,
+      backgroundColor: context
+              .read<SonarrSeasonDetailsState>()
+              .selectedEpisodes
+              .contains(widget.episode.id)
+          ? LunaColours.accent.selected()
+          : null,
     );
   }
 
@@ -83,6 +89,11 @@ class _State extends State<SonarrEpisodeTile> {
     return LunaIconButton(
       text: widget.episode.episodeNumber.toString(),
       textSize: LunaUI.FONT_SIZE_H4,
+      onPressed: () {
+        context
+            .read<SonarrSeasonDetailsState>()
+            .toggleSelectedEpisode(widget.episode);
+      },
     );
   }
 

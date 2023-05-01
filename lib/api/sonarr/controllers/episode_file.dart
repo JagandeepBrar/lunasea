@@ -20,6 +20,12 @@ class SonarrControllerEpisodeFile {
   }) async =>
       _commandDeleteEpisodeFile(_client, episodeFileId: episodeFileId);
 
+  /// Delete the given episode files.
+  Future<void> deleteBulk({
+    required List<int> episodeFileIds,
+  }) async =>
+      _commandDeleteEpisodeFiles(_client, episodeFileIds: episodeFileIds);
+
   /// Handler for [episodefile/{id}](https://github.com/Sonarr/Sonarr/wiki/EpisodeFile#get).
   ///
   /// Returns the episode file with the matching episode ID.

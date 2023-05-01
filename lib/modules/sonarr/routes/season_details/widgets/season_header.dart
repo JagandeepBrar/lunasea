@@ -23,6 +23,9 @@ class SonarrSeasonHeader extends StatelessWidget {
                 args: [seasonNumber.toString()],
               ),
       ),
+      onTap: () => context
+          .read<SonarrSeasonDetailsState>()
+          .toggleSeasonEpisodes(seasonNumber!),
       onLongPress: () async {
         HapticFeedback.heavyImpact();
         Tuple2<bool, SonarrSeasonSettingsType?> result =

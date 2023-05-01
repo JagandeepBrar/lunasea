@@ -129,6 +129,40 @@ class SonarrDialogs {
     return Tuple2(_flag, _value);
   }
 
+  Future<Tuple2<bool, SonarrEpisodeMultiSettingsType?>> episodeMultiSettings(
+    BuildContext context,
+    int episodes,
+  ) async {
+    bool _flag = false;
+    SonarrEpisodeMultiSettingsType? _value;
+
+    void _setValues(bool flag, SonarrEpisodeMultiSettingsType value) {
+      _flag = flag;
+      _value = value;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    await LunaDialog.dialog(
+      context: context,
+      title: episodes > 1
+          ? 'sonarr.EpisodesCount'.tr(args: [episodes.toString()])
+          : 'sonarr.OneEpisode'.tr(),
+      content: List.generate(
+        SonarrEpisodeMultiSettingsType.values.length,
+        (idx) => LunaDialog.tile(
+          text: SonarrEpisodeMultiSettingsType.values[idx].name,
+          icon: SonarrEpisodeMultiSettingsType.values[idx].icon,
+          iconColor: LunaColours().byListIndex(idx),
+          onTap: () {
+            _setValues(true, SonarrEpisodeMultiSettingsType.values[idx]);
+          },
+        ),
+      ),
+      contentPadding: LunaDialog.listDialogContentPadding(),
+    );
+    return Tuple2(_flag, _value);
+  }
+
   static Future<List<dynamic>> setDefaultPage(
     BuildContext context, {
     required List<String> titles,

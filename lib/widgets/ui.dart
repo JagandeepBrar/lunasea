@@ -82,6 +82,7 @@ class LunaUI {
   static const double OPACITY_DIMMED = 0.75;
   static const double OPACITY_DISABLED = 0.50;
   static const double OPACITY_SPLASH = 0.25;
+  static const double OPACITY_SELECTED = 0.35;
   static const double ELEVATION = 0.0;
   static const FontWeight FONT_WEIGHT_BOLD = FontWeight.w600;
 

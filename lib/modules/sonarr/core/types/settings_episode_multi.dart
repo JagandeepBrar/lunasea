@@ -41,6 +41,7 @@ enum SonarrEpisodeMultiSettingsType {
         final episodeIds = episodes
             .filter((ep) => ep.episodeFileId != null && ep.episodeFileId != 0)
             .map((ep) => ep.episodeFileId!)
+            .toSet()
             .toList();
         await SonarrAPIController().deleteEpisodes(
           context: context,

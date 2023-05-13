@@ -9,7 +9,7 @@ dependencies:
     sdk: flutter
   badges: ^3.1.1
   cached_network_image: ^3.2.3
-  cloud_firestore: ^4.7.0
+  cloud_firestore: ^4.5.3
   collection: ^1.17.1
   convert: ^3.1.1
   device_preview: ^1.1.0
@@ -18,10 +18,10 @@ dependencies:
   encrypt: ^5.0.1
   expandable: ^5.0.1
   file_picker: ^5.3.0
-  firebase_auth: ^4.6.0
-  firebase_core: ^2.12.0
-  firebase_messaging: ^14.6.0
-  firebase_storage: ^11.2.0
+  firebase_auth: ^4.4.2
+  firebase_core: ^2.10.0 # Lock to 2.10.0 to support building Windows for now
+  firebase_messaging: ^14.4.0
+  firebase_storage: ^11.1.0
   fl_chart: ^0.62.0
   flash: ^2.0.5+1
   flutter_cache_manager: ^3.3.0
@@ -68,6 +68,8 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_native_splash: ^2.2.19
   msix: ^3.12.1
+dependency_overrides:
+  intl: ^0.18.0
 flutter:
   uses-material-design: true
   assets:

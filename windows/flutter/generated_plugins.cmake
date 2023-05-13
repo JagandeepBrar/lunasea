@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  firebase_core
   screen_retriever
   sentry_flutter
   share_plus

@@ -70,7 +70,8 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.ACTIVITY_DETAILS:
         return route(builder: (_, state) {
           return ActivityDetailsRoute(
-            sessionKey: int.tryParse(state.params['session'] ?? '') ?? -1,
+            sessionKey:
+                int.tryParse(state.pathParameters['session'] ?? '') ?? -1,
           );
         });
       case TautulliRoutes.CHECK_FOR_UPDATES:
@@ -80,15 +81,18 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.HISTORY_DETAILS:
         return route(builder: (_, state) {
           return HistoryDetailsRoute(
-            ratingKey: int.tryParse(state.params['rating_key'] ?? '') ?? -1,
-            sessionKey: int.tryParse(state.queryParams['session_key'] ?? ''),
-            referenceId: int.tryParse(state.queryParams['reference_id'] ?? ''),
+            ratingKey:
+                int.tryParse(state.pathParameters['rating_key'] ?? '') ?? -1,
+            sessionKey:
+                int.tryParse(state.queryParameters['session_key'] ?? ''),
+            referenceId:
+                int.tryParse(state.queryParameters['reference_id'] ?? ''),
           );
         });
       case TautulliRoutes.IP_DETAILS:
         return route(builder: (_, state) {
           return IPDetailsRoute(
-            ipAddress: state.params['ip_address'],
+            ipAddress: state.pathParameters['ip_address'],
           );
         });
       case TautulliRoutes.LIBRARIES:
@@ -96,7 +100,7 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.LIBRARIES_DETAILS:
         return route(builder: (_, state) {
           return LibrariesDetailsRoute(
-            sectionId: int.tryParse(state.params['section'] ?? ''),
+            sectionId: int.tryParse(state.pathParameters['section'] ?? ''),
           );
         });
       case TautulliRoutes.LOGS:
@@ -116,8 +120,10 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.MEDIA_DETAILS:
         return route(builder: (_, state) {
           return MediaDetailsRoute(
-            ratingKey: int.tryParse(state.params['rating_key'] ?? '') ?? -1,
-            mediaType: TautulliMediaType.from(state.params['media_type']),
+            ratingKey:
+                int.tryParse(state.pathParameters['rating_key'] ?? '') ?? -1,
+            mediaType:
+                TautulliMediaType.from(state.pathParameters['media_type']),
           );
         });
       case TautulliRoutes.RECENTLY_ADDED:
@@ -131,7 +137,7 @@ enum TautulliRoutes with LunaRoutesMixin {
       case TautulliRoutes.USER_DETAILS:
         return route(builder: (_, state) {
           return UserDetailsRoute(
-            userId: int.tryParse(state.params['user'] ?? ''),
+            userId: int.tryParse(state.pathParameters['user'] ?? ''),
           );
         });
     }

@@ -20,9 +20,10 @@ import 'package:lunasea/system/platform.dart';
 ///
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(
     () async {
+      WidgetsFlutterBinding.ensureInitialized();
+
       try {
         await bootstrap();
         runApp(const LunaBIOS());

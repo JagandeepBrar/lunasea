@@ -90,15 +90,15 @@ mixin LunaRoutesMixin on Enum {
       return LunaRouter.router.goNamed(
         _routeName,
         extra: extra,
-        params: params,
-        queryParams: queryParams,
+        pathParameters: params,
+        queryParameters: queryParams,
       );
     }
     LunaRouter.router.pushNamed(
       _routeName,
       extra: extra,
-      params: params,
-      queryParams: queryParams,
+      pathParameters: params,
+      queryParameters: queryParams,
     );
   }
 }

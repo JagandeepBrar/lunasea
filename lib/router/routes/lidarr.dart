@@ -48,28 +48,29 @@ enum LidarrRoutes with LunaRoutesMixin {
         return route(builder: (_, state) {
           return ArtistDetailsRoute(
             data: state.extra as LidarrCatalogueData?,
-            artistId: int.tryParse(state.params['artist'] ?? '') ?? -1,
+            artistId: int.tryParse(state.pathParameters['artist'] ?? '') ?? -1,
           );
         });
       case LidarrRoutes.ARTIST_ALBUM:
         return route(builder: (_, state) {
           return ArtistAlbumDetailsRoute(
-            artistId: int.tryParse(state.params['artist'] ?? '') ?? -1,
-            albumId: int.tryParse(state.params['album'] ?? '') ?? -1,
-            monitored: state.queryParams['monitored']?.toLowerCase() == 'true',
+            artistId: int.tryParse(state.pathParameters['artist'] ?? '') ?? -1,
+            albumId: int.tryParse(state.pathParameters['album'] ?? '') ?? -1,
+            monitored:
+                state.queryParameters['monitored']?.toLowerCase() == 'true',
           );
         });
       case LidarrRoutes.ARTIST_ALBUM_RELEASES:
         return route(builder: (_, state) {
           return ArtistAlbumReleasesRoute(
-            albumId: int.tryParse(state.params['album'] ?? '') ?? -1,
+            albumId: int.tryParse(state.pathParameters['album'] ?? '') ?? -1,
           );
         });
       case LidarrRoutes.ARTIST_EDIT:
         return route(builder: (_, state) {
           return ArtistEditRoute(
             data: state.extra as LidarrCatalogueData?,
-            artistId: int.tryParse(state.params['artist'] ?? '') ?? -1,
+            artistId: int.tryParse(state.pathParameters['artist'] ?? '') ?? -1,
           );
         });
     }

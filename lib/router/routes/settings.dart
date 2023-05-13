@@ -161,7 +161,7 @@ enum SettingsRoutes with LunaRoutesMixin {
         return route(widget: const ConfigurationExternalModulesAddRoute());
       case SettingsRoutes.CONFIGURATION_EXTERNAL_MODULES_EDIT:
         return route(builder: (_, state) {
-          final moduleId = int.tryParse(state.params['id']!) ?? -1;
+          final moduleId = int.tryParse(state.pathParameters['id']!) ?? -1;
           return ConfigurationExternalModulesEditRoute(moduleId: moduleId);
         });
       case SettingsRoutes.CONFIGURATION_LIDARR:
@@ -231,12 +231,12 @@ enum SettingsRoutes with LunaRoutesMixin {
         });
       case SettingsRoutes.CONFIGURATION_SEARCH_EDIT_INDEXER:
         return route(builder: (_, state) {
-          final id = int.tryParse(state.params['id']!) ?? -1;
+          final id = int.tryParse(state.pathParameters['id']!) ?? -1;
           return ConfigurationSearchEditIndexerRoute(id: id);
         });
       case SettingsRoutes.CONFIGURATION_SEARCH_EDIT_INDEXER_HEADERS:
         return route(builder: (_, state) {
-          final id = int.tryParse(state.params['id']!) ?? -1;
+          final id = int.tryParse(state.pathParameters['id']!) ?? -1;
           return ConfigurationSearchEditIndexerHeadersRoute(id: id);
         });
       case SettingsRoutes.CONFIGURATION_SONARR:
@@ -281,7 +281,7 @@ enum SettingsRoutes with LunaRoutesMixin {
         return route(widget: const SystemLogsRoute());
       case SettingsRoutes.SYSTEM_LOGS_DETAILS:
         return route(builder: (_, state) {
-          final type = LunaLogType.fromKey(state.params['type']!);
+          final type = LunaLogType.fromKey(state.pathParameters['type']!);
           return SystemLogsDetailsRoute(type: type);
         });
     }

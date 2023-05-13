@@ -47,7 +47,7 @@ enum SonarrRoutes with LunaRoutesMixin {
         return route(widget: const SonarrRoute());
       case SonarrRoutes.ADD_SERIES:
         return route(builder: (_, state) {
-          final query = state.queryParams['query'] ?? '';
+          final query = state.queryParameters['query'] ?? '';
           return AddSeriesRoute(query: query);
         });
       case SonarrRoutes.ADD_SERIES_DETAILS:
@@ -61,9 +61,9 @@ enum SonarrRoutes with LunaRoutesMixin {
         return route(widget: const QueueRoute());
       case SonarrRoutes.RELEASES:
         return route(builder: (_, state) {
-          final episode = int.tryParse(state.queryParams['episode'] ?? '');
-          final series = int.tryParse(state.queryParams['series'] ?? '');
-          final season = int.tryParse(state.queryParams['season'] ?? '');
+          final episode = int.tryParse(state.queryParameters['episode'] ?? '');
+          final series = int.tryParse(state.queryParameters['series'] ?? '');
+          final season = int.tryParse(state.queryParameters['season'] ?? '');
           return ReleasesRoute(
             episodeId: episode,
             seriesId: series,
@@ -72,18 +72,22 @@ enum SonarrRoutes with LunaRoutesMixin {
         });
       case SonarrRoutes.SERIES:
         return route(builder: (_, state) {
-          final seriesId = int.tryParse(state.params['series'] ?? '-1') ?? -1;
+          final seriesId =
+              int.tryParse(state.pathParameters['series'] ?? '-1') ?? -1;
           return SeriesDetailsRoute(seriesId: seriesId);
         });
       case SonarrRoutes.SERIES_EDIT:
         return route(builder: (_, state) {
-          final seriesId = int.tryParse(state.params['series'] ?? '-1') ?? -1;
+          final seriesId =
+              int.tryParse(state.pathParameters['series'] ?? '-1') ?? -1;
           return SeriesEditRoute(seriesId: seriesId);
         });
       case SonarrRoutes.SERIES_SEASON:
         return route(builder: (_, state) {
-          final seriesId = int.tryParse(state.params['series'] ?? '-1') ?? -1;
-          final season = int.tryParse(state.params['season'] ?? '-1') ?? -1;
+          final seriesId =
+              int.tryParse(state.pathParameters['series'] ?? '-1') ?? -1;
+          final season =
+              int.tryParse(state.pathParameters['season'] ?? '-1') ?? -1;
           return SeriesSeasonDetailsRoute(
             seriesId: seriesId,
             seasonNumber: season,

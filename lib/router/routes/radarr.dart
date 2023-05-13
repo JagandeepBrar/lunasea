@@ -51,13 +51,13 @@ enum RadarrRoutes with LunaRoutesMixin {
         return route(widget: const RadarrRoute());
       case RadarrRoutes.ADD_MOVIE:
         return route(builder: (_, state) {
-          final query = state.queryParams['query'] ?? '';
+          final query = state.queryParameters['query'] ?? '';
           return AddMovieRoute(query: query);
         });
       case RadarrRoutes.ADD_MOVIE_DETAILS:
         return route(builder: (_, state) {
           final movie = state.extra as RadarrMovie?;
-          final isDiscovery = state.queryParams['isDiscovery'] ?? 'false';
+          final isDiscovery = state.queryParameters['isDiscovery'] ?? 'false';
           return AddMovieDetailsRoute(
             movie: movie,
             isDiscovery: isDiscovery.toLowerCase() == 'true',
@@ -69,22 +69,25 @@ enum RadarrRoutes with LunaRoutesMixin {
         return route(widget: const ManualImportRoute());
       case RadarrRoutes.MANUAL_IMPORT_DETAILS:
         return route(builder: (_, state) {
-          final path = state.queryParams['path'];
+          final path = state.queryParameters['path'];
           return ManualImportDetailsRoute(path: path);
         });
       case RadarrRoutes.MOVIE:
         return route(builder: (_, state) {
-          final movieId = int.tryParse(state.params['movie'] ?? '-1') ?? -1;
+          final movieId =
+              int.tryParse(state.pathParameters['movie'] ?? '-1') ?? -1;
           return MovieDetailsRoute(movieId: movieId);
         });
       case RadarrRoutes.MOVIE_EDIT:
         return route(builder: (_, state) {
-          final movieId = int.tryParse(state.params['movie'] ?? '-1') ?? -1;
+          final movieId =
+              int.tryParse(state.pathParameters['movie'] ?? '-1') ?? -1;
           return MovieEditRoute(movieId: movieId);
         });
       case RadarrRoutes.MOVIE_RELEASES:
         return route(builder: (_, state) {
-          final movieId = int.tryParse(state.params['movie'] ?? '-1') ?? -1;
+          final movieId =
+              int.tryParse(state.pathParameters['movie'] ?? '-1') ?? -1;
           return MovieReleasesRoute(movieId: movieId);
         });
       case RadarrRoutes.QUEUE:

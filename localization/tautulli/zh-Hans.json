@@ -68,5 +68,6 @@
     "tautulli.Season": "季 {}",
     "tautulli.TerminateSessionFailed": "终止会话失败",
     "tautulli.Converting": "转换",
-    "tautulli.Speed": "倍速:{}x"
+    "tautulli.Speed": "倍速:{}x",
+    "tautulli.ActivityRefreshRate": "活动刷新率"
 }

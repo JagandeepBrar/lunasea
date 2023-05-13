@@ -25,6 +25,8 @@
     "radarr.DigitalRelease": "数字发行",
     "radarr.DirectoryNotFound": "找不到目录",
     "radarr.Discover": "发现",
+    "radarr.DiscoverSuggestions": "发现建议",
+    "radarr.DiscoverSuggestionsDescription": "在发现中添加建议的版本",
     "radarr.Disks": "磁盘",
     "radarr.DownloadFailed": "下载失败",
     "radarr.DownloadIgnored": "下载被忽略",

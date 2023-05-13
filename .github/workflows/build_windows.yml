@@ -7,10 +7,6 @@ on:
         required: true
       CODE_SIGNING_PASSWORD:
         required: true
-      CODE_SIGNING_PUBLISHER:
-        required: true
-      CODE_SIGNING_PUBLISHER_NAME:
-        required: true
 
 jobs:
   build-app-package:
@@ -49,9 +45,7 @@ jobs:
           flutter pub run msix:create `
           --certificate-password=${{ secrets.CODE_SIGNING_PASSWORD }} `
           --certificate-path=${{ github.workspace }}/keys/codesigning.pfx `
-          --output-path=${{ github.workspace }}/output `
-          --publisher=${{ secrets.CODE_SIGNING_PUBLISHER }} `
-          --publisher-display-name=${{ secrets.CODE_SIGNING_PUBLISHER_NAME }}
+          --output-path=${{ github.workspace }}/output
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3

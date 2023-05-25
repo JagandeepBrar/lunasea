@@ -16,5 +16,5 @@ targets:
           include_if_null: false
 
       # Retrofit
-      retrofit_generator|retrofit:
+      retrofit_generator:
         enabled: true

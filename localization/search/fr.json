@@ -20,5 +20,15 @@
     "search.Alphabetical": "Alphabétique",
     "search.AllSubcategories": "Toutes les sous-catégories",
     "search.Age": "Âge",
-    "search.AddIndexer": "Ajouter un indexeur"
+    "search.AddIndexer": "Ajouter un indexeur",
+    "search.HideAdultCategories": "Masquer les catégories adultes",
+    "search.ShowLinks": "Afficher les liens",
+    "search.FailedToAddIndexer": "Échec de l'ajout de l'indexeur",
+    "search.IndexerDeleted": "Indexeur supprimé",
+    "search.DeleteIndexer": "Supprimer l'indexeur",
+    "search.EditIndexer": "Modifier l'indexeur",
+    "search.HideAdultCategoriesDescription": "Masquer le contenu pour adultes",
+    "search.IndexerAdded": "Indexeur ajouté",
+    "search.IndexerNotFound": "Indexeur introuvable",
+    "search.NoIndexersFound": "Aucun indexeur trouvé"
 }

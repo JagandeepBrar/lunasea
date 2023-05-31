@@ -209,5 +209,13 @@
     "sonarr.StartSearchForCutoffUnmetEpisodes": "Rechercher des prérequis d'épisodes non atteints",
     "sonarr.SearchingForMonitoredEpisodes": "Recherche d'épisodes suivis…",
     "sonarr.SearchMonitored": "Rechercher des suivis",
-    "sonarr.FailedToSearchForMonitoredEpisodes": "Échec de la recherche des épisodes suivis"
+    "sonarr.FailedToSearchForMonitoredEpisodes": "Échec de la recherche des épisodes suivis",
+    "sonarr.EpisodesCount": "{} épisodes",
+    "sonarr.EpisodeFilesDeleted": "Fichiers d'épisodes supprimés",
+    "sonarr.FailedToDeleteEpisodeFiles": "Échec de la suppression des fichiers d'épisode",
+    "sonarr.FailedToSearchForEpisodes": "Échec de la recherche d'épisodes",
+    "sonarr.NoEpisodeFilesFound": "Aucun fichier d'épisode trouvé",
+    "sonarr.NoEpisodeFilesFoundDeleteMessage": "Aucun épisode sélectionné n'a de fichiers à supprimer",
+    "sonarr.OneEpisode": "1 épisode",
+    "sonarr.SearchingForEpisodes": "Recherche d'épisodes…"
 }

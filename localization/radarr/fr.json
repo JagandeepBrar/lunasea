@@ -81,6 +81,7 @@
     "radarr.QualityProfile": "Profil de qualité",
     "radarr.Queue": "File d'attente",
     "radarr.QueueDescription": "Voir le contenu actif et en attente",
+    "radarr.QueueSize": "Taille de la file d'attente",
     "radarr.Quick": "Rapide",
     "radarr.RefreshMovie": "Rafraichir le film",
     "radarr.Rejected": "Rejeté",

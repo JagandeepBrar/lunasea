@@ -61,7 +61,7 @@
     "radarr.MoveFilesDescription": "Would you like to move the files?",
     "radarr.MoveFull": "Move Files",
     "radarr.Movie": "Movie",
-    "radarr.MovieDetails": "Détails du film",
+    "radarr.MovieDetails": "Movie Details",
     "radarr.MovieFileDeleted": "Movie File Deleted",
     "radarr.MovieFileRenamed": "Movie File Renamed",
     "radarr.MovieImported": "Movie Imported ({})",

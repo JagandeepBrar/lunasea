@@ -19,5 +19,6 @@
     "search.Category": "Catégorie",
     "search.Alphabetical": "Alphabétique",
     "search.AllSubcategories": "Toutes les sous-catégories",
-    "search.Age": "Âge"
+    "search.Age": "Âge",
+    "search.AddIndexer": "Ajouter un indexeur"
 }

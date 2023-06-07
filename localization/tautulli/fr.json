@@ -68,5 +68,8 @@
     "tautulli.ActivityDetails": "Détails de l'activité",
     "tautulli.Activity": "Activité",
     "tautulli.Speed": "Vitesse : x{}",
-    "tautulli.Converting": "Conversion"
+    "tautulli.Converting": "Conversion",
+    "tautulli.Statistics": "Statistiques",
+    "tautulli.MediaDetails": "Détails des médias",
+    "tautulli.UserDetails": "Détails de l'utilisateur"
 }

@@ -30,5 +30,8 @@
     "search.IndexerNotFound": "未找到索引器",
     "search.ShowLinks": "显示链接",
     "search.ShowLinksDescription": "显示下载和评论链接",
-    "search.NoIndexersFound": "未找到索引器"
+    "search.NoIndexersFound": "未找到索引器",
+    "search.HideAdultCategoriesDescription": "隐藏成人内容",
+    "search.IndexerAPIHost": "索引器API主机",
+    "search.IndexerAPIKey": "索引器API键"
 }

@@ -267,5 +267,9 @@
     "settings.GeneralDescription": "自定义LunaSea",
     "settings.BootModule": "启动模块",
     "settings.OpenDrawerOnBackAction": "从背面打开抽屉",
-    "settings.OpenDrawerOnBackActionDescription": "打开抽屉而不关闭LunaSea"
+    "settings.OpenDrawerOnBackActionDescription": "打开抽屉而不关闭LunaSea",
+    "settings.AllLogs": "所有日志",
+    "settings.AllLogsDescription": "查看所有类型的日志",
+    "settings.CalendarSettingsDescription": "自定义统一日历",
+    "settings.Class": "分类"
 }

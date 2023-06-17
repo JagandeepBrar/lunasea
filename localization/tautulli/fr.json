@@ -71,5 +71,6 @@
     "tautulli.Converting": "Conversion",
     "tautulli.Statistics": "Statistiques",
     "tautulli.MediaDetails": "Détails des médias",
-    "tautulli.UserDetails": "Détails de l'utilisateur"
+    "tautulli.UserDetails": "Détails de l'utilisateur",
+    "tautulli.ActivityRefreshRate": "Temps d’actualisation de l’activité"
 }

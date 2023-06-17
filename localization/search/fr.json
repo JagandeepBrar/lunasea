@@ -30,5 +30,8 @@
     "search.HideAdultCategoriesDescription": "Masquer le contenu pour adultes",
     "search.IndexerAdded": "Indexeur ajouté",
     "search.IndexerNotFound": "Indexeur introuvable",
-    "search.NoIndexersFound": "Aucun indexeur trouvé"
+    "search.NoIndexersFound": "Aucun indexeur trouvé",
+    "search.IndexerAPIHost": "API Host de l’Indexer",
+    "search.IndexerAPIKey": "Clé API de l’Indexer",
+    "search.ShowLinksDescription": "Afficher les liens de téléchargements et commentaires"
 }

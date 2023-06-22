@@ -59,12 +59,11 @@ class SearchDialogs {
                 },
                 itemBuilder: (context) {
                   return <PopupMenuEntry<String>>[
-                    for (String? profile
-                        in LunaBox.profiles.keys as Iterable<String?>)
+                    for (final profile in LunaBox.profiles.keys.cast<String>())
                       PopupMenuItem<String>(
                         value: profile,
                         child: Text(
-                          profile!,
+                          profile,
                           style: TextStyle(
                             fontSize: LunaUI.FONT_SIZE_H3,
                             color: LunaSeaDatabase.ENABLED_PROFILE.read() ==

@@ -66,7 +66,7 @@ class LidarrAPI {
         ));
       }
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch artists', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -83,7 +83,7 @@ class LidarrAPI {
         _entries.add(entry['foreignArtistId'] ?? '');
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch artist IDs', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -102,7 +102,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to refresh artist ($artistID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -144,7 +144,7 @@ class LidarrAPI {
             ? response.data['statistics']['sizeOnDisk'] ?? 0
             : 0,
       );
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch artist ($artistID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -162,7 +162,7 @@ class LidarrAPI {
         },
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to remove artist ($artistID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -192,7 +192,7 @@ class LidarrAPI {
         data: json.encode(artist),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to edit artist ($artistID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -228,7 +228,7 @@ class LidarrAPI {
         return b.releaseDateObject!.compareTo(a.releaseDateObject!);
       });
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch albums ($artistID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -257,7 +257,7 @@ class LidarrAPI {
             : response.data[0]['statistics']['percentOfTracks'] ?? 0,
         releaseDate: response.data[0]['releaseDate'] ?? '',
       );
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch album ($albumID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -286,7 +286,7 @@ class LidarrAPI {
         ));
       }
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch album tracks ($albumID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -306,7 +306,7 @@ class LidarrAPI {
         );
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch quality profiles', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -326,7 +326,7 @@ class LidarrAPI {
         );
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch metadata profiles', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -347,7 +347,7 @@ class LidarrAPI {
         ));
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch root folders', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -459,7 +459,7 @@ class LidarrAPI {
         }
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch history', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -492,7 +492,7 @@ class LidarrAPI {
         ));
       }
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch missing albums', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -511,7 +511,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError(
           'Failed to search for albums (${albums.toString()})', error, stack);
       return Future.error(error);
@@ -533,7 +533,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to search for all missing albums', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -551,7 +551,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to update library', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -569,7 +569,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to trigger RSS sync', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -587,7 +587,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to backup database', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -606,7 +606,7 @@ class LidarrAPI {
         data: json.encode(body),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError(
           'Failed to toggle artist monitored status ($artistID)', error, stack);
       return Future.error(error);
@@ -629,7 +629,7 @@ class LidarrAPI {
         data: json.encode(body),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError(
           'Failed to toggle album monitored status ($albumID)', error, stack);
       return Future.error(error);
@@ -661,7 +661,7 @@ class LidarrAPI {
         ));
       }
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to search ($search)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -695,7 +695,7 @@ class LidarrAPI {
         }),
       );
       return response.data['id'];
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to add artist (${entry.title})', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -732,7 +732,7 @@ class LidarrAPI {
         ));
       }
       return entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch releases ($albumID)', error, stack);
       return Future.error(error);
     } catch (error, stack) {
@@ -751,7 +751,7 @@ class LidarrAPI {
         }),
       );
       return true;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to download release ($guid)', error, stack);
       return Future.error(error);
     } catch (error, stack) {

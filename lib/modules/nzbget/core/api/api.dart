@@ -78,7 +78,7 @@ class NZBGetAPI {
         postPaused: response.data['result']['PostPaused'] ?? true,
         scanPaused: response.data['result']['ScanPaused'] ?? true,
       );
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch statistics', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -109,7 +109,7 @@ class NZBGetAPI {
         ));
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch logs ($amount)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -143,7 +143,7 @@ class NZBGetAPI {
         _entries.add(_entry);
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch queue', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -177,7 +177,7 @@ class NZBGetAPI {
         ));
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch history', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -195,7 +195,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to pause queue', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -217,7 +217,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to pause queue for $minutes minutes', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -235,7 +235,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to resume queue', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -257,7 +257,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to move queue entry ($id, $offset)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -279,7 +279,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to pause job ($id)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -301,7 +301,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to resume job ($id)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -323,7 +323,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to delete job ($id)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -345,7 +345,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to rename job ($id, $name)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -367,7 +367,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError(
           'Failed to set job priority ($id, ${priority.name})', error, stack);
       return Future.error(error, stack);
@@ -391,7 +391,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError(
           'Failed to set job category ($id, ${category.name})', error, stack);
       return Future.error(error, stack);
@@ -415,7 +415,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to set job password ($id, $password)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -437,7 +437,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to delete history entry ($id, $hide)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -459,7 +459,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to retry history entry ($id)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -485,7 +485,7 @@ class NZBGetAPI {
           ));
       }
       return _entries;
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to fetch categories', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -507,7 +507,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to sort queue (${sort.name})', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -539,7 +539,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] > 0)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to add NZB by URL ($url)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -572,7 +572,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] > 0)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to add NZB by file ($name)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {
@@ -593,7 +593,7 @@ class NZBGetAPI {
       if (response.data['result'] != null && response.data['result'] == true)
         return true;
       throw (Error());
-    } on DioError catch (error, stack) {
+    } on DioException catch (error, stack) {
       logError('Failed to set speed limit ($limit)', error, stack);
       return Future.error(error, stack);
     } catch (error, stack) {

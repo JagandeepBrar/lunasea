@@ -61,7 +61,7 @@ class LunaLogger {
     }
 
     if (error is! NetworkImageLoadException) {
-      if (error is! DioError) {
+      if (error is! DioException) {
         LunaSentry().captureException(error, stackTrace);
       }
 
@@ -82,7 +82,7 @@ class LunaLogger {
     }
 
     if (error is! NetworkImageLoadException) {
-      if (error is! DioError) {
+      if (error is! DioException) {
         LunaSentry().captureException(error, stackTrace);
       }
 

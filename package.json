@@ -43,8 +43,8 @@
     "version:snapcraft": "yq -i \".version = \\\"$(jq -r .version package.json)\\\"\" snap/snapcraft.yaml"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",

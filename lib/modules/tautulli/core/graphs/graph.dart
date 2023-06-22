@@ -10,7 +10,7 @@ class TautulliGraphHelper {
 
   BarChartAlignment chartAlignment() => BarChartAlignment.spaceEvenly;
 
-  FlGridData gridData() => FlGridData(show: false);
+  FlGridData gridData() => const FlGridData(show: false);
 
   FlBorderData borderData() => FlBorderData(
         show: true,
@@ -37,9 +37,9 @@ class TautulliGraphHelper {
     }
 
     return FlTitlesData(
-      leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,

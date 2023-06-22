@@ -14,9 +14,9 @@ class TautulliLineGraphHelper {
     }
 
     return FlTitlesData(
-      leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
@@ -62,8 +62,8 @@ class TautulliLineGraphHelper {
                   int index) =>
               FlDotCirclePainter(
             radius: 2.50,
-            strokeColor: bar.color,
-            color: bar.color,
+            strokeColor: bar.color!,
+            color: bar.color!,
           ),
         ),
       ),
@@ -121,8 +121,8 @@ class TautulliLineGraphHelper {
                     LineChartBarData bar, int index) =>
                 FlDotCirclePainter(
               radius: 5.0,
-              strokeColor: bar.color,
-              color: bar.color,
+              strokeColor: bar.color!,
+              color: bar.color!,
             ),
           ),
         ),

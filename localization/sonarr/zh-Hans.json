@@ -209,5 +209,7 @@
     "sonarr.Usenet": "用户网络",
     "sonarr.SearchMonitored": "监视搜索",
     "sonarr.FailedToSearchForMonitoredEpisodes": "搜索监控剧集失败",
-    "sonarr.SearchingForMonitoredEpisodes": "正在搜索受监控的剧集…"
+    "sonarr.SearchingForMonitoredEpisodes": "正在搜索受监控的剧集…",
+    "sonarr.EpisodesCount": "{}剧集",
+    "sonarr.EpisodeFilesDeleted": "剧集文件已删除"
 }

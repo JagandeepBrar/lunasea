@@ -69,5 +69,11 @@
     "tautulli.TerminateSessionFailed": "终止会话失败",
     "tautulli.Converting": "转换",
     "tautulli.Speed": "倍速:{}x",
-    "tautulli.ActivityRefreshRate": "活动刷新率"
+    "tautulli.ActivityRefreshRate": "活动刷新率",
+    "tautulli.LibraryDetails": "库详细信息",
+    "tautulli.DefaultTerminationMessage": "默认终止消息",
+    "tautulli.Graphs": "曲线图",
+    "tautulli.MediaDetails": "媒体详细信息",
+    "tautulli.Statistics": "统计数据",
+    "tautulli.StatisticsItemCount": "统计项目计数"
 }

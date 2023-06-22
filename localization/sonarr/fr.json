@@ -112,7 +112,7 @@
     "sonarr.FailedToUpdateLibrary": "Échec de la mise à jour de la bibliothèque",
     "sonarr.FailedToUpdateSeries": "Échec de la mise à jour des séries",
     "sonarr.FilterCatalogue": "Trier le catalogue",
-    "sonarr.FilterReleases": "Trier les versions",
+    "sonarr.FilterReleases": "Filtrer les versions",
     "sonarr.GrabbedFrom": "Récupéré depuis {}",
     "sonarr.HistoryDescription": "Afficher les activités récentes",
     "sonarr.InfoURL": "Infos de l'URL",
@@ -217,5 +217,6 @@
     "sonarr.NoEpisodeFilesFound": "Aucun fichier d'épisode trouvé",
     "sonarr.NoEpisodeFilesFoundDeleteMessage": "Aucun épisode sélectionné n'a de fichiers à supprimer",
     "sonarr.OneEpisode": "1 épisode",
-    "sonarr.SearchingForEpisodes": "Recherche d'épisodes…"
+    "sonarr.SearchingForEpisodes": "Recherche d'épisodes…",
+    "sonarr.QueueSize": "Taille de la file d’attente"
 }

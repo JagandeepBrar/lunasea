@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.5](https://github.com/JagandeepBrar/lunasea/compare/v10.2.4...v10.2.5) (2023-07-03)
+
+
+### Features
+
+* **sonarr:** re-implementation of multi-select episode actions ([79d1388](https://github.com/JagandeepBrar/lunasea/commit/79d13889f2eb0668b1fbb4d29ea9b11b1d82d9bb))
+* **web:** build multi-platform Docker image for amd64 and arm64 ([89b0906](https://github.com/JagandeepBrar/lunasea/commit/89b0906eab883bddb860583cc6e4bf86efd2b115))
+
+
+### Bug Fixes
+
+* **ios:** update App Store signing certificate ([b1a5139](https://github.com/JagandeepBrar/lunasea/commit/b1a513973d16a1a17cf0805da6cdd8e7929072c9))
+* **search:** profile could not be changed on download prompt ([d81052d](https://github.com/JagandeepBrar/lunasea/commit/d81052d81783df6d93d9f41e2c543782299e7067))
+* **sonarr:** remove duplicate episode file IDs on multi-select deletion ([335aaa3](https://github.com/JagandeepBrar/lunasea/commit/335aaa3acd7ff7645018e305639586a25411771c))
+* **windows:** revert Firebase packages to maintain Windows support ([8e3c477](https://github.com/JagandeepBrar/lunasea/commit/8e3c477bf7d8a0fa47276ba5bb2096f07c6dc69d))
+
 ### [10.2.4](https://github.com/JagandeepBrar/lunasea/compare/v10.2.3...v10.2.4) (2023-04-09)
 
 

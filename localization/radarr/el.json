@@ -3,5 +3,12 @@
     "radarr.AddMovieAndSearch": "Προσθήκη + αναζήτηση",
     "radarr.AddedTag": "Προσθήκη ετικέτας",
     "radarr.Age": "Ηλικία",
-    "radarr.All": "Όλα"
+    "radarr.All": "Όλα",
+    "radarr.Alphabetical": "Αλφαβητικά",
+    "radarr.Approved": "Εγκεκριμένο",
+    "radarr.Audio": "Ήχος",
+    "radarr.Automatic": "Αυτόματα",
+    "radarr.AvailabilityUnknown": "Διαθεσιμότητα Άγνωστη",
+    "radarr.AvailableIn": "Διαθέσιμο στο {}",
+    "radarr.AvailableToday": "Διαθέσιμο σήμερα"
 }

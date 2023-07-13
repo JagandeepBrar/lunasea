@@ -20,7 +20,7 @@
     "radarr.Copy": "Αντιγραφή",
     "radarr.CopyFiles": "Hardlink/Αντιγραφή αρχείων",
     "radarr.CopyFull": "Hardlink/Αντιγραφή αρχείων",
-    "radarr.CutoffUnmet": "Cutoff Unmet",
+    "radarr.CutoffUnmet": "Αποκοπή Ανεκπλήρωτη",
     "radarr.DateAdded": "Ημερομηνία προσθήκης",
     "radarr.DigitalRelease": "Ψηφιακή κυκλοφορία",
     "radarr.DirectoryNotFound": "Κατάλογος δεν βρέθηκε",

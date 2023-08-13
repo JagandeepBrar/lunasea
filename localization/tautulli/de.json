@@ -75,5 +75,6 @@
     "tautulli.LibraryDetails": "Bibliothek Details",
     "tautulli.MediaDetails": "Medien Details",
     "tautulli.Statistics": "Statistik",
-    "tautulli.StatisticsItemCount": "Anzahl Statistischer Elemente"
+    "tautulli.StatisticsItemCount": "Anzahl Statistischer Elemente",
+    "tautulli.UserDetails": "Benutzer Details"
 }

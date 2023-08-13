@@ -209,5 +209,13 @@
     "sonarr.Title": "Titel",
     "sonarr.SearchingForMonitoredEpisodes": "Suche nach beobachteten Episoden…",
     "sonarr.SearchMonitored": "Suche Beobachtet",
-    "sonarr.FailedToSearchForMonitoredEpisodes": "Suche nach beobachteten Episoden fehlgeschlagen"
+    "sonarr.FailedToSearchForMonitoredEpisodes": "Suche nach beobachteten Episoden fehlgeschlagen",
+    "sonarr.EpisodesCount": "{} Episoden",
+    "sonarr.EpisodeFilesDeleted": "Episodendateien gelöscht",
+    "sonarr.NoEpisodeFilesFound": "Keine Episodendateien gefunden",
+    "sonarr.OneEpisode": "1 Episode",
+    "sonarr.QueueSize": "Größe der Warteschlange",
+    "sonarr.FailedToSearchForEpisodes": "Suche nach Episoden fehlgeschlagen",
+    "sonarr.FailedToDeleteEpisodeFiles": "Löschen der Episodendateien fehlgeschlagen",
+    "sonarr.NoEpisodeFilesFoundDeleteMessage": "Keine der ausgewählten Episoden haben Dateien zum Löschen"
 }

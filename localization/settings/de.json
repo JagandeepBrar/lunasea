@@ -267,5 +267,18 @@
     "settings.ViewTypeLogs": "{} Protokolle ansehen",
     "settings.BootModule": "Startmodul",
     "settings.General": "Allgemein",
-    "settings.GeneralDescription": "LunaSea anpassen"
+    "settings.GeneralDescription": "LunaSea anpassen",
+    "settings.Clear": "Entfernen",
+    "settings.ConfigurationClearedDescription": "Deine Konfiguration wurde gelöscht",
+    "settings.ConfigurationCleared": "Konfiguration gelöscht",
+    "settings.CopiedURLFor": "URL für {} kopiert",
+    "settings.CopiedDeviceURL": "Deine gerätebasierte URL wurde in die Zwischenablage kopiert",
+    "settings.CopiedUserURL": "Deine benutzerbasierte URL wurde in die Zwischenablage kopiert",
+    "settings.AllLogs": "Alle Logs",
+    "settings.AllLogsDescription": "Alle Arten von Logs anzeigen",
+    "settings.CalendarSettingsDescription": "Anpassen des einheitlichen Kalenders",
+    "settings.Class": "Klasse",
+    "settings.ClearImageCacheDescription": "Bilder aus dem permanenten Speicher löschen",
+    "settings.Device": "Gerät",
+    "settings.Exception": "Ausnahme"
 }

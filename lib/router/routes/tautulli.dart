@@ -84,9 +84,9 @@ enum TautulliRoutes with LunaRoutesMixin {
             ratingKey:
                 int.tryParse(state.pathParameters['rating_key'] ?? '') ?? -1,
             sessionKey:
-                int.tryParse(state.queryParameters['session_key'] ?? ''),
+                int.tryParse(state.uri.queryParameters['session_key'] ?? ''),
             referenceId:
-                int.tryParse(state.queryParameters['reference_id'] ?? ''),
+                int.tryParse(state.uri.queryParameters['reference_id'] ?? ''),
           );
         });
       case TautulliRoutes.IP_DETAILS:

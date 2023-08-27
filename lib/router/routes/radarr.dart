@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules.dart';
 import 'package:lunasea/api/radarr/models/movie/movie.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/radarr/core/state.dart';
 import 'package:lunasea/modules/radarr/routes/add_movie/route.dart';
 import 'package:lunasea/modules/radarr/routes/add_movie_details/route.dart';
@@ -51,13 +51,14 @@ enum RadarrRoutes with LunaRoutesMixin {
         return route(widget: const RadarrRoute());
       case RadarrRoutes.ADD_MOVIE:
         return route(builder: (_, state) {
-          final query = state.queryParameters['query'] ?? '';
+          final query = state.uri.queryParameters['query'] ?? '';
           return AddMovieRoute(query: query);
         });
       case RadarrRoutes.ADD_MOVIE_DETAILS:
         return route(builder: (_, state) {
           final movie = state.extra as RadarrMovie?;
-          final isDiscovery = state.queryParameters['isDiscovery'] ?? 'false';
+          final isDiscovery =
+              state.uri.queryParameters['isDiscovery'] ?? 'false';
           return AddMovieDetailsRoute(
             movie: movie,
             isDiscovery: isDiscovery.toLowerCase() == 'true',
@@ -69,7 +70,7 @@ enum RadarrRoutes with LunaRoutesMixin {
         return route(widget: const ManualImportRoute());
       case RadarrRoutes.MANUAL_IMPORT_DETAILS:
         return route(builder: (_, state) {
-          final path = state.queryParameters['path'];
+          final path = state.uri.queryParameters['path'];
           return ManualImportDetailsRoute(path: path);
         });
       case RadarrRoutes.MOVIE:

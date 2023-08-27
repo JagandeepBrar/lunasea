@@ -1,5 +1,5 @@
 name: lunasea
-version: 10.2.5
+version: 10.2.6
 confinement: strict
 base: core18
 # Required but managed manually via Snapcraft dashboard

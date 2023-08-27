@@ -28,7 +28,7 @@ class SonarrControllerWanted {
   }) async =>
       _commandGetMissing(
         _client,
-        sortDir: sortDir,
+        sortDirection: sortDir,
         sortKey: sortKey,
         page: page,
         pageSize: pageSize,

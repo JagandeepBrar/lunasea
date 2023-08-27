@@ -1,10 +1,10 @@
-import 'package:lunasea/types/list_view_option.dart';
 import 'package:lunasea/database/table.dart';
 import 'package:lunasea/modules/sonarr/core/types/filter_releases.dart';
 import 'package:lunasea/modules/sonarr/core/types/filter_series.dart';
 import 'package:lunasea/modules/sonarr/core/types/monitor_status.dart';
 import 'package:lunasea/modules/sonarr/core/types/sorting_releases.dart';
 import 'package:lunasea/modules/sonarr/core/types/sorting_series.dart';
+import 'package:lunasea/types/list_view_option.dart';
 import 'package:lunasea/vendor.dart';
 
 enum SonarrDatabase<T> with LunaTableMixin<T> {
@@ -47,11 +47,11 @@ enum SonarrDatabase<T> with LunaTableMixin<T> {
 
   @override
   void register() {
-      Hive.registerAdapter(SonarrMonitorStatusAdapter());
-      Hive.registerAdapter(SonarrSeriesSortingAdapter());
-      Hive.registerAdapter(SonarrSeriesFilterAdapter());
-      Hive.registerAdapter(SonarrReleasesSortingAdapter());
-      Hive.registerAdapter(SonarrReleasesFilterAdapter());
+    Hive.registerAdapter(SonarrMonitorStatusAdapter());
+    Hive.registerAdapter(SonarrSeriesSortingAdapter());
+    Hive.registerAdapter(SonarrSeriesFilterAdapter());
+    Hive.registerAdapter(SonarrReleasesSortingAdapter());
+    Hive.registerAdapter(SonarrReleasesFilterAdapter());
   }
 
   @override

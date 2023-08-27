@@ -2,7 +2,7 @@ part of sonarr_commands;
 
 Future<SonarrMissing> _commandGetMissing(
   Dio client, {
-  SonarrSortDirection? sortDir,
+  SonarrSortDirection? sortDirection,
   SonarrWantedMissingSortKey? sortKey,
   int? page,
   int? pageSize,
@@ -10,7 +10,7 @@ Future<SonarrMissing> _commandGetMissing(
   bool? includeImages,
 }) async {
   Response response = await client.get('wanted/missing', queryParameters: {
-    if (sortDir != null) 'sortDir': sortDir.value,
+    if (sortDirection != null) 'sortDirection': sortDirection.value,
     if (sortKey != null) 'sortKey': sortKey.value,
     if (page != null) 'page': page,
     if (pageSize != null) 'pageSize': pageSize,

@@ -1,6 +1,6 @@
 {
     "dashboard.Friday": "Παρασκευή",
-    "dashboard.FutureDays": "Μελλοντικό χρόνο",
+    "dashboard.FutureDays": "Μελλοντικές Ημέρες",
     "dashboard.OneMonth": "Ένας μήνας",
     "dashboard.Tuesday": "Τρίτη",
     "dashboard.MinimumOfOneDay": "1 ημέρα το ελάχιστο",
@@ -8,14 +8,14 @@
     "dashboard.Monday": "Δευτέρα",
     "dashboard.NoNewContent": "Τίποτα νέο",
     "dashboard.OneWeek": "Μία εβδομάδα",
-    "dashboard.PastDays": "Παλαιότερες ημέρες",
+    "dashboard.PastDays": "Προηγούμενες ημέρες",
     "dashboard.Saturday": "Σάββατο",
     "dashboard.Schedule": "Πρόγραμμα",
     "dashboard.Sunday": "Κυριακή",
     "dashboard.Thursday": "Πέμπτη",
     "dashboard.Calendar": "Ημερολόγιο",
-    "dashboard.PastDaysDescription": "Τοποθετήσει τον αριθμό ημερών στο παρελθόν για εισαγωγή των εγγραφών του ημερολογίου.",
+    "dashboard.PastDaysDescription": "Ορίστε τον αριθμό των ημερών στο παρελθόν για τις οποίες θα λαμβάνονται οι καταχωρήσεις ημερολογίου.",
     "dashboard.TwoWeeks": "Δύο εβδομάδες",
     "dashboard.Wednesday": "Τετάρτη",
-    "dashboard.FutureDaysDescription": "Τοποθετήσει τον αριθμό ημερών στο μέλλον για εισαγωγή των εγγραφών του ημερολογίου."
+    "dashboard.FutureDaysDescription": "Ορίστε τον αριθμό των ημερών στο μέλλον για την ανάκτηση εγγραφών ημερολογίου."
 }

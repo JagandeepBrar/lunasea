@@ -66,5 +66,15 @@
     "tautulli.Throttled": "Acelerado",
     "tautulli.Transcode": "Transcodificar",
     "tautulli.Transcodes": "Transcodificaciones",
-    "tautulli.ETA": "Tiempo Restante"
+    "tautulli.ETA": "Tiempo Restante",
+    "tautulli.Converting": "Conversión",
+    "tautulli.Speed": "Velocidad: {}x",
+    "tautulli.ActivityRefreshRate": "Frecuencia de actualización de la actividad",
+    "tautulli.DefaultTerminationMessage": "Mensaje de finalización predeterminado",
+    "tautulli.Graphs": "Gráficos",
+    "tautulli.LibraryDetails": "Detalles de la biblioteca",
+    "tautulli.MediaDetails": "Detalles de los medios",
+    "tautulli.Statistics": "Estadísticas",
+    "tautulli.StatisticsItemCount": "Estadísticas del recuento de artículos",
+    "tautulli.UserDetails": "Detalles del usuario"
 }

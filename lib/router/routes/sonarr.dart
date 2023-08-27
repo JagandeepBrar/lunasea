@@ -47,7 +47,7 @@ enum SonarrRoutes with LunaRoutesMixin {
         return route(widget: const SonarrRoute());
       case SonarrRoutes.ADD_SERIES:
         return route(builder: (_, state) {
-          final query = state.queryParameters['query'] ?? '';
+          final query = state.uri.queryParameters['query'] ?? '';
           return AddSeriesRoute(query: query);
         });
       case SonarrRoutes.ADD_SERIES_DETAILS:
@@ -61,9 +61,12 @@ enum SonarrRoutes with LunaRoutesMixin {
         return route(widget: const QueueRoute());
       case SonarrRoutes.RELEASES:
         return route(builder: (_, state) {
-          final episode = int.tryParse(state.queryParameters['episode'] ?? '');
-          final series = int.tryParse(state.queryParameters['series'] ?? '');
-          final season = int.tryParse(state.queryParameters['season'] ?? '');
+          final episode =
+              int.tryParse(state.uri.queryParameters['episode'] ?? '');
+          final series =
+              int.tryParse(state.uri.queryParameters['series'] ?? '');
+          final season =
+              int.tryParse(state.uri.queryParameters['season'] ?? '');
           return ReleasesRoute(
             episodeId: episode,
             seriesId: series,

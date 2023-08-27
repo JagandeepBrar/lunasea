@@ -57,7 +57,7 @@ enum LidarrRoutes with LunaRoutesMixin {
             artistId: int.tryParse(state.pathParameters['artist'] ?? '') ?? -1,
             albumId: int.tryParse(state.pathParameters['album'] ?? '') ?? -1,
             monitored:
-                state.queryParameters['monitored']?.toLowerCase() == 'true',
+                state.uri.queryParameters['monitored']?.toLowerCase() == 'true',
           );
         });
       case LidarrRoutes.ARTIST_ALBUM_RELEASES:

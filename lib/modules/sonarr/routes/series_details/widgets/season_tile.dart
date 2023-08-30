@@ -1,5 +1,5 @@
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/datetime.dart';
 import 'package:lunasea/extensions/int/bytes.dart';
@@ -28,10 +28,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
   Widget build(BuildContext context) {
     return LunaBlock(
       posterPlaceholderIcon: LunaIcons.VIDEO_CAM,
-      posterUrl: widget.season.images
-              ?.firstWhereOrNull((e) => e.coverType == 'poster')
-              ?.url ??
-          '',
+      posterUrl: _posterUrl(),
       posterHeaders: context.read<SonarrState>().headers,
       title: widget.season.lunaTitle,
       disabled: !widget.season.monitored!,
@@ -44,6 +41,12 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
       onTap: _onTap,
       onLongPress: _onLongPress,
     );
+  }
+
+  String _posterUrl() {
+    final images = widget.season.images;
+    final poster = images?.firstWhereOrNull((e) => e.coverType == 'poster');
+    return poster?.remoteUrl ?? poster?.url ?? '';
   }
 
   Future<void> _onTap() async {

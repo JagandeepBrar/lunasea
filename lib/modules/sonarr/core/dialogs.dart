@@ -746,21 +746,39 @@ class SonarrDialogs {
     return _flag;
   }
 
-  Future<void> showQueueStatusMessages(
+  Future<bool> showQueueStatusMessages(
     BuildContext context,
-    List<SonarrQueueStatusMessage> messages,
+    SonarrQueueRecord record,
   ) async {
+    bool _flag = false;
+
+    void _setValues(bool flag) {
+      _flag = flag;
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+    
+    var messages = record.statusMessages!;
     if (messages.isEmpty) {
-      return LunaDialogs().textPreview(
+      await LunaDialogs().textPreview(
         context,
         'sonarr.Messages'.tr(),
         'sonarr.NoMessagesFound'.tr(),
       );
+
+      return false;
     }
     await LunaDialog.dialog(
       context: context,
       title: 'sonarr.Messages'.tr(),
       cancelButtonText: 'lunasea.Close'.tr(),
+      buttons: [
+        LunaDialog.button(
+          text: 'Import',
+          onPressed: () => {
+            _setValues(true)
+          },
+        ),
+      ],
       contentPadding: LunaDialog.listDialogContentPadding(),
       content: List.generate(
         messages.length,
@@ -828,8 +846,10 @@ class SonarrDialogs {
         ),
       ),
     );
-  }
 
+    return _flag;
+  }
+  
   Future<Tuple2<bool, int>> setQueuePageSize(BuildContext context) async {
     bool _flag = false;
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();

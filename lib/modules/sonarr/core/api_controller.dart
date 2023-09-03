@@ -797,4 +797,40 @@ class SonarrAPIController {
     }
     return false;
   }
+
+  Future<bool> manualImportFromQueue({
+    required BuildContext context,
+    required SonarrQueueRecord queueRecord,
+    bool showSnackbar = true
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api!
+          .manualImport
+          .import(records: [queueRecord])
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'sonarr.ManuallyImportedFromQueue'.tr(),
+            message: queueRecord.title,
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to import queue record: ${queueRecord.id}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToManuallyImportFromQueue'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+
+    return false;
+  }
 }

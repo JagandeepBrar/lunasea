@@ -22,6 +22,7 @@ part 'controllers/command/rescan_series.dart';
 part 'controllers/command/rss_sync.dart';
 part 'controllers/command/season_search.dart';
 part 'controllers/command/series_search.dart';
+part 'controllers/command/manual_import.dart';
 
 // Episode File
 part 'controllers/episode_file.dart';
@@ -94,3 +95,6 @@ part 'controllers/tag/update_tag.dart';
 // Wanted/Missing
 part 'controllers/wanted.dart';
 part 'controllers/wanted/get_missing.dart';
+
+// ManualImport
+part 'controllers/manual_import.dart';

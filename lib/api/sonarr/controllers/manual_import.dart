@@ -16,7 +16,7 @@ class SonarrControllerManualImport {
   /// Required Parameters:
   /// - `records`: The records to import
   Future<void> import({
-    required List<SonarrQueueRecord> records
+    required List<SonarrManualImport> manualImports
   }) async =>
-      _commandManualImport(_client, records);
+      _commandManualImport(_client, manualImports);
 }

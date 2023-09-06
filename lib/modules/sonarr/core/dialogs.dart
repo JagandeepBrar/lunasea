@@ -771,7 +771,7 @@ class SonarrDialogs {
       context: context,
       title: 'sonarr.Messages'.tr(),
       cancelButtonText: 'lunasea.Close'.tr(),
-      buttons: [
+      buttons: record.errorMessage != null ? [] : [
         LunaDialog.button(
           text: 'Import',
           onPressed: () => {

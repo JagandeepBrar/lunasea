@@ -2,11 +2,12 @@ part of sonarr_commands;
 
 Future<SonarrCommand> _commandManualImport(
     Dio client,
-    List<SonarrQueueRecord> records
+    List<SonarrManualImport> manualImports
     ) async {
   Response response = await client.post('command', data: {
     'name': 'ManualImport',
-    'files': records
+    'files': manualImports,
+    'importMode': 'auto'
   });
   return SonarrCommand.fromJson(response.data);
 }

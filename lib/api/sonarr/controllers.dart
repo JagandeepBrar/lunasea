@@ -5,6 +5,9 @@ import 'package:lunasea/api/sonarr/models.dart';
 import 'package:lunasea/api/sonarr/types.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/core.dart';
+
+import 'models/manual_import/manual_import.dart';
 
 // Calendar
 part 'controllers/calendar.dart';

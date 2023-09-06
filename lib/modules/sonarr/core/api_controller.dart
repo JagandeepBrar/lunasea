@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/api/sonarr/models/manual_import/manual_import.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -808,7 +809,15 @@ class SonarrAPIController {
           .read<SonarrState>()
           .api!
           .manualImport
-          .import(records: [queueRecord])
+          .import(manualImports: [SonarrManualImport(
+            path: queueRecord.outputPath,
+            seriesId: queueRecord.seriesId,
+            episodeIds: [queueRecord.episodeId!],
+            quality: queueRecord.quality,
+            language: queueRecord.language,
+            downloadId: queueRecord.downloadId,
+            id: queueRecord.id,
+          )])
           .then((_) {
         if (showSnackbar)
           showLunaSuccessSnackBar(

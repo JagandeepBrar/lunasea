@@ -63,6 +63,4 @@ class SonarrControllerQueue {
         blocklist: blocklist,
         removeFromClient: removeFromClient,
       );
-
-  // Handler for 
 }

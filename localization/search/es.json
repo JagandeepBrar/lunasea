@@ -19,5 +19,19 @@
     "search.Age": "Edad",
     "search.Categories": "Categorias",
     "search.NoSubcategoriesFound": "Subcategorías no encontradas",
-    "search.Results": "Resultados"
+    "search.Results": "Resultados",
+    "search.DeleteIndexer": "Borrar un indexador",
+    "search.HideAdultCategoriesDescription": "Ocultar el contenido para adultos",
+    "search.ShowLinks": "Mostrar los enlaces",
+    "search.EditIndexer": "Editar un indexador",
+    "search.IndexerDeleted": "Indexador borrado",
+    "search.NoIndexersFound": "No se han encontrado indexadores",
+    "search.HideAdultCategories": "Ocultar las categorías para adultos",
+    "search.FailedToAddIndexer": "Error al añadir el indexador",
+    "search.AddIndexer": "Añadir un indexador",
+    "search.IndexerNotFound": "No se encuentra el indexador",
+    "search.ShowLinksDescription": "Mostrar los enlaces de la descarga y los comentarios",
+    "search.IndexerAPIKey": "Clave dela API de indexación",
+    "search.IndexerAdded": "Indexador añadido",
+    "search.IndexerAPIHost": "Indexador del Host de la API"
 }

@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "Self-hosted controller built using the Flutter framework" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "lunasea" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 Jagandeep Brar. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 Jagandeep Brar. All rights reserved." "\0"
             VALUE "OriginalFilename", "LunaSea.exe" "\0"
             VALUE "ProductName", "LunaSea" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

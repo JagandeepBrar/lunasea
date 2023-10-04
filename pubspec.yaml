@@ -53,7 +53,7 @@ dependencies:
   tuple: ^2.0.2
   url_launcher: ^6.1.12
   uuid: ^3.0.7
-  wake_on_lan: ^3.2.0+1
+  wake_on_lan: ^4.1.0
   window_manager: ^0.3.6
   xml: ^6.3.0
 dev_dependencies:

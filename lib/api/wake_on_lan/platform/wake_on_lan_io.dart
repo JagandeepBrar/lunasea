@@ -1,9 +1,9 @@
+import 'package:wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
 import 'package:lunasea/database/models/profile.dart';
+import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/vendor.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/system/logger.dart';
-import 'package:wake_on_lan/wake_on_lan.dart';
 
 bool isPlatformSupported() => true;
 LunaWakeOnLAN getWakeOnLAN() => IO();
@@ -13,7 +13,7 @@ class IO implements LunaWakeOnLAN {
   Future<void> wake() async {
     LunaProfile profile = LunaProfile.current;
     try {
-      final ip = IPv4Address(profile.wakeOnLANBroadcastAddress);
+      final ip = IPAddress(profile.wakeOnLANBroadcastAddress);
       final mac = MACAddress(profile.wakeOnLANMACAddress);
       return WakeOnLAN(ip, mac).wake().then((_) {
         showLunaSuccessSnackBar(

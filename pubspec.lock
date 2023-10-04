@@ -1502,10 +1502,10 @@ packages:
     dependency: "direct main"
     description:
       name: wake_on_lan
-      sha256: b385cb8481d5a30085ed450f1487f0b403beac93d6878c6d6e252163a3de1a24
+      sha256: "92ae49df3a34482f73288fb5e4c42e70e4c36111a8d750ff563b5ff13534cae7"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0+1"
+    version: "4.1.0"
   watcher:
     dependency: transitive
     description:

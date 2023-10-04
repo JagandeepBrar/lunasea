@@ -1,36 +1,30 @@
 {
-  "motd": "Welcome to LunaSea v10.2.5!\n\nThis releases adds support for multi-select actions on Sonarr episodes and fixes an issue preventing users from selecting a new active profile when triggering a download via search.",
-  "feat": {
-    "web": [
-      {
-        "commit": "89b0906eab883bddb860583cc6e4bf86efd2b115",
-        "message": "build multi-platform Docker image for amd64 and arm64"
-      }
-    ],
+  "motd": "Welcome to LunaSea v10.2.6!\n\nThis update fixes some small issues with Sonarr, including correctly sorting the missing content list in descending order and support for season posters when using Sonarr v4.",
+  "fix": {
     "sonarr": [
       {
-        "commit": "79d13889f2eb0668b1fbb4d29ea9b11b1d82d9bb",
-        "message": "multi-select episodes and trigger bulk actions"
-      }
-    ]
-  },
-  "fix": {
-    "search": [
-      {
-        "commit": "d81052d81783df6d93d9f41e2c543782299e7067",
-        "message": "profile could not be changed on download prompt"
-      }
-    ]
-  },
-  "refactor": {
-    "system": [
-      {
-        "commit": "f3fdf6d5f3583af14dd0046e09f9a84f8af2a972",
-        "message": "update packages"
+        "commit": "ea0fe19efc0c0c8f1582c4a0507fb3d929ba561f",
+        "message": "correctly sort missing content list in descending order"
       },
       {
-        "commit": "021a08e4e44009ffcfdd613a49d455855e7838bb",
-        "message": "upgrade to Flutter 3.10.5/45f6e00911"
+        "commit": "08228ef0f93cb3c298a8677019535ad7ec0c7a54",
+        "message": "correctly support Sonarr v4 season posters"
+      }
+    ],
+    "localization": [
+      {
+        "commit": "642af124043842c656fcded10a2f9d3ccbe9dde3",
+        "message": "translations update from Hosted Weblate"
+      }
+    ],
+    "flutter": [
+      {
+        "commit": "8bd3368e99f52f3a8d40e26cf690f2f618cef4bc",
+        "message": "upgrade packages"
+      },
+      {
+        "commit": "3da56b01945442f5b78db097c74407295d8ed49f",
+        "message": "upgrade to 3.13.6/a794cf2681"
       }
     ]
   }

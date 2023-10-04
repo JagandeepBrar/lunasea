@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.2.6](https://github.com/JagandeepBrar/lunasea/compare/v10.2.5...v10.2.6) (2023-10-04)
+
+
+### Bug Fixes
+
+* **sonarr:** correctly sort missing content list in descending order ([ea0fe19](https://github.com/JagandeepBrar/lunasea/commit/ea0fe19efc0c0c8f1582c4a0507fb3d929ba561f))
+* **sonarr:** correctly support Sonarr v4 season posters ([08228ef](https://github.com/JagandeepBrar/lunasea/commit/08228ef0f93cb3c298a8677019535ad7ec0c7a54))
+* **ui:** upgrade to flash@3.0.5+1 ([55c417f](https://github.com/JagandeepBrar/lunasea/commit/55c417f7618e1e80a776c57203c5b4bbbacf99bc))
+
 ### [10.2.5](https://github.com/JagandeepBrar/lunasea/compare/v10.2.4...v10.2.5) (2023-07-03)
 
 

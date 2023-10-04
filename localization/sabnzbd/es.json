@@ -6,5 +6,21 @@
     "sabnzbd.Completed": "Terminado",
     "sabnzbd.Descending": "Descendente",
     "sabnzbd.Duplicate": "Duplicado",
-    "sabnzbd.Failed": "Fallido"
+    "sabnzbd.Failed": "Fallido",
+    "sabnzbd.StandbyPC": "PC en modo de espera",
+    "sabnzbd.HibernatePC": "Hibernar el PC",
+    "sabnzbd.Size": "Tamaño",
+    "sabnzbd.Normal": "Normal",
+    "sabnzbd.RepairUnpack": "Reparar/desembalar",
+    "sabnzbd.None": "Ninguno",
+    "sabnzbd.RepairUnpackDelete": "Reparar/Deshacer/Borrar",
+    "sabnzbd.Low": "Bajo",
+    "sabnzbd.ShutdownSABnzbd": "Apagar SABnzbd",
+    "sabnzbd.Paused": "En pausa",
+    "sabnzbd.Stop": "Parar",
+    "sabnzbd.Repair": "Reparar",
+    "sabnzbd.Name": "Nombre",
+    "sabnzbd.High": "Alto",
+    "sabnzbd.Force": "Fuerza",
+    "sabnzbd.ShutdownPC": "Apagar el PC"
 }

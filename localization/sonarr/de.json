@@ -217,5 +217,6 @@
     "sonarr.QueueSize": "Größe der Warteschlange",
     "sonarr.FailedToSearchForEpisodes": "Suche nach Episoden fehlgeschlagen",
     "sonarr.FailedToDeleteEpisodeFiles": "Löschen der Episodendateien fehlgeschlagen",
-    "sonarr.NoEpisodeFilesFoundDeleteMessage": "Keine der ausgewählten Episoden haben Dateien zum Löschen"
+    "sonarr.NoEpisodeFilesFoundDeleteMessage": "Keine der ausgewählten Episoden haben Dateien zum Löschen",
+    "sonarr.SearchingForEpisodes": "Suche nach Episoden…"
 }

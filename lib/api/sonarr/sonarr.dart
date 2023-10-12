@@ -21,6 +21,7 @@ class SonarrAPI {
     required this.system,
     required this.tag,
     required this.wanted,
+    required this.manualImport
   });
 
   factory SonarrAPI({
@@ -60,6 +61,7 @@ class SonarrAPI {
       system: SonarrControllerSystem(_dio),
       tag: SonarrControllerTag(_dio),
       wanted: SonarrControllerWanted(_dio),
+      manualImport: SonarrControllerManualImport(_dio)
     );
   }
 
@@ -83,6 +85,7 @@ class SonarrAPI {
       system: SonarrControllerSystem(client),
       tag: SonarrControllerTag(client),
       wanted: SonarrControllerWanted(client),
+      manualImport: SonarrControllerManualImport(client)
     );
   }
 
@@ -103,4 +106,5 @@ class SonarrAPI {
   final SonarrControllerSystem system;
   final SonarrControllerTag tag;
   final SonarrControllerWanted wanted;
+  final SonarrControllerManualImport manualImport;
 }

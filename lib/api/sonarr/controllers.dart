@@ -5,6 +5,9 @@ import 'package:lunasea/api/sonarr/models.dart';
 import 'package:lunasea/api/sonarr/types.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/core.dart';
+
+import 'models/manual_import/manual_import.dart';
 
 // Calendar
 part 'controllers/calendar.dart';
@@ -22,6 +25,7 @@ part 'controllers/command/rescan_series.dart';
 part 'controllers/command/rss_sync.dart';
 part 'controllers/command/season_search.dart';
 part 'controllers/command/series_search.dart';
+part 'controllers/command/manual_import.dart';
 
 // Episode File
 part 'controllers/episode_file.dart';
@@ -94,3 +98,6 @@ part 'controllers/tag/update_tag.dart';
 // Wanted/Missing
 part 'controllers/wanted.dart';
 part 'controllers/wanted/get_missing.dart';
+
+// ManualImport
+part 'controllers/manual_import.dart';

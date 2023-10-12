@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/api/sonarr/models/manual_import/manual_import.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/extensions/string/string.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -795,6 +796,50 @@ class SonarrAPIController {
         return false;
       });
     }
+    return false;
+  }
+
+  Future<bool> manualImportFromQueue({
+    required BuildContext context,
+    required SonarrQueueRecord queueRecord,
+    bool showSnackbar = true
+  }) async {
+    if (context.read<SonarrState>().enabled) {
+      return context
+          .read<SonarrState>()
+          .api!
+          .manualImport
+          .import(manualImports: [SonarrManualImport(
+            path: queueRecord.outputPath,
+            seriesId: queueRecord.seriesId,
+            episodeIds: [queueRecord.episodeId!],
+            quality: queueRecord.quality,
+            language: queueRecord.language,
+            downloadId: queueRecord.downloadId,
+            id: queueRecord.id,
+          )])
+          .then((_) {
+        if (showSnackbar)
+          showLunaSuccessSnackBar(
+            title: 'sonarr.ManuallyImportedFromQueue'.tr(),
+            message: queueRecord.title,
+          );
+        return true;
+      }).catchError((error, stack) {
+        LunaLogger().error(
+          'Failed to import queue record: ${queueRecord.id}',
+          error,
+          stack,
+        );
+        if (showSnackbar)
+          showLunaErrorSnackBar(
+            title: 'sonarr.FailedToManuallyImportFromQueue'.tr(),
+            error: error,
+          );
+        return false;
+      });
+    }
+
     return false;
   }
 }

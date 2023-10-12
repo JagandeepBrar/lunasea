@@ -192,10 +192,32 @@ class _State extends State<SonarrQueueTile> {
           color: LunaColours.orange,
           text: 'sonarr.Messages'.tr(),
           onTap: () async {
-            SonarrDialogs().showQueueStatusMessages(
+            bool result = await SonarrDialogs().showQueueStatusMessages(
               context,
-              widget.queueRecord.statusMessages!,
+              widget.queueRecord,
             );
+
+            if (result) {
+              SonarrAPIController()
+                .manualImportFromQueue(context: context, queueRecord: widget.queueRecord)
+                .then((_) {
+              switch (widget.type) {
+                case SonarrQueueTileType.ALL:
+                  context.read<SonarrQueueState>().fetchQueue(
+                        context,
+                        hardCheck: true,
+                      );
+                  break;
+                case SonarrQueueTileType.EPISODE:
+                  context.read<SonarrSeasonDetailsState>().fetchState(
+                        context,
+                        shouldFetchEpisodes: false,
+                        shouldFetchFiles: false,
+                      );
+                  break;
+              }
+            });
+            }
           },
         ),
       // if (widget.queueRecord.status == SonarrQueueStatus.COMPLETED &&

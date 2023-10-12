@@ -74,6 +74,9 @@ class SonarrCommand {
   @JsonKey(name: 'updateScheduledTask')
   bool? updateScheduledTask;
 
+  @JsonKey(name: 'importMode')
+  String? importMode;
+
   /// Identifier of command instance
   @JsonKey(name: 'id')
   int? id;
@@ -90,6 +93,7 @@ class SonarrCommand {
     this.startedOn,
     this.sendUpdatesToClient,
     this.updateScheduledTask,
+    this.importMode,
     this.id,
   });
 

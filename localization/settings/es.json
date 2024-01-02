@@ -135,7 +135,7 @@
     "settings.System": "Sistema",
     "settings.SystemDescription": "Utilidades e información del sistema",
     "settings.TestConnection": "Probar conexión",
-    "settings.Username": "Usuario",
+    "settings.Username": "Nombre de usuario",
     "settings.UsernameValidation": "Usuario requerido",
     "settings.MustBeValueBetween": "Debe ser un valor entre {} y {}",
     "settings.AccountHelpHint1": "LunaSea ofrece una cuenta gratuita para hacer una copia de seguridad de su configuración en la nube, ¡con funciones adicionales en el futuro!",
@@ -286,5 +286,17 @@
     "settings.General": "General",
     "settings.PasswordHint1": "Si su contraseña incluye caracteres especiales, considere la posibilidad de añadir un encabezado de autenticación básica con su nombre de usuario y contraseña para mejorar la compatibilidad",
     "settings.GeneralDescription": "Personalizar LunaSea",
-    "settings.DefaultSortingAndFiltering": "Clasificación y filtrado por defecto"
+    "settings.DefaultSortingAndFiltering": "Clasificación y filtrado por defecto",
+    "settings.User": "Usuario",
+    "settings.SystemStatusDescription": "Página de estado de los servicios alojados",
+    "settings.ProfilesBannerLine2": "La búsqueda en el indexador Newznab y los módulos externos están habilitados y compartidos en todos los perfiles.",
+    "settings.QuickActionsBannerLine2": "Se puede establecer un número limitado de acciones rápidas a la vez, y activar más de las que admite el lanzador no tendrá ningún efecto.",
+    "settings.Use24HourTimeDescription": "Mostrar marcas de tiempo en formato 24 horas",
+    "settings.QuickActionsBannerLine1": "Las acciones rápidas te permiten saltar rápidamente a los módulos directamente desde la pantalla de inicio o el lanzador de tu dispositivo pulsando prolongadamente el icono de LunaSea.",
+    "settings.ProfilesBannerLine1": "Los perfiles le permiten añadir múltiples instancias de módulos a LunaSea. Puede cambiar entre perfiles en el cajón de navegación principal.",
+    "settings.RedditDescription": "Haga preguntas y obtenga ayuda",
+    "settings.SentryLoggingDescription": "Errores de carga y bloqueos en Sentry",
+    "settings.TLSCertificateValidationDescription": "Validar certificados en conexiones TLS",
+    "settings.TLSCertificateValidation": "Validación de certificados TLS",
+    "settings.SentryLogging": "Registro Sentry"
 }

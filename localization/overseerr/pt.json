@@ -6,5 +6,21 @@
     "overseerr.OneRequest": "1 Pedido",
     "overseerr.SomeRequests": "{} Pedidos",
     "overseerr.UnknownUser": "Usuário Desconhecido",
-    "overseerr.Users": "Usuários"
+    "overseerr.Users": "Usuários",
+    "overseerr.Video": "Vídeo",
+    "overseerr.NoIssues": "Sem problemas",
+    "overseerr.RequestedBy": "Solicitado por {}",
+    "overseerr.Audio": "Audio",
+    "overseerr.Available": "Disponível",
+    "overseerr.Pending": "Pendente",
+    "overseerr.Issues": "Problemas",
+    "overseerr.Declined": "Declinado",
+    "overseerr.OpenedBy": "Aberto por {}",
+    "overseerr.Processing": "Processando",
+    "overseerr.Approved": "Aprovado",
+    "overseerr.Subtitle": "Legenda",
+    "overseerr.Open": "Aberto",
+    "overseerr.PartiallyAvailable": "Parcialmente Disponível",
+    "overseerr.Requested": "Solicitado",
+    "overseerr.NoIssuesFound": "Sem problemas encontrados"
 }

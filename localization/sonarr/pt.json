@@ -70,5 +70,17 @@
     "sonarr.DownloadedImporting": "Baixado: Importando",
     "sonarr.DownloadedWaitingToImport": "Baixado: Aguardando para importar",
     "sonarr.DownloadedWaitingToProcess": "Baixado: Aguardando para processar",
-    "sonarr.EmptyQueue": "Fila vazia"
+    "sonarr.EmptyQueue": "Fila vazia",
+    "sonarr.DownloadWarningWithMessage": "Aviso de Download: {}",
+    "sonarr.DeleteReasonManual": "Arquivo foi deletado por via da Interface de Usuário",
+    "sonarr.Codec": "Codec",
+    "sonarr.DownloadWarning": "Aviso de Download",
+    "sonarr.DownloadFailed": "Download Falhou",
+    "sonarr.EpisodeFilesDeleted": "Arquivos de Episódio Deletados",
+    "sonarr.DownloadID": "ID de Download",
+    "sonarr.AddReleaseToBlocklist": "Adicionar Título à Lista de Bloqueio",
+    "sonarr.DownloadingRelease": "Fazendo download de Título…",
+    "sonarr.EpisodesCount": "{} Episódios",
+    "sonarr.Bitrate": "Taxa de Bits",
+    "sonarr.BitDepth": "Profundidade de Bits"
 }

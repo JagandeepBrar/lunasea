@@ -263,5 +263,7 @@
     "settings.NotAvailable": "Não Disponível",
     "settings.User": "Usuário",
     "settings.AllLogs": "Todos os Registros",
-    "settings.GeneralDescription": "Customizar LunaSea"
+    "settings.GeneralDescription": "Customizar LunaSea",
+    "settings.BootModule": "Módulo de Boot",
+    "settings.AllLogsDescription": "Visualizar Logs de Todos os Tipos"
 }

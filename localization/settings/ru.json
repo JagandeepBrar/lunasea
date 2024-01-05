@@ -57,5 +57,14 @@
     "settings.AddHeader": "Добавить заголовок",
     "settings.AccountHelp": "Аккаунт LunaSea",
     "settings.AccountDescription": "Ваш аккаунт в LunaSea",
-    "settings.Account": "Аккаунт"
+    "settings.Account": "Аккаунт",
+    "settings.AccountDeletedMessage": "Ваш аккаунт LunaSea удалён",
+    "settings.AccountDeleted": "Аккуант Удалён",
+    "settings.AccountSettings": "Настройки Аккаунта",
+    "settings.AccountHelpHint1": "LunaSea предлагает бесплатную учетную запись для резервного копирования вашей конфигурации в облако, а в будущем появятся дополнительные функции!",
+    "settings.AddedProfile": "Добавленный профиль",
+    "settings.AllFieldsAreRequired": "Все поля обязательны для заполнения",
+    "settings.Add": "Добавить",
+    "settings.AddProfileDescription": "Добавить Новый профиль",
+    "settings.AllLogs": "Все логи"
 }

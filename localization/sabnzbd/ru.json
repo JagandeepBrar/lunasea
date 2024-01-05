@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Возраст",
+    "sabnzbd.Ascending": "По возрастанию",
+    "sabnzbd.Completed": "Завершено",
+    "sabnzbd.Descending": "По убыванию",
+    "sabnzbd.Duplicate": "Дубликат",
+    "sabnzbd.HibernatePC": "Отправить компьютер в гибернацию",
+    "sabnzbd.Force": "Принудительно",
+    "sabnzbd.Failed": "Не удалось",
+    "sabnzbd.High": "Высокий",
+    "sabnzbd.Name": "Имя",
+    "sabnzbd.None": "Нет",
+    "sabnzbd.Normal": "Нормальный",
+    "sabnzbd.Paused": "Приостановлено",
+    "sabnzbd.Repair": "Исправить",
+    "sabnzbd.Size": "Размер",
+    "sabnzbd.ShutdownPC": "Выключить компьютер",
+    "sabnzbd.ShutdownSABnzbd": "Выключить SABnzbd",
+    "sabnzbd.StandbyPC": "Компьютер в режиме ожидания",
+    "sabnzbd.Stop": "Стоп",
+    "sabnzbd.All": "Всё",
+    "sabnzbd.CategoryDefault": "Категория по умолчанию",
+    "sabnzbd.Low": "Низкий",
+    "sabnzbd.RepairUnpack": "Восстановить/Распаковать",
+    "sabnzbd.RepairUnpackDelete": "Восстановить/Распаковать/Удалить"
+}

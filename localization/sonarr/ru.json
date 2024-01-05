@@ -29,5 +29,6 @@
     "sonarr.DeleteEpisodeFile": "Удалить файл эпизода",
     "sonarr.DeleteFile": "Удалить файл",
     "sonarr.Destination": "Назначение",
-    "sonarr.DestinationRelative": "Относительное назначение"
+    "sonarr.DestinationRelative": "Относительное назначение",
+    "sonarr.AddToExclusionList": "Добавить в список исключений"
 }

@@ -1,1 +1,5 @@
-{}
+{
+    "dashboard.Calendar": "Kalendarz",
+    "dashboard.Friday": "Piątek",
+    "dashboard.FutureDays": "Przyszłe dni"
+}

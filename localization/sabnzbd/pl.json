@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Wiek",
+    "sabnzbd.Ascending": "Rosnąco",
+    "sabnzbd.Completed": "Ukończono",
+    "sabnzbd.Descending": "Malejąco",
+    "sabnzbd.Force": "Siła",
+    "sabnzbd.HibernatePC": "Hibernuj PC",
+    "sabnzbd.High": "Wysoki",
+    "sabnzbd.Low": "Niski",
+    "sabnzbd.Normal": "Normalny",
+    "sabnzbd.RepairUnpack": "Napraw/Wypakuj",
+    "sabnzbd.RepairUnpackDelete": "Napraw/Wypakuj/Usuń",
+    "sabnzbd.StandbyPC": "Gotowość PC",
+    "sabnzbd.Stop": "Zatrzymaj",
+    "sabnzbd.CategoryDefault": "Domyślna kategoria",
+    "sabnzbd.All": "Wszystkie",
+    "sabnzbd.Duplicate": "Duplikat",
+    "sabnzbd.Failed": "Niepowodzenie",
+    "sabnzbd.Name": "Nazwa",
+    "sabnzbd.None": "Żaden",
+    "sabnzbd.Paused": "Pauza",
+    "sabnzbd.Repair": "Napraw",
+    "sabnzbd.Size": "Rozmiar",
+    "sabnzbd.ShutdownPC": "Wyłącz PC",
+    "sabnzbd.ShutdownSABnzbd": "Wyłącz SABnzbd"
+}

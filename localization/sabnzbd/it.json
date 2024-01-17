@@ -1,1 +1,26 @@
-{}
+{
+    "sabnzbd.Age": "Età",
+    "sabnzbd.Ascending": "Ascendente",
+    "sabnzbd.All": "Tutti",
+    "sabnzbd.CategoryDefault": "Categoria Default",
+    "sabnzbd.Completed": "Completato",
+    "sabnzbd.Descending": "Discendente",
+    "sabnzbd.Duplicate": "Duplicato",
+    "sabnzbd.Force": "Forza",
+    "sabnzbd.HibernatePC": "Ibernazione PC",
+    "sabnzbd.High": "Alto",
+    "sabnzbd.Low": "Basso",
+    "sabnzbd.None": "Nessuno",
+    "sabnzbd.Normal": "Normale",
+    "sabnzbd.Paused": "In pausa",
+    "sabnzbd.Repair": "Ripara",
+    "sabnzbd.RepairUnpack": "Ripara/Scompatta",
+    "sabnzbd.RepairUnpackDelete": "Ripara/Scompatta/Elimina",
+    "sabnzbd.Size": "Dimensione",
+    "sabnzbd.ShutdownPC": "Spegni PC",
+    "sabnzbd.ShutdownSABnzbd": "Spegni SABnzbd",
+    "sabnzbd.StandbyPC": "Standby PC",
+    "sabnzbd.Failed": "Fallito",
+    "sabnzbd.Name": "Nome",
+    "sabnzbd.Stop": "Stop"
+}

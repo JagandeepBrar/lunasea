@@ -66,5 +66,15 @@
     "tautulli.BackingUpDatabaseDescription": "Backup della base di dati in sfondo",
     "tautulli.BackingUpConfigurationFailed": "Impossibile eseguire il backup della configurazione",
     "tautulli.BackingUpConfigurationDescription": "Backup della configurazione in sfondo",
-    "tautulli.Throttled": "Strozzato"
+    "tautulli.Throttled": "Strozzato",
+    "tautulli.Speed": "Velocità: {}x",
+    "tautulli.Graphs": "Grafici",
+    "tautulli.Converting": "Conversione",
+    "tautulli.DefaultTerminationMessage": "Messaggio di Terminazione di Default",
+    "tautulli.LibraryDetails": "Dettagli Libreria",
+    "tautulli.MediaDetails": "Dettagli Media",
+    "tautulli.Statistics": "Statistiche",
+    "tautulli.StatisticsItemCount": "Statistiche Conteggio Oggetti",
+    "tautulli.ActivityRefreshRate": "Frequenza di Aggiornamento dell'Attività",
+    "tautulli.UserDetails": "Dettagli Utente"
 }

@@ -19,5 +19,19 @@
     "search.Category": "Categoria",
     "search.Alphabetical": "Alfabetico",
     "search.AllSubcategories": "Tutte Le Sottocategorie",
-    "search.Age": "Età"
+    "search.Age": "Età",
+    "search.DeleteIndexer": "Elimina Indexer",
+    "search.AddIndexer": "Aggiungi indexer",
+    "search.EditIndexer": "Modifica Indexer",
+    "search.FailedToAddIndexer": "Errore nell'Aggiunta Indexer",
+    "search.HideAdultCategories": "Nascondi Categorie Adulti",
+    "search.HideAdultCategoriesDescription": "Nascondi Contenuti per Adulti",
+    "search.IndexerAPIHost": "Indicizzatore API Host",
+    "search.IndexerAPIKey": "Indicizzatore API Key",
+    "search.IndexerAdded": "Indicizzatore Aggiunto",
+    "search.IndexerDeleted": "Indicizzatore Eliminato",
+    "search.IndexerNotFound": "Indicizzatore Non Trovato",
+    "search.NoIndexersFound": "Nessun Indicizzatore Trovato",
+    "search.ShowLinks": "Mostra Links",
+    "search.ShowLinksDescription": "Mostra Links per il Download e i Commenti"
 }

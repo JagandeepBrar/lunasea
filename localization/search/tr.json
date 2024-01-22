@@ -19,5 +19,19 @@
     "search.Category": "Kategori",
     "search.Alphabetical": "Alfabetik",
     "search.AllSubcategories": "Tüm Alt Kategoriler",
-    "search.Age": "Yaş"
+    "search.Age": "Yaş",
+    "search.AddIndexer": "Dizinleyici Ekle",
+    "search.DeleteIndexer": "Dizinleyiciyi Sil",
+    "search.IndexerAPIKey": "Dizinleyici API Anahtarı",
+    "search.ShowLinksDescription": "İndirme ve Yorum Bağlantılarını Göster",
+    "search.EditIndexer": "Dizinleyiciyi Düzenle",
+    "search.FailedToAddIndexer": "Dizinleyici eklenemedi",
+    "search.HideAdultCategories": "Yetişkin Kategorilerini Gizle",
+    "search.HideAdultCategoriesDescription": "Yetişkin İçeriğini Gizle",
+    "search.IndexerAPIHost": "Dizinleyici API Sunucusu",
+    "search.IndexerAdded": "Dizinleyici Eklendi",
+    "search.IndexerDeleted": "Dizinleyici Silindi",
+    "search.IndexerNotFound": "Dizinleyici Bulunamadı",
+    "search.NoIndexersFound": "Hiç Dizinleyici Bulunamadı",
+    "search.ShowLinks": "Bağlantıları Göster"
 }

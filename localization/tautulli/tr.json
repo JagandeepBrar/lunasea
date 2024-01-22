@@ -68,5 +68,13 @@
     "tautulli.Audio": "Ses",
     "tautulli.ActivityDetails": "Etkinlik Ayrıntıları",
     "tautulli.Converting": "Dönüştürülüyor",
-    "tautulli.Speed": "Hız: {}x"
+    "tautulli.Speed": "Hız: {}x",
+    "tautulli.LibraryDetails": "Kütüphane Ayrıntıları",
+    "tautulli.Statistics": "İstatistikler",
+    "tautulli.ActivityRefreshRate": "Etkinlik Yenileme Hızı",
+    "tautulli.DefaultTerminationMessage": "Öntanımlı Sonlandırma Mesajı",
+    "tautulli.Graphs": "Grafikler",
+    "tautulli.MediaDetails": "Medya Ayrıntıları",
+    "tautulli.StatisticsItemCount": "İstatistik Öge Sayısı",
+    "tautulli.UserDetails": "Kullanıcı Ayrıntıları"
 }

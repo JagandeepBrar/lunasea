@@ -209,5 +209,14 @@
     "sonarr.ViewWebGUI": "Web Arayüzü Görüntüle",
     "sonarr.FailedToSearchForMonitoredEpisodes": "Takip Edilen Bölümler Aranamadı",
     "sonarr.SearchingForMonitoredEpisodes": "Takip Edilen Bölümler Aranıyor…",
-    "sonarr.SearchMonitored": "Takip Edilen Ara"
+    "sonarr.SearchMonitored": "Takip Edilen Ara",
+    "sonarr.EpisodesCount": "{} Bölüm",
+    "sonarr.EpisodeFilesDeleted": "Bölüm Dosyaları Silindi",
+    "sonarr.FailedToDeleteEpisodeFiles": "Bölüm Dosyaları Silinemedi",
+    "sonarr.FailedToSearchForEpisodes": "Bölümler Aranamadı",
+    "sonarr.NoEpisodeFilesFound": "Bölüm Dosyası Bulunamadı",
+    "sonarr.NoEpisodeFilesFoundDeleteMessage": "Seçili bölümlerde silinecek dosya yok",
+    "sonarr.OneEpisode": "1 Bölüm",
+    "sonarr.QueueSize": "Kuyruk Boyutu",
+    "sonarr.SearchingForEpisodes": "Bölümler Aranıyor…"
 }

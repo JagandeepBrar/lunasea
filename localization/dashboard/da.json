@@ -4,5 +4,8 @@
     "dashboard.FutureDays": "Kommende dage",
     "dashboard.MinimumOfOneDay": "Minimum 1 dag",
     "dashboard.Modules": "Moduler",
-    "dashboard.Monday": "Mandag"
+    "dashboard.Monday": "Mandag",
+    "dashboard.NoNewContent": "Intet nyt indhold",
+    "dashboard.OneMonth": "En måned",
+    "dashboard.OneWeek": "En uge"
 }

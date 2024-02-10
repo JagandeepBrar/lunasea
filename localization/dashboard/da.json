@@ -7,5 +7,6 @@
     "dashboard.Monday": "Mandag",
     "dashboard.NoNewContent": "Intet nyt indhold",
     "dashboard.OneMonth": "En måned",
-    "dashboard.OneWeek": "En uge"
+    "dashboard.OneWeek": "En uge",
+    "dashboard.PastDays": "Forgangne Dage"
 }

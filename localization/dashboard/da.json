@@ -1,4 +1,7 @@
 {
     "dashboard.Calendar": "Kalender",
-    "dashboard.Friday": "Fredag"
+    "dashboard.Friday": "Fredag",
+    "dashboard.FutureDays": "Kommende dage",
+    "dashboard.MinimumOfOneDay": "Minimum 1 dag",
+    "dashboard.Modules": "Moduler"
 }

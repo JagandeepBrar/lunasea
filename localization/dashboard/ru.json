@@ -15,5 +15,7 @@
     "dashboard.Monday": "Понедельник",
     "dashboard.Modules": "Модули",
     "dashboard.MinimumOfOneDay": "Минимум 1 день",
-    "dashboard.Friday": "Пятница"
+    "dashboard.Friday": "Пятница",
+    "dashboard.FutureDaysDescription": "Задайте количество дней в будущем, для которых будут извлекаться записи календаря.",
+    "dashboard.PastDaysDescription": "Установите количество дней в прошлом, для которых будут извлекаться записи календаря."
 }

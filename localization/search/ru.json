@@ -16,5 +16,22 @@
     "search.Download": "Скачать",
     "search.Comments": "Комментарии",
     "search.Categories": "Категории",
-    "search.Category": "Категория"
+    "search.Category": "Категория",
+    "search.DownloadingNZBToDevice": "Скачивание NZB на ваше устройство",
+    "search.FailedToDownloadNZB": "Не удалось скачать NZB",
+    "search.SentNZBData": "Отправить данные NZB",
+    "search.AddIndexer": "Добавить Индексатор",
+    "search.DeleteIndexer": "Удалить Индексер",
+    "search.EditIndexer": "Редактировать Индексер",
+    "search.FailedToAddIndexer": "Не удалось добавить Индексер",
+    "search.HideAdultCategories": "Скрыть категории для взрослых",
+    "search.HideAdultCategoriesDescription": "Скрыть контент для взрослых",
+    "search.IndexerAPIHost": "Хост API индексатора",
+    "search.IndexerAPIKey": "Ключ API индексатора",
+    "search.IndexerAdded": "Индексатор добавлен",
+    "search.IndexerDeleted": "Индексатор удален",
+    "search.IndexerNotFound": "Индексатор не найден",
+    "search.NoIndexersFound": "Индексаторы не найдены",
+    "search.ShowLinks": "Показать ссылки",
+    "search.ShowLinksDescription": "Показывать ссылки для скачивания и комментариев"
 }

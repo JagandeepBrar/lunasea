@@ -19,5 +19,19 @@
     "search.Comments": "Komentáre",
     "search.NoCategoriesFound": "Nenašli sa žiadne kategórie",
     "search.NoResultsFound": "Nenašli sa žiadne výsledky",
-    "search.SentNZBData": "Odoslané NZB údaje"
+    "search.SentNZBData": "Odoslané NZB údaje",
+    "search.DeleteIndexer": "Odstráňte indexer",
+    "search.HideAdultCategoriesDescription": "Skryť obsah pre dospelých",
+    "search.ShowLinks": "Zobraziť odkazy",
+    "search.EditIndexer": "Upraviť indexer",
+    "search.IndexerDeleted": "Indexer Odstrániť",
+    "search.NoIndexersFound": "Žiadne indexy Nájdené",
+    "search.HideAdultCategories": "Skryť dospelé kategórie",
+    "search.FailedToAddIndexer": "Failed Pridať indexer",
+    "search.AddIndexer": "Pridať indexer",
+    "search.IndexerNotFound": "Indexer nebol nájdený",
+    "search.ShowLinksDescription": "Zobraziť na stiahnutie a Komentáre odkazy",
+    "search.IndexerAPIKey": "Indexer API Kľúčové slovo",
+    "search.IndexerAdded": "Indexer Pridané",
+    "search.IndexerAPIHost": "Indexer API Hostiteľ"
 }

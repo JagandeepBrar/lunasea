@@ -1,0 +1,21 @@
+{
+    "dashboard.Calendar": "Kalendarz",
+    "dashboard.Friday": "Piątek",
+    "dashboard.FutureDays": "Przyszłe dni",
+    "dashboard.PastDays": "Poprzednie dni",
+    "dashboard.PastDaysDescription": "Ustaw liczbę dni w przeszłości, dla których mają być pobierane wpisy kalendarza.",
+    "dashboard.Saturday": "Sobota",
+    "dashboard.Sunday": "Niedziela",
+    "dashboard.Tuesday": "Wtorek",
+    "dashboard.MinimumOfOneDay": "Minimum 1 dzień",
+    "dashboard.Schedule": "Harmonogram",
+    "dashboard.TwoWeeks": "Dwa tygodnie",
+    "dashboard.Wednesday": "Środa",
+    "dashboard.Thursday": "Czwartek",
+    "dashboard.FutureDaysDescription": "Ustaw liczbę dni w przyszłości, dla których będą pobierane wpisy kalendarza.",
+    "dashboard.Modules": "Moduły",
+    "dashboard.Monday": "Poniedziałek",
+    "dashboard.NoNewContent": "Brak nowego kontentu",
+    "dashboard.OneMonth": "Jeden miesiąc",
+    "dashboard.OneWeek": "Jeden tydzień"
+}

@@ -75,5 +75,6 @@
     "tautulli.Graphs": "曲线图",
     "tautulli.MediaDetails": "媒体详细信息",
     "tautulli.Statistics": "统计数据",
-    "tautulli.StatisticsItemCount": "统计项目计数"
+    "tautulli.StatisticsItemCount": "统计项目计数",
+    "tautulli.UserDetails": "用户详细信息"
 }

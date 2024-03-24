@@ -37,5 +37,9 @@
     "tautulli.BackingUpConfigurationDescription": "Резервное копирование конфигурации в фоновом режиме",
     "tautulli.BackingUpConfiguration": "Резервное копирование конфигурации…",
     "tautulli.Audio": "Аудио",
-    "tautulli.Activity": "Активность"
+    "tautulli.Activity": "Активность",
+    "tautulli.Converting": "Преобразование",
+    "tautulli.ActivityRefreshRate": "Частота обновления активности",
+    "tautulli.ActivityDetails": "Детали Активности",
+    "tautulli.Burn": "Прожечь"
 }

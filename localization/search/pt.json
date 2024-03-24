@@ -19,5 +19,19 @@
     "search.Category": "Categoria",
     "search.Alphabetical": "Alfabético",
     "search.AllSubcategories": "Todas Subcategorias",
-    "search.Age": "Idade"
+    "search.Age": "Idade",
+    "search.DeleteIndexer": "Deletar Indexador",
+    "search.HideAdultCategoriesDescription": "Ocultar conteúdo Adulto",
+    "search.ShowLinks": "Mostrar Links",
+    "search.EditIndexer": "Editar Indexador",
+    "search.IndexerDeleted": "Indexador Deletado",
+    "search.NoIndexersFound": "Nenhum Indexador Encontrado",
+    "search.HideAdultCategories": "Ocultar Categorias de Adultos",
+    "search.FailedToAddIndexer": "Falha ao adicionar Indexador",
+    "search.AddIndexer": "Adicionar Indexador",
+    "search.IndexerNotFound": "Indexador não localizado",
+    "search.ShowLinksDescription": "Mostrar Links de Download e Comentários",
+    "search.IndexerAPIKey": "Chave de API do Indexador",
+    "search.IndexerAdded": "Indexador adicionado",
+    "search.IndexerAPIHost": "Hospedeiro de API do Indexador"
 }

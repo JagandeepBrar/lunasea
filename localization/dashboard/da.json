@@ -1,0 +1,21 @@
+{
+    "dashboard.Calendar": "Kalender",
+    "dashboard.Friday": "Fredag",
+    "dashboard.FutureDays": "Kommende dage",
+    "dashboard.MinimumOfOneDay": "Minimum 1 dag",
+    "dashboard.Modules": "Moduler",
+    "dashboard.Monday": "Mandag",
+    "dashboard.NoNewContent": "Intet nyt indhold",
+    "dashboard.OneMonth": "En måned",
+    "dashboard.OneWeek": "En uge",
+    "dashboard.PastDays": "Forgangne Dage",
+    "dashboard.PastDaysDescription": "Indstil antallet af dage i fortiden, der skal hentes kalenderposter for.",
+    "dashboard.Saturday": "Lørdag",
+    "dashboard.Schedule": "Tidsplan",
+    "dashboard.Sunday": "Søndag",
+    "dashboard.Thursday": "Torsdag",
+    "dashboard.Tuesday": "Tirsdag",
+    "dashboard.TwoWeeks": "To Uger",
+    "dashboard.Wednesday": "Onsdag",
+    "dashboard.FutureDaysDescription": "Indstil antallet af dage i fremtiden, der skal hentes kalenderposter for."
+}

@@ -211,5 +211,12 @@
     "sonarr.FailedToSearchForMonitoredEpisodes": "搜索监控剧集失败",
     "sonarr.SearchingForMonitoredEpisodes": "正在搜索受监控的剧集…",
     "sonarr.EpisodesCount": "{}剧集",
-    "sonarr.EpisodeFilesDeleted": "剧集文件已删除"
+    "sonarr.EpisodeFilesDeleted": "剧集文件已删除",
+    "sonarr.FailedToDeleteEpisodeFiles": "删除剧集文件失败",
+    "sonarr.NoEpisodeFilesFound": "未找到剧集文件",
+    "sonarr.NoEpisodeFilesFoundDeleteMessage": "所选剧集没有要删除的文件",
+    "sonarr.OneEpisode": "一集",
+    "sonarr.QueueSize": "队列大小",
+    "sonarr.SearchingForEpisodes": "正在搜索剧集…",
+    "sonarr.FailedToSearchForEpisodes": "搜索剧集失败"
 }
